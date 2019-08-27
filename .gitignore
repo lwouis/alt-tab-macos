@@ -1,2 +1,4 @@
 /.idea/
 xcuserdata/
+/node_modules/
+/build/
