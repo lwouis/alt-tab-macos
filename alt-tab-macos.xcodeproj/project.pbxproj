@@ -1,0 +1,396 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D04BA0219AC4C1B8444B469F /* 4 windows - 1 line.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA996DB03B329C6B36A39 /* 4 windows - 1 line.jpg */; };
+		D04BA10F27D14F5B90AA1910 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7F8D6FBE1C6FDA7BC72 /* Application.swift */; };
+		D04BA1BEB40295C4DC25F637 /* 1 window - 1 line.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA58701B5A47B6A2953E1 /* 1 window - 1 line.jpg */; };
+		D04BA235E34B5120E2F75F34 /* 3 windows - 1 line.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA04504BB9802F6E0B889 /* 3 windows - 1 line.jpg */; };
+		D04BA2FB9D4E2CE6E0B49F10 /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAECA9B67E89686393364 /* WindowManager.swift */; };
+		D04BA3999A3D6A308EA41039 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D04BAD40CE2D3A8AAC3819D0 /* .gitignore */; };
+		D04BA486DF30D7169D4B69BA /* 3 windows - 1 line - wide window.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA8298AF4D8ED7827ACDC /* 3 windows - 1 line - wide window.jpg */; };
+		D04BA4D8D74841AEC2601C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D04BA262E9A663B3A85A2A95 /* Assets.xcassets */; };
+		D04BA5CB7B1B84BDC99E5C3C /* 7 windows - 2 lines - tall window.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA041E420F065EF8DC9F4 /* 7 windows - 2 lines - tall window.jpg */; };
+		D04BA5F23B9618C2C526DA1E /* 5 windows - 1 line.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA4AF59F978749D697493 /* 5 windows - 1 line.jpg */; };
+		D04BA7A29152DDF0BDCAC4AF /* 7 windows - 2 lines - wide window.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BADF2A78C91437E1E4C42 /* 7 windows - 2 lines - wide window.jpg */; };
+		D04BA8877A8149B1439B1F04 /* 5 windows - 2 lines.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA5349996324809EA7208 /* 5 windows - 2 lines.jpg */; };
+		D04BA958877CFEC80F5E883A /* 2 windows - 1 line.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BADB4ABF73F979B9FC0BA /* 2 windows - 1 line.jpg */; };
+		D04BA960DDD1D32A3019C835 /* UiSubclasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA3202A2C22C347E849B3 /* UiSubclasses.swift */; };
+		D04BAAACE304CA2BCB1DC1BE /* too many windows - 4 lines - paginated.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BAC503A122CC0068BB84E /* too many windows - 4 lines - paginated.jpg */; };
+		D04BAAB78E71A923B63A9DFF /* 14 windows - 3 lines.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA75BFFC94D1E33047688 /* 14 windows - 3 lines.jpg */; };
+		D04BAB37A8033F8D4309889F /* 3 windows - 1 line - tall window.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA685BCDB60B9FEA57438 /* 3 windows - 1 line - tall window.jpg */; };
+		D04BAB6A446F35FA221E1831 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA0E21840B63A2BC23253 /* Keyboard.swift */; };
+		D04BAB8555DC582A5BA5F8EE /* 6 windows - 1 line.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA9EBCA307524DBE48DCF /* 6 windows - 1 line.jpg */; };
+		D04BAE3835B9FBA218664C74 /* 7 windows - 2 lines - extra wide window.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA9B41D7EA9F1B6290C91 /* 7 windows - 2 lines - extra wide window.jpg */; };
+		D04BAE5CC40654B1F96E8DE9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D04BA7B6AAB0812631BBC7A2 /* Info.plist */; };
+		D04BAEF78503D7A2CEFB9E9E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAA44C837F3A67403B9DB /* main.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D04BA041E420F065EF8DC9F4 /* 7 windows - 2 lines - tall window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - tall window.jpg"; sourceTree = "<group>"; };
+		D04BA04504BB9802F6E0B889 /* 3 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line.jpg"; sourceTree = "<group>"; };
+		D04BA0E21840B63A2BC23253 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		D04BA262E9A663B3A85A2A95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D04BA3202A2C22C347E849B3 /* UiSubclasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UiSubclasses.swift; sourceTree = "<group>"; };
+		D04BA4AF59F978749D697493 /* 5 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5 windows - 1 line.jpg"; sourceTree = "<group>"; };
+		D04BA5349996324809EA7208 /* 5 windows - 2 lines.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5 windows - 2 lines.jpg"; sourceTree = "<group>"; };
+		D04BA58701B5A47B6A2953E1 /* 1 window - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1 window - 1 line.jpg"; sourceTree = "<group>"; };
+		D04BA685BCDB60B9FEA57438 /* 3 windows - 1 line - tall window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line - tall window.jpg"; sourceTree = "<group>"; };
+		D04BA75BFFC94D1E33047688 /* 14 windows - 3 lines.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "14 windows - 3 lines.jpg"; sourceTree = "<group>"; };
+		D04BA7B6AAB0812631BBC7A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
+		D04BA7F8D6FBE1C6FDA7BC72 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		D04BA8298AF4D8ED7827ACDC /* 3 windows - 1 line - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line - wide window.jpg"; sourceTree = "<group>"; };
+		D04BA82F792DF53958D92572 /* alt-tab-macos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alt-tab-macos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D04BA996DB03B329C6B36A39 /* 4 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "4 windows - 1 line.jpg"; sourceTree = "<group>"; };
+		D04BA9B41D7EA9F1B6290C91 /* 7 windows - 2 lines - extra wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - extra wide window.jpg"; sourceTree = "<group>"; };
+		D04BA9EBCA307524DBE48DCF /* 6 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "6 windows - 1 line.jpg"; sourceTree = "<group>"; };
+		D04BAA44C837F3A67403B9DB /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D04BAC503A122CC0068BB84E /* too many windows - 4 lines - paginated.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "too many windows - 4 lines - paginated.jpg"; sourceTree = "<group>"; };
+		D04BAD1C9F215BCCD3B620AC /* alt_tab_macos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = alt_tab_macos.entitlements; sourceTree = "<group>"; };
+		D04BAD40CE2D3A8AAC3819D0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		D04BADB4ABF73F979B9FC0BA /* 2 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "2 windows - 1 line.jpg"; sourceTree = "<group>"; };
+		D04BADF2A78C91437E1E4C42 /* 7 windows - 2 lines - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - wide window.jpg"; sourceTree = "<group>"; };
+		D04BAECA9B67E89686393364 /* WindowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D04BA82F32FB183F65DC3E42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D04BA036CA8BDCF4608909C4 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA9280DD11C32934568FC /* img */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		D04BA1463D2A17038222BB84 = {
+			isa = PBXGroup;
+			children = (
+				D04BA1A461BBB5A9BE15E015 /* Products */,
+				D04BAD48B702C4B1DC543557 /* alt-tab-macos */,
+				D04BAD40CE2D3A8AAC3819D0 /* .gitignore */,
+			);
+			sourceTree = "<group>";
+		};
+		D04BA1A461BBB5A9BE15E015 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA82F792DF53958D92572 /* alt-tab-macos.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D04BA9280DD11C32934568FC /* img */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA58701B5A47B6A2953E1 /* 1 window - 1 line.jpg */,
+				D04BADB4ABF73F979B9FC0BA /* 2 windows - 1 line.jpg */,
+				D04BA04504BB9802F6E0B889 /* 3 windows - 1 line.jpg */,
+				D04BA996DB03B329C6B36A39 /* 4 windows - 1 line.jpg */,
+				D04BA4AF59F978749D697493 /* 5 windows - 1 line.jpg */,
+				D04BA9EBCA307524DBE48DCF /* 6 windows - 1 line.jpg */,
+				D04BA5349996324809EA7208 /* 5 windows - 2 lines.jpg */,
+				D04BA75BFFC94D1E33047688 /* 14 windows - 3 lines.jpg */,
+				D04BA685BCDB60B9FEA57438 /* 3 windows - 1 line - tall window.jpg */,
+				D04BA8298AF4D8ED7827ACDC /* 3 windows - 1 line - wide window.jpg */,
+				D04BA041E420F065EF8DC9F4 /* 7 windows - 2 lines - tall window.jpg */,
+				D04BADF2A78C91437E1E4C42 /* 7 windows - 2 lines - wide window.jpg */,
+				D04BAC503A122CC0068BB84E /* too many windows - 4 lines - paginated.jpg */,
+				D04BA9B41D7EA9F1B6290C91 /* 7 windows - 2 lines - extra wide window.jpg */,
+			);
+			path = img;
+			sourceTree = "<group>";
+		};
+		D04BAAA28315301A906DD201 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA3202A2C22C347E849B3 /* UiSubclasses.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		D04BAD48B702C4B1DC543557 /* alt-tab-macos */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA262E9A663B3A85A2A95 /* Assets.xcassets */,
+				D04BAD1C9F215BCCD3B620AC /* alt_tab_macos.entitlements */,
+				D04BAAA28315301A906DD201 /* ui */,
+				D04BA7F8D6FBE1C6FDA7BC72 /* Application.swift */,
+				D04BA0E21840B63A2BC23253 /* Keyboard.swift */,
+				D04BAECA9B67E89686393364 /* WindowManager.swift */,
+				D04BA7B6AAB0812631BBC7A2 /* Info.plist */,
+				D04BAA44C837F3A67403B9DB /* main.swift */,
+				D04BA036CA8BDCF4608909C4 /* docs */,
+			);
+			path = "alt-tab-macos";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D04BA5E73DAF232ADE11C97A /* alt-tab-macos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D04BA4D71CBB2FA4B9947B10 /* Build configuration list for PBXNativeTarget "alt-tab-macos" */;
+			buildPhases = (
+				D04BAD01F4BCEDF8B539AFD2 /* Sources */,
+				D04BA82F32FB183F65DC3E42 /* Frameworks */,
+				D04BA96F3DC99263120BCD21 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "alt-tab-macos";
+			productName = "alt-tab-macos";
+			productReference = D04BA82F792DF53958D92572 /* alt-tab-macos.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D04BA59EB5ED6F005E8F4407 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = lwouis;
+			};
+			buildConfigurationList = D04BA83C9495F252D87CDF0F /* Build configuration list for PBXProject "alt-tab-macos" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D04BA1463D2A17038222BB84;
+			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D04BA5E73DAF232ADE11C97A /* alt-tab-macos */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D04BA96F3DC99263120BCD21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04BA4D8D74841AEC2601C80 /* Assets.xcassets in Resources */,
+				D04BAE5CC40654B1F96E8DE9 /* Info.plist in Resources */,
+				D04BA1BEB40295C4DC25F637 /* 1 window - 1 line.jpg in Resources */,
+				D04BA958877CFEC80F5E883A /* 2 windows - 1 line.jpg in Resources */,
+				D04BA235E34B5120E2F75F34 /* 3 windows - 1 line.jpg in Resources */,
+				D04BA0219AC4C1B8444B469F /* 4 windows - 1 line.jpg in Resources */,
+				D04BA5F23B9618C2C526DA1E /* 5 windows - 1 line.jpg in Resources */,
+				D04BAB8555DC582A5BA5F8EE /* 6 windows - 1 line.jpg in Resources */,
+				D04BA8877A8149B1439B1F04 /* 5 windows - 2 lines.jpg in Resources */,
+				D04BAAB78E71A923B63A9DFF /* 14 windows - 3 lines.jpg in Resources */,
+				D04BAB37A8033F8D4309889F /* 3 windows - 1 line - tall window.jpg in Resources */,
+				D04BA486DF30D7169D4B69BA /* 3 windows - 1 line - wide window.jpg in Resources */,
+				D04BA5CB7B1B84BDC99E5C3C /* 7 windows - 2 lines - tall window.jpg in Resources */,
+				D04BA7A29152DDF0BDCAC4AF /* 7 windows - 2 lines - wide window.jpg in Resources */,
+				D04BAAACE304CA2BCB1DC1BE /* too many windows - 4 lines - paginated.jpg in Resources */,
+				D04BAE3835B9FBA218664C74 /* 7 windows - 2 lines - extra wide window.jpg in Resources */,
+				D04BA3999A3D6A308EA41039 /* .gitignore in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D04BAD01F4BCEDF8B539AFD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04BA960DDD1D32A3019C835 /* UiSubclasses.swift in Sources */,
+				D04BA10F27D14F5B90AA1910 /* Application.swift in Sources */,
+				D04BAB6A446F35FA221E1831 /* Keyboard.swift in Sources */,
+				D04BA2FB9D4E2CE6E0B49F10 /* WindowManager.swift in Sources */,
+				D04BAEF78503D7A2CEFB9E9E /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D04BA49BCED00029C5289244 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "alt-tab-macos/alt_tab_macos.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "alt-tab-macos/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lwouis.alt-tab-macos";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		D04BA6FB4EC72C6A126E86D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "alt-tab-macos/alt_tab_macos.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "alt-tab-macos/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lwouis.alt-tab-macos";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		D04BA801581D700C583B53FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D04BA9150F87B08AB0ACE4AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D04BA4D71CBB2FA4B9947B10 /* Build configuration list for PBXNativeTarget "alt-tab-macos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D04BA6FB4EC72C6A126E86D7 /* Debug */,
+				D04BA49BCED00029C5289244 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D04BA83C9495F252D87CDF0F /* Build configuration list for PBXProject "alt-tab-macos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D04BA801581D700C583B53FB /* Debug */,
+				D04BA9150F87B08AB0ACE4AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D04BA59EB5ED6F005E8F4407 /* Project object */;
+}
