@@ -36,6 +36,15 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
     var isFirstSummon: Bool = true
     var appIsBeingUsed: Bool = false
 
+    override init() {
+        super.init()
+        delegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         ensureAccessibilityCheckboxIsChecked()
         updateThumbnailMaxSize()
