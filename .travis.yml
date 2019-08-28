@@ -9,13 +9,15 @@ install:
 script:
   - npx commitlint-travis
   - xcodebuild
-  - ls build/Release/alt-tab-macos.app
   - npx semantic-release
+before_deploy: cd build/Release && zip -r alt-tab-macos.zip alt-tab-macos.app && tar czf alt-tab-macos.tar.gz alt-tab-macos.app
 deploy:
   provider: releases
   api_key:
     secure: wcAMT2rbXhhdk6lsc6EG9VZZkSW0BjOwjYSyXzHjKrgiXsQcZAzAsOkuisj8EfeYN9/uhpa8XX7f5KsdkE5reMqVGGWqdmJU4NnmK5Aew0LmBbzFHfffliQecVCzMmGYPmhPcDxAjidYxgCMrMbvQFaElc0WXdIsQNcaNieSkEgZw6TwGsTxgHXABD2e575K3SN/PPcq7Nx5mRZkURI7YLmo2KfsD2OPR4IcEXFpJRFbPcAZIpKaHUIC2VzpayJA93pBe+siwU150p04PzfSs/nTH/nUO9m24SUi6kAIzVN77cExvX+JDnQoVLz0V45L0iJjkKDTVb07rVOsfm6Pcuaaj2ZVXlpujSb7B5LDUIspUn/NnqMLOtzbSTuaGcx2u+zCcC0b17KooznilQ/sFq3YpeNdmjL4VL5fsw1hdpjcP6S9DqZ90TJZqy6xBQP5NubuJukH//BRilhWGfnq5rOFUlqrN8aApJ7gYry0K2rB8rVWWvA9cU+zX351iy0EERICEU6q3rQwq8gFUbdNATPJJgNg7n0PaNXSQTTF9VluZTRVUtMrpA0hWe7dn+Tvrvhrnhmqvccw3Qfw/i3SECIDHHtsjwLqHCx5gkz/xUdf7+t3k6x+r6Veua0Z3jvyVhdHprU47VTSUhM/n87EiKyNRuKa9IpA18eSlZ59exU=
-  file: build/Release/alt-tab-macos.app
+  file:
+    - alt-tab-macos.zip
+    - alt-tab-macos.tar.gz
   skip_cleanup: true
   on:
     repo: lwouis/alt-tab-macos
