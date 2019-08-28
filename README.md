@@ -1,4 +1,4 @@
-#[Download the latest release](https://github.com/lwouis/alt-tab-macos/releases/latest/download/alt-tab-macos.zip)
+# [Download the latest release](https://github.com/lwouis/alt-tab-macos/releases/latest/download/alt-tab-macos.zip)
 
 # Purpose
 
