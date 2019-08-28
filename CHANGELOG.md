@@ -1,3 +1,5 @@
+## [1.0.1](https://github.com/lwouis/alt-tab-macos/compare/v1.0.0...v1.0.1) (2019-08-28)
+
 # 1.0.0 (2019-08-27)
 
 
