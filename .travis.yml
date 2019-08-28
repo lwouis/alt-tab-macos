@@ -18,7 +18,6 @@ deploy:
   skip_cleanup: true
   on:
     repo: lwouis/alt-tab-macos
-    tags: true
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
