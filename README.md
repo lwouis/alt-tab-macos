@@ -1,15 +1,12 @@
-# Overview
+#[Download the latest release](https://github.com/lwouis/alt-tab-macos/releases/latest/download/alt-tab-macos.zip)
 
-![Screenshot](docs/img/alt-tab-macos/3%20windows%20-%201%20line.png)
+# Purpose
+
+[![Screenshot](docs/img/alt-tab-macos/3%20windows%20-%201%20line.png)](docs/img/alt-tab-macos/3%20windows%20-%201%20line.png)
 
 `alt-tab-macos` brings the brilliant Windows 10 window switcher (activated by pressing alt-tab) to macOS users.It lets the user switch between windows in a visual way.
 
 On macOS there is an app cycling shortcut which doesn't let you select between windows of an app, and there is Mission Control which doesn't let you navigate using the keyboard.
-
-# How to install
-
-* Compile using XCode or AppCode
-* Run the `.app`
 
 # How to use
 
@@ -21,11 +18,11 @@ On macOS there is an app cycling shortcut which doesn't let you select between w
 
 # Screenshots
 
-![Screenshot](docs/img/alt-tab-macos/5%20windows%20-%202%20lines.png)
+[![Screenshot](docs/img/alt-tab-macos/5%20windows%20-%202%20lines.png)](docs/img/alt-tab-macos/5%20windows%20-%202%20lines.png)
 
-![Screenshot](docs/img/alt-tab-macos/6%20windows%20-%202%20lines.png)
+[![Screenshot](docs/img/alt-tab-macos/6%20windows%20-%202%20lines.png)](docs/img/alt-tab-macos/6%20windows%20-%202%20lines.png)
 
-![Screenshot](docs/img/alt-tab-macos/dark-background.png)
+[![Screenshot](docs/img/alt-tab-macos/dark-background.png)](docs/img/alt-tab-macos/dark-background.png)
 
 # Features
 
