@@ -9,6 +9,7 @@ install:
 script:
   - npx commitlint-travis
   - xcodebuild
+  - ls build/Release/alt-tab-macos.app
   - npx semantic-release
 deploy:
   provider: releases
