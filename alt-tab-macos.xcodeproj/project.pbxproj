@@ -13,6 +13,7 @@
 		D04BA21CD515ACDBCC4437E6 /* commitlint.config.js in Sources */ = {isa = PBXBuildFile; fileRef = D04BAC02D60EF22D9CC7D969 /* commitlint.config.js */; };
 		D04BA21F728100990BA0D007 /* 6 windows - 1 line.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BA2C7B51F68651B3C60E2 /* 6 windows - 1 line.jpg */; };
 		D04BA278D9EFA568C8D18A4C /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD1BED44EAEB77FED8A4 /* WindowManager.swift */; };
+		D04BA2B84D062AA0EB970CFA /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = D04BAFA277EAE3BDDDB61110 /* CHANGELOG.md */; };
 		D04BA3261C7DA5F48310E654 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA90C6C36DB1D65BC2B66 /* Application.swift */; };
 		D04BA35E037C9E1C3B26F296 /* 5 windows - 2 lines.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D04BAF076A30A1BAFEDBEA66 /* 5 windows - 2 lines.jpg */; };
 		D04BA3999A3D6A308EA41039 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D04BAD40CE2D3A8AAC3819D0 /* .gitignore */; };
@@ -80,6 +81,7 @@
 		D04BAE1243C9B4BE3ED1B524 /* 7 windows - 2 lines - extra wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - extra wide window.jpg"; sourceTree = "<group>"; };
 		D04BAE70D6AFD2E52A71701D /* HighInterpolationImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighInterpolationImageView.swift; sourceTree = "<group>"; };
 		D04BAF076A30A1BAFEDBEA66 /* 5 windows - 2 lines.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5 windows - 2 lines.jpg"; sourceTree = "<group>"; };
+		D04BAFA277EAE3BDDDB61110 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				D04BAC02D60EF22D9CC7D969 /* commitlint.config.js */,
 				D04BA4336B6004A0A99849AD /* package.json */,
 				D04BA92541D46EA4F6943A72 /* package-lock.json */,
+				D04BAFA277EAE3BDDDB61110 /* CHANGELOG.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -293,6 +296,7 @@
 				D04BA6D15018C5164724C0D2 /* README.md in Sources */,
 				D04BAA6317F099FDFD8CF560 /* release.config.js in Sources */,
 				D04BA21CD515ACDBCC4437E6 /* commitlint.config.js in Sources */,
+				D04BA2B84D062AA0EB970CFA /* CHANGELOG.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
