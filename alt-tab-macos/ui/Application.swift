@@ -121,6 +121,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
 
     func computeOpenWindows() {
         openWindows.removeAll()
+        // we rely on the fact that CG and AX APIs arrays follow the same order to match objects from both APIs
         var pidAndCurrentIndex: [pid_t: Int] = [:]
         for cgWindow in cgWindows() {
             let cgId = cgWindow[kCGWindowNumber] as! CGWindowID
