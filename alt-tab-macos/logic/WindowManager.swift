@@ -41,31 +41,13 @@ func computeDownscaledSize(_ image: NSImage) -> (Int, Int) {
     }
 }
 
-func cgMakeshiftId(_ window: NSDictionary) -> (String, pid_t, CGWindowID, String) {
-    let cgId = window[kCGWindowNumber] as! CGWindowID
-    let cgOwnerPid = window[kCGWindowOwnerPID] as! pid_t
-    let cgBounds = window[kCGWindowBounds] as! [String: Int]
-    let cgTitle = String(window[kCGWindowName] as! NSString)
-    let cgMakeshiftId = String(cgBounds["X"]!) + String(cgBounds["Y"]!)
-            + String(cgBounds["Width"]!) + String(cgBounds["Height"]!)
-            + cgTitle
-    return (cgMakeshiftId, cgOwnerPid, cgId, cgTitle)
-}
-
-func axMakeshiftId(_ element: AXUIElement) -> String {
-    let titleAttribute = AXUIElementCopyAttributeValue(element, kAXTitleAttribute, String.self)!
-    let pos = AXValueGetValue(element, kAXPositionAttribute, NSPoint(), AXValueType.cgPoint)!
-    let size = AXValueGetValue(element, kAXSizeAttribute, NSSize(), AXValueType.cgSize)!
-    return String(Int(pos.x)) + String(Int(pos.y))
-            + String(Int(size.width)) + String(Int(size.height))
-            + titleAttribute
-}
-
 func axWindows(_ cgOwnerPid: pid_t) -> [AXUIElement] {
     if let windows = AXUIElementCopyAttributeValue(AXUIElementCreateApplication(cgOwnerPid), kAXWindowsAttribute, [AXUIElement].self) {
         return windows.filter {
             let hasTitle = !(AXUIElementCopyAttributeValue($0, kAXTitleAttribute, String.self) ?? "").isEmpty
-            return hasTitle
+            // workaround: some apps like chrome use a window to implement the search popover
+            let isReasonablyTall = AXValueGetValue($0, kAXSizeAttribute, NSSize(), AXValueType.cgSize)!.height > 200
+            return hasTitle && isReasonablyTall
         }
     }
     return []

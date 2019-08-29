@@ -121,14 +121,15 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
 
     func computeOpenWindows() {
         openWindows.removeAll()
+        var pidAndCurrentIndex: [pid_t: Int] = [:]
         for cgWindow in cgWindows() {
-            let (cgMakeshiftId_, cgOwnerPid, cgId, cgTitle) = cgMakeshiftId(cgWindow)
-            for axWindow in axWindows(cgOwnerPid) {
-                if axMakeshiftId(axWindow).starts(with: cgMakeshiftId_) {
-                    openWindows.append(OpenWindow(target: axWindow, ownerPid: cgOwnerPid, cgId: cgId, cgTitle: cgTitle))
-                    break
-                }
-            }
+            let cgId = cgWindow[kCGWindowNumber] as! CGWindowID
+            let cgTitle = String(cgWindow[kCGWindowName] as! NSString)
+            let cgOwnerPid = cgWindow[kCGWindowOwnerPID] as! pid_t
+            let i = pidAndCurrentIndex.index(forKey: cgOwnerPid)
+            pidAndCurrentIndex[cgOwnerPid] = i == nil ? 0 : pidAndCurrentIndex[i!].value + 1
+            let axWindow = axWindows(cgOwnerPid)[pidAndCurrentIndex[cgOwnerPid]!]
+            openWindows.append(OpenWindow(target: axWindow, ownerPid: cgOwnerPid, cgId: cgId, cgTitle: cgTitle))
         }
     }
 
