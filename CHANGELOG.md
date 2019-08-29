@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/lwouis/alt-tab-macos/compare/v1.0.5...v1.0.6) (2019-08-29)
+
+
+### Bug Fixes
+
+* better heuristic for windows of same app (closes [#12](https://github.com/lwouis/alt-tab-macos/issues/12)) ([a4cc11b](https://github.com/lwouis/alt-tab-macos/commit/a4cc11b))
+
 ## [1.0.5](https://github.com/lwouis/alt-tab-macos/compare/v1.0.4...v1.0.5) (2019-08-28)
 
 ## [1.0.4](https://github.com/lwouis/alt-tab-macos/compare/v1.0.3...v1.0.4) (2019-08-28)
