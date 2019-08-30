@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/lwouis/alt-tab-macos/compare/v1.0.6...v1.0.7) (2019-08-30)
+
+
+### Bug Fixes
+
+* alt-shift-tab as first shortcut works properly (closes [#10](https://github.com/lwouis/alt-tab-macos/issues/10)) ([87a0a3c](https://github.com/lwouis/alt-tab-macos/commit/87a0a3c))
+
 ## [1.0.6](https://github.com/lwouis/alt-tab-macos/compare/v1.0.5...v1.0.6) (2019-08-29)
 
 
