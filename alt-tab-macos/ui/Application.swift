@@ -177,6 +177,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
     }
 
     func selectOtherCell(_ step: Int) {
+        appIsBeingUsed = true
         if openWindows.count > 0 {
             selectedOpenWindow = cellWithStep(step)
             if isFirstSummon {
@@ -220,7 +221,6 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
 
     func keyDownMetaTab() {
         debugPrint("meta+tab down")
-        appIsBeingUsed = true
         selectOtherCell(1)
     }
 
