@@ -28,7 +28,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
     var item: NSStatusItem?
     var backgroundView: NSVisualEffectView?
     var collectionView_: NSCollectionView?
-    var window: NSWindow?
+    var window: NSPanel?
     var selectedOpenWindow: Int = 0
     var numberOfColumns: Int = 0
     var openWindows: [OpenWindow] = []
@@ -59,6 +59,9 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
         window!.contentView = backgroundView
         listenToGlobalKeyboardEvents(self)
         listenToScreenChanges()
+        Application.shared.activate(ignoringOtherApps: true)
+        Application.shared.runModal(for: window!)
+        Application.shared.hide(nil)
     }
 
     func listenToScreenChanges() {
@@ -93,12 +96,12 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
     }
 
     func makeWindow() {
-        window = NSWindow()
+        window = NSPanel()
         window!.styleMask = [.borderless]
         window!.level = .floating
         window!.animationBehavior = NSWindow.AnimationBehavior.none
         window!.backgroundColor = .clear
-        window!.hidesOnDeactivate = true
+        window!.setIsVisible(true)
         window!.delegate = self
     }
 
@@ -186,7 +189,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
                     self.computeOpenWindows()
                     self.computeThumbnails()
                     self.highlightThumbnail(step)
-                    self.showWindow()
+                    Application.shared.unhideWithoutActivation()
                 }
                 workItems.append(workItem)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: workItem)
@@ -200,15 +203,11 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
         return openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
     }
 
-    func showWindow() {
-        window!.makeKeyAndOrderFront(nil)
-        NSRunningApplication.current.activate(options: [.activateIgnoringOtherApps])
-    }
-
     func focusSelectedWindow(_ window: OpenWindow?) {
         workItems.forEach({ $0.cancel() })
         workItems.removeAll()
         window?.focus()
+        Application.shared.hide(nil)
         appIsBeingUsed = false
         isFirstSummon = true
     }
