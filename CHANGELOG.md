@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/lwouis/alt-tab-macos/compare/v1.0.7...v1.0.8) (2019-09-02)
+
+
+### Bug Fixes
+
+* should not alter focus when displayed (closes [#16](https://github.com/lwouis/alt-tab-macos/issues/16)) ([376a21b](https://github.com/lwouis/alt-tab-macos/commit/376a21b))
+
 ## [1.0.7](https://github.com/lwouis/alt-tab-macos/compare/v1.0.6...v1.0.7) (2019-08-30)
 
 
