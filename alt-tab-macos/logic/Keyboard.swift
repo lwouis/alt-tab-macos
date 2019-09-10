@@ -19,22 +19,23 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
 }
 
 func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<CGEvent>? {
-    let event = NSEvent(cgEvent: cgEvent)!
-    let keyDown = event.type == .keyDown
-    let optionKeyEvent = event.keyCode == metaKey
-    let tabKeyEvent = event.keyCode == tabKey
-    if optionKeyEvent && event.modifiersDown([metaModifierFlag]) {
-        delegate.keyDownMeta()
-    } else if tabKeyEvent && event.modifiersDown([metaModifierFlag]) && keyDown {
-        delegate.keyDownMetaTab()
-        // focused app will not receive the event (will not press tab key in that app)
-        return nil
-    } else if tabKeyEvent && event.modifiersDown([metaModifierFlag, .shift]) && keyDown {
-        delegate.keyDownMetaShiftTab()
-        // focused app will not receive the event (will not press tab key in that app)
-        return nil
-    } else if optionKeyEvent && !keyDown {
-        delegate.keyUpMeta()
+    if cgEvent.type == .keyDown || cgEvent.type == .keyUp || cgEvent.type == .flagsChanged, let event = NSEvent.init(cgEvent: cgEvent) {
+        let keyDown = event.type == .keyDown
+        let optionKeyEvent = event.keyCode == metaKey
+        let tabKeyEvent = event.keyCode == tabKey
+        if optionKeyEvent && event.modifiersDown([metaModifierFlag]) {
+            delegate.keyDownMeta()
+        } else if tabKeyEvent && event.modifiersDown([metaModifierFlag]) && keyDown {
+            delegate.keyDownMetaTab()
+            // focused app will not receive the event (will not press tab key in that app)
+            return nil
+        } else if tabKeyEvent && event.modifiersDown([metaModifierFlag, .shift]) && keyDown {
+            delegate.keyDownMetaShiftTab()
+            // focused app will not receive the event (will not press tab key in that app)
+            return nil
+        } else if optionKeyEvent && !keyDown {
+            delegate.keyUpMeta()
+        }
     }
     // focused app will receive the event
     return Unmanaged.passRetained(cgEvent)
