@@ -1,3 +1,11 @@
+## [1.0.9](https://github.com/lwouis/alt-tab-macos/compare/v1.0.8...v1.0.9) (2019-09-16)
+
+
+### Bug Fixes
+
+* crash when windows changed between the CG and the AX calls ([2fa140f](https://github.com/lwouis/alt-tab-macos/commit/2fa140f))
+* don't crash when the nsevent contructor fails ([6f61354](https://github.com/lwouis/alt-tab-macos/commit/6f61354))
+
 ## [1.0.8](https://github.com/lwouis/alt-tab-macos/compare/v1.0.7...v1.0.8) (2019-09-02)
 
 
