@@ -131,9 +131,12 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
             let cgTitle = String(cgWindow[kCGWindowName] as! NSString)
             let cgOwnerPid = cgWindow[kCGWindowOwnerPID] as! pid_t
             let i = pidAndCurrentIndex.index(forKey: cgOwnerPid)
-            pidAndCurrentIndex[cgOwnerPid] = i == nil ? 0 : pidAndCurrentIndex[i!].value + 1
-            let axWindow = axWindows(cgOwnerPid)[pidAndCurrentIndex[cgOwnerPid]!]
-            openWindows.append(OpenWindow(target: axWindow, ownerPid: cgOwnerPid, cgId: cgId, cgTitle: cgTitle))
+            pidAndCurrentIndex[cgOwnerPid] = (i == nil ? 0 : pidAndCurrentIndex[i!].value + 1)
+            let axWindow = axWindows(cgOwnerPid)
+            // windows may have changed between the CG and the AX calls
+            if axWindow.count > pidAndCurrentIndex[cgOwnerPid]! {
+                openWindows.append(OpenWindow(target: axWindow[pidAndCurrentIndex[cgOwnerPid]!], ownerPid: cgOwnerPid, cgId: cgId, cgTitle: cgTitle))
+            }
         }
     }
 
