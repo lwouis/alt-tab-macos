@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/lwouis/alt-tab-macos/compare/v1.0.9...v1.0.10) (2019-09-30)
+
+
+### Bug Fixes
+
+* don't crash when focusing an app that was closed (closes [#19](https://github.com/lwouis/alt-tab-macos/issues/19)) ([6b5e426](https://github.com/lwouis/alt-tab-macos/commit/6b5e426))
+
 ## [1.0.9](https://github.com/lwouis/alt-tab-macos/compare/v1.0.8...v1.0.9) (2019-09-16)
 
 
