@@ -26,8 +26,10 @@ class OpenWindow {
     }
 
     func focus() {
-        NSRunningApplication(processIdentifier: ownerPid!)!.activate(options: [.activateIgnoringOtherApps])
-        AXUIElementPerformAction(target!, kAXRaiseAction as CFString)
+        if let app = NSRunningApplication(processIdentifier: ownerPid!) {
+            app.activate(options: [.activateIgnoringOtherApps])
+            AXUIElementPerformAction(target!, kAXRaiseAction as CFString)
+        }
     }
 }
 
