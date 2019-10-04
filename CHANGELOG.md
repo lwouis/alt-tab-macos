@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/lwouis/alt-tab-macos/compare/v1.0.10...v1.0.11) (2019-10-04)
+
+
+### Bug Fixes
+
+* keyboard events don't stop being listened to (closes [#18](https://github.com/lwouis/alt-tab-macos/issues/18)) ([75db5e9](https://github.com/lwouis/alt-tab-macos/commit/75db5e9))
+
 ## [1.0.10](https://github.com/lwouis/alt-tab-macos/compare/v1.0.9...v1.0.10) (2019-09-30)
 
 
