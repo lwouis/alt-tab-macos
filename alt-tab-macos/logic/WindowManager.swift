@@ -59,7 +59,15 @@ func cgWindows() -> [NSDictionary] {
     let windows = CGWindowListCopyWindowInfo([.excludeDesktopElements, .optionOnScreenOnly], kCGNullWindowID) as! [NSDictionary]
     return windows.filter {
         let isWindowNotMenubarOrOthers = $0[kCGWindowLayer] as? Int == 0
-        let hasTitle = !(($0[kCGWindowName] as? String ?? "").isEmpty)
+        
+        
+        var hasTitle = false
+        if #available(macOS 10.15, *) {
+            hasTitle = !(($0[kCGWindowOwnerName] as? String ?? "").isEmpty)
+        } else {
+            hasTitle = !(($0[kCGWindowName] as? String ?? "").isEmpty)
+        }
+        
         return isWindowNotMenubarOrOthers && hasTitle
     }
 }

@@ -31,7 +31,10 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        ensureScreenRecordingCheckboxIsChecked() /* if removed, in Catalina screen shots will be replaced with program icons, and titles would be the owner app name rather than the actual window name */
         ensureAccessibilityCheckboxIsChecked()
+        
+        
         updateThumbnailMaxSize()
         makeStatusBarItem()
         makeWindow()
@@ -106,6 +109,25 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
             NSApp.terminate(self)
         }
     }
+    
+    func ensureScreenRecordingCheckboxIsChecked() {
+        
+        // get first window ID
+        let window = cgWindows()[0]
+        let windowOwnerPID = window[kCGWindowNumber] // window[kCGWindowOwnerPID]
+        
+        // Try getting the image
+        let windowImage = CGWindowListCreateImage(.null, .optionIncludingWindow, windowOwnerPID as! CGWindowID, [.boundsIgnoreFraming, .bestResolution])
+        
+        // If nil, permission denied (this will also prompt for permission)
+        // Should this fail, just exit
+        if windowImage == nil{
+            debugPrint("Cannot get screen shot of another window - This app does not have Screen Recording permissions")
+            NSApp.terminate(self)
+        }
+        
+        
+    }
 
     func computeOpenWindows() {
         openWindows.removeAll()
@@ -113,7 +135,15 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
         var pidAndCurrentIndex: [pid_t: Int] = [:]
         for cgWindow in cgWindows() {
             let cgId = cgWindow[kCGWindowNumber] as! CGWindowID
-            let cgTitle = String(cgWindow[kCGWindowName] as! NSString)
+            
+            
+            var cgTitle = "";
+            if #available(macOS 10.15, *) {
+                cgTitle = String(cgWindow[kCGWindowOwnerName] as! NSString)
+            } else {
+                cgTitle = String(cgWindow[kCGWindowName] as! NSString)
+            }
+            
             let cgOwnerPid = cgWindow[kCGWindowOwnerPID] as! pid_t
             let i = pidAndCurrentIndex.index(forKey: cgOwnerPid)
             pidAndCurrentIndex[cgOwnerPid] = (i == nil ? 0 : pidAndCurrentIndex[i!].value + 1)
