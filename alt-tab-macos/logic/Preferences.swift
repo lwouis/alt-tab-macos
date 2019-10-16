@@ -79,7 +79,7 @@ class Preferences: Decodable {
     // NSEvent.ModifierFlags (e.g. control=262144, command=1048576, shift=131072, option=524288)
     static let metaModifierFlag = NSEvent.ModifierFlags(rawValue: decoded?.metaModifierFlagInt ?? 262144)
     // color for the currently selected cell
-    static let highlightColor = NSColor(named: decoded?.highlightColorString ?? "white") ?? .white
+    static let highlightColor = NSColor.white
     // derived properties
     static let font: NSFont = .systemFont(ofSize: Preferences.fontHeight)
 }
