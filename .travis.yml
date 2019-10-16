@@ -9,7 +9,7 @@ install:
 script:
   - npx commitlint-travis
   - xcodebuild
-  - npx semantic-release
+  - if [ $TRAVIS_BRANCH == "master" ]; then npx semantic-release; fi
 before_deploy: cd build/Release && zip -r alt-tab-macos.zip alt-tab-macos.app && tar czf alt-tab-macos.tar.gz alt-tab-macos.app
 deploy:
   provider: releases
