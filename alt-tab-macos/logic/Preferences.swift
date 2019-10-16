@@ -46,7 +46,8 @@ class Preferences: Decodable {
             try FileManager.default.copyItem(at: defaultFile, to: userFile)
         } else if try fileLines(defaultFile) > fileLines(userFile) {
             // TODO: handle upgrades in a smarter way (e.g. merge files)
-            let _ = try FileManager.default.replaceItemAt(defaultFile, withItemAt: userFile)
+            try FileManager.default.removeItem(at: userFile)
+            try FileManager.default.copyItem(at: defaultFile, to: userFile)
         }
     }
 
