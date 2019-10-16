@@ -14,7 +14,7 @@ class CollectionViewCenterFlowLayout: NSCollectionViewFlowLayout {
         var widestRow = CGFloat(0)
         var totalHeight = CGFloat(0)
         attributes.enumerated().forEach {
-            let isNewRow = abs($1.frame.origin.y - currentRowY) > thumbnailMaxHeight
+            let isNewRow = abs($1.frame.origin.y - currentRowY) > Preferences.thumbnailMaxHeight
             if isNewRow {
                 computeOriginXForAllItems(currentRowWidth - minimumInteritemSpacing, previousRowMaxY, currentRow)
                 currentRow.removeAll()

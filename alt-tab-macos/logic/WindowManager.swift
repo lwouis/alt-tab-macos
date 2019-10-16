@@ -35,11 +35,11 @@ class OpenWindow {
 
 func computeDownscaledSize(_ image: NSImage) -> (Int, Int) {
     let imageRatio = image.size.width / image.size.height
-    let thumbnailWidth = Int(floor(thumbnailMaxHeight * imageRatio))
-    if thumbnailWidth <= Int(thumbnailMaxWidth) {
-        return (thumbnailWidth, Int(thumbnailMaxHeight))
+    let thumbnailWidth = Int(floor(Preferences.thumbnailMaxHeight * imageRatio))
+    if thumbnailWidth <= Int(Preferences.thumbnailMaxWidth) {
+        return (thumbnailWidth, Int(Preferences.thumbnailMaxHeight))
     } else {
-        return (Int(thumbnailMaxWidth), Int(floor(thumbnailMaxWidth / imageRatio)))
+        return (Int(Preferences.thumbnailMaxWidth), Int(floor(Preferences.thumbnailMaxWidth / imageRatio)))
     }
 }
 

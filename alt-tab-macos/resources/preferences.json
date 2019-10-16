@@ -1,0 +1,17 @@
+{
+  "maxScreenUsage": 0.8,
+  "windowPadding": 20,
+  "cellPadding": 6,
+  "cellBorderWidth": 2,
+  "maxThumbnailsPerRow": 4,
+  "thumbnailMaxWidth": 0,
+  "thumbnailMaxHeight": 0,
+  "iconSize": 32,
+  "fontHeight": 15,
+  "interItemPadding": 4,
+  "tabKey": 48,
+  "metaKey": 59,
+  "metaModifierFlagInt": 262144,
+  "highlightColorString": "white",
+  "thumbnailQuality": 4
+}

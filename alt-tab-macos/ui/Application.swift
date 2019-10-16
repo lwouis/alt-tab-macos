@@ -1,27 +1,12 @@
-import Cocoa
 import Foundation
+import Cocoa
 
-let maxScreenUsage: CGFloat = 0.8
-let windowPadding: CGFloat = 20
-let cellPadding: CGFloat = 6
-let cellBorderWidth: CGFloat = 2
-let maxThumbnailsPerRow: CGFloat = 4
-var thumbnailMaxWidth: CGFloat = 0
-var thumbnailMaxHeight: CGFloat = 0
-let iconSize: CGFloat = 32
-let fontHeight: CGFloat = 15
-let font: NSFont = .systemFont(ofSize: fontHeight)
-let interItemPadding: CGFloat = 4
-let tabKey = 48
-let metaKey = 0x3B
-let metaModifierFlag: NSEvent.ModifierFlags = .control
 let cellId = NSUserInterfaceItemIdentifier("Cell")
-let highlightColor: NSColor = .white
 
 func updateThumbnailMaxSize() -> Void {
     let main = NSScreen.main!.frame
-    thumbnailMaxWidth = (NSScreen.main!.frame.size.width * maxScreenUsage - windowPadding * 2) / maxThumbnailsPerRow - interItemPadding
-    thumbnailMaxHeight = thumbnailMaxWidth * (main.height / main.width)
+    Preferences.thumbnailMaxWidth = (NSScreen.main!.frame.size.width * Preferences.maxScreenUsage - Preferences.windowPadding * 2) / Preferences.maxThumbnailsPerRow - Preferences.interItemPadding
+    Preferences.thumbnailMaxHeight = Preferences.thumbnailMaxWidth * (main.height / main.width)
 }
 
 class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
@@ -82,7 +67,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
 
     func makeCollectionView() {
         let layout = CollectionViewCenterFlowLayout()
-        layout.estimatedItemSize = NSSize(width: thumbnailMaxWidth, height: thumbnailMaxHeight)
+        layout.estimatedItemSize = NSSize(width: Preferences.thumbnailMaxWidth, height: Preferences.thumbnailMaxHeight)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         collectionView_ = NSCollectionView()
@@ -146,14 +131,14 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
     }
 
     func computeThumbnails() {
-        let maxSize = NSSize(width: NSScreen.main!.frame.width * maxScreenUsage, height: NSScreen.main!.frame.height * maxScreenUsage)
+        let maxSize = NSSize(width: NSScreen.main!.frame.width * Preferences.maxScreenUsage, height: NSScreen.main!.frame.height * Preferences.maxScreenUsage)
         collectionView_!.setFrameSize(maxSize)
         collectionView_!.collectionViewLayout!.invalidateLayout()
         collectionView_!.reloadData()
         collectionView_!.layoutSubtreeIfNeeded()
-        window!.setContentSize(NSSize(width: collectionView_!.frame.size.width + windowPadding * 2, height: collectionView_!.frame.size.height + windowPadding * 2))
+        window!.setContentSize(NSSize(width: collectionView_!.frame.size.width + Preferences.windowPadding * 2, height: collectionView_!.frame.size.height + Preferences.windowPadding * 2))
         backgroundView!.setFrameSize(window!.frame.size)
-        collectionView_!.setFrameOrigin(NSPoint(x: windowPadding, y: windowPadding))
+        collectionView_!.setFrameOrigin(NSPoint(x: Preferences.windowPadding, y: Preferences.windowPadding))
         window!.center()
     }
 
@@ -173,13 +158,13 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
         debugPrint("collectionView: item size")
         if indexPath.item < openWindows.count {
             let (width, height) = computeDownscaledSize(openWindows[indexPath.item].thumbnail)
-            return NSSize(width: CGFloat(width) + cellPadding * 2, height: CGFloat(height) + max(fontHeight, iconSize) + interItemPadding + cellPadding * 2)
+            return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight, Preferences.iconSize) + Preferences.interItemPadding + Preferences.cellPadding * 2)
         }
         return .zero
     }
 
     func cellWithStep(_ step: Int) -> Int {
-        return selectedOpenWindow + step < 0 ? openWindows.count - 1 : (selectedOpenWindow + step) % openWindows.count
+        selectedOpenWindow + step < 0 ? openWindows.count - 1 : (selectedOpenWindow + step) % openWindows.count
     }
 
     func selectOtherCell(_ step: Int) {
@@ -203,7 +188,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
     }
 
     func currentlySelectedWindow() -> OpenWindow? {
-        return openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
+        openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
     }
 
     func focusSelectedWindow(_ window: OpenWindow?) {
