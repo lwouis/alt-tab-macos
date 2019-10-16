@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/lwouis/alt-tab-macos/compare/v1.2.1...v1.3.0) (2019-10-16)
+
+
+### Bug Fixes
+
+* upgrade scenario didn't work properly ([f864a25](https://github.com/lwouis/alt-tab-macos/commit/f864a25))
+
+
+### Features
+
+* add window display delay as a preference ([e52326b](https://github.com/lwouis/alt-tab-macos/commit/e52326b))
+
 ## [1.2.1](https://github.com/lwouis/alt-tab-macos/compare/v1.2.0...v1.2.1) (2019-10-16)
 
 # [1.2.0](https://github.com/lwouis/alt-tab-macos/compare/v1.1.0...v1.2.0) (2019-10-16)
