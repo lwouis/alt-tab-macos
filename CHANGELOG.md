@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/lwouis/alt-tab-macos/compare/v1.1.0...v1.2.0) (2019-10-16)
+
+
+### Features
+
+* support macOS 10.11+ (closes [#27](https://github.com/lwouis/alt-tab-macos/issues/27)) ([d0face2](https://github.com/lwouis/alt-tab-macos/commit/d0face2))
+
 # [1.1.0](https://github.com/lwouis/alt-tab-macos/compare/v1.0.12...v1.1.0) (2019-10-16)
 
 
