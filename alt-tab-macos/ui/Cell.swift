@@ -28,7 +28,7 @@ class Cell: NSCollectionViewItem {
         textContainer.maximumNumberOfLines = 1
         textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
-        text = NSTextView.init(frame: NSRect.zero, textContainer: textContainer)
+        text = NSTextView(frame: .zero, textContainer: textContainer)
         text.drawsBackground = true
         text.backgroundColor = .clear
         text.isSelectable = false
@@ -37,7 +37,7 @@ class Cell: NSCollectionViewItem {
         text.textColor = highlightColor
         let shadow = NSShadow()
         shadow.shadowColor = .darkGray
-        shadow.shadowOffset = NSMakeSize(0, 0)
+        shadow.shadowOffset = .zero
         shadow.shadowBlurRadius = 1
         text.shadow = shadow
         text.enabledTextCheckingTypes = 0
@@ -50,7 +50,7 @@ class Cell: NSCollectionViewItem {
         text.heightAnchor.constraint(equalToConstant: fontHeight).isActive = true
         let shadow2 = NSShadow()
         shadow2.shadowColor = .gray
-        shadow2.shadowOffset = NSMakeSize(0, 0)
+        shadow2.shadowOffset = .zero
         shadow2.shadowBlurRadius = 1
         thumbnail.shadow = shadow2
         icon.shadow = shadow2

@@ -99,7 +99,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
         window = NSPanel()
         window!.styleMask = [.borderless]
         window!.level = .floating
-        window!.animationBehavior = NSWindow.AnimationBehavior.none
+        window!.animationBehavior = .none
         window!.backgroundColor = .clear
         window!.setIsVisible(true)
         window!.delegate = self

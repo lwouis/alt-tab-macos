@@ -22,7 +22,7 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
 
 func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<CGEvent>? {
     if cgEvent.type == .keyDown || cgEvent.type == .keyUp || cgEvent.type == .flagsChanged {
-        if let event = NSEvent.init(cgEvent: cgEvent) {
+        if let event = NSEvent(cgEvent: cgEvent) {
             let keyDown = event.type == .keyDown
             let optionKeyEvent = event.keyCode == metaKey
             let tabKeyEvent = event.keyCode == tabKey

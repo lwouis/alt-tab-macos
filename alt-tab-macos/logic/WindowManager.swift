@@ -48,7 +48,7 @@ func axWindows(_ cgOwnerPid: pid_t) -> [AXUIElement] {
         return windows.filter {
             let hasTitle = !(AXUIElementCopyAttributeValue($0, kAXTitleAttribute, String.self) ?? "").isEmpty
             // workaround: some apps like chrome use a window to implement the search popover
-            let isReasonablyTall = AXValueGetValue($0, kAXSizeAttribute, NSSize(), AXValueType.cgSize)!.height > 200
+            let isReasonablyTall = AXValueGetValue($0, kAXSizeAttribute, NSSize(), .cgSize)!.height > 200
             return hasTitle && isReasonablyTall
         }
     }
