@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/lwouis/alt-tab-macos/compare/v1.0.12...v1.1.0) (2019-10-16)
+
+
+### Features
+
+* preferences can be changed through JSON file ([64cb6f0](https://github.com/lwouis/alt-tab-macos/commit/64cb6f0))
+
 ## [1.0.12](https://github.com/lwouis/alt-tab-macos/compare/v1.0.11...v1.0.12) (2019-10-15)
 
 ## [1.0.11](https://github.com/lwouis/alt-tab-macos/compare/v1.0.10...v1.0.11) (2019-10-04)
