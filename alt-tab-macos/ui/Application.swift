@@ -180,7 +180,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
                     Application.shared.unhideWithoutActivation()
                 }
                 workItems.append(workItem)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: workItem)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay, execute: workItem)
             } else {
                 highlightThumbnail(step)
             }

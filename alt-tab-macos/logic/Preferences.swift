@@ -17,6 +17,7 @@ struct PreferencesDecodable: Decodable {
     let metaModifierFlagInt: UInt?
     let highlightColorString : String?
     let thumbnailQuality : UInt?
+    let windowDisplayDelay: Int?
 }
 
 func fileLines(_ url: URL) throws -> Int {
@@ -79,6 +80,8 @@ class Preferences: Decodable {
     static let thumbnailQuality = NSImageInterpolation.init(rawValue: decoded?.thumbnailQuality ?? 3) ?? .high
     // NSEvent.ModifierFlags (e.g. control=262144, command=1048576, shift=131072, option=524288)
     static let metaModifierFlag = NSEvent.ModifierFlags(rawValue: decoded?.metaModifierFlagInt ?? 262144)
+    // delay (in ms) before the window is displayed after the shortcut is pressed
+    static let windowDisplayDelay = DispatchTimeInterval.milliseconds(decoded?.windowDisplayDelay ?? 200)
     // color for the currently selected cell
     static let highlightColor = NSColor.white
     // derived properties

@@ -13,5 +13,6 @@
   "metaKey": 59,
   "metaModifierFlagInt": 262144,
   "highlightColorString": "white",
-  "thumbnailQuality": 4
+  "thumbnailQuality": 4,
+  "windowDisplayDelay": 200
 }
