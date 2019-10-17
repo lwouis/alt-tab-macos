@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/lwouis/alt-tab-macos/compare/v1.4.4...v1.4.5) (2019-10-17)
+
+
+### Bug Fixes
+
+* handle new Screen Recording permission on Catalina (closes [#29](https://github.com/lwouis/alt-tab-macos/issues/29)) ([cbfa586](https://github.com/lwouis/alt-tab-macos/commit/cbfa586))
+
 ## [1.4.4](https://github.com/lwouis/alt-tab-macos/compare/v1.4.3...v1.4.4) (2019-10-17)
 
 
