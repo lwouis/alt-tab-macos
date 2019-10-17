@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/lwouis/alt-tab-macos/compare/v1.4.1...v1.4.2) (2019-10-17)
+
+
+### Bug Fixes
+
+* travis should release versioned archives (follow-up to de6ad7f83) ([5538bbd](https://github.com/lwouis/alt-tab-macos/commit/5538bbd))
+
 ## [1.4.1](https://github.com/lwouis/alt-tab-macos/compare/v1.4.0...v1.4.1) (2019-10-17)
 
 
