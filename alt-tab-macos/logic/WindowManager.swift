@@ -1,6 +1,8 @@
 import Cocoa
 import Foundation
 
+let minimumWindowSize: CGFloat = 200
+
 class OpenWindow {
     var target: AXUIElement?
     var ownerPid: pid_t?
@@ -46,10 +48,10 @@ func computeDownscaledSize(_ image: NSImage) -> (Int, Int) {
 func axWindows(_ cgOwnerPid: pid_t) -> [AXUIElement] {
     if let windows = AXUIElementCopyAttributeValue(AXUIElementCreateApplication(cgOwnerPid), kAXWindowsAttribute, [AXUIElement].self) {
         return windows.filter {
-            let hasTitle = !(AXUIElementCopyAttributeValue($0, kAXTitleAttribute, String.self) ?? "").isEmpty
             // workaround: some apps like chrome use a window to implement the search popover
-            let isReasonablyTall = AXValueGetValue($0, kAXSizeAttribute, NSSize(), AXValueType.cgSize)!.height > 200
-            return hasTitle && isReasonablyTall
+            let windowBounds = AXValueGetValue($0, kAXSizeAttribute, NSSize(), AXValueType.cgSize)!
+            let isReasonablyBig = windowBounds.width > minimumWindowSize && windowBounds.height > minimumWindowSize
+            return isReasonablyBig
         }
     }
     return []
@@ -58,9 +60,12 @@ func axWindows(_ cgOwnerPid: pid_t) -> [AXUIElement] {
 func cgWindows() -> [NSDictionary] {
     let windows = CGWindowListCopyWindowInfo([.excludeDesktopElements, .optionOnScreenOnly], kCGNullWindowID) as! [NSDictionary]
     return windows.filter {
+        // workaround: filtering this criteria seems to remove non-windows UI elements
         let isWindowNotMenubarOrOthers = $0[kCGWindowLayer] as? Int == 0
-        let hasTitle = !(($0[kCGWindowName] as? String ?? "").isEmpty)
-        return isWindowNotMenubarOrOthers && hasTitle
+        let windowBounds = CGRect(dictionaryRepresentation: $0[kCGWindowBounds] as! NSDictionary)!
+        // workaround: some apps like chrome use a window to implement the search popover
+        let isReasonablyBig = windowBounds.width > minimumWindowSize && windowBounds.height > minimumWindowSize
+        return isWindowNotMenubarOrOthers && isReasonablyBig
     }
 }
 

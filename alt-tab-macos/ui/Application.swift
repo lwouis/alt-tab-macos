@@ -117,14 +117,16 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
         var pidAndCurrentIndex: [pid_t: Int] = [:]
         for cgWindow in cgWindows() {
             let cgId = cgWindow[kCGWindowNumber] as! CGWindowID
-            let cgTitle = String(cgWindow[kCGWindowName] as! NSString)
+            let cgTitle = cgWindow[kCGWindowName] as? String ?? ""
+            let cgOwnerName = cgWindow[kCGWindowOwnerName] as? String ?? ""
+            let cellTitle = cgTitle.isEmpty ? cgOwnerName : cgTitle
             let cgOwnerPid = cgWindow[kCGWindowOwnerPID] as! pid_t
             let i = pidAndCurrentIndex.index(forKey: cgOwnerPid)
             pidAndCurrentIndex[cgOwnerPid] = (i == nil ? 0 : pidAndCurrentIndex[i!].value + 1)
-            let axWindow = axWindows(cgOwnerPid)
+            let axWindows_ = axWindows(cgOwnerPid)
             // windows may have changed between the CG and the AX calls
-            if axWindow.count > pidAndCurrentIndex[cgOwnerPid]! {
-                openWindows.append(OpenWindow(target: axWindow[pidAndCurrentIndex[cgOwnerPid]!], ownerPid: cgOwnerPid, cgId: cgId, cgTitle: cgTitle))
+            if axWindows_.count > pidAndCurrentIndex[cgOwnerPid]! {
+                openWindows.append(OpenWindow(target: axWindows_[pidAndCurrentIndex[cgOwnerPid]!], ownerPid: cgOwnerPid, cgId: cgId, cgTitle: cellTitle))
             }
         }
     }
