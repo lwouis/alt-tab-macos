@@ -12,7 +12,7 @@ script:
   - ci/set_version_in_app.sh
   - xcodebuild
   - ci/package_release.sh
-  - if [ $TRAVIS_BRANCH == "master" ]; then npx semantic-release; fi
+  - npx semantic-release
 deploy:
   provider: releases
   api_key:
