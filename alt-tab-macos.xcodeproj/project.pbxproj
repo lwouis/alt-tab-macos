@@ -31,6 +31,7 @@
 		D04BA32F25860B686DFE818A /* 3 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA35456DA0DDA74F9687E /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		D04BA4336B6004A0A99849AD /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		D04BA4B5292629AA6B560216 /* package_release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = package_release.sh; sourceTree = "<group>"; };
 		D04BA4F23325560BC0BCDDB7 /* 7 windows - 2 lines - tall window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - tall window.jpg"; sourceTree = "<group>"; };
 		D04BA51D43775E57CE91154A /* 3 windows - 1 line - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line - wide window.jpg"; sourceTree = "<group>"; };
 		D04BA56355579F78776E6D51 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
@@ -38,6 +39,7 @@
 		D04BA5E4A1745A481CEC1EBA /* 5 windows - 2 lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5 windows - 2 lines.png"; sourceTree = "<group>"; };
 		D04BA5E9CB56E27CC907F07D /* 6 windows - 2 lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "6 windows - 2 lines.png"; sourceTree = "<group>"; };
 		D04BA7B6AAB0812631BBC7A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
+		D04BA7ECCE728582D9ECA613 /* determine_version.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = determine_version.sh; sourceTree = "<group>"; };
 		D04BA82F792DF53958D92572 /* alt-tab-macos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alt-tab-macos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA8924E1644C932B8CBAA /* preferences.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = preferences.json; sourceTree = "<group>"; };
 		D04BA8DDB96B0A60C3394351 /* dark-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-background.png"; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 		D04BAA44C837F3A67403B9DB /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D04BAB6652494D7575057E86 /* 14 windows - 3 lines.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "14 windows - 3 lines.jpg"; sourceTree = "<group>"; };
 		D04BAC02D60EF22D9CC7D969 /* commitlint.config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = commitlint.config.js; sourceTree = "<group>"; };
+		D04BAC6AFC7F06D1A567F27A /* set_version_in_app.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = set_version_in_app.sh; sourceTree = "<group>"; };
 		D04BAD1BED44EAEB77FED8A4 /* WindowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 		D04BAD1C9F215BCCD3B620AC /* alt_tab_macos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = alt_tab_macos.entitlements; sourceTree = "<group>"; };
 		D04BAD40CE2D3A8AAC3819D0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 				D04BA4336B6004A0A99849AD /* package.json */,
 				D04BA92541D46EA4F6943A72 /* package-lock.json */,
 				D04BAFA277EAE3BDDDB61110 /* CHANGELOG.md */,
+				D04BA703DCD38D9757093312 /* ci */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,6 +137,16 @@
 				D04BA27584274BC8C2D9809F /* 3 windows - 1 line.png */,
 			);
 			path = "alt-tab-macos";
+			sourceTree = "<group>";
+		};
+		D04BA703DCD38D9757093312 /* ci */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA7ECCE728582D9ECA613 /* determine_version.sh */,
+				D04BA4B5292629AA6B560216 /* package_release.sh */,
+				D04BAC6AFC7F06D1A567F27A /* set_version_in_app.sh */,
+			);
+			path = ci;
 			sourceTree = "<group>";
 		};
 		D04BAA1C553891551B903DA7 /* logic */ = {

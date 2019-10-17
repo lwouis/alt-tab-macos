@@ -95,6 +95,10 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
         item!.button!.title = "AltTab"
         item!.menu = NSMenu()
         item!.menu!.addItem(
+                withTitle: "Version #VERSION#",
+                action: nil,
+                keyEquivalent: "")
+        item!.menu!.addItem(
                 withTitle: "Quit \(ProcessInfo.processInfo.processName)",
                 action: #selector(NSApplication.terminate(_:)),
                 keyEquivalent: "q")
