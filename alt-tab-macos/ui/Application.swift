@@ -106,7 +106,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
 
     func ensureAccessibilityCheckboxIsChecked() {
         if !AXIsProcessTrustedWithOptions(["AXTrustedCheckOptionPrompt": true] as CFDictionary) {
-            debugPrint("Not trusted as an AX process; please authorize and re-launch")
+            debugPrint("The user hasn't checked the accessiblity permission checkbox; please authorize and re-launch\nSee https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
             NSApp.terminate(self)
         }
     }
