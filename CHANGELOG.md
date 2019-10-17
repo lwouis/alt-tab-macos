@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/lwouis/alt-tab-macos/compare/v1.4.3...v1.4.4) (2019-10-17)
+
+
+### Bug Fixes
+
+* better decide which windows to show the user (closes [#15](https://github.com/lwouis/alt-tab-macos/issues/15) [#30](https://github.com/lwouis/alt-tab-macos/issues/30)) ([f150b7e](https://github.com/lwouis/alt-tab-macos/commit/f150b7e))
+
 ## [1.4.3](https://github.com/lwouis/alt-tab-macos/compare/v1.4.2...v1.4.3) (2019-10-17)
 
 ## [1.4.2](https://github.com/lwouis/alt-tab-macos/compare/v1.4.1...v1.4.2) (2019-10-17)
