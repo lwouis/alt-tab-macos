@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/lwouis/alt-tab-macos/compare/v1.3.0...v1.4.0) (2019-10-17)
+
+
+### Features
+
+* add version to the app menubar and release archives (closes [#36](https://github.com/lwouis/alt-tab-macos/issues/36)) ([de6ad7f](https://github.com/lwouis/alt-tab-macos/commit/de6ad7f))
+
 # [1.3.0](https://github.com/lwouis/alt-tab-macos/compare/v1.2.1...v1.3.0) (2019-10-16)
 
 
