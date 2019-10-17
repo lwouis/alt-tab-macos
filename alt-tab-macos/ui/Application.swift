@@ -147,19 +147,19 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate, NSCol
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        debugPrint("collectionView: count items", openWindows.count)
+//        debugPrint("collectionView: count items", openWindows.count)
         return openWindows.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        debugPrint("collectionView: make item", indexPath.item)
+//        debugPrint("collectionView: make item", indexPath.item)
         let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! Cell
         item.updateWithNewContent(openWindows[indexPath.item], self.focusSelectedWindow)
         return item
     }
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        debugPrint("collectionView: item size")
+//        debugPrint("collectionView: item size")
         if indexPath.item < openWindows.count {
             let (width, height) = computeDownscaledSize(openWindows[indexPath.item].thumbnail)
             return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight, Preferences.iconSize) + Preferences.interItemPadding + Preferences.cellPadding * 2)
