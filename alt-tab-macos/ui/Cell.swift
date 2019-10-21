@@ -28,7 +28,7 @@ class Cell: NSCollectionViewItem {
         textContainer.maximumNumberOfLines = 1
         textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
-        text = NSTextView.init(frame: NSRect.zero, textContainer: textContainer)
+        text = NSTextView(frame: NSRect.zero, textContainer: textContainer)
         text.drawsBackground = true
         text.backgroundColor = .clear
         text.isSelectable = false

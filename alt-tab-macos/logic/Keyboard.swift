@@ -1,5 +1,11 @@
 import Cocoa
 
+class Keyboard {
+    static func listenToGlobalEvents(_ delegate: Application) {
+        listenToGlobalKeyboardEvents(delegate)
+    }
+}
+
 var eventTap: CFMachPort?
 
 func listenToGlobalKeyboardEvents(_ delegate: Application) {
@@ -22,7 +28,7 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
 
 func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<CGEvent>? {
     if cgEvent.type == .keyDown || cgEvent.type == .keyUp || cgEvent.type == .flagsChanged {
-        if let event = NSEvent.init(cgEvent: cgEvent) {
+        if let event = NSEvent(cgEvent: cgEvent) {
             let keyDown = event.type == .keyDown
             let optionKeyEvent = event.keyCode == Preferences.metaKey
             let tabKeyEvent = event.keyCode == Preferences.tabKey
