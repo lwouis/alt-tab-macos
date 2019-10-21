@@ -1,6 +1,8 @@
-# [Download the latest release](https://github.com/lwouis/alt-tab-macos/releases/latest)
+# alt-tab-macos
 
-# Purpose
+> Download the latest release [here](https://github.com/lwouis/alt-tab-macos/releases/latest).
+
+## Purpose
 
 [![Screenshot](docs/img/alt-tab-macos/3%20windows%20-%201%20line.png)](docs/img/alt-tab-macos/3%20windows%20-%201%20line.png)
 
@@ -8,15 +10,15 @@
 
 On macOS there is an app cycling shortcut which doesn't let you select between windows of an app, and there is Mission Control which doesn't let you navigate using the keyboard.
 
-# How to use
+## How to use
 
-* `control` + `tab` cycles through apps
-* `control` + `shift` + `tab` cycles through apps in reverse
+* <kbd>Control</kbd> + <kbd>Tab</kbd> cycles through apps
+* <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>Tab</kbd> cycles through apps in reverse
 * Quick press-and-release will cycle through apps without showing any UI
-* Holding `control` after pressing a cycle shortcut will show the UI
-* Releasing `control` or clicking on a window will focus it
+* Holding <kbd>Control</kbd> after pressing a cycle shortcut will show the UI
+* Releasing <kbd>Control</kbd> or clicking on a window will focus it
 
-# Features
+## Features
 
 * Delay before showing the UI to avoid flashing (default 200ms)
 * High quality thumbnails of all windows
@@ -26,7 +28,7 @@ On macOS there is an app cycling shortcut which doesn't let you select between w
 * Thumbnails have a maximum width and height to help visualize very long, tall, small, big windows
 * Fast. There is no benchmark at the moment but energy was spent making sure the UI is responsive
 
-# Alternatives
+## Alternatives
 
 Before building my own app, I looked around at similar apps. However, none was completely satisfactory so I rolled my own. Also the almost-good-enough apps are not open-source.
 
@@ -34,14 +36,14 @@ Before building my own app, I looked around at similar apps. However, none was c
   Free but closed-source. Things I would change: thumbnails are too small, app icon is on top of the thumbnail
 * [Witch](https://manytricks.com/witch/) and [Context](https://contexts.co/)  
   10-15$. focus on text instead of thumbnails
-* Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_(macOS\))  
+* Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_\(macOS\))  
   No keyboard support
-* Command-tab  
+* <kbd>Command</kbd> + <kbd>Tab</kbd>  
   Only see apps, not windows (note: can press down to see window of selected app)
-* Command-`  
+* <kbd>Command</kbd> + <kbd>`</kbd>  
   Cycles through tabs and windows, but only of the same app. No direct access
   
-# Screenshots
+## Screenshots
 
 [![Screenshot](docs/img/alt-tab-macos/5%20windows%20-%202%20lines.png)](docs/img/alt-tab-macos/5%20windows%20-%202%20lines.png)
 
