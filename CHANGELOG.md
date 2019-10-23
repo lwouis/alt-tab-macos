@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/lwouis/alt-tab-macos/compare/v1.4.7...v1.5.0) (2019-10-23)
+
+
+### Features
+
+* add panel to set user preferences (closes [#8](https://github.com/lwouis/alt-tab-macos/issues/8)) ([a994825](https://github.com/lwouis/alt-tab-macos/commit/a994825))
+
 ## [1.4.7](https://github.com/lwouis/alt-tab-macos/compare/v1.4.6...v1.4.7) (2019-10-23)
 
 ## [1.4.6](https://github.com/lwouis/alt-tab-macos/compare/v1.4.5...v1.4.6) (2019-10-23)
