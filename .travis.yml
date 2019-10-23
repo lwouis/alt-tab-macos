@@ -4,15 +4,17 @@ language: node_js
 node_js:
   - 10
 cache: npm
+env:
+  - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
 install:
   - npm ci
 script:
   - npx commitlint-travis
-  - ci/determine_version.sh
-  - ci/set_version_in_app.sh
+  - if [ $IS_RELEASE ]; then ci/determine_version.sh; fi
+  - if [ $IS_RELEASE ]; then ci/set_version_in_app.sh; fi
   - xcodebuild
-  - ci/package_release.sh
-  - npx semantic-release
+  - if [ $IS_RELEASE ]; then ci/package_release.sh; fi
+  - if [ $IS_RELEASE ]; then npx semantic-release; fi
 deploy:
   provider: releases
   api_key:
