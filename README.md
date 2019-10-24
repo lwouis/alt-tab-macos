@@ -16,6 +16,10 @@ On macOS there is an app cycling shortcut which doesn't let you select between w
 * Holding `control` after pressing a cycle shortcut will show the UI
 * Releasing `control` or clicking on a window will focus it
 
+# Configuration
+
+* The app features UI to update preferences to customize look and behaviour. If you prefer a scriptable/portable approach, you can directly edit the file at `~/Library/Preferences/alt-tab-macos.json`
+
 # Features
 
 * Delay before showing the UI to avoid flashing (default 200ms)
