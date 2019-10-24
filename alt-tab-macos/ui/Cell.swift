@@ -14,7 +14,9 @@ class Cell: NSCollectionViewItem {
     override func loadView() {
         let vStackView = NSStackView()
         vStackView.wantsLayer = true
-        vStackView.layer!.borderWidth = Preferences.cellBorderWidth
+        vStackView.layer!.backgroundColor = .clear
+        vStackView.layer!.cornerRadius = Preferences.cellCornerRadius!
+        vStackView.layer!.borderWidth = Preferences.cellBorderWidth!
         vStackView.layer!.borderColor = .clear
         vStackView.edgeInsets = NSEdgeInsets(top: Preferences.cellPadding, left: Preferences.cellPadding, bottom: Preferences.cellPadding, right: Preferences.cellPadding)
         vStackView.orientation = .vertical
@@ -33,8 +35,8 @@ class Cell: NSCollectionViewItem {
         text.backgroundColor = .clear
         text.isSelectable = false
         text.isEditable = false
-        text.font = Preferences.font
-        text.textColor = Preferences.highlightColor
+        text.font = Preferences.font!
+        text.textColor = Preferences.fontColor
         let shadow = NSShadow()
         shadow.shadowColor = .darkGray
         shadow.shadowOffset = NSMakeSize(0, 0)
@@ -43,11 +45,11 @@ class Cell: NSCollectionViewItem {
         text.enabledTextCheckingTypes = 0
         let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraphStyle.lineBreakMode = .byTruncatingTail
-        paragraphStyle.maximumLineHeight = Preferences.fontHeight
-        paragraphStyle.minimumLineHeight = Preferences.fontHeight
+        paragraphStyle.maximumLineHeight = Preferences.fontHeight!
+        paragraphStyle.minimumLineHeight = Preferences.fontHeight!
         paragraphStyle.allowsDefaultTighteningForTruncation = false
         text.defaultParagraphStyle = paragraphStyle
-        text.heightAnchor.constraint(equalToConstant: Preferences.fontHeight).isActive = true
+        text.heightAnchor.constraint(equalToConstant: Preferences.fontHeight!).isActive = true
         let shadow2 = NSShadow()
         shadow2.shadowColor = .gray
         shadow2.shadowOffset = NSMakeSize(0, 0)
@@ -63,7 +65,8 @@ class Cell: NSCollectionViewItem {
 
     override var isSelected: Bool {
         didSet {
-            view.layer!.borderColor = isSelected ? Preferences.highlightColor.cgColor : .clear
+            view.layer!.backgroundColor = isSelected ? Preferences.highlightBackgroundColor!.cgColor : .clear
+            view.layer!.borderColor = isSelected ? Preferences.highlightBorderColor!.cgColor : .clear
         }
     }
 
@@ -74,12 +77,12 @@ class Cell: NSCollectionViewItem {
         thumbnail.image!.size = NSSize(width: width, height: height)
         thumbnail.frame.size = NSSize(width: width, height: height)
         icon.image = element.icon
-        icon.image!.size = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
-        icon.frame.size = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
+        icon.image!.size = NSSize(width: Preferences.iconSize!, height: Preferences.iconSize!)
+        icon.frame.size = NSSize(width: Preferences.iconSize!, height: Preferences.iconSize!)
         text.string = element.cgTitle
         // workaround: setting string on NSTextView change the font (most likely a Cocoa bug)
-        text.font = Preferences.font
-        text.textContainer!.size.width = thumbnail.frame.size.width - Preferences.iconSize - Preferences.interItemPadding
+        text.font = Preferences.font!
+        text.textContainer!.size.width = thumbnail.frame.size.width - Preferences.iconSize! - Preferences.interItemPadding
         mouseDownCallback = fn
     }
 }

@@ -1,6 +1,20 @@
 import Cocoa
 
 class PreferencesPanel: NSPanel, NSTextViewDelegate {
+    var maxScreenUsage: NSTextView?
+    var windowPadding: NSTextView?
+    var cellPadding: NSTextView?
+    var cellBorderWidth: NSTextView?
+    var maxThumbnailsPerRow: NSTextView?
+    var thumbnailMaxWidth: NSTextView?
+    var thumbnailMaxHeight: NSTextView?
+    var iconSize: NSTextView?
+    var fontHeight: NSTextView?
+    var interItemPadding: NSTextView?
+    var tabKey: NSTextView?
+    var windowDisplayDelay: NSTextView?
+    var metaKey: NSPopUpButton?
+    var theme: NSPopUpButton?
     var inputsMap = [NSTextView: String]()
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
@@ -13,38 +27,24 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
         contentView = gridView
     }
 
-    private func makeLabelsAndInputs() -> [[NSTextView]] {
-        var rows = [[NSTextView]]()
+    private func makeLabelsAndInputs() -> [[NSView]] {
         [
-            ("maxScreenUsage", "Maximum size of the main window, in percentage of screen size"),
-            ("windowPadding", "Padding in the main window"),
-            ("cellPadding", "Padding in each cell"),
-            ("cellBorderWidth", "Border width of each cell"),
-            ("maxThumbnailsPerRow", "Maximum number of thumbnails on each row"),
-            ("thumbnailMaxWidth", "Maximum width of each thumbnail"),
-            ("thumbnailMaxHeight", "Maximum height of each thumbnail"),
-            ("iconSize", "Width/height for each cell app icon"),
-            ("fontHeight", "Font height for each cell title"),
-            ("interItemPadding", "Padding between cells within the main window"),
-            ("tabKey", "Tab key (NSEvent.keyCode)"),
-            ("metaKey", "Meta key (NSEvent.keyCode)"),
-            ("metaModifierFlag", "Meta key (NSEvent.ModifierFlags)"),
-//            ("highlightColor", "Color for the currently selected cell"),
-            ("thumbnailQuality", "NSImageInterpolation (e.g. none=1, low=2, medium=4, high=3)"),
-            ("windowDisplayDelay", "Delay in ms before the window is displayed after pressing the shortcut"),
-        ].forEach {
-            let p = makePreference($1, Preferences.rawValues[$0]!)
-            rows.append(p)
-            inputsMap[p[1]] = $0
-        }
-        return rows
+            makeLabelWithDropdown(\PreferencesPanel.theme, "Main window theme", "theme", Preferences.themeArray),
+            makeLabelWithDropdown(\PreferencesPanel.metaKey, "Meta key to activate the app", "metaKey", Preferences.metaKeyArray),
+            makePreference(\PreferencesPanel.tabKey, "Tab key (NSEvent.keyCode)", "tabKey"),
+            makePreference(\PreferencesPanel.maxScreenUsage, "Max window size (screen %)", "maxScreenUsage"),
+            makePreference(\PreferencesPanel.maxThumbnailsPerRow, "Max thumbnails per row", "maxThumbnailsPerRow"),
+            makePreference(\PreferencesPanel.iconSize, "Apps icon size (px)", "iconSize"),
+            makePreference(\PreferencesPanel.fontHeight, "Font size (px)", "fontHeight"),
+            makePreference(\PreferencesPanel.windowDisplayDelay, "Window apparition delay (ms)", "windowDisplayDelay"),
+        ]
     }
 
-    private func makeGridView(_ rows: [[NSTextView]]) -> NSGridView {
+    private func makeGridView(_ rows: [[NSView]]) -> NSGridView {
         let gridView = NSGridView(views: rows)
         gridView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         gridView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        gridView.widthAnchor.constraint(greaterThanOrEqualToConstant: 580).isActive = true
+        gridView.widthAnchor.constraint(greaterThanOrEqualToConstant: 360).isActive = true
         return gridView
     }
 
@@ -56,16 +56,43 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
         gridView.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: gridView.numberOfRows - 1, length: 1))
     }
 
-    private func makePreference(_ labelText: String, _ initialValue: String) -> [NSTextView] {
+    private func makePreference(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSTextView?>, _ labelText: String, _ rawName: String) -> [NSTextView] {
         let label = makeLabel(labelText)
         label.alignment = .right
-
         let input = NSTextView()
         input.delegate = self
         input.font = Preferences.font
-        input.string = initialValue
-        input.widthAnchor.constraint(equalToConstant: 65).isActive = true
+        input.string = Preferences.rawValues[rawName]!
+        input.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        self[keyPath: keyPath] = input
+        inputsMap[input] = rawName
         return [label, input]
+    }
+
+    private func makeLabelWithDropdown(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSPopUpButton?>, _ labelText: String, _ rawName: String, _ values: [String]) -> [NSView] {
+        let label = makeLabel(labelText)
+        label.alignment = .right
+        let input = NSPopUpButton()
+        input.addItems(withTitles: values)
+        input.selectItem(withTitle: Preferences.rawValues[rawName]!)
+        input.action = #selector(dropdownDidChange)
+        input.target = self
+        self[keyPath: keyPath] = input
+        return [label, input]
+    }
+
+    @objc func dropdownDidChange(sender: AnyObject) throws {
+        if let popUpButton = sender as? NSPopUpButton {
+            switch popUpButton {
+            case theme:
+                try! Preferences.updateAndValidateFromString("theme", popUpButton.titleOfSelectedItem!)
+            case metaKey:
+                try! Preferences.updateAndValidateFromString("metaKey", popUpButton.titleOfSelectedItem!)
+            default:
+                throw "Tried to update an unknown popUpButton: '\(popUpButton)' = '\(popUpButton.titleOfSelectedItem!)'"
+            }
+            try! Preferences.saveRawToDisk()
+        }
     }
 
     private func makeLabel(_ text: String) -> NSTextView {
@@ -77,7 +104,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
         label.font = Preferences.font
         label.string = text
         label.enabledTextCheckingTypes = 0
-        label.heightAnchor.constraint(greaterThanOrEqualToConstant: Preferences.fontHeight + Preferences.interItemPadding).isActive = true
+        label.heightAnchor.constraint(greaterThanOrEqualToConstant: Preferences.fontHeight! + Preferences.interItemPadding).isActive = true
         return label
     }
 
@@ -85,9 +112,10 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
         if let textView = notification.object as? NSTextView {
             let key = inputsMap[textView]!
             do {
-                try Preferences.updateAndValidateValue(key, textView.string)
+                try Preferences.updateAndValidateFromString(key, textView.string)
                 try Preferences.saveRawToDisk()
             } catch {
+                debugPrint(key, error)
                 textView.string = Preferences.rawValues[key]!
             }
         }

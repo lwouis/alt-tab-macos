@@ -2,97 +2,99 @@ import Foundation
 import Cocoa
 
 let defaults = [
+    "version": "1", // bump this anytime the dictionary is changed
     "maxScreenUsage": "0.8",
-    "windowPadding": "20",
-    "cellPadding": "6",
-    "cellBorderWidth": "2",
     "maxThumbnailsPerRow": "4",
-    "thumbnailMaxWidth": "0",
-    "thumbnailMaxHeight": "0",
     "iconSize": "32",
     "fontHeight": "15",
-    "interItemPadding": "4",
     "tabKey": "48",
-    "metaKey": "59",
-    "metaModifierFlag": "262144",
-    "highlightColor": "white",
-    "thumbnailQuality": "4",
-    "windowDisplayDelay": "200",
+    "metaKey": Preferences.metaKeyArray[0],
+    "windowDisplayDelay": "0",
+    "theme": Preferences.themeArray[0]
 ]
 
 class Preferences {
     static var rawValues = [String: String]()
-    static var maxScreenUsage: CGFloat = 0
-    static var windowPadding: CGFloat = 0
-    static var cellPadding: CGFloat = 0
-    static var cellBorderWidth: CGFloat = 0
-    static var maxThumbnailsPerRow: CGFloat = 0
-    static var thumbnailMaxWidth: CGFloat = 0
-    static var thumbnailMaxHeight: CGFloat = 0
-    static var iconSize: CGFloat = 0
-    static var fontHeight: CGFloat = 0
-    static var interItemPadding: CGFloat = 0
-    static var tabKey: UInt16 = 0
-    static var metaKey: UInt16 = 0
-    static var metaModifierFlag: NSEvent.ModifierFlags = .control
-    static var highlightColor: NSColor = .white
-    static var thumbnailQuality: NSImageInterpolation = .high
-    static var windowDisplayDelay: DispatchTimeInterval = .milliseconds(200)
-    static var font: NSFont = .systemFont(ofSize: 15)
+    static var thumbnailMaxWidth: CGFloat = 200
+    static var thumbnailMaxHeight: CGFloat = 200
+    static var fontColor: NSColor = .white
+    static var windowMaterial: NSVisualEffectView.Material = .dark
+    static var windowPadding: CGFloat = 23
+    static var interItemPadding: CGFloat = 4
+    static var cellPadding: CGFloat = 6
+    static var cellBorderWidth: CGFloat?
+    static var cellCornerRadius: CGFloat?
+    static var maxScreenUsage: CGFloat?
+    static var maxThumbnailsPerRow: CGFloat?
+    static var iconSize: CGFloat?
+    static var fontHeight: CGFloat?
+    static var tabKey: UInt16?
+    static var highlightBorderColor: NSColor?
+    static var highlightBackgroundColor: NSColor?
+    static var metaKeyCode: UInt16?
+    static var metaModifierFlag: NSEvent.ModifierFlags?
+    static var windowDisplayDelay: DispatchTimeInterval?
+    static var windowCornerRadius: CGFloat?
+    static var font: NSFont?
+    static var themeArray = [" macOS", "❖ Windows 10"]
+    static var metaKeyArray = ["⌥ option", "⌃ control", "⌘ command", "⇪ caps lock", "fn"]
+    static var metaKeyMap: [String: (UInt16, NSEvent.ModifierFlags)] = [
+        metaKeyArray[0]: (58, .option),
+        metaKeyArray[1]: (59, .control),
+        metaKeyArray[2]: (55, .command),
+        metaKeyArray[3]: (57, .capsLock),
+        metaKeyArray[4]: (63, .function),
+    ]
+
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
     private static let userFile = fileFromPreferencesFolder("alt-tab-macos.json")
 
     static func loadFromDiskAndUpdateValues() {
         do {
-            rawValues = try loadFromDisk()
-            try rawValues.forEach {
-                try updateAndValidateValue($0.key, $0.value)
-            }
+            try handleNoFileOrOldFile(userFile)
+            rawValues = try loadFromDisk(userFile)
+            try rawValues
+                    .filter {
+                        $0.key != "version"
+                    }
+                    .forEach {
+                        try updateAndValidateFromString($0.key, $0.value)
+                    }
         } catch {
-            debugPrint("Error loading preferences from JSON file on disk", error)
+            debugPrint("Error loading preferences", error)
             NSApp.terminate(NSApplication.shared)
         }
     }
 
-    static func updateAndValidateValue(_ valueName: String, _ value: String) throws {
+    static func updateAndValidateFromString(_ valueName: String, _ value: String) throws {
         switch valueName {
         case "maxScreenUsage":
             maxScreenUsage = try CGFloat(value).orThrow()
-        case "windowPadding":
-            windowPadding = try CGFloat(value).orThrow()
-        case "cellPadding":
-            cellPadding = try CGFloat(value).orThrow()
-        case "cellBorderWidth":
-            cellBorderWidth = try CGFloat(value).orThrow()
         case "maxThumbnailsPerRow":
             maxThumbnailsPerRow = try CGFloat(value).orThrow()
-        case "thumbnailMaxWidth":
-            thumbnailMaxWidth = try CGFloat(value).orThrow()
-        case "thumbnailMaxHeight":
-            thumbnailMaxHeight = try CGFloat(value).orThrow()
         case "iconSize":
             iconSize = try CGFloat(value).orThrow()
         case "fontHeight":
             fontHeight = try CGFloat(value).orThrow()
-        case "interItemPadding":
-            interItemPadding = try CGFloat(value).orThrow()
+            font = NSFont.systemFont(ofSize: fontHeight!)
         case "tabKey":
             tabKey = try UInt16(value).orThrow()
         case "metaKey":
-            metaKey = try UInt16(value).orThrow()
-        case "metaModifierFlag":
-            metaModifierFlag = NSEvent.ModifierFlags(rawValue: try UInt(value).orThrow())
-        case "highlightColor":
-            highlightColor = NSColor.white
-        case "thumbnailQuality":
-            thumbnailQuality = NSImageInterpolation(rawValue: try UInt(value).orThrow())!
+            let (keyCode, modifierFlag) = try metaKeyMap[value].orThrow()
+            metaKeyCode = keyCode
+            metaModifierFlag = modifierFlag
+        case "theme":
+            let isMac = value == themeArray[0]
+            cellBorderWidth = isMac ? 0 : 2
+            cellCornerRadius = isMac ? 5 : 0
+            highlightBorderColor = isMac ? .clear : .white
+            highlightBackgroundColor = isMac ? NSColor(red: 0, green: 0, blue: 0, alpha: 0.15) : .clear
+            windowCornerRadius = isMac ? 20 : 0
         case "windowDisplayDelay":
             windowDisplayDelay = DispatchTimeInterval.milliseconds(try Int(value).orThrow())
-        case "font":
-            font = NSFont.systemFont(ofSize: fontHeight)
         default:
-            throw "Tried to update an unknown preference"
+            throw "Tried to update an unknown preference: '\(valueName)' = '\(value)'"
         }
         rawValues[valueName] = value
     }
@@ -101,23 +103,20 @@ class Preferences {
         try saveToDisk(rawValues, userFile)
     }
 
-    private static func fileLines(_ url: URL) throws -> Int {
-        try String(contentsOf: url, encoding: .utf8).split(separator: "\n").count
+    private static func preferencesVersion(_ url: URL) throws -> Int {
+        try Int(loadFromDisk(url)["version"] ?? "0").orThrow()
     }
 
-    private static func loadFromDisk() throws -> [String: String] {
-        try handleNoFileOrOldFile(userFile)
-        return try JSONDecoder().decode([String: String].self, from: Data(contentsOf: userFile))
+    private static func loadFromDisk(_ url: URL) throws -> [String: String] {
+        try JSONDecoder().decode([String: String].self, from: Data(contentsOf: url))
     }
 
     private static func handleNoFileOrOldFile(_ userFile: URL) throws {
-        if !FileManager.default.fileExists(atPath: defaultsFile.path) {
-            try saveDefaultsToDisk()
-        }
+        try saveDefaultsToDisk()
         if !FileManager.default.fileExists(atPath: userFile.path) {
             try FileManager.default.copyItem(at: defaultsFile, to: userFile)
         } else {
-            if try fileLines(defaultsFile) > fileLines(userFile) {
+            if try preferencesVersion(defaultsFile) > preferencesVersion(userFile) {
                 // TODO: handle upgrades in a smarter way (e.g. merge files)
                 try FileManager.default.removeItem(at: userFile)
                 try FileManager.default.copyItem(at: defaultsFile, to: userFile)
@@ -163,6 +162,9 @@ extension Optional {
         case .some(let value):
             return value
         case .none:
+            Thread.callStackSymbols.forEach {
+                print($0)
+            }
             throw "Optional contained nil"
         }
     }

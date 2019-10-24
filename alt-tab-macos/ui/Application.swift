@@ -82,7 +82,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
                     self.showCenteredPanel(self.thumbnailsPanel!)
                 }
                 workItems.append(workItem)
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay, execute: workItem)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay!, execute: workItem)
             } else {
                 self.thumbnailsPanel!.highlightThumbnail(step)
             }

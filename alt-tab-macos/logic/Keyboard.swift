@@ -30,15 +30,15 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
     if cgEvent.type == .keyDown || cgEvent.type == .keyUp || cgEvent.type == .flagsChanged {
         if let event = NSEvent(cgEvent: cgEvent) {
             let keyDown = event.type == .keyDown
-            let optionKeyEvent = event.keyCode == Preferences.metaKey
+            let optionKeyEvent = event.keyCode == Preferences.metaKeyCode
             let tabKeyEvent = event.keyCode == Preferences.tabKey
-            if optionKeyEvent && event.modifiersDown([Preferences.metaModifierFlag]) {
+            if optionKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) {
                 delegate.keyDownMeta()
-            } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag]) && keyDown {
+            } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
                 delegate.keyDownMetaTab()
                 // focused app will not receive the event (will not press tab key in that app)
                 return nil
-            } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag, .shift]) && keyDown {
+            } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!, .shift]) && keyDown {
                 delegate.keyDownMetaShiftTab()
                 // focused app will not receive the event (will not press tab key in that app)
                 return nil

@@ -13,20 +13,25 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     convenience init(_ application: Application) {
         self.init()
         self.application = application
-        styleMask = [.borderless]
         isFloatingPanel = true
         animationBehavior = NSWindow.AnimationBehavior.none
-        backgroundColor = .clear
         hidesOnDeactivate = false
+        hasShadow = false
+        titleVisibility = .hidden
+        styleMask.remove(.titled)
+        backgroundColor = .clear
         makeThumbnailsPanelBackgroundView()
-        contentView = backgroundView!
+        contentView!.addSubview(backgroundView!)
+
     }
 
     private func makeThumbnailsPanelBackgroundView() {
         backgroundView = NSVisualEffectView()
-        backgroundView!.blendingMode = .behindWindow
-        backgroundView!.material = .dark
+        backgroundView!.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView!.material = Preferences.windowMaterial
         backgroundView!.state = .active
+        backgroundView!.wantsLayer = true
+        backgroundView!.layer!.cornerRadius = Preferences.windowCornerRadius!
         makeCollectionView()
         backgroundView!.addSubview(collectionView_!)
     }
@@ -66,7 +71,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 //        debugPrint("collectionView: item size")
         if indexPath.item < application!.openWindows.count {
             let (width, height) = computeDownscaledSize(application!.openWindows[indexPath.item].thumbnail)
-            return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight, Preferences.iconSize) + Preferences.interItemPadding + Preferences.cellPadding * 2)
+            return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight!, Preferences.iconSize!) + Preferences.interItemPadding + Preferences.cellPadding * 2)
         }
         return .zero
     }
@@ -77,7 +82,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     func computeThumbnails() {
-        let maxSize = NSSize(width: NSScreen.main!.frame.width * Preferences.maxScreenUsage, height: NSScreen.main!.frame.height * Preferences.maxScreenUsage)
+        let maxSize = NSSize(width: NSScreen.main!.frame.width * Preferences.maxScreenUsage!, height: NSScreen.main!.frame.height * Preferences.maxScreenUsage!)
         collectionView_!.setFrameSize(maxSize)
         collectionView_!.collectionViewLayout!.invalidateLayout()
         collectionView_!.reloadData()

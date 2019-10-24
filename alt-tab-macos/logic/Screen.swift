@@ -13,18 +13,10 @@ class Screen {
     }
 
     static func updateThumbnailMaxSize() -> Void {
-        if Preferences.thumbnailMaxWidth == 0 && Preferences.thumbnailMaxHeight == 0 {
-            do {
-                let main = NSScreen.main!.frame
-                try Preferences.updateAndValidateValue("thumbnailMaxWidth", 
-                        String((NSScreen.main!.frame.size.width * Preferences.maxScreenUsage - Preferences.windowPadding * 2) / Preferences.maxThumbnailsPerRow - Preferences.interItemPadding).orThrow())
-                try Preferences.updateAndValidateValue("thumbnailMaxHeight",
-                        String(Preferences.thumbnailMaxWidth * (main.height / main.width)).orThrow())
-                try Preferences.saveRawToDisk()
-            } catch {
-                debugPrint("Error updating preferences based on screen size", error)
-                NSApp.terminate(NSApplication.shared)
-            }
+        if Preferences.thumbnailMaxWidth == 200 && Preferences.thumbnailMaxHeight == 200 {
+            let main = NSScreen.main!.frame
+            Preferences.thumbnailMaxWidth = (NSScreen.main!.frame.size.width * Preferences.maxScreenUsage! - Preferences.windowPadding * 2) / Preferences.maxThumbnailsPerRow! - Preferences.interItemPadding
+            Preferences.thumbnailMaxHeight = Preferences.thumbnailMaxWidth * (main.height / main.width)
         }
     }
 }
