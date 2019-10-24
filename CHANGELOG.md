@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/lwouis/alt-tab-macos/compare/v1.5.1...v1.6.0) (2019-10-24)
+
+
+### Features
+
+* add mac theme and improve preferences (closes [#21](https://github.com/lwouis/alt-tab-macos/issues/21)) ([4a5bbe9](https://github.com/lwouis/alt-tab-macos/commit/4a5bbe9))
+
 ## [1.5.1](https://github.com/lwouis/alt-tab-macos/compare/v1.5.0...v1.5.1) (2019-10-24)
 
 # [1.5.0](https://github.com/lwouis/alt-tab-macos/compare/v1.4.7...v1.5.0) (2019-10-23)
