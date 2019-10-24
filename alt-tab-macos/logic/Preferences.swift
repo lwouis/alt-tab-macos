@@ -46,7 +46,6 @@ class Preferences {
         metaKeyArray[4]: (63, .function),
     ]
 
-
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
     private static let userFile = fileFromPreferencesFolder("alt-tab-macos.json")
 
