@@ -60,7 +60,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
             let axWindows_ = axWindows(cgOwnerPid)
             // windows may have changed between the CG and the AX calls
             if axWindows_.count > pidAndCurrentIndex[cgOwnerPid]! {
-                openWindows.append(OpenWindow(target: axWindows_[pidAndCurrentIndex[cgOwnerPid]!], ownerPid: cgOwnerPid, cgId: cgId, cgTitle: cellTitle))
+                openWindows.append(OpenWindow(axWindows_[pidAndCurrentIndex[cgOwnerPid]!], cgOwnerPid, cgId, cellTitle))
             }
         }
     }

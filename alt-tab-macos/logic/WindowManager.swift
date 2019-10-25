@@ -9,7 +9,7 @@ class OpenWindow {
     lazy var thumbnail: NSImage = computeThumbnail()
     lazy var icon: NSImage? = computeIcon()
 
-    init(target: AXUIElement?, ownerPid: pid_t?, cgId: CGWindowID, cgTitle: String) {
+    init(_ target: AXUIElement?, _ ownerPid: pid_t?, _ cgId: CGWindowID, _ cgTitle: String) {
         self.target = target
         self.ownerPid = ownerPid
         self.cgId = cgId
