@@ -14,7 +14,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         self.init()
         self.application = application
         isFloatingPanel = true
-        animationBehavior = NSWindow.AnimationBehavior.none
+        animationBehavior = .none
         hidesOnDeactivate = false
         hasShadow = false
         titleVisibility = .hidden

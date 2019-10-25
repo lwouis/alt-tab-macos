@@ -61,7 +61,7 @@ class Cell: NSCollectionViewItem {
     static func makeShadow(_ color: NSColor) -> NSShadow {
         let shadow = NSShadow()
         shadow.shadowColor = color
-        shadow.shadowOffset = NSMakeSize(0, 0)
+        shadow.shadowOffset = .zero
         shadow.shadowBlurRadius = 1
         return shadow
     }

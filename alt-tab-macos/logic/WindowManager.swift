@@ -47,7 +47,7 @@ func axWindows(_ cgOwnerPid: pid_t) -> [AXUIElement] {
     if let windows = AXUIElementCopyAttributeValue(AXUIElementCreateApplication(cgOwnerPid), kAXWindowsAttribute, [AXUIElement].self) {
         return windows.filter {
             // workaround: some apps like chrome use a window to implement the search popover
-            let windowBounds = AXValueGetValue($0, kAXSizeAttribute, NSSize(), AXValueType.cgSize)!
+            let windowBounds = AXValueGetValue($0, kAXSizeAttribute, NSSize(), .cgSize)!
             let isReasonablyBig = windowBounds.width > Preferences.minimumWindowSize && windowBounds.height > Preferences.minimumWindowSize
             return isReasonablyBig
         }
