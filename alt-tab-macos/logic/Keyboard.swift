@@ -8,6 +8,8 @@ enum KeyCode: UInt16 {
     case tab = 58
     case control = 59
     case function = 63
+    case leftArrow = 123
+    case rightArrow = 124
 }
 
 class Keyboard {
@@ -43,17 +45,19 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
             let keycode = KeyCode(rawValue: event.keyCode)
             let isTab = event.keyCode == Preferences.tabKeyCode
             let isMeta = keycode == Preferences.metaKeyCode
+            let isRightArrow = keycode == KeyCode.rightArrow
+            let isLeftArrow = keycode == KeyCode.leftArrow
             let isEscape = keycode == KeyCode.escape
             if event.modifierFlags.contains(Preferences.metaModifierFlag!) {
                 if isMeta {
                     delegate.preActivate()
-                } else if isTab && event.modifierFlags.contains(.shift) && keyDown {
+                } else if keyDown && (isLeftArrow || (isTab && event.modifierFlags.contains(.shift))) {
                     delegate.showUiOrSelectPrevious()
                     return nil // previously focused app should not receive keys
-                } else if isTab && keyDown {
+                } else if keyDown && (isRightArrow || isTab) {
                     delegate.showUiOrSelectNext()
                     return nil // previously focused app should not receive keys
-                } else if isEscape && keyDown {
+                } else if keyDown && isEscape {
                     delegate.hideUi()
                     return nil // previously focused app should not receive keys
                 }
