@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/lwouis/alt-tab-macos/compare/v1.8.0...v1.8.1) (2019-10-25)
+
+
+### Bug Fixes
+
+* meta+arrow activates only if meta+tab was first pressed ([aa5f748](https://github.com/lwouis/alt-tab-macos/commit/aa5f748))
+
 # [1.8.0](https://github.com/lwouis/alt-tab-macos/compare/v1.7.2...v1.8.0) (2019-10-25)
 
 
