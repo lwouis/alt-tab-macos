@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/lwouis/alt-tab-macos/compare/v1.7.1...v1.7.2) (2019-10-25)
+
+
+### Bug Fixes
+
+* increased contrast to help with dark backgrounds ([8458113](https://github.com/lwouis/alt-tab-macos/commit/8458113))
+
 ## [1.7.1](https://github.com/lwouis/alt-tab-macos/compare/v1.7.0...v1.7.1) (2019-10-25)
 
 
