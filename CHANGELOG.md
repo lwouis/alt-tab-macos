@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/lwouis/alt-tab-macos/compare/v1.7.2...v1.8.0) (2019-10-25)
+
+
+### Features
+
+* use arrow keys to navigate the UI (closes [#53](https://github.com/lwouis/alt-tab-macos/issues/53)) ([1049a50](https://github.com/lwouis/alt-tab-macos/commit/1049a50))
+
 ## [1.7.2](https://github.com/lwouis/alt-tab-macos/compare/v1.7.1...v1.7.2) (2019-10-25)
 
 
