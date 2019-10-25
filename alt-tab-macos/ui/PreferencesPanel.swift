@@ -19,44 +19,42 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
-        let rows = makeLabelsAndInputs()
-        let gridView = makeGridView(rows)
-        makeAndAddWarningLabel(gridView)
         title = Application.name + " Preferences"
         hidesOnDeactivate = false
-        contentView = gridView
+        contentView = makeGridView(makeLabelsAndInputs(), makeWarningLabel())
     }
 
     private func makeLabelsAndInputs() -> [[NSView]] {
         [
             makeLabelWithDropdown(\PreferencesPanel.theme, "Main window theme", "theme", Preferences.themeMacro.labels),
             makeLabelWithDropdown(\PreferencesPanel.metaKey, "Meta key to activate the app", "metaKey", Preferences.metaKeyMacro.labels),
-            makePreference(\PreferencesPanel.tabKey, "Tab key (NSEvent.keyCode)", "tabKey"),
-            makePreference(\PreferencesPanel.maxScreenUsage, "Max window size (screen %)", "maxScreenUsage"),
-            makePreference(\PreferencesPanel.maxThumbnailsPerRow, "Max thumbnails per row", "maxThumbnailsPerRow"),
-            makePreference(\PreferencesPanel.iconSize, "Apps icon size (px)", "iconSize"),
-            makePreference(\PreferencesPanel.fontHeight, "Font size (px)", "fontHeight"),
-            makePreference(\PreferencesPanel.windowDisplayDelay, "Window apparition delay (ms)", "windowDisplayDelay"),
+            makeLabelWithInput(\PreferencesPanel.tabKey, "Tab key (NSEvent.keyCode)", "tabKey"),
+            makeLabelWithInput(\PreferencesPanel.maxScreenUsage, "Max window size (screen %)", "maxScreenUsage"),
+            makeLabelWithInput(\PreferencesPanel.maxThumbnailsPerRow, "Max thumbnails per row", "maxThumbnailsPerRow"),
+            makeLabelWithInput(\PreferencesPanel.iconSize, "Apps icon size (px)", "iconSize"),
+            makeLabelWithInput(\PreferencesPanel.fontHeight, "Font size (px)", "fontHeight"),
+            makeLabelWithInput(\PreferencesPanel.windowDisplayDelay, "Window apparition delay (ms)", "windowDisplayDelay"),
         ]
     }
 
-    private func makeGridView(_ rows: [[NSView]]) -> NSGridView {
+    private func makeGridView(_ rows: [[NSView]], _ warningLabel: BaseLabel) -> NSGridView {
         let gridView = NSGridView(views: rows)
         gridView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         gridView.setContentHuggingPriority(.defaultLow, for: .vertical)
         gridView.widthAnchor.constraint(greaterThanOrEqualToConstant: 360).isActive = true
+        gridView.addRow(with: [warningLabel, NSGridCell.emptyContentView])
+        gridView.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: gridView.numberOfRows - 1, length: 1))
         return gridView
     }
 
-    private func makeAndAddWarningLabel(_ gridView: NSGridView) {
+    private func makeWarningLabel() -> BaseLabel {
         let warningLabel = BaseLabel("Some settings require restarting the app to apply")
         warningLabel.textColor = .systemRed
         warningLabel.alignment = .center
-        gridView.addRow(with: [warningLabel, NSGridCell.emptyContentView])
-        gridView.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: gridView.numberOfRows - 1, length: 1))
+        return warningLabel
     }
 
-    private func makePreference(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSTextView?>, _ labelText: String, _ rawName: String) -> [NSTextView] {
+    private func makeLabelWithInput(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSTextView?>, _ labelText: String, _ rawName: String) -> [NSTextView] {
         let label = BaseLabel(labelText)
         label.alignment = .right
         let input = NSTextView()
