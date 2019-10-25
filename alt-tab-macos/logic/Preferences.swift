@@ -41,7 +41,7 @@ class Preferences {
         MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
     ])
     static var metaKeyMacro = MacroPreferenceHelper<(KeyCode, NSEvent.ModifierFlags)>([
-        MacroPreference("⌥ option", (.tab, .option)),
+        MacroPreference("⌥ option", (.option, .option)),
         MacroPreference("⌃ control", (.control, .control)),
         MacroPreference("⌘ command", (.command, .command)),
         MacroPreference("⇪ caps lock", (.capsLock, .capsLock)),

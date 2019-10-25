@@ -6,6 +6,7 @@ enum KeyCode: UInt16 {
     case escape = 53
     case command = 55
     case capsLock = 57
+    case option = 58
     case control = 59
     case function = 63
     case leftArrow = 123
