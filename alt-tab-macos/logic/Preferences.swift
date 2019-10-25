@@ -56,12 +56,8 @@ class Preferences {
             try handleNoFileOrOldFile(userFile)
             rawValues = try loadFromDisk(userFile)
             try rawValues
-                    .filter {
-                        $0.key != "version"
-                    }
-                    .forEach {
-                        try updateAndValidateFromString($0.key, $0.value)
-                    }
+                    .filter { $0.key != "version" }
+                    .forEach { try updateAndValidateFromString($0.key, $0.value) }
         } catch {
             debugPrint("Error loading preferences", error)
             NSApp.terminate(NSApplication.shared)

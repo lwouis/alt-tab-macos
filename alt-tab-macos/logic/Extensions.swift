@@ -18,9 +18,7 @@ extension Optional {
         case .some(let value):
             return value
         case .none:
-            Thread.callStackSymbols.forEach {
-                print($0)
-            }
+            Thread.callStackSymbols.forEach { print($0) }
             throw "Optional contained nil"
         }
     }
