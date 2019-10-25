@@ -102,7 +102,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     func cycleSelection(_ step: Int) {
         selectedOpenWindow = cellWithStep(step)
-        thumbnailsPanel!.highlightCell(step)
+        thumbnailsPanel!.highlightCellAt(step)
     }
 
     func showUiOrCycleSelection(_ step: Int) {

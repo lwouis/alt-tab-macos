@@ -64,7 +64,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
 //        debugPrint("collectionView: make item", indexPath.item)
         let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! Cell
-        item.updateWithNewContent(application!.openWindows[indexPath.item], application!.focusSelectedWindow)
+        item.updateWithNewContent(application!.openWindows[indexPath.item], application!.focusSelectedWindow, application!.thumbnailsPanel!.highlightCell)
         return item
     }
 
@@ -77,9 +77,18 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         return .zero
     }
 
-    func highlightCell(_ step: Int) {
+    func highlightCellAt(_ step: Int) {
         collectionView_!.selectItems(at: [IndexPath(item: application!.selectedOpenWindow, section: 0)], scrollPosition: .top)
         collectionView_!.deselectItems(at: [IndexPath(item: application!.cellWithStep(-step), section: 0)])
+    }
+
+    func highlightCell(_ cell: Cell) {
+        let newIndex = collectionView_.indexPath(for: cell)!
+        if application!.selectedOpenWindow != newIndex.item {
+            collectionView_!.selectItems(at: [newIndex], scrollPosition: .top)
+            collectionView_!.deselectItems(at: [IndexPath(item: application!.selectedOpenWindow, section: 0)])
+            application!.selectedOpenWindow = newIndex.item
+        }
     }
 
     func computeThumbnails() {
