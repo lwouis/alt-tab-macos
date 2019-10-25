@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D04BA02DD4152997C32CF50B /* StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */; };
+		D04BA0F3D46BC79544E2B930 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA86768C6503A11ED81FC /* Extensions.swift */; };
 		D04BA20D4A240843293B3B52 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA56355579F78776E6D51 /* Cell.swift */; };
 		D04BA278D9EFA568C8D18A4C /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD1BED44EAEB77FED8A4 /* WindowManager.swift */; };
 		D04BA3261C7DA5F48310E654 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA90C6C36DB1D65BC2B66 /* Application.swift */; };
@@ -51,6 +52,7 @@
 		D04BA7B6AAB0812631BBC7A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		D04BA7ECCE728582D9ECA613 /* determine_version.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = determine_version.sh; sourceTree = "<group>"; };
 		D04BA82F792DF53958D92572 /* alt-tab-macos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alt-tab-macos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D04BA86768C6503A11ED81FC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D04BA8DDB96B0A60C3394351 /* dark-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-background.png"; sourceTree = "<group>"; };
 		D04BA90C6C36DB1D65BC2B66 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		D04BA92541D46EA4F6943A72 /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				D04BA3F15EAE8D8C39B6F2CF /* Screen.swift */,
 				D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */,
 				D04BA1E0E08244FC00475E9E /* MacroPreferences.swift */,
+				D04BA86768C6503A11ED81FC /* Extensions.swift */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				D04BA9CCE02D30C8164A552A /* SystemPermissions.swift in Sources */,
 				D04BA02DD4152997C32CF50B /* StatusItem.swift in Sources */,
 				D04BA43D2C5334D2B560FC8D /* MacroPreferences.swift in Sources */,
+				D04BA0F3D46BC79544E2B930 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,15 +20,3 @@ class Screen {
         }
     }
 }
-
-// add String constructor from CGFloat that round up at 1 decimal
-extension String {
-    init?(_ cgFloat: CGFloat) {
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 1
-        guard let string = formatter.string(from: cgFloat as NSNumber) else {
-            return nil
-        }
-        self.init(string)
-    }
-}
