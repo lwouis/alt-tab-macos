@@ -12,7 +12,6 @@
 		D04BA20D4A240843293B3B52 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA56355579F78776E6D51 /* Cell.swift */; };
 		D04BA278D9EFA568C8D18A4C /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD1BED44EAEB77FED8A4 /* WindowManager.swift */; };
 		D04BA3261C7DA5F48310E654 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA90C6C36DB1D65BC2B66 /* Application.swift */; };
-		D04BA43D2C5334D2B560FC8D /* MacroPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA1E0E08244FC00475E9E /* MacroPreferences.swift */; };
 		D04BA57A871B7269BEBAFF84 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA35456DA0DDA74F9687E /* Keyboard.swift */; };
 		D04BA6368E681BE3A408AC99 /* PreferencesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA02F476DE30C4647886C /* PreferencesPanel.swift */; };
 		D04BA70FF7262BF5F9E6E13B /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BADCB1C0F50340A6CAFC2 /* Preferences.swift */; };
@@ -32,7 +31,6 @@
 		D04BA0F5EB832B8E142B654B /* 4 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "4 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA107C8B8FE7FF8536606 /* too many windows - 4 lines - paginated.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "too many windows - 4 lines - paginated.jpg"; sourceTree = "<group>"; };
 		D04BA1D80F4EEF2A91BAD29C /* release.config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = release.config.js; sourceTree = "<group>"; };
-		D04BA1E0E08244FC00475E9E /* MacroPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacroPreferences.swift; sourceTree = "<group>"; };
 		D04BA1FC9022590D7AA02486 /* 1 window - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1 window - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA27584274BC8C2D9809F /* 3 windows - 1 line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3 windows - 1 line.png"; sourceTree = "<group>"; };
 		D04BA2C7B51F68651B3C60E2 /* 6 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "6 windows - 1 line.jpg"; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 				D04BADCB1C0F50340A6CAFC2 /* Preferences.swift */,
 				D04BA3F15EAE8D8C39B6F2CF /* Screen.swift */,
 				D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */,
-				D04BA1E0E08244FC00475E9E /* MacroPreferences.swift */,
 				D04BA86768C6503A11ED81FC /* Extensions.swift */,
 			);
 			path = logic;
@@ -285,7 +282,6 @@
 				D04BA8EBC0365A019A27C7EA /* Screen.swift in Sources */,
 				D04BA9CCE02D30C8164A552A /* SystemPermissions.swift in Sources */,
 				D04BA02DD4152997C32CF50B /* StatusItem.swift in Sources */,
-				D04BA43D2C5334D2B560FC8D /* MacroPreferences.swift in Sources */,
 				D04BA0F3D46BC79544E2B930 /* Extensions.swift in Sources */,
 				D04BAD4DE538FDF7E7532EE2 /* Labels.swift in Sources */,
 			);
