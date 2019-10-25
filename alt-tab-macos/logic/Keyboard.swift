@@ -45,18 +45,18 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
             let tabKeyEvent = event.keyCode == Preferences.tabKey
             let escKeyEvent = keycode == KeyCode.escape
             if optionKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) {
-                delegate.keyDownMeta()
+                delegate.preActivate()
             } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
-                delegate.keyDownMetaTab()
+                delegate.showUiOrSelectNext()
                 return nil // previously focused app should not receive keys
             } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!, .shift]) && keyDown {
-                delegate.keyDownMetaShiftTab()
+                delegate.showUiOrSelectPrevious()
                 return nil // previously focused app should not receive keys
             } else if escKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
-                delegate.keyDownMetaEsc()
+                delegate.hideUi()
                 return nil // previously focused app should not receive keys
             } else if optionKeyEvent && !keyDown {
-                delegate.keyUpMeta()
+                delegate.focusTarget()
             }
         }
     } else if cgEvent.type == .tapDisabledByUserInput || cgEvent.type == .tapDisabledByTimeout {

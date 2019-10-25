@@ -35,6 +35,37 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         Screen.listenToChanges()
     }
 
+    func preActivate() {
+        debugPrint("preActivate")
+        computeOpenWindows()
+        selectedOpenWindow = 0
+    }
+
+    func showUiOrSelectNext() {
+        debugPrint("showUiOrSelectNext")
+        showUiOrCycleSelection(1)
+    }
+
+    func showUiOrSelectPrevious() {
+        debugPrint("showUiOrSelectPrevious")
+        showUiOrCycleSelection(-1)
+    }
+
+    func hideUi() {
+        debugPrint("hideUi")
+        thumbnailsPanel!.orderOut(nil)
+        appIsBeingUsed = false
+        isFirstSummon = true
+    }
+
+    func focusTarget() {
+        debugPrint("focusTarget")
+        if appIsBeingUsed {
+            focusSelectedWindow(currentlySelectedWindow())
+            hideUi()
+        }
+    }
+
     @objc func showCenteredPreferencesPanel() {
         showCenteredPanel(preferencesPanel!)
     }
@@ -69,7 +100,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         selectedOpenWindow + step < 0 ? openWindows.count - 1 : (selectedOpenWindow + step) % openWindows.count
     }
 
-    func selectOtherCell(_ step: Int) {
+    func showUiOrCycleSelection(_ step: Int) {
         appIsBeingUsed = true
         if openWindows.count > 0 {
             selectedOpenWindow = cellWithStep(step)
@@ -89,48 +120,13 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         }
     }
 
-    func currentlySelectedWindow() -> OpenWindow? {
-        openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
-    }
-
-    func closeThumbnailsPanel() {
-        thumbnailsPanel!.orderOut(nil)
-        appIsBeingUsed = false
-        isFirstSummon = true
-    }
-
     func focusSelectedWindow(_ window: OpenWindow?) {
         workItems.forEach({ $0.cancel() })
         workItems.removeAll()
         window?.focus()
-        closeThumbnailsPanel()
     }
 
-    func keyDownMeta() {
-        debugPrint("meta down")
-        computeOpenWindows()
-        selectedOpenWindow = 0
-    }
-
-    func keyDownMetaTab() {
-        debugPrint("meta+tab down")
-        selectOtherCell(1)
-    }
-
-    func keyDownMetaShiftTab() {
-        debugPrint("meta+shift+tab down")
-        selectOtherCell(-1)
-    }
-
-    func keyDownMetaEsc() {
-        debugPrint("meta+esc down")
-        closeThumbnailsPanel()
-    }
-
-    func keyUpMeta() {
-        debugPrint("meta up")
-        if appIsBeingUsed {
-            focusSelectedWindow(currentlySelectedWindow())
-        }
+    func currentlySelectedWindow() -> OpenWindow? {
+        openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
     }
 }
