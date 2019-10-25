@@ -42,7 +42,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     func showCenteredPanel(_ panel: NSPanel) {
         panel.center()
         panel.makeKeyAndOrderFront(nil)
-        Application.shared.activate(ignoringOtherApps: true)
+        Application.shared.arrangeInFront(nil)
     }
 
     func computeOpenWindows() {
