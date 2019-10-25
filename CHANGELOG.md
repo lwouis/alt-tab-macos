@@ -1,3 +1,15 @@
+# [1.7.0](https://github.com/lwouis/alt-tab-macos/compare/v1.6.1...v1.7.0) (2019-10-25)
+
+
+### Bug Fixes
+
+* don't crash when the OS doesn't return an icon ([ce6f6aa](https://github.com/lwouis/alt-tab-macos/commit/ce6f6aa))
+
+
+### Features
+
+* close main window when (meta and) escape is pressed (closes [#44](https://github.com/lwouis/alt-tab-macos/issues/44)) ([b6e4826](https://github.com/lwouis/alt-tab-macos/commit/b6e4826))
+
 ## [1.6.1](https://github.com/lwouis/alt-tab-macos/compare/v1.6.0...v1.6.1) (2019-10-24)
 
 # [1.6.0](https://github.com/lwouis/alt-tab-macos/compare/v1.5.1...v1.6.0) (2019-10-24)
