@@ -49,7 +49,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
     }
 
     private func makeAndAddWarningLabel(_ gridView: NSGridView) {
-        let warningLabel = makeLabel("Some settings require restarting the app to apply")
+        let warningLabel = BaseLabel("Some settings require restarting the app to apply")
         warningLabel.textColor = .systemRed
         warningLabel.alignment = .center
         gridView.addRow(with: [warningLabel, NSGridCell.emptyContentView])
@@ -57,7 +57,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
     }
 
     private func makePreference(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSTextView?>, _ labelText: String, _ rawName: String) -> [NSTextView] {
-        let label = makeLabel(labelText)
+        let label = BaseLabel(labelText)
         label.alignment = .right
         let input = NSTextView()
         input.delegate = self
@@ -70,7 +70,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
     }
 
     private func makeLabelWithDropdown(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSPopUpButton?>, _ labelText: String, _ rawName: String, _ values: [String]) -> [NSView] {
-        let label = makeLabel(labelText)
+        let label = BaseLabel(labelText)
         label.alignment = .right
         let input = NSPopUpButton()
         input.addItems(withTitles: values)
@@ -93,19 +93,6 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
             }
             try! Preferences.saveRawToDisk()
         }
-    }
-
-    private func makeLabel(_ text: String) -> NSTextView {
-        let label = NSTextView()
-        label.drawsBackground = true
-        label.backgroundColor = .clear
-        label.isSelectable = false
-        label.isEditable = false
-        label.font = Preferences.font
-        label.string = text
-        label.enabledTextCheckingTypes = 0
-        label.heightAnchor.constraint(greaterThanOrEqualToConstant: Preferences.fontHeight! + Preferences.interItemPadding).isActive = true
-        return label
     }
 
     func textDidEndEditing(_ notification: Notification) {

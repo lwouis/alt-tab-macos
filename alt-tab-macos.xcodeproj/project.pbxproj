@@ -20,6 +20,7 @@
 		D04BA9119E2329DB5A35B3C7 /* ThumbnailsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE5BBE182DD5DDFE2E3E /* ThumbnailsPanel.swift */; };
 		D04BA960DDD1D32A3019C835 /* CollectionViewCenterFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA3202A2C22C347E849B3 /* CollectionViewCenterFlowLayout.swift */; };
 		D04BA9CCE02D30C8164A552A /* SystemPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */; };
+		D04BAD4DE538FDF7E7532EE2 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD32E130E4A061DC8332 /* Labels.swift */; };
 		D04BAEF78503D7A2CEFB9E9E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAA44C837F3A67403B9DB /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		D04BAC6AFC7F06D1A567F27A /* set_version_in_app.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = set_version_in_app.sh; sourceTree = "<group>"; };
 		D04BAD1BED44EAEB77FED8A4 /* WindowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 		D04BAD1C9F215BCCD3B620AC /* alt_tab_macos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = alt_tab_macos.entitlements; sourceTree = "<group>"; };
+		D04BAD32E130E4A061DC8332 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		D04BAD40CE2D3A8AAC3819D0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		D04BAD7D8F3CC2C36C8769C6 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .travis.yml; sourceTree = "<group>"; };
 		D04BAD82F652C4ED5D8BF7AE /* 3 windows - 1 line - tall window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line - tall window.jpg"; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				D04BA02F476DE30C4647886C /* PreferencesPanel.swift */,
 				D04BAE5BBE182DD5DDFE2E3E /* ThumbnailsPanel.swift */,
 				D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */,
+				D04BAD32E130E4A061DC8332 /* Labels.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				D04BA02DD4152997C32CF50B /* StatusItem.swift in Sources */,
 				D04BA43D2C5334D2B560FC8D /* MacroPreferences.swift in Sources */,
 				D04BA0F3D46BC79544E2B930 /* Extensions.swift in Sources */,
+				D04BAD4DE538FDF7E7532EE2 /* Labels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
