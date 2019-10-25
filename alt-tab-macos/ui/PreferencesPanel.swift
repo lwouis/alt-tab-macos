@@ -29,8 +29,8 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
 
     private func makeLabelsAndInputs() -> [[NSView]] {
         [
-            makeLabelWithDropdown(\PreferencesPanel.theme, "Main window theme", "theme", Preferences.themeArray),
-            makeLabelWithDropdown(\PreferencesPanel.metaKey, "Meta key to activate the app", "metaKey", Preferences.metaKeyArray),
+            makeLabelWithDropdown(\PreferencesPanel.theme, "Main window theme", "theme", Preferences.themeMacro.labels),
+            makeLabelWithDropdown(\PreferencesPanel.metaKey, "Meta key to activate the app", "metaKey", Preferences.metaKeyMacro.labels),
             makePreference(\PreferencesPanel.tabKey, "Tab key (NSEvent.keyCode)", "tabKey"),
             makePreference(\PreferencesPanel.maxScreenUsage, "Max window size (screen %)", "maxScreenUsage"),
             makePreference(\PreferencesPanel.maxThumbnailsPerRow, "Max thumbnails per row", "maxThumbnailsPerRow"),

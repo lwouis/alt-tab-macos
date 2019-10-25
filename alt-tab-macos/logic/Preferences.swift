@@ -1,19 +1,18 @@
 import Foundation
 import Cocoa
 
-let defaults = [
-    "version": "1", // bump this anytime the dictionary is changed
-    "maxScreenUsage": "0.8",
-    "maxThumbnailsPerRow": "4",
-    "iconSize": "32",
-    "fontHeight": "15",
-    "tabKey": String(KeyCode.tab.rawValue),
-    "metaKey": Preferences.metaKeyArray[0],
-    "windowDisplayDelay": "0",
-    "theme": Preferences.themeArray[0]
-]
-
 class Preferences {
+    static var defaults: [String: String] = [
+        "version": "1", // bump this anytime the dictionary is changed
+        "maxScreenUsage": "0.8",
+        "maxThumbnailsPerRow": "4",
+        "iconSize": "32",
+        "fontHeight": "15",
+        "tabKey": String(KeyCode.tab.rawValue),
+        "metaKey": metaKeyMacro.macros[0].label,
+        "windowDisplayDelay": "0",
+        "theme": themeMacro.macros[0].label
+    ]
     static var rawValues = [String: String]()
     static var thumbnailMaxWidth: CGFloat = 200
     static var thumbnailMaxHeight: CGFloat = 200
@@ -36,15 +35,17 @@ class Preferences {
     static var windowDisplayDelay: DispatchTimeInterval?
     static var windowCornerRadius: CGFloat?
     static var font: NSFont?
-    static var themeArray = [" macOS", "❖ Windows 10"]
-    static var metaKeyArray = ["⌥ option", "⌃ control", "⌘ command", "⇪ caps lock", "fn"]
-    static var metaKeyMap: [String: (KeyCode, NSEvent.ModifierFlags)] = [
-        metaKeyArray[0]: (KeyCode.tab, .option),
-        metaKeyArray[1]: (KeyCode.control, .control),
-        metaKeyArray[2]: (KeyCode.command, .command),
-        metaKeyArray[3]: (KeyCode.capsLock, .capsLock),
-        metaKeyArray[4]: (KeyCode.function, .function),
-    ]
+    static var themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
+        MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.15))),
+        MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
+    ])
+    static var metaKeyMacro = MacroPreferenceHelper<(KeyCode, NSEvent.ModifierFlags)>([
+        MacroPreference("⌥ option", (.tab, .option)),
+        MacroPreference("⌃ control", (.control, .control)),
+        MacroPreference("⌘ command", (.command, .command)),
+        MacroPreference("⇪ caps lock", (.capsLock, .capsLock)),
+        MacroPreference("fn", (.function, .function))
+    ])
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
     private static let userFile = fileFromPreferencesFolder("alt-tab-macos.json")
@@ -80,16 +81,16 @@ class Preferences {
         case "tabKey":
             tabKey = try UInt16(value).orThrow()
         case "metaKey":
-            let (keyCode, modifierFlag) = try metaKeyMap[value].orThrow()
-            metaKeyCode = keyCode
-            metaModifierFlag = modifierFlag
+            let p = try metaKeyMacro.labelToMacro[value].orThrow()
+            metaKeyCode = p.preferences.0
+            metaModifierFlag = p.preferences.1
         case "theme":
-            let isMac = value == themeArray[0]
-            cellBorderWidth = isMac ? 0 : 2
-            cellCornerRadius = isMac ? 5 : 0
-            highlightBorderColor = isMac ? .clear : .white
-            highlightBackgroundColor = isMac ? NSColor(red: 0, green: 0, blue: 0, alpha: 0.15) : .clear
-            windowCornerRadius = isMac ? 20 : 0
+            let p = try themeMacro.labelToMacro[value].orThrow()
+            cellBorderWidth = p.preferences.0
+            cellCornerRadius = p.preferences.1
+            windowCornerRadius = p.preferences.2
+            highlightBorderColor = p.preferences.3
+            highlightBackgroundColor = p.preferences.4
         case "windowDisplayDelay":
             windowDisplayDelay = DispatchTimeInterval.milliseconds(try Int(value).orThrow())
         default:
