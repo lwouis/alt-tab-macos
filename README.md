@@ -28,16 +28,13 @@
 
 Before building my own app, I looked around at similar apps. However, none was completely satisfactory so I rolled my own. Also the almost-good-enough apps are not open-source.
 
-* [HyperSwitch](https://bahoom.com/hyperswitch) and [HyperDock](https://bahoom.com/hyperdock)  
-  Free but closed-source. Things I would change: thumbnails are too small, app icon is on top of the thumbnail
-* [Witch](https://manytricks.com/witch/) and [Context](https://contexts.co/)  
-  10-15$. Focus on text instead of thumbnails
-* Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_(macOS\))  
-  No keyboard support
-* Command-tab  
-  Only see apps, not windows (note: can press down to see window of selected app)
-* Command-`  
-  Cycles through tabs and windows, but only of the same app. No direct access; only cycling
+| Alternative                                                                                 | Differences                                                                                                  |
+|---------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| [HyperSwitch](https://bahoom.com/hyperswitch) and [HyperDock](https://bahoom.com/hyperdock) | Closed-source. Thumbnails are too small. App icon is on top of the thumbnail                        |
+| [Witch](https://manytricks.com/witch/) and [Context](https://contexts.co/)                  | 10-15$. Closed-source. Focus on text. No thumbnails                                                                         |
+| Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_(macOS\))          | No keyboard support                                                                                          |
+| `⌘ command` + `⇥ tab`                                                                     | Only shows apps, not windows (note: can press down to see window of selected app)                            |
+| `⌘ command` + `` ` ``                                                                      | Cycles through tabs and windows, but only of the same app. Only cycling, no direct access                    |
   
 # Screenshots
 
