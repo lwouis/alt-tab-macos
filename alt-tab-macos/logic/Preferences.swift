@@ -16,6 +16,7 @@ class Preferences {
     static var rawValues = [String: String]()
     static var thumbnailMaxWidth: CGFloat = 200
     static var thumbnailMaxHeight: CGFloat = 200
+    static var minimumWindowSize: CGFloat = 200
     static var fontColor: NSColor = .white
     static var windowMaterial: NSVisualEffectView.Material = .dark
     static var windowPadding: CGFloat = 23

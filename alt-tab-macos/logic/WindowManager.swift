@@ -1,8 +1,6 @@
 import Cocoa
 import Foundation
 
-let minimumWindowSize: CGFloat = 200
-
 class OpenWindow {
     var target: AXUIElement?
     var ownerPid: pid_t?
@@ -50,7 +48,7 @@ func axWindows(_ cgOwnerPid: pid_t) -> [AXUIElement] {
         return windows.filter {
             // workaround: some apps like chrome use a window to implement the search popover
             let windowBounds = AXValueGetValue($0, kAXSizeAttribute, NSSize(), AXValueType.cgSize)!
-            let isReasonablyBig = windowBounds.width > minimumWindowSize && windowBounds.height > minimumWindowSize
+            let isReasonablyBig = windowBounds.width > Preferences.minimumWindowSize && windowBounds.height > Preferences.minimumWindowSize
             return isReasonablyBig
         }
     }
@@ -64,7 +62,7 @@ func cgWindows() -> [NSDictionary] {
         let isWindowNotMenubarOrOthers = $0[kCGWindowLayer] as? Int == 0
         let windowBounds = CGRect(dictionaryRepresentation: $0[kCGWindowBounds] as! NSDictionary)!
         // workaround: some apps like chrome use a window to implement the search popover
-        let isReasonablyBig = windowBounds.width > minimumWindowSize && windowBounds.height > minimumWindowSize
+        let isReasonablyBig = windowBounds.width > Preferences.minimumWindowSize && windowBounds.height > Preferences.minimumWindowSize
         return isWindowNotMenubarOrOthers && isReasonablyBig
     }
 }
