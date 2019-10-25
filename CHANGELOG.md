@@ -1,3 +1,10 @@
+## [1.9.5](https://github.com/lwouis/alt-tab-macos/compare/v1.9.4...v1.9.5) (2019-10-25)
+
+
+### Bug Fixes
+
+* option key was broken as a meta key ([e59d51d](https://github.com/lwouis/alt-tab-macos/commit/e59d51d))
+
 ## [1.9.4](https://github.com/lwouis/alt-tab-macos/compare/v1.9.3...v1.9.4) (2019-10-25)
 
 
