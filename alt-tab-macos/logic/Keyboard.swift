@@ -51,15 +51,24 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
             if event.modifierFlags.contains(Preferences.metaModifierFlag!) {
                 if isMeta {
                     delegate.preActivate()
-                } else if keyDown && (isLeftArrow || (isTab && event.modifierFlags.contains(.shift))) {
-                    delegate.showUiOrSelectPrevious()
                     return nil // previously focused app should not receive keys
-                } else if keyDown && (isRightArrow || isTab) {
-                    delegate.showUiOrSelectNext()
-                    return nil // previously focused app should not receive keys
-                } else if keyDown && isEscape {
-                    delegate.hideUi()
-                    return nil // previously focused app should not receive keys
+                } else if keyDown {
+                    if isTab && event.modifierFlags.contains(.shift) {
+                        delegate.showUiOrSelectPrevious()
+                        return nil // previously focused app should not receive keys
+                    } else if isTab {
+                        delegate.showUiOrSelectNext()
+                        return nil // previously focused app should not receive keys
+                    } else if isRightArrow && delegate.appIsBeingUsed {
+                        delegate.cycleSelection(1)
+                        return nil // previously focused app should not receive keys
+                    } else if isLeftArrow && delegate.appIsBeingUsed {
+                        delegate.cycleSelection(-1)
+                        return nil // previously focused app should not receive keys
+                    } else if keyDown && isEscape {
+                        delegate.hideUi()
+                        return nil // previously focused app should not receive keys
+                    }
                 }
             } else if isMeta && !keyDown {
                 delegate.focusTarget()

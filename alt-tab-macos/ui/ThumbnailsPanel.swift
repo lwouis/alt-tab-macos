@@ -77,7 +77,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         return .zero
     }
 
-    func highlightThumbnail(_ step: Int) {
+    func highlightCell(_ step: Int) {
         collectionView_!.selectItems(at: [IndexPath(item: application!.selectedOpenWindow, section: 0)], scrollPosition: .top)
         collectionView_!.deselectItems(at: [IndexPath(item: application!.cellWithStep(-step), section: 0)])
     }

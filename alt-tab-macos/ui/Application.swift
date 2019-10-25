@@ -100,22 +100,26 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         selectedOpenWindow + step < 0 ? openWindows.count - 1 : (selectedOpenWindow + step) % openWindows.count
     }
 
+    func cycleSelection(_ step: Int) {
+        selectedOpenWindow = cellWithStep(step)
+        thumbnailsPanel!.highlightCell(step)
+    }
+
     func showUiOrCycleSelection(_ step: Int) {
         appIsBeingUsed = true
         if openWindows.count > 0 {
-            selectedOpenWindow = cellWithStep(step)
             if isFirstSummon {
                 isFirstSummon = false
                 let workItem = DispatchWorkItem {
                     self.computeOpenWindows()
                     self.thumbnailsPanel!.computeThumbnails()
-                    self.thumbnailsPanel!.highlightThumbnail(step)
+                    self.cycleSelection(step)
                     self.showCenteredPanel(self.thumbnailsPanel!)
                 }
                 workItems.append(workItem)
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay!, execute: workItem)
             } else {
-                self.thumbnailsPanel!.highlightThumbnail(step)
+                self.cycleSelection(step)
             }
         }
     }
