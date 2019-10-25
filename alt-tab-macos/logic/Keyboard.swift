@@ -1,5 +1,6 @@
 import Cocoa
 
+// Apple doesn't provide an enum for this, strangely
 enum KeyCode: UInt16 {
     case escape = 53
     case command = 55
@@ -47,16 +48,13 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
                 delegate.keyDownMeta()
             } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
                 delegate.keyDownMetaTab()
-                // focused app will not receive the event (will not press tab key in that app)
-                return nil
+                return nil // previously focused app should not receive keys
             } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!, .shift]) && keyDown {
                 delegate.keyDownMetaShiftTab()
-                // focused app will not receive the event (will not press tab key in that app)
-                return nil
+                return nil // previously focused app should not receive keys
             } else if escKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
                 delegate.keyDownMetaEsc()
-                // focused app will not receive the event (will not press tab key in that app)
-                return nil
+                return nil // previously focused app should not receive keys
             } else if optionKeyEvent && !keyDown {
                 delegate.keyUpMeta()
             }
@@ -66,10 +64,4 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
     }
     // focused app will receive the event
     return Unmanaged.passRetained(cgEvent)
-}
-
-extension NSEvent {
-    func modifiersDown(_ modifiers: NSEvent.ModifierFlags) -> Bool {
-        return self.modifierFlags.intersection(.deviceIndependentFlagsMask) == modifiers
-    }
 }
