@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/lwouis/alt-tab-macos/compare/v1.7.0...v1.7.1) (2019-10-25)
+
+
+### Bug Fixes
+
+* remove flickr due to current app losing focus when AltTab appears ([98273de](https://github.com/lwouis/alt-tab-macos/commit/98273de))
+
 # [1.7.0](https://github.com/lwouis/alt-tab-macos/compare/v1.6.1...v1.7.0) (2019-10-25)
 
 
