@@ -41,10 +41,3 @@ extension String {
         self.init(string)
     }
 }
-
-// always use .deviceIndependentFlagsMask
-extension NSEvent {
-    func modifiersDown(_ modifiers: NSEvent.ModifierFlags) -> Bool {
-        self.modifierFlags.intersection(.deviceIndependentFlagsMask) == modifiers
-    }
-}

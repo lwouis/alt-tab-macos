@@ -2,7 +2,7 @@ import Cocoa
 
 class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
     var backgroundView: NSVisualEffectView?
-    var collectionView_: NSCollectionView?
+    var collectionView_: NSCollectionView!
     var application: Application?
     let cellId = NSUserInterfaceItemIdentifier("Cell")
 
@@ -20,31 +20,32 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         titleVisibility = .hidden
         styleMask.remove(.titled)
         backgroundColor = .clear
-        makeThumbnailsPanelBackgroundView()
+        collectionView_ = makeCollectionView()
+        backgroundView = makeBackgroundView()
         contentView!.addSubview(backgroundView!)
-
     }
 
-    private func makeThumbnailsPanelBackgroundView() {
-        backgroundView = NSVisualEffectView()
-        backgroundView!.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView!.material = Preferences.windowMaterial
-        backgroundView!.state = .active
-        backgroundView!.wantsLayer = true
-        backgroundView!.layer!.cornerRadius = Preferences.windowCornerRadius!
-        makeCollectionView()
-        backgroundView!.addSubview(collectionView_!)
+    private func makeBackgroundView() -> NSVisualEffectView {
+        let backgroundView = NSVisualEffectView()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.material = Preferences.windowMaterial
+        backgroundView.state = .active
+        backgroundView.wantsLayer = true
+        backgroundView.layer!.cornerRadius = Preferences.windowCornerRadius!
+        backgroundView.addSubview(collectionView_)
+        return backgroundView
     }
 
-    func makeCollectionView() {
-        collectionView_ = NSCollectionView()
-        collectionView_!.dataSource = self
-        collectionView_!.delegate = self
-        collectionView_!.collectionViewLayout = makeLayout()
-        collectionView_!.backgroundColors = [.clear]
-        collectionView_!.isSelectable = true
-        collectionView_!.allowsMultipleSelection = false
-        collectionView_!.register(Cell.self, forItemWithIdentifier: cellId)
+    func makeCollectionView() -> NSCollectionView {
+        let collectionView_ = NSCollectionView()
+        collectionView_.dataSource = self
+        collectionView_.delegate = self
+        collectionView_.collectionViewLayout = makeLayout()
+        collectionView_.backgroundColors = [.clear]
+        collectionView_.isSelectable = true
+        collectionView_.allowsMultipleSelection = false
+        collectionView_.register(Cell.self, forItemWithIdentifier: cellId)
+        return collectionView_
     }
 
     func makeLayout() -> CollectionViewCenterFlowLayout {

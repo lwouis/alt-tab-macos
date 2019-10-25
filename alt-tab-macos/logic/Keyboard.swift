@@ -41,21 +41,23 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
         if let event = NSEvent(cgEvent: cgEvent) {
             let keyDown = event.type == .keyDown
             let keycode = KeyCode(rawValue: event.keyCode)
-            let optionKeyEvent = keycode == Preferences.metaKeyCode
-            let tabKeyEvent = event.keyCode == Preferences.tabKey
-            let escKeyEvent = keycode == KeyCode.escape
-            if optionKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) {
-                delegate.preActivate()
-            } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
-                delegate.showUiOrSelectNext()
-                return nil // previously focused app should not receive keys
-            } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!, .shift]) && keyDown {
-                delegate.showUiOrSelectPrevious()
-                return nil // previously focused app should not receive keys
-            } else if escKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
-                delegate.hideUi()
-                return nil // previously focused app should not receive keys
-            } else if optionKeyEvent && !keyDown {
+            let isTab = event.keyCode == Preferences.tabKeyCode
+            let isMeta = keycode == Preferences.metaKeyCode
+            let isEscape = keycode == KeyCode.escape
+            if event.modifierFlags.contains(Preferences.metaModifierFlag!) {
+                if isMeta {
+                    delegate.preActivate()
+                } else if isTab && event.modifierFlags.contains(.shift) && keyDown {
+                    delegate.showUiOrSelectPrevious()
+                    return nil // previously focused app should not receive keys
+                } else if isTab && keyDown {
+                    delegate.showUiOrSelectNext()
+                    return nil // previously focused app should not receive keys
+                } else if isEscape && keyDown {
+                    delegate.hideUi()
+                    return nil // previously focused app should not receive keys
+                }
+            } else if isMeta && !keyDown {
                 delegate.focusTarget()
             }
         }

@@ -28,7 +28,7 @@ class Preferences {
     static var maxThumbnailsPerRow: CGFloat?
     static var iconSize: CGFloat?
     static var fontHeight: CGFloat?
-    static var tabKey: UInt16?
+    static var tabKeyCode: UInt16?
     static var highlightBorderColor: NSColor?
     static var highlightBackgroundColor: NSColor?
     static var metaKeyCode: KeyCode?
@@ -80,7 +80,7 @@ class Preferences {
             fontHeight = try CGFloat(value).orThrow()
             font = NSFont.systemFont(ofSize: fontHeight!)
         case "tabKey":
-            tabKey = try UInt16(value).orThrow()
+            tabKeyCode = try UInt16(value).orThrow()
         case "metaKey":
             let p = try metaKeyMacro.labelToMacro[value].orThrow()
             metaKeyCode = p.preferences.0
