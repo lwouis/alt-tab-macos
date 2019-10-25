@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/lwouis/alt-tab-macos/compare/v1.8.1...v1.9.0) (2019-10-25)
+
+
+### Features
+
+* hovering with the mouse highlights cells (closes [#34](https://github.com/lwouis/alt-tab-macos/issues/34)) ([f20ada6](https://github.com/lwouis/alt-tab-macos/commit/f20ada6))
+
 ## [1.8.1](https://github.com/lwouis/alt-tab-macos/compare/v1.8.0...v1.8.1) (2019-10-25)
 
 
