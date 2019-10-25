@@ -9,7 +9,7 @@ class OpenWindow {
     var cgId: CGWindowID
     var cgTitle: String
     lazy var thumbnail: NSImage = computeThumbnail()
-    lazy var icon: NSImage = computeIcon()
+    lazy var icon: NSImage? = computeIcon()
 
     init(target: AXUIElement?, ownerPid: pid_t?, cgId: CGWindowID, cgTitle: String) {
         self.target = target
@@ -18,8 +18,8 @@ class OpenWindow {
         self.cgTitle = cgTitle
     }
 
-    func computeIcon() -> NSImage {
-        return NSRunningApplication(processIdentifier: ownerPid!)!.icon!
+    func computeIcon() -> NSImage? {
+        NSRunningApplication(processIdentifier: ownerPid!)?.icon
     }
 
     func computeThumbnail() -> NSImage {

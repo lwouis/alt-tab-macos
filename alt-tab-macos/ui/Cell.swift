@@ -77,7 +77,7 @@ class Cell: NSCollectionViewItem {
         thumbnail.image!.size = NSSize(width: width, height: height)
         thumbnail.frame.size = NSSize(width: width, height: height)
         icon.image = element.icon
-        icon.image!.size = NSSize(width: Preferences.iconSize!, height: Preferences.iconSize!)
+        icon.image?.size = NSSize(width: Preferences.iconSize!, height: Preferences.iconSize!)
         icon.frame.size = NSSize(width: Preferences.iconSize!, height: Preferences.iconSize!)
         text.string = element.cgTitle
         // workaround: setting string on NSTextView change the font (most likely a Cocoa bug)
