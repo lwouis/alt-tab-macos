@@ -1,3 +1,10 @@
+## [1.9.4](https://github.com/lwouis/alt-tab-macos/compare/v1.9.3...v1.9.4) (2019-10-25)
+
+
+### Bug Fixes
+
+* app was broken for new installs because of the tab keyCode ([51e9aee](https://github.com/lwouis/alt-tab-macos/commit/51e9aee))
+
 ## [1.9.3](https://github.com/lwouis/alt-tab-macos/compare/v1.9.2...v1.9.3) (2019-10-25)
 
 ## [1.9.2](https://github.com/lwouis/alt-tab-macos/compare/v1.9.1...v1.9.2) (2019-10-25)
