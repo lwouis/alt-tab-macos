@@ -93,13 +93,17 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
     }
 
+    func closeThumbnailsPanel() {
+        thumbnailsPanel!.orderOut(nil)
+        appIsBeingUsed = false
+        isFirstSummon = true
+    }
+
     func focusSelectedWindow(_ window: OpenWindow?) {
         workItems.forEach({ $0.cancel() })
         workItems.removeAll()
         window?.focus()
-        thumbnailsPanel!.orderOut(nil)
-        appIsBeingUsed = false
-        isFirstSummon = true
+        closeThumbnailsPanel()
     }
 
     func keyDownMeta() {
@@ -116,6 +120,11 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     func keyDownMetaShiftTab() {
         debugPrint("meta+shift+tab down")
         selectOtherCell(-1)
+    }
+
+    func keyDownMetaEsc() {
+        debugPrint("meta+esc down")
+        closeThumbnailsPanel()
     }
 
     func keyUpMeta() {

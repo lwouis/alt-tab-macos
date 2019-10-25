@@ -1,5 +1,14 @@
 import Cocoa
 
+enum KeyCode: UInt16 {
+    case escape = 53
+    case command = 55
+    case capsLock = 57
+    case tab = 58
+    case control = 59
+    case function = 63
+}
+
 class Keyboard {
     static func listenToGlobalEvents(_ delegate: Application) {
         listenToGlobalKeyboardEvents(delegate)
@@ -30,8 +39,10 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
     if cgEvent.type == .keyDown || cgEvent.type == .keyUp || cgEvent.type == .flagsChanged {
         if let event = NSEvent(cgEvent: cgEvent) {
             let keyDown = event.type == .keyDown
-            let optionKeyEvent = event.keyCode == Preferences.metaKeyCode
+            let keycode = KeyCode(rawValue: event.keyCode)
+            let optionKeyEvent = keycode == Preferences.metaKeyCode
             let tabKeyEvent = event.keyCode == Preferences.tabKey
+            let escKeyEvent = keycode == KeyCode.escape
             if optionKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) {
                 delegate.keyDownMeta()
             } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
@@ -40,6 +51,10 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
                 return nil
             } else if tabKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!, .shift]) && keyDown {
                 delegate.keyDownMetaShiftTab()
+                // focused app will not receive the event (will not press tab key in that app)
+                return nil
+            } else if escKeyEvent && event.modifiersDown([Preferences.metaModifierFlag!]) && keyDown {
+                delegate.keyDownMetaEsc()
                 // focused app will not receive the event (will not press tab key in that app)
                 return nil
             } else if optionKeyEvent && !keyDown {

@@ -7,7 +7,7 @@ let defaults = [
     "maxThumbnailsPerRow": "4",
     "iconSize": "32",
     "fontHeight": "15",
-    "tabKey": "48",
+    "tabKey": String(KeyCode.tab.rawValue),
     "metaKey": Preferences.metaKeyArray[0],
     "windowDisplayDelay": "0",
     "theme": Preferences.themeArray[0]
@@ -31,19 +31,19 @@ class Preferences {
     static var tabKey: UInt16?
     static var highlightBorderColor: NSColor?
     static var highlightBackgroundColor: NSColor?
-    static var metaKeyCode: UInt16?
+    static var metaKeyCode: KeyCode?
     static var metaModifierFlag: NSEvent.ModifierFlags?
     static var windowDisplayDelay: DispatchTimeInterval?
     static var windowCornerRadius: CGFloat?
     static var font: NSFont?
     static var themeArray = [" macOS", "❖ Windows 10"]
     static var metaKeyArray = ["⌥ option", "⌃ control", "⌘ command", "⇪ caps lock", "fn"]
-    static var metaKeyMap: [String: (UInt16, NSEvent.ModifierFlags)] = [
-        metaKeyArray[0]: (58, .option),
-        metaKeyArray[1]: (59, .control),
-        metaKeyArray[2]: (55, .command),
-        metaKeyArray[3]: (57, .capsLock),
-        metaKeyArray[4]: (63, .function),
+    static var metaKeyMap: [String: (KeyCode, NSEvent.ModifierFlags)] = [
+        metaKeyArray[0]: (KeyCode.tab, .option),
+        metaKeyArray[1]: (KeyCode.control, .control),
+        metaKeyArray[2]: (KeyCode.command, .command),
+        metaKeyArray[3]: (KeyCode.capsLock, .capsLock),
+        metaKeyArray[4]: (KeyCode.function, .function),
     ]
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
