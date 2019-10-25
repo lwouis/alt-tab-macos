@@ -3,12 +3,12 @@ import Cocoa
 
 class Preferences {
     static var defaults: [String: String] = [
-        "version": "1", // bump this anytime the dictionary is changed
-        "maxScreenUsage": "0.8",
+        "version": "2", // bump this anytime the dictionary is changed
+        "maxScreenUsage": "80",
         "maxThumbnailsPerRow": "4",
         "iconSize": "32",
         "fontHeight": "15",
-        "tabKey": String(KeyCode.tab.rawValue),
+        "tabKeyCode": String(KeyCode.tab.rawValue),
         "metaKey": metaKeyMacro.macros[0].label,
         "windowDisplayDelay": "0",
         "theme": themeMacro.macros[0].label
@@ -67,7 +67,7 @@ class Preferences {
     static func updateAndValidateFromString(_ valueName: String, _ value: String) throws {
         switch valueName {
         case "maxScreenUsage":
-            maxScreenUsage = try CGFloat(value).orThrow()
+            maxScreenUsage = try CGFloat(CGFloat(value).orThrow() / 100)
         case "maxThumbnailsPerRow":
             maxThumbnailsPerRow = try CGFloat(value).orThrow()
         case "iconSize":
@@ -75,7 +75,7 @@ class Preferences {
         case "fontHeight":
             fontHeight = try CGFloat(value).orThrow()
             font = NSFont.systemFont(ofSize: fontHeight!)
-        case "tabKey":
+        case "tabKeyCode":
             tabKeyCode = try UInt16(value).orThrow()
         case "metaKey":
             let p = try metaKeyMacro.labelToMacro[value].orThrow()

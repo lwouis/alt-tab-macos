@@ -2,10 +2,10 @@ import Cocoa
 
 // Apple doesn't provide an enum for this, strangely
 enum KeyCode: UInt16 {
+    case tab = 48
     case escape = 53
     case command = 55
     case capsLock = 57
-    case tab = 58
     case control = 59
     case function = 63
     case leftArrow = 123
