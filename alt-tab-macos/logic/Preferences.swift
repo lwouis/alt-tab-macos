@@ -37,7 +37,7 @@ class Preferences {
     static var windowCornerRadius: CGFloat?
     static var font: NSFont?
     static var themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
-        MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.15))),
+        MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
         MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
     ])
     static var metaKeyMacro = MacroPreferenceHelper<(KeyCode, NSEvent.ModifierFlags)>([
