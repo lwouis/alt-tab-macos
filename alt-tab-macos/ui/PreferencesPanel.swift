@@ -28,7 +28,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
         return [
             makeLabelWithDropdown(\PreferencesPanel.theme, "Main window theme", "theme", Preferences.themeMacro.labels),
             makeLabelWithDropdown(\PreferencesPanel.metaKey, "Meta key to activate the app", "metaKey", Preferences.metaKeyMacro.labels),
-            makeLabelWithInput(\PreferencesPanel.tabKeyCode, "Tab key (NSEvent.keyCode)", "tabKeyCode"),
+            makeLabelWithInput(\PreferencesPanel.tabKeyCode, "Tab key (HIToolbox.Events)", "tabKeyCode"),
             makeLabelWithInput(\PreferencesPanel.maxScreenUsage, "Max window size (screen %)", "maxScreenUsage"),
             makeLabelWithInput(\PreferencesPanel.maxThumbnailsPerRow, "Max thumbnails per row", "maxThumbnailsPerRow"),
             makeLabelWithInput(\PreferencesPanel.iconSize, "Apps icon size (px)", "iconSize"),
