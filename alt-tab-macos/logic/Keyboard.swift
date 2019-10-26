@@ -50,10 +50,7 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
             let isLeftArrow = keycode == KeyCode.leftArrow
             let isEscape = keycode == KeyCode.escape
             if event.modifierFlags.contains(Preferences.metaModifierFlag!) {
-                if isMeta {
-                    delegate.preActivate()
-                    return nil // previously focused app should not receive keys
-                } else if keyDown {
+                if keyDown {
                     if isTab && event.modifierFlags.contains(.shift) {
                         delegate.showUiOrSelectPrevious()
                         return nil // previously focused app should not receive keys

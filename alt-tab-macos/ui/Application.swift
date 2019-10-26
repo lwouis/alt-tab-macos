@@ -35,12 +35,6 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         Screen.listenToChanges()
     }
 
-    func preActivate() {
-        debugPrint("preActivate")
-        computeOpenWindows()
-        selectedOpenWindow = 0
-    }
-
     func showUiOrSelectNext() {
         debugPrint("showUiOrSelectNext")
         showUiOrCycleSelection(1)
@@ -107,20 +101,25 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     func showUiOrCycleSelection(_ step: Int) {
         appIsBeingUsed = true
-        if openWindows.count > 0 {
-            if isFirstSummon {
-                isFirstSummon = false
-                let workItem = DispatchWorkItem {
-                    self.computeOpenWindows()
-                    self.thumbnailsPanel!.computeThumbnails()
-                    self.cycleSelection(step)
-                    self.showCenteredPanel(self.thumbnailsPanel!)
-                }
-                workItems.append(workItem)
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay!, execute: workItem)
-            } else {
-                self.cycleSelection(step)
+        if isFirstSummon {
+            isFirstSummon = false
+            selectedOpenWindow = 0
+            computeOpenWindows()
+            if openWindows.count <= 0 {
+                return
             }
+            selectedOpenWindow = cellWithStep(step)
+            var workItem: DispatchWorkItem!
+            workItem = DispatchWorkItem {
+                if !workItem.isCancelled { self.thumbnailsPanel!.computeThumbnails() }
+                if !workItem.isCancelled { self.thumbnailsPanel!.highlightCellAt(step) }
+                if !workItem.isCancelled { self.showCenteredPanel(self.thumbnailsPanel!) }
+            }
+            workItems.append(workItem)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay!, execute: workItem)
+
+        } else {
+            cycleSelection(step)
         }
     }
 
