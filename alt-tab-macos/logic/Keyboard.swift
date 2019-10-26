@@ -1,17 +1,5 @@
 import Cocoa
-
-// Apple doesn't provide an enum for this, strangely
-enum KeyCode: UInt16 {
-    case tab = 48
-    case escape = 53
-    case command = 55
-    case capsLock = 57
-    case option = 58
-    case control = 59
-    case function = 63
-    case leftArrow = 123
-    case rightArrow = 124
-}
+import Carbon.HIToolbox
 
 class Keyboard {
     static func listenToGlobalEvents(_ delegate: Application) {
@@ -43,12 +31,11 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
     if cgEvent.type == .keyDown || cgEvent.type == .keyUp || cgEvent.type == .flagsChanged {
         if let event = NSEvent(cgEvent: cgEvent) {
             let keyDown = event.type == .keyDown
-            let keycode = KeyCode(rawValue: event.keyCode)
             let isTab = event.keyCode == Preferences.tabKeyCode
-            let isMeta = keycode == Preferences.metaKeyCode
-            let isRightArrow = keycode == KeyCode.rightArrow
-            let isLeftArrow = keycode == KeyCode.leftArrow
-            let isEscape = keycode == KeyCode.escape
+            let isMeta = event.keyCode == Preferences.metaKeyCode
+            let isRightArrow = event.keyCode == kVK_RightArrow
+            let isLeftArrow = event.keyCode == kVK_LeftArrow
+            let isEscape = event.keyCode == kVK_Escape
             if event.modifierFlags.contains(Preferences.metaModifierFlag!) {
                 if keyDown {
                     if isTab && event.modifierFlags.contains(.shift) {

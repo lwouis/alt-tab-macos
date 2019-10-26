@@ -1,5 +1,6 @@
 import Foundation
 import Cocoa
+import Carbon.HIToolbox
 
 class Preferences {
     static var defaults: [String: String] = [
@@ -8,7 +9,7 @@ class Preferences {
         "maxThumbnailsPerRow": "4",
         "iconSize": "32",
         "fontHeight": "15",
-        "tabKeyCode": String(KeyCode.tab.rawValue),
+        "tabKeyCode": String(kVK_Tab),
         "metaKey": metaKeyMacro.macros[0].label,
         "windowDisplayDelay": "0",
         "theme": themeMacro.macros[0].label
@@ -31,7 +32,7 @@ class Preferences {
     static var tabKeyCode: UInt16?
     static var highlightBorderColor: NSColor?
     static var highlightBackgroundColor: NSColor?
-    static var metaKeyCode: KeyCode?
+    static var metaKeyCode: UInt16?
     static var metaModifierFlag: NSEvent.ModifierFlags?
     static var windowDisplayDelay: DispatchTimeInterval?
     static var windowCornerRadius: CGFloat?
@@ -40,12 +41,12 @@ class Preferences {
         MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
         MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
     ])
-    static var metaKeyMacro = MacroPreferenceHelper<(KeyCode, NSEvent.ModifierFlags)>([
-        MacroPreference("⌥ option", (.option, .option)),
-        MacroPreference("⌃ control", (.control, .control)),
-        MacroPreference("⌘ command", (.command, .command)),
-        MacroPreference("⇪ caps lock", (.capsLock, .capsLock)),
-        MacroPreference("fn", (.function, .function))
+    static var metaKeyMacro = MacroPreferenceHelper<(Int, NSEvent.ModifierFlags)>([
+        MacroPreference("⌥ option", (kVK_Option, .option)),
+        MacroPreference("⌃ control", (kVK_Control, .control)),
+        MacroPreference("⌘ command", (kVK_Command, .command)),
+        MacroPreference("⇪ caps lock", (kVK_CapsLock, .capsLock)),
+        MacroPreference("fn", (kVK_Function, .function))
     ])
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
@@ -79,7 +80,7 @@ class Preferences {
             tabKeyCode = try UInt16(value).orThrow()
         case "metaKey":
             let p = try metaKeyMacro.labelToMacro[value].orThrow()
-            metaKeyCode = p.preferences.0
+            metaKeyCode = UInt16(p.preferences.0)
             metaModifierFlag = p.preferences.1
         case "theme":
             let p = try themeMacro.labelToMacro[value].orThrow()
