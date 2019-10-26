@@ -101,11 +101,11 @@ class Preferences {
     }
 
     private static func preferencesVersion(_ url: URL) throws -> Int {
-        try Int(loadFromDisk(url)["version"] ?? "0").orThrow()
+        return try Int(loadFromDisk(url)["version"] ?? "0").orThrow()
     }
 
     private static func loadFromDisk(_ url: URL) throws -> [String: String] {
-        try JSONDecoder().decode([String: String].self, from: Data(contentsOf: url))
+        return try JSONDecoder().decode([String: String].self, from: Data(contentsOf: url))
     }
 
     private static func handleNoFileOrOldFile(_ userFile: URL) throws {
@@ -134,7 +134,7 @@ class Preferences {
     }
 
     private static func fileFromPreferencesFolder(_ fileName: String) -> URL {
-        FileManager.default
+        return FileManager.default
                 .urls(for: .libraryDirectory, in: .userDomainMask)
                 .first!
                 .appendingPathComponent("Preferences", isDirectory: true)

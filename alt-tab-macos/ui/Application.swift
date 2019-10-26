@@ -91,7 +91,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func cellWithStep(_ step: Int) -> Int {
-        selectedOpenWindow + step < 0 ? openWindows.count - 1 : (selectedOpenWindow + step) % openWindows.count
+        return selectedOpenWindow + step < 0 ? openWindows.count - 1 : (selectedOpenWindow + step) % openWindows.count
     }
 
     func cycleSelection(_ step: Int) {
@@ -130,6 +130,6 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func currentlySelectedWindow() -> OpenWindow? {
-        openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
+        return openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
     }
 }

@@ -17,7 +17,7 @@ class OpenWindow {
     }
 
     func computeIcon() -> NSImage? {
-        NSRunningApplication(processIdentifier: ownerPid!)?.icon
+        return NSRunningApplication(processIdentifier: ownerPid!)?.icon
     }
 
     func computeThumbnail() -> NSImage {
