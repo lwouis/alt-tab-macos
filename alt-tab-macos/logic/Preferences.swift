@@ -43,9 +43,7 @@ class Preferences {
     static var metaKeyMacro = MacroPreferenceHelper<(KeyCode, NSEvent.ModifierFlags)>([
         MacroPreference("⌥ option", (.option, .option)),
         MacroPreference("⌃ control", (.control, .control)),
-        MacroPreference("⌘ command", (.command, .command)),
-        MacroPreference("⇪ caps lock", (.capsLock, .capsLock)),
-        MacroPreference("fn", (.function, .function))
+        MacroPreference("⌘ command", (.command, .command))
     ])
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
