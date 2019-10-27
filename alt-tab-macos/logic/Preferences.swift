@@ -32,7 +32,7 @@ class Preferences {
     static var tabKeyCode: UInt16?
     static var highlightBorderColor: NSColor?
     static var highlightBackgroundColor: NSColor?
-    static var metaKeyCode: UInt16?
+    static var metaKeyCodes: [UInt16] = []
     static var metaModifierFlag: NSEvent.ModifierFlags?
     static var windowDisplayDelay: DispatchTimeInterval?
     static var windowCornerRadius: CGFloat?
@@ -41,12 +41,12 @@ class Preferences {
         MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
         MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
     ])
-    static var metaKeyMacro = MacroPreferenceHelper<(Int, NSEvent.ModifierFlags)>([
-        MacroPreference("⌥ option", (kVK_Option, .option)),
-        MacroPreference("⌃ control", (kVK_Control, .control)),
-        MacroPreference("⌘ command", (kVK_Command, .command)),
-        MacroPreference("⇪ caps lock", (kVK_CapsLock, .capsLock)),
-        MacroPreference("fn", (kVK_Function, .function))
+    static var metaKeyMacro = MacroPreferenceHelper<([Int], NSEvent.ModifierFlags)>([
+        MacroPreference("⌥ option", ([kVK_Option, kVK_RightOption], .option)),
+        MacroPreference("⌃ control", ([kVK_Control, kVK_RightControl], .control)),
+        MacroPreference("⌘ command", ([kVK_Command, kVK_RightCommand], .command)),
+        MacroPreference("⇪ caps lock", ([kVK_CapsLock], .capsLock)),
+        MacroPreference("fn", ([kVK_Function], .function))
     ])
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
@@ -80,7 +80,7 @@ class Preferences {
             tabKeyCode = try UInt16(value).orThrow()
         case "metaKey":
             let p = try metaKeyMacro.labelToMacro[value].orThrow()
-            metaKeyCode = UInt16(p.preferences.0)
+            metaKeyCodes = p.preferences.0.map { UInt16($0) }
             metaModifierFlag = p.preferences.1
         case "theme":
             let p = try themeMacro.labelToMacro[value].orThrow()
