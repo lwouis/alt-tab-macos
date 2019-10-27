@@ -1,3 +1,10 @@
+## [1.9.7](https://github.com/lwouis/alt-tab-macos/compare/v1.9.6...v1.9.7) (2019-10-27)
+
+
+### Bug Fixes
+
+* remove broken meta keys from preferences (closes [#61](https://github.com/lwouis/alt-tab-macos/issues/61)) ([5517e7a](https://github.com/lwouis/alt-tab-macos/commit/5517e7a))
+
 ## [1.9.6](https://github.com/lwouis/alt-tab-macos/compare/v1.9.5...v1.9.6) (2019-10-26)
 
 
