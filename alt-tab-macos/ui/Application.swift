@@ -13,6 +13,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     var workItems: [DispatchWorkItem] = []
     var isFirstSummon: Bool = true
     var appIsBeingUsed: Bool = false
+    var isMetaKeyPressed: Bool = false
 
     override init() {
         super.init()
@@ -33,6 +34,11 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         preferencesPanel = PreferencesPanel()
         Keyboard.listenToGlobalEvents(self)
         Screen.listenToChanges()
+    }
+
+    func toggleMetaKey() {
+        debugPrint("toggleMetaKey")
+        isMetaKeyPressed = !isMetaKeyPressed
     }
 
     func showUiOrSelectNext() {

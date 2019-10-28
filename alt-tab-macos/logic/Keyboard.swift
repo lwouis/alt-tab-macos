@@ -38,7 +38,10 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
             let isRightArrow = event.keyCode == kVK_RightArrow
             let isLeftArrow = event.keyCode == kVK_LeftArrow
             let isEscape = event.keyCode == kVK_Escape
-            if event.modifierFlags.contains(Preferences.metaModifierFlag!) {
+            if isMeta {
+                delegate.toggleMetaKey()
+            }
+            if delegate.isMetaKeyPressed {
                 if keyDown {
                     if isTab && event.modifierFlags.contains(.shift) {
                         delegate.showUiOrSelectPrevious()
