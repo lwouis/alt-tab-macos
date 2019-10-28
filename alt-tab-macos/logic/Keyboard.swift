@@ -15,7 +15,7 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
         eventTap = CGEvent.tapCreate(
                 tap: .cgSessionEventTap,
                 place: .headInsertEventTap,
-                options: .listenOnly,
+                options: .defaultTap,
                 eventsOfInterest: eventMask,
                 callback: { (_, _, event, delegate_) -> Unmanaged<CGEvent>? in
                     let d = Unmanaged<Application>.fromOpaque(delegate_!).takeUnretainedValue()
