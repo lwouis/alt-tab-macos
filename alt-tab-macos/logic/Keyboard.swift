@@ -59,6 +59,7 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
                 }
             } else if isMeta && !keyDown {
                 delegate.focusTarget()
+                return nil // previously focused app should not receive keys
             }
         }
     } else if cgEvent.type == .tapDisabledByUserInput || cgEvent.type == .tapDisabledByTimeout {
