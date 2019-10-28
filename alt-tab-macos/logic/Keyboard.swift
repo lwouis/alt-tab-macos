@@ -1,5 +1,5 @@
 import Cocoa
-import Carbon.HIToolbox
+import Carbon.HIToolbox.Events
 
 class Keyboard {
     static func listenToGlobalEvents(_ delegate: Application) {
@@ -34,7 +34,7 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
         if let event = NSEvent(cgEvent: cgEvent) {
             let keyDown = event.type == .keyDown
             let isTab = event.keyCode == Preferences.tabKeyCode
-            let isMeta = event.keyCode == Preferences.metaKeyCode
+            let isMeta = Preferences.metaKeyCodes!.contains(event.keyCode)
             let isRightArrow = event.keyCode == kVK_RightArrow
             let isLeftArrow = event.keyCode == kVK_LeftArrow
             let isEscape = event.keyCode == kVK_Escape
