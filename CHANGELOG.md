@@ -1,3 +1,10 @@
+## [1.9.8](https://github.com/lwouis/alt-tab-macos/compare/v1.9.7...v1.9.8) (2019-10-28)
+
+
+### Bug Fixes
+
+* adds missing return statements ([4b517ff](https://github.com/lwouis/alt-tab-macos/commit/4b517ff))
+
 ## [1.9.7](https://github.com/lwouis/alt-tab-macos/compare/v1.9.6...v1.9.7) (2019-10-27)
 
 
