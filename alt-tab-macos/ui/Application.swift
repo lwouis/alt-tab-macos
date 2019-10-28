@@ -47,7 +47,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     func hideUi() {
         debugPrint("hideUi")
-        thumbnailsPanel!.orderOut(nil)
+        DispatchQueue.main.async(execute: { self.thumbnailsPanel!.orderOut(nil) })
         appIsBeingUsed = false
         isFirstSummon = true
     }
@@ -96,7 +96,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     func cycleSelection(_ step: Int) {
         selectedOpenWindow = cellWithStep(step)
-        thumbnailsPanel!.highlightCellAt(step)
+        DispatchQueue.main.async(execute: { self.thumbnailsPanel!.highlightCellAt(step) })
     }
 
     func showUiOrCycleSelection(_ step: Int) {
@@ -117,7 +117,6 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
             }
             workItems.append(workItem)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay!, execute: workItem)
-
         } else {
             cycleSelection(step)
         }

@@ -22,21 +22,23 @@ class Keyboard {
 var eventTap: CFMachPort?
 
 func listenToGlobalKeyboardEvents(_ delegate: Application) {
-    let eventMask = [CGEventType.keyDown, CGEventType.keyUp, CGEventType.flagsChanged].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
-    eventTap = CGEvent.tapCreate(
-            tap: .cgSessionEventTap,
-            place: .headInsertEventTap,
-            options: .defaultTap,
-            eventsOfInterest: CGEventMask(eventMask),
-            callback: { (_, _, event, delegate_) -> Unmanaged<CGEvent>? in
-                let d = Unmanaged<Application>.fromOpaque(delegate_!).takeUnretainedValue()
-                return keyboardHandler(event, d)
-            },
-            userInfo: UnsafeMutableRawPointer(Unmanaged.passUnretained(delegate).toOpaque()))
-    let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
-    CGEvent.tapEnable(tap: eventTap!, enable: true)
-    CFRunLoopRun()
+    DispatchQueue.global(qos: .userInteractive).async {
+        let eventMask = [CGEventType.keyDown, CGEventType.keyUp, CGEventType.flagsChanged].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
+        eventTap = CGEvent.tapCreate(
+                tap: .cgSessionEventTap,
+                place: .headInsertEventTap,
+                options: .defaultTap,
+                eventsOfInterest: CGEventMask(eventMask),
+                callback: { (_, _, event, delegate_) -> Unmanaged<CGEvent>? in
+                    let d = Unmanaged<Application>.fromOpaque(delegate_!).takeUnretainedValue()
+                    return keyboardHandler(event, d)
+                },
+                userInfo: UnsafeMutableRawPointer(Unmanaged.passUnretained(delegate).toOpaque()))
+        let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
+        CGEvent.tapEnable(tap: eventTap!, enable: true)
+        CFRunLoopRun()
+    }
 }
 
 func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<CGEvent>? {
