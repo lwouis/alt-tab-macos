@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/lwouis/alt-tab-macos/compare/v1.9.8...v1.10.0) (2019-10-28)
+
+
+### Features
+
+* don't show the UI on very fast shortcut triggers from the user ([4b5fa1a](https://github.com/lwouis/alt-tab-macos/commit/4b5fa1a))
+
 ## [1.9.8](https://github.com/lwouis/alt-tab-macos/compare/v1.9.7...v1.9.8) (2019-10-28)
 
 
