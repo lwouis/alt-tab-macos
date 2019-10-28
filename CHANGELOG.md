@@ -1,3 +1,16 @@
+# [1.11.0](https://github.com/lwouis/alt-tab-macos/compare/v1.10.0...v1.11.0) (2019-10-28)
+
+
+### Bug Fixes
+
+* app was no longer absorbing its shortcut key events properly ([4976267](https://github.com/lwouis/alt-tab-macos/commit/4976267))
+* don't let the app bellow get the meta keyUp event ([7f12f41](https://github.com/lwouis/alt-tab-macos/commit/7f12f41))
+
+
+### Features
+
+* allows more than one metaKeyCode ([7e21974](https://github.com/lwouis/alt-tab-macos/commit/7e21974))
+
 # [1.10.0](https://github.com/lwouis/alt-tab-macos/compare/v1.9.8...v1.10.0) (2019-10-28)
 
 
