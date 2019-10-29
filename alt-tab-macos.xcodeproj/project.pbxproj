@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		645DD3EC66E4CA50071EB873 /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A65B1CD1FB923A03BAB42C9E /* Pods_alt_tab_macos.framework */; };
 		D04BA02DD4152997C32CF50B /* StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */; };
 		D04BA0F3D46BC79544E2B930 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA86768C6503A11ED81FC /* Extensions.swift */; };
 		D04BA20D4A240843293B3B52 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA56355579F78776E6D51 /* Cell.swift */; };
@@ -17,6 +18,7 @@
 		D04BA70FF7262BF5F9E6E13B /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BADCB1C0F50340A6CAFC2 /* Preferences.swift */; };
 		D04BA8EBC0365A019A27C7EA /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA3F15EAE8D8C39B6F2CF /* Screen.swift */; };
 		D04BA9119E2329DB5A35B3C7 /* ThumbnailsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE5BBE182DD5DDFE2E3E /* ThumbnailsPanel.swift */; };
+		D04BA92AE64091ABA98F1501 /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = D04BA3CD7871EE5DB69A8D34 /* Podfile.lock */; };
 		D04BA960DDD1D32A3019C835 /* CollectionViewCenterFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA3202A2C22C347E849B3 /* CollectionViewCenterFlowLayout.swift */; };
 		D04BA9CCE02D30C8164A552A /* SystemPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */; };
 		D04BAD4DE538FDF7E7532EE2 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD32E130E4A061DC8332 /* Labels.swift */; };
@@ -24,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E30665BB0A5B6A69303408E /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
+		8DA99A6AA42718DF86457FC2 /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
+		A65B1CD1FB923A03BAB42C9E /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA02F476DE30C4647886C /* PreferencesPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesPanel.swift; sourceTree = "<group>"; };
 		D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItem.swift; sourceTree = "<group>"; };
 		D04BA0CE87BE264C52987ED1 /* 7 windows - 2 lines - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - wide window.jpg"; sourceTree = "<group>"; };
@@ -38,6 +43,7 @@
 		D04BA3202A2C22C347E849B3 /* CollectionViewCenterFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCenterFlowLayout.swift; sourceTree = "<group>"; };
 		D04BA32F25860B686DFE818A /* 3 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA35456DA0DDA74F9687E /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		D04BA3CD7871EE5DB69A8D34 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file.lock; path = Podfile.lock; sourceTree = "<group>"; };
 		D04BA3F15EAE8D8C39B6F2CF /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		D04BA4336B6004A0A99849AD /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
 		D04BA459034C1885CA43A807 /* LICENCE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENCE.md; sourceTree = "<group>"; };
@@ -52,6 +58,7 @@
 		D04BA86768C6503A11ED81FC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D04BA90C6C36DB1D65BC2B66 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		D04BA92541D46EA4F6943A72 /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
+		D04BA97601A099397041F57E /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		D04BA9EF65B2E7AF9E3ADCA3 /* 2 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "2 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BAA34E0CB00DED7C04B4F /* 2-rows.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "2-rows.jpg"; sourceTree = "<group>"; };
 		D04BAA44C837F3A67403B9DB /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -78,12 +85,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				645DD3EC66E4CA50071EB873 /* Pods_alt_tab_macos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65BED828122D17C3A103F155 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8DA99A6AA42718DF86457FC2 /* Pods-alt-tab-macos.debug.xcconfig */,
+				2E30665BB0A5B6A69303408E /* Pods-alt-tab-macos.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		CD0ADA05569DEF0EFFAFCB9F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A65B1CD1FB923A03BAB42C9E /* Pods_alt_tab_macos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D04BA1463D2A17038222BB84 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +126,10 @@
 				D04BAFA277EAE3BDDDB61110 /* CHANGELOG.md */,
 				D04BA703DCD38D9757093312 /* ci */,
 				D04BA459034C1885CA43A807 /* LICENCE.md */,
+				D04BA97601A099397041F57E /* Podfile */,
+				65BED828122D17C3A103F155 /* Pods */,
+				CD0ADA05569DEF0EFFAFCB9F /* Frameworks */,
+				D04BA3CD7871EE5DB69A8D34 /* Podfile.lock */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,9 +246,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D04BA4D71CBB2FA4B9947B10 /* Build configuration list for PBXNativeTarget "alt-tab-macos" */;
 			buildPhases = (
+				A97F8DCD4BDC36B0D5868999 /* [CP] Check Pods Manifest.lock */,
 				D04BAD01F4BCEDF8B539AFD2 /* Sources */,
 				D04BA82F32FB183F65DC3E42 /* Frameworks */,
 				D04BA96F3DC99263120BCD21 /* Resources */,
+				DCEFE479FF7A00CBEB71C35A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,10 +292,54 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D04BA92AE64091ABA98F1501 /* Podfile.lock in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A97F8DCD4BDC36B0D5868999 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-alt-tab-macos-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DCEFE479FF7A00CBEB71C35A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ShortcutRecorder/ShortcutRecorder.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ShortcutRecorder.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D04BAD01F4BCEDF8B539AFD2 /* Sources */ = {
@@ -292,6 +368,7 @@
 /* Begin XCBuildConfiguration section */
 		D04BA49BCED00029C5289244 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E30665BB0A5B6A69303408E /* Pods-alt-tab-macos.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "alt-tab-macos/alt_tab_macos.entitlements";
@@ -307,6 +384,7 @@
 		};
 		D04BA6FB4EC72C6A126E86D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DA99A6AA42718DF86457FC2 /* Pods-alt-tab-macos.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "alt-tab-macos/alt_tab_macos.entitlements";
