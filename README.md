@@ -1,32 +1,37 @@
-# [Download the latest release](https://github.com/lwouis/alt-tab-macos/releases/latest)
-
-# Purpose
+# alt-tab-macos
 
 [![Screenshot](docs/img/alt-tab-macos/frontpage.jpg)](docs/img/alt-tab-macos/frontpage.jpg)
 
-**alt-tab-macos** brings the power of Windows "alt-tab" window switcher to macOS.
+**alt-tab-macos** brings the power of Windows' "alt-tab" window switcher to macOS.
 
-# How to use
+## Installation
 
-* Press `⌥ option` + `⇥ tab` to shows the thumbnails
-* Hold `⌥ option` and press `⇥ tab` to select the next thumbnail
-* Hold `⌥ option` and press `⇧ shift` + `⇥ tab` to select the previous thumbnail
-* Release `⌥ option` to switch focus to the window
+[**Download the latest release**](https://github.com/lwouis/alt-tab-macos/releases/latest)
+and extract it in your Applications folder. If macOS refuses to run the application
+because it's from an unidentified developer, right-click the application,
+choose **Open** then click **Open** in the prompt that appears.
+
+## Usage
+
+* Press `⌥ option` + `⇥ tab` to shows the thumbnails.
+* Hold `⌥ option` and press `⇥ tab` to select the next thumbnail.
+* Hold `⌥ option` and press `⇧ shift` + `⇥ tab` to select the previous thumbnail.
+* Release `⌥ option` to switch focus to the window.
 
 **Extra:**
 
-* You hover and click with the `🖱️ mouse`
-* You cycle with `⇦ left arrow` and `⇨ right arrow`
-* You can cancel with `⎋ escape`
+* You hover and click with the `🖱️ mouse`.
+* You cycle with `⇦ left arrow` and `⇨ right arrow`.
+* You can cancel with `⎋ escape`.
 
-# Configuration
+## Configuration
 
-* Change the shortcut key, switch to a Windows theme, and more, using the Preferences window
-* If you like scriptable/portable configuration, you can edit `~/Library/Preferences/alt-tab-macos.json`
+* Change the shortcut key, switch to a Windows theme and more, using the Preferences window.
+* If you like scriptable/portable configuration, you can edit `~/Library/Preferences/alt-tab-macos.json`.
 
-# Alternatives
+## Alternatives
 
-Before building my own app, I looked around at similar apps. However, none was completely satisfactory so I rolled my own. Also the almost-good-enough apps are not open-source.
+Before building my own app, I looked around at similar apps. However, none was completely satisfactory so I rolled my own. Also, the almost-good-enough apps are not open-source.
 
 | Alternative                                                                                 | Differences                                                                                                  |
 |---------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
@@ -37,14 +42,17 @@ Before building my own app, I looked around at similar apps. However, none was c
 | Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_\(macOS\))          | No keyboard support                                                                                          |
 | `⌘ command` + `⇥ tab`                                                                     | Only shows apps, not windows (note: can press down to see window of selected app)                            |
 | `⌘ command` + `` ` ``                                                                      | Cycles through tabs and windows, but only of the same app. Only cycling, no direct access                    |
-  
-# Screenshots
 
-1 row
+## Screenshots
+
+### 1 row
+
 [![Screenshot](docs/img/alt-tab-macos/1-row.jpg)](docs/img/alt-tab-macos/1-row.jpg)
 
-2 rows
+### 2 rows
+
 [![Screenshot](docs/img/alt-tab-macos/2-rows.jpg)](docs/img/alt-tab-macos/2-rows.jpg)
 
-Windows theme
+### Windows theme
+
 [![Screenshot](docs/img/alt-tab-macos/windows-theme.jpg)](docs/img/alt-tab-macos/windows-theme.jpg)
