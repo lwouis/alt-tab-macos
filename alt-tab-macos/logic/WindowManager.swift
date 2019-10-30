@@ -33,13 +33,14 @@ class OpenWindow {
     }
 }
 
-func computeDownscaledSize(_ image: NSImage) -> (Int, Int) {
+func computeDownscaledSize(_ image: NSImage, _ screen: NSScreen) -> (Int, Int) {
     let imageRatio = image.size.width / image.size.height
-    let thumbnailWidth = Int(floor(Preferences.thumbnailMaxHeight * imageRatio))
-    if thumbnailWidth <= Int(Preferences.thumbnailMaxWidth) {
-        return (thumbnailWidth, Int(Preferences.thumbnailMaxHeight))
+    let thumbnailMaxSize = Screen.calcThumbnailMaxSize(screen)
+    let thumbnailWidth = Int(floor(thumbnailMaxSize.height * imageRatio))
+    if thumbnailWidth <= Int(thumbnailMaxSize.width) {
+        return (thumbnailWidth, Int(thumbnailMaxSize.height))
     } else {
-        return (Int(Preferences.thumbnailMaxWidth), Int(floor(Preferences.thumbnailMaxWidth / imageRatio)))
+        return (Int(thumbnailMaxSize.width), Int(floor(thumbnailMaxSize.width / imageRatio)))
     }
 }
 

@@ -37,10 +37,10 @@ class Cell: NSCollectionViewItem {
 
 
 
-    func updateWithNewContent(_ element: OpenWindow, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback) {
+    func updateWithNewContent(_ element: OpenWindow, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
         openWindow = element
         thumbnail.image = element.thumbnail
-        let (width, height) = computeDownscaledSize(element.thumbnail)
+        let (width, height) = computeDownscaledSize(element.thumbnail, screen)
         thumbnail.image!.size = NSSize(width: width, height: height)
         thumbnail.frame.size = NSSize(width: width, height: height)
         icon.image = element.icon
