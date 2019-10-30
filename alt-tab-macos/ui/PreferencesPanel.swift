@@ -1,4 +1,5 @@
 import Cocoa
+import ShortcutRecorder
 
 class PreferencesPanel: NSPanel, NSTextViewDelegate {
     var maxScreenUsage: NSTextView?
@@ -15,6 +16,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
     var windowDisplayDelay: NSTextView?
     var metaKey: NSPopUpButton?
     var theme: NSPopUpButton?
+    var shortcut: RecorderControl?
     var inputsMap = [NSTextView: String]()
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
@@ -34,7 +36,34 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
             makeLabelWithInput(\PreferencesPanel.iconSize, "Apps icon size (px)", "iconSize"),
             makeLabelWithInput(\PreferencesPanel.fontHeight, "Font size (px)", "fontHeight"),
             makeLabelWithInput(\PreferencesPanel.windowDisplayDelay, "Window apparition delay (ms)", "windowDisplayDelay"),
+            makeLabelWithRecorder(\PreferencesPanel.shortcut, "Shortcut to activate the app", "shortcut"),
+
         ]
+    }
+
+    private func makeLabelWithRecorder(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, RecorderControl?>, _ labelText: String, _ rawName: String) -> [NSView] {
+        let label = BaseLabel(labelText)
+        label.alignment = .right
+        let input = RecorderControl()
+        input.set(allowedModifierFlags: [.command, .shift, .control], // the option flag is not allowed
+                requiredModifierFlags: [.command, .shift], // ⇧ and ⌘ are required
+                allowsEmptyModifierFlags: false) // at least one modifier flag must be set
+        input.target = self
+        input.action = #selector(recordShortcut)
+        input.objectValue = Preferences.shortcut
+        shortcut = input
+        return [label, input]
+    }
+
+    @objc func recordShortcut(sender: RecorderControl) {
+        print("action: \(sender.stringValue)")
+        do {
+            try! Preferences.updateAndValidateFromString("shortcut", sender.stringValue)
+            try Preferences.saveRawToDisk()
+        } catch {
+            debugPrint("shortcut", error)
+            shortcut!.stringValue = Preferences.rawValues["shortcut"]!
+        }
     }
 
     private func makeGridView(_ rows: [[NSView]], _ warningLabel: BaseLabel) -> NSGridView {

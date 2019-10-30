@@ -1,6 +1,7 @@
 import Foundation
 import Cocoa
 import Carbon.HIToolbox.Events
+import ShortcutRecorder
 
 class Preferences {
     static var defaults: [String: String] = [
@@ -12,7 +13,8 @@ class Preferences {
         "tabKeyCode": String(kVK_Tab),
         "metaKey": metaKeyMacro.macros[0].label,
         "windowDisplayDelay": "0",
-        "theme": themeMacro.macros[0].label
+        "theme": themeMacro.macros[0].label,
+        "shortcut": "⌥⇥"
     ]
     static var rawValues = [String: String]()
     static var thumbnailMaxWidth: CGFloat = 200
@@ -36,6 +38,7 @@ class Preferences {
     static var metaModifierFlag: NSEvent.ModifierFlags?
     static var windowDisplayDelay: DispatchTimeInterval?
     static var windowCornerRadius: CGFloat?
+    static var shortcut: Shortcut?
     static var font: NSFont?
     static var themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
         MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
@@ -80,6 +83,8 @@ class Preferences {
             let p = try metaKeyMacro.labelToMacro[value].orThrow()
             metaKeyCodes = p.preferences.0.map { UInt16($0) }
             metaModifierFlag = p.preferences.1
+        case "shortcut":
+            shortcut = try Shortcut(keyEquivalent: value).orThrow()
         case "theme":
             let p = try themeMacro.labelToMacro[value].orThrow()
             cellBorderWidth = p.preferences.0
