@@ -1,0 +1,12 @@
+name: Greetings
+
+on: [pull_request]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-message: 'Hey **#**! Thank you for opening a PR!\nThis project uses Conventional Commits to auto-generate releases. Please make sure your commits messages [follow the convention](https://www.conventionalcommits.org/en/v1.0.0-beta.4/#summary), so your PR can be merged.'
