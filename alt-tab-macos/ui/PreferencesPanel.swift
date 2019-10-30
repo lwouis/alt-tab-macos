@@ -6,8 +6,6 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
     var cellPadding: NSTextView?
     var cellBorderWidth: NSTextView?
     var maxThumbnailsPerRow: NSTextView?
-    var thumbnailMaxWidth: NSTextView?
-    var thumbnailMaxHeight: NSTextView?
     var iconSize: NSTextView?
     var fontHeight: NSTextView?
     var interItemPadding: NSTextView?
@@ -15,6 +13,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
     var windowDisplayDelay: NSTextView?
     var metaKey: NSPopUpButton?
     var theme: NSPopUpButton?
+    var showOnScreen: NSPopUpButton?
     var inputsMap = [NSTextView: String]()
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
@@ -34,6 +33,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
             makeLabelWithInput(\PreferencesPanel.iconSize, "Apps icon size (px)", "iconSize"),
             makeLabelWithInput(\PreferencesPanel.fontHeight, "Font size (px)", "fontHeight"),
             makeLabelWithInput(\PreferencesPanel.windowDisplayDelay, "Window apparition delay (ms)", "windowDisplayDelay"),
+            makeLabelWithDropdown(\PreferencesPanel.showOnScreen, "Show on Screen", "showOnScreen", Preferences.showOnScreenMacro.labels)
         ]
     }
 
@@ -41,7 +41,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
         let gridView = NSGridView(views: rows)
         gridView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         gridView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        gridView.widthAnchor.constraint(greaterThanOrEqualToConstant: 360).isActive = true
+        gridView.widthAnchor.constraint(greaterThanOrEqualToConstant: 380).isActive = true
         gridView.addRow(with: [warningLabel, NSGridCell.emptyContentView])
         gridView.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: gridView.numberOfRows - 1, length: 1))
         return gridView
@@ -61,7 +61,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
         input.delegate = self
         input.font = Preferences.font
         input.string = Preferences.rawValues[rawName]!
-        input.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        input.widthAnchor.constraint(equalToConstant: 40).isActive = true
         self[keyPath: keyPath] = input
         inputsMap[input] = rawName
         return [label, input]
@@ -86,6 +86,8 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
                 try! Preferences.updateAndValidateFromString("theme", popUpButton.titleOfSelectedItem!)
             case metaKey:
                 try! Preferences.updateAndValidateFromString("metaKey", popUpButton.titleOfSelectedItem!)
+            case showOnScreen:
+                try! Preferences.updateAndValidateFromString("showOnScreen", popUpButton.titleOfSelectedItem!)
             default:
                 throw "Tried to update an unknown popUpButton: '\(popUpButton)' = '\(popUpButton.titleOfSelectedItem!)'"
             }

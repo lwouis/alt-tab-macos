@@ -27,12 +27,10 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         Preferences.loadFromDiskAndUpdateValues()
-        Screen.updateThumbnailMaxSize()
         statusItem = StatusItem.make(self)
-        thumbnailsPanel = ThumbnailsPanel(self)
+        thumbnailsPanel = ThumbnailsPanel(self, Screen.getPreferredScreen())
         preferencesPanel = PreferencesPanel()
         Keyboard.listenToGlobalEvents(self)
-        Screen.listenToChanges()
     }
 
     func showUiOrSelectNext() {
@@ -61,13 +59,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     @objc func showCenteredPreferencesPanel() {
-        showCenteredPanel(preferencesPanel!)
-    }
-
-    func showCenteredPanel(_ panel: NSPanel) {
-        panel.center()
-        panel.makeKeyAndOrderFront(nil)
-        Application.shared.arrangeInFront(nil)
+        Screen.showCenteredFrontPanel(preferencesPanel!, Screen.getPreferredScreen())
     }
 
     func computeOpenWindows() {
@@ -109,11 +101,12 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
                 return
             }
             selectedOpenWindow = cellWithStep(step)
+            let currentScreen = Screen.getPreferredScreen() // we want all computations and renderings to use the same screen for this summon (in case mouse movements switching screens etc.)
             var workItem: DispatchWorkItem!
             workItem = DispatchWorkItem {
-                if !workItem.isCancelled { self.thumbnailsPanel!.computeThumbnails() }
+                if !workItem.isCancelled { self.thumbnailsPanel!.computeThumbnails(currentScreen) }
                 if !workItem.isCancelled { self.thumbnailsPanel!.highlightCellAt(step) }
-                if !workItem.isCancelled { self.showCenteredPanel(self.thumbnailsPanel!) }
+                if !workItem.isCancelled { Screen.showCenteredFrontPanel(self.thumbnailsPanel!, currentScreen, true) }
             }
             workItems.append(workItem)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay!, execute: workItem)

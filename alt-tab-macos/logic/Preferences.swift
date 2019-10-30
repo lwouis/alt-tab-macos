@@ -2,9 +2,14 @@ import Foundation
 import Cocoa
 import Carbon.HIToolbox.Events
 
+enum ShowOnScreenPreference {
+    case MAIN
+    case MOUSE
+}
+
 class Preferences {
     static var defaults: [String: String] = [
-        "version": "2", // bump this anytime the dictionary is changed
+        "version": "3", // bump this anytime the dictionary is changed
         "maxScreenUsage": "80",
         "maxThumbnailsPerRow": "4",
         "iconSize": "32",
@@ -12,11 +17,10 @@ class Preferences {
         "tabKeyCode": String(kVK_Tab),
         "metaKey": metaKeyMacro.macros[0].label,
         "windowDisplayDelay": "0",
-        "theme": themeMacro.macros[0].label
+        "theme": themeMacro.macros[0].label,
+        "showOnScreen": showOnScreenMacro.macros[0].label
     ]
     static var rawValues = [String: String]()
-    static var thumbnailMaxWidth: CGFloat = 200
-    static var thumbnailMaxHeight: CGFloat = 200
     static var minimumWindowSize: CGFloat = 200
     static var fontColor: NSColor = .white
     static var windowMaterial: NSVisualEffectView.Material = .dark
@@ -37,6 +41,7 @@ class Preferences {
     static var windowDisplayDelay: DispatchTimeInterval?
     static var windowCornerRadius: CGFloat?
     static var font: NSFont?
+    static var showOnScreen: ShowOnScreenPreference?
     static var themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
         MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
         MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
@@ -45,6 +50,10 @@ class Preferences {
         MacroPreference("⌥ option", ([kVK_Option, kVK_RightOption], .option)),
         MacroPreference("⌃ control", ([kVK_Control, kVK_RightControl], .control)),
         MacroPreference("⌘ command", ([kVK_Command, kVK_RightCommand], .command))
+    ])
+    static var showOnScreenMacro = MacroPreferenceHelper<ShowOnScreenPreference>([
+        MacroPreference("with keyboard focus", ShowOnScreenPreference.MAIN),
+        MacroPreference("with mouse pointer", ShowOnScreenPreference.MOUSE),
     ])
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
@@ -89,6 +98,9 @@ class Preferences {
             highlightBackgroundColor = p.preferences.4
         case "windowDisplayDelay":
             windowDisplayDelay = DispatchTimeInterval.milliseconds(try Int(value).orThrow())
+        case "showOnScreen":
+            let p = try showOnScreenMacro.labelToMacro[value].orThrow()
+            showOnScreen = p.preferences
         default:
             throw "Tried to update an unknown preference: '\(valueName)' = '\(value)'"
         }

@@ -5,14 +5,16 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     var collectionView_: NSCollectionView!
     var application: Application?
     let cellId = NSUserInterfaceItemIdentifier("Cell")
+    var currentScreen: NSScreen?
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
     }
 
-    convenience init(_ application: Application) {
+    convenience init(_ application: Application, _ currentScreen: NSScreen) {
         self.init()
         self.application = application
+        self.currentScreen = currentScreen
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
@@ -49,29 +51,29 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     func makeLayout() -> CollectionViewCenterFlowLayout {
-        let layout = CollectionViewCenterFlowLayout()
-        layout.estimatedItemSize = NSSize(width: Preferences.thumbnailMaxWidth, height: Preferences.thumbnailMaxHeight)
+        let layout = CollectionViewCenterFlowLayout(currentScreen!)
+        layout.estimatedItemSize = Screen.calcThumbnailMaxSize(currentScreen!)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         return layout
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-//        debugPrint("collectionView: count items", openWindows.count)
+//        debugPrint("collectionView: count items", application!.openWindows.count)
         return application!.openWindows.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
 //        debugPrint("collectionView: make item", indexPath.item)
         let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! Cell
-        item.updateWithNewContent(application!.openWindows[indexPath.item], application!.focusSelectedWindow, application!.thumbnailsPanel!.highlightCell)
+        item.updateWithNewContent(application!.openWindows[indexPath.item], application!.focusSelectedWindow, application!.thumbnailsPanel!.highlightCell, currentScreen!)
         return item
     }
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
 //        debugPrint("collectionView: item size")
         if indexPath.item < application!.openWindows.count {
-            let (width, height) = computeDownscaledSize(application!.openWindows[indexPath.item].thumbnail)
+            let (width, height) = computeDownscaledSize(application!.openWindows[indexPath.item].thumbnail, currentScreen!)
             return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight!, Preferences.iconSize!) + Preferences.interItemPadding + Preferences.cellPadding * 2)
         }
         return .zero
@@ -91,10 +93,10 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         }
     }
 
-    func computeThumbnails() {
-        let maxSize = NSSize(width: NSScreen.main!.frame.width * Preferences.maxScreenUsage!, height: NSScreen.main!.frame.height * Preferences.maxScreenUsage!)
-        collectionView_!.setFrameSize(maxSize)
-        collectionView_!.collectionViewLayout!.invalidateLayout()
+    func computeThumbnails(_ currentScreen: NSScreen) {
+        self.currentScreen = currentScreen
+        collectionView_!.setFrameSize(Screen.calcFrameMaxSize(currentScreen))
+        collectionView_!.collectionViewLayout = makeLayout()
         collectionView_!.reloadData()
         collectionView_!.layoutSubtreeIfNeeded()
         setContentSize(NSSize(width: collectionView_!.frame.size.width + Preferences.windowPadding * 2, height: collectionView_!.frame.size.height + Preferences.windowPadding * 2))
