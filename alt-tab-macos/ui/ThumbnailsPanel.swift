@@ -11,10 +11,9 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
     }
 
-    convenience init(_ application: Application, _ currentScreen: NSScreen) {
+    convenience init(_ application: Application) {
         self.init()
         self.application = application
-        self.currentScreen = currentScreen
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
@@ -51,8 +50,8 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     func makeLayout() -> CollectionViewCenterFlowLayout {
-        let layout = CollectionViewCenterFlowLayout(currentScreen!)
-        layout.estimatedItemSize = Screen.calcThumbnailMaxSize(currentScreen!)
+        let layout = CollectionViewCenterFlowLayout()
+        layout.estimatedItemSize = NSSize(width: 200, height: 200)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         return layout
@@ -95,8 +94,9 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 
     func computeThumbnails(_ currentScreen: NSScreen) {
         self.currentScreen = currentScreen
-        collectionView_!.setFrameSize(Screen.calcFrameMaxSize(currentScreen))
-        collectionView_!.collectionViewLayout = makeLayout()
+        (collectionView_.collectionViewLayout as! CollectionViewCenterFlowLayout).currentScreen = currentScreen
+        collectionView_!.setFrameSize(Screen.thumbnailPanelMaxSize(currentScreen))
+        collectionView_!.collectionViewLayout!.invalidateLayout()
         collectionView_!.reloadData()
         collectionView_!.layoutSubtreeIfNeeded()
         setContentSize(NSSize(width: collectionView_!.frame.size.width + Preferences.windowPadding * 2, height: collectionView_!.frame.size.height + Preferences.windowPadding * 2))

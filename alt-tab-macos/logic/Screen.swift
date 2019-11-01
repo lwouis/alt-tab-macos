@@ -2,55 +2,44 @@ import Foundation
 import Cocoa
 
 class Screen {
-    // currently not in use (but kept for reference & future use), earlier registered by Application.applicationDidFinishLaunching()
-    static func listenToChanges() {
-        NotificationCenter.default.addObserver(
-                forName: NSApplication.didChangeScreenParametersNotification,
-                object: NSApplication.shared,
-                queue: OperationQueue.main
-        ) { notification -> Void in
-            // do something
-        }
-    }
-
-    static func calcThumbnailMaxSize(_ screen: NSScreen) -> NSSize {
-        let width: CGFloat = (screen.frame.size.width * Preferences.maxScreenUsage! - Preferences.windowPadding * 2) / Preferences.maxThumbnailsPerRow! - Preferences.interItemPadding
-        let height: CGFloat = width * (screen.frame.height / screen.frame.width)
-        return NSSize(width: width, height: height)
-    }
-
-    static func calcFrameMaxSize(_ screen: NSScreen) -> NSSize {
-        return NSSize(width: screen.frame.width * Preferences.maxScreenUsage!, height: screen.frame.height * Preferences.maxScreenUsage!)
-    }
-
-    // TODO: currently unknown and unhandled error use-case possible: NSScreen.main being nil
-    static func getPreferredScreen() -> NSScreen {
+    static func preferredScreen() -> NSScreen {
         switch Preferences.showOnScreen! {
         case .MOUSE:
-            return getScreenWithMouse() ?? NSScreen.main!; // .main as fall-back
+            return screenWithMouse() ?? NSScreen.main!; // .main as fall-back
         case .MAIN:
             return NSScreen.main!;
         }
     }
 
-    static func getScreenWithMouse() -> NSScreen? {
+    private static func screenWithMouse() -> NSScreen? {
         return NSScreen.screens.first { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }
     }
 
-    /*
-    usage notes:
-    - useAppleVerticalOffset: applies a vertical offset (higher positioning) attempting to approximate the NSView.center() results but only if we are not dealing with screen filling frames (height)
-    */
-    static func showCenteredFrontPanel(_ panel: NSPanel, _ screen: NSScreen, _ useAppleVerticalOffset: Bool = true) {
-        var verticalOffset: CGFloat = 0
+    static func thumbnailMaxSize(_ screen: NSScreen) -> NSSize {
+        let frame = screen.visibleFrame
+        let width = (frame.width * Preferences.maxScreenUsage! - Preferences.windowPadding * 2) / Preferences.maxThumbnailsPerRow! - Preferences.interItemPadding
+        let height = width * (frame.height / frame.width)
+        return NSSize(width: width, height: height)
+    }
 
-        if useAppleVerticalOffset && panel.frame.height < screen.visibleFrame.height / 1.5 {
-            verticalOffset = CGFloat(screen.visibleFrame.height * 0.175)
-        }
+    static func thumbnailPanelMaxSize(_ screen: NSScreen) -> NSSize {
+        let frame = screen.visibleFrame
+        return NSSize(width: frame.width * Preferences.maxScreenUsage!, height: frame.height * Preferences.maxScreenUsage!)
+    }
 
-        let centerPosition = NSPoint(x: screen.visibleFrame.midX - panel.frame.width / 2, y: screen.visibleFrame.midY - panel.frame.height / 2 + verticalOffset)
-        panel.setFrameOrigin(centerPosition)
+    static func showPanel(_ panel: NSPanel, _ screen: NSScreen, _ alignment: VerticalAlignment) {
+        let screenFrame = screen.visibleFrame
+        let panelFrame = panel.frame
+        let x = screenFrame.minX + max(screenFrame.width - panelFrame.width, 0) * 0.5
+        let y = screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * alignment.rawValue
+        panel.setFrameOrigin(NSPoint(x: x, y: y))
         panel.makeKeyAndOrderFront(nil)
         Application.shared.arrangeInFront(nil)
     }
+}
+
+enum VerticalAlignment: CGFloat {
+    case centered = 0.5
+    // vertically centered but with an upward offset, similar to a book title; mimics NSView.center()
+    case appleCentered = 0.75
 }

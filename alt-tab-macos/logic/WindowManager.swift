@@ -35,7 +35,7 @@ class OpenWindow {
 
 func computeDownscaledSize(_ image: NSImage, _ screen: NSScreen) -> (Int, Int) {
     let imageRatio = image.size.width / image.size.height
-    let thumbnailMaxSize = Screen.calcThumbnailMaxSize(screen)
+    let thumbnailMaxSize = Screen.thumbnailMaxSize(screen)
     let thumbnailWidth = Int(floor(thumbnailMaxSize.height * imageRatio))
     if thumbnailWidth <= Int(thumbnailMaxSize.width) {
         return (thumbnailWidth, Int(thumbnailMaxSize.height))

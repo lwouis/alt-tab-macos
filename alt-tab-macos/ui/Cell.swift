@@ -35,8 +35,6 @@ class Cell: NSCollectionViewItem {
         }
     }
 
-
-
     func updateWithNewContent(_ element: OpenWindow, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
         openWindow = element
         thumbnail.image = element.thumbnail

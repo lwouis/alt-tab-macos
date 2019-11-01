@@ -11,7 +11,7 @@ class StatusItem {
                 keyEquivalent: "")
         item.menu!.addItem(
                 withTitle: "Preferences…",
-                action: #selector(application.showCenteredPreferencesPanel),
+                action: #selector(application.showPreferencesPanel),
                 keyEquivalent: ",")
         item.menu!.addItem(
                 withTitle: "Quit \(ProcessInfo.processInfo.processName)",
