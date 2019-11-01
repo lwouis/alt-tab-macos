@@ -33,7 +33,7 @@ class PreferencesPanel: NSPanel, NSTextViewDelegate {
             makeLabelWithInput(\PreferencesPanel.iconSize, "Apps icon size (px)", "iconSize"),
             makeLabelWithInput(\PreferencesPanel.fontHeight, "Font size (px)", "fontHeight"),
             makeLabelWithInput(\PreferencesPanel.windowDisplayDelay, "Window apparition delay (ms)", "windowDisplayDelay"),
-            makeLabelWithDropdown(\PreferencesPanel.showOnScreen, "Show on Screen", "showOnScreen", Preferences.showOnScreenMacro.labels)
+            makeLabelWithDropdown(\PreferencesPanel.showOnScreen, "Show on", "showOnScreen", Preferences.showOnScreenMacro.labels)
         ]
     }
 

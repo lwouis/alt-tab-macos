@@ -28,7 +28,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         Preferences.loadFromDiskAndUpdateValues()
         statusItem = StatusItem.make(self)
-        thumbnailsPanel = ThumbnailsPanel(self, Screen.getPreferredScreen())
+        thumbnailsPanel = ThumbnailsPanel(self)
         preferencesPanel = PreferencesPanel()
         Keyboard.listenToGlobalEvents(self)
     }
@@ -58,8 +58,8 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         }
     }
 
-    @objc func showCenteredPreferencesPanel() {
-        Screen.showCenteredFrontPanel(preferencesPanel!, Screen.getPreferredScreen())
+    @objc func showPreferencesPanel() {
+        Screen.showPanel(preferencesPanel!, Screen.preferredScreen(), .appleCentered)
     }
 
     func computeOpenWindows() {
@@ -101,12 +101,12 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
                 return
             }
             selectedOpenWindow = cellWithStep(step)
-            let currentScreen = Screen.getPreferredScreen() // we want all computations and renderings to use the same screen for this summon (in case mouse movements switching screens etc.)
             var workItem: DispatchWorkItem!
             workItem = DispatchWorkItem {
+                let currentScreen = Screen.preferredScreen() // fix screen between steps since it could change (e.g. mouse moved to another screen)
                 if !workItem.isCancelled { self.thumbnailsPanel!.computeThumbnails(currentScreen) }
                 if !workItem.isCancelled { self.thumbnailsPanel!.highlightCellAt(step) }
-                if !workItem.isCancelled { Screen.showCenteredFrontPanel(self.thumbnailsPanel!, currentScreen, true) }
+                if !workItem.isCancelled { Screen.showPanel(self.thumbnailsPanel!, currentScreen, .appleCentered) }
             }
             workItems.append(workItem)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay!, execute: workItem)

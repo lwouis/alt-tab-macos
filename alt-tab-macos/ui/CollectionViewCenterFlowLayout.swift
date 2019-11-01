@@ -1,16 +1,7 @@
 import Cocoa
 
 class CollectionViewCenterFlowLayout: NSCollectionViewFlowLayout {
-    let currentScreen: NSScreen
-    
-    init(_ screen: NSScreen) {
-        currentScreen = screen
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var currentScreen: NSScreen?
 
     override func layoutAttributesForElements(in rect: CGRect) -> [NSCollectionViewLayoutAttributes] {
         let attributes = super.layoutAttributesForElements(in: rect)
@@ -25,7 +16,7 @@ class CollectionViewCenterFlowLayout: NSCollectionViewFlowLayout {
         var widestRow = CGFloat(0)
         var totalHeight = CGFloat(0)
         attributes.enumerated().forEach {
-            let isNewRow = abs($1.frame.origin.y - currentRowY) > Screen.calcThumbnailMaxSize(currentScreen).height
+            let isNewRow = abs($1.frame.origin.y - currentRowY) > Screen.thumbnailMaxSize(currentScreen!).height
             if isNewRow {
                 computeOriginXForAllItems(currentRowWidth - minimumInteritemSpacing, previousRowMaxY, currentRow)
                 currentRow.removeAll()

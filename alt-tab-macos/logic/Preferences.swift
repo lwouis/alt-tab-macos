@@ -52,8 +52,8 @@ class Preferences {
         MacroPreference("⌘ command", ([kVK_Command, kVK_RightCommand], .command))
     ])
     static var showOnScreenMacro = MacroPreferenceHelper<ShowOnScreenPreference>([
-        MacroPreference("with keyboard focus", ShowOnScreenPreference.MAIN),
-        MacroPreference("with mouse pointer", ShowOnScreenPreference.MOUSE),
+        MacroPreference("Main screen", ShowOnScreenPreference.MAIN),
+        MacroPreference("Screen including mouse", ShowOnScreenPreference.MOUSE),
     ])
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
