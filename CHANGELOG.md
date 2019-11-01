@@ -1,3 +1,11 @@
+# [1.12.0](https://github.com/lwouis/alt-tab-macos/compare/v1.11.3...v1.12.0) (2019-11-01)
+
+
+### Features
+
+* windows on mouse screen, implements [#28](https://github.com/lwouis/alt-tab-macos/issues/28) ([b841ec7](https://github.com/lwouis/alt-tab-macos/commit/b841ec7))
+* windows on mouse screen, implements [#28](https://github.com/lwouis/alt-tab-macos/issues/28) ([6c93047](https://github.com/lwouis/alt-tab-macos/commit/6c93047)), closes [#66](https://github.com/lwouis/alt-tab-macos/issues/66) [#59](https://github.com/lwouis/alt-tab-macos/issues/59) [#66](https://github.com/lwouis/alt-tab-macos/issues/66) [#66](https://github.com/lwouis/alt-tab-macos/issues/66)
+
 ## [1.11.3](https://github.com/lwouis/alt-tab-macos/compare/v1.11.2...v1.11.3) (2019-10-30)
 
 ## [1.11.2](https://github.com/lwouis/alt-tab-macos/compare/v1.11.1...v1.11.2) (2019-10-30)
