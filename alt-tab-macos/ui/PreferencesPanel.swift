@@ -5,12 +5,13 @@ class PreferencesPanel: NSPanel {
     let panelWidth = CGFloat(400)
     let panelHeight = CGFloat(400) // gets auto adjusted to content height
     let panelPadding = CGFloat(40)
+    let panelWidthToLabelRatio = CGFloat(0.5)
 
     // ui: preferences elements
-    var maxScreenUsage: NSTextField?
+    var maxScreenUsage: NSSlider?
     var maxThumbnailsPerRow: NSTextField?
-    var iconSize: NSTextField?
-    var fontHeight: NSTextField?
+    var iconSize: NSSlider?
+    var fontHeight: NSSlider?
     var tabKeyCode: NSTextField?
     var windowDisplayDelay: NSTextField?
     var metaKey: NSPopUpButton?
@@ -18,10 +19,10 @@ class PreferencesPanel: NSPanel {
     var showOnScreen: NSPopUpButton?
 
     var invisibleTextField: NSTextField? // default firstResponder and used for triggering of focus loose
-    var inputsMap = [NSTextField: String]()
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
-        super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
+        let initialRect = NSRect(x: 0, y: 0, width: panelWidth, height: panelHeight)
+        super.init(contentRect: initialRect, styleMask: style, backing: backingStoreType, defer: flag)
         title = Application.name + " Preferences"
         titlebarAppearsTransparent = true
         hidesOnDeactivate = false
@@ -44,26 +45,26 @@ class PreferencesPanel: NSPanel {
         wrappingView.alignment = .left
         wrappingView.spacing = panelPadding * 0.3
         wrappingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: panelPadding * 0.5).isActive = true
-        wrappingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: panelPadding * 0.5 * -1).isActive = true
+        wrappingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: panelPadding * -0.5).isActive = true
         wrappingView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: panelPadding * 0.5).isActive = true
-        wrappingView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: panelPadding * 0.5 * -1).isActive = true
+        wrappingView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: panelPadding * -0.5).isActive = true
 
         return contentView
     }
 
     private func makePreferencesViews() -> [NSView] {
         return [
-            makeLabelWithDropdown(\PreferencesPanel.metaKey, "Meta key to activate the app", "metaKey", Preferences.metaKeyMacro.labels),
-            makeLabelWithInput(\PreferencesPanel.tabKeyCode, "Tab key", "tabKeyCode", "KeyCode"),
+            makeLabelWithDropdown(\PreferencesPanel.metaKey, "Meta key to activate the app", rawName: "metaKey", values: Preferences.metaKeyMacro.labels),
+            makeLabelWithInput(\PreferencesPanel.tabKeyCode, "Tab key", rawName: "tabKeyCode", suffixText: "KeyCode"),
             makeHorizontalSeparator(),
-            makeLabelWithDropdown(\PreferencesPanel.theme, "Main window theme", "theme", Preferences.themeMacro.labels),
-            makeLabelWithInput(\PreferencesPanel.maxScreenUsage, "Max window size", "maxScreenUsage", "% of screen"),
-            makeLabelWithInput(\PreferencesPanel.maxThumbnailsPerRow, "Max thumbnails per row", "maxThumbnailsPerRow"),
-            makeLabelWithInput(\PreferencesPanel.iconSize, "Apps icon size", "iconSize", "px"),
-            makeLabelWithInput(\PreferencesPanel.fontHeight, "Font size", "fontHeight", "px"),
+            makeLabelWithDropdown(\PreferencesPanel.theme, "Main window theme", rawName: "theme", values: Preferences.themeMacro.labels),
+            makeLabelWithSlider(\PreferencesPanel.maxScreenUsage, "Max window size", rawName: "maxScreenUsage", minValue: 10, maxValue: 100, numberOfTickMarks: 10),
+            makeLabelWithInput(\PreferencesPanel.maxThumbnailsPerRow, "Max thumbnails per row", rawName: "maxThumbnailsPerRow"),
+            makeLabelWithSlider(\PreferencesPanel.iconSize, "Apps icon size", rawName: "iconSize", minValue: 12, maxValue: 64, numberOfTickMarks: 16),
+            makeLabelWithSlider(\PreferencesPanel.fontHeight, "Font size", rawName: "fontHeight", minValue: 12, maxValue: 36, numberOfTickMarks: 16),
             makeHorizontalSeparator(),
-            makeLabelWithInput(\PreferencesPanel.windowDisplayDelay, "Window apparition delay", "windowDisplayDelay", "ms"),
-            makeLabelWithDropdown(\PreferencesPanel.showOnScreen, "Show on", "showOnScreen", Preferences.showOnScreenMacro.labels),
+            makeLabelWithInput(\PreferencesPanel.windowDisplayDelay, "Window apparition delay", rawName: "windowDisplayDelay", suffixText: "ms"),
+            makeLabelWithDropdown(\PreferencesPanel.showOnScreen, "Show on", rawName: "showOnScreen", values: Preferences.showOnScreenMacro.labels),
             makeHorizontalSeparator(),
             makeRestartHint()
         ]
@@ -88,7 +89,7 @@ class PreferencesPanel: NSPanel {
         let field = NSTextField(wrappingLabelWithString: "Some settings require restarting the app to apply: ")
         field.textColor = .systemRed
         field.alignment = .right
-        field.widthAnchor.constraint(equalToConstant: (panelWidth - panelPadding) * 0.5).isActive = true
+        field.widthAnchor.constraint(equalToConstant: calcLabelWidth()).isActive = true
 
         let button = NSButton()
         button.title = "↻  Restart"
@@ -101,16 +102,51 @@ class PreferencesPanel: NSPanel {
         return container
     }
 
-    private func makeLabelWithInput(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSTextField?>, _ labelText: String, _ rawName: String, _ suffixText: String? = nil) -> NSStackView {
+    private func makeLabelWithInput(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSTextField?>, _ labelText: String, rawName: String, suffixText: String? = nil) -> NSStackView {
+        let input = NSTextField(string: Preferences.rawValues[rawName]!)
+        input.widthAnchor.constraint(equalToConstant: 32).isActive = true
+
+        self[keyPath: keyPath] = input
+
+        return makeLabelWithProvidedControl(labelText, rawName, input, suffixText)
+    }
+
+    private func makeLabelWithDropdown(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSPopUpButton?>, _ labelText: String, rawName: String, values: [String], suffixText: String? = nil) -> NSStackView {
+        let popUp = NSPopUpButton()
+        popUp.addItems(withTitles: values)
+        popUp.selectItem(withTitle: Preferences.rawValues[rawName]!)
+
+        self[keyPath: keyPath] = popUp
+
+        return makeLabelWithProvidedControl(labelText, rawName, popUp, suffixText)
+    }
+
+    private func makeLabelWithSlider(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSSlider?>, _ labelText: String, rawName: String, minValue: Double, maxValue: Double, numberOfTickMarks: Int, suffixText: String? = nil) -> NSStackView {
+        let slider = NSSlider(
+                value: Double(Preferences.rawValues[rawName]!)!,
+                minValue: minValue,
+                maxValue: maxValue,
+                target: self,
+                action: #selector(controlDidEndEditing)
+        )
+        slider.numberOfTickMarks = numberOfTickMarks
+        slider.allowsTickMarkValuesOnly = numberOfTickMarks > 1
+        slider.tickMarkPosition = .below
+
+        self[keyPath: keyPath] = slider
+
+        return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText)
+    }
+
+    private func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil) -> NSStackView {
         let label = NSTextField(wrappingLabelWithString: labelText + ": ")
         label.alignment = .right
-        label.widthAnchor.constraint(equalToConstant: (panelWidth - panelPadding) * 0.5).isActive = true
+        label.widthAnchor.constraint(equalToConstant: calcLabelWidth()).isActive = true
 
-        let input = NSTextField(string: Preferences.rawValues[rawName]!)
-        input.target = self
-        input.action = #selector(textDidEndEditing)
-        input.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        let containerView = NSStackView(views: [label, input])
+        control.identifier = NSUserInterfaceItemIdentifier(rawName)
+        control.target = self
+        control.action = #selector(controlDidEndEditing)
+        let containerView = NSStackView(views: [label, control])
 
         if suffixText != nil {
             let suffix = NSTextField(labelWithString: suffixText!)
@@ -118,54 +154,58 @@ class PreferencesPanel: NSPanel {
             containerView.addView(suffix, in: .leading)
         }
 
-        self[keyPath: keyPath] = input
-        inputsMap[input] = rawName
-
         return containerView
     }
 
-    private func makeLabelWithDropdown(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSPopUpButton?>, _ labelText: String, _ rawName: String, _ values: [String]) -> NSStackView {
-        let label = NSTextField(wrappingLabelWithString: labelText + ": ")
-        label.alignment = .right
-        label.widthAnchor.constraint(equalToConstant: (panelWidth - panelPadding) * 0.5).isActive = true
+    /*
+    usage notes:
+    - NSSlider: supports on purpose currently only decimal values
+    */
+    @objc func controlDidEndEditing(senderControl: NSControl) {
+        self.makeFirstResponder(invisibleTextField) // deselects any possibly selected NSTextField (so slider & popUp changes deselect them)
 
-        let input = NSPopUpButton()
-        input.addItems(withTitles: values)
-        input.selectItem(withTitle: Preferences.rawValues[rawName]!)
-        input.action = #selector(dropdownDidChange)
-        input.target = self
+        let key: String? = senderControl.identifier?.rawValue
+        var newValue: String?
 
-        self[keyPath: keyPath] = input
-
-        return NSStackView(views: [label, input])
-    }
-
-    @objc func dropdownDidChange(sender: AnyObject) throws {
-        if let popUpButton = sender as? NSPopUpButton {
-            switch popUpButton {
-            case theme:
-                try! Preferences.updateAndValidateFromString("theme", popUpButton.titleOfSelectedItem!)
-            case metaKey:
-                try! Preferences.updateAndValidateFromString("metaKey", popUpButton.titleOfSelectedItem!)
-            case showOnScreen:
-                try! Preferences.updateAndValidateFromString("showOnScreen", popUpButton.titleOfSelectedItem!)
-            default:
-                throw "Tried to update an unknown popUpButton: '\(popUpButton)' = '\(popUpButton.titleOfSelectedItem!)'"
-            }
-            try! Preferences.saveRawToDisk()
+        if senderControl is NSPopUpButton {
+            newValue = (senderControl as! NSPopUpButton).titleOfSelectedItem!
+        } else if senderControl is NSSlider {
+            newValue = String(format: "%.0f", Double(senderControl.stringValue)!) // we are only interested in decimals of the provided double
+        } else {
+            newValue = senderControl.stringValue
         }
-    }
 
-    @objc func textDidEndEditing(sender: AnyObject) {
-        if let textField = sender as? NSTextField {
-            let key = inputsMap[textField]!
+//        debugPrint("PreferencesPanel: save: change", key!, newValue!)
+
+        if key != nil && newValue != nil {
+            if newValue == Preferences.rawValues[key!] {
+                debugPrint("PreferencesPanel: save: abort: value was not changed")
+                return
+            }
+
+            let previousValue = Preferences.rawValues[key!]!
+
             do {
-                try Preferences.updateAndValidateFromString(key, textField.stringValue)
+                try Preferences.updateAndValidateFromString(key!, newValue!)
                 try Preferences.saveRawToDisk()
             } catch {
-                debugPrint(key, error)
-                textField.stringValue = Preferences.rawValues[key]!
+                debugPrint("PreferencesPanel: save: error", key!, error, "previousValue", previousValue, " | newValue", newValue!)
+
+                // restores the previous value in Preferences and senderControl
+                try! Preferences.updateAndValidateFromString(key!, previousValue)
+
+                if senderControl is NSPopUpButton {
+                    (senderControl as! NSPopUpButton).selectItem(withTitle: previousValue)
+                } else {
+                    senderControl.stringValue = previousValue
+                }
             }
+        } else {
+            debugPrint("PreferencesPanel: save: error: key||newValue = nil", key!, newValue!)
         }
+    }
+
+    private func calcLabelWidth() -> CGFloat {
+        return (panelWidth - panelPadding) * panelWidthToLabelRatio
     }
 }
