@@ -65,6 +65,7 @@
 		D04BAD40CE2D3A8AAC3819D0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		D04BAD7D8F3CC2C36C8769C6 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .travis.yml; sourceTree = "<group>"; };
 		D04BAD82F652C4ED5D8BF7AE /* 3 windows - 1 line - tall window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line - tall window.jpg"; sourceTree = "<group>"; };
+		D04BADB20AB31BF83593E0BE /* greetings.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = greetings.yml; sourceTree = "<group>"; };
 		D04BADCB1C0F50340A6CAFC2 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		D04BAE1243C9B4BE3ED1B524 /* 7 windows - 2 lines - extra wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - extra wide window.jpg"; sourceTree = "<group>"; };
 		D04BAE5BBE182DD5DDFE2E3E /* ThumbnailsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailsPanel.swift; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 				D04BAFA277EAE3BDDDB61110 /* CHANGELOG.md */,
 				D04BA703DCD38D9757093312 /* ci */,
 				D04BA459034C1885CA43A807 /* LICENCE.md */,
+				D04BA2C9EF33A646D0977195 /* .github */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +111,14 @@
 				D04BA82F792DF53958D92572 /* alt-tab-macos.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D04BA2C9EF33A646D0977195 /* .github */ = {
+			isa = PBXGroup;
+			children = (
+				D04BAE05121D54E4FF6AEDAF /* workflows */,
+			);
+			path = .github;
 			sourceTree = "<group>";
 		};
 		D04BA502DEE6E54E9987BAB7 /* windows-10 */ = {
@@ -207,6 +217,14 @@
 				D04BAA1C553891551B903DA7 /* logic */,
 			);
 			path = "alt-tab-macos";
+			sourceTree = "<group>";
+		};
+		D04BAE05121D54E4FF6AEDAF /* workflows */ = {
+			isa = PBXGroup;
+			children = (
+				D04BADB20AB31BF83593E0BE /* greetings.yml */,
+			);
+			path = workflows;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
