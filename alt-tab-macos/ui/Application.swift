@@ -73,18 +73,17 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         openWindows.removeAll()
         // we rely on the fact that CG and AX APIs arrays follow the same order to match objects from both APIs
         var pidAndCurrentIndex: [pid_t: Int] = [:]
-        for cgWindow in cgWindows() {
-            let cgId = cgWindow[kCGWindowNumber] as! CGWindowID
-            let cgTitle = cgWindow[kCGWindowName] as? String ?? ""
-            let cgOwnerName = cgWindow[kCGWindowOwnerName] as? String ?? ""
-            let cellTitle = cgTitle.isEmpty ? cgOwnerName : cgTitle
-            let cgOwnerPid = cgWindow[kCGWindowOwnerPID] as! pid_t
+        for cgWindow in CoreGraphicsApis.windows() {
+            let cgId = CoreGraphicsApis.value(cgWindow, kCGWindowNumber, CGWindowID.zero)
+            let cgTitle = CoreGraphicsApis.value(cgWindow, kCGWindowName, "")
+            let cgOwnerName = CoreGraphicsApis.value(cgWindow, kCGWindowOwnerName, "")
+            let cgOwnerPid = CoreGraphicsApis.value(cgWindow, kCGWindowOwnerPID, pid_t.zero)
             let i = pidAndCurrentIndex.index(forKey: cgOwnerPid)
             pidAndCurrentIndex[cgOwnerPid] = (i == nil ? 0 : pidAndCurrentIndex[i!].value + 1)
-            let axWindows_ = axWindows(cgOwnerPid)
+            let axWindows_ = AccessibilityApis.windows(cgOwnerPid)
             // windows may have changed between the CG and the AX calls
             if axWindows_.count > pidAndCurrentIndex[cgOwnerPid]! {
-                openWindows.append(OpenWindow(axWindows_[pidAndCurrentIndex[cgOwnerPid]!], cgOwnerPid, cgId, cellTitle))
+                openWindows.append(OpenWindow(axWindows_[pidAndCurrentIndex[cgOwnerPid]!], cgOwnerPid, cgId, cgTitle.isEmpty ? cgOwnerName : cgTitle))
             }
         }
     }
