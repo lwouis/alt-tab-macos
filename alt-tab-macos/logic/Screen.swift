@@ -2,16 +2,16 @@ import Foundation
 import Cocoa
 
 class Screen {
-    static func preferredScreen() -> NSScreen {
+    static func preferred() -> NSScreen {
         switch Preferences.showOnScreen! {
         case .MOUSE:
-            return screenWithMouse() ?? NSScreen.main!; // .main as fall-back
+            return withMouse() ?? NSScreen.main!; // .main as fall-back
         case .MAIN:
             return NSScreen.main!;
         }
     }
 
-    private static func screenWithMouse() -> NSScreen? {
+    private static func withMouse() -> NSScreen? {
         return NSScreen.screens.first { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }
     }
 
@@ -36,6 +36,48 @@ class Screen {
         panel.makeKeyAndOrderFront(nil)
         Application.shared.arrangeInFront(nil)
     }
+
+    static func screenContaining(_ rect: CGRect) -> NSScreen? {
+        var screenContainingMost = NSScreen.main
+        var largestPercentageContained = CGFloat(0)
+        for screen in NSScreen.screens {
+            let frame = NSRectToCGRect(screen.frame)
+            let rect = normalizeCoordinatesOf(rect, frame)
+            if frame.contains(rect) {
+                return screen
+            }
+            let percentageContained = percentageOf(rect, frame)
+            if percentageContained > largestPercentageContained {
+                largestPercentageContained = percentageContained
+                screenContainingMost = screen
+            }
+        }
+        return screenContainingMost
+    }
+
+    private static func normalizeCoordinatesOf(_ rect: CGRect, _ frameOfScreen: CGRect) -> CGRect {
+        var normalizedRect = rect
+        let frameOfScreenWithMenuBar = NSScreen.screens[0].frame as CGRect
+        normalizedRect.origin.y = frameOfScreen.size.height - rect.maxY + (frameOfScreenWithMenuBar.size.height - frameOfScreen.size.height)
+        return normalizedRect
+    }
+
+    private static func percentageOf(_ rect: CGRect, _ frame: CGRect) -> CGFloat {
+        let intersection = rect.intersection(frame)
+        if intersection.isNull {
+            return CGFloat(0)
+        }
+        return rectArea(intersection) / rectArea(rect)
+    }
+
+    private static func rectArea(_ rect: CGRect) -> CGFloat {
+        return rect.size.width * rect.size.height
+    }
+}
+
+enum WindowPosition {
+    case leftHalf
+    case rightHalf
 }
 
 enum VerticalAlignment: CGFloat {

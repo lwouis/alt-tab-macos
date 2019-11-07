@@ -43,23 +43,23 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         showUiOrCycleSelection(-1)
     }
 
-    func hideUi() {
-        debugPrint("hideUi")
-        DispatchQueue.main.async(execute: { self.thumbnailsPanel!.orderOut(nil) })
+    func stopUsingApp() {
+        debugPrint("stopUsingApp")
         appIsBeingUsed = false
         isFirstSummon = true
+        DispatchQueue.main.async(execute: { self.thumbnailsPanel!.orderOut(nil) })
     }
 
     func focusTarget() {
         debugPrint("focusTarget")
         if appIsBeingUsed {
-            focusSelectedWindow(currentlySelectedWindow())
-            hideUi()
+            focusSelectedWindow(openWindows[selectedOpenWindow])
+            stopUsingApp()
         }
     }
 
     @objc func showPreferencesPanel() {
-        Screen.showPanel(preferencesPanel!, Screen.preferredScreen(), .appleCentered)
+        Screen.showPanel(preferencesPanel!, Screen.preferred(), .appleCentered)
     }
 
     func computeOpenWindows() {
@@ -81,6 +81,14 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         }
     }
 
+    func moveToLeftHalf() {
+        openWindows[selectedOpenWindow].moveTo(.leftHalf)
+    }
+
+    func moveToRightHalf() {
+        openWindows[selectedOpenWindow].moveTo(.rightHalf)
+    }
+
     func cellWithStep(_ step: Int) -> Int {
         return selectedOpenWindow + step < 0 ? openWindows.count - 1 : (selectedOpenWindow + step) % openWindows.count
     }
@@ -97,12 +105,13 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
             selectedOpenWindow = 0
             computeOpenWindows()
             if openWindows.count <= 0 {
+                stopUsingApp()
                 return
             }
             selectedOpenWindow = cellWithStep(step)
             var workItem: DispatchWorkItem!
             workItem = DispatchWorkItem {
-                let currentScreen = Screen.preferredScreen() // fix screen between steps since it could change (e.g. mouse moved to another screen)
+                let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
                 if !workItem.isCancelled { self.thumbnailsPanel!.computeThumbnails(currentScreen) }
                 if !workItem.isCancelled { self.thumbnailsPanel!.highlightCellAt(step) }
                 if !workItem.isCancelled { Screen.showPanel(self.thumbnailsPanel!, currentScreen, .appleCentered) }
@@ -118,9 +127,5 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         workItems.forEach({ $0.cancel() })
         workItems.removeAll()
         window?.focus()
-    }
-
-    func currentlySelectedWindow() -> OpenWindow? {
-        return openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
     }
 }

@@ -31,6 +31,13 @@ class OpenWindow {
             AccessibilityApis.focus(target!)
         }
     }
+
+    func moveTo(_ position: WindowPosition) {
+        let screenSize = Screen.screenContaining(AccessibilityApis.rect(target!))!.visibleFrame.size
+        let screenMidX = screenSize.width / 2
+        AccessibilityApis.setAttribute(target!, NSSize(width: screenMidX, height: screenSize.height), kAXSizeAttribute, .cgSize)
+        AccessibilityApis.setAttribute(target!, NSPoint(x: position == .leftHalf ? 0 : screenMidX, y: 0), kAXPositionAttribute, .cgPoint)
+    }
 }
 
 func computeDownscaledSize(_ image: NSImage, _ screen: NSScreen) -> (Int, Int) {

@@ -46,6 +46,12 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
                     } else if isTab {
                         delegate.showUiOrSelectNext()
                         return nil // previously focused app should not receive keys
+                    } else if isRightArrow && event.modifierFlags.contains(.shift) && delegate.appIsBeingUsed {
+                        delegate.moveToRightHalf()
+                        return nil // previously focused app should not receive keys
+                    } else if isLeftArrow && event.modifierFlags.contains(.shift) && delegate.appIsBeingUsed {
+                        delegate.moveToLeftHalf()
+                        return nil // previously focused app should not receive keys
                     } else if isRightArrow && delegate.appIsBeingUsed {
                         delegate.cycleSelection(1)
                         return nil // previously focused app should not receive keys
@@ -53,7 +59,7 @@ func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<C
                         delegate.cycleSelection(-1)
                         return nil // previously focused app should not receive keys
                     } else if keyDown && isEscape {
-                        delegate.hideUi()
+                        delegate.stopUsingApp()
                         return nil // previously focused app should not receive keys
                     }
                 }
