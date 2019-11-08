@@ -19,13 +19,9 @@ extension Optional {
             return value
         case .none:
             Thread.callStackSymbols.forEach { print($0) }
-            throw "Optional contained nil"
+            throw NSError.make(domain: "Optional", message: "Optional contained nil")
         }
     }
-}
-
-// allow String to be treated as Error (e.g. throw "explanation")
-extension String: Error {
 }
 
 // add String constructor from CGFloat that round up at 1 decimal
@@ -37,5 +33,27 @@ extension String {
             return nil
         }
         self.init(string)
+    }
+}
+
+// add recursive lookup in subviews for specific type
+extension NSView {
+    func findNestedViews<T: NSView>(subclassOf: T.Type) -> [T] {
+        return recursiveSubviews.compactMap { $0 as? T }
+    }
+
+    var recursiveSubviews: [NSView] {
+        return subviews + subviews.flatMap { $0.recursiveSubviews }
+    }
+}
+
+// add convenience to NSError
+extension NSError {
+    class func make(domain: String, message: String, code: Int = 9999) -> NSError {
+        return NSError(
+                domain: domain,
+                code: code,
+                userInfo: [NSLocalizedDescriptionKey: message, NSLocalizedFailureReasonErrorKey: message]
+        )
     }
 }

@@ -1,38 +1,48 @@
 import Cocoa
+import Foundation
 
-class PreferencesPanel: NSPanel {
-    // ui: base layout
-    let panelWidth = CGFloat(400)
-    let panelHeight = CGFloat(400) // gets auto adjusted to content height
+class PreferencesPanel: NSPanel, NSWindowDelegate {
+    let panelWidth = CGFloat(496)
+    let panelHeight = CGFloat(256) // auto expands to content height (but does not auto shrink)
     let panelPadding = CGFloat(40)
-    let panelWidthToLabelRatio = CGFloat(0.5)
-
-    // ui: preferences elements
-    var maxScreenUsage: NSSlider?
-    var maxThumbnailsPerRow: NSTextField?
-    var iconSize: NSSlider?
-    var fontHeight: NSSlider?
-    var tabKeyCode: NSTextField?
-    var windowDisplayDelay: NSTextField?
-    var metaKey: NSPopUpButton?
-    var theme: NSPopUpButton?
-    var showOnScreen: NSPopUpButton?
-
-    var invisibleTextField: NSTextField? // default firstResponder and used for triggering of focus loose
+    var labelWidth: CGFloat { get { // derived convenience variable
+        return (panelWidth - panelPadding) * CGFloat(0.45)
+    }}
+    var windowCloseRequested = false
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
         let initialRect = NSRect(x: 0, y: 0, width: panelWidth, height: panelHeight)
         super.init(contentRect: initialRect, styleMask: style, backing: backingStoreType, defer: flag)
         title = Application.name + " Preferences"
-        titlebarAppearsTransparent = true
         hidesOnDeactivate = false
         contentView = makeContentView()
+        NSApp.activate(ignoringOtherApps: true)
+    }
 
-        // setup hidden element
-        invisibleTextField = NSTextField()
-        invisibleTextField?.isHidden = true
-        contentView?.subviews.append(invisibleTextField!)
-        self.initialFirstResponder = invisibleTextField
+    override func close() {
+        NSApp.deactivate()
+        (NSApp as! Application).preferencesPanel = nil
+        super.close()
+    }
+
+    public func windowShouldClose(_ sender: NSWindow) -> Bool {
+        windowCloseRequested = true
+        challengeNextInvalidEditableTextField()
+        return attachedSheet == nil // user is challenged
+    }
+
+    private func challengeNextInvalidEditableTextField() {
+        let invalidFields = (contentView?
+                .findNestedViews(subclassOf: PreferencesPanelNSTextFieldEditable.self)
+                .filter({ !$0.isValid() })
+        )
+        let focusedField = invalidFields?.filter({ $0.currentEditor() != nil }).first
+        let fieldToNotify = focusedField ?? invalidFields?.first
+        fieldToNotify?.delegate?.controlTextDidChange?(Notification(name: NSControl.textDidChangeNotification, object: fieldToNotify))
+
+        if fieldToNotify != focusedField {
+            makeFirstResponder(fieldToNotify)
+        }
     }
 
     private func makeContentView() -> NSView {
@@ -53,20 +63,34 @@ class PreferencesPanel: NSPanel {
     }
 
     private func makePreferencesViews() -> [NSView] {
+        // TODO: make the validators be a part of each Preference
+        let tabKeyCodeValidator: ((String)->Bool) = {
+            guard let int = Int($0) else {
+                return false
+            }
+            // non-special keys (mac & pc keyboards): https://eastmanreference.com/complete-list-of-applescript-key-codes
+            var whitelistedKeycodes: [Int] = Array(0...53)
+            whitelistedKeycodes.append(contentsOf: [65, 67, 69, 75, 76, 78, ])
+            whitelistedKeycodes.append(contentsOf: Array(81...89))
+            whitelistedKeycodes.append(contentsOf: [91, 92, 115, 116, 117, 119, 121])
+            whitelistedKeycodes.append(contentsOf: Array(123...126))
+            return whitelistedKeycodes.contains(int)
+        }
+        let maxThumbnailsPerRowValidator: ((String)->Bool) = { (3...16).contains(Int($0) ?? -1) }
+        let windowDisplayDelayValidator: ((String)->Bool) = { (0..<10000).contains(Int($0) ?? -1) }
+
         return [
-            makeLabelWithDropdown(\PreferencesPanel.metaKey, "Meta key to activate the app", rawName: "metaKey", values: Preferences.metaKeyMacro.labels),
-            makeLabelWithInput(\PreferencesPanel.tabKeyCode, "Tab key", rawName: "tabKeyCode", suffixText: "KeyCode"),
+            makeLabelWithDropdown("Alt key", rawName: "metaKey", values: Preferences.metaKeyMacro.labels),
+            makeLabelWithInput("Tab key", rawName: "tabKeyCode", width: 33, suffixText: "KeyCode (48 = Tab)", validator: tabKeyCodeValidator),
             makeHorizontalSeparator(),
-            makeLabelWithDropdown(\PreferencesPanel.theme, "Main window theme", rawName: "theme", values: Preferences.themeMacro.labels),
-            makeLabelWithSlider(\PreferencesPanel.maxScreenUsage, "Max window size", rawName: "maxScreenUsage", minValue: 10, maxValue: 100, numberOfTickMarks: 10),
-            makeLabelWithInput(\PreferencesPanel.maxThumbnailsPerRow, "Max thumbnails per row", rawName: "maxThumbnailsPerRow"),
-            makeLabelWithSlider(\PreferencesPanel.iconSize, "Apps icon size", rawName: "iconSize", minValue: 12, maxValue: 64, numberOfTickMarks: 16),
-            makeLabelWithSlider(\PreferencesPanel.fontHeight, "Font size", rawName: "fontHeight", minValue: 12, maxValue: 36, numberOfTickMarks: 16),
+            makeLabelWithDropdown("Theme", rawName: "theme", values: Preferences.themeMacro.labels),
+            makeLabelWithSlider("Max screen usage", rawName: "maxScreenUsage", minValue: 10, maxValue: 100, numberOfTickMarks: 10, unitText: "%"),
+            makeLabelWithInput("Max thumbnails per row", rawName: "maxThumbnailsPerRow", width: 25, validator: maxThumbnailsPerRowValidator),
+            makeLabelWithSlider("Apps icon size", rawName: "iconSize", minValue: 12, maxValue: 62, numberOfTickMarks: 16, unitText: "px"),
+            makeLabelWithSlider("Window font size", rawName: "fontHeight", minValue: 12, maxValue: 36, numberOfTickMarks: 16, unitText: "px"),
             makeHorizontalSeparator(),
-            makeLabelWithInput(\PreferencesPanel.windowDisplayDelay, "Window apparition delay", rawName: "windowDisplayDelay", suffixText: "ms"),
-            makeLabelWithDropdown(\PreferencesPanel.showOnScreen, "Show on", rawName: "showOnScreen", values: Preferences.showOnScreenMacro.labels),
-            makeHorizontalSeparator(),
-            makeRestartHint()
+            makeLabelWithInput("Window apparition delay", rawName: "windowDisplayDelay", width: 41, suffixText: "ms", validator: windowDisplayDelayValidator),
+            makeLabelWithDropdown("Show on", rawName: "showOnScreen", values: Preferences.showOnScreenMacro.labels)
         ]
     }
 
@@ -77,135 +101,163 @@ class PreferencesPanel: NSPanel {
         return view
     }
 
-    @objc private func restartButtonAction() {
-        self.makeFirstResponder(invisibleTextField)
-
-        if let delegate = Application.shared.delegate as? Application {
-            delegate.relaunch()
+    private func makeLabelWithInput(_ labelText: String, rawName: String, width: CGFloat? = nil, suffixText: String? = nil, validator: ((String)->Bool)? = nil) -> NSStackView {
+        let input = PreferencesPanelNSTextFieldEditable(string: Preferences.rawValues[rawName]!)
+        input.validationHandler = validator
+        input.delegate = input
+        input.visualizeValidationState(input.isValid())
+        if width != nil {
+            input.widthAnchor.constraint(equalToConstant: width!).isActive = true
         }
+
+        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: input, suffixText: suffixText)
     }
 
-    private func makeRestartHint() -> NSStackView {
-        let field = NSTextField(wrappingLabelWithString: "Some settings require restarting the app to apply: ")
-        field.textColor = .systemRed
-        field.alignment = .right
-        field.widthAnchor.constraint(equalToConstant: calcLabelWidth()).isActive = true
-
-        let button = NSButton()
-        button.title = "↻  Restart"
-        button.bezelStyle = .rounded
-        button.target = self
-        button.action = #selector(restartButtonAction)
-
-        let container = NSStackView(views: [field, button])
-        container.alignment = .bottom
-        return container
-    }
-
-    private func makeLabelWithInput(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSTextField?>, _ labelText: String, rawName: String, suffixText: String? = nil) -> NSStackView {
-        let input = NSTextField(string: Preferences.rawValues[rawName]!)
-        input.widthAnchor.constraint(equalToConstant: 32).isActive = true
-
-        self[keyPath: keyPath] = input
-
-        return makeLabelWithProvidedControl(labelText, rawName, input, suffixText)
-    }
-
-    private func makeLabelWithDropdown(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSPopUpButton?>, _ labelText: String, rawName: String, values: [String], suffixText: String? = nil) -> NSStackView {
+    private func makeLabelWithDropdown(_ labelText: String, rawName: String, values: [String], suffixText: String? = nil) -> NSStackView {
         let popUp = NSPopUpButton()
         popUp.addItems(withTitles: values)
         popUp.selectItem(withTitle: Preferences.rawValues[rawName]!)
 
-        self[keyPath: keyPath] = popUp
-
-        return makeLabelWithProvidedControl(labelText, rawName, popUp, suffixText)
+        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: popUp, suffixText: suffixText)
     }
 
-    private func makeLabelWithSlider(_ keyPath: ReferenceWritableKeyPath<PreferencesPanel, NSSlider?>, _ labelText: String, rawName: String, minValue: Double, maxValue: Double, numberOfTickMarks: Int, suffixText: String? = nil) -> NSStackView {
-        let slider = NSSlider(
-                value: Double(Preferences.rawValues[rawName]!)!,
-                minValue: minValue,
-                maxValue: maxValue,
-                target: self,
-                action: #selector(controlDidEndEditing)
-        )
+    private func makeLabelWithSlider(_ labelText: String, rawName: String, minValue: Double, maxValue: Double, numberOfTickMarks: Int, unitText: String) -> NSStackView {
+        let value = Preferences.rawValues[rawName]!
+        let suffixText = value + unitText
+        let slider = NSSlider()
+        slider.minValue = minValue
+        slider.maxValue = maxValue
+        slider.stringValue = value
         slider.numberOfTickMarks = numberOfTickMarks
         slider.allowsTickMarkValuesOnly = numberOfTickMarks > 1
         slider.tickMarkPosition = .below
+        slider.isContinuous = true
 
-        self[keyPath: keyPath] = slider
-
-        return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText)
+        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: slider, suffixText: suffixText, suffixWidth: 40)
     }
 
-    private func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil) -> NSStackView {
+    private func makeLabelWithProvidedControl(_ labelText: String, rawName: String, control: NSControl, suffixText: String? = nil, suffixWidth: CGFloat? = nil) -> NSStackView {
         let label = NSTextField(wrappingLabelWithString: labelText + ": ")
         label.alignment = .right
-        label.widthAnchor.constraint(equalToConstant: calcLabelWidth()).isActive = true
+        label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
+        label.identifier = NSUserInterfaceItemIdentifier(rawName + ControlIdentifierDiscriminator.LABEL.rawValue)
+        label.isSelectable = false
 
         control.identifier = NSUserInterfaceItemIdentifier(rawName)
         control.target = self
-        control.action = #selector(controlDidEndEditing)
+        control.action = #selector(controlWasChanged)
         let containerView = NSStackView(views: [label, control])
 
         if suffixText != nil {
             let suffix = NSTextField(labelWithString: suffixText!)
             suffix.textColor = .gray
+            suffix.identifier = NSUserInterfaceItemIdentifier(rawName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
+            if suffixWidth != nil {
+                suffix.widthAnchor.constraint(equalToConstant: suffixWidth!).isActive = true
+            }
             containerView.addView(suffix, in: .leading)
         }
 
         return containerView
     }
 
-    /*
-    usage notes:
-    - NSSlider: supports on purpose currently only decimal values
-    */
-    @objc func controlDidEndEditing(senderControl: NSControl) {
-        self.makeFirstResponder(invisibleTextField) // deselects any possibly selected NSTextField (so slider & popUp changes deselect them)
-
-        let key: String? = senderControl.identifier?.rawValue
-        var newValue: String?
-
-        if senderControl is NSPopUpButton {
-            newValue = (senderControl as! NSPopUpButton).titleOfSelectedItem!
-        } else if senderControl is NSSlider {
-            newValue = String(format: "%.0f", Double(senderControl.stringValue)!) // we are only interested in decimals of the provided double
-        } else {
-            newValue = senderControl.stringValue
+    private func updateSuffixWithValue(_ control: NSControl, _ value: String) {
+        let suffixIdentifierPredicate = {(view: NSView) -> Bool in
+            view.identifier?.rawValue == control.identifier!.rawValue + ControlIdentifierDiscriminator.SUFFIX.rawValue
         }
 
-//        debugPrint("PreferencesPanel: save: change", key!, newValue!)
+        if let suffixView: NSTextField = control.superview?.subviews.first(where: suffixIdentifierPredicate) as? NSTextField {
+            let regex = try! NSRegularExpression(pattern: "^[0-9]+") // first decimal
+            let range = NSMakeRange(0, suffixView.stringValue.count)
+            suffixView.stringValue = regex.stringByReplacingMatches(in: suffixView.stringValue, range: range, withTemplate: value)
+        }
+    }
 
-        if key != nil && newValue != nil {
-            if newValue == Preferences.rawValues[key!] {
-                debugPrint("PreferencesPanel: save: abort: value was not changed")
-                return
+    @objc
+    private func controlWasChanged(senderControl: NSControl) {
+        let key: String = senderControl.identifier!.rawValue
+        let previousValue: String = Preferences.rawValues[key]!
+        let newValue: String = getControlValue(senderControl)
+        let invalidTextField = senderControl is PreferencesPanelNSTextFieldEditable && !(senderControl as! PreferencesPanelNSTextFieldEditable).isValid()
+
+        if (invalidTextField && !windowCloseRequested) || (newValue == previousValue && !invalidTextField) {
+            return
+        }
+
+        updateControlExtras(senderControl, newValue)
+
+        do {
+            // TODO: remove conditional as soon a Preference does validation on its own
+            if invalidTextField && windowCloseRequested {
+                throw NSError.make(domain: "Preferences", message: "Please enter a valid value for '" + key + "'")
             }
+            try Preferences.updateAndValidateFromString(key, newValue)
+            (NSApp as! Application).initPreferencesDependentComponents()
+            try Preferences.saveRawToDisk()
+        } catch let error {
+            debugPrint("PreferencesPanel: save: error", key, newValue, error)
+            showSaveErrorSheetModal(error as NSError, senderControl, key, previousValue) // allows recursive call by user choice
+        }
+    }
 
-            let previousValue = Preferences.rawValues[key!]!
+    private func showSaveErrorSheetModal(_ nsError: NSError, _ control: NSControl, _ key: String, _ previousValue: String) {
+        let alert = NSAlert()
+        alert.messageText = "Could not save Preference"
+        alert.informativeText = nsError.localizedDescription + "\n"
+        alert.addButton(withTitle: "Edit")
+        alert.addButton(withTitle: "Cancel")
+        alert.addButton(withTitle: "Check again")
 
-            do {
-                try Preferences.updateAndValidateFromString(key!, newValue!)
-                try Preferences.saveRawToDisk()
-            } catch {
-                debugPrint("PreferencesPanel: save: error", key!, error, "previousValue", previousValue, " | newValue", newValue!)
-
-                // restores the previous value in Preferences and senderControl
-                try! Preferences.updateAndValidateFromString(key!, previousValue)
-
-                if senderControl is NSPopUpButton {
-                    (senderControl as! NSPopUpButton).selectItem(withTitle: previousValue)
-                } else {
-                    senderControl.stringValue = previousValue
+        alert.beginSheetModal(for: self, completionHandler: {(modalResponse: NSApplication.ModalResponse) -> Void in
+            if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {
+                debugPrint("PreferencesPanel: save: error: user choice: edit")
+                self.windowCloseRequested = false
+            }
+            if modalResponse == NSApplication.ModalResponse.alertSecondButtonReturn {
+                debugPrint("PreferencesPanel: save: error: user choice: cancel -> revert value and eventually close window")
+                try! Preferences.updateAndValidateFromString(key, previousValue)
+                self.setControlValue(control, previousValue)
+                self.updateControlExtras(control, previousValue)
+                if self.windowCloseRequested {
+                    self.close()
                 }
             }
+            if modalResponse == NSApplication.ModalResponse.alertThirdButtonReturn {
+                debugPrint("PreferencesPanel: save: error: user choice: check again")
+                self.controlWasChanged(senderControl: control)
+            }
+        })
+    }
+
+    private func getControlValue(_ control: NSControl) -> String {
+        if control is NSPopUpButton {
+            return (control as! NSPopUpButton).titleOfSelectedItem!
+        } else if control is NSSlider {
+            return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
         } else {
-            debugPrint("PreferencesPanel: save: error: key||newValue = nil", key!, newValue!)
+            return control.stringValue
         }
     }
 
-    private func calcLabelWidth() -> CGFloat {
-        return (panelWidth - panelPadding) * panelWidthToLabelRatio
+    private func setControlValue(_ control: NSControl, _ value: String) {
+        if control is NSPopUpButton {
+            (control as! NSPopUpButton).selectItem(withTitle: value)
+        } else if control is NSTextField{
+            control.stringValue = value
+            (control as! NSTextField).delegate?.controlTextDidChange?(Notification(name: NSControl.textDidChangeNotification, object: control))
+        } else {
+            control.stringValue = value
+        }
     }
+
+    private func updateControlExtras(_ control: NSControl, _ value: String) {
+        if control is NSSlider {
+            updateSuffixWithValue(control as! NSSlider, value)
+        }
+    }
+}
+
+enum ControlIdentifierDiscriminator: String {
+    case LABEL = "_label"
+    case SUFFIX = "_suffix"
 }
