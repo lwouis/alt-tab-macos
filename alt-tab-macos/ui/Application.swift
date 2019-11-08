@@ -4,7 +4,6 @@ import Cocoa
 class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     static let name = "AltTab"
     var statusItem: NSStatusItem?
-    var backgroundView: NSVisualEffectView?
     var thumbnailsPanel: ThumbnailsPanel?
     var preferencesPanel: PreferencesPanel?
     var selectedOpenWindow: Int = 0
@@ -28,9 +27,13 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         Preferences.loadFromDiskAndUpdateValues()
         statusItem = StatusItem.make(self)
-        thumbnailsPanel = ThumbnailsPanel(self)
-        preferencesPanel = PreferencesPanel()
+        initPreferencesDependentComponents()
         Keyboard.listenToGlobalEvents(self)
+    }
+
+    // we put application code here which should be executed on init() and Preferences change
+    func initPreferencesDependentComponents() {
+        thumbnailsPanel = ThumbnailsPanel(self)
     }
 
     func showUiOrSelectNext() {
@@ -58,7 +61,11 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         }
     }
 
-    @objc func showPreferencesPanel() {
+    @objc
+    func showPreferencesPanel() {
+        if preferencesPanel == nil {
+            preferencesPanel = PreferencesPanel()
+        }
         Screen.showPanel(preferencesPanel!, Screen.preferredScreen(), .appleCentered)
     }
 
@@ -125,12 +132,4 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         return openWindows.count > selectedOpenWindow ? openWindows[selectedOpenWindow] : nil
     }
 
-    func relaunch(afterDelay seconds: TimeInterval = 0.5) -> Never {
-        let task = Process()
-        task.launchPath = "/bin/sh"
-        task.arguments = ["-c", "sleep \(seconds); open \"\(Bundle.main.bundlePath)\""]
-        task.launch()
-        self.terminate(nil)
-        exit(0)
-    }
 }

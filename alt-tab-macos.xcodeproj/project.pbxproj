@@ -21,6 +21,7 @@
 		D04BA9CCE02D30C8164A552A /* SystemPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */; };
 		D04BAD4DE538FDF7E7532EE2 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD32E130E4A061DC8332 /* Labels.swift */; };
 		D04BAEF78503D7A2CEFB9E9E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAA44C837F3A67403B9DB /* main.swift */; };
+		F02981D5D1E1F62074801CAE /* PreferencesPanelNSTextFieldEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0298F4D7927608A986C320D /* PreferencesPanelNSTextFieldEditable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		D04BAF076A30A1BAFEDBEA66 /* 5 windows - 2 lines.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5 windows - 2 lines.jpg"; sourceTree = "<group>"; };
 		D04BAF249324297C07E31164 /* frontpage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = frontpage.jpg; sourceTree = "<group>"; };
 		D04BAFA277EAE3BDDDB61110 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		F0298F4D7927608A986C320D /* PreferencesPanelNSTextFieldEditable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesPanelNSTextFieldEditable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				D04BA3F15EAE8D8C39B6F2CF /* Screen.swift */,
 				D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */,
 				D04BA86768C6503A11ED81FC /* Extensions.swift */,
+				F0298F4D7927608A986C320D /* PreferencesPanelNSTextFieldEditable.swift */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				D04BA02DD4152997C32CF50B /* StatusItem.swift in Sources */,
 				D04BA0F3D46BC79544E2B930 /* Extensions.swift in Sources */,
 				D04BAD4DE538FDF7E7532EE2 /* Labels.swift in Sources */,
+				F02981D5D1E1F62074801CAE /* PreferencesPanelNSTextFieldEditable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

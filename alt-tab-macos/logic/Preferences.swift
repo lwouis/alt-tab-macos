@@ -102,7 +102,7 @@ class Preferences {
             let p = try showOnScreenMacro.labelToMacro[value].orThrow()
             showOnScreen = p.preferences
         default:
-            throw "Tried to update an unknown preference: '\(valueName)' = '\(value)'"
+            throw NSError.make(domain: "Preferences", message: "Tried to update an unknown preference: '\(valueName)' = '\(value)'")
         }
         rawValues[valueName] = value
     }
