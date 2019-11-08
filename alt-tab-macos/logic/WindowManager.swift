@@ -33,10 +33,20 @@ class OpenWindow {
     }
 
     func moveTo(_ position: WindowPosition) {
-        let screenSize = Screen.screenContaining(AccessibilityApis.rect(target!))!.visibleFrame.size
+        let rect = AccessibilityApis.rect(target!)
+        let windowScreen = Screen.screenContaining(rect)!
+        let screenSize = windowScreen.visibleFrame.size
         let screenMidX = screenSize.width / 2
-        AccessibilityApis.setAttribute(target!, NSSize(width: screenMidX, height: screenSize.height), kAXSizeAttribute, .cgSize)
-        AccessibilityApis.setAttribute(target!, NSPoint(x: position == .leftHalf ? 0 : screenMidX, y: 0), kAXPositionAttribute, .cgPoint)
+
+        toAxReferential
+
+        let x = position == .leftHalf ? 0 : windowScreen.frame.origin.x + screenMidX
+        let y = windowScreen.frame.origin.y + (screenSize.height - rect.size.height)
+
+
+        debugPrint(windowScreen.frame.origin.y, screenSize.height, rect.size.height, y)
+        AccessibilityApis.setAttribute(target!, NSPoint(x: x, y: y), kAXPositionAttribute, .cgPoint)
+//        AccessibilityApis.setAttribute(target!, NSSize(width: screenMidX, height: screenSize.height), kAXSizeAttribute, .cgSize)
     }
 }
 

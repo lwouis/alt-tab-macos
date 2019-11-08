@@ -38,27 +38,40 @@ class Screen {
     }
 
     static func screenContaining(_ rect: CGRect) -> NSScreen? {
-        var screenContainingMost = NSScreen.main
-        var largestPercentageContained = CGFloat(0)
-        for screen in NSScreen.screens {
-            let frame = NSRectToCGRect(screen.frame)
-            let rect = normalizeCoordinatesOf(rect, frame)
-            if frame.contains(rect) {
-                return screen
-            }
-            let percentageContained = percentageOf(rect, frame)
-            if percentageContained > largestPercentageContained {
-                largestPercentageContained = percentageContained
-                screenContainingMost = screen
-            }
-        }
-        return screenContainingMost
+        return NSScreen.screens.first(where: {
+            debugPrint(normalizeCoordinatesOf(rect, $0.frame).origin, $0.frame)
+            return NSPointInRect(normalizeCoordinatesOf(rect, $0.frame).origin, $0.frame)
+        })
+//        var screenContainingMost = NSScreen.main
+//        var largestPercentageContained = CGFloat(0)
+//        for screen in NSScreen.screens {
+//            let frame = NSRectToCGRect(screen.frame)
+//            let rect = normalizeCoordinatesOf(rect, frame)
+//            if frame.contains(rect) {
+//                return screen
+//            }
+//            let percentageContained = percentageOf(rect, frame)
+//            if percentageContained > largestPercentageContained {
+//                largestPercentageContained = percentageContained
+//                screenContainingMost = screen
+//            }
+//        }
+//        return screenContainingMost
     }
 
+    // Coordinates from kAXPositionAttribute are not in the same referential as the rest of Cocoa; this converts them
     private static func normalizeCoordinatesOf(_ rect: CGRect, _ frameOfScreen: CGRect) -> CGRect {
         var normalizedRect = rect
-        let frameOfScreenWithMenuBar = NSScreen.screens[0].frame as CGRect
+        let frameOfScreenWithMenuBar = NSScreen.screens[0].frame
         normalizedRect.origin.y = frameOfScreen.size.height - rect.maxY + (frameOfScreenWithMenuBar.size.height - frameOfScreen.size.height)
+        debugPrint("norm", normalizedRect.origin.y, frameOfScreen.size.height, rect.maxY, frameOfScreenWithMenuBar.size.height, frameOfScreen.size.height)
+        return normalizedRect
+    }
+
+    private static func toAxReferential(_ rect: CGRect, _ frameOfScreen: CGRect) -> CGRect {
+        var normalizedRect = rect
+        let frameOfScreenWithMenuBar = NSScreen.screens[0].frame
+        normalizedRect.origin.y = -frameOfScreen.size.height + rect.maxY - frameOfScreenWithMenuBar.size.height + frameOfScreen.size.height
         return normalizedRect
     }
 

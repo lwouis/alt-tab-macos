@@ -38,7 +38,7 @@ class AccessibilityApis {
         AXUIElementSetAttributeValue(element, attribute as CFString, AXValueCreate(type, &v)!)
     }
 
-    private static func value<T>(_ element: AXUIElement, _ key: String, _ target: T, _ type: AXValueType) -> T? {
+    static func value<T>(_ element: AXUIElement, _ key: String, _ target: T, _ type: AXValueType) -> T? {
         if let a = attribute(element, key, AXValue.self) {
             var value = target
             AXValueGetValue(a, type, &value)
