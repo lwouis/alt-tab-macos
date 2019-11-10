@@ -5,9 +5,9 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
     let panelWidth = CGFloat(496)
     let panelHeight = CGFloat(256) // auto expands to content height (but does not auto shrink)
     let panelPadding = CGFloat(40)
-    var labelWidth: CGFloat { get { // derived convenience variable
+    var labelWidth: CGFloat {
         return (panelWidth - panelPadding) * CGFloat(0.45)
-    }}
+    }
     var windowCloseRequested = false
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
@@ -16,11 +16,9 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         title = Application.name + " Preferences"
         hidesOnDeactivate = false
         contentView = makeContentView()
-        NSApp.activate(ignoringOtherApps: true)
     }
 
     override func close() {
-        NSApp.deactivate()
         (NSApp as! Application).preferencesPanel = nil
         super.close()
     }
@@ -28,12 +26,12 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
     public func windowShouldClose(_ sender: NSWindow) -> Bool {
         windowCloseRequested = true
         challengeNextInvalidEditableTextField()
-        return attachedSheet == nil // user is challenged
+        return attachedSheet == nil // depends if user is challenged with a sheet
     }
 
     private func challengeNextInvalidEditableTextField() {
         let invalidFields = (contentView?
-                .findNestedViews(subclassOf: PreferencesPanelNSTextFieldEditable.self)
+                .findNestedViews(subclassOf: TextField.self)
                 .filter({ !$0.isValid() })
         )
         let focusedField = invalidFields?.filter({ $0.currentEditor() != nil }).first
@@ -76,20 +74,18 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
             whitelistedKeycodes.append(contentsOf: Array(123...126))
             return whitelistedKeycodes.contains(int)
         }
-        let maxThumbnailsPerRowValidator: ((String)->Bool) = { (3...16).contains(Int($0) ?? -1) }
-        let windowDisplayDelayValidator: ((String)->Bool) = { (0..<10000).contains(Int($0) ?? -1) }
 
         return [
             makeLabelWithDropdown("Alt key", rawName: "metaKey", values: Preferences.metaKeyMacro.labels),
-            makeLabelWithInput("Tab key", rawName: "tabKeyCode", width: 33, suffixText: "KeyCode (48 = Tab)", validator: tabKeyCodeValidator),
+            makeLabelWithInput("Tab key", rawName: "tabKeyCode", width: 33, suffixText: "KeyCodes Reference", suffixUrl: "https://eastmanreference.com/complete-list-of-applescript-key-codes", validator: tabKeyCodeValidator),
             makeHorizontalSeparator(),
             makeLabelWithDropdown("Theme", rawName: "theme", values: Preferences.themeMacro.labels),
-            makeLabelWithSlider("Max screen usage", rawName: "maxScreenUsage", minValue: 10, maxValue: 100, numberOfTickMarks: 10, unitText: "%"),
-            makeLabelWithInput("Max thumbnails per row", rawName: "maxThumbnailsPerRow", width: 25, validator: maxThumbnailsPerRowValidator),
-            makeLabelWithSlider("Apps icon size", rawName: "iconSize", minValue: 12, maxValue: 62, numberOfTickMarks: 16, unitText: "px"),
-            makeLabelWithSlider("Window font size", rawName: "fontHeight", minValue: 12, maxValue: 36, numberOfTickMarks: 16, unitText: "px"),
+            makeLabelWithSlider("Max screen usage", rawName: "maxScreenUsage", minValue: 10, maxValue: 100, numberOfTickMarks: 0, unitText: "%"),
+            makeLabelWithSlider("Max thumbnails per row", rawName: "maxThumbnailsPerRow", minValue: 3, maxValue: 16, numberOfTickMarks: 0),
+            makeLabelWithSlider("Apps icon size", rawName: "iconSize", minValue: 12, maxValue: 64, numberOfTickMarks: 0, unitText: "px"),
+            makeLabelWithSlider("Window font size", rawName: "fontHeight", minValue: 12, maxValue: 64, numberOfTickMarks: 0, unitText: "px"),
             makeHorizontalSeparator(),
-            makeLabelWithInput("Window apparition delay", rawName: "windowDisplayDelay", width: 41, suffixText: "ms", validator: windowDisplayDelayValidator),
+            makeLabelWithSlider("Window apparition delay", rawName: "windowDisplayDelay", minValue: 0, maxValue: 2000, numberOfTickMarks: 0, unitText: "ms"),
             makeLabelWithDropdown("Show on", rawName: "showOnScreen", values: Preferences.showOnScreenMacro.labels)
         ]
     }
@@ -101,16 +97,16 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         return view
     }
 
-    private func makeLabelWithInput(_ labelText: String, rawName: String, width: CGFloat? = nil, suffixText: String? = nil, validator: ((String)->Bool)? = nil) -> NSStackView {
-        let input = PreferencesPanelNSTextFieldEditable(string: Preferences.rawValues[rawName]!)
+    private func makeLabelWithInput(_ labelText: String, rawName: String, width: CGFloat? = nil, suffixText: String? = nil, suffixUrl: String? = nil, validator: ((String)->Bool)? = nil) -> NSStackView {
+        let input = TextField(Preferences.rawValues[rawName]!)
         input.validationHandler = validator
         input.delegate = input
-        input.visualizeValidationState(input.isValid())
+        input.visualizeValidationState()
         if width != nil {
             input.widthAnchor.constraint(equalToConstant: width!).isActive = true
         }
 
-        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: input, suffixText: suffixText)
+        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: input, suffixText: suffixText, suffixUrl: suffixUrl)
     }
 
     private func makeLabelWithDropdown(_ labelText: String, rawName: String, values: [String], suffixText: String? = nil) -> NSStackView {
@@ -121,7 +117,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         return makeLabelWithProvidedControl(labelText, rawName: rawName, control: popUp, suffixText: suffixText)
     }
 
-    private func makeLabelWithSlider(_ labelText: String, rawName: String, minValue: Double, maxValue: Double, numberOfTickMarks: Int, unitText: String) -> NSStackView {
+    private func makeLabelWithSlider(_ labelText: String, rawName: String, minValue: Double, maxValue: Double, numberOfTickMarks: Int, unitText: String = "") -> NSStackView {
         let value = Preferences.rawValues[rawName]!
         let suffixText = value + unitText
         let slider = NSSlider()
@@ -133,10 +129,10 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         slider.tickMarkPosition = .below
         slider.isContinuous = true
 
-        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: slider, suffixText: suffixText, suffixWidth: 40)
+        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: slider, suffixText: suffixText, suffixWidth: 60)
     }
 
-    private func makeLabelWithProvidedControl(_ labelText: String, rawName: String, control: NSControl, suffixText: String? = nil, suffixWidth: CGFloat? = nil) -> NSStackView {
+    private func makeLabelWithProvidedControl(_ labelText: String, rawName: String, control: NSControl, suffixText: String? = nil, suffixWidth: CGFloat? = nil, suffixUrl: String? = nil) -> NSStackView {
         let label = NSTextField(wrappingLabelWithString: labelText + ": ")
         label.alignment = .right
         label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
@@ -149,16 +145,27 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         let containerView = NSStackView(views: [label, control])
 
         if suffixText != nil {
-            let suffix = NSTextField(labelWithString: suffixText!)
-            suffix.textColor = .gray
-            suffix.identifier = NSUserInterfaceItemIdentifier(rawName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
-            if suffixWidth != nil {
-                suffix.widthAnchor.constraint(equalToConstant: suffixWidth!).isActive = true
-            }
+            let suffix = makeSuffix(controlName: rawName, text: suffixText!, width: suffixWidth, url: suffixUrl)
             containerView.addView(suffix, in: .leading)
         }
 
         return containerView
+    }
+
+    private func makeSuffix(controlName: String, text: String, width: CGFloat? = nil, url: String? = nil) -> NSTextField {
+        let suffix: NSTextField
+        if url == nil {
+            suffix = NSTextField(labelWithString: text)
+        } else {
+            suffix = HyperlinkLabel(labelWithUrl: text, nsUrl: NSURL(string: url!)!)
+        }
+        suffix.textColor = .gray
+        suffix.identifier = NSUserInterfaceItemIdentifier(controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
+        if width != nil {
+            suffix.widthAnchor.constraint(equalToConstant: width!).isActive = true
+        }
+
+        return suffix
     }
 
     private func updateSuffixWithValue(_ control: NSControl, _ value: String) {
@@ -178,7 +185,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         let key: String = senderControl.identifier!.rawValue
         let previousValue: String = Preferences.rawValues[key]!
         let newValue: String = getControlValue(senderControl)
-        let invalidTextField = senderControl is PreferencesPanelNSTextFieldEditable && !(senderControl as! PreferencesPanelNSTextFieldEditable).isValid()
+        let invalidTextField = senderControl is TextField && !(senderControl as! TextField).isValid()
 
         if (invalidTextField && !windowCloseRequested) || (newValue == previousValue && !invalidTextField) {
             return
