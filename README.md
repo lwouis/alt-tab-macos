@@ -29,6 +29,10 @@ choose **Open** then click **Open** in the prompt that appears.
 * Change the shortcut key, switch to a Windows theme and more, using the Preferences window.
 * If you like scriptable/portable configuration, you can edit `~/Library/Preferences/alt-tab-macos.json`.
 
+## Community
+
+Come discuss with us on the [Discord server](https://discord.gg/mHvmcqT).
+
 ## Alternatives
 
 Before building my own app, I looked around at similar apps. However, none was completely satisfactory so I rolled my own. Also, the almost-good-enough apps are not open-source.
