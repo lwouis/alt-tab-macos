@@ -9,7 +9,6 @@ enum ShowOnScreenPreference {
 
 class Preferences {
     static var defaults: [String: String] = [
-        "version": "3", // bump this anytime the dictionary is changed
         "maxScreenUsage": "80",
         "maxThumbnailsPerRow": "4",
         "iconSize": "32",
@@ -61,11 +60,19 @@ class Preferences {
 
     static func loadFromDiskAndUpdateValues() {
         do {
-            try handleNoFileOrOldFile(userFile)
+            try saveDefaultsToDisk()
+            let preferencesExist = FileManager.default.fileExists(atPath: userFile.path)
+            if !preferencesExist {
+                try FileManager.default.copyItem(at: defaultsFile, to: userFile)
+            }
             rawValues = try loadFromDisk(userFile)
-            try rawValues
-                    .filter { $0.key != "version" }
-                    .forEach { try updateAndValidateFromString($0.key, $0.value) }
+            if preferencesExist {
+                rawValues = defaults.merging(rawValues) { (_, new) in new }
+            }
+            try rawValues.forEach { try updateAndValidateFromString($0.key, $0.value) }
+            if preferencesExist {
+                try saveRawToDisk()
+            }
         } catch {
             debugPrint("Error loading preferences", error)
             if (FileManager.default.fileExists(atPath: userFile.path)) {
@@ -120,19 +127,6 @@ class Preferences {
 
     private static func loadFromDisk(_ url: URL) throws -> [String: String] {
         return try JSONDecoder().decode([String: String].self, from: Data(contentsOf: url))
-    }
-
-    private static func handleNoFileOrOldFile(_ userFile: URL) throws {
-        try saveDefaultsToDisk()
-        if !FileManager.default.fileExists(atPath: userFile.path) {
-            try FileManager.default.copyItem(at: defaultsFile, to: userFile)
-        } else {
-            if try preferencesVersion(defaultsFile) > preferencesVersion(userFile) {
-                // TODO: handle upgrades in a smarter way (e.g. merge files)
-                try FileManager.default.removeItem(at: userFile)
-                try FileManager.default.copyItem(at: defaultsFile, to: userFile)
-            }
-        }
     }
 
     private static func saveDefaultsToDisk() throws {
