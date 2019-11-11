@@ -68,7 +68,10 @@ class Preferences {
                     .forEach { try updateAndValidateFromString($0.key, $0.value) }
         } catch {
             debugPrint("Error loading preferences", error)
-            NSApp.terminate(NSApplication.shared)
+            if (FileManager.default.fileExists(atPath: userFile.path)) {
+                try! FileManager.default.removeItem(at: userFile)
+            }
+            loadFromDiskAndUpdateValues()
         }
     }
 
