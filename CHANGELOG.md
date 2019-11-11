@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/lwouis/alt-tab-macos/compare/v1.14.0...v1.14.1) (2019-11-11)
+
+
+### Bug Fixes
+
+* handle preference files with deprecated keys ([eabc327](https://github.com/lwouis/alt-tab-macos/commit/eabc327))
+
 # [1.14.0](https://github.com/lwouis/alt-tab-macos/compare/v1.13.0...v1.14.0) (2019-11-11)
 
 
