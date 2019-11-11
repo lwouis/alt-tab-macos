@@ -67,7 +67,8 @@ class Preferences {
             }
             rawValues = try loadFromDisk(userFile)
             if preferencesExist {
-                rawValues = defaults.merging(rawValues) { (_, new) in new }
+                let compatiblePreferences = rawValues.filter { defaults[$0.key] != nil }
+                rawValues = defaults.merging(compatiblePreferences) { (_, new) in new }
             }
             try rawValues.forEach { try updateAndValidateFromString($0.key, $0.value) }
             if preferencesExist {
