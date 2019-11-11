@@ -1,3 +1,11 @@
+# [1.14.0](https://github.com/lwouis/alt-tab-macos/compare/v1.13.0...v1.14.0) (2019-11-11)
+
+
+### Features
+
+* merge previous preferences onto new defaults (closes [#73](https://github.com/lwouis/alt-tab-macos/issues/73)) ([7ec3a50](https://github.com/lwouis/alt-tab-macos/commit/7ec3a50))
+* reading preferences on disk will reset file if error (closes [#73](https://github.com/lwouis/alt-tab-macos/issues/73)) ([39677fe](https://github.com/lwouis/alt-tab-macos/commit/39677fe))
+
 # [1.13.0](https://github.com/lwouis/alt-tab-macos/compare/v1.12.3...v1.13.0) (2019-11-11)
 
 
