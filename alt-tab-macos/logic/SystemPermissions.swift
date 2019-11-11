@@ -14,7 +14,7 @@ class SystemPermissions {
 
     static func ensureScreenRecordingCheckboxIsChecked() {
         let firstWindow = CoreGraphicsApis.windows()[0]
-        let windowNumber = CoreGraphicsApis.value(firstWindow, kCGWindowNumber, CGWindowID.zero)
+        let windowNumber = CoreGraphicsApis.value(firstWindow, kCGWindowNumber, UInt32(0))
         if CoreGraphicsApis.image(windowNumber) == nil {
             debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Screen Recording.",
                     "Please authorize and re-launch.",
