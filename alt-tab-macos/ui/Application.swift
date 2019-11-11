@@ -74,10 +74,10 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         // we rely on the fact that CG and AX APIs arrays follow the same order to match objects from both APIs
         var pidAndCurrentIndex: [pid_t: Int] = [:]
         for cgWindow in CoreGraphicsApis.windows() {
-            let cgId = CoreGraphicsApis.value(cgWindow, kCGWindowNumber, CGWindowID.zero)
+            let cgId = CoreGraphicsApis.value(cgWindow, kCGWindowNumber, UInt32(0))
             let cgTitle = CoreGraphicsApis.value(cgWindow, kCGWindowName, "")
             let cgOwnerName = CoreGraphicsApis.value(cgWindow, kCGWindowOwnerName, "")
-            let cgOwnerPid = CoreGraphicsApis.value(cgWindow, kCGWindowOwnerPID, pid_t.zero)
+            let cgOwnerPid = CoreGraphicsApis.value(cgWindow, kCGWindowOwnerPID, Int32(0))
             let i = pidAndCurrentIndex.index(forKey: cgOwnerPid)
             pidAndCurrentIndex[cgOwnerPid] = (i == nil ? 0 : pidAndCurrentIndex[i!].value + 1)
             let axWindows_ = AccessibilityApis.windows(cgOwnerPid)
