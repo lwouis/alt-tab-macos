@@ -1,3 +1,13 @@
+# [1.13.0](https://github.com/lwouis/alt-tab-macos/compare/v1.12.3...v1.13.0) (2019-11-11)
+
+
+### Features
+
+* improved PreferencesPanel UX, partially implements [#49](https://github.com/lwouis/alt-tab-macos/issues/49) ([59fc712](https://github.com/lwouis/alt-tab-macos/commit/59fc712))
+* improved PreferencesPanel UX, partially implements [#49](https://github.com/lwouis/alt-tab-macos/issues/49) ([fa4d150](https://github.com/lwouis/alt-tab-macos/commit/fa4d150))
+* improves PreferencesPanel UX, partially implements [#49](https://github.com/lwouis/alt-tab-macos/issues/49) ([21a4587](https://github.com/lwouis/alt-tab-macos/commit/21a4587))
+* improves PreferencesPanel UX, partially implements [#49](https://github.com/lwouis/alt-tab-macos/issues/49) ([65327c2](https://github.com/lwouis/alt-tab-macos/commit/65327c2))
+
 ## [1.12.3](https://github.com/lwouis/alt-tab-macos/compare/v1.12.2...v1.12.3) (2019-11-10)
 
 ## [1.12.2](https://github.com/lwouis/alt-tab-macos/compare/v1.12.1...v1.12.2) (2019-11-06)
