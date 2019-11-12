@@ -1,3 +1,10 @@
+## [1.14.3](https://github.com/lwouis/alt-tab-macos/compare/v1.14.2...v1.14.3) (2019-11-12)
+
+
+### Bug Fixes
+
+* code compile compatibility with old macos ([10552a0](https://github.com/lwouis/alt-tab-macos/commit/10552a0))
+
 ## [1.14.2](https://github.com/lwouis/alt-tab-macos/compare/v1.14.1...v1.14.2) (2019-11-11)
 
 ## [1.14.1](https://github.com/lwouis/alt-tab-macos/compare/v1.14.0...v1.14.1) (2019-11-11)
