@@ -103,4 +103,10 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         backgroundView!.setFrameSize(frame.size)
         collectionView_!.setFrameOrigin(NSPoint(x: Preferences.windowPadding, y: Preferences.windowPadding))
     }
+
+    // just for timestamp logging in combination with Application.showUiOrCycleSelection
+    override func orderOut(_ sender: Any?) {
+        NSLog("ThumbnailsPanel.orderOut")
+        super.orderOut(sender)
+    }
 }

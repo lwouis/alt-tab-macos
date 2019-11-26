@@ -98,6 +98,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func showUiOrCycleSelection(_ step: Int) {
+        NSLog("Application.showUiOrCycleSelection")
         appIsBeingUsed = true
         if isFirstSummon {
             isFirstSummon = false

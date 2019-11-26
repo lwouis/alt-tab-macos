@@ -75,6 +75,8 @@ class Cell: NSCollectionViewItem {
     private func makeVStackView(_ hStackView: NSStackView) -> NSStackView {
         let vStackView = NSStackView()
         vStackView.wantsLayer = true
+        vStackView.canDrawSubviewsIntoLayer = true
+        vStackView.layer!.drawsAsynchronously = true
         vStackView.layer!.backgroundColor = .clear
         vStackView.layer!.cornerRadius = Preferences.cellCornerRadius!
         vStackView.layer!.borderWidth = Preferences.cellBorderWidth!
