@@ -3,15 +3,17 @@ import Foundation
 
 class AccessibilityApis {
     static func windows(_ cgOwnerPid: pid_t) -> [AXUIElement] {
-        if let windows = attribute(AXUIElementCreateApplication(cgOwnerPid), kAXWindowsAttribute, [AXUIElement].self) {
-            return windows.filter {
-                // workaround: some apps like chrome use a window to implement the search popover
-                let windowBounds = value($0, kAXSizeAttribute, NSSize(), .cgSize)!
-                let isReasonablyBig = windowBounds.width > Preferences.minimumWindowSize && windowBounds.height > Preferences.minimumWindowSize
-                return isReasonablyBig
-            }
-        }
-        return []
+        return attribute(AXUIElementCreateApplication(cgOwnerPid), kAXWindowsAttribute, [AXUIElement].self) ?? []
+    }
+
+    static func windowThatMatchCgWindow(_ ownerPid: pid_t, _ cgId: CGWindowID) -> AXUIElement? {
+        return AccessibilityApis.windows(ownerPid).first(where: { return windowId($0) == cgId })
+    }
+
+    private static func windowId(_ window: AXUIElement) -> CGWindowID {
+        var id = UInt32(0)
+        _AXUIElementGetWindow(window, &id)
+        return id
     }
 
     static func rect(_ element: AXUIElement) -> CGRect {
@@ -29,7 +31,7 @@ class AccessibilityApis {
         AXUIElementSetAttributeValue(element, attribute as CFString, AXValueCreate(type, &v)!)
     }
 
-    private static func value<T>(_ element: AXUIElement, _ key: String, _ target: T, _ type: AXValueType) -> T? {
+    static func value<T>(_ element: AXUIElement, _ key: String, _ target: T, _ type: AXValueType) -> T? {
         if let a = attribute(element, key, AXValue.self) {
             var value = target
             AXValueGetValue(a, type, &value)
@@ -38,7 +40,7 @@ class AccessibilityApis {
         return nil
     }
 
-    private static func attribute<T>(_ element: AXUIElement, _ key: String, _ type: T.Type) -> T? {
+    static func attribute<T>(_ element: AXUIElement, _ key: String, _ type: T.Type) -> T? {
         var value: AnyObject?
         let result = AXUIElementCopyAttributeValue(element, key as CFString, &value)
         if result == .success, let typedValue = value as? T {

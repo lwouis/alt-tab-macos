@@ -7,8 +7,6 @@ class BaseLabel: NSTextView {
 
     init(_ text: String) {
         super.init(frame: .zero)
-        _init()
-        heightAnchor.constraint(greaterThanOrEqualToConstant: Preferences.fontHeight! + Preferences.interItemPadding).isActive = true
         string = text
     }
 
@@ -28,11 +26,14 @@ class BaseLabel: NSTextView {
 }
 
 class CellTitle: BaseLabel {
+    let magicOffset: CGFloat
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init() {
+    init(_ magicOffset: CGFloat = 0) {
+        self.magicOffset = magicOffset
         let textStorage = NSTextStorage()
         let layoutManager = NSLayoutManager()
         textStorage.addLayoutManager(layoutManager)
@@ -44,14 +45,14 @@ class CellTitle: BaseLabel {
         textColor = Preferences.fontColor
         shadow = Cell.makeShadow(.darkGray)
         defaultParagraphStyle = makeParagraphStyle()
-        heightAnchor.constraint(equalToConstant: Preferences.fontHeight!).isActive = true
+        heightAnchor.constraint(equalToConstant: Preferences.fontHeight! + magicOffset).isActive = true
     }
 
     private func makeParagraphStyle() -> NSMutableParagraphStyle {
         let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraphStyle.lineBreakMode = .byTruncatingTail
-        paragraphStyle.maximumLineHeight = Preferences.fontHeight!
-        paragraphStyle.minimumLineHeight = Preferences.fontHeight!
+        paragraphStyle.maximumLineHeight = Preferences.fontHeight! + magicOffset
+        paragraphStyle.minimumLineHeight = Preferences.fontHeight! + magicOffset
         paragraphStyle.allowsDefaultTighteningForTruncation = false
         return paragraphStyle
     }

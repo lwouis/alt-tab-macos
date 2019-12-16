@@ -17,10 +17,7 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
                 place: .headInsertEventTap,
                 options: .defaultTap,
                 eventsOfInterest: eventMask,
-                callback: { (_, _, event, delegate_) -> Unmanaged<CGEvent>? in
-                    let d = Unmanaged<Application>.fromOpaque(delegate_!).takeUnretainedValue()
-                    return keyboardHandler(event, d)
-                },
+                callback: keyboardHandler,
                 userInfo: UnsafeMutableRawPointer(Unmanaged.passUnretained(delegate).toOpaque()))
         let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
@@ -29,42 +26,44 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
     }
 }
 
-func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<CGEvent>? {
-    if cgEvent.type == .keyDown || cgEvent.type == .keyUp || cgEvent.type == .flagsChanged {
-        if let event = NSEvent(cgEvent: cgEvent) {
+func consumeEvent(_ fn: @escaping () -> Void) -> Unmanaged<CGEvent>? {
+    // run app logic on main thread
+    DispatchQueue.main.async {
+        fn()
+    }
+    // previously focused app should not receive keys
+    return nil
+}
+
+func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent, delegate_: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+    let delegate = Unmanaged<Application>.fromOpaque(delegate_!).takeUnretainedValue()
+    if type == .keyDown || type == .keyUp || type == .flagsChanged {
+        if let event = NSEvent(cgEvent: event_) {
             let keyDown = event.type == .keyDown
             let isTab = event.keyCode == Preferences.tabKeyCode
             let isMeta = Preferences.metaKeyCodes!.contains(event.keyCode)
             let isRightArrow = event.keyCode == kVK_RightArrow
             let isLeftArrow = event.keyCode == kVK_LeftArrow
             let isEscape = event.keyCode == kVK_Escape
-            if event.modifierFlags.contains(Preferences.metaModifierFlag!) {
-                if keyDown {
-                    if isTab && event.modifierFlags.contains(.shift) {
-                        delegate.showUiOrSelectPrevious()
-                        return nil // previously focused app should not receive keys
-                    } else if isTab {
-                        delegate.showUiOrSelectNext()
-                        return nil // previously focused app should not receive keys
-                    } else if isRightArrow && delegate.appIsBeingUsed {
-                        delegate.cycleSelection(1)
-                        return nil // previously focused app should not receive keys
-                    } else if isLeftArrow && delegate.appIsBeingUsed {
-                        delegate.cycleSelection(-1)
-                        return nil // previously focused app should not receive keys
-                    } else if keyDown && isEscape {
-                        delegate.hideUi()
-                        return nil // previously focused app should not receive keys
-                    }
+            if event.modifierFlags.contains(Preferences.metaModifierFlag!) && keyDown {
+                if isTab && event.modifierFlags.contains(.shift) {
+                    return consumeEvent { delegate.showUiOrSelectPrevious() }
+                } else if isTab {
+                    return consumeEvent { delegate.showUiOrSelectNext() }
+                } else if isRightArrow && delegate.appIsBeingUsed {
+                    return consumeEvent { delegate.cycleSelection(1) }
+                } else if isLeftArrow && delegate.appIsBeingUsed {
+                    return consumeEvent { delegate.cycleSelection(-1) }
+                } else if keyDown && isEscape {
+                    return consumeEvent { delegate.hideUi() }
                 }
             } else if isMeta && !keyDown {
-                delegate.focusTarget()
-                return nil // previously focused app should not receive keys
+                return consumeEvent { delegate.focusTarget() }
             }
         }
-    } else if cgEvent.type == .tapDisabledByUserInput || cgEvent.type == .tapDisabledByTimeout {
+    } else if type == .tapDisabledByUserInput || type == .tapDisabledByTimeout {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
     // focused app will receive the event
-    return Unmanaged.passRetained(cgEvent)
+    return Unmanaged.passRetained(event_)
 }

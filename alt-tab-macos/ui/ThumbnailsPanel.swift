@@ -72,7 +72,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
 //        debugPrint("collectionView: item size")
         if indexPath.item < application!.openWindows.count {
-            let (width, height) = computeDownscaledSize(application!.openWindows[indexPath.item].thumbnail, currentScreen!)
+            let (width, height) = Cell.computeDownscaledSize(application!.openWindows[indexPath.item].thumbnail!, currentScreen!)
             return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight!, Preferences.iconSize!) + Preferences.interItemPadding + Preferences.cellPadding * 2)
         }
         return .zero

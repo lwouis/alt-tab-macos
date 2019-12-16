@@ -25,6 +25,7 @@ class Preferences {
     static var windowMaterial: NSVisualEffectView.Material = .dark
     static var windowPadding: CGFloat = 23
     static var interItemPadding: CGFloat = 4
+    static var minimizedIconSize: CGFloat = 15
     static var cellPadding: CGFloat = 6
     static var cellBorderWidth: CGFloat?
     static var cellCornerRadius: CGFloat?

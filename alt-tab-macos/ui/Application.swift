@@ -48,7 +48,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     func hideUi() {
         debugPrint("hideUi")
-        DispatchQueue.main.async(execute: { self.thumbnailsPanel!.orderOut(nil) })
+        self.thumbnailsPanel!.orderOut(nil)
         appIsBeingUsed = false
         isFirstSummon = true
     }
@@ -71,19 +71,27 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     func computeOpenWindows() {
         openWindows.removeAll()
-        // we rely on the fact that CG and AX APIs arrays follow the same order to match objects from both APIs
-        var pidAndCurrentIndex: [pid_t: Int] = [:]
-        for cgWindow in CoreGraphicsApis.windows() {
+        // first pass: get all visible windows, in recently-used order
+        computeOpenWindows_(.optionOnScreenOnly)
+        // second pass: get all minimized windows, in fixed order
+        computeOpenWindows_(.optionAll)
+    }
+
+    private func computeOpenWindows_(_ option: CGWindowListOption) {
+        for cgWindow in CoreGraphicsApis.windows(option) {
             let cgId = CoreGraphicsApis.value(cgWindow, kCGWindowNumber, UInt32(0))
-            let cgTitle = CoreGraphicsApis.value(cgWindow, kCGWindowName, "")
-            let cgOwnerName = CoreGraphicsApis.value(cgWindow, kCGWindowOwnerName, "")
-            let cgOwnerPid = CoreGraphicsApis.value(cgWindow, kCGWindowOwnerPID, Int32(0))
-            let i = pidAndCurrentIndex.index(forKey: cgOwnerPid)
-            pidAndCurrentIndex[cgOwnerPid] = (i == nil ? 0 : pidAndCurrentIndex[i!].value + 1)
-            let axWindows_ = AccessibilityApis.windows(cgOwnerPid)
-            // windows may have changed between the CG and the AX calls
-            if axWindows_.count > pidAndCurrentIndex[cgOwnerPid]! {
-                openWindows.append(OpenWindow(axWindows_[pidAndCurrentIndex[cgOwnerPid]!], cgOwnerPid, cgId, cgTitle.isEmpty ? cgOwnerName : cgTitle))
+            if option == .optionOnScreenOnly {
+                openWindows.append(OpenWindow(cgWindow, cgId, false, nil))
+            } else {
+                // not already there from the visible-windows first pass
+                if openWindows.first(where: { $0.cgId == cgId }) == nil {
+                    let ownerPid = CoreGraphicsApis.value(cgWindow, kCGWindowOwnerPID, Int32(0))
+                    if let axWindow = AccessibilityApis.windowThatMatchCgWindow(ownerPid, cgId) {
+                        if AccessibilityApis.attribute(axWindow, kAXMinimizedAttribute, Bool.self)! {
+                            openWindows.append(OpenWindow(cgWindow, cgId, true, axWindow))
+                        }
+                    }
+                }
             }
         }
     }
@@ -94,7 +102,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     func cycleSelection(_ step: Int) {
         selectedOpenWindow = cellWithStep(step)
-        DispatchQueue.main.async(execute: { self.thumbnailsPanel!.highlightCellAt(step) })
+        self.thumbnailsPanel!.highlightCellAt(step)
     }
 
     func showUiOrCycleSelection(_ step: Int) {
