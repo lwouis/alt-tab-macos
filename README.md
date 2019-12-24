@@ -11,6 +11,10 @@ and extract it in your Applications folder. If macOS refuses to run the applicat
 because it's from an unidentified developer, right-click the application,
 choose **Open** then click **Open** in the prompt that appears.
 
+## Compatibility
+
+From macOS 10.12 to 10.15
+
 ## Usage
 
 * Press `⌥ option` + `⇥ tab` to shows the thumbnails.
