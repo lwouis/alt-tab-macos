@@ -26,6 +26,7 @@ From macOS 10.12 to 10.15
 
 * You hover and click with the `🖱️ mouse`.
 * You cycle with `⇦ left arrow` and `⇨ right arrow`.
+* You can close a window with `w` or quit the whole application with `q`
 * You can cancel with `⎋ escape`.
 
 ## Configuration

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05F4FB3C23BA5A890001427A /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4FB3B23BA5A890001427A /* Observer.swift */; };
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		D04BA02DD4152997C32CF50B /* StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */; };
 		D04BA0496ACF1427B6E9D369 /* CGWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA78E3B4E73B40DB77174 /* CGWindow.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05F4FB3B23BA5A890001427A /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
 		D04BA02F476DE30C4647886C /* PreferencesPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesPanel.swift; sourceTree = "<group>"; };
 		D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItem.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */,
 				D04BA5EB5ED248C8C22CC672 /* Spaces.swift */,
 				D04BAE80772D25834E440975 /* TrackedWindow.swift */,
+				05F4FB3B23BA5A890001427A /* Observer.swift */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D04BA960DDD1D32A3019C835 /* CollectionViewCenterFlowLayout.swift in Sources */,
+				05F4FB3C23BA5A890001427A /* Observer.swift in Sources */,
 				D04BAEF78503D7A2CEFB9E9E /* main.swift in Sources */,
 				D04BA20D4A240843293B3B52 /* Cell.swift in Sources */,
 				D04BA57A871B7269BEBAFF84 /* Keyboard.swift in Sources */,

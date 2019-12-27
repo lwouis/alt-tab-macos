@@ -47,6 +47,8 @@ func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent,
             let isMetaDown = event.modifierFlags.contains(Preferences.metaModifierFlag!)
             let isRightArrow = event.keyCode == kVK_RightArrow
             let isLeftArrow = event.keyCode == kVK_LeftArrow
+            let isQ = event.keyCode == kVK_ANSI_Q
+            let isW = event.keyCode == kVK_ANSI_W
             let isEscape = event.keyCode == kVK_Escape
             if isMetaDown && type == .keyDown {
                 if isTab && event.modifierFlags.contains(.shift) {
@@ -57,6 +59,10 @@ func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent,
                     return dispatchWork(application, true, { application.cycleSelection(1) })
                 } else if isLeftArrow && application.appIsBeingUsed {
                     return dispatchWork(application, true, { application.cycleSelection(-1) })
+                } else if isQ && application.appIsBeingUsed {
+                    return dispatchWork(application, true, { application.quitTargetApp() })
+                } else if isW && application.appIsBeingUsed {
+                    return dispatchWork(application, true, { application.closeTarget() })
                 } else if type == .keyDown && isEscape {
                     return dispatchWork(application, false, { application.hideUi() })
                 }

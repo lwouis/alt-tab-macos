@@ -5,11 +5,13 @@ let cgsMainConnectionId = CGSMainConnectionID()
 
 class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     static let name = "AltTab"
+    let observer = Observer()
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
     var preferencesPanel: PreferencesPanel?
     var uiWorkShouldBeDone = true
     var isFirstSummon = true
+    var isOutdated = false
     var appIsBeingUsed = false
 
     override init() {
@@ -44,6 +46,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     func hideUi() {
         debugPrint("hideUi")
         thumbnailsPanel!.orderOut(nil)
+        observer.clearObservers()
         appIsBeingUsed = false
         isFirstSummon = true
     }
@@ -53,6 +56,20 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         if appIsBeingUsed {
             debugPrint("focusTarget: appIsBeingUsed")
             focusSelectedWindow(TrackedWindows.focusedWindow())
+        }
+    }
+
+    func closeTarget() {
+        if appIsBeingUsed {
+            debugPrint("closeTarget")
+            closeSelectedWindow(TrackedWindows.focusedWindow())
+        }
+    }
+
+    func quitTargetApp() {
+        if appIsBeingUsed {
+            debugPrint("quitTargetApp")
+            quitApplicationOfSelectedWindow(TrackedWindows.focusedWindow())
         }
     }
 
@@ -78,9 +95,10 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     func showUiOrCycleSelection(_ step: Int) {
         debugPrint("showUiOrCycleSelection", step)
         appIsBeingUsed = true
-        if isFirstSummon {
-            debugPrint("showUiOrCycleSelection: isFirstSummon")
+        if isFirstSummon || isOutdated {
+            debugPrint("showUiOrCycleSelection: isFirstSummon", isFirstSummon, "isOutdated", isOutdated)
             isFirstSummon = false
+            isOutdated = false
             TrackedWindows.refreshList(step)
             if TrackedWindows.list.count == 0 {
                 appIsBeingUsed = false
@@ -101,5 +119,15 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     func focusSelectedWindow(_ window: TrackedWindow?) {
         hideUi()
         DispatchQueue.global(qos: .userInteractive).async { window?.focus() }
+    }
+
+    func closeSelectedWindow(_ window: TrackedWindow?) {
+        observer.createObserver(window!, self, .refreshUiOnClose)
+        DispatchQueue.global(qos: .userInteractive).async { window?.close() }
+    }
+
+    func quitApplicationOfSelectedWindow(_ window: TrackedWindow?) {
+        observer.createObserver(window!, self, .refreshUiOnQuit)
+        DispatchQueue.global(qos: .userInteractive).async { window?.quitApp() }
     }
 }

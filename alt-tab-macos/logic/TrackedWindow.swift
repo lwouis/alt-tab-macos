@@ -9,7 +9,18 @@ class TrackedWindow {
     var thumbnail: NSImage?
     var icon: NSImage?
     var app: NSRunningApplication?
-    var axWindow: AXUIElement?
+    private var _axWindow: AXUIElement? = nil
+    var axWindow: AXUIElement? {
+        set {
+            _axWindow = newValue
+        }
+        get {
+            if _axWindow == nil {
+                _axWindow = id.AXUIElementOfOtherSpaceWindow(ownerPid)
+            }
+            return _axWindow
+        }
+    }
     var isMinimized: Bool
     var spaceId: CGSSpaceID?
     var spaceIndex: SpaceIndex?
@@ -28,7 +39,7 @@ class TrackedWindow {
         if let cgImage = cgId.screenshot() {
             self.thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
         }
-        self.axWindow = axWindow
+        self._axWindow = axWindow
         self.isMinimized = isMinimized
         self.spaceId = spaceId
         // System Preferences windows appear on all spaces, so we make them the current space
@@ -37,9 +48,16 @@ class TrackedWindow {
     }
 
     func focus() {
-        if axWindow == nil {
-            axWindow = id.AXUIElementOfOtherSpaceWindow(ownerPid)
-        }
         axWindow?.focus(id)
+    }
+
+    func close() {
+        axWindow?.close()
+    }
+
+    func quitApp() {
+        if app != nil {
+            app?.terminate()
+        }
     }
 }

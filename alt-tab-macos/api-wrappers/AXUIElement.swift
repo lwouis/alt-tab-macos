@@ -7,7 +7,9 @@ import Foundation
 enum AXAttributeKey: String {
     case windows = "AXWindows"
     case minimized = "AXMinimized"
+    case fullScreen = "AXFullScreen"
     case focusedWindow = "AXFocusedWindow"
+    case closeButton = "AXCloseButton"
     case subrole = "AXSubrole"
 }
 
@@ -53,6 +55,10 @@ extension AXUIElement {
         return attribute(.minimized, Bool.self) == true
     }
 
+    func isFullScreen() -> Bool {
+        return attribute(.fullScreen, Bool.self) == true
+    }
+
     func focus(_ id: CGWindowID) {
         var elementConnection = UInt32(0)
         CGSGetWindowOwner(cgsMainConnectionId, id, &elementConnection)
@@ -85,5 +91,15 @@ extension AXUIElement {
 
         SLPSPostEventRecordTo(&psn_, &(UnsafeMutablePointer(mutating: UnsafePointer<UInt8>(bytes1)).pointee))
         SLPSPostEventRecordTo(&psn_, &(UnsafeMutablePointer(mutating: UnsafePointer<UInt8>(bytes2)).pointee))
+    }
+
+    func close() {
+        if isFullScreen() {
+            AXUIElementSetAttributeValue(self, AXAttributeKey.fullScreen.rawValue as CFString, 0 as CFTypeRef)
+            return
+        }
+        if let closeButtonRef = attribute(.closeButton, AXUIElement.self) {
+            AXUIElementPerformAction(closeButtonRef, kAXPressAction as CFString)
+        }
     }
 }
