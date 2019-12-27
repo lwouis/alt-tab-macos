@@ -1,8 +1,8 @@
 import Foundation
 import Cocoa
 
-// add CGFloat constructor from String
 extension CGFloat {
+    // add CGFloat constructor from String
     init?(_ string: String) {
         guard let number = NumberFormatter().number(from: string) else {
             return nil
@@ -11,8 +11,8 @@ extension CGFloat {
     }
 }
 
-// add throw-on-nil method on Optional
 extension Optional {
+    // add throw-on-nil method on Optional
     func orThrow() throws -> Wrapped {
         switch self {
         case .some(let value):
@@ -24,8 +24,8 @@ extension Optional {
     }
 }
 
-// add String constructor from CGFloat that round up at 1 decimal
 extension String {
+    // add String constructor from CGFloat that round up at 1 decimal
     init?(_ cgFloat: CGFloat) {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 1
@@ -36,8 +36,8 @@ extension String {
     }
 }
 
-// add recursive lookup in subviews for specific type
 extension NSView {
+    // add recursive lookup in subviews for specific type
     func findNestedViews<T: NSView>(subclassOf: T.Type) -> [T] {
         return recursiveSubviews.compactMap { $0 as? T }
     }
@@ -47,13 +47,20 @@ extension NSView {
     }
 }
 
-// add convenience to NSError
 extension NSError {
+    // add convenience to NSError
     class func make(domain: String, message: String, code: Int = 9999) -> NSError {
         return NSError(
                 domain: domain,
                 code: code,
                 userInfo: [NSLocalizedDescriptionKey: message, NSLocalizedFailureReasonErrorKey: message]
         )
+    }
+}
+
+extension Collection {
+    // recursive flatMap
+    func joined() -> [Any] {
+        return flatMap { ($0 as? [Any])?.joined() ?? [$0] }
     }
 }

@@ -28,5 +28,7 @@
 	<string>NSApplication</string>
 	<key>LSUIElement</key>
 	<string>1</string>
+	<key>ATSApplicationFontsPath</key>
+	<string></string>
 </dict>
 </plist>

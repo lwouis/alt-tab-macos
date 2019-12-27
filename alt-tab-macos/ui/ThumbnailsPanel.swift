@@ -24,6 +24,8 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         collectionView_ = makeCollectionView()
         backgroundView = makeBackgroundView()
         contentView!.addSubview(backgroundView!)
+        // highest level possible; this allows the app to go on top of context menus
+        level = .screenSaver
     }
 
     private func makeBackgroundView() -> NSVisualEffectView {
@@ -51,44 +53,41 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 
     func makeLayout() -> CollectionViewCenterFlowLayout {
         let layout = CollectionViewCenterFlowLayout()
-        layout.estimatedItemSize = NSSize(width: 200, height: 200)
+        layout.estimatedItemSize = NSSize(width: Preferences.emptyThumbnailWidth, height: Preferences.emptyThumbnailHeight)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         return layout
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-//        debugPrint("collectionView: count items", application!.openWindows.count)
-        return application!.openWindows.count
+        return TrackedWindows.list.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-//        debugPrint("collectionView: make item", indexPath.item)
         let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! Cell
-        item.updateWithNewContent(application!.openWindows[indexPath.item], application!.focusSelectedWindow, application!.thumbnailsPanel!.highlightCell, currentScreen!)
+        item.updateWithNewContent(TrackedWindows.list[indexPath.item], application!.focusSelectedWindow, application!.thumbnailsPanel!.highlightCell, currentScreen!)
         return item
     }
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-//        debugPrint("collectionView: item size")
-        if indexPath.item < application!.openWindows.count {
-            let (width, height) = computeDownscaledSize(application!.openWindows[indexPath.item].thumbnail, currentScreen!)
+        if indexPath.item < TrackedWindows.list.count {
+            let (width, height) = Cell.computeDownscaledSize(TrackedWindows.list[indexPath.item].thumbnail, currentScreen!)
             return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight!, Preferences.iconSize!) + Preferences.interItemPadding + Preferences.cellPadding * 2)
         }
         return .zero
     }
 
     func highlightCellAt(_ step: Int) {
-        collectionView_!.selectItems(at: [IndexPath(item: application!.selectedOpenWindow, section: 0)], scrollPosition: .top)
-        collectionView_!.deselectItems(at: [IndexPath(item: application!.cellWithStep(-step), section: 0)])
+        collectionView_!.selectItems(at: [IndexPath(item: TrackedWindows.focusedWindowIndex, section: 0)], scrollPosition: .top)
+        collectionView_!.deselectItems(at: [IndexPath(item: TrackedWindows.moveFocusedWindowIndex(-step), section: 0)])
     }
 
     func highlightCell(_ cell: Cell) {
         let newIndex = collectionView_.indexPath(for: cell)!
-        if application!.selectedOpenWindow != newIndex.item {
+        if TrackedWindows.focusedWindowIndex != newIndex.item {
             collectionView_!.selectItems(at: [newIndex], scrollPosition: .top)
-            collectionView_!.deselectItems(at: [IndexPath(item: application!.selectedOpenWindow, section: 0)])
-            application!.selectedOpenWindow = newIndex.item
+            collectionView_!.deselectItems(at: [IndexPath(item: TrackedWindows.focusedWindowIndex, section: 0)])
+            TrackedWindows.focusedWindowIndex = newIndex.item
         }
     }
 

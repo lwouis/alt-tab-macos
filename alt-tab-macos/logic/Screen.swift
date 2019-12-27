@@ -2,16 +2,16 @@ import Foundation
 import Cocoa
 
 class Screen {
-    static func preferredScreen() -> NSScreen {
+    static func preferred() -> NSScreen {
         switch Preferences.showOnScreen! {
         case .MOUSE:
-            return screenWithMouse() ?? NSScreen.main!; // .main as fall-back
+            return withMouse() ?? NSScreen.main!; // .main as fall-back
         case .MAIN:
             return NSScreen.main!;
         }
     }
 
-    private static func screenWithMouse() -> NSScreen? {
+    private static func withMouse() -> NSScreen? {
         return NSScreen.screens.first { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }
     }
 
@@ -35,6 +35,14 @@ class Screen {
         panel.setFrameOrigin(NSPoint(x: x, y: y))
         panel.makeKeyAndOrderFront(nil)
         Application.shared.arrangeInFront(nil)
+    }
+
+    static func mainUuid() -> CFString {
+        return "Main" as CFString
+        // the bellow code gets the actual main screen, but in our case we seem to be fine with sending "Main"
+        // our only need for this is for the System Preferences panel which has incorrect space with or without this
+        //let mainScreenId = NSScreen.main!.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! UInt32
+        //return CFUUIDCreateString(nil, CGDisplayCreateUUIDFromDisplayID(mainScreenId).takeRetainedValue())!
     }
 }
 
