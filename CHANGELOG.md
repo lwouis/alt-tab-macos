@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/lwouis/alt-tab-macos/compare/v1.14.4...v2.0.0) (2019-12-27)
+
+
+### Features
+
+* display other spaces/minimized windows (closes [#14](https://github.com/lwouis/alt-tab-macos/issues/14)) ([3f5ea25](https://github.com/lwouis/alt-tab-macos/commit/3f5ea25)), closes [#11](https://github.com/lwouis/alt-tab-macos/issues/11) [#45](https://github.com/lwouis/alt-tab-macos/issues/45) [#62](https://github.com/lwouis/alt-tab-macos/issues/62)
+
+
+### BREAKING CHANGES
+
+* this brings huge changes to core parts of the codebase. It introduces the use of private APIs that hopefully are should be compatible from macOS 10.12+, but I couldn't test them. I reviewed the whole codebase to clean and improve on performance and readability
+
 ## [1.14.4](https://github.com/lwouis/alt-tab-macos/compare/v1.14.3...v1.14.4) (2019-12-24)
 
 ## [1.14.3](https://github.com/lwouis/alt-tab-macos/compare/v1.14.2...v1.14.3) (2019-11-12)
