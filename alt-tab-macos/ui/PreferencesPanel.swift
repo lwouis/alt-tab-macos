@@ -18,11 +18,6 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         contentView = makeContentView()
     }
 
-    override func close() {
-        (NSApp as! Application).preferencesPanel = nil
-        super.close()
-    }
-
     public func windowShouldClose(_ sender: NSWindow) -> Bool {
         windowCloseRequested = true
         challengeNextInvalidEditableTextField()

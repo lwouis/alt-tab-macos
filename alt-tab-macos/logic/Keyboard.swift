@@ -2,6 +2,8 @@ import Cocoa
 import Carbon.HIToolbox.Events
 
 class Keyboard {
+    static let backgroundQueue = DispatchQueue(label: "uiQueue", qos: .userInteractive, autoreleaseFrequency: .never)
+
     static func listenToGlobalEvents(_ delegate: Application) {
         listenToGlobalKeyboardEvents(delegate)
     }
@@ -10,17 +12,16 @@ class Keyboard {
 var eventTap: CFMachPort?
 
 func listenToGlobalKeyboardEvents(_ delegate: Application) {
-    DispatchQueue.global(qos: .userInteractive).async {
+    Keyboard.backgroundQueue.async {
+        Thread.current.name = "uiQueue-thread"
         let eventMask = [CGEventType.keyDown, CGEventType.keyUp, CGEventType.flagsChanged].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
+        // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
         eventTap = CGEvent.tapCreate(
                 tap: .cgSessionEventTap,
                 place: .headInsertEventTap,
                 options: .defaultTap,
                 eventsOfInterest: eventMask,
-                callback: { (_, _, event, delegate_) -> Unmanaged<CGEvent>? in
-                    let d = Unmanaged<Application>.fromOpaque(delegate_!).takeUnretainedValue()
-                    return keyboardHandler(event, d)
-                },
+                callback: keyboardHandler,
                 userInfo: UnsafeMutableRawPointer(Unmanaged.passUnretained(delegate).toOpaque()))
         let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
@@ -29,42 +30,43 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
     }
 }
 
-func keyboardHandler(_ cgEvent: CGEvent, _ delegate: Application) -> Unmanaged<CGEvent>? {
-    if cgEvent.type == .keyDown || cgEvent.type == .keyUp || cgEvent.type == .flagsChanged {
-        if let event = NSEvent(cgEvent: cgEvent) {
-            let keyDown = event.type == .keyDown
+func dispatchWork(_ application: Application, _ uiWorkShouldBeDone: Bool, _ fn: @escaping () -> Void) -> Unmanaged<CGEvent>? {
+    application.uiWorkShouldBeDone = uiWorkShouldBeDone
+    DispatchQueue.main.async {
+        fn()
+    }
+    return nil // previously focused app should not receive keys
+}
+
+func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent, delegate_: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+    let application = Unmanaged<Application>.fromOpaque(delegate_!).takeUnretainedValue()
+    if type == .keyDown || type == .keyUp || type == .flagsChanged {
+        if let event = NSEvent(cgEvent: event_) {
             let isTab = event.keyCode == Preferences.tabKeyCode
-            let isMeta = Preferences.metaKeyCodes!.contains(event.keyCode)
+            let isMetaChanged = Preferences.metaKeyCodes!.contains(event.keyCode)
+            let isMetaDown = event.modifierFlags.contains(Preferences.metaModifierFlag!)
             let isRightArrow = event.keyCode == kVK_RightArrow
             let isLeftArrow = event.keyCode == kVK_LeftArrow
             let isEscape = event.keyCode == kVK_Escape
-            if event.modifierFlags.contains(Preferences.metaModifierFlag!) {
-                if keyDown {
-                    if isTab && event.modifierFlags.contains(.shift) {
-                        delegate.showUiOrSelectPrevious()
-                        return nil // previously focused app should not receive keys
-                    } else if isTab {
-                        delegate.showUiOrSelectNext()
-                        return nil // previously focused app should not receive keys
-                    } else if isRightArrow && delegate.appIsBeingUsed {
-                        delegate.cycleSelection(1)
-                        return nil // previously focused app should not receive keys
-                    } else if isLeftArrow && delegate.appIsBeingUsed {
-                        delegate.cycleSelection(-1)
-                        return nil // previously focused app should not receive keys
-                    } else if keyDown && isEscape {
-                        delegate.hideUi()
-                        return nil // previously focused app should not receive keys
-                    }
+            if isMetaDown && type == .keyDown {
+                if isTab && event.modifierFlags.contains(.shift) {
+                    return dispatchWork(application, true, { application.showUiOrCycleSelection(-1) })
+                } else if isTab {
+                    return dispatchWork(application, true, { application.showUiOrCycleSelection(1) })
+                } else if isRightArrow && application.appIsBeingUsed {
+                    return dispatchWork(application, true, { application.cycleSelection(1) })
+                } else if isLeftArrow && application.appIsBeingUsed {
+                    return dispatchWork(application, true, { application.cycleSelection(-1) })
+                } else if type == .keyDown && isEscape {
+                    return dispatchWork(application, false, { application.hideUi() })
                 }
-            } else if isMeta && !keyDown {
-                delegate.focusTarget()
-                return nil // previously focused app should not receive keys
+            } else if isMetaChanged && !isMetaDown {
+                return dispatchWork(application, false, { application.focusTarget() })
             }
         }
-    } else if cgEvent.type == .tapDisabledByUserInput || cgEvent.type == .tapDisabledByTimeout {
+    } else if type == .tapDisabledByUserInput || type == .tapDisabledByTimeout {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
     // focused app will receive the event
-    return Unmanaged.passRetained(cgEvent)
+    return Unmanaged.passRetained(event_)
 }

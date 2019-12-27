@@ -2,11 +2,6 @@ import Foundation
 import Cocoa
 import Carbon.HIToolbox.Events
 
-enum ShowOnScreenPreference {
-    case MAIN
-    case MOUSE
-}
-
 class Preferences {
     static var defaults: [String: String] = [
         "maxScreenUsage": "80",
@@ -20,12 +15,15 @@ class Preferences {
         "showOnScreen": showOnScreenMacro.macros[0].label
     ]
     static var rawValues = [String: String]()
-    static var minimumWindowSize: CGFloat = 200
-    static var fontColor: NSColor = .white
-    static var windowMaterial: NSVisualEffectView.Material = .dark
-    static var windowPadding: CGFloat = 23
-    static var interItemPadding: CGFloat = 4
-    static var cellPadding: CGFloat = 6
+    static var minimumWindowSize = CGFloat(200)
+    static var emptyThumbnailWidth = CGFloat(200)
+    static var emptyThumbnailHeight = CGFloat(emptyThumbnailWidth * 9 / 16)
+    static var fontColor = NSColor.white
+    static var windowMaterial = NSVisualEffectView.Material.dark
+    static var windowPadding = CGFloat(23)
+    static var interItemPadding = CGFloat(4)
+    static var fontIconSize = CGFloat(20)
+    static var cellPadding = CGFloat(6)
     static var cellBorderWidth: CGFloat?
     static var cellCornerRadius: CGFloat?
     static var maxScreenUsage: CGFloat?
@@ -173,4 +171,9 @@ class MacroPreferenceHelper<T> {
             labels.append($0.label)
         }
     }
+}
+
+enum ShowOnScreenPreference {
+    case MAIN
+    case MOUSE
 }
