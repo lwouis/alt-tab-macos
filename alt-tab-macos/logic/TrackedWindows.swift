@@ -22,7 +22,6 @@ class TrackedWindows {
         Spaces.currentSpaceIndex = spaces.first { $0.0 == Spaces.currentSpaceId }!.1
         filterAndAddToList(mapWindowsWithRankAndSpace(spaces))
         sortList()
-        TrackedWindows.focusedWindowIndex = TrackedWindows.moveFocusedWindowIndex(step)
     }
 
     private static func mapWindowsWithRankAndSpace(_ spaces: [(CGSSpaceID, SpaceIndex)]) -> [CGWindowID: (CGSSpaceID, SpaceIndex, WindowRank)] {
