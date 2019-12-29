@@ -77,8 +77,11 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
             isFirstSummon = false
             TrackedWindows.refreshList(step)
             if TrackedWindows.list.count == 0 {
+                appIsBeingUsed = false
+                isFirstSummon = true
                 return
             }
+            TrackedWindows.focusedWindowIndex = TrackedWindows.moveFocusedWindowIndex(step)
             let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
             if uiWorkShouldBeDone { self.thumbnailsPanel!.computeThumbnails(currentScreen); debugPrint("computeThumbnails") }
             if uiWorkShouldBeDone { self.thumbnailsPanel!.highlightCellAt(step); debugPrint("highlightCellAt") }
