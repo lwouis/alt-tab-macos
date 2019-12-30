@@ -23,9 +23,15 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
                 eventsOfInterest: eventMask,
                 callback: keyboardHandler,
                 userInfo: UnsafeMutableRawPointer(Unmanaged.passUnretained(delegate).toOpaque()))
+        if eventTap == nil {
+            debugPrint("Could not enable keyboard hook; is accessibility enabled?")
+            delegate.keyboardWasHooked(false)
+            return
+        }
         let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CGEvent.tapEnable(tap: eventTap!, enable: true)
+        delegate.keyboardWasHooked(true)
         CFRunLoopRun()
     }
 }

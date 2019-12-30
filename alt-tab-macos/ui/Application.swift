@@ -11,6 +11,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     var uiWorkShouldBeDone = true
     var isFirstSummon = true
     var appIsBeingUsed = false
+    var keyboardSuccessfullyHooked = false
 
     override init() {
         super.init()
@@ -62,6 +63,10 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
             preferencesPanel = PreferencesPanel()
         }
         Screen.showPanel(preferencesPanel!, Screen.preferred(), .appleCentered)
+    }
+
+    func keyboardWasHooked(_ success: Bool) {
+        keyboardSuccessfullyHooked = success
     }
 
     func cycleSelection(_ step: Int) {
