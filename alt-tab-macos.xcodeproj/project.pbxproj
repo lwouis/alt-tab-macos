@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DFC50FA23B9FEC000986EC7 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1DFC50F923B9FEC000986EC7 /* icon.icns */; };
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		D04BA02DD4152997C32CF50B /* StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */; };
 		D04BA0496ACF1427B6E9D369 /* CGWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA78E3B4E73B40DB77174 /* CGWindow.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1DFC50F923B9FEC000986EC7 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
 		D04BA02F476DE30C4647886C /* PreferencesPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesPanel.swift; sourceTree = "<group>"; };
 		D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItem.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		D04BA5A0E9C82F7579CD2B78 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				1DFC50F923B9FEC000986EC7 /* icon.icns */,
 				D04BABC654F40BE74DA25BC7 /* SF-Pro-Text-Regular.otf */,
 			);
 			path = resources;
@@ -337,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D04BA8373D4DE452C0C081ED /* SF-Pro-Text-Regular.otf in Resources */,
+				1DFC50FA23B9FEC000986EC7 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

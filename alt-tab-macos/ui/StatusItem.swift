@@ -2,8 +2,11 @@ import Cocoa
 
 class StatusItem {
     static func make(_ application: Application) -> NSStatusItem {
-        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        item.button!.title = Application.name
+        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        let image = NSImage.init(named: "icon.icns")
+        image?.isTemplate = true
+        item.button!.image = image
+        item.button!.imageScaling = NSImageScaling.scaleProportionallyUpOrDown
         item.menu = NSMenu()
         item.menu!.addItem(
                 withTitle: "Version #VERSION#",
