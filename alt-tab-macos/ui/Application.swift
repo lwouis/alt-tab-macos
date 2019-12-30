@@ -64,6 +64,11 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         Screen.showPanel(preferencesPanel!, Screen.preferred(), .appleCentered)
     }
 
+    @objc
+    func showUi() {
+        showUiOrCycleSelection(0)
+    }
+
     func cycleSelection(_ step: Int) {
         TrackedWindows.focusedWindowIndex = TrackedWindows.moveFocusedWindowIndex(step)
         self.thumbnailsPanel!.highlightCellAt(step)

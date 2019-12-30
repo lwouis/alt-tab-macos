@@ -10,6 +10,11 @@ class StatusItem {
                 action: #selector(application.showPreferencesPanel),
                 keyEquivalent: ",")
         item.menu!.addItem(
+                withTitle: "Show…",
+                action: #selector(application.showUi),
+                keyEquivalent: "s"
+        )
+        item.menu!.addItem(
             withTitle: "Quit \(Application.name) #VERSION#",
                 action: #selector(NSApplication.terminate(_:)),
                 keyEquivalent: "q")
