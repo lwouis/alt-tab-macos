@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/lwouis/alt-tab-macos/compare/v2.0.0...v2.0.1) (2019-12-30)
+
+
+### Bug Fixes
+
+* app crashes when invoked when there is 0 window (closes [#95](https://github.com/lwouis/alt-tab-macos/issues/95)) ([921590a](https://github.com/lwouis/alt-tab-macos/commit/921590a))
+
 # [2.0.0](https://github.com/lwouis/alt-tab-macos/compare/v1.14.4...v2.0.0) (2019-12-27)
 
 
