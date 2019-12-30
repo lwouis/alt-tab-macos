@@ -79,6 +79,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
             makeLabelWithSlider("Max thumbnails per row", rawName: "maxThumbnailsPerRow", minValue: 3, maxValue: 16, numberOfTickMarks: 0),
             makeLabelWithSlider("Apps icon size", rawName: "iconSize", minValue: 12, maxValue: 64, numberOfTickMarks: 0, unitText: "px"),
             makeLabelWithSlider("Window font size", rawName: "fontHeight", minValue: 12, maxValue: 64, numberOfTickMarks: 0, unitText: "px"),
+            makeLabelWithCheckbox("Hide space number labels", rawName: "hideSpaceNumberLabels"),
             makeHorizontalSeparator(),
             makeLabelWithSlider("Window apparition delay", rawName: "windowDisplayDelay", minValue: 0, maxValue: 2000, numberOfTickMarks: 0, unitText: "ms"),
             makeLabelWithDropdown("Show on", rawName: "showOnScreen", values: Preferences.showOnScreenMacro.labels)
@@ -104,6 +105,12 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         return makeLabelWithProvidedControl(labelText, rawName: rawName, control: input, suffixText: suffixText, suffixUrl: suffixUrl)
     }
 
+    private func makeLabelWithCheckbox(_ labelText: String, rawName: String) -> NSStackView {
+        let checkbox = NSButton.init(checkboxWithTitle: "", target: nil, action: nil)
+        setControlValue(checkbox, Preferences.rawValues[rawName]!)
+        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: checkbox)
+    }
+
     private func makeLabelWithDropdown(_ labelText: String, rawName: String, values: [String], suffixText: String? = nil) -> NSStackView {
         let popUp = NSPopUpButton()
         popUp.addItems(withTitles: values)
@@ -127,8 +134,8 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         return makeLabelWithProvidedControl(labelText, rawName: rawName, control: slider, suffixText: suffixText, suffixWidth: 60)
     }
 
-    private func makeLabelWithProvidedControl(_ labelText: String, rawName: String, control: NSControl, suffixText: String? = nil, suffixWidth: CGFloat? = nil, suffixUrl: String? = nil) -> NSStackView {
-        let label = NSTextField(wrappingLabelWithString: labelText + ": ")
+    private func makeLabelWithProvidedControl(_ labelText: String?, rawName: String, control: NSControl, suffixText: String? = nil, suffixWidth: CGFloat? = nil, suffixUrl: String? = nil) -> NSStackView {
+        let label = NSTextField(wrappingLabelWithString: (labelText != nil ? labelText! + ": " : ""))
         label.alignment = .right
         label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
         label.identifier = NSUserInterfaceItemIdentifier(rawName + ControlIdentifierDiscriminator.LABEL.rawValue)
@@ -232,7 +239,9 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
     }
 
     private func getControlValue(_ control: NSControl) -> String {
-        if control is NSPopUpButton {
+        if control is NSButton {
+            return String((control as! NSButton).state == NSButton.StateValue.on)
+        } else if control is NSPopUpButton {
             return (control as! NSPopUpButton).titleOfSelectedItem!
         } else if control is NSSlider {
             return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
@@ -242,7 +251,9 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
     }
 
     private func setControlValue(_ control: NSControl, _ value: String) {
-        if control is NSPopUpButton {
+        if control is NSButton {
+            (control as! NSButton).state = Bool(value) ?? false ? NSButton.StateValue.on : NSButton.StateValue.off
+        } else if control is NSPopUpButton {
             (control as! NSPopUpButton).selectItem(withTitle: value)
         } else if control is NSTextField{
             control.stringValue = value
