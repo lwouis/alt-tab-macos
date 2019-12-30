@@ -23,8 +23,6 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
-        SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         Preferences.loadFromDiskAndUpdateValues()
         statusItem = StatusItem.make(self)
         initPreferencesDependentComponents()

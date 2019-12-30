@@ -2,6 +2,19 @@ import Cocoa
 import Foundation
 
 class PreferencesPanel: NSPanel, NSWindowDelegate {
+    let ACCESSIBILITY_WARNING_TEXT = """
+Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.
+Please authorize and re-launch.
+
+See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx
+"""
+    let SCREENSHOT_WARNING_TEXT = """
+Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Screen Recording.
+Please authorize and re-launch.
+
+See https://dropshare.zendesk.com/hc/en-us/articles/360033453434-Enabling-Screen-Recording-Permission-on-macOS-Catalina-10-15-
+"""
+
     let panelWidth = CGFloat(496)
     let panelHeight = CGFloat(256) // auto expands to content height (but does not auto shrink)
     let panelPadding = CGFloat(40)
@@ -71,6 +84,8 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         }
 
         return [
+            (SystemPermissions.checkAccessibility() ? nil : makeWarningLabel(ACCESSIBILITY_WARNING_TEXT)),
+            (SystemPermissions.checkScreenshot() ? nil : makeWarningLabel(SCREENSHOT_WARNING_TEXT)),
             makeLabelWithDropdown("Alt key", rawName: "metaKey", values: Preferences.metaKeyMacro.labels),
             makeLabelWithInput("Tab key", rawName: "tabKeyCode", width: 33, suffixText: "KeyCodes Reference", suffixUrl: "https://eastmanreference.com/complete-list-of-applescript-key-codes", validator: tabKeyCodeValidator),
             makeHorizontalSeparator(),
@@ -82,7 +97,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
             makeHorizontalSeparator(),
             makeLabelWithSlider("Window apparition delay", rawName: "windowDisplayDelay", minValue: 0, maxValue: 2000, numberOfTickMarks: 0, unitText: "ms"),
             makeLabelWithDropdown("Show on", rawName: "showOnScreen", values: Preferences.showOnScreenMacro.labels)
-        ]
+            ].compactMap { $0 }
     }
 
     private func makeHorizontalSeparator() -> NSView {
@@ -90,6 +105,14 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         view.boxType = .separator
 
         return view
+    }
+
+    private func makeWarningLabel(_ labelText: String) -> NSTextField {
+        let label = NSTextField(wrappingLabelWithString: labelText)
+        label.alignment = .center
+        label.widthAnchor.constraint(equalToConstant: panelWidth - panelPadding).isActive = true
+        label.textColor = NSColor.red
+        return label
     }
 
     private func makeLabelWithInput(_ labelText: String, rawName: String, width: CGFloat? = nil, suffixText: String? = nil, suffixUrl: String? = nil, validator: ((String)->Bool)? = nil) -> NSStackView {
