@@ -17,11 +17,22 @@ class TrackedWindows {
         list.removeAll()
         focusedWindowIndex = 0
         let spaces = Spaces.allIdsAndIndexes()
-        Spaces.singleSpace = spaces.count == 1
         Spaces.currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, Screen.mainUuid())
         Spaces.currentSpaceIndex = spaces.first { $0.0 == Spaces.currentSpaceId }!.1
         filterAndAddToList(mapWindowsWithRankAndSpace(spaces))
+        isSingleSpace()
         sortList()
+    }
+
+    private class func isSingleSpace() {
+        let firstSpaceIndex = list[0].spaceIndex
+        for window in list {
+            if window.spaceIndex != firstSpaceIndex {
+                Spaces.singleSpace = false
+                return
+            }
+        }
+        Spaces.singleSpace = true
     }
 
     private static func mapWindowsWithRankAndSpace(_ spaces: [(CGSSpaceID, SpaceIndex)]) -> [CGWindowID: (CGSSpaceID, SpaceIndex, WindowRank)] {
