@@ -9,15 +9,11 @@ class StatusItem {
         item.button!.imageScaling = NSImageScaling.scaleProportionallyUpOrDown
         item.menu = NSMenu()
         item.menu!.addItem(
-                withTitle: "Version #VERSION#",
-                action: nil,
-                keyEquivalent: "")
-        item.menu!.addItem(
                 withTitle: "Preferences…",
                 action: #selector(application.showPreferencesPanel),
                 keyEquivalent: ",")
         item.menu!.addItem(
-                withTitle: "Quit \(ProcessInfo.processInfo.processName)",
+            withTitle: "Quit \(Application.name) #VERSION#",
                 action: #selector(NSApplication.terminate(_:)),
                 keyEquivalent: "q")
         return item
