@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/lwouis/alt-tab-macos/compare/v2.0.1...v2.0.2) (2019-12-30)
+
+
+### Bug Fixes
+
+* space numbers are correctly removed if single space ([45ad43f](https://github.com/lwouis/alt-tab-macos/commit/45ad43f))
+
 ## [2.0.1](https://github.com/lwouis/alt-tab-macos/compare/v2.0.0...v2.0.1) (2019-12-30)
 
 
