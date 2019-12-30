@@ -12,6 +12,13 @@ class StatusItem {
                 withTitle: "Preferences…",
                 action: #selector(application.showPreferencesPanel),
                 keyEquivalent: ",")
+        let selItem = item.menu!.addItem(
+                withTitle: "Show selector…",
+                action: #selector(application.showUi),
+                keyEquivalent: ","
+        )
+        selItem.isAlternate = true
+        selItem.keyEquivalentModifierMask = [NSEvent.ModifierFlags.option, NSEvent.ModifierFlags.command]
         item.menu!.addItem(
             withTitle: "Quit \(Application.name) #VERSION#",
                 action: #selector(NSApplication.terminate(_:)),
