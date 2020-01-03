@@ -66,6 +66,7 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     @objc
     func showUi() {
+        uiWorkShouldBeDone = true
         showUiOrCycleSelection(0)
     }
 
