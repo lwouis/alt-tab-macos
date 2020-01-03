@@ -45,7 +45,7 @@ class TrackedWindows {
         Spaces.windowsInSpaces(spaces.map { $0.0 }).enumerated().forEach {
             windowSpaceMap[$0.element]!.2 = $0.offset
         }
-        return windowSpaceMap as! [CGWindowID : (CGSSpaceID, SpaceIndex, WindowRank)]
+        return windowSpaceMap as! [CGWindowID: (CGSSpaceID, SpaceIndex, WindowRank)]
     }
 
     private static func sortList() {
@@ -69,15 +69,18 @@ class TrackedWindows {
                 continue
             }
             let (spaceId, spaceIndex, rank) = windowsMap[cgId] ?? (nil, nil, nil)
-            if let axWindow = cgId.AXUIElement(ownerPid) {
+            if let axWindow = cgId.AXUIElement(ownerPid), axWindow.isActualWindow() {
+                // window is in the current space
                 if spaceId != nil {
                     list.append(TrackedWindow(cgWindow, cgId, ownerPid, false, axWindow, spaceId, spaceIndex, rank))
-                } else if axWindow.isMinimized() {
-                    list.append(TrackedWindow(cgWindow, cgId, ownerPid, true, axWindow, spaceId, spaceIndex, rank))
                 }
-            } else {
-                // window is on another space
-                guard spaceId != nil else { continue }
+                // window is minimized
+                else if axWindow.isMinimized() {
+                    list.append(TrackedWindow(cgWindow, cgId, ownerPid, true, axWindow, nil, nil, rank))
+                }
+            }
+            // window is on another space
+            else if spaceId != nil && spaceId != Spaces.currentSpaceId {
                 list.append(TrackedWindow(cgWindow, cgId, ownerPid, false, nil, spaceId, spaceIndex, rank))
             }
         }
