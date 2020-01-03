@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/lwouis/alt-tab-macos/compare/v2.1.0...v2.2.0) (2020-01-03)
+
+
+### Bug Fixes
+
+* follow-up on pr-104; minimized windows are not on another space ([998c763](https://github.com/lwouis/alt-tab-macos/commit/998c763))
+
+
+### Features
+
+* **ux:** add option to hide the space number label ([51a193c](https://github.com/lwouis/alt-tab-macos/commit/51a193c))
+
 # [2.1.0](https://github.com/lwouis/alt-tab-macos/compare/v2.0.3...v2.1.0) (2020-01-03)
 
 
