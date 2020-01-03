@@ -27,7 +27,7 @@ class TrackedWindows {
     private class func isSingleSpace() {
         let firstSpaceIndex = list[0].spaceIndex
         for window in list {
-            if window.spaceIndex != firstSpaceIndex {
+            if window.spaceIndex != nil && window.spaceIndex != firstSpaceIndex {
                 Spaces.singleSpace = false
                 return
             }
