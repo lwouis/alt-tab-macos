@@ -8,6 +8,7 @@ enum AXAttributeKey: String {
     case windows = "AXWindows"
     case minimized = "AXMinimized"
     case focusedWindow = "AXFocusedWindow"
+    case subrole = "AXSubrole"
 }
 
 extension AXUIElement {
@@ -37,6 +38,11 @@ extension AXUIElement {
 
     func focusedWindow() -> AXUIElement? {
         return attribute(.focusedWindow, AXUIElement.self)
+    }
+
+    func isActualWindow() -> Bool {
+        let subrole = self.attribute(.subrole, String.self)
+        return subrole != nil && subrole != "AXUnknown"
     }
 
     func windows() -> [AXUIElement]? {
