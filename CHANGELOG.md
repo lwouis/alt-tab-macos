@@ -1,3 +1,17 @@
+# [2.1.0](https://github.com/lwouis/alt-tab-macos/compare/v2.0.3...v2.1.0) (2020-01-03)
+
+
+### Bug Fixes
+
+* **ux:** simplify tool menu ([de7f428](https://github.com/lwouis/alt-tab-macos/commit/de7f428))
+* issue in pr-104 where app would not show properly ([4d19015](https://github.com/lwouis/alt-tab-macos/commit/4d19015))
+* small ux change on pr-104 ([6d2741a](https://github.com/lwouis/alt-tab-macos/commit/6d2741a))
+
+
+### Features
+
+* add menu option to pop up the selector window ([78428dc](https://github.com/lwouis/alt-tab-macos/commit/78428dc))
+
 ## [2.0.3](https://github.com/lwouis/alt-tab-macos/compare/v2.0.2...v2.0.3) (2020-01-03)
 
 
