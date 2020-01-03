@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/lwouis/alt-tab-macos/compare/v2.0.2...v2.0.3) (2020-01-03)
+
+
+### Bug Fixes
+
+* better filtering of "actual" windows (closes 102) ([fcdce9c](https://github.com/lwouis/alt-tab-macos/commit/fcdce9c))
+
 ## [2.0.2](https://github.com/lwouis/alt-tab-macos/compare/v2.0.1...v2.0.2) (2019-12-30)
 
 
