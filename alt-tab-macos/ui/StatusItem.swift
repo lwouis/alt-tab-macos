@@ -6,14 +6,14 @@ class StatusItem {
         item.button!.title = Application.name
         item.menu = NSMenu()
         item.menu!.addItem(
-                withTitle: "Preferences…",
-                action: #selector(application.showPreferencesPanel),
-                keyEquivalent: ",")
-        item.menu!.addItem(
-                withTitle: "Show…",
+                withTitle: "Show",
                 action: #selector(application.showUi),
                 keyEquivalent: "s"
         )
+        item.menu!.addItem(
+                withTitle: "Preferences…",
+                action: #selector(application.showPreferencesPanel),
+                keyEquivalent: ",")
         item.menu!.addItem(
             withTitle: "Quit \(Application.name) #VERSION#",
                 action: #selector(NSApplication.terminate(_:)),
