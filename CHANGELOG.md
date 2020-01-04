@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/lwouis/alt-tab-macos/compare/v2.3.0...v2.3.1) (2020-01-04)
+
+
+### Bug Fixes
+
+* selecting windows theme shows an error (closes [#109](https://github.com/lwouis/alt-tab-macos/issues/109)) ([01163c6](https://github.com/lwouis/alt-tab-macos/commit/01163c6))
+
 # [2.3.0](https://github.com/lwouis/alt-tab-macos/compare/v2.2.0...v2.3.0) (2020-01-04)
 
 
