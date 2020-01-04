@@ -2,13 +2,13 @@ import Cocoa
 import Foundation
 
 extension CGWindowID {
-    func AXUIElement(_ ownerPid: pid_t) -> AXUIElement? {
-        return AXUIElementCreateApplication(ownerPid).windows()?.first(where: { return $0.cgId() == self })
+    func AXUIElementApplication(_ ownerPid: pid_t) -> AXUIElement {
+        return AXUIElementCreateApplication(ownerPid)
     }
 
-    func AXUIElementOfOtherSpaceWindow(_ ownerPid: pid_t) -> AXUIElement? {
+    func AXUIElementOfOtherSpaceWindow(_ axApp: AXUIElement) -> AXUIElement? {
         CGSAddWindowsToSpaces(cgsMainConnectionId, [self], [Spaces.currentSpaceId])
-        let axWindow = AXUIElement(ownerPid)
+        let axWindow = axApp.window(self)
         CGSRemoveWindowsFromSpaces(cgsMainConnectionId, [self], [Spaces.currentSpaceId])
         return axWindow
     }

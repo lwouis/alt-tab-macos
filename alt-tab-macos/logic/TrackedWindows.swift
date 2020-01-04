@@ -35,7 +35,7 @@ class TrackedWindows {
         Spaces.singleSpace = true
     }
 
-    private static func mapWindowsWithRankAndSpace(_ spaces: [(CGSSpaceID, SpaceIndex)]) -> [CGWindowID: (CGSSpaceID, SpaceIndex, WindowRank)] {
+    private static func mapWindowsWithRankAndSpace(_ spaces: [(CGSSpaceID, SpaceIndex)]) -> WindowsMap {
         var windowSpaceMap: [CGWindowID: (CGSSpaceID, SpaceIndex, WindowRank?)] = [:]
         for (spaceId, spaceIndex) in spaces {
             Spaces.windowsInSpaces([spaceId]).forEach {
@@ -45,7 +45,7 @@ class TrackedWindows {
         Spaces.windowsInSpaces(spaces.map { $0.0 }).enumerated().forEach {
             windowSpaceMap[$0.element]!.2 = $0.offset
         }
-        return windowSpaceMap as! [CGWindowID: (CGSSpaceID, SpaceIndex, WindowRank)]
+        return windowSpaceMap as! WindowsMap
     }
 
     private static func sortList() {
@@ -60,31 +60,44 @@ class TrackedWindows {
         })
     }
 
-    private static func filterAndAddToList(_ windowsMap: [CGWindowID: (CGSSpaceID, SpaceIndex, WindowRank)]) {
+    private static func filterAndAddToList(_ windowsMap: WindowsMap) {
+        // order and short-circuit of checks in this method is important for performance
         for cgWindow in CGWindow.windows(.optionAll) {
             guard let cgId = cgWindow.value(.number, CGWindowID.self),
                   let ownerPid = cgWindow.value(.ownerPID, pid_t.self),
+                  let app = NSRunningApplication(processIdentifier: ownerPid),
                   cgWindow.isNotMenubarOrOthers(),
                   cgWindow.isReasonablyBig() else {
                 continue
             }
+            let axApp = cgId.AXUIElementApplication(ownerPid)
             let (spaceId, spaceIndex, rank) = windowsMap[cgId] ?? (nil, nil, nil)
-            if let axWindow = cgId.AXUIElement(ownerPid), axWindow.isActualWindow() {
-                // window is in the current space
-                if spaceId != nil {
-                    list.append(TrackedWindow(cgWindow, cgId, ownerPid, false, axWindow, spaceId, spaceIndex, rank))
-                }
-                // window is minimized
-                else if axWindow.isMinimized() {
-                    list.append(TrackedWindow(cgWindow, cgId, ownerPid, true, axWindow, nil, nil, rank))
-                }
-            }
-            // window is on another space
-            else if spaceId != nil && spaceId != Spaces.currentSpaceId {
-                list.append(TrackedWindow(cgWindow, cgId, ownerPid, false, nil, spaceId, spaceIndex, rank))
+            if let (isMinimized, isHidden, axWindow) = filter(cgId, spaceId, app, axApp) {
+                list.append(TrackedWindow(cgWindow, cgId, app, axApp, isHidden, isMinimized, axWindow, spaceId, spaceIndex, rank))
             }
         }
+    }
+
+    private static func filter(_ cgId: CGWindowID, _ spaceId: CGSSpaceID?, _ app: NSRunningApplication, _ axApp: AXUIElement) -> (Bool, Bool, AXUIElement?)? {
+        // window is in another space
+        if spaceId != nil && spaceId != Spaces.currentSpaceId {
+            return (false, false, nil)
+        }
+        // window is in the current space, or is hidden/minimized
+        if let axWindow = axApp.window(cgId), axWindow.isActualWindow() {
+            if spaceId != nil {
+                return (false, false, axWindow)
+            }
+            if app.isHidden {
+                return (axWindow.isMinimized(), true, axWindow)
+            }
+            if axWindow.isMinimized() {
+                return (true, false, axWindow)
+            }
+        }
+        return nil
     }
 }
 
 typealias WindowRank = Int
+typealias WindowsMap = [CGWindowID: (CGSSpaceID, SpaceIndex, WindowRank)]

@@ -4,6 +4,7 @@ import Cocoa
 // see https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
 class FontIcon: CellTitle {
     static let sfSymbolCircledMinusSign = "􀁎"
+    static let sfSymbolCircledDotSign = "􀍷"
     static let sfSymbolCircledNumber0 = "􀀸"
     static let sfSymbolCircledNumber10 = "􀓵"
 

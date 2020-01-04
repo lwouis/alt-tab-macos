@@ -49,15 +49,26 @@ extension AXUIElement {
         return attribute(.windows, [AXUIElement].self)
     }
 
+    func window(_ id: CGWindowID) -> AXUIElement? {
+        return windows()?.first(where: { return id == $0.cgId() })
+    }
+
     func isMinimized() -> Bool {
         return attribute(.minimized, Bool.self) == true
     }
 
     func focus(_ id: CGWindowID) {
+        // implementation notes: the following sequence of actions repeats some calls. This is necessary for
+        // minimized windows on other spaces, and focuses windows faster (e.g. the Security & Privacy window)
+        // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
+        // but quickly switches back to another window in that space
+        // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
         var elementConnection = UInt32(0)
         CGSGetWindowOwner(cgsMainConnectionId, id, &elementConnection)
         var psn = ProcessSerialNumber()
         CGSGetConnectionPSN(elementConnection, &psn)
+        AXUIElementPerformAction(self, kAXRaiseAction as CFString)
+        makeKeyWindow(psn, id)
         _SLPSSetFrontProcessWithOptions(&psn, id, .userGenerated)
         makeKeyWindow(psn, id)
         AXUIElementPerformAction(self, kAXRaiseAction as CFString)

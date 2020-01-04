@@ -9,6 +9,7 @@ class Cell: NSCollectionViewItem {
     var appIcon = NSImageView()
     var label = CellTitle(Preferences.fontHeight!)
     var minimizedIcon = FontIcon(FontIcon.sfSymbolCircledMinusSign, Preferences.fontIconSize, .white)
+    var hiddenIcon = FontIcon(FontIcon.sfSymbolCircledDotSign, Preferences.fontIconSize, .white)
     var spaceIcon = FontIcon(FontIcon.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
     var openWindow: TrackedWindow?
     var mouseDownCallback: MouseDownCallback?
@@ -50,13 +51,14 @@ class Cell: NSCollectionViewItem {
         label.string = element.title
         // workaround: setting string on NSTextView change the font (most likely a Cocoa bug)
         label.font = Preferences.font!
-        let fontIconWidth = Spaces.singleSpace && !openWindow!.isMinimized ? 0 : Preferences.fontIconSize + Preferences.interItemPadding
-        label.textContainer!.size.width = thumbnail.frame.width - Preferences.iconSize! - Preferences.interItemPadding - fontIconWidth
+        hiddenIcon.isHidden = !openWindow!.isHidden
         minimizedIcon.isHidden = !openWindow!.isMinimized
-        spaceIcon.isHidden = openWindow!.isMinimized || Spaces.singleSpace || Preferences.hideSpaceNumberLabels
+        spaceIcon.isHidden = element.spaceIndex == nil || Spaces.singleSpace || Preferences.hideSpaceNumberLabels
         if !spaceIcon.isHidden {
             spaceIcon.setNumber(UInt32(element.spaceIndex!))
         }
+        let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.interItemPadding)
+        label.textContainer!.size.width = thumbnail.frame.width - Preferences.iconSize! - Preferences.interItemPadding - fontIconWidth
         self.mouseDownCallback = mouseDownCallback
         self.mouseMovedCallback = mouseMovedCallback
         if view.trackingAreas.count > 0 {
@@ -92,6 +94,7 @@ class Cell: NSCollectionViewItem {
         hStackView.spacing = Preferences.interItemPadding
         hStackView.addView(appIcon, in: .leading)
         hStackView.addView(label, in: .leading)
+        hStackView.addView(hiddenIcon, in: .leading)
         hStackView.addView(minimizedIcon, in: .leading)
         hStackView.addView(spaceIcon, in: .leading)
         return hStackView
