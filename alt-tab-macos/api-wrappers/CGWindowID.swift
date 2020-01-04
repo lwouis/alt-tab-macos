@@ -25,8 +25,15 @@ extension CGWindowID {
 
 //        // CGSCaptureWindowsContentsToRectWithOptions
 //        var windowId_ = self
-//        var windowImage = CIContext(options: nil).createCGImage(CIImage.empty(), from: CIImage.empty().extent)!
-//        CGSCaptureWindowsContentsToRectWithOptions(cgsMainConnectionId, &windowId_, true, .zero, [.windowCaptureNominalResolution, .captureIgnoreGlobalClipShape], &windowImage)
-//        return windowImage
+//        if Testt.sampleCgImage == nil {
+//            Testt.sampleCgImage = CGWindowListCreateImage(.null, .optionIncludingWindow, self, [.boundsIgnoreFraming, .bestResolution])!
+//        }
+//        var image = Testt.sampleCgImage!
+//        CGSCaptureWindowsContentsToRectWithOptions(cgsMainConnectionId, &windowId_, true, .zero, [.windowCaptureNominalResolution, .captureIgnoreGlobalClipShape], &image)
+//        return image
     }
 }
+
+//class Testt {
+//    static var sampleCgImage: CGImage? = nil
+//}

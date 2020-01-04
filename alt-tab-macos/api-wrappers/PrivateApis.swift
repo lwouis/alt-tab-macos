@@ -34,15 +34,17 @@ func CGSMainConnectionID() -> CGSConnectionID
 // * quality: medium
 // * minimized windows: yes
 // * windows in other spaces: yes
+// * offscreen content: no
 // * macOS 10.10+
 @_silgen_name("CGSHWCaptureWindowList")
 func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: inout CGWindowID, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> CFArray
 
 // returns the CGImage of the window which ID is given in `wid`
-// * performance: it seems that this function performs similarly to public API `CGWindowListCreateImage`
+// * performance: a bit faster than `CGWindowListCreateImage`, but still less than `CGSHWCaptureWindowList`
 // * quality: low
 // * minimized windows: yes
 // * windows in other spaces: yes
+// * offscreen content: no
 // * macOS 10.10+
 @_silgen_name("CGSCaptureWindowsContentsToRectWithOptions") @discardableResult
 func CGSCaptureWindowsContentsToRectWithOptions(_ cid: CGSConnectionID, _ wid: inout CGWindowID, _ windowOnly: Bool, _ rect: CGRect, _ options: CGSWindowCaptureOptions, _ image: inout CGImage) -> CGError
