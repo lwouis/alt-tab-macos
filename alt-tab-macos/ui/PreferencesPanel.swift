@@ -57,7 +57,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
 
     private func makePreferencesViews() -> [NSView] {
         // TODO: make the validators be a part of each Preference
-        let tabKeyCodeValidator: ((String)->Bool) = {
+        let tabKeyCodeValidator: ((String) -> Bool) = {
             guard let int = Int($0) else {
                 return false
             }
@@ -93,7 +93,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         return view
     }
 
-    private func makeLabelWithInput(_ labelText: String, rawName: String, width: CGFloat? = nil, suffixText: String? = nil, suffixUrl: String? = nil, validator: ((String)->Bool)? = nil) -> NSStackView {
+    private func makeLabelWithInput(_ labelText: String, rawName: String, width: CGFloat? = nil, suffixText: String? = nil, suffixUrl: String? = nil, validator: ((String) -> Bool)? = nil) -> NSStackView {
         let input = TextField(Preferences.rawValues[rawName]!)
         input.validationHandler = validator
         input.delegate = input
@@ -171,7 +171,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
     }
 
     private func updateSuffixWithValue(_ control: NSControl, _ value: String) {
-        let suffixIdentifierPredicate = {(view: NSView) -> Bool in
+        let suffixIdentifierPredicate = { (view: NSView) -> Bool in
             view.identifier?.rawValue == control.identifier!.rawValue + ControlIdentifierDiscriminator.SUFFIX.rawValue
         }
 
@@ -217,7 +217,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         alert.addButton(withTitle: "Cancel")
         alert.addButton(withTitle: "Check again")
 
-        alert.beginSheetModal(for: self, completionHandler: {(modalResponse: NSApplication.ModalResponse) -> Void in
+        alert.beginSheetModal(for: self, completionHandler: { (modalResponse: NSApplication.ModalResponse) -> Void in
             if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {
                 debugPrint("PreferencesPanel: save: error: user choice: edit")
                 self.windowCloseRequested = false
@@ -239,25 +239,25 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
     }
 
     private func getControlValue(_ control: NSControl) -> String {
-        if control is NSButton {
-            return String((control as! NSButton).state == NSButton.StateValue.on)
-        } else if control is NSPopUpButton {
+        if control is NSPopUpButton {
             return (control as! NSPopUpButton).titleOfSelectedItem!
         } else if control is NSSlider {
             return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
+        } else if control is NSButton {
+            return String((control as! NSButton).state == NSButton.StateValue.on)
         } else {
             return control.stringValue
         }
     }
 
     private func setControlValue(_ control: NSControl, _ value: String) {
-        if control is NSButton {
-            (control as! NSButton).state = Bool(value) ?? false ? NSButton.StateValue.on : NSButton.StateValue.off
-        } else if control is NSPopUpButton {
+        if control is NSPopUpButton {
             (control as! NSPopUpButton).selectItem(withTitle: value)
-        } else if control is NSTextField{
+        } else if control is NSTextField {
             control.stringValue = value
             (control as! NSTextField).delegate?.controlTextDidChange?(Notification(name: NSControl.textDidChangeNotification, object: control))
+        } else if control is NSButton {
+            (control as! NSButton).state = Bool(value) ?? false ? NSButton.StateValue.on : NSButton.StateValue.off
         } else {
             control.stringValue = value
         }
