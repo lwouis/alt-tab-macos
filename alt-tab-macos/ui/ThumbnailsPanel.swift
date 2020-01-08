@@ -3,7 +3,7 @@ import Cocoa
 class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
     var backgroundView: NSVisualEffectView?
     var collectionView_: NSCollectionView!
-    var application: Application?
+    var app: App?
     let cellId = NSUserInterfaceItemIdentifier("Cell")
     var currentScreen: NSScreen?
 
@@ -11,9 +11,9 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
     }
 
-    convenience init(_ application: Application) {
+    convenience init(_ app: App) {
         self.init()
-        self.application = application
+        self.app = app
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
@@ -26,6 +26,8 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         contentView!.addSubview(backgroundView!)
         // highest level possible; this allows the app to go on top of context menus
         level = .screenSaver
+        // helps filter out this window from the thumbnails
+        setAccessibilitySubrole(.unknown)
     }
 
     private func makeBackgroundView() -> NSVisualEffectView {
@@ -60,38 +62,38 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return TrackedWindows.list.count
+        return Windows.listRecentlyUsedFirst.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! Cell
-        item.updateWithNewContent(TrackedWindows.list[indexPath.item], application!.focusSelectedWindow, application!.thumbnailsPanel!.highlightCell, currentScreen!)
+        item.updateWithNewContent(Windows.listRecentlyUsedFirst[indexPath.item], app!.focusSelectedWindow, app!.thumbnailsPanel!.highlightCell, currentScreen!)
         return item
     }
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        if indexPath.item < TrackedWindows.list.count {
-            let (width, height) = Cell.computeDownscaledSize(TrackedWindows.list[indexPath.item].thumbnail, currentScreen!)
+        if indexPath.item < Windows.listRecentlyUsedFirst.count {
+            let (width, height) = Cell.computeDownscaledSize(Windows.listRecentlyUsedFirst[indexPath.item].thumbnail, currentScreen!)
             return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight!, Preferences.iconSize!) + Preferences.interItemPadding + Preferences.cellPadding * 2)
         }
         return .zero
     }
 
-    func highlightCellAt(_ step: Int) {
-        collectionView_!.selectItems(at: [IndexPath(item: TrackedWindows.focusedWindowIndex, section: 0)], scrollPosition: .top)
-        collectionView_!.deselectItems(at: [IndexPath(item: TrackedWindows.moveFocusedWindowIndex(-step), section: 0)])
+    func highlightCell() {
+        collectionView_.deselectAll(nil)
+        collectionView_!.selectItems(at: [IndexPath(item: Windows.focusedWindowIndex, section: 0)], scrollPosition: .top)
     }
 
     func highlightCell(_ cell: Cell) {
         let newIndex = collectionView_.indexPath(for: cell)!
-        if TrackedWindows.focusedWindowIndex != newIndex.item {
+        if Windows.focusedWindowIndex != newIndex.item {
             collectionView_!.selectItems(at: [newIndex], scrollPosition: .top)
-            collectionView_!.deselectItems(at: [IndexPath(item: TrackedWindows.focusedWindowIndex, section: 0)])
-            TrackedWindows.focusedWindowIndex = newIndex.item
+            collectionView_!.deselectItems(at: [IndexPath(item: Windows.focusedWindowIndex, section: 0)])
+            Windows.focusedWindowIndex = newIndex.item
         }
     }
 
-    func computeThumbnails(_ currentScreen: NSScreen) {
+    func refreshCollectionView(_ currentScreen: NSScreen) {
         self.currentScreen = currentScreen
         (collectionView_.collectionViewLayout as! CollectionViewCenterFlowLayout).currentScreen = currentScreen
         collectionView_!.setFrameSize(Screen.thumbnailPanelMaxSize(currentScreen))

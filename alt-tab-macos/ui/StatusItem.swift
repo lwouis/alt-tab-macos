@@ -1,21 +1,21 @@
 import Cocoa
 
 class StatusItem {
-    static func make(_ application: Application) -> NSStatusItem {
+    static func make(_ app: App) -> NSStatusItem {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        item.button!.title = Application.name
+        item.button!.title = App.name
         item.menu = NSMenu()
         item.menu!.addItem(
                 withTitle: "Show",
-                action: #selector(application.showUi),
+                action: #selector(app.showUi),
                 keyEquivalent: "s"
         )
         item.menu!.addItem(
                 withTitle: "Preferences…",
-                action: #selector(application.showPreferencesPanel),
+                action: #selector(app.showPreferencesPanel),
                 keyEquivalent: ",")
         item.menu!.addItem(
-            withTitle: "Quit \(Application.name) #VERSION#",
+            withTitle: "Quit \(App.name) #VERSION#",
                 action: #selector(NSApplication.terminate(_:)),
                 keyEquivalent: "q")
         return item

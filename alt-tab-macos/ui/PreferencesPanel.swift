@@ -13,7 +13,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
         let initialRect = NSRect(x: 0, y: 0, width: panelWidth, height: panelHeight)
         super.init(contentRect: initialRect, styleMask: style, backing: backingStoreType, defer: flag)
-        title = Application.name + " Preferences"
+        title = App.name + " Preferences"
         hidesOnDeactivate = false
         contentView = makeContentView()
     }
@@ -201,7 +201,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
                 throw NSError.make(domain: "Preferences", message: "Please enter a valid value for '" + key + "'")
             }
             try Preferences.updateAndValidateFromString(key, newValue)
-            (NSApp as! Application).initPreferencesDependentComponents()
+            (NSApp as! App).initPreferencesDependentComponents()
             try Preferences.saveRawToDisk()
         } catch let error {
             debugPrint("PreferencesPanel: save: error", key, newValue, error)
