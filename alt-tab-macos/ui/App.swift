@@ -3,7 +3,7 @@ import Cocoa
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
-class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
+class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     static let name = "AltTab"
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
@@ -27,13 +27,12 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         Preferences.loadFromDiskAndUpdateValues()
         statusItem = StatusItem.make(self)
         initPreferencesDependentComponents()
+        Spaces.updateInitialSpace()
+        Applications.addInitialRunningApplications()
+        Applications.observeRunningApplications()
+        Spaces.observeSpaceChanges()
+        Windows.sortByLevel()
         Keyboard.listenToGlobalEvents(self)
-        warmUpThumbnailPanel()
-    }
-
-    // running this code on startup avoid having the very first invocation be slow for the user
-    private func warmUpThumbnailPanel() {
-        thumbnailsPanel!.computeThumbnails(Screen.preferred())
     }
 
     // we put application code here which should be executed on init() and Preferences change
@@ -52,7 +51,8 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         debugPrint("focusTarget")
         if appIsBeingUsed {
             debugPrint("focusTarget: appIsBeingUsed")
-            focusSelectedWindow(TrackedWindows.focusedWindow())
+            let window = Windows.focusedWindow()
+            focusSelectedWindow(window)
         }
     }
 
@@ -61,7 +61,8 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         if preferencesPanel == nil {
             preferencesPanel = PreferencesPanel()
         }
-        Screen.showPanel(preferencesPanel!, Screen.preferred(), .appleCentered)
+        Screen.repositionPanel(preferencesPanel!, Screen.preferred(), .appleCentered)
+        Screen.showPanel(preferencesPanel!)
     }
 
     @objc
@@ -71,8 +72,8 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func cycleSelection(_ step: Int) {
-        TrackedWindows.focusedWindowIndex = TrackedWindows.moveFocusedWindowIndex(step)
-        self.thumbnailsPanel!.highlightCellAt(step)
+        Windows.cycleFocusedWindowIndex(step)
+        thumbnailsPanel!.highlightCell()
     }
 
     func showUiOrCycleSelection(_ step: Int) {
@@ -81,25 +82,36 @@ class Application: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         if isFirstSummon {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
-            TrackedWindows.refreshList(step)
-            if TrackedWindows.list.count == 0 {
+            if Windows.listRecentlyUsedFirst.count == 0 {
                 appIsBeingUsed = false
                 isFirstSummon = true
                 return
             }
-            TrackedWindows.focusedWindowIndex = TrackedWindows.moveFocusedWindowIndex(step)
-            let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
-            if uiWorkShouldBeDone { self.thumbnailsPanel!.computeThumbnails(currentScreen); debugPrint("computeThumbnails") }
-            if uiWorkShouldBeDone { self.thumbnailsPanel!.highlightCellAt(step); debugPrint("highlightCellAt") }
-            if uiWorkShouldBeDone { Screen.showPanel(self.thumbnailsPanel!, currentScreen, .appleCentered); debugPrint("showPanel") }
+            // TODO: find a way to update isSingleSpace by listening to space creation, instead of on every trigger
+            Spaces.updateIsSingleSpace()
+            // TODO: find a way to update space index when windows are moved to another space, instead of on every trigger
+            Windows.updateSpaces()
+            // TODO: find a way to update thumbnails by listening to content change, instead of every trigger. Or better, switch to video
+            Windows.refreshAllThumbnails()
+            Windows.focusedWindowIndex = 0
+            Windows.cycleFocusedWindowIndex(step)
+            refreshOpenUi()
+            Screen.showPanel(thumbnailsPanel!)
         } else {
             debugPrint("showUiOrCycleSelection: !isFirstSummon")
             cycleSelection(step)
         }
     }
 
-    func focusSelectedWindow(_ window: TrackedWindow?) {
+    func refreshOpenUi() {
+        let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
+        if uiWorkShouldBeDone { thumbnailsPanel!.refreshCollectionView(currentScreen); debugPrint("refreshCollectionView") }
+        if uiWorkShouldBeDone { thumbnailsPanel!.highlightCell(); debugPrint("highlightCellAt") }
+        if uiWorkShouldBeDone { Screen.repositionPanel(thumbnailsPanel!, currentScreen, .appleCentered); debugPrint("showPanel") }
+    }
+
+    func focusSelectedWindow(_ window: Window?) {
         hideUi()
-        DispatchQueue.global(qos: .userInteractive).async { window?.focus() }
+        window?.focus()
     }
 }

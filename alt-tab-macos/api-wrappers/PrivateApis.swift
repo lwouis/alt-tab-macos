@@ -107,6 +107,21 @@ func SLPSPostEventRecordTo(_ psn: inout ProcessSerialNumber, _ bytes: inout UInt
 @_silgen_name("_AXUIElementGetWindow") @discardableResult
 func _AXUIElementGetWindow(_ axUiElement: AXUIElement, _ wid: inout CGWindowID) -> AXError
 
+// returns the provided CGWindow property for the provided CGWindowID
+// * macOS 10.10+
+@_silgen_name("CGSCopyWindowProperty") @discardableResult
+func CGSCopyWindowProperty(_ cid: CGSConnectionID, _ wid: CGWindowID, _ property: CFString, _ value: inout CFTypeRef?) -> CGError
+
+enum CGSSpaceMask: Int {
+    case current = 5
+    case other = 6
+    case all = 7
+}
+
+// get the CGSSpaceIDs for the given windows (CGWindowIDs)
+// * macOS 10.10+
+@_silgen_name("CGSCopySpacesForWindows")
+func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawValue, _ wids: CFArray) -> CFArray
 
 
 
@@ -131,11 +146,6 @@ func _AXUIElementGetWindow(_ axUiElement: AXUIElement, _ wid: inout CGWindowID) 
 //@_silgen_name("GetProcessPID")
 //func GetProcessPID(_ psn: inout ProcessSerialNumber, _ pid: inout pid_t) -> Void
 //
-//// seems like it takes the normal CG keys, so might as well use the public API
-//// * macOS 10.10+
-//@_silgen_name("CGSCopyWindowProperty") @discardableResult
-//func CGSCopyWindowProperty(_ cid: CGSConnectionID, _ wid: CGWindowID, _ key: CFString, _ output: inout CFString) -> CGError
-//
 //// crashed the app with SIGSEGV
 //// * macOS 10.10+
 //@_silgen_name("CGSGetWindowType") @discardableResult
@@ -154,6 +164,17 @@ func _AXUIElementGetWindow(_ axUiElement: AXUIElement, _ wid: inout CGWindowID) 
 //// * macOS 10.10+
 //@_silgen_name("CGSManagedDisplaySetCurrentSpace")
 //func CGSManagedDisplaySetCurrentSpace(_ cid: CGSConnectionID, _ display: CFString, _ sid: CGSSpaceID) -> Void
+//
+//// show provided spaces on top of the current space. It show windows from the provided spaces in the current space. Very weird behaviour and graphical glitch will happen when triggering Mission Control
+//// * macOS 10.10+
+//@_silgen_name("CGSShowSpaces")
+//func CGSShowSpaces(_ cid: CGSConnectionID, _ sids: NSArray) -> Void
+//
+//// hides provided spaces from the current space
+//// * macOS 10.10+
+//@_silgen_name("CGSHideSpaces")
+//func CGSHideSpaces(_ cid: CGSConnectionID, _ sids: NSArray) -> Void
+
 //
 //// get space for window
 //// * macOS 10.10+
@@ -186,18 +207,6 @@ func _AXUIElementGetWindow(_ axUiElement: AXUIElement, _ wid: inout CGWindowID) 
 //@_silgen_name("CGSGetWorkspaceWindowList") @discardableResult
 //func CGSGetWorkspaceWindowList(_ cid: CGSConnectionID, _ workspaceNumber: CGSSpaceID, _ count: Int, _ list: [Int], _ outCount: [Int]) -> OSStatus
 //
-//struct CGSSpaceMask: OptionSet {
-//    let rawValue: UInt32
-//    static let includesCurrent = CGSSpaceMask(rawValue: 1 << 0)
-//    static let includesOthers = CGSSpaceMask(rawValue: 1 << 1)
-//    static let includesUser = CGSSpaceMask(rawValue: 1 << 2)
-//}
-//
-//// get the CGSSpaceIDs for the given windows (CGWindowIDs). It's more efficient (i.e. fewer calls to the OS) to get windows of each space instead of space of each window
-//// * macOS 10.10+
-//@_silgen_name("CGSCopySpacesForWindows")
-//func CGSCopySpacesForWindows(_ connection: CGSConnectionID, _ mask: CGSSpaceMask, _ wids: CFArray) -> CFArray
-//
 //enum CGSSpaceType {
 //    case user
 //    case fullscreen
@@ -224,11 +233,6 @@ func _AXUIElementGetWindow(_ axUiElement: AXUIElement, _ wid: inout CGWindowID) 
 //// * macOS 10.10+
 //@_silgen_name("CGSGetSpaceManagementMode")
 //func CGSGetSpaceManagementMode(_ cid: CGSConnectionID) -> SpaceManagementMode
-//
-//// get spaces for the provided window_list
-//// * macOS 10.10+
-//@_silgen_name("CGSCopySpacesForWindows")
-//func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ selector: Int, _ window_list: CFArray) -> CFArray
 //
 //// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
 //func windowManagerDeferWindowRaise(_ psn: ProcessSerialNumber, _ wid: CGWindowID) -> Void {

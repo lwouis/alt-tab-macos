@@ -2,18 +2,15 @@ import Cocoa
 import Carbon.HIToolbox.Events
 
 class Keyboard {
-    static let backgroundQueue = DispatchQueue(label: "uiQueue", qos: .userInteractive, autoreleaseFrequency: .never)
-
-    static func listenToGlobalEvents(_ delegate: Application) {
+    static func listenToGlobalEvents(_ delegate: App) {
         listenToGlobalKeyboardEvents(delegate)
     }
 }
 
 var eventTap: CFMachPort?
 
-func listenToGlobalKeyboardEvents(_ delegate: Application) {
-    Keyboard.backgroundQueue.async {
-        Thread.current.name = "uiQueue-thread"
+func listenToGlobalKeyboardEvents(_ app: App) {
+    DispatchQueues.keyboardEvents.async {
         let eventMask = [CGEventType.keyDown, CGEventType.keyUp, CGEventType.flagsChanged].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
         // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
         eventTap = CGEvent.tapCreate(
@@ -22,15 +19,15 @@ func listenToGlobalKeyboardEvents(_ delegate: Application) {
                 options: .defaultTap,
                 eventsOfInterest: eventMask,
                 callback: keyboardHandler,
-                userInfo: UnsafeMutableRawPointer(Unmanaged.passUnretained(delegate).toOpaque()))
+                userInfo: UnsafeMutableRawPointer(Unmanaged.passUnretained(app).toOpaque()))
         let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
-        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CGEvent.tapEnable(tap: eventTap!, enable: true)
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CFRunLoopRun()
     }
 }
 
-func dispatchWork(_ application: Application, _ uiWorkShouldBeDone: Bool, _ fn: @escaping () -> Void) -> Unmanaged<CGEvent>? {
+func dispatchWork(_ application: App, _ uiWorkShouldBeDone: Bool, _ fn: @escaping () -> Void) -> Unmanaged<CGEvent>? {
     application.uiWorkShouldBeDone = uiWorkShouldBeDone
     DispatchQueue.main.async {
         fn()
@@ -38,8 +35,8 @@ func dispatchWork(_ application: Application, _ uiWorkShouldBeDone: Bool, _ fn: 
     return nil // previously focused app should not receive keys
 }
 
-func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent, delegate_: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-    let application = Unmanaged<Application>.fromOpaque(delegate_!).takeUnretainedValue()
+func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent, appPointer: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+    let app = Unmanaged<App>.fromOpaque(appPointer!).takeUnretainedValue()
     if type == .keyDown || type == .keyUp || type == .flagsChanged {
         if let event = NSEvent(cgEvent: event_) {
             let isTab = event.keyCode == Preferences.tabKeyCode
@@ -48,20 +45,20 @@ func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent,
             let isRightArrow = event.keyCode == kVK_RightArrow
             let isLeftArrow = event.keyCode == kVK_LeftArrow
             let isEscape = event.keyCode == kVK_Escape
-            if type == .keyDown && isEscape && application.appIsBeingUsed {
-                return dispatchWork(application, false, { application.hideUi() })
+            if type == .keyDown && isEscape && app.appIsBeingUsed {
+                return dispatchWork(app, false, { app.hideUi() })
             } else if isMetaDown && type == .keyDown {
                 if isTab && event.modifierFlags.contains(.shift) {
-                    return dispatchWork(application, true, { application.showUiOrCycleSelection(-1) })
+                    return dispatchWork(app, true, { app.showUiOrCycleSelection(-1) })
                 } else if isTab {
-                    return dispatchWork(application, true, { application.showUiOrCycleSelection(1) })
-                } else if isRightArrow && application.appIsBeingUsed {
-                    return dispatchWork(application, true, { application.cycleSelection(1) })
-                } else if isLeftArrow && application.appIsBeingUsed {
-                    return dispatchWork(application, true, { application.cycleSelection(-1) })
+                    return dispatchWork(app, true, { app.showUiOrCycleSelection(1) })
+                } else if isRightArrow && app.appIsBeingUsed {
+                    return dispatchWork(app, true, { app.cycleSelection(1) })
+                } else if isLeftArrow && app.appIsBeingUsed {
+                    return dispatchWork(app, true, { app.cycleSelection(-1) })
                 }
             } else if isMetaChanged && !isMetaDown {
-                return dispatchWork(application, false, { application.focusTarget() })
+                return dispatchWork(app, false, { app.focusTarget() })
             }
         }
     } else if type == .tapDisabledByUserInput || type == .tapDisabledByTimeout {

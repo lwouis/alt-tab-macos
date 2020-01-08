@@ -1,5 +1,5 @@
 import AppKit
 
 autoreleasepool {
-    Application.shared.run()
+    App.shared.run()
 }

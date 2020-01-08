@@ -2,15 +2,8 @@ import Cocoa
 import Foundation
 
 extension CGWindowID {
-    func AXUIElementApplication(_ ownerPid: pid_t) -> AXUIElement {
-        return AXUIElementCreateApplication(ownerPid)
-    }
-
-    func AXUIElementOfOtherSpaceWindow(_ axApp: AXUIElement) -> AXUIElement? {
-        CGSAddWindowsToSpaces(cgsMainConnectionId, [self], [Spaces.currentSpaceId])
-        let axWindow = axApp.window(self)
-        CGSRemoveWindowsFromSpaces(cgsMainConnectionId, [self], [Spaces.currentSpaceId])
-        return axWindow
+    func title() -> String? {
+        return cgProperty("kCGSWindowTitle", String.self)
     }
 
     func screenshot() -> CGImage? {
@@ -31,6 +24,12 @@ extension CGWindowID {
 //        var image = Testt.sampleCgImage!
 //        CGSCaptureWindowsContentsToRectWithOptions(cgsMainConnectionId, &windowId_, true, .zero, [.windowCaptureNominalResolution, .captureIgnoreGlobalClipShape], &image)
 //        return image
+    }
+
+    private func cgProperty<T>(_ key: String, _ type: T.Type) -> T? {
+        var value: AnyObject?
+        CGSCopyWindowProperty(cgsMainConnectionId, self, key as CFString, &value)
+        return value as? T
     }
 }
 

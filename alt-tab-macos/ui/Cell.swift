@@ -1,7 +1,7 @@
 import Cocoa
 import WebKit
 
-typealias MouseDownCallback = (TrackedWindow) -> Void
+typealias MouseDownCallback = (Window) -> Void
 typealias MouseMovedCallback = (Cell) -> Void
 
 class Cell: NSCollectionViewItem {
@@ -11,7 +11,7 @@ class Cell: NSCollectionViewItem {
     var minimizedIcon = FontIcon(FontIcon.sfSymbolCircledMinusSign, Preferences.fontIconSize, .white)
     var hiddenIcon = FontIcon(FontIcon.sfSymbolCircledDotSign, Preferences.fontIconSize, .white)
     var spaceIcon = FontIcon(FontIcon.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
-    var openWindow: TrackedWindow?
+    var openWindow: Window?
     var mouseDownCallback: MouseDownCallback?
     var mouseMovedCallback: MouseMovedCallback?
 
@@ -39,7 +39,7 @@ class Cell: NSCollectionViewItem {
         }
     }
 
-    func updateWithNewContent(_ element: TrackedWindow, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
+    func updateWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
         openWindow = element
         thumbnail.image = element.thumbnail
         let (width, height) = Cell.computeDownscaledSize(element.thumbnail, screen)
@@ -53,7 +53,7 @@ class Cell: NSCollectionViewItem {
         label.font = Preferences.font!
         hiddenIcon.isHidden = !openWindow!.isHidden
         minimizedIcon.isHidden = !openWindow!.isMinimized
-        spaceIcon.isHidden = element.spaceIndex == nil || Spaces.singleSpace || Preferences.hideSpaceNumberLabels
+        spaceIcon.isHidden = element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels
         if !spaceIcon.isHidden {
             spaceIcon.setNumber(UInt32(element.spaceIndex!))
         }
