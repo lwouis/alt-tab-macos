@@ -29,12 +29,7 @@ class Applications {
     static func removeRunningApplications(_ runningApps: [NSRunningApplication]) {
         for runningApp in runningApps {
             guard let app = Applications.list.first(where: { $0.runningApplication.isEqual(runningApp) }) else { continue }
-            var windowsToKeep = [Window]()
-            for window in Windows.list {
-                guard !window.application.runningApplication.isEqual(runningApp) else { continue }
-                windowsToKeep.append(window)
-            }
-            Windows.list = windowsToKeep
+            Windows.list.removeAll(where: { $0.application.runningApplication.isEqual(runningApp) })
             // some apps never finish launching; the observer leaks for them without this
             app.removeObserver()
             Applications.list.removeAll(where: { $0.runningApplication.isEqual(runningApp) })

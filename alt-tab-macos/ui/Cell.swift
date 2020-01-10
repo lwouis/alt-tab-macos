@@ -11,7 +11,7 @@ class Cell: NSCollectionViewItem {
     var minimizedIcon = FontIcon(FontIcon.sfSymbolCircledMinusSign, Preferences.fontIconSize, .white)
     var hiddenIcon = FontIcon(FontIcon.sfSymbolCircledDotSign, Preferences.fontIconSize, .white)
     var spaceIcon = FontIcon(FontIcon.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
-    var openWindow: Window?
+    var window: Window?
     var mouseDownCallback: MouseDownCallback?
     var mouseMovedCallback: MouseMovedCallback?
 
@@ -29,7 +29,7 @@ class Cell: NSCollectionViewItem {
     }
 
     override func mouseDown(with theEvent: NSEvent) {
-        mouseDownCallback!(openWindow!)
+        mouseDownCallback!(window!)
     }
 
     override var isSelected: Bool {
@@ -40,7 +40,7 @@ class Cell: NSCollectionViewItem {
     }
 
     func updateWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
-        openWindow = element
+        window = element
         thumbnail.image = element.thumbnail
         let (width, height) = Cell.computeDownscaledSize(element.thumbnail, screen)
         thumbnail.image?.size = NSSize(width: width, height: height)
@@ -51,8 +51,8 @@ class Cell: NSCollectionViewItem {
         label.string = element.title
         // workaround: setting string on NSTextView change the font (most likely a Cocoa bug)
         label.font = Preferences.font!
-        hiddenIcon.isHidden = !openWindow!.isHidden
-        minimizedIcon.isHidden = !openWindow!.isMinimized
+        hiddenIcon.isHidden = !window!.isHidden
+        minimizedIcon.isHidden = !window!.isMinimized
         spaceIcon.isHidden = element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels
         if !spaceIcon.isHidden {
             spaceIcon.setNumber(UInt32(element.spaceIndex!))
@@ -92,11 +92,7 @@ class Cell: NSCollectionViewItem {
     private func makeHStackView() -> NSStackView {
         let hStackView = NSStackView()
         hStackView.spacing = Preferences.interItemPadding
-        hStackView.addView(appIcon, in: .leading)
-        hStackView.addView(label, in: .leading)
-        hStackView.addView(hiddenIcon, in: .leading)
-        hStackView.addView(minimizedIcon, in: .leading)
-        hStackView.addView(spaceIcon, in: .leading)
+        hStackView.setViews([appIcon, label, hiddenIcon, minimizedIcon, spaceIcon], in: .leading)
         return hStackView
     }
 
@@ -110,8 +106,7 @@ class Cell: NSCollectionViewItem {
         vStackView.edgeInsets = NSEdgeInsets(top: Preferences.cellPadding, left: Preferences.cellPadding, bottom: Preferences.cellPadding, right: Preferences.cellPadding)
         vStackView.orientation = .vertical
         vStackView.spacing = Preferences.interItemPadding
-        vStackView.addView(hStackView, in: .leading)
-        vStackView.addView(thumbnail, in: .leading)
+        vStackView.setViews([hStackView, thumbnail], in: .leading)
         return vStackView
     }
 }
