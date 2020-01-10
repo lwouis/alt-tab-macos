@@ -30,12 +30,16 @@ class Window {
     }
 
     private func observeEvents() {
-        AXObserverCreate(application.runningApplication.processIdentifier, axObserverWindowCallback, &axObserver)
+        AXObserverCreate(application.runningApplication.processIdentifier, axObserverCallback, &axObserver)
         guard let axObserver = axObserver else { return }
-        AXObserverAddNotification(axObserver, axUiElement, kAXUIElementDestroyedNotification as CFString, nil)
-        AXObserverAddNotification(axObserver, axUiElement, kAXTitleChangedNotification as CFString, nil)
-        AXObserverAddNotification(axObserver, axUiElement, kAXWindowMiniaturizedNotification as CFString, nil)
-        AXObserverAddNotification(axObserver, axUiElement, kAXWindowDeminiaturizedNotification as CFString, nil)
+        for notification in [
+            kAXUIElementDestroyedNotification,
+            kAXTitleChangedNotification,
+            kAXWindowMiniaturizedNotification,
+            kAXWindowDeminiaturizedNotification,
+        ] {
+            AXObserverAddNotification(axObserver, axUiElement, notification as CFString, nil)
+        }
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 
@@ -66,22 +70,18 @@ class Window {
     // The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
     func makeKeyWindow(_ psn: ProcessSerialNumber) -> Void {
         var psn_ = psn
-
         var bytes1 = [UInt8](repeating: 0, count: 0xf8)
         bytes1[0x04] = 0xF8
         bytes1[0x08] = 0x01
         bytes1[0x3a] = 0x10
-
         var bytes2 = [UInt8](repeating: 0, count: 0xf8)
         bytes2[0x04] = 0xF8
         bytes2[0x08] = 0x02
         bytes2[0x3a] = 0x10
-
         memcpy(&bytes1[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
         memset(&bytes1[0x20], 0xFF, 0x10)
         memcpy(&bytes2[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
         memset(&bytes2[0x20], 0xFF, 0x10)
-
         SLPSPostEventRecordTo(&psn_, &(UnsafeMutablePointer(mutating: UnsafePointer<UInt8>(bytes1)).pointee))
         SLPSPostEventRecordTo(&psn_, &(UnsafeMutablePointer(mutating: UnsafePointer<UInt8>(bytes2)).pointee))
     }
@@ -98,30 +98,41 @@ class Window {
     }
 }
 
-func axObserverWindowCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
+private func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
     let type = notificationName as String
     let app = App.shared as! App
     debugPrint("OS event: " + type, element.title())
     switch type {
-        case kAXUIElementDestroyedNotification:
-            guard let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
-            Windows.list.remove(at: existingIndex)
-            guard Windows.list.count > 0 else { app.hideUi(); return }
-            Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
-            app.refreshOpenUi()
-        case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification:
-            guard let window = Windows.list.firstWindowThatMatches(element) else { return }
-            window.isMinimized = type == kAXWindowMiniaturizedNotification
-            // TODO: find a better way to get thumbnail of the new window (when AltTab is triggered min/demin animation)
-            window.refreshThumbnail()
-            app.refreshOpenUi()
-        case kAXTitleChangedNotification:
-            guard element.isActualWindow(),
-                  let window = Windows.list.firstWindowThatMatches(element),
-                  let newTitle = window.axUiElement.title(),
-                  newTitle != window.title else { return }
-            window.title = newTitle
-            app.refreshOpenUi()
+        case kAXUIElementDestroyedNotification: eventWindowDestroyed(app, element)
+        case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification: eventWindowMiniaturizedOrDeminiaturized(app, element, type)
+        case kAXTitleChangedNotification: eventWindowTitleChanged(app, element)
         default: return
     }
 }
+
+private func eventWindowDestroyed(_ app: App, _ element: AXUIElement) {
+    guard let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
+    Windows.list.remove(at: existingIndex)
+    guard Windows.list.count > 0 else { app.hideUi(); return }
+    Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
+    app.refreshOpenUi()
+}
+
+private func eventWindowMiniaturizedOrDeminiaturized(_ app: App, _ element: AXUIElement, _ type: String) {
+    guard let window = Windows.list.firstWindowThatMatches(element) else { return }
+    window.isMinimized = type == kAXWindowMiniaturizedNotification
+    // TODO: find a better way to get thumbnail of the new window (when AltTab is triggered min/demin animation)
+    window.refreshThumbnail()
+    app.refreshOpenUi()
+}
+
+private func eventWindowTitleChanged(_ app: App, _ element: AXUIElement) {
+    guard element.isActualWindow(),
+          let window = Windows.list.firstWindowThatMatches(element),
+          let newTitle = window.axUiElement.title(),
+          newTitle != window.title else { return }
+    window.title = newTitle
+    app.refreshOpenUi()
+}
+
+

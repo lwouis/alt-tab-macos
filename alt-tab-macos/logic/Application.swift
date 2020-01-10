@@ -22,7 +22,7 @@ class Application: NSObject {
 
     private func addAndObserveWindows() {
         axUiElement = AXUIElementCreateApplication(runningApplication.processIdentifier)
-        AXObserverCreate(runningApplication.processIdentifier, axObserverApplicationCallback, &axObserver)
+        AXObserverCreate(runningApplication.processIdentifier, axObserverCallback, &axObserver)
         observeAllWindows()
     }
 
@@ -59,47 +59,63 @@ class Application: NSObject {
     private func observeEvents(_ windows: [AXUIElement]) {
         guard let axObserver = axObserver else { return }
         let selfPointer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
-        AXObserverAddNotification(axObserver, axUiElement!, kAXApplicationActivatedNotification as CFString, selfPointer)
-        AXObserverAddNotification(axObserver, axUiElement!, kAXFocusedWindowChangedNotification as CFString, selfPointer)
-        AXObserverAddNotification(axObserver, axUiElement!, kAXWindowCreatedNotification as CFString, selfPointer)
-        AXObserverAddNotification(axObserver, axUiElement!, kAXApplicationHiddenNotification as CFString, selfPointer)
-        AXObserverAddNotification(axObserver, axUiElement!, kAXApplicationShownNotification as CFString, selfPointer)
+        for notification in [
+            kAXApplicationActivatedNotification,
+            kAXFocusedWindowChangedNotification,
+            kAXWindowCreatedNotification,
+            kAXApplicationHiddenNotification,
+            kAXApplicationShownNotification,
+        ] {
+            AXObserverAddNotification(axObserver, axUiElement!, notification as CFString, selfPointer)
+        }
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 }
 
-func axObserverApplicationCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, applicationPointer: UnsafeMutableRawPointer?) -> Void {
+private func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, applicationPointer: UnsafeMutableRawPointer?) -> Void {
     let application = Unmanaged<Application>.fromOpaque(applicationPointer!).takeUnretainedValue()
     let app = App.shared as! App
     let type = notificationName as String
     debugPrint("OS event: " + type, element.title())
     switch type {
-        case kAXApplicationActivatedNotification:
-            guard !app.appIsBeingUsed,
-                  let appFocusedWindow = element.focusedWindow(),
-                  let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow) else { return }
-            Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
-        case kAXApplicationHiddenNotification, kAXApplicationShownNotification:
-            for window in Windows.list {
-                guard window.application.axUiElement!.pid() == element.pid() else { continue }
-                window.isHidden = type == kAXApplicationHiddenNotification
-            }
-            app.refreshOpenUi()
-        case kAXWindowCreatedNotification:
-            guard element.isActualWindow() else { return }
-            // a window being un-minimized can trigger kAXWindowCreatedNotification
-            guard Windows.list.firstIndexThatMatches(element) == nil else { return }
-            let window = Window(element, application)
-            Windows.list.insert(window, at: 0)
-            Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground()
-            // TODO: find a better way to get thumbnail of the new window
-            window.refreshThumbnail()
-            app.refreshOpenUi()
-        case kAXFocusedWindowChangedNotification:
-            guard !app.appIsBeingUsed,
-                  element.isActualWindow(),
-                  let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
-            Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
+        case kAXApplicationActivatedNotification: eventApplicationActivated(app, element)
+        case kAXApplicationHiddenNotification, kAXApplicationShownNotification: eventApplicationHiddenOrShown(app, element, type)
+        case kAXWindowCreatedNotification: eventWindowCreated(app, element, application)
+        case kAXFocusedWindowChangedNotification: eventFocusedWindowChanged(app, element)
         default: return
     }
+}
+
+private func eventApplicationActivated(_ app: App, _ element: AXUIElement) {
+    guard !app.appIsBeingUsed,
+          let appFocusedWindow = element.focusedWindow(),
+          let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow) else { return }
+    Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
+}
+
+private func eventApplicationHiddenOrShown(_ app: App, _ element: AXUIElement, _ type: String) {
+    for window in Windows.list {
+        guard window.application.axUiElement!.pid() == element.pid() else { continue }
+        window.isHidden = type == kAXApplicationHiddenNotification
+    }
+    app.refreshOpenUi()
+}
+
+private func eventWindowCreated(_ app: App, _ element: AXUIElement, _ application: Application) {
+    guard element.isActualWindow() else { return }
+    // a window being un-minimized can trigger kAXWindowCreatedNotification
+    guard Windows.list.firstIndexThatMatches(element) == nil else { return }
+    let window = Window(element, application)
+    Windows.list.insert(window, at: 0)
+    Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground()
+    // TODO: find a better way to get thumbnail of the new window
+    window.refreshThumbnail()
+    app.refreshOpenUi()
+}
+
+private func eventFocusedWindowChanged(_ app: App, _ element: AXUIElement) {
+    guard !app.appIsBeingUsed,
+          element.isActualWindow(),
+          let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
+    Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
 }
