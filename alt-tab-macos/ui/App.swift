@@ -82,7 +82,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         if isFirstSummon {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
-            if Windows.listRecentlyUsedFirst.count == 0 {
+            if Windows.listRecentlyUsedFirst.count == 0 || CGWindow.isMissionControlActive() {
                 appIsBeingUsed = false
                 isFirstSummon = true
                 return
@@ -112,6 +112,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     func focusSelectedWindow(_ window: Window?) {
         hideUi()
+        guard !CGWindow.isMissionControlActive() else { return }
         window?.focus()
     }
 }
