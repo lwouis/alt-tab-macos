@@ -40,10 +40,6 @@ class Applications {
             // some apps never finish launching; the observer leaks for them without this
             app.removeObserver()
             Applications.map.removeValue(forKey: runningApp.processIdentifier)
-            guard Windows.listRecentlyUsedFirst.count > 0 else { (App.shared as! App).hideUi(); return }
-            // TODO: implement of more sophisticated way to decide which thumbnail gets focused on app quit
-            Windows.focusedWindowIndex = 1
-            (App.shared as! App).refreshOpenUi()
         }
         // sometimes removed `runningApps` are already terminated by the time they reach this method so we can't match their pid in `Applications.map` above
         // we need to remove them based on their lack of `bundleIdentifier`
@@ -51,6 +47,10 @@ class Applications {
             Windows.listRecentlyUsedFirst.removeAll(where: { $0.application.runningApplication.bundleIdentifier == nil })
             Applications.map = Applications.map.filter { $0.value.runningApplication.bundleIdentifier != nil }
         }
+        guard Windows.listRecentlyUsedFirst.count > 0 else { (App.shared as! App).hideUi(); return }
+        // TODO: implement of more sophisticated way to decide which thumbnail gets focused on app quit
+        Windows.focusedWindowIndex = 1
+        (App.shared as! App).refreshOpenUi()
     }
 
     private static func filterApplications(_ apps: [NSRunningApplication]) -> [NSRunningApplication] {
