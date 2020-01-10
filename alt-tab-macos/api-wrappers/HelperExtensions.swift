@@ -15,11 +15,11 @@ extension Optional {
     // add throw-on-nil method on Optional
     func orThrow() throws -> Wrapped {
         switch self {
-        case .some(let value):
-            return value
-        case .none:
-            Thread.callStackSymbols.forEach { print($0) }
-            throw NSError.make(domain: "Optional", message: "Optional contained nil")
+            case .some(let value):
+                return value
+            case .none:
+                Thread.callStackSymbols.forEach { print($0) }
+                throw NSError.make(domain: "Optional", message: "Optional contained nil")
         }
     }
 }
@@ -62,5 +62,13 @@ extension Collection {
     // recursive flatMap
     func joined() -> [Any] {
         return flatMap { ($0 as? [Any])?.joined() ?? [$0] }
+    }
+}
+
+// removing an objc KVO observer if there is none throws an exception
+extension NSObject {
+    func safeRemoveObserver(_ observer: NSObject, _ key: String) {
+        guard observationInfo != nil else { return }
+        removeObserver(observer, forKeyPath: key)
     }
 }
