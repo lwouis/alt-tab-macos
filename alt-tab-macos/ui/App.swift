@@ -82,7 +82,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         if isFirstSummon {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
-            if Windows.listRecentlyUsedFirst.count == 0 || CGWindow.isMissionControlActive() {
+            if Windows.list.count == 0 || CGWindow.isMissionControlActive() {
                 appIsBeingUsed = false
                 isFirstSummon = true
                 return

@@ -104,20 +104,20 @@ func axObserverWindowCallback(observer: AXObserver, element: AXUIElement, notifi
     debugPrint("OS event: " + type, element.title())
     switch type {
         case kAXUIElementDestroyedNotification:
-            guard let existingIndex = Windows.listRecentlyUsedFirst.firstIndexThatMatches(element) else { return }
-            Windows.listRecentlyUsedFirst.remove(at: existingIndex)
-            guard Windows.listRecentlyUsedFirst.count > 0 else { app.hideUi(); return }
+            guard let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
+            Windows.list.remove(at: existingIndex)
+            guard Windows.list.count > 0 else { app.hideUi(); return }
             Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
             app.refreshOpenUi()
         case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification:
-            guard let window = Windows.listRecentlyUsedFirst.firstWindowThatMatches(element) else { return }
+            guard let window = Windows.list.firstWindowThatMatches(element) else { return }
             window.isMinimized = type == kAXWindowMiniaturizedNotification
             // TODO: find a better way to get thumbnail of the new window (when AltTab is triggered min/demin animation)
             window.refreshThumbnail()
             app.refreshOpenUi()
         case kAXTitleChangedNotification:
             guard element.isActualWindow(),
-                  let window = Windows.listRecentlyUsedFirst.firstWindowThatMatches(element),
+                  let window = Windows.list.firstWindowThatMatches(element),
                   let newTitle = window.axUiElement.title(),
                   newTitle != window.title else { return }
             window.title = newTitle

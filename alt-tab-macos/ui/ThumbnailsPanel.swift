@@ -62,18 +62,18 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Windows.listRecentlyUsedFirst.count
+        return Windows.list.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! Cell
-        item.updateWithNewContent(Windows.listRecentlyUsedFirst[indexPath.item], app!.focusSelectedWindow, app!.thumbnailsPanel!.highlightCell, currentScreen!)
+        item.updateWithNewContent(Windows.list[indexPath.item], app!.focusSelectedWindow, app!.thumbnailsPanel!.highlightCell, currentScreen!)
         return item
     }
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        if indexPath.item < Windows.listRecentlyUsedFirst.count {
-            let (width, height) = Cell.computeDownscaledSize(Windows.listRecentlyUsedFirst[indexPath.item].thumbnail, currentScreen!)
+        if indexPath.item < Windows.list.count {
+            let (width, height) = Cell.computeDownscaledSize(Windows.list[indexPath.item].thumbnail, currentScreen!)
             return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight!, Preferences.iconSize!) + Preferences.interItemPadding + Preferences.cellPadding * 2)
         }
         return .zero
