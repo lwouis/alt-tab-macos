@@ -2,17 +2,11 @@ import Foundation
 import Cocoa
 
 class Applications {
-    static var map = [pid_t: Application]()
+    static var list = [Application]()
     static var appsObserver = RunningApplicationsObserver()
 
     static func addInitialRunningApplications() {
         addRunningApplications(NSWorkspace.shared.runningApplications)
-    }
-
-    static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
-        for app in filterApplications(runningApps) {
-            Applications.map[app.processIdentifier] = Application(app)
-        }
     }
 
     static func observeRunningApplications() {
@@ -20,34 +14,32 @@ class Applications {
     }
 
     static func reviewRunningApplicationsWindows() {
-        for app in map.values {
+        for app in list {
             guard app.runningApplication.isFinishedLaunching else { continue }
             app.observeNewWindows()
         }
     }
 
-    static func removeApplications(_ runningApps: [NSRunningApplication]) {
-        var someAppsAreAlreadyTerminated = false
+    static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
+        for app in filterApplications(runningApps) {
+            Applications.list.append(Application(app))
+        }
+    }
+
+    static func removeRunningApplications(_ runningApps: [NSRunningApplication]) {
         for runningApp in runningApps {
-            guard runningApp.bundleIdentifier != nil else { someAppsAreAlreadyTerminated = true; continue }
-            guard let app = Applications.map[runningApp.processIdentifier] else { continue }
+            guard let app = Applications.list.first(where: { $0.runningApplication.isEqual(runningApp) }) else { continue }
             var windowsToKeep = [Window]()
-            for window in Windows.listRecentlyUsedFirst {
-                guard window.application.runningApplication.processIdentifier != runningApp.processIdentifier else { continue }
+            for window in Windows.list {
+                guard !window.application.runningApplication.isEqual(runningApp) else { continue }
                 windowsToKeep.append(window)
             }
-            Windows.listRecentlyUsedFirst = windowsToKeep
+            Windows.list = windowsToKeep
             // some apps never finish launching; the observer leaks for them without this
             app.removeObserver()
-            Applications.map.removeValue(forKey: runningApp.processIdentifier)
+            Applications.list.removeAll(where: { $0.runningApplication.isEqual(runningApp) })
         }
-        // sometimes removed `runningApps` are already terminated by the time they reach this method so we can't match their pid in `Applications.map` above
-        // we need to remove them based on their lack of `bundleIdentifier`
-        if someAppsAreAlreadyTerminated {
-            Windows.listRecentlyUsedFirst.removeAll(where: { $0.application.runningApplication.bundleIdentifier == nil })
-            Applications.map = Applications.map.filter { $0.value.runningApplication.bundleIdentifier != nil }
-        }
-        guard Windows.listRecentlyUsedFirst.count > 0 else { (App.shared as! App).hideUi(); return }
+        guard Windows.list.count > 0 else { (App.shared as! App).hideUi(); return }
         // TODO: implement of more sophisticated way to decide which thumbnail gets focused on app quit
         Windows.focusedWindowIndex = 1
         (App.shared as! App).refreshOpenUi()
@@ -71,7 +63,7 @@ class RunningApplicationsObserver: NSObject {
             case .removal:
                 let apps = change![.oldKey] as! [NSRunningApplication]
                 debugPrint("OS event: apps quit", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
-                Applications.removeApplications(apps)
+                Applications.removeRunningApplications(apps)
             default: return
         }
     }
