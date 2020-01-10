@@ -30,13 +30,15 @@ class Applications {
         var someAppsAreAlreadyTerminated = false
         for runningApp in runningApps {
             guard runningApp.bundleIdentifier != nil else { someAppsAreAlreadyTerminated = true; continue }
-            guard Applications.map[runningApp.processIdentifier] != nil else { continue }
+            guard let app = Applications.map[runningApp.processIdentifier] else { continue }
             var windowsToKeep = [Window]()
             for window in Windows.listRecentlyUsedFirst {
                 guard window.application.runningApplication.processIdentifier != runningApp.processIdentifier else { continue }
                 windowsToKeep.append(window)
             }
             Windows.listRecentlyUsedFirst = windowsToKeep
+            // some apps never finish launching; the observer leaks for them without this
+            app.removeObserver()
             Applications.map.removeValue(forKey: runningApp.processIdentifier)
             guard Windows.listRecentlyUsedFirst.count > 0 else { (App.shared as! App).hideUi(); return }
             // TODO: implement of more sophisticated way to decide which thumbnail gets focused on app quit

@@ -16,6 +16,10 @@ class Application: NSObject {
         }
     }
 
+    func removeObserver() {
+        runningApplication.safeRemoveObserver(self, "isFinishedLaunching")
+    }
+
     private func addAndObserveWindows() {
         axUiElement = AXUIElementCreateApplication(runningApplication.processIdentifier)
         AXObserverCreate(runningApplication.processIdentifier, axObserverApplicationCallback, &axObserver)
@@ -44,7 +48,7 @@ class Application: NSObject {
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         guard let isFinishedLaunching = change![.newKey], isFinishedLaunching as! Bool else { return }
-        runningApplication.removeObserver(self, forKeyPath: "isFinishedLaunching")
+        removeObserver()
         addAndObserveWindows()
     }
 
