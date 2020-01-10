@@ -97,7 +97,6 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         self.currentScreen = currentScreen
         (collectionView_.collectionViewLayout as! CollectionViewCenterFlowLayout).currentScreen = currentScreen
         collectionView_!.setFrameSize(Screen.thumbnailPanelMaxSize(currentScreen))
-        collectionView_!.collectionViewLayout!.invalidateLayout()
         collectionView_!.reloadData()
         collectionView_!.layoutSubtreeIfNeeded()
         setContentSize(NSSize(width: collectionView_!.frame.size.width + Preferences.windowPadding * 2, height: collectionView_!.frame.size.height + Preferences.windowPadding * 2))
