@@ -66,11 +66,12 @@ class Application: NSObject {
 
 func axObserverApplicationCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, applicationPointer: UnsafeMutableRawPointer?) -> Void {
     let application = Unmanaged<Application>.fromOpaque(applicationPointer!).takeUnretainedValue()
+    let app = App.shared as! App
     let type = notificationName as String
     debugPrint("OS event: " + type, element.title())
     switch type {
         case kAXApplicationActivatedNotification:
-            guard !(App.shared as! App).appIsBeingUsed,
+            guard !app.appIsBeingUsed,
                   let appFocusedWindow = element.focusedWindow(),
                   let existingIndex = Windows.listRecentlyUsedFirst.firstIndexThatMatches(appFocusedWindow) else { return }
             Windows.listRecentlyUsedFirst.insert(Windows.listRecentlyUsedFirst.remove(at: existingIndex), at: 0)
@@ -79,7 +80,7 @@ func axObserverApplicationCallback(observer: AXObserver, element: AXUIElement, n
                 guard window.application.axUiElement!.pid() == element.pid() else { continue }
                 window.isHidden = type == kAXApplicationHiddenNotification
             }
-            (App.shared as! App).refreshOpenUi()
+            app.refreshOpenUi()
         case kAXWindowCreatedNotification:
             guard element.isActualWindow() else { return }
             // a window being un-minimized can trigger kAXWindowCreatedNotification
@@ -89,9 +90,9 @@ func axObserverApplicationCallback(observer: AXObserver, element: AXUIElement, n
             Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground()
             // TODO: find a better way to get thumbnail of the new window
             window.refreshThumbnail()
-            (App.shared as! App).refreshOpenUi()
+            app.refreshOpenUi()
         case kAXFocusedWindowChangedNotification:
-            guard !(App.shared as! App).appIsBeingUsed,
+            guard !app.appIsBeingUsed,
                   element.isActualWindow(),
                   let existingIndex = Windows.listRecentlyUsedFirst.firstIndexThatMatches(element) else { return }
             Windows.listRecentlyUsedFirst.insert(Windows.listRecentlyUsedFirst.remove(at: existingIndex), at: 0)

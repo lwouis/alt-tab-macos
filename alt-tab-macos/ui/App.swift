@@ -104,6 +104,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func refreshOpenUi() {
+        guard appIsBeingUsed else { return }
         let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         if uiWorkShouldBeDone { thumbnailsPanel!.refreshCollectionView(currentScreen); debugPrint("refreshCollectionView") }
         if uiWorkShouldBeDone { thumbnailsPanel!.highlightCell(); debugPrint("highlightCellAt") }
