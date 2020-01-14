@@ -10,7 +10,7 @@ class SystemPermissions {
                     "Please authorize and re-launch.",
                     "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
                     separator: "\n")
-            NSApp.terminate(self)
+            App.shared.terminate(self)
         }
     }
 
@@ -22,7 +22,7 @@ class SystemPermissions {
                     "Please authorize and re-launch.",
                     "See https://dropshare.zendesk.com/hc/en-us/articles/360033453434-Enabling-Screen-Recording-Permission-on-macOS-Catalina-10-15-",
                     separator: "\n")
-            NSApp.terminate(self)
+            App.shared.terminate(self)
         }
     }
 }

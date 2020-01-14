@@ -208,7 +208,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
                 throw NSError.make(domain: "Preferences", message: "Please enter a valid value for '" + key + "'")
             }
             try Preferences.updateAndValidateFromString(key, newValue)
-            (NSApp as! App).initPreferencesDependentComponents()
+            (App.shared as! App).initPreferencesDependentComponents()
             try Preferences.saveRawToDisk()
         } catch let error {
             debugPrint("PreferencesWindow: save: error", key, newValue, error)
