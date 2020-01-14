@@ -1,21 +1,28 @@
 import Cocoa
 import Foundation
 
-class PreferencesPanel: NSPanel, NSWindowDelegate {
-    let panelWidth = CGFloat(496)
-    let panelHeight = CGFloat(256) // auto expands to content height (but does not auto shrink)
-    let panelPadding = CGFloat(40)
+class PreferencesWindow: NSWindow, NSWindowDelegate {
+    let width = CGFloat(496)
+    let height = CGFloat(256) // auto expands to content height (but does not auto shrink)
+    let padding = CGFloat(40)
     var labelWidth: CGFloat {
-        return (panelWidth - panelPadding) * CGFloat(0.45)
+        return (width - padding) * CGFloat(0.45)
     }
     var windowCloseRequested = false
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
-        let initialRect = NSRect(x: 0, y: 0, width: panelWidth, height: panelHeight)
+        let initialRect = NSRect(x: 0, y: 0, width: width, height: height)
         super.init(contentRect: initialRect, styleMask: style, backing: backingStoreType, defer: flag)
         title = App.name + " Preferences"
         hidesOnDeactivate = false
+        isReleasedWhenClosed = false
+        styleMask.insert([.miniaturizable, .closable])
         contentView = makeContentView()
+    }
+
+    func show() {
+        App.shared.activate(ignoringOtherApps: true)
+        makeKeyAndOrderFront(nil)
     }
 
     public func windowShouldClose(_ sender: NSWindow) -> Bool {
@@ -46,11 +53,11 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
         // visual setup
         wrappingView.orientation = .vertical
         wrappingView.alignment = .left
-        wrappingView.spacing = panelPadding * 0.3
-        wrappingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: panelPadding * 0.5).isActive = true
-        wrappingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: panelPadding * -0.5).isActive = true
-        wrappingView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: panelPadding * 0.5).isActive = true
-        wrappingView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: panelPadding * -0.5).isActive = true
+        wrappingView.spacing = padding * 0.3
+        wrappingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding * 0.5).isActive = true
+        wrappingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding * -0.5).isActive = true
+        wrappingView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: padding * 0.5).isActive = true
+        wrappingView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: padding * -0.5).isActive = true
 
         return contentView
     }
@@ -204,7 +211,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
             (NSApp as! App).initPreferencesDependentComponents()
             try Preferences.saveRawToDisk()
         } catch let error {
-            debugPrint("PreferencesPanel: save: error", key, newValue, error)
+            debugPrint("PreferencesWindow: save: error", key, newValue, error)
             showSaveErrorSheetModal(error as NSError, senderControl, key, previousValue) // allows recursive call by user choice
         }
     }
@@ -219,11 +226,11 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
 
         alert.beginSheetModal(for: self, completionHandler: { (modalResponse: NSApplication.ModalResponse) -> Void in
             if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {
-                debugPrint("PreferencesPanel: save: error: user choice: edit")
+                debugPrint("PreferencesWindow: save: error: user choice: edit")
                 self.windowCloseRequested = false
             }
             if modalResponse == NSApplication.ModalResponse.alertSecondButtonReturn {
-                debugPrint("PreferencesPanel: save: error: user choice: cancel -> revert value and eventually close window")
+                debugPrint("PreferencesWindow: save: error: user choice: cancel -> revert value and eventually close window")
                 try! Preferences.updateAndValidateFromString(key, previousValue)
                 self.setControlValue(control, previousValue)
                 self.updateControlExtras(control, previousValue)
@@ -232,7 +239,7 @@ class PreferencesPanel: NSPanel, NSWindowDelegate {
                 }
             }
             if modalResponse == NSApplication.ModalResponse.alertThirdButtonReturn {
-                debugPrint("PreferencesPanel: save: error: user choice: check again")
+                debugPrint("PreferencesWindow: save: error: user choice: check again")
                 self.controlWasChanged(senderControl: control)
             }
         })
