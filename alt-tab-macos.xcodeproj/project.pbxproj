@@ -20,7 +20,7 @@
 		D04BA4D356055A39B97712DE /* PrivateApis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAF0DFC1F44322973CE1E /* PrivateApis.swift */; };
 		D04BA57A871B7269BEBAFF84 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA35456DA0DDA74F9687E /* Keyboard.swift */; };
 		D04BA57FB9EF1373D59A1AA7 /* CGWindowID.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAEA3EDC4F80FA23DBEC4 /* CGWindowID.swift */; };
-		D04BA6368E681BE3A408AC99 /* PreferencesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA02F476DE30C4647886C /* PreferencesPanel.swift */; };
+		D04BA6368E681BE3A408AC99 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA02F476DE30C4647886C /* PreferencesWindow.swift */; };
 		D04BA6B6B703DCEFE892D5A4 /* Spaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA5EB5ED248C8C22CC672 /* Spaces.swift */; };
 		D04BA70FF7262BF5F9E6E13B /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BADCB1C0F50340A6CAFC2 /* Preferences.swift */; };
 		D04BA8373D4DE452C0C081ED /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D04BABC654F40BE74DA25BC7 /* SF-Pro-Text-Regular.otf */; };
@@ -39,7 +39,7 @@
 
 /* Begin PBXFileReference section */
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
-		D04BA02F476DE30C4647886C /* PreferencesPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesPanel.swift; sourceTree = "<group>"; };
+		D04BA02F476DE30C4647886C /* PreferencesWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
 		D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItem.swift; sourceTree = "<group>"; };
 		D04BA0CE87BE264C52987ED1 /* 7 windows - 2 lines - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - wide window.jpg"; sourceTree = "<group>"; };
 		D04BA0E1C5DBC07108AC2F54 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 				D04BA3202A2C22C347E849B3 /* CollectionViewCenterFlowLayout.swift */,
 				D04BA56355579F78776E6D51 /* Cell.swift */,
 				D04BA90C6C36DB1D65BC2B66 /* App.swift */,
-				D04BA02F476DE30C4647886C /* PreferencesPanel.swift */,
+				D04BA02F476DE30C4647886C /* PreferencesWindow.swift */,
 				D04BAE5BBE182DD5DDFE2E3E /* ThumbnailsPanel.swift */,
 				D04BA0AF7C5DCF367FBB663C /* StatusItem.swift */,
 				D04BAD32E130E4A061DC8332 /* Labels.swift */,
@@ -363,7 +363,7 @@
 				D04BA278D9EFA568C8D18A4C /* Windows.swift in Sources */,
 				D04BA3261C7DA5F48310E654 /* App.swift in Sources */,
 				D04BA70FF7262BF5F9E6E13B /* Preferences.swift in Sources */,
-				D04BA6368E681BE3A408AC99 /* PreferencesPanel.swift in Sources */,
+				D04BA6368E681BE3A408AC99 /* PreferencesWindow.swift in Sources */,
 				D04BA9119E2329DB5A35B3C7 /* ThumbnailsPanel.swift in Sources */,
 				D04BA8EBC0365A019A27C7EA /* Screen.swift in Sources */,
 				D04BA9CCE02D30C8164A552A /* SystemPermissions.swift in Sources */,

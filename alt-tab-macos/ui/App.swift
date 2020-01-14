@@ -7,7 +7,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     static let name = "AltTab"
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
-    var preferencesPanel: PreferencesPanel?
+    var preferencesPanel: PreferencesWindow?
     var uiWorkShouldBeDone = true
     var isFirstSummon = true
     var appIsBeingUsed = false
@@ -59,10 +59,10 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     @objc
     func showPreferencesPanel() {
         if preferencesPanel == nil {
-            preferencesPanel = PreferencesPanel()
+            preferencesPanel = PreferencesWindow()
         }
         Screen.repositionPanel(preferencesPanel!, Screen.preferred(), .appleCentered)
-        Screen.showPanel(preferencesPanel!)
+        preferencesPanel?.show()
     }
 
     @objc
@@ -96,7 +96,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
             Windows.focusedWindowIndex = 0
             Windows.cycleFocusedWindowIndex(step)
             refreshOpenUi()
-            Screen.showPanel(thumbnailsPanel!)
+            thumbnailsPanel?.show()
         } else {
             debugPrint("showUiOrCycleSelection: !isFirstSummon")
             cycleSelection(step)
@@ -108,7 +108,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         if uiWorkShouldBeDone { thumbnailsPanel!.refreshCollectionView(currentScreen); debugPrint("refreshCollectionView") }
         if uiWorkShouldBeDone { thumbnailsPanel!.highlightCell(); debugPrint("highlightCellAt") }
-        if uiWorkShouldBeDone { Screen.repositionPanel(thumbnailsPanel!, currentScreen, .appleCentered); debugPrint("showPanel") }
+        if uiWorkShouldBeDone { Screen.repositionPanel(thumbnailsPanel!, currentScreen, .appleCentered); debugPrint("repositionPanel") }
     }
 
     func focusSelectedWindow(_ window: Window?) {

@@ -25,18 +25,12 @@ class Screen {
         return NSSize(width: frame.width * Preferences.maxScreenUsage!, height: frame.height * Preferences.maxScreenUsage!)
     }
 
-    static func repositionPanel(_ panel: NSPanel, _ screen: NSScreen, _ alignment: VerticalAlignment) {
+    static func repositionPanel(_ window: NSWindow, _ screen: NSScreen, _ alignment: VerticalAlignment) {
         let screenFrame = screen.visibleFrame
-        let panelFrame = panel.frame
+        let panelFrame = window.frame
         let x = screenFrame.minX + max(screenFrame.width - panelFrame.width, 0) * 0.5
         let y = screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * alignment.rawValue
-        panel.setFrameOrigin(NSPoint(x: x, y: y))
-    }
-
-    static func showPanel(_ panel: NSPanel) {
-        let panelFrame = panel.frame
-        panel.makeKeyAndOrderFront(nil)
-        App.shared.arrangeInFront(nil)
+        window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 
     static func mainUuid() -> CFString {

@@ -30,6 +30,10 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         setAccessibilitySubrole(.unknown)
     }
 
+    func show() {
+        makeKeyAndOrderFront(nil)
+    }
+
     private func makeBackgroundView() -> NSVisualEffectView {
         let backgroundView = NSVisualEffectView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
