@@ -13,11 +13,17 @@ class Applications {
         NSWorkspace.shared.addObserver(Applications.appsObserver, forKeyPath: "runningApplications", options: [.old, .new], context: nil)
     }
 
-    static func reviewRunningApplicationsWindows() {
+    static func addInitialRunningApplicationsWindows() {
+        let windows = Spaces.windowsInSpaces(Spaces.otherSpaces()).filter { window in
+            return Windows.list.first(where: { $0.cgWindowId == window }) == nil
+        }
+        CGSAddWindowsToSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
         for app in list {
             guard app.runningApplication.isFinishedLaunching else { continue }
             app.observeNewWindows()
         }
+        Windows.sortByLevel()
+        CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
     }
 
     static func addRunningApplications(_ runningApps: [NSRunningApplication]) {

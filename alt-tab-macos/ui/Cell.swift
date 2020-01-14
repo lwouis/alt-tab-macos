@@ -55,7 +55,11 @@ class Cell: NSCollectionViewItem {
         minimizedIcon.isHidden = !window!.isMinimized
         spaceIcon.isHidden = element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels
         if !spaceIcon.isHidden {
-            spaceIcon.setNumber(UInt32(element.spaceIndex!))
+            if element.isOnAllSpaces {
+                spaceIcon.setStar()
+            } else {
+                spaceIcon.setNumber(UInt32(element.spaceIndex!))
+            }
         }
         let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.interItemPadding)
         label.textContainer!.size.width = thumbnail.frame.width - Preferences.iconSize! - Preferences.interItemPadding - fontIconWidth

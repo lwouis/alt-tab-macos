@@ -27,11 +27,12 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         Preferences.loadFromDiskAndUpdateValues()
         statusItem = StatusItem.make(self)
         initPreferencesDependentComponents()
-        Spaces.updateInitialSpace()
+        Spaces.updateCurrentSpace()
+        Spaces.updateIsSingleSpace()
         Applications.addInitialRunningApplications()
         Applications.observeRunningApplications()
         Spaces.observeSpaceChanges()
-        Windows.sortByLevel()
+        Applications.addInitialRunningApplicationsWindows()
         Keyboard.listenToGlobalEvents(self)
     }
 

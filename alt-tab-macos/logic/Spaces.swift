@@ -10,10 +10,6 @@ class Spaces {
     static func observeSpaceChanges() {
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
             updateCurrentSpace()
-            guard visitedSpaces[Spaces.currentSpaceId] == nil else { return }
-            visitedSpaces[Spaces.currentSpaceId] = true
-            // when visiting a space for the first time, we review windows that we could not gather before the visit, from the other space
-            Applications.reviewRunningApplicationsWindows()
         })
     }
 
@@ -23,15 +19,14 @@ class Spaces {
         debugPrint("current space", Spaces.currentSpaceId)
     }
 
-    static func updateInitialSpace() {
-        updateCurrentSpace()
-        visitedSpaces[Spaces.currentSpaceId] = true
-    }
-
     static func allIdsAndIndexes() -> [(CGSSpaceID, SpaceIndex)] {
         return (CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary])
                 .map { return $0["Spaces"] }.joined().enumerated()
                 .map { (($0.element as! NSDictionary)["id64"]! as! CGSSpaceID, $0.offset + 1) }
+    }
+
+    static func otherSpaces() -> [CGSSpaceID] {
+        return allIdsAndIndexes().filter { $0.0 != Spaces.currentSpaceId }.map { $0.0 }
     }
 
     static func windowsInSpaces(_ spaceIds: [CGSSpaceID]) -> [CGWindowID] {
