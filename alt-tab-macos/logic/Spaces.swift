@@ -10,6 +10,9 @@ class Spaces {
     static func observeSpaceChanges() {
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
             updateCurrentSpace()
+            let app = App.shared as! App
+            guard app.appIsBeingUsed else { return }
+            app.reopenUi()
         })
     }
 
