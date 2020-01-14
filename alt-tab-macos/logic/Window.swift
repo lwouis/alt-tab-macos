@@ -134,6 +134,7 @@ private func eventWindowTitleChanged(_ app: App, _ element: AXUIElement) {
           let newTitle = window.axUiElement.title(),
           newTitle != window.title else { return }
     window.title = newTitle
+    window.refreshThumbnail()
     app.refreshOpenUi()
 }
 
