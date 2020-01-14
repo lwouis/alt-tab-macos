@@ -8,6 +8,7 @@ class Window {
     var icon: NSImage?
     var isHidden: Bool
     var isMinimized: Bool
+    var isOnAllSpaces: Bool
     var spaceId: CGSSpaceID?
     var spaceIndex: SpaceIndex?
     var axUiElement: AXUIElement
@@ -24,6 +25,7 @@ class Window {
         self.isMinimized = axUiElement.isMinimized()
         self.spaceId = Spaces.currentSpaceId
         self.spaceIndex = Spaces.currentSpaceIndex
+        self.isOnAllSpaces = false
         self.title = Window.bestEffortTitle(axUiElement, cgWindowId, application)
         debugPrint("Adding window: " + title, application.runningApplication.bundleIdentifier, Spaces.currentSpaceId, Spaces.currentSpaceIndex)
         observeEvents()

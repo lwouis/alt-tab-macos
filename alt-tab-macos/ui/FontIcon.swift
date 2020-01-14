@@ -7,6 +7,7 @@ class FontIcon: CellTitle {
     static let sfSymbolCircledDotSign = "􀍷"
     static let sfSymbolCircledNumber0 = "􀀸"
     static let sfSymbolCircledNumber10 = "􀓵"
+    static let sfSymbolCircledStart = "􀕬"
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,6 +27,10 @@ class FontIcon: CellTitle {
     func setNumber(_ number: UInt32) {
         let (baseCharacter, offset) = baseCharacterAndOffset(number)
         string = String(UnicodeScalar(baseCharacter.unicodeScalars.first!.value + offset)!)
+    }
+
+    func setStar() {
+        string = FontIcon.sfSymbolCircledStart
     }
 
     private func baseCharacterAndOffset(_ number: UInt32) -> (String, UInt32) {
