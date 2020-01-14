@@ -93,7 +93,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
             Windows.focusedWindowIndex = 0
             Windows.cycleFocusedWindowIndex(step)
             refreshOpenUi()
-            thumbnailsPanel?.show()
+            if uiWorkShouldBeDone { thumbnailsPanel?.show() }
         } else {
             debugPrint("showUiOrCycleSelection: !isFirstSummon")
             cycleSelection(step)
@@ -103,7 +103,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     func refreshOpenUi() {
         guard appIsBeingUsed else { return }
         let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
-        if uiWorkShouldBeDone { thumbnailsPanel!.refreshCollectionView(currentScreen); debugPrint("refreshCollectionView") }
+        if uiWorkShouldBeDone { thumbnailsPanel!.refreshCollectionView(currentScreen, uiWorkShouldBeDone); debugPrint("refreshCollectionView") }
         if uiWorkShouldBeDone { thumbnailsPanel!.highlightCell(); debugPrint("highlightCellAt") }
         if uiWorkShouldBeDone { Screen.repositionPanel(thumbnailsPanel!, currentScreen, .appleCentered); debugPrint("repositionPanel") }
     }

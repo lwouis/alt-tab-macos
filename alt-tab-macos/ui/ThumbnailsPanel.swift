@@ -97,14 +97,14 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         }
     }
 
-    func refreshCollectionView(_ currentScreen: NSScreen) {
-        self.currentScreen = currentScreen
-        (collectionView_.collectionViewLayout as! CollectionViewCenterFlowLayout).currentScreen = currentScreen
-        collectionView_!.setFrameSize(Screen.thumbnailPanelMaxSize(currentScreen))
-        collectionView_!.reloadData()
-        collectionView_!.layoutSubtreeIfNeeded()
-        setContentSize(NSSize(width: collectionView_!.frame.size.width + Preferences.windowPadding * 2, height: collectionView_!.frame.size.height + Preferences.windowPadding * 2))
-        backgroundView!.setFrameSize(frame.size)
-        collectionView_!.setFrameOrigin(NSPoint(x: Preferences.windowPadding, y: Preferences.windowPadding))
+    func refreshCollectionView(_ currentScreen: NSScreen, _ uiWorkShouldBeDone: Bool) {
+        if uiWorkShouldBeDone { self.currentScreen = currentScreen }
+        if uiWorkShouldBeDone { (collectionView_.collectionViewLayout as! CollectionViewCenterFlowLayout).currentScreen = currentScreen }
+        if uiWorkShouldBeDone { collectionView_!.setFrameSize(Screen.thumbnailPanelMaxSize(currentScreen)) }
+        if uiWorkShouldBeDone { collectionView_!.reloadData() }
+        if uiWorkShouldBeDone { collectionView_!.layoutSubtreeIfNeeded() }
+        if uiWorkShouldBeDone { setContentSize(NSSize(width: collectionView_!.frame.size.width + Preferences.windowPadding * 2, height: collectionView_!.frame.size.height + Preferences.windowPadding * 2)) }
+        if uiWorkShouldBeDone { backgroundView!.setFrameSize(frame.size) }
+        if uiWorkShouldBeDone { collectionView_!.setFrameOrigin(NSPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)) }
     }
 }
