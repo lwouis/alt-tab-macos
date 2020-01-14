@@ -5,6 +5,12 @@ class Applications {
     static var list = [Application]()
     static var appsObserver = RunningApplicationsObserver()
 
+    static func initialDiscovery() {
+        addInitialRunningApplications()
+        observeRunningApplications()
+        addInitialRunningApplicationsWindows()
+    }
+
     static func addInitialRunningApplications() {
         addRunningApplications(NSWorkspace.shared.runningApplications)
     }
@@ -14,6 +20,7 @@ class Applications {
     }
 
     static func addInitialRunningApplicationsWindows() {
+        // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
         let windows = Spaces.windowsInSpaces(Spaces.otherSpaces()).filter { window in
             return Windows.list.first(where: { $0.cgWindowId == window }) == nil
         }

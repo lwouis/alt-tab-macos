@@ -13,10 +13,16 @@ class Spaces {
         })
     }
 
+    static func initialDiscovery() {
+        updateCurrentSpace()
+        updateIsSingleSpace()
+        observeSpaceChanges()
+    }
+
     static func updateCurrentSpace() {
-        Spaces.currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, Screen.mainUuid())
-        Spaces.currentSpaceIndex = allIdsAndIndexes().first { $0.0 == Spaces.currentSpaceId }!.1
-        debugPrint("current space", Spaces.currentSpaceId)
+        currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, Screen.mainUuid())
+        currentSpaceIndex = allIdsAndIndexes().first { $0.0 == currentSpaceId }!.1
+        debugPrint("current space", currentSpaceId)
     }
 
     static func allIdsAndIndexes() -> [(CGSSpaceID, SpaceIndex)] {
@@ -26,7 +32,7 @@ class Spaces {
     }
 
     static func otherSpaces() -> [CGSSpaceID] {
-        return allIdsAndIndexes().filter { $0.0 != Spaces.currentSpaceId }.map { $0.0 }
+        return allIdsAndIndexes().filter { $0.0 != currentSpaceId }.map { $0.0 }
     }
 
     static func windowsInSpaces(_ spaceIds: [CGSSpaceID]) -> [CGWindowID] {
