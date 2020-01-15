@@ -6,6 +6,16 @@ extension CGWindowID {
         return cgProperty("kCGSWindowTitle", String.self)
     }
 
+    func level() -> CGWindowLevel {
+        var level = CGWindowLevel(0)
+        CGSGetWindowLevel(cgsMainConnectionId, self, &level)
+        return level
+    }
+
+    func spaces() -> [CGSSpaceID] {
+        return CGSCopySpacesForWindows(cgsMainConnectionId, CGSSpaceMask.all.rawValue, [self] as CFArray) as! [CGSSpaceID]
+    }
+
     func screenshot() -> CGImage? {
         // CGSHWCaptureWindowList
         var windowId_ = self

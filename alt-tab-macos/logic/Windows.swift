@@ -28,7 +28,7 @@ class Windows {
     static func updateSpaces() {
         let spacesMap = Spaces.allIdsAndIndexes()
         for window in list {
-            let spaceIds = CGSCopySpacesForWindows(cgsMainConnectionId, CGSSpaceMask.all.rawValue, [window.cgWindowId] as CFArray) as! [CGSSpaceID]
+            let spaceIds = window.cgWindowId.spaces()
             guard spaceIds.count > 0 else { continue }
             if spaceIds.count > 1 {
                 window.spaceId = Spaces.currentSpaceId
