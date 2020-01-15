@@ -46,7 +46,8 @@ class Window {
     }
 
     func refreshThumbnail() {
-        guard let cgImage = cgWindowId.screenshot() else { return }
+        guard (App.shared as! App).appIsBeingUsed,
+              let cgImage = cgWindowId.screenshot() else { return }
         thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
     }
 
