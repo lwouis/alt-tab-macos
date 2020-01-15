@@ -92,8 +92,10 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
             Windows.refreshAllThumbnails()
             Windows.focusedWindowIndex = 0
             Windows.cycleFocusedWindowIndex(step)
-            refreshOpenUi()
-            if uiWorkShouldBeDone { thumbnailsPanel?.show() }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay!, execute: {
+                self.refreshOpenUi()
+                if self.uiWorkShouldBeDone { self.thumbnailsPanel?.show() }
+            })
         } else {
             debugPrint("showUiOrCycleSelection: !isFirstSummon")
             cycleSelection(step)
