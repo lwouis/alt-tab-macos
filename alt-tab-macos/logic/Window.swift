@@ -129,8 +129,7 @@ private func eventWindowMiniaturizedOrDeminiaturized(_ app: App, _ element: AXUI
 }
 
 private func eventWindowTitleChanged(_ app: App, _ element: AXUIElement) {
-    guard element.isActualWindow(),
-          let window = Windows.list.firstWindowThatMatches(element),
+    guard let window = Windows.list.firstWindowThatMatches(element),
           let newTitle = window.axUiElement.title(),
           newTitle != window.title else { return }
     window.title = newTitle

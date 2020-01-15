@@ -123,6 +123,11 @@ enum CGSSpaceMask: Int {
 @_silgen_name("CGSCopySpacesForWindows")
 func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawValue, _ wids: CFArray) -> CFArray
 
+// returns window level (see definition in CGWindowLevel.h) of provided window
+// * macOS 10.10+
+@_silgen_name("CGSGetWindowLevel") @discardableResult
+func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout CGWindowLevel) -> CGError
+
 
 
 // ------------------------------------------------------------
@@ -150,11 +155,6 @@ func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawVal
 //// * macOS 10.10+
 //@_silgen_name("CGSGetWindowType") @discardableResult
 //func CGSGetWindowType(_ wid: CGWindowID, _ type: inout UInt32) -> CGError
-//
-//// seems to always return 0, for windows in the same space, other space, minimized, etc
-//// * macOS 10.10+
-//@_silgen_name("CGSGetWindowLevel") @discardableResult
-//func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout UInt32) -> CGError
 //
 //// * macOS 10.12+
 //@_silgen_name("CGSProcessAssignToSpace") @discardableResult

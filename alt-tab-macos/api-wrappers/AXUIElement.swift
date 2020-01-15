@@ -15,13 +15,15 @@ extension AXUIElement {
     }
 
     func isActualWindow(_ isAppHidden: Bool = false) -> Bool {
-        // TODO: should we displays windows that disappear when invoking Expose? (e.g. Outlook meeting reminder window) (see https://stackoverflow.com/a/49723037/2249756)
         // TODO: TotalFinder and XtraFinder double-window hacks (see #84)
-        // TODO: should we display menubar windows? (e.g. iStats Pro dropdown menu)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Some non-windows have title: nil (e.g. some OS elements)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
-        return title() != nil && (subrole() == "AXStandardWindow" || isMinimized() || isAppHidden)
+        return title() != nil && (subrole() == "AXStandardWindow" || isMinimized() || isAppHidden) && isOnNormalLevel()
+    }
+
+    func isOnNormalLevel() -> Bool {
+        return cgWindowId().level() == CGWindowLevelForKey(.normalWindow)
     }
 
     func title() -> String? {

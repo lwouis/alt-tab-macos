@@ -115,7 +115,6 @@ private func eventWindowCreated(_ app: App, _ element: AXUIElement, _ applicatio
 
 private func eventFocusedWindowChanged(_ app: App, _ element: AXUIElement) {
     guard !app.appIsBeingUsed,
-          element.isActualWindow(),
           let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
 }
