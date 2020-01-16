@@ -109,16 +109,23 @@ class Cell: NSCollectionViewItem {
         return vStackView
     }
 
+    static func downscaleFactor() -> CGFloat {
+        let nCellsBeforePotentialOverflow = Preferences.nCellsRows * Preferences.minCellsPerRow
+        guard CGFloat(Windows.list.count) > nCellsBeforePotentialOverflow else { return 1 }
+        // TODO: replace this buggy heuristic with a correct implementation of downscaling
+        return nCellsBeforePotentialOverflow / (nCellsBeforePotentialOverflow + (sqrt(CGFloat(Windows.list.count) - nCellsBeforePotentialOverflow) * 2))
+    }
+
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.cellPadding
+        return (ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.cellPadding) * Cell.downscaleFactor()
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.cellPadding
+        return (ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.cellPadding) * Cell.downscaleFactor()
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.cellPadding
+        return (ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.cellPadding) * Cell.downscaleFactor()
     }
 
     static func width(_ image: NSImage?, _ screen: NSScreen) -> CGFloat {
