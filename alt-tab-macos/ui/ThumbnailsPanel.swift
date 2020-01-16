@@ -41,7 +41,6 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         backgroundView.state = .active
         backgroundView.wantsLayer = true
         backgroundView.layer!.cornerRadius = Preferences.windowCornerRadius!
-        backgroundView.layer!.backgroundColor = .white
         backgroundView.addSubview(collectionView)
     }
 
@@ -50,7 +49,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.collectionViewLayout = CollectionViewCenterFlowLayout()
-        collectionView.backgroundColors = [.yellow]
+        collectionView.backgroundColors = [.clear]
         collectionView.isSelectable = true
         collectionView.allowsMultipleSelection = false
         collectionView.register(Cell.self, forItemWithIdentifier: cellId)
