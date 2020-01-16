@@ -22,12 +22,6 @@ extension CGWindow {
         return layer() == 0
     }
 
-    // workaround: some apps like chrome use a window to implement the search popover
-    func isReasonablyBig() -> Bool {
-        let windowBounds = CGRect(dictionaryRepresentation: bounds()!)!
-        return windowBounds.width > Preferences.minimumWindowSize && windowBounds.height > Preferences.minimumWindowSize
-    }
-
     func id() -> CGWindowID? {
         return value(kCGWindowNumber, CGWindowID.self)
     }

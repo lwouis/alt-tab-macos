@@ -7,7 +7,7 @@ typealias MouseMovedCallback = (Cell) -> Void
 class Cell: NSCollectionViewItem {
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
-    var label = CellTitle(Preferences.fontHeight!)
+    var label = CellTitle(Preferences.fontHeight)
     var minimizedIcon = FontIcon(FontIcon.sfSymbolCircledMinusSign, Preferences.fontIconSize, .white)
     var hiddenIcon = FontIcon(FontIcon.sfSymbolCircledDotSign, Preferences.fontIconSize, .white)
     var spaceIcon = FontIcon(FontIcon.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
@@ -20,7 +20,13 @@ class Cell: NSCollectionViewItem {
         let vStackView = makeVStackView(hStackView)
         let shadow = Cell.makeShadow(.gray)
         thumbnail.shadow = shadow
+        thumbnail.wantsLayer = true
+        thumbnail.layer!.backgroundColor = NSColor.blue.cgColor
         appIcon.shadow = shadow
+        appIcon.wantsLayer = true
+        appIcon.layer!.backgroundColor = NSColor.green.cgColor
+        vStackView.wantsLayer = true
+        vStackView.layer!.backgroundColor = NSColor.gray.cgColor
         view = vStackView
     }
 
@@ -39,21 +45,22 @@ class Cell: NSCollectionViewItem {
         }
     }
 
-    func updateWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
+    func updateRecycledCellWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
         window = element
         thumbnail.image = element.thumbnail
-        let (width, height) = Cell.computeDownscaledSize(element.thumbnail, screen)
-        thumbnail.image?.size = NSSize(width: width, height: height)
-        thumbnail.frame.size = NSSize(width: width, height: height)
+        let thumbnailSize = Cell.thumbnailSize(element.thumbnail, screen)
+        thumbnail.image?.size = thumbnailSize
+        thumbnail.frame.size = thumbnailSize
         appIcon.image = element.icon
-        appIcon.image?.size = NSSize(width: Preferences.iconSize!, height: Preferences.iconSize!)
-        appIcon.frame.size = NSSize(width: Preferences.iconSize!, height: Preferences.iconSize!)
+        let appIconSize = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
+        appIcon.image?.size = appIconSize
+        appIcon.frame.size = appIconSize
         label.string = element.title
         // workaround: setting string on NSTextView change the font (most likely a Cocoa bug)
-        label.font = Preferences.font!
+        label.font = Preferences.font
         hiddenIcon.isHidden = !window!.isHidden
         minimizedIcon.isHidden = !window!.isMinimized
-        spaceIcon.isHidden = element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels
+        spaceIcon.isHidden = element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels!
         if !spaceIcon.isHidden {
             if element.isOnAllSpaces {
                 spaceIcon.setStar()
@@ -61,28 +68,14 @@ class Cell: NSCollectionViewItem {
                 spaceIcon.setNumber(UInt32(element.spaceIndex!))
             }
         }
-        let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.interItemPadding)
-        label.textContainer!.size.width = thumbnail.frame.width - Preferences.iconSize! - Preferences.interItemPadding - fontIconWidth
+        let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.cellPadding)
+        label.textContainer!.size.width = view.frame.width - Preferences.iconSize - Preferences.cellPadding * 3 - fontIconWidth
         self.mouseDownCallback = mouseDownCallback
         self.mouseMovedCallback = mouseMovedCallback
         if view.trackingAreas.count > 0 {
             view.removeTrackingArea(view.trackingAreas[0])
         }
         view.addTrackingArea(NSTrackingArea(rect: view.bounds, options: [.mouseMoved, .activeAlways], owner: self, userInfo: nil))
-    }
-
-    static func computeDownscaledSize(_ image: NSImage?, _ screen: NSScreen) -> (Int, Int) {
-        if let image_ = image {
-            let imageRatio = image_.size.width / image_.size.height
-            let thumbnailMaxSize = Screen.thumbnailMaxSize(screen)
-            let thumbnailWidth = Int(floor(thumbnailMaxSize.height * imageRatio))
-            if thumbnailWidth <= Int(thumbnailMaxSize.width) {
-                return (thumbnailWidth, Int(thumbnailMaxSize.height))
-            } else {
-                return (Int(thumbnailMaxSize.width), Int(floor(thumbnailMaxSize.width / imageRatio)))
-            }
-        }
-        return (Int(Preferences.emptyThumbnailWidth), Int((Preferences.emptyThumbnailHeight)))
     }
 
     static func makeShadow(_ color: NSColor) -> NSShadow {
@@ -95,7 +88,9 @@ class Cell: NSCollectionViewItem {
 
     private func makeHStackView() -> NSStackView {
         let hStackView = NSStackView()
-        hStackView.spacing = Preferences.interItemPadding
+        hStackView.spacing = Preferences.cellPadding
+        label.wantsLayer = true
+        label.layer!.backgroundColor = NSColor.brown.cgColor
         hStackView.setViews([appIcon, label, hiddenIcon, minimizedIcon, spaceIcon], in: .leading)
         return hStackView
     }
@@ -109,8 +104,37 @@ class Cell: NSCollectionViewItem {
         vStackView.layer!.borderColor = .clear
         vStackView.edgeInsets = NSEdgeInsets(top: Preferences.cellPadding, left: Preferences.cellPadding, bottom: Preferences.cellPadding, right: Preferences.cellPadding)
         vStackView.orientation = .vertical
-        vStackView.spacing = Preferences.interItemPadding
+        vStackView.spacing = Preferences.cellPadding
         vStackView.setViews([hStackView, thumbnail], in: .leading)
         return vStackView
+    }
+
+    static func widthMax(_ screen: NSScreen) -> CGFloat {
+        return ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.cellPadding
+    }
+
+    static func widthMin(_ screen: NSScreen) -> CGFloat {
+        return ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.cellPadding
+    }
+
+    static func height(_ screen: NSScreen) -> CGFloat {
+        return ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.cellPadding
+    }
+
+    static func width(_ image: NSImage?, _ screen: NSScreen) -> CGFloat {
+        return max(thumbnailSize(image, screen).width + Preferences.cellPadding * 2, ThumbnailsPanel.widthMin(screen))
+    }
+
+    static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> NSSize {
+        let thumbnailWidthMin = Cell.widthMin(screen) - Preferences.cellPadding * 2
+        let thumbnailHeightMax = Cell.height(screen) - Preferences.cellPadding * 3 - Preferences.iconSize
+        let thumbnailWidthMax = Cell.widthMax(screen) - Preferences.cellPadding * 2
+        guard let image = image else { return NSSize(width: thumbnailWidthMin, height: thumbnailHeightMax) }
+        let imageRatio = image.size.width / image.size.height
+        let thumbnailRatio = thumbnailWidthMax / thumbnailHeightMax
+        if thumbnailRatio > imageRatio {
+            return NSSize(width: image.size.width * thumbnailHeightMax / image.size.height, height: thumbnailHeightMax)
+        }
+        return NSSize(width: thumbnailWidthMax, height: image.size.height * thumbnailWidthMax / image.size.width)
     }
 }

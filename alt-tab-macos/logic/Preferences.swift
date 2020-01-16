@@ -3,11 +3,35 @@ import Cocoa
 import Carbon.HIToolbox.Events
 
 class Preferences {
+    // the following constant are not exposed as preferences but may be in the future, probably through macro preferences
+    static let windowMaterial = NSVisualEffectView.Material.dark
+    static let iconSize = CGFloat(32)
+    static let fontColor = NSColor.white
+    static let fontHeight = CGFloat(15)
+    static let font = NSFont.systemFont(ofSize: fontHeight)
+    static let windowPadding = CGFloat(23)
+    static let cellPadding = CGFloat(5)
+    static let fontIconSize = CGFloat(20)
+    static let maxScreenUsage = CGFloat(0.8)
+    static let minCellsPerRow = CGFloat(4)
+    static let maxCellsPerRow = CGFloat(6)
+    static let nCellsRows = CGFloat(4)
+
+    static let themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
+        MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
+        MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
+    ])
+    static let metaKeyMacro = MacroPreferenceHelper<([Int], NSEvent.ModifierFlags)>([
+        MacroPreference("⌥ option", ([kVK_Option, kVK_RightOption], .option)),
+        MacroPreference("⌃ control", ([kVK_Control, kVK_RightControl], .control)),
+        MacroPreference("⌘ command", ([kVK_Command, kVK_RightCommand], .command))
+    ])
+    static let showOnScreenMacro = MacroPreferenceHelper<ShowOnScreenPreference>([
+        MacroPreference("Main screen", ShowOnScreenPreference.MAIN),
+        MacroPreference("Screen including mouse", ShowOnScreenPreference.MOUSE),
+    ])
+
     static var defaults: [String: String] = [
-        "maxScreenUsage": "80",
-        "maxThumbnailsPerRow": "4",
-        "iconSize": "32",
-        "fontHeight": "15",
         "tabKeyCode": String(kVK_Tab),
         "metaKey": metaKeyMacro.macros[0].label,
         "windowDisplayDelay": "0",
@@ -16,21 +40,9 @@ class Preferences {
         "hideSpaceNumberLabels": String(false)
     ]
     static var rawValues = [String: String]()
-    static var minimumWindowSize = CGFloat(200)
-    static var emptyThumbnailWidth = CGFloat(200)
-    static var emptyThumbnailHeight = CGFloat(emptyThumbnailWidth * 9 / 16)
-    static var fontColor = NSColor.white
-    static var windowMaterial = NSVisualEffectView.Material.dark
-    static var windowPadding = CGFloat(23)
-    static var interItemPadding = CGFloat(4)
-    static var fontIconSize = CGFloat(20)
-    static var cellPadding = CGFloat(6)
+
     static var cellBorderWidth: CGFloat?
     static var cellCornerRadius: CGFloat?
-    static var maxScreenUsage: CGFloat?
-    static var maxThumbnailsPerRow: CGFloat?
-    static var iconSize: CGFloat?
-    static var fontHeight: CGFloat?
     static var tabKeyCode: UInt16?
     static var highlightBorderColor: NSColor?
     static var highlightBackgroundColor: NSColor?
@@ -38,22 +50,8 @@ class Preferences {
     static var metaModifierFlag: NSEvent.ModifierFlags?
     static var windowDisplayDelay: DispatchTimeInterval?
     static var windowCornerRadius: CGFloat?
-    static var font: NSFont?
     static var showOnScreen: ShowOnScreenPreference?
-    static var hideSpaceNumberLabels = false
-    static var themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
-        MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
-        MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
-    ])
-    static var metaKeyMacro = MacroPreferenceHelper<([Int], NSEvent.ModifierFlags)>([
-        MacroPreference("⌥ option", ([kVK_Option, kVK_RightOption], .option)),
-        MacroPreference("⌃ control", ([kVK_Control, kVK_RightControl], .control)),
-        MacroPreference("⌘ command", ([kVK_Command, kVK_RightCommand], .command))
-    ])
-    static var showOnScreenMacro = MacroPreferenceHelper<ShowOnScreenPreference>([
-        MacroPreference("Main screen", ShowOnScreenPreference.MAIN),
-        MacroPreference("Screen including mouse", ShowOnScreenPreference.MOUSE),
-    ])
+    static var hideSpaceNumberLabels: Bool?
 
     private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
     private static let userFile = fileFromPreferencesFolder("alt-tab-macos.json")
@@ -85,15 +83,6 @@ class Preferences {
 
     static func updateAndValidateFromString(_ valueName: String, _ value: String) throws {
         switch valueName {
-        case "maxScreenUsage":
-            maxScreenUsage = try CGFloat(CGFloat(value).orThrow() / 100)
-        case "maxThumbnailsPerRow":
-            maxThumbnailsPerRow = try CGFloat(value).orThrow()
-        case "iconSize":
-            iconSize = try CGFloat(value).orThrow()
-        case "fontHeight":
-            fontHeight = try CGFloat(value).orThrow()
-            font = NSFont.systemFont(ofSize: fontHeight!)
         case "tabKeyCode":
             tabKeyCode = try UInt16(value).orThrow()
         case "metaKey":

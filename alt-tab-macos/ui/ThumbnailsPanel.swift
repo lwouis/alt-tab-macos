@@ -2,7 +2,7 @@ import Cocoa
 
 class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
     var backgroundView: NSVisualEffectView?
-    var collectionView_: NSCollectionView!
+    var collectionView: NSCollectionView!
     var app: App?
     let cellId = NSUserInterfaceItemIdentifier("Cell")
     var currentScreen: NSScreen?
@@ -21,7 +21,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         titleVisibility = .hidden
         styleMask.remove(.titled)
         backgroundColor = .clear
-        collectionView_ = makeCollectionView()
+        collectionView = makeCollectionView()
         backgroundView = makeBackgroundView()
         contentView!.addSubview(backgroundView!)
         // highest level possible; this allows the app to go on top of context menus
@@ -41,7 +41,8 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         backgroundView.state = .active
         backgroundView.wantsLayer = true
         backgroundView.layer!.cornerRadius = Preferences.windowCornerRadius!
-        backgroundView.addSubview(collectionView_)
+        backgroundView.layer!.backgroundColor = .white
+        backgroundView.addSubview(collectionView)
         return backgroundView
     }
 
@@ -49,20 +50,12 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         let collectionView_ = NSCollectionView()
         collectionView_.dataSource = self
         collectionView_.delegate = self
-        collectionView_.collectionViewLayout = makeLayout()
-        collectionView_.backgroundColors = [.clear]
+        collectionView_.collectionViewLayout = CollectionViewCenterFlowLayout()
+        collectionView_.backgroundColors = [.yellow]
         collectionView_.isSelectable = true
         collectionView_.allowsMultipleSelection = false
         collectionView_.register(Cell.self, forItemWithIdentifier: cellId)
         return collectionView_
-    }
-
-    func makeLayout() -> CollectionViewCenterFlowLayout {
-        let layout = CollectionViewCenterFlowLayout()
-        layout.estimatedItemSize = NSSize(width: Preferences.emptyThumbnailWidth, height: Preferences.emptyThumbnailHeight)
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = 5
-        return layout
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -71,40 +64,53 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! Cell
-        item.updateWithNewContent(Windows.list[indexPath.item], app!.focusSelectedWindow, app!.thumbnailsPanel!.highlightCell, currentScreen!)
+        item.updateRecycledCellWithNewContent(Windows.list[indexPath.item], app!.focusSelectedWindow, app!.thumbnailsPanel!.highlightCell, currentScreen!)
         return item
     }
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        if indexPath.item < Windows.list.count {
-            let (width, height) = Cell.computeDownscaledSize(Windows.list[indexPath.item].thumbnail, currentScreen!)
-            return NSSize(width: CGFloat(width) + Preferences.cellPadding * 2, height: CGFloat(height) + max(Preferences.fontHeight!, Preferences.iconSize!) + Preferences.interItemPadding + Preferences.cellPadding * 2)
-        }
-        return .zero
+        guard indexPath.item < Windows.list.count else { return .zero }
+        return NSSize(width: Cell.width(Windows.list[indexPath.item].thumbnail, currentScreen!), height: Cell.height(currentScreen!))
     }
 
     func highlightCell() {
-        collectionView_.deselectAll(nil)
-        collectionView_!.selectItems(at: [IndexPath(item: Windows.focusedWindowIndex, section: 0)], scrollPosition: .top)
+        collectionView.deselectAll(nil)
+        collectionView.selectItems(at: [IndexPath(item: Windows.focusedWindowIndex, section: 0)], scrollPosition: .top)
     }
 
     func highlightCell(_ cell: Cell) {
-        let newIndex = collectionView_.indexPath(for: cell)!
+        let newIndex = collectionView.indexPath(for: cell)!
         if Windows.focusedWindowIndex != newIndex.item {
-            collectionView_!.selectItems(at: [newIndex], scrollPosition: .top)
-            collectionView_!.deselectItems(at: [IndexPath(item: Windows.focusedWindowIndex, section: 0)])
+            collectionView.selectItems(at: [newIndex], scrollPosition: .top)
+            collectionView.deselectItems(at: [IndexPath(item: Windows.focusedWindowIndex, section: 0)])
             Windows.focusedWindowIndex = newIndex.item
         }
     }
 
-    func refreshCollectionView(_ currentScreen: NSScreen, _ uiWorkShouldBeDone: Bool) {
-        if uiWorkShouldBeDone { self.currentScreen = currentScreen }
-        if uiWorkShouldBeDone { (collectionView_.collectionViewLayout as! CollectionViewCenterFlowLayout).currentScreen = currentScreen }
-        if uiWorkShouldBeDone { collectionView_!.setFrameSize(Screen.thumbnailPanelMaxSize(currentScreen)) }
-        if uiWorkShouldBeDone { collectionView_!.reloadData() }
-        if uiWorkShouldBeDone { collectionView_!.layoutSubtreeIfNeeded() }
-        if uiWorkShouldBeDone { setContentSize(NSSize(width: collectionView_!.frame.size.width + Preferences.windowPadding * 2, height: collectionView_!.frame.size.height + Preferences.windowPadding * 2)) }
+    func refreshCollectionView(_ screen: NSScreen, _ uiWorkShouldBeDone: Bool) {
+        if uiWorkShouldBeDone { self.currentScreen = screen }
+        if uiWorkShouldBeDone { (collectionView.collectionViewLayout as! CollectionViewCenterFlowLayout).currentScreen = screen }
+        if uiWorkShouldBeDone { collectionView.setFrameSize(NSSize(width: ThumbnailsPanel.widthMax(screen), height: ThumbnailsPanel.heightMax(screen))) }
+        if uiWorkShouldBeDone { collectionView.reloadData() }
+        if uiWorkShouldBeDone { collectionView.layoutSubtreeIfNeeded() }
+        if uiWorkShouldBeDone { setContentSize(NSSize(width: collectionView.frame.size.width + Preferences.windowPadding * 2, height: collectionView.frame.size.height + Preferences.windowPadding * 2)) }
         if uiWorkShouldBeDone { backgroundView!.setFrameSize(frame.size) }
-        if uiWorkShouldBeDone { collectionView_!.setFrameOrigin(NSPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)) }
+        if uiWorkShouldBeDone { collectionView.setFrameOrigin(NSPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)) }
+    }
+
+    static func widthMax(_ screen: NSScreen) -> CGFloat {
+        return screen.frame.width * Preferences.maxScreenUsage - Preferences.windowPadding * 2
+    }
+
+    static func heightMax(_ screen: NSScreen) -> CGFloat {
+        return screen.frame.height * Preferences.maxScreenUsage - Preferences.windowPadding * 2
+    }
+
+    static func widthMin(_ screen: NSScreen) -> CGFloat {
+        return Cell.widthMin(screen) - Preferences.windowPadding * 2
+    }
+
+    static func heightMin(_ screen: NSScreen) -> CGFloat {
+        return Cell.height(screen) - Preferences.windowPadding * 2
     }
 }

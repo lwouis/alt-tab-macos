@@ -4,10 +4,9 @@ class CollectionViewCenterFlowLayout: NSCollectionViewFlowLayout {
     var currentScreen: NSScreen?
 
     override func layoutAttributesForElements(in rect: CGRect) -> [NSCollectionViewLayoutAttributes] {
-        let attributes = super.layoutAttributesForElements(in: rect)
-        if attributes.isEmpty {
-            return attributes
-        }
+        let attributes_ = super.layoutAttributesForElements(in: rect)
+        guard !attributes_.isEmpty else { return attributes_ }
+        let attributes = NSArray(array: attributes_, copyItems: true) as! [NSCollectionViewLayoutAttributes]
         var currentRow: [NSCollectionViewLayoutAttributes] = []
         var currentRowY = CGFloat(0)
         var currentRowWidth = CGFloat(0)
@@ -15,35 +14,38 @@ class CollectionViewCenterFlowLayout: NSCollectionViewFlowLayout {
         var currentRowMaxY = CGFloat(0)
         var widestRow = CGFloat(0)
         var totalHeight = CGFloat(0)
-        attributes.enumerated().forEach {
-            let isNewRow = abs($1.frame.origin.y - currentRowY) > Screen.thumbnailMaxSize(currentScreen!).height
+        for (index, attribute) in attributes.enumerated() {
+            let isNewRow = abs(attribute.frame.origin.y - currentRowY) > Cell.height(currentScreen!)
             if isNewRow {
-                computeOriginXForAllItems(currentRowWidth - minimumInteritemSpacing, previousRowMaxY, currentRow)
+                computeOriginXForAllItems(currentRowWidth - Preferences.cellPadding, previousRowMaxY, currentRow)
                 currentRow.removeAll()
-                currentRowY = $1.frame.origin.y
+                currentRowY = attribute.frame.origin.y
                 currentRowWidth = 0
-                previousRowMaxY += currentRowMaxY + minimumLineSpacing
+                previousRowMaxY += currentRowMaxY + Preferences.cellPadding
                 currentRowMaxY = 0
             }
-            currentRow.append($1)
-            currentRowWidth += $1.frame.size.width + minimumInteritemSpacing
+            currentRow.append(attribute)
+            currentRowWidth += attribute.frame.size.width + Preferences.cellPadding
             widestRow = max(widestRow, currentRowWidth)
-            currentRowMaxY = max(currentRowMaxY, $1.frame.size.height)
-            if $0 == attributes.count - 1 {
-                computeOriginXForAllItems(currentRowWidth - minimumInteritemSpacing, previousRowMaxY, currentRow)
+            currentRowMaxY = max(currentRowMaxY, attribute.frame.size.height)
+            if index == attributes.count - 1 {
+                computeOriginXForAllItems(currentRowWidth - Preferences.cellPadding, previousRowMaxY, currentRow)
                 totalHeight = previousRowMaxY + currentRowMaxY
             }
         }
-        collectionView!.setFrameSize(NSSize(width: widestRow - minimumInteritemSpacing, height: totalHeight))
+        let newWidth = widestRow - Preferences.cellPadding
+        collectionView!.bounds.origin.x = (collectionView!.frame.size.width - newWidth) / 2
+        collectionView!.frame.size.width = newWidth
+        collectionView!.frame.size.height = totalHeight
         return attributes
     }
 
-    func computeOriginXForAllItems(_ currentRowWidth: CGFloat, _ previousRowMaxHeight: CGFloat, _ currentRow: [NSCollectionViewLayoutAttributes]) {
-        var marginLeft = floor((collectionView!.frame.size.width - currentRowWidth) / 2)
-        currentRow.forEach {
-            $0.frame.origin.x = marginLeft
-            $0.frame.origin.y = previousRowMaxHeight
-            marginLeft += $0.frame.size.width + minimumInteritemSpacing
+    private func computeOriginXForAllItems(_ currentRowWidth: CGFloat, _ previousRowMaxHeight: CGFloat, _ currentRow: [NSCollectionViewLayoutAttributes]) {
+        var marginLeft = (collectionView!.frame.size.width - currentRowWidth) / 2
+        for attribute in currentRow {
+            attribute.frame.origin.x = marginLeft
+            attribute.frame.origin.y = previousRowMaxHeight
+            marginLeft += attribute.frame.size.width + Preferences.cellPadding
         }
     }
 }

@@ -13,18 +13,6 @@ class Screen {
         return NSScreen.screens.first { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }
     }
 
-    static func thumbnailMaxSize(_ screen: NSScreen) -> NSSize {
-        let frame = screen.visibleFrame
-        let width = (frame.width * Preferences.maxScreenUsage! - Preferences.windowPadding * 2) / Preferences.maxThumbnailsPerRow! - Preferences.interItemPadding
-        let height = width * (frame.height / frame.width)
-        return NSSize(width: width, height: height)
-    }
-
-    static func thumbnailPanelMaxSize(_ screen: NSScreen) -> NSSize {
-        let frame = screen.visibleFrame
-        return NSSize(width: frame.width * Preferences.maxScreenUsage!, height: frame.height * Preferences.maxScreenUsage!)
-    }
-
     static func repositionPanel(_ window: NSWindow, _ screen: NSScreen, _ alignment: VerticalAlignment) {
         let screenFrame = screen.visibleFrame
         let panelFrame = window.frame
