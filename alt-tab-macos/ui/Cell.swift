@@ -20,13 +20,7 @@ class Cell: NSCollectionViewItem {
         let vStackView = makeVStackView(hStackView)
         let shadow = Cell.makeShadow(.gray)
         thumbnail.shadow = shadow
-        thumbnail.wantsLayer = true
-        thumbnail.layer!.backgroundColor = NSColor.blue.cgColor
         appIcon.shadow = shadow
-        appIcon.wantsLayer = true
-        appIcon.layer!.backgroundColor = NSColor.green.cgColor
-        vStackView.wantsLayer = true
-        vStackView.layer!.backgroundColor = NSColor.gray.cgColor
         view = vStackView
     }
 
@@ -89,8 +83,6 @@ class Cell: NSCollectionViewItem {
     private func makeHStackView() -> NSStackView {
         let hStackView = NSStackView()
         hStackView.spacing = Preferences.cellPadding
-        label.wantsLayer = true
-        label.layer!.backgroundColor = NSColor.brown.cgColor
         hStackView.setViews([appIcon, label, hiddenIcon, minimizedIcon, spaceIcon], in: .leading)
         return hStackView
     }
