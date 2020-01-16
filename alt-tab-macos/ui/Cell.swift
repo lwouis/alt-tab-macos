@@ -109,31 +109,36 @@ class Cell: NSCollectionViewItem {
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.cellPadding) * Cell.downscaleFactor()
+        return floor((ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.cellPadding) * Cell.downscaleFactor())
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.cellPadding) * Cell.downscaleFactor()
+        return floor((ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.cellPadding) * Cell.downscaleFactor())
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.cellPadding) * Cell.downscaleFactor()
+        return floor((ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.cellPadding) * Cell.downscaleFactor())
     }
 
     static func width(_ image: NSImage?, _ screen: NSScreen) -> CGFloat {
-        return max(thumbnailSize(image, screen).width + Preferences.cellPadding * 2, ThumbnailsPanel.widthMin(screen))
+        return floor(max(thumbnailSize(image, screen).width + Preferences.cellPadding * 2, ThumbnailsPanel.widthMin(screen)))
     }
 
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> NSSize {
+        let (width, height) = thumbnailSize_(image, screen)
+        return NSSize(width: floor(width), height: floor(height))
+    }
+
+    static func thumbnailSize_(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
         let thumbnailWidthMin = Cell.widthMin(screen) - Preferences.cellPadding * 2
         let thumbnailHeightMax = Cell.height(screen) - Preferences.cellPadding * 3 - Preferences.iconSize
         let thumbnailWidthMax = Cell.widthMax(screen) - Preferences.cellPadding * 2
-        guard let image = image else { return NSSize(width: thumbnailWidthMin, height: thumbnailHeightMax) }
+        guard let image = image else { return (thumbnailWidthMin, thumbnailHeightMax) }
         let imageRatio = image.size.width / image.size.height
         let thumbnailRatio = thumbnailWidthMax / thumbnailHeightMax
         if thumbnailRatio > imageRatio {
-            return NSSize(width: image.size.width * thumbnailHeightMax / image.size.height, height: thumbnailHeightMax)
+            return (image.size.width * thumbnailHeightMax / image.size.height, thumbnailHeightMax)
         }
-        return NSSize(width: thumbnailWidthMax, height: image.size.height * thumbnailWidthMax / image.size.width)
+        return (thumbnailWidthMax, image.size.height * thumbnailWidthMax / image.size.width)
     }
 }

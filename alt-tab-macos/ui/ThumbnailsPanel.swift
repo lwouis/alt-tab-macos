@@ -96,18 +96,18 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return screen.frame.width * Preferences.maxScreenUsage - Preferences.windowPadding * 2
+        return floor(screen.frame.width * Preferences.maxScreenUsage - Preferences.windowPadding * 2)
     }
 
     static func heightMax(_ screen: NSScreen) -> CGFloat {
-        return screen.frame.height * Preferences.maxScreenUsage - Preferences.windowPadding * 2
+        return floor(screen.frame.height * Preferences.maxScreenUsage - Preferences.windowPadding * 2)
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return Cell.widthMin(screen) - Preferences.windowPadding * 2
+        return floor(Cell.widthMin(screen) - Preferences.windowPadding * 2)
     }
 
     static func heightMin(_ screen: NSScreen) -> CGFloat {
-        return Cell.height(screen) - Preferences.windowPadding * 2
+        return floor(Cell.height(screen) - Preferences.windowPadding * 2)
     }
 }
