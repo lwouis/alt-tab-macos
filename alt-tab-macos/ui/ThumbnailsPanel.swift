@@ -22,8 +22,9 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         styleMask.remove(.titled)
         backgroundColor = .clear
         makeCollectionView()
-        makeBackgroundView()
-        contentView!.addSubview(backgroundView!)
+        backgroundView = ThumbnailsPanel.makeBackgroundView()
+        backgroundView.addSubview(collectionView)
+        contentView!.addSubview(backgroundView)
         // highest level possible; this allows the app to go on top of context menus
         level = .screenSaver
         // helps filter out this window from the thumbnails
@@ -34,25 +35,32 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         makeKeyAndOrderFront(nil)
     }
 
-    private func makeBackgroundView() {
-        backgroundView = NSVisualEffectView()
+    static func makeBackgroundView() -> NSVisualEffectView {
+        let backgroundView = NSVisualEffectView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.material = Preferences.windowMaterial
         backgroundView.state = .active
         backgroundView.wantsLayer = true
         backgroundView.layer!.cornerRadius = Preferences.windowCornerRadius!
-        backgroundView.addSubview(collectionView)
+        return backgroundView
     }
 
     func makeCollectionView() {
         collectionView = NSCollectionView()
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.collectionViewLayout = CollectionViewCenterFlowLayout()
+        collectionView.collectionViewLayout = makeLayout()
         collectionView.backgroundColors = [.clear]
         collectionView.isSelectable = true
         collectionView.allowsMultipleSelection = false
         collectionView.register(Cell.self, forItemWithIdentifier: cellId)
+    }
+
+    private func makeLayout() -> CollectionViewCenterFlowLayout {
+        let layout = CollectionViewCenterFlowLayout()
+        layout.minimumInteritemSpacing = Preferences.interCellPadding
+        layout.minimumLineSpacing = Preferences.interCellPadding
+        return layout
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -86,12 +94,16 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 
     func refreshCollectionView(_ screen: NSScreen, _ uiWorkShouldBeDone: Bool) {
         if uiWorkShouldBeDone { self.currentScreen = screen }
-        if uiWorkShouldBeDone { (collectionView.collectionViewLayout as! CollectionViewCenterFlowLayout).currentScreen = screen }
+        let layout = collectionView.collectionViewLayout as! CollectionViewCenterFlowLayout
+        if uiWorkShouldBeDone { layout.currentScreen = screen }
+        if uiWorkShouldBeDone { layout.invalidateLayout() }
         if uiWorkShouldBeDone { collectionView.setFrameSize(NSSize(width: ThumbnailsPanel.widthMax(screen), height: ThumbnailsPanel.heightMax(screen))) }
         if uiWorkShouldBeDone { collectionView.reloadData() }
         if uiWorkShouldBeDone { collectionView.layoutSubtreeIfNeeded() }
-        if uiWorkShouldBeDone { setContentSize(NSSize(width: collectionView.frame.size.width + Preferences.windowPadding * 2, height: collectionView.frame.size.height + Preferences.windowPadding * 2)) }
-        if uiWorkShouldBeDone { backgroundView!.setFrameSize(frame.size) }
+        if uiWorkShouldBeDone { collectionView.setFrameSize(NSSize(width: layout.widestRow!, height: layout.totalHeight!)) }
+        let windowSize = NSSize(width: layout.widestRow! + Preferences.windowPadding * 2, height: layout.totalHeight! + Preferences.windowPadding * 2)
+        if uiWorkShouldBeDone { setContentSize(windowSize) }
+        if uiWorkShouldBeDone { backgroundView!.setFrameSize(windowSize) }
         if uiWorkShouldBeDone { collectionView.setFrameOrigin(NSPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)) }
     }
 
@@ -101,10 +113,6 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 
     static func heightMax(_ screen: NSScreen) -> CGFloat {
         return floor(screen.frame.height * Preferences.maxScreenUsage - Preferences.windowPadding * 2)
-    }
-
-    static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return floor(Cell.widthMin(screen) - Preferences.windowPadding * 2)
     }
 
     static func heightMin(_ screen: NSScreen) -> CGFloat {

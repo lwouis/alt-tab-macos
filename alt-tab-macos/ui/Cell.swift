@@ -62,8 +62,9 @@ class Cell: NSCollectionViewItem {
                 spaceIcon.setNumber(UInt32(element.spaceIndex!))
             }
         }
-        let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.cellPadding)
-        label.textContainer!.size.width = view.frame.width - Preferences.iconSize - Preferences.cellPadding * 3 - fontIconWidth
+        let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
+        label.textContainer!.size.width = view.frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth
+        view.subviews.first!.frame.size = view.frame.size
         self.mouseDownCallback = mouseDownCallback
         self.mouseMovedCallback = mouseMovedCallback
         if view.trackingAreas.count > 0 {
@@ -82,7 +83,7 @@ class Cell: NSCollectionViewItem {
 
     private func makeHStackView() -> NSStackView {
         let hStackView = NSStackView()
-        hStackView.spacing = Preferences.cellPadding
+        hStackView.spacing = Preferences.intraCellPadding
         hStackView.setViews([appIcon, label, hiddenIcon, minimizedIcon, spaceIcon], in: .leading)
         return hStackView
     }
@@ -94,9 +95,9 @@ class Cell: NSCollectionViewItem {
         vStackView.layer!.cornerRadius = Preferences.cellCornerRadius!
         vStackView.layer!.borderWidth = Preferences.cellBorderWidth!
         vStackView.layer!.borderColor = .clear
-        vStackView.edgeInsets = NSEdgeInsets(top: Preferences.cellPadding, left: Preferences.cellPadding, bottom: Preferences.cellPadding, right: Preferences.cellPadding)
+        vStackView.edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
         vStackView.orientation = .vertical
-        vStackView.spacing = Preferences.cellPadding
+        vStackView.spacing = Preferences.intraCellPadding
         vStackView.setViews([hStackView, thumbnail], in: .leading)
         return vStackView
     }
@@ -109,19 +110,19 @@ class Cell: NSCollectionViewItem {
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return floor((ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.cellPadding) * Cell.downscaleFactor())
+        return floor((ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.interCellPadding) * Cell.downscaleFactor())
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return floor((ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.cellPadding) * Cell.downscaleFactor())
+        return floor((ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.interCellPadding) * Cell.downscaleFactor())
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        return floor((ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.cellPadding) * Cell.downscaleFactor())
+        return floor((ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.interCellPadding) * Cell.downscaleFactor())
     }
 
     static func width(_ image: NSImage?, _ screen: NSScreen) -> CGFloat {
-        return floor(max(thumbnailSize(image, screen).width + Preferences.cellPadding * 2, ThumbnailsPanel.widthMin(screen)))
+        return floor(max(thumbnailSize(image, screen).width + Preferences.intraCellPadding * 2, Cell.widthMin(screen)))
     }
 
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> NSSize {
@@ -130,9 +131,9 @@ class Cell: NSCollectionViewItem {
     }
 
     static func thumbnailSize_(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
-        let thumbnailWidthMin = Cell.widthMin(screen) - Preferences.cellPadding * 2
-        let thumbnailHeightMax = Cell.height(screen) - Preferences.cellPadding * 3 - Preferences.iconSize
-        let thumbnailWidthMax = Cell.widthMax(screen) - Preferences.cellPadding * 2
+        let thumbnailWidthMin = Cell.widthMin(screen) - Preferences.intraCellPadding * 2
+        let thumbnailHeightMax = Cell.height(screen) - Preferences.intraCellPadding * 3 - Preferences.iconSize
+        let thumbnailWidthMax = Cell.widthMax(screen) - Preferences.intraCellPadding * 2
         guard let image = image else { return (thumbnailWidthMin, thumbnailHeightMax) }
         let imageRatio = image.size.width / image.size.height
         let thumbnailRatio = thumbnailWidthMax / thumbnailHeightMax
