@@ -40,7 +40,7 @@ class Window {
             kAXWindowMiniaturizedNotification,
             kAXWindowDeminiaturizedNotification,
         ] {
-            AXObserverAddNotification(axObserver, axUiElement, notification as CFString, nil)
+            axUiElement.subscribeWithRetry(axObserver, notification, nil)
         }
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }

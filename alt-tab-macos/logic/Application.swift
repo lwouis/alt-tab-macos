@@ -30,7 +30,7 @@ class Application: NSObject {
         let windows = getActualWindows()
         debugPrint("Adding app: " + (runningApplication.bundleIdentifier ?? "nil"), windows.map { $0.title() })
         addWindows(windows)
-        observeEvents(windows)
+        observeEvents()
     }
 
     func observeNewWindows() {
@@ -56,7 +56,7 @@ class Application: NSObject {
         Windows.list.insert(contentsOf: windows.map { Window($0, self) }, at: 0)
     }
 
-    private func observeEvents(_ windows: [AXUIElement]) {
+    private func observeEvents() {
         guard let axObserver = axObserver else { return }
         let selfPointer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
         for notification in [
@@ -66,7 +66,7 @@ class Application: NSObject {
             kAXApplicationHiddenNotification,
             kAXApplicationShownNotification,
         ] {
-            AXObserverAddNotification(axObserver, axUiElement!, notification as CFString, selfPointer)
+            axUiElement!.subscribeWithRetry(axObserver, notification, selfPointer)
         }
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
