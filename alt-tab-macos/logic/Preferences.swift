@@ -19,7 +19,7 @@ class Preferences {
     static let nCellsRows = CGFloat(3)
 
     static let themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
-        MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
+        MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))),
         MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
     ])
     static let metaKeyMacro = MacroPreferenceHelper<([Int], NSEvent.ModifierFlags)>([
