@@ -10,12 +10,13 @@ class Preferences {
     static let fontHeight = CGFloat(15)
     static let font = NSFont.systemFont(ofSize: fontHeight)
     static let windowPadding = CGFloat(23)
-    static let cellPadding = CGFloat(5)
+    static let interCellPadding = CGFloat(5)
+    static let intraCellPadding = CGFloat(5)
     static let fontIconSize = CGFloat(20)
     static let maxScreenUsage = CGFloat(0.8)
-    static let minCellsPerRow = CGFloat(4)
-    static let maxCellsPerRow = CGFloat(6)
-    static let nCellsRows = CGFloat(4)
+    static let minCellsPerRow = CGFloat(3)
+    static let maxCellsPerRow = CGFloat(4)
+    static let nCellsRows = CGFloat(3)
 
     static let themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
         MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.3))),
