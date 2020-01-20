@@ -50,6 +50,15 @@ extension AXUIElement {
         return attribute(kAXSubroleAttribute, String.self)
     }
 
+    func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?) {
+        let result = AXObserverAddNotification(axObserver, self, notification as CFString, pointer)
+        if result != .success && result != .notificationUnsupported && result != .notificationAlreadyRegistered {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10), execute: {
+                self.subscribeWithRetry(axObserver, notification, pointer)
+            })
+        }
+    }
+
     private func attribute<T>(_ key: String, _ type: T.Type) -> T? {
         var value: AnyObject?
         let result = AXUIElementCopyAttributeValue(self, key as CFString, &value)
