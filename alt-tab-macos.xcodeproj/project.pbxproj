@@ -91,6 +91,7 @@
 		D04BAE1243C9B4BE3ED1B524 /* 7 windows - 2 lines - extra wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - extra wide window.jpg"; sourceTree = "<group>"; };
 		D04BAE5BBE182DD5DDFE2E3E /* ThumbnailsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailsPanel.swift; sourceTree = "<group>"; };
 		D04BAE80772D25834E440975 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		D04BAE93A5854C501639C640 /* update_homebrew_cask.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_homebrew_cask.sh; sourceTree = "<group>"; };
 		D04BAEA3EDC4F80FA23DBEC4 /* CGWindowID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindowID.swift; sourceTree = "<group>"; };
 		D04BAED53465957807CBF8B2 /* FontIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontIcon.swift; sourceTree = "<group>"; };
 		D04BAF076A30A1BAFEDBEA66 /* 5 windows - 2 lines.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5 windows - 2 lines.jpg"; sourceTree = "<group>"; };
@@ -217,6 +218,7 @@
 				D04BA7ECCE728582D9ECA613 /* determine_version.sh */,
 				D04BA4B5292629AA6B560216 /* package_release.sh */,
 				D04BAC6AFC7F06D1A567F27A /* set_version_in_app.sh */,
+				D04BAE93A5854C501639C640 /* update_homebrew_cask.sh */,
 			);
 			path = ci;
 			sourceTree = "<group>";
