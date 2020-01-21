@@ -5,6 +5,13 @@ class Applications {
     static var list = [Application]()
     static var appsObserver = RunningApplicationsObserver()
 
+    static func observeNewWindows() {
+        for app in list {
+            guard app.runningApplication.isFinishedLaunching else { continue }
+            app.observeNewWindows()
+        }
+    }
+
     static func initialDiscovery() {
         addInitialRunningApplications()
         observeRunningApplications()
@@ -31,10 +38,7 @@ class Applications {
         }
         if windows.count > 0 {
             CGSAddWindowsToSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
-            for app in list {
-                guard app.runningApplication.isFinishedLaunching else { continue }
-                app.observeNewWindows()
-            }
+            Applications.observeNewWindows()
             Windows.sortByLevel()
             CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
             return
