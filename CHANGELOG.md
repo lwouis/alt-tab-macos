@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/lwouis/alt-tab-macos/compare/v2.3.2...v2.3.3) (2020-01-21)
+
+
+### Bug Fixes
+
+* touch bar's escape key works on mbp 15 2019 (closes [#119](https://github.com/lwouis/alt-tab-macos/issues/119)) ([eda6b7e](https://github.com/lwouis/alt-tab-macos/commit/eda6b7e))
+
 ## [2.3.2](https://github.com/lwouis/alt-tab-macos/compare/v2.3.1...v2.3.2) (2020-01-05)
 
 
