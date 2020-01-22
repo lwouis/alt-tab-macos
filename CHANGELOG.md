@@ -1,3 +1,10 @@
+## [2.3.4](https://github.com/lwouis/alt-tab-macos/compare/v2.3.3...v2.3.4) (2020-01-22)
+
+
+### Bug Fixes
+
+* escape key was absorbed by the inactive app (closes [#123](https://github.com/lwouis/alt-tab-macos/issues/123)) ([5260619](https://github.com/lwouis/alt-tab-macos/commit/5260619))
+
 ## [2.3.3](https://github.com/lwouis/alt-tab-macos/compare/v2.3.2...v2.3.3) (2020-01-21)
 
 
