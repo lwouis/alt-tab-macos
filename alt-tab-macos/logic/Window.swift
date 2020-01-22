@@ -27,7 +27,7 @@ class Window {
         self.spaceIndex = Spaces.currentSpaceIndex
         self.isOnAllSpaces = false
         self.title = Window.bestEffortTitle(axUiElement, cgWindowId, application)
-        debugPrint("Adding window: " + title, application.runningApplication.bundleIdentifier, Spaces.currentSpaceId, Spaces.currentSpaceIndex)
+        debugPrint("Adding window: " + title, application.runningApplication.bundleIdentifier ?? "nil", Spaces.currentSpaceId, Spaces.currentSpaceIndex)
         observeEvents()
     }
 
@@ -104,7 +104,7 @@ class Window {
 private func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
     let type = notificationName as String
     let app = App.shared as! App
-    debugPrint("OS event: " + type, element.title())
+    debugPrint("OS event: " + type, element.title() ?? "nil")
     switch type {
         case kAXUIElementDestroyedNotification: eventWindowDestroyed(app, element)
         case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification: eventWindowMiniaturizedOrDeminiaturized(app, element, type)

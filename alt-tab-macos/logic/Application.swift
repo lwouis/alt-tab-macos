@@ -76,7 +76,7 @@ private func axObserverCallback(observer: AXObserver, element: AXUIElement, noti
     let application = Unmanaged<Application>.fromOpaque(applicationPointer!).takeUnretainedValue()
     let app = App.shared as! App
     let type = notificationName as String
-    debugPrint("OS event: " + type, element.title())
+    debugPrint("OS event: " + type, element.title() ?? "nil")
     switch type {
         case kAXApplicationActivatedNotification: eventApplicationActivated(app, element)
         case kAXApplicationHiddenNotification, kAXApplicationShownNotification: eventApplicationHiddenOrShown(app, element, type)
