@@ -48,8 +48,7 @@ func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent,
             let isRightArrow = event.keyCode == kVK_RightArrow
             let isLeftArrow = event.keyCode == kVK_LeftArrow
             let isEscape = event.keyCode == kVK_Escape
-            
-            if type == .keyDown && isEscape {
+            if type == .keyDown && isEscape && application.appIsBeingUsed {
                 return dispatchWork(application, false, { application.hideUi() })
             } else if isMetaDown && type == .keyDown {
                 if isTab && event.modifierFlags.contains(.shift) {
