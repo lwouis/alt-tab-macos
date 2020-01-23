@@ -26,7 +26,7 @@ class Spaces {
     static func updateCurrentSpace() {
         currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, Screen.mainUuid())
         currentSpaceIndex = allIdsAndIndexes().first { $0.0 == currentSpaceId }!.1
-        debugPrint("current space", currentSpaceId)
+        debugPrint("Current space", currentSpaceId)
     }
 
     static func allIdsAndIndexes() -> [(CGSSpaceID, SpaceIndex)] {

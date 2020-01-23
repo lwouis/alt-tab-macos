@@ -42,7 +42,8 @@ class Cell: NSCollectionViewItem {
     func updateRecycledCellWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
         window = element
         thumbnail.image = element.thumbnail
-        let thumbnailSize = Cell.thumbnailSize(element.thumbnail, screen)
+        let (thumbnailWidth, thumbnailHeight) = Cell.thumbnailSize(element.thumbnail, screen)
+        let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
         thumbnail.image?.size = thumbnailSize
         thumbnail.frame.size = thumbnailSize
         appIcon.image = element.icon
@@ -110,27 +111,22 @@ class Cell: NSCollectionViewItem {
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return floor((ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.interCellPadding) * Cell.downscaleFactor())
+        return (ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.interCellPadding) * Cell.downscaleFactor()
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return floor((ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.interCellPadding) * Cell.downscaleFactor())
+        return (ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.interCellPadding) * Cell.downscaleFactor()
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        return floor((ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.interCellPadding) * Cell.downscaleFactor())
+        return (ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.interCellPadding) * Cell.downscaleFactor()
     }
 
     static func width(_ image: NSImage?, _ screen: NSScreen) -> CGFloat {
-        return floor(max(thumbnailSize(image, screen).width + Preferences.intraCellPadding * 2, Cell.widthMin(screen)))
+        return max(thumbnailSize(image, screen).0 + Preferences.intraCellPadding * 2, Cell.widthMin(screen))
     }
 
-    static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> NSSize {
-        let (width, height) = thumbnailSize_(image, screen)
-        return NSSize(width: floor(width), height: floor(height))
-    }
-
-    static func thumbnailSize_(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
+    static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
         let thumbnailWidthMin = Cell.widthMin(screen) - Preferences.intraCellPadding * 2
         let thumbnailHeightMax = Cell.height(screen) - Preferences.intraCellPadding * 3 - Preferences.iconSize
         let thumbnailWidthMax = Cell.widthMax(screen) - Preferences.intraCellPadding * 2
