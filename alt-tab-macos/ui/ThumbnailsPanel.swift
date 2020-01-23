@@ -75,7 +75,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         guard indexPath.item < Windows.list.count else { return .zero }
-        return NSSize(width: Cell.width(Windows.list[indexPath.item].thumbnail, currentScreen!), height: Cell.height(currentScreen!))
+        return NSSize(width: Cell.width(Windows.list[indexPath.item].thumbnail, currentScreen!).rounded(), height: Cell.height(currentScreen!).rounded())
     }
 
     func highlightCell() {
@@ -97,7 +97,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         let layout = collectionView.collectionViewLayout as! CollectionViewCenterFlowLayout
         if uiWorkShouldBeDone { layout.currentScreen = screen }
         if uiWorkShouldBeDone { layout.invalidateLayout() }
-        if uiWorkShouldBeDone { collectionView.setFrameSize(NSSize(width: ThumbnailsPanel.widthMax(screen), height: ThumbnailsPanel.heightMax(screen))) }
+        if uiWorkShouldBeDone { collectionView.setFrameSize(NSSize(width: ThumbnailsPanel.widthMax(screen).rounded(), height: ThumbnailsPanel.heightMax(screen).rounded())) }
         if uiWorkShouldBeDone { collectionView.reloadData() }
         if uiWorkShouldBeDone { collectionView.layoutSubtreeIfNeeded() }
         if uiWorkShouldBeDone { collectionView.setFrameSize(NSSize(width: layout.widestRow!, height: layout.totalHeight!)) }
@@ -108,14 +108,10 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return floor(screen.frame.width * Preferences.maxScreenUsage - Preferences.windowPadding * 2)
+        return screen.frame.width * Preferences.maxScreenUsage - Preferences.windowPadding * 2
     }
 
     static func heightMax(_ screen: NSScreen) -> CGFloat {
-        return floor(screen.frame.height * Preferences.maxScreenUsage - Preferences.windowPadding * 2)
-    }
-
-    static func heightMin(_ screen: NSScreen) -> CGFloat {
-        return floor(Cell.height(screen) - Preferences.windowPadding * 2)
+        return screen.frame.height * Preferences.maxScreenUsage - Preferences.windowPadding * 2
     }
 }

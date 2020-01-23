@@ -45,7 +45,7 @@ class CollectionViewCenterFlowLayout: NSCollectionViewFlowLayout {
     }
 
     private func shiftCenteredElementToTheLeft(_ attributes: [NSCollectionViewLayoutAttributes], _ widestRow: CGFloat, _ totalHeight: CGFloat) {
-        let horizontalMargin = floor((collectionView!.frame.size.width - widestRow) / 2)
+        let horizontalMargin = ((collectionView!.frame.size.width - widestRow) / 2).rounded()
         for attribute in attributes {
             attribute.frame.origin.x -= horizontalMargin
         }
