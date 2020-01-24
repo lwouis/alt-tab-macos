@@ -1,10 +1,10 @@
 import Foundation
 import Cocoa
 
-// macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy > Privacy
+// macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy
 class SystemPermissions {
-    // macOS 10.9+
     static func ensureAccessibilityCheckboxIsChecked() {
+        guard #available(OSX 10.9, *) else { return }
         if !AXIsProcessTrustedWithOptions(["AXTrustedCheckOptionPrompt": true] as CFDictionary) {
             debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
                     "Please authorize and re-launch.",
@@ -14,8 +14,9 @@ class SystemPermissions {
         }
     }
 
-    // macOS 10.15+
     static func ensureScreenRecordingCheckboxIsChecked() {
+        guard #available(OSX 10.15, *) else { return }
+        // there is no API to check this permission; we try to get a screenshot to check indirectly
         let firstWindow = CGWindow.windows(.optionOnScreenOnly)[0]
         if let cgId = firstWindow.id(), cgId.screenshot() == nil {
             debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Screen Recording.",
