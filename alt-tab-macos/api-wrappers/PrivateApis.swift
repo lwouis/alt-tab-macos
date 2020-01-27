@@ -128,6 +128,12 @@ func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawVal
 @_silgen_name("CGSGetWindowLevel") @discardableResult
 func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout CGWindowLevel) -> CGError
 
+// returns status of the checkbox in System Preferences > Security & Privacy > Privacy > Screen Recording
+// returns 1 if checked or 0 if unchecked; also prompts the user the first time if unchecked
+@_silgen_name("SLSRequestScreenCaptureAccess") @discardableResult
+func SLSRequestScreenCaptureAccess() -> UInt8
+
+
 
 
 // ------------------------------------------------------------
