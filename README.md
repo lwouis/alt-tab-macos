@@ -55,7 +55,7 @@ Before building my own app, I looked around at similar apps. However, none was c
 
 This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it using 1 command `xcodebuild`.
 
-Note that on debug builds, to avoid having to re-check the  `System Preferences > Security & Privacy` permissions on every build, we use a code-signing certificate. You can generate one on your local machine in one step by running `ci/generate_codesign_certificate.sh`.
+Note that on debug builds, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build, we use a code-signing certificate. You can generate one on your local machine in one step by running `ci/generate_debug_certificate.sh`.
 
 If you want to contribute a PR, please run `npm install` once. It will add the pre-commit hook to ensure that your commits follow the convention and will pass the PR.
 

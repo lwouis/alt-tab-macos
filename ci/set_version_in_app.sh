@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -exu
 
 version="$(cat VERSION.txt)"
 # set the version for the app menubar menu text

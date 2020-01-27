@@ -63,13 +63,14 @@
 		D04BA56355579F78776E6D51 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		D04BA56E285C3FCDA52ED262 /* DispatchQueues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueues.swift; sourceTree = "<group>"; };
 		D04BA5ABFA5457A86536E2E4 /* 5 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5 windows - 1 line.jpg"; sourceTree = "<group>"; };
-		D04BA5E819181CB83C5602C7 /* generate_codesign_certificate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_codesign_certificate.sh; sourceTree = "<group>"; };
+		D04BA5E819181CB83C5602C7 /* generate_debug_certificate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_debug_certificate.sh; sourceTree = "<group>"; };
 		D04BA5EB5ED248C8C22CC672 /* Spaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spaces.swift; sourceTree = "<group>"; };
 		D04BA66B5B4143D2238F50B9 /* Applications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Applications.swift; sourceTree = "<group>"; };
 		D04BA78E3B4E73B40DB77174 /* CGWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindow.swift; sourceTree = "<group>"; };
 		D04BA7B6AAB0812631BBC7A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		D04BA7ECCE728582D9ECA613 /* determine_version.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = determine_version.sh; sourceTree = "<group>"; };
 		D04BA82F792DF53958D92572 /* alt-tab-macos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alt-tab-macos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D04BA89FAEC4A5734D892C4B /* build_release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build_release.sh; sourceTree = "<group>"; };
 		D04BA8F1AA48A323EE5638DC /* HelperExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperExtensions.swift; sourceTree = "<group>"; };
 		D04BA90C6C36DB1D65BC2B66 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D04BA92541D46EA4F6943A72 /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
@@ -220,7 +221,8 @@
 				D04BA4B5292629AA6B560216 /* package_release.sh */,
 				D04BAC6AFC7F06D1A567F27A /* set_version_in_app.sh */,
 				D04BAE93A5854C501639C640 /* update_homebrew_cask.sh */,
-				D04BA5E819181CB83C5602C7 /* generate_codesign_certificate.sh */,
+				D04BA5E819181CB83C5602C7 /* generate_debug_certificate.sh */,
+				D04BA89FAEC4A5734D892C4B /* build_release.sh */,
 			);
 			path = ci;
 			sourceTree = "<group>";
@@ -397,7 +399,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "alt-tab-macos/alt_tab_macos.entitlements";
+				CODE_SIGN_IDENTITY = "Local Self-Signed";
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks;
 				INFOPLIST_FILE = "alt-tab-macos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -413,8 +417,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "alt-tab-macos/alt_tab_macos.entitlements";
-				CODE_SIGN_IDENTITY = "alt-tab-macos";
+				CODE_SIGN_IDENTITY = "Local Self-Signed";
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks;
 				INFOPLIST_FILE = "alt-tab-macos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
