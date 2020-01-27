@@ -22,8 +22,8 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
+        SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
         Preferences.loadFromDiskAndUpdateValues()
         statusItem = StatusItem.make(self)
         initPreferencesDependentComponents()

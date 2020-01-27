@@ -16,9 +16,7 @@ class SystemPermissions {
 
     static func ensureScreenRecordingCheckboxIsChecked() {
         guard #available(OSX 10.15, *) else { return }
-        // there is no API to check this permission; we try to get a screenshot to check indirectly
-        let firstWindow = CGWindow.windows(.optionOnScreenOnly)[0]
-        if let cgId = firstWindow.id(), cgId.screenshot() == nil {
+        if SLSRequestScreenCaptureAccess() != 1 {
             debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Screen Recording.",
                     "Please authorize and re-launch.",
                     "See https://dropshare.zendesk.com/hc/en-us/articles/360033453434-Enabling-Screen-Recording-Permission-on-macOS-Catalina-10-15-",
