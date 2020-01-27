@@ -6,9 +6,10 @@ node_js:
 cache: npm
 env:
   - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
-install:
-  - npm ci
+install: true # disable default install
 script:
+  - env | sort
+  - npm ci
   - npx commitlint-travis
   - if [ $IS_RELEASE ]; then ci/determine_version.sh; fi
   - if [ $IS_RELEASE ]; then ci/set_version_in_app.sh; fi
