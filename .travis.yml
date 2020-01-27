@@ -13,7 +13,7 @@ script:
   - npx commitlint-travis
   - if [ $IS_RELEASE ]; then ci/determine_version.sh; fi
   - if [ $IS_RELEASE ]; then ci/set_version_in_app.sh; fi
-  - xcodebuild
+  - ci/build_release.sh
   - if [ $IS_RELEASE ]; then ci/package_release.sh; fi
   - if [ $IS_RELEASE ]; then npx semantic-release; fi
 deploy:
@@ -23,7 +23,6 @@ deploy:
   file_glob: true
   file:
     - build/Release/*.zip
-    - build/Release/*.tar.gz
   cleanup: false
   on:
     repo: lwouis/alt-tab-macos
