@@ -40,8 +40,8 @@ func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent,
     if type == .keyDown || type == .keyUp || type == .flagsChanged {
         if let event = NSEvent(cgEvent: event_) {
             let isTab = event.keyCode == Preferences.tabKeyCode
-            let isMetaChanged = Preferences.metaKeyCodes!.contains(event.keyCode)
-            let isMetaDown = event.modifierFlags.contains(Preferences.metaModifierFlag!)
+            let isMetaChanged = Preferences.metaKeyCodes.contains(event.keyCode)
+            let isMetaDown = event.modifierFlags.contains(Preferences.metaModifierFlag)
             let isRightArrow = event.keyCode == kVK_RightArrow
             let isLeftArrow = event.keyCode == kVK_LeftArrow
             let isEscape = event.keyCode == kVK_Escape

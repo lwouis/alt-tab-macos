@@ -41,7 +41,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         backgroundView.material = Preferences.windowMaterial
         backgroundView.state = .active
         backgroundView.wantsLayer = true
-        backgroundView.layer!.cornerRadius = Preferences.windowCornerRadius!
+        backgroundView.layer!.cornerRadius = Preferences.windowCornerRadius
         return backgroundView
     }
 
