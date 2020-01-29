@@ -34,8 +34,8 @@ class Cell: NSCollectionViewItem {
 
     override var isSelected: Bool {
         didSet {
-            view.layer!.backgroundColor = isSelected ? Preferences.highlightBackgroundColor!.cgColor : .clear
-            view.layer!.borderColor = isSelected ? Preferences.highlightBorderColor!.cgColor : .clear
+            view.layer!.backgroundColor = isSelected ? Preferences.highlightBackgroundColor.cgColor : .clear
+            view.layer!.borderColor = isSelected ? Preferences.highlightBorderColor.cgColor : .clear
         }
     }
 
@@ -55,7 +55,7 @@ class Cell: NSCollectionViewItem {
         label.font = Preferences.font
         hiddenIcon.isHidden = !window!.isHidden
         minimizedIcon.isHidden = !window!.isMinimized
-        spaceIcon.isHidden = element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels!
+        spaceIcon.isHidden = element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels
         if !spaceIcon.isHidden {
             if element.isOnAllSpaces {
                 spaceIcon.setStar()
@@ -93,8 +93,8 @@ class Cell: NSCollectionViewItem {
         let vStackView = NSStackView()
         vStackView.wantsLayer = true
         vStackView.layer!.backgroundColor = .clear
-        vStackView.layer!.cornerRadius = Preferences.cellCornerRadius!
-        vStackView.layer!.borderWidth = Preferences.cellBorderWidth!
+        vStackView.layer!.cornerRadius = Preferences.cellCornerRadius
+        vStackView.layer!.borderWidth = Preferences.cellBorderWidth
         vStackView.layer!.borderColor = .clear
         vStackView.edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
         vStackView.orientation = .vertical
@@ -104,7 +104,7 @@ class Cell: NSCollectionViewItem {
     }
 
     static func downscaleFactor() -> CGFloat {
-        let nCellsBeforePotentialOverflow = Preferences.nCellsRows * Preferences.minCellsPerRow
+        let nCellsBeforePotentialOverflow = Preferences.minRows * Preferences.minCellsPerRow
         guard CGFloat(Windows.list.count) > nCellsBeforePotentialOverflow else { return 1 }
         // TODO: replace this buggy heuristic with a correct implementation of downscaling
         return nCellsBeforePotentialOverflow / (nCellsBeforePotentialOverflow + (sqrt(CGFloat(Windows.list.count) - nCellsBeforePotentialOverflow) * 2))
@@ -119,7 +119,7 @@ class Cell: NSCollectionViewItem {
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.heightMax(screen) / Preferences.nCellsRows - Preferences.interCellPadding) * Cell.downscaleFactor()
+        return (ThumbnailsPanel.heightMax(screen) / Preferences.minRows - Preferences.interCellPadding) * Cell.downscaleFactor()
     }
 
     static func width(_ image: NSImage?, _ screen: NSScreen) -> CGFloat {

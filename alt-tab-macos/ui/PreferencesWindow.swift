@@ -78,14 +78,20 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         }
 
         return [
-            makeLabelWithDropdown("Alt key", rawName: "metaKey", values: Preferences.metaKeyMacro.labels),
-            makeLabelWithInput("Tab key", rawName: "tabKeyCode", width: 33, suffixText: "KeyCodes Reference", suffixUrl: "https://eastmanreference.com/complete-list-of-applescript-key-codes", validator: tabKeyCodeValidator),
+            makeLabelWithDropdown("Alt key", "metaKey", Preferences.metaKeyMacro.labels),
+            makeLabelWithInput("Tab key", "tabKeyCode", 33, "KeyCodes Reference", "https://eastmanreference.com/complete-list-of-applescript-key-codes", tabKeyCodeValidator),
             makeHorizontalSeparator(),
-            makeLabelWithDropdown("Theme", rawName: "theme", values: Preferences.themeMacro.labels),
-            makeLabelWithCheckbox("Hide space number labels", rawName: "hideSpaceNumberLabels"),
+            makeLabelWithDropdown("Theme", "theme", Preferences.themeMacro.labels),
+            makeLabelWithSlider("Max size on screen", "maxScreenUsage", 10, 100, 10, true, "%"),
+            makeLabelWithSlider("Min windows per row", "minCellsPerRow", 1, 20, 20, true),
+            makeLabelWithSlider("Max windows per row", "maxCellsPerRow", 1, 40, 20, true),
+            makeLabelWithSlider("Min rows of windows", "minRows", 1, 20, 20, true),
+            makeLabelWithSlider("Window app icon size", "iconSize", 0, 64, 11, false, "px"),
+            makeLabelWithSlider("Window title font size", "fontHeight", 0, 64, 11, false, "px"),
+            makeLabelWithCheckbox("Hide space number labels", "hideSpaceNumberLabels"),
             makeHorizontalSeparator(),
-            makeLabelWithSlider("Window apparition delay", rawName: "windowDisplayDelay", minValue: 0, maxValue: 2000, numberOfTickMarks: 0, unitText: "ms"),
-            makeLabelWithDropdown("Show on", rawName: "showOnScreen", values: Preferences.showOnScreenMacro.labels)
+            makeLabelWithSlider("Apparition delay", "windowDisplayDelay", 0, 2000, 11, false, "ms"),
+            makeLabelWithDropdown("Show on", "showOnScreen", Preferences.showOnScreenMacro.labels)
         ]
     }
 
@@ -96,7 +102,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         return view
     }
 
-    private func makeLabelWithInput(_ labelText: String, rawName: String, width: CGFloat? = nil, suffixText: String? = nil, suffixUrl: String? = nil, validator: ((String) -> Bool)? = nil) -> NSStackView {
+    private func makeLabelWithInput(_ labelText: String, _ rawName: String, _ width: CGFloat? = nil, _ suffixText: String? = nil, _ suffixUrl: String? = nil, _ validator: ((String) -> Bool)? = nil) -> NSStackView {
         let input = TextField(Preferences.rawValues[rawName]!)
         input.validationHandler = validator
         input.delegate = input
@@ -105,24 +111,24 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
             input.widthAnchor.constraint(equalToConstant: width!).isActive = true
         }
 
-        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: input, suffixText: suffixText, suffixUrl: suffixUrl)
+        return makeLabelWithProvidedControl(labelText, rawName, input, suffixText, nil, suffixUrl)
     }
 
-    private func makeLabelWithCheckbox(_ labelText: String, rawName: String) -> NSStackView {
+    private func makeLabelWithCheckbox(_ labelText: String, _ rawName: String) -> NSStackView {
         let checkbox = NSButton.init(checkboxWithTitle: "", target: nil, action: nil)
         setControlValue(checkbox, Preferences.rawValues[rawName]!)
-        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: checkbox)
+        return makeLabelWithProvidedControl(labelText, rawName, checkbox)
     }
 
-    private func makeLabelWithDropdown(_ labelText: String, rawName: String, values: [String], suffixText: String? = nil) -> NSStackView {
+    private func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [String], _ suffixText: String? = nil) -> NSStackView {
         let popUp = NSPopUpButton()
         popUp.addItems(withTitles: values)
         popUp.selectItem(withTitle: Preferences.rawValues[rawName]!)
 
-        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: popUp, suffixText: suffixText)
+        return makeLabelWithProvidedControl(labelText, rawName, popUp, suffixText)
     }
 
-    private func makeLabelWithSlider(_ labelText: String, rawName: String, minValue: Double, maxValue: Double, numberOfTickMarks: Int, unitText: String = "") -> NSStackView {
+    private func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "") -> NSStackView {
         let value = Preferences.rawValues[rawName]!
         let suffixText = value + unitText
         let slider = NSSlider()
@@ -130,14 +136,14 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         slider.maxValue = maxValue
         slider.stringValue = value
         slider.numberOfTickMarks = numberOfTickMarks
-        slider.allowsTickMarkValuesOnly = numberOfTickMarks > 1
+        slider.allowsTickMarkValuesOnly = allowsTickMarkValuesOnly
         slider.tickMarkPosition = .below
         slider.isContinuous = true
 
-        return makeLabelWithProvidedControl(labelText, rawName: rawName, control: slider, suffixText: suffixText, suffixWidth: 60)
+        return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText, 60)
     }
 
-    private func makeLabelWithProvidedControl(_ labelText: String?, rawName: String, control: NSControl, suffixText: String? = nil, suffixWidth: CGFloat? = nil, suffixUrl: String? = nil) -> NSStackView {
+    private func makeLabelWithProvidedControl(_ labelText: String?, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixWidth: CGFloat? = nil, _ suffixUrl: String? = nil) -> NSStackView {
         let label = NSTextField(wrappingLabelWithString: (labelText != nil ? labelText! + ": " : ""))
         label.alignment = .right
         label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
@@ -150,14 +156,14 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         let containerView = NSStackView(views: [label, control])
 
         if suffixText != nil {
-            let suffix = makeSuffix(controlName: rawName, text: suffixText!, width: suffixWidth, url: suffixUrl)
+            let suffix = makeSuffix(rawName, suffixText!, suffixWidth, suffixUrl)
             containerView.addView(suffix, in: .leading)
         }
 
         return containerView
     }
 
-    private func makeSuffix(controlName: String, text: String, width: CGFloat? = nil, url: String? = nil) -> NSTextField {
+    private func makeSuffix(_ controlName: String, _ text: String, _ width: CGFloat? = nil, _ url: String? = nil) -> NSTextField {
         let suffix: NSTextField
         if url == nil {
             suffix = NSTextField(labelWithString: text)
