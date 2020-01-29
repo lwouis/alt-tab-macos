@@ -127,15 +127,16 @@ class Cell: NSCollectionViewItem {
     }
 
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
-        let thumbnailWidthMin = Cell.widthMin(screen) - Preferences.intraCellPadding * 2
         let thumbnailHeightMax = Cell.height(screen) - Preferences.intraCellPadding * 3 - Preferences.iconSize
         let thumbnailWidthMax = Cell.widthMax(screen) - Preferences.intraCellPadding * 2
-        guard let image = image else { return (thumbnailWidthMin, thumbnailHeightMax) }
+        guard let image = image else { return (Cell.widthMin(screen) - Preferences.intraCellPadding * 2, thumbnailHeightMax) }
+        let thumbnailHeight = min(image.size.height, thumbnailHeightMax)
+        let thumbnailWidth = min(image.size.width, thumbnailWidthMax)
         let imageRatio = image.size.width / image.size.height
-        let thumbnailRatio = thumbnailWidthMax / thumbnailHeightMax
+        let thumbnailRatio = thumbnailWidth / thumbnailHeight
         if thumbnailRatio > imageRatio {
-            return (image.size.width * thumbnailHeightMax / image.size.height, thumbnailHeightMax)
+            return (image.size.width * thumbnailHeight / image.size.height, thumbnailHeight)
         }
-        return (thumbnailWidthMax, image.size.height * thumbnailWidthMax / image.size.width)
+        return (thumbnailWidth, image.size.height * thumbnailWidth / image.size.width)
     }
 }
