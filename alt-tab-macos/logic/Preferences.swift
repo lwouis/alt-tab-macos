@@ -15,7 +15,7 @@ class Preferences {
     static let fontIconSize = CGFloat(20)
     static let maxScreenUsage = CGFloat(0.8)
     static let minCellsPerRow = CGFloat(3)
-    static let maxCellsPerRow = CGFloat(4)
+    static let maxCellsPerRow = CGFloat(6)
     static let nCellsRows = CGFloat(3)
 
     static let themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
