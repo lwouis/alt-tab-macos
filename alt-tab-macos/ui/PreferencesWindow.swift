@@ -2,22 +2,35 @@ import Cocoa
 import Foundation
 
 class PreferencesWindow: NSWindow, NSWindowDelegate {
-    let width = CGFloat(496)
-    let height = CGFloat(256) // auto expands to content height (but does not auto shrink)
-    let padding = CGFloat(40)
-    var labelWidth: CGFloat {
-        return (width - padding) * CGFloat(0.45)
-    }
+    let tabViewController = TabViewController()
+    let padding = CGFloat(20)
+    let interPadding = CGFloat(10)
     var windowCloseRequested = false
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
-        let initialRect = NSRect(x: 0, y: 0, width: width, height: height)
-        super.init(contentRect: initialRect, styleMask: style, backing: backingStoreType, defer: flag)
+        super.init(contentRect: .zero, styleMask: style, backing: backingStoreType, defer: flag)
         title = App.name + " Preferences"
         hidesOnDeactivate = false
         isReleasedWhenClosed = false
         styleMask.insert([.miniaturizable, .closable])
-        contentView = makeContentView()
+        tabViewController.tabStyle = .toolbar
+        contentViewController = tabViewController
+        makeTabViews()
+    }
+
+    private func makeTabViews() {
+        for tabTuple in [
+            ("Shortcuts", makeShortcutsView(), NSImage.preferencesGeneralName),
+            ("Appearance", makeAppearanceView(), NSImage.colorPanelName),
+            ("About", makeAboutView(), NSImage.infoName)
+        ] {
+            let viewController = NSViewController()
+            viewController.view = tabTuple.1
+            let tabViewItem = NSTabViewItem(viewController: viewController)
+            tabViewItem.label = tabTuple.0
+            tabViewItem.image = NSImage(named: tabTuple.2)!
+            tabViewController.addTabViewItem(tabViewItem)
+        }
     }
 
     func show() {
@@ -45,24 +58,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         }
     }
 
-    private func makeContentView() -> NSView {
-        let wrappingView = NSStackView(views: makePreferencesViews())
-        let contentView = NSView()
-        contentView.addSubview(wrappingView)
-
-        // visual setup
-        wrappingView.orientation = .vertical
-        wrappingView.alignment = .left
-        wrappingView.spacing = padding * 0.3
-        wrappingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding * 0.5).isActive = true
-        wrappingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding * -0.5).isActive = true
-        wrappingView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: padding * 0.5).isActive = true
-        wrappingView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: padding * -0.5).isActive = true
-
-        return contentView
-    }
-
-    private func makePreferencesViews() -> [NSView] {
+    private func makeShortcutsView() -> NSGridView {
         // TODO: make the validators be a part of each Preference
         let tabKeyCodeValidator: ((String) -> Bool) = {
             guard let int = Int($0) else {
@@ -77,10 +73,14 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
             return whitelistedKeycodes.contains(int)
         }
 
-        return [
+        return makeGridLayout([
             makeLabelWithDropdown("Alt key", "metaKey", Preferences.metaKeyMacro.labels),
             makeLabelWithInput("Tab key", "tabKeyCode", 33, "KeyCodes Reference", "https://eastmanreference.com/complete-list-of-applescript-key-codes", tabKeyCodeValidator),
-            makeHorizontalSeparator(),
+        ])
+    }
+
+    private func makeAppearanceView() -> NSGridView {
+        return makeGridLayout([
             makeLabelWithDropdown("Theme", "theme", Preferences.themeMacro.labels),
             makeLabelWithSlider("Max size on screen", "maxScreenUsage", 10, 100, 10, true, "%"),
             makeLabelWithSlider("Min windows per row", "minCellsPerRow", 1, 20, 20, true),
@@ -88,82 +88,93 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
             makeLabelWithSlider("Min rows of windows", "minRows", 1, 20, 20, true),
             makeLabelWithSlider("Window app icon size", "iconSize", 0, 64, 11, false, "px"),
             makeLabelWithSlider("Window title font size", "fontHeight", 0, 64, 11, false, "px"),
-            makeLabelWithCheckbox("Hide space number labels", "hideSpaceNumberLabels"),
-            makeHorizontalSeparator(),
+            makeLabelWithDropdown("Show on", "showOnScreen", Preferences.showOnScreenMacro.labels),
             makeLabelWithSlider("Apparition delay", "windowDisplayDelay", 0, 2000, 11, false, "ms"),
-            makeLabelWithDropdown("Show on", "showOnScreen", Preferences.showOnScreenMacro.labels)
-        ]
+            makeLabelWithCheckbox("Hide space number labels", "hideSpaceNumberLabels"),
+        ])
     }
 
-    private func makeHorizontalSeparator() -> NSView {
-        let view = NSBox()
-        view.boxType = .separator
-
-        return view
+    private func makeAboutView() -> NSGridView {
+        return makeGridLayout([
+            [NSTextField(wrappingLabelWithString: "\(App.name) #VERSION#"), ],
+            [HyperlinkLabel(labelWithUrl: "Source code repository", nsUrl: NSURL(string: "https://github.com/lwouis/alt-tab-macos")!)],
+        ])
     }
 
-    private func makeLabelWithInput(_ labelText: String, _ rawName: String, _ width: CGFloat? = nil, _ suffixText: String? = nil, _ suffixUrl: String? = nil, _ validator: ((String) -> Bool)? = nil) -> NSStackView {
+    private func makeGridLayout(_ controls: [[NSView]]) -> NSGridView {
+        let gridView = NSGridView(views: controls)
+        gridView.yPlacement = .fill
+        gridView.columnSpacing = interPadding
+        gridView.rowSpacing = interPadding
+        gridView.column(at: 0).xPlacement = .trailing
+        gridView.column(at: 0).leadingPadding = padding
+        gridView.column(at: gridView.numberOfColumns - 1).trailingPadding = padding
+        gridView.row(at: 0).topPadding = padding
+        gridView.row(at: gridView.numberOfRows - 1).bottomPadding = padding
+        gridView.widthAnchor.constraint(equalToConstant: gridView.fittingSize.width).isActive = true
+        gridView.rowAlignment = .lastBaseline
+        for i in 0..<gridView.numberOfRows {
+            gridView.row(at: i).height = 20
+        }
+        return gridView
+    }
+
+    private func makeLabelWithInput(_ labelText: String, _ rawName: String, _ width: CGFloat, _ suffixText: String? = nil, _ suffixUrl: String? = nil, _ validator: ((String) -> Bool)? = nil) -> [NSView] {
         let input = TextField(Preferences.rawValues[rawName]!)
         input.validationHandler = validator
         input.delegate = input
         input.visualizeValidationState()
-        if width != nil {
-            input.widthAnchor.constraint(equalToConstant: width!).isActive = true
-        }
-
-        return makeLabelWithProvidedControl(labelText, rawName, input, suffixText, nil, suffixUrl)
+        input.widthAnchor.constraint(equalToConstant: width).isActive = true
+        input.heightAnchor.constraint(equalToConstant: input.fittingSize.height).isActive = true
+        let views = makeLabelWithProvidedControl(labelText, rawName, input)
+        return [views[0], NSStackView(views: [views[1], makeSuffix(rawName, suffixText!, suffixUrl)])]
     }
 
-    private func makeLabelWithCheckbox(_ labelText: String, _ rawName: String) -> NSStackView {
+    private func makeLabelWithCheckbox(_ labelText: String, _ rawName: String) -> [NSView] {
         let checkbox = NSButton.init(checkboxWithTitle: "", target: nil, action: nil)
         setControlValue(checkbox, Preferences.rawValues[rawName]!)
         return makeLabelWithProvidedControl(labelText, rawName, checkbox)
     }
 
-    private func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [String], _ suffixText: String? = nil) -> NSStackView {
+    private func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [String], _ suffixText: String? = nil) -> [NSView] {
         let popUp = NSPopUpButton()
         popUp.addItems(withTitles: values)
         popUp.selectItem(withTitle: Preferences.rawValues[rawName]!)
-
         return makeLabelWithProvidedControl(labelText, rawName, popUp, suffixText)
     }
 
-    private func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "") -> NSStackView {
+    private func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "") -> [NSView] {
         let value = Preferences.rawValues[rawName]!
-        let suffixText = value + unitText
+        let suffixText = value + " " + unitText
         let slider = NSSlider()
         slider.minValue = minValue
         slider.maxValue = maxValue
         slider.stringValue = value
-        slider.numberOfTickMarks = numberOfTickMarks
-        slider.allowsTickMarkValuesOnly = allowsTickMarkValuesOnly
-        slider.tickMarkPosition = .below
+//        slider.numberOfTickMarks = numberOfTickMarks
+//        slider.allowsTickMarkValuesOnly = allowsTickMarkValuesOnly
+//        slider.tickMarkPosition = .below
         slider.isContinuous = true
-
-        return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText, 60)
+        return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText)
     }
 
-    private func makeLabelWithProvidedControl(_ labelText: String?, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixWidth: CGFloat? = nil, _ suffixUrl: String? = nil) -> NSStackView {
-        let label = NSTextField(wrappingLabelWithString: (labelText != nil ? labelText! + ": " : ""))
-        label.alignment = .right
-        label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
-        label.identifier = NSUserInterfaceItemIdentifier(rawName + ControlIdentifierDiscriminator.LABEL.rawValue)
-        label.isSelectable = false
-
+    private func makeLabelWithProvidedControl(_ labelText: String?, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil) -> [NSView] {
+        let label = makeLabel(labelText, rawName)
         control.identifier = NSUserInterfaceItemIdentifier(rawName)
         control.target = self
         control.action = #selector(controlWasChanged)
-        let containerView = NSStackView(views: [label, control])
-
-        if suffixText != nil {
-            let suffix = makeSuffix(rawName, suffixText!, suffixWidth, suffixUrl)
-            containerView.addView(suffix, in: .leading)
-        }
-
-        return containerView
+        return [label, control, suffixText != nil ? makeSuffix(rawName, suffixText!, suffixUrl) : NSView()]
     }
 
-    private func makeSuffix(_ controlName: String, _ text: String, _ width: CGFloat? = nil, _ url: String? = nil) -> NSTextField {
+    private func makeLabel(_ labelText: String?, _ rawName: String) -> NSTextField {
+        let label = NSTextField(wrappingLabelWithString: labelText != nil ? labelText! + ": " : "")
+        label.widthAnchor.constraint(equalToConstant: label.fittingSize.width).isActive = true
+        label.heightAnchor.constraint(equalToConstant: label.fittingSize.height).isActive = true
+        label.alignment = .right
+        label.identifier = NSUserInterfaceItemIdentifier(rawName + ControlIdentifierDiscriminator.LABEL.rawValue)
+        return label
+    }
+
+    private func makeSuffix(_ controlName: String, _ text: String, _ url: String? = nil) -> NSTextField {
         let suffix: NSTextField
         if url == nil {
             suffix = NSTextField(labelWithString: text)
@@ -172,10 +183,8 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         }
         suffix.textColor = .gray
         suffix.identifier = NSUserInterfaceItemIdentifier(controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
-        if width != nil {
-            suffix.widthAnchor.constraint(equalToConstant: width!).isActive = true
-        }
-
+        suffix.widthAnchor.constraint(equalToConstant: suffix.fittingSize.width).isActive = true
+        suffix.heightAnchor.constraint(equalToConstant: suffix.fittingSize.height).isActive = true
         return suffix
     }
 

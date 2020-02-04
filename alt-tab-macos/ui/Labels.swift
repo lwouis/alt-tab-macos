@@ -7,6 +7,7 @@ class BaseLabel: NSTextView {
 
     init(_ text: String) {
         super.init(frame: .zero)
+        _init()
         string = text
     }
 
@@ -20,7 +21,6 @@ class BaseLabel: NSTextView {
         backgroundColor = .clear
         isSelectable = false
         isEditable = false
-        font = Preferences.font
         enabledTextCheckingTypes = 0
     }
 }

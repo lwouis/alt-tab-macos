@@ -32,6 +32,7 @@
 		D04BAD4DE538FDF7E7532EE2 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD32E130E4A061DC8332 /* Labels.swift */; };
 		D04BAE2E8E9B9898A4DF9B3B /* FontIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAED53465957807CBF8B2 /* FontIcon.swift */; };
 		D04BAE369A14C3126A1606FE /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8F1AA48A323EE5638DC /* HelperExtensions.swift */; };
+		D04BAE53AE67492CF654B4AE /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE70A24C83D571C77B1A /* TabViewController.swift */; };
 		D04BAEF78503D7A2CEFB9E9E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAA44C837F3A67403B9DB /* main.swift */; };
 		F029861A378EC1417106FEC3 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0298E42A818112B290FF6C7 /* TextField.swift */; };
 		F0298AB28A3CE5DBEC385730 /* HyperlinkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0298708E2B13DBD4738AE76 /* HyperlinkLabel.swift */; };
@@ -92,6 +93,7 @@
 		D04BADCB1C0F50340A6CAFC2 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		D04BAE1243C9B4BE3ED1B524 /* 7 windows - 2 lines - extra wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - extra wide window.jpg"; sourceTree = "<group>"; };
 		D04BAE5BBE182DD5DDFE2E3E /* ThumbnailsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailsPanel.swift; sourceTree = "<group>"; };
+		D04BAE70A24C83D571C77B1A /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		D04BAE80772D25834E440975 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		D04BAE93A5854C501639C640 /* update_homebrew_cask.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_homebrew_cask.sh; sourceTree = "<group>"; };
 		D04BAEA3EDC4F80FA23DBEC4 /* CGWindowID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindowID.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				F0298E42A818112B290FF6C7 /* TextField.swift */,
 				F0298708E2B13DBD4738AE76 /* HyperlinkLabel.swift */,
 				D04BAED53465957807CBF8B2 /* FontIcon.swift */,
+				D04BAE70A24C83D571C77B1A /* TabViewController.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				D04BA1BA0B3F2E0A47883569 /* Application.swift in Sources */,
 				D04BA2378832FD7E5DE3BC23 /* Applications.swift in Sources */,
 				D04BAAD43731608067734ED3 /* DispatchQueues.swift in Sources */,
+				D04BAE53AE67492CF654B4AE /* TabViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
