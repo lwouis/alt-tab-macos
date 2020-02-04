@@ -6,6 +6,8 @@ class TextField: NSTextField, NSTextFieldDelegate {
 
     public convenience init(_ value: String) {
         self.init(string: value)
+        usesSingleLineMode = true
+        font = .labelFont(ofSize: NSFont.systemFontSize)
         wantsLayer = true
         layer?.borderWidth = 1
     }
