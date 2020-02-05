@@ -2,9 +2,9 @@ import Cocoa
 import WebKit
 
 typealias MouseDownCallback = (Window) -> Void
-typealias MouseMovedCallback = (Cell) -> Void
+typealias MouseMovedCallback = (CollectionViewItem) -> Void
 
-class Cell: NSCollectionViewItem {
+class CollectionViewItem: NSCollectionViewItem {
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
     var label = CellTitle(Preferences.fontHeight)
@@ -18,7 +18,7 @@ class Cell: NSCollectionViewItem {
     override func loadView() {
         let hStackView = makeHStackView()
         let vStackView = makeVStackView(hStackView)
-        let shadow = Cell.makeShadow(.gray)
+        let shadow = CollectionViewItem.makeShadow(.gray)
         thumbnail.shadow = shadow
         appIcon.shadow = shadow
         view = vStackView
@@ -42,7 +42,7 @@ class Cell: NSCollectionViewItem {
     func updateRecycledCellWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ screen: NSScreen) {
         window = element
         thumbnail.image = element.thumbnail
-        let (thumbnailWidth, thumbnailHeight) = Cell.thumbnailSize(element.thumbnail, screen)
+        let (thumbnailWidth, thumbnailHeight) = CollectionViewItem.thumbnailSize(element.thumbnail, screen)
         let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
         thumbnail.image?.size = thumbnailSize
         thumbnail.frame.size = thumbnailSize
@@ -111,25 +111,25 @@ class Cell: NSCollectionViewItem {
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.interCellPadding) * Cell.downscaleFactor()
+        return (ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.interCellPadding) * CollectionViewItem.downscaleFactor()
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.interCellPadding) * Cell.downscaleFactor()
+        return (ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.interCellPadding) * CollectionViewItem.downscaleFactor()
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.heightMax(screen) / Preferences.minRows - Preferences.interCellPadding) * Cell.downscaleFactor()
+        return (ThumbnailsPanel.heightMax(screen) / Preferences.minRows - Preferences.interCellPadding) * CollectionViewItem.downscaleFactor()
     }
 
     static func width(_ image: NSImage?, _ screen: NSScreen) -> CGFloat {
-        return max(thumbnailSize(image, screen).0 + Preferences.intraCellPadding * 2, Cell.widthMin(screen))
+        return max(thumbnailSize(image, screen).0 + Preferences.intraCellPadding * 2, CollectionViewItem.widthMin(screen))
     }
 
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
         guard let image = image else { return (0, 0) }
-        let thumbnailHeightMax = Cell.height(screen) - Preferences.intraCellPadding * 3 - Preferences.iconSize
-        let thumbnailWidthMax = Cell.widthMax(screen) - Preferences.intraCellPadding * 2
+        let thumbnailHeightMax = CollectionViewItem.height(screen) - Preferences.intraCellPadding * 3 - Preferences.iconSize
+        let thumbnailWidthMax = CollectionViewItem.widthMax(screen) - Preferences.intraCellPadding * 2
         let thumbnailHeight = min(image.size.height, thumbnailHeightMax)
         let thumbnailWidth = min(image.size.width, thumbnailWidthMax)
         let imageRatio = image.size.width / image.size.height
