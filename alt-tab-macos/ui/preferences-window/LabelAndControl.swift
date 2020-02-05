@@ -67,7 +67,7 @@ class LabelAndControl: NSObject {
         if url == nil {
             suffix = NSTextField(labelWithString: text)
         } else {
-            suffix = HyperlinkLabel(text, NSURL(string: url!)!)
+            suffix = HyperlinkLabel(text, url!)
         }
         suffix.textColor = .gray
         suffix.identifier = NSUserInterfaceItemIdentifier(controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)

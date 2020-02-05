@@ -1,10 +1,9 @@
 import Cocoa
 
 class TextField: NSTextField, NSTextFieldDelegate {
-
     var validationHandler: ((String)->Bool)?
 
-    public convenience init(_ value: String) {
+    convenience init(_ value: String) {
         self.init(string: value)
         usesSingleLineMode = true
         font = .labelFont(ofSize: NSFont.systemFontSize)

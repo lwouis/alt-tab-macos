@@ -14,7 +14,6 @@ class GridView {
         gridView.column(at: gridView.numberOfColumns - 1).trailingPadding = padding
         gridView.row(at: 0).topPadding = padding
         gridView.row(at: gridView.numberOfRows - 1).bottomPadding = padding
-        gridView.fit()
         return gridView
     }
 }

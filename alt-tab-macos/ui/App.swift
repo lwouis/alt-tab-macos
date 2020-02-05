@@ -8,7 +8,8 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     static let version = "#VERSION#"
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
-    var preferencesPanel: PreferencesWindow?
+    var preferencesWindow: PreferencesWindow?
+    var feedbackWindow: FeedbackWindow?
     var uiWorkShouldBeDone = true
     var isFirstSummon = true
     var appIsBeingUsed = false
@@ -56,11 +57,20 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
 
     @objc
     func showPreferencesPanel() {
-        if preferencesPanel == nil {
-            preferencesPanel = PreferencesWindow()
+        if preferencesWindow == nil {
+            preferencesWindow = PreferencesWindow()
         }
-        Screen.repositionPanel(preferencesPanel!, Screen.preferred(), .appleCentered)
-        preferencesPanel?.show()
+        Screen.repositionPanel(preferencesWindow!, Screen.preferred(), .appleCentered)
+        preferencesWindow?.show()
+    }
+
+    @objc
+    func showFeedbackPanel() {
+        if feedbackWindow == nil {
+            feedbackWindow = FeedbackWindow()
+        }
+        Screen.repositionPanel(feedbackWindow!, Screen.preferred(), .appleCentered)
+        feedbackWindow?.show()
     }
 
     @objc
