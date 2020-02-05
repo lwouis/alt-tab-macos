@@ -1,39 +1,9 @@
 import Cocoa
 
-class BaseLabel: NSTextView {
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    init(_ text: String) {
-        super.init(frame: .zero)
-        _init()
-        string = text
-    }
-
-    override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
-        super.init(frame: frameRect, textContainer: container)
-        _init()
-    }
-
-    private func _init() {
-        drawsBackground = true
-        backgroundColor = .clear
-        isSelectable = false
-        isEditable = false
-        enabledTextCheckingTypes = 0
-    }
-}
-
 class CellTitle: BaseLabel {
-    let magicOffset: CGFloat
+    var magicOffset = CGFloat(0)
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    init(_ size: CGFloat, _ magicOffset: CGFloat = 0) {
-        self.magicOffset = magicOffset
+    convenience init(_ size: CGFloat, _ magicOffset: CGFloat = 0) {
         let textStorage = NSTextStorage()
         let layoutManager = NSLayoutManager()
         textStorage.addLayoutManager(layoutManager)
@@ -41,7 +11,8 @@ class CellTitle: BaseLabel {
         textContainer.maximumNumberOfLines = 1
         textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
-        super.init(frame: .zero, textContainer: textContainer)
+        self.init(NSRect.zero, textContainer)
+        self.magicOffset = magicOffset
         textColor = Preferences.fontColor
         shadow = CollectionViewItem.makeShadow(.darkGray)
         defaultParagraphStyle = makeParagraphStyle(size)

@@ -9,13 +9,9 @@ class FontIcon: CellTitle {
     static let sfSymbolCircledNumber10 = "􀓵"
     static let sfSymbolCircledStart = "􀕬"
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    init(_ text: String, _ size: CGFloat, _ color: NSColor) {
+    convenience init(_ text: String, _ size: CGFloat, _ color: NSColor) {
         // This helps SF symbols display vertically centered and not clipped at the bottom
-        super.init(size, 3)
+        self.init(size, 3)
         string = text
         font = NSFont(name: "SF Pro Text", size: size)
         textColor = color

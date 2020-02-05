@@ -1,12 +1,12 @@
 import Cocoa
 
 class HyperlinkLabel: NSTextField {
-    convenience init(_ string: String, _ url: NSURL) {
+    convenience init(_ string: String, _ url: String) {
         self.init(labelWithString: string)
         isSelectable = true
         allowsEditingTextAttributes = true
         attributedStringValue = NSAttributedString(string: string, attributes: [
-            NSAttributedString.Key.link: url as Any,
+            NSAttributedString.Key.link: NSURL(string: url)!,
             NSAttributedString.Key.font: NSFont.labelFont(ofSize: NSFont.systemFontSize),
         ])
     }

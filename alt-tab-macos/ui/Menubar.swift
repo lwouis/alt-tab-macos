@@ -15,6 +15,10 @@ class Menubar {
                 action: #selector(app.showPreferencesPanel),
                 keyEquivalent: ",")
         item.menu!.addItem(
+                withTitle: "Send feedback…",
+                action: #selector(app.showFeedbackPanel),
+                keyEquivalent: ",")
+        item.menu!.addItem(
             withTitle: "Quit",
                 action: #selector(NSApplication.terminate(_:)),
                 keyEquivalent: "q")

@@ -17,9 +17,10 @@ class AboutTab {
         appInfo.spacing = GridView.interPadding
         let view = GridView.make([
             [appInfo],
-            [HyperlinkLabel("Source code repository", NSURL(string: "https://github.com/lwouis/alt-tab-macos")!)],
-            [HyperlinkLabel("Latest releases", NSURL(string: "https://github.com/lwouis/alt-tab-macos/releases")!)],
+            [HyperlinkLabel("Source code repository", "https://github.com/lwouis/alt-tab-macos")],
+            [HyperlinkLabel("Latest releases", "https://github.com/lwouis/alt-tab-macos/releases")],
         ])
+        view.fit()
         return view
     }
 }

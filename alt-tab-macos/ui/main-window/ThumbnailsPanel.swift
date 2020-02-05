@@ -7,10 +7,6 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     let cellId = NSUserInterfaceItemIdentifier("Cell")
     var currentScreen: NSScreen?
 
-    override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
-        super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
-    }
-
     convenience init(_ app: App) {
         self.init()
         self.app = app
