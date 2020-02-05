@@ -26,12 +26,11 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
         Preferences.loadFromDiskAndUpdateValues()
-        statusItem = StatusItem.make(self)
+        statusItem = Menubar.make(self)
         initPreferencesDependentComponents()
-//        Spaces.initialDiscovery()
-//        Applications.initialDiscovery()
-//        Keyboard.listenToGlobalEvents(self)
-        showPreferencesPanel()
+        Spaces.initialDiscovery()
+        Applications.initialDiscovery()
+        Keyboard.listenToGlobalEvents(self)
     }
 
     // we put application code here which should be executed on init() and Preferences change

@@ -43,7 +43,7 @@ class CellTitle: BaseLabel {
         layoutManager.addTextContainer(textContainer)
         super.init(frame: .zero, textContainer: textContainer)
         textColor = Preferences.fontColor
-        shadow = Cell.makeShadow(.darkGray)
+        shadow = CollectionViewItem.makeShadow(.darkGray)
         defaultParagraphStyle = makeParagraphStyle(size)
         heightAnchor.constraint(equalToConstant: size + magicOffset).isActive = true
     }

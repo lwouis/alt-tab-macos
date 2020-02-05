@@ -53,11 +53,11 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         collectionView.backgroundColors = [.clear]
         collectionView.isSelectable = true
         collectionView.allowsMultipleSelection = false
-        collectionView.register(Cell.self, forItemWithIdentifier: cellId)
+        collectionView.register(CollectionViewItem.self, forItemWithIdentifier: cellId)
     }
 
-    private func makeLayout() -> CollectionViewCenterFlowLayout {
-        let layout = CollectionViewCenterFlowLayout()
+    private func makeLayout() -> CollectionViewFlowLayout {
+        let layout = CollectionViewFlowLayout()
         layout.minimumInteritemSpacing = Preferences.interCellPadding
         layout.minimumLineSpacing = Preferences.interCellPadding
         return layout
@@ -68,14 +68,14 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! Cell
+        let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! CollectionViewItem
         item.updateRecycledCellWithNewContent(Windows.list[indexPath.item], app!.focusSelectedWindow, app!.thumbnailsPanel!.highlightCell, currentScreen!)
         return item
     }
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         guard indexPath.item < Windows.list.count else { return .zero }
-        return NSSize(width: Cell.width(Windows.list[indexPath.item].thumbnail, currentScreen!).rounded(), height: Cell.height(currentScreen!).rounded())
+        return NSSize(width: CollectionViewItem.width(Windows.list[indexPath.item].thumbnail, currentScreen!).rounded(), height: CollectionViewItem.height(currentScreen!).rounded())
     }
 
     func highlightCell() {
@@ -83,7 +83,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         collectionView.selectItems(at: [IndexPath(item: Windows.focusedWindowIndex, section: 0)], scrollPosition: .top)
     }
 
-    func highlightCell(_ cell: Cell) {
+    func highlightCell(_ cell: CollectionViewItem) {
         let newIndex = collectionView.indexPath(for: cell)!
         if Windows.focusedWindowIndex != newIndex.item {
             collectionView.selectItems(at: [newIndex], scrollPosition: .top)
@@ -94,7 +94,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 
     func refreshCollectionView(_ screen: NSScreen, _ uiWorkShouldBeDone: Bool) {
         if uiWorkShouldBeDone { self.currentScreen = screen }
-        let layout = collectionView.collectionViewLayout as! CollectionViewCenterFlowLayout
+        let layout = collectionView.collectionViewLayout as! CollectionViewFlowLayout
         if uiWorkShouldBeDone { layout.currentScreen = screen }
         if uiWorkShouldBeDone { layout.invalidateLayout() }
         if uiWorkShouldBeDone { collectionView.setFrameSize(NSSize(width: ThumbnailsPanel.widthMax(screen).rounded(), height: ThumbnailsPanel.heightMax(screen).rounded())) }
