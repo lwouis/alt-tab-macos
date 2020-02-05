@@ -5,6 +5,7 @@ let cgsMainConnectionId = CGSMainConnectionID()
 
 class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     static let name = "AltTab"
+    static let version = "#VERSION#"
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
     var preferencesPanel: PreferencesWindow?
@@ -27,9 +28,10 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         Preferences.loadFromDiskAndUpdateValues()
         statusItem = StatusItem.make(self)
         initPreferencesDependentComponents()
-        Spaces.initialDiscovery()
-        Applications.initialDiscovery()
-        Keyboard.listenToGlobalEvents(self)
+//        Spaces.initialDiscovery()
+//        Applications.initialDiscovery()
+//        Keyboard.listenToGlobalEvents(self)
+        showPreferencesPanel()
     }
 
     // we put application code here which should be executed on init() and Preferences change

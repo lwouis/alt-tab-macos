@@ -28,6 +28,7 @@
 		D04BA9119E2329DB5A35B3C7 /* ThumbnailsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE5BBE182DD5DDFE2E3E /* ThumbnailsPanel.swift */; };
 		D04BA960DDD1D32A3019C835 /* CollectionViewCenterFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA3202A2C22C347E849B3 /* CollectionViewCenterFlowLayout.swift */; };
 		D04BA9CCE02D30C8164A552A /* SystemPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */; };
+		D04BAA3D066D2B428D4DBAA6 /* BoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA43552CB1EABDC8ECD9E /* BoldLabel.swift */; };
 		D04BAAD43731608067734ED3 /* DispatchQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA56E285C3FCDA52ED262 /* DispatchQueues.swift */; };
 		D04BAD4DE538FDF7E7532EE2 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD32E130E4A061DC8332 /* Labels.swift */; };
 		D04BAE2E8E9B9898A4DF9B3B /* FontIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAED53465957807CBF8B2 /* FontIcon.swift */; };
@@ -57,6 +58,7 @@
 		D04BA3F15EAE8D8C39B6F2CF /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		D04BA40A4291E4F310527DBF /* AXUIElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXUIElement.swift; sourceTree = "<group>"; };
 		D04BA4336B6004A0A99849AD /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		D04BA43552CB1EABDC8ECD9E /* BoldLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoldLabel.swift; sourceTree = "<group>"; };
 		D04BA459034C1885CA43A807 /* LICENCE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENCE.md; sourceTree = "<group>"; };
 		D04BA4B5292629AA6B560216 /* package_release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = package_release.sh; sourceTree = "<group>"; };
 		D04BA4F23325560BC0BCDDB7 /* 7 windows - 2 lines - tall window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - tall window.jpg"; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				F0298708E2B13DBD4738AE76 /* HyperlinkLabel.swift */,
 				D04BAED53465957807CBF8B2 /* FontIcon.swift */,
 				D04BAE70A24C83D571C77B1A /* TabViewController.swift */,
+				D04BA43552CB1EABDC8ECD9E /* BoldLabel.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				D04BA2378832FD7E5DE3BC23 /* Applications.swift in Sources */,
 				D04BAAD43731608067734ED3 /* DispatchQueues.swift in Sources */,
 				D04BAE53AE67492CF654B4AE /* TabViewController.swift in Sources */,
+				D04BAA3D066D2B428D4DBAA6 /* BoldLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

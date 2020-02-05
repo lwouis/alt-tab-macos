@@ -5,6 +5,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
     let tabViewController = TabViewController()
     let padding = CGFloat(20)
     let interPadding = CGFloat(10)
+    let rowHeight = CGFloat(20)
     var windowCloseRequested = false
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
@@ -73,14 +74,18 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
             return whitelistedKeycodes.contains(int)
         }
 
-        return makeGridLayout([
+        let view = makeGridLayout([
             makeLabelWithDropdown("Alt key", "metaKey", Preferences.metaKeyMacro.labels),
             makeLabelWithInput("Tab key", "tabKeyCode", 33, "KeyCodes Reference", "https://eastmanreference.com/complete-list-of-applescript-key-codes", tabKeyCodeValidator),
         ])
+        view.column(at: 0).xPlacement = .trailing
+        view.rowAlignment = .lastBaseline
+        view.setRowsHeight(rowHeight)
+        return view
     }
 
     private func makeAppearanceView() -> NSGridView {
-        return makeGridLayout([
+        let view = makeGridLayout([
             makeLabelWithDropdown("Theme", "theme", Preferences.themeMacro.labels),
             makeLabelWithSlider("Max size on screen", "maxScreenUsage", 10, 100, 10, true, "%"),
             makeLabelWithSlider("Min windows per row", "minCellsPerRow", 1, 20, 20, true),
@@ -92,14 +97,27 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
             makeLabelWithSlider("Apparition delay", "windowDisplayDelay", 0, 2000, 11, false, "ms"),
             makeLabelWithCheckbox("Hide space number labels", "hideSpaceNumberLabels"),
         ])
+        view.column(at: 0).xPlacement = .trailing
+        view.rowAlignment = .lastBaseline
+        view.setRowsHeight(rowHeight)
+        return view
     }
 
     private func makeAboutView() -> NSGridView {
-        return makeGridLayout([
-            [NSTextField(wrappingLabelWithString: "\(App.name) #VERSION#"), ],
-            [HyperlinkLabel(labelWithUrl: "Source code repository", nsUrl: NSURL(string: "https://github.com/lwouis/alt-tab-macos")!)],
-            [HyperlinkLabel(labelWithUrl: "Latest releases", nsUrl: NSURL(string: "https://github.com/lwouis/alt-tab-macos/releases")!)],
+        let appIcon = NSImageView(image: App.shared.applicationIconImage)
+        appIcon.fit(64, 64)
+        let appText = NSStackView(views: [BoldLabel(App.name), NSTextField(wrappingLabelWithString: "Version \(App.version)")])
+        appText.orientation = .vertical
+        appText.alignment = .left
+        appText.spacing = interPadding / 2
+        let appInfo = NSStackView(views: [appIcon, appText])
+        appInfo.spacing = interPadding
+        let view = makeGridLayout([
+            [appInfo],
+            [HyperlinkLabel("Source code repository", NSURL(string: "https://github.com/lwouis/alt-tab-macos")!)],
+            [HyperlinkLabel("Latest releases", NSURL(string: "https://github.com/lwouis/alt-tab-macos/releases")!)],
         ])
+        return view
     }
 
     private func makeGridLayout(_ controls: [[NSView]]) -> NSGridView {
@@ -107,18 +125,11 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         gridView.yPlacement = .fill
         gridView.columnSpacing = interPadding
         gridView.rowSpacing = interPadding
-        if controls.first!.count > 1 {
-            gridView.column(at: 0).xPlacement = .trailing
-        }
         gridView.column(at: 0).leadingPadding = padding
         gridView.column(at: gridView.numberOfColumns - 1).trailingPadding = padding
         gridView.row(at: 0).topPadding = padding
         gridView.row(at: gridView.numberOfRows - 1).bottomPadding = padding
         gridView.fit()
-        gridView.rowAlignment = .lastBaseline
-        for i in 0..<gridView.numberOfRows {
-            gridView.row(at: i).height = 20
-        }
         return gridView
     }
 
@@ -127,8 +138,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         input.validationHandler = validator
         input.delegate = input
         input.visualizeValidationState()
-        input.widthAnchor.constraint(equalToConstant: width).isActive = true
-        input.heightAnchor.constraint(equalToConstant: input.fittingSize.height).isActive = true
+        input.fit(width, input.fittingSize.height)
         let views = makeLabelWithProvidedControl(labelText, rawName, input)
         return [views[0], NSStackView(views: [views[1], makeSuffix(rawName, suffixText!, suffixUrl)])]
     }
@@ -181,7 +191,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         if url == nil {
             suffix = NSTextField(labelWithString: text)
         } else {
-            suffix = HyperlinkLabel(labelWithUrl: text, nsUrl: NSURL(string: url!)!)
+            suffix = HyperlinkLabel(text, NSURL(string: url!)!)
         }
         suffix.textColor = .gray
         suffix.identifier = NSUserInterfaceItemIdentifier(controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
