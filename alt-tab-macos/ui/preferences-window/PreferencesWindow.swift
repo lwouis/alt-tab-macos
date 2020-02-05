@@ -1,7 +1,7 @@
 import Cocoa
 import Foundation
 
-class PreferencesWindow: NSWindow, NSWindowDelegate {
+class PreferencesWindow: NSWindow {
     var windowCloseRequested = false
     let tabViewController = TabViewController()
 
