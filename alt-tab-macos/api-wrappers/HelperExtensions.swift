@@ -92,4 +92,18 @@ extension NSView {
         widthAnchor.constraint(equalToConstant: fittingSize.width).isActive = true
         heightAnchor.constraint(equalToConstant: fittingSize.height).isActive = true
     }
+
+    // constrain size to provided width and height
+    func fit(_ width: CGFloat, _ height: CGFloat) {
+        widthAnchor.constraint(equalToConstant: width).isActive = true
+        heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+}
+
+extension NSGridView {
+    func setRowsHeight(_ height: CGFloat) {
+        for i in 0..<numberOfRows {
+            row(at: i).height = height
+        }
+    }
 }
