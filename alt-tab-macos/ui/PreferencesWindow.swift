@@ -111,7 +111,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         gridView.column(at: gridView.numberOfColumns - 1).trailingPadding = padding
         gridView.row(at: 0).topPadding = padding
         gridView.row(at: gridView.numberOfRows - 1).bottomPadding = padding
-        gridView.widthAnchor.constraint(equalToConstant: gridView.fittingSize.width).isActive = true
+        gridView.fit()
         gridView.rowAlignment = .lastBaseline
         for i in 0..<gridView.numberOfRows {
             gridView.row(at: i).height = 20
@@ -167,8 +167,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
 
     private func makeLabel(_ labelText: String?, _ rawName: String) -> NSTextField {
         let label = NSTextField(wrappingLabelWithString: labelText != nil ? labelText! + ": " : "")
-        label.widthAnchor.constraint(equalToConstant: label.fittingSize.width).isActive = true
-        label.heightAnchor.constraint(equalToConstant: label.fittingSize.height).isActive = true
+        label.fit()
         label.alignment = .right
         label.identifier = NSUserInterfaceItemIdentifier(rawName + ControlIdentifierDiscriminator.LABEL.rawValue)
         return label
@@ -183,8 +182,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         }
         suffix.textColor = .gray
         suffix.identifier = NSUserInterfaceItemIdentifier(controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
-        suffix.widthAnchor.constraint(equalToConstant: suffix.fittingSize.width).isActive = true
-        suffix.heightAnchor.constraint(equalToConstant: suffix.fittingSize.height).isActive = true
+        suffix.fit()
         return suffix
     }
 
