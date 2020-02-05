@@ -98,6 +98,7 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         return makeGridLayout([
             [NSTextField(wrappingLabelWithString: "\(App.name) #VERSION#"), ],
             [HyperlinkLabel(labelWithUrl: "Source code repository", nsUrl: NSURL(string: "https://github.com/lwouis/alt-tab-macos")!)],
+            [HyperlinkLabel(labelWithUrl: "Latest releases", nsUrl: NSURL(string: "https://github.com/lwouis/alt-tab-macos/releases")!)],
         ])
     }
 
@@ -106,7 +107,9 @@ class PreferencesWindow: NSWindow, NSWindowDelegate {
         gridView.yPlacement = .fill
         gridView.columnSpacing = interPadding
         gridView.rowSpacing = interPadding
-        gridView.column(at: 0).xPlacement = .trailing
+        if controls.first!.count > 1 {
+            gridView.column(at: 0).xPlacement = .trailing
+        }
         gridView.column(at: 0).leadingPadding = padding
         gridView.column(at: gridView.numberOfColumns - 1).trailingPadding = padding
         gridView.row(at: 0).topPadding = padding
