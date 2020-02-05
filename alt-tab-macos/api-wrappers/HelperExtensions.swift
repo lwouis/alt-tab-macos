@@ -85,3 +85,11 @@ extension Array where Element == Window {
         return self[index]
     }
 }
+
+extension NSView {
+    // constrain size to fittingSize
+    func fit() {
+        widthAnchor.constraint(equalToConstant: fittingSize.width).isActive = true
+        heightAnchor.constraint(equalToConstant: fittingSize.height).isActive = true
+    }
+}
