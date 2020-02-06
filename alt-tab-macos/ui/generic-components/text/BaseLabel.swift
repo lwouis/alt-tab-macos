@@ -3,7 +3,6 @@ import Cocoa
 class BaseLabel: NSTextView {
     convenience init(_ text: String) {
         self.init(frame: .zero)
-        textContainer!.size.width = 1000
         string = text
         setup()
     }
@@ -15,12 +14,11 @@ class BaseLabel: NSTextView {
 
     private func setup() {
         drawsBackground = true
-        backgroundColor = NSColor.blue
+        backgroundColor = .clear
         isSelectable = false
         isEditable = false
         enabledTextCheckingTypes = 0
         layoutManager!.ensureLayout(for: textContainer!)
         frame = layoutManager!.usedRect(for: textContainer!)
-        fit(frame.size.width, frame.size.height)
     }
 }
