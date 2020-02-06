@@ -25,11 +25,17 @@ class FeedbackWindow: NSWindow, NSTextViewDelegate {
     }
 
     private func setupView() {
-        let intro = NSStackView(views: [
-            NSTextField(labelWithString: "Share improvement ideas, or report bugs."),
-            HyperlinkLabel("View existing tickets", "https://github.com/lwouis/alt-tab-macos/issues"),
+        let appIcon = NSImageView(image: App.shared.applicationIconImage)
+        appIcon.fit(80, 80)
+        let appText = NSStackView(views: [
+            BoldLabel("Share improvement ideas, or report bugs"),
+            HyperlinkLabel("View existing discussions", App.repository + "/issues"),
         ])
-        intro.spacing = 4
+        appText.orientation = .vertical
+        appText.alignment = .left
+        appText.spacing = GridView.interPadding / 2
+        let header = NSStackView(views: [appIcon, appText])
+        header.spacing = GridView.interPadding
         sendButton = NSButton(title: "Send", target: nil, action: #selector(sendCallback))
         sendButton.keyEquivalent = "\r"
         sendButton.isEnabled = false
@@ -42,7 +48,7 @@ class FeedbackWindow: NSWindow, NSTextViewDelegate {
         body.delegate = self
         email = TextArea(80, 1.1, "Optional: email (if you want a reply)")
         let view = GridView.make([
-            [intro],
+            [header],
             [body],
             [email],
             [buttons],
