@@ -18,6 +18,7 @@ class Menubar {
                 withTitle: "Send feedback…",
                 action: #selector(app.showFeedbackPanel),
                 keyEquivalent: ",")
+        item.menu!.addItem(NSMenuItem.separator())
         item.menu!.addItem(
             withTitle: "Quit \(App.name)",
                 action: #selector(NSApplication.terminate(_:)),
