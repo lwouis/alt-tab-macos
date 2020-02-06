@@ -35,8 +35,8 @@ class PreferencesWindow: NSWindow {
                 throw NSError.make(domain: "Preferences", message: "Please enter a valid value for '" + key + "'")
             }
             try Preferences.updateAndValidateFromString(key, newValue)
-            (App.shared as! App).initPreferencesDependentComponents()
             try Preferences.saveRawToDisk()
+            (App.shared as! App).initPreferencesDependentComponents()
         } catch let error {
             debugPrint("PreferencesWindow: save: error", key, newValue, error)
             showSaveErrorSheetModal(error as NSError, senderControl, key, previousValue) // allows recursive call by user choice
