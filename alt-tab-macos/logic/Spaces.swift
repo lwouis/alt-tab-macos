@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class Spaces {
     static var currentSpaceId = CGSSpaceID(1)
@@ -31,7 +30,7 @@ class Spaces {
 
     static func allIdsAndIndexes() -> [(CGSSpaceID, SpaceIndex)] {
         return (CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary])
-                .map { return $0["Spaces"] }.joined().enumerated()
+                .map { $0["Spaces"] }.joined().enumerated()
                 .map { (($0.element as! NSDictionary)["id64"]! as! CGSSpaceID, $0.offset + 1) }
     }
 

@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class TabViewController: NSTabViewController {
     override func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {

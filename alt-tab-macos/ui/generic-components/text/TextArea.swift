@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class TextArea: NSTextView {
     static let paddingX = CGFloat(5)

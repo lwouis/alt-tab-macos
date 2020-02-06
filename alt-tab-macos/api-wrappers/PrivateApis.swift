@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 // Private APIs are APIs that we can build the app against, but they are not supported or documented by Apple
 // We can see their names as symbols in the SDK (see https://github.com/lwouis/MacOSX-SDKs)
@@ -231,8 +230,8 @@ func SLSRequestScreenCaptureAccess() -> UInt8
 //func CGSProcessAssignToAllSpaces(_ cid: CGSConnectionID, _ pid: pid_t) -> CGError
 //
 //enum SpaceManagementMode: Int {
-//    case separate = 1
-//    case notSeparate = 0
+//    case checked = 1
+//    case unchecked = 0
 //}
 //
 //// returns the status of the "Displays have separate Spaces" system Preference

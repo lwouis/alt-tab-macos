@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class PreferencesWindow: NSWindow {
     var windowCloseRequested = false

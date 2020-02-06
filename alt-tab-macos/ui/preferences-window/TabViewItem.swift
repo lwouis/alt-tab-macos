@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class TabViewItem {
     static func make(_ label: String, _ imageNAme: NSImage.Name, _ view: NSView) -> NSTabViewItem {

@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class Window {
     var cgWindowId: CGWindowID

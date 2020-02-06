@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class AboutTab: NSObject {
     static func make() -> NSTabViewItem {
