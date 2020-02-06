@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 typealias CGWindow = [CFString: Any]
 

@@ -1,4 +1,3 @@
-import Foundation
 import Cocoa
 
 class Applications {

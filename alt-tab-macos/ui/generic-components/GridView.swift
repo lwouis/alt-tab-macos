@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class GridView {
     static let padding = CGFloat(20)

@@ -1,5 +1,5 @@
-import Foundation
 import Cocoa
+import Darwin
 
 let cgsMainConnectionId = CGSMainConnectionID()
 

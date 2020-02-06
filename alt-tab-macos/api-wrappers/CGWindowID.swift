@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 extension CGWindowID {
     func title() -> String? {

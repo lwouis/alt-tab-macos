@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class Windows {
     // order in the array is important: most-recently-used elements are first

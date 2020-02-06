@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class ShortcutsTab {
     private static let rowHeight = CGFloat(20)

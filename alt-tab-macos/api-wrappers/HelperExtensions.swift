@@ -1,4 +1,3 @@
-import Foundation
 import Cocoa
 
 extension CGFloat {
@@ -101,6 +100,7 @@ extension NSView {
 }
 
 extension NSGridView {
+    // set height for all rows
     func setRowsHeight(_ height: CGFloat) {
         for i in 0..<numberOfRows {
             row(at: i).height = height

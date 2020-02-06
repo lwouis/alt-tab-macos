@@ -1,4 +1,3 @@
-import Foundation
 import Cocoa
 
 // macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy

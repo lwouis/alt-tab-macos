@@ -1,5 +1,4 @@
 import Cocoa
-import Foundation
 
 class LabelAndControl: NSObject {
     static var callbackTarget: PreferencesWindow!
