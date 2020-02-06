@@ -130,7 +130,9 @@ class Preferences {
     }
 
     static func saveRawToDisk() throws {
+        ProcessInfo.processInfo.disableSuddenTermination()
         try saveToDisk(rawValues, userFile)
+        ProcessInfo.processInfo.enableSuddenTermination()
     }
 
     private static func preferencesVersion(_ url: URL) throws -> Int {
