@@ -6,6 +6,7 @@ let cgsMainConnectionId = CGSMainConnectionID()
 class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     static let name = "AltTab"
     static let version = "#VERSION#"
+    static let repository = "https://github.com/lwouis/alt-tab-macos"
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
     var preferencesWindow: PreferencesWindow?
