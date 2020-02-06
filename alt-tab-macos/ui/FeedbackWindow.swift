@@ -46,8 +46,8 @@ class FeedbackWindow: NSWindow, NSTextViewDelegate {
         buttons.spacing = GridView.interPadding
         body = TextArea(80, 20, "I think the app could be improved with…")
         body.delegate = self
-        email = TextArea(80, 1.1, "Optional: email (if you want a reply)")
-        debugProfile = NSButton(checkboxWithTitle: "Send debug profile", target: nil, action: nil)
+        email = TextArea(80, 1, "Optional: email (if you want a reply)")
+        debugProfile = NSButton(checkboxWithTitle: "Send debug profile (CPU, memory, etc)", target: nil, action: nil)
         debugProfile.state = .on
         let view = GridView.make([
             [header],
