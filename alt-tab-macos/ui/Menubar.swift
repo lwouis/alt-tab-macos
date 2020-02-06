@@ -19,7 +19,7 @@ class Menubar {
                 action: #selector(app.showFeedbackPanel),
                 keyEquivalent: ",")
         item.menu!.addItem(
-            withTitle: "Quit",
+            withTitle: "Quit \(App.name)",
                 action: #selector(NSApplication.terminate(_:)),
                 keyEquivalent: "q")
         return item
