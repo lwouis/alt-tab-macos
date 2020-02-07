@@ -1,23 +1,48 @@
 import Cocoa
 
-class TextArea: NSTextView {
-    static let padding = CGFloat(10)
-    static let magicOffset = CGFloat(3)
-    @objc var placeholderAttributedString: NSAttributedString?
+class TextArea: NSTextField, NSTextFieldDelegate {
+    static let padding = CGFloat(5)
+    var callback: (() -> Void)!
 
-    convenience init(_ width: CGFloat, _ height: CGFloat, _ placeholder: String) {
+    convenience init(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ callback: (() -> Void)? = nil) {
         self.init(frame: .zero)
-        allowsUndo = true
+        self.callback = callback
+        delegate = self
+        cell = TextFieldCell(placeholder, nLinesHigh == 1)
+        fit(font!.xHeight * nCharactersWide + TextArea.padding * 2, fittingSize.height * CGFloat(nLinesHigh) + TextArea.padding * 2)
+    }
+
+    func controlTextDidChange(_ notification: Notification) {
+        callback?()
+    }
+
+    // enter key inserts new line instead of submitting
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        guard commandSelector == #selector(NSResponder.insertNewline) else { return false }
+        textView.insertNewlineIgnoringFieldEditor(self)
+        return true
+    }
+}
+
+// subclassing NSTextFieldCell is done uniquely to add padding
+class TextFieldCell: NSTextFieldCell {
+    convenience init(_ placeholder: String, _ usesSingleLineMode: Bool) {
+        self.init()
+        isBordered = true
+        isBezeled = true
+        isEditable = true
         font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
-        textContainerInset = NSSize(width: TextArea.padding, height: TextArea.padding)
-        textContainer!.lineFragmentPadding = 0
-        let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        paragraphStyle.maximumLineHeight = NSFont.systemFontSize + TextArea.magicOffset
-        placeholderAttributedString = NSAttributedString(string: placeholder, attributes: [
-            NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.systemFontSize),
-            NSAttributedString.Key.foregroundColor: NSColor.gray,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle,
-        ])
-        fit(font!.xHeight * width + TextArea.padding * 2, NSFont.systemFontSize * height + TextArea.padding * 2 + TextArea.magicOffset)
+        stringValue = ""
+        placeholderString = placeholder
+        self.usesSingleLineMode = usesSingleLineMode
+    }
+
+    override func drawingRect(forBounds rect: NSRect) -> NSRect {
+        return super.drawingRect(forBounds: NSMakeRect(
+                rect.origin.x + TextArea.padding,
+                rect.origin.y + TextArea.padding,
+                rect.size.width - TextArea.padding * 2,
+                rect.size.height - TextArea.padding * 2
+        ))
     }
 }
