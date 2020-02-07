@@ -18,7 +18,7 @@ class FeedbackWindow: NSWindow {
     }
 
     private func setupWindow() {
-        title = "Send feedback"
+        title = NSLocalizedString("Send feedback", comment: "")
         hidesOnDeactivate = false
         isReleasedWhenClosed = false
         styleMask.insert([.miniaturizable, .closable])
@@ -28,27 +28,27 @@ class FeedbackWindow: NSWindow {
         let appIcon = NSImageView(image: App.shared.applicationIconImage)
         appIcon.fit(80, 80)
         let appText = NSStackView(views: [
-            BoldLabel("Share improvement ideas, or report bugs"),
-            HyperlinkLabel("View existing discussions", App.repository + "/issues"),
+            BoldLabel(NSLocalizedString("Share improvement ideas, or report bugs", comment: "")),
+            HyperlinkLabel(NSLocalizedString("View existing discussions", comment: ""), App.repository + "/issues"),
         ])
         appText.orientation = .vertical
         appText.alignment = .left
         appText.spacing = GridView.interPadding / 2
         let header = NSStackView(views: [appIcon, appText])
         header.spacing = GridView.interPadding
-        sendButton = NSButton(title: "Send", target: nil, action: #selector(sendCallback))
+        sendButton = NSButton(title: NSLocalizedString("Send", comment: ""), target: nil, action: #selector(sendCallback))
         sendButton.keyEquivalent = "\r"
         sendButton.isEnabled = false
         let buttons = NSStackView(views: [
-            NSButton(title: "Cancel", target: nil, action: #selector(cancelCallback)),
+            NSButton(title: NSLocalizedString("Cancel", comment: ""), target: nil, action: #selector(cancelCallback)),
             sendButton,
         ])
         buttons.spacing = GridView.interPadding
-        body = TextArea(80, 12, "I think the app could be improved with…", {
+        body = TextArea(80, 12, NSLocalizedString("I think the app could be improved with…", comment: ""), {
             self.sendButton.isEnabled = !self.body.stringValue.isEmpty
         })
-        email = TextArea(80, 1, "Optional: email (if you want a reply)")
-        debugProfile = NSButton(checkboxWithTitle: "Send debug profile (CPU, memory, etc)", target: nil, action: nil)
+        email = TextArea(80, 1, NSLocalizedString("Optional: email (if you want a reply)", comment: ""))
+        debugProfile = NSButton(checkboxWithTitle: NSLocalizedString("Send debug profile (CPU, memory, etc)", comment: ""), target: nil, action: nil)
         debugProfile.state = .on
         let view = GridView.make([
             [header],

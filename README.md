@@ -15,6 +15,12 @@ choose **Open** then click **Open** in the prompt that appears.
 
 From macOS 10.12 to 10.15
 
+## Localization
+
+The app is currently available in: English, Français
+
+[Contribute your own language easily on POEditor](https://poeditor.com/join/project/8AOEZ0eAZE)
+
 ## Usage
 
 * Press `⌥ option` + `⇥ tab` to shows the thumbnails.

@@ -4,7 +4,7 @@ class ShortcutsTab {
     private static let rowHeight = CGFloat(20)
 
     static func make() -> NSTabViewItem {
-        return TabViewItem.make("Appearance", NSImage.preferencesGeneralName, makeView())
+        return TabViewItem.make(NSLocalizedString("Shortcuts", comment: ""), NSImage.preferencesGeneralName, makeView())
     }
 
     private static func makeView() -> NSGridView { // TODO: make the validators be a part of each Preference
@@ -22,8 +22,8 @@ class ShortcutsTab {
         }
 
         let view = GridView.make([
-            LabelAndControl.makeLabelWithDropdown("Alt key", "metaKey", Preferences.metaKeyMacro.labels),
-            LabelAndControl.makeLabelWithInput("Tab key", "tabKeyCode", 33, "KeyCodes Reference", "https://eastmanreference.com/complete-list-of-applescript-key-codes", tabKeyCodeValidator),
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Alt key", comment: ""), "metaKey", Preferences.metaKeyMacro.labels),
+            LabelAndControl.makeLabelWithInput(NSLocalizedString("Tab key", comment: ""), "tabKeyCode", 33, NSLocalizedString("KeyCodes Reference", comment: ""), "https://eastmanreference.com/complete-list-of-applescript-key-codes", tabKeyCodeValidator),
         ])
         view.column(at: 0).xPlacement = .trailing
         view.rowAlignment = .lastBaseline
