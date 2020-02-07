@@ -7,13 +7,14 @@ class TextArea: NSTextView {
 
     convenience init(_ width: CGFloat, _ height: CGFloat, _ placeholder: String) {
         self.init(frame: .zero)
+        allowsUndo = true
         font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
         textContainerInset = NSSize(width: TextArea.padding, height: TextArea.padding)
         textContainer!.lineFragmentPadding = 0
         let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraphStyle.maximumLineHeight = NSFont.systemFontSize + TextArea.magicOffset
         placeholderAttributedString = NSAttributedString(string: placeholder, attributes: [
-            NSAttributedString.Key.font : NSFont.systemFont(ofSize: NSFont.systemFontSize),
+            NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.systemFontSize),
             NSAttributedString.Key.foregroundColor: NSColor.gray,
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
         ])
