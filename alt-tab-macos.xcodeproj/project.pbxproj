@@ -16,6 +16,7 @@
 		D04BA278D9EFA568C8D18A4C /* Windows.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD1BED44EAEB77FED8A4 /* Windows.swift */; };
 		D04BA2CBF0EFA04CC80EC1BC /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE80772D25834E440975 /* Window.swift */; };
 		D04BA308162F8043F8561D03 /* AXUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA40A4291E4F310527DBF /* AXUIElement.swift */; };
+		D04BA30F92801F5960ACC844 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04BA7A48641612933710091 /* MainMenu.xib */; };
 		D04BA3261C7DA5F48310E654 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA90C6C36DB1D65BC2B66 /* App.swift */; };
 		D04BA40A1C8B02448D720EA3 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7ADB4B6C31B4887AEA3 /* BaseLabel.swift */; };
 		D04BA42AF817BCDF3F1F13F2 /* AppearanceTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACD85D3966B4C9482E52 /* AppearanceTab.swift */; };
@@ -84,6 +85,7 @@
 		D04BA6F87B035BCBF2BEAEBC /* BoldLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoldLabel.swift; sourceTree = "<group>"; };
 		D04BA6FA0F38687C3E420D77 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		D04BA78E3B4E73B40DB77174 /* CGWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindow.swift; sourceTree = "<group>"; };
+		D04BA7A48641612933710091 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		D04BA7ADB4B6C31B4887AEA3 /* BaseLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
 		D04BA7B6AAB0812631BBC7A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		D04BA7ECCE728582D9ECA613 /* determine_version.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = determine_version.sh; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				D04BABC654F40BE74DA25BC7 /* SF-Pro-Text-Regular.otf */,
+				D04BA7A48641612933710091 /* MainMenu.xib */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D04BA8373D4DE452C0C081ED /* SF-Pro-Text-Regular.otf in Resources */,
+				D04BA30F92801F5960ACC844 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

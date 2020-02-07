@@ -29,10 +29,19 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
         Preferences.loadFromDiskAndUpdateValues()
         statusItem = Menubar.make(self)
+        loadMainMenuXib()
         initPreferencesDependentComponents()
         Spaces.initialDiscovery()
         Applications.initialDiscovery()
         Keyboard.listenToGlobalEvents(self)
+    }
+
+    // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
+    // see https://stackoverflow.com/a/3746058/2249756
+    private func loadMainMenuXib() {
+        var menuObjects: NSArray?
+        Bundle.main.loadNibNamed("MainMenu", owner: self, topLevelObjects: &menuObjects)
+        menu = menuObjects?.first(where: {$0 is NSMenu }) as? NSMenu
     }
 
     // we put application code here which should be executed on init() and Preferences change
