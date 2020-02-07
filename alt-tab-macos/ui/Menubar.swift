@@ -3,7 +3,7 @@ import Cocoa
 class Menubar {
     static func make(_ app: App) -> NSStatusItem {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        item.button!.title = App.name
+        item.button!.title = "AltTab"
         item.menu = NSMenu()
         item.menu!.addItem(
                 withTitle: "Show",

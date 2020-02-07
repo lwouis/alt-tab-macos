@@ -23,7 +23,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>GPL-3.0 licence (https://github.com/lwouis/alt-tab-macos/blob/master/LICENCE.md)</string>
+	<string>GPL-3.0 licence</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>LSUIElement</key>
