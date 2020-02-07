@@ -1,6 +1,6 @@
 import Cocoa
 
-class FeedbackWindow: NSWindow, NSTextViewDelegate {
+class FeedbackWindow: NSWindow {
     var body: TextArea!
     var email: TextArea!
     var sendButton: NSButton!
@@ -44,8 +44,9 @@ class FeedbackWindow: NSWindow, NSTextViewDelegate {
             sendButton,
         ])
         buttons.spacing = GridView.interPadding
-        body = TextArea(80, 20, "I think the app could be improved with…")
-        body.delegate = self
+        body = TextArea(80, 12, "I think the app could be improved with…", {
+            self.sendButton.isEnabled = !self.body.stringValue.isEmpty
+        })
         email = TextArea(80, 1, "Optional: email (if you want a reply)")
         debugProfile = NSButton(checkboxWithTitle: "Send debug profile (CPU, memory, etc)", target: nil, action: nil)
         debugProfile.state = .on
@@ -59,10 +60,6 @@ class FeedbackWindow: NSWindow, NSTextViewDelegate {
         view.cell(atColumnIndex: 0, rowIndex: 4).xPlacement = .trailing
         setContentSize(view.fittingSize)
         contentView = view
-    }
-
-    func textDidChange(_ notification: Notification) {
-        sendButton.isEnabled = !body.string.isEmpty
     }
 
     @objc
@@ -97,11 +94,11 @@ class FeedbackWindow: NSWindow, NSTextViewDelegate {
     private func assembleBody() -> String {
         var result = ""
         result += "_This issue was opened by a bot after a user submitted feedback through the in-app form._"
-        if !email.string.isEmpty {
-            result += "\n\n__From:__ " + email.string
+        if !email.stringValue.isEmpty {
+            result += "\n\n__From:__ " + email.stringValue
         }
         result += "\n\n__Message:__"
-        result += "\n\n> " + body.string.replacingOccurrences(of: "\n", with: "\n> ")
+        result += "\n\n> " + body.stringValue.replacingOccurrences(of: "\n", with: "\n> ")
         if debugProfile.state == .on {
             result += "\n\n__Debug profile:__"
             result += "\n\n" + DebugProfile.make()
