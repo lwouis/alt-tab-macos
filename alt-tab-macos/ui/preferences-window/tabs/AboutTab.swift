@@ -2,7 +2,7 @@ import Cocoa
 
 class AboutTab: NSObject {
     static func make() -> NSTabViewItem {
-        return TabViewItem.make("About", NSImage.infoName, makeView())
+        return TabViewItem.make(NSLocalizedString("About", comment: ""), NSImage.infoName, makeView())
     }
 
     static func makeView() -> NSGridView {
@@ -10,10 +10,10 @@ class AboutTab: NSObject {
         appIcon.fit(150, 150)
         let appText = NSStackView(views: [
             BoldLabel(App.name),
-            NSTextField(wrappingLabelWithString: "Version " + App.version),
+            NSTextField(wrappingLabelWithString: NSLocalizedString("Version ", comment: "") + App.version),
             NSTextField(wrappingLabelWithString: App.licence),
-            HyperlinkLabel("Source code repository", App.repository),
-            HyperlinkLabel("Latest releases", App.repository + "/releases"),
+            HyperlinkLabel(NSLocalizedString("Source code repository", comment: ""), App.repository),
+            HyperlinkLabel(NSLocalizedString("Latest releases", comment: ""), App.repository + "/releases"),
         ])
         appText.orientation = .vertical
         appText.alignment = .left
@@ -24,7 +24,7 @@ class AboutTab: NSObject {
         appInfo.spacing = GridView.interPadding
         let view = GridView.make([
             [appInfo],
-            [NSButton(title: "Send feedback", target: self, action: #selector(feedbackCallback))],
+            [NSButton(title: NSLocalizedString("Send feedback", comment: ""), target: self, action: #selector(feedbackCallback))],
         ])
         view.row(at: 1).topPadding = GridView.interPadding * 2
         view.cell(atColumnIndex: 0, rowIndex: 1).xPlacement = .center

@@ -72,11 +72,11 @@ class PreferencesWindow: NSWindow {
 
     private func showSaveErrorSheetModal(_ nsError: NSError, _ control: NSControl, _ key: String, _ previousValue: String) {
         let alert = NSAlert()
-        alert.messageText = "Could not save Preference"
+        alert.messageText = NSLocalizedString("Could not save Preference", comment: "")
         alert.informativeText = nsError.localizedDescription + "\n"
-        alert.addButton(withTitle: "Edit")
-        alert.addButton(withTitle: "Cancel")
-        alert.addButton(withTitle: "Check again")
+        alert.addButton(withTitle: NSLocalizedString("Edit", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Check again", comment: ""))
 
         alert.beginSheetModal(for: self, completionHandler: { (modalResponse: NSApplication.ModalResponse) -> Void in
             if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {

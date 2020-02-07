@@ -1,0 +1,5 @@
+/* Bundle name */
+"CFBundleName" = "alt-tab-macos";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "GPL-3.0 license";
