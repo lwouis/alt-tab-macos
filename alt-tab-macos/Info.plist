@@ -23,11 +23,11 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2019 Pontoise, Louis. All rights reserved.</string>
+	<string>GPL-3.0 licence (https://github.com/lwouis/alt-tab-macos/blob/master/LICENCE.md)</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>LSUIElement</key>
-	<string>1</string>
+	<string>true</string>
 	<key>ATSApplicationFontsPath</key>
 	<string></string>
 	<key>NSSupportsSuddenTermination</key>
