@@ -4,6 +4,7 @@ class Application: NSObject {
     var runningApplication: NSRunningApplication
     var axUiElement: AXUIElement?
     var axObserver: AXObserver?
+    var isReallyFinishedLaunching = false
 
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
@@ -22,13 +23,7 @@ class Application: NSObject {
     private func addAndObserveWindows() {
         axUiElement = AXUIElementCreateApplication(runningApplication.processIdentifier)
         AXObserverCreate(runningApplication.processIdentifier, axObserverCallback, &axObserver)
-        observeAllWindows()
-    }
-
-    private func observeAllWindows() {
-        let windows = getActualWindows()
-        debugPrint("Adding app: " + (runningApplication.bundleIdentifier ?? "nil"), windows.map { $0.title() })
-        addWindows(windows)
+        debugPrint("Adding app: " + (runningApplication.bundleIdentifier ?? "nil"))
         observeEvents()
     }
 
@@ -65,7 +60,14 @@ class Application: NSObject {
             kAXApplicationHiddenNotification,
             kAXApplicationShownNotification,
         ] {
-            axUiElement!.subscribeWithRetry(axObserver, notification, selfPointer)
+            axUiElement!.subscribeWithRetry(axObserver, notification, selfPointer, {
+                // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
+                // we consider them ready when the first subscription succeeds, and list their windows again at that point
+                if !self.isReallyFinishedLaunching {
+                    self.isReallyFinishedLaunching = true
+                    self.observeNewWindows()
+                }
+            })
         }
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
