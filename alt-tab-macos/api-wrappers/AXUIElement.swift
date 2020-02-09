@@ -49,13 +49,15 @@ extension AXUIElement {
         return attribute(kAXSubroleAttribute, String.self)
     }
 
-    func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?) {
+    func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)? = nil, _ previousResult: AXError? = nil) {
         let result = AXObserverAddNotification(axObserver, self, notification as CFString, pointer)
-        if result != .success && result != .notificationUnsupported && result != .notificationAlreadyRegistered {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10), execute: {
-                self.subscribeWithRetry(axObserver, notification, pointer)
-            })
+        if result == .success || result == .notificationUnsupported || result == .notificationAlreadyRegistered {
+            callback?()
+            return
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10), execute: {
+            self.subscribeWithRetry(axObserver, notification, pointer, callback, result)
+        })
     }
 
     private func attribute<T>(_ key: String, _ type: T.Type) -> T? {
