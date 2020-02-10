@@ -14,7 +14,7 @@ class CellTitle: BaseLabel {
         self.init(NSRect.zero, textContainer)
         self.magicOffset = magicOffset
         textColor = Preferences.fontColor
-        shadow = CollectionViewItem.makeShadow(.darkGray)
+        shadow = CollectionViewItemView.makeShadow(.darkGray)
         defaultParagraphStyle = makeParagraphStyle(size)
         heightAnchor.constraint(equalToConstant: size + magicOffset).isActive = true
     }

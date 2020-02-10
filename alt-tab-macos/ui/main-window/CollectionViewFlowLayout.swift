@@ -17,7 +17,7 @@ class CollectionViewFlowLayout: NSCollectionViewFlowLayout {
         var widestRow = CGFloat(0)
         var totalHeight = CGFloat(0)
         for (index, attribute) in attributes.enumerated() {
-            let isNewRow = abs(attribute.frame.origin.y - currentRowY) > CollectionViewItem.height(currentScreen!)
+            let isNewRow = abs(attribute.frame.origin.y - currentRowY) > CollectionViewItemView.height(currentScreen!)
             if isNewRow {
                 currentRowWidth -= Preferences.interCellPadding
                 widestRow = max(widestRow, currentRowWidth)
