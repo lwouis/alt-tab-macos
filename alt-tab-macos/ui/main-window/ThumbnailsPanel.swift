@@ -21,8 +21,9 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         backgroundView = ThumbnailsPanel.makeBackgroundView()
         backgroundView.addSubview(collectionView)
         contentView!.addSubview(backgroundView)
-        // highest level possible; this allows the app to go on top of context menus
-        level = .screenSaver
+        // 2nd highest level possible; this allows the app to go on top of context menus
+        // highest level is .screenSaver but makes drag and drop on top the main window impossible
+        level = .popUpMenu
         // helps filter out this window from the thumbnails
         setAccessibilitySubrole(.unknown)
     }
@@ -65,13 +66,16 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! CollectionViewItem
-        item.updateRecycledCellWithNewContent(Windows.list[indexPath.item], app!.focusSelectedWindow, app!.thumbnailsPanel!.highlightCell, currentScreen!)
+        item.view_.updateRecycledCellWithNewContent(Windows.list[indexPath.item],
+                { self.app!.focusSelectedWindow(item.view_.window_) },
+                { self.app!.thumbnailsPanel!.highlightCell(item) },
+                currentScreen!)
         return item
     }
 
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         guard indexPath.item < Windows.list.count else { return .zero }
-        return NSSize(width: CollectionViewItem.width(Windows.list[indexPath.item].thumbnail, currentScreen!).rounded(), height: CollectionViewItem.height(currentScreen!).rounded())
+        return NSSize(width: CollectionViewItemView.width(Windows.list[indexPath.item].thumbnail, currentScreen!).rounded(), height: CollectionViewItemView.height(currentScreen!).rounded())
     }
 
     func highlightCell() {
