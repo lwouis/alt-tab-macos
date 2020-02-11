@@ -53,6 +53,7 @@ class PreferencesWindow: NSWindow {
         tabViewController.tabStyle = .toolbar
         tabViewController.addTabViewItem(ShortcutsTab.make())
         tabViewController.addTabViewItem(AppearanceTab.make())
+        tabViewController.addTabViewItem(UpdatesTab.make())
         tabViewController.addTabViewItem(AboutTab.make())
     }
 

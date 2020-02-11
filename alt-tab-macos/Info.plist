@@ -32,5 +32,11 @@
 	<string></string>
 	<key>NSSupportsSuddenTermination</key>
 	<string>true</string>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/lwouis/alt-tab-macos/v3-poc/appcast.xml</string>
+	<key>SUEnableAutomaticChecks</key>
+	<string>true</string>
+	<key>SUPublicEDKey</key>
+	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
 </dict>
 </plist>

@@ -15,6 +15,8 @@ script:
   - if [ $IS_RELEASE ]; then ci/set_version_in_app.sh; fi
   - ci/build_release.sh
   - if [ $IS_RELEASE ]; then ci/package_release.sh; fi
+  - if [ $IS_RELEASE ]; then ci/update_appcast.sh; fi
+  - if [ $IS_RELEASE ]; then ci/update_homebrew_cask.sh; fi
   - if [ $IS_RELEASE ]; then npx semantic-release; fi
 deploy:
   provider: releases
@@ -26,8 +28,6 @@ deploy:
   cleanup: false
   on:
     repo: lwouis/alt-tab-macos
-after_deploy:
-  - ci/update_homebrew_cask.sh
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
