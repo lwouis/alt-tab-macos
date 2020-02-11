@@ -20,8 +20,8 @@ class Preferences {
         MacroPreference("⌘ command", ([kVK_Command, kVK_RightCommand], .command))
     ])
     static let showOnScreenMacro = MacroPreferenceHelper<ShowOnScreenPreference>([
-        MacroPreference("Main screen", ShowOnScreenPreference.MAIN),
-        MacroPreference("Screen including mouse", ShowOnScreenPreference.MOUSE),
+        MacroPreference("Main screen", ShowOnScreenPreference.main),
+        MacroPreference("Screen including mouse", ShowOnScreenPreference.mouse),
     ])
 
     static var defaults: [String: String] = [
@@ -36,7 +36,7 @@ class Preferences {
         "windowDisplayDelay": "0",
         "theme": themeMacro.macros[0].label,
         "showOnScreen": showOnScreenMacro.macros[0].label,
-        "hideSpaceNumberLabels": String(false)
+        "hideSpaceNumberLabels": String(false),
     ]
     static var rawValues = [String: String]()
 
@@ -89,41 +89,41 @@ class Preferences {
 
     static func updateAndValidateFromString(_ valueName: String, _ value: String) throws {
         switch valueName {
-        case "maxScreenUsage":
-            maxScreenUsage = try CGFloat(CGFloat(value).orThrow() / 100)
-        case "minCellsPerRow":
-            minCellsPerRow = try CGFloat(value).orThrow()
-        case "maxCellsPerRow":
-            maxCellsPerRow = try CGFloat(value).orThrow()
-        case "minRows":
-            minRows = try CGFloat(value).orThrow()
-        case "iconSize":
-            iconSize = try CGFloat(value).orThrow()
-        case "fontHeight":
-            fontHeight = try CGFloat(value).orThrow()
-            font = NSFont.systemFont(ofSize: fontHeight)
-        case "tabKeyCode":
-            tabKeyCode = try UInt16(value).orThrow()
-        case "metaKey":
-            let p = try metaKeyMacro.labelToMacro[value].orThrow()
-            metaKeyCodes = p.preferences.0.map { UInt16($0) }
-            metaModifierFlag = p.preferences.1
-        case "theme":
-            let p = try themeMacro.labelToMacro[value].orThrow()
-            cellBorderWidth = p.preferences.0
-            cellCornerRadius = p.preferences.1
-            windowCornerRadius = p.preferences.2
-            highlightBorderColor = p.preferences.3
-            highlightBackgroundColor = p.preferences.4
-        case "windowDisplayDelay":
-            windowDisplayDelay = DispatchTimeInterval.milliseconds(try Int(value).orThrow())
-        case "showOnScreen":
-            let p = try showOnScreenMacro.labelToMacro[value].orThrow()
-            showOnScreen = p.preferences
-        case "hideSpaceNumberLabels":
-            hideSpaceNumberLabels = try Bool(value).orThrow()
-        default:
-            throw NSError.make(domain: "Preferences", message: "Tried to update an unknown preference: '\(valueName)' = '\(value)'")
+            case "maxScreenUsage":
+                maxScreenUsage = try CGFloat(CGFloat(value).orThrow() / 100)
+            case "minCellsPerRow":
+                minCellsPerRow = try CGFloat(value).orThrow()
+            case "maxCellsPerRow":
+                maxCellsPerRow = try CGFloat(value).orThrow()
+            case "minRows":
+                minRows = try CGFloat(value).orThrow()
+            case "iconSize":
+                iconSize = try CGFloat(value).orThrow()
+            case "fontHeight":
+                fontHeight = try CGFloat(value).orThrow()
+                font = NSFont.systemFont(ofSize: fontHeight)
+            case "tabKeyCode":
+                tabKeyCode = try UInt16(value).orThrow()
+            case "metaKey":
+                let p = try metaKeyMacro.labelToMacro[value].orThrow()
+                metaKeyCodes = p.preferences.0.map { UInt16($0) }
+                metaModifierFlag = p.preferences.1
+            case "theme":
+                let p = try themeMacro.labelToMacro[value].orThrow()
+                cellBorderWidth = p.preferences.0
+                cellCornerRadius = p.preferences.1
+                windowCornerRadius = p.preferences.2
+                highlightBorderColor = p.preferences.3
+                highlightBackgroundColor = p.preferences.4
+            case "windowDisplayDelay":
+                windowDisplayDelay = DispatchTimeInterval.milliseconds(try Int(value).orThrow())
+            case "showOnScreen":
+                let p = try showOnScreenMacro.labelToMacro[value].orThrow()
+                showOnScreen = p.preferences
+            case "hideSpaceNumberLabels":
+                hideSpaceNumberLabels = try Bool(value).orThrow()
+            default:
+                throw NSError.make(domain: "Preferences", message: "Tried to update an unknown preference: '\(valueName)' = '\(value)'")
         }
         rawValues[valueName] = value
     }
@@ -188,6 +188,6 @@ class MacroPreferenceHelper<T> {
 }
 
 enum ShowOnScreenPreference {
-    case MAIN
-    case MOUSE
+    case main
+    case mouse
 }

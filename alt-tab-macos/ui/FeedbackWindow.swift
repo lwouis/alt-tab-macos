@@ -63,12 +63,12 @@ class FeedbackWindow: NSWindow {
     }
 
     @objc
-    private func cancelCallback(senderControl: NSControl) {
+    private func cancelCallback() {
         close()
     }
 
     @objc
-    private func sendCallback(senderControl: NSControl) {
+    private func sendCallback() {
         URLSession.shared.dataTask(with: prepareRequest(), completionHandler: { data, response, error in
             if error != nil || response == nil || (response as! HTTPURLResponse).statusCode != 201 {
                 debugPrint("HTTP call failed:", response ?? "nil", error ?? "nil")

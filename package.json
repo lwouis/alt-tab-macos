@@ -17,6 +17,7 @@
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^7.0.16",
     "husky": "^3.0.4",
+    "marked": "^0.8.0",
     "semantic-release": "^15.13.24"
   }
 }

@@ -71,6 +71,11 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     @objc
+    func checkForUpdatesNow(_ sender: NSMenuItem) {
+        UpdatesTab.checkForUpdatesNow(sender)
+    }
+
+    @objc
     func showPreferencesPanel() {
         if preferencesWindow == nil {
             preferencesWindow = PreferencesWindow()

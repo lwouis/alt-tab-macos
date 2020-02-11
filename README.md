@@ -59,7 +59,10 @@ Before building my own app, I looked around at similar apps. However, none was c
 
 ## Building the project locally
 
-This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it using 1 command `xcodebuild`.
+This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it using 2 commands:
+
+* `pod install` to fetch the dependencies with [CocoaPods](https://cocoapods.org/)
+* `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release` to build the .app
 
 Note that on debug builds, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build, we use a code-signing certificate. You can generate one on your local machine in one step by running `ci/generate_debug_certificate.sh`.
 

@@ -40,7 +40,10 @@ module.exports = {
         '@semantic-release/changelog',
         [
             '@semantic-release/git', {
-            'assets': ['CHANGELOG.md'],
+            'assets': [
+                'CHANGELOG.md',
+                'appcast.xml'
+            ],
         },
         ],
     ],

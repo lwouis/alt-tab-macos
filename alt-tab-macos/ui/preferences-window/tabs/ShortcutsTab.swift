@@ -1,7 +1,7 @@
 import Cocoa
 
 class ShortcutsTab {
-    private static let rowHeight = CGFloat(20)
+    private static let rowHeight = CGFloat(22) // height of the "Tab key" input
 
     static func make() -> NSTabViewItem {
         return TabViewItem.make(NSLocalizedString("Shortcuts", comment: ""), NSImage.preferencesGeneralName, makeView())

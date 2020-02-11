@@ -24,16 +24,17 @@ class AboutTab: NSObject {
         appInfo.spacing = GridView.interPadding
         let view = GridView.make([
             [appInfo],
-            [NSButton(title: NSLocalizedString("Send feedback", comment: ""), target: self, action: #selector(feedbackCallback))],
+            [NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: self, action: #selector(feedbackCallback))],
         ])
-        view.row(at: 1).topPadding = GridView.interPadding * 2
-        view.cell(atColumnIndex: 0, rowIndex: 1).xPlacement = .center
+        let sendFeedbackCell = view.cell(atColumnIndex: 0, rowIndex: 1)
+        sendFeedbackCell.xPlacement = .center
+        sendFeedbackCell.row!.topPadding = GridView.interPadding
         view.fit()
         return view
     }
 
     @objc
-    static func feedbackCallback(senderControl: NSControl) {
+    static func feedbackCallback() {
         (App.shared as! App).showFeedbackPanel()
     }
 }

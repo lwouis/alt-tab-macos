@@ -18,4 +18,4 @@ echo "$APPLE_P12_CERTIFICATE" | base64 --decode > $certificateFile.p12
 security import $certificateFile.p12 -P "$APPLE_P12_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
 security set-key-partition-list -S apple-tool:,apple: -s -k $keychainPassword $keychain
 # build release .app
-xcodebuild CODE_SIGN_IDENTITY="Developer ID Application: Louis Pontoise (QXD7GW8FHY)"
+xcodebuild CODE_SIGN_IDENTITY="Developer ID Application: Louis Pontoise (QXD7GW8FHY)" -workspace alt-tab-macos.xcworkspace -scheme Release

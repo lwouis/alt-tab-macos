@@ -8,16 +8,20 @@ class Menubar {
         item.menu!.addItem(
                 withTitle: NSLocalizedString("Show", comment: ""),
                 action: #selector(app.showUi),
-                keyEquivalent: "s"
+                keyEquivalent: ""
         )
         item.menu!.addItem(
                 withTitle: NSLocalizedString("Preferences…", comment: ""),
                 action: #selector(app.showPreferencesPanel),
                 keyEquivalent: ",")
         item.menu!.addItem(
+                withTitle: NSLocalizedString("Check for updates…", comment: ""),
+                action: #selector(app.checkForUpdatesNow),
+                keyEquivalent: "")
+        item.menu!.addItem(
                 withTitle: NSLocalizedString("Send feedback…", comment: ""),
                 action: #selector(app.showFeedbackPanel),
-                keyEquivalent: ",")
+                keyEquivalent: "")
         item.menu!.addItem(NSMenuItem.separator())
         item.menu!.addItem(
             withTitle: NSLocalizedString("Quit", comment: "") + " " + App.name,
