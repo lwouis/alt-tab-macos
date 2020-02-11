@@ -1,0 +1,20 @@
+PODS:
+  - LetsMove (1.24)
+  - Sparkle (1.22.0)
+
+DEPENDENCIES:
+  - LetsMove (= 1.24)
+  - Sparkle (= 1.22.0)
+
+SPEC REPOS:
+  trunk:
+    - LetsMove
+    - Sparkle
+
+SPEC CHECKSUMS:
+  LetsMove: fefe56bc7bc7fb7d37049e28a14f297961229fc5
+  Sparkle: 593ac2e677c07bcb6c3b22d621240e7cbedaab57
+
+PODFILE CHECKSUM: d7356c4f4fea94deb26f1654c141fcd800355daa
+
+COCOAPODS: 1.8.4

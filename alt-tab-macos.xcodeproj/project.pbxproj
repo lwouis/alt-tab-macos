@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
+		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
 		D04BA0496ACF1427B6E9D369 /* CGWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA78E3B4E73B40DB77174 /* CGWindow.swift */; };
 		D04BA0E86F2D30722F97C16F /* Menubar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAF0469B160046170B608 /* Menubar.swift */; };
 		D04BA1BA0B3F2E0A47883569 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAF13DFAA6930676D0492 /* Application.swift */; };
@@ -19,6 +20,7 @@
 		D04BA30F92801F5960ACC844 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04BA7A48641612933710091 /* MainMenu.xib */; };
 		D04BA3261C7DA5F48310E654 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA90C6C36DB1D65BC2B66 /* App.swift */; };
 		D04BA3AE19F48237BDCDDA4F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAB8DB0BA2A20D08D9D7F /* Localizable.strings */; };
+		D04BA3D87405EE52518CCC3E /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = D04BA2A4F257F4DCE1421758 /* Podfile.lock */; };
 		D04BA40A1C8B02448D720EA3 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7ADB4B6C31B4887AEA3 /* BaseLabel.swift */; };
 		D04BA42AF817BCDF3F1F13F2 /* AppearanceTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACD85D3966B4C9482E52 /* AppearanceTab.swift */; };
 		D04BA4312972BFFB0DD1C141 /* BoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6F87B035BCBF2BEAEBC /* BoldLabel.swift */; };
@@ -53,6 +55,7 @@
 		D04BAD5A6B2F9EEE6FD4185F /* CollectionViewItemTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA4BABBA0312E0EDBA647 /* CollectionViewItemTitle.swift */; };
 		D04BAD8346A6A32C9749E0B3 /* TabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA293C53EC5CE00D11E02 /* TabViewItem.swift */; };
 		D04BAE369A14C3126A1606FE /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8F1AA48A323EE5638DC /* HelperExtensions.swift */; };
+		D04BAE4A31689CCF132372B7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D04BA0E071D2EDFDB9A20523 /* Podfile */; };
 		D04BAE4CE37C303DDD0347B8 /* CollectionViewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE073DD0B0D65CD4CBB6 /* CollectionViewItemView.swift */; };
 		D04BAEAB8AB048FF2B16B131 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAE5FA03065C5D23C0C2C /* Localizable.strings */; };
 		D04BAEF78503D7A2CEFB9E9E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAA44C837F3A67403B9DB /* main.swift */; };
@@ -61,9 +64,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		38C426DAE17708EDD4FDADBF /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
+		BF12DEA89785CA78B0FE2706 /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
+		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA05F3F36A6D71DCD8475 /* en */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BA0CE87BE264C52987ED1 /* 7 windows - 2 lines - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - wide window.jpg"; sourceTree = "<group>"; };
+		D04BA0E071D2EDFDB9A20523 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		D04BA0E1C5DBC07108AC2F54 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D04BA0F5EB832B8E142B654B /* 4 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "4 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA107C8B8FE7FF8536606 /* too many windows - 4 lines - paginated.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "too many windows - 4 lines - paginated.jpg"; sourceTree = "<group>"; };
@@ -71,6 +78,7 @@
 		D04BA1FC9022590D7AA02486 /* 1 window - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1 window - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA26154AB2A2897E08CAF /* windows-theme.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "windows-theme.jpg"; sourceTree = "<group>"; };
 		D04BA293C53EC5CE00D11E02 /* TabViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewItem.swift; sourceTree = "<group>"; };
+		D04BA2A4F257F4DCE1421758 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file.lock; path = Podfile.lock; sourceTree = "<group>"; };
 		D04BA2C7B51F68651B3C60E2 /* 6 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "6 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA2D2AD6B1CCA3F3A4DD7 /* SystemPermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemPermissions.swift; sourceTree = "<group>"; };
 		D04BA2D2BCBA4C47E25315AF /* HyperlinkLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperlinkLabel.swift; sourceTree = "<group>"; };
@@ -157,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */,
+				76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,8 +176,18 @@
 			isa = PBXGroup;
 			children = (
 				4807A6C523A9CD190052A53E /* SkyLight.framework */,
+				C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4A443501F57D4759B190C07E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BF12DEA89785CA78B0FE2706 /* Pods-alt-tab-macos.debug.xcconfig */,
+				38C426DAE17708EDD4FDADBF /* Pods-alt-tab-macos.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		D04BA13E9A7AB055F50EC090 /* de.lproj */ = {
@@ -198,6 +217,9 @@
 				D04BA459034C1885CA43A807 /* LICENCE.md */,
 				D04BA2C9EF33A646D0977195 /* .github */,
 				4807A6C423A9CD190052A53E /* Frameworks */,
+				4A443501F57D4759B190C07E /* Pods */,
+				D04BA2A4F257F4DCE1421758 /* Podfile.lock */,
+				D04BA0E071D2EDFDB9A20523 /* Podfile */,
 			);
 			sourceTree = "<group>";
 		};
@@ -456,9 +478,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D04BA4D71CBB2FA4B9947B10 /* Build configuration list for PBXNativeTarget "alt-tab-macos" */;
 			buildPhases = (
+				5968B81A43F20B6ECD92C7F7 /* [CP] Check Pods Manifest.lock */,
 				D04BAD01F4BCEDF8B539AFD2 /* Sources */,
 				D04BA82F32FB183F65DC3E42 /* Frameworks */,
 				D04BA96F3DC99263120BCD21 /* Resources */,
+				7641B7923B36478FBF4D7CCD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -475,6 +499,7 @@
 		D04BA59EB5ED6F005E8F4407 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = lwouis;
 			};
 			buildConfigurationList = D04BA83C9495F252D87CDF0F /* Build configuration list for PBXProject "alt-tab-macos" */;
@@ -512,10 +537,59 @@
 				D04BAFAF889BB3DA9A03FD83 /* Localizable.strings in Resources */,
 				D04BA744F626B2E89331390B /* InfoPlist.strings in Resources */,
 				D04BA3AE19F48237BDCDDA4F /* Localizable.strings in Resources */,
+				D04BA3D87405EE52518CCC3E /* Podfile.lock in Resources */,
+				D04BAE4A31689CCF132372B7 /* Podfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5968B81A43F20B6ECD92C7F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-alt-tab-macos-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7641B7923B36478FBF4D7CCD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LetsMove/LetsMove.framework",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LetsMove.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D04BAD01F4BCEDF8B539AFD2 /* Sources */ = {
@@ -637,12 +711,13 @@
 /* Begin XCBuildConfiguration section */
 		D04BA49BCED00029C5289244 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38C426DAE17708EDD4FDADBF /* Pods-alt-tab-macos.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "alt-tab-macos/alt_tab_macos.entitlements";
 				CODE_SIGN_IDENTITY = "Local Self-Signed";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks;
 				INFOPLIST_FILE = "alt-tab-macos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lwouis.alt-tab-macos";
@@ -653,12 +728,13 @@
 		};
 		D04BA6FB4EC72C6A126E86D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF12DEA89785CA78B0FE2706 /* Pods-alt-tab-macos.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "alt-tab-macos/alt_tab_macos.entitlements";
 				CODE_SIGN_IDENTITY = "Local Self-Signed";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks;
 				INFOPLIST_FILE = "alt-tab-macos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lwouis.alt-tab-macos";
@@ -670,7 +746,6 @@
 		D04BA801581D700C583B53FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -703,6 +778,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -730,7 +806,6 @@
 		D04BA9150F87B08AB0ACE4AE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -763,6 +838,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

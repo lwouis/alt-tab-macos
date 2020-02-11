@@ -3,6 +3,7 @@ xcuserdata/
 xcshareddata/
 /node_modules/
 /build/
+/Pods/
 
 .DS_Store
 
