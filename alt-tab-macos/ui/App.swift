@@ -1,5 +1,6 @@
 import Cocoa
 import Darwin
+import LetsMove
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
@@ -26,6 +27,9 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        #if !DEBUG
+          PFMoveToApplicationsFolderIfNecessary()
+        #endif
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
         Preferences.loadFromDiskAndUpdateValues()
