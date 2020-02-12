@@ -32,7 +32,7 @@ class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
         #endif
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
-        Preferences.loadFromDiskAndUpdateValues()
+        Preferences.registerDefaults()
         statusItem = Menubar.make(self)
         loadMainMenuXib()
         initPreferencesDependentComponents()

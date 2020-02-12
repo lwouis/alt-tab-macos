@@ -4,7 +4,7 @@ class LabelAndControl: NSObject {
     static var callbackTarget: PreferencesWindow!
 
     static func makeLabelWithInput(_ labelText: String, _ rawName: String, _ width: CGFloat, _ suffixText: String? = nil, _ suffixUrl: String? = nil, _ validator: ((String) -> Bool)? = nil) -> [NSView] {
-        let input = TextField(Preferences.rawValues[rawName]!)
+        let input = TextField(Preferences.getAsString(rawName)!)
         input.validationHandler = validator
         input.delegate = input
         input.visualizeValidationState()
@@ -15,19 +15,19 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
-        setControlValue(checkbox, Preferences.rawValues[rawName]!)
+        setControlValue(checkbox, Preferences.getAsString(rawName)!)
         return makeLabelWithProvidedControl(labelText, rawName, checkbox)
     }
 
     static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [String], _ suffixText: String? = nil) -> [NSView] {
         let popUp = NSPopUpButton()
         popUp.addItems(withTitles: values)
-        popUp.selectItem(withTitle: Preferences.rawValues[rawName]!)
+        popUp.selectItem(withTitle: Preferences.getAsString(rawName)!)
         return makeLabelWithProvidedControl(labelText, rawName, popUp, suffixText)
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "") -> [NSView] {
-        let value = Preferences.rawValues[rawName]!
+        let value = Preferences.getAsString(rawName)!
         let suffixText = value + " " + unitText
         let slider = NSSlider()
         slider.minValue = minValue
@@ -74,8 +74,6 @@ class LabelAndControl: NSObject {
         return suffix
     }
 
-
-
     static func getControlValue(_ control: NSControl) -> String {
         if control is NSPopUpButton {
             return (control as! NSPopUpButton).titleOfSelectedItem!
@@ -107,13 +105,10 @@ class LabelAndControl: NSObject {
         }
     }
 
-
-
     private static func updateSuffixWithValue(_ control: NSControl, _ value: String) {
         let suffixIdentifierPredicate = { (view: NSView) -> Bool in
             view.identifier?.rawValue == control.identifier!.rawValue + ControlIdentifierDiscriminator.SUFFIX.rawValue
         }
-
         if let suffixView: NSTextField = control.superview?.subviews.first(where: suffixIdentifierPredicate) as? NSTextField {
             let regex = try! NSRegularExpression(pattern: "^[0-9]+") // first decimal
             let range = NSMakeRange(0, suffixView.stringValue.count)

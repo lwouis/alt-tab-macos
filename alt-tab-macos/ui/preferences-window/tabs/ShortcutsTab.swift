@@ -22,7 +22,7 @@ class ShortcutsTab {
         }
 
         let view = GridView.make([
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Alt key", comment: ""), "metaKey", Preferences.metaKeyMacro.labels),
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Alt key", comment: ""), "metaKey", MacroPreferences.metaKeyList.values.map { $0.label }),
             LabelAndControl.makeLabelWithInput(NSLocalizedString("Tab key", comment: ""), "tabKeyCode", 33, NSLocalizedString("KeyCodes Reference", comment: ""), "https://eastmanreference.com/complete-list-of-applescript-key-codes", tabKeyCodeValidator),
         ])
         view.column(at: 0).xPlacement = .trailing

@@ -6,6 +6,8 @@ class UpdatesTab: NSObject {
     static var periodicallyCheck: NSButton!
     static var periodicallyInstall: NSButton!
     static var policyObserver = PolicyObserver()
+    // this helps prevent double-dipping (i.e. user updates the UI > changes the preference > updates the UI)
+    static var policyLock = false
 
     static func make() -> NSTabViewItem {
         return TabViewItem.make(NSLocalizedString("Updates", comment: ""), NSImage.refreshTemplateName, makeView())
@@ -49,13 +51,16 @@ class UpdatesTab: NSObject {
 
     @objc
     static func updatePolicyCallback() {
+        policyLock = true
         SUUpdater.shared().automaticallyDownloadsUpdates = periodicallyInstall.state == .on
         SUUpdater.shared().automaticallyChecksForUpdates = periodicallyInstall.state == .on || periodicallyCheck.state == .on
+        policyLock = false
     }
 }
 
 class PolicyObserver: NSObject {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        guard !UpdatesTab.policyLock else { return }
         if SUUpdater.shared().automaticallyDownloadsUpdates {
             UpdatesTab.periodicallyInstall.state = .on
             // Sparkle UI "Automatically download and install updates in the future" doesn't activate periodical checks; we do it manually

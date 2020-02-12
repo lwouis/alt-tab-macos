@@ -42,9 +42,9 @@ class DebugProfile {
     }
 
     private static func appPreferences() -> String {
-        return nestedSeparator + Preferences.rawValues
+        return nestedSeparator + Preferences.all
                 .sorted { $0.0 < $1.0 }
-                .map { $0 + intraSeparator + $1 }
+                .map { $0.key + intraSeparator + Preferences.getAsString($0.key)! }
                 .joined(separator: nestedSeparator)
     }
 
