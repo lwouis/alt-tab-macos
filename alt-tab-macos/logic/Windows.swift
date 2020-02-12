@@ -26,17 +26,16 @@ class Windows {
 
     static func updateSpaces() {
         let spacesMap = Spaces.allIdsAndIndexes()
-        for window in list {
+        list.forEachAsync { window in
             let spaceIds = window.cgWindowId.spaces()
-            guard spaceIds.count > 0 else { continue }
-            if spaceIds.count > 1 {
+            if spaceIds.count == 1 {
+                window.spaceId = spaceIds.first!
+                window.spaceIndex = spacesMap.first { $0.0 == spaceIds.first! }!.1
+            } else if spaceIds.count > 1 {
                 window.spaceId = Spaces.currentSpaceId
                 window.spaceIndex = Spaces.currentSpaceIndex
                 window.isOnAllSpaces = true
-                continue
             }
-            window.spaceId = spaceIds.first!
-            window.spaceIndex = spacesMap.first { $0.0 == spaceIds.first! }!.1
         }
     }
 
@@ -59,7 +58,7 @@ class Windows {
     }
 
     static func refreshAllThumbnails() {
-        for window in list {
+        list.forEachAsync { window in
             window.refreshThumbnail()
         }
     }
