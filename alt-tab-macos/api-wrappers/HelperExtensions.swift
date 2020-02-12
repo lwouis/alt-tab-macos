@@ -107,3 +107,18 @@ extension NSGridView {
         }
     }
 }
+
+extension Array {
+    // forEach with each iteration run concurrently on the global queue
+    func forEachAsync(fn: @escaping (Element) -> Void) {
+        let group = DispatchGroup()
+        for element in self {
+            group.enter()
+            DispatchQueue.global(qos: .userInteractive).async(group: group) {
+                fn(element)
+                group.leave()
+            }
+        }
+        group.wait()
+    }
+}
