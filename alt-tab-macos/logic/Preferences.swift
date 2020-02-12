@@ -1,193 +1,113 @@
 import Cocoa
 import Carbon.HIToolbox.Events
 
+let defaults = UserDefaults.standard
+
 class Preferences {
-    // the following constant are not exposed as preferences but may be in the future, probably through macro preferences
-    static let windowMaterial = NSVisualEffectView.Material.dark
-    static let fontColor = NSColor.white
-    static let windowPadding = CGFloat(23)
-    static let interCellPadding = CGFloat(5)
-    static let intraCellPadding = CGFloat(5)
-    static let fontIconSize = CGFloat(20)
-
-    static let themeMacro = MacroPreferenceHelper<(CGFloat, CGFloat, CGFloat, NSColor, NSColor)>([
-        MacroPreference(" macOS", (0, 5, 20, .clear, NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))),
-        MacroPreference("❖ Windows 10", (2, 0, 0, .white, .clear))
-    ])
-    static let metaKeyMacro = MacroPreferenceHelper<([Int], NSEvent.ModifierFlags)>([
-        MacroPreference("⌥ option", ([kVK_Option, kVK_RightOption], .option)),
-        MacroPreference("⌃ control", ([kVK_Control, kVK_RightControl], .control)),
-        MacroPreference("⌘ command", ([kVK_Command, kVK_RightCommand], .command))
-    ])
-    static let showOnScreenMacro = MacroPreferenceHelper<ShowOnScreenPreference>([
-        MacroPreference("Main screen", ShowOnScreenPreference.main),
-        MacroPreference("Screen including mouse", ShowOnScreenPreference.mouse),
-    ])
-
-    static var defaults: [String: String] = [
-        "maxScreenUsage": "80",
-        "minCellsPerRow": "5",
-        "maxCellsPerRow": "10",
-        "minRows": "3",
-        "iconSize": "32",
-        "fontHeight": "15",
-        "tabKeyCode": String(kVK_Tab),
-        "metaKey": metaKeyMacro.macros[0].label,
-        "windowDisplayDelay": "0",
-        "theme": themeMacro.macros[0].label,
-        "showOnScreen": showOnScreenMacro.macros[0].label,
-        "hideSpaceNumberLabels": String(false),
+    // default values
+    static var defaultValues: [String : Any] = [
+        "maxScreenUsage": Float(80),
+        "minCellsPerRow": Float(5),
+        "maxCellsPerRow": Float(10),
+        "minRows": Float(3),
+        "iconSize": Float(32),
+        "fontHeight": Float(15),
+        "tabKeyCode": kVK_Tab,
+        "windowDisplayDelay": 0,
+        "metaKey": MacroPreferences.metaKeyList.keys.first!,
+        "theme": MacroPreferences.themeList.keys.first!,
+        "showOnScreen": MacroPreferences.showOnScreenList.keys.first!,
+        "hideSpaceNumberLabels": false,
     ]
-    static var rawValues = [String: String]()
 
-    static var cellBorderWidth: CGFloat!
-    static var cellCornerRadius: CGFloat!
-    static var tabKeyCode: UInt16!
-    static var highlightBorderColor: NSColor!
-    static var highlightBackgroundColor: NSColor!
-    static var metaKeyCodes: [UInt16]!
-    static var metaModifierFlag: NSEvent.ModifierFlags!
-    static var windowDisplayDelay: DispatchTimeInterval!
-    static var windowCornerRadius: CGFloat!
-    static var showOnScreen: ShowOnScreenPreference!
-    static var hideSpaceNumberLabels: Bool!
-    static var maxScreenUsage: CGFloat!
-    static var iconSize: CGFloat!
-    static var fontHeight: CGFloat!
-    static var font: NSFont!
-    static var minCellsPerRow: CGFloat!
-    static var maxCellsPerRow: CGFloat!
-    static var minRows: CGFloat!
+    // constant values
+    // not exposed as preferences now but may be in the future, probably through macro preferences
+    static var windowMaterial: NSVisualEffectView.Material { .dark }
+    static var fontColor: NSColor { .white }
+    static var windowPadding: CGFloat { 23 }
+    static var interCellPadding: CGFloat { 5 }
+    static var intraCellPadding: CGFloat { 5 }
+    static var fontIconSize: CGFloat { 20 }
 
-    private static let defaultsFile = fileFromPreferencesFolder("alt-tab-macos-defaults.json")
-    private static let userFile = fileFromPreferencesFolder("alt-tab-macos.json")
+    // persisted values
+    static var maxScreenUsage: CGFloat { CGFloat(defaults.float(forKey: "maxScreenUsage") / 100) }
+    static var minCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "minCellsPerRow")) }
+    static var maxCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "maxCellsPerRow")) }
+    static var minRows: CGFloat { CGFloat(defaults.float(forKey: "minRows")) }
+    static var iconSize: CGFloat { CGFloat(defaults.float(forKey: "iconSize")) }
+    static var fontHeight: CGFloat { CGFloat(defaults.float(forKey: "fontHeight")) }
+    static var tabKeyCode: UInt16 { UInt16(defaults.integer(forKey: "tabKeyCode")) }
+    static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.integer(forKey: "windowDisplayDelay")) }
+    static var hideSpaceNumberLabels: Bool { defaults.bool(forKey: "hideSpaceNumberLabels") }
 
-    static func loadFromDiskAndUpdateValues() {
-        do {
-            try saveDefaultsToDisk()
-            let preferencesExist = FileManager.default.fileExists(atPath: userFile.path)
-            if !preferencesExist {
-                try FileManager.default.copyItem(at: defaultsFile, to: userFile)
-            }
-            rawValues = try loadFromDisk(userFile)
-            if preferencesExist {
-                let compatiblePreferences = rawValues.filter { defaults[$0.key] != nil }
-                rawValues = defaults.merging(compatiblePreferences) { (_, new) in new }
-            }
-            try rawValues.forEach { try updateAndValidateFromString($0.key, $0.value) }
-            if preferencesExist {
-                try saveRawToDisk()
-            }
-        } catch {
-            debugPrint("Error loading preferences", error)
-            if (FileManager.default.fileExists(atPath: userFile.path)) {
-                try! FileManager.default.removeItem(at: userFile)
-            }
-            loadFromDiskAndUpdateValues()
-        }
+    // macro values
+    static var theme: Theme { MacroPreferences.themeList[defaults.string(forKey: "theme")!]! }
+    static var metaKey: MetaKey { MacroPreferences.metaKeyList[defaults.string(forKey: "metaKey")!]! }
+    static var showOnScreen: ShowOnScreenPreference { MacroPreferences.showOnScreenList[defaults.string(forKey: "showOnScreen")!]! }
+
+    // derived values
+    static var cellBorderWidth: CGFloat { theme.cellBorderWidth }
+    static var cellCornerRadius: CGFloat { theme.cellCornerRadius }
+    static var windowCornerRadius: CGFloat { theme.windowCornerRadius }
+    static var highlightBorderColor: NSColor { theme.highlightBorderColor }
+    static var highlightBackgroundColor: NSColor { theme.highlightBackgroundColor }
+    static var metaKeyCodes: [UInt16] { metaKey.keyCodes.map { UInt16($0) } }
+    static var metaModifierFlag: NSEvent.ModifierFlags { metaKey.modifierFlag }
+    static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
+
+    static func registerDefaults() {
+        defaults.register(defaults: defaultValues)
     }
 
-    static func updateAndValidateFromString(_ valueName: String, _ value: String) throws {
-        switch valueName {
-            case "maxScreenUsage":
-                maxScreenUsage = try CGFloat(CGFloat(value).orThrow() / 100)
-            case "minCellsPerRow":
-                minCellsPerRow = try CGFloat(value).orThrow()
-            case "maxCellsPerRow":
-                maxCellsPerRow = try CGFloat(value).orThrow()
-            case "minRows":
-                minRows = try CGFloat(value).orThrow()
-            case "iconSize":
-                iconSize = try CGFloat(value).orThrow()
-            case "fontHeight":
-                fontHeight = try CGFloat(value).orThrow()
-                font = NSFont.systemFont(ofSize: fontHeight)
-            case "tabKeyCode":
-                tabKeyCode = try UInt16(value).orThrow()
-            case "metaKey":
-                let p = try metaKeyMacro.labelToMacro[value].orThrow()
-                metaKeyCodes = p.preferences.0.map { UInt16($0) }
-                metaModifierFlag = p.preferences.1
-            case "theme":
-                let p = try themeMacro.labelToMacro[value].orThrow()
-                cellBorderWidth = p.preferences.0
-                cellCornerRadius = p.preferences.1
-                windowCornerRadius = p.preferences.2
-                highlightBorderColor = p.preferences.3
-                highlightBackgroundColor = p.preferences.4
-            case "windowDisplayDelay":
-                windowDisplayDelay = DispatchTimeInterval.milliseconds(try Int(value).orThrow())
-            case "showOnScreen":
-                let p = try showOnScreenMacro.labelToMacro[value].orThrow()
-                showOnScreen = p.preferences
-            case "hideSpaceNumberLabels":
-                hideSpaceNumberLabels = try Bool(value).orThrow()
-            default:
-                throw NSError.make(domain: "Preferences", message: "Tried to update an unknown preference: '\(valueName)' = '\(value)'")
-        }
-        rawValues[valueName] = value
+    static func get(_ key: String) -> Any? {
+        defaults.object(forKey: key)
     }
 
-    static func saveRawToDisk() throws {
-        ProcessInfo.processInfo.disableSuddenTermination()
-        try saveToDisk(rawValues, userFile)
-        ProcessInfo.processInfo.enableSuddenTermination()
+    static func getAsString(_ key: String) -> String? {
+        defaults.string(forKey: key)
     }
 
-    private static func preferencesVersion(_ url: URL) throws -> Int {
-        return try Int(loadFromDisk(url)["version"] ?? "0").orThrow()
+    static func set(_ key: String, _ value: Any?) {
+        defaults.set(value, forKey: key)
     }
 
-    private static func loadFromDisk(_ url: URL) throws -> [String: String] {
-        return try JSONDecoder().decode([String: String].self, from: Data(contentsOf: url))
-    }
-
-    private static func saveDefaultsToDisk() throws {
-        try saveToDisk(defaults, defaultsFile)
-    }
-
-    private static func saveToDisk(_ values: [String: String], _ path: URL) throws {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        try encoder
-                .encode(values)
-                .write(to: path)
-    }
-
-    private static func fileFromPreferencesFolder(_ fileName: String) -> URL {
-        return FileManager.default
-                .urls(for: .libraryDirectory, in: .userDomainMask)
-                .first!
-                .appendingPathComponent("Preferences", isDirectory: true)
-                .appendingPathComponent(fileName)
-    }
+    static var all: [String: Any] { defaults.dictionaryRepresentation() }
 }
 
-struct MacroPreference<T> {
+struct Theme {
     let label: String
-    let preferences: T
-
-    init(_ label: String, _ preferences: T) {
-        self.label = label
-        self.preferences = preferences
-    }
+    let cellBorderWidth: CGFloat
+    let cellCornerRadius: CGFloat
+    let windowCornerRadius: CGFloat
+    let highlightBorderColor: NSColor
+    let highlightBackgroundColor: NSColor
 }
 
-class MacroPreferenceHelper<T> {
-    let macros: [MacroPreference<T>]
-    var labels = [String]()
-    var labelToMacro = [String: MacroPreference<T>]()
-
-    init(_ array: [MacroPreference<T>]) {
-        self.macros = array
-        array.forEach {
-            labelToMacro[$0.label] = $0
-            labels.append($0.label)
-        }
-    }
+struct MetaKey {
+    let label: String
+    let keyCodes: [Int]
+    let modifierFlag: NSEvent.ModifierFlags
 }
 
 enum ShowOnScreenPreference {
     case main
     case mouse
+}
+
+// macros are collection of values derived from a single key
+// we don't want to store every value in UserDefaults as the user could change them and contradict the macro
+class MacroPreferences {
+    static let themeList = [
+        " macOS": Theme(label: " macOS", cellBorderWidth: 0, cellCornerRadius: 5, windowCornerRadius: 20, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4)),
+        "❖ Windows 10": Theme(label: "❖ Windows 10", cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear),
+    ]
+    static let metaKeyList = [
+        "⌥ option": MetaKey(label: "⌥ option", keyCodes: [kVK_Option, kVK_RightOption], modifierFlag: .option),
+        "⌃ control": MetaKey(label: "⌃ control", keyCodes: [kVK_Control, kVK_RightControl], modifierFlag: .control),
+        "⌘ command": MetaKey(label: "⌘ command", keyCodes: [kVK_Command, kVK_RightCommand], modifierFlag: .command)
+    ]
+    static let showOnScreenList = [
+        "Main screen": ShowOnScreenPreference.main,
+        "Screen including mouse": ShowOnScreenPreference.mouse,
+    ]
 }
