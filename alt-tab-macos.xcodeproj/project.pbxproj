@@ -15,13 +15,11 @@
 		D04BA2378832FD7E5DE3BC23 /* Applications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA66B5B4143D2238F50B9 /* Applications.swift */; };
 		D04BA26B4E9B4378FA7995DF /* HyperlinkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2D2BCBA4C47E25315AF /* HyperlinkLabel.swift */; };
 		D04BA278D9EFA568C8D18A4C /* Windows.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD1BED44EAEB77FED8A4 /* Windows.swift */; };
-		D04BA29A372E8A644273E7B3 /* update_appcast.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BA0AAAE82C72855DBBA26 /* update_appcast.sh */; };
 		D04BA2CBF0EFA04CC80EC1BC /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE80772D25834E440975 /* Window.swift */; };
 		D04BA308162F8043F8561D03 /* AXUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA40A4291E4F310527DBF /* AXUIElement.swift */; };
 		D04BA30F92801F5960ACC844 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04BA7A48641612933710091 /* MainMenu.xib */; };
 		D04BA3261C7DA5F48310E654 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA90C6C36DB1D65BC2B66 /* App.swift */; };
 		D04BA3AE19F48237BDCDDA4F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAB8DB0BA2A20D08D9D7F /* Localizable.strings */; };
-		D04BA3D87405EE52518CCC3E /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = D04BA2A4F257F4DCE1421758 /* Podfile.lock */; };
 		D04BA40A1C8B02448D720EA3 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7ADB4B6C31B4887AEA3 /* BaseLabel.swift */; };
 		D04BA42AF817BCDF3F1F13F2 /* AppearanceTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACD85D3966B4C9482E52 /* AppearanceTab.swift */; };
 		D04BA4312972BFFB0DD1C141 /* BoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6F87B035BCBF2BEAEBC /* BoldLabel.swift */; };
@@ -38,7 +36,6 @@
 		D04BA744F626B2E89331390B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA10F57DA97A1D0320122 /* InfoPlist.strings */; };
 		D04BA79B891E9C89C015D6DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAEE5AEEB8692856B45E4 /* InfoPlist.strings */; };
 		D04BA7F212CDB1B7E101D7A3 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAFE3AC6E14F394956586 /* GridView.swift */; };
-		D04BA826A1745BCC7E8C7B26 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = D04BAAF760E3A8A22BDA84D6 /* appcast.xml */; };
 		D04BA8373D4DE452C0C081ED /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D04BABC654F40BE74DA25BC7 /* SF-Pro-Text-Regular.otf */; };
 		D04BA84074E5FD6221720BC7 /* CollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAACB6648E7C2A4E0339D /* CollectionViewFlowLayout.swift */; };
 		D04BA8EBC0365A019A27C7EA /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA3F15EAE8D8C39B6F2CF /* Screen.swift */; };
@@ -58,7 +55,6 @@
 		D04BAD5A6B2F9EEE6FD4185F /* CollectionViewItemTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA4BABBA0312E0EDBA647 /* CollectionViewItemTitle.swift */; };
 		D04BAD8346A6A32C9749E0B3 /* TabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA293C53EC5CE00D11E02 /* TabViewItem.swift */; };
 		D04BAE369A14C3126A1606FE /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8F1AA48A323EE5638DC /* HelperExtensions.swift */; };
-		D04BAE4A31689CCF132372B7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D04BA0E071D2EDFDB9A20523 /* Podfile */; };
 		D04BAE4CE37C303DDD0347B8 /* CollectionViewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE073DD0B0D65CD4CBB6 /* CollectionViewItemView.swift */; };
 		D04BAEAB8AB048FF2B16B131 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAE5FA03065C5D23C0C2C /* Localizable.strings */; };
 		D04BAEF78503D7A2CEFB9E9E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAA44C837F3A67403B9DB /* main.swift */; };
@@ -546,10 +542,6 @@
 				D04BAFAF889BB3DA9A03FD83 /* Localizable.strings in Resources */,
 				D04BA744F626B2E89331390B /* InfoPlist.strings in Resources */,
 				D04BA3AE19F48237BDCDDA4F /* Localizable.strings in Resources */,
-				D04BA3D87405EE52518CCC3E /* Podfile.lock in Resources */,
-				D04BAE4A31689CCF132372B7 /* Podfile in Resources */,
-				D04BA29A372E8A644273E7B3 /* update_appcast.sh in Resources */,
-				D04BA826A1745BCC7E8C7B26 /* appcast.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
