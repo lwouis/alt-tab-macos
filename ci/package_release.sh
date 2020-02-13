@@ -14,6 +14,7 @@ ditto -c -k --keepParent "$appFile" "$zipName"
 # request notarization
 requestUUID=$(xcrun altool \
   --notarize-app \
+  --verbose \
   --primary-bundle-id "com.lwouis.alt-tab-macos" \
   --username "$APPLE_ID" \
   --password "$APPLE_PASSWORD" \
