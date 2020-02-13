@@ -2,13 +2,12 @@
 
 set -exu
 
-version="$(cat VERSION.txt)"
-changelogDelta="$(npx marked < CHANGELOG_DELTA.txt)"
+version="$(cat $VERSION_FILE)"
+changelogDelta="$(npx marked < $CHANGELOG_DELTA_FILE)"
 date="$(date +'%a, %d %b %Y %H:%M:%S %z')"
-minimumSystemVersion="$(sed -En 's/MACOSX_DEPLOYMENT_TARGET = (.+);/\1/p' alt-tab-macos.xcodeproj/project.pbxproj | head -n 1 | awk '{$1=$1};1')"
-version="$(cat VERSION.txt)"
-zipName="AltTab-$version.zip"
-edSignatureAndLength=$(Pods/Sparkle/bin/sign_update -s $SPARKLE_ED_PRIVATE_KEY "build/Release/$zipName")
+minimumSystemVersion="$(awk -F ' = ' '/MACOSX_DEPLOYMENT_TARGET/ { print $2; }' < config/base.xcconfig)"
+zipName="$APP_NAME-$version.zip"
+edSignatureAndLength=$(Pods/Sparkle/bin/sign_update -s $SPARKLE_ED_PRIVATE_KEY "$XCODE_BUILD_PATH/$zipName")
 
 echo "
     <item>

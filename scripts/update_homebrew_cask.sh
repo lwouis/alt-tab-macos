@@ -2,6 +2,6 @@
 
 set -exu
 
-version="$(cat VERSION.txt)"
+version="$(cat $VERSION_FILE)"
 
 cask-repair --cask-version "$version" alt-tab

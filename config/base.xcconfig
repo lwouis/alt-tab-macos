@@ -1,0 +1,13 @@
+// docs: https://help.apple.com/xcode/#/dev745c5c974
+
+PRODUCT_NAME = AltTab
+PRODUCT_BUNDLE_IDENTIFIER = com.lwouis.alt-tab-macos
+MACOSX_DEPLOYMENT_TARGET = 10.12
+SWIFT_VERSION = 4.2
+INFOPLIST_FILE = Info.plist
+CODE_SIGN_ENTITLEMENTS = alt_tab_macos.entitlements
+ENABLE_HARDENED_RUNTIME = YES // for notorization
+IDEDerivedDataPathOverride = DerivedData
+FRAMEWORK_SEARCH_PATHS = $(inherited) /System/Library/PrivateFrameworks // for SkyLight.framework
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks // for accessing swift dylibs at runtime
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG // for macros like `#if DEBUG`

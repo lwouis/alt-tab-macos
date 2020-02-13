@@ -6,25 +6,28 @@ node_js:
 cache: npm
 env:
   - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
+  - XCODE_BUILD_PATH="DerivedData/alt-tab-macos/Build/Products/Release"
+  - VERSION_FILE="VERSION.txt"
+  - CHANGELOG_DELTA_FILE="CHANGELOG_DELTA.txt"
+  - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
 install: true # disable default install
 script:
   - env | sort
   - npm ci
   - npx commitlint-travis
-  - if [ $IS_RELEASE ]; then ci/determine_version.sh; fi
-  - if [ $IS_RELEASE ]; then ci/set_version_in_app.sh; fi
-  - ci/build_release.sh
-  - if [ $IS_RELEASE ]; then ci/package_release.sh; fi
-  - if [ $IS_RELEASE ]; then ci/update_appcast.sh; fi
-  - if [ $IS_RELEASE ]; then ci/update_homebrew_cask.sh; fi
+  - if [ $IS_RELEASE ]; then scripts/determine_version_and_changelog.sh; fi
+  - if [ $IS_RELEASE ]; then scripts/set_version_in_app.sh; fi
+  - xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release
+  - if [ $IS_RELEASE ]; then scripts/package_and_notarize_release.sh; fi
+  - if [ $IS_RELEASE ]; then scripts/update_appcast.sh; fi
+  - if [ $IS_RELEASE ]; then scripts/update_homebrew_cask.sh; fi
   - if [ $IS_RELEASE ]; then npx semantic-release; fi
 deploy:
   provider: releases
   token:
     secure: wcAMT2rbXhhdk6lsc6EG9VZZkSW0BjOwjYSyXzHjKrgiXsQcZAzAsOkuisj8EfeYN9/uhpa8XX7f5KsdkE5reMqVGGWqdmJU4NnmK5Aew0LmBbzFHfffliQecVCzMmGYPmhPcDxAjidYxgCMrMbvQFaElc0WXdIsQNcaNieSkEgZw6TwGsTxgHXABD2e575K3SN/PPcq7Nx5mRZkURI7YLmo2KfsD2OPR4IcEXFpJRFbPcAZIpKaHUIC2VzpayJA93pBe+siwU150p04PzfSs/nTH/nUO9m24SUi6kAIzVN77cExvX+JDnQoVLz0V45L0iJjkKDTVb07rVOsfm6Pcuaaj2ZVXlpujSb7B5LDUIspUn/NnqMLOtzbSTuaGcx2u+zCcC0b17KooznilQ/sFq3YpeNdmjL4VL5fsw1hdpjcP6S9DqZ90TJZqy6xBQP5NubuJukH//BRilhWGfnq5rOFUlqrN8aApJ7gYry0K2rB8rVWWvA9cU+zX351iy0EERICEU6q3rQwq8gFUbdNATPJJgNg7n0PaNXSQTTF9VluZTRVUtMrpA0hWe7dn+Tvrvhrnhmqvccw3Qfw/i3SECIDHHtsjwLqHCx5gkz/xUdf7+t3k6x+r6Veua0Z3jvyVhdHprU47VTSUhM/n87EiKyNRuKa9IpA18eSlZ59exU=
   file_glob: true
-  file:
-    - build/Release/*.zip
+  file: "$XCODE_BUILD_PATH/*.zip"
   cleanup: false
   on:
     repo: lwouis/alt-tab-macos

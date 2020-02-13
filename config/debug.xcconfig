@@ -1,0 +1,6 @@
+// docs: https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Pods/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"
+#include "base.xcconfig"
+
+CODE_SIGN_IDENTITY = Local Self-Signed
