@@ -64,7 +64,7 @@ This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilde
 * `pod install` to fetch the dependencies with [CocoaPods](https://cocoapods.org/)
 * `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release` to build the .app
 
-Note that on debug builds, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build, we use a code-signing certificate. You can generate one on your local machine in one step by running `ci/generate_debug_certificate.sh`.
+Note that on debug builds, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build, we use a code-signing certificate. You can generate one on your local machine in one step by running `scripts/generate_selfsigned_codesign_certificate.sh`.
 
 If you want to contribute a PR, please run `npm install` once. It will add the pre-commit hook to ensure that your commits follow the convention and will pass the PR.
 

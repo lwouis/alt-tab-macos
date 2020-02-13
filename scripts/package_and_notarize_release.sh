@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -exu
+
+version="$(cat $VERSION_FILE)"
+appFile="$APP_NAME.app"
+zipName="$APP_NAME-$version.zip"
+bundleId="$(awk -F ' = ' '/PRODUCT_BUNDLE_IDENTIFIER/ { print $2; }' < config/base.xcconfig)"
+
+cd "$XCODE_BUILD_PATH"
+ditto -c -k --keepParent "$appFile" "$zipName"
+
+# request notarization
+requestUUID=$(xcrun altool \
+  --notarize-app \
+  --verbose \
+  -ITunesTransport DAV \
+  --primary-bundle-id "$bundleId" \
+  --username "$APPLE_ID" \
+  --password "$APPLE_PASSWORD" \
+  --file "$zipName" 2>&1 |
+  tee /dev/tty |
+  awk '/RequestUUID/ { print $NF; }')
+if [[ $requestUUID == "" ]]; then exit 1; fi
+
+# poll notarization status until done
+requestStatus="in progress"
+while [[ "$requestStatus" == "in progress" ]]; do
+  sleep 10
+  requestLogs=$(xcrun altool \
+    --notarization-info "$requestUUID" \
+    --username "$APPLE_ID" \
+    --password "$APPLE_PASSWORD" 2>&1)
+  requestStatus=$(echo "$requestLogs" | awk -F ': ' '/Status:/ { print $2; }')
+done
+if [[ $requestStatus != "success" ]]; then
+  echo "$requestLogs" | awk -F ': ' '/LogFileURL:/ { print $2; }' | xargs curl
+  exit 1
+fi
+
+# staple build
+xcrun stapler staple "$appFile"
+ditto -c -k --keepParent "$appFile" "$zipName"
