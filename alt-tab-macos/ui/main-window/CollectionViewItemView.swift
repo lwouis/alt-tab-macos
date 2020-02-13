@@ -1,6 +1,6 @@
 import Cocoa
 
-class CollectionViewItemView: NSView {
+class CollectionViewItemView: NSStackView {
     var window_: Window?
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
@@ -15,12 +15,11 @@ class CollectionViewItemView: NSView {
     convenience init() {
         self.init(frame: .zero)
         let hStackView = makeHStackView()
-        let vStackView = makeVStackView(hStackView)
+        setupView(hStackView)
         let shadow = CollectionViewItemView.makeShadow(.gray)
         thumbnail.shadow = shadow
         appIcon.shadow = shadow
         observeDragAndDrop()
-        subviews.append(vStackView)
     }
 
     private func observeDragAndDrop() {
@@ -151,18 +150,16 @@ class CollectionViewItemView: NSView {
         return hStackView
     }
 
-    private func makeVStackView(_ hStackView: NSStackView) -> NSStackView {
-        let vStackView = NSStackView()
-        vStackView.wantsLayer = true
-        vStackView.layer!.backgroundColor = .clear
-        vStackView.layer!.cornerRadius = Preferences.cellCornerRadius
-        vStackView.layer!.borderWidth = Preferences.cellBorderWidth
-        vStackView.layer!.borderColor = .clear
-        vStackView.edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
-        vStackView.orientation = .vertical
-        vStackView.spacing = Preferences.intraCellPadding
-        vStackView.setViews([hStackView, thumbnail], in: .leading)
-        return vStackView
+    private func setupView(_ hStackView: NSStackView) {
+        wantsLayer = true
+        layer!.backgroundColor = .clear
+        layer!.cornerRadius = Preferences.cellCornerRadius
+        layer!.borderWidth = Preferences.cellBorderWidth
+        layer!.borderColor = .clear
+        edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
+        orientation = .vertical
+        spacing = Preferences.intraCellPadding
+        setViews([hStackView, thumbnail], in: .leading)
     }
 }
 
