@@ -4,3 +4,4 @@
 #include "base.xcconfig"
 
 CODE_SIGN_IDENTITY = Local Self-Signed
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG // for macro `#if DEBUG`
