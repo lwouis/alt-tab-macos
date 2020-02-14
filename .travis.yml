@@ -5,11 +5,12 @@ node_js:
   - 10
 cache: npm
 env:
-  - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
-  - XCODE_BUILD_PATH="DerivedData/alt-tab-macos/Build/Products/Release"
-  - VERSION_FILE="VERSION.txt"
-  - CHANGELOG_DELTA_FILE="CHANGELOG_DELTA.txt"
-  - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
+  global:
+    - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
+    - XCODE_BUILD_PATH="DerivedData/alt-tab-macos/Build/Products/Release"
+    - VERSION_FILE="VERSION.txt"
+    - CHANGELOG_DELTA_FILE="CHANGELOG_DELTA.txt"
+    - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
 install: true # disable default install
 script:
   - env | sort
