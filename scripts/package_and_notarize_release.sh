@@ -11,7 +11,7 @@ cd "$XCODE_BUILD_PATH"
 ditto -c -k --keepParent "$appFile" "$zipName"
 
 # request notarization
-requestUUID=$(xcrun altool \
+requestUuid=$(xcrun altool \
   --notarize-app \
   --verbose \
   -ITunesTransport DAV \
@@ -20,17 +20,21 @@ requestUUID=$(xcrun altool \
   --password "$APPLE_PASSWORD" \
   --file "$zipName" 2>&1 |
   tee /dev/tty |
-  awk '/RequestUUID/ { print $NF; }')
-if [[ $requestUUID == "" ]]; then exit 1; fi
+  awk '/RequestUUID/ { print $NF;exit; }')
+if [[ $requestUuid == "" ]]; then exit 1; fi
 
-# poll notarization status until done
+# poll notarization status until success/invalid, or 15min have passed
 requestStatus="in progress"
-while [[ "$requestStatus" == "in progress" ]]; do
+timeoutCounter=0
+until [[ "$requestStatus" == "success" ]] || [[ "$requestStatus" == "invalid" ]] || [[ $timeoutCounter -eq 1500 ]]; do
   sleep 10
+  timeoutCounter=$((timeoutCounter+10))
+  set +e
   requestLogs=$(xcrun altool \
-    --notarization-info "$requestUUID" \
+    --notarization-info "$requestUuid" \
     --username "$APPLE_ID" \
     --password "$APPLE_PASSWORD" 2>&1)
+  set -e
   requestStatus=$(echo "$requestLogs" | awk -F ': ' '/Status:/ { print $2; }')
 done
 if [[ $requestStatus != "success" ]]; then
