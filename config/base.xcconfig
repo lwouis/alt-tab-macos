@@ -10,4 +10,3 @@ ENABLE_HARDENED_RUNTIME = YES // for notarization
 IDEDerivedDataPathOverride = DerivedData
 FRAMEWORK_SEARCH_PATHS = $(inherited) /System/Library/PrivateFrameworks // for SkyLight.framework
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks // for accessing swift dylibs at runtime
-SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG // for macros like `#if DEBUG`
