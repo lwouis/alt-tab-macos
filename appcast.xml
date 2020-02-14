@@ -4,25 +4,6 @@
     <title>alt-tab-macos</title>
     <language>en</language>
 
-    <item>
-      <title>Version 2.3.4</title>
-      <pubDate>Wed, 22 Jan 2020 07:56:00 +0900</pubDate>
-      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="234-2020-01-22"><a href="https://github.com/lwouis/alt-tab-macos/compare/v2.3.3...v2.3.4">2.3.4</a> (2020-01-22)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<ul>
-<li>escape key was absorbed by the inactive app (closes <a href="https://github.com/lwouis/alt-tab-macos/issues/123">#123</a>) (<a href="https://github.com/lwouis/alt-tab-macos/commit/5260619">5260619</a>)</li>
-</ul>
-      ]]>
-      </description>
-      <enclosure
-        url="https://github.com/lwouis/alt-tab-macos/releases/download/v2.3.4/AltTab-2.3.4.zip"
-        sparkle:version="2.3.4"
-        sparkle:shortVersionString="2.3.4"
-        sparkle:edSignature="YrGOkoXui4ORoYckJZRC8/oSPOwZmWBF0zSJh1SFisqpNov3X/I8Wg0YgJfJEHpXQFuAuxsOGKux70rKpJVeDg==" length="4315142"
-        type="application/octet-stream"/>
-    </item>
 
   </channel>
 </rss>

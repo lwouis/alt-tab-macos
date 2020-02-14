@@ -33,7 +33,7 @@
 	<key>NSSupportsSuddenTermination</key>
 	<string>true</string>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/lwouis/alt-tab-macos/v3-poc/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/lwouis/alt-tab-macos/master/appcast.xml</string>
 	<key>SUEnableAutomaticChecks</key>
 	<string>true</string>
 	<key>SUPublicEDKey</key>
