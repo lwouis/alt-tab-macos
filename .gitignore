@@ -1,6 +1,7 @@
 /.idea/
 xcuserdata/
-xcshareddata/
+WorkspaceSettings.xcsettings
+IDEWorkspaceChecks.plist
 /node_modules/
 /DerivedData/
 /Pods/
