@@ -1,8 +1,9 @@
-// docs: https://help.apple.com/xcode/#/dev745c5c974
+// docs: https://help.apple.com/xcode/mac/11.4/#/itcaec37c2a6
 
 #include "Pods/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"
 #include "base.xcconfig"
 
 CODE_SIGN_IDENTITY = Developer ID Application: Louis Pontoise (QXD7GW8FHY)
-OTHER_CODE_SIGN_FLAGS = --timestamp // for notorization
-CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO // for notorization
+OTHER_CODE_SIGN_FLAGS = --timestamp --deep --options runtime // for notarization
+CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO // for notarization
+COCOAPODS_PARALLEL_CODE_SIGN = YES // codesign pods faster

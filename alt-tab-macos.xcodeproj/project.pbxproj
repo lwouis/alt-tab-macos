@@ -33,6 +33,7 @@
 		D04BA76A74267B1346D23687 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6D57A1456C07318B8EA /* GridView.swift */; };
 		D04BA76DDB00FC50D203D62C /* CollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAC2FEF7248B7BF9579E2 /* CollectionViewFlowLayout.swift */; };
 		D04BA775CF3F8D9394A1E256 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA68C2561D9EE4FD851B8 /* Screen.swift */; };
+		D04BA7B1C67F18623E6110D8 /* codesign_sparkle_embedded_apps.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BA123744B0C27E9F54B05 /* codesign_sparkle_embedded_apps.sh */; };
 		D04BA7BE7F3DD24D58ACE942 /* AppearanceTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA64F1F344007EA13BA05 /* AppearanceTab.swift */; };
 		D04BA7C348A3CF9862394E23 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04BA6A1082C0521CD994B42 /* MainMenu.xib */; };
 		D04BA7F86F1926FBE31F44BF /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA53992F116E5E704CAB3 /* BaseLabel.swift */; };
@@ -78,6 +79,7 @@
 		D04BA10777505D8A67ABD186 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		D04BA107C8B8FE7FF8536606 /* too many windows - 4 lines - paginated.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "too many windows - 4 lines - paginated.jpg"; sourceTree = "<group>"; };
 		D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		D04BA123744B0C27E9F54B05 /* codesign_sparkle_embedded_apps.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = codesign_sparkle_embedded_apps.sh; sourceTree = "<group>"; };
 		D04BA15346AF8E0EF471694A /* en */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BA1D80F4EEF2A91BAD29C /* release.config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = release.config.js; sourceTree = "<group>"; };
 		D04BA1DF8CAB2FAB7FE9244B /* CollectionViewItemFontIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewItemFontIcon.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 				D04BA5E819181CB83C5602C7 /* generate_selfsigned_codesign_certificate.sh */,
 				D04BA0AAAE82C72855DBBA26 /* update_appcast.sh */,
 				D04BABFEC8F9DF41BB7A449E /* import_codesign_certificate_into_keychain.sh */,
+				D04BA123744B0C27E9F54B05 /* codesign_sparkle_embedded_apps.sh */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				D04BA82F32FB183F65DC3E42 /* Frameworks */,
 				D04BA96F3DC99263120BCD21 /* Resources */,
 				7641B7923B36478FBF4D7CCD /* [CP] Embed Pods Frameworks */,
+				48B68D6C23F6412C009BF4AD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -556,12 +560,30 @@
 				D04BAA98549C75DF585D2628 /* Localizable.strings in Resources */,
 				D04BAC0AE7C80F8A37BBC7A5 /* InfoPlist.strings in Resources */,
 				D04BAE6B5382CA561A219A54 /* Localizable.strings in Resources */,
+				D04BA7B1C67F18623E6110D8 /* codesign_sparkle_embedded_apps.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		48B68D6C23F6412C009BF4AD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "scripts/codesign_sparkle_embedded_apps.sh\n";
+		};
 		5968B81A43F20B6ECD92C7F7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
