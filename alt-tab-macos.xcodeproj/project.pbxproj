@@ -140,7 +140,7 @@
 		D04BAC159731F80FDAF4EA6C /* 1-row.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1-row.jpg"; sourceTree = "<group>"; };
 		D04BAC2FEF7248B7BF9579E2 /* CollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		D04BAC34CFD42A7F6F1F01C0 /* CGWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindow.swift; sourceTree = "<group>"; };
-		D04BAC6AFC7F06D1A567F27A /* set_version_in_app.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = set_version_in_app.sh; sourceTree = "<group>"; };
+		D04BAC6AFC7F06D1A567F27A /* replace_environment_variables_in_app.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = replace_environment_variables_in_app.sh; sourceTree = "<group>"; };
 		D04BACABD048E62EBE4576CC /* DebugProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugProfile.swift; sourceTree = "<group>"; };
 		D04BACD976030676FD0761D5 /* Windows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Windows.swift; sourceTree = "<group>"; };
 		D04BACE22DC907F03D193075 /* ShortcutsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutsTab.swift; sourceTree = "<group>"; };
@@ -396,7 +396,7 @@
 			children = (
 				D04BA7ECCE728582D9ECA613 /* determine_version_and_changelog.sh */,
 				D04BA4B5292629AA6B560216 /* package_and_notarize_release.sh */,
-				D04BAC6AFC7F06D1A567F27A /* set_version_in_app.sh */,
+				D04BAC6AFC7F06D1A567F27A /* replace_environment_variables_in_app.sh */,
 				D04BAE93A5854C501639C640 /* update_homebrew_cask.sh */,
 				D04BA5E819181CB83C5602C7 /* generate_selfsigned_codesign_certificate.sh */,
 				D04BA0AAAE82C72855DBBA26 /* update_appcast.sh */,
