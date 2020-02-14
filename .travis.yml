@@ -17,7 +17,7 @@ script:
   - npm ci
   - npx commitlint-travis
   - if [ $IS_RELEASE ]; then scripts/determine_version_and_changelog.sh; fi
-  - if [ $IS_RELEASE ]; then scripts/set_version_in_app.sh; fi
+  - if [ $IS_RELEASE ]; then scripts/replace_environment_variables_in_app.sh; fi
   - pod install
   - scripts/import_codesign_certificate_into_keychain.sh
   - xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release

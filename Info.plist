@@ -38,5 +38,7 @@
 	<string>true</string>
 	<key>SUPublicEDKey</key>
 	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
+	<key>FeedbackToken</key>
+	<string>#FEEDBACK_TOKEN#</string>
 </dict>
 </plist>

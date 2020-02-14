@@ -1,6 +1,7 @@
 import Cocoa
 
 class FeedbackWindow: NSWindow {
+    static let token = Bundle.main.object(forInfoDictionaryKey: "FeedbackToken") as! String
     var body: TextArea!
     var email: TextArea!
     var sendButton: NSButton!
@@ -83,7 +84,7 @@ class FeedbackWindow: NSWindow {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         // access token of the alt-tab-macos-bot github account, with scope repo > public_repo
-        request.addValue("token 231413d7bf0e6cc533aae851c83dca25afed86bb", forHTTPHeaderField: "Authorization")
+        request.addValue("token " + FeedbackWindow.token, forHTTPHeaderField: "Authorization")
         request.httpBody = try! JSONSerialization.data(withJSONObject: [
             "title": "[In-app feedback]",
             "body": assembleBody()
