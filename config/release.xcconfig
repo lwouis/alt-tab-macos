@@ -4,6 +4,5 @@
 #include "base.xcconfig"
 
 CODE_SIGN_IDENTITY = Developer ID Application: Louis Pontoise (QXD7GW8FHY)
-OTHER_CODE_SIGN_FLAGS = --timestamp --deep --options runtime // for notarization
 CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO // for notarization
 COCOAPODS_PARALLEL_CODE_SIGN = YES // codesign pods faster
