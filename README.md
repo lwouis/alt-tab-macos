@@ -39,9 +39,11 @@ The app is currently available in: English, Français, Deutsch, Español, 日本
 * Change the shortcut key, switch to a Windows theme and more, using the Preferences window.
 * If you like scriptable/portable configuration, you can edit `~/Library/Preferences/alt-tab-macos.json`.
 
-## Community
+## Contributing
 
-Come discuss with us on the [Discord server](https://discord.gg/mHvmcqT).
+* [CONTRIBUTING.md](CONTRIBUTING.md) gives an overview of the project for newcomers who want to contribute.
+* Come discuss with us on the [Discord server](https://discord.gg/mHvmcqT).
+* [Suggest an enhancement or discuss an issue on github](https://github.com/lwouis/alt-tab-macos/issues).
 
 ## Alternatives
 
