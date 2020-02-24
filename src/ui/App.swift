@@ -4,7 +4,7 @@ import LetsMove
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
-class App: NSApplication, NSApplicationDelegate, NSWindowDelegate {
+class App: NSApplication, NSApplicationDelegate {
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
