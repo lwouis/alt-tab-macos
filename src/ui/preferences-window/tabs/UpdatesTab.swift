@@ -13,7 +13,12 @@ class UpdatesTab: NSObject {
         return TabViewItem.make(NSLocalizedString("Updates", comment: ""), NSImage.refreshTemplateName, makeView())
     }
 
-    static func makeView() -> NSGridView {
+    static func observeUserDefaults() {
+        UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUAutomaticallyUpdate", options: [.initial, .new], context: nil)
+        UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUEnableAutomaticChecks", options: [.initial, .new], context: nil)
+    }
+
+    static private func makeView() -> NSGridView {
         dontPeriodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Don't check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
         dontPeriodicallyCheck.fit()
         periodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
@@ -25,7 +30,6 @@ class UpdatesTab: NSObject {
         policies.alignment = .left
         policies.orientation = .vertical
         policies.spacing = GridView.interPadding / 2
-        observePolicy()
         let view = GridView.make([
             [policyLabel, policies],
             [NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: self, action: #selector(checkForUpdatesNow))],
@@ -37,11 +41,6 @@ class UpdatesTab: NSObject {
         row1.cell(at: 0).xPlacement = .center
         view.fit()
         return view
-    }
-
-    private static func observePolicy() {
-        UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUAutomaticallyUpdate", options: [.initial, .new], context: nil)
-        UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUEnableAutomaticChecks", options: [.initial, .new], context: nil)
     }
 
     @objc
