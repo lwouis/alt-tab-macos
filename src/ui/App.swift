@@ -28,7 +28,7 @@ class App: NSApplication, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         #if !DEBUG
-          PFMoveToApplicationsFolderIfNecessary()
+        PFMoveToApplicationsFolderIfNecessary()
         #endif
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
@@ -39,6 +39,8 @@ class App: NSApplication, NSApplicationDelegate {
         Spaces.initialDiscovery()
         Applications.initialDiscovery()
         Keyboard.listenToGlobalEvents(self)
+        preferencesWindow = PreferencesWindow()
+        UpdatesTab.observeUserDefaults()
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
@@ -46,7 +48,7 @@ class App: NSApplication, NSApplicationDelegate {
     private func loadMainMenuXib() {
         var menuObjects: NSArray?
         Bundle.main.loadNibNamed("MainMenu", owner: self, topLevelObjects: &menuObjects)
-        menu = menuObjects?.first(where: {$0 is NSMenu }) as? NSMenu
+        menu = menuObjects?.first(where: { $0 is NSMenu }) as? NSMenu
     }
 
     // we put application code here which should be executed on init() and Preferences change
@@ -77,9 +79,6 @@ class App: NSApplication, NSApplicationDelegate {
 
     @objc
     func showPreferencesPanel() {
-        if preferencesWindow == nil {
-            preferencesWindow = PreferencesWindow()
-        }
         Screen.repositionPanel(preferencesWindow!, Screen.preferred(), .appleCentered)
         preferencesWindow?.show()
     }
