@@ -22,7 +22,6 @@ class Window {
     ]
 
     static func stopSubscriptionRetries(_ notification: String, _ cgWindowId: CGWindowID) {
-        debugPrint("removeObservers", cgWindowId)
         Windows.windowsInSubscriptionRetryLoop.removeAll { $0 == (String(cgWindowId) + String(notification)) }
     }
 
@@ -38,12 +37,11 @@ class Window {
         self.spaceIndex = Spaces.currentSpaceIndex
         self.isOnAllSpaces = false
         self.title = Window.bestEffortTitle(axUiElement, cgWindowId, application)
-        debugPrint("Adding window: " + title, application.runningApplication.bundleIdentifier ?? "nil", Spaces.currentSpaceId, Spaces.currentSpaceIndex)
+        debugPrint("Adding window", cgWindowId, title, application.runningApplication.bundleIdentifier ?? "nil", Spaces.currentSpaceId, Spaces.currentSpaceIndex)
         observeEvents()
     }
 
     deinit {
-        debugPrint("deinit", cgWindowId, title)
         // some windows never finish launching; subscription retries should be stopped to avoid infinite loops
         Window.notifications.forEach { Window.stopSubscriptionRetries($0, cgWindowId) }
     }
@@ -52,12 +50,9 @@ class Window {
         AXObserverCreate(application.runningApplication.processIdentifier, axObserverCallback, &axObserver)
         guard let axObserver = axObserver else { return }
         for notification in Window.notifications {
-            debugPrint("subscribeWithRetry win", cgWindowId, notification, title)
             Windows.windowsInSubscriptionRetryLoop.append(String(cgWindowId) + String(notification))
             axUiElement.subscribeWithRetry(axObserver, notification, nil, nil, nil, cgWindowId)
         }
-        debugPrint("app sub list", Applications.appsInSubscriptionRetryLoop)
-        debugPrint("win sub list", Windows.windowsInSubscriptionRetryLoop)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 
@@ -121,7 +116,7 @@ class Window {
 private func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
     let type = notificationName as String
     let app = App.shared as! App
-    debugPrint("OS event: " + type, element.title() ?? "nil")
+    debugPrint("OS event", type, element.title() ?? "nil")
     switch type {
         case kAXUIElementDestroyedNotification: eventWindowDestroyed(app, element)
         case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification: eventWindowMiniaturizedOrDeminiaturized(app, element, type)
@@ -133,7 +128,6 @@ private func axObserverCallback(observer: AXObserver, element: AXUIElement, noti
 private func eventWindowDestroyed(_ app: App, _ element: AXUIElement) {
     guard let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
     Windows.list.remove(at: existingIndex)
-    debugPrint("win sub list", Windows.windowsInSubscriptionRetryLoop)
     guard Windows.list.count > 0 else { app.hideUi(); return }
     Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
     app.refreshOpenUi()

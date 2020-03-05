@@ -16,7 +16,6 @@ class Application: NSObject {
 
     // some apps never finish their subscription retry loop; they should be stopped to avoid infinite loop
     static func stopSubscriptionRetries(_ notification: String, _ runningApplication: NSRunningApplication) {
-        debugPrint("removeObservers", runningApplication.processIdentifier, runningApplication.bundleIdentifier)
         Applications.appsInSubscriptionRetryLoop.removeAll { $0 == String(runningApplication.processIdentifier) + String(notification) }
     }
 
@@ -31,7 +30,6 @@ class Application: NSObject {
     }
 
     deinit {
-        debugPrint("deinit", runningApplication.processIdentifier, runningApplication.bundleIdentifier)
         // some apps never finish launching; subscription retries should be stopped to avoid infinite loops
         Application.notifications.forEach { Application.stopSubscriptionRetries($0, runningApplication) }
         // some apps never finish launching; observer should be removed to avoid leak
@@ -45,7 +43,7 @@ class Application: NSObject {
     private func addAndObserveWindows() {
         axUiElement = AXUIElementCreateApplication(runningApplication.processIdentifier)
         AXObserverCreate(runningApplication.processIdentifier, axObserverCallback, &axObserver)
-        debugPrint("Adding app: " + (runningApplication.bundleIdentifier ?? "nil"))
+        debugPrint("Adding app", runningApplication.processIdentifier, runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
     }
 
@@ -76,7 +74,6 @@ class Application: NSObject {
         guard let axObserver = axObserver else { return }
         let selfPointer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
         for notification in Application.notifications {
-            debugPrint("subscribeWithRetry app", runningApplication.processIdentifier, notification, runningApplication.bundleIdentifier)
             Applications.appsInSubscriptionRetryLoop.append(String(runningApplication.processIdentifier) + String(notification))
             axUiElement!.subscribeWithRetry(axObserver, notification, selfPointer, { [weak self] in
                 // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
@@ -88,7 +85,6 @@ class Application: NSObject {
                 }
             }, runningApplication)
         }
-        debugPrint("app sub list", Applications.appsInSubscriptionRetryLoop)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 }
@@ -97,7 +93,7 @@ private func axObserverCallback(observer: AXObserver, element: AXUIElement, noti
     let application = Unmanaged<Application>.fromOpaque(applicationPointer!).takeUnretainedValue()
     let app = App.shared as! App
     let type = notificationName as String
-    debugPrint("OS event: " + type, element.title() ?? "nil")
+    debugPrint("OS event", type, element.title() ?? "nil")
     switch type {
         case kAXApplicationActivatedNotification: eventApplicationActivated(app, element)
         case kAXApplicationHiddenNotification, kAXApplicationShownNotification: eventApplicationHiddenOrShown(app, element, type)
