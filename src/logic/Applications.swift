@@ -57,8 +57,6 @@ class Applications {
             Applications.list.removeAll(where: { $0.runningApplication.isEqual(runningApp) })
             Windows.list.removeAll(where: { $0.application.runningApplication.isEqual(runningApp) })
         }
-        debugPrint("app sub list", Applications.appsInSubscriptionRetryLoop)
-        debugPrint("win sub list", Windows.windowsInSubscriptionRetryLoop)
         guard Windows.list.count > 0 else { (App.shared as! App).hideUi(); return }
         // TODO: implement of more sophisticated way to decide which thumbnail gets focused on app quit
         Windows.focusedWindowIndex = 1
@@ -78,11 +76,11 @@ class RunningApplicationsObserver: NSObject {
         switch type {
             case .insertion:
                 let apps = change![.newKey] as! [NSRunningApplication]
-                debugPrint("OS event: apps launched", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
+                debugPrint("OS event", "apps launched", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
                 Applications.addRunningApplications(apps)
             case .removal:
                 let apps = change![.oldKey] as! [NSRunningApplication]
-                debugPrint("OS event: apps quit", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
+                debugPrint("OS event", "apps quit", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
                 Applications.removeRunningApplications(apps)
             default: return
         }
