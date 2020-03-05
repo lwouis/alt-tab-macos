@@ -49,14 +49,40 @@ extension AXUIElement {
         return attribute(kAXSubroleAttribute, String.self)
     }
 
-    func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)? = nil, _ previousResult: AXError? = nil) {
-        let result = AXObserverAddNotification(axObserver, self, notification as CFString, pointer)
-        if result == .success || result == .notificationUnsupported || result == .notificationAlreadyRegistered {
-            callback?()
+    func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)? = nil, _ runningApplication: NSRunningApplication? = nil, _ wid: CGWindowID? = nil, _ attemptsCount: Int = 0) {
+        if attemptsCount == 0 || attemptsCount % 1000 == 0 {
+            if let runningApplication = runningApplication {
+//                debugPrint("attempt pid", attemptsCount, pid, notification, Applications.appsInSubscriptionRetryLoop.filter { $0.starts(with: String(pid)) })
+            }
+            if let wid = wid {
+//                debugPrint("attempt wid", attemptsCount, wid, notification, Windows.windowsInSubscriptionRetryLoop.filter { $0.starts(with: String(wid)) })
+            }
+        }
+        if let runningApplication = runningApplication, Applications.appsInSubscriptionRetryLoop.first(where: { $0 == String(runningApplication.processIdentifier) + String(notification) }) == nil {
+//            debugPrint("early quit pid", attemptsCount, pid, notification)
             return
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10), execute: {
-            self.subscribeWithRetry(axObserver, notification, pointer, callback, result)
+        if let wid = wid, Windows.windowsInSubscriptionRetryLoop.first(where: { $0 == String(wid) + String(notification) }) == nil {
+//            debugPrint("early quit wid", attemptsCount, wid, notification)
+            return
+        }
+        let result = AXObserverAddNotification(axObserver, self, notification as CFString, pointer)
+        if result == .success || result == .notificationUnsupported || result == .notificationAlreadyRegistered {
+            debugPrint("subbed", attemptsCount, runningApplication, wid, Applications.list.first(where: { $0.runningApplication.processIdentifier == runningApplication?.processIdentifier }))
+            callback?()
+            if let runningApplication = runningApplication {
+                Application.stopSubscriptionRetries(notification, runningApplication)
+                debugPrint("app sub list", Applications.appsInSubscriptionRetryLoop)
+            }
+            if let wid = wid {
+                Window.stopSubscriptionRetries(notification, wid)
+                debugPrint("win sub list", Windows.windowsInSubscriptionRetryLoop)
+            }
+            return
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10), execute: { [weak self] in
+            guard let self = self else { return }
+            self.subscribeWithRetry(axObserver, notification, pointer, callback, runningApplication, wid, attemptsCount + 1)
         })
     }
 

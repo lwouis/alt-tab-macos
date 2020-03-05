@@ -6,6 +6,20 @@ class Application: NSObject {
     var axObserver: AXObserver?
     var isReallyFinishedLaunching = false
 
+    static let notifications = [
+        kAXApplicationActivatedNotification,
+        kAXFocusedWindowChangedNotification,
+        kAXWindowCreatedNotification,
+        kAXApplicationHiddenNotification,
+        kAXApplicationShownNotification,
+    ]
+
+    // some apps never finish their subscription retry loop; they should be stopped to avoid infinite loop
+    static func stopSubscriptionRetries(_ notification: String, _ runningApplication: NSRunningApplication) {
+        debugPrint("removeObservers", runningApplication.processIdentifier, runningApplication.bundleIdentifier)
+        Applications.appsInSubscriptionRetryLoop.removeAll { $0 == String(runningApplication.processIdentifier) + String(notification) }
+    }
+
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         super.init()
@@ -14,6 +28,14 @@ class Application: NSObject {
         } else {
             runningApplication.addObserver(self, forKeyPath: "isFinishedLaunching", options: [.new], context: nil)
         }
+    }
+
+    deinit {
+        debugPrint("deinit", runningApplication.processIdentifier, runningApplication.bundleIdentifier)
+        // some apps never finish launching; subscription retries should be stopped to avoid infinite loops
+        Application.notifications.forEach { Application.stopSubscriptionRetries($0, runningApplication) }
+        // some apps never finish launching; observer should be removed to avoid leak
+        removeObserver()
     }
 
     func removeObserver() {
@@ -53,22 +75,20 @@ class Application: NSObject {
     private func observeEvents() {
         guard let axObserver = axObserver else { return }
         let selfPointer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
-        for notification in [
-            kAXApplicationActivatedNotification,
-            kAXFocusedWindowChangedNotification,
-            kAXWindowCreatedNotification,
-            kAXApplicationHiddenNotification,
-            kAXApplicationShownNotification,
-        ] {
-            axUiElement!.subscribeWithRetry(axObserver, notification, selfPointer, {
+        for notification in Application.notifications {
+            debugPrint("subscribeWithRetry app", runningApplication.processIdentifier, notification, runningApplication.bundleIdentifier)
+            Applications.appsInSubscriptionRetryLoop.append(String(runningApplication.processIdentifier) + String(notification))
+            axUiElement!.subscribeWithRetry(axObserver, notification, selfPointer, { [weak self] in
                 // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
                 // we consider them ready when the first subscription succeeds, and list their windows again at that point
+                guard let self = self else { return }
                 if !self.isReallyFinishedLaunching {
                     self.isReallyFinishedLaunching = true
                     self.observeNewWindows()
                 }
-            })
+            }, runningApplication)
         }
+        debugPrint("app sub list", Applications.appsInSubscriptionRetryLoop)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 }

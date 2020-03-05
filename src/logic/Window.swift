@@ -14,6 +14,18 @@ class Window {
     var application: Application
     var axObserver: AXObserver?
 
+    static let notifications = [
+        kAXUIElementDestroyedNotification,
+        kAXTitleChangedNotification,
+        kAXWindowMiniaturizedNotification,
+        kAXWindowDeminiaturizedNotification,
+    ]
+
+    static func stopSubscriptionRetries(_ notification: String, _ cgWindowId: CGWindowID) {
+        debugPrint("removeObservers", cgWindowId)
+        Windows.windowsInSubscriptionRetryLoop.removeAll { $0 == (String(cgWindowId) + String(notification)) }
+    }
+
     init(_ axUiElement: AXUIElement, _ application: Application) {
         // TODO: make a efficient batched AXUIElementCopyMultipleAttributeValues call once for each window, and store the values
         self.axUiElement = axUiElement
@@ -30,17 +42,22 @@ class Window {
         observeEvents()
     }
 
+    deinit {
+        debugPrint("deinit", cgWindowId, title)
+        // some windows never finish launching; subscription retries should be stopped to avoid infinite loops
+        Window.notifications.forEach { Window.stopSubscriptionRetries($0, cgWindowId) }
+    }
+
     private func observeEvents() {
         AXObserverCreate(application.runningApplication.processIdentifier, axObserverCallback, &axObserver)
         guard let axObserver = axObserver else { return }
-        for notification in [
-            kAXUIElementDestroyedNotification,
-            kAXTitleChangedNotification,
-            kAXWindowMiniaturizedNotification,
-            kAXWindowDeminiaturizedNotification,
-        ] {
-            axUiElement.subscribeWithRetry(axObserver, notification, nil)
+        for notification in Window.notifications {
+            debugPrint("subscribeWithRetry win", cgWindowId, notification, title)
+            Windows.windowsInSubscriptionRetryLoop.append(String(cgWindowId) + String(notification))
+            axUiElement.subscribeWithRetry(axObserver, notification, nil, nil, nil, cgWindowId)
         }
+        debugPrint("app sub list", Applications.appsInSubscriptionRetryLoop)
+        debugPrint("win sub list", Windows.windowsInSubscriptionRetryLoop)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 
@@ -56,7 +73,8 @@ class Window {
         // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
         // but quickly switches back to another window in that space
         // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
-        DispatchQueues.focusActions.async {
+        DispatchQueues.focusActions.async { [weak self] in
+            guard let self = self else { return }
             var elementConnection = UInt32(0)
             CGSGetWindowOwner(cgsMainConnectionId, self.cgWindowId, &elementConnection)
             var psn = ProcessSerialNumber()
@@ -115,6 +133,7 @@ private func axObserverCallback(observer: AXObserver, element: AXUIElement, noti
 private func eventWindowDestroyed(_ app: App, _ element: AXUIElement) {
     guard let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
     Windows.list.remove(at: existingIndex)
+    debugPrint("win sub list", Windows.windowsInSubscriptionRetryLoop)
     guard Windows.list.count > 0 else { app.hideUi(); return }
     Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
     app.refreshOpenUi()
