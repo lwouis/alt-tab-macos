@@ -122,7 +122,8 @@ class App: NSApplication, NSApplicationDelegate {
             Windows.refreshAllThumbnails()
             Windows.focusedWindowIndex = 0
             Windows.cycleFocusedWindowIndex(step)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay, execute: {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay, execute: { [weak self] in
+                guard let self = self else { return }
                 self.refreshOpenUi()
                 if self.uiWorkShouldBeDone { self.thumbnailsPanel?.show() }
             })

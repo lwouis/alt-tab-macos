@@ -3,6 +3,7 @@ import Cocoa
 class Applications {
     static var list = [Application]()
     static var appsObserver = RunningApplicationsObserver()
+    static var appsInSubscriptionRetryLoop = [String]()
 
     static func observeNewWindows() {
         for app in list {
@@ -53,12 +54,11 @@ class Applications {
 
     static func removeRunningApplications(_ runningApps: [NSRunningApplication]) {
         for runningApp in runningApps {
-            guard let app = Applications.list.first(where: { $0.runningApplication.isEqual(runningApp) }) else { continue }
-            Windows.list.removeAll(where: { $0.application.runningApplication.isEqual(runningApp) })
-            // some apps never finish launching; the observer leaks for them without this
-            app.removeObserver()
             Applications.list.removeAll(where: { $0.runningApplication.isEqual(runningApp) })
+            Windows.list.removeAll(where: { $0.application.runningApplication.isEqual(runningApp) })
         }
+        debugPrint("app sub list", Applications.appsInSubscriptionRetryLoop)
+        debugPrint("win sub list", Windows.windowsInSubscriptionRetryLoop)
         guard Windows.list.count > 0 else { (App.shared as! App).hideUi(); return }
         // TODO: implement of more sophisticated way to decide which thumbnail gets focused on app quit
         Windows.focusedWindowIndex = 1

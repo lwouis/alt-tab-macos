@@ -4,6 +4,7 @@ class Windows {
     // order in the array is important: most-recently-used elements are first
     static var list = [Window]()
     static var focusedWindowIndex = Array<Window>.Index(0)
+    static var windowsInSubscriptionRetryLoop = [String]()
 
     static func focusedWindow() -> Window? {
         return list.count > focusedWindowIndex ? list[focusedWindowIndex] : nil
