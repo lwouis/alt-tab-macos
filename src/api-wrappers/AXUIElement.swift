@@ -18,7 +18,8 @@ extension AXUIElement {
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Some non-windows have title: nil (e.g. some OS elements)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
-        return title() != nil && (subrole() == "AXStandardWindow" || isMinimized() || isAppHidden) && isOnNormalLevel()
+        // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
+        return title() != nil && (["AXStandardWindow", "AXDialog"].contains(subrole()) || isMinimized() || isAppHidden) && isOnNormalLevel()
     }
 
     func isOnNormalLevel() -> Bool {

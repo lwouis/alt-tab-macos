@@ -48,16 +48,10 @@ class Application: NSObject {
     }
 
     func observeNewWindows() {
-        var newWindows = [AXUIElement]()
-        for window in getActualWindows() {
-            guard Windows.list.firstIndexThatMatches(window) == nil else { continue }
-            newWindows.append(window)
-        }
+        let newWindows = axUiElement!.windows()?
+                .filter { $0.isActualWindow(runningApplication.isHidden) }
+                .filter { Windows.list.firstIndexThatMatches($0) == nil } ?? []
         addWindows(newWindows)
-    }
-
-    private func getActualWindows() -> [AXUIElement] {
-        return axUiElement!.windows()?.filter { $0.isActualWindow(runningApplication.isHidden) } ?? []
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
