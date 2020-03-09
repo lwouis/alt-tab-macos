@@ -2,12 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ATSApplicationFontsPath</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIconFile</key>
-	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -20,25 +20,23 @@
 	<string>#VERSION#</string>
 	<key>CFBundleVersion</key>
 	<string>#VERSION#</string>
+	<key>FeedbackToken</key>
+	<string>#FEEDBACK_TOKEN#</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>LSUIElement</key>
+	<string>true</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>GPL-3.0 licence</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>LSUIElement</key>
-	<string>true</string>
-	<key>ATSApplicationFontsPath</key>
-	<string></string>
 	<key>NSSupportsSuddenTermination</key>
+	<string>true</string>
+	<key>SUEnableAutomaticChecks</key>
 	<string>true</string>
 	<key>SUFeedURL</key>
 	<string>https://raw.githubusercontent.com/lwouis/alt-tab-macos/master/appcast.xml</string>
-	<key>SUEnableAutomaticChecks</key>
-	<string>true</string>
 	<key>SUPublicEDKey</key>
 	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
-	<key>FeedbackToken</key>
-	<string>#FEEDBACK_TOKEN#</string>
 </dict>
 </plist>
