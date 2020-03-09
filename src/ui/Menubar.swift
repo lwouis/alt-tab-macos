@@ -3,7 +3,10 @@ import Cocoa
 class Menubar {
     static func make(_ app: App) -> NSStatusItem {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        item.button!.title = "AltTab"
+        let image = NSImage(named: "menubar-icon")
+        image!.isTemplate = true
+        item.button!.image = image
+        item.button!.imageScaling = .scaleProportionallyUpOrDown
         item.menu = NSMenu()
         item.menu!.addItem(
                 withTitle: NSLocalizedString("Show", comment: ""),
