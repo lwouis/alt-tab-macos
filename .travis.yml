@@ -8,6 +8,7 @@ addons:
   homebrew:
     packages:
       - vitorgalvao/tiny-scripts/cask-repair
+    update: true
 env:
   global:
     - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
