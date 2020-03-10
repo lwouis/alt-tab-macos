@@ -11,7 +11,6 @@
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
 		D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD91161791D42FEC4A60 /* HelperExtensions.swift */; };
 		D04BA084CD1236EC78D90A01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BACCBE5F97BE9B6CA645B /* Localizable.strings */; };
-		D04BA0B631F5B2FEE6EBEF5E /* travis.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BAD6700415D6F7C8B2BEE /* travis.sh */; };
 		D04BA100BD0F47828EB649FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAAEC2847830A3991F8D1 /* InfoPlist.strings */; };
 		D04BA14D93726795A6937832 /* LabelAndControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA2526DC6726E0F7ACF7C /* LabelAndControl.swift */; };
 		D04BA15A1B0C4871EA7CB899 /* GeneralTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACE22DC907F03D193075 /* GeneralTab.swift */; };
@@ -582,7 +581,6 @@
 				D04BA3C24F4F644EA91DE38C /* Localizable.strings in Resources */,
 				D04BACE5702CEB1819866875 /* menubar-icon@2x.png in Resources */,
 				D04BAC61DCCB79B5D436F022 /* app-icon.icns in Resources */,
-				D04BA0B631F5B2FEE6EBEF5E /* travis.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
