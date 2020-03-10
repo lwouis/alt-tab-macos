@@ -17,19 +17,7 @@ env:
     - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
 install: true # disable default install
 script:
-  - set -e
-  - env | sort
-  - npm ci
-  - npx commitlint-travis
-  - if [ $IS_RELEASE ]; then scripts/determine_version_and_changelog.sh; fi
-  - if [ $IS_RELEASE ]; then scripts/replace_environment_variables_in_app.sh; fi
-  - pod install
-  - scripts/import_codesign_certificate_into_keychain.sh
-  - xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -derivedDataPath $XCODE_BUILD_PATH
-  - if [ $IS_RELEASE ]; then scripts/package_and_notarize_release.sh; fi
-  - if [ $IS_RELEASE ]; then scripts/update_appcast.sh; fi
-  - if [ $IS_RELEASE ]; then scripts/update_homebrew_cask.sh; fi
-  - if [ $IS_RELEASE ]; then npx semantic-release; fi
+  - scripts/travis.sh
 deploy:
   provider: releases
   token:
