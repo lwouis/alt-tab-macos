@@ -3,11 +3,6 @@ osx_image: xcode11
 language: node_js
 node_js:
   - 10
-addons:
-  homebrew:
-    packages:
-      - vitorgalvao/tiny-scripts/cask-repair
-    update: true
 cache:
   - npm: true
   - cocoapods: true
@@ -18,8 +13,6 @@ env:
     - VERSION_FILE="VERSION.txt"
     - CHANGELOG_DELTA_FILE="CHANGELOG_DELTA.txt"
     - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
-before_install:
-  - test -d /usr/local/Cellar/cask-repair || brew install vitorgalvao/tiny-scripts/cask-repair
 install: true # disable default install
 script:
   - scripts/travis.sh
