@@ -11,7 +11,7 @@ if [ $IS_RELEASE ]; then
 fi
 pod install
 scripts/import_codesign_certificate_into_keychain.sh
-xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -derivedDataPath $XCODE_BUILD_PATH
+xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -derivedDataPath DerivedData
 if [ $IS_RELEASE ]; then
   scripts/package_and_notarize_release.sh
   scripts/update_appcast.sh
