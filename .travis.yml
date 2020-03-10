@@ -4,7 +4,8 @@ language: node_js
 node_js:
   - 10
 cache:
-  - npm
+  - npm: true
+  - cocoapods: true
   - directories:
       - /usr/local/Cellar/cask-repair
 env:
