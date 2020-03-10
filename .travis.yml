@@ -6,6 +6,10 @@ node_js:
 cache: npm
 addons:
   homebrew:
+    taps:
+      - homebrew/cask-versions
+      - homebrew/cask-fonts
+      - homebrew/cask-drivers
     packages:
       - vitorgalvao/tiny-scripts/cask-repair
     update: true
@@ -28,6 +32,8 @@ deploy:
   cleanup: false
   on:
     repo: lwouis/alt-tab-macos
+after_deploy:
+  - if [ $IS_RELEASE ]; then scripts/update_homebrew_cask.sh; fi
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
