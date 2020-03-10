@@ -7,9 +7,6 @@
 ## Installation
 
 [**Download the latest release**](https://github.com/lwouis/alt-tab-macos/releases/latest)
-and extract it in your Applications folder. If macOS refuses to run the application
-because it's from an unidentified developer, right-click the application,
-choose **Open** then click **Open** in the prompt that appears.
 
 ## Compatibility
 
@@ -43,7 +40,7 @@ The app is currently available in: English, Français, Deutsch, Español, 日本
 
 * [CONTRIBUTING.md](CONTRIBUTING.md) gives an overview of the project for newcomers who want to contribute.
 * Come discuss with us on the [Discord server](https://discord.gg/mHvmcqT).
-* [Suggest an enhancement or discuss an issue on github](https://github.com/lwouis/alt-tab-macos/issues).
+* [Suggest an enhancement or discuss an issue on github](https://github.com/lwouis/alt-tab-macos/issues). You can also use the feedback form within the app.
 
 ## Alternatives
 
