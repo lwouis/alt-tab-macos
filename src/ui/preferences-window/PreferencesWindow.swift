@@ -5,7 +5,6 @@ class PreferencesWindow: NSWindow {
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
         super.init(contentRect: .zero, styleMask: style, backing: backingStoreType, defer: flag)
-        LabelAndControl.callbackTarget = self
         setupWindow()
         setupTabViews()
     }
@@ -15,7 +14,7 @@ class PreferencesWindow: NSWindow {
         makeKeyAndOrderFront(nil)
     }
 
-    func controlWasChanged(_ senderControl: NSControl) {
+    @objc static func controlWasChanged(_ senderControl: NSControl) {
         let newValue = LabelAndControl.getControlValue(senderControl)
         LabelAndControl.updateControlExtras(senderControl, newValue)
         Preferences.set(senderControl.identifier!.rawValue, newValue)
@@ -31,7 +30,7 @@ class PreferencesWindow: NSWindow {
     private func setupTabViews() {
         contentViewController = tabViewController
         tabViewController.tabStyle = .toolbar
-        tabViewController.addTabViewItem(ShortcutsTab.make())
+        tabViewController.addTabViewItem(GeneralTab.make())
         tabViewController.addTabViewItem(AppearanceTab.make())
         tabViewController.addTabViewItem(UpdatesTab.make())
         tabViewController.addTabViewItem(AboutTab.make())
