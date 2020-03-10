@@ -8,6 +8,8 @@
 
 [**Download the latest release**](https://github.com/lwouis/alt-tab-macos/releases/latest)
 
+Alternatively, you can use [homebrew](https://brew.sh/): `brew cask install alt-tab`
+
 ## Compatibility
 
 From macOS 10.12 to 10.15
