@@ -1,3 +1,10 @@
+## [3.0.5](https://github.com/lwouis/alt-tab-macos/compare/v3.0.4...v3.0.5) (2020-03-10)
+
+
+### Bug Fixes
+
+* remove script from bundle ([4a8301e](https://github.com/lwouis/alt-tab-macos/commit/4a8301e))
+
 ## [3.0.4](https://github.com/lwouis/alt-tab-macos/compare/v3.0.3...v3.0.4) (2020-03-10)
 
 ## [3.0.3](https://github.com/lwouis/alt-tab-macos/compare/v3.0.2...v3.0.3) (2020-03-10)

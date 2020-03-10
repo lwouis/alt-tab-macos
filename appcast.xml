@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.0.5</title>
+      <pubDate>Tue, 10 Mar 2020 14:03:49 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="305-httpsgithubcomlwouisalt-tab-macoscomparev304v305-2020-03-10">3.0.5 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.0.4...v3.0.5">https://github.com/lwouis/alt-tab-macos/compare/v3.0.4...v3.0.5</a>) (2020-03-10)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* remove script from bundle (4a8301e (https://github.com/lwouis/alt-tab-macos/commit/4a8301e))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.5/AltTab-3.0.5.zip"
+        sparkle:version="3.0.5"
+        sparkle:shortVersionString="3.0.5"
+        sparkle:edSignature="SpET9dZ8MlI7bFqWW74ZYfX49GvItBHBA0WKy4S7hNxhI9fICAITopAx9MYeSm702hhXUdih8eb3oBfZuvIzAw==" length="7147839"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.0.4</title>
       <pubDate>Tue, 10 Mar 2020 12:48:38 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
