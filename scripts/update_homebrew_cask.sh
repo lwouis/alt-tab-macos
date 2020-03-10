@@ -4,4 +4,4 @@ set -exu
 
 version="$(cat $VERSION_FILE)"
 
-cask-repair --cask-version "$version" alt-tab
+/usr/local/Cellar/cask-repair --cask-version "$version" alt-tab
