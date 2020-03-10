@@ -1,8 +1,6 @@
 import Cocoa
 
 class LabelAndControl: NSObject {
-    static var callbackTarget: PreferencesWindow!
-
     static func makeLabelWithInput(_ labelText: String, _ rawName: String, _ width: CGFloat, _ suffixText: String? = nil, _ suffixUrl: String? = nil, _ validator: ((String) -> Bool)? = nil) -> [NSView] {
         let input = TextField(Preferences.getAsString(rawName)!)
         input.validationHandler = validator
@@ -13,10 +11,10 @@ class LabelAndControl: NSObject {
         return [views[0], NSStackView(views: [views[1], makeSuffix(rawName, suffixText!, suffixUrl)])]
     }
 
-    static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String) -> [NSView] {
+    static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
         setControlValue(checkbox, Preferences.getAsString(rawName)!)
-        return makeLabelWithProvidedControl(labelText, rawName, checkbox)
+        return makeLabelWithProvidedControl(labelText, rawName, checkbox, extraAction: extraAction)
     }
 
     static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [String], _ suffixText: String? = nil) -> [NSView] {
@@ -40,17 +38,14 @@ class LabelAndControl: NSObject {
         return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText)
     }
 
-    static func makeLabelWithProvidedControl(_ labelText: String?, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil) -> [NSView] {
+    static func makeLabelWithProvidedControl(_ labelText: String?, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil, extraAction: ActionClosure? = nil) -> [NSView] {
         let label = makeLabel(labelText, rawName)
         control.identifier = NSUserInterfaceItemIdentifier(rawName)
-        control.target = self
-        control.action = #selector(controlWasChanged)
+        control.onAction = {
+            PreferencesWindow.controlWasChanged($0)
+            extraAction?($0)
+        }
         return [label, control, suffixText != nil ? makeSuffix(rawName, suffixText!, suffixUrl) : NSView()]
-    }
-
-    @objc
-    static func controlWasChanged(senderControl: NSControl) {
-        callbackTarget.controlWasChanged(senderControl)
     }
 
     private static func makeLabel(_ labelText: String?, _ rawName: String) -> NSTextField {

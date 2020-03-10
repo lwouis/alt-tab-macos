@@ -18,6 +18,7 @@ class Preferences {
         "theme": MacroPreferences.themeList.keys.first!,
         "showOnScreen": MacroPreferences.showOnScreenList.keys.first!,
         "hideSpaceNumberLabels": false,
+        "startAtLogin": true,
     ]
 
     // constant values
@@ -39,6 +40,7 @@ class Preferences {
     static var tabKeyCode: UInt16 { UInt16(defaults.integer(forKey: "tabKeyCode")) }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.integer(forKey: "windowDisplayDelay")) }
     static var hideSpaceNumberLabels: Bool { defaults.bool(forKey: "hideSpaceNumberLabels") }
+    static var startAtLogin: Bool { defaults.bool(forKey: "startAtLogin") }
 
     // macro values
     static var theme: Theme { MacroPreferences.themeList[defaults.string(forKey: "theme")!]! }
