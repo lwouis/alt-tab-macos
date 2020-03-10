@@ -6,8 +6,8 @@ class AboutTab: NSObject {
     }
 
     static func makeView() -> NSGridView {
-        let appIcon = NSImageView(image: App.shared.applicationIconImage)
-        appIcon.fit(150, 150)
+        let appIcon = NSImageView(image: NSImage(named: "app-icon")!.resizedCopy(150, 150))
+        appIcon.imageScaling = .scaleNone
         let appText = NSStackView(views: [
             BoldLabel(App.name),
             NSTextField(wrappingLabelWithString: NSLocalizedString("Version", comment: "") + " " + App.version),
