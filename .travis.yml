@@ -17,6 +17,7 @@ env:
     - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
 install: true # disable default install
 script:
+  - set -e
   - env | sort
   - npm ci
   - npx commitlint-travis
