@@ -54,20 +54,27 @@ extension AXUIElement {
         if let runningApplication = runningApplication, Applications.appsInSubscriptionRetryLoop.first(where: { $0 == String(runningApplication.processIdentifier) + String(notification) }) == nil { return }
         if let wid = wid, Windows.windowsInSubscriptionRetryLoop.first(where: { $0 == String(wid) + String(notification) }) == nil { return }
         let result = AXObserverAddNotification(axObserver, self, notification as CFString, pointer)
-        if result == .success || result == .notificationUnsupported || result == .notificationAlreadyRegistered {
+        if result == .success || result == .notificationAlreadyRegistered {
             callback?()
-            if let runningApplication = runningApplication {
-                Application.stopSubscriptionRetries(notification, runningApplication)
-            }
-            if let wid = wid {
-                Window.stopSubscriptionRetries(notification, wid)
-            }
+            stopRetries(runningApplication, wid, notification)
+            return
+        } else if result == .notificationUnsupported || result == .notImplemented {
+            stopRetries(runningApplication, wid, notification)
             return
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10), execute: { [weak self] in
             guard let self = self else { return }
             self.subscribeWithRetry(axObserver, notification, pointer, callback, runningApplication, wid, attemptsCount + 1)
         })
+    }
+
+    func stopRetries(_ runningApplication: NSRunningApplication?, _ wid: CGWindowID?, _ notification: String) {
+        if let runningApplication = runningApplication {
+            Application.stopSubscriptionRetries(notification, runningApplication)
+        }
+        if let wid = wid {
+            Window.stopSubscriptionRetries(notification, wid)
+        }
     }
 
     private func attribute<T>(_ key: String, _ type: T.Type) -> T? {
