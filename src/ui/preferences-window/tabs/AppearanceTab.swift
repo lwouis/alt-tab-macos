@@ -22,7 +22,6 @@ class AppearanceTab {
         ])
         view.column(at: 0).xPlacement = .trailing
         view.rowAlignment = .lastBaseline
-        view.setRowsHeight(rowHeight)
         view.fit()
         return view
     }

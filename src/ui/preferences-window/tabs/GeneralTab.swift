@@ -30,7 +30,6 @@ class GeneralTab {
         ])
         view.column(at: 0).xPlacement = .trailing
         view.rowAlignment = .lastBaseline
-        view.setRowsHeight(rowHeight)
         view.fit()
         setLoginItemIfCheckboxIsOn(startAtLogin[1] as! NSButton)
         return view
