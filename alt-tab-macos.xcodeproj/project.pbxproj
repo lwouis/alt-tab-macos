@@ -27,7 +27,6 @@
 		D04BA3CF766857381519B892 /* DispatchQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAB74451B79FE18B8BEDF /* DispatchQueues.swift */; };
 		D04BA48B00B4211A465C7337 /* DebugProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACABD048E62EBE4576CC /* DebugProfile.swift */; };
 		D04BA570E7806F28741B1472 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D04BA0CDCFF1F0B1A77E3E86 /* SF-Pro-Text-Regular.otf */; };
-		D04BA5D1F60179FE362798F7 /* cask-repair.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BA3626C2BB65ED3ACE47D /* cask-repair.sh */; };
 		D04BA5F99B45DC13B9E9DD91 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8276B3D3905E80B1739 /* Keyboard.swift */; };
 		D04BA6187A91A847844B6ABB /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA015A45DE7AFDC9794FE /* Window.swift */; };
 		D04BA691CB6082A3C39CBC89 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE757BB2B605234FBF58 /* TabViewController.swift */; };
@@ -98,7 +97,6 @@
 		D04BA2A4F257F4DCE1421758 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file.lock; path = Podfile.lock; sourceTree = "<group>"; };
 		D04BA2C7B51F68651B3C60E2 /* 6 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "6 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA32F25860B686DFE818A /* 3 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line.jpg"; sourceTree = "<group>"; };
-		D04BA3626C2BB65ED3ACE47D /* cask-repair.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "cask-repair.sh"; sourceTree = "<group>"; };
 		D04BA399F1DF2C61FC2C9599 /* menubar-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar-icon@2x.png"; sourceTree = "<group>"; };
 		D04BA4336B6004A0A99849AD /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
 		D04BA44F7B5E58A08416706B /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
@@ -410,7 +408,6 @@
 				D04BABFEC8F9DF41BB7A449E /* import_codesign_certificate_into_keychain.sh */,
 				D04BA123744B0C27E9F54B05 /* codesign_sparkle_embedded_apps.sh */,
 				D04BAD6700415D6F7C8B2BEE /* travis.sh */,
-				D04BA3626C2BB65ED3ACE47D /* cask-repair.sh */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
@@ -586,7 +583,6 @@
 				D04BACE5702CEB1819866875 /* menubar-icon@2x.png in Resources */,
 				D04BAC61DCCB79B5D436F022 /* app-icon.icns in Resources */,
 				D04BA0B631F5B2FEE6EBEF5E /* travis.sh in Resources */,
-				D04BA5D1F60179FE362798F7 /* cask-repair.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
