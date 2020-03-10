@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.1.0</title>
+      <pubDate>Tue, 10 Mar 2020 17:21:29 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="310-httpsgithubcomlwouisalt-tab-macoscomparev305v310-2020-03-10">3.1.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.0.5...v3.1.0">https://github.com/lwouis/alt-tab-macos/compare/v3.0.5...v3.1.0</a>) (2020-03-10)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* better subscription retry logic (3a80cab (https://github.com/lwouis/alt-tab-macos/commit/3a80cab))</code></pre><h3 id="features">Features</h3>
+<pre><code>* output plist file as binary for better perf (29a9f59 (https://github.com/lwouis/alt-tab-macos/commit/29a9f59))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.0/AltTab-3.1.0.zip"
+        sparkle:version="3.1.0"
+        sparkle:shortVersionString="3.1.0"
+        sparkle:edSignature="ZswxCH8uRUZmjTkZTIQP3/uyrJTknltjMn/b9usnJYRgWilwbTqEonWS6o6BFc6v6C+rN9MNUuoqulaeTTHJCg==" length="7147938"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.0.5</title>
       <pubDate>Tue, 10 Mar 2020 14:03:49 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

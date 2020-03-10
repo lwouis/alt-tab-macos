@@ -1,3 +1,15 @@
+# [3.1.0](https://github.com/lwouis/alt-tab-macos/compare/v3.0.5...v3.1.0) (2020-03-10)
+
+
+### Bug Fixes
+
+* better subscription retry logic ([3a80cab](https://github.com/lwouis/alt-tab-macos/commit/3a80cab))
+
+
+### Features
+
+* output plist file as binary for better perf ([29a9f59](https://github.com/lwouis/alt-tab-macos/commit/29a9f59))
+
 ## [3.0.5](https://github.com/lwouis/alt-tab-macos/compare/v3.0.4...v3.0.5) (2020-03-10)
 
 
