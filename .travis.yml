@@ -3,11 +3,14 @@ osx_image: xcode11
 language: node_js
 node_js:
   - 10
+addons:
+  homebrew:
+    packages:
+      - vitorgalvao/tiny-scripts/cask-repair
+    update: true
 cache:
   - npm: true
   - cocoapods: true
-  - directories:
-      - /usr/local/Cellar/cask-repair
 env:
   global:
     - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
