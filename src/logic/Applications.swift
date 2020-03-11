@@ -1,4 +1,5 @@
 import Cocoa
+import ApplicationServices
 
 class Applications {
     static var list = [Application]()
@@ -64,9 +65,7 @@ class Applications {
     }
 
     private static func filterApplications(_ apps: [NSRunningApplication]) -> [NSRunningApplication] {
-        // it would be nice to filter with $0.activationPolicy != .prohibited (see https://stackoverflow.com/a/26002033/2249756)
-        // however some daemon processes can sometimes create windows, so we can't filter them out (e.g. CopyQ is .prohibited for some reason)
-        return apps.filter { $0.bundleIdentifier != nil }
+        return apps.filter { $0.activationPolicy != .prohibited || $0.bundleIdentifier == "io.github.hluk.CopyQ" }
     }
 }
 
