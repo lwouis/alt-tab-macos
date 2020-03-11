@@ -1,3 +1,11 @@
+## [3.1.1](https://github.com/lwouis/alt-tab-macos/compare/v3.1.0...v3.1.1) (2020-03-11)
+
+
+### Bug Fixes
+
+* don't observe daemons to avoid infinite loops (closes [#170](https://github.com/lwouis/alt-tab-macos/issues/170)) ([e40f859](https://github.com/lwouis/alt-tab-macos/commit/e40f859))
+* show alt-tab own windows in the thumbnail panel ([6018a53](https://github.com/lwouis/alt-tab-macos/commit/6018a53))
+
 # [3.1.0](https://github.com/lwouis/alt-tab-macos/compare/v3.0.5...v3.1.0) (2020-03-10)
 
 

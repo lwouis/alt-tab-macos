@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.1.1</title>
+      <pubDate>Wed, 11 Mar 2020 16:03:52 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="311-httpsgithubcomlwouisalt-tab-macoscomparev310v311-2020-03-11">3.1.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.1.0...v3.1.1">https://github.com/lwouis/alt-tab-macos/compare/v3.1.0...v3.1.1</a>) (2020-03-11)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* don&#39;t observe daemons to avoid infinite loops (closes #170 (https://github.com/lwouis/alt-tab-macos/issues/170)) (e40f859 (https://github.com/lwouis/alt-tab-macos/commit/e40f859))
+* show alt-tab own windows in the thumbnail panel (6018a53 (https://github.com/lwouis/alt-tab-macos/commit/6018a53))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.1/AltTab-3.1.1.zip"
+        sparkle:version="3.1.1"
+        sparkle:shortVersionString="3.1.1"
+        sparkle:edSignature="J0jmXAT3j4JFY8qvZz7zuOzoaoHI2s+hichXTbhDWyJiqVW8D7snp3KWjlGbsXnRFEnE9HnLn2vFD4po0MkSDQ==" length="7147257"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.1.0</title>
       <pubDate>Tue, 10 Mar 2020 17:21:29 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
