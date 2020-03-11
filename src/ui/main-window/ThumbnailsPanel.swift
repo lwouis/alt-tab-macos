@@ -4,8 +4,8 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     var backgroundView: NSVisualEffectView!
     var collectionView: NSCollectionView!
     var app: App?
-    let cellId = NSUserInterfaceItemIdentifier("Cell")
     var currentScreen: NSScreen?
+    static let cellId = NSUserInterfaceItemIdentifier("Cell")
 
     convenience init(_ app: App) {
         self.init()
@@ -50,7 +50,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
         collectionView.backgroundColors = [.clear]
         collectionView.isSelectable = true
         collectionView.allowsMultipleSelection = false
-        collectionView.register(CollectionViewItem.self, forItemWithIdentifier: cellId)
+        collectionView.register(CollectionViewItem.self, forItemWithIdentifier: ThumbnailsPanel.cellId)
     }
 
     private func makeLayout() -> CollectionViewFlowLayout {
@@ -65,7 +65,7 @@ class ThumbnailsPanel: NSPanel, NSCollectionViewDataSource, NSCollectionViewDele
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = collectionView.makeItem(withIdentifier: cellId, for: indexPath) as! CollectionViewItem
+        let item = collectionView.makeItem(withIdentifier: ThumbnailsPanel.cellId, for: indexPath) as! CollectionViewItem
         item.view_.updateRecycledCellWithNewContent(Windows.list[indexPath.item],
                 { self.app!.focusSelectedWindow(item.view_.window_) },
                 { self.app!.thumbnailsPanel!.highlightCell(item) },

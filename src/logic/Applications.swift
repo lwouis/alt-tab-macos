@@ -66,7 +66,7 @@ class Applications {
     private static func filterApplications(_ apps: [NSRunningApplication]) -> [NSRunningApplication] {
         // it would be nice to filter with $0.activationPolicy != .prohibited (see https://stackoverflow.com/a/26002033/2249756)
         // however some daemon processes can sometimes create windows, so we can't filter them out (e.g. CopyQ is .prohibited for some reason)
-        return apps.filter { $0.bundleIdentifier != nil && $0.bundleIdentifier != NSRunningApplication.current.bundleIdentifier }
+        return apps.filter { $0.bundleIdentifier != nil }
     }
 }
 
