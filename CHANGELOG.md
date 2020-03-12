@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/lwouis/alt-tab-macos/compare/v3.1.1...v3.1.2) (2020-03-12)
+
+
+### Bug Fixes
+
+* send feedback crashed the app on submit (closes [#172](https://github.com/lwouis/alt-tab-macos/issues/172)) ([c34b8a5](https://github.com/lwouis/alt-tab-macos/commit/c34b8a5))
+
 ## [3.1.1](https://github.com/lwouis/alt-tab-macos/compare/v3.1.0...v3.1.1) (2020-03-11)
 
 
