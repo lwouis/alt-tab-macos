@@ -4,6 +4,18 @@ This project is open-source under the [GPL v3 license](https://github.com/lwouis
 
 In this document you will find some pointers to get started
 
+## Building the project locally
+
+This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it using 2 commands:
+
+* `pod install` to fetch the dependencies with [CocoaPods](https://cocoapods.org/)
+* `scripts/generate_selfsigned_codesign_certificate.sh` to generate a local self-signed certificate, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build
+* Either open `alt-tab-macos.xcworkspace` with XCode, or use the cli: `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release` to build the .app
+
+## Raising a pull-request
+
+If you want to contribute a PR, please run `npm install` once. It will add the pre-commit hook to ensure that your commits follow the convention and will pass the PR.
+
 ## Mac development ecosystem
 
 Mac development ecosystem is pretty terrible in general. They keep piling on the tech stacks on top of each other, so you have C APIs, ObjC APIs, Swift APIs, Interface builder, Playgrounds, Swift UI. All these are bridging each other with a bunch of macros, SDKs glue, compiler flags, compatibility mode, XCode legacy build system, etc. So keep that in mind. For alt-tab, we are on Swift 4.2. Note that swift just recently started being stable, but overall any change of version breaks a lot of stuff. Swift itself is the worst governed language project I’ve seen in modern times.
@@ -14,7 +26,7 @@ Documentation is abysmal. Very simple things are not documented at all, and good
 
 Dependencies were historically never handled by Apple. The community came up with [Cocoapods](https://cocoapods.org/) which is the de-facto dependency manager for Apple ecosystem projects these days, even though Apple is now trying to push their own.
 
-OS APIs are quite limited for the kind of low-level, system-wide app alt-tab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing alt-tab on the Mac AppStore. We have tried my best to [document](src/api-wrappers/PrivateApis.swift) the ones we are using, as well as ones we investigated in the past.
+OS APIs are quite limited for the kind of low-level, system-wide app alt-tab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing alt-tab on the Mac AppStore. We have tried my best to [document](../src/api-wrappers/PrivateApis.swift) the ones we are using, as well as ones we investigated in the past.
 
 ## This project specifically
 
@@ -29,7 +41,7 @@ We minimize reliance on XCode, InterfaceBuilder, Playground, and other GUI tools
 * `PodFile` and `PodFile.lock` describe dependencies on open-source libraries (e.g. [Sparkle](https://github.com/sparkle-project/Sparkle))
 * Some `.xcconfig` files in `config/` which contain XCode settings that people typically change using XCode UI, but that I want to be version controlled
 
-We use the command line to build the project, not XCode GUI. See how to build in the [README.md](README.md).
+We use the command line to build the project, not XCode GUI. See how to build in the [README.md](../README.md).
 
 The project directory is organized in the following way:
 

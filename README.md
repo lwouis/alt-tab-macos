@@ -40,7 +40,7 @@ The app is currently available in: English, Français, Deutsch, Español, 日本
 
 ## Contributing
 
-* [CONTRIBUTING.md](CONTRIBUTING.md) gives an overview of the project for newcomers who want to contribute.
+* [CONTRIBUTING.md](docs/CONTRIBUTING.md) gives an overview of the project for newcomers who want to contribute.
 * Come discuss with us on the [Discord server](https://discord.gg/mHvmcqT).
 * [Suggest an enhancement or discuss an issue on github](https://github.com/lwouis/alt-tab-macos/issues). You can also use the feedback form within the app.
 
@@ -57,17 +57,6 @@ Before building my own app, I looked around at similar apps. However, none was c
 | Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_\(macOS\))          | No keyboard support                                                                                          |
 | `⌘ command` + `⇥ tab`                                                                     | Only shows apps, not windows (note: can press down to see window of selected app)                            |
 | `⌘ command` + `` ` ``                                                                      | Cycles through tabs and windows, but only of the same app. Only cycling, no direct access                    |
-
-## Building the project locally
-
-This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it using 2 commands:
-
-* `pod install` to fetch the dependencies with [CocoaPods](https://cocoapods.org/)
-* `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release` to build the .app
-
-Note that on debug builds, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build, we use a code-signing certificate. You can generate one on your local machine in one step by running `scripts/generate_selfsigned_codesign_certificate.sh`.
-
-If you want to contribute a PR, please run `npm install` once. It will add the pre-commit hook to ensure that your commits follow the convention and will pass the PR.
 
 ## Screenshots
 
