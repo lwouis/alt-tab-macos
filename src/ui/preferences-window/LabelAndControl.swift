@@ -2,7 +2,7 @@ import Cocoa
 
 class LabelAndControl: NSObject {
     static func makeLabelWithInput(_ labelText: String, _ rawName: String, _ width: CGFloat, _ suffixText: String? = nil, _ suffixUrl: String? = nil, _ validator: ((String) -> Bool)? = nil) -> [NSView] {
-        let input = TextField(Preferences.getAsString(rawName)!)
+        let input = TextField(Preferences.getString(rawName)!)
         input.validationHandler = validator
         input.delegate = input
         input.visualizeValidationState()
@@ -13,19 +13,19 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
-        setControlValue(checkbox, Preferences.getAsString(rawName)!)
+        setControlValue(checkbox, Preferences.getString(rawName)!)
         return makeLabelWithProvidedControl(labelText, rawName, checkbox, extraAction: extraAction)
     }
 
     static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [String], _ suffixText: String? = nil) -> [NSView] {
         let popUp = NSPopUpButton()
         popUp.addItems(withTitles: values)
-        popUp.selectItem(withTitle: Preferences.getAsString(rawName)!)
+        popUp.selectItem(withTitle: Preferences.getString(rawName)!)
         return makeLabelWithProvidedControl(labelText, rawName, popUp, suffixText)
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "") -> [NSView] {
-        let value = Preferences.getAsString(rawName)!
+        let value = Preferences.getString(rawName)!
         let suffixText = value + " " + unitText
         let slider = NSSlider()
         slider.minValue = minValue

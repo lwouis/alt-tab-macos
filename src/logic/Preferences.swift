@@ -61,19 +61,23 @@ class Preferences {
         defaults.register(defaults: defaultValues)
     }
 
-    static func get(_ key: String) -> Any? {
+    static func getObject(_ key: String) -> Any? {
         defaults.object(forKey: key)
     }
 
-    static func getAsString(_ key: String) -> String? {
+    static func getString(_ key: String) -> String? {
         defaults.string(forKey: key)
+    }
+
+    static func getAsString(_ key: String) -> String {
+        String(describing: defaults.object(forKey: key))
     }
 
     static func set(_ key: String, _ value: Any?) {
         defaults.set(value, forKey: key)
     }
 
-    static var all: [String: Any] { defaults.dictionaryRepresentation() }
+    static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
 }
 
 struct Theme {
