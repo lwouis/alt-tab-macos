@@ -1,3 +1,5 @@
+## [3.1.3](https://github.com/lwouis/alt-tab-macos/compare/v3.1.2...v3.1.3) (2020-03-12)
+
 ## [3.1.2](https://github.com/lwouis/alt-tab-macos/compare/v3.1.1...v3.1.2) (2020-03-12)
 
 
