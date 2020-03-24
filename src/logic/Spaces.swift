@@ -8,6 +8,7 @@ class Spaces {
 
     static func observeSpaceChanges() {
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
+            debugPrint("OS event", "activeSpaceDidChangeNotification")
             updateCurrentSpace()
             Applications.observeNewWindows()
             let app = App.shared as! App
