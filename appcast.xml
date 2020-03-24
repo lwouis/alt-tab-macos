@@ -5,6 +5,27 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.2.0</title>
+      <pubDate>Tue, 24 Mar 2020 11:09:19 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="320-httpsgithubcomlwouisalt-tab-macoscomparev313v320-2020-03-24">3.2.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.1.3...v3.2.0">https://github.com/lwouis/alt-tab-macos/compare/v3.1.3...v3.2.0</a>) (2020-03-24)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* refresh both thumbnails on focus switch in bg (4fee590 (https://github.com/lwouis/alt-tab-macos/commit/4fee590))
+* things in background properly reflect in ui (fdf1524 (https://github.com/lwouis/alt-tab-macos/commit/fdf1524))</code></pre><h3 id="features">Features</h3>
+<pre><code>* faster ui (closes #171 (https://github.com/lwouis/alt-tab-macos/issues/171), closes #128 (https://github.com/lwouis/alt-tab-macos/issues/128), closes #89 (https://github.com/lwouis/alt-tab-macos/issues/89)) (311beef (https://github.com/lwouis/alt-tab-macos/commit/311beef))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.2.0/AltTab-3.2.0.zip"
+        sparkle:version="3.2.0"
+        sparkle:shortVersionString="3.2.0"
+        sparkle:edSignature="e+rPVrsgFTSab13+pa6F6gaL6r8+bV5/wu3t0NA15JSQ1Tt+tRaIN0VPdrl0u40TblafHzQ3vmehOMnaTcrhDw==" length="7005656"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.1.3</title>
       <pubDate>Thu, 12 Mar 2020 08:32:27 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

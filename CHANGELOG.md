@@ -1,3 +1,16 @@
+# [3.2.0](https://github.com/lwouis/alt-tab-macos/compare/v3.1.3...v3.2.0) (2020-03-24)
+
+
+### Bug Fixes
+
+* refresh both thumbnails on focus switch in bg ([4fee590](https://github.com/lwouis/alt-tab-macos/commit/4fee590))
+* things in background properly reflect in ui ([fdf1524](https://github.com/lwouis/alt-tab-macos/commit/fdf1524))
+
+
+### Features
+
+* faster ui (closes [#171](https://github.com/lwouis/alt-tab-macos/issues/171), closes [#128](https://github.com/lwouis/alt-tab-macos/issues/128), closes [#89](https://github.com/lwouis/alt-tab-macos/issues/89)) ([311beef](https://github.com/lwouis/alt-tab-macos/commit/311beef))
+
 ## [3.1.3](https://github.com/lwouis/alt-tab-macos/compare/v3.1.2...v3.1.3) (2020-03-12)
 
 ## [3.1.2](https://github.com/lwouis/alt-tab-macos/compare/v3.1.1...v3.1.2) (2020-03-12)
