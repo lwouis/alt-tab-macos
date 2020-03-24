@@ -29,8 +29,8 @@ class Windows {
         }
     }
 
-    static func moveFocusedWindowIndexAfterWindowCreatedInBackground() {
-        updateFocusedWindowIndex(focusedWindowIndex + 1)
+    static func moveFocusedWindowIndexAfterWindowCreatedInBackground(_ step: Int) {
+        updateFocusedWindowIndex(focusedWindowIndex + step)
     }
 
     static func updateSpaces() {
@@ -69,6 +69,21 @@ class Windows {
     static func refreshAllThumbnails() {
         list.forEachAsync { window in
             window.refreshThumbnail()
+        }
+    }
+
+    static func refreshAllExistingThumbnails() {
+        refreshAllThumbnails()
+        guard (App.shared as! App).uiWorkShouldBeDone else { return }
+        list.enumerated().forEach {
+            let newImage = $0.element.thumbnail
+            let view = ThumbnailsView.recycledViews[$0.offset].thumbnail
+            if view.image != newImage {
+                let oldSize = view.image!.size
+                view.image = newImage
+                view.image!.size = oldSize
+                view.frame.size = oldSize
+            }
         }
     }
 }

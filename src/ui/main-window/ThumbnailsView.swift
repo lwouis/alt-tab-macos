@@ -57,7 +57,7 @@ class ThumbnailsView: NSVisualEffectView {
         var rowStartIndex = 0
         var rowWidth = CGFloat(0)
         var rowY = CGFloat(0)
-        for (index, window) in Windows.list.enumerated() {
+        for (index, _) in Windows.list.enumerated() {
             let view = ThumbnailsView.recycledViews[index]
             if view.frame.origin.y == rowY {
                 rowWidth += Preferences.interCellPadding + view.frame.size.width
