@@ -104,7 +104,7 @@ private func eventApplicationActivated(_ app: App, _ element: AXUIElement) {
           let appFocusedWindow = element.focusedWindow(),
           let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
-    app.refreshOpenUi([Windows.list[0]])
+    app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
 }
 
 private func eventApplicationHiddenOrShown(_ app: App, _ element: AXUIElement, _ type: String) {
@@ -127,5 +127,5 @@ private func eventFocusedWindowChanged(_ app: App, _ element: AXUIElement) {
     guard !app.appIsBeingUsed,
           let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
-    app.refreshOpenUi([Windows.list[0]])
+    app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
 }
