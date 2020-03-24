@@ -108,7 +108,10 @@ private func eventApplicationActivated(_ app: App, _ element: AXUIElement) {
 }
 
 private func eventApplicationHiddenOrShown(_ app: App, _ element: AXUIElement, _ type: String) {
-    let windows = Windows.list.filter { $0.application.axUiElement! == element }
+    let windows = Windows.list.filter {
+        // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
+        $0.application.axUiElement!.pid() == element.pid()
+    }
     windows.forEach { $0.isHidden = type == kAXApplicationHiddenNotification }
     app.refreshOpenUi(windows)
 }
