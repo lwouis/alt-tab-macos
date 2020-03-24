@@ -15,8 +15,8 @@ class Applications {
 
     static func initialDiscovery() {
         addInitialRunningApplications()
-        observeRunningApplications()
         addInitialRunningApplicationsWindows()
+        observeRunningApplications()
     }
 
     static func addInitialRunningApplications() {
@@ -28,23 +28,18 @@ class Applications {
     }
 
     static func addInitialRunningApplicationsWindows() {
-        // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
         let spaces = Spaces.otherSpaces()
         if spaces.count == 0 {
-            Windows.sortByLevel()
-            return
-        }
-        let windows = Spaces.windowsInSpaces(spaces).filter { window in
-            return Windows.list.first(where: { $0.cgWindowId == window }) == nil
-        }
-        if windows.count > 0 {
-            CGSAddWindowsToSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
             Applications.observeNewWindows()
-            Windows.sortByLevel()
-            CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
-            return
+        } else {
+            let windows = Spaces.windowsInSpaces(spaces)
+            if windows.count > 0 {
+                // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
+                CGSAddWindowsToSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
+                Applications.observeNewWindows()
+                CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
+            }
         }
-        Windows.sortByLevel()
     }
 
     static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
@@ -71,7 +66,15 @@ class Applications {
     }
 
     private static func filterApplications(_ apps: [NSRunningApplication]) -> [NSRunningApplication] {
-        return apps.filter { $0.activationPolicy != .prohibited || $0.bundleIdentifier == "io.github.hluk.CopyQ" }
+        return apps.filter {
+            ($0.activationPolicy != .prohibited ||
+                    // Bug in CopyQ; see https://github.com/hluk/CopyQ/issues/1330
+                    $0.bundleIdentifier == "io.github.hluk.CopyQ" ||
+                    // Bug in Octave.app; see https://github.com/octave-app/octave-app/issues/193#issuecomment-603648857
+                    $0.localizedName == "octave-gui") &&
+                    // bug in Octave.app; see https://github.com/octave-app/octave-app/issues/193
+                    $0.bundleIdentifier != "org.octave-app.Octave"
+        }
     }
 }
 

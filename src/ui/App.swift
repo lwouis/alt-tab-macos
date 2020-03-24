@@ -42,7 +42,8 @@ class App: NSApplication, NSApplicationDelegate {
         Keyboard.listenToGlobalEvents(self)
         preferencesWindow = PreferencesWindow()
         UpdatesTab.observeUserDefaults()
-//        Windows.refreshAllThumbnails()
+        // TODO: undeterministic; events in the queue may still be processing; good enough for now
+        DispatchQueue.main.async { Windows.sortByLevel() }
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
