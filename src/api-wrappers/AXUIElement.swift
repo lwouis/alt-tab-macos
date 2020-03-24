@@ -15,13 +15,12 @@ extension AXUIElement {
 
     func isActualWindow(_ runningApplication: NSRunningApplication) -> Bool {
         // TODO: TotalFinder and XtraFinder double-window hacks (see #84)
-        // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Some non-windows have title: nil (e.g. some OS elements)
+        // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
-        return title() != nil &&
-                (["AXStandardWindow", "AXDialog"].contains(subrole()) || isMinimized() || runningApplication.isHidden) &&
-                isOnNormalLevel()
+        // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs
+        return ["AXStandardWindow", "AXDialog"].contains(subrole()) && isOnNormalLevel()
     }
 
     func isOnNormalLevel() -> Bool {
