@@ -42,8 +42,7 @@ class App: NSApplication, NSApplicationDelegate {
         Keyboard.listenToGlobalEvents(self)
         preferencesWindow = PreferencesWindow()
         UpdatesTab.observeUserDefaults()
-//        UserDefaults.standard.set(false, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
-        // TODO: add warm up code for faster first launch
+//        Windows.refreshAllThumbnails()
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
@@ -111,16 +110,12 @@ class App: NSApplication, NSApplicationDelegate {
 
     func reopenUi() {
         thumbnailsPanel!.orderOut(nil)
-        Windows.refreshAllThumbnails()
-        refreshOpenUi()
-        thumbnailsPanel!.show()
+        rebuildUi()
     }
 
     func refreshOpenUi(_ windowsToRefresh: [Window]? = nil) {
         guard appIsBeingUsed else { return }
-        if let windowsToRefresh = windowsToRefresh {
-            windowsToRefresh.forEach { $0.refreshThumbnail() }
-        }
+        windowsToRefresh?.forEach { $0.refreshThumbnail() }
         let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         guard uiWorkShouldBeDone else { return }
         thumbnailsPanel!.thumbnailsView.updateItems(currentScreen)
@@ -147,19 +142,23 @@ class App: NSApplication, NSApplicationDelegate {
             Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(step)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) {
-                guard self.uiWorkShouldBeDone else { return }
-                Windows.refreshAllThumbnails()
-                guard self.uiWorkShouldBeDone else { return }
-                self.refreshOpenUi()
-                guard self.uiWorkShouldBeDone else { return }
-                self.thumbnailsPanel!.show()
-//                DispatchQueue.main.async {
-//                    guard self.uiWorkShouldBeDone else { return }
-//                    self.refreshThumbnails()
-//                }
+                self.rebuildUi()
             }
         } else {
             cycleSelection(step)
         }
+    }
+
+    func rebuildUi() {
+        guard uiWorkShouldBeDone else { return }
+        Windows.refreshAllThumbnails()
+        guard uiWorkShouldBeDone else { return }
+        refreshOpenUi()
+        guard uiWorkShouldBeDone else { return }
+        thumbnailsPanel!.show()
+//        guard uiWorkShouldBeDone else { return }
+//        DispatchQueue.main.async {
+//            Windows.refreshAllExistingThumbnails()
+//        }
     }
 }
