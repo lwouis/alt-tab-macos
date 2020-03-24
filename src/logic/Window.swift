@@ -1,6 +1,7 @@
 import Cocoa
 
 class Window {
+//    weak var itemView: CollectionViewItemView?
     var cgWindowId: CGWindowID
     var title: String
     var thumbnail: NSImage?
@@ -19,6 +20,7 @@ class Window {
         kAXTitleChangedNotification,
         kAXWindowMiniaturizedNotification,
         kAXWindowDeminiaturizedNotification,
+        kAXWindowResizedNotification,
     ]
 
     static func stopSubscriptionRetries(_ notification: String, _ cgWindowId: CGWindowID) {
@@ -57,8 +59,7 @@ class Window {
     }
 
     func refreshThumbnail() {
-        guard (App.shared as! App).appIsBeingUsed,
-              let cgImage = cgWindowId.screenshot() else { return }
+        guard let cgImage = cgWindowId.screenshot() else { return }
         thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
     }
 
@@ -121,6 +122,7 @@ private func axObserverCallback(observer: AXObserver, element: AXUIElement, noti
         case kAXUIElementDestroyedNotification: eventWindowDestroyed(app, element)
         case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification: eventWindowMiniaturizedOrDeminiaturized(app, element, type)
         case kAXTitleChangedNotification: eventWindowTitleChanged(app, element)
+        case kAXWindowResizedNotification: eventWindowResized(app, element)
         default: return
     }
 }
@@ -134,20 +136,22 @@ private func eventWindowDestroyed(_ app: App, _ element: AXUIElement) {
 }
 
 private func eventWindowMiniaturizedOrDeminiaturized(_ app: App, _ element: AXUIElement, _ type: String) {
-    guard let window = Windows.list.firstWindowThatMatches(element) else { return }
+    guard let index = Windows.list.firstIndexThatMatches(element) else { return }
+    let window = Windows.list[index]
     window.isMinimized = type == kAXWindowMiniaturizedNotification
-    // TODO: find a better way to get thumbnail of the new window (when AltTab is triggered min/demin animation)
-    window.refreshThumbnail()
     app.refreshOpenUi()
 }
 
 private func eventWindowTitleChanged(_ app: App, _ element: AXUIElement) {
-    guard let window = Windows.list.firstWindowThatMatches(element),
-          let newTitle = window.axUiElement.title(),
+    guard let index = Windows.list.firstIndexThatMatches(element) else { return }
+    let window = Windows.list[index]
+    guard let newTitle = window.axUiElement.title(),
           newTitle != window.title else { return }
     window.title = newTitle
-    window.refreshThumbnail()
     app.refreshOpenUi()
 }
 
-
+private func eventWindowResized(_ app: App, _ element: AXUIElement) {
+    guard let index = Windows.list.firstIndexThatMatches(element) else { return }
+    app.refreshOpenUi()
+}

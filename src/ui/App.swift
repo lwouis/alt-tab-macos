@@ -42,6 +42,8 @@ class App: NSApplication, NSApplicationDelegate {
         Keyboard.listenToGlobalEvents(self)
         preferencesWindow = PreferencesWindow()
         UpdatesTab.observeUserDefaults()
+//        UserDefaults.standard.set(false, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
+        // TODO: add warm up code for faster first launch
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
@@ -67,7 +69,6 @@ class App: NSApplication, NSApplicationDelegate {
     func focusTarget() {
         debugPrint("focusTarget")
         if appIsBeingUsed {
-            debugPrint("focusTarget: appIsBeingUsed")
             let window = Windows.focusedWindow()
             focusSelectedWindow(window)
         }
@@ -95,13 +96,35 @@ class App: NSApplication, NSApplicationDelegate {
 
     @objc
     func showUi() {
-        uiWorkShouldBeDone = true
-        showUiOrCycleSelection(0)
+        _ = dispatchWork { self.showUiOrCycleSelection(0) }
     }
 
     func cycleSelection(_ step: Int) {
         Windows.cycleFocusedWindowIndex(step)
-        thumbnailsPanel!.highlightCell()
+    }
+
+    func focusSelectedWindow(_ window: Window?) {
+        hideUi()
+        guard !CGWindow.isMissionControlActive() else { return }
+        window?.focus()
+    }
+
+    func reopenUi() {
+        // TODO: retest this
+        thumbnailsPanel!.orderOut(nil)
+        Windows.refreshAllThumbnails()
+        refreshOpenUi()
+        thumbnailsPanel!.show()
+    }
+
+    func refreshOpenUi() {
+        guard appIsBeingUsed else { return }
+        let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
+        guard uiWorkShouldBeDone else { return }
+        thumbnailsPanel!.thumbnailsView.updateItems(currentScreen)
+        thumbnailsPanel!.setFrame(thumbnailsPanel!.thumbnailsView.frame, display: false)
+        guard uiWorkShouldBeDone else { return }
+        Screen.repositionPanel(thumbnailsPanel!, currentScreen, .appleCentered)
     }
 
     func showUiOrCycleSelection(_ step: Int) {
@@ -119,39 +142,22 @@ class App: NSApplication, NSApplicationDelegate {
             Spaces.updateIsSingleSpace()
             // TODO: find a way to update space index when windows are moved to another space, instead of on every trigger
             Windows.updateSpaces()
-            // TODO: find a way to update thumbnails by listening to content change, instead of every trigger. Or better, switch to video
-            Windows.refreshAllThumbnails()
-            Windows.focusedWindowIndex = 0
+            Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(step)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay, execute: { [weak self] in
-                guard let self = self else { return }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) {
+                guard self.uiWorkShouldBeDone else { return }
+                Windows.refreshAllThumbnails()
+                guard self.uiWorkShouldBeDone else { return }
                 self.refreshOpenUi()
-                if self.uiWorkShouldBeDone { self.thumbnailsPanel?.show() }
-            })
+                guard self.uiWorkShouldBeDone else { return }
+                self.thumbnailsPanel!.show()
+//                DispatchQueue.main.async {
+//                    guard self.uiWorkShouldBeDone else { return }
+//                    self.refreshThumbnails()
+//                }
+            }
         } else {
-            debugPrint("showUiOrCycleSelection: !isFirstSummon")
             cycleSelection(step)
         }
-    }
-
-    func reopenUi() {
-        thumbnailsPanel!.orderOut(nil)
-        Windows.refreshAllThumbnails()
-        refreshOpenUi()
-        thumbnailsPanel!.show()
-    }
-
-    func refreshOpenUi() {
-        guard appIsBeingUsed else { return }
-        let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
-        if uiWorkShouldBeDone { thumbnailsPanel!.refreshCollectionView(currentScreen, uiWorkShouldBeDone); debugPrint("refreshCollectionView") }
-        if uiWorkShouldBeDone { thumbnailsPanel!.highlightCell(); debugPrint("highlightCellAt") }
-        if uiWorkShouldBeDone { Screen.repositionPanel(thumbnailsPanel!, currentScreen, .appleCentered); debugPrint("repositionPanel") }
-    }
-
-    func focusSelectedWindow(_ window: Window?) {
-        hideUi()
-        guard !CGWindow.isMissionControlActive() else { return }
-        window?.focus()
     }
 }

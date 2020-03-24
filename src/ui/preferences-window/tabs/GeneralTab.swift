@@ -50,7 +50,7 @@ class GeneralTab {
             LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst.takeRetainedValue(), nil, nil, App.url, nil, nil)
         } else {
             loginItemsSnapshot.forEach {
-                if CFEqual(LSSharedFileListItemCopyResolvedURL($0, 0, nil).takeRetainedValue(), App.url) {
+                if LSSharedFileListItemCopyResolvedURL($0, 0, nil).takeRetainedValue() == App.url {
                     LSSharedFileListItemRemove(loginItems, $0)
                 }
             }

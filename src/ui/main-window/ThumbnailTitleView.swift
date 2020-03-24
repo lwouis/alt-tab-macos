@@ -1,6 +1,6 @@
 import Cocoa
 
-class CellTitle: BaseLabel {
+class ThumbnailTitleView: BaseLabel {
     var magicOffset = CGFloat(0)
 
     convenience init(_ size: CGFloat, _ magicOffset: CGFloat = 0) {
@@ -14,7 +14,7 @@ class CellTitle: BaseLabel {
         self.init(NSRect.zero, textContainer)
         self.magicOffset = magicOffset
         textColor = Preferences.fontColor
-        shadow = CollectionViewItemView.makeShadow(.darkGray)
+        shadow = ThumbnailView.makeShadow(.darkGray)
         defaultParagraphStyle = makeParagraphStyle(size)
         heightAnchor.constraint(equalToConstant: size + magicOffset).isActive = true
     }
