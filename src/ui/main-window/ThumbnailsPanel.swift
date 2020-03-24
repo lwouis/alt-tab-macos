@@ -2,8 +2,6 @@ import Cocoa
 
 class ThumbnailsPanel: NSPanel {
     var thumbnailsView = ThumbnailsView()
-    var currentScreen: NSScreen?
-    static let cellId = NSUserInterfaceItemIdentifier("Cell")
 
     convenience init(_ app: App) {
         self.init(contentRect: .zero, styleMask: .utilityWindow, backing: .buffered, defer: true)

@@ -119,7 +119,7 @@ class App: NSApplication, NSApplicationDelegate {
     func refreshOpenUi(_ windowsToRefresh: [Window]? = nil) {
         guard appIsBeingUsed else { return }
         if let windowsToRefresh = windowsToRefresh {
-            windowsToRefresh.map { $0.refreshThumbnail() }
+            windowsToRefresh.forEach { $0.refreshThumbnail() }
         }
         let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         guard uiWorkShouldBeDone else { return }
