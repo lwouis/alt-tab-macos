@@ -74,14 +74,22 @@ extension NSObject {
 
 extension Array where Element == Window {
     func firstIndexThatMatches(_ element: AXUIElement) -> Self.Index? {
-        // `CFEqual` is safer than comparing `CGWindowID` because it will succeed even if the window is deallocated
+        // == is safer than comparing `CGWindowID` because it will succeed even if the window is deallocated
         // by the OS, in which case the `CGWindowID` will be `-1`
-        return firstIndex(where: { CFEqual($0.axUiElement, element) })
+        return firstIndex(where: { $0.axUiElement == element })
     }
 
-    func firstWindowThatMatches(_ element: AXUIElement) -> Window? {
+    func firstWindowThatMatches(_ element: AXUIElement) -> Element? {
         guard let index = firstIndexThatMatches(element) else { return nil }
         return self[index]
+    }
+
+    mutating func insertAndScaleRecycledPool(_ elements: [Element], at i: Int) {
+        insert(contentsOf: elements, at: i)
+        let neededRecycledViews = count - ThumbnailsView.recycledViews.count
+        if neededRecycledViews > 0 {
+            (1...neededRecycledViews).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+        }
     }
 }
 
@@ -162,5 +170,12 @@ extension NSImage {
         draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, size.width, size.height), operation: .copy, fraction: 1)
         img.unlockFocus()
         return img
+    }
+}
+
+// only assign if different; useful for performance
+func assignIfDifferent<T: Equatable>(_ a: UnsafeMutablePointer<T>, _ b: T) {
+    if a.pointee != b {
+        a.pointee = b
     }
 }

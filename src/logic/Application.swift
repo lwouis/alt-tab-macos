@@ -48,9 +48,9 @@ class Application: NSObject {
     }
 
     func observeNewWindows() {
-        let newWindows = axUiElement!.windows()?
-                .filter { $0.isActualWindow(runningApplication) && Windows.list.firstIndexThatMatches($0) == nil } ?? []
-        addWindows(newWindows)
+        if let windows = axUiElement!.windows(), windows.count > 0 {
+            addWindows(windows.filter { $0.isActualWindow(runningApplication) && Windows.list.firstIndexThatMatches($0) == nil })
+        }
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
@@ -59,8 +59,11 @@ class Application: NSObject {
         addAndObserveWindows()
     }
 
-    private func addWindows(_ windows: [AXUIElement]) {
-        Windows.list.insert(contentsOf: windows.map { Window($0, self) }, at: 0)
+    private func addWindows(_ axWindows: [AXUIElement]) {
+        let windows = axWindows.map { Window($0, self) }
+        Windows.list.insertAndScaleRecycledPool(windows, at: 0)
+        windows.forEach { _ in Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground() }
+        (App.shared as! App).refreshOpenUi()
     }
 
     private func observeEvents() {
@@ -101,11 +104,12 @@ private func eventApplicationActivated(_ app: App, _ element: AXUIElement) {
           let appFocusedWindow = element.focusedWindow(),
           let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
+    app.refreshOpenUi()
 }
 
 private func eventApplicationHiddenOrShown(_ app: App, _ element: AXUIElement, _ type: String) {
     for window in Windows.list {
-        guard CFEqual(window.application.axUiElement!, element) else { continue }
+        guard window.application.axUiElement! == element else { continue }
         window.isHidden = type == kAXApplicationHiddenNotification
     }
     app.refreshOpenUi()
@@ -116,10 +120,8 @@ private func eventWindowCreated(_ app: App, _ element: AXUIElement, _ applicatio
     // a window being un-minimized can trigger kAXWindowCreatedNotification
     guard Windows.list.firstIndexThatMatches(element) == nil else { return }
     let window = Window(element, application)
-    Windows.list.insert(window, at: 0)
+    Windows.list.insertAndScaleRecycledPool([window], at: 0)
     Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground()
-    // TODO: find a better way to get thumbnail of the new window
-    window.refreshThumbnail()
     app.refreshOpenUi()
 }
 
@@ -127,4 +129,5 @@ private func eventFocusedWindowChanged(_ app: App, _ element: AXUIElement) {
     guard !app.appIsBeingUsed,
           let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
+    app.refreshOpenUi()
 }

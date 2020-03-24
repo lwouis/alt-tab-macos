@@ -6,7 +6,6 @@ MACOSX_DEPLOYMENT_TARGET = 10.12
 SWIFT_VERSION = 4.2
 INFOPLIST_FILE = Info.plist
 CODE_SIGN_ENTITLEMENTS = alt_tab_macos.entitlements
-IDEDerivedDataPathOverride = DerivedData
 FRAMEWORK_SEARCH_PATHS[config=*] = $(inherited) /System/Library/PrivateFrameworks // for SkyLight.framework
 ENABLE_HARDENED_RUNTIME = YES // for notarization
 OTHER_CODE_SIGN_FLAGS = --timestamp --deep --options runtime // for notarization

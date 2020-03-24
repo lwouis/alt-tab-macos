@@ -27,11 +27,17 @@ func listenToGlobalKeyboardEvents(_ app: App) {
     }
 }
 
-func dispatchWork(_ application: App, _ uiWorkShouldBeDone: Bool, _ fn: @escaping () -> Void) -> Unmanaged<CGEvent>? {
-    application.uiWorkShouldBeDone = uiWorkShouldBeDone
+func dispatchWork(_ fn: @escaping () -> Void) -> Unmanaged<CGEvent>? {
+    (App.shared as! App).uiWorkShouldBeDone = true
     DispatchQueue.main.async {
         fn()
     }
+    return nil // previously focused app should not receive keys
+}
+
+func dispatchWorkCurrentThread(_ fn: @escaping () -> Void) -> Unmanaged<CGEvent>? {
+    (App.shared as! App).uiWorkShouldBeDone = false
+    fn()
     return nil // previously focused app should not receive keys
 }
 
@@ -46,19 +52,19 @@ func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, event_: CGEvent,
             let isLeftArrow = event.keyCode == kVK_LeftArrow
             let isEscape = event.keyCode == kVK_Escape
             if type == .keyDown && isEscape && app.appIsBeingUsed {
-                return dispatchWork(app, false, { app.hideUi() })
+                return dispatchWorkCurrentThread { app.hideUi() }
             } else if isMetaDown && type == .keyDown {
                 if isTab && event.modifierFlags.contains(.shift) {
-                    return dispatchWork(app, true, { app.showUiOrCycleSelection(-1) })
+                    return dispatchWork { app.showUiOrCycleSelection(-1) }
                 } else if isTab {
-                    return dispatchWork(app, true, { app.showUiOrCycleSelection(1) })
+                    return dispatchWork { app.showUiOrCycleSelection(1) }
                 } else if isRightArrow && app.appIsBeingUsed {
-                    return dispatchWork(app, true, { app.cycleSelection(1) })
+                    return dispatchWork { app.cycleSelection(1) }
                 } else if isLeftArrow && app.appIsBeingUsed {
-                    return dispatchWork(app, true, { app.cycleSelection(-1) })
+                    return dispatchWork { app.cycleSelection(-1) }
                 }
             } else if isMetaChanged && !isMetaDown {
-                return dispatchWork(app, false, { app.focusTarget() })
+                return dispatchWorkCurrentThread { app.focusTarget() }
             }
         }
     } else if type == .tapDisabledByUserInput || type == .tapDisabledByTimeout {

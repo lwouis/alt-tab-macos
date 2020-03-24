@@ -3,26 +3,34 @@ import Cocoa
 class Windows {
     // order in the array is important: most-recently-used elements are first
     static var list = [Window]()
+    static var previousFocusedWindowIndex = Array<Window>.Index(0)
     static var focusedWindowIndex = Array<Window>.Index(0)
     static var windowsInSubscriptionRetryLoop = [String]()
+
+    static func updateFocusedWindowIndex(_ newValue: Array<Window>.Index) {
+        previousFocusedWindowIndex = focusedWindowIndex
+        focusedWindowIndex = newValue
+        let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
+        ThumbnailsPanel.highlightCell(ThumbnailsView.recycledViews[previousFocusedWindowIndex], focusedView)
+        (App.shared as! App).thumbnailsPanel!.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+    }
 
     static func focusedWindow() -> Window? {
         return list.count > focusedWindowIndex ? list[focusedWindowIndex] : nil
     }
 
     static func cycleFocusedWindowIndex(_ step: Array<Window>.Index) {
-        focusedWindowIndex = focusedWindowIndex + step < 0 ? list.count - 1 : (focusedWindowIndex + step) % list.count
+        updateFocusedWindowIndex(focusedWindowIndex + step < 0 ? list.count - 1 : (focusedWindowIndex + step) % list.count)
     }
 
     static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ destroyedWindowIndex: Array<Window>.Index) {
         if focusedWindowIndex <= destroyedWindowIndex {
-            focusedWindowIndex -= 1
-            return
+            updateFocusedWindowIndex(max(focusedWindowIndex - 1, 0))
         }
     }
 
     static func moveFocusedWindowIndexAfterWindowCreatedInBackground() {
-        focusedWindowIndex += 1
+        updateFocusedWindowIndex(focusedWindowIndex + 1)
     }
 
     static func updateSpaces() {

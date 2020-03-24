@@ -2,7 +2,7 @@ import Cocoa
 
 // Font icon using SF Symbols from the SF Pro font from Apple
 // see https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
-class FontIcon: CellTitle {
+class ThumbnailFontIconView: ThumbnailTitleView {
     static let sfSymbolCircledMinusSign = "􀁎"
     static let sfSymbolCircledDotSign = "􀍷"
     static let sfSymbolCircledNumber0 = "􀀸"
@@ -22,19 +22,19 @@ class FontIcon: CellTitle {
     // number should be in the interval [0-50]
     func setNumber(_ number: UInt32) {
         let (baseCharacter, offset) = baseCharacterAndOffset(number)
-        string = String(UnicodeScalar(baseCharacter.unicodeScalars.first!.value + offset)!)
+        assignIfDifferent(&string, String(UnicodeScalar(baseCharacter.unicodeScalars.first!.value + offset)!))
     }
 
     func setStar() {
-        string = FontIcon.sfSymbolCircledStart
+        assignIfDifferent(&string, ThumbnailFontIconView.sfSymbolCircledStart)
     }
 
     private func baseCharacterAndOffset(_ number: UInt32) -> (String, UInt32) {
         if number <= 9 {
             // numbers alternate between empty and full circles; we skip the full circles
-            return (FontIcon.sfSymbolCircledNumber0, number * UInt32(2))
+            return (ThumbnailFontIconView.sfSymbolCircledNumber0, number * UInt32(2))
         } else {
-            return (FontIcon.sfSymbolCircledNumber10, number - 10)
+            return (ThumbnailFontIconView.sfSymbolCircledNumber10, number - 10)
         }
     }
 }

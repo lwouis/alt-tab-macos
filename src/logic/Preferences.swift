@@ -5,11 +5,11 @@ let defaults = UserDefaults.standard
 
 class Preferences {
     // default values
-    static var defaultValues: [String : Any] = [
+    static var defaultValues: [String: Any] = [
         "maxScreenUsage": Float(80),
         "minCellsPerRow": Float(5),
         "maxCellsPerRow": Float(10),
-        "minRows": Float(3),
+        "rowsCount": Float(3),
         "iconSize": Float(32),
         "fontHeight": Float(15),
         "tabKeyCode": kVK_Tab,
@@ -17,6 +17,7 @@ class Preferences {
         "metaKey": MacroPreferences.metaKeyList.keys.first!,
         "theme": MacroPreferences.themeList.keys.first!,
         "showOnScreen": MacroPreferences.showOnScreenList.keys.first!,
+        "alignThumbnails": MacroPreferences.alignThumbnailsList.keys.first!,
         "hideSpaceNumberLabels": false,
         "startAtLogin": true,
     ]
@@ -34,7 +35,7 @@ class Preferences {
     static var maxScreenUsage: CGFloat { CGFloat(defaults.float(forKey: "maxScreenUsage") / 100) }
     static var minCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "minCellsPerRow")) }
     static var maxCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "maxCellsPerRow")) }
-    static var minRows: CGFloat { CGFloat(defaults.float(forKey: "minRows")) }
+    static var rowsCount: CGFloat { CGFloat(defaults.float(forKey: "rowsCount")) }
     static var iconSize: CGFloat { CGFloat(defaults.float(forKey: "iconSize")) }
     static var fontHeight: CGFloat { CGFloat(defaults.float(forKey: "fontHeight")) }
     static var tabKeyCode: UInt16 { UInt16(defaults.integer(forKey: "tabKeyCode")) }
@@ -46,6 +47,7 @@ class Preferences {
     static var theme: Theme { MacroPreferences.themeList[defaults.string(forKey: "theme")!]! }
     static var metaKey: MetaKey { MacroPreferences.metaKeyList[defaults.string(forKey: "metaKey")!]! }
     static var showOnScreen: ShowOnScreenPreference { MacroPreferences.showOnScreenList[defaults.string(forKey: "showOnScreen")!]! }
+    static var alignThumbnails: AlignThumbnailsPreference { MacroPreferences.alignThumbnailsList[defaults.string(forKey: "alignThumbnails")!]! }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.cellBorderWidth }
@@ -100,6 +102,11 @@ enum ShowOnScreenPreference {
     case mouse
 }
 
+enum AlignThumbnailsPreference {
+    case left
+    case center
+}
+
 // macros are collection of values derived from a single key
 // we don't want to store every value in UserDefaults as the user could change them and contradict the macro
 class MacroPreferences {
@@ -115,5 +122,9 @@ class MacroPreferences {
     static let showOnScreenList = [
         "Main screen": ShowOnScreenPreference.main,
         "Screen including mouse": ShowOnScreenPreference.mouse,
+    ]
+    static let alignThumbnailsList = [
+        "Center": AlignThumbnailsPreference.center,
+        "Left": AlignThumbnailsPreference.left,
     ]
 }
