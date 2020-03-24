@@ -139,7 +139,7 @@ private func eventWindowMiniaturizedOrDeminiaturized(_ app: App, _ element: AXUI
     guard let index = Windows.list.firstIndexThatMatches(element) else { return }
     let window = Windows.list[index]
     window.isMinimized = type == kAXWindowMiniaturizedNotification
-    app.refreshOpenUi()
+    app.refreshOpenUi([window])
 }
 
 private func eventWindowTitleChanged(_ app: App, _ element: AXUIElement) {
@@ -148,10 +148,11 @@ private func eventWindowTitleChanged(_ app: App, _ element: AXUIElement) {
     guard let newTitle = window.axUiElement.title(),
           newTitle != window.title else { return }
     window.title = newTitle
-    app.refreshOpenUi()
+    app.refreshOpenUi([window])
 }
 
 private func eventWindowResized(_ app: App, _ element: AXUIElement) {
     guard let index = Windows.list.firstIndexThatMatches(element) else { return }
-    app.refreshOpenUi()
+    let window = Windows.list[index]
+    app.refreshOpenUi([window])
 }

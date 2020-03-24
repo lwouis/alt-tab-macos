@@ -110,15 +110,17 @@ class App: NSApplication, NSApplicationDelegate {
     }
 
     func reopenUi() {
-        // TODO: retest this
         thumbnailsPanel!.orderOut(nil)
         Windows.refreshAllThumbnails()
         refreshOpenUi()
         thumbnailsPanel!.show()
     }
 
-    func refreshOpenUi() {
+    func refreshOpenUi(_ windowsToRefresh: [Window]? = nil) {
         guard appIsBeingUsed else { return }
+        if let windowsToRefresh = windowsToRefresh {
+            windowsToRefresh.map { $0.refreshThumbnail() }
+        }
         let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         guard uiWorkShouldBeDone else { return }
         thumbnailsPanel!.thumbnailsView.updateItems(currentScreen)

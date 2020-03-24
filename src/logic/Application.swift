@@ -63,7 +63,7 @@ class Application: NSObject {
         let windows = axWindows.map { Window($0, self) }
         Windows.list.insertAndScaleRecycledPool(windows, at: 0)
         windows.forEach { _ in Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground() }
-        (App.shared as! App).refreshOpenUi()
+        (App.shared as! App).refreshOpenUi(windows)
     }
 
     private func observeEvents() {
@@ -104,15 +104,13 @@ private func eventApplicationActivated(_ app: App, _ element: AXUIElement) {
           let appFocusedWindow = element.focusedWindow(),
           let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
-    app.refreshOpenUi()
+    app.refreshOpenUi([Windows.list[0]])
 }
 
 private func eventApplicationHiddenOrShown(_ app: App, _ element: AXUIElement, _ type: String) {
-    for window in Windows.list {
-        guard window.application.axUiElement! == element else { continue }
-        window.isHidden = type == kAXApplicationHiddenNotification
-    }
-    app.refreshOpenUi()
+    let windows = Windows.list.filter { $0.application.axUiElement! == element }
+    windows.forEach { $0.isHidden = type == kAXApplicationHiddenNotification }
+    app.refreshOpenUi(windows)
 }
 
 private func eventWindowCreated(_ app: App, _ element: AXUIElement, _ application: Application) {
@@ -122,12 +120,12 @@ private func eventWindowCreated(_ app: App, _ element: AXUIElement, _ applicatio
     let window = Window(element, application)
     Windows.list.insertAndScaleRecycledPool([window], at: 0)
     Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground()
-    app.refreshOpenUi()
+    app.refreshOpenUi([window])
 }
 
 private func eventFocusedWindowChanged(_ app: App, _ element: AXUIElement) {
     guard !app.appIsBeingUsed,
           let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
-    app.refreshOpenUi()
+    app.refreshOpenUi([Windows.list[0]])
 }
