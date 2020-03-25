@@ -5,6 +5,27 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.2.1</title>
+      <pubDate>Wed, 25 Mar 2020 05:50:32 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="321-httpsgithubcomlwouisalt-tab-macoscomparev320v321-2020-03-25">3.2.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.2.0...v3.2.1">https://github.com/lwouis/alt-tab-macos/compare/v3.2.0...v3.2.1</a>) (2020-03-25)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* chrome shortcuts apps don&#39;t show up (closes #185 (https://github.com/lwouis/alt-tab-macos/issues/185)) (0b35ebf (https://github.com/lwouis/alt-tab-macos/commit/0b35ebf))
+* don&#39;t hang waiting for faulty apps to reply (closes #182 (https://github.com/lwouis/alt-tab-macos/issues/182)) (246cf69 (https://github.com/lwouis/alt-tab-macos/commit/246cf69))
+* hidden apps windows don&#39;t show hidden icon (6e190bf (https://github.com/lwouis/alt-tab-macos/commit/6e190bf))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.2.1/AltTab-3.2.1.zip"
+        sparkle:version="3.2.1"
+        sparkle:shortVersionString="3.2.1"
+        sparkle:edSignature="uEcp/ZfBGGpZ5z3oexLlEZiJOKNro6PDl0Appx/tL7LD0LaQuZyJV7ZdOIphEOUzN2OnqhbvStGmA/mI5jfOAA==" length="7006770"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.2.0</title>
       <pubDate>Tue, 24 Mar 2020 11:09:19 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

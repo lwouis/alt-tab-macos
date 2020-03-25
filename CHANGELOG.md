@@ -1,3 +1,12 @@
+## [3.2.1](https://github.com/lwouis/alt-tab-macos/compare/v3.2.0...v3.2.1) (2020-03-25)
+
+
+### Bug Fixes
+
+* chrome shortcuts apps don't show up (closes [#185](https://github.com/lwouis/alt-tab-macos/issues/185)) ([0b35ebf](https://github.com/lwouis/alt-tab-macos/commit/0b35ebf))
+* don't hang waiting for faulty apps to reply (closes [#182](https://github.com/lwouis/alt-tab-macos/issues/182)) ([246cf69](https://github.com/lwouis/alt-tab-macos/commit/246cf69))
+* hidden apps windows don't show hidden icon ([6e190bf](https://github.com/lwouis/alt-tab-macos/commit/6e190bf))
+
 # [3.2.0](https://github.com/lwouis/alt-tab-macos/compare/v3.1.3...v3.2.0) (2020-03-24)
 
 
