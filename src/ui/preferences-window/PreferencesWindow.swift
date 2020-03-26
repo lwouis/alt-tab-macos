@@ -18,7 +18,10 @@ class PreferencesWindow: NSWindow {
         let newValue = LabelAndControl.getControlValue(senderControl)
         LabelAndControl.updateControlExtras(senderControl, newValue)
         Preferences.set(senderControl.identifier!.rawValue, newValue)
-        (App.shared as! App).initPreferencesDependentComponents()
+        // some preferences require re-creating some components
+        if ["iconSize", "fontHeight", "theme"].contains(where: { $0 == senderControl.identifier!.rawValue }) {
+            (App.shared as! App).resetPreferencesDependentComponents()
+        }
     }
 
     private func setupWindow() {

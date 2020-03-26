@@ -22,7 +22,7 @@ class ThumbnailView: NSStackView {
         observeDragAndDrop()
     }
 
-    func updateRecycledCellWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ newHeight: CGFloat,_ screen: NSScreen) {
+    func updateRecycledCellWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
 //        element.itemView = self
         if thumbnail.image != element.thumbnail {
