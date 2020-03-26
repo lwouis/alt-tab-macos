@@ -75,8 +75,6 @@ class Window {
             CGSGetWindowOwner(cgsMainConnectionId, self.cgWindowId, &elementConnection)
             var psn = ProcessSerialNumber()
             CGSGetConnectionPSN(elementConnection, &psn)
-            AXUIElementPerformAction(self.axUiElement, kAXRaiseAction as CFString)
-            self.makeKeyWindow(psn)
             _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId, .userGenerated)
             self.makeKeyWindow(psn)
             AXUIElementPerformAction(self.axUiElement, kAXRaiseAction as CFString)
