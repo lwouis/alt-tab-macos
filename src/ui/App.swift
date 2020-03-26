@@ -36,7 +36,7 @@ class App: NSApplication, NSApplicationDelegate {
         Preferences.registerDefaults()
         statusItem = Menubar.make(self)
         loadMainMenuXib()
-        initPreferencesDependentComponents()
+        thumbnailsPanel = ThumbnailsPanel()
         Spaces.initialDiscovery()
         Applications.initialDiscovery()
         Keyboard.listenToGlobalEvents(self)
@@ -55,8 +55,9 @@ class App: NSApplication, NSApplicationDelegate {
     }
 
     // we put application code here which should be executed on init() and Preferences change
-    func initPreferencesDependentComponents() {
-        thumbnailsPanel = ThumbnailsPanel(self)
+    func resetPreferencesDependentComponents() {
+        ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
+        thumbnailsPanel!.thumbnailsView.layer!.cornerRadius = Preferences.windowCornerRadius
     }
 
     func hideUi() {
