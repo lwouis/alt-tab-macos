@@ -10,7 +10,7 @@ This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilde
 
 * `pod install` to fetch the dependencies with [CocoaPods](https://cocoapods.org/)
 * `scripts/generate_selfsigned_codesign_certificate.sh` to generate a local self-signed certificate, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build
-* Either open `alt-tab-macos.xcworkspace` with XCode, or use the cli: `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release` to build the .app
+* Either open `alt-tab-macos.xcworkspace` with XCode, or use the cli: `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Debug` to build the .app with the `Debug` build configuration
 
 ## Raising a pull-request
 
