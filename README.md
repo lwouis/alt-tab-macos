@@ -44,6 +44,10 @@ The app is currently available in: English, Français, Deutsch, Español, 日本
 * Come discuss with us on the [Discord server](https://discord.gg/mHvmcqT).
 * [Suggest an enhancement or discuss an issue on github](https://github.com/lwouis/alt-tab-macos/issues). You can also use the feedback form within the app.
 
+Our lovely contributors:
+
+[![Contributors](https://contributors-img.web.app/image?repo=lwouis/alt-tab-macos)](https://github.com/lwouis/alt-tab-macos/graphs/contributors)
+
 ## Alternatives
 
 Before building my own app, I looked around at similar apps. However, none was completely satisfactory so I rolled my own. Also, the almost-good-enough apps are not open-source.
