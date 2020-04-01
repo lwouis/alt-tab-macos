@@ -3,7 +3,7 @@ import Cocoa
 class ThumbnailsPanel: NSPanel {
     var thumbnailsView = ThumbnailsView()
 
-    convenience init(_ app: App) {
+    convenience init() {
         self.init(contentRect: .zero, styleMask: .utilityWindow, backing: .buffered, defer: true)
         isFloatingPanel = true
         animationBehavior = .none

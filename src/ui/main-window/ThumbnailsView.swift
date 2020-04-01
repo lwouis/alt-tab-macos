@@ -27,7 +27,7 @@ class ThumbnailsView: NSVisualEffectView {
         for (index, window) in Windows.list.enumerated() {
             let view = ThumbnailsView.recycledViews[index]
             view.updateRecycledCellWithNewContent(window,
-                    { (App.shared as! App).focusSelectedWindow(window) },
+                    { App.app.focusSelectedWindow(window) },
                     { Windows.updateFocusedWindowIndex(index) },
                     height, screen)
             let width = view.frame.size.width

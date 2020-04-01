@@ -59,10 +59,10 @@ class Applications {
             }
             Windows.list.removeAll(where: { $0.application.runningApplication.isEqual(runningApp) })
         }
-        guard Windows.list.count > 0 else { (App.shared as! App).hideUi(); return }
+        guard Windows.list.count > 0 else { App.app.hideUi(); return }
         // TODO: implement of more sophisticated way to decide which thumbnail gets focused on app quit
         Windows.updateFocusedWindowIndex(1)
-        (App.shared as! App).refreshOpenUi()
+        App.app.refreshOpenUi()
     }
 
     private static func filterApplications(_ apps: [NSRunningApplication]) -> [NSRunningApplication] {

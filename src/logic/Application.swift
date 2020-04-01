@@ -63,7 +63,7 @@ class Application: NSObject {
         let windows = axWindows.map { Window($0, self) }
         Windows.list.insertAndScaleRecycledPool(windows, at: 0)
         Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground(windows.count)
-        (App.shared as! App).refreshOpenUi(windows)
+        App.app.refreshOpenUi(windows)
     }
 
     private func observeEvents() {
@@ -87,14 +87,13 @@ class Application: NSObject {
 
 private func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, applicationPointer: UnsafeMutableRawPointer?) -> Void {
     let application = Unmanaged<Application>.fromOpaque(applicationPointer!).takeUnretainedValue()
-    let app = App.shared as! App
     let type = notificationName as String
     debugPrint("OS event", type, element.title() ?? "nil")
     switch type {
-        case kAXApplicationActivatedNotification: eventApplicationActivated(app, element)
-        case kAXApplicationHiddenNotification, kAXApplicationShownNotification: eventApplicationHiddenOrShown(app, element, type)
-        case kAXWindowCreatedNotification: eventWindowCreated(app, element, application)
-        case kAXFocusedWindowChangedNotification: eventFocusedWindowChanged(app, element)
+        case kAXApplicationActivatedNotification: eventApplicationActivated(App.app, element)
+        case kAXApplicationHiddenNotification, kAXApplicationShownNotification: eventApplicationHiddenOrShown(App.app, element, type)
+        case kAXWindowCreatedNotification: eventWindowCreated(App.app, element, application)
+        case kAXFocusedWindowChangedNotification: eventFocusedWindowChanged(App.app, element)
         default: return
     }
 }

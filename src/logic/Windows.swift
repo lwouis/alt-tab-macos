@@ -12,7 +12,7 @@ class Windows {
         focusedWindowIndex = newValue
         let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
         ThumbnailsPanel.highlightCell(ThumbnailsView.recycledViews[previousFocusedWindowIndex], focusedView)
-        (App.shared as! App).thumbnailsPanel!.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+        App.app.thumbnailsPanel!.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
     }
 
     static func focusedWindow() -> Window? {
@@ -74,7 +74,7 @@ class Windows {
 
     static func refreshAllExistingThumbnails() {
         refreshAllThumbnails()
-        guard (App.shared as! App).uiWorkShouldBeDone else { return }
+        guard App.app.uiWorkShouldBeDone else { return }
         list.enumerated().forEach {
             let newImage = $0.element.thumbnail
             let view = ThumbnailsView.recycledViews[$0.offset].thumbnail
