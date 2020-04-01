@@ -1,27 +1,37 @@
 import Cocoa
+import ShortcutRecorder
+
+enum LabelPosition {
+    case leftWithSeparator
+    case leftWithoutSeparator
+    case right
+}
 
 class LabelAndControl: NSObject {
-    static func makeLabelWithInput(_ labelText: String, _ rawName: String, _ width: CGFloat, _ suffixText: String? = nil, _ suffixUrl: String? = nil, _ validator: ((String) -> Bool)? = nil) -> [NSView] {
-        let input = TextField(Preferences.getString(rawName)!)
-        input.validationHandler = validator
-        input.delegate = input
-        input.visualizeValidationState()
-        input.fit(width, input.fittingSize.height)
-        let views = makeLabelWithProvidedControl(labelText, rawName, input)
-        return [views[0], NSStackView(views: [views[1], makeSuffix(rawName, suffixText!, suffixUrl)])]
+    static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ modifierFlagsOnly: Bool = false, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
+        let input = UnclearableRecorderControl(shortcutString, modifierFlagsOnly)
+        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: GeneralTab.shortcutChangedCallback)
+        input.sendAction(input.action, to: input.target)
+        return views
     }
 
-    static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
-        let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
+    static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
+        let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : "", target: nil, action: nil)
+        let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         setControlValue(checkbox, Preferences.getString(rawName)!)
-        return makeLabelWithProvidedControl(labelText, rawName, checkbox, extraAction: extraAction)
+        checkbox.sendAction(checkbox.action, to: checkbox.target)
+        return views
     }
 
     static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [String], _ suffixText: String? = nil) -> [NSView] {
+        return makeLabelWithProvidedControl(labelText, rawName, makeDropDown(rawName, values), suffixText)
+    }
+
+    static func makeDropDown(_ rawName: String, _ values: [String]) -> NSPopUpButton {
         let popUp = NSPopUpButton()
         popUp.addItems(withTitles: values)
         popUp.selectItem(withTitle: Preferences.getString(rawName)!)
-        return makeLabelWithProvidedControl(labelText, rawName, popUp, suffixText)
+        return popUp
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "") -> [NSView] {
@@ -34,25 +44,44 @@ class LabelAndControl: NSObject {
 //        slider.numberOfTickMarks = numberOfTickMarks
 //        slider.allowsTickMarkValuesOnly = allowsTickMarkValuesOnly
 //        slider.tickMarkPosition = .below
+        // TODO: update suffix continuously, but only trigger action on mouse release
         slider.isContinuous = true
         return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText)
     }
 
-    static func makeLabelWithProvidedControl(_ labelText: String?, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil, extraAction: ActionClosure? = nil) -> [NSView] {
-        let label = makeLabel(labelText, rawName)
+    static func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil, labelPosition: LabelPosition = .leftWithSeparator, extraAction: ActionClosure? = nil) -> [NSView] {
+        _ = setupControl(control, rawName, extraAction)
+        if labelPosition == .right && control is NSButton {
+            return [control]
+        }
+        let label = makeLabel(labelText, labelPosition)
+        if labelPosition == .right {
+            if let suffixText = suffixText {
+                return [control, label, makeSuffix(rawName, suffixText, suffixUrl)]
+            }
+            return [control, label]
+        }
+        if let suffixText = suffixText {
+            return [label, control, makeSuffix(rawName, suffixText, suffixUrl)]
+        }
+        return [label, control]
+    }
+
+    static func setupControl(_ control: NSControl, _ rawName: String, _ extraAction: ActionClosure? = nil) -> NSControl {
         control.identifier = NSUserInterfaceItemIdentifier(rawName)
         control.onAction = {
             PreferencesWindow.controlWasChanged($0)
             extraAction?($0)
         }
-        return [label, control, suffixText != nil ? makeSuffix(rawName, suffixText!, suffixUrl) : NSView()]
+        return control
     }
 
-    private static func makeLabel(_ labelText: String?, _ rawName: String) -> NSTextField {
-        let label = NSTextField(wrappingLabelWithString: labelText != nil ? labelText! + ": " : "")
-        label.fit()
+    static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator) -> NSTextField {
+        let labelText_ = labelPosition == .leftWithSeparator ? labelText + ":" : labelText
+        let label = NSTextField(wrappingLabelWithString: labelText_)
+        label.isSelectable = false
+        label.usesSingleLineMode = true
         label.alignment = .right
-        label.identifier = NSUserInterfaceItemIdentifier(rawName + ControlIdentifierDiscriminator.LABEL.rawValue)
         return label
     }
 
@@ -113,6 +142,5 @@ class LabelAndControl: NSObject {
 }
 
 enum ControlIdentifierDiscriminator: String {
-    case LABEL = "_label"
     case SUFFIX = "_suffix"
 }

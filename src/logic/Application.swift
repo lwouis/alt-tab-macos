@@ -48,8 +48,13 @@ class Application: NSObject {
     }
 
     func observeNewWindows() {
-        if let windows = axUiElement!.windows(), windows.count > 0 {
-            addWindows(windows.filter { $0.isActualWindow(runningApplication) && Windows.list.firstIndexThatMatches($0) == nil })
+        if let windows = axUiElement!.windows() {
+            let actualWindows = windows.filter {
+                $0.isActualWindow(runningApplication) && Windows.list.firstIndexThatMatches($0) == nil
+            }
+            if actualWindows.count > 0 {
+                addWindows(actualWindows)
+            }
         }
     }
 
@@ -62,7 +67,7 @@ class Application: NSObject {
     private func addWindows(_ axWindows: [AXUIElement]) {
         let windows = axWindows.map { Window($0, self) }
         Windows.list.insertAndScaleRecycledPool(windows, at: 0)
-        Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground(windows.count)
+        Windows.cycleFocusedWindowIndex(windows.count)
         App.app.refreshOpenUi(windows)
     }
 
@@ -121,7 +126,7 @@ private func eventWindowCreated(_ app: App, _ element: AXUIElement, _ applicatio
     guard Windows.list.firstIndexThatMatches(element) == nil else { return }
     let window = Window(element, application)
     Windows.list.insertAndScaleRecycledPool([window], at: 0)
-    Windows.moveFocusedWindowIndexAfterWindowCreatedInBackground(1)
+    Windows.cycleFocusedWindowIndex(1)
     app.refreshOpenUi([window])
 }
 

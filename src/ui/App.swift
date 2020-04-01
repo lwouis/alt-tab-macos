@@ -1,6 +1,7 @@
 import Cocoa
 import Darwin
 import LetsMove
+import ShortcutRecorder
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
@@ -11,6 +12,7 @@ class App: NSApplication, NSApplicationDelegate {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static let url = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
     static var app: App!
+    static let shortcutMonitor = LocalShortcutMonitor()
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
     var preferencesWindow: PreferencesWindow?
@@ -35,6 +37,7 @@ class App: NSApplication, NSApplicationDelegate {
         #endif
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
+        Preferences.migrateOldPreferences()
         Preferences.registerDefaults()
         statusItem = Menubar.make()
         loadMainMenuXib()
@@ -71,10 +74,7 @@ class App: NSApplication, NSApplicationDelegate {
 
     func focusTarget() {
         debugPrint("focusTarget")
-        if appIsBeingUsed {
-            let window = Windows.focusedWindow()
-            focusSelectedWindow(window)
-        }
+        focusSelectedWindow(Windows.focusedWindow())
     }
 
     @objc
@@ -99,7 +99,9 @@ class App: NSApplication, NSApplicationDelegate {
 
     @objc
     func showUi() {
-        _ = dispatchWork { self.showUiOrCycleSelection(0) }
+        uiWorkShouldBeDone = true
+        appIsBeingUsed = true
+        DispatchQueue.main.async { self.showUiOrCycleSelection(0) }
     }
 
     func cycleSelection(_ step: Int) {
@@ -120,9 +122,14 @@ class App: NSApplication, NSApplicationDelegate {
     func refreshOpenUi(_ windowsToRefresh: [Window]? = nil) {
         guard appIsBeingUsed else { return }
         windowsToRefresh?.forEach { $0.refreshThumbnail() }
-        let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         guard uiWorkShouldBeDone else { return }
+        // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
+        // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
+        Spaces.refreshCurrentSpaceId()
+        guard uiWorkShouldBeDone else { return }
+        let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         thumbnailsPanel!.thumbnailsView.updateItems(currentScreen)
+        guard uiWorkShouldBeDone else { return }
         thumbnailsPanel!.setFrame(thumbnailsPanel!.thumbnailsView.frame, display: false)
         guard uiWorkShouldBeDone else { return }
         Screen.repositionPanel(thumbnailsPanel!, currentScreen, .appleCentered)
@@ -130,19 +137,17 @@ class App: NSApplication, NSApplicationDelegate {
 
     func showUiOrCycleSelection(_ step: Int) {
         debugPrint("showUiOrCycleSelection", step)
-        appIsBeingUsed = true
         if isFirstSummon {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
-            if Windows.list.count == 0 || CGWindow.isMissionControlActive() {
-                appIsBeingUsed = false
-                isFirstSummon = true
-                return
-            }
+            if Windows.list.count == 0 || CGWindow.isMissionControlActive() { hideUi(); return }
             // TODO: find a way to update isSingleSpace by listening to space creation, instead of on every trigger
-            Spaces.updateIsSingleSpace()
+            Spaces.idsAndIndexes = Spaces.allIdsAndIndexes()
             // TODO: find a way to update space index when windows are moved to another space, instead of on every trigger
             Windows.updateSpaces()
+            let screen = Screen.preferred()
+            Windows.refreshWhichWindowsToShowTheUser(screen)
+            if Windows.list.first(where: { $0.shouldShowTheUser }) == nil { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(step)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) {
