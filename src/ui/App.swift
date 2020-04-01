@@ -10,6 +10,7 @@ class App: NSApplication, NSApplicationDelegate {
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static let url = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
+    static var app: App!
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
     var preferencesWindow: PreferencesWindow?
@@ -21,6 +22,7 @@ class App: NSApplication, NSApplicationDelegate {
     override init() {
         super.init()
         delegate = self
+        App.app = self
     }
 
     required init?(coder: NSCoder) {
@@ -34,12 +36,12 @@ class App: NSApplication, NSApplicationDelegate {
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
         Preferences.registerDefaults()
-        statusItem = Menubar.make(self)
+        statusItem = Menubar.make()
         loadMainMenuXib()
         thumbnailsPanel = ThumbnailsPanel()
         Spaces.initialDiscovery()
         Applications.initialDiscovery()
-        Keyboard.listenToGlobalEvents(self)
+        Keyboard.listenToGlobalEvents()
         preferencesWindow = PreferencesWindow()
         UpdatesTab.observeUserDefaults()
         // TODO: undeterministic; events in the queue may still be processing; good enough for now

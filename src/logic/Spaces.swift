@@ -11,9 +11,8 @@ class Spaces {
             debugPrint("OS event", "activeSpaceDidChangeNotification")
             updateCurrentSpace()
             Applications.observeNewWindows()
-            let app = App.shared as! App
-            guard app.appIsBeingUsed else { return }
-            app.reopenUi()
+            guard App.app.appIsBeingUsed else { return }
+            App.app.reopenUi()
         })
     }
 

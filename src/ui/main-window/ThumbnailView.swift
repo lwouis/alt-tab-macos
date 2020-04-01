@@ -97,7 +97,7 @@ class ThumbnailView: NSStackView {
         let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as! [URL]
         let appUrl = window_!.application.runningApplication.bundleURL!
         let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
-        (App.shared as! App).hideUi()
+        App.app.hideUi()
         return open != nil
     }
 

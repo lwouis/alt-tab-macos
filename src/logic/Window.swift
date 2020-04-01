@@ -114,13 +114,12 @@ class Window {
 
 private func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
     let type = notificationName as String
-    let app = App.shared as! App
     debugPrint("OS event", type, element.title() ?? "nil")
     switch type {
-        case kAXUIElementDestroyedNotification: eventWindowDestroyed(app, element)
-        case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification: eventWindowMiniaturizedOrDeminiaturized(app, element, type)
-        case kAXTitleChangedNotification: eventWindowTitleChanged(app, element)
-        case kAXWindowResizedNotification: eventWindowResized(app, element)
+        case kAXUIElementDestroyedNotification: eventWindowDestroyed(App.app, element)
+        case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification: eventWindowMiniaturizedOrDeminiaturized(App.app, element, type)
+        case kAXTitleChangedNotification: eventWindowTitleChanged(App.app, element)
+        case kAXWindowResizedNotification: eventWindowResized(App.app, element)
         default: return
     }
 }
