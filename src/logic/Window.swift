@@ -6,6 +6,7 @@ class Window {
     var title: String
     var thumbnail: NSImage?
     var icon: NSImage?
+    var shouldShowTheUser = true
     var isHidden: Bool
     var isMinimized: Bool
     var isOnAllSpaces: Bool

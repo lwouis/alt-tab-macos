@@ -3,10 +3,24 @@ import Cocoa
 class PreferencesWindow: NSWindow {
     let tabViewController = TabViewController()
 
-    override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
-        super.init(contentRect: .zero, styleMask: style, backing: backingStoreType, defer: flag)
+    convenience init() {
+        self.init(contentRect: .zero, styleMask: [.titled, .closable, .miniaturizable], backing: .buffered, defer: false, screen: NSScreen.main)
         setupWindow()
         setupTabViews()
+    }
+
+    private func setupWindow() {
+        hidesOnDeactivate = false
+        isReleasedWhenClosed = false
+    }
+
+    private func setupTabViews() {
+        contentViewController = tabViewController
+        tabViewController.tabStyle = .toolbar
+        tabViewController.addTabViewItem(GeneralTab.make())
+        tabViewController.addTabViewItem(AppearanceTab.make())
+        tabViewController.addTabViewItem(UpdatesTab.make())
+        tabViewController.addTabViewItem(AboutTab.make())
     }
 
     func show() {
@@ -22,20 +36,5 @@ class PreferencesWindow: NSWindow {
         if ["iconSize", "fontHeight", "theme"].contains(where: { $0 == senderControl.identifier!.rawValue }) {
             (App.shared as! App).resetPreferencesDependentComponents()
         }
-    }
-
-    private func setupWindow() {
-        hidesOnDeactivate = false
-        isReleasedWhenClosed = false
-        styleMask.insert([.miniaturizable, .closable])
-    }
-
-    private func setupTabViews() {
-        contentViewController = tabViewController
-        tabViewController.tabStyle = .toolbar
-        tabViewController.addTabViewItem(GeneralTab.make())
-        tabViewController.addTabViewItem(AppearanceTab.make())
-        tabViewController.addTabViewItem(UpdatesTab.make())
-        tabViewController.addTabViewItem(AboutTab.make())
     }
 }

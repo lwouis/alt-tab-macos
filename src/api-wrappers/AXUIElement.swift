@@ -27,6 +27,10 @@ extension AXUIElement {
         return cgWindowId().level() == CGWindowLevelForKey(.normalWindow)
     }
 
+    func position() -> CGPoint? {
+        return value(kAXPositionAttribute, CGPoint.zero, .cgPoint)
+    }
+
     func title() -> String? {
         return attribute(kAXTitleAttribute, String.self)
     }

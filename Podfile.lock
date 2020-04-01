@@ -1,9 +1,11 @@
 PODS:
   - LetsMove (1.24)
+  - ShortcutRecorder (3.1)
   - Sparkle (1.23.0)
 
 DEPENDENCIES:
   - LetsMove (= 1.24)
+  - ShortcutRecorder (from `https://github.com/Kentzo/ShortcutRecorder.git`, branch `issue-114`)
   - Sparkle (= 1.23.0)
 
 SPEC REPOS:
@@ -11,10 +13,21 @@ SPEC REPOS:
     - LetsMove
     - Sparkle
 
+EXTERNAL SOURCES:
+  ShortcutRecorder:
+    :branch: issue-114
+    :git: https://github.com/Kentzo/ShortcutRecorder.git
+
+CHECKOUT OPTIONS:
+  ShortcutRecorder:
+    :commit: 4aebe01e1ec9eebb520ef50e42bc321be473c580
+    :git: https://github.com/Kentzo/ShortcutRecorder.git
+
 SPEC CHECKSUMS:
   LetsMove: fefe56bc7bc7fb7d37049e28a14f297961229fc5
+  ShortcutRecorder: fdf620aca34101b0cba3b10fca815e0459254189
   Sparkle: 55b1a87ba69d56913375a281546b7c82dec95bb0
 
-PODFILE CHECKSUM: 465451026269525f0f1d2dc7053cf0b789a35421
+PODFILE CHECKSUM: 7a88a7e0e87002ed5ea9c531fdea213ac6657496
 
 COCOAPODS: 1.8.4

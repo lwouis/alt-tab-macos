@@ -12,12 +12,21 @@ class Preferences {
         "rowsCount": Float(3),
         "iconSize": Float(32),
         "fontHeight": Float(15),
-        "tabKeyCode": kVK_Tab,
+        "holdShortcut": "⌥",
+        "nextWindowShortcut": "⇥",
+        "previousWindowShortcut": "⇧⇥",
+        "cancelShortcut": "⎋",
+        "arrowKeysEnabled": true,
+        "mouseHoverEnabled": true,
+        "showMinimizedWindows": true,
+        "showHiddenWindows": true,
         "windowDisplayDelay": 0,
-        "metaKey": MacroPreferences.metaKeyList.keys.first!,
-        "theme": MacroPreferences.themeList.keys.first!,
-        "showOnScreen": MacroPreferences.showOnScreenList.keys.first!,
-        "alignThumbnails": MacroPreferences.alignThumbnailsList.keys.first!,
+        "theme": ThemePreference.macOs.rawValue,
+        "showOnScreen": ShowOnScreenPreference.active.rawValue,
+        "alignThumbnails": AlignThumbnailsPreference.left.rawValue,
+        "appsToShow": AppsToShowPreference.all.rawValue,
+        "spacesToShow": SpacesToShowPreference.all.rawValue,
+        "screensToShow": ScreensToShowPreference.all.rawValue,
         "hideSpaceNumberLabels": false,
         "startAtLogin": true,
     ]
@@ -38,25 +47,32 @@ class Preferences {
     static var rowsCount: CGFloat { CGFloat(defaults.float(forKey: "rowsCount")) }
     static var iconSize: CGFloat { CGFloat(defaults.float(forKey: "iconSize")) }
     static var fontHeight: CGFloat { CGFloat(defaults.float(forKey: "fontHeight")) }
-    static var tabKeyCode: UInt16 { UInt16(defaults.integer(forKey: "tabKeyCode")) }
+    static var holdShortcut: String { defaults.string(forKey: "holdShortcut")! }
+    static var nextWindowShortcut: String { defaults.string(forKey: "nextWindowShortcut")! }
+    static var previousWindowShortcut: String { defaults.string(forKey: "previousWindowShortcut")! }
+    static var cancelShortcut: String { defaults.string(forKey: "cancelShortcut")! }
+    static var arrowKeysEnabled: Bool { defaults.bool(forKey: "arrowKeysEnabled") }
+    static var mouseHoverEnabled: Bool { defaults.bool(forKey: "mouseHoverEnabled") }
+    static var showMinimizedWindows: Bool { defaults.bool(forKey: "showMinimizedWindows") }
+    static var showHiddenWindows: Bool { defaults.bool(forKey: "showHiddenWindows") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.integer(forKey: "windowDisplayDelay")) }
     static var hideSpaceNumberLabels: Bool { defaults.bool(forKey: "hideSpaceNumberLabels") }
     static var startAtLogin: Bool { defaults.bool(forKey: "startAtLogin") }
 
     // macro values
-    static var theme: Theme { MacroPreferences.themeList[defaults.string(forKey: "theme")!]! }
-    static var metaKey: MetaKey { MacroPreferences.metaKeyList[defaults.string(forKey: "metaKey")!]! }
-    static var showOnScreen: ShowOnScreenPreference { MacroPreferences.showOnScreenList[defaults.string(forKey: "showOnScreen")!]! }
-    static var alignThumbnails: AlignThumbnailsPreference { MacroPreferences.alignThumbnailsList[defaults.string(forKey: "alignThumbnails")!]! }
+    static var theme: ThemePreference { ThemePreference(rawValue: defaults.string(forKey: "theme")!)! }
+    static var showOnScreen: ShowOnScreenPreference { ShowOnScreenPreference(rawValue: defaults.string(forKey: "showOnScreen")!)! }
+    static var alignThumbnails: AlignThumbnailsPreference { AlignThumbnailsPreference(rawValue: defaults.string(forKey: "alignThumbnails")!)! }
+    static var appsToShow: AppsToShowPreference { AppsToShowPreference(rawValue: defaults.string(forKey: "appsToShow")!)! }
+    static var spacesToShow: SpacesToShowPreference { SpacesToShowPreference(rawValue: defaults.string(forKey: "spacesToShow")!)! }
+    static var screensToShow: ScreensToShowPreference { .showingAltTab }//ScreensToShowPreference(rawValue: defaults.string(forKey: "screensToShow")!)! }
 
     // derived values
-    static var cellBorderWidth: CGFloat { theme.cellBorderWidth }
-    static var cellCornerRadius: CGFloat { theme.cellCornerRadius }
-    static var windowCornerRadius: CGFloat { theme.windowCornerRadius }
-    static var highlightBorderColor: NSColor { theme.highlightBorderColor }
-    static var highlightBackgroundColor: NSColor { theme.highlightBackgroundColor }
-    static var metaKeyCodes: [UInt16] { metaKey.keyCodes.map { UInt16($0) } }
-    static var metaModifierFlag: NSEvent.ModifierFlags { metaKey.modifierFlag }
+    static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
+    static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
+    static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
+    static var highlightBorderColor: NSColor { theme.themeParameters.highlightBorderColor }
+    static var highlightBackgroundColor: NSColor { theme.themeParameters.highlightBackgroundColor }
     static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
 
     static func registerDefaults() {
@@ -80,9 +96,21 @@ class Preferences {
     }
 
     static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
+
+    static func migrateOldPreferences() {
+        // "Main screen" was renamed to "Active screen"
+        if defaults.string(forKey: "showOnScreen") == "Main screen" {
+            defaults.removeObject(forKey: "showOnScreen")
+        }
+    }
 }
 
-struct Theme {
+// MacroPreference are collection of values derived from a single key
+// we don't want to store every value in UserDefaults as the user could change them and contradict the macro
+protocol MacroPreference {
+}
+
+struct ThemeParameters {
     let label: String
     let cellBorderWidth: CGFloat
     let cellCornerRadius: CGFloat
@@ -91,40 +119,76 @@ struct Theme {
     let highlightBackgroundColor: NSColor
 }
 
-struct MetaKey {
-    let label: String
-    let keyCodes: [Int]
-    let modifierFlag: NSEvent.ModifierFlags
+typealias LocalizedString = String
+
+enum AppsToShowPreference: String, CaseIterable, MacroPreference {
+    case all = "All apps"
+    case active = "Active app"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .all: return NSLocalizedString("All apps", comment: "")
+            case .active: return NSLocalizedString("Active app", comment: "")
+        }
+    }
 }
 
-enum ShowOnScreenPreference {
-    case main
-    case mouse
+enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
+    case all = "All spaces"
+    case active = "Active space"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .all: return NSLocalizedString("All spaces", comment: "")
+            case .active: return NSLocalizedString("Active space", comment: "")
+        }
+    }
 }
 
-enum AlignThumbnailsPreference {
-    case left
-    case center
+enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
+    case all = "All screens"
+    case showingAltTab = "Screen showing AltTab"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .all: return NSLocalizedString("All screens", comment: "")
+            case .showingAltTab: return NSLocalizedString("Screen showing AltTab", comment: "")
+        }
+    }
 }
 
-// macros are collection of values derived from a single key
-// we don't want to store every value in UserDefaults as the user could change them and contradict the macro
-class MacroPreferences {
-    static let themeList = [
-        " macOS": Theme(label: " macOS", cellBorderWidth: 0, cellCornerRadius: 5, windowCornerRadius: 20, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4)),
-        "❖ Windows 10": Theme(label: "❖ Windows 10", cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear),
-    ]
-    static let metaKeyList = [
-        "⌥ option": MetaKey(label: "⌥ option", keyCodes: [kVK_Option, kVK_RightOption], modifierFlag: .option),
-        "⌃ control": MetaKey(label: "⌃ control", keyCodes: [kVK_Control, kVK_RightControl], modifierFlag: .control),
-        "⌘ command": MetaKey(label: "⌘ command", keyCodes: [kVK_Command, kVK_RightCommand], modifierFlag: .command)
-    ]
-    static let showOnScreenList = [
-        "Main screen": ShowOnScreenPreference.main,
-        "Screen including mouse": ShowOnScreenPreference.mouse,
-    ]
-    static let alignThumbnailsList = [
-        "Center": AlignThumbnailsPreference.center,
-        "Left": AlignThumbnailsPreference.left,
-    ]
+enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
+    case active = "Active screen"
+    case includingMouse = "Screen including mouse"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .active: return NSLocalizedString("Active screen", comment: "")
+            case .includingMouse: return NSLocalizedString("Screen including mouse", comment: "")
+        }
+    }
+}
+
+enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
+    case left = "Left"
+    case center = "Center"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .left: return NSLocalizedString("Left", comment: "")
+            case .center: return NSLocalizedString("Center", comment: "")
+        }
+    }
+}
+
+enum ThemePreference: String, CaseIterable, MacroPreference {
+    case macOs = " macOS"
+    case windows10 = "❖ Windows 10"
+
+    var themeParameters: ThemeParameters {
+        switch self {
+            case .macOs: return ThemeParameters(label: NSLocalizedString(" macOS", comment: ""), cellBorderWidth: 0, cellCornerRadius: 5, windowCornerRadius: 20, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
+            case .windows10: return ThemeParameters(label: NSLocalizedString("❖ Windows 10", comment: ""), cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
+        }
+    }
 }

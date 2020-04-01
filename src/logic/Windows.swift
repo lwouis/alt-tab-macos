@@ -3,13 +3,13 @@ import Cocoa
 class Windows {
     // order in the array is important: most-recently-used elements are first
     static var list = [Window]()
-    static var previousFocusedWindowIndex = Array<Window>.Index(0)
-    static var focusedWindowIndex = Array<Window>.Index(0)
+    static var previousFocusedWindowIndex = Int(0)
+    static var focusedWindowIndex = Int(0)
     static var windowsInSubscriptionRetryLoop = [String]()
 
-    static func updateFocusedWindowIndex(_ newValue: Array<Window>.Index) {
+    static func updateFocusedWindowIndex(_ newIndex: Int) {
         previousFocusedWindowIndex = focusedWindowIndex
-        focusedWindowIndex = newValue
+        focusedWindowIndex = newIndex
         let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
         ThumbnailsPanel.highlightCell(ThumbnailsView.recycledViews[previousFocusedWindowIndex], focusedView)
         App.app.thumbnailsPanel!.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
@@ -19,22 +19,29 @@ class Windows {
         return list.count > focusedWindowIndex ? list[focusedWindowIndex] : nil
     }
 
-    static func cycleFocusedWindowIndex(_ step: Array<Window>.Index) {
-        updateFocusedWindowIndex(focusedWindowIndex + step < 0 ? list.count - 1 : (focusedWindowIndex + step) % list.count)
+    static func cycleFocusedWindowIndex(_ step: Int) {
+        var iterations = 0
+        var targetIndex = focusedWindowIndex
+        repeat {
+            let next = (targetIndex + step) % list.count
+            targetIndex = next < 0 ? list.count + next : next
+            iterations += 1
+        } while !list[targetIndex].shouldShowTheUser && iterations <= list.count
+        updateFocusedWindowIndex(targetIndex)
     }
 
-    static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ destroyedWindowIndex: Array<Window>.Index) {
-        if focusedWindowIndex <= destroyedWindowIndex {
-            updateFocusedWindowIndex(max(focusedWindowIndex - 1, 0))
+    static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ destroyedWindowIndex: Int) {
+        if focusedWindowIndex >= destroyedWindowIndex {
+            cycleFocusedWindowIndex(-1)
         }
     }
 
-    static func moveFocusedWindowIndexAfterWindowCreatedInBackground(_ step: Int) {
-        updateFocusedWindowIndex(focusedWindowIndex + step)
-    }
-
     static func updateSpaces() {
-        let spacesMap = Spaces.allIdsAndIndexes()
+        Spaces.updateIsSingleSpace()
+        // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
+        // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
+        Spaces.refreshCurrentSpaceId()
+        let spacesMap = Spaces.idsAndIndexes
         list.forEachAsync { window in
             let spaceIds = window.cgWindowId.spaces()
             if spaceIds.count == 1 {
@@ -69,6 +76,19 @@ class Windows {
     static func refreshAllThumbnails() {
         list.forEachAsync { window in
             window.refreshThumbnail()
+        }
+    }
+
+    static func refreshWhichWindowsToShowTheUser(_ screen: NSScreen) {
+        var screenFrameInQuartzCoordinates = screen.frame
+        screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
+        let activeApp = NSWorkspace.shared.frontmostApplication
+        Windows.list.forEach {
+            $0.shouldShowTheUser = !(!Preferences.showMinimizedWindows && $0.isMinimized) &&
+                    !(!Preferences.showHiddenWindows && $0.isHidden) &&
+                    !(Preferences.appsToShow == .active && $0.application.runningApplication != activeApp) &&
+                    !(Preferences.spacesToShow == .active && $0.spaceId != Spaces.currentSpaceId) &&
+                    !(Preferences.screensToShow == .showingAltTab && $0.axUiElement.position().map { p in !screenFrameInQuartzCoordinates.contains(p) } ?? true)
         }
     }
 

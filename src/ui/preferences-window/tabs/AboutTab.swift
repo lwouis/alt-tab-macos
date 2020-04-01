@@ -8,33 +8,33 @@ class AboutTab: NSObject {
     static func makeView() -> NSGridView {
         let appIcon = NSImageView(image: NSImage(named: "app-icon")!.resizedCopy(150, 150))
         appIcon.imageScaling = .scaleNone
-        let appText = NSStackView(views: [
+        let appText = StackView([
             BoldLabel(App.name),
             NSTextField(wrappingLabelWithString: NSLocalizedString("Version", comment: "") + " " + App.version),
             NSTextField(wrappingLabelWithString: App.licence),
             HyperlinkLabel(NSLocalizedString("Source code repository", comment: ""), App.repository),
             HyperlinkLabel(NSLocalizedString("Latest releases", comment: ""), App.repository + "/releases"),
-        ])
-        appText.orientation = .vertical
-        appText.alignment = .left
+        ], .vertical)
         appText.spacing = GridView.interPadding / 2
         let rowToSeparate = 3
         appText.views[rowToSeparate].topAnchor.constraint(equalTo: appText.views[rowToSeparate - 1].bottomAnchor, constant: GridView.interPadding).isActive = true
-        let appInfo = NSStackView(views: [appIcon, appText])
+        let appInfo = StackView([appIcon, appText])
         appInfo.spacing = GridView.interPadding
-        let view = GridView.make([
+        appInfo.alignment = .centerY
+        let sendFeedback = NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: self, action: #selector(feedbackCallback))
+        let grid = GridView.make([
             [appInfo],
-            [NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: self, action: #selector(feedbackCallback))],
+            [sendFeedback],
         ])
-        let sendFeedbackCell = view.cell(atColumnIndex: 0, rowIndex: 1)
+        let sendFeedbackCell = grid.cell(atColumnIndex: 0, rowIndex: 1)
         sendFeedbackCell.xPlacement = .center
         sendFeedbackCell.row!.topPadding = GridView.interPadding
-        view.fit()
-        return view
+        grid.fit()
+        return grid
     }
 
     @objc
     static func feedbackCallback() {
-        (App.shared as! App).showFeedbackPanel()
+        App.app.showFeedbackPanel()
     }
 }

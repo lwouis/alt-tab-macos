@@ -3,8 +3,8 @@ import Cocoa
 class Screen {
     static func preferred() -> NSScreen {
         switch Preferences.showOnScreen {
-            case .mouse: return withMouse() ?? NSScreen.main!; // .main as fall-back
-            case .main: return NSScreen.main!;
+            case .includingMouse: return withMouse() ?? NSScreen.main!; // .main as fall-back
+            case .active: return NSScreen.main!;
         }
     }
 
@@ -20,12 +20,10 @@ class Screen {
         window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 
-    static func mainUuid() -> CFString {
-        return "Main" as CFString
-        // the bellow code gets the actual main screen, but in our case we seem to be fine with sending "Main"
-        // our only need for this is for the System Preferences panel which has incorrect space with or without this
-        //let mainScreenId = NSScreen.main!.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! UInt32
-        //return CFUUIDCreateString(nil, CGDisplayCreateUUIDFromDisplayID(mainScreenId).takeRetainedValue())!
+    static func uuid(_ screen: NSScreen) -> ScreenUuid {
+        let screenNumber = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! UInt32
+        let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber).takeRetainedValue()
+        return CFUUIDCreateString(nil, screenUuid)!
     }
 }
 
@@ -34,3 +32,5 @@ enum VerticalAlignment: CGFloat {
     // vertically centered but with an upward offset, similar to a book title; mimics NSView.center()
     case appleCentered = 0.75
 }
+
+typealias ScreenUuid = CFString

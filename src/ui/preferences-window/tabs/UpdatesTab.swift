@@ -30,17 +30,17 @@ class UpdatesTab: NSObject {
         policies.alignment = .left
         policies.orientation = .vertical
         policies.spacing = GridView.interPadding / 2
-        let view = GridView.make([
+        let grid = GridView.make([
             [policyLabel, policies],
             [NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: self, action: #selector(checkForUpdatesNow))],
         ])
-        view.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .trailing
-        let row1 = view.row(at: 1)
+        grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .trailing
+        let row1 = grid.row(at: 1)
         row1.mergeCells(in: NSRange(location: 0, length: 2))
         row1.topPadding = GridView.interPadding
         row1.cell(at: 0).xPlacement = .center
-        view.fit()
-        return view
+        grid.fit()
+        return grid
     }
 
     @objc

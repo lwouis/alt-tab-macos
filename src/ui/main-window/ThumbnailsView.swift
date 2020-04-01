@@ -25,6 +25,8 @@ class ThumbnailsView: NSVisualEffectView {
         var maxY = height
         var newViews = [ThumbnailView]()
         for (index, window) in Windows.list.enumerated() {
+            guard App.app.uiWorkShouldBeDone else { return }
+            guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             view.updateRecycledCellWithNewContent(window,
                     { App.app.focusSelectedWindow(window) },

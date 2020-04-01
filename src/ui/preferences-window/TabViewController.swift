@@ -9,10 +9,10 @@ class TabViewController: NSTabViewController {
     }
 
     private func resizeWindowToFit(_ tabViewItem: NSTabViewItem, _ window: NSWindow) {
-        let contentFrame = window.frameRect(forContentRect: NSRect(origin: .zero, size: tabViewItem.view!.frame.size))
-        let toolbarHeight = window.frame.size.height - contentFrame.size.height
-        let newOrigin = NSPoint(x: window.frame.origin.x, y: window.frame.origin.y + toolbarHeight)
-        let newFrame = NSRect(origin: newOrigin, size: contentFrame.size)
-        window.setFrame(newFrame, display: false, animate: true)
+        let container = window.frame
+        let containee = tabView.subviews.first!.frame
+        window.setFrame(NSRect(origin: CGPoint(x: container.origin.x, y: container.origin.y + (container.height - containee.height)),
+                size: containee.size),
+                display: false, animate: true)
     }
 }

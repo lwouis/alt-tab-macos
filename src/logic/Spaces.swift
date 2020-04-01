@@ -5,15 +5,22 @@ class Spaces {
     static var currentSpaceIndex = SpaceIndex(1)
     static var visitedSpaces = [CGSSpaceID: Bool]()
     static var isSingleSpace = true
+    static var idsAndIndexes = allIdsAndIndexes()
 
     static func observeSpaceChanges() {
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
             debugPrint("OS event", "activeSpaceDidChangeNotification")
+            idsAndIndexes = allIdsAndIndexes()
             updateCurrentSpace()
             Applications.observeNewWindows()
             guard App.app.appIsBeingUsed else { return }
             App.app.reopenUi()
         })
+    }
+
+    static func refreshCurrentSpaceId() {
+        currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, Screen.uuid(NSScreen.main!))
+        debugPrint("currentSpaceId", currentSpaceId)
     }
 
     static func initialDiscovery() {
@@ -23,8 +30,8 @@ class Spaces {
     }
 
     static func updateCurrentSpace() {
-        currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, Screen.mainUuid())
-        currentSpaceIndex = allIdsAndIndexes().first { $0.0 == currentSpaceId }!.1
+        refreshCurrentSpaceId()
+        currentSpaceIndex = idsAndIndexes.first { $0.0 == currentSpaceId }!.1
         debugPrint("Current space", currentSpaceId)
     }
 
@@ -35,7 +42,7 @@ class Spaces {
     }
 
     static func otherSpaces() -> [CGSSpaceID] {
-        return allIdsAndIndexes().filter { $0.0 != currentSpaceId }.map { $0.0 }
+        return idsAndIndexes.filter { $0.0 != currentSpaceId }.map { $0.0 }
     }
 
     static func windowsInSpaces(_ spaceIds: [CGSSpaceID]) -> [CGWindowID] {
@@ -45,7 +52,7 @@ class Spaces {
     }
 
     static func updateIsSingleSpace() {
-        isSingleSpace = allIdsAndIndexes().count == 1
+        isSingleSpace = idsAndIndexes.count == 1
     }
 }
 

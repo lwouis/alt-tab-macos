@@ -102,7 +102,9 @@ class ThumbnailView: NSStackView {
     }
 
     override func mouseMoved(with event: NSEvent) {
-        mouseMovedCallback()
+        if Preferences.mouseHoverEnabled {
+            mouseMovedCallback()
+        }
     }
 
     override func mouseDown(with theEvent: NSEvent) {

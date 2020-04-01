@@ -235,6 +235,7 @@ func SLSRequestScreenCaptureAccess() -> UInt8
 //}
 //
 //// returns the status of the "Displays have separate Spaces" system Preference
+//// there is a public API for that: NSScreen.screensHaveSeparateSpaces
 //// * macOS 10.10+
 //@_silgen_name("CGSGetSpaceManagementMode")
 //func CGSGetSpaceManagementMode(_ cid: CGSConnectionID) -> SpaceManagementMode
