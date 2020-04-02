@@ -10,7 +10,6 @@ class App: NSApplication, NSApplicationDelegate {
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
-    static let url = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
     static var app: App!
     static let shortcutMonitor = LocalShortcutMonitor()
     var statusItem: NSStatusItem?
