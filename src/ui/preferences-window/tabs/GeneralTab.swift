@@ -103,7 +103,7 @@ class GeneralTab {
 
     // adding/removing login item depending on the checkbox state
     @available(OSX, deprecated: 10.11)
-    @objc private static func startAtLoginCallback(_ sender: NSControl) {
+    @objc static func startAtLoginCallback(_ sender: NSControl) {
         let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
         let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
         loginItemsSnapshot.forEach {
