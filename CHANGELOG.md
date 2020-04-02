@@ -1,3 +1,10 @@
+## [3.3.2](https://github.com/lwouis/alt-tab-macos/compare/v3.3.1...v3.3.2) (2020-04-02)
+
+
+### Bug Fixes
+
+* crashed if an invalid login item existed (closes [#202](https://github.com/lwouis/alt-tab-macos/issues/202)) ([48d5d63](https://github.com/lwouis/alt-tab-macos/commit/48d5d63))
+
 ## [3.3.1](https://github.com/lwouis/alt-tab-macos/compare/v3.3.0...v3.3.1) (2020-04-02)
 
 

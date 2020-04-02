@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.3.2</title>
+      <pubDate>Thu, 02 Apr 2020 16:23:14 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="332-httpsgithubcomlwouisalt-tab-macoscomparev331v332-2020-04-02">3.3.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.3.1...v3.3.2">https://github.com/lwouis/alt-tab-macos/compare/v3.3.1...v3.3.2</a>) (2020-04-02)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* crashed if an invalid login item existed (closes #202 (https://github.com/lwouis/alt-tab-macos/issues/202)) (48d5d63 (https://github.com/lwouis/alt-tab-macos/commit/48d5d63))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.2/AltTab-3.3.2.zip"
+        sparkle:version="3.3.2"
+        sparkle:shortVersionString="3.3.2"
+        sparkle:edSignature="//SFCqfc70av9cjrjJuG/+WPbt6jcCY5L8YB0kgUFMy+WyGz/R5ZBetcAU2iDNC8lJ6YloGrzPe+S9MHicHbAw==" length="7264582"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.3.1</title>
       <pubDate>Thu, 02 Apr 2020 12:33:49 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
