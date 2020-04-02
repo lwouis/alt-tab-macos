@@ -1,0 +1,122 @@
+/*No comment provided by engineer.*/
+"About" = "정보";
+
+/*No comment provided by engineer.*/
+"Alt key" = "Alt 키";
+
+/*No comment provided by engineer.*/
+"Apparition delay" = "나타나는 시간";
+
+/*No comment provided by engineer.*/
+"Appearance" = "외관";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "자동으로 업데이트 설치하기";
+
+/*Cancel button*/
+"Cancel" = "취소";
+
+/*No comment provided by engineer.*/
+"Check again" = "다시 확인해보세요";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "지금 업데이트 확인...";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "주기적으로 업데이트를 확인하기";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "업데이트 확인...";
+
+/*No comment provided by engineer.*/
+"Could not save Preference" = "설정을 저장할 수 없습니다.";
+
+/*No comment provided by engineer.*/
+"Don't check for updates periodically" = "주기적으로 업데이트를 확인하지 않기";
+
+/*No comment provided by engineer.*/
+"Edit" = "수정";
+
+/*No comment provided by engineer.*/
+"Hide space number labels" = "Space 번호 숨기기";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "이 앱의 개선방안은...";
+
+/*No comment provided by engineer.*/
+"KeyCodes Reference" = "키코드 레퍼런스";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "최신 출시";
+
+/*No comment provided by engineer.*/
+"Max size on screen" = "화면 최대 크기";
+
+/*No comment provided by engineer.*/
+"Max windows per row" = "한 줄당 최대 윈도우 개수";
+
+/*No comment provided by engineer.*/
+"Min rows of windows" = "윈도우의 최소 줄 개수";
+
+/*No comment provided by engineer.*/
+"Min windows per row" = "한 줄당 최소 윈도우 개수";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "답변을 원하면 이메일 남겨주세요";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "설정...";
+
+/*No comment provided by engineer.*/
+"Quit" = "종료";
+
+/*No comment provided by engineer.*/
+"Send" = "보내기";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "디버깅 정보 보내기 (CPU, memory 등)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "피드백 보내기";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "피드백 보내기...";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "개선방안을 공유하거나 버그를 제보해주세요";
+
+/*No comment provided by engineer.*/
+"Shortcuts" = "단축키";
+
+/*No comment provided by engineer.*/
+"Show" = "보기";
+
+/*No comment provided by engineer.*/
+"Show on" = "보여질 곳";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "소스 코드 저장소";
+
+/*No comment provided by engineer.*/
+"Tab key" = "Tab 키";
+
+/*No comment provided by engineer.*/
+"Theme" = "테마";
+
+/*No comment provided by engineer.*/
+"Updates" = "업데이트";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "업데이트 정책:";
+
+/*No comment provided by engineer.*/
+"Version" = "버전";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "진행중인 논의 보기";
+
+/*No comment provided by engineer.*/
+"Window app icon size" = "윈도우 앱 아이콘 크기";
+
+/*No comment provided by engineer.*/
+"Window title font size" = "윈도우 제목 글꼴 크기";

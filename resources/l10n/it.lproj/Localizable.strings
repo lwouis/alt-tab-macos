@@ -1,0 +1,122 @@
+/*No comment provided by engineer.*/
+"About" = "Introduzione";
+
+/*No comment provided by engineer.*/
+"Alt key" = "Tasto Alt";
+
+/*No comment provided by engineer.*/
+"Apparition delay" = "Ritardo di apparizione";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Apparenza";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "La procedure di auto-install aggiorna periodicamente";
+
+/*Cancel button*/
+"Cancel" = "Cancella";
+
+/*No comment provided by engineer.*/
+"Check again" = "Controlla ancora";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "Controlla aggiornamenti ora...";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Controlla aggiornamenti periodicamente";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Controllo aggiornamenti...";
+
+/*No comment provided by engineer.*/
+"Could not save Preference" = "Non posso salvare le preferenze";
+
+/*No comment provided by engineer.*/
+"Don't check for updates periodically" = "Non controllare gli aggiornamenti periodicamente";
+
+/*No comment provided by engineer.*/
+"Edit" = "Modifica";
+
+/*No comment provided by engineer.*/
+"Hide space number labels" = "Nascondi le etichette del numero di spazi";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Credo che l'applicazione possa essere migliorata con...";
+
+/*No comment provided by engineer.*/
+"KeyCodes Reference" = "Riferimenti dei KeyCodes";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Ultimi rilasci";
+
+/*No comment provided by engineer.*/
+"Max size on screen" = "Massima dimensione a schermo";
+
+/*No comment provided by engineer.*/
+"Max windows per row" = "Massimo numero di finestre per riga";
+
+/*No comment provided by engineer.*/
+"Min rows of windows" = "Minimo numero di finestre";
+
+/*No comment provided by engineer.*/
+"Min windows per row" = "Minimo numero di finestre per riga";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Opzionale: email (se desideri una risposta)";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Preferenze...";
+
+/*No comment provided by engineer.*/
+"Quit" = "Chiudi";
+
+/*No comment provided by engineer.*/
+"Send" = "Invia";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Invia profilo di debug (CPU, memoria, ecc)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Invia commenti";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Invia commenti...";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Condividi idee per miglioramenti oppure riporta problemi";
+
+/*No comment provided by engineer.*/
+"Shortcuts" = "Scorciatoie";
+
+/*No comment provided by engineer.*/
+"Show" = "Mostra";
+
+/*No comment provided by engineer.*/
+"Show on" = "Mostra su";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Archivio codice sorgente";
+
+/*No comment provided by engineer.*/
+"Tab key" = "Tasto Tab";
+
+/*No comment provided by engineer.*/
+"Theme" = "Tema";
+
+/*No comment provided by engineer.*/
+"Updates" = "Aggiornamenti";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Politica sugli aggiornamenti:";
+
+/*No comment provided by engineer.*/
+"Version" = "Versione";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "Mostra discussioni esistenti";
+
+/*No comment provided by engineer.*/
+"Window app icon size" = "Dimensione dell'icona della finestra dell'applicazione";
+
+/*No comment provided by engineer.*/
+"Window title font size" = "Dimensione del carattere del titolo della finestra";
