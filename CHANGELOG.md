@@ -1,3 +1,11 @@
+## [3.3.1](https://github.com/lwouis/alt-tab-macos/compare/v3.3.0...v3.3.1) (2020-04-02)
+
+
+### Bug Fixes
+
+* blind fix trying to guess root cause of [#202](https://github.com/lwouis/alt-tab-macos/issues/202) ([fb4fe11](https://github.com/lwouis/alt-tab-macos/commit/fb4fe11))
+* checkboxes preferences were unchecked initially ([b091282](https://github.com/lwouis/alt-tab-macos/commit/b091282))
+
 # [3.3.0](https://github.com/lwouis/alt-tab-macos/compare/v3.2.1...v3.3.0) (2020-04-02)
 
 

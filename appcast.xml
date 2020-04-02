@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.3.1</title>
+      <pubDate>Thu, 02 Apr 2020 12:33:49 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="331-httpsgithubcomlwouisalt-tab-macoscomparev330v331-2020-04-02">3.3.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.3.0...v3.3.1">https://github.com/lwouis/alt-tab-macos/compare/v3.3.0...v3.3.1</a>) (2020-04-02)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* blind fix trying to guess root cause of #202 (https://github.com/lwouis/alt-tab-macos/issues/202) (fb4fe11 (https://github.com/lwouis/alt-tab-macos/commit/fb4fe11))
+* checkboxes preferences were unchecked initially (b091282 (https://github.com/lwouis/alt-tab-macos/commit/b091282))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.1/AltTab-3.3.1.zip"
+        sparkle:version="3.3.1"
+        sparkle:shortVersionString="3.3.1"
+        sparkle:edSignature="+4UxVqf0mpBIsJ1sf18QkGjr6afv9OzVaSlmna3BGWqqqRd3T6zVHyN33WETHLvbhP2pBDuvbf8+Ls+JE4kmAA==" length="7264311"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.3.0</title>
       <pubDate>Thu, 02 Apr 2020 10:46:53 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
