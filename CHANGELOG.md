@@ -1,3 +1,19 @@
+# [3.3.0](https://github.com/lwouis/alt-tab-macos/compare/v3.2.1...v3.3.0) (2020-04-02)
+
+
+### Bug Fixes
+
+* .strings encoding should be utf-8 ([7109b08](https://github.com/lwouis/alt-tab-macos/commit/7109b08))
+* avoid having multiple login items ([65816a2](https://github.com/lwouis/alt-tab-macos/commit/65816a2))
+* preferences would not be live (closes [#188](https://github.com/lwouis/alt-tab-macos/issues/188)) ([d5b74a1](https://github.com/lwouis/alt-tab-macos/commit/d5b74a1)), closes [#194](https://github.com/lwouis/alt-tab-macos/issues/194)
+* simpler/better window focus ([574a640](https://github.com/lwouis/alt-tab-macos/commit/574a640))
+
+
+### Features
+
+* localized in 5 new languages ([48bb3df](https://github.com/lwouis/alt-tab-macos/commit/48bb3df))
+* more flexible shortcuts (closes [#72](https://github.com/lwouis/alt-tab-macos/issues/72)) ([5eade75](https://github.com/lwouis/alt-tab-macos/commit/5eade75)), closes [#50](https://github.com/lwouis/alt-tab-macos/issues/50) [#125](https://github.com/lwouis/alt-tab-macos/issues/125) [#133](https://github.com/lwouis/alt-tab-macos/issues/133)
+
 ## [3.2.1](https://github.com/lwouis/alt-tab-macos/compare/v3.2.0...v3.2.1) (2020-03-25)
 
 

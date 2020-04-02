@@ -5,6 +5,30 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.3.0</title>
+      <pubDate>Thu, 02 Apr 2020 10:46:53 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="330-httpsgithubcomlwouisalt-tab-macoscomparev321v330-2020-04-02">3.3.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.2.1...v3.3.0">https://github.com/lwouis/alt-tab-macos/compare/v3.2.1...v3.3.0</a>) (2020-04-02)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* .strings encoding should be utf-8 (7109b08 (https://github.com/lwouis/alt-tab-macos/commit/7109b08))
+* avoid having multiple login items (65816a2 (https://github.com/lwouis/alt-tab-macos/commit/65816a2))
+* preferences would not be live (closes #188 (https://github.com/lwouis/alt-tab-macos/issues/188)) (d5b74a1 (https://github.com/lwouis/alt-tab-macos/commit/d5b74a1)), closes #194 (https://github.com/lwouis/alt-tab-macos/issues/194)
+* simpler/better window focus (574a640 (https://github.com/lwouis/alt-tab-macos/commit/574a640))</code></pre><h3 id="features">Features</h3>
+<pre><code>* localized in 5 new languages (48bb3df (https://github.com/lwouis/alt-tab-macos/commit/48bb3df))
+* more flexible shortcuts (closes #72 (https://github.com/lwouis/alt-tab-macos/issues/72)) (5eade75 (https://github.com/lwouis/alt-tab-macos/commit/5eade75)), closes #50 (https://github.com/lwouis/alt-tab-macos/issues/50) #125 (https://github.com/lwouis/alt-tab-macos/issues/125) #133 (https://github.com/lwouis/alt-tab-macos/issues/133)</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.0/AltTab-3.3.0.zip"
+        sparkle:version="3.3.0"
+        sparkle:shortVersionString="3.3.0"
+        sparkle:edSignature="Qh9GJ3v6AXGRrZK1DR9+ENiu5h27DHDUa6+DRnBloMUlHxFLSHAIHl9kg4sA6PgN01HlJMenH0Z/0EwRoU5+Dg==" length="7264326"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.2.1</title>
       <pubDate>Wed, 25 Mar 2020 05:50:32 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
