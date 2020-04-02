@@ -17,9 +17,8 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : "", target: nil, action: nil)
-        let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         setControlValue(checkbox, Preferences.getString(rawName)!)
-        checkbox.sendAction(checkbox.action, to: checkbox.target)
+        let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
     }
 
@@ -117,7 +116,7 @@ class LabelAndControl: NSObject {
             control.stringValue = value
             (control as! NSTextField).delegate?.controlTextDidChange?(Notification(name: NSControl.textDidChangeNotification, object: control))
         } else if control is NSButton {
-            (control as! NSButton).state = Bool(value) ?? false ? NSButton.StateValue.on : NSButton.StateValue.off
+            (control as! NSButton).state = (value as NSString).boolValue ? .on : .off
         } else {
             control.stringValue = value
         }
