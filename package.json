@@ -2,9 +2,7 @@
   "private": true,
   "name": "alt-tab-macos",
   "version": "1.0.0",
-  "scripts": {
-    "extract-l10n": "find src -name '*.swift' | xargs genstrings -a && echo \"`iconv -f UTF-16LE -t UTF-8 Localizable.strings`\" > Localizable.strings"
-  },
+  "scripts": {},
   "author": "",
   "license": "MIT",
   "husky": {
