@@ -10,6 +10,9 @@
 /*No comment provided by engineer.*/
 "Appearance" = "Aussehen";
 
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Updates regelmäßig automatisch installieren";
+
 /*Cancel button*/
 "Cancel" = "Abbrechen";
 
@@ -17,7 +20,19 @@
 "Check again" = "Erneut versuchen";
 
 /*No comment provided by engineer.*/
+"Check for updates now…" = "Jetzt nach updates suchen...";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Regelmäßig nach Aktualisierungen suchen";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Nach Updates suchen...";
+
+/*No comment provided by engineer.*/
 "Could not save Preference" = "Einstellungen konnten nicht gespeichert werden";
+
+/*No comment provided by engineer.*/
+"Don't check for updates periodically" = "Nicht regelmäßig nach Updates suchen";
 
 /*No comment provided by engineer.*/
 "Edit" = "Bearbeiten";
@@ -87,6 +102,12 @@
 
 /*No comment provided by engineer.*/
 "Theme" = "Thema";
+
+/*No comment provided by engineer.*/
+"Updates" = "Updates";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Update Richtlinie:";
 
 /*No comment provided by engineer.*/
 "Version" = "Version";

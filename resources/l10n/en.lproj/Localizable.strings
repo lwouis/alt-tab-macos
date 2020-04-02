@@ -1,164 +1,123 @@
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "About" = "About";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Alt key" = "Alt key";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Apparition delay" = "Apparition delay";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Appearance" = "Appearance";
 
 /*No comment provided by engineer.*/
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Auto-install updates periodically" = "Auto-install updates periodically";
 
 /* Cancel button */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Cancel" = "Cancel";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Check again" = "Check again";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Check for updates now…" = "Check for updates now…";
 
 /*No comment provided by engineer.*/
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Check for updates periodically" = "Check for updates periodically";
 
 /*No comment provided by engineer.*/
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Check for updates…" = "Check for updates…";
 
 /*No comment provided by engineer.*/
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Could not save Preference" = "Could not save Preference";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Don't check for updates periodically" = "Don't check for updates periodically";
 
 /*No comment provided by engineer.*/
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Edit" = "Edit";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Hide space number labels" = "Hide space number labels";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "I think the app could be improved with…" = "I think the app could be improved with…";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "KeyCodes Reference" = "KeyCodes Reference";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Latest releases" = "Latest releases";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Max size on screen" = "Max size on screen";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Max windows per row" = "Max windows per row";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Min rows of windows" = "Min rows of windows";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Min windows per row" = "Min windows per row";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Preferences…" = "Preferences…";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Quit" = "Quit";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Send" = "Send";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Send feedback" = "Send feedback";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Send feedback…" = "Send feedback…";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Shortcuts" = "Shortcuts";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Show" = "Show";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Show on" = "Show on";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Source code repository" = "Source code repository";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Tab key" = "Tab key";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Theme" = "Theme";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Updates" = "Updates";
 
 /*No comment provided by engineer.*/
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Updates policy:" = "Updates policy:";
 
 /*No comment provided by engineer.*/
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Version" = "Version";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "View existing discussions" = "View existing discussions";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Window app icon size" = "Window app icon size";
 
 /* No comment provided by engineer. */
-/*src/resources/l10n/en.lproj/Localizable.strings*/
 "Window title font size" = "Window title font size";
 

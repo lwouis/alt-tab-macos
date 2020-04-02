@@ -1,23 +1,23 @@
 /*No comment provided by engineer.*/
-"About" = "Sobre";
+"About" = "詳細";
 
 /*No comment provided by engineer.*/
-"Alt key" = "Tecla Alt";
+"Alt key" = "Altキー";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Apariencia demorada";
+"Apparition delay" = "スクリーン表示速度";
 
 /*No comment provided by engineer.*/
-"Appearance" = "Apariencia";
+"Appearance" = "表示設定";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Auto-install updates periodically";
 
 /*Cancel button*/
-"Cancel" = "Cancelar";
+"Cancel" = "キャンセル";
 
 /*No comment provided by engineer.*/
-"Check again" = "Verifica nuevamente";
+"Check again" = "もう一度確認する";
 
 /*No comment provided by engineer.*/
 "Check for updates now…" = "Check for updates now…";
@@ -29,79 +29,79 @@
 "Check for updates…" = "Check for updates…";
 
 /*No comment provided by engineer.*/
-"Could not save Preference" = "No se pudo guardar la preferencia";
+"Could not save Preference" = "環境設定が保存できませんでした";
 
 /*No comment provided by engineer.*/
 "Don't check for updates periodically" = "Don't check for updates periodically";
 
 /*No comment provided by engineer.*/
-"Edit" = "Editar";
+"Edit" = "編集";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "Ocultar etiquetas de número de Espacio";
+"Hide space number labels" = "Hide space number labels";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Creo que la aplicación podría mejorarse con ...";
+"I think the app could be improved with…" = "アプリの◯◯を改善したい";
 
 /*No comment provided by engineer.*/
-"KeyCodes Reference" = "Referencia de códigos clave";
+"KeyCodes Reference" = "キーボード参照";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "Últimos lanzamientos";
+"Latest releases" = "最新バージョン";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "Tamaño máximo en pantalla";
+"Max size on screen" = "スクリーン表示サイズ";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "Ventanas máximas por fila";
+"Max windows per row" = "一列に最大表示可能な個数";
 
 /*No comment provided by engineer.*/
-"Min rows of windows" = "Min filas de ventanas";
+"Min rows of windows" = "ウィンドウに表示可能な列の最小の個数";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "Ventanas mínimas por fila";
+"Min windows per row" = "一列に最小表示可能な個数";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Opcional: correo electrónico (si desea una respuesta)";
+"Optional: email (if you want a reply)" = "任意：Eメール（返信を希望する場合）";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Preferencias ...";
+"Preferences…" = "環境設定…";
 
 /*No comment provided by engineer.*/
-"Quit" = "dejar";
+"Quit" = "閉じる";
 
 /*No comment provided by engineer.*/
-"Send" = "Enviar";
+"Send" = "送信";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Enviar perfil de depuración (CPU, memoria, etc.)";
+"Send debug profile (CPU, memory, etc)" = "デバッグプロファイル（CPU、メモリなど）";
 
 /*No comment provided by engineer.*/
-"Send feedback" = "Enviar comentarios";
+"Send feedback" = "フィードバック提出";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "Enviar comentarios ...";
+"Send feedback…" = "フィードバック提出…";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Comparta ideas de mejora o informe de errores";
+"Share improvement ideas, or report bugs" = "改善点のご共有あるいはバグのご報告";
 
 /*No comment provided by engineer.*/
-"Shortcuts" = "Los accesos directos";
+"Shortcuts" = "ショートカット";
 
 /*No comment provided by engineer.*/
-"Show" = "Espectáculo";
+"Show" = "アプリを表示";
 
 /*No comment provided by engineer.*/
-"Show on" = "Mostrar en";
+"Show on" = "表示場所";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "Repositorio de código fuente";
+"Source code repository" = "ソースコードレポジトリ";
 
 /*No comment provided by engineer.*/
-"Tab key" = "Tecla de tabulación";
+"Tab key" = "タブキー";
 
 /*No comment provided by engineer.*/
-"Theme" = "Tema";
+"Theme" = "テーマ";
 
 /*No comment provided by engineer.*/
 "Updates" = "Updates";
@@ -110,13 +110,13 @@
 "Updates policy:" = "Updates policy:";
 
 /*No comment provided by engineer.*/
-"Version" = "Versión";
+"Version" = "バージョン";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "Ver discusiones existentes";
+"View existing discussions" = "既にあるディスカッションを見る";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "Tamaño del icono de la aplicación de ventana";
+"Window app icon size" = "ウィンドウに表示されるアイコンサイズ";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "Tamaño de fuente del título de la ventana";
+"Window title font size" = "ウィンドウに表示されるタイトルフォントサイズ";
