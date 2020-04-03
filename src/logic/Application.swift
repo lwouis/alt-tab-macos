@@ -50,7 +50,7 @@ class Application: NSObject {
     func observeNewWindows() {
         if let windows = axUiElement!.windows() {
             let actualWindows = windows.filter {
-                $0.isActualWindow(runningApplication) && Windows.list.firstIndexThatMatches($0) == nil
+                $0.isActualWindow() && Windows.list.firstIndexThatMatches($0) == nil
             }
             if actualWindows.count > 0 {
                 addWindows(actualWindows)
@@ -121,7 +121,7 @@ private func eventApplicationHiddenOrShown(_ app: App, _ element: AXUIElement, _
 }
 
 private func eventWindowCreated(_ app: App, _ element: AXUIElement, _ application: Application) {
-    guard element.isActualWindow(application.runningApplication) else { return }
+    guard element.isActualWindow() else { return }
     // a window being un-minimized can trigger kAXWindowCreatedNotification
     guard Windows.list.firstIndexThatMatches(element) == nil else { return }
     let window = Window(element, application)
