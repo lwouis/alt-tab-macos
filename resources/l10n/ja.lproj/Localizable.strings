@@ -68,7 +68,7 @@
 "Preferences…" = "環境設定…";
 
 /*No comment provided by engineer.*/
-"Quit" = "閉じる";
+"Quit %@" = "閉じる %@";
 
 /*No comment provided by engineer.*/
 "Send" = "送信";

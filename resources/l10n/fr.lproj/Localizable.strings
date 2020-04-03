@@ -68,7 +68,7 @@
 "Preferences…" = "Préférences…";
 
 /* No comment provided by engineer. */
-"Quit" = "Quitter";
+"Quit %@" = "Quitter %@";
 
 /* No comment provided by engineer. */
 "Send" = "Envoyer";

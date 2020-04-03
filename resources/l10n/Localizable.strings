@@ -49,7 +49,7 @@
 /* No comment provided by engineer. */
 "Check for updates periodically" = "Check for updates periodically";
 
-/* No comment provided by engineer. */
+/* Menubar option */
 "Check for updates…" = "Check for updates…";
 
 /* No comment provided by engineer. */
@@ -94,11 +94,11 @@
 /* No comment provided by engineer. */
 "Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/* No comment provided by engineer. */
+/* Menubar option */
 "Preferences…" = "Preferences…";
 
-/* No comment provided by engineer. */
-"Quit" = "Quit";
+/* Menubar option. %@ is AltTab */
+"Quit %@" = "Quit %@";
 
 /* No comment provided by engineer. */
 "Rows of windows" = "Rows of windows";
@@ -127,13 +127,13 @@
 /* No comment provided by engineer. */
 "Send feedback" = "Send feedback";
 
-/* No comment provided by engineer. */
+/* Menubar option */
 "Send feedback…" = "Send feedback…";
 
 /* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
 
-/* No comment provided by engineer. */
+/* Menubar option */
 "Show" = "Show";
 
 /* No comment provided by engineer. */

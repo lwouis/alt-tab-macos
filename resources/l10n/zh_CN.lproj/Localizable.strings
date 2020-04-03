@@ -68,7 +68,7 @@
 "Preferences…" = "配置…";
 
 /*No comment provided by engineer.*/
-"Quit" = "退出";
+"Quit %@" = "退出 %@";
 
 /*No comment provided by engineer.*/
 "Send" = "发送";
