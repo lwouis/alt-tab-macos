@@ -68,7 +68,7 @@
 "Preferences…" = "설정...";
 
 /*No comment provided by engineer.*/
-"Quit" = "종료";
+"Quit %@" = "%@ 종료";
 
 /*No comment provided by engineer.*/
 "Send" = "보내기";

@@ -68,7 +68,7 @@
 "Preferences…" = "Tercihler...";
 
 /*No comment provided by engineer.*/
-"Quit" = "Çık";
+"Quit %@" = "Çık %@";
 
 /*No comment provided by engineer.*/
 "Send" = "Gönder";
