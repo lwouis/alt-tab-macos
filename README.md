@@ -16,7 +16,18 @@ From macOS 10.12 to 10.15
 
 ## Localization
 
-The app is currently available in: English, Français, Deutsch, Español, Italiano, Türkçe, 中文 (简体), 中文 (繁体), 한국어, 日本語
+In addition to English, the app is currently available in:
+
+* Deutsch
+* Español
+* Français
+* Italiano
+* Suomi
+* Türkçe
+* 中文 (简体)
+* 中文 (繁体)
+* 日本語
+* 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 
