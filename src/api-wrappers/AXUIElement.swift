@@ -13,7 +13,7 @@ extension AXUIElement {
         return pid
     }
 
-    func isActualWindow(_ runningApplication: NSRunningApplication) -> Bool {
+    func isActualWindow() -> Bool {
         // TODO: TotalFinder and XtraFinder double-window hacks (see #84)
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
