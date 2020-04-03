@@ -2,8 +2,8 @@
 
 set -exu
 
-certificateFile="codesign"
-certificatePassword=$(openssl rand -base64 12)
+certificateFile="$1"
+certificatePassword="$2"
 
 # certificate request (see https://apple.stackexchange.com/q/359997)
 cat >$certificateFile.conf <<EOL
@@ -25,7 +25,3 @@ openssl genrsa -out $certificateFile.key 2048
 openssl req -x509 -new -config $certificateFile.conf -nodes -key $certificateFile.key -extensions extensions -sha256 -out $certificateFile.crt
 # wrap key and certificate into PKCS12
 openssl pkcs12 -export -inkey $certificateFile.key -in $certificateFile.crt -out $certificateFile.p12 -passout pass:$certificatePassword
-# import p12 into Keychain
-security import $certificateFile.p12 -P $certificatePassword -T /usr/bin/codesign
-# in Keychain, set Trust > Code Signing > "Always Trust"
-security add-trusted-cert -d -r trustRoot -p codeSign $certificateFile.crt
