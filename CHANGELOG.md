@@ -1,3 +1,10 @@
+# [3.4.0](https://github.com/lwouis/alt-tab-macos/compare/v3.3.3...v3.4.0) (2020-04-03)
+
+
+### Features
+
+* updated some localizations ([b38d688](https://github.com/lwouis/alt-tab-macos/commit/b38d688))
+
 ## [3.3.3](https://github.com/lwouis/alt-tab-macos/compare/v3.3.2...v3.3.3) (2020-04-03)
 
 
