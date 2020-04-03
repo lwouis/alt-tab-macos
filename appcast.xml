@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.3.3</title>
+      <pubDate>Fri, 03 Apr 2020 04:18:26 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="333-httpsgithubcomlwouisalt-tab-macoscomparev332v333-2020-04-03">3.3.3 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.3.2...v3.3.3">https://github.com/lwouis/alt-tab-macos/compare/v3.3.2...v3.3.3</a>) (2020-04-03)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* &quot;show all screens&quot; pref was not respected (closes #204 (https://github.com/lwouis/alt-tab-macos/issues/204)) (d4c13c4 (https://github.com/lwouis/alt-tab-macos/commit/d4c13c4))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.3/AltTab-3.3.3.zip"
+        sparkle:version="3.3.3"
+        sparkle:shortVersionString="3.3.3"
+        sparkle:edSignature="/vnt79IDQAn5Gr7YDtaDVbUQOLwciahXLd19oDK03zm6tgJD5oz0BXTD66MTBCQROTEmDOy1u4JD8mJ6hRZdCg==" length="7264610"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.3.2</title>
       <pubDate>Thu, 02 Apr 2020 16:23:14 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

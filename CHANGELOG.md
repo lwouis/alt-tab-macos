@@ -1,3 +1,10 @@
+## [3.3.3](https://github.com/lwouis/alt-tab-macos/compare/v3.3.2...v3.3.3) (2020-04-03)
+
+
+### Bug Fixes
+
+* "show all screens" pref was not respected (closes [#204](https://github.com/lwouis/alt-tab-macos/issues/204)) ([d4c13c4](https://github.com/lwouis/alt-tab-macos/commit/d4c13c4))
+
 ## [3.3.2](https://github.com/lwouis/alt-tab-macos/compare/v3.3.1...v3.3.2) (2020-04-02)
 
 
