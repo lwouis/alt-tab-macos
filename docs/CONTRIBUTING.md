@@ -9,7 +9,7 @@ In this document you will find some pointers to get started
 This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it using 2 commands:
 
 * `pod install` to fetch the dependencies with [CocoaPods](https://cocoapods.org/)
-* `scripts/generate_selfsigned_codesign_certificate.sh` to generate a local self-signed certificate, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build
+* `scripts/codesign/setup_local.sh` to generate a local self-signed certificate, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build
 * Either open `alt-tab-macos.xcworkspace` with XCode, or use the cli: `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Debug` to build the .app with the `Debug` build configuration
 
 ## Raising a pull-request

@@ -2,7 +2,9 @@
 
 set -exu
 
-certificateFile="codesign"
+certificateFile="$1"
+certificatePassword="$2"
+
 keychain="alt-tab-macos.keychain"
 keychainPassword="travis"
 
@@ -12,8 +14,6 @@ security create-keychain -p $keychainPassword $keychain
 security default-keychain -s $keychain
 # unlock keychain
 security unlock-keychain -p $keychainPassword $keychain
-# Recreate the certificate from the secure environment variable
-echo "$APPLE_P12_CERTIFICATE" | base64 --decode > $certificateFile.p12
 # import p12 into Keychain
-security import $certificateFile.p12 -P "$APPLE_P12_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+security import $certificateFile.p12 -P "$certificatePassword" -T /usr/bin/codesign
 security set-key-partition-list -S apple-tool:,apple: -s -k $keychainPassword $keychain
