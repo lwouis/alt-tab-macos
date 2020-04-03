@@ -65,7 +65,7 @@ class Preferences {
     static var alignThumbnails: AlignThumbnailsPreference { AlignThumbnailsPreference(rawValue: defaults.string(forKey: "alignThumbnails")!)! }
     static var appsToShow: AppsToShowPreference { AppsToShowPreference(rawValue: defaults.string(forKey: "appsToShow")!)! }
     static var spacesToShow: SpacesToShowPreference { SpacesToShowPreference(rawValue: defaults.string(forKey: "spacesToShow")!)! }
-    static var screensToShow: ScreensToShowPreference { .showingAltTab }//ScreensToShowPreference(rawValue: defaults.string(forKey: "screensToShow")!)! }
+    static var screensToShow: ScreensToShowPreference { ScreensToShowPreference(rawValue: defaults.string(forKey: "screensToShow")!)! }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
