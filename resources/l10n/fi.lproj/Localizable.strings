@@ -1,0 +1,203 @@
+﻿/* No comment provided by engineer. */
+"About" = "Tietoja";
+
+/* No comment provided by engineer. */
+"Active app" = "Aktiivinen ohjelma";
+
+/* No comment provided by engineer. */
+"Active screen" = "Aktiivinen ruutu";
+
+/* No comment provided by engineer. */
+"Active space" = "Aktiivinen tila";
+
+/* No comment provided by engineer. */
+"Align windows" = "Tasaa ikkunat";
+
+/* No comment provided by engineer. */
+"All apps" = "Kaikki ohjelmat";
+
+/* No comment provided by engineer. */
+"All screens" = "Kaikki ruudut";
+
+/* No comment provided by engineer. */
+"All spaces" = "Kaikki tilat";
+
+/* No comment provided by engineer. */
+"Alt key" = "Alt-näppäin";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Ilmestymisviive";
+
+/* No comment provided by engineer. */
+"Appearance" = "Ulkonäkö";
+
+/* No comment provided by engineer. */
+"Arrow keys" = "Nuolinäppäimet";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Asenna päivitykset automaattisesti aika ajoin";
+
+/* Cancel button */
+"Cancel" = "Peru";
+
+/* No comment provided by engineer. */
+"Cancel and hide" = "Peru ja piilota";
+
+/* No comment provided by engineer. */
+"Center" = "Keskellä";
+
+/* No comment provided by engineer. */
+"Check again" = "Tarkista uudelleen";
+
+/* No comment provided by engineer. */
+"Check for updates now…" = "Tarkista päivitykset nyt…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Tarkista päivitykset aika ajoin";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Tarkista päivitykset…";
+
+/*No comment provided by engineer.*/
+"Could not save Preference" = "Asetusta ei voitu tallentaa";
+
+/* No comment provided by engineer. */
+"Don't check for updates periodically" = "Älä tarkista päivityksiä";
+
+/*No comment provided by engineer.*/
+"Edit" = "Muokkaa";
+
+/* No comment provided by engineer. */
+"General" = "Yleinen";
+
+/* No comment provided by engineer. */
+"Hidden" = "Piilossa";
+
+/* No comment provided by engineer. */
+"Hide space number labels" = "Piilota tilojen numerot";
+
+/* No comment provided by engineer. */
+"Hold" = "Pidä";
+
+/* No comment provided by engineer. */
+"I think the app could be improved with…" = "Ohjelmaa voisi mielestäni parantaa…";
+
+/* No comment provided by engineer. */
+"KeyCodes Reference" = "Näppäinkoodit";
+
+/* No comment provided by engineer. */
+"Latest releases" = "Uusimmat julkaisut";
+
+/* No comment provided by engineer. */
+"Left" = "Vasen";
+
+/* No comment provided by engineer. */
+"Max size on screen" = "Enimmäiskoko ruudulla";
+
+/* No comment provided by engineer. */
+"Max windows per row" = "Enimmäismäärä ikkunoita rivillä";
+
+/* No comment provided by engineer. */
+"Min rows of windows" = "Vähimmäismäärä ikkunarivejä";
+
+/* No comment provided by engineer. */
+"Min windows per row" = "Vähimmäismäärä ikkunoita rivillä";
+
+/* No comment provided by engineer. */
+"Minimized" = "Pienennetty";
+
+/* No comment provided by engineer. */
+"Mouse hover" = "Hiiren liike";
+
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Vapaaehtoinen: sähköposti (jos haluat vastauksen)";
+
+/* No comment provided by engineer. */
+"Preferences…" = "Asetukset";
+
+/* No comment provided by engineer. */
+"Quit %@" = "Lopeta %@";
+
+/* No comment provided by engineer. */
+"Rows of windows" = "Ikkunarivejä";
+
+/* No comment provided by engineer. */
+"Screen including mouse" = "Ruudulla jossa hiiri";
+
+/* No comment provided by engineer. */
+"Screen showing AltTab" = "Ruudulla jossa AltTab";
+
+/* No comment provided by engineer. */
+"Select next window" = "Valitse seuraava ikkuna";
+
+/* No comment provided by engineer. */
+"Select previous window" = "Valitse edellinen ikkuna";
+
+/* No comment provided by engineer. */
+"Select windows using:" = "Valitse ikkunoita käyttäen:";
+
+/* No comment provided by engineer. */
+"Send" = "Lähetä";
+
+/* No comment provided by engineer. */
+"Send debug profile (CPU, memory, etc)" = "Lähetä debug-profiili (prosessori, muisti ym.)";
+
+/* No comment provided by engineer. */
+"Send feedback" = "Lähetä palautetta";
+
+/* No comment provided by engineer. */
+"Send feedback…" = "Lähetä palautetta…";
+
+/* No comment provided by engineer. */
+"Share improvement ideas, or report bugs" = "Jaa parannusehdotuksia tai raportoi bugeja";
+
+/* No comment provided by engineer. */
+"Shortcuts" = "Oikotiet";
+
+/* No comment provided by engineer. */
+"Show" = "Näytä";
+
+/* No comment provided by engineer. */
+"Show on" = "Näytä";
+
+/* No comment provided by engineer. */
+"Show the following windows:" = "Show the following windows:";
+
+/* No comment provided by engineer. */
+"Source code repository" = "Lähdekoodi";
+
+/* No comment provided by engineer. */
+"Start at login" = "Start at login";
+
+/* No comment provided by engineer. */
+"Tab key" = "Sarkainnäppäin";
+
+/* No comment provided by engineer. */
+"Theme" = "Teema";
+
+/* No comment provided by engineer. */
+"Updates" = "Päivitykset";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Päivityspolitiikka:";
+
+/*No comment provided by engineer.*/
+"Version" = "Versio";
+
+/* No comment provided by engineer. */
+"View existing discussions" = "Näytä keskustelut";
+
+/* No comment provided by engineer. */
+"Window app icon size" = "Ohjelmaikonin koko";
+
+/* No comment provided by engineer. */
+"Window title font size" = "Otsikkotekstin koko";
+
+/* No comment provided by engineer. */
+"then press:" = "sitten paina:";
+
+/* No comment provided by engineer. */
+"❖ Windows 10" = "❖ Windows 10";
+
+/* No comment provided by engineer. */
+" macOS" = " macOS";
