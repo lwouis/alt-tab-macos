@@ -2,9 +2,6 @@
 "About" = "About";
 
 /* No comment provided by engineer. */
-"Alt key" = "Alt key";
-
-/* No comment provided by engineer. */
 "Apparition delay" = "Apparition delay";
 
 /* No comment provided by engineer. */
@@ -17,9 +14,6 @@
 "Cancel" = "Cancel";
 
 /* No comment provided by engineer. */
-"Check again" = "Check again";
-
-/* No comment provided by engineer. */
 "Check for updates now…" = "Check for updates now…";
 
 /*No comment provided by engineer.*/
@@ -28,23 +22,14 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "Check for updates…";
 
-/*No comment provided by engineer.*/
-"Could not save Preference" = "Could not save Preference";
-
 /* No comment provided by engineer. */
 "Don't check for updates periodically" = "Don't check for updates periodically";
-
-/*No comment provided by engineer.*/
-"Edit" = "Edit";
 
 /* No comment provided by engineer. */
 "Hide space number labels" = "Hide space number labels";
 
 /* No comment provided by engineer. */
 "I think the app could be improved with…" = "I think the app could be improved with…";
-
-/* No comment provided by engineer. */
-"KeyCodes Reference" = "KeyCodes Reference";
 
 /* No comment provided by engineer. */
 "Latest releases" = "Latest releases";
@@ -56,9 +41,6 @@
 "Max windows per row" = "Max windows per row";
 
 /* No comment provided by engineer. */
-"Min rows of windows" = "Min rows of windows";
-
-/* No comment provided by engineer. */
 "Min windows per row" = "Min windows per row";
 
 /* No comment provided by engineer. */
@@ -68,6 +50,7 @@
 "Preferences…" = "Preferences…";
 
 /* No comment provided by engineer. */
+/*Fuzzy*/
 "Quit %@" = "Quit %@";
 
 /* No comment provided by engineer. */
@@ -86,9 +69,6 @@
 "Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
 
 /* No comment provided by engineer. */
-"Shortcuts" = "Shortcuts";
-
-/* No comment provided by engineer. */
 "Show" = "Show";
 
 /* No comment provided by engineer. */
@@ -96,9 +76,6 @@
 
 /* No comment provided by engineer. */
 "Source code repository" = "Source code repository";
-
-/* No comment provided by engineer. */
-"Tab key" = "Tab key";
 
 /* No comment provided by engineer. */
 "Theme" = "Theme";
@@ -121,3 +98,83 @@
 /* No comment provided by engineer. */
 "Window title font size" = "Window title font size";
 
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖ Windows 10";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
+
+/*No comment provided by engineer.*/
+"Active app" = "Active app";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Active screen";
+
+/*No comment provided by engineer.*/
+"Active space" = "Active space";
+
+/*No comment provided by engineer.*/
+"Align windows" = "Align windows";
+
+/*No comment provided by engineer.*/
+"All apps" = "All apps";
+
+/*No comment provided by engineer.*/
+"All screens" = "All screens";
+
+/*No comment provided by engineer.*/
+"All spaces" = "All spaces";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Arrow keys";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Cancel and hide";
+
+/*No comment provided by engineer.*/
+"Center" = "Center";
+
+/*No comment provided by engineer.*/
+"General" = "General";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Hidden";
+
+/*No comment provided by engineer.*/
+"Hold" = "Hold";
+
+/*No comment provided by engineer.*/
+"Left" = "Left";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Minimized";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Mouse hover";
+
+/*No comment provided by engineer.*/
+"Rows of windows" = "Rows of windows";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Screen including mouse";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Screen showing AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Select next window";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Select previous window";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "Select windows using:";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "Show the following windows:";
+
+/*No comment provided by engineer.*/
+"Start at login" = "Start at login";
+
+/*No comment provided by engineer.*/
+"then press:" = "then press:";
