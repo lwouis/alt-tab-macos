@@ -1,3 +1,15 @@
+# [3.5.0](https://github.com/lwouis/alt-tab-macos/compare/v3.4.1...v3.5.0) (2020-04-05)
+
+
+### Bug Fixes
+
+* **readme:** sort language list and add Finnish ([42dbd30](https://github.com/lwouis/alt-tab-macos/commit/42dbd30))
+
+
+### Features
+
+* **i18n:** add Finnish localization ([770d472](https://github.com/lwouis/alt-tab-macos/commit/770d472))
+
 ## [3.4.1](https://github.com/lwouis/alt-tab-macos/compare/v3.4.0...v3.4.1) (2020-04-05)
 
 # [3.4.0](https://github.com/lwouis/alt-tab-macos/compare/v3.3.3...v3.4.0) (2020-04-03)

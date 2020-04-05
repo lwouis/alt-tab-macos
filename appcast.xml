@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.5.0</title>
+      <pubDate>Sun, 05 Apr 2020 13:35:21 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="350-httpsgithubcomlwouisalt-tab-macoscomparev341v350-2020-04-05">3.5.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.4.1...v3.5.0">https://github.com/lwouis/alt-tab-macos/compare/v3.4.1...v3.5.0</a>) (2020-04-05)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* readme: sort language list and add Finnish (42dbd30 (https://github.com/lwouis/alt-tab-macos/commit/42dbd30))</code></pre><h3 id="features">Features</h3>
+<pre><code>* i18n: add Finnish localization (770d472 (https://github.com/lwouis/alt-tab-macos/commit/770d472))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.5.0/AltTab-3.5.0.zip"
+        sparkle:version="3.5.0"
+        sparkle:shortVersionString="3.5.0"
+        sparkle:edSignature="/pj5tIkGwbqMqmFHZ/IN+PJcLIjnjPNsU3aV0pynkIf1iPpyGxTLov/qt3FUQ5ZVcMsDII6FTMISkbaqbOeBBQ==" length="7267799"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.4.1</title>
       <pubDate>Sun, 05 Apr 2020 13:20:12 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
