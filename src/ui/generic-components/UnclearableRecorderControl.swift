@@ -1,29 +1,30 @@
 import Cocoa
 import ShortcutRecorder
 
-class UnclearableRecorderControl: RecorderControl {
+class UnclearableRecorderControl: RecorderControl, RecorderControlDelegate {
     convenience init(_ shortcutString: String, _ modifierFlagsOnly: Bool) {
         self.init(frame: .zero)
-        allowsDeleteToClearShortcutAndEndRecording = false
-        set(allowedModifierFlags: CocoaModifierFlagsMask, requiredModifierFlags: [], allowsEmptyModifierFlags: false)
+        delegate = self
+        allowsEscapeToCancelRecording = false
+        set(allowedModifierFlags: CocoaModifierFlagsMask, requiredModifierFlags: [], allowsEmptyModifierFlags: true)
         if modifierFlagsOnly {
             allowsModifierFlagsOnlyShortcut = true
         }
         objectValue = Shortcut(keyEquivalent: shortcutString)
-        // TODO: doesn't seem to work; handle width of the control better
-        allowsExpansionToolTips = true
-        widthAnchor.constraint(equalToConstant: 80).isActive = true
+        widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
 
     override func drawClearButton(_ aDirtyRect: NSRect) {
-        // don't draw the clear button
+        if !allowsModifierFlagsOnlyShortcut {
+            super.drawClearButton(aDirtyRect)
+        }
     }
 
-    override func areModifierFlagsValid(_ aModifierFlags: NSEvent.ModifierFlags, for aKeyCode: KeyCode) -> Bool {
+    func recorderControl(_ aControl: RecorderControl, canRecord aShortcut: Shortcut) -> Bool {
         // only allow modifiers: ⌥ -> valid, e -> invalid, ⌥e -> invalid
-        if allowsModifierFlagsOnlyShortcut && aKeyCode != .none {
+        if allowsModifierFlagsOnlyShortcut && aShortcut.keyCode != .none {
             return false
         }
-        return super.areModifierFlagsValid(aModifierFlags, for: aKeyCode)
+        return true
     }
 }

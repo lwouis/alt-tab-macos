@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ShortcutRecorder:
-    :commit: 4aebe01e1ec9eebb520ef50e42bc321be473c580
+    :commit: f718220854575bad86fa89dd2bb3decd0b14b2b0
     :git: https://github.com/Kentzo/ShortcutRecorder.git
 
 SPEC CHECKSUMS:
