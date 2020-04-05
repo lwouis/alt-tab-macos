@@ -2,9 +2,6 @@
 "About" = "关于";
 
 /*No comment provided by engineer.*/
-"Alt key" = "Alt 键";
-
-/*No comment provided by engineer.*/
 "Apparition delay" = "残影延迟";
 
 /*No comment provided by engineer.*/
@@ -17,9 +14,6 @@
 "Cancel" = "取消";
 
 /*No comment provided by engineer.*/
-"Check again" = "重新检查";
-
-/*No comment provided by engineer.*/
 "Check for updates now…" = "检查更新…";
 
 /*No comment provided by engineer.*/
@@ -29,22 +23,13 @@
 "Check for updates…" = "检查更新…";
 
 /*No comment provided by engineer.*/
-"Could not save Preference" = "无法储存配置";
-
-/*No comment provided by engineer.*/
 "Don't check for updates periodically" = "不要自动检查更新";
-
-/*No comment provided by engineer.*/
-"Edit" = "编辑";
 
 /*No comment provided by engineer.*/
 "Hide space number labels" = "隐藏桌面编号";
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "我认为该应用程序可以这样改进…";
-
-/*No comment provided by engineer.*/
-"KeyCodes Reference" = "按键编码参考";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "最新更新";
@@ -56,9 +41,6 @@
 "Max windows per row" = "每行最多窗口数";
 
 /*No comment provided by engineer.*/
-"Min rows of windows" = "最少行数";
-
-/*No comment provided by engineer.*/
 "Min windows per row" = "每行最少窗口数";
 
 /*No comment provided by engineer.*/
@@ -68,6 +50,7 @@
 "Preferences…" = "配置…";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Quit %@" = "退出 %@";
 
 /*No comment provided by engineer.*/
@@ -86,9 +69,6 @@
 "Share improvement ideas, or report bugs" = "分享改进想法或问题";
 
 /*No comment provided by engineer.*/
-"Shortcuts" = "快捷键";
-
-/*No comment provided by engineer.*/
 "Show" = "显示";
 
 /*No comment provided by engineer.*/
@@ -98,16 +78,13 @@
 "Source code repository" = "源代码仓库";
 
 /*No comment provided by engineer.*/
-"Tab key" = "Tab 键";
-
-/*No comment provided by engineer.*/
 "Theme" = "主题";
 
 /*No comment provided by engineer.*/
 "Updates" = "更新";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "政策更新:";
+"Updates policy:" = "更新策略:";
 
 /*No comment provided by engineer.*/
 "Version" = "版本";
@@ -116,7 +93,88 @@
 "View existing discussions" = "查看现有讨论";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "应用程序图标尺寸";
+"Window app icon size" = "窗口图标大小";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "应用程序标题尺寸";
+"Window title font size" = "窗口标题字号";
+
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖ Windows 10";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
+
+/*No comment provided by engineer.*/
+"Active app" = "活跃应用";
+
+/*No comment provided by engineer.*/
+"Active screen" = "活跃屏幕";
+
+/*No comment provided by engineer.*/
+"Active space" = "活跃桌面";
+
+/*No comment provided by engineer.*/
+"Align windows" = "对齐";
+
+/*No comment provided by engineer.*/
+"All apps" = "所有应用";
+
+/*No comment provided by engineer.*/
+"All screens" = "所有屏幕";
+
+/*No comment provided by engineer.*/
+"All spaces" = "所有桌面";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "方向键";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "取消";
+
+/*No comment provided by engineer.*/
+"Center" = "居中";
+
+/*No comment provided by engineer.*/
+"General" = "通用";
+
+/*No comment provided by engineer.*/
+"Hidden" = "隐藏";
+
+/*No comment provided by engineer.*/
+"Hold" = "按住";
+
+/*No comment provided by engineer.*/
+"Left" = "居左";
+
+/*No comment provided by engineer.*/
+"Minimized" = "最小化";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "鼠标悬停";
+
+/*No comment provided by engineer.*/
+"Rows of windows" = "窗口行数";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "鼠标所在屏幕";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "显示 AltTab 的屏幕";
+
+/*No comment provided by engineer.*/
+"Select next window" = "选择下一个窗口";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "选择上一个窗口";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "切换窗口方式";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "显示以下窗口";
+
+/*No comment provided by engineer.*/
+"Start at login" = "开机启动";
+
+/*No comment provided by engineer.*/
+"then press:" = "并按下";

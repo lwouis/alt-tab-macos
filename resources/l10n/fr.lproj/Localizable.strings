@@ -2,9 +2,6 @@
 "About" = "À propos";
 
 /* No comment provided by engineer. */
-"Alt key" = "Touche Alt";
-
-/* No comment provided by engineer. */
 "Apparition delay" = "Délai d'apparition";
 
 /* No comment provided by engineer. */
@@ -17,9 +14,6 @@
 "Cancel" = "Annuler";
 
 /* No comment provided by engineer. */
-"Check again" = "Essayer encore";
-
-/* No comment provided by engineer. */
 "Check for updates now…" = "Chercher une mise-à-jour…";
 
 /*No comment provided by engineer.*/
@@ -28,23 +22,14 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "Chercher une mise-à-jour";
 
-/*No comment provided by engineer.*/
-"Could not save Preference" = "La préférence n’a pas pu être sauvée";
-
 /* No comment provided by engineer. */
 "Don't check for updates periodically" = "Ne pas chercher de mise-à-jour périodiquement";
-
-/*No comment provided by engineer.*/
-"Edit" = "Éditer";
 
 /* No comment provided by engineer. */
 "Hide space number labels" = "Cacher les numéraux des Espaces";
 
 /* No comment provided by engineer. */
 "I think the app could be improved with…" = "Je pense que l’app pourrait être améliorée avec…";
-
-/* No comment provided by engineer. */
-"KeyCodes Reference" = "Référence des codes clavier";
 
 /* No comment provided by engineer. */
 "Latest releases" = "Dernières versions";
@@ -56,9 +41,6 @@
 "Max windows per row" = "Max de fenêtres par ligne";
 
 /* No comment provided by engineer. */
-"Min rows of windows" = "Min de lignes de fenêtres";
-
-/* No comment provided by engineer. */
 "Min windows per row" = "Min de fenêtres par ligne";
 
 /* No comment provided by engineer. */
@@ -68,6 +50,7 @@
 "Preferences…" = "Préférences…";
 
 /* No comment provided by engineer. */
+/*Fuzzy*/
 "Quit %@" = "Quitter %@";
 
 /* No comment provided by engineer. */
@@ -86,9 +69,6 @@
 "Share improvement ideas, or report bugs" = "Partagez des idées d’amélioration, ou signalez des bugs";
 
 /* No comment provided by engineer. */
-"Shortcuts" = "Raccourcis";
-
-/* No comment provided by engineer. */
 "Show" = "Afficher";
 
 /* No comment provided by engineer. */
@@ -96,9 +76,6 @@
 
 /* No comment provided by engineer. */
 "Source code repository" = "Repo du code source";
-
-/* No comment provided by engineer. */
-"Tab key" = "Touche Tab";
 
 /* No comment provided by engineer. */
 "Theme" = "Thème";
@@ -121,3 +98,83 @@
 /* No comment provided by engineer. */
 "Window title font size" = "Taille du titres des fenêtres";
 
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖ Windows 10";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
+
+/*No comment provided by engineer.*/
+"Active app" = "App active";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Écran actif";
+
+/*No comment provided by engineer.*/
+"Active space" = "Espace actif";
+
+/*No comment provided by engineer.*/
+"Align windows" = "Aligner les fenêtres";
+
+/*No comment provided by engineer.*/
+"All apps" = "Toutes les apps";
+
+/*No comment provided by engineer.*/
+"All screens" = "Tous les écrans";
+
+/*No comment provided by engineer.*/
+"All spaces" = "Tous les Espaces";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Touches flèches";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Annuler et cacher";
+
+/*No comment provided by engineer.*/
+"Center" = "Au centre";
+
+/*No comment provided by engineer.*/
+"General" = "Général";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Cachées";
+
+/*No comment provided by engineer.*/
+"Hold" = "Maintenir";
+
+/*No comment provided by engineer.*/
+"Left" = "À gauche";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Minimisées";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Survol de la souris";
+
+/*No comment provided by engineer.*/
+"Rows of windows" = "Rangées de fenêtres";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Écran contenant la souris";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Écran affichant AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Sélectionner la fenêtre suivante";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Sélectionner la fenêtre précédente";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "Sélectionner les fenêtres avec :";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "Afficher les";
+
+/*No comment provided by engineer.*/
+"Start at login" = "Lancer au démarrage";
+
+/*No comment provided by engineer.*/
+"then press:" = "puis presser :";
