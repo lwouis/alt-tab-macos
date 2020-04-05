@@ -71,16 +71,23 @@ class GeneralTab {
 
     @objc static func shortcutChangedCallback(_ sender: NSControl) {
         let controlId = sender.identifier!.rawValue
-        // remove the holdShortcut character in case they also use it in the other shortcuts
-        let newValue = (sender as! RecorderControl).stringValue.replacingOccurrences(of: Preferences.holdShortcut, with: "")
-        switch controlId {
-            case "holdShortcut":
-                addShortcut({ App.app.focusTarget() }, .up, Shortcut(keyEquivalent: Preferences.holdShortcut)!, controlId)
-                shortcutsDependentOnHoldShortcut.forEach { $0.sendAction($0.action, to: $0.target) }
-            case "nextWindowShortcut": addShortcut({ App.app.showUiOrCycleSelection(1) }, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + newValue)!, controlId)
-            case "previousWindowShortcut": addShortcut({ App.app.showUiOrCycleSelection(-1) }, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + newValue)!, controlId)
-            case "cancelShortcut": addShortcut({ App.app.hideUi() }, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + newValue)!, controlId)
-            default: return
+        if controlId == "holdShortcut" {
+            addShortcut({ App.app.focusTarget() }, .up, Shortcut(keyEquivalent: Preferences.holdShortcut)!, controlId)
+            shortcutsDependentOnHoldShortcut.forEach { $0.sendAction($0.action, to: $0.target) }
+        } else {
+            // remove the holdShortcut character in case they also use it in the other shortcuts
+            let newValue = Preferences.holdShortcut.reduce((sender as! RecorderControl).stringValue, { $0.replacingOccurrences(of: String($1), with: "") })
+            if newValue.isEmpty {
+                removeShortcutIfExists(controlId, .down)
+                return
+            }
+            if controlId == "nextWindowShortcut" {
+                addShortcut({ App.app.showUiOrCycleSelection(1) }, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + newValue)!, controlId)
+            } else if controlId == "previousWindowShortcut" {
+                addShortcut({ App.app.showUiOrCycleSelection(-1) }, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + newValue)!, controlId)
+            } else if controlId == "cancelShortcut" {
+                addShortcut({ App.app.hideUi() }, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + newValue)!, controlId)
+            }
         }
     }
 
