@@ -49,19 +49,20 @@ class Applications {
     }
 
     static func removeRunningApplications(_ runningApps: [NSRunningApplication]) {
+        var windowsOnTheLeftOfFocusedWindow = 0
         for runningApp in runningApps {
             Applications.list.removeAll(where: { $0.runningApplication.isEqual(runningApp) })
-            var indexesToRemove = [Int]()
             Windows.list.enumerated().forEach { (index, window) in
-                if window.application.runningApplication.isEqual(runningApp) {
-                    indexesToRemove.append(index)
+                if window.application.runningApplication.isEqual(runningApp) && index <= Windows.focusedWindowIndex {
+                    windowsOnTheLeftOfFocusedWindow += 1
                 }
             }
             Windows.list.removeAll(where: { $0.application.runningApplication.isEqual(runningApp) })
         }
         guard Windows.list.count > 0 else { App.app.hideUi(); return }
-        // TODO: implement of more sophisticated way to decide which thumbnail gets focused on app quit
-        Windows.updateFocusedWindowIndex(1)
+        if windowsOnTheLeftOfFocusedWindow > 0 {
+            Windows.cycleFocusedWindowIndex(-windowsOnTheLeftOfFocusedWindow)
+        }
         App.app.refreshOpenUi()
     }
 
