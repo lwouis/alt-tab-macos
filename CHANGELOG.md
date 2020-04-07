@@ -1,3 +1,17 @@
+# [3.6.0](https://github.com/lwouis/alt-tab-macos/compare/v3.5.0...v3.6.0) (2020-04-07)
+
+
+### Bug Fixes
+
+* focus correct window after app quits (see [#213](https://github.com/lwouis/alt-tab-macos/issues/213)) ([7f27cb9](https://github.com/lwouis/alt-tab-macos/commit/7f27cb9))
+* workaround the bug in parsec (closes [#206](https://github.com/lwouis/alt-tab-macos/issues/206)) ([59c6afc](https://github.com/lwouis/alt-tab-macos/commit/59c6afc))
+
+
+### Features
+
+* let users disable shortcuts ([5b03415](https://github.com/lwouis/alt-tab-macos/commit/5b03415))
+* updated localization for 7 languages ([bc2a38b](https://github.com/lwouis/alt-tab-macos/commit/bc2a38b))
+
 # [3.5.0](https://github.com/lwouis/alt-tab-macos/compare/v3.4.1...v3.5.0) (2020-04-05)
 
 
