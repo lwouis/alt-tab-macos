@@ -6,6 +6,7 @@ class UnclearableRecorderControl: RecorderControl, RecorderControlDelegate {
         self.init(frame: .zero)
         delegate = self
         allowsEscapeToCancelRecording = false
+        allowsDeleteToClearShortcutAndEndRecording = false
         set(allowedModifierFlags: CocoaModifierFlagsMask, requiredModifierFlags: [], allowsEmptyModifierFlags: true)
         if modifierFlagsOnly {
             allowsModifierFlagsOnlyShortcut = true
