@@ -22,6 +22,7 @@ class ThumbnailsPanel: NSPanel {
 
     func show() {
         makeKeyAndOrderFront(nil)
+        thumbnailsView.scrollView.flashScrollers()
     }
 
     static func highlightCell(_ previousView: NSView, _ newView: NSView) {
