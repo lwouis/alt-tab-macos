@@ -28,7 +28,7 @@ class PreferencesWindow: NSWindow {
         makeKeyAndOrderFront(nil)
     }
 
-    @objc static func controlWasChanged(_ senderControl: NSControl) {
+    static func controlWasChanged(_ senderControl: NSControl) {
         let newValue = LabelAndControl.getControlValue(senderControl)
         LabelAndControl.updateControlExtras(senderControl, newValue)
         Preferences.set(senderControl.identifier!.rawValue, newValue)

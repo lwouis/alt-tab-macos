@@ -21,12 +21,12 @@ class Preferences {
         "showMinimizedWindows": true,
         "showHiddenWindows": true,
         "windowDisplayDelay": 0,
-        "theme": ThemePreference.macOs.rawValue,
-        "showOnScreen": ShowOnScreenPreference.active.rawValue,
-        "alignThumbnails": AlignThumbnailsPreference.left.rawValue,
-        "appsToShow": AppsToShowPreference.all.rawValue,
-        "spacesToShow": SpacesToShowPreference.all.rawValue,
-        "screensToShow": ScreensToShowPreference.all.rawValue,
+        "theme": "0",
+        "showOnScreen": "0",
+        "alignThumbnails": "0",
+        "appsToShow": "0",
+        "spacesToShow": "0",
+        "screensToShow": "0",
         "hideSpaceNumberLabels": false,
         "startAtLogin": true,
     ]
@@ -60,12 +60,12 @@ class Preferences {
     static var startAtLogin: Bool { defaults.bool(forKey: "startAtLogin") }
 
     // macro values
-    static var theme: ThemePreference { ThemePreference(rawValue: defaults.string(forKey: "theme")!)! }
-    static var showOnScreen: ShowOnScreenPreference { ShowOnScreenPreference(rawValue: defaults.string(forKey: "showOnScreen")!)! }
-    static var alignThumbnails: AlignThumbnailsPreference { AlignThumbnailsPreference(rawValue: defaults.string(forKey: "alignThumbnails")!)! }
-    static var appsToShow: AppsToShowPreference { AppsToShowPreference(rawValue: defaults.string(forKey: "appsToShow")!)! }
-    static var spacesToShow: SpacesToShowPreference { SpacesToShowPreference(rawValue: defaults.string(forKey: "spacesToShow")!)! }
-    static var screensToShow: ScreensToShowPreference { ScreensToShowPreference(rawValue: defaults.string(forKey: "screensToShow")!)! }
+    static var theme: ThemePreference { ThemePreference.allCases[Int(defaults.string(forKey: "theme")!)!] }
+    static var showOnScreen: ShowOnScreenPreference { ShowOnScreenPreference.allCases[Int(defaults.string(forKey: "showOnScreen")!)!] }
+    static var alignThumbnails: AlignThumbnailsPreference { AlignThumbnailsPreference.allCases[Int(defaults.string(forKey: "alignThumbnails")!)!] }
+    static var appsToShow: AppsToShowPreference { AppsToShowPreference.allCases[Int(defaults.string(forKey: "appsToShow")!)!] }
+    static var spacesToShow: SpacesToShowPreference { SpacesToShowPreference.allCases[Int(defaults.string(forKey: "spacesToShow")!)!] }
+    static var screensToShow: ScreensToShowPreference { ScreensToShowPreference.allCases[Int(defaults.string(forKey: "screensToShow")!)!] }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
@@ -108,6 +108,7 @@ class Preferences {
 // MacroPreference are collection of values derived from a single key
 // we don't want to store every value in UserDefaults as the user could change them and contradict the macro
 protocol MacroPreference {
+    var localizedString: LocalizedString { get }
 }
 
 struct ThemeParameters {
@@ -185,10 +186,17 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
     case macOs = " macOS"
     case windows10 = "❖ Windows 10"
 
+    var localizedString: LocalizedString {
+        switch self {
+            case .macOs: return NSLocalizedString(" macOS", comment: "")
+            case .windows10: return NSLocalizedString("❖ Windows 10", comment: "")
+        }
+    }
+
     var themeParameters: ThemeParameters {
         switch self {
-            case .macOs: return ThemeParameters(label: NSLocalizedString(" macOS", comment: ""), cellBorderWidth: 0, cellCornerRadius: 5, windowCornerRadius: 20, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
-            case .windows10: return ThemeParameters(label: NSLocalizedString("❖ Windows 10", comment: ""), cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
+            case .macOs: return ThemeParameters(label: self.localizedString, cellBorderWidth: 0, cellCornerRadius: 5, windowCornerRadius: 20, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
+            case .windows10: return ThemeParameters(label: self.localizedString, cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
         }
     }
 }

@@ -22,9 +22,9 @@ class GeneralTab {
         let holdAndPress = StackView(holdShortcut)
         let checkboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Select windows using:", comment: ""))
         let checkboxes = StackView([StackView(enableArrows), StackView(enableMouse)], .vertical)
-        let appsToShow = dropdown("appsToShow", AppsToShowPreference.allCases.map { $0.localizedString })
-        let spacesToShow = dropdown("spacesToShow", SpacesToShowPreference.allCases.map { $0.localizedString })
-        let screensToShow = dropdown("screensToShow", ScreensToShowPreference.allCases.map { $0.localizedString })
+        let appsToShow = dropdown("appsToShow", AppsToShowPreference.allCases)
+        let spacesToShow = dropdown("spacesToShow", SpacesToShowPreference.allCases)
+        let screensToShow = dropdown("screensToShow", ScreensToShowPreference.allCases)
         let showMinimizedWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Minimized", comment: ""), "showMinimizedWindows", labelPosition: .right))
         let showHiddenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hidden", comment: ""), "showHiddenWindows", labelPosition: .right))
         let shortcuts = StackView([nextWindowShortcut, previousWindowShortcut, cancelShortcut].map { StackView($0) }, .vertical)
@@ -48,8 +48,8 @@ class GeneralTab {
         return grid
     }
 
-    private static func dropdown(_ rawName: String, _ values: [String]) -> NSControl {
-        let dropdown = LabelAndControl.makeDropDown(rawName, values)
+    private static func dropdown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSControl {
+        let dropdown = LabelAndControl.makeDropDown(rawName, macroPreferences)
         return LabelAndControl.setupControl(dropdown, rawName)
     }
 
