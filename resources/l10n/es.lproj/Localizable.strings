@@ -1,50 +1,39 @@
-/*No comment provided by engineer.*/
-"About" = "Sobre";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "Licencia GPL-3.0";
 
 /*No comment provided by engineer.*/
-"Alt key" = "Tecla Alt";
+"About" = "Acerca de";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Apariencia demorada";
+"Apparition delay" = "Retraso al mostrar";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Apariencia";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Auto-install updates periodically";
+"Auto-install updates periodically" = "Auto instalar actualizaciones periódicamente";
 
 /*Cancel button*/
 "Cancel" = "Cancelar";
 
 /*No comment provided by engineer.*/
-"Check again" = "Verifica nuevamente";
+"Check for updates now…" = "Comprobar actualizaciones ahora…";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Check for updates now…";
+"Check for updates periodically" = "Comprobar actualizaciones periódicamente";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Check for updates periodically";
+"Check for updates…" = "Comprobar actualizaciones…";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "Check for updates…";
+"Don't check for updates periodically" = "No comprobar actualizaciones periódicamente";
 
 /*No comment provided by engineer.*/
-"Could not save Preference" = "No se pudo guardar la preferencia";
+"Hide space number labels" = "Ocultar etiquetas de número de espacio";
 
 /*No comment provided by engineer.*/
-"Don't check for updates periodically" = "Don't check for updates periodically";
-
-/*No comment provided by engineer.*/
-"Edit" = "Editar";
-
-/*No comment provided by engineer.*/
-"Hide space number labels" = "Ocultar etiquetas de número de Espacio";
-
-/*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Creo que la aplicación podría mejorarse con ...";
-
-/*No comment provided by engineer.*/
-"KeyCodes Reference" = "Referencia de códigos clave";
+"I think the app could be improved with…" = "Creo que la aplicación podría mejorarse con…";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Últimos lanzamientos";
@@ -56,19 +45,17 @@
 "Max windows per row" = "Ventanas máximas por fila";
 
 /*No comment provided by engineer.*/
-"Min rows of windows" = "Min filas de ventanas";
-
-/*No comment provided by engineer.*/
 "Min windows per row" = "Ventanas mínimas por fila";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Opcional: correo electrónico (si desea una respuesta)";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Preferencias ...";
+"Preferences…" = "Preferencias…";
 
 /*No comment provided by engineer.*/
-"Quit %@" = "Dejar %@";
+/*Fuzzy*/
+"Quit %@" = "Salir %@";
 
 /*No comment provided by engineer.*/
 "Send" = "Enviar";
@@ -80,16 +67,13 @@
 "Send feedback" = "Enviar comentarios";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "Enviar comentarios ...";
+"Send feedback…" = "Enviar comentarios…";
 
 /*No comment provided by engineer.*/
 "Share improvement ideas, or report bugs" = "Comparta ideas de mejora o informe de errores";
 
 /*No comment provided by engineer.*/
-"Shortcuts" = "Los accesos directos";
-
-/*No comment provided by engineer.*/
-"Show" = "Espectáculo";
+"Show" = "Mostrar";
 
 /*No comment provided by engineer.*/
 "Show on" = "Mostrar en";
@@ -98,16 +82,13 @@
 "Source code repository" = "Repositorio de código fuente";
 
 /*No comment provided by engineer.*/
-"Tab key" = "Tecla de tabulación";
-
-/*No comment provided by engineer.*/
 "Theme" = "Tema";
 
 /*No comment provided by engineer.*/
-"Updates" = "Updates";
+"Updates" = "Actualizaciones";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "Updates policy:";
+"Updates policy:" = "Política de actualizaciones:";
 
 /*No comment provided by engineer.*/
 "Version" = "Versión";
@@ -116,7 +97,88 @@
 "View existing discussions" = "Ver discusiones existentes";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "Tamaño del icono de la aplicación de ventana";
+"Window app icon size" = "Tamaño del icono de la ventana de aplicación";
 
 /*No comment provided by engineer.*/
 "Window title font size" = "Tamaño de fuente del título de la ventana";
+
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖ Windows 10";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
+
+/*No comment provided by engineer.*/
+"Active app" = "Aplicación activa";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Pantalla activa";
+
+/*No comment provided by engineer.*/
+"Active space" = "Escritorio activo";
+
+/*No comment provided by engineer.*/
+"Align windows" = "Alinear ventanas";
+
+/*No comment provided by engineer.*/
+"All apps" = "Todas las aplicaciones";
+
+/*No comment provided by engineer.*/
+"All screens" = "Todas las pantallas";
+
+/*No comment provided by engineer.*/
+"All spaces" = "Todos los escritorios";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Teclas de flecha";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Cancelar y ocultar";
+
+/*No comment provided by engineer.*/
+"Center" = "Centro";
+
+/*No comment provided by engineer.*/
+"General" = "General";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Ocultas";
+
+/*No comment provided by engineer.*/
+"Hold" = "Mantener";
+
+/*No comment provided by engineer.*/
+"Left" = "Izquierda";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Minimizadas";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Al pasar el ratón";
+
+/*No comment provided by engineer.*/
+"Rows of windows" = "Filas de ventanas";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Pantalla que tiene el ratón";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Pantalla que muestra AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Seleccionar siguiente ventana";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Seleccionar ventana anterior";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "Seleccionar ventanas usando:";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "Mostrar las siguiente ventanas:";
+
+/*No comment provided by engineer.*/
+"Start at login" = "Cargar al inicio";
+
+/*No comment provided by engineer.*/
+"then press:" = "y pulsar:";
