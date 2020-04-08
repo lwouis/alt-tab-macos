@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.6.2</title>
+      <pubDate>Wed, 08 Apr 2020 10:37:13 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="362-httpsgithubcomlwouisalt-tab-macoscomparev361v362-2020-04-08">3.6.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.6.1...v3.6.2">https://github.com/lwouis/alt-tab-macos/compare/v3.6.1...v3.6.2</a>) (2020-04-08)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* avoid text flickering on main ui (closes #197 (https://github.com/lwouis/alt-tab-macos/issues/197)) (4eb9db0 (https://github.com/lwouis/alt-tab-macos/commit/4eb9db0))
+* dropdown preferences crashed in non-english (closes #217 (https://github.com/lwouis/alt-tab-macos/issues/217)) (5447d5f (https://github.com/lwouis/alt-tab-macos/commit/5447d5f))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.6.2/AltTab-3.6.2.zip"
+        sparkle:version="3.6.2"
+        sparkle:shortVersionString="3.6.2"
+        sparkle:edSignature="1jFV5IZM5FF3BfepeCf62MekltTI7Re+Pu5b2EvoUtla3bEbFDGtOYPOuLAgsQ83FkK9HOWUV0DIymcBxLIrAA==" length="7275034"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.6.1</title>
       <pubDate>Wed, 08 Apr 2020 07:25:44 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

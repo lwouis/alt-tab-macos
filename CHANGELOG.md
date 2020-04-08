@@ -1,3 +1,11 @@
+## [3.6.2](https://github.com/lwouis/alt-tab-macos/compare/v3.6.1...v3.6.2) (2020-04-08)
+
+
+### Bug Fixes
+
+* avoid text flickering on main ui (closes [#197](https://github.com/lwouis/alt-tab-macos/issues/197)) ([4eb9db0](https://github.com/lwouis/alt-tab-macos/commit/4eb9db0))
+* dropdown preferences crashed in non-english (closes [#217](https://github.com/lwouis/alt-tab-macos/issues/217)) ([5447d5f](https://github.com/lwouis/alt-tab-macos/commit/5447d5f))
+
 ## [3.6.1](https://github.com/lwouis/alt-tab-macos/compare/v3.6.0...v3.6.1) (2020-04-08)
 
 
