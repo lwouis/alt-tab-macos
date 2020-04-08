@@ -19,9 +19,11 @@ class DebugProfile {
             ("OS architecture", Sysctl.run("hw.machine")),
             ("Locale", Locale.current.debugDescription),
             ("Spaces count", String((CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary]).map { $0["Spaces"] }.count)),
+            ("Dark mode", Preferences.getString("AppleInterfaceStyle") ?? "Light"),
+            ("\"Displays have separate Spaces\"", NSScreen.screensHaveSeparateSpaces ? "checked" : "unchecked"),
             // hardware
             ("Hardware model", Sysctl.run("hw.model")),
-            ("Displays count", String(NSScreen.screens.count)),
+            ("Screens count", String(NSScreen.screens.count)),
             ("CPU model", Sysctl.run("machdep.cpu.brand_string")),
             ("Memory size", ByteCountFormatter.string(fromByteCount: Int64(ProcessInfo.processInfo.physicalMemory), countStyle: .file)),
             // TODO: add gpu model(s)
