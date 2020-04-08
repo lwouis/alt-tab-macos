@@ -93,10 +93,24 @@ class Preferences {
 
     static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
 
+    // TODO: avoid migrating on every startup; find a way to migrate only once
     static func migrateOldPreferences() {
+        migrateDropdownMenuPreference("theme", [" macOS": "0", "❖ Windows 10": "1"])
         // "Main screen" was renamed to "Active screen"
-        if defaults.string(forKey: "showOnScreen") == "Main screen" {
-            defaults.removeObject(forKey: "showOnScreen")
+        migrateDropdownMenuPreference("showOnScreen", ["Main screen": "0", "Active screen": "0", "Screen including mouse": "1"])
+        migrateDropdownMenuPreference("alignThumbnails", ["Left": "0", "Center": "1"])
+        migrateDropdownMenuPreference("appsToShow", ["All apps": "0", "Active app": "1"])
+        migrateDropdownMenuPreference("spacesToShow", ["All spaces": "0", "Active space": "1"])
+        migrateDropdownMenuPreference("screensToShow", ["All screens": "0", "Screen showing AltTab": "1"])
+    }
+
+    // dropdowns preferences used to store English text; now they store indexes
+    static func migrateDropdownMenuPreference(_ preference: String, _ oldAndNew: [String: String]) {
+        if let old = defaults.string(forKey: preference) {
+            let new = oldAndNew[old]
+            if new != nil {
+                defaults.set(new, forKey: preference)
+            }
         }
     }
 }
