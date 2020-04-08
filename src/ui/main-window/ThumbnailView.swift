@@ -42,6 +42,8 @@ class ThumbnailView: NSStackView {
             label.string = element.title
             // workaround: setting string on NSTextView change the font (most likely a Cocoa bug)
             label.font = Preferences.font
+            // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
+            label.display()
         }
         assignIfDifferent(&hiddenIcon.isHidden, !window_!.isHidden)
         assignIfDifferent(&minimizedIcon.isHidden, !window_!.isMinimized)
