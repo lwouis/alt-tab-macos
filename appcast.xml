@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.6.1</title>
+      <pubDate>Wed, 08 Apr 2020 07:25:44 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="361-httpsgithubcomlwouisalt-tab-macoscomparev360v361-2020-04-08">3.6.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.6.0...v3.6.1">https://github.com/lwouis/alt-tab-macos/compare/v3.6.0...v3.6.1</a>) (2020-04-08)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* prevent hold/release shortcut from being empty (1158a32 (https://github.com/lwouis/alt-tab-macos/commit/1158a32))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.6.1/AltTab-3.6.1.zip"
+        sparkle:version="3.6.1"
+        sparkle:shortVersionString="3.6.1"
+        sparkle:edSignature="x/0RyAr5waGowUT3Qca2vvWOFO1N9wQN6gPDR7ZcCVl6SzKKt0G6RhqRYs22krNX9lG9048YOX6l3FjRYLUUAQ==" length="7272748"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.6.0</title>
       <pubDate>Tue, 07 Apr 2020 09:14:24 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

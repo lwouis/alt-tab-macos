@@ -1,3 +1,10 @@
+## [3.6.1](https://github.com/lwouis/alt-tab-macos/compare/v3.6.0...v3.6.1) (2020-04-08)
+
+
+### Bug Fixes
+
+* prevent hold/release shortcut from being empty ([1158a32](https://github.com/lwouis/alt-tab-macos/commit/1158a32))
+
 # [3.6.0](https://github.com/lwouis/alt-tab-macos/compare/v3.5.0...v3.6.0) (2020-04-07)
 
 
