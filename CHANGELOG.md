@@ -1,3 +1,13 @@
+## [3.7.1](https://github.com/lwouis/alt-tab-macos/compare/v3.7.0...v3.7.1) (2020-04-08)
+
+
+### Bug Fixes
+
+* better handling of preference migration (up/down) ([078c359](https://github.com/lwouis/alt-tab-macos/commit/078c359))
+* hiding window should be on main thread ([767f900](https://github.com/lwouis/alt-tab-macos/commit/767f900))
+* scrollbar only shows on scroll (closes [#196](https://github.com/lwouis/alt-tab-macos/issues/196)) ([c2abff0](https://github.com/lwouis/alt-tab-macos/commit/c2abff0))
+* updated localizations, especially Spanish ([bd92828](https://github.com/lwouis/alt-tab-macos/commit/bd92828))
+
 # [3.7.0](https://github.com/lwouis/alt-tab-macos/compare/v3.6.2...v3.7.0) (2020-04-08)
 
 

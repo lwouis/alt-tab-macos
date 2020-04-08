@@ -5,6 +5,28 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.7.1</title>
+      <pubDate>Wed, 08 Apr 2020 18:33:10 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="371-httpsgithubcomlwouisalt-tab-macoscomparev370v371-2020-04-08">3.7.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.0...v3.7.1">https://github.com/lwouis/alt-tab-macos/compare/v3.7.0...v3.7.1</a>) (2020-04-08)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* better handling of preference migration (up/down) (078c359 (https://github.com/lwouis/alt-tab-macos/commit/078c359))
+* hiding window should be on main thread (767f900 (https://github.com/lwouis/alt-tab-macos/commit/767f900))
+* scrollbar only shows on scroll (closes #196 (https://github.com/lwouis/alt-tab-macos/issues/196)) (c2abff0 (https://github.com/lwouis/alt-tab-macos/commit/c2abff0))
+* updated localizations, especially Spanish (bd92828 (https://github.com/lwouis/alt-tab-macos/commit/bd92828))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.1/AltTab-3.7.1.zip"
+        sparkle:version="3.7.1"
+        sparkle:shortVersionString="3.7.1"
+        sparkle:edSignature="5Jut81BHiEzHHFD5v4iya++6BbkHahhYuG9YLpwuL9Z3meZeECu1Y3mReF3RwT3PzClmTJwIV9KTCKNEhJaiCA==" length="7278046"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.7.0</title>
       <pubDate>Wed, 08 Apr 2020 15:14:08 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
