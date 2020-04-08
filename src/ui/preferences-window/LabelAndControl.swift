@@ -22,14 +22,14 @@ class LabelAndControl: NSObject {
         return views
     }
 
-    static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [String], _ suffixText: String? = nil) -> [NSView] {
+    static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [MacroPreference], _ suffixText: String? = nil) -> [NSView] {
         return makeLabelWithProvidedControl(labelText, rawName, makeDropDown(rawName, values), suffixText)
     }
 
-    static func makeDropDown(_ rawName: String, _ values: [String]) -> NSPopUpButton {
+    static func makeDropDown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
         let popUp = NSPopUpButton()
-        popUp.addItems(withTitles: values)
-        popUp.selectItem(withTitle: Preferences.getString(rawName)!)
+        popUp.addItems(withTitles: macroPreferences.map { $0.localizedString })
+        popUp.selectItem(at: Int(Preferences.getString(rawName)!)!)
         return popUp
     }
 
@@ -99,7 +99,7 @@ class LabelAndControl: NSObject {
 
     static func getControlValue(_ control: NSControl) -> String {
         if control is NSPopUpButton {
-            return (control as! NSPopUpButton).titleOfSelectedItem!
+            return String((control as! NSPopUpButton).indexOfSelectedItem)
         } else if control is NSSlider {
             return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
         } else if control is NSButton {
