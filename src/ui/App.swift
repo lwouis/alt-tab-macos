@@ -66,7 +66,9 @@ class App: NSApplication, NSApplicationDelegate {
 
     func hideUi() {
         debugPrint("hideUi")
-        thumbnailsPanel!.orderOut(nil)
+        DispatchQueue.main.async {
+            self.thumbnailsPanel!.orderOut(nil)
+        }
         appIsBeingUsed = false
         isFirstSummon = true
     }
