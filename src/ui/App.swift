@@ -36,7 +36,7 @@ class App: NSApplication, NSApplicationDelegate {
         #endif
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
-        Preferences.migrateOldPreferences()
+        Preferences.migratePreferences()
         Preferences.registerDefaults()
         statusItem = Menubar.make()
         loadMainMenuXib()
