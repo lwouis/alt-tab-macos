@@ -92,11 +92,13 @@ class ScrollView: NSScrollView {
         documentView = FlippedView(frame: .zero)
         drawsBackground = false
         hasVerticalScroller = true
+        scrollerStyle = .overlay
+        scrollerKnobStyle = .light
     }
 
+    // draw the scroller on top of the content
     override func tile() {
         super.tile()
-        // draw the scroller on top of the content
         contentView.frame = bounds
     }
 }
