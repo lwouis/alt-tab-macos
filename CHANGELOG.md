@@ -1,3 +1,15 @@
+# [3.7.0](https://github.com/lwouis/alt-tab-macos/compare/v3.6.2...v3.7.0) (2020-04-08)
+
+
+### Bug Fixes
+
+* avoid crash when upgrading due to old preferences (closes [#222](https://github.com/lwouis/alt-tab-macos/issues/222)) ([66a2bd8](https://github.com/lwouis/alt-tab-macos/commit/66a2bd8))
+
+
+### Features
+
+* add dark-mode in the debug profile on reports ([a54eb77](https://github.com/lwouis/alt-tab-macos/commit/a54eb77))
+
 ## [3.6.2](https://github.com/lwouis/alt-tab-macos/compare/v3.6.1...v3.6.2) (2020-04-08)
 
 
