@@ -93,8 +93,28 @@ class Preferences {
 
     static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
 
-    // TODO: avoid migrating on every startup; find a way to migrate only once
-    static func migrateOldPreferences() {
+    static func clearAllPreferences() {
+        defaults.removePersistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)
+    }
+
+    // TODO: add a check in ci to prevent forgeting migration code here
+    static func migratePreferences() {
+        let preferencesVersion = "preferencesVersion"
+        if let currentVersion = defaults.string(forKey: preferencesVersion) {
+            let comparison = currentVersion.compare(App.version, options: .numeric)
+            if comparison == .orderedAscending {
+                updateToNewPreferences(preferencesVersion: preferencesVersion)
+            } else if comparison == .orderedDescending {
+                // supporting downgrades is too much work for the reward; we just avoid crashing by clearing
+                clearAllPreferences()
+            }
+        } else {
+            // first time migrating
+            updateToNewPreferences(preferencesVersion: preferencesVersion)
+        }
+    }
+
+    private static func updateToNewPreferences(preferencesVersion: String) {
         migrateDropdownMenuPreference("theme", [" macOS": "0", "❖ Windows 10": "1"])
         // "Main screen" was renamed to "Active screen"
         migrateDropdownMenuPreference("showOnScreen", ["Main screen": "0", "Active screen": "0", "Screen including mouse": "1"])
@@ -102,6 +122,7 @@ class Preferences {
         migrateDropdownMenuPreference("appsToShow", ["All apps": "0", "Active app": "1"])
         migrateDropdownMenuPreference("spacesToShow", ["All spaces": "0", "Active space": "1"])
         migrateDropdownMenuPreference("screensToShow", ["All screens": "0", "Screen showing AltTab": "1"])
+        defaults.set(App.version, forKey: preferencesVersion)
     }
 
     // dropdowns preferences used to store English text; now they store indexes
