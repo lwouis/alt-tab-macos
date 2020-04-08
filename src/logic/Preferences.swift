@@ -79,10 +79,6 @@ class Preferences {
         defaults.register(defaults: defaultValues)
     }
 
-    static func getObject(_ key: String) -> Any? {
-        defaults.object(forKey: key)
-    }
-
     static func getString(_ key: String) -> String? {
         defaults.string(forKey: key)
     }
