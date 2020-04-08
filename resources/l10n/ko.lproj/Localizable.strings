@@ -14,13 +14,13 @@
 "Cancel" = "취소";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "지금 업데이트 확인...";
+"Check for updates now…" = "지금 업데이트 확인…";
 
 /*No comment provided by engineer.*/
 "Check for updates periodically" = "주기적으로 업데이트를 확인하기";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "업데이트 확인...";
+"Check for updates…" = "업데이트 확인…";
 
 /*No comment provided by engineer.*/
 "Don't check for updates periodically" = "주기적으로 업데이트를 확인하지 않기";
@@ -29,7 +29,7 @@
 "Hide space number labels" = "Space 번호 숨기기";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "이 앱의 개선방안은...";
+"I think the app could be improved with…" = "이 앱의 개선방안은…";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "최신 출시";
@@ -47,7 +47,7 @@
 "Optional: email (if you want a reply)" = "답변을 원하면 이메일 남겨주세요";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "설정...";
+"Preferences…" = "설정app…";
 
 /*No comment provided by engineer.*/
 /*Fuzzy*/
@@ -63,7 +63,7 @@
 "Send feedback" = "피드백 보내기";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "피드백 보내기...";
+"Send feedback…" = "피드백 보내기app…";
 
 /*No comment provided by engineer.*/
 "Share improvement ideas, or report bugs" = "개선방안을 공유하거나 버그를 제보해주세요";
@@ -84,7 +84,7 @@
 "Updates" = "업데이트";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "업데이트 정책:";
+"Updates policy:" = "업데이트 방법:";
 
 /*No comment provided by engineer.*/
 "Version" = "버전";
