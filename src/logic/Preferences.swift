@@ -83,10 +83,6 @@ class Preferences {
         defaults.string(forKey: key)
     }
 
-    static func getAsString(_ key: String) -> String {
-        String(describing: defaults.object(forKey: key))
-    }
-
     static func set(_ key: String, _ value: Any?) {
         defaults.set(value, forKey: key)
     }
