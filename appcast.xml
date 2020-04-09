@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.7.2</title>
+      <pubDate>Thu, 09 Apr 2020 06:03:27 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="372-httpsgithubcomlwouisalt-tab-macoscomparev371v372-2020-04-09">3.7.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.1...v3.7.2">https://github.com/lwouis/alt-tab-macos/compare/v3.7.1...v3.7.2</a>) (2020-04-09)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* scrollbar works with all system preferences options (closes #196 (https://github.com/lwouis/alt-tab-macos/issues/196)) (3289d3a (https://github.com/lwouis/alt-tab-macos/commit/3289d3a))
+* some preferences were inactive but appeared active (51ad28d (https://github.com/lwouis/alt-tab-macos/commit/51ad28d))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.2/AltTab-3.7.2.zip"
+        sparkle:version="3.7.2"
+        sparkle:shortVersionString="3.7.2"
+        sparkle:edSignature="jV3S2a1rCJztan5Ecfz4cyNDNXIZo7JGBwM+c/d4467oR3/ABMAZL+3qWxOKMzX4kST6kY4IhtPfH1YjhiTcCA==" length="7278415"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.7.1</title>
       <pubDate>Wed, 08 Apr 2020 18:33:10 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

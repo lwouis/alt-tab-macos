@@ -1,3 +1,11 @@
+## [3.7.2](https://github.com/lwouis/alt-tab-macos/compare/v3.7.1...v3.7.2) (2020-04-09)
+
+
+### Bug Fixes
+
+* scrollbar works with all system preferences options (closes [#196](https://github.com/lwouis/alt-tab-macos/issues/196)) ([3289d3a](https://github.com/lwouis/alt-tab-macos/commit/3289d3a))
+* some preferences were inactive but appeared active ([51ad28d](https://github.com/lwouis/alt-tab-macos/commit/51ad28d))
+
 ## [3.7.1](https://github.com/lwouis/alt-tab-macos/compare/v3.7.0...v3.7.1) (2020-04-08)
 
 
