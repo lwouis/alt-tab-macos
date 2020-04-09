@@ -44,6 +44,8 @@ class GeneralTab {
         grid.fit()
 
         shortcutsDependentOnHoldShortcut.append(contentsOf: [enableArrows[0] as! NSControl] + [nextWindowShortcut, previousWindowShortcut, cancelShortcut].map { $0[0] as! NSControl })
+        arrowKeysEnabledCallback(enableArrows[0] as! NSControl)
+        startAtLoginCallback(startAtLogin[1] as! NSControl)
 
         return grid
     }
@@ -110,7 +112,7 @@ class GeneralTab {
 
     // adding/removing login item depending on the checkbox state
     @available(OSX, deprecated: 10.11)
-    @objc static func startAtLoginCallback(_ sender: NSControl) {
+    static func startAtLoginCallback(_ sender: NSControl) {
         let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
         let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
         let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
