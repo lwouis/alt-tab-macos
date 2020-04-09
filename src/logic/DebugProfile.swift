@@ -46,8 +46,15 @@ class DebugProfile {
     private static func appPreferences() -> String {
         return nestedSeparator + Preferences.all
                 .sorted { $0.0 < $1.0 }
-                .map { $0.key + intraSeparator + Preferences.getAsString($0.key) }
+                .map { $0.key + intraSeparator + appPreference($0.key) }
                 .joined(separator: nestedSeparator)
+    }
+
+    private static func appPreference(_ key: String) -> String {
+        if let preference = defaults.object(forKey: key) {
+            return String(describing: preference)
+        }
+        return "nil"
     }
 
     private static func appWindows() -> String {
