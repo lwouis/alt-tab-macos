@@ -1,3 +1,10 @@
+## [3.7.3](https://github.com/lwouis/alt-tab-macos/compare/v3.7.2...v3.7.3) (2020-04-09)
+
+
+### Bug Fixes
+
+* typos in korean and chinese labels (closes [#228](https://github.com/lwouis/alt-tab-macos/issues/228)) ([c655675](https://github.com/lwouis/alt-tab-macos/commit/c655675))
+
 ## [3.7.2](https://github.com/lwouis/alt-tab-macos/compare/v3.7.1...v3.7.2) (2020-04-09)
 
 

@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.7.3</title>
+      <pubDate>Thu, 09 Apr 2020 07:51:32 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="373-httpsgithubcomlwouisalt-tab-macoscomparev372v373-2020-04-09">3.7.3 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.2...v3.7.3">https://github.com/lwouis/alt-tab-macos/compare/v3.7.2...v3.7.3</a>) (2020-04-09)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* typos in korean and chinese labels (closes #228 (https://github.com/lwouis/alt-tab-macos/issues/228)) (c655675 (https://github.com/lwouis/alt-tab-macos/commit/c655675))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.3/AltTab-3.7.3.zip"
+        sparkle:version="3.7.3"
+        sparkle:shortVersionString="3.7.3"
+        sparkle:edSignature="BOMtNu4Bx+pmFU7DZEkbI6hR5oDfUf9xw8EBvcm9Muc9DbxdS8CKrfVmJj6QglJdSpw64OMc3uX0WaBjRvnxBA==" length="7278444"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.7.2</title>
       <pubDate>Thu, 09 Apr 2020 06:03:27 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
