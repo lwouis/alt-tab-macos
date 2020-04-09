@@ -57,7 +57,7 @@
 "Send" = "送出";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "送出除錯資訊（CPU, 記憶體, app…）";
+"Send debug profile (CPU, memory, etc)" = "送出除錯資訊（CPU, 記憶體, …）";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "送出回饋";
