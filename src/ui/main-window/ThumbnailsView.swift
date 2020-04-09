@@ -94,12 +94,14 @@ class ScrollView: NSScrollView {
         hasVerticalScroller = true
         scrollerStyle = .overlay
         scrollerKnobStyle = .light
+        forceOverlayStyle()
     }
 
-    // draw the scroller on top of the content
-    override func tile() {
-        super.tile()
-        contentView.frame = bounds
+    // force overlay style after a change in System Preference > General > Show scroll bars
+    private func forceOverlayStyle() -> NSObjectProtocol {
+        NotificationCenter.default.addObserver(forName: NSScroller.preferredScrollerStyleDidChangeNotification, object: nil, queue: nil) { [weak self] _ in
+            self?.scrollerStyle = .overlay
+        }
     }
 }
 
