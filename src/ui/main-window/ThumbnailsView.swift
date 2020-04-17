@@ -98,7 +98,7 @@ class ScrollView: NSScrollView {
     }
 
     // force overlay style after a change in System Preference > General > Show scroll bars
-    private func forceOverlayStyle() -> NSObjectProtocol {
+    private func forceOverlayStyle() {
         NotificationCenter.default.addObserver(forName: NSScroller.preferredScrollerStyleDidChangeNotification, object: nil, queue: nil) { [weak self] _ in
             self?.scrollerStyle = .overlay
         }
