@@ -5,7 +5,7 @@ class Spaces {
     static var currentSpaceIndex = SpaceIndex(1)
     static var visitedSpaces = [CGSSpaceID: Bool]()
     static var isSingleSpace = true
-    static var idsAndIndexes = allIdsAndIndexes()
+    static var idsAndIndexes: [(CGSSpaceID, SpaceIndex)] = allIdsAndIndexes()
 
     static func observeSpaceChanges() {
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
@@ -31,14 +31,21 @@ class Spaces {
 
     static func updateCurrentSpace() {
         refreshCurrentSpaceId()
-        currentSpaceIndex = idsAndIndexes.first { $0.0 == currentSpaceId }!.1
+        currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
+            spaceId == currentSpaceId
+        }!.1
         debugPrint("Current space", currentSpaceId)
     }
 
     static func allIdsAndIndexes() -> [(CGSSpaceID, SpaceIndex)] {
         return (CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary])
-                .map { $0["Spaces"] }.joined().enumerated()
-                .map { (($0.element as! NSDictionary)["id64"]! as! CGSSpaceID, $0.offset + 1) }
+                .map { (display: NSDictionary) -> [NSDictionary] in
+                    display["Spaces"] as! [NSDictionary]
+                }
+                .joined().enumerated()
+                .map { (space: (offset: Int, element: NSDictionary)) -> (CGSSpaceID, SpaceIndex) in
+                    (space.element["id64"]! as! CGSSpaceID, space.offset + 1)
+                }
     }
 
     static func otherSpaces() -> [CGSSpaceID] {

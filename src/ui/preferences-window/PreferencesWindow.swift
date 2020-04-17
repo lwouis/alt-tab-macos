@@ -33,7 +33,7 @@ class PreferencesWindow: NSWindow {
         LabelAndControl.updateControlExtras(senderControl, newValue)
         Preferences.set(senderControl.identifier!.rawValue, newValue)
         // some preferences require re-creating some components
-        if ["iconSize", "fontHeight", "theme"].contains(where: { $0 == senderControl.identifier!.rawValue }) {
+        if ["iconSize", "fontHeight", "theme"].contains(where: { (pref: String) -> Bool in pref == senderControl.identifier!.rawValue }) {
             (App.shared as! App).resetPreferencesDependentComponents()
         }
     }

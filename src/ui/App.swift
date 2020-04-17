@@ -47,7 +47,7 @@ class App: NSApplication, NSApplicationDelegate {
         preferencesWindow = PreferencesWindow()
         UpdatesTab.observeUserDefaults()
         // TODO: undeterministic; events in the queue may still be processing; good enough for now
-        DispatchQueue.main.async { Windows.sortByLevel() }
+        DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
@@ -66,7 +66,7 @@ class App: NSApplication, NSApplicationDelegate {
 
     func hideUi() {
         debugPrint("hideUi")
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { () -> () in
             self.thumbnailsPanel!.orderOut(nil)
         }
         appIsBeingUsed = false
@@ -102,7 +102,7 @@ class App: NSApplication, NSApplicationDelegate {
     func showUi() {
         uiWorkShouldBeDone = true
         appIsBeingUsed = true
-        DispatchQueue.main.async { self.showUiOrCycleSelection(0) }
+        DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(0) }
     }
 
     func cycleSelection(_ step: Int) {
@@ -151,7 +151,7 @@ class App: NSApplication, NSApplicationDelegate {
             if Windows.list.first(where: { $0.shouldShowTheUser }) == nil { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(step)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
                 self.rebuildUi()
             }
         } else {
@@ -167,7 +167,7 @@ class App: NSApplication, NSApplicationDelegate {
         guard uiWorkShouldBeDone else { return }
         thumbnailsPanel!.show()
 //        guard uiWorkShouldBeDone else { return }
-//        DispatchQueue.main.async {
+//        DispatchQueue.main.async { () -> () in
 //            Windows.refreshAllExistingThumbnails()
 //        }
     }

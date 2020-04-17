@@ -8,7 +8,7 @@ class DebugProfile {
     static let nestedSeparator = "\n  " + bulletPoint
 
     static func make() -> String {
-        ([
+        let tuples: [(String, String)] = [
             // app
             ("App version", App.version),
             ("App preferences", appPreferences()),
@@ -18,7 +18,7 @@ class DebugProfile {
             ("OS version", ProcessInfo.processInfo.operatingSystemVersionString),
             ("OS architecture", Sysctl.run("hw.machine")),
             ("Locale", Locale.current.debugDescription),
-            ("Spaces count", String((CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary]).map { $0["Spaces"] }.count)),
+            ("Spaces count", String((CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary]).map { (display: NSDictionary) -> Any? in display["Spaces"] }.count)),
             ("Dark mode", Preferences.getString("AppleInterfaceStyle") ?? "Light"),
             ("\"Displays have separate Spaces\"", NSScreen.screensHaveSeparateSpaces ? "checked" : "unchecked"),
             // hardware
@@ -28,8 +28,8 @@ class DebugProfile {
             ("Memory size", ByteCountFormatter.string(fromByteCount: Int64(ProcessInfo.processInfo.physicalMemory), countStyle: .file)),
             // TODO: add gpu model(s)
             // hardware utilization
-            ("Active CPU count", Sysctl.run("hw.activecpu", UInt.self).flatMap { String($0) } ?? ""),
-            ("Current CPU frequency", Sysctl.run("hw.cpufrequency", Int.self).map { String(format: "%.1f", Double($0) / Double(1_000_000_000)) + " Ghz" } ?? ""),
+            ("Active CPU count", Sysctl.run("hw.activecpu", UInt.self).flatMap { (cpu: UInt) -> String in String(cpu) } ?? ""),
+            ("Current CPU frequency", Sysctl.run("hw.cpufrequency", Int.self).map { (frequency: Int) -> String in String(format: "%.1f", Double(frequency) / Double(1_000_000_000)) + " Ghz" } ?? ""),
             // TODO: CPU utilization
             // TODO: Active GPU
             // TODO: GPU utilization
@@ -37,9 +37,12 @@ class DebugProfile {
             // TODO: disk space to detect disk pressure
             // TODO: thermals to check if overheating
             // TODO: battery to check if low-energy mode / throttling
+        ]
+        return tuplesToString(tuples)
+    }
 
-        ] as [(String, String)])
-                .map { bulletPoint + $0.0 + intraSeparator + $0.1 }
+    private static func tuplesToString(_ tuples: [(String, String)]) -> String {
+        return tuples.map { bulletPoint + $0.0 + intraSeparator + $0.1 }
                 .joined(separator: "\n")
     }
 
