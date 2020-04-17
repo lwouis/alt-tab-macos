@@ -9,7 +9,9 @@ class TextArea: NSTextField, NSTextFieldDelegate {
         self.callback = callback
         delegate = self
         cell = TextFieldCell(placeholder, nLinesHigh == 1)
-        fit(font!.xHeight * nCharactersWide + TextArea.padding * 2, fittingSize.height * CGFloat(nLinesHigh) + TextArea.padding * 2)
+        let width: CGFloat = font!.xHeight * nCharactersWide + TextArea.padding * 2
+        let height: CGFloat = fittingSize.height * CGFloat(nLinesHigh) + TextArea.padding * 2
+        fit(width, height)
     }
 
     func controlTextDidChange(_ notification: Notification) {

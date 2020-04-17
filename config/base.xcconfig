@@ -8,7 +8,6 @@ INFOPLIST_FILE = Info.plist
 CODE_SIGN_ENTITLEMENTS = alt_tab_macos.entitlements
 FRAMEWORK_SEARCH_PATHS[config=*] = $(inherited) /System/Library/PrivateFrameworks // for SkyLight.framework
 ENABLE_HARDENED_RUNTIME = YES // for notarization
-OTHER_CODE_SIGN_FLAGS = --timestamp --deep --options runtime // for notarization
 APPLY_RULES_IN_COPY_FILES = YES
 INFOPLIST_OUTPUT_FORMAT = binary
 PLIST_FILE_OUTPUT_FORMAT = binary

@@ -16,7 +16,10 @@ class Application: NSObject {
 
     // some apps never finish their subscription retry loop; they should be stopped to avoid infinite loop
     static func stopSubscriptionRetries(_ notification: String, _ runningApplication: NSRunningApplication) {
-        Applications.appsInSubscriptionRetryLoop.removeAll { $0 == String(runningApplication.processIdentifier) + String(notification) }
+        let subscriptionToRemove: String = String(runningApplication.processIdentifier) + notification
+        Applications.appsInSubscriptionRetryLoop.removeAll { (subscription: String) -> Bool in
+            return subscription == subscriptionToRemove
+        }
     }
 
     init(_ runningApplication: NSRunningApplication) {

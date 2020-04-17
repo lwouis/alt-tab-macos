@@ -41,7 +41,7 @@ class Preferences {
     static var fontIconSize: CGFloat { 20 }
 
     // persisted values
-    static var maxScreenUsage: CGFloat { CGFloat(defaults.float(forKey: "maxScreenUsage") / 100) }
+    static var maxScreenUsage: CGFloat { CGFloat(defaults.float(forKey: "maxScreenUsage")) / CGFloat(100) }
     static var minCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "minCellsPerRow")) }
     static var maxCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "maxCellsPerRow")) }
     static var rowsCount: CGFloat { CGFloat(defaults.float(forKey: "rowsCount")) }

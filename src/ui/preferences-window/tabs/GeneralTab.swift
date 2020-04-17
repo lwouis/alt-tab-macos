@@ -62,7 +62,7 @@ class GeneralTab {
             App.app.uiWorkShouldBeDone = shortcutThatInitiatesTheApp
             if shortcutThatInitiatesTheApp {
                 App.app.appIsBeingUsed = true
-                DispatchQueue.main.async { fn() }
+                DispatchQueue.main.async { () -> () in fn() }
             } else if App.app.appIsBeingUsed {
                 fn()
             }
