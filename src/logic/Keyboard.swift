@@ -33,7 +33,7 @@ func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent
            // workaround: NSEvent.characters is not safe outside of the main thread; this is not documented by Apple
                 // see https://github.com/Kentzo/ShortcutRecorder/issues/114#issuecomment-606465340
            let event = NSEvent.keyEvent(with: event_.type, location: event_.locationInWindow, modifierFlags: event_.modifierFlags,
-                   timestamp: event_.timestamp, windowNumber: event_.windowNumber, context: event_.context, characters: "",
+                   timestamp: event_.timestamp, windowNumber: event_.windowNumber, context: nil, characters: "",
                    charactersIgnoringModifiers: "", isARepeat: type == .flagsChanged ? false : event_.isARepeat, keyCode: event_.keyCode) {
             let appWasBeingUsed = App.app.appIsBeingUsed
             App.shortcutMonitor.handle(event, withTarget: nil)
