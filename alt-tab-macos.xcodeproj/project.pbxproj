@@ -11,7 +11,6 @@
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
 		D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD91161791D42FEC4A60 /* HelperExtensions.swift */; };
 		D04BA03B560B681AF96E4610 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA88ED495C54CFE0B7B87 /* InfoPlist.strings */; };
-		D04BA0626AE52E6E896721D9 /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = D04BA18724DC58FA95DB33DB /* Podfile.lock */; };
 		D04BA084CD1236EC78D90A01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BACCBE5F97BE9B6CA645B /* Localizable.strings */; };
 		D04BA0DD6819010987B578D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA07BBF2237CC6C72D264 /* Localizable.strings */; };
 		D04BA100BD0F47828EB649FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAAEC2847830A3991F8D1 /* InfoPlist.strings */; };
@@ -20,7 +19,6 @@
 		D04BA15A1B0C4871EA7CB899 /* GeneralTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACE22DC907F03D193075 /* GeneralTab.swift */; };
 		D04BA1621718FF26F8D5E75D /* UnclearableRecorderControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAE333F7170E87C5AC0EF /* UnclearableRecorderControl.swift */; };
 		D04BA1637E125D38546C26E2 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8AC77465E1B2BC947CF /* StackView.swift */; };
-		D04BA199DC312AF05606E806 /* extract_l10n_strings.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BA81B25C166EFB3223639 /* extract_l10n_strings.sh */; };
 		D04BA1B133D53572D7B312C2 /* ThumbnailFontIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA1DF8CAB2FAB7FE9244B /* ThumbnailFontIconView.swift */; };
 		D04BA1C85041FB043FD43E65 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA05006D56C7AA011C0CE /* Localizable.strings */; };
 		D04BA1CEC6B9C8945FEC8740 /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA258B56193958D60978A /* ThumbnailView.swift */; };
@@ -31,7 +29,6 @@
 		D04BA2E64C59D96F6EB27D9D /* FeedbackWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA26C75F76C277653C932 /* FeedbackWindow.swift */; };
 		D04BA34AC850A273AB288B1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA3B51D05213404938366 /* Localizable.strings */; };
 		D04BA3744F48116DF4252B19 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA02355EB28D639F854DF /* Localizable.strings */; };
-		D04BA3B177082862776ADADF /* setup_ci_master.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BAEF1D194C2379C9970F1 /* setup_ci_master.sh */; };
 		D04BA3BFB0CDF4ED343914B2 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA47FF1B7838CF4814538 /* PreferencesWindow.swift */; };
 		D04BA3C24F4F644EA91DE38C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA717693DA18CB74BAED1 /* Localizable.strings */; };
 		D04BA3CF766857381519B892 /* DispatchQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAB74451B79FE18B8BEDF /* DispatchQueues.swift */; };
@@ -67,18 +64,16 @@
 		D04BAC011A71E0418154F8CD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA9B93823398A542FF7A0 /* Preferences.swift */; };
 		D04BAC3169D54014CBA9ACE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAE7F55A4A3EC5F6D311A /* Localizable.strings */; };
 		D04BAC61DCCB79B5D436F022 /* app-icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = D04BAE5D665680CB4B13CA26 /* app-icon.icns */; };
-		D04BACB583E379C81FD39810 /* setup_ci_pr.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BA2E723062A1DAC58618F /* setup_ci_pr.sh */; };
 		D04BACE5702CEB1819866875 /* menubar-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D04BA399F1DF2C61FC2C9599 /* menubar-icon@2x.png */; };
 		D04BAD1BE9DC22C48C53D195 /* AboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA4A26987F67DD94C827F /* AboutTab.swift */; };
 		D04BAD2A7F2E8BF64EE982E9 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7C836A8CE8C0B8D128B /* TextArea.swift */; };
 		D04BAD451966B43720120D2E /* Menubar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD905546AA93E5117B0A /* Menubar.swift */; };
 		D04BADADBE35CA2E78483F72 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA6EC52A66DFFD4DF79C1 /* Localizable.strings */; };
+		D04BADBA0F0146443761D778 /* ACKNOWLEDGMENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = D04BAADF01EB8FF8A15AECC6 /* ACKNOWLEDGMENTS.md */; };
 		D04BADBCF20CD72057E7CF09 /* TabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA27C87B86C4484A5B15B /* TabViewItem.swift */; };
 		D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7C6F2519091717F4B4E /* SystemPermissions.swift */; };
 		D04BAE6A13DBAE85B8F7CB6A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABF92E92F093C18BB1A1 /* Localizable.strings */; };
-		D04BAEC3D79E82B488E7FA61 /* import_certificate_into_main_keychain.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BA94A1695D4FF5337C84B /* import_certificate_into_main_keychain.sh */; };
 		D04BAEE31B6FFCDC779E6C17 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04BAC2FF99F629CD4ED20FC /* MainMenu.xib */; };
-		D04BAEEE133C2CA8C8F4DE61 /* setup_local.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BAD98C2DCFE95458947D3 /* setup_local.sh */; };
 		D04BAF12DF5D15B9D7D316A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA61693F710CD7BD054D7 /* InfoPlist.strings */; };
 		D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACD976030676FD0761D5 /* Windows.swift */; };
 		D04BAFBC862BA5FE0294EA7A /* AXUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6F823BC0EDA9AA4B80A /* AXUIElement.swift */; };
@@ -168,6 +163,7 @@
 		D04BAA998119CAA8B70A2B67 /* ThumbnailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailsView.swift; sourceTree = "<group>"; };
 		D04BAA9E0539EE620D08F63F /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fr; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BAAB92261FC04854FDDE9 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		D04BAADF01EB8FF8A15AECC6 /* ACKNOWLEDGMENTS.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ACKNOWLEDGMENTS.md; sourceTree = "<group>"; };
 		D04BAAF760E3A8A22BDA84D6 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
 		D04BAB08AD95CD9024BEE95A /* fi */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fi; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BAB6652494D7575057E86 /* 14 windows - 3 lines.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "14 windows - 3 lines.jpg"; sourceTree = "<group>"; };
@@ -628,6 +624,7 @@
 				D04BAAB62DCBD7AF93B7EF89 /* img */,
 				D04BACAE340252C1E910D3CE /* QA.md */,
 				D04BABDC2286BBE3D63E4A33 /* CONTRIBUTING.md */,
+				D04BAADF01EB8FF8A15AECC6 /* ACKNOWLEDGMENTS.md */,
 			);
 			path = docs;
 			sourceTree = "<group>";
@@ -728,14 +725,9 @@
 				D04BADADBE35CA2E78483F72 /* Localizable.strings in Resources */,
 				D04BAB9A6D6DCFA2F39FFBAF /* InfoPlist.strings in Resources */,
 				D04BAE6A13DBAE85B8F7CB6A /* Localizable.strings in Resources */,
-				D04BA199DC312AF05606E806 /* extract_l10n_strings.sh in Resources */,
-				D04BAEC3D79E82B488E7FA61 /* import_certificate_into_main_keychain.sh in Resources */,
-				D04BACB583E379C81FD39810 /* setup_ci_pr.sh in Resources */,
-				D04BA3B177082862776ADADF /* setup_ci_master.sh in Resources */,
-				D04BAEEE133C2CA8C8F4DE61 /* setup_local.sh in Resources */,
-				D04BA0626AE52E6E896721D9 /* Podfile.lock in Resources */,
 				D04BA867733CC32975EEDA7B /* InfoPlist.strings in Resources */,
 				D04BA5863E8AD08C36B52F80 /* Localizable.strings in Resources */,
+				D04BADBA0F0146443761D778 /* ACKNOWLEDGMENTS.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
