@@ -3,12 +3,8 @@ import Cocoa
 class AppearanceTab {
     private static let rowHeight = CGFloat(20)
 
-    static func make() -> NSTabViewItem {
-        return TabViewItem.make(NSLocalizedString("Appearance", comment: ""), NSImage.colorPanelName, makeView())
-    }
-
-    private static func makeView() -> NSGridView {
-        let grid = GridView.make([
+    static func makeView() -> NSGridView {
+        let grid = GridView([
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Theme", comment: ""), "theme", ThemePreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases),
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max size on screen", comment: ""), "maxScreenUsage", 10, 100, 10, true, "%"),

@@ -1,12 +1,11 @@
 import Cocoa
 
-class TabViewItem {
-    static func make(_ label: String, _ imageNAme: NSImage.Name, _ view: NSView) -> NSTabViewItem {
+class TabViewItem: NSTabViewItem {
+    convenience init(_ label: String, _ imageName: NSImage.Name, _ view: NSView) {
         let viewController = NSViewController()
-        let tabViewItem = NSTabViewItem(viewController: viewController)
+        self.init(viewController: viewController)
         viewController.view = view
-        tabViewItem.label = label
-        tabViewItem.image = NSImage(named: imageNAme)
-        return tabViewItem
+        self.label = label
+        image = NSImage(named: imageName)
     }
 }

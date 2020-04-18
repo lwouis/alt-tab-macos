@@ -9,16 +9,12 @@ class UpdatesTab: NSObject {
     // this helps prevent double-dipping (i.e. user updates the UI > changes the preference > updates the UI)
     static var policyLock = false
 
-    static func make() -> NSTabViewItem {
-        return TabViewItem.make(NSLocalizedString("Updates", comment: ""), NSImage.refreshTemplateName, makeView())
-    }
-
     static func observeUserDefaults() {
         UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUAutomaticallyUpdate", options: [.initial, .new], context: nil)
         UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUEnableAutomaticChecks", options: [.initial, .new], context: nil)
     }
 
-    static private func makeView() -> NSGridView {
+    static func makeView() -> NSGridView {
         dontPeriodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Don't check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
         dontPeriodicallyCheck.fit()
         periodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
@@ -30,7 +26,7 @@ class UpdatesTab: NSObject {
         policies.alignment = .left
         policies.orientation = .vertical
         policies.spacing = GridView.interPadding / 2
-        let grid = GridView.make([
+        let grid = GridView([
             [policyLabel, policies],
             [NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: self, action: #selector(checkForUpdatesNow))],
         ])
