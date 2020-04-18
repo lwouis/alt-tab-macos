@@ -24,7 +24,6 @@ class ThumbnailView: NSStackView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
-//        element.itemView = self
         if thumbnail.image != element.thumbnail {
             thumbnail.image = element.thumbnail
             let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(element.thumbnail, screen)
@@ -38,12 +37,11 @@ class ThumbnailView: NSStackView {
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
         }
-        if label.string != element.title {
+        let labelChanged = label.string != element.title
+        if labelChanged {
             label.string = element.title
             // workaround: setting string on NSTextView change the font (most likely a Cocoa bug)
             label.font = Preferences.font
-            // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
-            label.display()
         }
         assignIfDifferent(&hiddenIcon.isHidden, !window_!.isHidden)
         assignIfDifferent(&minimizedIcon.isHidden, !window_!.isMinimized)
@@ -67,6 +65,11 @@ class ThumbnailView: NSStackView {
         } else if trackingAreas.count > 0 && trackingAreas[0].rect != bounds {
             removeTrackingArea(trackingAreas[0])
             addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseMoved, .activeAlways], owner: self, userInfo: nil))
+        }
+        // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
+        // quirk: display() should be called last as it resets thumbnail.frame.size somehow
+        if labelChanged {
+            label.display()
         }
     }
 
