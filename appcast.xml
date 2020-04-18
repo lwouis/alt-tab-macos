@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.9.1</title>
+      <pubDate>Sat, 18 Apr 2020 18:39:37 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="391-httpsgithubcomlwouisalt-tab-macoscomparev390v391-2020-04-18">3.9.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1">https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1</a>) (2020-04-18)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* show windows from steam app (closes #236 (https://github.com/lwouis/alt-tab-macos/issues/236)) (d17c9d5 (https://github.com/lwouis/alt-tab-macos/commit/d17c9d5))
+* thumbnails layout was wrong sometimes (06c6f48 (https://github.com/lwouis/alt-tab-macos/commit/06c6f48))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.9.1/AltTab-3.9.1.zip"
+        sparkle:version="3.9.1"
+        sparkle:shortVersionString="3.9.1"
+        sparkle:edSignature="km/9qGt0p3qqY/kqZ4ApL1rvpBmk7NzFNnoDyeKemdJY0Z1Iv94lLKCMahep778ShZ9PRrAQDP25wHqLdpv4BA==" length="7459014"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.9.0</title>
       <pubDate>Sat, 18 Apr 2020 16:37:30 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

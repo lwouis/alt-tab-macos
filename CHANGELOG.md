@@ -1,3 +1,11 @@
+## [3.9.1](https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1) (2020-04-18)
+
+
+### Bug Fixes
+
+* show windows from steam app (closes [#236](https://github.com/lwouis/alt-tab-macos/issues/236)) ([d17c9d5](https://github.com/lwouis/alt-tab-macos/commit/d17c9d5))
+* thumbnails layout was wrong sometimes ([06c6f48](https://github.com/lwouis/alt-tab-macos/commit/06c6f48))
+
 # [3.9.0](https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0) (2020-04-18)
 
 
