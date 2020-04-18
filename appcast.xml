@@ -5,6 +5,27 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.8.0</title>
+      <pubDate>Sat, 18 Apr 2020 15:45:10 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="380-httpsgithubcomlwouisalt-tab-macoscomparev373v380-2020-04-18">3.8.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0">https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0</a>) (2020-04-18)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* clearer debug profile (i.e. no &quot;optional&quot;) (e2b94f7 (https://github.com/lwouis/alt-tab-macos/commit/e2b94f7))</code></pre><h3 id="features">Features</h3>
+<pre><code>* add acknowledgments for third-party software (closes #177 (https://github.com/lwouis/alt-tab-macos/issues/177)) (9398cff (https://github.com/lwouis/alt-tab-macos/commit/9398cff))
+* remove runtime checker for better perf (e9ce575 (https://github.com/lwouis/alt-tab-macos/commit/e9ce575))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.8.0/AltTab-3.8.0.zip"
+        sparkle:version="3.8.0"
+        sparkle:shortVersionString="3.8.0"
+        sparkle:edSignature="sStXgV+RABaGwOeaGF5xp3qmjk4zMb6s0dcqo1FCeUAeA1sR0ABa0EnUUlLkt609/2sNiUyoAmtQN40y1JUEAA==" length="7459275"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.7.3</title>
       <pubDate>Thu, 09 Apr 2020 07:51:32 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

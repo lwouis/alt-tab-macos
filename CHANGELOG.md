@@ -1,3 +1,16 @@
+# [3.8.0](https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0) (2020-04-18)
+
+
+### Bug Fixes
+
+* clearer debug profile (i.e. no "optional") ([e2b94f7](https://github.com/lwouis/alt-tab-macos/commit/e2b94f7))
+
+
+### Features
+
+* add acknowledgments for third-party software (closes [#177](https://github.com/lwouis/alt-tab-macos/issues/177)) ([9398cff](https://github.com/lwouis/alt-tab-macos/commit/9398cff))
+* remove runtime checker for better perf ([e9ce575](https://github.com/lwouis/alt-tab-macos/commit/e9ce575))
+
 ## [3.7.3](https://github.com/lwouis/alt-tab-macos/compare/v3.7.2...v3.7.3) (2020-04-09)
 
 
