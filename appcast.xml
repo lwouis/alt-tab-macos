@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.9.0</title>
+      <pubDate>Sat, 18 Apr 2020 16:37:30 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="390-httpsgithubcomlwouisalt-tab-macoscomparev380v390-2020-04-18">3.9.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0">https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0</a>) (2020-04-18)</h1>
+<h3 id="features">Features</h3>
+<pre><code>* allow shortcuts to be modifiers-only (closes #243 (https://github.com/lwouis/alt-tab-macos/issues/243)) (d4be095 (https://github.com/lwouis/alt-tab-macos/commit/d4be095))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.9.0/AltTab-3.9.0.zip"
+        sparkle:version="3.9.0"
+        sparkle:shortVersionString="3.9.0"
+        sparkle:edSignature="kVWVsVjgp5z++eT5iCWPltUw57pS0nOUmTrPaqn077ud5MOJ4rqw+VEgMjutBFVEb6iqPHluGVemfg1oohmODA==" length="7459396"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.8.0</title>
       <pubDate>Sat, 18 Apr 2020 15:45:10 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

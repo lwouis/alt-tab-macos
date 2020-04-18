@@ -1,3 +1,10 @@
+# [3.9.0](https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0) (2020-04-18)
+
+
+### Features
+
+* allow shortcuts to be modifiers-only (closes [#243](https://github.com/lwouis/alt-tab-macos/issues/243)) ([d4be095](https://github.com/lwouis/alt-tab-macos/commit/d4be095))
+
 # [3.8.0](https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0) (2020-04-18)
 
 
