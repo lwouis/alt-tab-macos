@@ -8,7 +8,7 @@ class StackView: NSStackView {
         alignmentRectInsets_ = NSEdgeInsets(top: top, left: left, bottom: bottom, right: right)
         alignment = orientation == .horizontal ? .firstBaseline : .left
         // workaround: for some reason, horizontal stackviews with a RecorderControl have extra fittingSize.height
-        if orientation == .horizontal && views.first(where: { $0 is UnclearableRecorderControl }) != nil {
+        if orientation == .horizontal && views.first(where: { $0 is CustomRecorderControl }) != nil {
             fit(fittingSize.width, fittingSize.height - 7)
         } else {
             fit()
