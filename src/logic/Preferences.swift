@@ -192,11 +192,13 @@ enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
 enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
     case active = "Active screen"
     case includingMouse = "Screen including mouse"
+    case includingMenubar = "Screen including menu bar"
 
     var localizedString: LocalizedString {
         switch self {
             case .active: return NSLocalizedString("Active screen", comment: "")
             case .includingMouse: return NSLocalizedString("Screen including mouse", comment: "")
+            case .includingMenubar: return NSLocalizedString("Screen including menu bar", comment: "")
         }
     }
 }

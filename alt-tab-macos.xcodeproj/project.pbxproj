@@ -77,7 +77,6 @@
 		D04BAEE31B6FFCDC779E6C17 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04BAC2FF99F629CD4ED20FC /* MainMenu.xib */; };
 		D04BAEEE133C2CA8C8F4DE61 /* setup_local.sh in Resources */ = {isa = PBXBuildFile; fileRef = D04BAD98C2DCFE95458947D3 /* setup_local.sh */; };
 		D04BAF12DF5D15B9D7D316A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA61693F710CD7BD054D7 /* InfoPlist.strings */; };
-		D04BAF929214AF85AAF3A943 /* PBXBuildFile */ = {isa = PBXBuildFile; fileRef = D04BADFEF9A8189ABC8BF5EE /* Localizable.strings */; };
 		D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACD976030676FD0761D5 /* Windows.swift */; };
 		D04BAFBC862BA5FE0294EA7A /* AXUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6F823BC0EDA9AA4B80A /* AXUIElement.swift */; };
 /* End PBXBuildFile section */
@@ -671,6 +670,8 @@
 				it,
 				"zh-Hant",
 				"zh-Hans",
+				zh_TW,
+				zh_CN,
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
