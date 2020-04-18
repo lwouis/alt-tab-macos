@@ -1,0 +1,34 @@
+{
+  "name": "ShortcutRecorder",
+  "cocoapods_version": ">= 1.8",
+  "version": "3.1",
+  "summary": "The best control to record shortcuts on macOS",
+  "homepage": "https://github.com/Kentzo/ShortcutRecorder",
+  "license": {
+    "type": "CC BY 4.0",
+    "file": "LICENSE.txt"
+  },
+  "authors": {
+    "Ilya Kulakov": "kulakov.ilya@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Kentzo/ShortcutRecorder.git",
+    "tag": "3.1"
+  },
+  "platforms": {
+    "osx": "10.11"
+  },
+  "frameworks": [
+    "Carbon",
+    "Cocoa"
+  ],
+  "source_files": "Library/*.{h,m}",
+  "resources": [
+    "Resources/*.lproj",
+    "Resources/Images.xcassets"
+  ],
+  "requires_arc": true,
+  "info_plist": {
+    "CFBundleIdentifier": "com.kulakov.ShortcutRecorder"
+  }
+}

@@ -1,0 +1,56 @@
+/* Literal for the Space key */
+"Space" = "Διάστημα";
+
+/* VoiceOver type of the object recorded by the control */
+"Shortcut" = "Συντόμευσης";
+
+/* VoiceOver value for the value-less control */
+"Empty" = "Κενό";
+
+/* Tooltip for the cancel button when the control has a value */
+"Use old shortcut" = "Χρήση παλιάς συντόμευσης";
+
+/* Tooltip for the cancel button when the control has no value */
+"Cancel recording" = "Ακύρωση εγγραφής";
+
+/* Tooltip for the clear button */
+"Delete current shortcut" = "Διαγραφή τρέχουσας συντομεύσεως";
+
+/* Tooltip for the recording mode */
+"Type shortcut" = "Εισαγωγή συντόμευσης";
+
+/* Label for the value-less control */
+"Record Shortcut" = "Εγγραφή Συντόμευσης";
+
+/* Tooltip for the normal mode */
+"Click to record shortcut" = "Κλίκ για εισαγωγή συντόμευσης";
+
+/* Value for the NSLocalizedFailureReasonErrorKey key of validator's error */
+"The \"%@\" shortcut can't be used!" = "Ο συνδιασμός πλήκτρων «%@» δεν μπορεί να χρησιμοποιηθεί!";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's delegate error */
+"The \"%@\" shortcut can't be used because %@." = "Ο συνδιασμός πλήκτρων «%@» δεν μπορεί να χρησιμοποιηθεί λόγω %@.";
+
+/* Default value for the NSLocalizedDescriptionKey key of validator's error */
+"The \"%@\" shortcut is already in use." = "Ο συνδιασμός πλήκτρων «%@» χρησιμοποιείται ήδη.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's system shortcuts error */
+"The \"%@\" shortcut can't be used because it's already used by a system-wide keyboard shortcut. If you really want to use this shortcut, most shortcuts can be changed in the Keyboard panel in System Preferences." = "Ο συνδιασμός πλήκτρων «%@» δεν μπορεί να χρησιμοποιηθεί γιατί χρησιμοποιείται ήδη από μια συντόμευση συστήματος. Αν θέλετε οπωσδήποτε να χρησιμοποιήσετε αυτό τον συνδιασμό, οι περισσότερες συντομεύσεις μπορούν να αλλαχθούν στο πάνελ Keyboard & Mouse στο System Preferences.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's menu error */
+"The \"%@\" shortcut can't be used because it's already used by the \"%@\" menu item." = "Ο συνδιασμός πλήκτρων «%@» δεν μπορεί να χρησιμοποιηθεί γιατί χρησιμοποιείται ήδη από το μενού «%@».";
+
+/* VoiceOver name of the Command modifier key */
+"Command" = "Command";
+
+/* VoiceOver name of the Option modifier key */
+"Option" = "Option";
+
+/* VoiceOver name of the Shift modifier key */
+"Shift" = "Shift";
+
+/* VoiceOver name of the Control modifier key */
+"Control" = "Control";
+
+/* VoiceOver name of the modifier keys delimiter */
+"-" = "-";

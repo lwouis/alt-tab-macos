@@ -1,0 +1,56 @@
+/* Literal for the Space key */
+"Space" = "スペース";
+
+/* VoiceOver type of the object recorded by the control */
+"Shortcut" = "ショートカット";
+
+/* VoiceOver value for the value-less control */
+"Empty" = "空の";
+
+/* Tooltip for the cancel button when the control has a value */
+"Use old shortcut" = "古いショートカット設定を使用";
+
+/* Tooltip for the cancel button when the control has no value */
+"Cancel recording" = "入力をキャンセル";
+
+/* Tooltip for the clear button */
+"Delete current shortcut" = "現在のショートカットを削除";
+
+/* Tooltip for the recording mode */
+"Type shortcut" = "ショートカットを入力してください";
+
+/* Label for the value-less control */
+"Record Shortcut" = "ショートカットを入力";
+
+/* Tooltip for the normal mode */
+"Click to record shortcut" = "クリックして、ショートカットを記録してください";
+
+/* Value for the NSLocalizedFailureReasonErrorKey key of validator's error */
+"The \"%@\" shortcut can't be used!" = "“%@” というキーの組み合わせは使用できません！";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's delegate error */
+"The \"%@\" shortcut can't be used because %@." = "“%@” というキーの組み合わせは使用できません。その理由は、%@です。";
+
+/* Default value for the NSLocalizedDescriptionKey key of validator's error */
+"The \"%@\" shortcut is already in use." = "ショートカットキーの組み合わせは“%@”を使用してます。";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's system shortcuts error */
+"The \"%@\" shortcut can't be used because it's already used by a system-wide keyboard shortcut. If you really want to use this shortcut, most shortcuts can be changed in the Keyboard panel in System Preferences." = "“%@” というキーの組み合わせは、すでにシステムで他のショートカットに割り当てられています。(システム環境設定の「キーボードとマウス」パネルでショートカットの割り当てを変更できます。)";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's menu error */
+"The \"%@\" shortcut can't be used because it's already used by the \"%@\" menu item." = "“%@” というキーの組み合わせは、すでにメニューアイテム “%@” によって使われています。";
+
+/* Accessibility name of the Command modifier key */
+"Command" = "Command";
+
+/* VoiceOver name of the Option modifier key */
+"Option" = "Option";
+
+/* VoiceOver name of the Shift modifier key */
+"Shift" = "Shift";
+
+/* VoiceOver name of the Control modifier key */
+"Control" = "Control";
+
+/* VoiceOver name of the modifier keys delimiter */
+"-" = "-";

@@ -1,0 +1,56 @@
+/* Literal for the Space key */
+"Space" = "Espacio";
+
+/* VoiceOver type of the object recorded by the control */
+"Shortcut" = "Función rápida";
+
+/* VoiceOver value for the value-less control */
+"Empty" = "Vacío";
+
+/* Tooltip for the cancel button when the control has a value */
+"Use old shortcut" = "Usar la anterior función rápida";
+
+/* Tooltip for the cancel button when the control has no value */
+"Cancel recording" = "Cancelar grabación";
+
+/* Tooltip for the clear button */
+"Delete current shortcut" = "Eliminar la actual función rápida";
+
+/* Tooltip for the recording mode */
+"Type shortcut" = "Teclear función rápida";
+
+/* Label for the value-less control */
+"Record Shortcut" = "Grabar función rápida";
+
+/* Tooltip for the normal mode */
+"Click to record shortcut" = "Haga clic para registrar la función rápida";
+
+/* Value for the NSLocalizedFailureReasonErrorKey key of validator's error */
+"The \"%@\" shortcut can't be used!" = "¡La función rápida “%@“ no puede ser usada!";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's delegate error */
+"The \"%@\" shortcut can't be used because %@." = "La función rápida “%@“ no puede ser usada porque %@.";
+
+/* Default value for the NSLocalizedDescriptionKey key of validator's error */
+"The \"%@\" shortcut is already in use." = "La función rápida “%@“ ya está en uso.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's system shortcuts error */
+"The \"%@\" shortcut can't be used because it's already used by a system-wide keyboard shortcut. If you really want to use this shortcut, most shortcuts can be changed in the Keyboard panel in System Preferences." = "La función rápida “%@“ no puede ser usada porque ya está siendo usada por otra función rápida del sistema. Si realmente desea usar esta función rápida, la mayoría de las funciones rápidas pueden ser cambiados en el Panel de Teclado en las Preferencias del Sistema.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's menu error */
+"The \"%@\" shortcut can't be used because it's already used by the \"%@\" menu item." = "La función rápida “%@“ no puede ser utilizada pues ya está en uso por el menú “%@“";
+
+/* Accessibility name of the Command modifier key */
+"Command" = "Command";
+
+/* VoiceOver name of the Option modifier key */
+"Option" = "Option";
+
+/* VoiceOver name of the Shift modifier key */
+"Shift" = "Shift";
+
+/* VoiceOver name of the Control modifier key */
+"Control" = "Control";
+
+/* VoiceOver name of the modifier keys delimiter */
+"-" = "-";

@@ -1,0 +1,56 @@
+/* Literal for the Space key */
+"Space" = "空格";
+
+/* VoiceOver type of the object recorded by the control */
+"Shortcut" = "快捷键";
+
+/* VoiceOver value for the value-less control */
+"Empty" = "空";
+
+/* Tooltip for the cancel button when the control has a value */
+"Use old shortcut" = "使用原来的快捷键";
+
+/* Tooltip for the cancel button when the control has no value */
+"Cancel recording" = "取消录音";
+
+/* Tooltip for the clear button */
+"Delete current shortcut" = "删除当前快捷键";
+
+/* Tooltip for the recording mode */
+"Type shortcut" = "输入快捷键";
+
+/* Label for the value-less control */
+"Record Shortcut" = "记录快捷键";
+
+/* Tooltip for the normal mode */
+"Click to record shortcut" = "点击记录快捷键";
+
+/* Value for the NSLocalizedFailureReasonErrorKey key of validator's error */
+"The \"%@\" shortcut can't be used!" = "无法使用快捷键组合%@！";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's delegate error */
+"The \"%@\" shortcut can't be used because %@." = "无法使用快捷键组合%@，因为%@。";
+
+/* Default value for the NSLocalizedDescriptionKey key of validator's error */
+"The \"%@\" shortcut is already in use." = "快捷键组合 “%@” 已经被使用。";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's system shortcuts error */
+"The \"%@\" shortcut can't be used because it's already used by a system-wide keyboard shortcut. If you really want to use this shortcut, most shortcuts can be changed in the Keyboard panel in System Preferences." = "无法使用快捷键组合%@，因为已用作系统级快捷键。(如果您确定要使用该快捷键，大部分快捷键可以在系统偏好设置的键盘和鼠标面板)";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's menu error */
+"The \"%@\" shortcut can't be used because it's already used by the \"%@\" menu item." = "无法使用快捷键组合%@，因为已用于菜单项%@。";
+
+/* Accessibility name of the Command modifier key */
+"Command" = "Command";
+
+/* VoiceOver name of the Option modifier key */
+"Option" = "Option";
+
+/* VoiceOver name of the Shift modifier key */
+"Shift" = "Shift";
+
+/* VoiceOver name of the Control modifier key */
+"Control" = "Control";
+
+/* VoiceOver name of the modifier keys delimiter */
+"-" = "-";
