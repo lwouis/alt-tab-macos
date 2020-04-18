@@ -2,7 +2,7 @@ import Cocoa
 
 extension AXUIElement {
     static let normalLevel = CGWindowLevelForKey(.normalWindow)
-    
+
     func cgWindowId() -> CGWindowID {
         var id = CGWindowID(0)
         _AXUIElementGetWindow(self, &id)
@@ -15,14 +15,19 @@ extension AXUIElement {
         return pid
     }
 
-    func isActualWindow() -> Bool {
-        // TODO: TotalFinder and XtraFinder double-window hacks (see #84)
+    func isActualWindow(_ bundleIdentifier: String?) -> Bool {
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
         // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs
-        return ["AXStandardWindow", "AXDialog"].contains(subrole()) && isOnNormalLevel()
+        let subrole_ = subrole()
+        return subrole_ != nil &&
+            (["AXStandardWindow", "AXDialog"].contains(subrole_) ||
+                // All Steam windows have subrole = AXUnknown
+                // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
+                (bundleIdentifier == "com.valvesoftware.steam" && title() != "" && role() != nil)) &&
+            isOnNormalLevel()
     }
 
     func isOnNormalLevel() -> Bool {
@@ -52,6 +57,10 @@ extension AXUIElement {
 
     func focusedWindow() -> AXUIElement? {
         return attribute(kAXFocusedWindowAttribute, AXUIElement.self)
+    }
+
+    func role() -> String? {
+        return attribute(kAXRoleAttribute, String.self)
     }
 
     func subrole() -> String? {
