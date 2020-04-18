@@ -1,0 +1,13 @@
+{
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "data" : [
+    {
+      "idiom" : "universal",
+      "filename" : "info.json",
+      "universal-type-identifier": "public.json"
+    }
+  ]
+}

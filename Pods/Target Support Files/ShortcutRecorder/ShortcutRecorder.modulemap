@@ -1,0 +1,6 @@
+framework module ShortcutRecorder {
+  umbrella header "ShortcutRecorder-umbrella.h"
+
+  export *
+  module * { export * }
+}

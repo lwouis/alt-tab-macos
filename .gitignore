@@ -4,7 +4,5 @@ WorkspaceSettings.xcsettings
 IDEWorkspaceChecks.plist
 /node_modules/
 /DerivedData/
-/Pods/
 /build/
-
 .DS_Store

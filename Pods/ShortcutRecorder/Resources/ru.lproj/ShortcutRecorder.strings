@@ -1,0 +1,56 @@
+/* Literal for the Space key */
+"Space" = "Пробел";
+
+/* VoiceOver type of the object recorded by the control */
+"Shortcut" = "Сочетание Клавиш";
+
+/* VoiceOver value for the value-less control */
+"Empty" = "Пусто";
+
+/* Tooltip for the cancel button when the control has a value */
+"Use old shortcut" = "Использовать предыдущее сочетание клавиш";
+
+/* Tooltip for the cancel button when the control has no value */
+"Cancel recording" = "Отменить ввод";
+
+/* Tooltip for the clear button */
+"Delete current shortcut" = "Удалить текущее сочетание клавиш";
+
+/* Tooltip for the recording mode */
+"Type shortcut" = "Введите сочетание клавиш";
+
+/* Label for the value-less control */
+"Record Shortcut" = "Ввести сочетание клавиш";
+
+/* Tooltip for the normal mode */
+"Click to record shortcut" = "Нажмите, чтобы ввести сочетание клавиш";
+
+/* Value for the NSLocalizedFailureReasonErrorKey key of validator's error */
+"The \"%@\" shortcut can't be used!" = "Сочетание клавиш «%@» не может быть использовано!";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's delegate error */
+"The \"%@\" shortcut can't be used because %@." = "Сочетание клавиш «%@» не может быть использовано, потому что %@.";
+
+/* Default value for the NSLocalizedDescriptionKey key of validator's error */
+"The \"%@\" shortcut is already in use." = "Сочетание клавиш «%@» уже используется.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's system shortcuts error */
+"The \"%@\" shortcut can't be used because it's already used by a system-wide keyboard shortcut. If you really want to use this shortcut, most shortcuts can be changed in the Keyboard panel in System Preferences." = "Сочетание клавиш «%@» не может быть использовано, потому что его использует другое приложение. Если вы действительно хотите использовать это сочетание клавиш, вы можете изменить его в «Системные настройки→Клавиатура→Сочетания клавиш».";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's menu error */
+"The \"%@\" shortcut can't be used because it's already used by the \"%@\" menu item." = "Сочетание клавиш «%@» не может быть использовано, потому что оно уже используется командой меню «%@».";
+
+/* Accessibility name of the Command modifier key */
+"Command" = "Command";
+
+/* VoiceOver name of the Option modifier key */
+"Option" = "Option";
+
+/* VoiceOver name of the Shift modifier key */
+"Shift" = "Shift";
+
+/* VoiceOver name of the Control modifier key */
+"Control" = "Control";
+
+/* VoiceOver name of the modifier keys delimiter */
+"-" = "-";

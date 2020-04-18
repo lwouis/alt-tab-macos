@@ -1,0 +1,56 @@
+/* Literal for the Space key */
+"Space" = "Mellanslag";
+
+/* VoiceOver type of the object recorded by the control */
+"Shortcut" = "Kortkommando";
+
+/* VoiceOver value for the value-less control */
+"Empty" = "Tom";
+
+/* Tooltip for the cancel button when the control has a value */
+"Use old shortcut" = "Behåll kortkommando";
+
+/* Tooltip for the cancel button when the control has no value */
+"Cancel recording" = "Avbryt registrering";
+
+/* Tooltip for the clear button */
+"Delete current shortcut" = "Radera nuvarande kortkommando";
+
+/* Tooltip for the recording mode */
+"Type shortcut" = "Tryck kortkommando";
+
+/* Label for the value-less control */
+"Record Shortcut" = "Registrera kortkommando";
+
+/* Tooltip for the normal mode */
+"Click to record shortcut" = "Klicka och spela in kommando";
+
+/* Value for the NSLocalizedFailureReasonErrorKey key of validator's error */
+"The \"%@\" shortcut can't be used!" = "Kortkommandot “%@“ kunde inte användas!";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's delegate error */
+"The \"%@\" shortcut can't be used because %@." = "Kortkommandot “%@“ kunde inte användas, eftersom %@.";
+
+/* Default value for the NSLocalizedDescriptionKey key of validator's error */
+"The \"%@\" shortcut is already in use." = "Kortkommandot “%@“ används redan.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's system shortcuts error */
+"The \"%@\" shortcut can't be used because it's already used by a system-wide keyboard shortcut. If you really want to use this shortcut, most shortcuts can be changed in the Keyboard panel in System Preferences." = "Kortkommandot “%@“ kunde inte användas, eftersom det redan används av ett systemomspännande kortkommando. Om du verkligen vill använda det här kortkommandot kan du kanske ändra det systemomspännande till något annat i Tangentbord & Mus-panelen i Systeminställningar.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's menu error */
+"The \"%@\" shortcut can't be used because it's already used by the \"%@\" menu item." = "Kortkommandot “%@“ kunde inte användas, eftersom det redan används av menyvalet “%@“.";
+
+/* Accessibility name of the Command modifier key */
+"Command" = "Kommando";
+
+/* VoiceOver name of the Option modifier key */
+"Option" = "Alternativ";
+
+/* VoiceOver name of the Shift modifier key */
+"Shift" = "Skift";
+
+/* VoiceOver name of the Control modifier key */
+"Control" = "Kontroll";
+
+/* VoiceOver name of the modifier keys delimiter */
+"-" = "-";
