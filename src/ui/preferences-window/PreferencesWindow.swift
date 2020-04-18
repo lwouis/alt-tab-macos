@@ -17,10 +17,11 @@ class PreferencesWindow: NSWindow {
     private func setupTabViews() {
         contentViewController = tabViewController
         tabViewController.tabStyle = .toolbar
-        tabViewController.addTabViewItem(GeneralTab.make())
-        tabViewController.addTabViewItem(AppearanceTab.make())
-        tabViewController.addTabViewItem(UpdatesTab.make())
-        tabViewController.addTabViewItem(AboutTab.make())
+        tabViewController.addTabViewItem(TabViewItem(NSLocalizedString("General", comment: ""), NSImage.preferencesGeneralName, GeneralTab.makeView()))
+        tabViewController.addTabViewItem(TabViewItem(NSLocalizedString("Appearance", comment: ""), NSImage.colorPanelName, AppearanceTab.makeView()))
+        tabViewController.addTabViewItem(TabViewItem(NSLocalizedString("Updates", comment: ""), NSImage.refreshTemplateName, UpdatesTab.makeView()))
+        tabViewController.addTabViewItem(TabViewItem(NSLocalizedString("About", comment: ""), NSImage.infoName, AboutTab.makeView()))
+        tabViewController.addTabViewItem(TabViewItem(NSLocalizedString("Acknowledgments", comment: ""), NSImage.userAccountsName, AcknowledgmentsTab.makeView()))
     }
 
     func show() {

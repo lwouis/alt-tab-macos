@@ -6,11 +6,7 @@ class GeneralTab {
     static var shortcutActions = [String: ShortcutAction]()
     static var shortcutsDependentOnHoldShortcut = [NSControl]()
 
-    static func make() -> NSTabViewItem {
-        return TabViewItem.make(NSLocalizedString("General", comment: ""), NSImage.preferencesGeneralName, makeView())
-    }
-
-    private static func makeView() -> NSView {
+    static func makeView() -> NSView {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
         var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut", Preferences.holdShortcut, true, labelPosition: .leftWithoutSeparator)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("then press:", comment: "")))
@@ -33,7 +29,7 @@ class GeneralTab {
         let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show the following windows:", comment: ""))
         let toShow = StackView([toShowDropdowns, toShowCheckboxes], .vertical)
 
-        let grid = GridView.make([
+        let grid = GridView([
             startAtLogin,
             [holdAndPress, shortcuts],
             [checkboxesExplanations, checkboxes],

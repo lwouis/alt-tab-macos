@@ -45,13 +45,13 @@ class FeedbackWindow: NSWindow {
             sendButton,
         ])
         buttons.spacing = GridView.interPadding
-        body = TextArea(80, 12, NSLocalizedString("I think the app could be improved with…", comment: ""), {
+        body = TextArea(80, 12, NSLocalizedString("I think the app could be improved with…", comment: ""), { () -> Void in
             self.sendButton.isEnabled = !self.body.stringValue.isEmpty
         })
         email = TextArea(80, 1, NSLocalizedString("Optional: email (if you want a reply)", comment: ""))
         debugProfile = NSButton(checkboxWithTitle: NSLocalizedString("Send debug profile (CPU, memory, etc)", comment: ""), target: nil, action: nil)
         debugProfile.state = .on
-        let view = GridView.make([
+        let view = GridView([
             [header],
             [body],
             [email],

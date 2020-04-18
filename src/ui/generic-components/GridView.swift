@@ -1,21 +1,19 @@
 import Cocoa
 
-class GridView {
+class GridView: NSGridView {
     static let padding = CGFloat(20)
     static let interPadding = CGFloat(10)
-    static let indentPadding = padding * 2
 
-    static func make(_ controls: [[NSView]]) -> NSGridView {
-        let gridView = NSGridView(views: controls)
-        gridView.translatesAutoresizingMaskIntoConstraints = false
-        gridView.yPlacement = .fill
-        gridView.rowAlignment = .firstBaseline
-        gridView.columnSpacing = interPadding
-        gridView.rowSpacing = interPadding
-        gridView.column(at: 0).leadingPadding = padding
-        gridView.column(at: gridView.numberOfColumns - 1).trailingPadding = padding
-        gridView.row(at: 0).topPadding = padding
-        gridView.row(at: gridView.numberOfRows - 1).bottomPadding = padding
-        return gridView
+    convenience init(_ controls: [[NSView]]) {
+        self.init(views: controls)
+        translatesAutoresizingMaskIntoConstraints = false
+        yPlacement = .fill
+        rowAlignment = .firstBaseline
+        columnSpacing = GridView.interPadding
+        rowSpacing = GridView.interPadding
+        column(at: 0).leadingPadding = GridView.padding
+        column(at: numberOfColumns - 1).trailingPadding = GridView.padding
+        row(at: 0).topPadding = GridView.padding
+        row(at: numberOfRows - 1).bottomPadding = GridView.padding
     }
 }

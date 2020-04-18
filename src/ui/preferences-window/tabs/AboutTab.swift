@@ -1,10 +1,6 @@
 import Cocoa
 
 class AboutTab: NSObject {
-    static func make() -> NSTabViewItem {
-        return TabViewItem.make(NSLocalizedString("About", comment: ""), NSImage.infoName, makeView())
-    }
-
     static func makeView() -> NSGridView {
         let appIcon = NSImageView(image: NSImage(named: "app-icon")!.resizedCopy(150, 150))
         appIcon.imageScaling = .scaleNone
@@ -22,7 +18,7 @@ class AboutTab: NSObject {
         appInfo.spacing = GridView.interPadding
         appInfo.alignment = .centerY
         let sendFeedback = NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: self, action: #selector(feedbackCallback))
-        let grid = GridView.make([
+        let grid = GridView([
             [appInfo],
             [sendFeedback],
         ])
