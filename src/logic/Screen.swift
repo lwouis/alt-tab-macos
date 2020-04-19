@@ -3,8 +3,9 @@ import Cocoa
 class Screen {
     static func preferred() -> NSScreen {
         switch Preferences.showOnScreen {
-            case .includingMouse: return withMouse() ?? NSScreen.main!; // .main as fall-back
-            case .active: return NSScreen.main!;
+            case .includingMouse: return withMouse() ?? NSScreen.main! // .main as fall-back
+            case .active: return NSScreen.main!
+            case .includingMenubar: return NSScreen.screens.first!
         }
     }
 
