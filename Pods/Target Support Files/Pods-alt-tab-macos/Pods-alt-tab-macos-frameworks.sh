@@ -162,6 +162,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/LetsMove/LetsMove.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ShortcutRecorder/ShortcutRecorder.framework"
   install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
   install_dsym "${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM"
@@ -169,6 +170,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/LetsMove/LetsMove.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ShortcutRecorder/ShortcutRecorder.framework"
   install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
   install_dsym "${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM"
