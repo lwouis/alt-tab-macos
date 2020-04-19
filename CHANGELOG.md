@@ -1,3 +1,15 @@
+# [3.10.0](https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0) (2020-04-19)
+
+
+### Bug Fixes
+
+* issues with preferences window on mojave (closes [#233](https://github.com/lwouis/alt-tab-macos/issues/233)) ([8d7f121](https://github.com/lwouis/alt-tab-macos/commit/8d7f121))
+
+
+### Features
+
+* trim fonticon to reduce app size (closes [#168](https://github.com/lwouis/alt-tab-macos/issues/168)) ([0d27cf7](https://github.com/lwouis/alt-tab-macos/commit/0d27cf7))
+
 ## [3.9.1](https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1) (2020-04-18)
 
 

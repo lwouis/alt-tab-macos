@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.10.0</title>
+      <pubDate>Sun, 19 Apr 2020 09:00:57 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3100-httpsgithubcomlwouisalt-tab-macoscomparev391v3100-2020-04-19">3.10.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0">https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0</a>) (2020-04-19)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* issues with preferences window on mojave (closes #233 (https://github.com/lwouis/alt-tab-macos/issues/233)) (8d7f121 (https://github.com/lwouis/alt-tab-macos/commit/8d7f121))</code></pre><h3 id="features">Features</h3>
+<pre><code>* trim fonticon to reduce app size (closes #168 (https://github.com/lwouis/alt-tab-macos/issues/168)) (0d27cf7 (https://github.com/lwouis/alt-tab-macos/commit/0d27cf7))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.10.0/AltTab-3.10.0.zip"
+        sparkle:version="3.10.0"
+        sparkle:shortVersionString="3.10.0"
+        sparkle:edSignature="N8rRAsXgZs1GyxPVOEUgCXWteEaKKEniMpM/dUIE8IrWE+A1t4K9tPYcbiW6jWdwwgCxydmD8XQaX4uU+CAMDw==" length="6692499"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.9.1</title>
       <pubDate>Sat, 18 Apr 2020 18:39:37 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
