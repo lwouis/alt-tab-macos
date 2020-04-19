@@ -63,8 +63,8 @@ class App: NSApplication, NSApplicationDelegate {
     private func loadPreferencesWindow() {
         let tabs = [
             GeneralTab(),
-            UpdatesTab(),
             AppearanceTab(),
+            UpdatesTab(),
             AboutTab(),
             AcknowledgmentsTab(),
         ]
