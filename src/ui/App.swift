@@ -100,12 +100,16 @@ class App: NSApplication, NSApplicationDelegate {
         Windows.focusedWindow()?.close()
     }
 
+    func minDeminSelectedWindow() {
+        Windows.focusedWindow()?.minDemin()
+    }
+
     func quitSelectedApp() {
         Windows.focusedWindow()?.quitApp()
     }
 
-    func minDeminSelectedWindow() {
-        Windows.focusedWindow()?.minDemin()
+    func hideShowSelectedApp() {
+        Windows.focusedWindow()?.hideShowApp()
     }
 
     func focusTarget() {
