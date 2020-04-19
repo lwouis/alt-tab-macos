@@ -70,6 +70,12 @@ class Window {
         }
     }
 
+    func quitApp() {
+        DispatchQueues.accessibilityCommands.async { [weak self] in
+            self?.application.runningApplication.terminate()
+        }
+    }
+
     func focus() {
         // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
         // but quickly switches back to another window in that space

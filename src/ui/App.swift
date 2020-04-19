@@ -100,6 +100,10 @@ class App: NSApplication, NSApplicationDelegate {
         Windows.focusedWindow()?.close()
     }
 
+    func quitSelectedApp() {
+        Windows.focusedWindow()?.quitApp()
+    }
+
     func focusTarget() {
         debugPrint("focusTarget")
         focusSelectedWindow(Windows.focusedWindow())

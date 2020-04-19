@@ -55,7 +55,7 @@ class Applications {
         for runningApp in runningApps {
             Applications.list.removeAll(where: { $0.runningApplication.isEqual(runningApp) })
             Windows.list.enumerated().forEach { (index, window) in
-                if window.application.runningApplication.isEqual(runningApp) && index <= Windows.focusedWindowIndex {
+                if window.application.runningApplication.isEqual(runningApp) && index < Windows.focusedWindowIndex {
                     windowsOnTheLeftOfFocusedWindow += 1
                 }
             }
