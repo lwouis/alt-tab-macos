@@ -87,6 +87,10 @@ class App: NSApplication, NSApplicationDelegate {
         isFirstSummon = true
     }
 
+    func closeSelectedWindow() {
+        Windows.focusedWindow()?.close()
+    }
+
     func focusTarget() {
         debugPrint("focusTarget")
         focusSelectedWindow(Windows.focusedWindow())

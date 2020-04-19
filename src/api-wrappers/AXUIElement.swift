@@ -55,6 +55,10 @@ extension AXUIElement {
         return attribute(kAXHiddenAttribute, Bool.self) == true
     }
 
+    func isFullScreen() -> Bool {
+        return attribute(kAXFullscreenAttribute, Bool.self) == true
+    }
+
     func focusedWindow() -> AXUIElement? {
         return attribute(kAXFocusedWindowAttribute, AXUIElement.self)
     }
@@ -65,6 +69,21 @@ extension AXUIElement {
 
     func subrole() -> String? {
         return attribute(kAXSubroleAttribute, String.self)
+    }
+
+    func closeButton() -> AXUIElement {
+        return attribute(kAXCloseButtonAttribute, AXUIElement.self)!
+    }
+
+    func closeWindow() {
+        if isFullScreen() {
+            AXUIElementSetAttributeValue(self, kAXFullscreenAttribute as CFString, 0 as CFTypeRef)
+        }
+        AXUIElementPerformAction(closeButton(), kAXPressAction as CFString)
+    }
+
+    func focusWindow() {
+        AXUIElementPerformAction(self, kAXRaiseAction as CFString)
     }
 
     func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)? = nil, _ runningApplication: NSRunningApplication? = nil, _ wid: CGWindowID? = nil, _ attemptsCount: Int = 0) {
