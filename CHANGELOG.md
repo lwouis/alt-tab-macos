@@ -1,3 +1,15 @@
+# [3.11.0](https://github.com/lwouis/alt-tab-macos/compare/v3.10.0...v3.11.0) (2020-04-19)
+
+
+### Features
+
+* add app quit shortcut ([7a94e4a](https://github.com/lwouis/alt-tab-macos/commit/7a94e4a))
+* add close window shortcut ([8da8af8](https://github.com/lwouis/alt-tab-macos/commit/8da8af8))
+* add hide/show app shortcut ([6be1c2c](https://github.com/lwouis/alt-tab-macos/commit/6be1c2c))
+* add min/demin window shortcut ([2b752ef](https://github.com/lwouis/alt-tab-macos/commit/2b752ef))
+* add preference: display the ui on screen including menu bar ([156957c](https://github.com/lwouis/alt-tab-macos/commit/156957c))
+* faster initial display of some windows ([3286570](https://github.com/lwouis/alt-tab-macos/commit/3286570))
+
 # [3.10.0](https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0) (2020-04-19)
 
 

@@ -5,6 +5,30 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.11.0</title>
+      <pubDate>Sun, 19 Apr 2020 16:57:56 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3110-httpsgithubcomlwouisalt-tab-macoscomparev3100v3110-2020-04-19">3.11.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.10.0...v3.11.0">https://github.com/lwouis/alt-tab-macos/compare/v3.10.0...v3.11.0</a>) (2020-04-19)</h1>
+<h3 id="features">Features</h3>
+<pre><code>* add app quit shortcut (7a94e4a (https://github.com/lwouis/alt-tab-macos/commit/7a94e4a))
+* add close window shortcut (8da8af8 (https://github.com/lwouis/alt-tab-macos/commit/8da8af8))
+* add hide/show app shortcut (6be1c2c (https://github.com/lwouis/alt-tab-macos/commit/6be1c2c))
+* add min/demin window shortcut (2b752ef (https://github.com/lwouis/alt-tab-macos/commit/2b752ef))
+* add preference: display the ui on screen including menu bar (156957c (https://github.com/lwouis/alt-tab-macos/commit/156957c))
+* faster initial display of some windows (3286570 (https://github.com/lwouis/alt-tab-macos/commit/3286570))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.11.0/AltTab-3.11.0.zip"
+        sparkle:version="3.11.0"
+        sparkle:shortVersionString="3.11.0"
+        sparkle:edSignature="YGtYh13fh+We73moHoj7U5YMlm9Y2VKDI8/3hIK24yLZKQM4pbzMTm9VFSW8HOZh76Ch4u0LxaMdhx+T3OY1AA==" length="6699291"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.10.0</title>
       <pubDate>Sun, 19 Apr 2020 09:00:57 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
