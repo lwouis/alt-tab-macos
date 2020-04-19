@@ -31,7 +31,7 @@ class Windows {
     }
 
     static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ destroyedWindowIndex: Int) {
-        if focusedWindowIndex >= destroyedWindowIndex {
+        if focusedWindowIndex > destroyedWindowIndex {
             cycleFocusedWindowIndex(-1)
         }
     }

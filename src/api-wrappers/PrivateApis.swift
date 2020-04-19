@@ -132,6 +132,8 @@ func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout
 @_silgen_name("SLSRequestScreenCaptureAccess") @discardableResult
 func SLSRequestScreenCaptureAccess() -> UInt8
 
+// for some reason, this attribute is missing from AXAttributeConstants
+let kAXFullscreenAttribute = "AXFullScreen"
 
 
 
