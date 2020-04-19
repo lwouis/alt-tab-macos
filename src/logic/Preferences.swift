@@ -17,6 +17,7 @@ class Preferences {
         "previousWindowShortcut": "⇧⇥",
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
+        "quitAppShortcut": "Q",
         "arrowKeysEnabled": true,
         "mouseHoverEnabled": true,
         "showMinimizedWindows": true,
@@ -53,6 +54,7 @@ class Preferences {
     static var previousWindowShortcut: String { defaults.string(forKey: "previousWindowShortcut")! }
     static var cancelShortcut: String { defaults.string(forKey: "cancelShortcut")! }
     static var closeWindowShortcut: String { defaults.string(forKey: "closeWindowShortcut")! }
+    static var quitAppShortcut: String { defaults.string(forKey: "quitAppShortcut")! }
     static var arrowKeysEnabled: Bool { defaults.bool(forKey: "arrowKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool(forKey: "mouseHoverEnabled") }
     static var showMinimizedWindows: Bool { defaults.bool(forKey: "showMinimizedWindows") }
