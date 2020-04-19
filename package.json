@@ -2,7 +2,9 @@
   "private": true,
   "name": "alt-tab-macos",
   "version": "1.0.0",
-  "scripts": {},
+  "scripts": {
+    "subset-fonticon": "node scripts/subset_fonticon.js"
+  },
   "author": "",
   "license": "MIT",
   "husky": {
@@ -16,6 +18,7 @@
     "@commitlint/travis-cli": "^8.1.0",
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^7.0.16",
+    "fontkit": "^1.8.0",
     "husky": "^3.0.4",
     "marked": "^0.8.0",
     "semantic-release": "^15.13.24"

@@ -1,11 +1,12 @@
 import Cocoa
+import Preferences
 
-class AboutTab: NSObject {
-    static func make() -> NSTabViewItem {
-        return TabViewItem.make(NSLocalizedString("About", comment: ""), NSImage.infoName, makeView())
-    }
+class AboutTab: NSViewController, PreferencePane {
+    let preferencePaneIdentifier = PreferencePane.Identifier("About")
+    let preferencePaneTitle = NSLocalizedString("About", comment: "")
+    let toolbarItemIcon = NSImage(named: NSImage.infoName)!
 
-    static func makeView() -> NSGridView {
+    override func loadView() {
         let appIcon = NSImageView(image: NSImage(named: "app-icon")!.resizedCopy(150, 150))
         appIcon.imageScaling = .scaleNone
         let appText = StackView([
@@ -21,8 +22,8 @@ class AboutTab: NSObject {
         let appInfo = StackView([appIcon, appText])
         appInfo.spacing = GridView.interPadding
         appInfo.alignment = .centerY
-        let sendFeedback = NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: self, action: #selector(feedbackCallback))
-        let grid = GridView.make([
+        let sendFeedback = NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: nil, action: #selector(App.app.showFeedbackPanel))
+        let grid = GridView([
             [appInfo],
             [sendFeedback],
         ])
@@ -30,11 +31,6 @@ class AboutTab: NSObject {
         sendFeedbackCell.xPlacement = .center
         sendFeedbackCell.row!.topPadding = GridView.interPadding
         grid.fit()
-        return grid
-    }
-
-    @objc
-    static func feedbackCallback() {
-        App.app.showFeedbackPanel()
+        view = grid
     }
 }

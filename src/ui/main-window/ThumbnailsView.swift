@@ -29,8 +29,8 @@ class ThumbnailsView: NSVisualEffectView {
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             view.updateRecycledCellWithNewContent(window,
-                    { App.app.focusSelectedWindow(window) },
-                    { Windows.updateFocusedWindowIndex(index) },
+                    { () -> Void in App.app.focusSelectedWindow(window) },
+                    { () -> Void in Windows.updateFocusedWindowIndex(index) },
                     height, screen)
             let width = view.frame.size.width
             if (currentX + Preferences.interCellPadding + width).rounded(.down) > widthMax {
@@ -98,7 +98,7 @@ class ScrollView: NSScrollView {
     }
 
     // force overlay style after a change in System Preference > General > Show scroll bars
-    private func forceOverlayStyle() -> NSObjectProtocol {
+    private func forceOverlayStyle() {
         NotificationCenter.default.addObserver(forName: NSScroller.preferredScrollerStyleDidChangeNotification, object: nil, queue: nil) { [weak self] _ in
             self?.scrollerStyle = .overlay
         }

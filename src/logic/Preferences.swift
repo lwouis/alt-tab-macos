@@ -41,7 +41,7 @@ class Preferences {
     static var fontIconSize: CGFloat { 20 }
 
     // persisted values
-    static var maxScreenUsage: CGFloat { CGFloat(defaults.float(forKey: "maxScreenUsage") / 100) }
+    static var maxScreenUsage: CGFloat { CGFloat(defaults.float(forKey: "maxScreenUsage")) / CGFloat(100) }
     static var minCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "minCellsPerRow")) }
     static var maxCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "maxCellsPerRow")) }
     static var rowsCount: CGFloat { CGFloat(defaults.float(forKey: "rowsCount")) }
@@ -81,10 +81,6 @@ class Preferences {
 
     static func getString(_ key: String) -> String? {
         defaults.string(forKey: key)
-    }
-
-    static func getAsString(_ key: String) -> String {
-        String(describing: defaults.object(forKey: key))
     }
 
     static func set(_ key: String, _ value: Any?) {

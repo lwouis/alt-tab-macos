@@ -5,6 +5,86 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.10.0</title>
+      <pubDate>Sun, 19 Apr 2020 09:00:57 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3100-httpsgithubcomlwouisalt-tab-macoscomparev391v3100-2020-04-19">3.10.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0">https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0</a>) (2020-04-19)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* issues with preferences window on mojave (closes #233 (https://github.com/lwouis/alt-tab-macos/issues/233)) (8d7f121 (https://github.com/lwouis/alt-tab-macos/commit/8d7f121))</code></pre><h3 id="features">Features</h3>
+<pre><code>* trim fonticon to reduce app size (closes #168 (https://github.com/lwouis/alt-tab-macos/issues/168)) (0d27cf7 (https://github.com/lwouis/alt-tab-macos/commit/0d27cf7))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.10.0/AltTab-3.10.0.zip"
+        sparkle:version="3.10.0"
+        sparkle:shortVersionString="3.10.0"
+        sparkle:edSignature="N8rRAsXgZs1GyxPVOEUgCXWteEaKKEniMpM/dUIE8IrWE+A1t4K9tPYcbiW6jWdwwgCxydmD8XQaX4uU+CAMDw==" length="6692499"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 3.9.1</title>
+      <pubDate>Sat, 18 Apr 2020 18:39:37 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="391-httpsgithubcomlwouisalt-tab-macoscomparev390v391-2020-04-18">3.9.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1">https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1</a>) (2020-04-18)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* show windows from steam app (closes #236 (https://github.com/lwouis/alt-tab-macos/issues/236)) (d17c9d5 (https://github.com/lwouis/alt-tab-macos/commit/d17c9d5))
+* thumbnails layout was wrong sometimes (06c6f48 (https://github.com/lwouis/alt-tab-macos/commit/06c6f48))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.9.1/AltTab-3.9.1.zip"
+        sparkle:version="3.9.1"
+        sparkle:shortVersionString="3.9.1"
+        sparkle:edSignature="km/9qGt0p3qqY/kqZ4ApL1rvpBmk7NzFNnoDyeKemdJY0Z1Iv94lLKCMahep778ShZ9PRrAQDP25wHqLdpv4BA==" length="7459014"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 3.9.0</title>
+      <pubDate>Sat, 18 Apr 2020 16:37:30 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="390-httpsgithubcomlwouisalt-tab-macoscomparev380v390-2020-04-18">3.9.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0">https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0</a>) (2020-04-18)</h1>
+<h3 id="features">Features</h3>
+<pre><code>* allow shortcuts to be modifiers-only (closes #243 (https://github.com/lwouis/alt-tab-macos/issues/243)) (d4be095 (https://github.com/lwouis/alt-tab-macos/commit/d4be095))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.9.0/AltTab-3.9.0.zip"
+        sparkle:version="3.9.0"
+        sparkle:shortVersionString="3.9.0"
+        sparkle:edSignature="kVWVsVjgp5z++eT5iCWPltUw57pS0nOUmTrPaqn077ud5MOJ4rqw+VEgMjutBFVEb6iqPHluGVemfg1oohmODA==" length="7459396"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 3.8.0</title>
+      <pubDate>Sat, 18 Apr 2020 15:45:10 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="380-httpsgithubcomlwouisalt-tab-macoscomparev373v380-2020-04-18">3.8.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0">https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0</a>) (2020-04-18)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* clearer debug profile (i.e. no &quot;optional&quot;) (e2b94f7 (https://github.com/lwouis/alt-tab-macos/commit/e2b94f7))</code></pre><h3 id="features">Features</h3>
+<pre><code>* add acknowledgments for third-party software (closes #177 (https://github.com/lwouis/alt-tab-macos/issues/177)) (9398cff (https://github.com/lwouis/alt-tab-macos/commit/9398cff))
+* remove runtime checker for better perf (e9ce575 (https://github.com/lwouis/alt-tab-macos/commit/e9ce575))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.8.0/AltTab-3.8.0.zip"
+        sparkle:version="3.8.0"
+        sparkle:shortVersionString="3.8.0"
+        sparkle:edSignature="sStXgV+RABaGwOeaGF5xp3qmjk4zMb6s0dcqo1FCeUAeA1sR0ABa0EnUUlLkt609/2sNiUyoAmtQN40y1JUEAA==" length="7459275"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.7.3</title>
       <pubDate>Thu, 09 Apr 2020 07:51:32 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

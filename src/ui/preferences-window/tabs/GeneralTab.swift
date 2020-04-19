@@ -1,23 +1,23 @@
 import Cocoa
 import ShortcutRecorder
+import Preferences
 
-class GeneralTab {
-    private static let rowHeight = CGFloat(22) // height of the "Tab key" input
+class GeneralTab: NSViewController, PreferencePane {
+    let preferencePaneIdentifier = PreferencePane.Identifier("General")
+    let preferencePaneTitle = NSLocalizedString("General", comment: "")
+    let toolbarItemIcon = NSImage(named: NSImage.preferencesGeneralName)!
+
     static var shortcutActions = [String: ShortcutAction]()
     static var shortcutsDependentOnHoldShortcut = [NSControl]()
 
-    static func make() -> NSTabViewItem {
-        return TabViewItem.make(NSLocalizedString("General", comment: ""), NSImage.preferencesGeneralName, makeView())
-    }
-
-    private static func makeView() -> NSView {
+    override func loadView() {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
-        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut", Preferences.holdShortcut, true, labelPosition: .leftWithoutSeparator)
+        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut", Preferences.holdShortcut, false, labelPosition: .leftWithoutSeparator)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("then press:", comment: "")))
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), "nextWindowShortcut", Preferences.nextWindowShortcut, labelPosition: .right)
         let previousWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select previous window", comment: ""), "previousWindowShortcut", Preferences.previousWindowShortcut, labelPosition: .right)
         let cancelShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Cancel and hide", comment: ""), "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)
-        let enableArrows = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Arrow keys", comment: ""), "arrowKeysEnabled", extraAction: arrowKeysEnabledCallback, labelPosition: .right)
+        let enableArrows = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Arrow keys", comment: ""), "arrowKeysEnabled", extraAction: GeneralTab.arrowKeysEnabledCallback, labelPosition: .right)
         let enableMouse = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Mouse hover", comment: ""), "mouseHoverEnabled", labelPosition: .right)
         let holdAndPress = StackView(holdShortcut)
         let checkboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Select windows using:", comment: ""))
@@ -33,7 +33,7 @@ class GeneralTab {
         let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show the following windows:", comment: ""))
         let toShow = StackView([toShowDropdowns, toShowCheckboxes], .vertical)
 
-        let grid = GridView.make([
+        let grid = GridView([
             startAtLogin,
             [holdAndPress, shortcuts],
             [checkboxesExplanations, checkboxes],
@@ -43,14 +43,14 @@ class GeneralTab {
         [1, 2, 3].forEach { grid.row(at: $0).topPadding = GridView.interPadding }
         grid.fit()
 
-        shortcutsDependentOnHoldShortcut.append(contentsOf: [enableArrows[0] as! NSControl] + [nextWindowShortcut, previousWindowShortcut, cancelShortcut].map { $0[0] as! NSControl })
-        arrowKeysEnabledCallback(enableArrows[0] as! NSControl)
+        GeneralTab.shortcutsDependentOnHoldShortcut.append(contentsOf: [enableArrows[0] as! NSControl] + [nextWindowShortcut, previousWindowShortcut, cancelShortcut].map { $0[0] as! NSControl })
+        GeneralTab.arrowKeysEnabledCallback(enableArrows[0] as! NSControl)
         startAtLoginCallback(startAtLogin[1] as! NSControl)
 
-        return grid
+        view = grid
     }
 
-    private static func dropdown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSControl {
+    private func dropdown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSControl {
         let dropdown = LabelAndControl.makeDropDown(rawName, macroPreferences)
         return LabelAndControl.setupControl(dropdown, rawName)
     }
@@ -62,7 +62,7 @@ class GeneralTab {
             App.app.uiWorkShouldBeDone = shortcutThatInitiatesTheApp
             if shortcutThatInitiatesTheApp {
                 App.app.appIsBeingUsed = true
-                DispatchQueue.main.async { fn() }
+                DispatchQueue.main.async { () -> () in fn() }
             } else if App.app.appIsBeingUsed {
                 fn()
             }
@@ -112,14 +112,14 @@ class GeneralTab {
 
     // adding/removing login item depending on the checkbox state
     @available(OSX, deprecated: 10.11)
-    static func startAtLoginCallback(_ sender: NSControl) {
+    func startAtLoginCallback(_ sender: NSControl) {
         let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
         let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
         let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
         let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
         loginItemsSnapshot.forEach {
             if (LSSharedFileListItemCopyDisplayName($0)?.takeRetainedValue() == itemName) ||
-                       (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
+                   (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
                 LSSharedFileListItemRemove(loginItems, $0)
             }
         }

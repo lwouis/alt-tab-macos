@@ -8,8 +8,8 @@ enum LabelPosition {
 }
 
 class LabelAndControl: NSObject {
-    static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ modifierFlagsOnly: Bool = false, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
-        let input = UnclearableRecorderControl(shortcutString, modifierFlagsOnly)
+    static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
+        let input = CustomRecorderControl(shortcutString, clearable)
         let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: GeneralTab.shortcutChangedCallback)
         input.sendAction(input.action, to: input.target)
         return views
@@ -69,10 +69,20 @@ class LabelAndControl: NSObject {
     static func setupControl(_ control: NSControl, _ rawName: String, _ extraAction: ActionClosure? = nil) -> NSControl {
         control.identifier = NSUserInterfaceItemIdentifier(rawName)
         control.onAction = {
-            PreferencesWindow.controlWasChanged($0)
+            controlWasChanged($0)
             extraAction?($0)
         }
         return control
+    }
+
+    static func controlWasChanged(_ senderControl: NSControl) {
+        let newValue = LabelAndControl.getControlValue(senderControl)
+        LabelAndControl.updateControlExtras(senderControl, newValue)
+        Preferences.set(senderControl.identifier!.rawValue, newValue)
+        // some preferences require re-creating some components
+        if ["iconSize", "fontHeight", "theme"].contains(where: { (pref: String) -> Bool in pref == senderControl.identifier!.rawValue }) {
+            (App.shared as! App).resetPreferencesDependentComponents()
+        }
     }
 
     static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator) -> NSTextField {

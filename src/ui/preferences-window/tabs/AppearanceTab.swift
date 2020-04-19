@@ -1,14 +1,13 @@
 import Cocoa
+import Preferences
 
-class AppearanceTab {
-    private static let rowHeight = CGFloat(20)
+class AppearanceTab: NSViewController, PreferencePane {
+    let preferencePaneIdentifier = PreferencePane.Identifier("Appearance")
+    let preferencePaneTitle = NSLocalizedString("Appearance", comment: "")
+    let toolbarItemIcon = NSImage(named: NSImage.colorPanelName)!
 
-    static func make() -> NSTabViewItem {
-        return TabViewItem.make(NSLocalizedString("Appearance", comment: ""), NSImage.colorPanelName, makeView())
-    }
-
-    private static func makeView() -> NSGridView {
-        let grid = GridView.make([
+    override func loadView() {
+        let grid = GridView([
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Theme", comment: ""), "theme", ThemePreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases),
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max size on screen", comment: ""), "maxScreenUsage", 10, 100, 10, true, "%"),
@@ -24,6 +23,7 @@ class AppearanceTab {
         grid.column(at: 0).xPlacement = .trailing
         grid.rowAlignment = .lastBaseline
         grid.fit()
-        return grid
+
+        view = grid
     }
 }

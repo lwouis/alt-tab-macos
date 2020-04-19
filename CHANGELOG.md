@@ -1,3 +1,43 @@
+# [3.10.0](https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0) (2020-04-19)
+
+
+### Bug Fixes
+
+* issues with preferences window on mojave (closes [#233](https://github.com/lwouis/alt-tab-macos/issues/233)) ([8d7f121](https://github.com/lwouis/alt-tab-macos/commit/8d7f121))
+
+
+### Features
+
+* trim fonticon to reduce app size (closes [#168](https://github.com/lwouis/alt-tab-macos/issues/168)) ([0d27cf7](https://github.com/lwouis/alt-tab-macos/commit/0d27cf7))
+
+## [3.9.1](https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1) (2020-04-18)
+
+
+### Bug Fixes
+
+* show windows from steam app (closes [#236](https://github.com/lwouis/alt-tab-macos/issues/236)) ([d17c9d5](https://github.com/lwouis/alt-tab-macos/commit/d17c9d5))
+* thumbnails layout was wrong sometimes ([06c6f48](https://github.com/lwouis/alt-tab-macos/commit/06c6f48))
+
+# [3.9.0](https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0) (2020-04-18)
+
+
+### Features
+
+* allow shortcuts to be modifiers-only (closes [#243](https://github.com/lwouis/alt-tab-macos/issues/243)) ([d4be095](https://github.com/lwouis/alt-tab-macos/commit/d4be095))
+
+# [3.8.0](https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0) (2020-04-18)
+
+
+### Bug Fixes
+
+* clearer debug profile (i.e. no "optional") ([e2b94f7](https://github.com/lwouis/alt-tab-macos/commit/e2b94f7))
+
+
+### Features
+
+* add acknowledgments for third-party software (closes [#177](https://github.com/lwouis/alt-tab-macos/issues/177)) ([9398cff](https://github.com/lwouis/alt-tab-macos/commit/9398cff))
+* remove runtime checker for better perf ([e9ce575](https://github.com/lwouis/alt-tab-macos/commit/e9ce575))
+
 ## [3.7.3](https://github.com/lwouis/alt-tab-macos/compare/v3.7.2...v3.7.3) (2020-04-09)
 
 

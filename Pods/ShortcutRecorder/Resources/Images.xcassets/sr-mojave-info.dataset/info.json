@@ -1,0 +1,69 @@
+{
+	"supportedComponents": [
+			{
+				"appearance": 1,
+				"accessibility": 1
+			},
+            {
+                "appearance": 1,
+                "accessibility": 2
+            },
+			{
+				"appearance": 3,
+                "accessibility": 1
+			},
+            {
+                "appearance": 3,
+                "accessibility": 2
+            }
+	],
+    "metrics": {
+        "minSize": {
+            "width": 11.0,
+            "height": 26.0
+        },
+        "labelToCancel": 3.0,
+        "cancelToClear": 5.0,
+        "buttonToAlignment": 8.0,
+        "baselineFromTop": 0.0,
+        "alignmentToLabel": 10.0,
+        "labelToAlignment": 10.0,
+        "baselineLayoutOffsetFromBottom": 6,
+        "baselineDrawingOffsetFromBottom": 5.5,
+        "focusRingCornerRadius": {
+            "width": 3.0,
+            "height": 3.0
+        },
+        "focusRingInsets": {
+            "top": 1.0,
+            "left": 1.0,
+            "bottom": 1.0,
+            "right": 1.0
+        },
+        "alignmentInsets": {
+            "top": 2.0,
+            "left": 1.0,
+            "bottom": 3.0,
+            "right": 1.0
+        },
+        "normalLabelAttributes": {
+            "fontName": ".AppleSystemUIFont",
+            "fontSize": 13.0,
+            "fontColorCatalogName": "System",
+            "fontColorName": "controlTextColor",
+        },
+        "recordingLabelAttributes": {
+            "fontName": ".AppleSystemUIFont",
+            "fontSize": 13.0,
+            "fontColorCatalogName": "System",
+            "fontColorName": "disabledControlTextColor",
+        },
+        "disabledLabelAttributes": {
+            "fontName": ".AppleSystemUIFont",
+            "fontSize": 13.0,
+            "fontColorCatalogName": "System",
+            "fontColorName": "disabledControlTextColor",
+        }
+    }
+
+}

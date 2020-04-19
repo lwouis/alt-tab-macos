@@ -1,0 +1,56 @@
+/* Literal for the Space key */
+"Space" = "Leertaste";
+
+/* VoiceOver type of the object recorded by the control */
+"Shortcut" = "Tastaturkurzbefehl";
+
+/* VoiceOver value for the value-less control */
+"Empty" = "Leer";
+
+/* Tooltip for the cancel button when the control has a value */
+"Use old shortcut" = "Alte kurzbefehl benutzen";
+
+/* Tooltip for the cancel button when the control has no value */
+"Cancel recording" = "Aufnahme abbrechen";
+
+/* Tooltip for the clear button */
+"Delete current shortcut" = "Aktuellen kurzbefehl löschen";
+
+/* Tooltip for the recording mode */
+"Type shortcut" = "Kurzbefehl eingeben";
+
+/* Label for the value-less control */
+"Record Shortcut" = "Kurzbefehl Aufnehmen";
+
+/* Tooltip for the normal mode */
+"Click to record shortcut" = "Klicken, um kurzbefehl einzugeben";
+
+/* Value for the NSLocalizedFailureReasonErrorKey key of validator's error */
+"The \"%@\" shortcut can't be used!" = "Die tastaturkurzbefehl „%@“ kann nicht benutzt werden.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's delegate error */
+"The \"%@\" shortcut can't be used because %@." = "Die tastaturkurzbefehl „%@“ kann nicht benutzt werden, da %@.";
+
+/* Default value for the NSLocalizedDescriptionKey key of validator's error */
+"The \"%@\" shortcut is already in use." = "Die tastaturkurzbefehl „%@“ wird bereits verwendet.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's system shortcuts error */
+"The \"%@\" shortcut can't be used because it's already used by a system-wide keyboard shortcut. If you really want to use this shortcut, most shortcuts can be changed in the Keyboard panel in System Preferences." = "Die tastaturkurzbefehl „%@“ kann nicht benutzt werden, da sie bereits vom System belegt ist. (Wenn Sie diese wirklich benutzen wollen, können Sie sie meistens in den Tastatur & Maus Einstellungen in den Systemeinstellungen umstellen).";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's menu error */
+"The \"%@\" shortcut can't be used because it's already used by the \"%@\" menu item." = "Die tastaturkurzbefehl „%@“ kann nicht benutzt werden, da sie bereits von dem Menüeintrag „%@“ benutzt wird.";
+
+/* VoiceOver name of the Command modifier key */
+"Command" = "Befehlstaste";
+
+/* VoiceOver name of the Option modifier key */
+"Option" = "Wahltaste";
+
+/* VoiceOver name of the Shift modifier key */
+"Shift" = "Umschalttaste";
+
+/* VoiceOver name of the Control modifier key */
+"Control" = "Steuerungstaste";
+
+/* VoiceOver name of the modifier keys delimiter */
+"-" = "-";

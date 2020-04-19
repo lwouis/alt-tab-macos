@@ -1,6 +1,8 @@
 import Cocoa
 
 extension AXUIElement {
+    static let normalLevel = CGWindowLevelForKey(.normalWindow)
+
     func cgWindowId() -> CGWindowID {
         var id = CGWindowID(0)
         _AXUIElementGetWindow(self, &id)
@@ -13,18 +15,24 @@ extension AXUIElement {
         return pid
     }
 
-    func isActualWindow() -> Bool {
-        // TODO: TotalFinder and XtraFinder double-window hacks (see #84)
+    func isActualWindow(_ bundleIdentifier: String?) -> Bool {
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
         // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs
-        return ["AXStandardWindow", "AXDialog"].contains(subrole()) && isOnNormalLevel()
+        let subrole_ = subrole()
+        return subrole_ != nil &&
+            (["AXStandardWindow", "AXDialog"].contains(subrole_) ||
+                // All Steam windows have subrole = AXUnknown
+                // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
+                (bundleIdentifier == "com.valvesoftware.steam" && title() != "" && role() != nil)) &&
+            isOnNormalLevel()
     }
 
     func isOnNormalLevel() -> Bool {
-        return cgWindowId().level() == CGWindowLevelForKey(.normalWindow)
+        let level: CGWindowLevel = cgWindowId().level()
+        return level == AXUIElement.normalLevel
     }
 
     func position() -> CGPoint? {
@@ -51,31 +59,40 @@ extension AXUIElement {
         return attribute(kAXFocusedWindowAttribute, AXUIElement.self)
     }
 
+    func role() -> String? {
+        return attribute(kAXRoleAttribute, String.self)
+    }
+
     func subrole() -> String? {
         return attribute(kAXSubroleAttribute, String.self)
     }
 
     func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)? = nil, _ runningApplication: NSRunningApplication? = nil, _ wid: CGWindowID? = nil, _ attemptsCount: Int = 0) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] () -> () in
+            guard let self = self else { return }
+            DispatchQueue.main.async { () -> () in
                 if let runningApplication = runningApplication, Applications.appsInSubscriptionRetryLoop.first(where: { $0 == String(runningApplication.processIdentifier) + String(notification) }) == nil { return }
                 if let wid = wid, Windows.windowsInSubscriptionRetryLoop.first(where: { $0 == String(wid) + String(notification) }) == nil { return }
             }
             let result = AXObserverAddNotification(axObserver, self, notification as CFString, pointer)
-            if result == .success || result == .notificationAlreadyRegistered {
-                DispatchQueue.main.async { [weak self] in
-                    callback?()
-                    self?.stopRetries(runningApplication, wid, notification)
-                }
-            } else if result == .notificationUnsupported || result == .notImplemented {
-                DispatchQueue.main.async { [weak self] in
-                    self?.stopRetries(runningApplication, wid, notification)
-                }
-            } else {
-                DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(10), execute: { [weak self] in
-                    self?.subscribeWithRetry(axObserver, notification, pointer, callback, runningApplication, wid, attemptsCount + 1)
-                })
+            self.handleSubscriptionAttempt(result, axObserver, notification, pointer, callback, runningApplication, wid, attemptsCount)
+        }
+    }
+
+    func handleSubscriptionAttempt(_ result: AXError, _ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)?, _ runningApplication: NSRunningApplication?, _ wid: CGWindowID?, _ attemptsCount: Int) -> Void {
+        if result == .success || result == .notificationAlreadyRegistered {
+            DispatchQueue.main.async { [weak self] () -> () in
+                callback?()
+                self?.stopRetries(runningApplication, wid, notification)
             }
+        } else if result == .notificationUnsupported || result == .notImplemented {
+            DispatchQueue.main.async { [weak self] () -> () in
+                self?.stopRetries(runningApplication, wid, notification)
+            }
+        } else {
+            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(10), execute: { [weak self] in
+                self?.subscribeWithRetry(axObserver, notification, pointer, callback, runningApplication, wid, attemptsCount + 1)
+            })
         }
     }
 

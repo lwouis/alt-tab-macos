@@ -1,0 +1,56 @@
+/* Literal for the Space key */
+"Space" = "Espace";
+
+/* VoiceOver type of the object recorded by the control */
+"Shortcut" = "Raccourci";
+
+/* VoiceOver value for the value-less control */
+"Empty" = "Vide";
+
+/* Tooltip for the cancel button when the control has a value */
+"Use old shortcut" = "Utiliser l’ancien raccourci";
+
+/* Tooltip for the cancel button when the control has no value */
+"Cancel recording" = "Annuler l'enregistrement";
+
+/* Tooltip for the clear button */
+"Delete current shortcut" = "Supprimer le raccourci actuel";
+
+/* Tooltip for the recording mode */
+"Type shortcut" = "Taper le raccourci";
+
+/* Label for the value-less control */
+"Record Shortcut" = "Enregistrer le raccourci";
+
+/* Tooltip for the normal mode */
+"Click to record shortcut" = "Enregistrer le raccourci";
+
+/* Value for the NSLocalizedFailureReasonErrorKey key of validator's error */
+"The \"%@\" shortcut can't be used!" = "La combinaison de touches « %@ » ne peut être utilisée !";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's delegate error */
+"The \"%@\" shortcut can't be used because %@." = "La combinaison de touches « %@ » ne peut être utilisée parce que %@.";
+
+/* Default value for the NSLocalizedDescriptionKey key of validator's error */
+"The \"%@\" shortcut is already in use." = "La combinaison de touches « %@ » est déjà utilisée.";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's system shortcuts error */
+"The \"%@\" shortcut can't be used because it's already used by a system-wide keyboard shortcut. If you really want to use this shortcut, most shortcuts can be changed in the Keyboard panel in System Preferences." = "La combinaison de touches « %@ » ne peut être utilisée parce qu’elle est déjà utilisée par un raccourci clavier du système. (Si vous désirez réellement utiliser cette combinaison de touches, la plupart des combinaisons de touches peuvent être modifiées dans le panneau Clavier et souris des Préférences Système.)";
+
+/* Value for the NSLocalizedDescriptionKey key of validator's menu error */
+"The \"%@\" shortcut can't be used because it's already used by the \"%@\" menu item." = "La combinaison de touches « %@ » ne peut être utilisée parce qu’elle est déjà utilisée par l’élément de menu « %@ ».";
+
+/* VoiceOver name of the Command modifier key */
+"Command" = "Commande";
+
+/* VoiceOver name of the Option modifier key */
+"Option" = "Option";
+
+/* VoiceOver name of the Shift modifier key */
+"Shift" = "Majuscule";
+
+/* VoiceOver name of the Control modifier key */
+"Control" = "Contrôle";
+
+/* VoiceOver name of the modifier keys delimiter */
+"-" = "-";
