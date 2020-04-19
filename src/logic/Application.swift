@@ -111,7 +111,7 @@ private func eventApplicationActivated(_ app: App, _ element: AXUIElement) {
           let appFocusedWindow = element.focusedWindow(),
           let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
-    app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
+    app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]], true)
 }
 
 private func eventApplicationHiddenOrShown(_ app: App, _ element: AXUIElement, _ type: String) {
@@ -120,7 +120,7 @@ private func eventApplicationHiddenOrShown(_ app: App, _ element: AXUIElement, _
         $0.application.axUiElement!.pid() == element.pid()
     }
     windows.forEach { $0.isHidden = type == kAXApplicationHiddenNotification }
-    app.refreshOpenUi(windows)
+    app.refreshOpenUi(windows, true)
 }
 
 private func eventWindowCreated(_ app: App, _ element: AXUIElement, _ application: Application) {

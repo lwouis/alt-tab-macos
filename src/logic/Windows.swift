@@ -20,6 +20,10 @@ class Windows {
     }
 
     static func cycleFocusedWindowIndex(_ step: Int) {
+        updateFocusedWindowIndex(windowIndexAfterCycling(step))
+    }
+
+    static func windowIndexAfterCycling(_ step: Int) -> Int {
         var iterations = 0
         var targetIndex = focusedWindowIndex
         repeat {
@@ -27,7 +31,7 @@ class Windows {
             targetIndex = next < 0 ? list.count + next : next
             iterations += 1
         } while !list[targetIndex].shouldShowTheUser && iterations <= list.count
-        updateFocusedWindowIndex(targetIndex)
+        return targetIndex
     }
 
     static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ destroyedWindowIndex: Int) {
@@ -41,17 +45,20 @@ class Windows {
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refreshCurrentSpaceId()
-        let spacesMap = Spaces.idsAndIndexes
-        list.forEachAsync { window in
-            let spaceIds = window.cgWindowId.spaces()
-            if spaceIds.count == 1 {
-                window.spaceId = spaceIds.first!
-                window.spaceIndex = spacesMap.first { $0.0 == spaceIds.first! }!.1
-            } else if spaceIds.count > 1 {
-                window.spaceId = Spaces.currentSpaceId
-                window.spaceIndex = Spaces.currentSpaceIndex
-                window.isOnAllSpaces = true
-            }
+        list.forEachAsync { (window: Window) in
+            updatesWindowSpace(window)
+        }
+    }
+
+    static func updatesWindowSpace(_ window: Window) {
+        let spaceIds = window.cgWindowId.spaces()
+        if spaceIds.count == 1 {
+            window.spaceId = spaceIds.first!
+            window.spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
+        } else if spaceIds.count > 1 {
+            window.spaceId = Spaces.currentSpaceId
+            window.spaceIndex = Spaces.currentSpaceIndex
+            window.isOnAllSpaces = true
         }
     }
 
@@ -80,16 +87,26 @@ class Windows {
     }
 
     static func refreshWhichWindowsToShowTheUser(_ screen: NSScreen) {
-        var screenFrameInQuartzCoordinates = screen.frame
-        screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
-        let activeApp = NSWorkspace.shared.frontmostApplication
-        Windows.list.forEach {
-            $0.shouldShowTheUser = !(!Preferences.showMinimizedWindows && $0.isMinimized) &&
-                    !(!Preferences.showHiddenWindows && $0.isHidden) &&
-                    !(Preferences.appsToShow == .active && $0.application.runningApplication != activeApp) &&
-                    !(Preferences.spacesToShow == .active && $0.spaceId != Spaces.currentSpaceId) &&
-                    !(Preferences.screensToShow == .showingAltTab && $0.axUiElement.position().map { p in !screenFrameInQuartzCoordinates.contains(p) } ?? true)
+        Windows.list.forEach { (window: Window) in
+            refreshIfWindowShouldBeShownToTheUser(window, screen)
         }
+    }
+
+    static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
+        window.shouldShowTheUser = !(!Preferences.showMinimizedWindows && window.isMinimized) &&
+            !(!Preferences.showHiddenWindows && window.isHidden) &&
+            !(Preferences.appsToShow == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
+            !(Preferences.spacesToShow == .active && window.spaceId != Spaces.currentSpaceId) &&
+            !(Preferences.screensToShow == .showingAltTab && !isOnScreen(window, screen))
+    }
+
+    static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {
+        if let position = window.axUiElement.position() {
+            var screenFrameInQuartzCoordinates = screen.frame
+            screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
+            return screenFrameInQuartzCoordinates.contains(position)
+        }
+        return true
     }
 
     static func refreshAllExistingThumbnails() {
