@@ -77,9 +77,22 @@ extension AXUIElement {
 
     func closeWindow() {
         if isFullScreen() {
-            AXUIElementSetAttributeValue(self, kAXFullscreenAttribute as CFString, 0 as CFTypeRef)
+            AXUIElementSetAttributeValue(self, kAXFullscreenAttribute as CFString, false as CFTypeRef)
         }
         AXUIElementPerformAction(closeButton(), kAXPressAction as CFString)
+    }
+
+    func minDeminWindow() {
+        if isFullScreen() {
+            AXUIElementSetAttributeValue(self, kAXFullscreenAttribute as CFString, false as CFTypeRef)
+            // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
+            DispatchQueues.accessibilityCommands.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
+                guard let self = self else { return }
+                AXUIElementSetAttributeValue(self, kAXMinimizedAttribute as CFString, true as CFTypeRef)
+            }
+        } else {
+            AXUIElementSetAttributeValue(self, kAXMinimizedAttribute as CFString, !isMinimized() as CFTypeRef)
+        }
     }
 
     func focusWindow() {

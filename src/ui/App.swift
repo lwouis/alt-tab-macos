@@ -104,6 +104,10 @@ class App: NSApplication, NSApplicationDelegate {
         Windows.focusedWindow()?.quitApp()
     }
 
+    func minDeminSelectedWindow() {
+        Windows.focusedWindow()?.minDemin()
+    }
+
     func focusTarget() {
         debugPrint("focusTarget")
         focusSelectedWindow(Windows.focusedWindow())
@@ -148,20 +152,35 @@ class App: NSApplication, NSApplicationDelegate {
         rebuildUi()
     }
 
-    func refreshOpenUi(_ windowsToRefresh: [Window]? = nil) {
+    func refreshOpenUi(_ windowsToUpdate: [Window]? = nil, _ updateWindowsInfo: Bool = false) {
         guard appIsBeingUsed else { return }
-        windowsToRefresh?.forEach { $0.refreshThumbnail() }
-        guard uiWorkShouldBeDone else { return }
+        let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refreshCurrentSpaceId()
+        refreshSpecificWindows(windowsToUpdate, updateWindowsInfo, currentScreen)
         guard uiWorkShouldBeDone else { return }
-        let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         thumbnailsPanel.thumbnailsView.updateItems(currentScreen)
         guard uiWorkShouldBeDone else { return }
         thumbnailsPanel.setFrame(thumbnailsPanel.thumbnailsView.frame, display: false)
         guard uiWorkShouldBeDone else { return }
         Screen.repositionPanel(thumbnailsPanel, currentScreen, .appleCentered)
+    }
+
+    private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ updateWindowsInfo: Bool, _ currentScreen: NSScreen) -> ()? {
+        windowsToUpdate?.forEach { (window: Window) in
+            guard uiWorkShouldBeDone else { return }
+            window.refreshThumbnail()
+            if updateWindowsInfo {
+                Windows.refreshIfWindowShouldBeShownToTheUser(window, currentScreen)
+                if !window.shouldShowTheUser && window.cgWindowId == Windows.focusedWindow()!.cgWindowId {
+                    let stepWithClosestWindow = Windows.windowIndexAfterCycling(-1) > Windows.focusedWindowIndex ? 1 : -1
+                    Windows.cycleFocusedWindowIndex(stepWithClosestWindow)
+                } else {
+                    Windows.updatesWindowSpace(window)
+                }
+            }
+        }
     }
 
     func showUiOrCycleSelection(_ step: Int) {

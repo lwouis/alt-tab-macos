@@ -19,6 +19,7 @@ class GeneralTab: NSViewController, PreferencePane {
         let cancelShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Cancel and hide", comment: ""), "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)
         let closeWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Close window", comment: ""), "closeWindowShortcut", Preferences.closeWindowShortcut, labelPosition: .right)
         let quitAppShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Quit app", comment: ""), "quitAppShortcut", Preferences.quitAppShortcut, labelPosition: .right)
+        let minDeminWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Minimize/Deminimize window", comment: ""), "minDeminWindowShortcut", Preferences.minDeminWindowShortcut, labelPosition: .right)
         let enableArrows = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Arrow keys", comment: ""), "arrowKeysEnabled", extraAction: GeneralTab.arrowKeysEnabledCallback, labelPosition: .right)
         let enableMouse = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Mouse hover", comment: ""), "mouseHoverEnabled", labelPosition: .right)
         let holdAndPress = StackView(holdShortcut)
@@ -29,7 +30,7 @@ class GeneralTab: NSViewController, PreferencePane {
         let screensToShow = dropdown("screensToShow", ScreensToShowPreference.allCases)
         let showMinimizedWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Minimized", comment: ""), "showMinimizedWindows", labelPosition: .right))
         let showHiddenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hidden", comment: ""), "showHiddenWindows", labelPosition: .right))
-        let shortcuts = StackView([nextWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, quitAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
+        let shortcuts = StackView([nextWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, quitAppShortcut, minDeminWindowShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
         let toShowDropdowns = StackView([appsToShow, spacesToShow, screensToShow], .vertical)
         let toShowCheckboxes = StackView([showMinimizedWindows, showHiddenWindows], .vertical)
         let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show the following windows:", comment: ""))
@@ -46,7 +47,7 @@ class GeneralTab: NSViewController, PreferencePane {
         grid.fit()
 
         GeneralTab.shortcutsDependentOnHoldShortcut.append(contentsOf: [enableArrows[0] as! NSControl] +
-            [nextWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, quitAppShortcut].map { $0[0] as! NSControl })
+            [nextWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, quitAppShortcut, minDeminWindowShortcut].map { $0[0] as! NSControl })
         GeneralTab.arrowKeysEnabledCallback(enableArrows[0] as! NSControl)
         startAtLoginCallback(startAtLogin[1] as! NSControl)
 
@@ -62,7 +63,7 @@ class GeneralTab: NSViewController, PreferencePane {
         removeShortcutIfExists(controlId, type) // remove the previous shortcut
         shortcutActions[controlId] = ShortcutAction(shortcut: shortcut, actionHandler: { _ in
             let isShortcutInitiatingTheApp = ["previousWindowShortcut", "nextWindowShortcut"].contains(controlId)
-            let isShortcutWithUiShown = ["closeWindowShortcut", "quitAppShortcut"].contains(controlId)
+            let isShortcutWithUiShown = ["←", "→", "closeWindowShortcut", "quitAppShortcut", "minDeminWindowShortcut"].contains(controlId)
             App.app.uiWorkShouldBeDone = isShortcutInitiatingTheApp || isShortcutWithUiShown
             if isShortcutInitiatingTheApp {
                 App.app.appIsBeingUsed = true
@@ -103,6 +104,8 @@ class GeneralTab: NSViewController, PreferencePane {
             return { App.app.closeSelectedWindow() }
         } else if controlId == "quitAppShortcut" {
             return { App.app.quitSelectedApp() }
+        } else if controlId == "minDeminWindowShortcut" {
+            return { App.app.minDeminSelectedWindow() }
         }
         return {}
     }

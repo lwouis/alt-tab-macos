@@ -25,7 +25,9 @@ class Window {
     ]
 
     static func stopSubscriptionRetries(_ notification: String, _ cgWindowId: CGWindowID) {
-        Windows.windowsInSubscriptionRetryLoop.removeAll { $0 == (String(cgWindowId) + String(notification)) }
+        Windows.windowsInSubscriptionRetryLoop.removeAll { (subscription: String) -> Bool in
+            subscription == String(cgWindowId) + notification
+        }
     }
 
     init(_ axUiElement: AXUIElement, _ application: Application) {
@@ -73,6 +75,12 @@ class Window {
     func quitApp() {
         DispatchQueues.accessibilityCommands.async { [weak self] in
             self?.application.runningApplication.terminate()
+        }
+    }
+
+    func minDemin() {
+        DispatchQueues.accessibilityCommands.async { [weak self] in
+            self?.axUiElement.minDeminWindow()
         }
     }
 
@@ -147,7 +155,7 @@ private func eventWindowMiniaturizedOrDeminiaturized(_ app: App, _ element: AXUI
     guard let index = Windows.list.firstIndexThatMatches(element) else { return }
     let window = Windows.list[index]
     window.isMinimized = type == kAXWindowMiniaturizedNotification
-    app.refreshOpenUi([window])
+    app.refreshOpenUi([window], true)
 }
 
 private func eventWindowTitleChanged(_ app: App, _ element: AXUIElement) {
