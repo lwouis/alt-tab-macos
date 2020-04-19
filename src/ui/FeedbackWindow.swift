@@ -101,8 +101,9 @@ class FeedbackWindow: NSWindow {
         result += "\n\n__Message:__"
         result += "\n\n> " + body.stringValue.replacingOccurrences(of: "\n", with: "\n> ")
         if debugProfile.state == .on {
-            result += "\n\n__Debug profile:__"
+            result += "\n\n<details>\n<summary><strong>Debug profile</strong></summary>\n<p>"
             result += "\n\n" + DebugProfile.make()
+            result += "\n\n" + "</p>\n</details>"
         }
         return result
     }
