@@ -13,8 +13,8 @@ class App: NSApplication, NSApplicationDelegate {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static var app: App!
     static let shortcutMonitor = LocalShortcutMonitor()
-    var statusItem: NSStatusItem?
-    var thumbnailsPanel: ThumbnailsPanel?
+    var statusItem: NSStatusItem!
+    var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindowController: PreferencesWindowController!
     var feedbackWindow: FeedbackWindow?
     var uiWorkShouldBeDone = true
@@ -49,6 +49,15 @@ class App: NSApplication, NSApplicationDelegate {
         UpdatesTab.observeUserDefaults()
         // TODO: undeterministic; events in the queue may still be processing; good enough for now
         DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
+        preloadWindows()
+    }
+
+    // pre-load some windows so they are faster on first display
+    private func preloadWindows() {
+        preferencesWindowController.show()
+        preferencesWindowController.window!.orderOut(nil)
+        thumbnailsPanel.orderFront(nil)
+        thumbnailsPanel.orderOut(nil)
     }
 
     private func loadPreferencesWindow() {
@@ -75,13 +84,13 @@ class App: NSApplication, NSApplicationDelegate {
     // we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
         ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
-        thumbnailsPanel!.thumbnailsView.layer!.cornerRadius = Preferences.windowCornerRadius
+        thumbnailsPanel.thumbnailsView.layer!.cornerRadius = Preferences.windowCornerRadius
     }
 
     func hideUi() {
         debugPrint("hideUi")
         DispatchQueue.main.async { () -> () in
-            self.thumbnailsPanel!.orderOut(nil)
+            self.thumbnailsPanel.orderOut(nil)
         }
         appIsBeingUsed = false
         isFirstSummon = true
@@ -131,7 +140,7 @@ class App: NSApplication, NSApplicationDelegate {
     }
 
     func reopenUi() {
-        thumbnailsPanel!.orderOut(nil)
+        thumbnailsPanel.orderOut(nil)
         rebuildUi()
     }
 
@@ -144,11 +153,11 @@ class App: NSApplication, NSApplicationDelegate {
         Spaces.refreshCurrentSpaceId()
         guard uiWorkShouldBeDone else { return }
         let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
-        thumbnailsPanel!.thumbnailsView.updateItems(currentScreen)
+        thumbnailsPanel.thumbnailsView.updateItems(currentScreen)
         guard uiWorkShouldBeDone else { return }
-        thumbnailsPanel!.setFrame(thumbnailsPanel!.thumbnailsView.frame, display: false)
+        thumbnailsPanel.setFrame(thumbnailsPanel.thumbnailsView.frame, display: false)
         guard uiWorkShouldBeDone else { return }
-        Screen.repositionPanel(thumbnailsPanel!, currentScreen, .appleCentered)
+        Screen.repositionPanel(thumbnailsPanel, currentScreen, .appleCentered)
     }
 
     func showUiOrCycleSelection(_ step: Int) {
@@ -180,7 +189,7 @@ class App: NSApplication, NSApplicationDelegate {
         guard uiWorkShouldBeDone else { return }
         refreshOpenUi()
         guard uiWorkShouldBeDone else { return }
-        thumbnailsPanel!.show()
+        thumbnailsPanel.show()
 //        guard uiWorkShouldBeDone else { return }
 //        DispatchQueue.main.async { () -> () in
 //            Windows.refreshAllExistingThumbnails()

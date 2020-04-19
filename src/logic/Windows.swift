@@ -12,7 +12,7 @@ class Windows {
         focusedWindowIndex = newIndex
         let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
         ThumbnailsPanel.highlightCell(ThumbnailsView.recycledViews[previousFocusedWindowIndex], focusedView)
-        App.app.thumbnailsPanel!.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+        App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
     }
 
     static func focusedWindow() -> Window? {
