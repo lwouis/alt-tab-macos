@@ -72,15 +72,26 @@ class Window {
         }
     }
 
+    func minDemin() {
+        DispatchQueues.accessibilityCommands.async { [weak self] in
+            self?.axUiElement.minDeminWindow()
+        }
+    }
+
     func quitApp() {
         DispatchQueues.accessibilityCommands.async { [weak self] in
             self?.application.runningApplication.terminate()
         }
     }
 
-    func minDemin() {
+    func hideShowApp() {
         DispatchQueues.accessibilityCommands.async { [weak self] in
-            self?.axUiElement.minDeminWindow()
+            guard let self = self else { return }
+            if self.application.runningApplication.isHidden {
+                self.application.runningApplication.unhide()
+            } else {
+                self.application.runningApplication.hide()
+            }
         }
     }
 
