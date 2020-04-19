@@ -69,10 +69,20 @@ class LabelAndControl: NSObject {
     static func setupControl(_ control: NSControl, _ rawName: String, _ extraAction: ActionClosure? = nil) -> NSControl {
         control.identifier = NSUserInterfaceItemIdentifier(rawName)
         control.onAction = {
-            PreferencesWindow.controlWasChanged($0)
+            controlWasChanged($0)
             extraAction?($0)
         }
         return control
+    }
+
+    static func controlWasChanged(_ senderControl: NSControl) {
+        let newValue = LabelAndControl.getControlValue(senderControl)
+        LabelAndControl.updateControlExtras(senderControl, newValue)
+        Preferences.set(senderControl.identifier!.rawValue, newValue)
+        // some preferences require re-creating some components
+        if ["iconSize", "fontHeight", "theme"].contains(where: { (pref: String) -> Bool in pref == senderControl.identifier!.rawValue }) {
+            (App.shared as! App).resetPreferencesDependentComponents()
+        }
     }
 
     static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator) -> NSTextField {

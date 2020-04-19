@@ -2,6 +2,7 @@ import Cocoa
 import Darwin
 import LetsMove
 import ShortcutRecorder
+import Preferences
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
@@ -14,7 +15,7 @@ class App: NSApplication, NSApplicationDelegate {
     static let shortcutMonitor = LocalShortcutMonitor()
     var statusItem: NSStatusItem?
     var thumbnailsPanel: ThumbnailsPanel?
-    var preferencesWindow: PreferencesWindow?
+    var preferencesWindowController: PreferencesWindowController!
     var feedbackWindow: FeedbackWindow?
     var uiWorkShouldBeDone = true
     var isFirstSummon = true
@@ -44,10 +45,23 @@ class App: NSApplication, NSApplicationDelegate {
         Spaces.initialDiscovery()
         Applications.initialDiscovery()
         Keyboard.listenToGlobalEvents()
-        preferencesWindow = PreferencesWindow()
+        loadPreferencesWindow()
         UpdatesTab.observeUserDefaults()
         // TODO: undeterministic; events in the queue may still be processing; good enough for now
         DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
+    }
+
+    private func loadPreferencesWindow() {
+        let tabs = [
+            GeneralTab(),
+            UpdatesTab(),
+            AppearanceTab(),
+            AboutTab(),
+            AcknowledgmentsTab(),
+        ]
+        // pre-load tabs so we can interact with them before the user opens the preferences window
+        tabs.forEach { (tab: NSViewController) in tab.loadView() }
+        preferencesWindowController = PreferencesWindowController(preferencePanes: tabs as! [PreferencePane])
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
@@ -78,19 +92,16 @@ class App: NSApplication, NSApplicationDelegate {
         focusSelectedWindow(Windows.focusedWindow())
     }
 
-    @objc
-    func checkForUpdatesNow(_ sender: NSMenuItem) {
+    @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
         UpdatesTab.checkForUpdatesNow(sender)
     }
 
-    @objc
-    func showPreferencesPanel() {
-        Screen.repositionPanel(preferencesWindow!, Screen.preferred(), .appleCentered)
-        preferencesWindow?.show()
+    @objc func showPreferencesPanel() {
+        Screen.repositionPanel(preferencesWindowController.window!, Screen.preferred(), .appleCentered)
+        preferencesWindowController.show()
     }
 
-    @objc
-    func showFeedbackPanel() {
+    @objc func showFeedbackPanel() {
         if feedbackWindow == nil {
             feedbackWindow = FeedbackWindow()
         }

@@ -1,20 +1,21 @@
 import Cocoa
 import Sparkle
+import Preferences
 
-class UpdatesTab: NSObject {
-    static var dontPeriodicallyCheck: NSButton!
-    static var periodicallyCheck: NSButton!
-    static var periodicallyInstall: NSButton!
-    static var policyObserver = PolicyObserver()
+class UpdatesTab: NSViewController, PreferencePane {
+    let preferencePaneIdentifier = PreferencePane.Identifier("Updates")
+    let preferencePaneTitle = NSLocalizedString("Updates", comment: "")
+    let toolbarItemIcon = NSImage(named: NSImage.refreshTemplateName)!
+
+    static var policyObserver: PolicyObserver!
+    var dontPeriodicallyCheck: NSButton!
+    var periodicallyCheck: NSButton!
+    var periodicallyInstall: NSButton!
     // this helps prevent double-dipping (i.e. user updates the UI > changes the preference > updates the UI)
-    static var policyLock = false
+    var policyLock = false
 
-    static func observeUserDefaults() {
-        UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUAutomaticallyUpdate", options: [.initial, .new], context: nil)
-        UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUEnableAutomaticChecks", options: [.initial, .new], context: nil)
-    }
-
-    static func makeView() -> NSGridView {
+    override func loadView() {
+        UpdatesTab.policyObserver = PolicyObserver(self)
         dontPeriodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Don't check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
         dontPeriodicallyCheck.fit()
         periodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
@@ -28,7 +29,7 @@ class UpdatesTab: NSObject {
         policies.spacing = GridView.interPadding / 2
         let grid = GridView([
             [policyLabel, policies],
-            [NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: self, action: #selector(checkForUpdatesNow))],
+            [NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: nil, action: #selector(UpdatesTab.checkForUpdatesNow))],
         ])
         grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .trailing
         let row1 = grid.row(at: 1)
@@ -36,16 +37,19 @@ class UpdatesTab: NSObject {
         row1.topPadding = GridView.interPadding
         row1.cell(at: 0).xPlacement = .center
         grid.fit()
-        return grid
+        view = grid
     }
 
-    @objc
-    static func checkForUpdatesNow(_ sender: Any) {
+    static func observeUserDefaults() {
+        UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUAutomaticallyUpdate", options: [.initial, .new], context: nil)
+        UserDefaults.standard.addObserver(UpdatesTab.policyObserver, forKeyPath: "SUEnableAutomaticChecks", options: [.initial, .new], context: nil)
+    }
+
+    @objc static func checkForUpdatesNow(_ sender: Any) {
         SUUpdater.shared().checkForUpdates(sender)
     }
 
-    @objc
-    static func updatePolicyCallback() {
+    @objc func updatePolicyCallback() {
         policyLock = true
         SUUpdater.shared().automaticallyDownloadsUpdates = periodicallyInstall.state == .on
         SUUpdater.shared().automaticallyChecksForUpdates = periodicallyInstall.state == .on || periodicallyCheck.state == .on
@@ -54,16 +58,22 @@ class UpdatesTab: NSObject {
 }
 
 class PolicyObserver: NSObject {
+    var updatesTab: UpdatesTab
+
+    init(_ updatesTab: UpdatesTab) {
+        self.updatesTab = updatesTab
+    }
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        guard !UpdatesTab.policyLock else { return }
+        guard !updatesTab.policyLock else { return }
         if SUUpdater.shared().automaticallyDownloadsUpdates {
-            UpdatesTab.periodicallyInstall.state = .on
+            updatesTab.periodicallyInstall.state = .on
             // Sparkle UI "Automatically download and install updates in the future" doesn't activate periodical checks; we do it manually
             SUUpdater.shared().automaticallyChecksForUpdates = true
         } else if SUUpdater.shared().automaticallyChecksForUpdates {
-            UpdatesTab.periodicallyCheck.state = .on
+            updatesTab.periodicallyCheck.state = .on
         } else {
-            UpdatesTab.dontPeriodicallyCheck.state = .on
+            updatesTab.dontPeriodicallyCheck.state = .on
         }
     }
 }

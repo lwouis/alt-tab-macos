@@ -1,8 +1,13 @@
 import Cocoa
 import SwiftyMarkdown
+import Preferences
 
-class AcknowledgmentsTab: NSObject {
-    static func makeView() -> NSGridView {
+class AcknowledgmentsTab: NSViewController, PreferencePane {
+    let preferencePaneIdentifier = PreferencePane.Identifier("Acknowledgments")
+    let preferencePaneTitle = NSLocalizedString("Acknowledgments", comment: "")
+    let toolbarItemIcon = NSImage(named: NSImage.userAccountsName)!
+
+    override func loadView() {
         let markdownFileUrl = Bundle.main.url(forResource: "ACKNOWLEDGMENTS", withExtension: "md")!
         let md = SwiftyMarkdown(url: markdownFileUrl)!
         md.h2.fontSize = 20
@@ -18,6 +23,6 @@ class AcknowledgmentsTab: NSObject {
 
         let grid = GridView([[scrollView]])
         grid.fit()
-        return grid
+        view = grid
     }
 }
