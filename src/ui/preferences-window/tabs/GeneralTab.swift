@@ -9,6 +9,18 @@ class GeneralTab: NSViewController, PreferencePane {
 
     static var shortcutActions = [String: ShortcutAction]()
     static var shortcutsDependentOnHoldShortcut = [NSControl]()
+    static var shortcutsActionsBlocks = [
+        "holdShortcut": { App.app.focusTarget() },
+        "nextWindowShortcut": { App.app.showUiOrCycleSelection(1) },
+        "previousWindowShortcut": { App.app.showUiOrCycleSelection(-1) },
+        "→": { App.app.cycleSelection(1) },
+        "←": { App.app.cycleSelection(-1) },
+        "cancelShortcut": { App.app.hideUi() },
+        "closeWindowShortcut": { App.app.closeSelectedWindow() },
+        "minDeminWindowShortcut": { App.app.minDeminSelectedWindow() },
+        "quitAppShortcut": { App.app.quitSelectedApp() },
+        "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
+    ]
 
     override func loadView() {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
@@ -60,17 +72,25 @@ class GeneralTab: NSViewController, PreferencePane {
         return LabelAndControl.setupControl(dropdown, rawName)
     }
 
-    private static func addShortcut(_ fn: @escaping () -> Void, _ type: KeyEventType, _ shortcut: Shortcut, _ controlId: String) {
+    private static func addShortcut(_ type: KeyEventType, _ shortcut: Shortcut, _ controlId: String) {
         removeShortcutIfExists(controlId, type) // remove the previous shortcut
         shortcutActions[controlId] = ShortcutAction(shortcut: shortcut, actionHandler: { _ in
             let isShortcutInitiatingTheApp = ["previousWindowShortcut", "nextWindowShortcut"].contains(controlId)
-            let isShortcutWithUiShown = ["←", "→", "closeWindowShortcut", "minDeminWindowShortcut", "quitAppShortcut", "hideShowAppShortcut"].contains(controlId)
-            App.app.uiWorkShouldBeDone = isShortcutInitiatingTheApp || isShortcutWithUiShown
             if isShortcutInitiatingTheApp {
                 App.app.appIsBeingUsed = true
-                DispatchQueue.main.async { () -> () in fn() }
-            } else if App.app.appIsBeingUsed {
-                fn()
+            }
+            if App.app.appIsBeingUsed {
+                let isShortcutClosingTheUi = controlId == "holdShortcut"
+                if isShortcutClosingTheUi {
+                    App.app.appIsBeingUsed = false
+                }
+                let fn = shortcutsActionsBlocks[controlId]!
+                let isShortcutAffectingTheUi = ["previousWindowShortcut", "nextWindowShortcut", "←", "→", "holdShortcut"].contains(controlId)
+                if isShortcutAffectingTheUi {
+                    DispatchQueue.main.async { () -> () in fn() }
+                } else {
+                    fn()
+                }
             }
             return true
         })
@@ -80,7 +100,7 @@ class GeneralTab: NSViewController, PreferencePane {
     @objc static func shortcutChangedCallback(_ sender: NSControl) {
         let controlId = sender.identifier!.rawValue
         if controlId == "holdShortcut" {
-            addShortcut({ App.app.focusTarget() }, .up, Shortcut(keyEquivalent: Preferences.holdShortcut)!, controlId)
+            addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut)!, controlId)
             shortcutsDependentOnHoldShortcut.forEach { $0.sendAction($0.action, to: $0.target) }
         } else {
             // remove the holdShortcut character in case they also use it in the other shortcuts
@@ -89,34 +109,14 @@ class GeneralTab: NSViewController, PreferencePane {
                 removeShortcutIfExists(controlId, .down)
                 return
             }
-            let action = shortcutAction(controlId, newValue)
-            addShortcut(action, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + newValue)!, controlId)
+            addShortcut(.down, Shortcut(keyEquivalent: Preferences.holdShortcut + newValue)!, controlId)
         }
-    }
-
-    private static func shortcutAction(_ controlId: String, _ newValue: String) -> () -> Void {
-        if controlId == "nextWindowShortcut" {
-            return { App.app.showUiOrCycleSelection(1) }
-        } else if controlId == "previousWindowShortcut" {
-            return { App.app.showUiOrCycleSelection(-1) }
-        } else if controlId == "cancelShortcut" {
-            return { App.app.hideUi() }
-        } else if controlId == "closeWindowShortcut" {
-            return { App.app.closeSelectedWindow() }
-        } else if controlId == "minDeminWindowShortcut" {
-            return { App.app.minDeminSelectedWindow() }
-        } else if controlId == "quitAppShortcut" {
-            return { App.app.quitSelectedApp() }
-        } else if controlId == "hideShowAppShortcut" {
-            return { App.app.hideShowSelectedApp() }
-        }
-        return {}
     }
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
         if (sender as! NSButton).state == .on {
-            addShortcut({ App.app.cycleSelection(1) }, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + "→")!, "→")
-            addShortcut({ App.app.cycleSelection(-1) }, .down, Shortcut(keyEquivalent: Preferences.holdShortcut + "←")!, "←")
+            addShortcut(.down, Shortcut(keyEquivalent: Preferences.holdShortcut + "→")!, "→")
+            addShortcut(.down, Shortcut(keyEquivalent: Preferences.holdShortcut + "←")!, "←")
         } else {
             removeShortcutIfExists("→", .down)
             removeShortcutIfExists("←", .down)
