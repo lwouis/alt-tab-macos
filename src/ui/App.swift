@@ -17,7 +17,6 @@ class App: NSApplication, NSApplicationDelegate {
     var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindowController: PreferencesWindowController!
     var feedbackWindow: FeedbackWindow?
-    var uiWorkShouldBeDone = true
     var isFirstSummon = true
     var appIsBeingUsed = false
 
@@ -89,11 +88,9 @@ class App: NSApplication, NSApplicationDelegate {
 
     func hideUi() {
         debugPrint("hideUi")
-        DispatchQueue.main.async { () -> () in
-            self.thumbnailsPanel.orderOut(nil)
-        }
         appIsBeingUsed = false
         isFirstSummon = true
+        thumbnailsPanel.orderOut(nil)
     }
 
     func closeSelectedWindow() {
@@ -136,7 +133,7 @@ class App: NSApplication, NSApplicationDelegate {
 
     @objc
     func showUi() {
-        uiWorkShouldBeDone = true
+        appIsBeingUsed = true
         appIsBeingUsed = true
         DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(0) }
     }
@@ -163,17 +160,17 @@ class App: NSApplication, NSApplicationDelegate {
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refreshCurrentSpaceId()
         refreshSpecificWindows(windowsToUpdate, updateWindowsInfo, currentScreen)
-        guard uiWorkShouldBeDone else { return }
+        guard appIsBeingUsed else { return }
         thumbnailsPanel.thumbnailsView.updateItems(currentScreen)
-        guard uiWorkShouldBeDone else { return }
+        guard appIsBeingUsed else { return }
         thumbnailsPanel.setFrame(thumbnailsPanel.thumbnailsView.frame, display: false)
-        guard uiWorkShouldBeDone else { return }
+        guard appIsBeingUsed else { return }
         Screen.repositionPanel(thumbnailsPanel, currentScreen, .appleCentered)
     }
 
     private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ updateWindowsInfo: Bool, _ currentScreen: NSScreen) -> ()? {
         windowsToUpdate?.forEach { (window: Window) in
-            guard uiWorkShouldBeDone else { return }
+            guard appIsBeingUsed else { return }
             window.refreshThumbnail()
             if updateWindowsInfo {
                 Windows.refreshIfWindowShouldBeShownToTheUser(window, currentScreen)
@@ -211,15 +208,11 @@ class App: NSApplication, NSApplicationDelegate {
     }
 
     func rebuildUi() {
-        guard uiWorkShouldBeDone else { return }
+        guard appIsBeingUsed else { return }
         Windows.refreshAllThumbnails()
-        guard uiWorkShouldBeDone else { return }
+        guard appIsBeingUsed else { return }
         refreshOpenUi()
-        guard uiWorkShouldBeDone else { return }
+        guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
-//        guard uiWorkShouldBeDone else { return }
-//        DispatchQueue.main.async { () -> () in
-//            Windows.refreshAllExistingThumbnails()
-//        }
     }
 }

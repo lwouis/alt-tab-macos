@@ -20,7 +20,9 @@ class Windows {
     }
 
     static func cycleFocusedWindowIndex(_ step: Int) {
-        updateFocusedWindowIndex(windowIndexAfterCycling(step))
+        DispatchQueue.main.async { () -> () in
+            updateFocusedWindowIndex(windowIndexAfterCycling(step))
+        }
     }
 
     static func windowIndexAfterCycling(_ step: Int) -> Int {
@@ -111,7 +113,7 @@ class Windows {
 
     static func refreshAllExistingThumbnails() {
         refreshAllThumbnails()
-        guard App.app.uiWorkShouldBeDone else { return }
+        guard App.app.appIsBeingUsed else { return }
         list.enumerated().forEach {
             let newImage = $0.element.thumbnail
             let view = ThumbnailsView.recycledViews[$0.offset].thumbnail
