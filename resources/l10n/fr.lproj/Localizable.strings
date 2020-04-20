@@ -2,7 +2,7 @@
 "About" = "À propos";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Délai d'apparition";
+"Apparition delay" = "Délai d’apparition";
 
 /* No comment provided by engineer. */
 "Appearance" = "Apparence";
@@ -26,7 +26,7 @@
 "Don't check for updates periodically" = "Ne pas chercher de mise-à-jour périodiquement";
 
 /* No comment provided by engineer. */
-"Hide space number labels" = "Cacher les numéraux des Espaces";
+"Hide space number labels" = "Cacher les numéros des Espaces";
 
 /* No comment provided by engineer. */
 "I think the app could be improved with…" = "Je pense que l’app pourrait être améliorée avec…";
@@ -178,3 +178,21 @@
 
 /*No comment provided by engineer.*/
 "then press:" = "puis presser :";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Remerciements";
+
+/*No comment provided by engineer.*/
+"Close window" = "Fermer la fenêtre";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Masquer/Afficher l’app";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Minimiser/Déminimiser la fenêtre";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Quitter l’app";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Écran contenant la barre de menu";

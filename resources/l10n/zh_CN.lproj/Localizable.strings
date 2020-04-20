@@ -178,3 +178,21 @@
 
 /*No comment provided by engineer.*/
 "then press:" = "并按下";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "致谢";
+
+/*No comment provided by engineer.*/
+"Close window" = "关闭窗口";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "隐藏/显示应用";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "最小化/最大化窗口";
+
+/*No comment provided by engineer.*/
+"Quit app" = "退出应用";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "菜单栏所在屏幕";

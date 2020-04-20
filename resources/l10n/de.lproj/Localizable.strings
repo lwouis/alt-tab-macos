@@ -178,3 +178,21 @@
 
 /*No comment provided by engineer.*/
 "then press:" = "und drücke:";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Drittanbieter Lizenzen";
+
+/*No comment provided by engineer.*/
+"Close window" = "Fenster schließen";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "App aus-/einblenden";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Fenster minimieren/entminimieren";
+
+/*No comment provided by engineer.*/
+"Quit app" = "App beenden";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Bildschirm mit Menüleiste";
