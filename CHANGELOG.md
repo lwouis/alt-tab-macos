@@ -1,3 +1,15 @@
+# [3.12.0](https://github.com/lwouis/alt-tab-macos/compare/v3.11.0...v3.12.0) (2020-04-20)
+
+
+### Bug Fixes
+
+* updated localizations ([eec6912](https://github.com/lwouis/alt-tab-macos/commit/eec6912))
+
+
+### Features
+
+* collapsible debug profile in feedback report ([d6960d5](https://github.com/lwouis/alt-tab-macos/commit/d6960d5))
+
 # [3.11.0](https://github.com/lwouis/alt-tab-macos/compare/v3.10.0...v3.11.0) (2020-04-19)
 
 

@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.12.0</title>
+      <pubDate>Mon, 20 Apr 2020 13:14:34 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3120-httpsgithubcomlwouisalt-tab-macoscomparev3110v3120-2020-04-20">3.12.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.11.0...v3.12.0">https://github.com/lwouis/alt-tab-macos/compare/v3.11.0...v3.12.0</a>) (2020-04-20)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* updated localizations (eec6912 (https://github.com/lwouis/alt-tab-macos/commit/eec6912))</code></pre><h3 id="features">Features</h3>
+<pre><code>* collapsible debug profile in feedback report (d6960d5 (https://github.com/lwouis/alt-tab-macos/commit/d6960d5))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.12.0/AltTab-3.12.0.zip"
+        sparkle:version="3.12.0"
+        sparkle:shortVersionString="3.12.0"
+        sparkle:edSignature="lKQhSX59fQKoXPQdmnn2iEn8ppEjrGOonZtp4gzarwKXVSX5r43YaezWLcoY1wACZk4TAj8BbxMwa3ZEfunkDg==" length="6699765"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.11.0</title>
       <pubDate>Sun, 19 Apr 2020 16:57:56 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
