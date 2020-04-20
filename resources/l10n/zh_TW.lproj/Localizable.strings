@@ -178,3 +178,21 @@
 
 /*No comment provided by engineer.*/
 "then press:" = "並按下：";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "鳴謝";
+
+/*No comment provided by engineer.*/
+"Close window" = "關閉視窗";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "隱藏/顯示程式";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "最小化/最大化視窗";
+
+/*No comment provided by engineer.*/
+"Quit app" = "離開程式";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "包含選單列的螢幕";
