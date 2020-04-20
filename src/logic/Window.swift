@@ -1,7 +1,6 @@
 import Cocoa
 
 class Window {
-//    weak var itemView: CollectionViewItemView?
     var cgWindowId: CGWindowID
     var title: String
     var thumbnail: NSImage?
@@ -140,46 +139,4 @@ class Window {
         }
         return application.runningApplication.localizedName ?? ""
     }
-}
-
-private func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
-    let type = notificationName as String
-    debugPrint("OS event", type, element.title() ?? "nil")
-    switch type {
-        case kAXUIElementDestroyedNotification: eventWindowDestroyed(App.app, element)
-        case kAXWindowMiniaturizedNotification, kAXWindowDeminiaturizedNotification: eventWindowMiniaturizedOrDeminiaturized(App.app, element, type)
-        case kAXTitleChangedNotification: eventWindowTitleChanged(App.app, element)
-        case kAXWindowResizedNotification: eventWindowResized(App.app, element)
-        default: return
-    }
-}
-
-private func eventWindowDestroyed(_ app: App, _ element: AXUIElement) {
-    guard let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
-    Windows.list.remove(at: existingIndex)
-    guard Windows.list.count > 0 else { app.hideUi(); return }
-    Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
-    app.refreshOpenUi()
-}
-
-private func eventWindowMiniaturizedOrDeminiaturized(_ app: App, _ element: AXUIElement, _ type: String) {
-    guard let index = Windows.list.firstIndexThatMatches(element) else { return }
-    let window = Windows.list[index]
-    window.isMinimized = type == kAXWindowMiniaturizedNotification
-    app.refreshOpenUi([window], true)
-}
-
-private func eventWindowTitleChanged(_ app: App, _ element: AXUIElement) {
-    guard let index = Windows.list.firstIndexThatMatches(element) else { return }
-    let window = Windows.list[index]
-    guard let newTitle = window.axUiElement.title(),
-          newTitle != window.title else { return }
-    window.title = newTitle
-    app.refreshOpenUi([window])
-}
-
-private func eventWindowResized(_ app: App, _ element: AXUIElement) {
-    guard let index = Windows.list.firstIndexThatMatches(element) else { return }
-    let window = Windows.list[index]
-    app.refreshOpenUi([window])
 }

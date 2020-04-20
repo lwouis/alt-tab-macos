@@ -1,15 +1,15 @@
 import Cocoa
 import Carbon.HIToolbox.Events
 
-class Keyboard {
-    static func listenToGlobalEvents() {
-        listenToGlobalKeyboardEvents()
+class KeyboardEvents {
+    static func observe() {
+        observe_()
     }
 }
 
-var eventTap: CFMachPort?
+private var eventTap: CFMachPort?
 
-func listenToGlobalKeyboardEvents() {
+private func observe_() {
     DispatchQueues.keyboardEvents.async {
         let eventMask = [CGEventType.keyDown, CGEventType.keyUp, CGEventType.flagsChanged].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
         // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
@@ -27,7 +27,7 @@ func listenToGlobalKeyboardEvents() {
     }
 }
 
-func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+private func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     if type == .keyDown || type == .keyUp || type == .flagsChanged {
         if let event_ = NSEvent(cgEvent: cgEvent),
            // workaround: NSEvent.characters is not safe outside of the main thread; this is not documented by Apple
