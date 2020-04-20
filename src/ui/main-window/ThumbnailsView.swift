@@ -33,7 +33,7 @@ class ThumbnailsView: NSVisualEffectView {
                     { () -> Void in Windows.updateFocusedWindowIndex(index) },
                     height, screen)
             let width = view.frame.size.width
-            if (currentX + Preferences.interCellPadding + width).rounded(.down) > widthMax {
+            if (currentX + width).rounded(.down) > widthMax {
                 currentX = CGFloat(0)
                 currentY = (currentY + Preferences.interCellPadding + height).rounded(.down)
                 maxY = max(currentY + height, maxY)
