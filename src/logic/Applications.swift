@@ -3,7 +3,6 @@ import ApplicationServices
 
 class Applications {
     static var list = [Application]()
-    static var appsObserver = RunningApplicationsObserver()
     static var appsInSubscriptionRetryLoop = [String]()
 
     static func observeNewWindows() {
@@ -16,15 +15,11 @@ class Applications {
     static func initialDiscovery() {
         addInitialRunningApplications()
         addInitialRunningApplicationsWindows()
-        observeRunningApplications()
+        WorkspaceEvents.observeRunningApplications()
     }
 
     static func addInitialRunningApplications() {
         addRunningApplications(NSWorkspace.shared.runningApplications)
-    }
-
-    static func observeRunningApplications() {
-        NSWorkspace.shared.addObserver(Applications.appsObserver, forKeyPath: "runningApplications", options: [.old, .new], context: nil)
     }
 
     static func addInitialRunningApplicationsWindows() {
@@ -70,30 +65,13 @@ class Applications {
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
         return (app.activationPolicy != .prohibited ||
-                // Bug in CopyQ; see https://github.com/hluk/CopyQ/issues/1330
-                app.bundleIdentifier == "io.github.hluk.CopyQ" ||
-                // Bug in Parsec https://github.com/lwouis/alt-tab-macos/issues/206#issuecomment-609828033
-                app.bundleIdentifier == "tv.parsec.www" ||
-                // Bug in Octave.app; see https://github.com/octave-app/octave-app/issues/193#issuecomment-603648857
-                app.localizedName == "octave-gui") &&
-                // bug in Octave.app; see https://github.com/octave-app/octave-app/issues/193
-                app.bundleIdentifier != "org.octave-app.Octave"
-    }
-}
-
-class RunningApplicationsObserver: NSObject {
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        let type = NSKeyValueChange(rawValue: change![.kindKey]! as! UInt)
-        switch type {
-            case .insertion:
-                let apps = change![.newKey] as! [NSRunningApplication]
-                debugPrint("OS event", "apps launched", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
-                Applications.addRunningApplications(apps)
-            case .removal:
-                let apps = change![.oldKey] as! [NSRunningApplication]
-                debugPrint("OS event", "apps quit", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
-                Applications.removeRunningApplications(apps)
-            default: return
-        }
+            // Bug in CopyQ; see https://github.com/hluk/CopyQ/issues/1330
+            app.bundleIdentifier == "io.github.hluk.CopyQ" ||
+            // Bug in Parsec https://github.com/lwouis/alt-tab-macos/issues/206#issuecomment-609828033
+            app.bundleIdentifier == "tv.parsec.www" ||
+            // Bug in Octave.app; see https://github.com/octave-app/octave-app/issues/193#issuecomment-603648857
+            app.localizedName == "octave-gui") &&
+            // bug in Octave.app; see https://github.com/octave-app/octave-app/issues/193
+            app.bundleIdentifier != "org.octave-app.Octave"
     }
 }
