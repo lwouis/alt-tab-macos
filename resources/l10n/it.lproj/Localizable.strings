@@ -1,8 +1,33 @@
+
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖ Windows 10";
+
 /*No comment provided by engineer.*/
 "About" = "Introduzione";
 
 /*No comment provided by engineer.*/
-"Alt key" = "Tasto Alt";
+"Acknowledgments" = "Acknowledgments";
+
+/*No comment provided by engineer.*/
+"Active app" = "Active app";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Active screen";
+
+/*No comment provided by engineer.*/
+"Active space" = "Active space";
+
+/*No comment provided by engineer.*/
+"Align windows" = "Align windows";
+
+/*No comment provided by engineer.*/
+"All apps" = "All apps";
+
+/*No comment provided by engineer.*/
+"All screens" = "All screens";
+
+/*No comment provided by engineer.*/
+"All spaces" = "All spaces";
 
 /*No comment provided by engineer.*/
 "Apparition delay" = "Ritardo di apparizione";
@@ -11,13 +36,19 @@
 "Appearance" = "Apparenza";
 
 /*No comment provided by engineer.*/
+"Arrow keys" = "Arrow keys";
+
+/*No comment provided by engineer.*/
 "Auto-install updates periodically" = "La procedure di auto-install aggiorna periodicamente";
 
 /*Cancel button*/
 "Cancel" = "Cancella";
 
 /*No comment provided by engineer.*/
-"Check again" = "Controlla ancora";
+"Cancel and hide" = "Cancel and hide";
+
+/*No comment provided by engineer.*/
+"Center" = "Center";
 
 /*No comment provided by engineer.*/
 "Check for updates now…" = "Controlla aggiornamenti ora…";
@@ -29,25 +60,34 @@
 "Check for updates…" = "Controllo aggiornamenti…";
 
 /*No comment provided by engineer.*/
-"Could not save Preference" = "Non posso salvare le preferenze";
+"Close window" = "Close window";
 
 /*No comment provided by engineer.*/
 "Don't check for updates periodically" = "Non controllare gli aggiornamenti periodicamente";
 
 /*No comment provided by engineer.*/
-"Edit" = "Modifica";
+"General" = "General";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Hidden";
 
 /*No comment provided by engineer.*/
 "Hide space number labels" = "Nascondi le etichette del numero di spazi";
 
 /*No comment provided by engineer.*/
+"Hide/Show app" = "Hide/Show app";
+
+/*No comment provided by engineer.*/
+"Hold" = "Hold";
+
+/*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Credo che l’applicazione possa essere migliorata con…";
 
 /*No comment provided by engineer.*/
-"KeyCodes Reference" = "Riferimenti dei KeyCodes";
+"Latest releases" = "Ultimi rilasci";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "Ultimi rilasci";
+"Left" = "Left";
 
 /*No comment provided by engineer.*/
 "Max size on screen" = "Massima dimensione a schermo";
@@ -56,10 +96,19 @@
 "Max windows per row" = "Massimo numero di finestre per riga";
 
 /*No comment provided by engineer.*/
-"Min rows of windows" = "Minimo numero di finestre";
+"Min windows per row" = "Minimo numero di finestre per riga";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "Minimo numero di finestre per riga";
+"Minimize/Deminimize window" = "Minimize/Deminimize window";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Minimized";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Mouse hover";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "Licenza GPL-3.0";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Opzionale: email (se desideri una risposta)";
@@ -68,7 +117,32 @@
 "Preferences…" = "Preferenze…";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Quit %@" = "Chiudi %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Quit app";
+
+/*No comment provided by engineer.*/
+"Rows of windows" = "Rows of windows";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Screen including menu bar";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Screen including mouse";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Screen showing AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Select next window";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Select previous window";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "Select windows using:";
 
 /*No comment provided by engineer.*/
 "Send" = "Invia";
@@ -86,22 +160,25 @@
 "Share improvement ideas, or report bugs" = "Condividi idee per miglioramenti oppure riporta problemi";
 
 /*No comment provided by engineer.*/
-"Shortcuts" = "Scorciatoie";
-
-/*No comment provided by engineer.*/
 "Show" = "Mostra";
 
 /*No comment provided by engineer.*/
 "Show on" = "Mostra su";
 
 /*No comment provided by engineer.*/
+"Show the following windows:" = "Show the following windows:";
+
+/*No comment provided by engineer.*/
 "Source code repository" = "Archivio codice sorgente";
 
 /*No comment provided by engineer.*/
-"Tab key" = "Tasto Tab";
+"Start at login" = "Start at login";
 
 /*No comment provided by engineer.*/
 "Theme" = "Tema";
+
+/*No comment provided by engineer.*/
+"then press:" = "then press:";
 
 /*No comment provided by engineer.*/
 "Updates" = "Aggiornamenti";
@@ -120,3 +197,6 @@
 
 /*No comment provided by engineer.*/
 "Window title font size" = "Dimensione del carattere del titolo della finestra";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";

@@ -1,108 +1,12 @@
-/*No comment provided by engineer.*/
-"About" = "Hakkında";
-
-/*No comment provided by engineer.*/
-"Apparition delay" = "Görünüm gecikmesi";
-
-/*No comment provided by engineer.*/
-"Appearance" = "Görünüm";
-
-/*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Güncellemeleri periyodik olarak otomatik yükle";
-
-/*Cancel button*/
-"Cancel" = "İptal";
-
-/*No comment provided by engineer.*/
-"Check for updates now…" = "Güncellemeleri kontrol et…";
-
-/*No comment provided by engineer.*/
-"Check for updates periodically" = "Güncellemeleri periyodik olarak kontrol et";
-
-/*No comment provided by engineer.*/
-"Check for updates…" = "Güncellemeleri kontrol et…";
-
-/*No comment provided by engineer.*/
-"Don't check for updates periodically" = "Güncellemeleri periyodik olarak kontrol etme";
-
-/*No comment provided by engineer.*/
-"Hide space number labels" = "Ekran etiketlerini gizle";
-
-/*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Bence uygulama … ile geliştirilebilir.";
-
-/*No comment provided by engineer.*/
-"Latest releases" = "Son sürüm";
-
-/*No comment provided by engineer.*/
-"Max size on screen" = "Max size on screen";
-
-/*No comment provided by engineer.*/
-"Max windows per row" = "Max windows per row";
-
-/*No comment provided by engineer.*/
-"Min windows per row" = "Min windows per row";
-
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "İsteğe bağlı: e-posta (bir yanıt istiyorsanız)";
-
-/*No comment provided by engineer.*/
-"Preferences…" = "Tercihler…";
-
-/*No comment provided by engineer.*/
-/*Fuzzy*/
-"Quit %@" = "Çık %@";
-
-/*No comment provided by engineer.*/
-"Send" = "Gönder";
-
-/*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (CPU, memory, vs)";
-
-/*No comment provided by engineer.*/
-"Send feedback" = "Geri bildirim gönder";
-
-/*No comment provided by engineer.*/
-"Send feedback…" = "Geri bildirim gönder…";
-
-/*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Fikir yada hata paylaş";
-
-/*No comment provided by engineer.*/
-"Show" = "Göster";
-
-/*No comment provided by engineer.*/
-"Show on" = "Show on";
-
-/*No comment provided by engineer.*/
-"Source code repository" = "Kaynak kodu deposu";
-
-/*No comment provided by engineer.*/
-"Theme" = "Tema";
-
-/*No comment provided by engineer.*/
-"Updates" = "Güncellemeler";
-
-/*No comment provided by engineer.*/
-"Updates policy:" = "Güncelleme politikası:";
-
-/*No comment provided by engineer.*/
-"Version" = "Versiyon";
-
-/*No comment provided by engineer.*/
-"View existing discussions" = "Mevcut tartışmaları görüntüle";
-
-/*No comment provided by engineer.*/
-"Window app icon size" = "Pencere simge boyutu";
-
-/*No comment provided by engineer.*/
-"Window title font size" = "Pencere başlığı yazı tipi boyutu";
 
 /*No comment provided by engineer.*/
 "❖ Windows 10" = "❖ Windows 10";
 
 /*No comment provided by engineer.*/
-" macOS" = " macOS";
+"About" = "Hakkında";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Acknowledgments";
 
 /*No comment provided by engineer.*/
 "Active app" = "Aktif uygulama";
@@ -126,7 +30,19 @@
 "All spaces" = "Tüm boşluklar";
 
 /*No comment provided by engineer.*/
+"Apparition delay" = "Görünüm gecikmesi";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Görünüm";
+
+/*No comment provided by engineer.*/
 "Arrow keys" = "Yön tuşları";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Güncellemeleri periyodik olarak otomatik yükle";
+
+/*Cancel button*/
+"Cancel" = "İptal";
 
 /*No comment provided by engineer.*/
 "Cancel and hide" = "İptal ve gizle";
@@ -135,16 +51,55 @@
 "Center" = "Merkez";
 
 /*No comment provided by engineer.*/
+"Check for updates now…" = "Güncellemeleri kontrol et…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Güncellemeleri periyodik olarak kontrol et";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Güncellemeleri kontrol et…";
+
+/*No comment provided by engineer.*/
+"Close window" = "Close window";
+
+/*No comment provided by engineer.*/
+"Don't check for updates periodically" = "Güncellemeleri periyodik olarak kontrol etme";
+
+/*No comment provided by engineer.*/
 "General" = "Genel";
 
 /*No comment provided by engineer.*/
 "Hidden" = "Gizli";
 
 /*No comment provided by engineer.*/
+"Hide space number labels" = "Ekran etiketlerini gizle";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Hide/Show app";
+
+/*No comment provided by engineer.*/
 "Hold" = "Tut";
 
 /*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Bence uygulama … ile geliştirilebilir.";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Son sürüm";
+
+/*No comment provided by engineer.*/
 "Left" = "Sol";
+
+/*No comment provided by engineer.*/
+"Max size on screen" = "Max size on screen";
+
+/*No comment provided by engineer.*/
+"Max windows per row" = "Max windows per row";
+
+/*No comment provided by engineer.*/
+"Min windows per row" = "Min windows per row";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Minimize/Deminimize window";
 
 /*No comment provided by engineer.*/
 "Minimized" = "Gizlenmiş";
@@ -152,8 +107,27 @@
 /*No comment provided by engineer.*/
 "Mouse hover" = "Fare ";
 
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0 lisansı";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "İsteğe bağlı: e-posta (bir yanıt istiyorsanız)";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Tercihler…";
+
+/*No comment provided by engineer.*/
+/*Fuzzy*/
+"Quit %@" = "Çık %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Quit app";
+
 /*No comment provided by engineer.*/
 "Rows of windows" = "Pencere satırları";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Screen including menu bar";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "İmleçin olduğu ekran";
@@ -171,10 +145,58 @@
 "Select windows using:" = "Pecereyi seçerken kullan:";
 
 /*No comment provided by engineer.*/
+"Send" = "Gönder";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (CPU, memory, vs)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Geri bildirim gönder";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Geri bildirim gönder…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Fikir yada hata paylaş";
+
+/*No comment provided by engineer.*/
+"Show" = "Göster";
+
+/*No comment provided by engineer.*/
+"Show on" = "Show on";
+
+/*No comment provided by engineer.*/
 "Show the following windows:" = "Takipeden pencereleri göster";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Kaynak kodu deposu";
 
 /*No comment provided by engineer.*/
 "Start at login" = "Başlangıçta çalıştır";
 
 /*No comment provided by engineer.*/
+"Theme" = "Tema";
+
+/*No comment provided by engineer.*/
 "then press:" = "ve";
+
+/*No comment provided by engineer.*/
+"Updates" = "Güncellemeler";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Güncelleme politikası:";
+
+/*No comment provided by engineer.*/
+"Version" = "Versiyon";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "Mevcut tartışmaları görüntüle";
+
+/*No comment provided by engineer.*/
+"Window app icon size" = "Pencere simge boyutu";
+
+/*No comment provided by engineer.*/
+"Window title font size" = "Pencere başlığı yazı tipi boyutu";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";

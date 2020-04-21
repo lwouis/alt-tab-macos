@@ -1,108 +1,12 @@
-/* No comment provided by engineer. */
-"About" = "About";
-
-/* No comment provided by engineer. */
-"Apparition delay" = "Apparition delay";
-
-/* No comment provided by engineer. */
-"Appearance" = "Appearance";
-
-/*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Auto-install updates periodically";
-
-/* Cancel button */
-"Cancel" = "Cancel";
-
-/* No comment provided by engineer. */
-"Check for updates now…" = "Check for updates now…";
-
-/*No comment provided by engineer.*/
-"Check for updates periodically" = "Check for updates periodically";
-
-/*No comment provided by engineer.*/
-"Check for updates…" = "Check for updates…";
-
-/* No comment provided by engineer. */
-"Don't check for updates periodically" = "Don’t check for updates periodically";
-
-/* No comment provided by engineer. */
-"Hide space number labels" = "Hide space number labels";
-
-/* No comment provided by engineer. */
-"I think the app could be improved with…" = "I think the app could be improved with…";
-
-/* No comment provided by engineer. */
-"Latest releases" = "Latest releases";
-
-/* No comment provided by engineer. */
-"Max size on screen" = "Max size on screen";
-
-/* No comment provided by engineer. */
-"Max windows per row" = "Max windows per row";
-
-/* No comment provided by engineer. */
-"Min windows per row" = "Min windows per row";
-
-/* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
-
-/* No comment provided by engineer. */
-"Preferences…" = "Preferences…";
-
-/* No comment provided by engineer. */
-/*Fuzzy*/
-"Quit %@" = "Quit %@";
-
-/* No comment provided by engineer. */
-"Send" = "Send";
-
-/* No comment provided by engineer. */
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
-
-/* No comment provided by engineer. */
-"Send feedback" = "Send feedback";
-
-/* No comment provided by engineer. */
-"Send feedback…" = "Send feedback…";
-
-/* No comment provided by engineer. */
-"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
-
-/* No comment provided by engineer. */
-"Show" = "Show";
-
-/* No comment provided by engineer. */
-"Show on" = "Show on";
-
-/* No comment provided by engineer. */
-"Source code repository" = "Source code repository";
-
-/* No comment provided by engineer. */
-"Theme" = "Theme";
-
-/* No comment provided by engineer. */
-"Updates" = "Updates";
-
-/*No comment provided by engineer.*/
-"Updates policy:" = "Updates policy:";
-
-/*No comment provided by engineer.*/
-"Version" = "Version";
-
-/* No comment provided by engineer. */
-"View existing discussions" = "View existing discussions";
-
-/* No comment provided by engineer. */
-"Window app icon size" = "Window app icon size";
-
-/* No comment provided by engineer. */
-"Window title font size" = "Window title font size";
 
 /*No comment provided by engineer.*/
 "❖ Windows 10" = "❖ Windows 10";
 
 /*No comment provided by engineer.*/
-" macOS" = " macOS";
+"About" = "About";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Acknowledgments";
 
 /*No comment provided by engineer.*/
 "Active app" = "Active app";
@@ -126,7 +30,19 @@
 "All spaces" = "All spaces";
 
 /*No comment provided by engineer.*/
+"Apparition delay" = "Apparition delay";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Appearance";
+
+/*No comment provided by engineer.*/
 "Arrow keys" = "Arrow keys";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Auto-install updates periodically";
+
+/*Cancel button*/
+"Cancel" = "Cancel";
 
 /*No comment provided by engineer.*/
 "Cancel and hide" = "Cancel and hide";
@@ -135,16 +51,55 @@
 "Center" = "Center";
 
 /*No comment provided by engineer.*/
+"Check for updates now…" = "Check for updates now…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Check for updates periodically";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Check for updates…";
+
+/*No comment provided by engineer.*/
+"Close window" = "Close window";
+
+/*No comment provided by engineer.*/
+"Don't check for updates periodically" = "Don’t check for updates periodically";
+
+/*No comment provided by engineer.*/
 "General" = "General";
 
 /*No comment provided by engineer.*/
 "Hidden" = "Hidden";
 
 /*No comment provided by engineer.*/
+"Hide space number labels" = "Hide space number labels";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Hide/Show app";
+
+/*No comment provided by engineer.*/
 "Hold" = "Hold";
 
 /*No comment provided by engineer.*/
+"I think the app could be improved with…" = "I think the app could be improved with…";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Latest releases";
+
+/*No comment provided by engineer.*/
 "Left" = "Left";
+
+/*No comment provided by engineer.*/
+"Max size on screen" = "Max size on screen";
+
+/*No comment provided by engineer.*/
+"Max windows per row" = "Max windows per row";
+
+/*No comment provided by engineer.*/
+"Min windows per row" = "Min windows per row";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Minimize/Deminimize window";
 
 /*No comment provided by engineer.*/
 "Minimized" = "Minimized";
@@ -152,8 +107,27 @@
 /*No comment provided by engineer.*/
 "Mouse hover" = "Mouse hover";
 
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0 license";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Preferences…";
+
+/*No comment provided by engineer.*/
+/*Fuzzy*/
+"Quit %@" = "Quit %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Quit app";
+
 /*No comment provided by engineer.*/
 "Rows of windows" = "Rows of windows";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Screen including menu bar";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "Screen including mouse";
@@ -171,10 +145,58 @@
 "Select windows using:" = "Select windows using:";
 
 /*No comment provided by engineer.*/
+"Send" = "Send";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Send feedback";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Send feedback…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
+
+/*No comment provided by engineer.*/
+"Show" = "Show";
+
+/*No comment provided by engineer.*/
+"Show on" = "Show on";
+
+/*No comment provided by engineer.*/
 "Show the following windows:" = "Show the following windows:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Source code repository";
 
 /*No comment provided by engineer.*/
 "Start at login" = "Start at login";
 
 /*No comment provided by engineer.*/
+"Theme" = "Theme";
+
+/*No comment provided by engineer.*/
 "then press:" = "then press:";
+
+/*No comment provided by engineer.*/
+"Updates" = "Updates";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Updates policy:";
+
+/*No comment provided by engineer.*/
+"Version" = "Version";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "View existing discussions";
+
+/*No comment provided by engineer.*/
+"Window app icon size" = "Window app icon size";
+
+/*No comment provided by engineer.*/
+"Window title font size" = "Window title font size";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
