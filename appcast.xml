@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.13.0</title>
+      <pubDate>Tue, 21 Apr 2020 11:48:37 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3130-httpsgithubcomlwouisalt-tab-macoscomparev3120v3130-2020-04-21">3.13.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.12.0...v3.13.0">https://github.com/lwouis/alt-tab-macos/compare/v3.12.0...v3.13.0</a>) (2020-04-21)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* showed rows with 1 too-few windows sometimes (see #256 (https://github.com/lwouis/alt-tab-macos/issues/256)) (0eac086 (https://github.com/lwouis/alt-tab-macos/commit/0eac086))</code></pre><h3 id="features">Features</h3>
+<pre><code>* add hungarian localization (ba7b5d3 (https://github.com/lwouis/alt-tab-macos/commit/ba7b5d3))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.13.0/AltTab-3.13.0.zip"
+        sparkle:version="3.13.0"
+        sparkle:shortVersionString="3.13.0"
+        sparkle:edSignature="c6nsRvT+ZWMl7dzeWvGjM7Zdr0Gprz478bnG3FCN73gjS1XT1w+zxHKzP66NcYjEYB3xozIQxmuNZPIVrgjkDA==" length="6702863"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.12.0</title>
       <pubDate>Mon, 20 Apr 2020 13:14:34 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

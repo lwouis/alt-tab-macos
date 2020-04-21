@@ -1,3 +1,15 @@
+# [3.13.0](https://github.com/lwouis/alt-tab-macos/compare/v3.12.0...v3.13.0) (2020-04-21)
+
+
+### Bug Fixes
+
+* showed rows with 1 too-few windows sometimes (see [#256](https://github.com/lwouis/alt-tab-macos/issues/256)) ([0eac086](https://github.com/lwouis/alt-tab-macos/commit/0eac086))
+
+
+### Features
+
+* add hungarian localization ([ba7b5d3](https://github.com/lwouis/alt-tab-macos/commit/ba7b5d3))
+
 # [3.12.0](https://github.com/lwouis/alt-tab-macos/compare/v3.11.0...v3.12.0) (2020-04-20)
 
 
