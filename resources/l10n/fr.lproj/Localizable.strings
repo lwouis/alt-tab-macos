@@ -1,108 +1,12 @@
-/* No comment provided by engineer. */
-"About" = "À propos";
-
-/* No comment provided by engineer. */
-"Apparition delay" = "Délai d’apparition";
-
-/* No comment provided by engineer. */
-"Appearance" = "Apparence";
-
-/* No comment provided by engineer. */
-"Auto-install updates periodically" = "Auto-installer les mises-à-jour périodiquement";
-
-/*Cancel button*/
-"Cancel" = "Annuler";
-
-/* No comment provided by engineer. */
-"Check for updates now…" = "Chercher une mise-à-jour…";
-
-/*No comment provided by engineer.*/
-"Check for updates periodically" = "Chercher une mise-à-jour périodiquement";
-
-/*No comment provided by engineer.*/
-"Check for updates…" = "Chercher une mise-à-jour…";
-
-/* No comment provided by engineer. */
-"Don't check for updates periodically" = "Ne pas chercher de mise-à-jour périodiquement";
-
-/* No comment provided by engineer. */
-"Hide space number labels" = "Cacher les numéros des Espaces";
-
-/* No comment provided by engineer. */
-"I think the app could be improved with…" = "Je pense que l’app pourrait être améliorée avec…";
-
-/* No comment provided by engineer. */
-"Latest releases" = "Dernières versions";
-
-/* No comment provided by engineer. */
-"Max size on screen" = "Taille max à l’écran";
-
-/* No comment provided by engineer. */
-"Max windows per row" = "Max de fenêtres par ligne";
-
-/* No comment provided by engineer. */
-"Min windows per row" = "Min de fenêtres par ligne";
-
-/* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optionnel : email (si vous voulez une réponse)";
-
-/* No comment provided by engineer. */
-"Preferences…" = "Préférences…";
-
-/* No comment provided by engineer. */
-/*Fuzzy*/
-"Quit %@" = "Quitter %@";
-
-/* No comment provided by engineer. */
-"Send" = "Envoyer";
-
-/* No comment provided by engineer. */
-"Send debug profile (CPU, memory, etc)" = "Envoyer un profile technique (processeur, mémoire, etc)";
-
-/* No comment provided by engineer. */
-"Send feedback" = "Partager un retour d’expérience";
-
-/* No comment provided by engineer. */
-"Send feedback…" = "Partager un retour d’expérience…";
-
-/* No comment provided by engineer. */
-"Share improvement ideas, or report bugs" = "Partagez des idées d’amélioration, ou signalez des bugs";
-
-/* No comment provided by engineer. */
-"Show" = "Afficher";
-
-/* No comment provided by engineer. */
-"Show on" = "Afficher sur";
-
-/* No comment provided by engineer. */
-"Source code repository" = "Repo du code source";
-
-/* No comment provided by engineer. */
-"Theme" = "Thème";
-
-/* No comment provided by engineer. */
-"Updates" = "Mises-à-jour";
-
-/*No comment provided by engineer.*/
-"Updates policy:" = "Politique de mise-à-jour :";
-
-/*No comment provided by engineer.*/
-"Version" = "Version";
-
-/* No comment provided by engineer. */
-"View existing discussions" = "Voir les discussions existantes";
-
-/* No comment provided by engineer. */
-"Window app icon size" = "Taille des icones des applications";
-
-/* No comment provided by engineer. */
-"Window title font size" = "Taille du titres des fenêtres";
 
 /*No comment provided by engineer.*/
 "❖ Windows 10" = "❖ Windows 10";
 
 /*No comment provided by engineer.*/
-" macOS" = " macOS";
+"About" = "À propos";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Remerciements";
 
 /*No comment provided by engineer.*/
 "Active app" = "App active";
@@ -126,7 +30,19 @@
 "All spaces" = "Tous les Espaces";
 
 /*No comment provided by engineer.*/
+"Apparition delay" = "Délai d’apparition";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Apparence";
+
+/*No comment provided by engineer.*/
 "Arrow keys" = "Touches flèches";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Auto-installer les mises-à-jour périodiquement";
+
+/*Cancel button*/
+"Cancel" = "Annuler";
 
 /*No comment provided by engineer.*/
 "Cancel and hide" = "Annuler et cacher";
@@ -135,16 +51,55 @@
 "Center" = "Au centre";
 
 /*No comment provided by engineer.*/
+"Check for updates now…" = "Chercher une mise-à-jour…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Chercher une mise-à-jour périodiquement";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Chercher une mise-à-jour…";
+
+/*No comment provided by engineer.*/
+"Close window" = "Fermer la fenêtre";
+
+/*No comment provided by engineer.*/
+"Don't check for updates periodically" = "Ne pas chercher de mise-à-jour périodiquement";
+
+/*No comment provided by engineer.*/
 "General" = "Général";
 
 /*No comment provided by engineer.*/
 "Hidden" = "Cachées";
 
 /*No comment provided by engineer.*/
+"Hide space number labels" = "Cacher les numéros des Espaces";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Masquer/Afficher l’app";
+
+/*No comment provided by engineer.*/
 "Hold" = "Maintenir";
 
 /*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Je pense que l’app pourrait être améliorée avec…";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Dernières versions";
+
+/*No comment provided by engineer.*/
 "Left" = "À gauche";
+
+/*No comment provided by engineer.*/
+"Max size on screen" = "Taille max à l’écran";
+
+/*No comment provided by engineer.*/
+"Max windows per row" = "Max de fenêtres par ligne";
+
+/*No comment provided by engineer.*/
+"Min windows per row" = "Min de fenêtres par ligne";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Minimiser/Déminimiser la fenêtre";
 
 /*No comment provided by engineer.*/
 "Minimized" = "Minimisées";
@@ -152,8 +107,27 @@
 /*No comment provided by engineer.*/
 "Mouse hover" = "Survol de la souris";
 
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "Licence GPL-3.0";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Optionnel : email (si vous voulez une réponse)";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Préférences…";
+
+/*No comment provided by engineer.*/
+/*Fuzzy*/
+"Quit %@" = "Quitter %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Quitter l’app";
+
 /*No comment provided by engineer.*/
 "Rows of windows" = "Rangées de fenêtres";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Écran contenant la barre de menu";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "Écran contenant la souris";
@@ -171,28 +145,58 @@
 "Select windows using:" = "Sélectionner les fenêtres avec :";
 
 /*No comment provided by engineer.*/
+"Send" = "Envoyer";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Envoyer un profile technique (processeur, mémoire, etc)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Partager un retour d’expérience";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Partager un retour d’expérience…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Partagez des idées d’amélioration, ou signalez des bugs";
+
+/*No comment provided by engineer.*/
+"Show" = "Afficher";
+
+/*No comment provided by engineer.*/
+"Show on" = "Afficher sur";
+
+/*No comment provided by engineer.*/
 "Show the following windows:" = "Afficher les";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Repo du code source";
 
 /*No comment provided by engineer.*/
 "Start at login" = "Lancer au démarrage";
 
 /*No comment provided by engineer.*/
+"Theme" = "Thème";
+
+/*No comment provided by engineer.*/
 "then press:" = "puis presser :";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "Remerciements";
+"Updates" = "Mises-à-jour";
 
 /*No comment provided by engineer.*/
-"Close window" = "Fermer la fenêtre";
+"Updates policy:" = "Politique de mise-à-jour :";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Masquer/Afficher l’app";
+"Version" = "Version";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimiser/Déminimiser la fenêtre";
+"View existing discussions" = "Voir les discussions existantes";
 
 /*No comment provided by engineer.*/
-"Quit app" = "Quitter l’app";
+"Window app icon size" = "Taille des icones des applications";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Écran contenant la barre de menu";
+"Window title font size" = "Taille du titres des fenêtres";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";

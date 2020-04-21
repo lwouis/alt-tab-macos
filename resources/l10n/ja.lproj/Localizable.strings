@@ -1,8 +1,33 @@
+
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖Windows 10";
+
 /*No comment provided by engineer.*/
 "About" = "詳細";
 
 /*No comment provided by engineer.*/
-"Alt key" = "Altキー";
+"Acknowledgments" = "Acknowledgments";
+
+/*No comment provided by engineer.*/
+"Active app" = "Active app";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Active screen";
+
+/*No comment provided by engineer.*/
+"Active space" = "Active space";
+
+/*No comment provided by engineer.*/
+"Align windows" = "Align windows";
+
+/*No comment provided by engineer.*/
+"All apps" = "All apps";
+
+/*No comment provided by engineer.*/
+"All screens" = "All screens";
+
+/*No comment provided by engineer.*/
+"All spaces" = "All spaces";
 
 /*No comment provided by engineer.*/
 "Apparition delay" = "スクリーン表示速度";
@@ -11,43 +36,58 @@
 "Appearance" = "表示設定";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Auto-install updates periodically";
+"Arrow keys" = "Arrow keys";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "更新を定期的に自動インストールする";
 
 /*Cancel button*/
 "Cancel" = "キャンセル";
 
 /*No comment provided by engineer.*/
-"Check again" = "もう一度確認する";
+"Cancel and hide" = "Cancel and hide";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Check for updates now…";
+"Center" = "Center";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Check for updates periodically";
+"Check for updates now…" = "今すぐアップデートを確認";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "Check for updates…";
+"Check for updates periodically" = "定期的に更新を確認する";
 
 /*No comment provided by engineer.*/
-"Could not save Preference" = "環境設定が保存できませんでした";
+"Check for updates…" = "更新を確認する";
 
 /*No comment provided by engineer.*/
-"Don't check for updates periodically" = "Don't check for updates periodically";
+"Close window" = "Close window";
 
 /*No comment provided by engineer.*/
-"Edit" = "編集";
+"Don't check for updates periodically" = "定期的に更新を確認しない";
+
+/*No comment provided by engineer.*/
+"General" = "General";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Hidden";
 
 /*No comment provided by engineer.*/
 "Hide space number labels" = "Hide space number labels";
 
 /*No comment provided by engineer.*/
+"Hide/Show app" = "Hide/Show app";
+
+/*No comment provided by engineer.*/
+"Hold" = "Hold";
+
+/*No comment provided by engineer.*/
 "I think the app could be improved with…" = "アプリの◯◯を改善したい";
 
 /*No comment provided by engineer.*/
-"KeyCodes Reference" = "キーボード参照";
+"Latest releases" = "最新バージョン";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "最新バージョン";
+"Left" = "Left";
 
 /*No comment provided by engineer.*/
 "Max size on screen" = "スクリーン表示サイズ";
@@ -56,10 +96,19 @@
 "Max windows per row" = "一列に最大表示可能な個数";
 
 /*No comment provided by engineer.*/
-"Min rows of windows" = "ウィンドウに表示可能な列の最小の個数";
+"Min windows per row" = "一列に最小表示可能な個数";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "一列に最小表示可能な個数";
+"Minimize/Deminimize window" = "Minimize/Deminimize window";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Minimized";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Mouse hover";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0ライセンス";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "任意：Eメール（返信を希望する場合）";
@@ -69,6 +118,30 @@
 
 /*No comment provided by engineer.*/
 "Quit %@" = "閉じる %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Quit app";
+
+/*No comment provided by engineer.*/
+"Rows of windows" = "Rows of windows";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Screen including menu bar";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Screen including mouse";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Screen showing AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Select next window";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Select previous window";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "Select windows using:";
 
 /*No comment provided by engineer.*/
 "Send" = "送信";
@@ -86,22 +159,25 @@
 "Share improvement ideas, or report bugs" = "改善点のご共有あるいはバグのご報告";
 
 /*No comment provided by engineer.*/
-"Shortcuts" = "ショートカット";
-
-/*No comment provided by engineer.*/
 "Show" = "アプリを表示";
 
 /*No comment provided by engineer.*/
 "Show on" = "表示場所";
 
 /*No comment provided by engineer.*/
+"Show the following windows:" = "Show the following windows:";
+
+/*No comment provided by engineer.*/
 "Source code repository" = "ソースコードレポジトリ";
 
 /*No comment provided by engineer.*/
-"Tab key" = "タブキー";
+"Start at login" = "Start at login";
 
 /*No comment provided by engineer.*/
 "Theme" = "テーマ";
+
+/*No comment provided by engineer.*/
+"then press:" = "then press:";
 
 /*No comment provided by engineer.*/
 "Updates" = "Updates";
@@ -120,3 +196,6 @@
 
 /*No comment provided by engineer.*/
 "Window title font size" = "ウィンドウに表示されるタイトルフォントサイズ";
+
+/*No comment provided by engineer.*/
+" macOS" = "macOS";

@@ -1,108 +1,12 @@
-/*No comment provided by engineer.*/
-"About" = "關於";
-
-/*No comment provided by engineer.*/
-"Apparition delay" = "殘影延遲";
-
-/*No comment provided by engineer.*/
-"Appearance" = "外觀";
-
-/*No comment provided by engineer.*/
-"Auto-install updates periodically" = "定期自動安裝更新";
-
-/*Cancel button*/
-"Cancel" = "取消";
-
-/*No comment provided by engineer.*/
-"Check for updates now…" = "立即檢查更新…";
-
-/*No comment provided by engineer.*/
-"Check for updates periodically" = "定期自動檢查更新";
-
-/*No comment provided by engineer.*/
-"Check for updates…" = "檢查更新…";
-
-/*No comment provided by engineer.*/
-"Don't check for updates periodically" = "不要定期自動檢查更新";
-
-/*No comment provided by engineer.*/
-"Hide space number labels" = "隱藏空間編號的標籤";
-
-/*No comment provided by engineer.*/
-"I think the app could be improved with…" = "我認為這個 app 可以改善在…";
-
-/*No comment provided by engineer.*/
-"Latest releases" = "最新版本";
-
-/*No comment provided by engineer.*/
-"Max size on screen" = "在螢幕上最大的大小";
-
-/*No comment provided by engineer.*/
-"Max windows per row" = "每列最多顯示的視窗數";
-
-/*No comment provided by engineer.*/
-"Min windows per row" = "每列最少的視窗數";
-
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "電子信箱（選填，如果你想要收到回覆）";
-
-/*No comment provided by engineer.*/
-"Preferences…" = "偏好設定…";
-
-/*No comment provided by engineer.*/
-/*Fuzzy*/
-"Quit %@" = "離開 %@";
-
-/*No comment provided by engineer.*/
-"Send" = "送出";
-
-/*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "送出除錯資訊（CPU, 記憶體, …）";
-
-/*No comment provided by engineer.*/
-"Send feedback" = "送出回饋";
-
-/*No comment provided by engineer.*/
-"Send feedback…" = "送出回饋…";
-
-/*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "分享改進的想法，或是回報問題";
-
-/*No comment provided by engineer.*/
-"Show" = "顯示";
-
-/*No comment provided by engineer.*/
-"Show on" = "顯示在";
-
-/*No comment provided by engineer.*/
-"Source code repository" = "原始碼儲存庫";
-
-/*No comment provided by engineer.*/
-"Theme" = "主題";
-
-/*No comment provided by engineer.*/
-"Updates" = "更新";
-
-/*No comment provided by engineer.*/
-"Updates policy:" = "更新策略";
-
-/*No comment provided by engineer.*/
-"Version" = "版本";
-
-/*No comment provided by engineer.*/
-"View existing discussions" = "觀看目前的討論";
-
-/*No comment provided by engineer.*/
-"Window app icon size" = "視窗圖示的大小";
-
-/*No comment provided by engineer.*/
-"Window title font size" = "視窗標題的字體大小";
 
 /*No comment provided by engineer.*/
 "❖ Windows 10" = "❖ Windows 10";
 
 /*No comment provided by engineer.*/
-" macOS" = " macOS";
+"About" = "關於";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "鳴謝";
 
 /*No comment provided by engineer.*/
 "Active app" = "活躍的程式";
@@ -126,7 +30,19 @@
 "All spaces" = "全部桌面";
 
 /*No comment provided by engineer.*/
+"Apparition delay" = "殘影延遲";
+
+/*No comment provided by engineer.*/
+"Appearance" = "外觀";
+
+/*No comment provided by engineer.*/
 "Arrow keys" = "方向鍵";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "定期自動安裝更新";
+
+/*Cancel button*/
+"Cancel" = "取消";
 
 /*No comment provided by engineer.*/
 "Cancel and hide" = "取消並隱藏";
@@ -135,16 +51,55 @@
 "Center" = "置中";
 
 /*No comment provided by engineer.*/
+"Check for updates now…" = "立即檢查更新…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "定期自動檢查更新";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "檢查更新…";
+
+/*No comment provided by engineer.*/
+"Close window" = "關閉視窗";
+
+/*No comment provided by engineer.*/
+"Don't check for updates periodically" = "不要定期自動檢查更新";
+
+/*No comment provided by engineer.*/
 "General" = "一般";
 
 /*No comment provided by engineer.*/
 "Hidden" = "隱藏";
 
 /*No comment provided by engineer.*/
+"Hide space number labels" = "隱藏空間編號的標籤";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "隱藏/顯示程式";
+
+/*No comment provided by engineer.*/
 "Hold" = "按住";
 
 /*No comment provided by engineer.*/
+"I think the app could be improved with…" = "我認為這個 app 可以改善在…";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "最新版本";
+
+/*No comment provided by engineer.*/
 "Left" = "靠左";
+
+/*No comment provided by engineer.*/
+"Max size on screen" = "在螢幕上最大的大小";
+
+/*No comment provided by engineer.*/
+"Max windows per row" = "每列最多顯示的視窗數";
+
+/*No comment provided by engineer.*/
+"Min windows per row" = "每列最少的視窗數";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "最小化/最大化視窗";
 
 /*No comment provided by engineer.*/
 "Minimized" = "最小化";
@@ -152,8 +107,27 @@
 /*No comment provided by engineer.*/
 "Mouse hover" = "滑鼠懸停";
 
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0 授權";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "電子信箱（選填，如果你想要收到回覆）";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "偏好設定…";
+
+/*No comment provided by engineer.*/
+/*Fuzzy*/
+"Quit %@" = "離開 %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "離開程式";
+
 /*No comment provided by engineer.*/
 "Rows of windows" = "每列視窗數";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "包含選單列的螢幕";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "滑鼠所在的螢幕";
@@ -171,28 +145,58 @@
 "Select windows using:" = "選擇視窗使用：";
 
 /*No comment provided by engineer.*/
+"Send" = "送出";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "送出除錯資訊（CPU, 記憶體, …）";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "送出回饋";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "送出回饋…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "分享改進的想法，或是回報問題";
+
+/*No comment provided by engineer.*/
+"Show" = "顯示";
+
+/*No comment provided by engineer.*/
+"Show on" = "顯示在";
+
+/*No comment provided by engineer.*/
 "Show the following windows:" = "顯示以下的視窗：";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "原始碼儲存庫";
 
 /*No comment provided by engineer.*/
 "Start at login" = "在登入時啟動";
 
 /*No comment provided by engineer.*/
+"Theme" = "主題";
+
+/*No comment provided by engineer.*/
 "then press:" = "並按下：";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "鳴謝";
+"Updates" = "更新";
 
 /*No comment provided by engineer.*/
-"Close window" = "關閉視窗";
+"Updates policy:" = "更新策略";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "隱藏/顯示程式";
+"Version" = "版本";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "最小化/最大化視窗";
+"View existing discussions" = "觀看目前的討論";
 
 /*No comment provided by engineer.*/
-"Quit app" = "離開程式";
+"Window app icon size" = "視窗圖示的大小";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "包含選單列的螢幕";
+"Window title font size" = "視窗標題的字體大小";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
