@@ -1,0 +1,202 @@
+
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖ Windows 10";
+
+/*No comment provided by engineer.*/
+"About" = "Az App-ról";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Köszönetnyílvánítás";
+
+/*No comment provided by engineer.*/
+"Active app" = "Aktív alkalmazás";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Aktív képernyő";
+
+/*No comment provided by engineer.*/
+"Active space" = "Aktív terület";
+
+/*No comment provided by engineer.*/
+"Align windows" = "Ablakok rendezése";
+
+/*No comment provided by engineer.*/
+"All apps" = "Minden alkalmazás";
+
+/*No comment provided by engineer.*/
+"All screens" = "Minden képernyő";
+
+/*No comment provided by engineer.*/
+"All spaces" = "Minden terület";
+
+/*No comment provided by engineer.*/
+"Apparition delay" = "Megjelenítés késleltetése";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Megjelenés";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Nyíl billentyűk";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Frissítések automatikus telepítése";
+
+/*Cancel button*/
+"Cancel" = "Mégsem";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Mégsem majd elrejt";
+
+/*No comment provided by engineer.*/
+"Center" = "Középen";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "Frissítések keresése…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Frissítések automatikus keresése";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Frissítések keresése…";
+
+/*No comment provided by engineer.*/
+"Close window" = "Ablak bezárása";
+
+/*No comment provided by engineer.*/
+"Don't check for updates periodically" = "Ne keressen frissítéseket automatikusan";
+
+/*No comment provided by engineer.*/
+"General" = "Általános";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Rejtett";
+
+/*No comment provided by engineer.*/
+"Hide space number labels" = "Számok elrejtése a terület cimkékben";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Applikáció elrejtése/megjelenítése";
+
+/*No comment provided by engineer.*/
+"Hold" = "Tart";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Azt gondolom hasznos lenne az app bővítése ezzel…";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Legutóbbi kiadások";
+
+/*No comment provided by engineer.*/
+"Left" = "Bal";
+
+/*No comment provided by engineer.*/
+"Max size on screen" = "Legnagyobb méret a képernyőn";
+
+/*No comment provided by engineer.*/
+"Max windows per row" = "Legtöbb ablak soronként";
+
+/*No comment provided by engineer.*/
+"Min windows per row" = "Legkevesebb ablak soronként";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Ablak kicsinyítés/visszaállítása";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Kicsinyít";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Egér főlé vitele";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0 license";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Opcionális: email (ha választ szeretnél kapni)";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Beállítások…";
+
+/*No comment provided by engineer.*/
+/*Fuzzy*/
+"Quit %@" = "Kilépés %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Kilépés az alkalmazásból";
+
+/*No comment provided by engineer.*/
+"Rows of windows" = "Ablak sorok száma";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Képernyő a menü sávval";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "A képernyő ahol az egér van";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Az AltTab képernyője";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Következő ablak kiválasztása";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Előző ablak kiválasztása";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "Ablak kiválasztása a következővel:";
+
+/*No comment provided by engineer.*/
+"Send" = "Küldés";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Hibakeresési profil (CPU, memória, stb.) küldése";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Visszajelzés küldése";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Visszajelzés küldése…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Fejlesztési ötletek megosztása, hibabejelentés";
+
+/*No comment provided by engineer.*/
+"Show" = "Mutat";
+
+/*No comment provided by engineer.*/
+"Show on" = "Megjelenítés";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "Megjelenítendő ablakok kiválasztása:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Forrás kód tárhely";
+
+/*No comment provided by engineer.*/
+"Start at login" = "Betöltés bejelentkezéskor";
+
+/*No comment provided by engineer.*/
+"Theme" = "Téma";
+
+/*No comment provided by engineer.*/
+"then press:" = "majd nyomjon:";
+
+/*No comment provided by engineer.*/
+"Updates" = "Frissítések";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Frissítési beállítások:";
+
+/*No comment provided by engineer.*/
+"Version" = "Verzió";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "Aktuális beszélgetések megtekintése";
+
+/*No comment provided by engineer.*/
+"Window app icon size" = "Ablak alkalmazásikonméret";
+
+/*No comment provided by engineer.*/
+"Window title font size" = "Ablak címsor font méret";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
