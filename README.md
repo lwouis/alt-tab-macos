@@ -32,23 +32,11 @@ In addition to English, the app is currently available in:
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 
-## Usage
-
-* Press `⌥ option` + `⇥ tab` to shows the thumbnails.
-* Hold `⌥ option` and press `⇥ tab` to select the next thumbnail.
-* Hold `⌥ option` and press `⇧ shift` + `⇥ tab` to select the previous thumbnail.
-* Release `⌥ option` to switch focus to the window.
-
-**Extra:**
-
-* You hover and click with the `🖱️ mouse`.
-* You cycle with `⇦ left arrow` and `⇨ right arrow`.
-* You can cancel with `⎋ escape`.
-
 ## Configuration
 
-* Change the shortcut key, switch to a Windows theme and more, using the Preferences window.
-* If you like scriptable/portable configuration, you can edit `~/Library/Preferences/alt-tab-macos.json`.
+* Change the shortcut key, switch to a Windows theme and more, using the Preferences window:
+
+[![Screenshot](docs/img/alt-tab-macos/preferences.jpg)](docs/img/alt-tab-macos/preferences.jpg)
 
 ## Contributing
 
@@ -76,14 +64,6 @@ Before building my own app, I looked around at similar apps. However, none was c
 
 ## Screenshots
 
-### 1 row
-
-[![Screenshot](docs/img/alt-tab-macos/1-row.jpg)](docs/img/alt-tab-macos/1-row.jpg)
-
-### 2 rows
-
-[![Screenshot](docs/img/alt-tab-macos/2-rows.jpg)](docs/img/alt-tab-macos/2-rows.jpg)
-
-### Windows theme
-
-[![Screenshot](docs/img/alt-tab-macos/windows-theme.jpg)](docs/img/alt-tab-macos/windows-theme.jpg)
+| 1 row | 2 rows | Windows theme |
+|-------|---------|-------|
+| [![Screenshot](docs/img/alt-tab-macos/1-row.jpg)](docs/img/alt-tab-macos/1-row.jpg) | [![Screenshot](docs/img/alt-tab-macos/2-rows.jpg)](docs/img/alt-tab-macos/2-rows.jpg) | [![Screenshot](docs/img/alt-tab-macos/windows-theme.jpg)](docs/img/alt-tab-macos/windows-theme.jpg) |
