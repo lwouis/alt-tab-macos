@@ -1,3 +1,11 @@
+# [3.14.0](https://github.com/lwouis/alt-tab-macos/compare/v3.13.0...v3.14.0) (2020-04-22)
+
+
+### Features
+
+* add portuguese and finish japanese localizations ([d1ab72f](https://github.com/lwouis/alt-tab-macos/commit/d1ab72f))
+* update all localizations ([a2dd46d](https://github.com/lwouis/alt-tab-macos/commit/a2dd46d))
+
 # [3.13.0](https://github.com/lwouis/alt-tab-macos/compare/v3.12.0...v3.13.0) (2020-04-21)
 
 

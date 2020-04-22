@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.14.0</title>
+      <pubDate>Wed, 22 Apr 2020 18:13:37 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3140-httpsgithubcomlwouisalt-tab-macoscomparev3130v3140-2020-04-22">3.14.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.13.0...v3.14.0">https://github.com/lwouis/alt-tab-macos/compare/v3.13.0...v3.14.0</a>) (2020-04-22)</h1>
+<h3 id="features">Features</h3>
+<pre><code>* add portuguese and finish japanese localizations (d1ab72f (https://github.com/lwouis/alt-tab-macos/commit/d1ab72f))
+* update all localizations (a2dd46d (https://github.com/lwouis/alt-tab-macos/commit/a2dd46d))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.14.0/AltTab-3.14.0.zip"
+        sparkle:version="3.14.0"
+        sparkle:shortVersionString="3.14.0"
+        sparkle:edSignature="E5PFOVzWCDu1j9asV3SMtAfBRhWE8gQcSe1qItq8jLicpY12o+fLoMpJYGb5/0EwEi8dh9oBeOhmzajA+G54Ag==" length="6706533"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.13.0</title>
       <pubDate>Tue, 21 Apr 2020 11:48:37 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
