@@ -18,7 +18,7 @@
 "Active space" = "活躍的桌面";
 
 /*No comment provided by engineer.*/
-"Align windows" = "排列視窗";
+"Align windows:" = "排列視窗：";
 
 /*No comment provided by engineer.*/
 "All apps" = "全部程式";
@@ -30,7 +30,7 @@
 "All spaces" = "全部桌面";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "殘影延遲";
+"Apparition delay:" = "殘影延遲：";
 
 /*No comment provided by engineer.*/
 "Appearance" = "外觀";
@@ -72,7 +72,7 @@
 "Hidden" = "隱藏";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "隱藏空間編號的標籤";
+"Hide space number labels:" = "隱藏空間編號的標籤：";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "隱藏/顯示程式";
@@ -90,13 +90,13 @@
 "Left" = "靠左";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "在螢幕上最大的大小";
+"Max size on screen:" = "在螢幕上最大的大小：";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "每列最多顯示的視窗數";
+"Max windows per row:" = "每列最多顯示的視窗數：";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "每列最少的視窗數";
+"Min windows per row:" = "每列最少的視窗數：";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "最小化/最大化視窗";
@@ -117,14 +117,13 @@
 "Preferences…" = "偏好設定…";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
 "Quit %@" = "離開 %@";
 
 /*No comment provided by engineer.*/
 "Quit app" = "離開程式";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "每列視窗數";
+"Rows of windows:" = "每列視窗數：";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "包含選單列的螢幕";
@@ -163,7 +162,7 @@
 "Show" = "顯示";
 
 /*No comment provided by engineer.*/
-"Show on" = "顯示在";
+"Show on:" = "顯示在：";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "顯示以下的視窗：";
@@ -172,10 +171,10 @@
 "Source code repository" = "原始碼儲存庫";
 
 /*No comment provided by engineer.*/
-"Start at login" = "在登入時啟動";
+"Start at login:" = "在登入時啟動：";
 
 /*No comment provided by engineer.*/
-"Theme" = "主題";
+"Theme:" = "主題：";
 
 /*No comment provided by engineer.*/
 "then press:" = "並按下：";
@@ -184,7 +183,7 @@
 "Updates" = "更新";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "更新策略";
+"Updates policy:" = "更新策略：";
 
 /*No comment provided by engineer.*/
 "Version" = "版本";
@@ -193,10 +192,10 @@
 "View existing discussions" = "觀看目前的討論";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "視窗圖示的大小";
+"Window app icon size:" = "視窗圖示的大小：";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "視窗標題的字體大小";
+"Window title font size:" = "視窗標題的字體大小：";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";

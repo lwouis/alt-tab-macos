@@ -6,37 +6,37 @@
 "About" = "Introduzione";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "Acknowledgments";
+"Acknowledgments" = "Ringraziamenti";
 
 /*No comment provided by engineer.*/
-"Active app" = "Active app";
+"Active app" = "App attiva";
 
 /*No comment provided by engineer.*/
-"Active screen" = "Active screen";
+"Active screen" = "Schermo attivo";
 
 /*No comment provided by engineer.*/
-"Active space" = "Active space";
+"Active space" = "Spazio attivo";
 
 /*No comment provided by engineer.*/
-"Align windows" = "Align windows";
+"Align windows:" = "Allinea finestre:";
 
 /*No comment provided by engineer.*/
-"All apps" = "All apps";
+"All apps" = "Tutte le applicazioni";
 
 /*No comment provided by engineer.*/
-"All screens" = "All screens";
+"All screens" = "Tutti gli schermi";
 
 /*No comment provided by engineer.*/
-"All spaces" = "All spaces";
+"All spaces" = "Tutti gli spazi";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Ritardo di apparizione";
+"Apparition delay:" = "Ritardo di apparizione:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Apparenza";
 
 /*No comment provided by engineer.*/
-"Arrow keys" = "Arrow keys";
+"Arrow keys" = "Tasti freccia";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "La procedure di auto-install aggiorna periodicamente";
@@ -45,10 +45,10 @@
 "Cancel" = "Cancella";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "Cancel and hide";
+"Cancel and hide" = "Annulla e nascondi";
 
 /*No comment provided by engineer.*/
-"Center" = "Center";
+"Center" = "Centro";
 
 /*No comment provided by engineer.*/
 "Check for updates now…" = "Controlla aggiornamenti ora…";
@@ -60,25 +60,25 @@
 "Check for updates…" = "Controllo aggiornamenti…";
 
 /*No comment provided by engineer.*/
-"Close window" = "Close window";
+"Close window" = "Chiudi la finestra";
 
 /*No comment provided by engineer.*/
 "Don't check for updates periodically" = "Non controllare gli aggiornamenti periodicamente";
 
 /*No comment provided by engineer.*/
-"General" = "General";
+"General" = "Generale";
 
 /*No comment provided by engineer.*/
-"Hidden" = "Hidden";
+"Hidden" = "Nascosto";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "Nascondi le etichette del numero di spazi";
+"Hide space number labels:" = "Nascondi le etichette del numero di spazi:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Hide/Show app";
+"Hide/Show app" = "Nascondi / Mostra app";
 
 /*No comment provided by engineer.*/
-"Hold" = "Hold";
+"Hold" = "Tenere";
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Credo che l’applicazione possa essere migliorata con…";
@@ -87,25 +87,25 @@
 "Latest releases" = "Ultimi rilasci";
 
 /*No comment provided by engineer.*/
-"Left" = "Left";
+"Left" = "Sinistra";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "Massima dimensione a schermo";
+"Max size on screen:" = "Massima dimensione a schermo:";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "Massimo numero di finestre per riga";
+"Max windows per row:" = "Massimo numero di finestre per riga:";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "Minimo numero di finestre per riga";
+"Min windows per row:" = "Minimo numero di finestre per riga:";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+"Minimize/Deminimize window" = "Riduci / Diminuisci finestra";
 
 /*No comment provided by engineer.*/
-"Minimized" = "Minimized";
+"Minimized" = "ridotti al minimo";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "Mouse hover";
+"Mouse hover" = "Passa il mouse";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "Licenza GPL-3.0";
@@ -117,32 +117,31 @@
 "Preferences…" = "Preferenze…";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
 "Quit %@" = "Chiudi %@";
 
 /*No comment provided by engineer.*/
-"Quit app" = "Quit app";
+"Quit app" = "Esci dall'app";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "Rows of windows";
+"Rows of windows:" = "File di finestre:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including menu bar" = "Schermata con barra dei menu";
 
 /*No comment provided by engineer.*/
-"Screen including mouse" = "Screen including mouse";
+"Screen including mouse" = "Schermo compreso il mouse";
 
 /*No comment provided by engineer.*/
-"Screen showing AltTab" = "Screen showing AltTab";
+"Screen showing AltTab" = "Schermata che mostra AltTab";
 
 /*No comment provided by engineer.*/
-"Select next window" = "Select next window";
+"Select next window" = "Seleziona la finestra successiva";
 
 /*No comment provided by engineer.*/
-"Select previous window" = "Select previous window";
+"Select previous window" = "Seleziona la finestra precedente";
 
 /*No comment provided by engineer.*/
-"Select windows using:" = "Select windows using:";
+"Select windows using:" = "Seleziona windows usando:";
 
 /*No comment provided by engineer.*/
 "Send" = "Invia";
@@ -163,22 +162,22 @@
 "Show" = "Mostra";
 
 /*No comment provided by engineer.*/
-"Show on" = "Mostra su";
+"Show on:" = "Mostra su:";
 
 /*No comment provided by engineer.*/
-"Show the following windows:" = "Show the following windows:";
+"Show the following windows:" = "Mostra le seguenti finestre:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Archivio codice sorgente";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Start at login";
+"Start at login:" = "Inizia al login:";
 
 /*No comment provided by engineer.*/
-"Theme" = "Tema";
+"Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
-"then press:" = "then press:";
+"then press:" = "quindi premere:";
 
 /*No comment provided by engineer.*/
 "Updates" = "Aggiornamenti";
@@ -193,10 +192,10 @@
 "View existing discussions" = "Mostra discussioni esistenti";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "Dimensione dell’icona della finestra dell’applicazione";
+"Window app icon size:" = "Dimensione dell’icona della finestra dell’applicazione:";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "Dimensione del carattere del titolo della finestra";
+"Window title font size:" = "Dimensione del carattere del titolo della finestra:";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";

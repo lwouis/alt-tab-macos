@@ -6,7 +6,7 @@
 "About" = "Hakkında";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "Acknowledgments";
+"Acknowledgments" = "Teşekkür";
 
 /*No comment provided by engineer.*/
 "Active app" = "Aktif uygulama";
@@ -18,7 +18,7 @@
 "Active space" = "Aktif boşluk";
 
 /*No comment provided by engineer.*/
-"Align windows" = "Pencereleri hizala";
+"Align windows:" = "Pencereleri hizala:";
 
 /*No comment provided by engineer.*/
 "All apps" = "Tüm uygulamalar";
@@ -30,7 +30,7 @@
 "All spaces" = "Tüm boşluklar";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Görünüm gecikmesi";
+"Apparition delay:" = "Görünüm gecikmesi:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Görünüm";
@@ -60,7 +60,7 @@
 "Check for updates…" = "Güncellemeleri kontrol et…";
 
 /*No comment provided by engineer.*/
-"Close window" = "Close window";
+"Close window" = "Pencereyi kapat";
 
 /*No comment provided by engineer.*/
 "Don't check for updates periodically" = "Güncellemeleri periyodik olarak kontrol etme";
@@ -72,10 +72,10 @@
 "Hidden" = "Gizli";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "Ekran etiketlerini gizle";
+"Hide space number labels:" = "Ekran etiketlerini gizle:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Hide/Show app";
+"Hide/Show app" = "Uygulamayı gizle / göster";
 
 /*No comment provided by engineer.*/
 "Hold" = "Tut";
@@ -90,16 +90,16 @@
 "Left" = "Sol";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "Max size on screen";
+"Max size on screen:" = "Ekrandaki maksimum boyut:";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "Max windows per row";
+"Max windows per row:" = "Satır başına maksimum pencere sayısı:";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "Min windows per row";
+"Min windows per row:" = "Satır başına minimum pencere sayısı:";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+"Minimize/Deminimize window" = "Simge Durumuna Küçült / Deminimize Et";
 
 /*No comment provided by engineer.*/
 "Minimized" = "Gizlenmiş";
@@ -117,23 +117,22 @@
 "Preferences…" = "Tercihler…";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
 "Quit %@" = "Çık %@";
 
 /*No comment provided by engineer.*/
-"Quit app" = "Quit app";
+"Quit app" = "Uygulamadan çık";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "Pencere satırları";
+"Rows of windows:" = "Pencere satırları:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including menu bar" = "Menü çubuğu içeren ekran";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "İmleçin olduğu ekran";
 
 /*No comment provided by engineer.*/
-"Screen showing AltTab" = "Screen showing AltTab";
+"Screen showing AltTab" = "AltTab'ı gösteren ekran";
 
 /*No comment provided by engineer.*/
 "Select next window" = "Sonraki pencereyi seç";
@@ -163,22 +162,22 @@
 "Show" = "Göster";
 
 /*No comment provided by engineer.*/
-"Show on" = "Show on";
+"Show on:" = "Göstermek:";
 
 /*No comment provided by engineer.*/
-"Show the following windows:" = "Takipeden pencereleri göster";
+"Show the following windows:" = "Takipeden pencereleri göster:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Kaynak kodu deposu";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Başlangıçta çalıştır";
+"Start at login:" = "Başlangıçta çalıştır:";
 
 /*No comment provided by engineer.*/
-"Theme" = "Tema";
+"Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
-"then press:" = "ve";
+"then press:" = "ve:";
 
 /*No comment provided by engineer.*/
 "Updates" = "Güncellemeler";
@@ -193,10 +192,10 @@
 "View existing discussions" = "Mevcut tartışmaları görüntüle";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "Pencere simge boyutu";
+"Window app icon size:" = "Pencere simge boyutu:";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "Pencere başlığı yazı tipi boyutu";
+"Window title font size:" = "Pencere başlığı yazı tipi boyutu:";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";

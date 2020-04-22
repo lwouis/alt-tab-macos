@@ -18,7 +18,7 @@
 "Active space" = "Aktív terület";
 
 /*No comment provided by engineer.*/
-"Align windows" = "Ablakok rendezése";
+"Align windows:" = "Ablakok rendezése:";
 
 /*No comment provided by engineer.*/
 "All apps" = "Minden alkalmazás";
@@ -30,7 +30,7 @@
 "All spaces" = "Minden terület";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Megjelenítés késleltetése";
+"Apparition delay:" = "Megjelenítés késleltetése:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Megjelenés";
@@ -72,7 +72,7 @@
 "Hidden" = "Rejtett";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "Számok elrejtése a terület cimkékben";
+"Hide space number labels:" = "Számok elrejtése a terület cimkékben:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Applikáció elrejtése/megjelenítése";
@@ -90,13 +90,13 @@
 "Left" = "Bal";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "Legnagyobb méret a képernyőn";
+"Max size on screen:" = "Legnagyobb méret a képernyőn:";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "Legtöbb ablak soronként";
+"Max windows per row:" = "Legtöbb ablak soronként:";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "Legkevesebb ablak soronként";
+"Min windows per row:" = "Legkevesebb ablak soronként:";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Ablak kicsinyítés/visszaállítása";
@@ -117,14 +117,13 @@
 "Preferences…" = "Beállítások…";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
 "Quit %@" = "Kilépés %@";
 
 /*No comment provided by engineer.*/
 "Quit app" = "Kilépés az alkalmazásból";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "Ablak sorok száma";
+"Rows of windows:" = "Ablak sorok száma:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Képernyő a menü sávval";
@@ -163,7 +162,7 @@
 "Show" = "Mutat";
 
 /*No comment provided by engineer.*/
-"Show on" = "Megjelenítés";
+"Show on:" = "Megjelenítés:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Megjelenítendő ablakok kiválasztása:";
@@ -172,10 +171,10 @@
 "Source code repository" = "Forrás kód tárhely";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Betöltés bejelentkezéskor";
+"Start at login:" = "Betöltés bejelentkezéskor:";
 
 /*No comment provided by engineer.*/
-"Theme" = "Téma";
+"Theme:" = "Téma:";
 
 /*No comment provided by engineer.*/
 "then press:" = "majd nyomjon:";
@@ -193,10 +192,10 @@
 "View existing discussions" = "Aktuális beszélgetések megtekintése";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "Ablak alkalmazásikonméret";
+"Window app icon size:" = "Ablak alkalmazásikonméret:";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "Ablak címsor font méret";
+"Window title font size:" = "Ablak címsor font méret:";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";

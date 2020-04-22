@@ -6,7 +6,7 @@
 "About" = "정보";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "Acknowledgments";
+"Acknowledgments" = "감사의 말";
 
 /*No comment provided by engineer.*/
 "Active app" = "활성화된 앱";
@@ -18,7 +18,7 @@
 "Active space" = "활성화된 Space";
 
 /*No comment provided by engineer.*/
-"Align windows" = "윈도우 정렬방식";
+"Align windows:" = "윈도우 정렬방식:";
 
 /*No comment provided by engineer.*/
 "All apps" = "모든 앱";
@@ -30,7 +30,7 @@
 "All spaces" = "모든 Space";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "나타나는 시간";
+"Apparition delay:" = "나타나는 시간:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "모양";
@@ -60,7 +60,7 @@
 "Check for updates…" = "업데이트 확인…";
 
 /*No comment provided by engineer.*/
-"Close window" = "Close window";
+"Close window" = "창 닫기";
 
 /*No comment provided by engineer.*/
 "Don't check for updates periodically" = "주기적으로 업데이트를 확인하지 않기";
@@ -72,10 +72,10 @@
 "Hidden" = "숨겨진 화면";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "Space 번호 숨기기";
+"Hide space number labels:" = "Space 번호 숨기기:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Hide/Show app";
+"Hide/Show app" = "앱 숨기기 / 보이기";
 
 /*No comment provided by engineer.*/
 "Hold" = " ";
@@ -90,16 +90,16 @@
 "Left" = "왼쪽";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "화면 최대 크기";
+"Max size on screen:" = "화면 최대 크기:";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "한 줄당 최대 윈도우 개수";
+"Max windows per row:" = "한 줄당 최대 윈도우 개수:";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "한 줄당 최소 윈도우 개수";
+"Min windows per row:" = "한 줄당 최소 윈도우 개수:";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+"Minimize/Deminimize window" = "창 최소화 / 최소화 창";
 
 /*No comment provided by engineer.*/
 "Minimized" = "최소화된 화면";
@@ -117,17 +117,16 @@
 "Preferences…" = "설정…";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
 "Quit %@" = "%@ 종료";
 
 /*No comment provided by engineer.*/
-"Quit app" = "Quit app";
+"Quit app" = "앱 종료";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "윈도우 줄 개수";
+"Rows of windows:" = "윈도우 줄 개수:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including menu bar" = "메뉴 바를 포함한 화면";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "마우스를 포함한 화면";
@@ -163,7 +162,7 @@
 "Show" = "보기";
 
 /*No comment provided by engineer.*/
-"Show on" = "보여질 곳";
+"Show on:" = "보여질 곳:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "다음 윈도우들이 보여집니다:";
@@ -172,10 +171,10 @@
 "Source code repository" = "소스 코드";
 
 /*No comment provided by engineer.*/
-"Start at login" = "로그인 시 자동 실행";
+"Start at login:" = "로그인 시 자동 실행:";
 
 /*No comment provided by engineer.*/
-"Theme" = "테마";
+"Theme:" = "테마:";
 
 /*No comment provided by engineer.*/
 "then press:" = "을 누르고 다음을 누르면:";
@@ -193,10 +192,10 @@
 "View existing discussions" = "진행중인 논의 보기";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "윈도우 앱 아이콘 크기";
+"Window app icon size:" = "윈도우 앱 아이콘 크기:";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "윈도우 제목 글꼴 크기";
+"Window title font size:" = "윈도우 제목 글꼴 크기:";
 
 /*No comment provided by engineer.*/
 " macOS" = " 맥 OS";
