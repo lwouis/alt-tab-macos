@@ -6,7 +6,7 @@
 "About" = "Tietoja";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "Acknowledgments";
+"Acknowledgments" = "Kiitokset";
 
 /*No comment provided by engineer.*/
 "Active app" = "Aktiivinen ohjelma";
@@ -18,7 +18,7 @@
 "Active space" = "Aktiivinen tila";
 
 /*No comment provided by engineer.*/
-"Align windows" = "Tasaa ikkunat";
+"Align windows:" = "Tasaa ikkunat:";
 
 /*No comment provided by engineer.*/
 "All apps" = "Kaikki ohjelmat";
@@ -30,7 +30,7 @@
 "All spaces" = "Kaikki tilat";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Ilmestymisviive";
+"Apparition delay:" = "Ilmestymisviive:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Ulkonäkö";
@@ -60,7 +60,7 @@
 "Check for updates…" = "Tarkista päivitykset…";
 
 /*No comment provided by engineer.*/
-"Close window" = "Close window";
+"Close window" = "Sulje ikkuna";
 
 /*No comment provided by engineer.*/
 "Don't check for updates periodically" = "Älä tarkista päivityksiä";
@@ -72,10 +72,10 @@
 "Hidden" = "Piilossa";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "Piilota tilojen numerot";
+"Hide space number labels:" = "Piilota tilojen numerot:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Hide/Show app";
+"Hide/Show app" = "Piilota/näytä ohjelma";
 
 /*No comment provided by engineer.*/
 "Hold" = "Pidä";
@@ -90,16 +90,16 @@
 "Left" = "Vasen";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "Enimmäiskoko ruudulla";
+"Max size on screen:" = "Enimmäiskoko ruudulla:";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "Enimmäismäärä ikkunoita rivillä";
+"Max windows per row:" = "Enimmäismäärä ikkunoita rivillä:";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "Vähimmäismäärä ikkunoita rivillä";
+"Min windows per row:" = "Vähimmäismäärä ikkunoita rivillä:";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+"Minimize/Deminimize window" = "Pienennä/palauta ikkuna";
 
 /*No comment provided by engineer.*/
 "Minimized" = "Pienennetty";
@@ -120,13 +120,13 @@
 "Quit %@" = "Lopeta %@";
 
 /*No comment provided by engineer.*/
-"Quit app" = "Quit app";
+"Quit app" = "Sulje ohjelma";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "Ikkunarivejä";
+"Rows of windows:" = "Ikkunarivejä:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including menu bar" = "Ruudulla jossa valikkopalkki";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "Ruudulla jossa hiiri";
@@ -162,7 +162,7 @@
 "Show" = "Näytä";
 
 /*No comment provided by engineer.*/
-"Show on" = "Näytä";
+"Show on:" = "Näytä:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Show the following windows:";
@@ -171,10 +171,10 @@
 "Source code repository" = "Lähdekoodi";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Start at login";
+"Start at login:" = "Käynnistä kirjautuessa:";
 
 /*No comment provided by engineer.*/
-"Theme" = "Teema";
+"Theme:" = "Teema:";
 
 /*No comment provided by engineer.*/
 "then press:" = "sitten paina:";
@@ -192,10 +192,10 @@
 "View existing discussions" = "Näytä keskustelut";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "Ohjelmaikonin koko";
+"Window app icon size:" = "Ohjelmaikonin koko:";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "Otsikkotekstin koko";
+"Window title font size:" = "Otsikkotekstin koko:";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";

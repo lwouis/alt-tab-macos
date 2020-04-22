@@ -18,7 +18,7 @@
 "Active space" = "Espace actif";
 
 /*No comment provided by engineer.*/
-"Align windows" = "Aligner les fenêtres";
+"Align windows:" = "Aligner les fenêtres :";
 
 /*No comment provided by engineer.*/
 "All apps" = "Toutes les apps";
@@ -30,7 +30,7 @@
 "All spaces" = "Tous les Espaces";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Délai d’apparition";
+"Apparition delay:" = "Délai d’apparition :";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Apparence";
@@ -72,7 +72,7 @@
 "Hidden" = "Cachées";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "Cacher les numéros des Espaces";
+"Hide space number labels:" = "Cacher les numéros des Espaces :";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Masquer/Afficher l’app";
@@ -90,13 +90,13 @@
 "Left" = "À gauche";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "Taille max à l’écran";
+"Max size on screen:" = "Taille max à l’écran :";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "Max de fenêtres par ligne";
+"Max windows per row:" = "Max de fenêtres par ligne :";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "Min de fenêtres par ligne";
+"Min windows per row:" = "Min de fenêtres par ligne :";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimiser/Déminimiser la fenêtre";
@@ -117,14 +117,13 @@
 "Preferences…" = "Préférences…";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
 "Quit %@" = "Quitter %@";
 
 /*No comment provided by engineer.*/
 "Quit app" = "Quitter l’app";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "Rangées de fenêtres";
+"Rows of windows:" = "Rangées de fenêtres :";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Écran contenant la barre de menu";
@@ -142,7 +141,7 @@
 "Select previous window" = "Sélectionner la fenêtre précédente";
 
 /*No comment provided by engineer.*/
-"Select windows using:" = "Sélectionner les fenêtres avec :";
+"Select windows using:" = "Sélectionner les fenêtres avec :";
 
 /*No comment provided by engineer.*/
 "Send" = "Envoyer";
@@ -163,22 +162,22 @@
 "Show" = "Afficher";
 
 /*No comment provided by engineer.*/
-"Show on" = "Afficher sur";
+"Show on:" = "Afficher sur :";
 
 /*No comment provided by engineer.*/
-"Show the following windows:" = "Afficher les";
+"Show the following windows:" = "Afficher les fenêtres suivantes :";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Repo du code source";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Lancer au démarrage";
+"Start at login:" = "Lancer au démarrage :";
 
 /*No comment provided by engineer.*/
-"Theme" = "Thème";
+"Theme:" = "Thème :";
 
 /*No comment provided by engineer.*/
-"then press:" = "puis presser :";
+"then press:" = "puis presser :";
 
 /*No comment provided by engineer.*/
 "Updates" = "Mises-à-jour";
@@ -193,10 +192,10 @@
 "View existing discussions" = "Voir les discussions existantes";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "Taille des icones des applications";
+"Window app icon size:" = "Taille des icones des applications :";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "Taille du titres des fenêtres";
+"Window title font size:" = "Taille du titres des fenêtres :";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";

@@ -18,7 +18,7 @@
 "Active space" = "Desktop ativo";
 
 /*No comment provided by engineer.*/
-"Align windows" = "Alinhar janelas";
+"Align windows:" = "Alinhar janelas:";
 
 /*No comment provided by engineer.*/
 "All apps" = "Todas as aplicações";
@@ -30,7 +30,7 @@
 "All spaces" = "Todos os desktops";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Intervalo para exibição";
+"Apparition delay:" = "Intervalo para exibição:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Aparência";
@@ -72,7 +72,7 @@
 "Hidden" = "Oculto";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "Não exibir o número do desktop";
+"Hide space number labels:" = "Não exibir o número do desktop:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Ocultar/Exibir aplicação";
@@ -90,13 +90,13 @@
 "Left" = "Esquerda";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "Tamanho máximo na tela";
+"Max size on screen:" = "Tamanho máximo na tela:";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "Qtde máxima de janelas por linha";
+"Max windows per row:" = "Qtde máxima de janelas por linha:";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "Qtde mínima de janelas por linha";
+"Min windows per row:" = "Qtde mínima de janelas por linha:";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimizar/Restaurar janela";
@@ -123,7 +123,7 @@
 "Quit app" = "Fechar aplicação";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "Linhas de janelas";
+"Rows of windows:" = "Linhas de janelas:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Tela onde a barra de menu está sendo exibida";
@@ -162,7 +162,7 @@
 "Show" = "Exibir";
 
 /*No comment provided by engineer.*/
-"Show on" = "Exibir em";
+"Show on:" = "Exibir em:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Exibir as seguintes janelas:";
@@ -171,10 +171,10 @@
 "Source code repository" = "Repositório do Código Fonte";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Iniciar ao efetuar login";
+"Start at login:" = "Iniciar ao efetuar login:";
 
 /*No comment provided by engineer.*/
-"Theme" = "Tema";
+"Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
 "then press:" = "então pressione:";
@@ -192,10 +192,10 @@
 "View existing discussions" = "Ver discussões existentes";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "Tamanho do ícone da aplicação";
+"Window app icon size:" = "Tamanho do ícone da aplicação:";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "Tamanho da fonte do título da aplicação";
+"Window title font size:" = "Tamanho da fonte do título da aplicação:";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";

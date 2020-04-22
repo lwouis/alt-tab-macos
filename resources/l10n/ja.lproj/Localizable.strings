@@ -18,7 +18,7 @@
 "Active space" = "稼働スペース";
 
 /*No comment provided by engineer.*/
-"Align windows" = "ウィンドウの配置";
+"Align windows:" = "ウィンドウの配置：";
 
 /*No comment provided by engineer.*/
 "All apps" = "全てのアプリケーション";
@@ -30,7 +30,7 @@
 "All spaces" = "全てのスペース";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "スクリーン表示速度";
+"Apparition delay:" = "スクリーン表示速度：";
 
 /*No comment provided by engineer.*/
 "Appearance" = "表示設定";
@@ -72,7 +72,7 @@
 "Hidden" = "ウィンドウをしまう";
 
 /*No comment provided by engineer.*/
-"Hide space number labels" = "スペース番号ラベルを隠す";
+"Hide space number labels:" = "スペース番号ラベルを隠す：";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "アプリケーションを隠す / 表示";
@@ -90,13 +90,13 @@
 "Left" = "左";
 
 /*No comment provided by engineer.*/
-"Max size on screen" = "スクリーン表示サイズ";
+"Max size on screen:" = "スクリーン表示サイズ：";
 
 /*No comment provided by engineer.*/
-"Max windows per row" = "一列に最大表示可能な個数";
+"Max windows per row:" = "一列に最大表示可能な個数：";
 
 /*No comment provided by engineer.*/
-"Min windows per row" = "一列に最小表示可能な個数";
+"Min windows per row:" = "一列に最小表示可能な個数：";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "ウィンドウをしまう / 開く";
@@ -123,7 +123,7 @@
 "Quit app" = "アプリケーションを終了";
 
 /*No comment provided by engineer.*/
-"Rows of windows" = "ウィンドウ列";
+"Rows of windows:" = "ウィンドウ列：";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "メニューバーのあるスクリーン";
@@ -141,7 +141,7 @@
 "Select previous window" = "前のウィンドウを選択";
 
 /*No comment provided by engineer.*/
-"Select windows using:" = "使用中のウィンドウを選択:";
+"Select windows using:" = "使用中のウィンドウを選択：";
 
 /*No comment provided by engineer.*/
 "Send" = "送信";
@@ -162,28 +162,28 @@
 "Show" = "アプリを表示";
 
 /*No comment provided by engineer.*/
-"Show on" = "表示場所";
+"Show on:" = "表示場所：";
 
 /*No comment provided by engineer.*/
-"Show the following windows:" = "ウィンドウを表示:";
+"Show the following windows:" = "ウィンドウを表示：";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "ソースコードレポジトリ";
 
 /*No comment provided by engineer.*/
-"Start at login" = "ログイン時に起動";
+"Start at login:" = "ログイン時に起動：";
 
 /*No comment provided by engineer.*/
-"Theme" = "テーマ";
+"Theme:" = "テーマ：";
 
 /*No comment provided by engineer.*/
-"then press:" = "を押したまま";
+"then press:" = "を押したまま：";
 
 /*No comment provided by engineer.*/
 "Updates" = "アップデート";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "アップデートポリシー:";
+"Updates policy:" = "アップデートポリシー：";
 
 /*No comment provided by engineer.*/
 "Version" = "バージョン";
@@ -192,10 +192,10 @@
 "View existing discussions" = "既にあるディスカッションを見る";
 
 /*No comment provided by engineer.*/
-"Window app icon size" = "ウィンドウに表示されるアイコンサイズ";
+"Window app icon size:" = "ウィンドウに表示されるアイコンサイズ：";
 
 /*No comment provided by engineer.*/
-"Window title font size" = "ウィンドウに表示されるタイトルフォントサイズ";
+"Window title font size:" = "ウィンドウに表示されるタイトルフォントサイズ：";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";

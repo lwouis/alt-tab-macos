@@ -14,7 +14,7 @@
 "Active space" = "Active space";
 
 /* No comment provided by engineer. */
-"Align windows" = "Align windows";
+"Align windows:" = "Align windows:";
 
 /* No comment provided by engineer. */
 "All apps" = "All apps";
@@ -26,7 +26,7 @@
 "All spaces" = "All spaces";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Apparition delay";
+"Apparition delay:" = "Apparition delay:";
 
 /* No comment provided by engineer. */
 "Appearance" = "Appearance";
@@ -68,7 +68,7 @@
 "Hidden" = "Hidden";
 
 /* No comment provided by engineer. */
-"Hide space number labels" = "Hide space number labels";
+"Hide space number labels:" = "Hide space number labels:";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Hide/Show app";
@@ -86,13 +86,13 @@
 "Left" = "Left";
 
 /* No comment provided by engineer. */
-"Max size on screen" = "Max size on screen";
+"Max size on screen:" = "Max size on screen:";
 
 /* No comment provided by engineer. */
-"Max windows per row" = "Max windows per row";
+"Max windows per row:" = "Max windows per row:";
 
 /* No comment provided by engineer. */
-"Min windows per row" = "Min windows per row";
+"Min windows per row:" = "Min windows per row:";
 
 /* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimize/Deminimize window";
@@ -116,7 +116,7 @@
 "Quit app" = "Quit app";
 
 /* No comment provided by engineer. */
-"Rows of windows" = "Rows of windows";
+"Rows of windows:" = "Rows of windows:";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Screen including menu bar";
@@ -155,7 +155,7 @@
 "Show" = "Show";
 
 /* No comment provided by engineer. */
-"Show on" = "Show on";
+"Show on:" = "Show on:";
 
 /* No comment provided by engineer. */
 "Show the following windows:" = "Show the following windows:";
@@ -164,10 +164,10 @@
 "Source code repository" = "Source code repository";
 
 /* No comment provided by engineer. */
-"Start at login" = "Start at login";
+"Start at login:" = "Start at login:";
 
 /* No comment provided by engineer. */
-"Theme" = "Theme";
+"Theme:" = "Theme:";
 
 /* No comment provided by engineer. */
 "then press:" = "then press:";
@@ -185,10 +185,10 @@
 "View existing discussions" = "View existing discussions";
 
 /* No comment provided by engineer. */
-"Window app icon size" = "Window app icon size";
+"Window app icon size:" = "Window app icon size:";
 
 /* No comment provided by engineer. */
-"Window title font size" = "Window title font size";
+"Window title font size:" = "Window title font size:";
 
 /* No comment provided by engineer. */
 "❖ Windows 10" = "❖ Windows 10";

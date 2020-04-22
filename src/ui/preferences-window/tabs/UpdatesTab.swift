@@ -21,6 +21,7 @@ class UpdatesTab: NSViewController, PreferencePane {
         periodicallyInstall = NSButton(radioButtonWithTitle: NSLocalizedString("Auto-install updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
         periodicallyInstall.fit()
         let policyLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("Updates policy:", comment: ""))
+        policyLabel.isSelectable = false
         let policies = NSStackView(views: [dontPeriodicallyCheck, periodicallyCheck, periodicallyInstall])
         policies.alignment = .left
         policies.orientation = .vertical

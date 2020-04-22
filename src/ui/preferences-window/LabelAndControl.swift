@@ -86,8 +86,7 @@ class LabelAndControl: NSObject {
     }
 
     static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator) -> NSTextField {
-        let labelText_ = labelPosition == .leftWithSeparator ? labelText + ":" : labelText
-        let label = NSTextField(wrappingLabelWithString: labelText_)
+        let label = NSTextField(wrappingLabelWithString: labelText)
         label.isSelectable = false
         label.usesSingleLineMode = true
         label.alignment = .right
