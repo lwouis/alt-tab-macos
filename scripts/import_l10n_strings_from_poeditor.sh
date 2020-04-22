@@ -14,8 +14,7 @@ function updateLanguageFile() {
     -d order="terms" \
     -d type="apple_strings")"
   fileUrl="$(jq -r '.result.url' <<<"$exportApiJson")"
-  language="$(tr '-' '_' <<< "$1")"
-  curl "$fileUrl" > "$fileDirectory/$language.lproj/Localizable.strings"
+  curl "$fileUrl" > "$fileDirectory/$1.lproj/Localizable.strings"
 }
 
 function getLanguagesOnPoeditor() {
