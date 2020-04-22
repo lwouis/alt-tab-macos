@@ -22,6 +22,7 @@ In addition to English, the app is currently available in:
 * Español
 * Français
 * Italiano
+* Portuguese (Brazil)
 * Suomi
 * Türkçe
 * 中文 (简体)
