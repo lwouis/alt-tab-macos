@@ -63,19 +63,34 @@ class FeedbackWindow: NSWindow {
         contentView = view
     }
 
-    @objc
-    private func cancelCallback() {
+    @objc private func cancelCallback() {
         close()
     }
 
-    @objc
-    private func sendCallback() {
+    @objc private func sendCallback() {
+        if email.stringValue.isEmpty && !warnAboutNoEmail() {
+            return
+        }
+        openTicket()
+    }
+
+    func openTicket() {
         URLSession.shared.dataTask(with: prepareRequest(), completionHandler: { data, response, error in
             if error != nil || response == nil || (response as! HTTPURLResponse).statusCode != 201 {
                 debugPrint("HTTP call failed:", response ?? "nil", error ?? "nil")
             }
         }).resume()
         close()
+    }
+
+    func warnAboutNoEmail() -> Bool {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = NSLocalizedString("Are you sure you don’t want a response?", comment: "")
+        alert.informativeText = NSLocalizedString("You didn’t write your email, thus can’t receive any response.", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Send anyway", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        return alert.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn
     }
 
     private func prepareRequest() -> URLRequest {

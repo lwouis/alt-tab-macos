@@ -14,7 +14,7 @@ class UpdatesTab: NSViewController, PreferencePane {
     var policyLock = false
 
     override func loadView() {
-        dontPeriodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Don't check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
+        dontPeriodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Don’t check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
         dontPeriodicallyCheck.fit()
         periodicallyCheck = NSButton(radioButtonWithTitle: NSLocalizedString("Check for updates periodically", comment: ""), target: self, action: #selector(updatePolicyCallback))
         periodicallyCheck.fit()

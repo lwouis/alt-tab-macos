@@ -32,6 +32,9 @@
 "Appearance" = "Appearance";
 
 /* No comment provided by engineer. */
+"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+
+/* No comment provided by engineer. */
 "Arrow keys" = "Arrow keys";
 
 /* No comment provided by engineer. */
@@ -59,7 +62,7 @@
 "Close window" = "Close window";
 
 /* No comment provided by engineer. */
-"Don't check for updates periodically" = "Don't check for updates periodically";
+"Don’t check for updates periodically" = "Don’t check for updates periodically";
 
 /* No comment provided by engineer. */
 "General" = "General";
@@ -140,6 +143,9 @@
 "Send" = "Send";
 
 /* No comment provided by engineer. */
+"Send anyway" = "Send anyway";
+
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
 
 /* No comment provided by engineer. */
@@ -189,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "Window title font size:" = "Window title font size:";
+
+/* No comment provided by engineer. */
+"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
 
 /* No comment provided by engineer. */
 "❖ Windows 10" = "❖ Windows 10";
