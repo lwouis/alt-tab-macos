@@ -43,14 +43,14 @@ class DebugProfile {
 
     private static func tuplesToString(_ tuples: [(String, String)]) -> String {
         return tuples.map { bulletPoint + $0.0 + intraSeparator + $0.1 }
-                .joined(separator: "\n")
+            .joined(separator: "\n")
     }
 
     private static func appPreferences() -> String {
         return nestedSeparator + Preferences.all
-                .sorted { $0.0 < $1.0 }
-                .map { $0.key + intraSeparator + appPreference($0.key) }
-                .joined(separator: nestedSeparator)
+            .sorted { $0.0 < $1.0 }
+            .map { $0.key + intraSeparator + appPreference($0.key) }
+            .joined(separator: nestedSeparator)
     }
 
     private static func appPreference(_ key: String) -> String {
@@ -61,10 +61,10 @@ class DebugProfile {
     }
 
     private static func appWindows() -> String {
-        return nestedSeparator + Windows.list
-                .sorted { $0.cgWindowId < $1.cgWindowId }
-                .map { appWindow($0) }
-                .joined(separator: nestedSeparator)
+        return String(Windows.list.count) + nestedSeparator + Windows.list
+            .sorted { $0.cgWindowId < $1.cgWindowId }
+            .map { appWindow($0) }
+            .joined(separator: nestedSeparator)
     }
 
     private static func appWindow(_ window: Window) -> String {
@@ -75,8 +75,8 @@ class DebugProfile {
             ("spaceId", window.spaceId.flatMap { String($0) } ?? ""),
             ("spaceIndex", window.spaceIndex.flatMap { String($0) } ?? ""),
         ] as [(String, String)])
-                .map { $0.0 + intraSeparator + $0.1 }
-                .joined(separator: interSeparator)
-                + "}"
+            .map { $0.0 + intraSeparator + $0.1 }
+            .joined(separator: interSeparator)
+            + "}"
     }
 }
