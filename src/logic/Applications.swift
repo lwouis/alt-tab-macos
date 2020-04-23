@@ -23,16 +23,18 @@ class Applications {
     }
 
     static func addInitialRunningApplicationsWindows() {
-        let spaces = Spaces.otherSpaces()
-        if spaces.count == 0 {
+        let otherSpaces = Spaces.otherSpaces()
+        if otherSpaces.count == 0 {
             Applications.observeNewWindows()
         } else {
-            let windows = Spaces.windowsInSpaces(spaces)
-            if windows.count > 0 {
+            let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId])
+            let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces)
+            let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
+            if windowsOnlyOnOtherSpaces.count > 0 {
                 // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
-                CGSAddWindowsToSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
+                CGSAddWindowsToSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
                 Applications.observeNewWindows()
-                CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windows as NSArray, [Spaces.currentSpaceId])
+                CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
             }
         }
     }
