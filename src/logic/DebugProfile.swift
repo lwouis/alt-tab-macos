@@ -18,7 +18,7 @@ class DebugProfile {
             ("OS version", ProcessInfo.processInfo.operatingSystemVersionString),
             ("OS architecture", Sysctl.run("hw.machine")),
             ("Locale", Locale.current.debugDescription),
-            ("Spaces count", String((CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary]).map { (display: NSDictionary) -> Any? in display["Spaces"] }.count)),
+            ("Spaces count", String(Spaces.allIdsAndIndexes().count)),
             ("Dark mode", Preferences.getString("AppleInterfaceStyle") ?? "Light"),
             ("\"Displays have separate Spaces\"", NSScreen.screensHaveSeparateSpaces ? "checked" : "unchecked"),
             // hardware
