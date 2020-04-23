@@ -5,6 +5,27 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.15.0</title>
+      <pubDate>Thu, 23 Apr 2020 18:33:10 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3150-httpsgithubcomlwouisalt-tab-macoscomparev3140v3150-2020-04-23">3.15.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.14.0...v3.15.0">https://github.com/lwouis/alt-tab-macos/compare/v3.14.0...v3.15.0</a>) (2020-04-23)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* debug profile spaces count was incorrect (e98d401 (https://github.com/lwouis/alt-tab-macos/commit/e98d401))
+* handle windows assigned to all spaces (closes #266 (https://github.com/lwouis/alt-tab-macos/issues/266)) (e35fe6b (https://github.com/lwouis/alt-tab-macos/commit/e35fe6b))</code></pre><h3 id="features">Features</h3>
+<pre><code>* add warning for email-less feedback (1acd918 (https://github.com/lwouis/alt-tab-macos/commit/1acd918))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.15.0/AltTab-3.15.0.zip"
+        sparkle:version="3.15.0"
+        sparkle:shortVersionString="3.15.0"
+        sparkle:edSignature="NI9amJQyTL39DsautUOm32VwnuxIAP4RWhgBF5bzpO5C0Ab1Jsf4Huq2l2YAcVqNQWkeUUtlA/mgMho4PWJ1CQ==" length="6709025"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.14.0</title>
       <pubDate>Wed, 22 Apr 2020 18:13:37 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

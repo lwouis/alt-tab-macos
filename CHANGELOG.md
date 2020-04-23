@@ -1,3 +1,16 @@
+# [3.15.0](https://github.com/lwouis/alt-tab-macos/compare/v3.14.0...v3.15.0) (2020-04-23)
+
+
+### Bug Fixes
+
+* debug profile spaces count was incorrect ([e98d401](https://github.com/lwouis/alt-tab-macos/commit/e98d401))
+* handle windows assigned to all spaces (closes [#266](https://github.com/lwouis/alt-tab-macos/issues/266)) ([e35fe6b](https://github.com/lwouis/alt-tab-macos/commit/e35fe6b))
+
+
+### Features
+
+* add warning for email-less feedback ([1acd918](https://github.com/lwouis/alt-tab-macos/commit/1acd918))
+
 # [3.14.0](https://github.com/lwouis/alt-tab-macos/compare/v3.13.0...v3.14.0) (2020-04-22)
 
 
