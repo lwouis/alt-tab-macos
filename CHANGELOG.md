@@ -1,3 +1,10 @@
+# [3.16.0](https://github.com/lwouis/alt-tab-macos/compare/v3.15.0...v3.16.0) (2020-04-24)
+
+
+### Features
+
+* added russian localization ([f0971c2](https://github.com/lwouis/alt-tab-macos/commit/f0971c2))
+
 # [3.15.0](https://github.com/lwouis/alt-tab-macos/compare/v3.14.0...v3.15.0) (2020-04-23)
 
 

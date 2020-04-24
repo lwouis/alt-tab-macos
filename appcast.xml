@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.16.0</title>
+      <pubDate>Fri, 24 Apr 2020 01:49:18 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3160-httpsgithubcomlwouisalt-tab-macoscomparev3150v3160-2020-04-24">3.16.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.15.0...v3.16.0">https://github.com/lwouis/alt-tab-macos/compare/v3.15.0...v3.16.0</a>) (2020-04-24)</h1>
+<h3 id="features">Features</h3>
+<pre><code>* added russian localization (f0971c2 (https://github.com/lwouis/alt-tab-macos/commit/f0971c2))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.16.0/AltTab-3.16.0.zip"
+        sparkle:version="3.16.0"
+        sparkle:shortVersionString="3.16.0"
+        sparkle:edSignature="hOC3Y909vD6qb22iB4fbEmg5T15CaXV4aQOSBf4FWClzU8aMQ1D6j30kN9TY3uF3K8E8jGgFuchyfjfMQcQLCA==" length="6709027"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.15.0</title>
       <pubDate>Thu, 23 Apr 2020 18:33:10 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
