@@ -80,13 +80,14 @@ class GeneralTab: NSViewController, PreferencePane {
                 App.app.appIsBeingUsed = true
             }
             if App.app.appIsBeingUsed {
-                let isShortcutClosingTheUi = controlId == "holdShortcut"
+                let isShortcutClosingTheUi = ["holdShortcut", "cancelShortcut"].contains(controlId)
                 if isShortcutClosingTheUi {
                     App.app.appIsBeingUsed = false
+                    App.app.isFirstSummon = true
                 }
                 let fn = shortcutsActionsBlocks[controlId]!
                 let isShortcutAffectingTheUi = ["previousWindowShortcut", "nextWindowShortcut", "←", "→", "holdShortcut"].contains(controlId)
-                if isShortcutAffectingTheUi {
+                if isShortcutAffectingTheUi || isShortcutClosingTheUi {
                     DispatchQueue.main.async { () -> () in fn() }
                 } else {
                     fn()
