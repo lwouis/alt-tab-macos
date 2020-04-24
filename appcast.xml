@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.16.1</title>
+      <pubDate>Fri, 24 Apr 2020 23:01:24 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="3161-httpsgithubcomlwouisalt-tab-macoscomparev3160v3161-2020-04-24">3.16.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.16.0...v3.16.1">https://github.com/lwouis/alt-tab-macos/compare/v3.16.0...v3.16.1</a>) (2020-04-24)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* app could sometimes crash on closing the ui (61db5b4 (https://github.com/lwouis/alt-tab-macos/commit/61db5b4))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.16.1/AltTab-3.16.1.zip"
+        sparkle:version="3.16.1"
+        sparkle:shortVersionString="3.16.1"
+        sparkle:edSignature="lpqQg0aCNl30heqdqxP6evEtYjzzVoOqvfxvnRPr7D6NUQ3136KlipqTp6R6aAGtjZCMoa5rgXP0CYjHCfA6Aw==" length="6712167"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.16.0</title>
       <pubDate>Fri, 24 Apr 2020 01:49:18 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

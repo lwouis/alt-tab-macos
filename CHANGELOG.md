@@ -1,3 +1,10 @@
+## [3.16.1](https://github.com/lwouis/alt-tab-macos/compare/v3.16.0...v3.16.1) (2020-04-24)
+
+
+### Bug Fixes
+
+* app could sometimes crash on closing the ui ([61db5b4](https://github.com/lwouis/alt-tab-macos/commit/61db5b4))
+
 # [3.16.0](https://github.com/lwouis/alt-tab-macos/compare/v3.15.0...v3.16.0) (2020-04-24)
 
 
