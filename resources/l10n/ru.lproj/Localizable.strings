@@ -1,0 +1,210 @@
+
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖ Windows 10";
+
+/*No comment provided by engineer.*/
+"About" = "О программе";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Лицензии";
+
+/*No comment provided by engineer.*/
+"Active app" = "Активное приложение";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Активный экран";
+
+/*No comment provided by engineer.*/
+"Active space" = "Активный рабочий стол";
+
+/*No comment provided by engineer.*/
+"Align windows:" = "Выравнивание окон:";
+
+/*No comment provided by engineer.*/
+"All apps" = "Все приложения";
+
+/*No comment provided by engineer.*/
+"All screens" = "Все экраны";
+
+/*No comment provided by engineer.*/
+"All spaces" = "Все рабочие столы";
+
+/*No comment provided by engineer.*/
+"Apparition delay:" = "Задержка появления:";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Внешний вид";
+
+/*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "Вы уверены, что не хотите ответа?";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Клавиши стрелок";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Автоматически устанавливать обновления";
+
+/*Cancel button*/
+"Cancel" = "Отмена";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Отменить и скрыть";
+
+/*No comment provided by engineer.*/
+"Center" = "По центру";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "Проверить обновления сейчас…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Периодически проверять обновления";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Проверить обновления…";
+
+/*No comment provided by engineer.*/
+"Close window" = "Закрыть окно";
+
+/*No comment provided by engineer.*/
+"Don’t check for updates periodically" = "Не проверять обновления";
+
+/*No comment provided by engineer.*/
+"General" = "Основное";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Скрытые";
+
+/*No comment provided by engineer.*/
+"Hide space number labels:" = "Скрыть номера рабочих столов:";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Скрыть/Показать приложение";
+
+/*No comment provided by engineer.*/
+"Hold" = "Удерживать";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Я думаю, что приложение может быть улучшено…";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Последние обновления";
+
+/*No comment provided by engineer.*/
+"Left" = "Слева";
+
+/*No comment provided by engineer.*/
+"Max size on screen:" = "Макс. размер на экране:";
+
+/*No comment provided by engineer.*/
+"Max windows per row:" = "Макс. количество окон в ряду:";
+
+/*No comment provided by engineer.*/
+"Min windows per row:" = "Мин. количество окон в ряду:";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Свернуть/Развернуть окно";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Свернутые";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Наведение мышью";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "Лицензия GPL-3.0";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Опционально: эл.почта (если вы хотите ответа)";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Настройки…";
+
+/*No comment provided by engineer.*/
+"Quit %@" = "Выход %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Выйти из приложения";
+
+/*No comment provided by engineer.*/
+"Rows of windows:" = "Количество рядов окон:";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Экран с панелью меню";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Экран с курсором";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Экран, показывающий AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Выбрать следующее окно";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Выбрать предыдущее окно";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "Выбирать окна, используя:";
+
+/*No comment provided by engineer.*/
+"Send" = "Отправить";
+
+/*No comment provided by engineer.*/
+"Send anyway" = "Все равно отправить";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Отправить отладочный профиль (CPU, память и т.д.)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Отправить отзыв";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Отправить отзыв…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Поделитесь идеями по улучшению или сообщите об ошибках";
+
+/*No comment provided by engineer.*/
+"Show" = "Показать";
+
+/*No comment provided by engineer.*/
+"Show on:" = "Показать на:";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "Показывать следующие окна:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Репозиторий исходного кода";
+
+/*No comment provided by engineer.*/
+"Start at login:" = "Запускать при входе в систему:";
+
+/*No comment provided by engineer.*/
+"Theme:" = "Тема:";
+
+/*No comment provided by engineer.*/
+"then press:" = "затем нажать:";
+
+/*No comment provided by engineer.*/
+"Updates" = "Обновления";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Правило обновлений:";
+
+/*No comment provided by engineer.*/
+"Version" = "Версия";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "Посмотреть обсуждения";
+
+/*No comment provided by engineer.*/
+"Window app icon size:" = "Размер иконки окна:";
+
+/*No comment provided by engineer.*/
+"Window title font size:" = "Размер заголовка:";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "Вы не написали свою электронную почту, поэтому не можете получить ответ.";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
