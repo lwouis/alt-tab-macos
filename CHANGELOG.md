@@ -1,3 +1,10 @@
+## [3.16.3](https://github.com/lwouis/alt-tab-macos/compare/v3.16.2...v3.16.3) (2020-04-25)
+
+
+### Bug Fixes
+
+* suggest moving the app to the global applications folder ([91e31da](https://github.com/lwouis/alt-tab-macos/commit/91e31da)), closes [#267](https://github.com/lwouis/alt-tab-macos/issues/267)
+
 ## [3.16.2](https://github.com/lwouis/alt-tab-macos/compare/v3.16.1...v3.16.2) (2020-04-25)
 
 
