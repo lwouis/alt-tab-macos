@@ -6,7 +6,7 @@ PODS:
   - SwiftyMarkdown (1.1.0)
 
 DEPENDENCIES:
-  - LetsMove (= 1.24)
+  - LetsMove (from `https://github.com/lwouis/LetsMove.git`, branch `master`)
   - Preferences (= 1.0.1)
   - ShortcutRecorder (from `https://github.com/Kentzo/ShortcutRecorder.git`, branch `issue-114`)
   - Sparkle (= 1.23.0)
@@ -14,17 +14,22 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - LetsMove
     - Preferences
     - Sparkle
     - SwiftyMarkdown
 
 EXTERNAL SOURCES:
+  LetsMove:
+    :branch: master
+    :git: https://github.com/lwouis/LetsMove.git
   ShortcutRecorder:
     :branch: issue-114
     :git: https://github.com/Kentzo/ShortcutRecorder.git
 
 CHECKOUT OPTIONS:
+  LetsMove:
+    :commit: 7abf4daed1a25218f2b52f2dfd190aee5a50071c
+    :git: https://github.com/lwouis/LetsMove.git
   ShortcutRecorder:
     :commit: f718220854575bad86fa89dd2bb3decd0b14b2b0
     :git: https://github.com/Kentzo/ShortcutRecorder.git
@@ -36,6 +41,6 @@ SPEC CHECKSUMS:
   Sparkle: 55b1a87ba69d56913375a281546b7c82dec95bb0
   SwiftyMarkdown: 033abc9dad9a37903f81aec5188cade436f40520
 
-PODFILE CHECKSUM: 59c4f773e0cca4647e11f7a5113c033bfdd5c0ff
+PODFILE CHECKSUM: bd7bc9c2d6dc0ac1fe0e329b4ffe4780839f0e0f
 
 COCOAPODS: 1.8.4

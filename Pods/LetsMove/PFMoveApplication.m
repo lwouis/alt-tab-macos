@@ -244,27 +244,27 @@ static NSString *PreferredInstallLocation(BOOL *isUserDirectory) {
 	// Assume that if the user has a ~/Applications folder, they'd prefer their
 	// applications to go there.
 
-	NSFileManager *fm = [NSFileManager defaultManager];
-
-	NSArray *userApplicationsDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSUserDomainMask, YES);
-
-	if ([userApplicationsDirs count] > 0) {
-		NSString *userApplicationsDir = [userApplicationsDirs objectAtIndex:0];
-		BOOL isDirectory;
-
-		if ([fm fileExistsAtPath:userApplicationsDir isDirectory:&isDirectory] && isDirectory) {
-			// User Applications directory exists. Get the directory contents.
-			NSArray *contents = [fm contentsOfDirectoryAtPath:userApplicationsDir error:NULL];
-
-			// Check if there is at least one ".app" inside the directory.
-			for (NSString *contentsPath in contents) {
-				if ([[contentsPath pathExtension] isEqualToString:@"app"]) {
-					if (isUserDirectory) *isUserDirectory = YES;
-					return [userApplicationsDir stringByResolvingSymlinksInPath];
-				}
-			}
-		}
-	}
+//	NSFileManager *fm = [NSFileManager defaultManager];
+//
+//	NSArray *userApplicationsDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSUserDomainMask, YES);
+//
+//	if ([userApplicationsDirs count] > 0) {
+//		NSString *userApplicationsDir = [userApplicationsDirs objectAtIndex:0];
+//		BOOL isDirectory;
+//
+//		if ([fm fileExistsAtPath:userApplicationsDir isDirectory:&isDirectory] && isDirectory) {
+//			// User Applications directory exists. Get the directory contents.
+//			NSArray *contents = [fm contentsOfDirectoryAtPath:userApplicationsDir error:NULL];
+//
+//			// Check if there is at least one ".app" inside the directory.
+//			for (NSString *contentsPath in contents) {
+//				if ([[contentsPath pathExtension] isEqualToString:@"app"]) {
+//					if (isUserDirectory) *isUserDirectory = YES;
+//					return [userApplicationsDir stringByResolvingSymlinksInPath];
+//				}
+//			}
+//		}
+//	}
 
 	// No user Applications directory in use. Return the machine local Applications directory
 	if (isUserDirectory) *isUserDirectory = NO;
