@@ -103,6 +103,7 @@ extension AXUIElement {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] () -> () in
             guard let self = self else { return }
             DispatchQueue.main.async { () -> () in
+                // TODO: this code is probably wrong and should be reviewed
                 if let runningApplication = runningApplication, Applications.appsInSubscriptionRetryLoop.first(where: { $0 == String(runningApplication.processIdentifier) + String(notification) }) == nil { return }
                 if let wid = wid, Windows.windowsInSubscriptionRetryLoop.first(where: { $0 == String(wid) + String(notification) }) == nil { return }
             }
