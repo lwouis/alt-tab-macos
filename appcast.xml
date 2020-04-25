@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.16.2</title>
+      <pubDate>Sat, 25 Apr 2020 03:01:28 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="3162-httpsgithubcomlwouisalt-tab-macoscomparev3161v3162-2020-04-25">3.16.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.16.1...v3.16.2">https://github.com/lwouis/alt-tab-macos/compare/v3.16.1...v3.16.2</a>) (2020-04-25)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* removing accessibility permission breaks keyboard inputs (0da3d33 (https://github.com/lwouis/alt-tab-macos/commit/0da3d33)), closes #269 (https://github.com/lwouis/alt-tab-macos/issues/269)</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.16.2/AltTab-3.16.2.zip"
+        sparkle:version="3.16.2"
+        sparkle:shortVersionString="3.16.2"
+        sparkle:edSignature="M7uGMTF+TZZcE0y01K/muSli6s/xYAhdXptxeRISkONdlpnjwoNzXn/enchYhvM2nqnMUmUPY3HizuqmcasyCA==" length="6713192"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.16.1</title>
       <pubDate>Fri, 24 Apr 2020 23:01:24 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

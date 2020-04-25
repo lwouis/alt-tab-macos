@@ -1,3 +1,10 @@
+## [3.16.2](https://github.com/lwouis/alt-tab-macos/compare/v3.16.1...v3.16.2) (2020-04-25)
+
+
+### Bug Fixes
+
+* removing accessibility permission breaks keyboard inputs ([0da3d33](https://github.com/lwouis/alt-tab-macos/commit/0da3d33)), closes [#269](https://github.com/lwouis/alt-tab-macos/issues/269)
+
 ## [3.16.1](https://github.com/lwouis/alt-tab-macos/compare/v3.16.0...v3.16.1) (2020-04-24)
 
 
