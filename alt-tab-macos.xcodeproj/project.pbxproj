@@ -37,6 +37,7 @@
 		D04BA40CC1415DA69CCE5D89 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA17FC84640580894400E /* InfoPlist.strings */; };
 		D04BA4575B13F1A148C108E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA459B8804ABFBDA50663 /* InfoPlist.strings */; };
 		D04BA48B00B4211A465C7337 /* DebugProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACABD048E62EBE4576CC /* DebugProfile.swift */; };
+		D04BA4A11F821548EE3C5E95 /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA514F1C4B475B3CA6EB6 /* Bash.swift */; };
 		D04BA5863E8AD08C36B52F80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAC86E60B1B850059BC54 /* Localizable.strings */; };
 		D04BA6187A91A847844B6ABB /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA015A45DE7AFDC9794FE /* Window.swift */; };
 		D04BA69012A483201B375D46 /* ACKNOWLEDGMENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = D04BAADF01EB8FF8A15AECC6 /* ACKNOWLEDGMENTS.md */; };
@@ -132,6 +133,7 @@
 		D04BA4A82888205AAE818E53 /* hu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hu; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BA4B5292629AA6B560216 /* package_and_notarize_release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = package_and_notarize_release.sh; sourceTree = "<group>"; };
 		D04BA4F23325560BC0BCDDB7 /* 7 windows - 2 lines - tall window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - tall window.jpg"; sourceTree = "<group>"; };
+		D04BA514F1C4B475B3CA6EB6 /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bash.swift; sourceTree = "<group>"; };
 		D04BA51D43775E57CE91154A /* 3 windows - 1 line - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line - wide window.jpg"; sourceTree = "<group>"; };
 		D04BA538C059434921F2A4C2 /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA53992F116E5E704CAB3 /* BaseLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				D04BA5C401AFA55CC67C7188 /* PrivateApis.swift */,
 				D04BA03200F5A8FC0CD03607 /* CGWindowID.swift */,
 				D04BA8DB8AA7E5570DAC568A /* Sysctl.swift */,
+				D04BA514F1C4B475B3CA6EB6 /* Bash.swift */,
 			);
 			path = "api-wrappers";
 			sourceTree = "<group>";
@@ -911,6 +914,7 @@
 				D04BAAAF5CFA991D3B078DB8 /* KeyboardEvents.swift in Sources */,
 				D04BA1766FBCB2E941D081A5 /* WorkspaceEvents.swift in Sources */,
 				D04BA0AE9865276FF8EF5DEB /* UserDefaultsEvents.swift in Sources */,
+				D04BA4A11F821548EE3C5E95 /* Bash.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
