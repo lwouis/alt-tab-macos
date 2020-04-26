@@ -3,7 +3,6 @@ import Cocoa
 class Spaces {
     static var currentSpaceId = CGSSpaceID(1)
     static var currentSpaceIndex = SpaceIndex(1)
-    static var visitedSpaces = [CGSSpaceID: Bool]()
     static var isSingleSpace = true
     static var idsAndIndexes: [(CGSSpaceID, SpaceIndex)] = allIdsAndIndexes()
 
