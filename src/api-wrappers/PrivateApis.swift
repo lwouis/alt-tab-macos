@@ -38,16 +38,6 @@ func CGSMainConnectionID() -> CGSConnectionID
 @_silgen_name("CGSHWCaptureWindowList")
 func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: inout CGWindowID, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> CFArray
 
-// returns the CGImage of the window which ID is given in `wid`
-// * performance: a bit faster than `CGWindowListCreateImage`, but still less than `CGSHWCaptureWindowList`
-// * quality: low
-// * minimized windows: yes
-// * windows in other spaces: yes
-// * offscreen content: no
-// * macOS 10.10+
-@_silgen_name("CGSCaptureWindowsContentsToRectWithOptions") @discardableResult
-func CGSCaptureWindowsContentsToRectWithOptions(_ cid: CGSConnectionID, _ wid: inout CGWindowID, _ windowOnly: Bool, _ rect: CGRect, _ options: CGSWindowCaptureOptions, _ image: inout CGImage) -> CGError
-
 // returns the connection ID for the provided window
 // * macOS 10.10+
 @_silgen_name("CGSGetWindowOwner") @discardableResult
@@ -84,11 +74,6 @@ func CGSAddWindowsToSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces:
 // * macOS 10.10+
 @_silgen_name("CGSRemoveWindowsFromSpaces")
 func CGSRemoveWindowsFromSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray) -> Void
-
-// returns the front process PSN
-// * macOS 10.12+
-@_silgen_name("_SLPSGetFrontProcess") @discardableResult
-func _SLPSGetFrontProcess(_ psn: inout ProcessSerialNumber) -> OSStatus
 
 // focuses the front process
 // * macOS 10.12+
@@ -141,6 +126,21 @@ let kAXFullscreenAttribute = "AXFullScreen"
 // below are some notes on some private APIs I experimented with
 // ------------------------------------------------------------
 
+//// returns the front process PSN
+//// * macOS 10.12+
+//@_silgen_name("_SLPSGetFrontProcess") @discardableResult
+//func _SLPSGetFrontProcess(_ psn: inout ProcessSerialNumber) -> OSStatus
+//
+//// returns the CGImage of the window which ID is given in `wid`
+//// * performance: a bit faster than `CGWindowListCreateImage`, but still less than `CGSHWCaptureWindowList`
+//// * quality: low
+//// * minimized windows: yes
+//// * windows in other spaces: yes
+//// * offscreen content: no
+//// * macOS 10.10+
+//@_silgen_name("CGSCaptureWindowsContentsToRectWithOptions") @discardableResult
+//func CGSCaptureWindowsContentsToRectWithOptions(_ cid: CGSConnectionID, _ wid: inout CGWindowID, _ windowOnly: Bool, _ rect: CGRect, _ options: CGSWindowCaptureOptions, _ image: inout CGImage) -> CGError
+//
 //// returns true is the PSNs are the same
 //// * deprecated in macOS 10.9, so we have to declare it to use it in Swift
 //@_silgen_name("SameProcess")

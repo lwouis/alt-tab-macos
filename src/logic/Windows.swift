@@ -110,19 +110,4 @@ class Windows {
         }
         return true
     }
-
-    static func refreshAllExistingThumbnails() {
-        refreshAllThumbnails()
-        guard App.app.appIsBeingUsed else { return }
-        list.enumerated().forEach {
-            let newImage = $0.element.thumbnail
-            let view = ThumbnailsView.recycledViews[$0.offset].thumbnail
-            if view.image != newImage {
-                let oldSize = view.image!.size
-                view.image = newImage
-                view.image!.size = oldSize
-                view.frame.size = oldSize
-            }
-        }
-    }
 }
