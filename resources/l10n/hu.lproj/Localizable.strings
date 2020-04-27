@@ -36,6 +36,9 @@
 "Appearance" = "Megjelenés";
 
 /*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+
+/*No comment provided by engineer.*/
 "Arrow keys" = "Nyíl billentyűk";
 
 /*No comment provided by engineer.*/
@@ -147,6 +150,9 @@
 "Send" = "Küldés";
 
 /*No comment provided by engineer.*/
+"Send anyway" = "Send anyway";
+
+/*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Hibakeresési profil (CPU, memória, stb.) küldése";
 
 /*No comment provided by engineer.*/
@@ -196,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Ablak címsor font méret:";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";
