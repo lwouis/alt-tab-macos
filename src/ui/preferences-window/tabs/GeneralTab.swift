@@ -11,10 +11,12 @@ class GeneralTab: NSViewController, PreferencePane {
     static var shortcutsDependentOnHoldShortcut = [NSControl]()
     static var shortcutsActionsBlocks = [
         "holdShortcut": { App.app.focusTarget() },
-        "nextWindowShortcut": { App.app.showUiOrCycleSelection(1) },
-        "previousWindowShortcut": { App.app.showUiOrCycleSelection(-1) },
-        "→": { App.app.cycleSelection(1) },
-        "←": { App.app.cycleSelection(-1) },
+        "nextWindowShortcut": { App.app.showUiOrCycleSelection(.right) },
+        "previousWindowShortcut": { App.app.showUiOrCycleSelection(.left) },
+        "→": { App.app.cycleSelection(.right) },
+        "←": { App.app.cycleSelection(.left) },
+        "↑": { App.app.cycleSelection(.up) },
+        "↓": { App.app.cycleSelection(.down) },
         "cancelShortcut": { App.app.hideUi() },
         "closeWindowShortcut": { App.app.closeSelectedWindow() },
         "minDeminWindowShortcut": { App.app.minDeminSelectedWindow() },
@@ -86,7 +88,7 @@ class GeneralTab: NSViewController, PreferencePane {
                     App.app.isFirstSummon = true
                 }
                 let fn = shortcutsActionsBlocks[controlId]!
-                let isShortcutAffectingTheUi = ["previousWindowShortcut", "nextWindowShortcut", "←", "→", "holdShortcut"].contains(controlId)
+                let isShortcutAffectingTheUi = ["previousWindowShortcut", "nextWindowShortcut", "←", "→", "↑", "↓", "holdShortcut"].contains(controlId)
                 if isShortcutAffectingTheUi || isShortcutClosingTheUi {
                     DispatchQueue.main.async { () -> () in fn() }
                 } else {
@@ -115,12 +117,11 @@ class GeneralTab: NSViewController, PreferencePane {
     }
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
+        let keys = ["←", "→", "↑", "↓"]
         if (sender as! NSButton).state == .on {
-            addShortcut(.down, Shortcut(keyEquivalent: Preferences.holdShortcut + "→")!, "→")
-            addShortcut(.down, Shortcut(keyEquivalent: Preferences.holdShortcut + "←")!, "←")
+            keys.forEach { addShortcut(.down, Shortcut(keyEquivalent: Preferences.holdShortcut + $0)!, $0) }
         } else {
-            removeShortcutIfExists("→", .down)
-            removeShortcutIfExists("←", .down)
+            keys.forEach { removeShortcutIfExists($0, .down) }
         }
     }
 
