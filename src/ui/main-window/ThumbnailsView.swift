@@ -29,9 +29,9 @@ class ThumbnailsView: NSVisualEffectView {
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             view.updateRecycledCellWithNewContent(window,
-                    { () -> Void in App.app.focusSelectedWindow(window) },
-                    { () -> Void in Windows.updateFocusedWindowIndex(index) },
-                    height, screen)
+                { () -> Void in App.app.focusSelectedWindow(window) },
+                { () -> Void in Windows.updateFocusedWindowIndex(index) },
+                height, screen)
             let width = view.frame.size.width
             if (currentX + width).rounded(.down) > widthMax {
                 currentX = CGFloat(0)
@@ -87,6 +87,9 @@ class ThumbnailsView: NSVisualEffectView {
 }
 
 class ScrollView: NSScrollView {
+    // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
+    override class var isCompatibleWithResponsiveScrolling: Bool { true }
+
     convenience init() {
         self.init(frame: .zero)
         documentView = FlippedView(frame: .zero)
@@ -94,7 +97,22 @@ class ScrollView: NSScrollView {
         hasVerticalScroller = true
         scrollerStyle = .overlay
         scrollerKnobStyle = .light
+        horizontalScrollElasticity = .none
+        usesPredominantAxisScrolling = true
         forceOverlayStyle()
+    }
+
+    // holding shift and using the scrolling wheel will generate a horizontal movement
+    // shift can be part of shortcuts so we force shift scrolls to be vertical
+    override func scrollWheel(with event: NSEvent) {
+        if event.modifierFlags.contains(.shift) && event.scrollingDeltaY == 0 {
+            let cgEvent = event.cgEvent!
+            cgEvent.setDoubleValueField(.scrollWheelEventDeltaAxis1, value: cgEvent.getDoubleValueField(.scrollWheelEventDeltaAxis2))
+            cgEvent.setDoubleValueField(.scrollWheelEventDeltaAxis2, value: 0)
+            super.scrollWheel(with: NSEvent(cgEvent: cgEvent)!)
+        } else {
+            super.scrollWheel(with: event)
+        }
     }
 
     // force overlay style after a change in System Preference > General > Show scroll bars
