@@ -1,3 +1,16 @@
+# [3.17.0](https://github.com/lwouis/alt-tab-macos/compare/v3.16.3...v3.17.0) (2020-04-27)
+
+
+### Bug Fixes
+
+* shift key + scroll should scroll the ui ([d64a6a5](https://github.com/lwouis/alt-tab-macos/commit/d64a6a5))
+* update russian localization ([942c4d7](https://github.com/lwouis/alt-tab-macos/commit/942c4d7))
+
+
+### Features
+
+* navigate with up/down arrow keys (closes [#270](https://github.com/lwouis/alt-tab-macos/issues/270)) ([cc61ed4](https://github.com/lwouis/alt-tab-macos/commit/cc61ed4))
+
 ## [3.16.3](https://github.com/lwouis/alt-tab-macos/compare/v3.16.2...v3.16.3) (2020-04-25)
 
 

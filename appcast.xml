@@ -5,6 +5,27 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.17.0</title>
+      <pubDate>Mon, 27 Apr 2020 10:10:30 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3170-httpsgithubcomlwouisalt-tab-macoscomparev3163v3170-2020-04-27">3.17.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.16.3...v3.17.0">https://github.com/lwouis/alt-tab-macos/compare/v3.16.3...v3.17.0</a>) (2020-04-27)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* shift key + scroll should scroll the ui (d64a6a5 (https://github.com/lwouis/alt-tab-macos/commit/d64a6a5))
+* update russian localization (942c4d7 (https://github.com/lwouis/alt-tab-macos/commit/942c4d7))</code></pre><h3 id="features">Features</h3>
+<pre><code>* navigate with up/down arrow keys (closes #270 (https://github.com/lwouis/alt-tab-macos/issues/270)) (cc61ed4 (https://github.com/lwouis/alt-tab-macos/commit/cc61ed4))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.17.0/AltTab-3.17.0.zip"
+        sparkle:version="3.17.0"
+        sparkle:shortVersionString="3.17.0"
+        sparkle:edSignature="kRbxgtxHn0gfcEKw3didJLbWUBDsVAXk8EdpVQugYEuewegKLK843HVvHbOk6a/CfpKqjH7vOXmnLATl287wDQ==" length="6727006"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.16.3</title>
       <pubDate>Sat, 25 Apr 2020 16:46:13 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
