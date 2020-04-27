@@ -3,6 +3,7 @@ import Cocoa
 class ThumbnailsView: NSVisualEffectView {
     let scrollView = ScrollView()
     static var recycledViews = [ThumbnailView]()
+    var rows = [[ThumbnailView]]()
 
     convenience init() {
         self.init(frame: .zero)
@@ -15,6 +16,26 @@ class ThumbnailsView: NSVisualEffectView {
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
     }
 
+    func nextRow(_ direction: Direction) -> [ThumbnailView] {
+        let step = direction == .down ? 1 : -1
+        let indexAfterStep = (Windows.focusedWindow()!.row! + step) % rows.count
+        let targetRowIndex = indexAfterStep < 0 ? rows.count + indexAfterStep : indexAfterStep
+        return rows[targetRowIndex]
+    }
+
+    func navigateUpOrDown(_ direction: Direction) {
+        let focusedViewFrame = ThumbnailsView.recycledViews[Windows.focusedWindowIndex].frame
+        let originCenter = NSMidX(focusedViewFrame)
+        let targetRow = nextRow(direction)
+        let leftSide = originCenter < NSMidX(frame)
+        let iterable = leftSide ? targetRow : targetRow.reversed()
+        let targetView = iterable.first(where: {
+            leftSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
+        }) ?? iterable.last!
+        let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
+        Windows.updateFocusedWindowIndex(targetIndex)
+    }
+
     func updateItems(_ screen: NSScreen) {
         let widthMax = ThumbnailsPanel.widthMax(screen).rounded()
         let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
@@ -24,6 +45,8 @@ class ThumbnailsView: NSVisualEffectView {
         var maxX = CGFloat(0)
         var maxY = height
         var newViews = [ThumbnailView]()
+        rows.removeAll()
+        rows.append([ThumbnailView]())
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return }
             guard window.shouldShowTheUser else { continue }
@@ -37,12 +60,15 @@ class ThumbnailsView: NSVisualEffectView {
                 currentX = CGFloat(0)
                 currentY = (currentY + Preferences.interCellPadding + height).rounded(.down)
                 maxY = max(currentY + height, maxY)
+                rows.append([ThumbnailView]())
             } else {
                 maxX = max(currentX + width, maxX)
             }
             view.frame.origin = CGPoint(x: currentX, y: currentY)
             currentX = (currentX + Preferences.interCellPadding + width).rounded(.down)
             newViews.append(view)
+            rows[rows.count - 1].append(view)
+            window.row = rows.count - 1
         }
         scrollView.documentView!.subviews = newViews
         frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
@@ -125,4 +151,21 @@ class ScrollView: NSScrollView {
 
 class FlippedView: NSView {
     override var isFlipped: Bool { true }
+}
+
+enum Direction {
+    case neutral
+    case left
+    case right
+    case up
+    case down
+
+    func step() -> Int {
+        if self == .left {
+            return -1
+        } else if self == .right {
+            return 1
+        }
+        return 0
+    }
 }

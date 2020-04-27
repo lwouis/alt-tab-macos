@@ -134,11 +134,15 @@ class App: NSApplication, NSApplicationDelegate {
     func showUi() {
         appIsBeingUsed = true
         appIsBeingUsed = true
-        DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(0) }
+        DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(.neutral) }
     }
 
-    func cycleSelection(_ step: Int) {
-        Windows.cycleFocusedWindowIndex(step)
+    func cycleSelection(_ direction: Direction) {
+        if direction == .left || direction == .right || direction == .neutral {
+            Windows.cycleFocusedWindowIndex(direction.step())
+        } else {
+            thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction)
+        }
     }
 
     func focusSelectedWindow(_ window: Window?) {
@@ -183,8 +187,8 @@ class App: NSApplication, NSApplicationDelegate {
         }
     }
 
-    func showUiOrCycleSelection(_ step: Int) {
-        debugPrint("showUiOrCycleSelection", step)
+    func showUiOrCycleSelection(_ direction: Direction) {
+        debugPrint("showUiOrCycleSelection", direction)
         if isFirstSummon {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
@@ -197,12 +201,12 @@ class App: NSApplication, NSApplicationDelegate {
             Windows.refreshWhichWindowsToShowTheUser(screen)
             if Windows.list.first(where: { $0.shouldShowTheUser }) == nil { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)
-            Windows.cycleFocusedWindowIndex(step)
+            Windows.cycleFocusedWindowIndex(direction.step())
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
                 self.rebuildUi()
             }
         } else {
-            cycleSelection(step)
+            cycleSelection(direction)
         }
     }
 

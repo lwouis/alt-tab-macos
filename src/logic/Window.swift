@@ -14,6 +14,7 @@ class Window {
     var axUiElement: AXUIElement
     var application: Application
     var axObserver: AXObserver?
+    var row: Int?
 
     static let notifications = [
         kAXUIElementDestroyedNotification,
