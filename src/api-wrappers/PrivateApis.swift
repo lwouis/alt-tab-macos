@@ -13,8 +13,10 @@ typealias CGSSpaceID = UInt64
 
 struct CGSWindowCaptureOptions: OptionSet {
     let rawValue: UInt32
-    static let windowCaptureNominalResolution = CGSWindowCaptureOptions(rawValue: 1 << 0x0200)
-    static let captureIgnoreGlobalClipShape = CGSWindowCaptureOptions(rawValue: 1 << 0x0800)
+    static let ignoreGlobalClipShape = CGSWindowCaptureOptions(rawValue: 1 << 11)
+    // on a retina display, 1px is spread on 4px, so nominalResolution is 1/4 of bestResolution
+    static let nominalResolution = CGSWindowCaptureOptions(rawValue: 1 << 9)
+    static let bestResolution = CGSWindowCaptureOptions(rawValue: 1 << 8)
 }
 
 enum SLPSMode: UInt32 {
