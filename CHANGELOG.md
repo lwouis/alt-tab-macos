@@ -1,3 +1,11 @@
+## [3.17.1](https://github.com/lwouis/alt-tab-macos/compare/v3.17.0...v3.17.1) (2020-04-29)
+
+
+### Bug Fixes
+
+* plug some minor memory leaks ([0de7a55](https://github.com/lwouis/alt-tab-macos/commit/0de7a55))
+* use windows nominal resolution for better performance ([a7cc3be](https://github.com/lwouis/alt-tab-macos/commit/a7cc3be))
+
 # [3.17.0](https://github.com/lwouis/alt-tab-macos/compare/v3.16.3...v3.17.0) (2020-04-27)
 
 

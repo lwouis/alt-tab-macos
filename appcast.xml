@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.17.1</title>
+      <pubDate>Wed, 29 Apr 2020 18:09:17 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="3171-httpsgithubcomlwouisalt-tab-macoscomparev3170v3171-2020-04-29">3.17.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.17.0...v3.17.1">https://github.com/lwouis/alt-tab-macos/compare/v3.17.0...v3.17.1</a>) (2020-04-29)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* plug some minor memory leaks (0de7a55 (https://github.com/lwouis/alt-tab-macos/commit/0de7a55))
+* use windows nominal resolution for better performance (a7cc3be (https://github.com/lwouis/alt-tab-macos/commit/a7cc3be))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.17.1/AltTab-3.17.1.zip"
+        sparkle:version="3.17.1"
+        sparkle:shortVersionString="3.17.1"
+        sparkle:edSignature="IvvmG64F2F1eTsmqTfryr/DGLZn5STYjk90px4YTCct09csNNUU9CUDVebZS+LkJFDeRUFtJMXsRVneHFVyrBw==" length="6726976"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.17.0</title>
       <pubDate>Mon, 27 Apr 2020 10:10:30 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
