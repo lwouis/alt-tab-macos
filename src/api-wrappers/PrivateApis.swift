@@ -36,7 +36,7 @@ func CGSMainConnectionID() -> CGSConnectionID
 // * offscreen content: no
 // * macOS 10.10+
 @_silgen_name("CGSHWCaptureWindowList")
-func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: inout CGWindowID, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> CFArray
+func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: inout CGWindowID, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> Unmanaged<CFArray>
 
 // returns the connection ID for the provided window
 // * macOS 10.10+

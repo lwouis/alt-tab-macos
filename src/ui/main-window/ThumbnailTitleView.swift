@@ -12,6 +12,7 @@ class ThumbnailTitleView: BaseLabel {
         textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
         self.init(NSRect.zero, textContainer)
+        font = Preferences.font
         self.magicOffset = magicOffset
         textColor = Preferences.fontColor
         shadow = ThumbnailView.makeShadow(.darkGray)

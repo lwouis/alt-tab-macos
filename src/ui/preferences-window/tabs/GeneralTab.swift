@@ -146,7 +146,7 @@ class GeneralTab: NSViewController, PreferencePane {
             }
         }
         if (sender as! NSButton).state == .on {
-            LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst.takeRetainedValue(), nil, nil, itemUrl, nil, nil)
+            let _ = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst.takeRetainedValue(), nil, nil, itemUrl, nil, nil).takeRetainedValue()
         }
     }
 }

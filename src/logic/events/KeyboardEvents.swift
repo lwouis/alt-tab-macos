@@ -21,7 +21,6 @@ private func observe_() {
                 callback: keyboardHandler,
                 userInfo: nil)
         let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
-        CGEvent.tapEnable(tap: eventTap!, enable: true)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CFRunLoopRun()
     }
