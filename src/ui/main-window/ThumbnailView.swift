@@ -8,8 +8,8 @@ class ThumbnailView: NSStackView {
     var minimizedIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledMinusSign, Preferences.fontIconSize, .white)
     var hiddenIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledDotSign, Preferences.fontIconSize, .white)
     var spaceIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
-    var mouseDownCallback: MouseDownCallback!
-    var mouseMovedCallback: MouseMovedCallback!
+    var mouseDownCallback: (() -> Void)!
+    var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
 
     convenience init() {
@@ -22,7 +22,7 @@ class ThumbnailView: NSStackView {
         observeDragAndDrop()
     }
 
-    func updateRecycledCellWithNewContent(_ element: Window, _ mouseDownCallback: @escaping MouseDownCallback, _ mouseMovedCallback: @escaping MouseMovedCallback, _ newHeight: CGFloat, _ screen: NSScreen) {
+    func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
         if thumbnail.image != element.thumbnail {
             thumbnail.image = element.thumbnail
@@ -40,11 +40,9 @@ class ThumbnailView: NSStackView {
         let labelChanged = label.string != element.title
         if labelChanged {
             label.string = element.title
-            // workaround: setting string on NSTextView change the font (most likely a Cocoa bug)
-            label.font = Preferences.font
         }
-        assignIfDifferent(&hiddenIcon.isHidden, !window_!.isHidden)
-        assignIfDifferent(&minimizedIcon.isHidden, !window_!.isMinimized)
+        assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden)
+        assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized)
         assignIfDifferent(&spaceIcon.isHidden, element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels)
         if !spaceIcon.isHidden {
             if element.isOnAllSpaces {
@@ -58,8 +56,8 @@ class ThumbnailView: NSStackView {
         let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
         assignIfDifferent(&subviews.first!.frame.size, frame.size)
-        self.mouseDownCallback = mouseDownCallback
-        self.mouseMovedCallback = mouseMovedCallback
+        self.mouseDownCallback = { () -> Void in App.app.focusSelectedWindow(element) }
+        self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
         if trackingAreas.count == 0 {
             addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseMoved, .activeAlways], owner: self, userInfo: nil))
         } else if trackingAreas.count > 0 && trackingAreas[0].rect != bounds {
@@ -71,6 +69,27 @@ class ThumbnailView: NSStackView {
         if labelChanged {
             label.display()
         }
+    }
+
+    private func test5(index: Int) {
+        self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
+    }
+
+    private func test4(element: Window) {
+        self.mouseDownCallback = { () -> Void in App.app.focusSelectedWindow(element) }
+    }
+
+    private func test3() {
+        assignIfDifferent(&subviews.first!.frame.size, frame.size)
+    }
+
+    private func test2(fontIconWidth: CGFloat) {
+        assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
+    }
+
+    private func test1() -> CGFloat {
+        let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
+        return fontIconWidth
     }
 
     private func observeDragAndDrop() {
@@ -174,5 +193,3 @@ class ThumbnailView: NSStackView {
     }
 }
 
-typealias MouseDownCallback = () -> Void
-typealias MouseMovedCallback = () -> Void

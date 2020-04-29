@@ -51,10 +51,7 @@ class ThumbnailsView: NSVisualEffectView {
             guard App.app.appIsBeingUsed else { return }
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
-            view.updateRecycledCellWithNewContent(window,
-                { () -> Void in App.app.focusSelectedWindow(window) },
-                { () -> Void in Windows.updateFocusedWindowIndex(index) },
-                height, screen)
+            view.updateRecycledCellWithNewContent(window, index, height, screen)
             let width = view.frame.size.width
             if (currentX + width).rounded(.down) > widthMax {
                 currentX = CGFloat(0)
