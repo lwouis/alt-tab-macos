@@ -71,27 +71,6 @@ class ThumbnailView: NSStackView {
         }
     }
 
-    private func test5(index: Int) {
-        self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
-    }
-
-    private func test4(element: Window) {
-        self.mouseDownCallback = { () -> Void in App.app.focusSelectedWindow(element) }
-    }
-
-    private func test3() {
-        assignIfDifferent(&subviews.first!.frame.size, frame.size)
-    }
-
-    private func test2(fontIconWidth: CGFloat) {
-        assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
-    }
-
-    private func test1() -> CGFloat {
-        let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
-        return fontIconWidth
-    }
-
     private func observeDragAndDrop() {
         // NSImageView instances are registered to drag-and-drop by default
         thumbnail.unregisterDraggedTypes()
