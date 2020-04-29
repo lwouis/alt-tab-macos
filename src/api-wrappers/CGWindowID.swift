@@ -18,8 +18,7 @@ extension CGWindowID {
     func screenshot() -> CGImage? {
         // CGSHWCaptureWindowList
         var windowId_ = self
-        let options: CGSWindowCaptureOptions = [.captureIgnoreGlobalClipShape, .windowCaptureNominalResolution]
-        let list = CGSHWCaptureWindowList(cgsMainConnectionId, &windowId_, 1, options).takeRetainedValue() as! [CGImage]
+        let list = CGSHWCaptureWindowList(cgsMainConnectionId, &windowId_, 1, [.ignoreGlobalClipShape, .nominalResolution]).takeRetainedValue() as! [CGImage]
         return list.first
 
 //        // CGWindowListCreateImage
