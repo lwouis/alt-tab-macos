@@ -130,9 +130,7 @@ class App: NSApplication, NSApplicationDelegate {
         feedbackWindow?.show()
     }
 
-    @objc
-    func showUi() {
-        appIsBeingUsed = true
+    @objc func showUi() {
         appIsBeingUsed = true
         DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(.neutral) }
     }

@@ -3,6 +3,8 @@ import SwiftyMarkdown
 import Preferences
 
 class AcknowledgmentsTab: NSViewController, PreferencePane {
+    // going taller than this will crop the view on small screens or low scaling modes on retina displays
+    static let maxTabHeight = CGFloat(450)
     let preferencePaneIdentifier = PreferencePane.Identifier("Acknowledgments")
     let preferencePaneTitle = NSLocalizedString("Acknowledgments", comment: "")
     let toolbarItemIcon = NSImage(named: NSImage.userAccountsName)!
@@ -16,10 +18,11 @@ class AcknowledgmentsTab: NSViewController, PreferencePane {
         let scrollView = ScrollView()
         scrollView.scrollerKnobStyle = .default
         scrollView.documentView!.subviews = [textView]
-        scrollView.frame.size = NSSize(width: textView.fittingSize.width, height: textView.fittingSize.width)
+        let height = min(textView.fittingSize.width, AcknowledgmentsTab.maxTabHeight)
+        scrollView.frame.size = NSSize(width: textView.fittingSize.width, height: height)
         scrollView.contentView.frame.size = textView.fittingSize
         scrollView.documentView!.frame.size = textView.fittingSize
-        scrollView.fit(textView.fittingSize.width, textView.fittingSize.width)
+        scrollView.fit(textView.fittingSize.width, height)
 
         let grid = GridView([[scrollView]])
         grid.fit()
