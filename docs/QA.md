@@ -49,12 +49,17 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * Drag-and-dropping a URL onto a window thumbnail should open it with that window's app
 * Drag-and-dropping a file onto a window thumbnail should open it with that window's app
 
+## System Preferences
+
+* General > Appearance > "Dark": switches to Dark Mode
+* General > Show scroll bars > "Always": regenerates all scrollbars
+* Display > Resolution > Scaled: changes DPI and rescale the app
+* Mission Control > "Displays have separate Spaces": changes Spaces behavior on multi-displays setups
+
 ## Misc
 
 * The app is launched after some apps/windows are already opened
-* Displays get connected/disconnected
+* Displays/mouses/trackpads/keyboards get connected/disconnected while the app is used
 * Spaces get created/destroyed
-* Display resolution/dpi is changed
-* Dark Mode
 * Sudden Termination
 
