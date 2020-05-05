@@ -5,13 +5,13 @@ let defaults = UserDefaults.standard
 
 class Preferences {
     // default values
-    static var defaultValues: [String: Any] = [
-        "maxScreenUsage": Float(80),
-        "minCellsPerRow": Float(5),
-        "maxCellsPerRow": Float(10),
-        "rowsCount": Float(3),
-        "iconSize": Float(32),
-        "fontHeight": Float(15),
+    static var defaultValues: [String: String] = [
+        "maxScreenUsage": "80",
+        "minCellsPerRow": "5",
+        "maxCellsPerRow": "10",
+        "rowsCount": "3",
+        "iconSize": "32",
+        "fontHeight": "15",
         "holdShortcut": "⌥",
         "nextWindowShortcut": "⇥",
         "previousWindowShortcut": "⇧⇥",
@@ -20,19 +20,19 @@ class Preferences {
         "minDeminWindowShortcut": "M",
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
-        "arrowKeysEnabled": true,
-        "mouseHoverEnabled": true,
-        "showMinimizedWindows": true,
-        "showHiddenWindows": true,
-        "windowDisplayDelay": 0,
+        "arrowKeysEnabled": "true",
+        "mouseHoverEnabled": "true",
+        "showMinimizedWindows": "true",
+        "showHiddenWindows": "true",
+        "windowDisplayDelay": "0",
         "theme": "0",
         "showOnScreen": "0",
         "alignThumbnails": "0",
         "appsToShow": "0",
         "spacesToShow": "0",
         "screensToShow": "0",
-        "hideSpaceNumberLabels": false,
-        "startAtLogin": true,
+        "hideSpaceNumberLabels": "false",
+        "startAtLogin": "true",
     ]
 
     // constant values
@@ -45,35 +45,35 @@ class Preferences {
     static var fontIconSize: CGFloat { 20 }
 
     // persisted values
-    static var maxScreenUsage: CGFloat { CGFloat(defaults.float(forKey: "maxScreenUsage")) / CGFloat(100) }
-    static var minCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "minCellsPerRow")) }
-    static var maxCellsPerRow: CGFloat { CGFloat(defaults.float(forKey: "maxCellsPerRow")) }
-    static var rowsCount: CGFloat { CGFloat(defaults.float(forKey: "rowsCount")) }
-    static var iconSize: CGFloat { CGFloat(defaults.float(forKey: "iconSize")) }
-    static var fontHeight: CGFloat { CGFloat(defaults.float(forKey: "fontHeight")) }
-    static var holdShortcut: String { defaults.string(forKey: "holdShortcut")! }
-    static var nextWindowShortcut: String { defaults.string(forKey: "nextWindowShortcut")! }
-    static var previousWindowShortcut: String { defaults.string(forKey: "previousWindowShortcut")! }
-    static var cancelShortcut: String { defaults.string(forKey: "cancelShortcut")! }
-    static var closeWindowShortcut: String { defaults.string(forKey: "closeWindowShortcut")! }
-    static var minDeminWindowShortcut: String { defaults.string(forKey: "minDeminWindowShortcut")! }
-    static var quitAppShortcut: String { defaults.string(forKey: "quitAppShortcut")! }
-    static var hideShowAppShortcut: String { defaults.string(forKey: "hideShowAppShortcut")! }
-    static var arrowKeysEnabled: Bool { defaults.bool(forKey: "arrowKeysEnabled") }
-    static var mouseHoverEnabled: Bool { defaults.bool(forKey: "mouseHoverEnabled") }
-    static var showMinimizedWindows: Bool { defaults.bool(forKey: "showMinimizedWindows") }
-    static var showHiddenWindows: Bool { defaults.bool(forKey: "showHiddenWindows") }
-    static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.integer(forKey: "windowDisplayDelay")) }
-    static var hideSpaceNumberLabels: Bool { defaults.bool(forKey: "hideSpaceNumberLabels") }
-    static var startAtLogin: Bool { defaults.bool(forKey: "startAtLogin") }
+    static var maxScreenUsage: CGFloat { defaults.cgfloat("maxScreenUsage") / CGFloat(100) }
+    static var minCellsPerRow: CGFloat { defaults.cgfloat("minCellsPerRow") }
+    static var maxCellsPerRow: CGFloat { defaults.cgfloat("maxCellsPerRow") }
+    static var rowsCount: CGFloat { defaults.cgfloat("rowsCount") }
+    static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
+    static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
+    static var holdShortcut: String { defaults.string("holdShortcut") }
+    static var nextWindowShortcut: String { defaults.string("nextWindowShortcut") }
+    static var previousWindowShortcut: String { defaults.string("previousWindowShortcut") }
+    static var cancelShortcut: String { defaults.string("cancelShortcut") }
+    static var closeWindowShortcut: String { defaults.string("closeWindowShortcut") }
+    static var minDeminWindowShortcut: String { defaults.string("minDeminWindowShortcut") }
+    static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
+    static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
+    static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
+    static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
+    static var showMinimizedWindows: Bool { defaults.bool("showMinimizedWindows") }
+    static var showHiddenWindows: Bool { defaults.bool("showHiddenWindows") }
+    static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
+    static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
+    static var startAtLogin: Bool { defaults.bool("startAtLogin") }
 
     // macro values
-    static var theme: ThemePreference { ThemePreference.allCases[Int(defaults.string(forKey: "theme")!)!] }
-    static var showOnScreen: ShowOnScreenPreference { ShowOnScreenPreference.allCases[Int(defaults.string(forKey: "showOnScreen")!)!] }
-    static var alignThumbnails: AlignThumbnailsPreference { AlignThumbnailsPreference.allCases[Int(defaults.string(forKey: "alignThumbnails")!)!] }
-    static var appsToShow: AppsToShowPreference { AppsToShowPreference.allCases[Int(defaults.string(forKey: "appsToShow")!)!] }
-    static var spacesToShow: SpacesToShowPreference { SpacesToShowPreference.allCases[Int(defaults.string(forKey: "spacesToShow")!)!] }
-    static var screensToShow: ScreensToShowPreference { ScreensToShowPreference.allCases[Int(defaults.string(forKey: "screensToShow")!)!] }
+    static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
+    static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
+    static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
+    static var appsToShow: AppsToShowPreference { defaults.macroPref("appsToShow", AppsToShowPreference.allCases) }
+    static var spacesToShow: SpacesToShowPreference { defaults.macroPref("spacesToShow", SpacesToShowPreference.allCases) }
+    static var screensToShow: ScreensToShowPreference { defaults.macroPref("screensToShow", ScreensToShowPreference.allCases) }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
@@ -97,28 +97,19 @@ class Preferences {
 
     static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
 
-    static func clearAllPreferences() {
-        defaults.removePersistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)
-    }
-
-    // TODO: add a check in ci to prevent forgeting migration code here
     static func migratePreferences() {
         let preferencesVersion = "preferencesVersion"
         if let currentVersion = defaults.string(forKey: preferencesVersion) {
-            let comparison = currentVersion.compare(App.version, options: .numeric)
-            if comparison == .orderedAscending {
-                updateToNewPreferences(preferencesVersion: preferencesVersion)
-            } else if comparison == .orderedDescending {
-                // supporting downgrades is too much work for the reward; we just avoid crashing by clearing
-                clearAllPreferences()
+            if currentVersion.compare(App.version, options: .numeric) == .orderedAscending {
+                updateToNewPreferences(preferencesVersion)
             }
         } else {
             // first time migrating
-            updateToNewPreferences(preferencesVersion: preferencesVersion)
+            updateToNewPreferences(preferencesVersion)
         }
     }
 
-    private static func updateToNewPreferences(preferencesVersion: String) {
+    private static func updateToNewPreferences(_ preferencesVersion: String) {
         migrateDropdownMenuPreference("theme", [" macOS": "0", "❖ Windows 10": "1"])
         // "Main screen" was renamed to "Active screen"
         migrateDropdownMenuPreference("showOnScreen", ["Main screen": "0", "Active screen": "0", "Screen including mouse": "1"])
@@ -131,11 +122,9 @@ class Preferences {
 
     // dropdowns preferences used to store English text; now they store indexes
     static func migrateDropdownMenuPreference(_ preference: String, _ oldAndNew: [String: String]) {
-        if let old = defaults.string(forKey: preference) {
-            let new = oldAndNew[old]
-            if new != nil {
-                defaults.set(new, forKey: preference)
-            }
+        if let old = defaults.string(forKey: preference),
+           let new = oldAndNew[old] {
+            defaults.set(new, forKey: preference)
         }
     }
 }
@@ -235,5 +224,44 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
             case .macOs: return ThemeParameters(label: self.localizedString, cellBorderWidth: 0, cellCornerRadius: 5, windowCornerRadius: 20, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
             case .windows10: return ThemeParameters(label: self.localizedString, cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
         }
+    }
+}
+
+extension UserDefaults {
+    func string(_ key: String) -> String {
+        string(forKey: key)!
+    }
+
+    func int(_ key: String) -> Int {
+        if let result = Int(string(key)) {
+            return result
+        }
+        removeObject(forKey: key)
+        return int(key)
+    }
+
+    func bool(_ key: String) -> Bool {
+        if let result = Bool(string(key)) {
+            return result
+        }
+        removeObject(forKey: key)
+        return bool(key)
+    }
+
+    func cgfloat(_ key: String) -> CGFloat {
+        if let result = (NumberFormatter().number(from: string(key)).flatMap { CGFloat(truncating: $0) }) {
+            return result
+        }
+        removeObject(forKey: key)
+        return cgfloat(key)
+    }
+
+    func macroPref<A>(_ key: String, _ macroPreferences: [A]) -> A {
+        let index = int(key)
+        if index >= 0 && index < macroPreferences.count {
+            return macroPreferences[index]
+        }
+        removeObject(forKey: key)
+        return macroPref(key, macroPreferences)
     }
 }
