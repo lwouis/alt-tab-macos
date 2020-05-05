@@ -63,7 +63,8 @@ class FeedbackWindow: NSWindow {
         contentView = view
     }
 
-    @objc private func cancelCallback() {
+    // allow to close with the escape key
+    @objc func cancel(_ sender: Any?) {
         close()
     }
 
