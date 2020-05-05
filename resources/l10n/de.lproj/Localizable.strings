@@ -36,7 +36,7 @@
 "Appearance" = "Aussehen";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Willst du wirklich keine Antwort?";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Pfeiltasten";
@@ -150,7 +150,7 @@
 "Send" = "Senden";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+"Send anyway" = "Trotzdem senden";
 
 /*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Debug Profil senden (CPU, Speicher, etc.)";
@@ -204,7 +204,7 @@
 "Window title font size:" = "Fenster Titel Größe:";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "Du hast keine Mail-Adresse angegeben, sodass man dir nicht antworten kann.";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";
