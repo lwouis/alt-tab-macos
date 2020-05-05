@@ -1,3 +1,10 @@
+## [3.17.2](https://github.com/lwouis/alt-tab-macos/compare/v3.17.1...v3.17.2) (2020-05-05)
+
+
+### Bug Fixes
+
+* fit preferences tabs on small screens ([6096ce5](https://github.com/lwouis/alt-tab-macos/commit/6096ce5))
+
 ## [3.17.1](https://github.com/lwouis/alt-tab-macos/compare/v3.17.0...v3.17.1) (2020-04-29)
 
 

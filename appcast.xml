@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.17.2</title>
+      <pubDate>Tue, 05 May 2020 09:48:16 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="3172-httpsgithubcomlwouisalt-tab-macoscomparev3171v3172-2020-05-05">3.17.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.17.1...v3.17.2">https://github.com/lwouis/alt-tab-macos/compare/v3.17.1...v3.17.2</a>) (2020-05-05)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* fit preferences tabs on small screens (6096ce5 (https://github.com/lwouis/alt-tab-macos/commit/6096ce5))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.17.2/AltTab-3.17.2.zip"
+        sparkle:version="3.17.2"
+        sparkle:shortVersionString="3.17.2"
+        sparkle:edSignature="ZLX90+iA+4KQFT8IgR/fYYINlYeSaA2vHpIHaLFwgj3+qf03Fea1YQaIAx+vZY2OYAmwN9qmNPXzKONOdowEBg==" length="6728544"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.17.1</title>
       <pubDate>Wed, 29 Apr 2020 18:09:17 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
