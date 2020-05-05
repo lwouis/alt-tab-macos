@@ -17,7 +17,7 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : "", target: nil, action: nil)
-        setControlValue(checkbox, Preferences.getString(rawName)!)
+        checkbox.state = (Preferences.getString(rawName)! as NSString).boolValue ? .on : .off
         let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
     }
@@ -115,19 +115,6 @@ class LabelAndControl: NSObject {
             return String((control as! NSButton).state == NSButton.StateValue.on)
         } else {
             return control.stringValue
-        }
-    }
-
-    static func setControlValue(_ control: NSControl, _ value: String) {
-        if control is NSPopUpButton {
-            (control as! NSPopUpButton).selectItem(withTitle: value)
-        } else if control is NSTextField {
-            control.stringValue = value
-            (control as! NSTextField).delegate?.controlTextDidChange?(Notification(name: NSControl.textDidChangeNotification, object: control))
-        } else if control is NSButton {
-            (control as! NSButton).state = (value as NSString).boolValue ? .on : .off
-        } else {
-            control.stringValue = value
         }
     }
 
