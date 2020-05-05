@@ -1,0 +1,210 @@
+
+/*No comment provided by engineer.*/
+"❖ Windows 10" = "❖ Windows 10";
+
+/*No comment provided by engineer.*/
+"About" = "حول";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "شكر وتقدير";
+
+/*No comment provided by engineer.*/
+"Active app" = "البرنامج الحالي";
+
+/*No comment provided by engineer.*/
+"Active screen" = "الشاشة الحالية";
+
+/*No comment provided by engineer.*/
+"Active space" = "المساحة الحالية";
+
+/*No comment provided by engineer.*/
+"Align windows:" = "ترتيب النوافذ:";
+
+/*No comment provided by engineer.*/
+"All apps" = "كل البرامج";
+
+/*No comment provided by engineer.*/
+"All screens" = "كل الشاشات";
+
+/*No comment provided by engineer.*/
+"All spaces" = "كل المساحات";
+
+/*No comment provided by engineer.*/
+"Apparition delay:" = "تأخر الوموض:";
+
+/*No comment provided by engineer.*/
+"Appearance" = "المظهر";
+
+/*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "هل أنت متأكد بأنك لا تريد رداً ؟";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "أزرار الأسهم";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "تثبيت التحديثات بشكل دوري تلقائي";
+
+/*Cancel button*/
+"Cancel" = "إلغاء";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "إلغاء وإخفاء";
+
+/*No comment provided by engineer.*/
+"Center" = "توسيط";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "البحث عن تحديثات الآن…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "ابحث عن تحديثات بشكل دوري";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "ابحث عن تحديثات…";
+
+/*No comment provided by engineer.*/
+"Close window" = "إغلاق النافذة";
+
+/*No comment provided by engineer.*/
+"Don’t check for updates periodically" = "لا تبحث عن تحديثات بشكل دوري";
+
+/*No comment provided by engineer.*/
+"General" = "عام";
+
+/*No comment provided by engineer.*/
+"Hidden" = "مخفي";
+
+/*No comment provided by engineer.*/
+"Hide space number labels:" = "إخفاء مساحة الأرقام:";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "إخفاء/إظهار برنامج";
+
+/*No comment provided by engineer.*/
+"Hold" = "ثبّت";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "اعتقد أنه بالإمكان تطوير البرنامج بـ…";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "آخر الإصدارات";
+
+/*No comment provided by engineer.*/
+"Left" = "يسار";
+
+/*No comment provided by engineer.*/
+"Max size on screen:" = "أكبر حجم على الشاشة:";
+
+/*No comment provided by engineer.*/
+"Max windows per row:" = "الحد الأعلى للنوافذ للصف:";
+
+/*No comment provided by engineer.*/
+"Min windows per row:" = "الحد الأدنى للنوافذ للصف:";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "تصغير/تكبير نافذة";
+
+/*No comment provided by engineer.*/
+"Minimized" = "مصغّر";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "تمرير المؤشر";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "رخصة GPL-3.0";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "اختياري: بريد (إذا كنت تريد رد)";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "التفضيلات…";
+
+/*No comment provided by engineer.*/
+"Quit %@" = "خروج %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "إغلاق البرنامج";
+
+/*No comment provided by engineer.*/
+"Rows of windows:" = "صفوف النوافذ:";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "شاشة شريط القوائم";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "شاشة المؤشر";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "شاشة الـAltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "حدد النافذة التالية";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "حدد النافذة السابقة";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "حدد النوافذ التي تستخدم:";
+
+/*No comment provided by engineer.*/
+"Send" = "إرسال";
+
+/*No comment provided by engineer.*/
+"Send anyway" = "إرسال على أية حال";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "إرسال ملف الأخطاء (معالج، ذاكرة، إلخ)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "أرسل رأيك";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "أرسل رأيك…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "شارك أفكارك التطويرية، أو بلغ عن أخطاء";
+
+/*No comment provided by engineer.*/
+"Show" = "إظهار";
+
+/*No comment provided by engineer.*/
+"Show on:" = "أظهر على:";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "حدد النوافذ التالية:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "مخزن شفرة المصدر";
+
+/*No comment provided by engineer.*/
+"Start at login:" = "شغّل البرنامج عند الدخول:";
+
+/*No comment provided by engineer.*/
+"Theme:" = "المظهر:";
+
+/*No comment provided by engineer.*/
+"then press:" = "واضغط:";
+
+/*No comment provided by engineer.*/
+"Updates" = "تحديثات";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "سياسة التحديثات:";
+
+/*No comment provided by engineer.*/
+"Version" = "الإصدار";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "أنظر للنقاشات الحالية";
+
+/*No comment provided by engineer.*/
+"Window app icon size:" = "حجم أيقونة النافذة:";
+
+/*No comment provided by engineer.*/
+"Window title font size:" = "حجم خط عنوان النافذة:";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "لم تكتب بريدك؛ فلذلك لن تحصل على رد.";
+
+/*No comment provided by engineer.*/
+" macOS" = " macOS";
