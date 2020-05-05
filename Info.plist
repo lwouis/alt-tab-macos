@@ -34,6 +34,8 @@
 	<string>true</string>
 	<key>SUEnableAutomaticChecks</key>
 	<string>true</string>
+	<key>SUScheduledCheckInterval</key>
+	<string>604800</string>
 	<key>SUFeedURL</key>
 	<string>https://raw.githubusercontent.com/lwouis/alt-tab-macos/master/appcast.xml</string>
 	<key>SUPublicEDKey</key>
