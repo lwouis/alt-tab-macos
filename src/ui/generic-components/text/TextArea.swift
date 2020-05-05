@@ -37,8 +37,10 @@ class TextFieldCell: NSTextFieldCell {
         stringValue = ""
         placeholderString = placeholder
         self.usesSingleLineMode = usesSingleLineMode
+        alignment = .natural // appkit bug: the docs say default is .natural but it's .left
     }
 
+    // add padding all around
     override func drawingRect(forBounds rect: NSRect) -> NSRect {
         return super.drawingRect(forBounds: NSMakeRect(
                 rect.origin.x + TextArea.padding,

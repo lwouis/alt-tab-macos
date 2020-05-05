@@ -22,9 +22,7 @@ class UpdatesTab: NSViewController, PreferencePane {
         periodicallyInstall.fit()
         let policyLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("Updates policy:", comment: ""))
         policyLabel.isSelectable = false
-        let policies = NSStackView(views: [dontPeriodicallyCheck, periodicallyCheck, periodicallyInstall])
-        policies.alignment = .left
-        policies.orientation = .vertical
+        let policies = StackView([dontPeriodicallyCheck, periodicallyCheck, periodicallyInstall], .vertical)
         policies.spacing = GridView.interPadding / 2
         let grid = GridView([
             [policyLabel, policies],
