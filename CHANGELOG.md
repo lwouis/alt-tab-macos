@@ -1,3 +1,20 @@
+# [3.18.0](https://github.com/lwouis/alt-tab-macos/compare/v3.17.2...v3.18.0) (2020-05-05)
+
+
+### Bug Fixes
+
+* activate shortcuts without updating their userdefaults ([6aad3e7](https://github.com/lwouis/alt-tab-macos/commit/6aad3e7))
+* can close feedback window with escape key ([05fb4a2](https://github.com/lwouis/alt-tab-macos/commit/05fb4a2))
+* correctly display right-to-left languages ([89f2df4](https://github.com/lwouis/alt-tab-macos/commit/89f2df4))
+* more robust preference migrations (closes [#220](https://github.com/lwouis/alt-tab-macos/issues/220)) ([bf857e8](https://github.com/lwouis/alt-tab-macos/commit/bf857e8))
+
+
+### Features
+
+* add arabic localization ([0a1bb6e](https://github.com/lwouis/alt-tab-macos/commit/0a1bb6e))
+* check for updates weekly instead of daily ([02920a7](https://github.com/lwouis/alt-tab-macos/commit/02920a7)), closes [#295](https://github.com/lwouis/alt-tab-macos/issues/295)
+* update german localization ([1925777](https://github.com/lwouis/alt-tab-macos/commit/1925777))
+
 ## [3.17.2](https://github.com/lwouis/alt-tab-macos/compare/v3.17.1...v3.17.2) (2020-05-05)
 
 

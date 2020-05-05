@@ -5,6 +5,31 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.18.0</title>
+      <pubDate>Tue, 05 May 2020 19:43:44 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3180-httpsgithubcomlwouisalt-tab-macoscomparev3172v3180-2020-05-05">3.18.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.17.2...v3.18.0">https://github.com/lwouis/alt-tab-macos/compare/v3.17.2...v3.18.0</a>) (2020-05-05)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* activate shortcuts without updating their userdefaults (6aad3e7 (https://github.com/lwouis/alt-tab-macos/commit/6aad3e7))
+* can close feedback window with escape key (05fb4a2 (https://github.com/lwouis/alt-tab-macos/commit/05fb4a2))
+* correctly display right-to-left languages (89f2df4 (https://github.com/lwouis/alt-tab-macos/commit/89f2df4))
+* more robust preference migrations (closes #220 (https://github.com/lwouis/alt-tab-macos/issues/220)) (bf857e8 (https://github.com/lwouis/alt-tab-macos/commit/bf857e8))</code></pre><h3 id="features">Features</h3>
+<pre><code>* add arabic localization (0a1bb6e (https://github.com/lwouis/alt-tab-macos/commit/0a1bb6e))
+* check for updates weekly instead of daily (02920a7 (https://github.com/lwouis/alt-tab-macos/commit/02920a7)), closes #295 (https://github.com/lwouis/alt-tab-macos/issues/295)
+* update german localization (1925777 (https://github.com/lwouis/alt-tab-macos/commit/1925777))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.18.0/AltTab-3.18.0.zip"
+        sparkle:version="3.18.0"
+        sparkle:shortVersionString="3.18.0"
+        sparkle:edSignature="cQBcHVS2DGE7FAHbqi9ZUZJPhABo0fxaNkmi9zAJxD3e1dv+ei+MkB094LC9JM2N7abd4kNtPr//X90VxrGABg==" length="6736134"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.17.2</title>
       <pubDate>Tue, 05 May 2020 09:48:16 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
