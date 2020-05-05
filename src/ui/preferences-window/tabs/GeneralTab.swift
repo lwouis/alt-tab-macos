@@ -104,7 +104,13 @@ class GeneralTab: NSViewController, PreferencePane {
         let controlId = sender.identifier!.rawValue
         if controlId == "holdShortcut" {
             addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut)!, controlId)
-            shortcutsDependentOnHoldShortcut.forEach { $0.sendAction($0.action, to: $0.target) }
+            shortcutsDependentOnHoldShortcut.forEach {
+                if $0.identifier!.rawValue == "arrowKeysEnabled" {
+                    GeneralTab.arrowKeysEnabledCallback($0)
+                } else {
+                    GeneralTab.shortcutChangedCallback($0)
+                }
+            }
         } else {
             // remove the holdShortcut character in case they also use it in the other shortcuts
             let newValue = Preferences.holdShortcut.reduce((sender as! RecorderControl).stringValue, { $0.replacingOccurrences(of: String($1), with: "") })
