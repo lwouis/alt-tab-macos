@@ -8,7 +8,7 @@ class Application: NSObject {
 
     static let notifications = [
         kAXApplicationActivatedNotification,
-        kAXFocusedWindowChangedNotification,
+        kAXMainWindowChangedNotification,
         kAXWindowCreatedNotification,
         kAXApplicationHiddenNotification,
         kAXApplicationShownNotification,
@@ -51,10 +51,8 @@ class Application: NSObject {
     }
 
     func observeNewWindows() {
-        if let windows = axUiElement!.windows() {
-            let actualWindows = windows.filter {
-                $0.isActualWindow(runningApplication.bundleIdentifier) && Windows.list.firstIndexThatMatches($0) == nil
-            }
+        if let windows = axUiElement!.windows(runningApplication.bundleIdentifier) {
+            let actualWindows = windows.filter { Windows.list.firstIndexThatMatches($0) == nil }
             if actualWindows.count > 0 {
                 addWindows(actualWindows)
             }
