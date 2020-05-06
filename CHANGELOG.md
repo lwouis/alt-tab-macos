@@ -1,3 +1,10 @@
+## [3.19.1](https://github.com/lwouis/alt-tab-macos/compare/v3.19.0...v3.19.1) (2020-05-06)
+
+
+### Bug Fixes
+
+* fast shortcut press would fail to switch windows ([2ee5eb5](https://github.com/lwouis/alt-tab-macos/commit/2ee5eb5))
+
 # [3.19.0](https://github.com/lwouis/alt-tab-macos/compare/v3.18.0...v3.19.0) (2020-05-06)
 
 

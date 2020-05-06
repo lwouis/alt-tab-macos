@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.19.1</title>
+      <pubDate>Wed, 06 May 2020 17:44:04 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="3191-httpsgithubcomlwouisalt-tab-macoscomparev3190v3191-2020-05-06">3.19.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.19.0...v3.19.1">https://github.com/lwouis/alt-tab-macos/compare/v3.19.0...v3.19.1</a>) (2020-05-06)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* fast shortcut press would fail to switch windows (2ee5eb5 (https://github.com/lwouis/alt-tab-macos/commit/2ee5eb5))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.19.1/AltTab-3.19.1.zip"
+        sparkle:version="3.19.1"
+        sparkle:shortVersionString="3.19.1"
+        sparkle:edSignature="iEsonnEF+1h9wXEsYyDECeMZ25D6wz6RlXwEZXZKVLeBByPl5ZS/bDFKBBiybgahkCDRPpwOk7iF+LPXL+TSCA==" length="6740869"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.19.0</title>
       <pubDate>Wed, 06 May 2020 17:10:59 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
