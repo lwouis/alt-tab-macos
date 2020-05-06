@@ -99,7 +99,14 @@ class Windows {
             !(!Preferences.showHiddenWindows && window.isHidden) &&
             !(Preferences.appsToShow == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
             !(Preferences.spacesToShow == .active && window.spaceId != Spaces.currentSpaceId) &&
-            !(Preferences.screensToShow == .showingAltTab && !isOnScreen(window, screen))
+            !(Preferences.screensToShow == .showingAltTab && !isOnScreen(window, screen)) &&
+            !isTabbed(window)
+    }
+
+    static func isTabbed(_ window: Window) -> Bool {
+        let app = window.application
+        let windows = app.axUiElement?.windows(app.runningApplication.bundleIdentifier)
+        return windows?.first(where: { $0 == window.axUiElement }) == nil
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {

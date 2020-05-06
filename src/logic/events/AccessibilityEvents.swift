@@ -8,7 +8,7 @@ func axObserverCallback(observer: AXObserver, element: AXUIElement, notification
         case kAXApplicationHiddenNotification,
              kAXApplicationShownNotification: applicationHiddenOrShown(element, type)
         case kAXWindowCreatedNotification: windowCreated(element, applicationPointer)
-        case kAXFocusedWindowChangedNotification: focusedWindowChanged(element)
+        case kAXMainWindowChangedNotification: focusedWindowChanged(element, applicationPointer)
         case kAXUIElementDestroyedNotification: windowDestroyed(element)
         case kAXWindowMiniaturizedNotification,
              kAXWindowDeminiaturizedNotification: windowMiniaturizedOrDeminiaturized(element, type)
@@ -19,11 +19,10 @@ func axObserverCallback(observer: AXObserver, element: AXUIElement, notification
 }
 
 private func applicationActivated(_ element: AXUIElement) {
-    guard !App.app.appIsBeingUsed,
-          let appFocusedWindow = element.focusedWindow(),
+    guard let appFocusedWindow = element.focusedWindow(),
           let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow) else { return }
     Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
-    App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]], true)
+    App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
 }
 
 private func applicationHiddenOrShown(_ element: AXUIElement, _ type: String) {
@@ -32,7 +31,7 @@ private func applicationHiddenOrShown(_ element: AXUIElement, _ type: String) {
         $0.application.axUiElement!.pid() == element.pid()
     }
     windows.forEach { $0.isHidden = type == kAXApplicationHiddenNotification }
-    App.app.refreshOpenUi(windows, true)
+    App.app.refreshOpenUi(windows)
 }
 
 private func windowCreated(_ element: AXUIElement, _ applicationPointer: UnsafeMutableRawPointer?) {
@@ -46,11 +45,17 @@ private func windowCreated(_ element: AXUIElement, _ applicationPointer: UnsafeM
     App.app.refreshOpenUi([window])
 }
 
-private func focusedWindowChanged(_ element: AXUIElement) {
-    guard !App.app.appIsBeingUsed,
-          let existingIndex = Windows.list.firstIndexThatMatches(element) else { return }
-    Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
-    App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
+private func focusedWindowChanged(_ element: AXUIElement, _ applicationPointer: UnsafeMutableRawPointer?) {
+    if let existingIndex = Windows.list.firstIndexThatMatches(element) {
+        Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
+        App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
+    } else {
+        let application = Unmanaged<Application>.fromOpaque(applicationPointer!).takeUnretainedValue()
+        if element.isActualWindow(application.runningApplication.bundleIdentifier) {
+            Windows.list.insert(Window(element, application), at: 0)
+            App.app.refreshOpenUi([Windows.list[0]])
+        }
+    }
 }
 
 private func windowDestroyed(_ element: AXUIElement) {
@@ -65,7 +70,7 @@ private func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ type: 
     guard let index = Windows.list.firstIndexThatMatches(element) else { return }
     let window = Windows.list[index]
     window.isMinimized = type == kAXWindowMiniaturizedNotification
-    App.app.refreshOpenUi([window], true)
+    App.app.refreshOpenUi([window])
 }
 
 private func windowTitleChanged(_ element: AXUIElement) {

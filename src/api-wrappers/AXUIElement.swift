@@ -43,8 +43,9 @@ extension AXUIElement {
         return attribute(kAXTitleAttribute, String.self)
     }
 
-    func windows() -> [AXUIElement]? {
-        return attribute(kAXWindowsAttribute, [AXUIElement].self)
+    func windows(_ bundleIdentifier: String?) -> [AXUIElement]? {
+        return attribute(kAXWindowsAttribute, [AXUIElement].self)?
+            .filter { $0.isActualWindow(bundleIdentifier) }
     }
 
     func isMinimized() -> Bool {
