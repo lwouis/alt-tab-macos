@@ -20,9 +20,7 @@ class Windows {
     }
 
     static func cycleFocusedWindowIndex(_ step: Int) {
-        DispatchQueue.main.async { () -> () in
-            updateFocusedWindowIndex(windowIndexAfterCycling(step))
-        }
+        updateFocusedWindowIndex(windowIndexAfterCycling(step))
     }
 
     static func windowIndexAfterCycling(_ step: Int) -> Int {
