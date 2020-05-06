@@ -49,6 +49,7 @@
 		D04BA76A74267B1346D23687 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6D57A1456C07318B8EA /* GridView.swift */; };
 		D04BA775CF3F8D9394A1E256 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA68C2561D9EE4FD851B8 /* Screen.swift */; };
 		D04BA7B8D599E1A7A27FF5AE /* AcknowledgmentsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA788228BA86D9EFBD1ED /* AcknowledgmentsTab.swift */; };
+		D04BA7B9421871EDBD58F4E3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABA255CD25D8724A06CD /* Localizable.strings */; };
 		D04BA7BE7F3DD24D58ACE942 /* AppearanceTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA64F1F344007EA13BA05 /* AppearanceTab.swift */; };
 		D04BA7F86F1926FBE31F44BF /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA53992F116E5E704CAB3 /* BaseLabel.swift */; };
 		D04BA8092885B40CE3527370 /* UpdatesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD60C97E609A759E721E /* UpdatesTab.swift */; };
@@ -73,6 +74,7 @@
 		D04BABEECBC6D922298BC93A /* Spaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7CF9C2D1BEC7C05AB24 /* Spaces.swift */; };
 		D04BAC011A71E0418154F8CD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA9B93823398A542FF7A0 /* Preferences.swift */; };
 		D04BAC3169D54014CBA9ACE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAE7F55A4A3EC5F6D311A /* Localizable.strings */; };
+		D04BAC463D66BB8E19CF8E2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA98FEA8906BA589E5688 /* InfoPlist.strings */; };
 		D04BAC61DCCB79B5D436F022 /* app-icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = D04BAE5D665680CB4B13CA26 /* app-icon.icns */; };
 		D04BAC6528FB6F06A9ACFFF5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA5090185A1F3550DA5AB /* Localizable.strings */; };
 		D04BAC71F7EC1137D5A8503A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA6F52A356A51B9AFAF00 /* Localizable.strings */; };
@@ -180,6 +182,7 @@
 		D04BA9C3ECECAAB8AFD6CDD1 /* preferences.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = preferences.jpg; sourceTree = "<group>"; };
 		D04BA9EF65B2E7AF9E3ADCA3 /* 2 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "2 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BAA34E0CB00DED7C04B4F /* 2-rows.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "2-rows.jpg"; sourceTree = "<group>"; };
+		D04BAA4442D0CE3A4972937F /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BAA6E43F1E6EB81F953AF /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BAA998119CAA8B70A2B67 /* ThumbnailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailsView.swift; sourceTree = "<group>"; };
 		D04BAA9E0539EE620D08F63F /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fr; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -194,6 +197,7 @@
 		D04BAB8A94DA69A6B5008AE5 /* Pipfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pipfile; sourceTree = "<group>"; };
 		D04BABBB124EAA6D4CC389F6 /* it */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = it; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BABDC2286BBE3D63E4A33 /* CONTRIBUTING.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		D04BABE52980E4EEF838B8DD /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BAC02D60EF22D9CC7D969 /* commitlint.config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = commitlint.config.js; sourceTree = "<group>"; };
 		D04BAC08AEDFBF722D613801 /* ar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ar; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BAC159731F80FDAF4EA6C /* 1-row.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1-row.jpg"; sourceTree = "<group>"; };
@@ -456,6 +460,15 @@
 			path = "zh-CN.lproj";
 			sourceTree = "<group>";
 		};
+		D04BA61A8DB64F718D0676FD /* nl.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA98FEA8906BA589E5688 /* InfoPlist.strings */,
+				D04BABA255CD25D8724A06CD /* Localizable.strings */,
+			);
+			path = nl.lproj;
+			sourceTree = "<group>";
+		};
 		D04BA61DD16A622D398FED3E /* fr.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,6 +684,7 @@
 				D04BA575A23CE769CD038CDA /* pt-BR.lproj */,
 				D04BAB35FC157A6EF34EC038 /* ru.lproj */,
 				D04BA90F4F92BE2E7EDFDF7E /* ar.lproj */,
+				D04BA61A8DB64F718D0676FD /* nl.lproj */,
 			);
 			path = l10n;
 			sourceTree = "<group>";
@@ -757,6 +771,7 @@
 				"pt-BR",
 				ru,
 				ar,
+				nl,
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
@@ -807,6 +822,8 @@
 				D04BA0182F4734A5C8BB63DC /* Localizable.strings in Resources */,
 				D04BA22840D40E3885B2B29E /* InfoPlist.strings in Resources */,
 				D04BAAB5C4E78AE375EA7D3C /* Localizable.strings in Resources */,
+				D04BAC463D66BB8E19CF8E2E /* InfoPlist.strings in Resources */,
+				D04BA7B9421871EDBD58F4E3 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,6 +1123,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		D04BA98FEA8906BA589E5688 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D04BAA4442D0CE3A4972937F /* nl */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		D04BAA56B4EEAF17F767C7FD /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1120,6 +1145,14 @@
 				D04BACB97A5895839BCB14BD /* es */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D04BABA255CD25D8724A06CD /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D04BABE52980E4EEF838B8DD /* nl */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */ = {
