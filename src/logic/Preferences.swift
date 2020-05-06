@@ -24,6 +24,7 @@ class Preferences {
         "mouseHoverEnabled": "true",
         "showMinimizedWindows": "true",
         "showHiddenWindows": "true",
+        "showTabsAsWindows": "false",
         "windowDisplayDelay": "0",
         "theme": "0",
         "showOnScreen": "0",
@@ -63,6 +64,7 @@ class Preferences {
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
     static var showMinimizedWindows: Bool { defaults.bool("showMinimizedWindows") }
     static var showHiddenWindows: Bool { defaults.bool("showHiddenWindows") }
+    static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }

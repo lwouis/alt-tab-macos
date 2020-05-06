@@ -100,7 +100,7 @@ class Windows {
             !(Preferences.appsToShow == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
             !(Preferences.spacesToShow == .active && window.spaceId != Spaces.currentSpaceId) &&
             !(Preferences.screensToShow == .showingAltTab && !isOnScreen(window, screen)) &&
-            !isTabbed(window)
+            (Preferences.showTabsAsWindows || !isTabbed(window))
     }
 
     static func isTabbed(_ window: Window) -> Bool {
