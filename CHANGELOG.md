@@ -1,3 +1,18 @@
+# [3.19.0](https://github.com/lwouis/alt-tab-macos/compare/v3.18.0...v3.19.0) (2020-05-06)
+
+
+### Bug Fixes
+
+* don't display invalid windows (may fix [#292](https://github.com/lwouis/alt-tab-macos/issues/292) [#200](https://github.com/lwouis/alt-tab-macos/issues/200)) ([1bca012](https://github.com/lwouis/alt-tab-macos/commit/1bca012))
+* don't display tabbed windows (closes [#258](https://github.com/lwouis/alt-tab-macos/issues/258)) ([8419ad9](https://github.com/lwouis/alt-tab-macos/commit/8419ad9))
+* update french localization ([445980a](https://github.com/lwouis/alt-tab-macos/commit/445980a))
+
+
+### Features
+
+* add dutch localization ([b8eb0b4](https://github.com/lwouis/alt-tab-macos/commit/b8eb0b4))
+* add preference: show standard tabs as windows ([3a11cc6](https://github.com/lwouis/alt-tab-macos/commit/3a11cc6))
+
 # [3.18.0](https://github.com/lwouis/alt-tab-macos/compare/v3.17.2...v3.18.0) (2020-05-05)
 
 

@@ -5,6 +5,29 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.19.0</title>
+      <pubDate>Wed, 06 May 2020 17:10:59 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h1 id="3190-httpsgithubcomlwouisalt-tab-macoscomparev3180v3190-2020-05-06">3.19.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.18.0...v3.19.0">https://github.com/lwouis/alt-tab-macos/compare/v3.18.0...v3.19.0</a>) (2020-05-06)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* don&#39;t display invalid windows (may fix #292 (https://github.com/lwouis/alt-tab-macos/issues/292) #200 (https://github.com/lwouis/alt-tab-macos/issues/200)) (1bca012 (https://github.com/lwouis/alt-tab-macos/commit/1bca012))
+* don&#39;t display tabbed windows (closes #258 (https://github.com/lwouis/alt-tab-macos/issues/258)) (8419ad9 (https://github.com/lwouis/alt-tab-macos/commit/8419ad9))
+* update french localization (445980a (https://github.com/lwouis/alt-tab-macos/commit/445980a))</code></pre><h3 id="features">Features</h3>
+<pre><code>* add dutch localization (b8eb0b4 (https://github.com/lwouis/alt-tab-macos/commit/b8eb0b4))
+* add preference: show standard tabs as windows (3a11cc6 (https://github.com/lwouis/alt-tab-macos/commit/3a11cc6))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.19.0/AltTab-3.19.0.zip"
+        sparkle:version="3.19.0"
+        sparkle:shortVersionString="3.19.0"
+        sparkle:edSignature="le6qahAljWJ8sP3n6gfLSfg2jCM8DVK9SdhyIhNATGFL0LaeGDAIDPh/i37ozOpvzrYgx1xdEyvl+ajdWbrgDg==" length="6741436"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.18.0</title>
       <pubDate>Tue, 05 May 2020 19:43:44 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
