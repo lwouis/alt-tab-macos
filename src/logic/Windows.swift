@@ -51,6 +51,8 @@ class Windows {
     }
 
     static func updatesWindowSpace(_ window: Window) {
+        // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
+        // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
         let spaceIds = window.cgWindowId.spaces()
         if spaceIds.count == 1 {
             window.spaceId = spaceIds.first!
@@ -104,13 +106,7 @@ class Windows {
             !(Preferences.appsToShow == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
             !(Preferences.spacesToShow == .active && window.spaceId != Spaces.currentSpaceId) &&
             !(Preferences.screensToShow == .showingAltTab && !isOnScreen(window, screen)) &&
-            (Preferences.showTabsAsWindows || !isTabbed(window))
-    }
-
-    static func isTabbed(_ window: Window) -> Bool {
-        let app = window.application
-        let windows = app.axUiElement?.windows(app.runningApplication.bundleIdentifier)
-        return windows?.first(where: { $0 == window.axUiElement }) == nil
+            (Preferences.showTabsAsWindows || !window.isTabbed)
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {

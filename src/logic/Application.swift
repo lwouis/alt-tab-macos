@@ -12,6 +12,7 @@ class Application: NSObject {
         kAXWindowCreatedNotification,
         kAXApplicationHiddenNotification,
         kAXApplicationShownNotification,
+        kAXFocusedUIElementChangedNotification,
     ]
 
     // some apps never finish their subscription retry loop; they should be stopped to avoid infinite loop
@@ -51,7 +52,8 @@ class Application: NSObject {
     }
 
     func observeNewWindows() {
-        if let windows = axUiElement!.windows(runningApplication.bundleIdentifier) {
+        if let windows = (axUiElement!.windows()?
+            .filter { $0.isActualWindow(runningApplication.bundleIdentifier) }) {
             let actualWindows = windows.filter { Windows.list.firstIndexThatMatches($0) == nil }
             if actualWindows.count > 0 {
                 addWindows(actualWindows)
