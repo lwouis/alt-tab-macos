@@ -1,3 +1,10 @@
+## [3.19.2](https://github.com/lwouis/alt-tab-macos/compare/v3.19.1...v3.19.2) (2020-05-07)
+
+
+### Bug Fixes
+
+* would not correctly show windows/tabs from other spaces ([873f985](https://github.com/lwouis/alt-tab-macos/commit/873f985))
+
 ## [3.19.1](https://github.com/lwouis/alt-tab-macos/compare/v3.19.0...v3.19.1) (2020-05-06)
 
 

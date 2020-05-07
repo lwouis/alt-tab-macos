@@ -5,6 +5,25 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.19.2</title>
+      <pubDate>Thu, 07 May 2020 05:19:28 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="3192-httpsgithubcomlwouisalt-tab-macoscomparev3191v3192-2020-05-07">3.19.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.19.1...v3.19.2">https://github.com/lwouis/alt-tab-macos/compare/v3.19.1...v3.19.2</a>) (2020-05-07)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* would not correctly show windows/tabs from other spaces (873f985 (https://github.com/lwouis/alt-tab-macos/commit/873f985))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.19.2/AltTab-3.19.2.zip"
+        sparkle:version="3.19.2"
+        sparkle:shortVersionString="3.19.2"
+        sparkle:edSignature="ROi636/p8r0MDGiXfYoWsdtgIE54wgWy1D9MDpbR1Dal3KkMWlQtmBNyxYMx6LSLc3XtLg2B++TuD4+i6LyBDw==" length="6742463"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.19.1</title>
       <pubDate>Wed, 06 May 2020 17:44:04 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
