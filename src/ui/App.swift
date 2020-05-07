@@ -136,10 +136,10 @@ class App: NSApplication, NSApplicationDelegate {
     }
 
     func cycleSelection(_ direction: Direction) {
-        if direction == .left || direction == .right || direction == .neutral {
-            Windows.cycleFocusedWindowIndex(direction.step())
-        } else {
+        if direction == .up || direction == .down {
             thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction)
+        } else {
+            Windows.cycleFocusedWindowIndex(direction.step())
         }
     }
 
