@@ -43,9 +43,12 @@ extension AXUIElement {
         return attribute(kAXTitleAttribute, String.self)
     }
 
-    func windows(_ bundleIdentifier: String?) -> [AXUIElement]? {
-        return attribute(kAXWindowsAttribute, [AXUIElement].self)?
-            .filter { $0.isActualWindow(bundleIdentifier) }
+    func windows() -> [AXUIElement]? {
+        return attribute(kAXWindowsAttribute, [AXUIElement].self)
+    }
+
+    func isTabbed(_ window: AXUIElement) -> Bool {
+        return windows()?.first(where: { $0 == window }) == nil
     }
 
     func isMinimized() -> Bool {

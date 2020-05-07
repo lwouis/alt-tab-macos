@@ -14,7 +14,19 @@ func axObserverCallback(observer: AXObserver, element: AXUIElement, notification
              kAXWindowDeminiaturizedNotification: windowMiniaturizedOrDeminiaturized(element, type)
         case kAXTitleChangedNotification: windowTitleChanged(element)
         case kAXWindowResizedNotification: windowResized(element)
+        case kAXFocusedUIElementChangedNotification: focusedUiElementChanged(element, applicationPointer)
         default: return
+    }
+}
+
+private func focusedUiElementChanged(_ element: AXUIElement, _ applicationPointer: UnsafeMutableRawPointer?) {
+    // this event is the only opportunity we have to check if a window became a tab, or a tab became a window
+    // we can only detect tabs for windows on the current space, as AXUIElement.windows() only reports current space windows
+    let application = Unmanaged<Application>.fromOpaque(applicationPointer!).takeUnretainedValue()
+    Windows.list.forEach {
+        if $0.spaceId == Spaces.currentSpaceId && $0.application == application {
+            $0.isTabbed = application.axUiElement!.isTabbed($0.axUiElement)
+        }
     }
 }
 

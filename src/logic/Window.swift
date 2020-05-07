@@ -6,6 +6,7 @@ class Window {
     var thumbnail: NSImage?
     var icon: NSImage?
     var shouldShowTheUser = true
+    var isTabbed: Bool
     var isHidden: Bool
     var isMinimized: Bool
     var isOnAllSpaces: Bool
@@ -36,6 +37,7 @@ class Window {
         self.application = application
         self.cgWindowId = axUiElement.cgWindowId()
         self.icon = application.runningApplication.icon
+        self.isTabbed = application.axUiElement!.isTabbed(axUiElement)
         self.isHidden = application.runningApplication.isHidden
         self.isMinimized = axUiElement.isMinimized()
         self.spaceId = Spaces.currentSpaceId
