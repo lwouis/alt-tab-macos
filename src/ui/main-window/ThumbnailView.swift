@@ -56,7 +56,6 @@ class ThumbnailView: NSStackView {
         edgeInsets.right = edgeInsets_
         edgeInsets.bottom = edgeInsets_
         edgeInsets.left = edgeInsets_
-        debugPrint("louis", isHighlighted, frame.width, label.string)
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
