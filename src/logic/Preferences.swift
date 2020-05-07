@@ -40,7 +40,7 @@ class Preferences {
     // not exposed as preferences now but may be in the future, probably through macro preferences
     static var windowMaterial: NSVisualEffectView.Material { .dark }
     static var fontColor: NSColor { .white }
-    static var windowPadding: CGFloat { 23 }
+    static var windowPadding: CGFloat { 18 }
     static var interCellPadding: CGFloat { 5 }
     static var intraCellPadding: CGFloat { 5 }
     static var fontIconSize: CGFloat { 20 }
@@ -223,8 +223,8 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
 
     var themeParameters: ThemeParameters {
         switch self {
-            case .macOs: return ThemeParameters(label: self.localizedString, cellBorderWidth: 0, cellCornerRadius: 5, windowCornerRadius: 20, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
-            case .windows10: return ThemeParameters(label: self.localizedString, cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
+            case .macOs: return ThemeParameters(label: localizedString, cellBorderWidth: 0, cellCornerRadius: 10, windowCornerRadius: 23, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
+            case .windows10: return ThemeParameters(label: localizedString, cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
         }
     }
 }

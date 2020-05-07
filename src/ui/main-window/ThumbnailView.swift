@@ -8,18 +8,55 @@ class ThumbnailView: NSStackView {
     var minimizedIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledMinusSign, Preferences.fontIconSize, .white)
     var hiddenIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledDotSign, Preferences.fontIconSize, .white)
     var spaceIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
+    var hStackView: NSStackView!
     var mouseDownCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
+    var isHighlighted = false
 
     convenience init() {
         self.init(frame: .zero)
-        let hStackView = makeHStackView()
-        setupView(hStackView)
+        setupView()
+        observeDragAndDrop()
+    }
+
+    private func setupView() {
+        wantsLayer = true
+        layer!.backgroundColor = .clear
+        layer!.borderColor = .clear
+        layer!.cornerRadius = Preferences.cellCornerRadius
+        layer!.borderWidth = Preferences.cellBorderWidth
+        edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
+        orientation = .vertical
+        spacing = Preferences.intraCellPadding
         let shadow = ThumbnailView.makeShadow(.gray)
         thumbnail.shadow = shadow
         appIcon.shadow = shadow
-        observeDragAndDrop()
+        hStackView = NSStackView(views: [appIcon, label, hiddenIcon, minimizedIcon, spaceIcon])
+        hStackView.spacing = Preferences.intraCellPadding
+        setViews([hStackView, thumbnail], in: .leading)
+    }
+
+    func highlight(_ highlight: Bool) {
+        if isHighlighted != highlight {
+            isHighlighted = highlight
+            if frame != NSRect.zero {
+                highlightOrNot()
+            }
+        }
+    }
+
+    func highlightOrNot() {
+        layer!.backgroundColor = isHighlighted ? Preferences.highlightBackgroundColor.cgColor : .clear
+        layer!.borderColor = isHighlighted ? Preferences.highlightBorderColor.cgColor : .clear
+        let frameInset: CGFloat = Preferences.intraCellPadding * (isHighlighted ? -1 : 1)
+        frame = frame.insetBy(dx: frameInset, dy: frameInset)
+        let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isHighlighted ? 2 : 1)
+        edgeInsets.top = edgeInsets_
+        edgeInsets.right = edgeInsets_
+        edgeInsets.bottom = edgeInsets_
+        edgeInsets.left = edgeInsets_
+        debugPrint("louis", isHighlighted, frame.width, label.string)
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
@@ -123,19 +160,15 @@ class ThumbnailView: NSStackView {
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.widthMax(screen) / Preferences.minCellsPerRow - Preferences.interCellPadding
+        return (ThumbnailsPanel.widthMax(screen) - Preferences.interCellPadding) / Preferences.minCellsPerRow - Preferences.interCellPadding
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.widthMax(screen) / Preferences.maxCellsPerRow - Preferences.interCellPadding
+        return (ThumbnailsPanel.widthMax(screen) - Preferences.interCellPadding) / Preferences.maxCellsPerRow - Preferences.interCellPadding
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.heightMax(screen) / Preferences.rowsCount - Preferences.interCellPadding
-    }
-
-    static func width(_ image: NSImage?, _ screen: NSScreen) -> CGFloat {
-        return max(thumbnailSize(image, screen).0 + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen))
+        return (ThumbnailsPanel.heightMax(screen) - Preferences.interCellPadding) / Preferences.rowsCount - Preferences.interCellPadding
     }
 
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
@@ -151,24 +184,4 @@ class ThumbnailView: NSStackView {
         }
         return (thumbnailWidth, image.size.height * thumbnailWidth / image.size.width)
     }
-
-    private func makeHStackView() -> NSStackView {
-        let hStackView = NSStackView()
-        hStackView.spacing = Preferences.intraCellPadding
-        hStackView.setViews([appIcon, label, hiddenIcon, minimizedIcon, spaceIcon], in: .leading)
-        return hStackView
-    }
-
-    private func setupView(_ hStackView: NSStackView) {
-        wantsLayer = true
-        layer!.backgroundColor = .clear
-        layer!.cornerRadius = Preferences.cellCornerRadius
-        layer!.borderWidth = Preferences.cellBorderWidth
-        layer!.borderColor = .clear
-        edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
-        orientation = .vertical
-        spacing = Preferences.intraCellPadding
-        setViews([hStackView, thumbnail], in: .leading)
-    }
 }
-
