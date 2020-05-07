@@ -1,3 +1,10 @@
+# [3.21.0](https://github.com/lwouis/alt-tab-macos/compare/v3.20.0...v3.21.0) (2020-05-07)
+
+
+### Features
+
+* localize the main ui for right-to-left languages ([c9e72ee](https://github.com/lwouis/alt-tab-macos/commit/c9e72ee))
+
 # [3.20.0](https://github.com/lwouis/alt-tab-macos/compare/v3.19.2...v3.20.0) (2020-05-07)
 
 
