@@ -36,6 +36,13 @@ class ThumbnailsView: NSVisualEffectView {
         Windows.updateFocusedWindowIndex(targetIndex)
     }
 
+    func localizedList() -> [(offset: Int, element: Window)] {
+        if App.shared.userInterfaceLayoutDirection == .leftToRight {
+            return Array(Windows.list.enumerated())
+        }
+        return Windows.list.enumerated().reversed()
+    }
+
     func updateItems(_ screen: NSScreen) {
         let widthMax = ThumbnailsPanel.widthMax(screen).rounded()
         let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
@@ -47,7 +54,7 @@ class ThumbnailsView: NSVisualEffectView {
         var newViews = [ThumbnailView]()
         rows.removeAll()
         rows.append([ThumbnailView]())
-        for (index, window) in Windows.list.enumerated() {
+        for (index, window) in localizedList() {
             guard App.app.appIsBeingUsed else { return }
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
