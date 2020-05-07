@@ -1,3 +1,15 @@
+# [3.20.0](https://github.com/lwouis/alt-tab-macos/compare/v3.19.2...v3.20.0) (2020-05-07)
+
+
+### Bug Fixes
+
+* thumbnails have a minimum width to help with tall windows ([a60750c](https://github.com/lwouis/alt-tab-macos/commit/a60750c))
+
+
+### Features
+
+* smarter padding around thumbnails (closes [#126](https://github.com/lwouis/alt-tab-macos/issues/126)) ([a94582f](https://github.com/lwouis/alt-tab-macos/commit/a94582f))
+
 ## [3.19.2](https://github.com/lwouis/alt-tab-macos/compare/v3.19.1...v3.19.2) (2020-05-07)
 
 
