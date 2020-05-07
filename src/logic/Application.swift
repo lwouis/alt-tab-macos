@@ -70,7 +70,9 @@ class Application: NSObject {
     private func addWindows(_ axWindows: [AXUIElement]) {
         let windows = axWindows.map { Window($0, self) }
         Windows.list.insertAndScaleRecycledPool(windows, at: 0)
-        Windows.cycleFocusedWindowIndex(windows.count)
+        if App.app.appIsBeingUsed {
+            Windows.cycleFocusedWindowIndex(windows.count)
+        }
         App.app.refreshOpenUi(windows)
     }
 

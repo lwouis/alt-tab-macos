@@ -25,13 +25,6 @@ class ThumbnailsPanel: NSPanel {
         thumbnailsView.scrollView.flashScrollers()
     }
 
-    static func highlightCell(_ previousView: NSView, _ newView: NSView) {
-        previousView.layer!.backgroundColor = .clear
-        previousView.layer!.borderColor = .clear
-        newView.layer!.backgroundColor = Preferences.highlightBackgroundColor.cgColor
-        newView.layer!.borderColor = Preferences.highlightBorderColor.cgColor
-    }
-
     static func widthMax(_ screen: NSScreen) -> CGFloat {
         return screen.frame.width * Preferences.maxScreenUsage - Preferences.windowPadding * 2
     }

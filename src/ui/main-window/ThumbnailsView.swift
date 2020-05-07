@@ -40,10 +40,10 @@ class ThumbnailsView: NSVisualEffectView {
         let widthMax = ThumbnailsPanel.widthMax(screen).rounded()
         let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
         let height = ThumbnailView.height(screen).rounded(.down)
-        var currentX = CGFloat(0)
-        var currentY = CGFloat(0)
+        var currentX = Preferences.interCellPadding
+        var currentY = Preferences.interCellPadding
         var maxX = CGFloat(0)
-        var maxY = height
+        var maxY = currentY + height + Preferences.interCellPadding
         var newViews = [ThumbnailView]()
         rows.removeAll()
         rows.append([ThumbnailView]())
@@ -53,13 +53,13 @@ class ThumbnailsView: NSVisualEffectView {
             let view = ThumbnailsView.recycledViews[index]
             view.updateRecycledCellWithNewContent(window, index, height, screen)
             let width = view.frame.size.width
-            if (currentX + width).rounded(.down) > widthMax {
-                currentX = CGFloat(0)
-                currentY = (currentY + Preferences.interCellPadding + height).rounded(.down)
-                maxY = max(currentY + height, maxY)
+            if (currentX + width + Preferences.interCellPadding).rounded(.down) > widthMax {
+                currentX = Preferences.interCellPadding
+                currentY = (currentY + height + Preferences.interCellPadding).rounded(.down)
+                maxY = max(currentY + height + Preferences.interCellPadding, maxY)
                 rows.append([ThumbnailView]())
             } else {
-                maxX = max(currentX + width, maxX)
+                maxX = max(currentX + width + Preferences.interCellPadding, maxX)
             }
             view.frame.origin = CGPoint(x: currentX, y: currentY)
             currentX = (currentX + Preferences.interCellPadding + width).rounded(.down)
@@ -76,23 +76,27 @@ class ThumbnailsView: NSVisualEffectView {
         if Preferences.alignThumbnails == .center {
             centerRows(maxX)
         }
+        Windows.list.enumerated().first { (index, _) in
+            let view = ThumbnailsView.recycledViews[index]
+            if view.isHighlighted {
+                view.highlightOrNot()
+            }
+            return view.isHighlighted
+        }
     }
 
     func centerRows(_ maxX: CGFloat) {
         var rowStartIndex = 0
-        var rowWidth = CGFloat(0)
-        var rowY = CGFloat(0)
+        var rowWidth = Preferences.interCellPadding
+        var rowY = Preferences.interCellPadding
         for (index, _) in Windows.list.enumerated() {
             let view = ThumbnailsView.recycledViews[index]
             if view.frame.origin.y == rowY {
-                rowWidth += Preferences.interCellPadding + view.frame.size.width
+                rowWidth += view.frame.size.width + Preferences.interCellPadding
             } else {
-                if rowStartIndex == 0 {
-                    rowWidth -= Preferences.interCellPadding // first row has 1 extra padding
-                }
                 shiftRow(maxX, rowWidth, rowStartIndex, index)
                 rowStartIndex = index
-                rowWidth = view.frame.size.width
+                rowWidth = Preferences.interCellPadding + view.frame.size.width + Preferences.interCellPadding
                 rowY = view.frame.origin.y
             }
         }
