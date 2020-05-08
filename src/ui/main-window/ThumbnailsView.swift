@@ -30,12 +30,12 @@ class ThumbnailsView: NSVisualEffectView {
         let leftSide = originCenter < NSMidX(frame)
         let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
         let iterable = leadingSide ? targetRow : targetRow.reversed()
-        let targetView = iterable.first(where: {
+        let targetView = iterable.first {
             if App.shared.userInterfaceLayoutDirection == .leftToRight {
                 return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
             }
             return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
-        }) ?? iterable.last!
+        } ?? iterable.last!
         let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
         Windows.updateFocusedWindowIndex(targetIndex)
     }
@@ -54,7 +54,7 @@ class ThumbnailsView: NSVisualEffectView {
     private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
         let height = ThumbnailView.height(screen).rounded(.down)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
-        var startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
+        let startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
         var currentX = startingX
         var currentY = Preferences.interCellPadding
         var maxX = CGFloat(0)
@@ -140,8 +140,8 @@ class ThumbnailsView: NSVisualEffectView {
         shiftRow(maxX, rowWidth, rowStartIndex, Windows.list.count)
     }
 
-    private func highlightStartView() -> (offset: Int, element: Window)? {
-        Windows.list.enumerated().first { (index, _) in
+    private func highlightStartView() {
+        _ = Windows.list.enumerated().contains { (index, _) in
             let view = ThumbnailsView.recycledViews[index]
             if view.isHighlighted {
                 view.highlightOrNot()

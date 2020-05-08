@@ -48,7 +48,7 @@ extension AXUIElement {
     }
 
     func isTabbed(_ window: AXUIElement) -> Bool {
-        return windows()?.first(where: { $0 == window }) == nil
+        return windows()?.first { $0 == window } == nil
     }
 
     func isMinimized() -> Bool {
@@ -108,8 +108,8 @@ extension AXUIElement {
             guard let self = self else { return }
             DispatchQueue.main.async { () -> () in
                 // TODO: this code is probably wrong and should be reviewed
-                if let runningApplication = runningApplication, Applications.appsInSubscriptionRetryLoop.first(where: { $0 == String(runningApplication.processIdentifier) + String(notification) }) == nil { return }
-                if let wid = wid, Windows.windowsInSubscriptionRetryLoop.first(where: { $0 == String(wid) + String(notification) }) == nil { return }
+                if let runningApplication = runningApplication, (!Applications.appsInSubscriptionRetryLoop.contains { $0 == String(runningApplication.processIdentifier) + String(notification) }) { return }
+                if let wid = wid, (!Windows.windowsInSubscriptionRetryLoop.contains { $0 == String(wid) + String(notification) }) { return }
             }
             let result = AXObserverAddNotification(axObserver, self, notification as CFString, pointer)
             self.handleSubscriptionAttempt(result, axObserver, notification, pointer, callback, runningApplication, wid, attemptsCount)

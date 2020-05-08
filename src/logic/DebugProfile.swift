@@ -61,7 +61,7 @@ class DebugProfile {
     static func subscriptionRetriesForWindow(_ subscriptionId: String) -> String {
         let range = NSMakeRange(0, subscriptionId.count)
         let widString = subscriptionRetriesRegex.stringByReplacingMatches(in: subscriptionId, range: range, withTemplate: "")
-        let wid = try! CGWindowID(NumberFormatter().number(from: widString)!)
+        let wid = CGWindowID(truncating: NumberFormatter().number(from: widString)!)
         let window = (CGWindowListCopyWindowInfo(.optionAll, wid) as! [CGWindow]).first!
         return listLevel3([
             ("wid", widString),
@@ -75,7 +75,7 @@ class DebugProfile {
     static func subscriptionRetriesForApp(_ subscriptionId: String) -> String {
         let range = NSMakeRange(0, subscriptionId.count)
         let pidString = subscriptionRetriesRegex.stringByReplacingMatches(in: subscriptionId, range: range, withTemplate: "")
-        let pid = try! pid_t(NumberFormatter().number(from: pidString)!)
+        let pid = pid_t(truncating: NumberFormatter().number(from: pidString)!)
         let app = NSRunningApplication(processIdentifier: pid)!
         return listLevel3([
             ("pid", pidString),
