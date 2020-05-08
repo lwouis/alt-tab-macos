@@ -165,6 +165,8 @@ enum Direction {
     case neutral
     case left
     case right
+    case leading
+    case trailing
     case up
     case down
 
@@ -173,6 +175,10 @@ enum Direction {
             return -1
         } else if self == .right {
             return 1
+        } else if self == .leading {
+            return App.shared.userInterfaceLayoutDirection == .leftToRight ? 1 : -1
+        } else if self == .trailing {
+            return App.shared.userInterfaceLayoutDirection == .leftToRight ? -1 : 1
         }
         return 0
     }
