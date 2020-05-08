@@ -1,3 +1,11 @@
+## [3.21.2](https://github.com/lwouis/alt-tab-macos/compare/v3.21.1...v3.21.2) (2020-05-08)
+
+
+### Bug Fixes
+
+* improved chinese localization ([3269a26](https://github.com/lwouis/alt-tab-macos/commit/3269a26))
+* update cocoapod for letsmove ([0068dd2](https://github.com/lwouis/alt-tab-macos/commit/0068dd2))
+
 ## [3.21.1](https://github.com/lwouis/alt-tab-macos/compare/v3.21.0...v3.21.1) (2020-05-08)
 
 

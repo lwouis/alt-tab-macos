@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.21.2</title>
+      <pubDate>Fri, 08 May 2020 17:09:47 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="3212-httpsgithubcomlwouisalt-tab-macoscomparev3211v3212-2020-05-08">3.21.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.21.1...v3.21.2">https://github.com/lwouis/alt-tab-macos/compare/v3.21.1...v3.21.2</a>) (2020-05-08)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* improved chinese localization (3269a26 (https://github.com/lwouis/alt-tab-macos/commit/3269a26))
+* update cocoapod for letsmove (0068dd2 (https://github.com/lwouis/alt-tab-macos/commit/0068dd2))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.21.2/AltTab-3.21.2.zip"
+        sparkle:version="3.21.2"
+        sparkle:shortVersionString="3.21.2"
+        sparkle:edSignature="CyzoNOZztc8ATI/LyfusyDj96z6AItrw3D1HH02O1n7MmqEnX8dFBBvPVPQmPGyqX+rHHiRsF9FQMi33ZRSECA==" length="6744946"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.21.1</title>
       <pubDate>Fri, 08 May 2020 11:23:08 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
