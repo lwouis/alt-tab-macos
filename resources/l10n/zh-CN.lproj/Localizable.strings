@@ -66,7 +66,7 @@
 "Close window" = "关闭窗口";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "不要自动检查更新";
+"Don’t check for updates periodically" = "不自动检查更新";
 
 /*No comment provided by engineer.*/
 "General" = "通用";
@@ -117,7 +117,7 @@
 "Optional: email (if you want a reply)" = "电子邮箱地址 (可选，如果想要被回复)";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "配置…";
+"Preferences…" = "偏好设置…";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "退出 %@";
