@@ -10,7 +10,8 @@ projectId="316051"
 
   echo -e "They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors):\n"
 
-  curl https://api.github.com/repos/lwouis/alt-tab-macos/contributors |
+  curl https://api.github.com/repos/lwouis/alt-tab-macos/contributors \
+    -H "Authorization: token $GITHUB_TOKEN" |
     jq -r '.[]|("[" + .login + "](" + .html_url + ")")' |
     sed -e '/semantic-release-bot/d' |
     sort -f |

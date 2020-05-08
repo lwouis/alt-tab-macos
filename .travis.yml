@@ -9,9 +9,6 @@ addons:
     packages:
       - vitorgalvao/tiny-scripts/cask-repair
     update: true
-cache:
-  - npm: true
-  - cocoapods: true
 env:
   global:
     - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
