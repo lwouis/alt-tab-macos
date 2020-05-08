@@ -28,68 +28,98 @@ class ThumbnailsView: NSVisualEffectView {
         let originCenter = NSMidX(focusedViewFrame)
         let targetRow = nextRow(direction)
         let leftSide = originCenter < NSMidX(frame)
-        let iterable = leftSide ? targetRow : targetRow.reversed()
+        let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
+        let iterable = leadingSide ? targetRow : targetRow.reversed()
         let targetView = iterable.first(where: {
-            leftSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
+            if App.shared.userInterfaceLayoutDirection == .leftToRight {
+                return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
+            }
+            return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
         }) ?? iterable.last!
         let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
         Windows.updateFocusedWindowIndex(targetIndex)
     }
 
-    func localizedList() -> [(offset: Int, element: Window)] {
-        if App.shared.userInterfaceLayoutDirection == .leftToRight {
-            return Array(Windows.list.enumerated())
-        }
-        return Windows.list.enumerated().reversed()
-    }
-
     func updateItemsAndLayout(_ screen: NSScreen) {
         let widthMax = ThumbnailsPanel.widthMax(screen).rounded()
-        let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
+        if let (maxX, maxY) = layoutThumbnailViews(screen, widthMax) {
+            layoutParentViews(screen, maxX, widthMax, maxY)
+            if Preferences.alignThumbnails == .center {
+                centerRows(maxX)
+            }
+            highlightStartView()
+        }
+    }
+
+    private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
         let height = ThumbnailView.height(screen).rounded(.down)
-        var currentX = Preferences.interCellPadding
+        let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
+        var startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
+        var currentX = startingX
         var currentY = Preferences.interCellPadding
         var maxX = CGFloat(0)
         var maxY = currentY + height + Preferences.interCellPadding
-        var newViews = [ThumbnailView]()
+        var test = CGFloat(0)
+        scrollView.documentView!.subviews.removeAll()
         rows.removeAll()
         rows.append([ThumbnailView]())
-        for (index, window) in localizedList() {
-            guard App.app.appIsBeingUsed else { return }
+        for (index, window) in Windows.list.enumerated() {
+            guard App.app.appIsBeingUsed else { return nil }
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             view.updateRecycledCellWithNewContent(window, index, height, screen)
             let width = view.frame.size.width
-            if (currentX + width + Preferences.interCellPadding).rounded(.down) > widthMax {
-                currentX = Preferences.interCellPadding
+            let projectedX = projectedWidth(currentX, width).rounded(.down)
+            if needNewLine(projectedX, widthMax) {
+                currentX = startingX
                 currentY = (currentY + height + Preferences.interCellPadding).rounded(.down)
+                view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
+                currentX = projectedWidth(currentX, width).rounded(.down)
                 maxY = max(currentY + height + Preferences.interCellPadding, maxY)
                 rows.append([ThumbnailView]())
+                test = 0
             } else {
-                maxX = max(currentX + width + Preferences.interCellPadding, maxX)
+                view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
+                currentX = projectedX
+                maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
+                test += width
             }
-            view.frame.origin = CGPoint(x: currentX, y: currentY)
-            currentX = (currentX + Preferences.interCellPadding + width).rounded(.down)
-            newViews.append(view)
+            scrollView.documentView!.subviews.append(view)
             rows[rows.count - 1].append(view)
             window.row = rows.count - 1
         }
-        scrollView.documentView!.subviews = newViews
+        return (maxX, maxY)
+    }
+
+    private func needNewLine(_ projectedX: CGFloat, _ widthMax: CGFloat) -> Bool {
+        if App.shared.userInterfaceLayoutDirection == .leftToRight {
+            return projectedX > widthMax
+        }
+        return projectedX < 0
+    }
+
+    private func projectedWidth(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
+        if App.shared.userInterfaceLayoutDirection == .leftToRight {
+            return currentX + width + Preferences.interCellPadding
+        }
+        return currentX - width - Preferences.interCellPadding
+    }
+
+    private func localizedCurrentX(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
+        App.shared.userInterfaceLayoutDirection == .leftToRight ? currentX : currentX - width
+    }
+
+    private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
+        let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
         frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
         scrollView.frame.origin = CGPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)
         scrollView.contentView.frame.size = scrollView.frame.size
+        if App.shared.userInterfaceLayoutDirection == .rightToLeft {
+            let croppedWidth = widthMax - maxX
+            scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
+        }
         scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
-        if Preferences.alignThumbnails == .center {
-            centerRows(maxX)
-        }
-        Windows.list.enumerated().first { (index, _) in
-            let view = ThumbnailsView.recycledViews[index]
-            if view.isHighlighted {
-                view.highlightOrNot()
-            }
-            return view.isHighlighted
-        }
     }
 
     func centerRows(_ maxX: CGFloat) {
@@ -110,11 +140,21 @@ class ThumbnailsView: NSVisualEffectView {
         shiftRow(maxX, rowWidth, rowStartIndex, Windows.list.count)
     }
 
+    private func highlightStartView() -> (offset: Int, element: Window)? {
+        Windows.list.enumerated().first { (index, _) in
+            let view = ThumbnailsView.recycledViews[index]
+            if view.isHighlighted {
+                view.highlightOrNot()
+            }
+            return view.isHighlighted
+        }
+    }
+
     private func shiftRow(_ maxX: CGFloat, _ rowWidth: CGFloat, _ rowStartIndex: Int, _ index: Int) {
         let offset = ((maxX - rowWidth) / 2).rounded()
         if offset > 0 {
             (rowStartIndex..<index).forEach {
-                ThumbnailsView.recycledViews[$0].frame.origin.x += offset
+                ThumbnailsView.recycledViews[$0].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
             }
         }
     }
