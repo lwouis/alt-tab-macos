@@ -162,7 +162,7 @@ class App: NSApplication, NSApplicationDelegate {
         Spaces.refreshCurrentSpaceId()
         refreshSpecificWindows(windowsToUpdate, currentScreen)
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.thumbnailsView.updateItems(currentScreen)
+        thumbnailsPanel.thumbnailsView.updateItemsAndLayout(currentScreen)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.setFrame(thumbnailsPanel.thumbnailsView.frame, display: false)
         guard appIsBeingUsed else { return }
