@@ -8,14 +8,12 @@ class Windows {
     static var windowsInSubscriptionRetryLoop = [String]()
 
     static func updateFocusedWindowIndex(_ newIndex: Int) {
-        if newIndex != focusedWindowIndex {
-            previousFocusedWindowIndex = focusedWindowIndex
-            focusedWindowIndex = newIndex
-            let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
-            ThumbnailsView.recycledViews[previousFocusedWindowIndex].highlight(false)
-            focusedView.highlight(true)
-            App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
-        }
+        previousFocusedWindowIndex = focusedWindowIndex
+        focusedWindowIndex = newIndex
+        let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
+        ThumbnailsView.recycledViews[previousFocusedWindowIndex].highlight(false)
+        focusedView.highlight(true)
+        App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
     }
 
     static func focusedWindow() -> Window? {
