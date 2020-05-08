@@ -15,6 +15,7 @@ if [ $IS_RELEASE ]; then
   xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -derivedDataPath DerivedData
   scripts/package_and_notarize_release.sh
   scripts/update_appcast.sh
+  scripts/update_contributors.sh
   npx semantic-release
 else
   scripts/codesign/setup_ci_pr.sh
