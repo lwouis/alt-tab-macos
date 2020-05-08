@@ -76,7 +76,7 @@ class App: NSApplication, NSApplicationDelegate {
     private func loadMainMenuXib() {
         var menuObjects: NSArray?
         Bundle.main.loadNibNamed("MainMenu", owner: self, topLevelObjects: &menuObjects)
-        menu = menuObjects?.first(where: { $0 is NSMenu }) as? NSMenu
+        menu = menuObjects?.first { $0 is NSMenu } as? NSMenu
     }
 
     // we put application code here which should be executed on init() and Preferences change
@@ -196,7 +196,7 @@ class App: NSApplication, NSApplicationDelegate {
             let screen = Screen.preferred()
             Windows.removeWindowsWhichBecameInvalid()
             Windows.refreshWhichWindowsToShowTheUser(screen)
-            if Windows.list.first(where: { $0.shouldShowTheUser }) == nil { hideUi(); return }
+            if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(direction.step())
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
