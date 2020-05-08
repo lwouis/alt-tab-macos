@@ -19,115 +19,115 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		00A7403C910B228BC60CE384D22DD116 /* SRKeyEquivalentModifierMaskTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB093D3B1BCACB6C25624871CAA6DBAF /* SRKeyEquivalentModifierMaskTransformer.m */; };
-		020E098C253F02CF5A2F89A505CA37EE /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0B92E2C417D7B5D7542EFC97CE26A723 /* nl.lproj */; };
-		052DFF48B54864D445EC884543F61EA8 /* Preferences-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A877F48966E304A1C7C9B466485DA07 /* Preferences-dummy.m */; };
-		056DD70A6AF75515312A3B0F3D08A6A7 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 06514DF3A3964A6A152FB3FE01446D31 /* ru.lproj */; };
+		00A7403C910B228BC60CE384D22DD116 /* SRKeyEquivalentModifierMaskTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 80849E177BE72C32FDABBD20A67CFBD4 /* SRKeyEquivalentModifierMaskTransformer.m */; };
+		020E098C253F02CF5A2F89A505CA37EE /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B21676942A82066A5F890982D52AF601 /* nl.lproj */; };
+		052DFF48B54864D445EC884543F61EA8 /* Preferences-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEECA2C7DA4B21D9E8EDAC9D1A93589 /* Preferences-dummy.m */; };
+		056DD70A6AF75515312A3B0F3D08A6A7 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C53D764C43A51376171AD41E99B8ABE2 /* ru.lproj */; };
 		065C38D92B6E03C9C6D50A9A2BA623A8 /* Pods-alt-tab-macos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F71AC7B7C29C8922102AA39EFE0C /* Pods-alt-tab-macos-dummy.m */; };
-		09F6953D0A355AEEDD4DE40E8FD483B6 /* PFMoveApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 0992F0DD83BCD2FBEF6F0290B702B95D /* PFMoveApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0A1237C0C6C64DAE78E6F4CD771CA4B0 /* da.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8BC4632B803E07359D2747C7621B2922 /* da.lproj */; };
-		0EC5CD27183E62F0F15E6A3F73BA4E78 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C9E93B38D4558A2441E981345F5D320E /* pt.lproj */; };
-		0F8E3C25F030CA95F52DCF21F516E66A /* SRShortcutAction.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C2AF3155E2D09772EC40D404A99E0A /* SRShortcutAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1072B15890EA4B05629A311A9CB011F1 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 89931AB2F73400E72FE76BCDE67A0C0F /* ca.lproj */; };
-		10F338979909A45B2DEB7AA8892046F4 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B3C285935150E595C529F369FD011458 /* tr.lproj */; };
-		11AD8D91EE9831FF03509804F70A1623 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E59C852BE76020CBE85FA85C4112FDC5 /* nb.lproj */; };
-		13D1860FD3212789A193B0BDCE8CBBB5 /* SwiftyMarkdown+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C919961493945B55BECE4FD66599A0A /* SwiftyMarkdown+macOS.swift */; };
-		19C57F8B6328BE9F770A07F168426903 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A2B91204FBCDBB21B444C04957213F /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		09F6953D0A355AEEDD4DE40E8FD483B6 /* PFMoveApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F2F3145B49D9DB3BAE51E8B7A3930F8 /* PFMoveApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A1237C0C6C64DAE78E6F4CD771CA4B0 /* da.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 70A6FDD9C55154B728466D71B09FA6C8 /* da.lproj */; };
+		0EC5CD27183E62F0F15E6A3F73BA4E78 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A26EF044A853930BC884BE7CA27C0709 /* pt.lproj */; };
+		0F8E3C25F030CA95F52DCF21F516E66A /* SRShortcutAction.h in Headers */ = {isa = PBXBuildFile; fileRef = CEC77DC6041965487A3D514C234927D2 /* SRShortcutAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1072B15890EA4B05629A311A9CB011F1 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F2B661DB781A79D318F3CC07F5435C8F /* ca.lproj */; };
+		10F338979909A45B2DEB7AA8892046F4 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 39E244726490309AE7A83515492E543F /* tr.lproj */; };
+		11AD8D91EE9831FF03509804F70A1623 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = EE79D0583628F279ADD796C9A83BE80E /* nb.lproj */; };
+		13D1860FD3212789A193B0BDCE8CBBB5 /* SwiftyMarkdown+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C13E18AAFD27EA81E698E02DA73A66 /* SwiftyMarkdown+macOS.swift */; };
+		19C57F8B6328BE9F770A07F168426903 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE608F7ACB94C5F356E15148F080C37 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1C1D780655719138B6DD8328F5D71741 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
-		1F20EA886DD6BF2EE1017F54FF5BB295 /* SRShortcutFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = AD80291A1CF55B47C8B22C6AA24A9F7B /* SRShortcutFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1F20FB330787775FB0E9F0CE37EFE52F /* SRShortcutValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = B303F9EB4C04201D6E2491AD131B784F /* SRShortcutValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2042A55FF7A1761CB25D0D86A254C442 /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 628B80D0C8117A78539F80CF0E90C523 /* hu.lproj */; };
-		20F20DA2B30091851980ED6F99A6F700 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = ADABE55FE10FB27A04A51978C90D8D59 /* SRCommon.m */; };
-		213B07126B15B2E4F5FD1A26D8334D25 /* SRRecorderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E27136292CDD9462D04079D8A32C8B1C /* SRRecorderControl.m */; };
-		24861984927BBA000705C74347889BB5 /* SRRecorderControlStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD874FE3E70CB05E89DB36006ABE5B6 /* SRRecorderControlStyle.m */; };
-		259277CEED53CBF04C1C40ACF7E834E9 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A3AA2B4DEE93CDB3EAC57DB1EB87DD87 /* ja.lproj */; };
-		2E15CAB0A52B69D3FA0D70119BBE8E53 /* LetsMove-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FF9A0A0A21DDCC4AFA3A90120AC320FF /* LetsMove-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2E94FD46CBC3E5D0224C95A723D7C3F6 /* SRKeyBindingTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D63F9E324584A1D035D46290398D1 /* SRKeyBindingTransformer.m */; };
-		31194073C810A8C763DB8B070D931BE2 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 7DB389FEDC7E252D546446CB2B4956BB /* es.lproj */; };
-		318290C1F3C1A2EC2FD576E215621EBB /* SRShortcutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = AF67CB98E36BAA421BBFB78BD45FC5E0 /* SRShortcutAction.m */; };
-		37C40ADF03583366ED05A7392F44D253 /* SRRecorderControlStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A019E94EFD55CCE292EF39F72D17480 /* SRRecorderControlStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3CF2CD18FB573A30174F95AD6BA563C4 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3DD63CA0041302C4984CB2CB1B7F13E6 /* ja.lproj */; };
+		1F20EA886DD6BF2EE1017F54FF5BB295 /* SRShortcutFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E52FE8EE16AB23687F2DDB5B82CF57E /* SRShortcutFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F20FB330787775FB0E9F0CE37EFE52F /* SRShortcutValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 662E5FFCDBDE2567B26349BCE7AE0426 /* SRShortcutValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2042A55FF7A1761CB25D0D86A254C442 /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BA2813DF3B2085938C375DF45DBDDBEF /* hu.lproj */; };
+		20F20DA2B30091851980ED6F99A6F700 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478E0A2FD299724C1ACF90FF3696EB8 /* SRCommon.m */; };
+		213B07126B15B2E4F5FD1A26D8334D25 /* SRRecorderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 972CC2B8C0757D32A4E04B11EC5E843B /* SRRecorderControl.m */; };
+		24861984927BBA000705C74347889BB5 /* SRRecorderControlStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E800F0EC8C3C4121F7AD5C9410EFE5 /* SRRecorderControlStyle.m */; };
+		259277CEED53CBF04C1C40ACF7E834E9 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 33F831F9EB850C9E4D970D22A9DE5F58 /* ja.lproj */; };
+		2E15CAB0A52B69D3FA0D70119BBE8E53 /* LetsMove-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AB76A00742E47BBCE180CAF5EE223ECF /* LetsMove-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2E94FD46CBC3E5D0224C95A723D7C3F6 /* SRKeyBindingTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C88EEDE19AB759F200A3B1A738E8C5 /* SRKeyBindingTransformer.m */; };
+		31194073C810A8C763DB8B070D931BE2 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1D50037F82D3616F05DDF23C7C4DEF25 /* es.lproj */; };
+		318290C1F3C1A2EC2FD576E215621EBB /* SRShortcutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C702E5C682552F77DB84CEF052DAFA4 /* SRShortcutAction.m */; };
+		37C40ADF03583366ED05A7392F44D253 /* SRRecorderControlStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 928AFF417E86B199D2E9B007ACAAB4E7 /* SRRecorderControlStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3CF2CD18FB573A30174F95AD6BA563C4 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 324A18FF751B7B1DDB4E6C657BEB37C6 /* ja.lproj */; };
 		3F947146B2A0BCDA6F394E852604BE80 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8361FDCE534C28CE8EACD6B796A834DB /* Carbon.framework */; };
-		49F0E59AADFB6E9B91E5AF2CD00E7F3F /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6548E1AAF865B23F73B8B9C8AD59E02E /* util.swift */; };
-		4BFE0CF9902E3C8141E725AB16276440 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F5765840369A54F43B724FB43E450153 /* en.lproj */; };
-		4CB8337198FDE1993480CE70C221FABB /* sr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C08CF7FDCA66093E6C06AE84FB57E953 /* sr.lproj */; };
-		500A10E28FCAAFB0A968CCED417B3275 /* pt_BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 9448A03DCAF3D1284A2BFB9B798B59BF /* pt_BR.lproj */; };
-		568560CA36FE09111F664C6BBA404742 /* zh_TW.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3E95B6D540DEACB3DB613AFDB4ABB469 /* zh_TW.lproj */; };
-		5B317668F69ADABCAD5AE47A1CE39D69 /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BDA54B2830902A24BE8A412D01904AB9 /* sk.lproj */; };
-		5C51919BE3EF096A7D986B57A51AB0D0 /* SRKeyEquivalentTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = AC1A49E990F1702453517AA17CC7D7DD /* SRKeyEquivalentTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5E615985AE6C7D5B9238F364549E9677 /* LetsMove-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DCE46AEF9A44B653C5B048308A336E /* LetsMove-dummy.m */; };
-		5EC2F2D2F2DF932A3F9E94B95287E797 /* SRShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B2D62676CF7AE4A0493FFFE8354B32 /* SRShortcut.m */; };
-		60D6AC3B99212F040A4BD045B1B7DCE3 /* PreferencesStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5249FE5FAAB3F3BCA6F319C12C1FC9 /* PreferencesStyle.swift */; };
-		624A88E7083E922D1E7A468628EF6763 /* SRKeyBindingTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F7E3754CF25EA3BB123606EE9C3EDFF /* SRKeyBindingTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		646512A9E87882737F42741DF820A248 /* SRKeyEquivalentModifierMaskTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C59CFEE9E85847680861C6DF5832C6A /* SRKeyEquivalentModifierMaskTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66197FFF0B0D9B0F40D4EB34B2F0B15B /* SRKeyCodeTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 53B764B1D163251491DEB668C1345C5F /* SRKeyCodeTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		67DCED0B71E2F604884589FD8415F43C /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1185469F060B46DDEA14FDF84D2E7217 /* th.lproj */; };
-		69D5B8B43F71C91C15DE6A606B791F5D /* mk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 2CE681AE0F445CDE7E9EADDCCF6605CC /* mk.lproj */; };
-		6C7847B5EE79878D537FF196B7F0ECFD /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FC5BA45A6C9FBBA699984BFABFC1A757 /* pl.lproj */; };
-		71662F5F1E7D06EE352DAD05FEA3D54C /* SRRecorderControl.h in Headers */ = {isa = PBXBuildFile; fileRef = CB8C856BBCC944F6074846A651F44C93 /* SRRecorderControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		729B7AE3AE6C35966D88D0C140BFE6B3 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 166D6FB731BB8214DE5D12D76C1C1C0A /* ca.lproj */; };
-		73D8666B795CEA8E4C14717D8F8A963B /* SegmentedControlStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8604B70FE3F580C37B5D63CA84020C06 /* SegmentedControlStyleViewController.swift */; };
-		74082A600D2E1D2A7D6082B305F25731 /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3FD96474E9511064B8B779AE58365197 /* sk.lproj */; };
-		74A325B54E70CDB34367DF5ACE33D146 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A65EDE98A850ED8057D534781EEE79 /* Localization.swift */; };
-		7865590A2BE59243B14AA920CB802D16 /* SRCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 36169D8A093458EE2DF0514E5BD67E11 /* SRCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7CB7460CEF50FA8AE32305B967DF611A /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CF529565FEA00939B742172B055EA420 /* pl.lproj */; };
-		7FD23DD8147E1586EF1B121F368855F2 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76467E05840B7BF96518ABEB35E9F142 /* PreferencesWindowController.swift */; };
-		826C126D2445D0F2586B6B3B671B40A1 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 10AD724F607E1B0612F0E020F077D88F /* it.lproj */; };
-		837BD56009CE3487ED907F825D51F478 /* SwiftyMarkdown-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B10EDAF895A51F39A496EF43F14C62F2 /* SwiftyMarkdown-dummy.m */; };
-		84DA043E377D11D7E4BA94DF9CF0E60A /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 00D23913154B508B229E68C0DC85D023 /* nb.lproj */; };
-		8558903ED5DF4CF7C139032314286244 /* SRKeyEquivalentTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F23F7707F44FDF886CBA11C85356D31 /* SRKeyEquivalentTransformer.m */; };
-		86FEB1A2826393B1B6F3650EE778C5EC /* PreferencesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F3FFC7A4247ED25BC2D12B8CEE0739 /* PreferencesTabViewController.swift */; };
-		88044B1C761CA2BD4F17ADE1CFEAE3CD /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5D162CBDB8DD74277FA841E0887110F5 /* en.lproj */; };
-		890BDCB72A2DE7D73FE21F8DCDE993B1 /* String+SwiftyMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174542E59830EBA921C0D1E951A5D91 /* String+SwiftyMarkdown.swift */; };
-		8999CEBAA3A313F1C8544DC1D581B339 /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 827E3F04288A7533E8E5C301E1EED03E /* cs.lproj */; };
-		8C500482DF0DA821FBFD71A84CD466AD /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 31842B9B9A10A14AE0D0B44C51A64441 /* ko.lproj */; };
-		8FA35CBA2D53AA65111A9BB84328D8EA /* ShortcutRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CADAB0C5E752514F6B85E8694388EB34 /* ShortcutRecorder-dummy.m */; };
-		9620CFD7DD4876E61B96B0159377215C /* ToolbarItemStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E77A210CA38E60376CF111256D84E3C /* ToolbarItemStyleViewController.swift */; };
-		985F94722BB2E4A7E884FC402B0B449E /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 210D537B9083AA8F9B35C884EBA3776E /* zh-Hant.lproj */; };
-		995FF511BD514AC60699AF6D02149A1F /* ro.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 90C10755E2EC1B412BCA86815AAB825E /* ro.lproj */; };
+		49F0E59AADFB6E9B91E5AF2CD00E7F3F /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8147D026D72FE164E16D4AE2AFD6808 /* util.swift */; };
+		4BFE0CF9902E3C8141E725AB16276440 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 56FA438195E701402987ADE7D32DBC3B /* en.lproj */; };
+		4CB8337198FDE1993480CE70C221FABB /* sr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A57748384CD9843F2EB228A401DE5944 /* sr.lproj */; };
+		500A10E28FCAAFB0A968CCED417B3275 /* pt_BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C9C45730F9EB9F5D8FA6191C6BE61F9B /* pt_BR.lproj */; };
+		568560CA36FE09111F664C6BBA404742 /* zh_TW.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 60EF6FF60A94EF54E652E091F59466F8 /* zh_TW.lproj */; };
+		5B317668F69ADABCAD5AE47A1CE39D69 /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CEFC61EA791D4A6418CCFBE1787D6659 /* sk.lproj */; };
+		5C51919BE3EF096A7D986B57A51AB0D0 /* SRKeyEquivalentTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = E3FC5D75A84499105F55009A04A10DD7 /* SRKeyEquivalentTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E615985AE6C7D5B9238F364549E9677 /* LetsMove-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCC52DA333A8C35C6991FC1CD3DF26E /* LetsMove-dummy.m */; };
+		5EC2F2D2F2DF932A3F9E94B95287E797 /* SRShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 9315798BAC6D65C43AF979A33F184D6B /* SRShortcut.m */; };
+		60D6AC3B99212F040A4BD045B1B7DCE3 /* PreferencesStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF349E8E070A81986C2D8DB5FB9BF3F /* PreferencesStyle.swift */; };
+		624A88E7083E922D1E7A468628EF6763 /* SRKeyBindingTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = D5556CA390CFFD665D6FF530DA0D91B7 /* SRKeyBindingTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		646512A9E87882737F42741DF820A248 /* SRKeyEquivalentModifierMaskTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = BAE7A8E29FBC46A9DC0414F3FA56900F /* SRKeyEquivalentModifierMaskTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66197FFF0B0D9B0F40D4EB34B2F0B15B /* SRKeyCodeTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C25347426FB8281EC7C10000B645110 /* SRKeyCodeTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		67DCED0B71E2F604884589FD8415F43C /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D5683EEA745922A2D28A0305E506B8E7 /* th.lproj */; };
+		69D5B8B43F71C91C15DE6A606B791F5D /* mk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 09622939675F4EE31BBE83E19E72DEEB /* mk.lproj */; };
+		6C7847B5EE79878D537FF196B7F0ECFD /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0F3CEF0AA17857166E37EA9AF4E1434D /* pl.lproj */; };
+		71662F5F1E7D06EE352DAD05FEA3D54C /* SRRecorderControl.h in Headers */ = {isa = PBXBuildFile; fileRef = B6A13407B53E94994BC9C320535D29A3 /* SRRecorderControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		729B7AE3AE6C35966D88D0C140BFE6B3 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3C1345C5BF8561E71A2D26F0C2A1CDFC /* ca.lproj */; };
+		73D8666B795CEA8E4C14717D8F8A963B /* SegmentedControlStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0A57CA6E83EF929BA22189DC6023E0 /* SegmentedControlStyleViewController.swift */; };
+		74082A600D2E1D2A7D6082B305F25731 /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 66E66FA2D985FDA3D5737872F7011F2A /* sk.lproj */; };
+		74A325B54E70CDB34367DF5ACE33D146 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F0B03D26498F9C489E7B11F301D844 /* Localization.swift */; };
+		7865590A2BE59243B14AA920CB802D16 /* SRCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E0A1823A158947EDEAD09D136889AB2 /* SRCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7CB7460CEF50FA8AE32305B967DF611A /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 276F9532825685CAED56EFAB4A9536A9 /* pl.lproj */; };
+		7FD23DD8147E1586EF1B121F368855F2 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F37624E4A3C1F285523C7F618E51B07 /* PreferencesWindowController.swift */; };
+		826C126D2445D0F2586B6B3B671B40A1 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8A1476336B2A08A494AF955FC91C66CA /* it.lproj */; };
+		837BD56009CE3487ED907F825D51F478 /* SwiftyMarkdown-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F694A0EB56716B4A0C509AC2185C2B3E /* SwiftyMarkdown-dummy.m */; };
+		84DA043E377D11D7E4BA94DF9CF0E60A /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6A9B406A74D0B3CDED2DACA57648AD7D /* nb.lproj */; };
+		8558903ED5DF4CF7C139032314286244 /* SRKeyEquivalentTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0AF0D11EA81595B52AC846BAADCDA /* SRKeyEquivalentTransformer.m */; };
+		86FEB1A2826393B1B6F3650EE778C5EC /* PreferencesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF6C4472F2059963947D0EF3897F901 /* PreferencesTabViewController.swift */; };
+		88044B1C761CA2BD4F17ADE1CFEAE3CD /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 148BB5019759347EBD8283EB7841FF50 /* en.lproj */; };
+		890BDCB72A2DE7D73FE21F8DCDE993B1 /* String+SwiftyMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CF45DBF333E311734EDC683223961D /* String+SwiftyMarkdown.swift */; };
+		8999CEBAA3A313F1C8544DC1D581B339 /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E0FB4CDE9491FC1C156B7325AE1D8857 /* cs.lproj */; };
+		8C500482DF0DA821FBFD71A84CD466AD /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = EC118EC31AD795CC3304602F21EF2540 /* ko.lproj */; };
+		8FA35CBA2D53AA65111A9BB84328D8EA /* ShortcutRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 389D17F51E74ECE6DD3DD97BB7BFC5EC /* ShortcutRecorder-dummy.m */; };
+		9620CFD7DD4876E61B96B0159377215C /* ToolbarItemStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9C32777111FCAC14F8E11E1CA40BBB /* ToolbarItemStyleViewController.swift */; };
+		985F94722BB2E4A7E884FC402B0B449E /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DDCD54AC8BC1D62563C3CB60675A4D26 /* zh-Hant.lproj */; };
+		995FF511BD514AC60699AF6D02149A1F /* ro.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E3DE9B5897A7E9369DB09018EA1D199F /* ro.lproj */; };
 		9B1015EC076147887BA26E2AE160FEF9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
-		9C725C84B6B0BD6649A2D7CCA3E08FAA /* SwiftyTokeniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A159A01BDD8B280ECB522C6FF23F3D /* SwiftyTokeniser.swift */; };
-		9D07D75F7C84943BDCE3ABC491CD59D1 /* LetsMove.h in Headers */ = {isa = PBXBuildFile; fileRef = 801141C1F5947049AF51607B5AFC908D /* LetsMove.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9C725C84B6B0BD6649A2D7CCA3E08FAA /* SwiftyTokeniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F8E80B146D48943BB77C74278C42 /* SwiftyTokeniser.swift */; };
+		9D07D75F7C84943BDCE3ABC491CD59D1 /* LetsMove.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DCA1A0D659A7387F595FB5B43D5372C /* LetsMove.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		9E4AB6B87FD57669459AE37396650093 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
-		A2CC1A84A9C146A91EF5B68270D0F06C /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 828D6BB67CADCF9266206F9CD62DB6C5 /* de.lproj */; };
-		A2FCC58CB9470201B66FE93E38C2EEBC /* ShortcutRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C8199E3F58B79962827F94562A8C521 /* ShortcutRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A2CC1A84A9C146A91EF5B68270D0F06C /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DD6AFCD8B457CF70372B8514509C413F /* de.lproj */; };
+		A2FCC58CB9470201B66FE93E38C2EEBC /* ShortcutRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 873F3E775BAC8098A237A45C06412D91 /* ShortcutRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A46ABA2611D41C8A890D2DF31B4B2504 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
-		A4E39AAA30EF40466757270F0F736814 /* SRShortcutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F773D1F3997524F99726CC7E1D5167 /* SRShortcutController.m */; };
-		A515F0D69E74E71489364F47E1A5513E /* SRModifierFlagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9FAA36B2A99019D5B506FB8DCCF33F /* SRModifierFlagsTransformer.m */; };
-		A6543098065FB7C29E24719462ED3CD1 /* UserInteractionPausableWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869BA5C767F344FF675153253B338AA8 /* UserInteractionPausableWindow.swift */; };
-		A6C76F2FFFDCF82636C355053430B94D /* ShortcutRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BA5C523C47B4DAB0004879609281F4EA /* ShortcutRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4E39AAA30EF40466757270F0F736814 /* SRShortcutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9037168CA94D092844678390BF36F285 /* SRShortcutController.m */; };
+		A515F0D69E74E71489364F47E1A5513E /* SRModifierFlagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 95829DA5F921A137F1F6E2628BA30082 /* SRModifierFlagsTransformer.m */; };
+		A6543098065FB7C29E24719462ED3CD1 /* UserInteractionPausableWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2FDF50A2FD567398771682B97B897 /* UserInteractionPausableWindow.swift */; };
+		A6C76F2FFFDCF82636C355053430B94D /* ShortcutRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD1EDE447D15CF5739FA2D077648FC9 /* ShortcutRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB289F194B3CDC80E30BBAF51BFF5E7F /* Pods-alt-tab-macos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9398EB710E40217E35064D9686CCAD21 /* Pods-alt-tab-macos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB986179D17EE4638FF869F4B77A08CC /* SRShortcutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 48C4294FCEC70A2CBA5E654AE21BFD7E /* SRShortcutController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AECE89CE5364011E4C71F28D0F0531E6 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 751797BA5682F7269AE1FEFD677FF3F5 /* de.lproj */; };
-		B125766C333F5D75F1B730C08219F4D9 /* SwiftyMarkdown-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 519B08C74D4A04DB8D4914C7FABA0206 /* SwiftyMarkdown-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B456576A96AF747CDD54551DE86B6E8D /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A9E4272AECEA32C33892EC1A61C50C9B /* cs.lproj */; };
-		B6073B7D340523A56B48E26BD7E72D4A /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FE5F2E341F4B1A7A3DD7D527A8A20DE3 /* fr.lproj */; };
-		B62D71062B028DC6005EBE8F3A30F83D /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E5DFE8FCD65AB2B989BE8875D8360439 /* it.lproj */; };
-		B96E7AF6A6260FA5D1E1ED99FC7F22C6 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 825B204325CF537C059197EFB82AF29F /* nl.lproj */; };
-		C1720CEFBCDF891D229E2933A25FB21F /* zh_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5E6E43EC03A1B0AAF2B6EE1A09C0ACF5 /* zh_CN.lproj */; };
-		CBF6B269E6C670E063CB93B2A021214E /* SRShortcutFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F28CA3C4FE5C2D876CFF3A3A923C57 /* SRShortcutFormatter.m */; };
-		CECE32B1DBF797B058EB51E7D22C990B /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 27C335FF82229436D83FB19AB908B202 /* el.lproj */; };
-		D16D912F8C268F6BA1AAB01B40145A74 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 7CFD870BECFF3A3FE2DBC209562D20BF /* ru.lproj */; };
-		D4C5685605AAB571B346E92AA982E4AD /* Preferences-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B0DD315CFCB9200B23D607CD0C1BA74 /* Preferences-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D94A6C0B6D81E2D9D99B3E5BFE9C74E0 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = AC4ACDB3D57157050648A35A12A5DACF /* es.lproj */; };
-		DE3998CDB1667994B70CD3DAC2858695 /* SwiftyLineProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704A3ABF80F6436F529676F6F2217D5 /* SwiftyLineProcessor.swift */; };
-		DE7DCF5ADAE503201E2D92397107F29B /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8E54AAD2F7D2639056B14B0A9AC4C212 /* sv.lproj */; };
-		DF2207C5FFA3D5B05AD7B0A03B4A01CD /* SRShortcut.h in Headers */ = {isa = PBXBuildFile; fileRef = 8998195154BF85E85B658E83EAE5D698 /* SRShortcut.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF5FE8A4C33449686EE10BE7DFB3EF3D /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0BD051DE0442DEC1A22165CFF80DAA0C /* fr.lproj */; };
-		E0E3CE66468295446E31F28372866456 /* PreferencePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444ADAB0FCDB9ECA5C3C4109AAF742E9 /* PreferencePane.swift */; };
-		E2969FEA71F76C65EE303B90300C38D3 /* SRModifierFlagsTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E6BCD809C73A3B2E3D5FA194F20DD08 /* SRModifierFlagsTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E5542ECF452E571B2DBB14284E7D6232 /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 2FA9EEA7CD8B3F3B6ABAC5A94CA3DB84 /* zh-Hans.lproj */; };
-		E641BD12CF3AD3888CF543C07EAC8333 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0C7C57034F35BF813FE4E5CB9B5006A6 /* pt.lproj */; };
-		E8B7C953BE74D33A20E34A5374C690CE /* SwiftyMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F0B8E8888623807BBDAD853B9755CB /* SwiftyMarkdown.swift */; };
-		EDA2462B04685D2BBC46D91BE7564B9C /* PreferencesStyleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3208A1BCE6D319D4BB89BE9B14611B1 /* PreferencesStyleController.swift */; };
-		EEB1634EB172198229B0DA244C349A1A /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA3B3944B73BFE543DDD4F088B30F6A /* SRKeyCodeTransformer.m */; };
-		EF4D2B47722794AED41E79F194547935 /* pt-BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6548854AA34476D65BFF6988D6B3CA45 /* pt-BR.lproj */; };
-		EF6C113655CD1DAC81605D79B575A2B8 /* SRShortcutValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C664786E6470DEB70F4A51D014244 /* SRShortcutValidator.m */; };
-		F1BF56FD4BD59ACE35F969146554BAA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6F2AE15CBB4D5127BF93331F81F35A8 /* Images.xcassets */; };
+		AB986179D17EE4638FF869F4B77A08CC /* SRShortcutController.h in Headers */ = {isa = PBXBuildFile; fileRef = DA8BCD816EFD85C046AE89262528583B /* SRShortcutController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AECE89CE5364011E4C71F28D0F0531E6 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D3F6CAE71B6E9F84B78E07936CBB97C1 /* de.lproj */; };
+		B125766C333F5D75F1B730C08219F4D9 /* SwiftyMarkdown-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 724F9C6739A2F8BA2CAF538B928201E0 /* SwiftyMarkdown-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B456576A96AF747CDD54551DE86B6E8D /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 692F0B76CE2E434B3CAC9AD45BF2F741 /* cs.lproj */; };
+		B6073B7D340523A56B48E26BD7E72D4A /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DF048614E5FA4445186715688D540199 /* fr.lproj */; };
+		B62D71062B028DC6005EBE8F3A30F83D /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 346A5D15DC41603659A7D13CE2B4D51C /* it.lproj */; };
+		B96E7AF6A6260FA5D1E1ED99FC7F22C6 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E2209A3A1C69B3211F9C75C6913872FF /* nl.lproj */; };
+		C1720CEFBCDF891D229E2933A25FB21F /* zh_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 4F78EA3AC4DCBE64892D0152597D1020 /* zh_CN.lproj */; };
+		CBF6B269E6C670E063CB93B2A021214E /* SRShortcutFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBC7817C024B1CF45EBFDF10B46BDDB /* SRShortcutFormatter.m */; };
+		CECE32B1DBF797B058EB51E7D22C990B /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5D1F88302E4058298C4246BA8CBEB80C /* el.lproj */; };
+		D16D912F8C268F6BA1AAB01B40145A74 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 31FAB4EB6BCFE1750B9DDCCF85C3295D /* ru.lproj */; };
+		D4C5685605AAB571B346E92AA982E4AD /* Preferences-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E0C73A36C8B4A5AF2B6DF35A63C89387 /* Preferences-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D94A6C0B6D81E2D9D99B3E5BFE9C74E0 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D2033B6F8F980197C76D40AAB302B91C /* es.lproj */; };
+		DE3998CDB1667994B70CD3DAC2858695 /* SwiftyLineProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F136ABB8AEC278F9838A207E7CA20B1 /* SwiftyLineProcessor.swift */; };
+		DE7DCF5ADAE503201E2D92397107F29B /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C047F1BCAEC597694D74B4F85EB9DB77 /* sv.lproj */; };
+		DF2207C5FFA3D5B05AD7B0A03B4A01CD /* SRShortcut.h in Headers */ = {isa = PBXBuildFile; fileRef = C130A2E80C95B66B87A0B7AE22A295F2 /* SRShortcut.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF5FE8A4C33449686EE10BE7DFB3EF3D /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 646BB82EA40B8DF1A4AAE13B681E58B5 /* fr.lproj */; };
+		E0E3CE66468295446E31F28372866456 /* PreferencePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10556F1A37F2213EF692DEF40887397 /* PreferencePane.swift */; };
+		E2969FEA71F76C65EE303B90300C38D3 /* SRModifierFlagsTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5413F1AC1964915DDD1D77E76CDC8A5A /* SRModifierFlagsTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5542ECF452E571B2DBB14284E7D6232 /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 81766405980DCB967785BDDE23361C33 /* zh-Hans.lproj */; };
+		E641BD12CF3AD3888CF543C07EAC8333 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = ABAFF6389D638175EE468A4B6BCF3602 /* pt.lproj */; };
+		E8B7C953BE74D33A20E34A5374C690CE /* SwiftyMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16DE36F2395A1FD9867B13883D0968 /* SwiftyMarkdown.swift */; };
+		EDA2462B04685D2BBC46D91BE7564B9C /* PreferencesStyleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438DB082182E152B16A702D9BEB815F /* PreferencesStyleController.swift */; };
+		EEB1634EB172198229B0DA244C349A1A /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0392E1D982316B122CA0B2D4E9B96C31 /* SRKeyCodeTransformer.m */; };
+		EF4D2B47722794AED41E79F194547935 /* pt-BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0551EABC34245F5F70AC78BDFFCF8896 /* pt-BR.lproj */; };
+		EF6C113655CD1DAC81605D79B575A2B8 /* SRShortcutValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C36ABB90A94BE79B663593081366292 /* SRShortcutValidator.m */; };
+		F1BF56FD4BD59ACE35F969146554BAA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC3E8BA77B5B3168B3187E687E43A47 /* Images.xcassets */; };
 		F459DB6DE5B5170EC4648779C99574FE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
-		F87380A0F9BFC6970A7E72F4F7A2209D /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 684A28FAFA9D647F0C83A2B151B67571 /* ko.lproj */; };
-		F8DD35F2A601BAF61B1EA1EA92531663 /* SwiftyMarkdown+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2576A7BF303C7CE8DC3CC4587F1C5 /* SwiftyMarkdown+iOS.swift */; };
-		FD50D88AF2AB7692F630B7E45B38603E /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8578AB75355BCE249216336705B6179F /* sv.lproj */; };
+		F87380A0F9BFC6970A7E72F4F7A2209D /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E624C4D4700EB7DE413A83FBB83B005E /* ko.lproj */; };
+		F8DD35F2A601BAF61B1EA1EA92531663 /* SwiftyMarkdown+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66B2E269BB4DE600FF5BD4EE9C0AA41 /* SwiftyMarkdown+iOS.swift */; };
+		FD50D88AF2AB7692F630B7E45B38603E /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BD8644D140BA89A0A856EC194645F193 /* sv.lproj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,160 +169,165 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00D23913154B508B229E68C0DC85D023 /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = nb.lproj; sourceTree = "<group>"; };
-		02EEA6D2DA55BCA98D3409BEB7DC4B9A /* SwiftyMarkdown.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftyMarkdown.modulemap; sourceTree = "<group>"; };
-		06514DF3A3964A6A152FB3FE01446D31 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ru.lproj; path = Resources/ru.lproj; sourceTree = "<group>"; };
-		0704A3ABF80F6436F529676F6F2217D5 /* SwiftyLineProcessor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyLineProcessor.swift; path = Sources/SwiftyMarkdown/SwiftyLineProcessor.swift; sourceTree = "<group>"; };
-		072B552F8E45A925A2E95658F7E4F627 /* SUExport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUExport.h; path = Sparkle.framework/Versions/A/Headers/SUExport.h; sourceTree = "<group>"; };
-		0992F0DD83BCD2FBEF6F0290B702B95D /* PFMoveApplication.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PFMoveApplication.h; sourceTree = "<group>"; };
-		09DC8C622716BC9C53FD550F75AC3478 /* ShortcutRecorder-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ShortcutRecorder-Info.plist"; sourceTree = "<group>"; };
-		0B92E2C417D7B5D7542EFC97CE26A723 /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = nl.lproj; sourceTree = "<group>"; };
-		0BD051DE0442DEC1A22165CFF80DAA0C /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fr.lproj; path = Resources/fr.lproj; sourceTree = "<group>"; };
-		0C7C57034F35BF813FE4E5CB9B5006A6 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pt.lproj; sourceTree = "<group>"; };
-		0E77A210CA38E60376CF111256D84E3C /* ToolbarItemStyleViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ToolbarItemStyleViewController.swift; path = Sources/Preferences/ToolbarItemStyleViewController.swift; sourceTree = "<group>"; };
-		10AD724F607E1B0612F0E020F077D88F /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = it.lproj; sourceTree = "<group>"; };
-		10DCE46AEF9A44B653C5B048308A336E /* LetsMove-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LetsMove-dummy.m"; sourceTree = "<group>"; };
-		1185469F060B46DDEA14FDF84D2E7217 /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = th.lproj; path = Resources/th.lproj; sourceTree = "<group>"; };
-		143D5329B1A883015EAE365A0CE83DA9 /* SUVersionComparisonProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionComparisonProtocol.h; path = Sparkle.framework/Versions/A/Headers/SUVersionComparisonProtocol.h; sourceTree = "<group>"; };
-		166D6FB731BB8214DE5D12D76C1C1C0A /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ca.lproj; sourceTree = "<group>"; };
-		18F0B8E8888623807BBDAD853B9755CB /* SwiftyMarkdown.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyMarkdown.swift; path = Sources/SwiftyMarkdown/SwiftyMarkdown.swift; sourceTree = "<group>"; };
-		1BFA8B14B20C3D7D94E64F5DE401CB66 /* SPUDownloadData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloadData.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloadData.h; sourceTree = "<group>"; };
-		1C919961493945B55BECE4FD66599A0A /* SwiftyMarkdown+macOS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SwiftyMarkdown+macOS.swift"; path = "Sources/SwiftyMarkdown/SwiftyMarkdown+macOS.swift"; sourceTree = "<group>"; };
+		0392E1D982316B122CA0B2D4E9B96C31 /* SRKeyCodeTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyCodeTransformer.m; path = Library/SRKeyCodeTransformer.m; sourceTree = "<group>"; };
+		0551EABC34245F5F70AC78BDFFCF8896 /* pt-BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "pt-BR.lproj"; path = "Resources/pt-BR.lproj"; sourceTree = "<group>"; };
+		09622939675F4EE31BBE83E19E72DEEB /* mk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = mk.lproj; sourceTree = "<group>"; };
+		0BF349E8E070A81986C2D8DB5FB9BF3F /* PreferencesStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesStyle.swift; path = Sources/Preferences/PreferencesStyle.swift; sourceTree = "<group>"; };
+		0C5A519EA7A7545CE1AF9360B4DC4370 /* SUExport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUExport.h; path = Sparkle.framework/Versions/A/Headers/SUExport.h; sourceTree = "<group>"; };
+		0DCA1A0D659A7387F595FB5B43D5372C /* LetsMove.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LetsMove.h; sourceTree = "<group>"; };
+		0E0A1823A158947EDEAD09D136889AB2 /* SRCommon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRCommon.h; path = Library/SRCommon.h; sourceTree = "<group>"; };
+		0F37624E4A3C1F285523C7F618E51B07 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesWindowController.swift; path = Sources/Preferences/PreferencesWindowController.swift; sourceTree = "<group>"; };
+		0F3CEF0AA17857166E37EA9AF4E1434D /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pl.lproj; sourceTree = "<group>"; };
+		115FD2032F5112342281368206C32500 /* SPUDownloaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderDelegate.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderDelegate.h; sourceTree = "<group>"; };
+		14436BE32E82DF766B28D678DC76D1C7 /* SUAppcastItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcastItem.h; path = Sparkle.framework/Versions/A/Headers/SUAppcastItem.h; sourceTree = "<group>"; };
+		148BB5019759347EBD8283EB7841FF50 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = en.lproj; sourceTree = "<group>"; };
+		1A933110C77603F7C964996B2DC21C6C /* Preferences.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Preferences.debug.xcconfig; sourceTree = "<group>"; };
 		1D34F54FDD063F2C6A35284EA34D77AB /* Pods-alt-tab-macos.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-alt-tab-macos.modulemap"; sourceTree = "<group>"; };
-		2064F733808F394EBDEC94859ADC7942 /* Preferences.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Preferences.xcconfig; sourceTree = "<group>"; };
-		210D537B9083AA8F9B35C884EBA3776E /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hant.lproj"; path = "Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
+		1D50037F82D3616F05DDF23C7C4DEF25 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = es.lproj; sourceTree = "<group>"; };
+		1DB0C0E3A1C3091DC0FFBA070D92245D /* SPUDownloader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloader.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloader.h; sourceTree = "<group>"; };
+		1F136ABB8AEC278F9838A207E7CA20B1 /* SwiftyLineProcessor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyLineProcessor.swift; path = Sources/SwiftyMarkdown/SwiftyLineProcessor.swift; sourceTree = "<group>"; };
+		1F2980045E298C0F09548BED9F200223 /* SPUURLRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUURLRequest.h; path = Sparkle.framework/Versions/A/Headers/SPUURLRequest.h; sourceTree = "<group>"; };
+		1F2F3145B49D9DB3BAE51E8B7A3930F8 /* PFMoveApplication.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PFMoveApplication.h; sourceTree = "<group>"; };
+		1FCD1042D51D3FD6F5D42BA414DAAD58 /* SUStandardVersionComparator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUStandardVersionComparator.h; path = Sparkle.framework/Versions/A/Headers/SUStandardVersionComparator.h; sourceTree = "<group>"; };
 		22695B85D27AA84F0EA8EC8F1CF1C01C /* Pods-alt-tab-macos-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-alt-tab-macos-acknowledgements.markdown"; sourceTree = "<group>"; };
 		25071237EE84E6AFD3B12FE9A0664CB9 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_alt_tab_macos.framework; path = "Pods-alt-tab-macos.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		27C335FF82229436D83FB19AB908B202 /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = el.lproj; path = Resources/el.lproj; sourceTree = "<group>"; };
-		2B91042170A40AEA362BF8B13A0EF35D /* SwiftyMarkdown-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftyMarkdown-Info.plist"; sourceTree = "<group>"; };
-		2CE681AE0F445CDE7E9EADDCCF6605CC /* mk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = mk.lproj; sourceTree = "<group>"; };
-		2EAAB08E7669491796060CFCF1FFE3FA /* SUErrors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUErrors.h; path = Sparkle.framework/Versions/A/Headers/SUErrors.h; sourceTree = "<group>"; };
-		2FA9EEA7CD8B3F3B6ABAC5A94CA3DB84 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
-		31842B9B9A10A14AE0D0B44C51A64441 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ko.lproj; sourceTree = "<group>"; };
-		34A159A01BDD8B280ECB522C6FF23F3D /* SwiftyTokeniser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyTokeniser.swift; path = Sources/SwiftyMarkdown/SwiftyTokeniser.swift; sourceTree = "<group>"; };
-		35A2B91204FBCDBB21B444C04957213F /* PFMoveApplication.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PFMoveApplication.m; sourceTree = "<group>"; };
-		36169D8A093458EE2DF0514E5BD67E11 /* SRCommon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRCommon.h; path = Library/SRCommon.h; sourceTree = "<group>"; };
-		3782F4D91B5E0DB4CB6B39D540507B2C /* SPUDownloaderProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderProtocol.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderProtocol.h; sourceTree = "<group>"; };
-		38C99D4B7264224A4D591DB9E1B39EFA /* SwiftyMarkdown.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyMarkdown.xcconfig; sourceTree = "<group>"; };
+		276F9532825685CAED56EFAB4A9536A9 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pl.lproj; path = Resources/pl.lproj; sourceTree = "<group>"; };
+		28859F748A541603AB300DBDFA62E87D /* LetsMove.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LetsMove.modulemap; sourceTree = "<group>"; };
+		2C36ABB90A94BE79B663593081366292 /* SRShortcutValidator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutValidator.m; path = Library/SRShortcutValidator.m; sourceTree = "<group>"; };
+		2F88F8E80B146D48943BB77C74278C42 /* SwiftyTokeniser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyTokeniser.swift; path = Sources/SwiftyMarkdown/SwiftyTokeniser.swift; sourceTree = "<group>"; };
+		30C88EEDE19AB759F200A3B1A738E8C5 /* SRKeyBindingTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyBindingTransformer.m; path = Library/SRKeyBindingTransformer.m; sourceTree = "<group>"; };
+		31FAB4EB6BCFE1750B9DDCCF85C3295D /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ru.lproj; sourceTree = "<group>"; };
+		324A18FF751B7B1DDB4E6C657BEB37C6 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ja.lproj; sourceTree = "<group>"; };
+		33F831F9EB850C9E4D970D22A9DE5F58 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = Resources/ja.lproj; sourceTree = "<group>"; };
+		346A5D15DC41603659A7D13CE2B4D51C /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = it.lproj; path = Resources/it.lproj; sourceTree = "<group>"; };
+		35CCDCDDE22CA0027C314DB6DA58315E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		38879F3D4B5660107B31D0C1897CFCC2 /* ShortcutRecorder-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ShortcutRecorder-Info.plist"; sourceTree = "<group>"; };
+		389D17F51E74ECE6DD3DD97BB7BFC5EC /* ShortcutRecorder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ShortcutRecorder-dummy.m"; sourceTree = "<group>"; };
+		38A562291179B45B7433BCBF01C4797D /* SPUDownloaderProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderProtocol.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderProtocol.h; sourceTree = "<group>"; };
+		39E244726490309AE7A83515492E543F /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = tr.lproj; sourceTree = "<group>"; };
 		3A50F71AC7B7C29C8922102AA39EFE0C /* Pods-alt-tab-macos-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-alt-tab-macos-dummy.m"; sourceTree = "<group>"; };
-		3C1D63F9E324584A1D035D46290398D1 /* SRKeyBindingTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyBindingTransformer.m; path = Library/SRKeyBindingTransformer.m; sourceTree = "<group>"; };
-		3DD63CA0041302C4984CB2CB1B7F13E6 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ja.lproj; sourceTree = "<group>"; };
-		3E95B6D540DEACB3DB613AFDB4ABB469 /* zh_TW.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = zh_TW.lproj; sourceTree = "<group>"; };
-		3EE7BE8296F8F1DD4B78D7EFD8E06AC9 /* SPUDownloader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloader.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloader.h; sourceTree = "<group>"; };
-		3F23F7707F44FDF886CBA11C85356D31 /* SRKeyEquivalentTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyEquivalentTransformer.m; path = Library/SRKeyEquivalentTransformer.m; sourceTree = "<group>"; };
-		3FD96474E9511064B8B779AE58365197 /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sk.lproj; path = Resources/sk.lproj; sourceTree = "<group>"; };
-		43B2D62676CF7AE4A0493FFFE8354B32 /* SRShortcut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcut.m; path = Library/SRShortcut.m; sourceTree = "<group>"; };
-		444ADAB0FCDB9ECA5C3C4109AAF742E9 /* PreferencePane.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencePane.swift; path = Sources/Preferences/PreferencePane.swift; sourceTree = "<group>"; };
-		46BF7D77BE8A515533CFCEBC86600AE7 /* SwiftyMarkdown-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyMarkdown-prefix.pch"; sourceTree = "<group>"; };
-		48C4294FCEC70A2CBA5E654AE21BFD7E /* SRShortcutController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutController.h; path = Library/SRShortcutController.h; sourceTree = "<group>"; };
-		4CA2576A7BF303C7CE8DC3CC4587F1C5 /* SwiftyMarkdown+iOS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SwiftyMarkdown+iOS.swift"; path = "Sources/SwiftyMarkdown/SwiftyMarkdown+iOS.swift"; sourceTree = "<group>"; };
-		4E5249FE5FAAB3F3BCA6F319C12C1FC9 /* PreferencesStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesStyle.swift; path = Sources/Preferences/PreferencesStyle.swift; sourceTree = "<group>"; };
-		5174542E59830EBA921C0D1E951A5D91 /* String+SwiftyMarkdown.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+SwiftyMarkdown.swift"; path = "Sources/SwiftyMarkdown/String+SwiftyMarkdown.swift"; sourceTree = "<group>"; };
-		519B08C74D4A04DB8D4914C7FABA0206 /* SwiftyMarkdown-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyMarkdown-umbrella.h"; sourceTree = "<group>"; };
-		53B764B1D163251491DEB668C1345C5F /* SRKeyCodeTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyCodeTransformer.h; path = Library/SRKeyCodeTransformer.h; sourceTree = "<group>"; };
-		5A019E94EFD55CCE292EF39F72D17480 /* SRRecorderControlStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRRecorderControlStyle.h; path = Library/SRRecorderControlStyle.h; sourceTree = "<group>"; };
-		5A7876AA0AD5A31ED3C8D55D382E93FF /* LetsMove-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LetsMove-prefix.pch"; sourceTree = "<group>"; };
-		5D162CBDB8DD74277FA841E0887110F5 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = en.lproj; sourceTree = "<group>"; };
-		5E6E43EC03A1B0AAF2B6EE1A09C0ACF5 /* zh_CN.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = zh_CN.lproj; sourceTree = "<group>"; };
-		601FB02E433AC5F3E457F0C4DF59DE2D /* Preferences.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Preferences.modulemap; sourceTree = "<group>"; };
-		61F3FFC7A4247ED25BC2D12B8CEE0739 /* PreferencesTabViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesTabViewController.swift; path = Sources/Preferences/PreferencesTabViewController.swift; sourceTree = "<group>"; };
-		628B80D0C8117A78539F80CF0E90C523 /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = hu.lproj; sourceTree = "<group>"; };
-		64A65EDE98A850ED8057D534781EEE79 /* Localization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Localization.swift; path = Sources/Preferences/Localization.swift; sourceTree = "<group>"; };
-		6548854AA34476D65BFF6988D6B3CA45 /* pt-BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "pt-BR.lproj"; path = "Resources/pt-BR.lproj"; sourceTree = "<group>"; };
-		6548E1AAF865B23F73B8B9C8AD59E02E /* util.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = util.swift; path = Sources/Preferences/util.swift; sourceTree = "<group>"; };
-		684A28FAFA9D647F0C83A2B151B67571 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ko.lproj; path = Resources/ko.lproj; sourceTree = "<group>"; };
+		3C1345C5BF8561E71A2D26F0C2A1CDFC /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ca.lproj; sourceTree = "<group>"; };
+		3C232D47ECC282432B8AA9D362AE8C0D /* SwiftyMarkdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyMarkdown.debug.xcconfig; sourceTree = "<group>"; };
+		3DC3E8BA77B5B3168B3187E687E43A47 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
+		3DF0840EA08DD59E1A3E6702B6C2CC2A /* LetsMove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LetsMove.release.xcconfig; sourceTree = "<group>"; };
+		3E52FE8EE16AB23687F2DDB5B82CF57E /* SRShortcutFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutFormatter.h; path = Library/SRShortcutFormatter.h; sourceTree = "<group>"; };
+		488C43320C54DFB64D0019FAE2FF4C62 /* SUAppcast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcast.h; path = Sparkle.framework/Versions/A/Headers/SUAppcast.h; sourceTree = "<group>"; };
+		4BEECA2C7DA4B21D9E8EDAC9D1A93589 /* Preferences-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Preferences-dummy.m"; sourceTree = "<group>"; };
+		4C25347426FB8281EC7C10000B645110 /* SRKeyCodeTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyCodeTransformer.h; path = Library/SRKeyCodeTransformer.h; sourceTree = "<group>"; };
+		4CF6C4472F2059963947D0EF3897F901 /* PreferencesTabViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesTabViewController.swift; path = Sources/Preferences/PreferencesTabViewController.swift; sourceTree = "<group>"; };
+		4F78EA3AC4DCBE64892D0152597D1020 /* zh_CN.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = zh_CN.lproj; sourceTree = "<group>"; };
+		50A0AF0D11EA81595B52AC846BAADCDA /* SRKeyEquivalentTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyEquivalentTransformer.m; path = Library/SRKeyEquivalentTransformer.m; sourceTree = "<group>"; };
+		5413F1AC1964915DDD1D77E76CDC8A5A /* SRModifierFlagsTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRModifierFlagsTransformer.h; path = Library/SRModifierFlagsTransformer.h; sourceTree = "<group>"; };
+		552F72C385AC286419406DC92B203A9B /* ShortcutRecorder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ShortcutRecorder-prefix.pch"; sourceTree = "<group>"; };
+		55F0B03D26498F9C489E7B11F301D844 /* Localization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Localization.swift; path = Sources/Preferences/Localization.swift; sourceTree = "<group>"; };
+		56FA438195E701402987ADE7D32DBC3B /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = Resources/en.lproj; sourceTree = "<group>"; };
+		57A95C4E1753FF848CA0FF201FF1645D /* Sparkle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Sparkle.h; path = Sparkle.framework/Versions/A/Headers/Sparkle.h; sourceTree = "<group>"; };
+		586BCAA7BF1939389EDB6D6642E2425A /* Preferences.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Preferences.release.xcconfig; sourceTree = "<group>"; };
+		599999469ADC4AF62F32805A35319209 /* SPUDownloaderSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderSession.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderSession.h; sourceTree = "<group>"; };
+		5C2151969666D5447B77FC0B6C7DBAB2 /* ShortcutRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShortcutRecorder.debug.xcconfig; sourceTree = "<group>"; };
+		5C702E5C682552F77DB84CEF052DAFA4 /* SRShortcutAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutAction.m; path = Library/SRShortcutAction.m; sourceTree = "<group>"; };
+		5D1F88302E4058298C4246BA8CBEB80C /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = el.lproj; path = Resources/el.lproj; sourceTree = "<group>"; };
+		5E28B2887654BC73BC996A11B383ECC0 /* SUUpdaterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdaterDelegate.h; path = Sparkle.framework/Versions/A/Headers/SUUpdaterDelegate.h; sourceTree = "<group>"; };
+		5FF2FDF50A2FD567398771682B97B897 /* UserInteractionPausableWindow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UserInteractionPausableWindow.swift; path = Sources/Preferences/UserInteractionPausableWindow.swift; sourceTree = "<group>"; };
+		60EF6FF60A94EF54E652E091F59466F8 /* zh_TW.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = zh_TW.lproj; sourceTree = "<group>"; };
+		646BB82EA40B8DF1A4AAE13B681E58B5 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fr.lproj; path = Resources/fr.lproj; sourceTree = "<group>"; };
+		662E5FFCDBDE2567B26349BCE7AE0426 /* SRShortcutValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutValidator.h; path = Library/SRShortcutValidator.h; sourceTree = "<group>"; };
+		66E66FA2D985FDA3D5737872F7011F2A /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sk.lproj; path = Resources/sk.lproj; sourceTree = "<group>"; };
+		692F0B76CE2E434B3CAC9AD45BF2F741 /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = cs.lproj; path = Resources/cs.lproj; sourceTree = "<group>"; };
 		6A115D5F73B04DD7F1B7818EDD9B2EF3 /* Preferences.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Preferences.framework; path = Preferences.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C59CFEE9E85847680861C6DF5832C6A /* SRKeyEquivalentModifierMaskTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyEquivalentModifierMaskTransformer.h; path = Library/SRKeyEquivalentModifierMaskTransformer.h; sourceTree = "<group>"; };
-		6C8199E3F58B79962827F94562A8C521 /* ShortcutRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ShortcutRecorder.h; path = Library/ShortcutRecorder.h; sourceTree = "<group>"; };
-		6E6BCD809C73A3B2E3D5FA194F20DD08 /* SRModifierFlagsTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRModifierFlagsTransformer.h; path = Library/SRModifierFlagsTransformer.h; sourceTree = "<group>"; };
-		6E72F99D90FEA8E073C2172089F909FC /* SUAppcastItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcastItem.h; path = Sparkle.framework/Versions/A/Headers/SUAppcastItem.h; sourceTree = "<group>"; };
+		6A62C708622A3ECB9ED597AD909FA362 /* SwiftyMarkdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyMarkdown.release.xcconfig; sourceTree = "<group>"; };
+		6A9B406A74D0B3CDED2DACA57648AD7D /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = nb.lproj; sourceTree = "<group>"; };
+		6B0A57CA6E83EF929BA22189DC6023E0 /* SegmentedControlStyleViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentedControlStyleViewController.swift; path = Sources/Preferences/SegmentedControlStyleViewController.swift; sourceTree = "<group>"; };
+		6DD1EDE447D15CF5739FA2D077648FC9 /* ShortcutRecorder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ShortcutRecorder-umbrella.h"; sourceTree = "<group>"; };
+		70A6FDD9C55154B728466D71B09FA6C8 /* da.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = da.lproj; sourceTree = "<group>"; };
+		70E800F0EC8C3C4121F7AD5C9410EFE5 /* SRRecorderControlStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControlStyle.m; path = Library/SRRecorderControlStyle.m; sourceTree = "<group>"; };
+		724F9C6739A2F8BA2CAF538B928201E0 /* SwiftyMarkdown-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyMarkdown-umbrella.h"; sourceTree = "<group>"; };
+		7264B6FA7F58F1EA59E465DC88C250D3 /* SwiftyMarkdown.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftyMarkdown.modulemap; sourceTree = "<group>"; };
+		73FB426CEB2A10C50A4DEEED7CB5BFFC /* ShortcutRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShortcutRecorder.release.xcconfig; sourceTree = "<group>"; };
 		7475BBC3CE1397DCE052D215F2D73234 /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
-		74F28CA3C4FE5C2D876CFF3A3A923C57 /* SRShortcutFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutFormatter.m; path = Library/SRShortcutFormatter.m; sourceTree = "<group>"; };
-		751797BA5682F7269AE1FEFD677FF3F5 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = de.lproj; sourceTree = "<group>"; };
-		76467E05840B7BF96518ABEB35E9F142 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesWindowController.swift; path = Sources/Preferences/PreferencesWindowController.swift; sourceTree = "<group>"; };
-		784D3F8B04471E284443090EC116BF03 /* Sparkle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Sparkle.h; path = Sparkle.framework/Versions/A/Headers/Sparkle.h; sourceTree = "<group>"; };
-		794F2B468C2842CB49040576AE647CD8 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		7478E0A2FD299724C1ACF90FF3696EB8 /* SRCommon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRCommon.m; path = Library/SRCommon.m; sourceTree = "<group>"; };
+		78F8A65ECC4BBD605AE95236F130001F /* SUVersionComparisonProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionComparisonProtocol.h; path = Sparkle.framework/Versions/A/Headers/SUVersionComparisonProtocol.h; sourceTree = "<group>"; };
 		7A3DD740894FE73E66768ABB17B36265 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ShortcutRecorder.framework; path = ShortcutRecorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A877F48966E304A1C7C9B466485DA07 /* Preferences-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Preferences-dummy.m"; sourceTree = "<group>"; };
-		7CFD870BECFF3A3FE2DBC209562D20BF /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ru.lproj; sourceTree = "<group>"; };
-		7DB389FEDC7E252D546446CB2B4956BB /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = es.lproj; sourceTree = "<group>"; };
-		801141C1F5947049AF51607B5AFC908D /* LetsMove.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LetsMove.h; sourceTree = "<group>"; };
-		825B204325CF537C059197EFB82AF29F /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nl.lproj; path = Resources/nl.lproj; sourceTree = "<group>"; };
-		827E3F04288A7533E8E5C301E1EED03E /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = cs.lproj; sourceTree = "<group>"; };
-		828D6BB67CADCF9266206F9CD62DB6C5 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = Resources/de.lproj; sourceTree = "<group>"; };
+		7D16DE36F2395A1FD9867B13883D0968 /* SwiftyMarkdown.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyMarkdown.swift; path = Sources/SwiftyMarkdown/SwiftyMarkdown.swift; sourceTree = "<group>"; };
+		80849E177BE72C32FDABBD20A67CFBD4 /* SRKeyEquivalentModifierMaskTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyEquivalentModifierMaskTransformer.m; path = Library/SRKeyEquivalentModifierMaskTransformer.m; sourceTree = "<group>"; };
+		81766405980DCB967785BDDE23361C33 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
+		818C7832AF2DA5EB83EE78D7ECEBEE14 /* SwiftyMarkdown-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftyMarkdown-Info.plist"; sourceTree = "<group>"; };
+		81E9C71410FB0E4B648381EFD4A3519B /* Preferences-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Preferences-prefix.pch"; sourceTree = "<group>"; };
 		8361FDCE534C28CE8EACD6B796A834DB /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = DEVELOPER_DIR; };
-		8578AB75355BCE249216336705B6179F /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sv.lproj; sourceTree = "<group>"; };
-		8604B70FE3F580C37B5D63CA84020C06 /* SegmentedControlStyleViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentedControlStyleViewController.swift; path = Sources/Preferences/SegmentedControlStyleViewController.swift; sourceTree = "<group>"; };
-		8623024363EAA128121A7D3F0A85E7E7 /* LetsMove.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LetsMove.modulemap; sourceTree = "<group>"; };
-		869BA5C767F344FF675153253B338AA8 /* UserInteractionPausableWindow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UserInteractionPausableWindow.swift; path = Sources/Preferences/UserInteractionPausableWindow.swift; sourceTree = "<group>"; };
-		89931AB2F73400E72FE76BCDE67A0C0F /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ca.lproj; path = Resources/ca.lproj; sourceTree = "<group>"; };
-		8998195154BF85E85B658E83EAE5D698 /* SRShortcut.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcut.h; path = Library/SRShortcut.h; sourceTree = "<group>"; };
-		8B0DD315CFCB9200B23D607CD0C1BA74 /* Preferences-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Preferences-umbrella.h"; sourceTree = "<group>"; };
-		8BC4632B803E07359D2747C7621B2922 /* da.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = da.lproj; sourceTree = "<group>"; };
-		8CC2052240165CC2044886A13C8101BD /* Preferences-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Preferences-Info.plist"; sourceTree = "<group>"; };
-		8E54AAD2F7D2639056B14B0A9AC4C212 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sv.lproj; path = Resources/sv.lproj; sourceTree = "<group>"; };
-		8F3EEB933F84E12A002FCA8457204FDE /* SPUDownloaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderDelegate.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderDelegate.h; sourceTree = "<group>"; };
-		90C10755E2EC1B412BCA86815AAB825E /* ro.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ro.lproj; path = Resources/ro.lproj; sourceTree = "<group>"; };
-		91945B1138877008F67E0EEB8E16E0FF /* SUStandardVersionComparator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUStandardVersionComparator.h; path = Sparkle.framework/Versions/A/Headers/SUStandardVersionComparator.h; sourceTree = "<group>"; };
+		8438DB082182E152B16A702D9BEB815F /* PreferencesStyleController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesStyleController.swift; path = Sources/Preferences/PreferencesStyleController.swift; sourceTree = "<group>"; };
+		8739A8055945A33E7B30CD82A6A5AC5C /* SUUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdater.h; path = Sparkle.framework/Versions/A/Headers/SUUpdater.h; sourceTree = "<group>"; };
+		873F3E775BAC8098A237A45C06412D91 /* ShortcutRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ShortcutRecorder.h; path = Library/ShortcutRecorder.h; sourceTree = "<group>"; };
+		87FA1323D56196D4BF155B200B6E30D6 /* LetsMove.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LetsMove.debug.xcconfig; sourceTree = "<group>"; };
+		896820E4978C3E39B3BC8C8B74633576 /* SUCodeSigningVerifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUCodeSigningVerifier.h; path = Sparkle.framework/Versions/A/Headers/SUCodeSigningVerifier.h; sourceTree = "<group>"; };
+		8A1476336B2A08A494AF955FC91C66CA /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = it.lproj; sourceTree = "<group>"; };
+		8C2A36A34EAD27EDE998993AA2C3C889 /* Preferences.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Preferences.modulemap; sourceTree = "<group>"; };
+		8EDBDD9B567FFC2665AAB4ACD89E9378 /* SPUDownloadData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloadData.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloadData.h; sourceTree = "<group>"; };
+		8F914EB1CB4B6EEF6D0B48B2405E9039 /* Sparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.release.xcconfig; sourceTree = "<group>"; };
+		9037168CA94D092844678390BF36F285 /* SRShortcutController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutController.m; path = Library/SRShortcutController.m; sourceTree = "<group>"; };
+		928AFF417E86B199D2E9B007ACAAB4E7 /* SRRecorderControlStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRRecorderControlStyle.h; path = Library/SRRecorderControlStyle.h; sourceTree = "<group>"; };
+		9315798BAC6D65C43AF979A33F184D6B /* SRShortcut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcut.m; path = Library/SRShortcut.m; sourceTree = "<group>"; };
 		9398EB710E40217E35064D9686CCAD21 /* Pods-alt-tab-macos-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-alt-tab-macos-umbrella.h"; sourceTree = "<group>"; };
-		9448A03DCAF3D1284A2BFB9B798B59BF /* pt_BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pt_BR.lproj; sourceTree = "<group>"; };
-		96AE1D2FC622F5454E364012D50AC6D1 /* LetsMove.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LetsMove.xcconfig; sourceTree = "<group>"; };
-		9C0423AA4CC91C89B2D1EF86AAA96B02 /* SPUDownloaderDeprecated.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderDeprecated.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderDeprecated.h; sourceTree = "<group>"; };
-		9D5C664786E6470DEB70F4A51D014244 /* SRShortcutValidator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutValidator.m; path = Library/SRShortcutValidator.m; sourceTree = "<group>"; };
+		95829DA5F921A137F1F6E2628BA30082 /* SRModifierFlagsTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRModifierFlagsTransformer.m; path = Library/SRModifierFlagsTransformer.m; sourceTree = "<group>"; };
+		972CC2B8C0757D32A4E04B11EC5E843B /* SRRecorderControl.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControl.m; path = Library/SRRecorderControl.m; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9E91E53C4E0050838C35A463180CF371 /* Preferences-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Preferences-prefix.pch"; sourceTree = "<group>"; };
-		9F7E3754CF25EA3BB123606EE9C3EDFF /* SRKeyBindingTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyBindingTransformer.h; path = Library/SRKeyBindingTransformer.h; sourceTree = "<group>"; };
-		A21DAE2FDC65148BD3114EBFCC05B45D /* SUUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdater.h; path = Sparkle.framework/Versions/A/Headers/SUUpdater.h; sourceTree = "<group>"; };
-		A3AA2B4DEE93CDB3EAC57DB1EB87DD87 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = Resources/ja.lproj; sourceTree = "<group>"; };
-		A9E4272AECEA32C33892EC1A61C50C9B /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = cs.lproj; path = Resources/cs.lproj; sourceTree = "<group>"; };
+		9FB04F8E6EA6C9AA881502D663521947 /* Preferences-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Preferences-Info.plist"; sourceTree = "<group>"; };
+		A01B99E47310DD17DD571C6ADC7A2063 /* ShortcutRecorder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ShortcutRecorder.modulemap; sourceTree = "<group>"; };
+		A26EF044A853930BC884BE7CA27C0709 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pt.lproj; path = Resources/pt.lproj; sourceTree = "<group>"; };
+		A3CF45DBF333E311734EDC683223961D /* String+SwiftyMarkdown.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+SwiftyMarkdown.swift"; path = "Sources/SwiftyMarkdown/String+SwiftyMarkdown.swift"; sourceTree = "<group>"; };
+		A57748384CD9843F2EB228A401DE5944 /* sr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sr.lproj; sourceTree = "<group>"; };
+		A5E9F532A3241F5331E6FB45BE8AC4C4 /* LetsMove-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LetsMove-Info.plist"; sourceTree = "<group>"; };
+		AB76A00742E47BBCE180CAF5EE223ECF /* LetsMove-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LetsMove-umbrella.h"; sourceTree = "<group>"; };
+		ABAFF6389D638175EE468A4B6BCF3602 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pt.lproj; sourceTree = "<group>"; };
 		AC17564D0F58DCA6B3280EDA07C2876D /* SwiftyMarkdown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyMarkdown.framework; path = SwiftyMarkdown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC1A49E990F1702453517AA17CC7D7DD /* SRKeyEquivalentTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyEquivalentTransformer.h; path = Library/SRKeyEquivalentTransformer.h; sourceTree = "<group>"; };
-		AC4ACDB3D57157050648A35A12A5DACF /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = Resources/es.lproj; sourceTree = "<group>"; };
-		AC9FAA36B2A99019D5B506FB8DCCF33F /* SRModifierFlagsTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRModifierFlagsTransformer.m; path = Library/SRModifierFlagsTransformer.m; sourceTree = "<group>"; };
-		ACA3B3944B73BFE543DDD4F088B30F6A /* SRKeyCodeTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyCodeTransformer.m; path = Library/SRKeyCodeTransformer.m; sourceTree = "<group>"; };
-		AD80291A1CF55B47C8B22C6AA24A9F7B /* SRShortcutFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutFormatter.h; path = Library/SRShortcutFormatter.h; sourceTree = "<group>"; };
-		ADABE55FE10FB27A04A51978C90D8D59 /* SRCommon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRCommon.m; path = Library/SRCommon.m; sourceTree = "<group>"; };
-		AF67CB98E36BAA421BBFB78BD45FC5E0 /* SRShortcutAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutAction.m; path = Library/SRShortcutAction.m; sourceTree = "<group>"; };
-		B10EDAF895A51F39A496EF43F14C62F2 /* SwiftyMarkdown-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyMarkdown-dummy.m"; sourceTree = "<group>"; };
-		B303F9EB4C04201D6E2491AD131B784F /* SRShortcutValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutValidator.h; path = Library/SRShortcutValidator.h; sourceTree = "<group>"; };
-		B3C285935150E595C529F369FD011458 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = tr.lproj; sourceTree = "<group>"; };
-		B6F2AE15CBB4D5127BF93331F81F35A8 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
-		B87DE9E2D4594D5AED0F279E2E1E04BE /* Sparkle.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.xcconfig; sourceTree = "<group>"; };
-		B8C2AF3155E2D09772EC40D404A99E0A /* SRShortcutAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutAction.h; path = Library/SRShortcutAction.h; sourceTree = "<group>"; };
+		AD9C32777111FCAC14F8E11E1CA40BBB /* ToolbarItemStyleViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ToolbarItemStyleViewController.swift; path = Sources/Preferences/ToolbarItemStyleViewController.swift; sourceTree = "<group>"; };
+		AEE608F7ACB94C5F356E15148F080C37 /* PFMoveApplication.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PFMoveApplication.m; sourceTree = "<group>"; };
+		B21676942A82066A5F890982D52AF601 /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = nl.lproj; sourceTree = "<group>"; };
+		B6A13407B53E94994BC9C320535D29A3 /* SRRecorderControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRRecorderControl.h; path = Library/SRRecorderControl.h; sourceTree = "<group>"; };
+		B7C13E18AAFD27EA81E698E02DA73A66 /* SwiftyMarkdown+macOS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SwiftyMarkdown+macOS.swift"; path = "Sources/SwiftyMarkdown/SwiftyMarkdown+macOS.swift"; sourceTree = "<group>"; };
+		B8147D026D72FE164E16D4AE2AFD6808 /* util.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = util.swift; path = Sources/Preferences/util.swift; sourceTree = "<group>"; };
 		B8E37B919891F60149AC5703A01BD88B /* Pods-alt-tab-macos-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-alt-tab-macos-Info.plist"; sourceTree = "<group>"; };
-		BA5C523C47B4DAB0004879609281F4EA /* ShortcutRecorder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ShortcutRecorder-umbrella.h"; sourceTree = "<group>"; };
-		BDA54B2830902A24BE8A412D01904AB9 /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sk.lproj; sourceTree = "<group>"; };
-		BF48E7CA04FFF994CA345AE2586BCF0D /* ShortcutRecorder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ShortcutRecorder-prefix.pch"; sourceTree = "<group>"; };
-		C08CF7FDCA66093E6C06AE84FB57E953 /* sr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sr.lproj; sourceTree = "<group>"; };
-		C5A448BD49DA498CBD3468D9DC623365 /* ShortcutRecorder.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShortcutRecorder.xcconfig; sourceTree = "<group>"; };
-		C9E93B38D4558A2441E981345F5D320E /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pt.lproj; path = Resources/pt.lproj; sourceTree = "<group>"; };
-		CA75E61EB604BE2D37E3826A30F208E4 /* SPUDownloaderSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderSession.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderSession.h; sourceTree = "<group>"; };
-		CADAB0C5E752514F6B85E8694388EB34 /* ShortcutRecorder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ShortcutRecorder-dummy.m"; sourceTree = "<group>"; };
-		CB8C856BBCC944F6074846A651F44C93 /* SRRecorderControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRRecorderControl.h; path = Library/SRRecorderControl.h; sourceTree = "<group>"; };
-		CF529565FEA00939B742172B055EA420 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pl.lproj; path = Resources/pl.lproj; sourceTree = "<group>"; };
-		D3208A1BCE6D319D4BB89BE9B14611B1 /* PreferencesStyleController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesStyleController.swift; path = Sources/Preferences/PreferencesStyleController.swift; sourceTree = "<group>"; };
-		D7ECF50F2FED8B4FD727FB1540864557 /* SUAppcast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcast.h; path = Sparkle.framework/Versions/A/Headers/SUAppcast.h; sourceTree = "<group>"; };
-		D7F02C9B5E488EDA089CA02FBF18D654 /* ShortcutRecorder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ShortcutRecorder.modulemap; sourceTree = "<group>"; };
+		BA2813DF3B2085938C375DF45DBDDBEF /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = hu.lproj; sourceTree = "<group>"; };
+		BAE7A8E29FBC46A9DC0414F3FA56900F /* SRKeyEquivalentModifierMaskTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyEquivalentModifierMaskTransformer.h; path = Library/SRKeyEquivalentModifierMaskTransformer.h; sourceTree = "<group>"; };
+		BD8644D140BA89A0A856EC194645F193 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sv.lproj; sourceTree = "<group>"; };
+		C047F1BCAEC597694D74B4F85EB9DB77 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sv.lproj; path = Resources/sv.lproj; sourceTree = "<group>"; };
+		C130A2E80C95B66B87A0B7AE22A295F2 /* SRShortcut.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcut.h; path = Library/SRShortcut.h; sourceTree = "<group>"; };
+		C53D764C43A51376171AD41E99B8ABE2 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ru.lproj; path = Resources/ru.lproj; sourceTree = "<group>"; };
+		C9C45730F9EB9F5D8FA6191C6BE61F9B /* pt_BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pt_BR.lproj; sourceTree = "<group>"; };
+		CD15970D076904394254DEFDAB0A55ED /* SPUDownloaderDeprecated.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderDeprecated.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderDeprecated.h; sourceTree = "<group>"; };
+		CEC77DC6041965487A3D514C234927D2 /* SRShortcutAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutAction.h; path = Library/SRShortcutAction.h; sourceTree = "<group>"; };
+		CEFC61EA791D4A6418CCFBE1787D6659 /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sk.lproj; sourceTree = "<group>"; };
+		CFCC52DA333A8C35C6991FC1CD3DF26E /* LetsMove-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LetsMove-dummy.m"; sourceTree = "<group>"; };
+		D10556F1A37F2213EF692DEF40887397 /* PreferencePane.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencePane.swift; path = Sources/Preferences/PreferencePane.swift; sourceTree = "<group>"; };
+		D2033B6F8F980197C76D40AAB302B91C /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = Resources/es.lproj; sourceTree = "<group>"; };
+		D3F6CAE71B6E9F84B78E07936CBB97C1 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = de.lproj; sourceTree = "<group>"; };
+		D5556CA390CFFD665D6FF530DA0D91B7 /* SRKeyBindingTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyBindingTransformer.h; path = Library/SRKeyBindingTransformer.h; sourceTree = "<group>"; };
+		D5683EEA745922A2D28A0305E506B8E7 /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = th.lproj; path = Resources/th.lproj; sourceTree = "<group>"; };
+		D66B2E269BB4DE600FF5BD4EE9C0AA41 /* SwiftyMarkdown+iOS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SwiftyMarkdown+iOS.swift"; path = "Sources/SwiftyMarkdown/SwiftyMarkdown+iOS.swift"; sourceTree = "<group>"; };
+		D6BB26D071E36D7F9011C63F8E3B2863 /* LetsMove-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LetsMove-prefix.pch"; sourceTree = "<group>"; };
 		D87AC91B19D0A6B161BD3ED08F81D6E9 /* LetsMove.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LetsMove.framework; path = LetsMove.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95C079F75245DB989FC2F93DC3362FA /* Pods-alt-tab-macos-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-alt-tab-macos-acknowledgements.plist"; sourceTree = "<group>"; };
-		DB093D3B1BCACB6C25624871CAA6DBAF /* SRKeyEquivalentModifierMaskTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyEquivalentModifierMaskTransformer.m; path = Library/SRKeyEquivalentModifierMaskTransformer.m; sourceTree = "<group>"; };
+		DA8BCD816EFD85C046AE89262528583B /* SRShortcutController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutController.h; path = Library/SRShortcutController.h; sourceTree = "<group>"; };
 		DCA0A6B74F3699962F44535ACC0B5945 /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
-		DDB3CD17D7AC437767BD7AECBE3CFE14 /* SUUpdaterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdaterDelegate.h; path = Sparkle.framework/Versions/A/Headers/SUUpdaterDelegate.h; sourceTree = "<group>"; };
-		E27136292CDD9462D04079D8A32C8B1C /* SRRecorderControl.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControl.m; path = Library/SRRecorderControl.m; sourceTree = "<group>"; };
-		E59C852BE76020CBE85FA85C4112FDC5 /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nb.lproj; path = Resources/nb.lproj; sourceTree = "<group>"; };
-		E5DFE8FCD65AB2B989BE8875D8360439 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = it.lproj; path = Resources/it.lproj; sourceTree = "<group>"; };
+		DD6AFCD8B457CF70372B8514509C413F /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = Resources/de.lproj; sourceTree = "<group>"; };
+		DDCD54AC8BC1D62563C3CB60675A4D26 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hant.lproj"; path = "Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
+		DF048614E5FA4445186715688D540199 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = fr.lproj; sourceTree = "<group>"; };
+		E0C73A36C8B4A5AF2B6DF35A63C89387 /* Preferences-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Preferences-umbrella.h"; sourceTree = "<group>"; };
+		E0FB4CDE9491FC1C156B7325AE1D8857 /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = cs.lproj; sourceTree = "<group>"; };
+		E16BF5B2E49479661FA6BF65652747D2 /* SwiftyMarkdown-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyMarkdown-prefix.pch"; sourceTree = "<group>"; };
+		E2209A3A1C69B3211F9C75C6913872FF /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nl.lproj; path = Resources/nl.lproj; sourceTree = "<group>"; };
+		E3DE9B5897A7E9369DB09018EA1D199F /* ro.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ro.lproj; path = Resources/ro.lproj; sourceTree = "<group>"; };
+		E3FC5D75A84499105F55009A04A10DD7 /* SRKeyEquivalentTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyEquivalentTransformer.h; path = Library/SRKeyEquivalentTransformer.h; sourceTree = "<group>"; };
+		E624C4D4700EB7DE413A83FBB83B005E /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ko.lproj; path = Resources/ko.lproj; sourceTree = "<group>"; };
 		E837F658B763ECCE73D0A1DC23C1AAEC /* Pods-alt-tab-macos-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-alt-tab-macos-frameworks.sh"; sourceTree = "<group>"; };
-		EB8029A60BE95716487F7BAB9F95360A /* SUCodeSigningVerifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUCodeSigningVerifier.h; path = Sparkle.framework/Versions/A/Headers/SUCodeSigningVerifier.h; sourceTree = "<group>"; };
-		EE847A39ED67949A4F07273F81368A11 /* LetsMove-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LetsMove-Info.plist"; sourceTree = "<group>"; };
-		EF1BFC8D99693513C8A588448BCAADEA /* SPUURLRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUURLRequest.h; path = Sparkle.framework/Versions/A/Headers/SPUURLRequest.h; sourceTree = "<group>"; };
+		EC118EC31AD795CC3304602F21EF2540 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ko.lproj; sourceTree = "<group>"; };
+		ECBC7817C024B1CF45EBFDF10B46BDDB /* SRShortcutFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutFormatter.m; path = Library/SRShortcutFormatter.m; sourceTree = "<group>"; };
+		EDA7B4ABC3A1525403D81D56011116BA /* SUVersionDisplayProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionDisplayProtocol.h; path = Sparkle.framework/Versions/A/Headers/SUVersionDisplayProtocol.h; sourceTree = "<group>"; };
+		EE29A476F28A4EE6B4054A23051429CF /* SUErrors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUErrors.h; path = Sparkle.framework/Versions/A/Headers/SUErrors.h; sourceTree = "<group>"; };
+		EE79D0583628F279ADD796C9A83BE80E /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nb.lproj; path = Resources/nb.lproj; sourceTree = "<group>"; };
+		F2B661DB781A79D318F3CC07F5435C8F /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ca.lproj; path = Resources/ca.lproj; sourceTree = "<group>"; };
 		F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		F5765840369A54F43B724FB43E450153 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = Resources/en.lproj; sourceTree = "<group>"; };
-		F7F773D1F3997524F99726CC7E1D5167 /* SRShortcutController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutController.m; path = Library/SRShortcutController.m; sourceTree = "<group>"; };
-		FAEBC5E563515C0E3492AC3A8FC45027 /* SUVersionDisplayProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionDisplayProtocol.h; path = Sparkle.framework/Versions/A/Headers/SUVersionDisplayProtocol.h; sourceTree = "<group>"; };
-		FC5BA45A6C9FBBA699984BFABFC1A757 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pl.lproj; sourceTree = "<group>"; };
-		FE5F2E341F4B1A7A3DD7D527A8A20DE3 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = fr.lproj; sourceTree = "<group>"; };
-		FF9A0A0A21DDCC4AFA3A90120AC320FF /* LetsMove-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LetsMove-umbrella.h"; sourceTree = "<group>"; };
-		FFD874FE3E70CB05E89DB36006ABE5B6 /* SRRecorderControlStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControlStyle.m; path = Library/SRRecorderControlStyle.m; sourceTree = "<group>"; };
+		F694A0EB56716B4A0C509AC2185C2B3E /* SwiftyMarkdown-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyMarkdown-dummy.m"; sourceTree = "<group>"; };
+		FC7312D66138C39E6EA88A01C121DACA /* Sparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,19 +375,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2BD756C72D9B0D509D590033131CF40E /* SwiftyMarkdown */ = {
+		0DC997BC98DFCACC5F1DEED56B4A81BB /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				5174542E59830EBA921C0D1E951A5D91 /* String+SwiftyMarkdown.swift */,
-				0704A3ABF80F6436F529676F6F2217D5 /* SwiftyLineProcessor.swift */,
-				18F0B8E8888623807BBDAD853B9755CB /* SwiftyMarkdown.swift */,
-				4CA2576A7BF303C7CE8DC3CC4587F1C5 /* SwiftyMarkdown+iOS.swift */,
-				1C919961493945B55BECE4FD66599A0A /* SwiftyMarkdown+macOS.swift */,
-				34A159A01BDD8B280ECB522C6FF23F3D /* SwiftyTokeniser.swift */,
-				D580BDE895B113C23831B91999702612 /* Support Files */,
+				A01B99E47310DD17DD571C6ADC7A2063 /* ShortcutRecorder.modulemap */,
+				389D17F51E74ECE6DD3DD97BB7BFC5EC /* ShortcutRecorder-dummy.m */,
+				38879F3D4B5660107B31D0C1897CFCC2 /* ShortcutRecorder-Info.plist */,
+				552F72C385AC286419406DC92B203A9B /* ShortcutRecorder-prefix.pch */,
+				6DD1EDE447D15CF5739FA2D077648FC9 /* ShortcutRecorder-umbrella.h */,
+				5C2151969666D5447B77FC0B6C7DBAB2 /* ShortcutRecorder.debug.xcconfig */,
+				73FB426CEB2A10C50A4DEEED7CB5BFFC /* ShortcutRecorder.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ShortcutRecorder";
+			sourceTree = "<group>";
+		};
+		20D3A9A6299951B9F9BD2FDC8F9DC0BB /* SwiftyMarkdown */ = {
+			isa = PBXGroup;
+			children = (
+				A3CF45DBF333E311734EDC683223961D /* String+SwiftyMarkdown.swift */,
+				1F136ABB8AEC278F9838A207E7CA20B1 /* SwiftyLineProcessor.swift */,
+				7D16DE36F2395A1FD9867B13883D0968 /* SwiftyMarkdown.swift */,
+				D66B2E269BB4DE600FF5BD4EE9C0AA41 /* SwiftyMarkdown+iOS.swift */,
+				B7C13E18AAFD27EA81E698E02DA73A66 /* SwiftyMarkdown+macOS.swift */,
+				2F88F8E80B146D48943BB77C74278C42 /* SwiftyTokeniser.swift */,
+				FF4E89F0FE64B38E2EBAF440B62A23AD /* Support Files */,
 			);
 			name = SwiftyMarkdown;
 			path = SwiftyMarkdown;
+			sourceTree = "<group>";
+		};
+		2A1499091426F9BEC5523474F9EAE764 /* Sparkle */ = {
+			isa = PBXGroup;
+			children = (
+				57A95C4E1753FF848CA0FF201FF1645D /* Sparkle.h */,
+				8EDBDD9B567FFC2665AAB4ACD89E9378 /* SPUDownloadData.h */,
+				1DB0C0E3A1C3091DC0FFBA070D92245D /* SPUDownloader.h */,
+				115FD2032F5112342281368206C32500 /* SPUDownloaderDelegate.h */,
+				CD15970D076904394254DEFDAB0A55ED /* SPUDownloaderDeprecated.h */,
+				38A562291179B45B7433BCBF01C4797D /* SPUDownloaderProtocol.h */,
+				599999469ADC4AF62F32805A35319209 /* SPUDownloaderSession.h */,
+				1F2980045E298C0F09548BED9F200223 /* SPUURLRequest.h */,
+				488C43320C54DFB64D0019FAE2FF4C62 /* SUAppcast.h */,
+				14436BE32E82DF766B28D678DC76D1C7 /* SUAppcastItem.h */,
+				896820E4978C3E39B3BC8C8B74633576 /* SUCodeSigningVerifier.h */,
+				EE29A476F28A4EE6B4054A23051429CF /* SUErrors.h */,
+				0C5A519EA7A7545CE1AF9360B4DC4370 /* SUExport.h */,
+				1FCD1042D51D3FD6F5D42BA414DAAD58 /* SUStandardVersionComparator.h */,
+				8739A8055945A33E7B30CD82A6A5AC5C /* SUUpdater.h */,
+				5E28B2887654BC73BC996A11B383ECC0 /* SUUpdaterDelegate.h */,
+				78F8A65ECC4BBD605AE95236F130001F /* SUVersionComparisonProtocol.h */,
+				EDA7B4ABC3A1525403D81D56011116BA /* SUVersionDisplayProtocol.h */,
+				3B5964AA4B356D0A5A2058CE1074E31C /* Frameworks */,
+				96DF020FBE7D647E9206C0409482FE61 /* Support Files */,
+			);
+			name = Sparkle;
+			path = Sparkle;
 			sourceTree = "<group>";
 		};
 		2EB46ECB1DE5DA922D89BFA28A0D5B63 /* OS X */ = {
@@ -394,120 +442,24 @@
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		3D413068627A48AB18D4095CA4ADA083 /* Pods */ = {
+		3B5964AA4B356D0A5A2058CE1074E31C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8407B94374E78BD31AF014B7039CC4F4 /* LetsMove */,
-				9774B880EB6E27992D165E06AAE1497C /* Preferences */,
-				4F70EC0DB0B96EECA43C8C84F72539DF /* ShortcutRecorder */,
-				45E59FC16A7CBE5B8339A6492900114C /* Sparkle */,
-				2BD756C72D9B0D509D590033131CF40E /* SwiftyMarkdown */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		45E59FC16A7CBE5B8339A6492900114C /* Sparkle */ = {
-			isa = PBXGroup;
-			children = (
-				784D3F8B04471E284443090EC116BF03 /* Sparkle.h */,
-				1BFA8B14B20C3D7D94E64F5DE401CB66 /* SPUDownloadData.h */,
-				3EE7BE8296F8F1DD4B78D7EFD8E06AC9 /* SPUDownloader.h */,
-				8F3EEB933F84E12A002FCA8457204FDE /* SPUDownloaderDelegate.h */,
-				9C0423AA4CC91C89B2D1EF86AAA96B02 /* SPUDownloaderDeprecated.h */,
-				3782F4D91B5E0DB4CB6B39D540507B2C /* SPUDownloaderProtocol.h */,
-				CA75E61EB604BE2D37E3826A30F208E4 /* SPUDownloaderSession.h */,
-				EF1BFC8D99693513C8A588448BCAADEA /* SPUURLRequest.h */,
-				D7ECF50F2FED8B4FD727FB1540864557 /* SUAppcast.h */,
-				6E72F99D90FEA8E073C2172089F909FC /* SUAppcastItem.h */,
-				EB8029A60BE95716487F7BAB9F95360A /* SUCodeSigningVerifier.h */,
-				2EAAB08E7669491796060CFCF1FFE3FA /* SUErrors.h */,
-				072B552F8E45A925A2E95658F7E4F627 /* SUExport.h */,
-				91945B1138877008F67E0EEB8E16E0FF /* SUStandardVersionComparator.h */,
-				A21DAE2FDC65148BD3114EBFCC05B45D /* SUUpdater.h */,
-				DDB3CD17D7AC437767BD7AECBE3CFE14 /* SUUpdaterDelegate.h */,
-				143D5329B1A883015EAE365A0CE83DA9 /* SUVersionComparisonProtocol.h */,
-				FAEBC5E563515C0E3492AC3A8FC45027 /* SUVersionDisplayProtocol.h */,
-				4F4B930CA6826078739722D1BCF05C73 /* Frameworks */,
-				ACEB3B98FC04CCCCCFD12465A970673C /* Support Files */,
-			);
-			name = Sparkle;
-			path = Sparkle;
-			sourceTree = "<group>";
-		};
-		48B4860C2F2C4CB44803A0E6CFE42090 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				166D6FB731BB8214DE5D12D76C1C1C0A /* ca.lproj */,
-				827E3F04288A7533E8E5C301E1EED03E /* cs.lproj */,
-				8BC4632B803E07359D2747C7621B2922 /* da.lproj */,
-				751797BA5682F7269AE1FEFD677FF3F5 /* de.lproj */,
-				5D162CBDB8DD74277FA841E0887110F5 /* en.lproj */,
-				7DB389FEDC7E252D546446CB2B4956BB /* es.lproj */,
-				FE5F2E341F4B1A7A3DD7D527A8A20DE3 /* fr.lproj */,
-				628B80D0C8117A78539F80CF0E90C523 /* hu.lproj */,
-				10AD724F607E1B0612F0E020F077D88F /* it.lproj */,
-				3DD63CA0041302C4984CB2CB1B7F13E6 /* ja.lproj */,
-				31842B9B9A10A14AE0D0B44C51A64441 /* ko.lproj */,
-				2CE681AE0F445CDE7E9EADDCCF6605CC /* mk.lproj */,
-				00D23913154B508B229E68C0DC85D023 /* nb.lproj */,
-				0B92E2C417D7B5D7542EFC97CE26A723 /* nl.lproj */,
-				FC5BA45A6C9FBBA699984BFABFC1A757 /* pl.lproj */,
-				0C7C57034F35BF813FE4E5CB9B5006A6 /* pt.lproj */,
-				9448A03DCAF3D1284A2BFB9B798B59BF /* pt_BR.lproj */,
-				7CFD870BECFF3A3FE2DBC209562D20BF /* ru.lproj */,
-				BDA54B2830902A24BE8A412D01904AB9 /* sk.lproj */,
-				C08CF7FDCA66093E6C06AE84FB57E953 /* sr.lproj */,
-				8578AB75355BCE249216336705B6179F /* sv.lproj */,
-				B3C285935150E595C529F369FD011458 /* tr.lproj */,
-				5E6E43EC03A1B0AAF2B6EE1A09C0ACF5 /* zh_CN.lproj */,
-				3E95B6D540DEACB3DB613AFDB4ABB469 /* zh_TW.lproj */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		4F4B930CA6826078739722D1BCF05C73 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				794F2B468C2842CB49040576AE647CD8 /* Sparkle.framework */,
+				35CCDCDDE22CA0027C314DB6DA58315E /* Sparkle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4F70EC0DB0B96EECA43C8C84F72539DF /* ShortcutRecorder */ = {
+		3D413068627A48AB18D4095CA4ADA083 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6C8199E3F58B79962827F94562A8C521 /* ShortcutRecorder.h */,
-				36169D8A093458EE2DF0514E5BD67E11 /* SRCommon.h */,
-				ADABE55FE10FB27A04A51978C90D8D59 /* SRCommon.m */,
-				9F7E3754CF25EA3BB123606EE9C3EDFF /* SRKeyBindingTransformer.h */,
-				3C1D63F9E324584A1D035D46290398D1 /* SRKeyBindingTransformer.m */,
-				53B764B1D163251491DEB668C1345C5F /* SRKeyCodeTransformer.h */,
-				ACA3B3944B73BFE543DDD4F088B30F6A /* SRKeyCodeTransformer.m */,
-				6C59CFEE9E85847680861C6DF5832C6A /* SRKeyEquivalentModifierMaskTransformer.h */,
-				DB093D3B1BCACB6C25624871CAA6DBAF /* SRKeyEquivalentModifierMaskTransformer.m */,
-				AC1A49E990F1702453517AA17CC7D7DD /* SRKeyEquivalentTransformer.h */,
-				3F23F7707F44FDF886CBA11C85356D31 /* SRKeyEquivalentTransformer.m */,
-				6E6BCD809C73A3B2E3D5FA194F20DD08 /* SRModifierFlagsTransformer.h */,
-				AC9FAA36B2A99019D5B506FB8DCCF33F /* SRModifierFlagsTransformer.m */,
-				CB8C856BBCC944F6074846A651F44C93 /* SRRecorderControl.h */,
-				E27136292CDD9462D04079D8A32C8B1C /* SRRecorderControl.m */,
-				5A019E94EFD55CCE292EF39F72D17480 /* SRRecorderControlStyle.h */,
-				FFD874FE3E70CB05E89DB36006ABE5B6 /* SRRecorderControlStyle.m */,
-				8998195154BF85E85B658E83EAE5D698 /* SRShortcut.h */,
-				43B2D62676CF7AE4A0493FFFE8354B32 /* SRShortcut.m */,
-				B8C2AF3155E2D09772EC40D404A99E0A /* SRShortcutAction.h */,
-				AF67CB98E36BAA421BBFB78BD45FC5E0 /* SRShortcutAction.m */,
-				48C4294FCEC70A2CBA5E654AE21BFD7E /* SRShortcutController.h */,
-				F7F773D1F3997524F99726CC7E1D5167 /* SRShortcutController.m */,
-				AD80291A1CF55B47C8B22C6AA24A9F7B /* SRShortcutFormatter.h */,
-				74F28CA3C4FE5C2D876CFF3A3A923C57 /* SRShortcutFormatter.m */,
-				B303F9EB4C04201D6E2491AD131B784F /* SRShortcutValidator.h */,
-				9D5C664786E6470DEB70F4A51D014244 /* SRShortcutValidator.m */,
-				EC68F84F1724180BF4C175440A07B00A /* Resources */,
-				BA4CC5E65AAA54DF760B7B705FD22278 /* Support Files */,
+				6511EF3AEF6305AAE3786476699B77F9 /* LetsMove */,
+				E6083E90BD3A55613ACFDD24D9ED3E7C /* Preferences */,
+				DF4D8FA588C2C48F1741E22C3FD0884E /* ShortcutRecorder */,
+				2A1499091426F9BEC5523474F9EAE764 /* Sparkle */,
+				20D3A9A6299951B9F9BD2FDC8F9DC0BB /* SwiftyMarkdown */,
 			);
-			name = ShortcutRecorder;
-			path = ShortcutRecorder;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		503AF4784BE6FBC45BFA4E106E5AEDDB /* Pods-alt-tab-macos */ = {
@@ -527,36 +479,87 @@
 			path = "Target Support Files/Pods-alt-tab-macos";
 			sourceTree = "<group>";
 		};
-		8407B94374E78BD31AF014B7039CC4F4 /* LetsMove */ = {
+		57731032497F7E1427E006A237511671 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				801141C1F5947049AF51607B5AFC908D /* LetsMove.h */,
-				0992F0DD83BCD2FBEF6F0290B702B95D /* PFMoveApplication.h */,
-				35A2B91204FBCDBB21B444C04957213F /* PFMoveApplication.m */,
-				48B4860C2F2C4CB44803A0E6CFE42090 /* Resources */,
-				C0FC417FD2DDBF5A1DE2E21EFEC1C821 /* Support Files */,
+				8C2A36A34EAD27EDE998993AA2C3C889 /* Preferences.modulemap */,
+				4BEECA2C7DA4B21D9E8EDAC9D1A93589 /* Preferences-dummy.m */,
+				9FB04F8E6EA6C9AA881502D663521947 /* Preferences-Info.plist */,
+				81E9C71410FB0E4B648381EFD4A3519B /* Preferences-prefix.pch */,
+				E0C73A36C8B4A5AF2B6DF35A63C89387 /* Preferences-umbrella.h */,
+				1A933110C77603F7C964996B2DC21C6C /* Preferences.debug.xcconfig */,
+				586BCAA7BF1939389EDB6D6642E2425A /* Preferences.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Preferences";
+			sourceTree = "<group>";
+		};
+		6511EF3AEF6305AAE3786476699B77F9 /* LetsMove */ = {
+			isa = PBXGroup;
+			children = (
+				0DCA1A0D659A7387F595FB5B43D5372C /* LetsMove.h */,
+				1F2F3145B49D9DB3BAE51E8B7A3930F8 /* PFMoveApplication.h */,
+				AEE608F7ACB94C5F356E15148F080C37 /* PFMoveApplication.m */,
+				BF5C94BCBF352F5B460319743E9B48BF /* Resources */,
+				8DEF9CEFC117FE96F34E637A46E6BDA9 /* Support Files */,
 			);
 			name = LetsMove;
 			path = LetsMove;
 			sourceTree = "<group>";
 		};
-		9774B880EB6E27992D165E06AAE1497C /* Preferences */ = {
+		6EF7F694FBE8782E4A833CA26B5104BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				64A65EDE98A850ED8057D534781EEE79 /* Localization.swift */,
-				444ADAB0FCDB9ECA5C3C4109AAF742E9 /* PreferencePane.swift */,
-				4E5249FE5FAAB3F3BCA6F319C12C1FC9 /* PreferencesStyle.swift */,
-				D3208A1BCE6D319D4BB89BE9B14611B1 /* PreferencesStyleController.swift */,
-				61F3FFC7A4247ED25BC2D12B8CEE0739 /* PreferencesTabViewController.swift */,
-				76467E05840B7BF96518ABEB35E9F142 /* PreferencesWindowController.swift */,
-				8604B70FE3F580C37B5D63CA84020C06 /* SegmentedControlStyleViewController.swift */,
-				0E77A210CA38E60376CF111256D84E3C /* ToolbarItemStyleViewController.swift */,
-				869BA5C767F344FF675153253B338AA8 /* UserInteractionPausableWindow.swift */,
-				6548E1AAF865B23F73B8B9C8AD59E02E /* util.swift */,
-				E36730948D3D0E6135E951ADF114BB5D /* Support Files */,
+				F2B661DB781A79D318F3CC07F5435C8F /* ca.lproj */,
+				692F0B76CE2E434B3CAC9AD45BF2F741 /* cs.lproj */,
+				DD6AFCD8B457CF70372B8514509C413F /* de.lproj */,
+				5D1F88302E4058298C4246BA8CBEB80C /* el.lproj */,
+				56FA438195E701402987ADE7D32DBC3B /* en.lproj */,
+				D2033B6F8F980197C76D40AAB302B91C /* es.lproj */,
+				646BB82EA40B8DF1A4AAE13B681E58B5 /* fr.lproj */,
+				3DC3E8BA77B5B3168B3187E687E43A47 /* Images.xcassets */,
+				346A5D15DC41603659A7D13CE2B4D51C /* it.lproj */,
+				33F831F9EB850C9E4D970D22A9DE5F58 /* ja.lproj */,
+				E624C4D4700EB7DE413A83FBB83B005E /* ko.lproj */,
+				EE79D0583628F279ADD796C9A83BE80E /* nb.lproj */,
+				E2209A3A1C69B3211F9C75C6913872FF /* nl.lproj */,
+				276F9532825685CAED56EFAB4A9536A9 /* pl.lproj */,
+				A26EF044A853930BC884BE7CA27C0709 /* pt.lproj */,
+				0551EABC34245F5F70AC78BDFFCF8896 /* pt-BR.lproj */,
+				E3DE9B5897A7E9369DB09018EA1D199F /* ro.lproj */,
+				C53D764C43A51376171AD41E99B8ABE2 /* ru.lproj */,
+				66E66FA2D985FDA3D5737872F7011F2A /* sk.lproj */,
+				C047F1BCAEC597694D74B4F85EB9DB77 /* sv.lproj */,
+				D5683EEA745922A2D28A0305E506B8E7 /* th.lproj */,
+				81766405980DCB967785BDDE23361C33 /* zh-Hans.lproj */,
+				DDCD54AC8BC1D62563C3CB60675A4D26 /* zh-Hant.lproj */,
 			);
-			name = Preferences;
-			path = Preferences;
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		8DEF9CEFC117FE96F34E637A46E6BDA9 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				28859F748A541603AB300DBDFA62E87D /* LetsMove.modulemap */,
+				CFCC52DA333A8C35C6991FC1CD3DF26E /* LetsMove-dummy.m */,
+				A5E9F532A3241F5331E6FB45BE8AC4C4 /* LetsMove-Info.plist */,
+				D6BB26D071E36D7F9011C63F8E3B2863 /* LetsMove-prefix.pch */,
+				AB76A00742E47BBCE180CAF5EE223ECF /* LetsMove-umbrella.h */,
+				87FA1323D56196D4BF155B200B6E30D6 /* LetsMove.debug.xcconfig */,
+				3DF0840EA08DD59E1A3E6702B6C2CC2A /* LetsMove.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/LetsMove";
+			sourceTree = "<group>";
+		};
+		96DF020FBE7D647E9206C0409482FE61 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FC7312D66138C39E6EA88A01C121DACA /* Sparkle.debug.xcconfig */,
+				8F914EB1CB4B6EEF6D0B48B2405E9039 /* Sparkle.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Sparkle";
 			sourceTree = "<group>";
 		};
 		9DBFCB119023E7E7CD9166825D639F68 /* Targets Support Files */ = {
@@ -567,27 +570,35 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		ACEB3B98FC04CCCCCFD12465A970673C /* Support Files */ = {
+		BF5C94BCBF352F5B460319743E9B48BF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B87DE9E2D4594D5AED0F279E2E1E04BE /* Sparkle.xcconfig */,
+				3C1345C5BF8561E71A2D26F0C2A1CDFC /* ca.lproj */,
+				E0FB4CDE9491FC1C156B7325AE1D8857 /* cs.lproj */,
+				70A6FDD9C55154B728466D71B09FA6C8 /* da.lproj */,
+				D3F6CAE71B6E9F84B78E07936CBB97C1 /* de.lproj */,
+				148BB5019759347EBD8283EB7841FF50 /* en.lproj */,
+				1D50037F82D3616F05DDF23C7C4DEF25 /* es.lproj */,
+				DF048614E5FA4445186715688D540199 /* fr.lproj */,
+				BA2813DF3B2085938C375DF45DBDDBEF /* hu.lproj */,
+				8A1476336B2A08A494AF955FC91C66CA /* it.lproj */,
+				324A18FF751B7B1DDB4E6C657BEB37C6 /* ja.lproj */,
+				EC118EC31AD795CC3304602F21EF2540 /* ko.lproj */,
+				09622939675F4EE31BBE83E19E72DEEB /* mk.lproj */,
+				6A9B406A74D0B3CDED2DACA57648AD7D /* nb.lproj */,
+				B21676942A82066A5F890982D52AF601 /* nl.lproj */,
+				0F3CEF0AA17857166E37EA9AF4E1434D /* pl.lproj */,
+				ABAFF6389D638175EE468A4B6BCF3602 /* pt.lproj */,
+				C9C45730F9EB9F5D8FA6191C6BE61F9B /* pt_BR.lproj */,
+				31FAB4EB6BCFE1750B9DDCCF85C3295D /* ru.lproj */,
+				CEFC61EA791D4A6418CCFBE1787D6659 /* sk.lproj */,
+				A57748384CD9843F2EB228A401DE5944 /* sr.lproj */,
+				BD8644D140BA89A0A856EC194645F193 /* sv.lproj */,
+				39E244726490309AE7A83515492E543F /* tr.lproj */,
+				4F78EA3AC4DCBE64892D0152597D1020 /* zh_CN.lproj */,
+				60EF6FF60A94EF54E652E091F59466F8 /* zh_TW.lproj */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/Sparkle";
-			sourceTree = "<group>";
-		};
-		BA4CC5E65AAA54DF760B7B705FD22278 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				D7F02C9B5E488EDA089CA02FBF18D654 /* ShortcutRecorder.modulemap */,
-				C5A448BD49DA498CBD3468D9DC623365 /* ShortcutRecorder.xcconfig */,
-				CADAB0C5E752514F6B85E8694388EB34 /* ShortcutRecorder-dummy.m */,
-				09DC8C622716BC9C53FD550F75AC3478 /* ShortcutRecorder-Info.plist */,
-				BF48E7CA04FFF994CA345AE2586BCF0D /* ShortcutRecorder-prefix.pch */,
-				BA5C523C47B4DAB0004879609281F4EA /* ShortcutRecorder-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/ShortcutRecorder";
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		C080C886C9E2F80D52E3E86A62E5B711 /* Frameworks */ = {
@@ -596,20 +607,6 @@
 				2EB46ECB1DE5DA922D89BFA28A0D5B63 /* OS X */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C0FC417FD2DDBF5A1DE2E21EFEC1C821 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				8623024363EAA128121A7D3F0A85E7E7 /* LetsMove.modulemap */,
-				96AE1D2FC622F5454E364012D50AC6D1 /* LetsMove.xcconfig */,
-				10DCE46AEF9A44B653C5B048308A336E /* LetsMove-dummy.m */,
-				EE847A39ED67949A4F07273F81368A11 /* LetsMove-Info.plist */,
-				5A7876AA0AD5A31ED3C8D55D382E93FF /* LetsMove-prefix.pch */,
-				FF9A0A0A21DDCC4AFA3A90120AC320FF /* LetsMove-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/LetsMove";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -623,62 +620,60 @@
 			);
 			sourceTree = "<group>";
 		};
-		D580BDE895B113C23831B91999702612 /* Support Files */ = {
+		DF4D8FA588C2C48F1741E22C3FD0884E /* ShortcutRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				02EEA6D2DA55BCA98D3409BEB7DC4B9A /* SwiftyMarkdown.modulemap */,
-				38C99D4B7264224A4D591DB9E1B39EFA /* SwiftyMarkdown.xcconfig */,
-				B10EDAF895A51F39A496EF43F14C62F2 /* SwiftyMarkdown-dummy.m */,
-				2B91042170A40AEA362BF8B13A0EF35D /* SwiftyMarkdown-Info.plist */,
-				46BF7D77BE8A515533CFCEBC86600AE7 /* SwiftyMarkdown-prefix.pch */,
-				519B08C74D4A04DB8D4914C7FABA0206 /* SwiftyMarkdown-umbrella.h */,
+				873F3E775BAC8098A237A45C06412D91 /* ShortcutRecorder.h */,
+				0E0A1823A158947EDEAD09D136889AB2 /* SRCommon.h */,
+				7478E0A2FD299724C1ACF90FF3696EB8 /* SRCommon.m */,
+				D5556CA390CFFD665D6FF530DA0D91B7 /* SRKeyBindingTransformer.h */,
+				30C88EEDE19AB759F200A3B1A738E8C5 /* SRKeyBindingTransformer.m */,
+				4C25347426FB8281EC7C10000B645110 /* SRKeyCodeTransformer.h */,
+				0392E1D982316B122CA0B2D4E9B96C31 /* SRKeyCodeTransformer.m */,
+				BAE7A8E29FBC46A9DC0414F3FA56900F /* SRKeyEquivalentModifierMaskTransformer.h */,
+				80849E177BE72C32FDABBD20A67CFBD4 /* SRKeyEquivalentModifierMaskTransformer.m */,
+				E3FC5D75A84499105F55009A04A10DD7 /* SRKeyEquivalentTransformer.h */,
+				50A0AF0D11EA81595B52AC846BAADCDA /* SRKeyEquivalentTransformer.m */,
+				5413F1AC1964915DDD1D77E76CDC8A5A /* SRModifierFlagsTransformer.h */,
+				95829DA5F921A137F1F6E2628BA30082 /* SRModifierFlagsTransformer.m */,
+				B6A13407B53E94994BC9C320535D29A3 /* SRRecorderControl.h */,
+				972CC2B8C0757D32A4E04B11EC5E843B /* SRRecorderControl.m */,
+				928AFF417E86B199D2E9B007ACAAB4E7 /* SRRecorderControlStyle.h */,
+				70E800F0EC8C3C4121F7AD5C9410EFE5 /* SRRecorderControlStyle.m */,
+				C130A2E80C95B66B87A0B7AE22A295F2 /* SRShortcut.h */,
+				9315798BAC6D65C43AF979A33F184D6B /* SRShortcut.m */,
+				CEC77DC6041965487A3D514C234927D2 /* SRShortcutAction.h */,
+				5C702E5C682552F77DB84CEF052DAFA4 /* SRShortcutAction.m */,
+				DA8BCD816EFD85C046AE89262528583B /* SRShortcutController.h */,
+				9037168CA94D092844678390BF36F285 /* SRShortcutController.m */,
+				3E52FE8EE16AB23687F2DDB5B82CF57E /* SRShortcutFormatter.h */,
+				ECBC7817C024B1CF45EBFDF10B46BDDB /* SRShortcutFormatter.m */,
+				662E5FFCDBDE2567B26349BCE7AE0426 /* SRShortcutValidator.h */,
+				2C36ABB90A94BE79B663593081366292 /* SRShortcutValidator.m */,
+				6EF7F694FBE8782E4A833CA26B5104BE /* Resources */,
+				0DC997BC98DFCACC5F1DEED56B4A81BB /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/SwiftyMarkdown";
+			name = ShortcutRecorder;
+			path = ShortcutRecorder;
 			sourceTree = "<group>";
 		};
-		E36730948D3D0E6135E951ADF114BB5D /* Support Files */ = {
+		E6083E90BD3A55613ACFDD24D9ED3E7C /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				601FB02E433AC5F3E457F0C4DF59DE2D /* Preferences.modulemap */,
-				2064F733808F394EBDEC94859ADC7942 /* Preferences.xcconfig */,
-				7A877F48966E304A1C7C9B466485DA07 /* Preferences-dummy.m */,
-				8CC2052240165CC2044886A13C8101BD /* Preferences-Info.plist */,
-				9E91E53C4E0050838C35A463180CF371 /* Preferences-prefix.pch */,
-				8B0DD315CFCB9200B23D607CD0C1BA74 /* Preferences-umbrella.h */,
+				55F0B03D26498F9C489E7B11F301D844 /* Localization.swift */,
+				D10556F1A37F2213EF692DEF40887397 /* PreferencePane.swift */,
+				0BF349E8E070A81986C2D8DB5FB9BF3F /* PreferencesStyle.swift */,
+				8438DB082182E152B16A702D9BEB815F /* PreferencesStyleController.swift */,
+				4CF6C4472F2059963947D0EF3897F901 /* PreferencesTabViewController.swift */,
+				0F37624E4A3C1F285523C7F618E51B07 /* PreferencesWindowController.swift */,
+				6B0A57CA6E83EF929BA22189DC6023E0 /* SegmentedControlStyleViewController.swift */,
+				AD9C32777111FCAC14F8E11E1CA40BBB /* ToolbarItemStyleViewController.swift */,
+				5FF2FDF50A2FD567398771682B97B897 /* UserInteractionPausableWindow.swift */,
+				B8147D026D72FE164E16D4AE2AFD6808 /* util.swift */,
+				57731032497F7E1427E006A237511671 /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/Preferences";
-			sourceTree = "<group>";
-		};
-		EC68F84F1724180BF4C175440A07B00A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				89931AB2F73400E72FE76BCDE67A0C0F /* ca.lproj */,
-				A9E4272AECEA32C33892EC1A61C50C9B /* cs.lproj */,
-				828D6BB67CADCF9266206F9CD62DB6C5 /* de.lproj */,
-				27C335FF82229436D83FB19AB908B202 /* el.lproj */,
-				F5765840369A54F43B724FB43E450153 /* en.lproj */,
-				AC4ACDB3D57157050648A35A12A5DACF /* es.lproj */,
-				0BD051DE0442DEC1A22165CFF80DAA0C /* fr.lproj */,
-				B6F2AE15CBB4D5127BF93331F81F35A8 /* Images.xcassets */,
-				E5DFE8FCD65AB2B989BE8875D8360439 /* it.lproj */,
-				A3AA2B4DEE93CDB3EAC57DB1EB87DD87 /* ja.lproj */,
-				684A28FAFA9D647F0C83A2B151B67571 /* ko.lproj */,
-				E59C852BE76020CBE85FA85C4112FDC5 /* nb.lproj */,
-				825B204325CF537C059197EFB82AF29F /* nl.lproj */,
-				CF529565FEA00939B742172B055EA420 /* pl.lproj */,
-				C9E93B38D4558A2441E981345F5D320E /* pt.lproj */,
-				6548854AA34476D65BFF6988D6B3CA45 /* pt-BR.lproj */,
-				90C10755E2EC1B412BCA86815AAB825E /* ro.lproj */,
-				06514DF3A3964A6A152FB3FE01446D31 /* ru.lproj */,
-				3FD96474E9511064B8B779AE58365197 /* sk.lproj */,
-				8E54AAD2F7D2639056B14B0A9AC4C212 /* sv.lproj */,
-				1185469F060B46DDEA14FDF84D2E7217 /* th.lproj */,
-				2FA9EEA7CD8B3F3B6ABAC5A94CA3DB84 /* zh-Hans.lproj */,
-				210D537B9083AA8F9B35C884EBA3776E /* zh-Hant.lproj */,
-			);
-			name = Resources;
+			name = Preferences;
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		EDEDF24500585E4F1B77CF8A2C244FFC /* Products */ = {
@@ -691,6 +686,21 @@
 				AC17564D0F58DCA6B3280EDA07C2876D /* SwiftyMarkdown.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FF4E89F0FE64B38E2EBAF440B62A23AD /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7264B6FA7F58F1EA59E465DC88C250D3 /* SwiftyMarkdown.modulemap */,
+				F694A0EB56716B4A0C509AC2185C2B3E /* SwiftyMarkdown-dummy.m */,
+				818C7832AF2DA5EB83EE78D7ECEBEE14 /* SwiftyMarkdown-Info.plist */,
+				E16BF5B2E49479661FA6BF65652747D2 /* SwiftyMarkdown-prefix.pch */,
+				724F9C6739A2F8BA2CAF538B928201E0 /* SwiftyMarkdown-umbrella.h */,
+				3C232D47ECC282432B8AA9D362AE8C0D /* SwiftyMarkdown.debug.xcconfig */,
+				6A62C708622A3ECB9ED597AD909FA362 /* SwiftyMarkdown.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftyMarkdown";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1074,17 +1084,37 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		21221507EB6C5017FA40BD87C8A5AE87 /* Release */ = {
+		29CAFAC9EC1DA31DE9DA8ABDDFEE994F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B87DE9E2D4594D5AED0F279E2E1E04BE /* Sparkle.xcconfig */;
+			baseConfigurationReference = 586BCAA7BF1939389EDB6D6642E2425A /* Preferences.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/Preferences/Preferences-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Preferences/Preferences-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULEMAP_FILE = "Target Support Files/Preferences/Preferences.modulemap";
+				PRODUCT_MODULE_NAME = Preferences;
+				PRODUCT_NAME = Preferences;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1148,9 +1178,9 @@
 			};
 			name = Release;
 		};
-		4C8C98F3FABB6305FD2389B5C39786DE /* Debug */ = {
+		2FB74A4BA0770AE8C044760AD3F72E89 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5A448BD49DA498CBD3468D9DC623365 /* ShortcutRecorder.xcconfig */;
+			baseConfigurationReference = 1A933110C77603F7C964996B2DC21C6C /* Preferences.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1165,26 +1195,26 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/ShortcutRecorder/ShortcutRecorder-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/Preferences/Preferences-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Preferences/Preferences-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder.modulemap";
-				PRODUCT_MODULE_NAME = ShortcutRecorder;
-				PRODUCT_NAME = ShortcutRecorder;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULEMAP_FILE = "Target Support Files/Preferences/Preferences.modulemap";
+				PRODUCT_MODULE_NAME = Preferences;
+				PRODUCT_NAME = Preferences;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		5AFD67EFA6B3F27B4F0B0F8027C335F7 /* Debug */ = {
+		53119FED25D50CAD8C89D980B8FCB179 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B87DE9E2D4594D5AED0F279E2E1E04BE /* Sparkle.xcconfig */;
+			baseConfigurationReference = 8F914EB1CB4B6EEF6D0B48B2405E9039 /* Sparkle.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1194,11 +1224,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
-			name = Debug;
+			name = Release;
 		};
-		5EA179CF75E055BA31CD9D5C7054FB61 /* Debug */ = {
+		59999EBC3E317FC5DE17F29E37C4F95E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 96AE1D2FC622F5454E364012D50AC6D1 /* LetsMove.xcconfig */;
+			baseConfigurationReference = 3DF0840EA08DD59E1A3E6702B6C2CC2A /* LetsMove.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1221,40 +1251,6 @@
 				MODULEMAP_FILE = "Target Support Files/LetsMove/LetsMove.modulemap";
 				PRODUCT_MODULE_NAME = LetsMove;
 				PRODUCT_NAME = LetsMove;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		755EC154E288DE53F3F0855DF5C45D78 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 38C99D4B7264224A4D591DB9E1B39EFA /* SwiftyMarkdown.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown.modulemap";
-				PRODUCT_MODULE_NAME = SwiftyMarkdown;
-				PRODUCT_NAME = SwiftyMarkdown;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -1328,6 +1324,40 @@
 			};
 			name = Debug;
 		};
+		83AFD6423969CD41D7582445F70A1568 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87FA1323D56196D4BF155B200B6E30D6 /* LetsMove.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/LetsMove/LetsMove-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/LetsMove/LetsMove-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MODULEMAP_FILE = "Target Support Files/LetsMove/LetsMove.modulemap";
+				PRODUCT_MODULE_NAME = LetsMove;
+				PRODUCT_NAME = LetsMove;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		8987C8DF0738315BDEB2127909587175 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DCA0A6B74F3699962F44535ACC0B5945 /* Pods-alt-tab-macos.debug.xcconfig */;
@@ -1364,9 +1394,9 @@
 			};
 			name = Debug;
 		};
-		926C3006A1DAAD277D589644D06A7F87 /* Debug */ = {
+		A8142E01EDFD8D2A43D470D404D97B7A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2064F733808F394EBDEC94859ADC7942 /* Preferences.xcconfig */;
+			baseConfigurationReference = 73FB426CEB2A10C50A4DEEED7CB5BFFC /* ShortcutRecorder.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1381,48 +1411,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/Preferences/Preferences-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Preferences/Preferences-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/ShortcutRecorder/ShortcutRecorder-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULEMAP_FILE = "Target Support Files/Preferences/Preferences.modulemap";
-				PRODUCT_MODULE_NAME = Preferences;
-				PRODUCT_NAME = Preferences;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.1;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		AF406933D427D9AE231B34EC374A1567 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 96AE1D2FC622F5454E364012D50AC6D1 /* LetsMove.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/LetsMove/LetsMove-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/LetsMove/LetsMove-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULEMAP_FILE = "Target Support Files/LetsMove/LetsMove.modulemap";
-				PRODUCT_MODULE_NAME = LetsMove;
-				PRODUCT_NAME = LetsMove;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder.modulemap";
+				PRODUCT_MODULE_NAME = ShortcutRecorder;
+				PRODUCT_NAME = ShortcutRecorder;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -1432,9 +1428,23 @@
 			};
 			name = Release;
 		};
-		C37B3C291D7E54587A11A77A7F81C9D1 /* Debug */ = {
+		D24DE9D59732B3D89F58ACD78EB5F326 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 38C99D4B7264224A4D591DB9E1B39EFA /* SwiftyMarkdown.xcconfig */;
+			baseConfigurationReference = FC7312D66138C39E6EA88A01C121DACA /* Sparkle.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D76C4EC72B7AF1782357C7149D66D5C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C232D47ECC282432B8AA9D362AE8C0D /* SwiftyMarkdown.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1465,40 +1475,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		DE055EBC81701062F2B5E6FC492878D5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2064F733808F394EBDEC94859ADC7942 /* Preferences.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/Preferences/Preferences-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Preferences/Preferences-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULEMAP_FILE = "Target Support Files/Preferences/Preferences.modulemap";
-				PRODUCT_MODULE_NAME = Preferences;
-				PRODUCT_NAME = Preferences;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.1;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		E3A6532BF07F8C7997A4964E040F0640 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1536,9 +1512,43 @@
 			};
 			name = Release;
 		};
-		F2BAE854326B17179FB90D91F34728E5 /* Release */ = {
+		EF04CAF450752F3FC331757CB84767C4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5A448BD49DA498CBD3468D9DC623365 /* ShortcutRecorder.xcconfig */;
+			baseConfigurationReference = 6A62C708622A3ECB9ED597AD909FA362 /* SwiftyMarkdown.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown.modulemap";
+				PRODUCT_MODULE_NAME = SwiftyMarkdown;
+				PRODUCT_NAME = SwiftyMarkdown;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F1272D81B263A77EA098E6440A4649D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C2151969666D5447B77FC0B6C7DBAB2 /* ShortcutRecorder.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1568,7 +1578,7 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1576,8 +1586,8 @@
 		0B9D4AC818368EEDEEACE04B1DBF37C3 /* Build configuration list for PBXNativeTarget "SwiftyMarkdown" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C37B3C291D7E54587A11A77A7F81C9D1 /* Debug */,
-				755EC154E288DE53F3F0855DF5C45D78 /* Release */,
+				D76C4EC72B7AF1782357C7149D66D5C7 /* Debug */,
+				EF04CAF450752F3FC331757CB84767C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1585,8 +1595,8 @@
 		2C8D06A2289713323892B3638F08AC0B /* Build configuration list for PBXAggregateTarget "Sparkle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5AFD67EFA6B3F27B4F0B0F8027C335F7 /* Debug */,
-				21221507EB6C5017FA40BD87C8A5AE87 /* Release */,
+				D24DE9D59732B3D89F58ACD78EB5F326 /* Debug */,
+				53119FED25D50CAD8C89D980B8FCB179 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1603,8 +1613,8 @@
 		57CAAFD77F1F3EAC7729CE9781300459 /* Build configuration list for PBXNativeTarget "ShortcutRecorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4C8C98F3FABB6305FD2389B5C39786DE /* Debug */,
-				F2BAE854326B17179FB90D91F34728E5 /* Release */,
+				F1272D81B263A77EA098E6440A4649D4 /* Debug */,
+				A8142E01EDFD8D2A43D470D404D97B7A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1612,8 +1622,8 @@
 		5CF7AB5A2ED7F06B50D5358E0408B8B0 /* Build configuration list for PBXNativeTarget "Preferences" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				926C3006A1DAAD277D589644D06A7F87 /* Debug */,
-				DE055EBC81701062F2B5E6FC492878D5 /* Release */,
+				2FB74A4BA0770AE8C044760AD3F72E89 /* Debug */,
+				29CAFAC9EC1DA31DE9DA8ABDDFEE994F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1621,8 +1631,8 @@
 		5EBD6E1F33E4C77AD65B08369A6FD5D0 /* Build configuration list for PBXNativeTarget "LetsMove" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5EA179CF75E055BA31CD9D5C7054FB61 /* Debug */,
-				AF406933D427D9AE231B34EC374A1567 /* Release */,
+				83AFD6423969CD41D7582445F70A1568 /* Debug */,
+				59999EBC3E317FC5DE17F29E37C4F95E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
