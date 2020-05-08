@@ -1,3 +1,11 @@
+## [3.21.1](https://github.com/lwouis/alt-tab-macos/compare/v3.21.0...v3.21.1) (2020-05-08)
+
+
+### Bug Fixes
+
+* arrow keys shortcuts for right-to-left languages ([33b7094](https://github.com/lwouis/alt-tab-macos/commit/33b7094))
+* thumbnails layout issues (especially in right-to-left languages) ([f3cb544](https://github.com/lwouis/alt-tab-macos/commit/f3cb544))
+
 # [3.21.0](https://github.com/lwouis/alt-tab-macos/compare/v3.20.0...v3.21.0) (2020-05-07)
 
 

@@ -5,6 +5,26 @@
     <language>en</language>
 
     <item>
+      <title>Version 3.21.1</title>
+      <pubDate>Fri, 08 May 2020 11:23:08 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+<h2 id="3211-httpsgithubcomlwouisalt-tab-macoscomparev3210v3211-2020-05-08">3.21.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.21.0...v3.21.1">https://github.com/lwouis/alt-tab-macos/compare/v3.21.0...v3.21.1</a>) (2020-05-08)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<pre><code>* arrow keys shortcuts for right-to-left languages (33b7094 (https://github.com/lwouis/alt-tab-macos/commit/33b7094))
+* thumbnails layout issues (especially in right-to-left languages) (f3cb544 (https://github.com/lwouis/alt-tab-macos/commit/f3cb544))</code></pre>
+      ]]>
+      </description>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.21.1/AltTab-3.21.1.zip"
+        sparkle:version="3.21.1"
+        sparkle:shortVersionString="3.21.1"
+        sparkle:edSignature="7W+ez6lcX82ewGeWmtab8kpr864euYtDfc03F/oElPcoXGibWXanig5IdSqR1cIoueIUAOzpOMdIZm7jDwoPDQ==" length="6745071"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 3.21.0</title>
       <pubDate>Thu, 07 May 2020 20:23:02 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
