@@ -43,7 +43,7 @@ class ThumbnailsView: NSVisualEffectView {
         return Windows.list.enumerated().reversed()
     }
 
-    func updateItems(_ screen: NSScreen) {
+    func updateItemsAndLayout(_ screen: NSScreen) {
         let widthMax = ThumbnailsPanel.widthMax(screen).rounded()
         let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
         let height = ThumbnailView.height(screen).rounded(.down)
