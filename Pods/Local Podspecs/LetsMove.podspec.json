@@ -1,0 +1,25 @@
+{
+  "name": "LetsMove",
+  "version": "1.24",
+  "summary": "Moves a running Mac application to the /Applications directory.",
+  "homepage": "https://github.com/potionfactory/LetsMove/",
+  "license": "Public Domain",
+  "authors": {
+    "Andy Kim": "andy@potionfactory.com"
+  },
+  "platforms": {
+    "osx": "10.6"
+  },
+  "source": {
+    "git": "https://github.com/potionfactory/LetsMove.git",
+    "tag": "v1.24"
+  },
+  "source_files": "*.{h,m}",
+  "exclude_files": [
+    "main.m",
+    "LetsMoveAppDelegate.{h,m}"
+  ],
+  "public_header_files": "PFMoveApplication.h",
+  "resources": "*.lproj",
+  "requires_arc": false
+}
