@@ -93,6 +93,8 @@
 
 /* Begin PBXFileReference section */
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
+		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
+		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA015A45DE7AFDC9794FE /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		D04BA03200F5A8FC0CD03607 /* CGWindowID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindowID.swift; sourceTree = "<group>"; };
@@ -262,6 +264,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A638921971E99EC1D9EC383D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */,
+				59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D04BA07CB9DE3923A0D402D7 /* it.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +336,7 @@
 				D04BA18724DC58FA95DB33DB /* Podfile.lock */,
 				D04BAB8A94DA69A6B5008AE5 /* Pipfile */,
 				D04BA84F172AE89F210CA01D /* Pipfile.lock */,
+				A638921971E99EC1D9EC383D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
