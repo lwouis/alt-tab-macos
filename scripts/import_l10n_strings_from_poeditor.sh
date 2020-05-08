@@ -2,9 +2,8 @@
 
 set -exu
 
-fileDirectory="resources/l10n"
-readOnlyToken="8170d6b4f0531ffd7f52edea374a3689"
-projectId="316051"
+export readOnlyToken="8170d6b4f0531ffd7f52edea374a3689"
+export projectId="316051"
 
 function updateLanguageFile() {
   exportApiJson="$(curl -s -X POST https://api.poeditor.com/v2/projects/export \
@@ -14,7 +13,7 @@ function updateLanguageFile() {
     -d order="terms" \
     -d type="apple_strings")"
   fileUrl="$(jq -r '.result.url' <<<"$exportApiJson")"
-  curl -s "$fileUrl" > "$fileDirectory/$1.lproj/Localizable.strings"
+  curl -s "$fileUrl" > "resources/l10n/$1.lproj/Localizable.strings"
 }
 
 function getLanguagesOnPoeditor() {
@@ -24,6 +23,5 @@ function getLanguagesOnPoeditor() {
   jq -r .result.languages[].code <<<"$languagesOnPoeditor"
 }
 
-for language in $(getLanguagesOnPoeditor); do
-  updateLanguageFile "$language" &
-done
+export -f updateLanguageFile
+getLanguagesOnPoeditor | xargs -n 1 -P 20 -I {} bash -c 'updateLanguageFile "$@"' _ {}
