@@ -1,6 +1,6 @@
 # Contributors
 
-They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors):
+### They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors):
 
 * [adamnemecek](https://github.com/adamnemecek)
 * [akx](https://github.com/akx)
@@ -14,7 +14,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [Robinhuett](https://github.com/Robinhuett)
 * [shaqed](https://github.com/shaqed)
 
-They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
+### They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 
 * 73
 * Aarni Koskela
@@ -25,6 +25,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jaeyong0201
 * Kagurazaka Tsuki
 * Kushnee5
+* lwouis
 * Nilton Souza
 * ponchik
 * Robin

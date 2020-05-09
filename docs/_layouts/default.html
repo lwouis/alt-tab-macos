@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% if page.title == "Introduction" %} {{ site.title }} - {{ site.description }}
+        {% else %} {{ site.title }} - {{ page.title }} {% endif %}
+    </title>
+
+    <link rel="stylesheet" href="{{ site.baseurl }}css/style.css">
+
+    <!--  Generated with https://realfavicongenerator.net/  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}public/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseurl }}public/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseurl }}public/favicon-16x16.png">
+    <link rel="manifest" href="{{ site.baseurl }}public/site.webmanifest">
+    <link rel="mask-icon" href="{{ site.baseurl }}public/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+
+<header>
+    <div>
+        <a href="{{ site.baseurl }}"><img src="{{ site.baseurl }}public/android-chrome-256x256.png" width="100"
+                                          height="100"/></a>
+        <div>
+            <h1><a href="{{ site.baseurl }}">{{ site.title }}</a></h1>
+            <p>{{ site.github.project_tagline }}</p>
+        </div>
+    </div>
+</header>
+<nav>
+    <ul>
+        <li><a class="rainbow" href="{{ site.github.latest_release.assets[0].browser_download_url }}">Download</a></li>
+        <li><a class="{% if page.name == 'Introduction.md' %}active{% endif %}" href="{{ site.baseurl }}"><span>Introduction</span></a>
+        </li>
+        <li><a class="{% if page.name == 'Changelog.md' %}active{% endif %}" href="{{ site.baseurl }}changelog"><span>Release notes</span></a>
+        </li>
+        <li><a class="{% if page.name == 'Contributing.md' %}active{% endif %}"
+               href="{{ site.baseurl }}contributing"><span>Contributing</span></a></li>
+        <li><a class="{% if page.name == 'Thanks.md' %}active{% endif %}"
+               href="{{ site.baseurl }}thanks"><span>Thanks</span></a></li>
+        <li><a href="{{ site.github.repository_url }}"><span>GitHub project</span></a></li>
+    </ul>
+</nav>
+
+<section class="page">
+    {{ content }}
+</section>
+
+</body>
+</html>

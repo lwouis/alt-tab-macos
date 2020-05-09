@@ -513,13 +513,7 @@
       <title>Version 3.7.2</title>
       <pubDate>Thu, 09 Apr 2020 06:03:27 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="372-httpsgithubcomlwouisalt-tab-macoscomparev371v372-2020-04-09">3.7.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.1...v3.7.2">https://github.com/lwouis/alt-tab-macos/compare/v3.7.1...v3.7.2</a>) (2020-04-09)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* scrollbar works with all system preferences options (closes #196 (https://github.com/lwouis/alt-tab-macos/issues/196)) (3289d3a (https://github.com/lwouis/alt-tab-macos/commit/3289d3a))
-* some preferences were inactive but appeared active (51ad28d (https://github.com/lwouis/alt-tab-macos/commit/51ad28d))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.2/AltTab-3.7.2.zip"
         sparkle:version="3.7.2"
@@ -533,15 +527,7 @@
       <title>Version 3.7.1</title>
       <pubDate>Wed, 08 Apr 2020 18:33:10 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="371-httpsgithubcomlwouisalt-tab-macoscomparev370v371-2020-04-08">3.7.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.0...v3.7.1">https://github.com/lwouis/alt-tab-macos/compare/v3.7.0...v3.7.1</a>) (2020-04-08)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* better handling of preference migration (up/down) (078c359 (https://github.com/lwouis/alt-tab-macos/commit/078c359))
-* hiding window should be on main thread (767f900 (https://github.com/lwouis/alt-tab-macos/commit/767f900))
-* scrollbar only shows on scroll (closes #196 (https://github.com/lwouis/alt-tab-macos/issues/196)) (c2abff0 (https://github.com/lwouis/alt-tab-macos/commit/c2abff0))
-* updated localizations, especially Spanish (bd92828 (https://github.com/lwouis/alt-tab-macos/commit/bd92828))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.1/AltTab-3.7.1.zip"
         sparkle:version="3.7.1"
@@ -555,13 +541,7 @@
       <title>Version 3.7.0</title>
       <pubDate>Wed, 08 Apr 2020 15:14:08 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="370-httpsgithubcomlwouisalt-tab-macoscomparev362v370-2020-04-08">3.7.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.6.2...v3.7.0">https://github.com/lwouis/alt-tab-macos/compare/v3.6.2...v3.7.0</a>) (2020-04-08)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* avoid crash when upgrading due to old preferences (closes #222 (https://github.com/lwouis/alt-tab-macos/issues/222)) (66a2bd8 (https://github.com/lwouis/alt-tab-macos/commit/66a2bd8))</code></pre><h3 id="features">Features</h3>
-<pre><code>* add dark-mode in the debug profile on reports (a54eb77 (https://github.com/lwouis/alt-tab-macos/commit/a54eb77))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.0/AltTab-3.7.0.zip"
         sparkle:version="3.7.0"
@@ -575,13 +555,7 @@
       <title>Version 3.6.2</title>
       <pubDate>Wed, 08 Apr 2020 10:37:13 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="362-httpsgithubcomlwouisalt-tab-macoscomparev361v362-2020-04-08">3.6.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.6.1...v3.6.2">https://github.com/lwouis/alt-tab-macos/compare/v3.6.1...v3.6.2</a>) (2020-04-08)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* avoid text flickering on main ui (closes #197 (https://github.com/lwouis/alt-tab-macos/issues/197)) (4eb9db0 (https://github.com/lwouis/alt-tab-macos/commit/4eb9db0))
-* dropdown preferences crashed in non-english (closes #217 (https://github.com/lwouis/alt-tab-macos/issues/217)) (5447d5f (https://github.com/lwouis/alt-tab-macos/commit/5447d5f))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.6.2/AltTab-3.6.2.zip"
         sparkle:version="3.6.2"
@@ -595,12 +569,7 @@
       <title>Version 3.6.1</title>
       <pubDate>Wed, 08 Apr 2020 07:25:44 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="361-httpsgithubcomlwouisalt-tab-macoscomparev360v361-2020-04-08">3.6.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.6.0...v3.6.1">https://github.com/lwouis/alt-tab-macos/compare/v3.6.0...v3.6.1</a>) (2020-04-08)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* prevent hold/release shortcut from being empty (1158a32 (https://github.com/lwouis/alt-tab-macos/commit/1158a32))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.6.1/AltTab-3.6.1.zip"
         sparkle:version="3.6.1"
@@ -614,15 +583,7 @@
       <title>Version 3.6.0</title>
       <pubDate>Tue, 07 Apr 2020 09:14:24 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="360-httpsgithubcomlwouisalt-tab-macoscomparev350v360-2020-04-07">3.6.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.5.0...v3.6.0">https://github.com/lwouis/alt-tab-macos/compare/v3.5.0...v3.6.0</a>) (2020-04-07)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* focus correct window after app quits (see #213 (https://github.com/lwouis/alt-tab-macos/issues/213)) (7f27cb9 (https://github.com/lwouis/alt-tab-macos/commit/7f27cb9))
-* workaround the bug in parsec (closes #206 (https://github.com/lwouis/alt-tab-macos/issues/206)) (59c6afc (https://github.com/lwouis/alt-tab-macos/commit/59c6afc))</code></pre><h3 id="features">Features</h3>
-<pre><code>* let users disable shortcuts (5b03415 (https://github.com/lwouis/alt-tab-macos/commit/5b03415))
-* updated localization for 7 languages (bc2a38b (https://github.com/lwouis/alt-tab-macos/commit/bc2a38b))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.6.0/AltTab-3.6.0.zip"
         sparkle:version="3.6.0"
@@ -636,13 +597,7 @@
       <title>Version 3.5.0</title>
       <pubDate>Sun, 05 Apr 2020 13:35:21 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="350-httpsgithubcomlwouisalt-tab-macoscomparev341v350-2020-04-05">3.5.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.4.1...v3.5.0">https://github.com/lwouis/alt-tab-macos/compare/v3.4.1...v3.5.0</a>) (2020-04-05)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* readme: sort language list and add Finnish (42dbd30 (https://github.com/lwouis/alt-tab-macos/commit/42dbd30))</code></pre><h3 id="features">Features</h3>
-<pre><code>* i18n: add Finnish localization (770d472 (https://github.com/lwouis/alt-tab-macos/commit/770d472))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.5.0/AltTab-3.5.0.zip"
         sparkle:version="3.5.0"
@@ -656,10 +611,7 @@
       <title>Version 3.4.1</title>
       <pubDate>Sun, 05 Apr 2020 13:20:12 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="341-httpsgithubcomlwouisalt-tab-macoscomparev340v341-2020-04-05">3.4.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.4.0...v3.4.1">https://github.com/lwouis/alt-tab-macos/compare/v3.4.0...v3.4.1</a>) (2020-04-05)</h2>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.4.1/AltTab-3.4.1.zip"
         sparkle:version="3.4.1"
@@ -673,12 +625,7 @@
       <title>Version 3.4.0</title>
       <pubDate>Fri, 03 Apr 2020 06:51:12 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="340-httpsgithubcomlwouisalt-tab-macoscomparev333v340-2020-04-03">3.4.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.3.3...v3.4.0">https://github.com/lwouis/alt-tab-macos/compare/v3.3.3...v3.4.0</a>) (2020-04-03)</h1>
-<h3 id="features">Features</h3>
-<pre><code>* updated some localizations (b38d688 (https://github.com/lwouis/alt-tab-macos/commit/b38d688))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.4.0/AltTab-3.4.0.zip"
         sparkle:version="3.4.0"
@@ -692,12 +639,7 @@
       <title>Version 3.3.3</title>
       <pubDate>Fri, 03 Apr 2020 04:18:26 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="333-httpsgithubcomlwouisalt-tab-macoscomparev332v333-2020-04-03">3.3.3 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.3.2...v3.3.3">https://github.com/lwouis/alt-tab-macos/compare/v3.3.2...v3.3.3</a>) (2020-04-03)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* &quot;show all screens&quot; pref was not respected (closes #204 (https://github.com/lwouis/alt-tab-macos/issues/204)) (d4c13c4 (https://github.com/lwouis/alt-tab-macos/commit/d4c13c4))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.3/AltTab-3.3.3.zip"
         sparkle:version="3.3.3"
@@ -711,12 +653,7 @@
       <title>Version 3.3.2</title>
       <pubDate>Thu, 02 Apr 2020 16:23:14 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="332-httpsgithubcomlwouisalt-tab-macoscomparev331v332-2020-04-02">3.3.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.3.1...v3.3.2">https://github.com/lwouis/alt-tab-macos/compare/v3.3.1...v3.3.2</a>) (2020-04-02)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* crashed if an invalid login item existed (closes #202 (https://github.com/lwouis/alt-tab-macos/issues/202)) (48d5d63 (https://github.com/lwouis/alt-tab-macos/commit/48d5d63))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.2/AltTab-3.3.2.zip"
         sparkle:version="3.3.2"
@@ -730,13 +667,7 @@
       <title>Version 3.3.1</title>
       <pubDate>Thu, 02 Apr 2020 12:33:49 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="331-httpsgithubcomlwouisalt-tab-macoscomparev330v331-2020-04-02">3.3.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.3.0...v3.3.1">https://github.com/lwouis/alt-tab-macos/compare/v3.3.0...v3.3.1</a>) (2020-04-02)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* blind fix trying to guess root cause of #202 (https://github.com/lwouis/alt-tab-macos/issues/202) (fb4fe11 (https://github.com/lwouis/alt-tab-macos/commit/fb4fe11))
-* checkboxes preferences were unchecked initially (b091282 (https://github.com/lwouis/alt-tab-macos/commit/b091282))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.1/AltTab-3.3.1.zip"
         sparkle:version="3.3.1"
@@ -750,17 +681,7 @@
       <title>Version 3.3.0</title>
       <pubDate>Thu, 02 Apr 2020 10:46:53 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="330-httpsgithubcomlwouisalt-tab-macoscomparev321v330-2020-04-02">3.3.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.2.1...v3.3.0">https://github.com/lwouis/alt-tab-macos/compare/v3.2.1...v3.3.0</a>) (2020-04-02)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* .strings encoding should be utf-8 (7109b08 (https://github.com/lwouis/alt-tab-macos/commit/7109b08))
-* avoid having multiple login items (65816a2 (https://github.com/lwouis/alt-tab-macos/commit/65816a2))
-* preferences would not be live (closes #188 (https://github.com/lwouis/alt-tab-macos/issues/188)) (d5b74a1 (https://github.com/lwouis/alt-tab-macos/commit/d5b74a1)), closes #194 (https://github.com/lwouis/alt-tab-macos/issues/194)
-* simpler/better window focus (574a640 (https://github.com/lwouis/alt-tab-macos/commit/574a640))</code></pre><h3 id="features">Features</h3>
-<pre><code>* localized in 5 new languages (48bb3df (https://github.com/lwouis/alt-tab-macos/commit/48bb3df))
-* more flexible shortcuts (closes #72 (https://github.com/lwouis/alt-tab-macos/issues/72)) (5eade75 (https://github.com/lwouis/alt-tab-macos/commit/5eade75)), closes #50 (https://github.com/lwouis/alt-tab-macos/issues/50) #125 (https://github.com/lwouis/alt-tab-macos/issues/125) #133 (https://github.com/lwouis/alt-tab-macos/issues/133)</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.0/AltTab-3.3.0.zip"
         sparkle:version="3.3.0"
@@ -774,14 +695,7 @@
       <title>Version 3.2.1</title>
       <pubDate>Wed, 25 Mar 2020 05:50:32 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="321-httpsgithubcomlwouisalt-tab-macoscomparev320v321-2020-03-25">3.2.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.2.0...v3.2.1">https://github.com/lwouis/alt-tab-macos/compare/v3.2.0...v3.2.1</a>) (2020-03-25)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* chrome shortcuts apps don&#39;t show up (closes #185 (https://github.com/lwouis/alt-tab-macos/issues/185)) (0b35ebf (https://github.com/lwouis/alt-tab-macos/commit/0b35ebf))
-* don&#39;t hang waiting for faulty apps to reply (closes #182 (https://github.com/lwouis/alt-tab-macos/issues/182)) (246cf69 (https://github.com/lwouis/alt-tab-macos/commit/246cf69))
-* hidden apps windows don&#39;t show hidden icon (6e190bf (https://github.com/lwouis/alt-tab-macos/commit/6e190bf))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.2.1/AltTab-3.2.1.zip"
         sparkle:version="3.2.1"
@@ -795,14 +709,7 @@
       <title>Version 3.2.0</title>
       <pubDate>Tue, 24 Mar 2020 11:09:19 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="320-httpsgithubcomlwouisalt-tab-macoscomparev313v320-2020-03-24">3.2.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.1.3...v3.2.0">https://github.com/lwouis/alt-tab-macos/compare/v3.1.3...v3.2.0</a>) (2020-03-24)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* refresh both thumbnails on focus switch in bg (4fee590 (https://github.com/lwouis/alt-tab-macos/commit/4fee590))
-* things in background properly reflect in ui (fdf1524 (https://github.com/lwouis/alt-tab-macos/commit/fdf1524))</code></pre><h3 id="features">Features</h3>
-<pre><code>* faster ui (closes #171 (https://github.com/lwouis/alt-tab-macos/issues/171), closes #128 (https://github.com/lwouis/alt-tab-macos/issues/128), closes #89 (https://github.com/lwouis/alt-tab-macos/issues/89)) (311beef (https://github.com/lwouis/alt-tab-macos/commit/311beef))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.2.0/AltTab-3.2.0.zip"
         sparkle:version="3.2.0"
@@ -816,10 +723,7 @@
       <title>Version 3.1.3</title>
       <pubDate>Thu, 12 Mar 2020 08:32:27 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="313-httpsgithubcomlwouisalt-tab-macoscomparev312v313-2020-03-12">3.1.3 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.1.2...v3.1.3">https://github.com/lwouis/alt-tab-macos/compare/v3.1.2...v3.1.3</a>) (2020-03-12)</h2>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.3/AltTab-3.1.3.zip"
         sparkle:version="3.1.3"
@@ -833,12 +737,7 @@
       <title>Version 3.1.2</title>
       <pubDate>Thu, 12 Mar 2020 03:15:56 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="312-httpsgithubcomlwouisalt-tab-macoscomparev311v312-2020-03-12">3.1.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.1.1...v3.1.2">https://github.com/lwouis/alt-tab-macos/compare/v3.1.1...v3.1.2</a>) (2020-03-12)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* send feedback crashed the app on submit (closes #172 (https://github.com/lwouis/alt-tab-macos/issues/172)) (c34b8a5 (https://github.com/lwouis/alt-tab-macos/commit/c34b8a5))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.2/AltTab-3.1.2.zip"
         sparkle:version="3.1.2"
@@ -852,13 +751,7 @@
       <title>Version 3.1.1</title>
       <pubDate>Wed, 11 Mar 2020 16:03:52 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="311-httpsgithubcomlwouisalt-tab-macoscomparev310v311-2020-03-11">3.1.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.1.0...v3.1.1">https://github.com/lwouis/alt-tab-macos/compare/v3.1.0...v3.1.1</a>) (2020-03-11)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* don&#39;t observe daemons to avoid infinite loops (closes #170 (https://github.com/lwouis/alt-tab-macos/issues/170)) (e40f859 (https://github.com/lwouis/alt-tab-macos/commit/e40f859))
-* show alt-tab own windows in the thumbnail panel (6018a53 (https://github.com/lwouis/alt-tab-macos/commit/6018a53))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.1/AltTab-3.1.1.zip"
         sparkle:version="3.1.1"
@@ -872,13 +765,7 @@
       <title>Version 3.1.0</title>
       <pubDate>Tue, 10 Mar 2020 17:21:29 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="310-httpsgithubcomlwouisalt-tab-macoscomparev305v310-2020-03-10">3.1.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.0.5...v3.1.0">https://github.com/lwouis/alt-tab-macos/compare/v3.0.5...v3.1.0</a>) (2020-03-10)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* better subscription retry logic (3a80cab (https://github.com/lwouis/alt-tab-macos/commit/3a80cab))</code></pre><h3 id="features">Features</h3>
-<pre><code>* output plist file as binary for better perf (29a9f59 (https://github.com/lwouis/alt-tab-macos/commit/29a9f59))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.0/AltTab-3.1.0.zip"
         sparkle:version="3.1.0"
@@ -892,12 +779,7 @@
       <title>Version 3.0.5</title>
       <pubDate>Tue, 10 Mar 2020 14:03:49 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="305-httpsgithubcomlwouisalt-tab-macoscomparev304v305-2020-03-10">3.0.5 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.0.4...v3.0.5">https://github.com/lwouis/alt-tab-macos/compare/v3.0.4...v3.0.5</a>) (2020-03-10)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* remove script from bundle (4a8301e (https://github.com/lwouis/alt-tab-macos/commit/4a8301e))</code></pre>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.5/AltTab-3.0.5.zip"
         sparkle:version="3.0.5"
@@ -911,10 +793,7 @@
       <title>Version 3.0.4</title>
       <pubDate>Tue, 10 Mar 2020 12:48:38 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="304-httpsgithubcomlwouisalt-tab-macoscomparev303v304-2020-03-10">3.0.4 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.0.3...v3.0.4">https://github.com/lwouis/alt-tab-macos/compare/v3.0.3...v3.0.4</a>) (2020-03-10)</h2>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.4/AltTab-3.0.4.zip"
         sparkle:version="3.0.4"
@@ -928,10 +807,7 @@
       <title>Version 3.0.3</title>
       <pubDate>Tue, 10 Mar 2020 11:10:39 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="303-httpsgithubcomlwouisalt-tab-macoscomparev302v303-2020-03-10">3.0.3 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.0.2...v3.0.3">https://github.com/lwouis/alt-tab-macos/compare/v3.0.2...v3.0.3</a>) (2020-03-10)</h2>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.3/AltTab-3.0.3.zip"
         sparkle:version="3.0.3"
@@ -945,10 +821,7 @@
       <title>Version 3.0.2</title>
       <pubDate>Tue, 10 Mar 2020 10:19:08 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="302-httpsgithubcomlwouisalt-tab-macoscomparev301v302-2020-03-10">3.0.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.0.1...v3.0.2">https://github.com/lwouis/alt-tab-macos/compare/v3.0.1...v3.0.2</a>) (2020-03-10)</h2>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.2/AltTab-3.0.2.zip"
         sparkle:version="3.0.2"
@@ -962,10 +835,7 @@
       <title>Version 3.0.1</title>
       <pubDate>Tue, 10 Mar 2020 09:34:49 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="301-httpsgithubcomlwouisalt-tab-macoscomparev300v301-2020-03-10">3.0.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.0.0...v3.0.1">https://github.com/lwouis/alt-tab-macos/compare/v3.0.0...v3.0.1</a>) (2020-03-10)</h2>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.1/AltTab-3.0.1.zip"
         sparkle:version="3.0.1"
@@ -979,88 +849,7 @@
       <title>Version 3.0.0</title>
       <pubDate>Tue, 10 Mar 2020 09:03:47 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="300-httpsgithubcomlwouisalt-tab-macoscomparev234v300-2020-03-10">3.0.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v2.3.4...v3.0.0">https://github.com/lwouis/alt-tab-macos/compare/v2.3.4...v3.0.0</a>) (2020-03-10)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* a title change often means the content has change (b8d6bc9 (https://github.com/lwouis/alt-tab-macos/commit/b8d6bc9))
-* add rough downscaling when there are many windows (closes #69 (https://github.com/lwouis/alt-tab-macos/issues/69)) (ced5ee6 (https://github.com/lwouis/alt-tab-macos/commit/ced5ee6))
-* added releases link and aligned layout left on tab 3 (6bb73dc (https://github.com/lwouis/alt-tab-macos/commit/6bb73dc))
-* also codesign debug builds (a5f9911 (https://github.com/lwouis/alt-tab-macos/commit/a5f9911))
-* app launched while in fullscreen shows first window (c5cbcdb (https://github.com/lwouis/alt-tab-macos/commit/c5cbcdb)), closes /github.com/lwouis/alt-tab-macos/pull/114#issuecomment-576384795 (https://github.com//github.com/lwouis/alt-tab-macos/pull/114/issues/issuecomment-576384795)
-* auto-update preferences sync with os from launch (b3fb222 (https://github.com/lwouis/alt-tab-macos/commit/b3fb222))
-* avoid rendering if app is not used (fdddb0f (https://github.com/lwouis/alt-tab-macos/commit/fdddb0f))
-* better float rounding = sharper cell contents (9a96e49 (https://github.com/lwouis/alt-tab-macos/commit/9a96e49))
-* better focus/order for preferences (closes #80 (https://github.com/lwouis/alt-tab-macos/issues/80)) (4a8bdeb (https://github.com/lwouis/alt-tab-macos/commit/4a8bdeb))
-* better textareas (efc9bd3 (https://github.com/lwouis/alt-tab-macos/commit/efc9bd3))
-* bring back the window delay that regressed with v2 (bb95e55 (https://github.com/lwouis/alt-tab-macos/commit/bb95e55))
-* compare correctly since pid can go away when an app dies (4ded030 (https://github.com/lwouis/alt-tab-macos/commit/4ded030))
-* compiler warnings (1faa74c (https://github.com/lwouis/alt-tab-macos/commit/1faa74c))
-* cpu and memory leaks (see discussion in #117 (https://github.com/lwouis/alt-tab-macos/issues/117)) (52626aa (https://github.com/lwouis/alt-tab-macos/commit/52626aa))
-* dock being shown was blocking alt-tab (2826a1b (https://github.com/lwouis/alt-tab-macos/commit/2826a1b))
-* don&#39;t show floating windows + efficiencies (3f8e3ea (https://github.com/lwouis/alt-tab-macos/commit/3f8e3ea))
-* don&#39;t show ui on fast trigger (f8e1b00 (https://github.com/lwouis/alt-tab-macos/commit/f8e1b00))
-* don&#39;t trigger ui refreshes if the app is not active (b9a0152 (https://github.com/lwouis/alt-tab-macos/commit/b9a0152))
-* don&#39;t upscale thumbnails of small windows (0bc7472 (https://github.com/lwouis/alt-tab-macos/commit/0bc7472))
-* feedback token injected during ci (effdc5f (https://github.com/lwouis/alt-tab-macos/commit/effdc5f))
-* getting sparkle ready for release (9f1f522 (https://github.com/lwouis/alt-tab-macos/commit/9f1f522))
-* handle on-all-spaces windows better (4abe9f3 (https://github.com/lwouis/alt-tab-macos/commit/4abe9f3))
-* ignore build folder (a2bb19f (https://github.com/lwouis/alt-tab-macos/commit/a2bb19f))
-* ignore trigger shortcuts if mission control is active (b03b0aa (https://github.com/lwouis/alt-tab-macos/commit/b03b0aa))
-* initial discovery when single space was glitching the os (3cd4b6d (https://github.com/lwouis/alt-tab-macos/commit/3cd4b6d))
-* keyboard shortcuts didn&#39;t work without a menu (cf92dc1 (https://github.com/lwouis/alt-tab-macos/commit/cf92dc1))
-* layout is now correct; also removed layout preferences for now (a1b5266 (https://github.com/lwouis/alt-tab-macos/commit/a1b5266))
-* layout regression introduced by eed0353 (bdc41be (https://github.com/lwouis/alt-tab-macos/commit/bdc41be))
-* layout was incorrect resulting in thumbnails clipping (fd906f4 (https://github.com/lwouis/alt-tab-macos/commit/fd906f4))
-* letsmove was not active on release builds (6ac0658 (https://github.com/lwouis/alt-tab-macos/commit/6ac0658))
-* list temporary AXDialog windows like activity monitor (51a8838 (https://github.com/lwouis/alt-tab-macos/commit/51a8838))
-* more robust screen-recording permission check (ce574a2 (https://github.com/lwouis/alt-tab-macos/commit/ce574a2))
-* notarization issues (d125dd3 (https://github.com/lwouis/alt-tab-macos/commit/d125dd3))
-* observer leak would throw and crash the app sometimes (9ca28eb (https://github.com/lwouis/alt-tab-macos/commit/9ca28eb))
-* only test permissions on the correct os versions (4612e37 (https://github.com/lwouis/alt-tab-macos/commit/4612e37))
-* open alt-tab during space transitions (closes #92 (https://github.com/lwouis/alt-tab-macos/issues/92)) (141562d (https://github.com/lwouis/alt-tab-macos/commit/141562d))
-* prevent visual flickering (closes #115 (https://github.com/lwouis/alt-tab-macos/issues/115)) (9a8c83e (https://github.com/lwouis/alt-tab-macos/commit/9a8c83e))
-* quitting apps was not properly removing apps from the list (10b2c71 (https://github.com/lwouis/alt-tab-macos/commit/10b2c71))
-* quitting multiple apps would refresh the ui multiple times (bfc2700 (https://github.com/lwouis/alt-tab-macos/commit/bfc2700))
-* regression on collectionviewitem titles (not showing) (8cb6d86 (https://github.com/lwouis/alt-tab-macos/commit/8cb6d86))
-* remove debug colors (e588d55 (https://github.com/lwouis/alt-tab-macos/commit/e588d55))
-* remove unnecessary/wrong layout code (9e719e6 (https://github.com/lwouis/alt-tab-macos/commit/9e719e6))
-* sharper images on non-retina displays (1bb4d2a (https://github.com/lwouis/alt-tab-macos/commit/1bb4d2a))
-* smaller payload for the icons (bddb6fa (https://github.com/lwouis/alt-tab-macos/commit/bddb6fa))
-* some apps have messy launch behavior (7eb216d (https://github.com/lwouis/alt-tab-macos/commit/7eb216d)), closes /github.com/lwouis/alt-tab-macos/issues/117#issuecomment-583868046 (https://github.com//github.com/lwouis/alt-tab-macos/issues/117/issues/issuecomment-583868046)
-* some apps should retry observing until it works (0c731f4 (https://github.com/lwouis/alt-tab-macos/commit/0c731f4))
-* using floor() everywhere to avoid blurry rendering (2a36196 (https://github.com/lwouis/alt-tab-macos/commit/2a36196))</code></pre><h3 id="code-refactoring">Code Refactoring</h3>
-<pre><code>* complete rework of the internals (547311e (https://github.com/lwouis/alt-tab-macos/commit/547311e)), closes #93 (https://github.com/lwouis/alt-tab-macos/issues/93) #24 (https://github.com/lwouis/alt-tab-macos/issues/24) #117 (https://github.com/lwouis/alt-tab-macos/issues/117) /github.com/lwouis/alt-tab-macos/issues/45#issuecomment-571898826 (https://github.com//github.com/lwouis/alt-tab-macos/issues/45/issues/issuecomment-571898826)</code></pre><h3 id="features">Features</h3>
-<pre><code>* add an app icon and menubar icon (closes #38 (https://github.com/lwouis/alt-tab-macos/issues/38)) (a345dae (https://github.com/lwouis/alt-tab-macos/commit/a345dae))
-* add back the preferences for the new layout algo (d52eb6d (https://github.com/lwouis/alt-tab-macos/commit/d52eb6d))
-* add debug profile to feedback message (a14f965 (https://github.com/lwouis/alt-tab-macos/commit/a14f965))
-* add feedback button on about window (4046136 (https://github.com/lwouis/alt-tab-macos/commit/4046136))
-* add in-app feedback form (closes #145 (https://github.com/lwouis/alt-tab-macos/issues/145)) (725a030 (https://github.com/lwouis/alt-tab-macos/commit/725a030))
-* add licence to about page (cb66b79 (https://github.com/lwouis/alt-tab-macos/commit/cb66b79))
-* add preference to start at login (closes #159 (https://github.com/lwouis/alt-tab-macos/issues/159)) (982fe6c (https://github.com/lwouis/alt-tab-macos/commit/982fe6c))
-* adding cocoapods and letsmove/sparkle (606bae7 (https://github.com/lwouis/alt-tab-macos/commit/606bae7))
-* better packing; tall thumbnails are 1/2 the width of wide ones (e34e3b1 (https://github.com/lwouis/alt-tab-macos/commit/e34e3b1))
-* bump major version (3c3b18c (https://github.com/lwouis/alt-tab-macos/commit/3c3b18c))
-* cleaner layout and explanation text (fd3e768 (https://github.com/lwouis/alt-tab-macos/commit/fd3e768))
-* debug build has code-signing to preserve permissions (34a32f3 (https://github.com/lwouis/alt-tab-macos/commit/34a32f3))
-* divide preferences by topic (closes #130 (https://github.com/lwouis/alt-tab-macos/issues/130)) (291f872 (https://github.com/lwouis/alt-tab-macos/commit/291f872))
-* drag-and-drop files on the ui (closes #74 (https://github.com/lwouis/alt-tab-macos/issues/74)) (e1e3633 (https://github.com/lwouis/alt-tab-macos/commit/e1e3633))
-* german and spanish localization (6c440a7 (https://github.com/lwouis/alt-tab-macos/commit/6c440a7))
-* improved translations (debd3ae (https://github.com/lwouis/alt-tab-macos/commit/debd3ae))
-* integrate sparkle for auto-updates (closes #131 (https://github.com/lwouis/alt-tab-macos/issues/131)) (069382c (https://github.com/lwouis/alt-tab-macos/commit/069382c))
-* localization (closes #134 (https://github.com/lwouis/alt-tab-macos/issues/134)) (36e4bb0 (https://github.com/lwouis/alt-tab-macos/commit/36e4bb0))
-* make system calls more parallel (closes #160 (https://github.com/lwouis/alt-tab-macos/issues/160)) (a29b39f (https://github.com/lwouis/alt-tab-macos/commit/a29b39f))
-* migrate to standard os-backed preferences (closes #161 (https://github.com/lwouis/alt-tab-macos/issues/161)) (e28c43f (https://github.com/lwouis/alt-tab-macos/commit/e28c43f))
-* more appealing presentation + minor refac (67f291d (https://github.com/lwouis/alt-tab-macos/commit/67f291d))
-* nicer layout for about preferences (03a5f77 (https://github.com/lwouis/alt-tab-macos/commit/03a5f77))
-* quit button is clearer with explicit mention of the name (6b6d748 (https://github.com/lwouis/alt-tab-macos/commit/6b6d748))
-* replace default copyright with correct licence (60b49ea (https://github.com/lwouis/alt-tab-macos/commit/60b49ea))
-* separating the quit button as it is a special case (9fa0c06 (https://github.com/lwouis/alt-tab-macos/commit/9fa0c06))
-* slightly increase contrast (mitigates #82 (https://github.com/lwouis/alt-tab-macos/issues/82)) (291770e (https://github.com/lwouis/alt-tab-macos/commit/291770e))
-* support macos &quot;sudden termination&quot; (671fdab (https://github.com/lwouis/alt-tab-macos/commit/671fdab)), closes /developer.apple.com/documentation/foundation/processinfo#1651129 (https://github.com//developer.apple.com/documentation/foundation/processinfo/issues/1651129)</code></pre><h3 id="breaking-changes">BREAKING CHANGES</h3>
-<pre><code>* bump major version
-* Instead of asking the OS about the state of the whole system on trigger (what we do today; hard to do fast), or asking the state of the whole system on a timer (what HyperSwitch does today; inaccurate) - instead of one of 2 approaches, v3 observes the Accessibility events such as &quot;an app was launched&quot;, &quot;a window was closed&quot;. This means we build a cache as we receive these events in the background, and when the user trigger the app, we can show accurate state of the windows instantly.</code></pre><p>Of course there is no free lunch, so this approach has its own issues. However from my work on it from the past week, I&#39;m very optimistic! The thing I&#39;m the most excited about actually is not the perf (because on my machine even v2 is instant; I have a recent macbook and no 4k displays), but the fact that we will finally have the thumbnails in order of recently-used to least-recently-used, instead of the order of their stack (z-index) on the desktop. It&#39;s a big difference! There are many more limitations that are no longer applying also with this approach.</p>
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.0/AltTab-3.0.0.zip"
         sparkle:version="3.0.0"
