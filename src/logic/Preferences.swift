@@ -32,6 +32,7 @@ class Preferences {
         "appsToShow": "0",
         "spacesToShow": "0",
         "screensToShow": "0",
+        "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
         "startAtLogin": "true",
     ]
@@ -66,6 +67,7 @@ class Preferences {
     static var showHiddenWindows: Bool { defaults.bool("showHiddenWindows") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
+    static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
 
