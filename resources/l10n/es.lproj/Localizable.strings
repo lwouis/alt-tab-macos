@@ -69,6 +69,9 @@
 "Don’t check for updates periodically" = "No comprobar actualizaciones periódicamente";
 
 /*No comment provided by engineer.*/
+"Fade out animation:" = "Fade out animation:";
+
+/*No comment provided by engineer.*/
 "General" = "General";
 
 /*No comment provided by engineer.*/
@@ -169,6 +172,9 @@
 
 /*No comment provided by engineer.*/
 "Show on:" = "Mostrar en:";
+
+/*No comment provided by engineer.*/
+"Show standard tabs as windows:" = "Show standard tabs as windows:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Mostrar las siguiente ventanas:";

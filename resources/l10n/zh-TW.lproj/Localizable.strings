@@ -69,6 +69,9 @@
 "Don’t check for updates periodically" = "不要定期自動檢查更新";
 
 /*No comment provided by engineer.*/
+"Fade out animation:" = "Fade out animation:";
+
+/*No comment provided by engineer.*/
 "General" = "一般";
 
 /*No comment provided by engineer.*/
@@ -169,6 +172,9 @@
 
 /*No comment provided by engineer.*/
 "Show on:" = "顯示在：";
+
+/*No comment provided by engineer.*/
+"Show standard tabs as windows:" = "Show standard tabs as windows:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "顯示以下的視窗：";
