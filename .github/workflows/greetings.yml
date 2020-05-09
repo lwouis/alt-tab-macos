@@ -1,12 +1,19 @@
-name: Greetings
-
-on: [pull_request]
-
+name: "Greet contributor"
+on:
+  pull_request:
+    types: [opened]
 jobs:
-  greeting:
+  GreetCommitter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/first-interaction@v1
+      - name: "Greet contributor"
+        uses: ibakshay/greet-contributors-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          pr-message: 'Thank you for opening a PR! Please make sure that: (a) the title and description of the PR convey what the change is about, by mentioning a ticket for instance; and (b) the commits messages [follow the convention](https://www.conventionalcommits.org/en/v1.0.0-beta.4/#summary), so your PR can be merged.'
+          content: |
+
+          Thank you for opening a PR! Please make sure that:
+
+          * The title and description of the PR convey what the change is about, by mentioning a ticket for instance.
+          * The commits messages [follow the convention](https://www.conventionalcommits.org/en/v1.0.0-beta.4/#summary), so your PR can be merged.
