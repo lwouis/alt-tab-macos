@@ -6,7 +6,7 @@ class ThumbnailsPanel: NSPanel {
     convenience init() {
         self.init(contentRect: .zero, styleMask: .utilityWindow, backing: .buffered, defer: true)
         isFloatingPanel = true
-        animationBehavior = .none
+        updateFadeOutAnimation()
         hidesOnDeactivate = false
         hasShadow = false
         titleVisibility = .hidden
@@ -18,6 +18,10 @@ class ThumbnailsPanel: NSPanel {
         level = .popUpMenu
         // helps filter out this window from the thumbnails
         setAccessibilitySubrole(.unknown)
+    }
+
+    func updateFadeOutAnimation() {
+        animationBehavior = Preferences.fadeOutAnimation ? .utilityWindow : .none
     }
 
     func show() {
