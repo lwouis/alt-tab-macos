@@ -9,13 +9,6 @@ target 'alt-tab-macos' do
   pod 'Preferences', '1.0.1'
 
   post_install do |installer|
-    # remove incorrect whitespace from ShortcutRecorder license
-    # remote first 2 lines (i.e. title)
-    # force wrap text as some licenses are and some are not
-    system('cat -s Pods/Target\\ Support\\ Files/Pods-alt-tab-macos/Pods-alt-tab-macos-acknowledgements.markdown'\
-      '| tail -n +2 '\
-      '| sed -e "s/^ \{12\}/      /" '\
-      '| sed -e "s/^ \{7\}/    /" '\
-      '| fold -w 80 -s > docs/ACKNOWLEDGMENTS.md')
+    system('scripts/update_acknowledgments.sh')
   end
 end

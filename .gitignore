@@ -6,3 +6,4 @@ IDEWorkspaceChecks.plist
 /DerivedData/
 /build/
 .DS_Store
+docs/_site/
