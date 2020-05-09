@@ -8,7 +8,7 @@ projectId="316051"
 (
   echo -e "# Contributors\n"
 
-  echo -e "They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors):\n"
+  echo -e "### They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors):\n"
 
   curl https://api.github.com/repos/lwouis/alt-tab-macos/contributors \
     -H "Authorization: token $GITHUB_TOKEN" |
@@ -17,12 +17,15 @@ projectId="316051"
     sort -f |
     sed -e 's/^/* /'
 
-  echo -e "\nThey helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):\n"
+  echo -e "\n### They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):\n"
 
-  curl -s -X POST https://api.poeditor.com/v2/contributors/list \
-    -d api_token="$readOnlyToken" \
-    -d id="$projectId" |
-    jq -r '.result.contributors[].name' |
+  (
+    echo -e "lwouis"
+    curl -s -X POST https://api.poeditor.com/v2/contributors/list \
+      -d api_token="$readOnlyToken" \
+      -d id="$projectId" |
+      jq -r '.result.contributors[].name'
+  ) |
     sort -f |
     sed -e 's/^/* /'
-) >docs/CONTRIBUTORS.md
+) >docs/Contributors.md

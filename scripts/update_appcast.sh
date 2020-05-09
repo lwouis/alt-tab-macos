@@ -3,7 +3,6 @@
 set -exu
 
 version="$(cat $VERSION_FILE)"
-changelogDelta="$(npx marked < $CHANGELOG_DELTA_FILE)"
 date="$(date +'%a, %d %b %Y %H:%M:%S %z')"
 minimumSystemVersion="$(awk -F ' = ' '/MACOSX_DEPLOYMENT_TARGET/ { print $2; }' < config/base.xcconfig)"
 zipName="$APP_NAME-$version.zip"
@@ -14,10 +13,7 @@ echo "
       <title>Version $version</title>
       <pubDate>$date</pubDate>
       <sparkle:minimumSystemVersion>$minimumSystemVersion</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-$changelogDelta
-      ]]>
-      </description>
+      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
       <enclosure
         url=\"https://github.com/lwouis/alt-tab-macos/releases/download/v$version/$zipName\"
         sparkle:version=\"$version\"
