@@ -6,14 +6,22 @@ class Application: NSObject {
     var axObserver: AXObserver?
     var isReallyFinishedLaunching = false
 
-    static let notifications = [
-        kAXApplicationActivatedNotification,
-        kAXMainWindowChangedNotification,
-        kAXWindowCreatedNotification,
-        kAXApplicationHiddenNotification,
-        kAXApplicationShownNotification,
-        kAXFocusedUIElementChangedNotification,
-    ]
+    static func notifications(_ app: NSRunningApplication) -> [String] {
+        var n = [
+            kAXApplicationActivatedNotification,
+            kAXMainWindowChangedNotification,
+            kAXWindowCreatedNotification,
+            kAXApplicationHiddenNotification,
+            kAXApplicationShownNotification,
+            kAXFocusedUIElementChangedNotification,
+        ]
+        // workaround: Protégé exhibits bugs when we subscribe to its kAXFocusedUIElementChangedNotification
+        // we don't know what's happening; we hardcode this exception to make the app usable
+        if app.bundleIdentifier == "edu.stanford.protege" {
+            n.remove(at: 5)
+        }
+        return n
+    }
 
     // some apps never finish their subscription retry loop; they should be stopped to avoid infinite loop
     static func stopSubscriptionRetries(_ notification: String, _ runningApplication: NSRunningApplication) {
@@ -35,7 +43,7 @@ class Application: NSObject {
 
     deinit {
         // some apps never finish launching; subscription retries should be stopped to avoid infinite loops
-        Application.notifications.forEach { Application.stopSubscriptionRetries($0, runningApplication) }
+        Application.notifications(runningApplication).forEach { Application.stopSubscriptionRetries($0, runningApplication) }
         // some apps never finish launching; observer should be removed to avoid leak
         removeObserver()
     }
@@ -79,7 +87,7 @@ class Application: NSObject {
     private func observeEvents() {
         guard let axObserver = axObserver else { return }
         let selfPointer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
-        for notification in Application.notifications {
+        for notification in Application.notifications(runningApplication) {
             Applications.appsInSubscriptionRetryLoop.append(String(runningApplication.processIdentifier) + String(notification))
             axUiElement!.subscribeWithRetry(axObserver, notification, selfPointer, { [weak self] in
                 // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
