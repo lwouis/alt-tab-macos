@@ -1,3 +1,12 @@
+Release notes
+
+# [3.22.0](https://github.com/lwouis/alt-tab-macos/compare/v3.21.2...v3.22.0) (2020-05-10)
+
+
+### Features
+
+* add preference: fade out animation for the main ui (closes [#234](https://github.com/lwouis/alt-tab-macos/issues/234)) ([ee30725](https://github.com/lwouis/alt-tab-macos/commit/ee30725))
+
 ## [3.21.2](https://github.com/lwouis/alt-tab-macos/compare/v3.21.1...v3.21.2) (2020-05-08)
 
 
