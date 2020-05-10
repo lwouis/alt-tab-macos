@@ -210,6 +210,7 @@
 		D04BAA9E0539EE620D08F63F /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fr; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BAAB92261FC04854FDDE9 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D04BAADF01EB8FF8A15AECC6 /* Acknowledgments.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Acknowledgments.md; sourceTree = "<group>"; };
+		D04BAAE6E6823304D66B74F8 /* update_website.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_website.sh; sourceTree = "<group>"; };
 		D04BAAF760E3A8A22BDA84D6 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
 		D04BAB08AD95CD9024BEE95A /* fi */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fi; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BAB51808B6118EB00DFC7 /* mstile-150x150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mstile-150x150.png"; sourceTree = "<group>"; };
@@ -580,6 +581,7 @@
 				D04BAD65AA870A49D2F89DBC /* ensure_generated_files_are_up_to_date.sh */,
 				D04BA4D5DF349429527824A2 /* determine_version.sh */,
 				D04BA332D13755B53E86D550 /* update_acknowledgments.sh */,
+				D04BAAE6E6823304D66B74F8 /* update_website.sh */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
