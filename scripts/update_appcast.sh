@@ -13,7 +13,7 @@ echo "
       <title>Version $version</title>
       <pubDate>$date</pubDate>
       <sparkle:minimumSystemVersion>$minimumSystemVersion</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url=\"https://github.com/lwouis/alt-tab-macos/releases/download/v$version/$zipName\"
         sparkle:version=\"$version\"

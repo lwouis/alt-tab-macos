@@ -22,7 +22,7 @@
       <title>Version 3.22.0</title>
       <pubDate>Sun, 10 May 2020 01:27:47 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.22.0/AltTab-3.22.0.zip"
         sparkle:version="3.22.0"
@@ -36,13 +36,6 @@
       <title>Version 3.21.2</title>
       <pubDate>Fri, 08 May 2020 17:09:47 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3212-httpsgithubcomlwouisalt-tab-macoscomparev3211v3212-2020-05-08">3.21.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.21.1...v3.21.2">https://github.com/lwouis/alt-tab-macos/compare/v3.21.1...v3.21.2</a>) (2020-05-08)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* improved chinese localization (3269a26 (https://github.com/lwouis/alt-tab-macos/commit/3269a26))
-* update cocoapod for letsmove (0068dd2 (https://github.com/lwouis/alt-tab-macos/commit/0068dd2))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.21.2/AltTab-3.21.2.zip"
         sparkle:version="3.21.2"
@@ -56,13 +49,6 @@
       <title>Version 3.21.1</title>
       <pubDate>Fri, 08 May 2020 11:23:08 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3211-httpsgithubcomlwouisalt-tab-macoscomparev3210v3211-2020-05-08">3.21.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.21.0...v3.21.1">https://github.com/lwouis/alt-tab-macos/compare/v3.21.0...v3.21.1</a>) (2020-05-08)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* arrow keys shortcuts for right-to-left languages (33b7094 (https://github.com/lwouis/alt-tab-macos/commit/33b7094))
-* thumbnails layout issues (especially in right-to-left languages) (f3cb544 (https://github.com/lwouis/alt-tab-macos/commit/f3cb544))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.21.1/AltTab-3.21.1.zip"
         sparkle:version="3.21.1"
@@ -76,12 +62,6 @@
       <title>Version 3.21.0</title>
       <pubDate>Thu, 07 May 2020 20:23:02 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3210-httpsgithubcomlwouisalt-tab-macoscomparev3200v3210-2020-05-07">3.21.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.20.0...v3.21.0">https://github.com/lwouis/alt-tab-macos/compare/v3.20.0...v3.21.0</a>) (2020-05-07)</h1>
-<h3 id="features">Features</h3>
-<pre><code>* localize the main ui for right-to-left languages (c9e72ee (https://github.com/lwouis/alt-tab-macos/commit/c9e72ee))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.21.0/AltTab-3.21.0.zip"
         sparkle:version="3.21.0"
@@ -95,13 +75,6 @@
       <title>Version 3.20.0</title>
       <pubDate>Thu, 07 May 2020 18:39:50 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3200-httpsgithubcomlwouisalt-tab-macoscomparev3192v3200-2020-05-07">3.20.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.19.2...v3.20.0">https://github.com/lwouis/alt-tab-macos/compare/v3.19.2...v3.20.0</a>) (2020-05-07)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* thumbnails have a minimum width to help with tall windows (a60750c (https://github.com/lwouis/alt-tab-macos/commit/a60750c))</code></pre><h3 id="features">Features</h3>
-<pre><code>* smarter padding around thumbnails (closes #126 (https://github.com/lwouis/alt-tab-macos/issues/126)) (a94582f (https://github.com/lwouis/alt-tab-macos/commit/a94582f))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.20.0/AltTab-3.20.0.zip"
         sparkle:version="3.20.0"
@@ -115,12 +88,6 @@
       <title>Version 3.19.2</title>
       <pubDate>Thu, 07 May 2020 05:19:28 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3192-httpsgithubcomlwouisalt-tab-macoscomparev3191v3192-2020-05-07">3.19.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.19.1...v3.19.2">https://github.com/lwouis/alt-tab-macos/compare/v3.19.1...v3.19.2</a>) (2020-05-07)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* would not correctly show windows/tabs from other spaces (873f985 (https://github.com/lwouis/alt-tab-macos/commit/873f985))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.19.2/AltTab-3.19.2.zip"
         sparkle:version="3.19.2"
@@ -134,12 +101,6 @@
       <title>Version 3.19.1</title>
       <pubDate>Wed, 06 May 2020 17:44:04 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3191-httpsgithubcomlwouisalt-tab-macoscomparev3190v3191-2020-05-06">3.19.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.19.0...v3.19.1">https://github.com/lwouis/alt-tab-macos/compare/v3.19.0...v3.19.1</a>) (2020-05-06)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* fast shortcut press would fail to switch windows (2ee5eb5 (https://github.com/lwouis/alt-tab-macos/commit/2ee5eb5))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.19.1/AltTab-3.19.1.zip"
         sparkle:version="3.19.1"
@@ -153,16 +114,6 @@
       <title>Version 3.19.0</title>
       <pubDate>Wed, 06 May 2020 17:10:59 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3190-httpsgithubcomlwouisalt-tab-macoscomparev3180v3190-2020-05-06">3.19.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.18.0...v3.19.0">https://github.com/lwouis/alt-tab-macos/compare/v3.18.0...v3.19.0</a>) (2020-05-06)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* don&#39;t display invalid windows (may fix #292 (https://github.com/lwouis/alt-tab-macos/issues/292) #200 (https://github.com/lwouis/alt-tab-macos/issues/200)) (1bca012 (https://github.com/lwouis/alt-tab-macos/commit/1bca012))
-* don&#39;t display tabbed windows (closes #258 (https://github.com/lwouis/alt-tab-macos/issues/258)) (8419ad9 (https://github.com/lwouis/alt-tab-macos/commit/8419ad9))
-* update french localization (445980a (https://github.com/lwouis/alt-tab-macos/commit/445980a))</code></pre><h3 id="features">Features</h3>
-<pre><code>* add dutch localization (b8eb0b4 (https://github.com/lwouis/alt-tab-macos/commit/b8eb0b4))
-* add preference: show standard tabs as windows (3a11cc6 (https://github.com/lwouis/alt-tab-macos/commit/3a11cc6))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.19.0/AltTab-3.19.0.zip"
         sparkle:version="3.19.0"
@@ -176,18 +127,6 @@
       <title>Version 3.18.0</title>
       <pubDate>Tue, 05 May 2020 19:43:44 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3180-httpsgithubcomlwouisalt-tab-macoscomparev3172v3180-2020-05-05">3.18.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.17.2...v3.18.0">https://github.com/lwouis/alt-tab-macos/compare/v3.17.2...v3.18.0</a>) (2020-05-05)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* activate shortcuts without updating their userdefaults (6aad3e7 (https://github.com/lwouis/alt-tab-macos/commit/6aad3e7))
-* can close feedback window with escape key (05fb4a2 (https://github.com/lwouis/alt-tab-macos/commit/05fb4a2))
-* correctly display right-to-left languages (89f2df4 (https://github.com/lwouis/alt-tab-macos/commit/89f2df4))
-* more robust preference migrations (closes #220 (https://github.com/lwouis/alt-tab-macos/issues/220)) (bf857e8 (https://github.com/lwouis/alt-tab-macos/commit/bf857e8))</code></pre><h3 id="features">Features</h3>
-<pre><code>* add arabic localization (0a1bb6e (https://github.com/lwouis/alt-tab-macos/commit/0a1bb6e))
-* check for updates weekly instead of daily (02920a7 (https://github.com/lwouis/alt-tab-macos/commit/02920a7)), closes #295 (https://github.com/lwouis/alt-tab-macos/issues/295)
-* update german localization (1925777 (https://github.com/lwouis/alt-tab-macos/commit/1925777))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.18.0/AltTab-3.18.0.zip"
         sparkle:version="3.18.0"
@@ -201,12 +140,6 @@
       <title>Version 3.17.2</title>
       <pubDate>Tue, 05 May 2020 09:48:16 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3172-httpsgithubcomlwouisalt-tab-macoscomparev3171v3172-2020-05-05">3.17.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.17.1...v3.17.2">https://github.com/lwouis/alt-tab-macos/compare/v3.17.1...v3.17.2</a>) (2020-05-05)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* fit preferences tabs on small screens (6096ce5 (https://github.com/lwouis/alt-tab-macos/commit/6096ce5))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.17.2/AltTab-3.17.2.zip"
         sparkle:version="3.17.2"
@@ -220,13 +153,6 @@
       <title>Version 3.17.1</title>
       <pubDate>Wed, 29 Apr 2020 18:09:17 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3171-httpsgithubcomlwouisalt-tab-macoscomparev3170v3171-2020-04-29">3.17.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.17.0...v3.17.1">https://github.com/lwouis/alt-tab-macos/compare/v3.17.0...v3.17.1</a>) (2020-04-29)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* plug some minor memory leaks (0de7a55 (https://github.com/lwouis/alt-tab-macos/commit/0de7a55))
-* use windows nominal resolution for better performance (a7cc3be (https://github.com/lwouis/alt-tab-macos/commit/a7cc3be))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.17.1/AltTab-3.17.1.zip"
         sparkle:version="3.17.1"
@@ -240,14 +166,6 @@
       <title>Version 3.17.0</title>
       <pubDate>Mon, 27 Apr 2020 10:10:30 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3170-httpsgithubcomlwouisalt-tab-macoscomparev3163v3170-2020-04-27">3.17.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.16.3...v3.17.0">https://github.com/lwouis/alt-tab-macos/compare/v3.16.3...v3.17.0</a>) (2020-04-27)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* shift key + scroll should scroll the ui (d64a6a5 (https://github.com/lwouis/alt-tab-macos/commit/d64a6a5))
-* update russian localization (942c4d7 (https://github.com/lwouis/alt-tab-macos/commit/942c4d7))</code></pre><h3 id="features">Features</h3>
-<pre><code>* navigate with up/down arrow keys (closes #270 (https://github.com/lwouis/alt-tab-macos/issues/270)) (cc61ed4 (https://github.com/lwouis/alt-tab-macos/commit/cc61ed4))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.17.0/AltTab-3.17.0.zip"
         sparkle:version="3.17.0"
@@ -261,12 +179,6 @@
       <title>Version 3.16.3</title>
       <pubDate>Sat, 25 Apr 2020 16:46:13 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3163-httpsgithubcomlwouisalt-tab-macoscomparev3162v3163-2020-04-25">3.16.3 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.16.2...v3.16.3">https://github.com/lwouis/alt-tab-macos/compare/v3.16.2...v3.16.3</a>) (2020-04-25)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* suggest moving the app to the global applications folder (91e31da (https://github.com/lwouis/alt-tab-macos/commit/91e31da)), closes #267 (https://github.com/lwouis/alt-tab-macos/issues/267)</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.16.3/AltTab-3.16.3.zip"
         sparkle:version="3.16.3"
@@ -280,12 +192,6 @@
       <title>Version 3.16.2</title>
       <pubDate>Sat, 25 Apr 2020 03:01:28 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3162-httpsgithubcomlwouisalt-tab-macoscomparev3161v3162-2020-04-25">3.16.2 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.16.1...v3.16.2">https://github.com/lwouis/alt-tab-macos/compare/v3.16.1...v3.16.2</a>) (2020-04-25)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* removing accessibility permission breaks keyboard inputs (0da3d33 (https://github.com/lwouis/alt-tab-macos/commit/0da3d33)), closes #269 (https://github.com/lwouis/alt-tab-macos/issues/269)</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.16.2/AltTab-3.16.2.zip"
         sparkle:version="3.16.2"
@@ -299,12 +205,6 @@
       <title>Version 3.16.1</title>
       <pubDate>Fri, 24 Apr 2020 23:01:24 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="3161-httpsgithubcomlwouisalt-tab-macoscomparev3160v3161-2020-04-24">3.16.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.16.0...v3.16.1">https://github.com/lwouis/alt-tab-macos/compare/v3.16.0...v3.16.1</a>) (2020-04-24)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* app could sometimes crash on closing the ui (61db5b4 (https://github.com/lwouis/alt-tab-macos/commit/61db5b4))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.16.1/AltTab-3.16.1.zip"
         sparkle:version="3.16.1"
@@ -318,12 +218,6 @@
       <title>Version 3.16.0</title>
       <pubDate>Fri, 24 Apr 2020 01:49:18 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3160-httpsgithubcomlwouisalt-tab-macoscomparev3150v3160-2020-04-24">3.16.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.15.0...v3.16.0">https://github.com/lwouis/alt-tab-macos/compare/v3.15.0...v3.16.0</a>) (2020-04-24)</h1>
-<h3 id="features">Features</h3>
-<pre><code>* added russian localization (f0971c2 (https://github.com/lwouis/alt-tab-macos/commit/f0971c2))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.16.0/AltTab-3.16.0.zip"
         sparkle:version="3.16.0"
@@ -337,14 +231,6 @@
       <title>Version 3.15.0</title>
       <pubDate>Thu, 23 Apr 2020 18:33:10 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3150-httpsgithubcomlwouisalt-tab-macoscomparev3140v3150-2020-04-23">3.15.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.14.0...v3.15.0">https://github.com/lwouis/alt-tab-macos/compare/v3.14.0...v3.15.0</a>) (2020-04-23)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* debug profile spaces count was incorrect (e98d401 (https://github.com/lwouis/alt-tab-macos/commit/e98d401))
-* handle windows assigned to all spaces (closes #266 (https://github.com/lwouis/alt-tab-macos/issues/266)) (e35fe6b (https://github.com/lwouis/alt-tab-macos/commit/e35fe6b))</code></pre><h3 id="features">Features</h3>
-<pre><code>* add warning for email-less feedback (1acd918 (https://github.com/lwouis/alt-tab-macos/commit/1acd918))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.15.0/AltTab-3.15.0.zip"
         sparkle:version="3.15.0"
@@ -358,13 +244,6 @@
       <title>Version 3.14.0</title>
       <pubDate>Wed, 22 Apr 2020 18:13:37 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3140-httpsgithubcomlwouisalt-tab-macoscomparev3130v3140-2020-04-22">3.14.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.13.0...v3.14.0">https://github.com/lwouis/alt-tab-macos/compare/v3.13.0...v3.14.0</a>) (2020-04-22)</h1>
-<h3 id="features">Features</h3>
-<pre><code>* add portuguese and finish japanese localizations (d1ab72f (https://github.com/lwouis/alt-tab-macos/commit/d1ab72f))
-* update all localizations (a2dd46d (https://github.com/lwouis/alt-tab-macos/commit/a2dd46d))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.14.0/AltTab-3.14.0.zip"
         sparkle:version="3.14.0"
@@ -378,13 +257,6 @@
       <title>Version 3.13.0</title>
       <pubDate>Tue, 21 Apr 2020 11:48:37 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3130-httpsgithubcomlwouisalt-tab-macoscomparev3120v3130-2020-04-21">3.13.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.12.0...v3.13.0">https://github.com/lwouis/alt-tab-macos/compare/v3.12.0...v3.13.0</a>) (2020-04-21)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* showed rows with 1 too-few windows sometimes (see #256 (https://github.com/lwouis/alt-tab-macos/issues/256)) (0eac086 (https://github.com/lwouis/alt-tab-macos/commit/0eac086))</code></pre><h3 id="features">Features</h3>
-<pre><code>* add hungarian localization (ba7b5d3 (https://github.com/lwouis/alt-tab-macos/commit/ba7b5d3))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.13.0/AltTab-3.13.0.zip"
         sparkle:version="3.13.0"
@@ -398,13 +270,6 @@
       <title>Version 3.12.0</title>
       <pubDate>Mon, 20 Apr 2020 13:14:34 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3120-httpsgithubcomlwouisalt-tab-macoscomparev3110v3120-2020-04-20">3.12.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.11.0...v3.12.0">https://github.com/lwouis/alt-tab-macos/compare/v3.11.0...v3.12.0</a>) (2020-04-20)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* updated localizations (eec6912 (https://github.com/lwouis/alt-tab-macos/commit/eec6912))</code></pre><h3 id="features">Features</h3>
-<pre><code>* collapsible debug profile in feedback report (d6960d5 (https://github.com/lwouis/alt-tab-macos/commit/d6960d5))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.12.0/AltTab-3.12.0.zip"
         sparkle:version="3.12.0"
@@ -418,17 +283,6 @@
       <title>Version 3.11.0</title>
       <pubDate>Sun, 19 Apr 2020 16:57:56 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3110-httpsgithubcomlwouisalt-tab-macoscomparev3100v3110-2020-04-19">3.11.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.10.0...v3.11.0">https://github.com/lwouis/alt-tab-macos/compare/v3.10.0...v3.11.0</a>) (2020-04-19)</h1>
-<h3 id="features">Features</h3>
-<pre><code>* add app quit shortcut (7a94e4a (https://github.com/lwouis/alt-tab-macos/commit/7a94e4a))
-* add close window shortcut (8da8af8 (https://github.com/lwouis/alt-tab-macos/commit/8da8af8))
-* add hide/show app shortcut (6be1c2c (https://github.com/lwouis/alt-tab-macos/commit/6be1c2c))
-* add min/demin window shortcut (2b752ef (https://github.com/lwouis/alt-tab-macos/commit/2b752ef))
-* add preference: display the ui on screen including menu bar (156957c (https://github.com/lwouis/alt-tab-macos/commit/156957c))
-* faster initial display of some windows (3286570 (https://github.com/lwouis/alt-tab-macos/commit/3286570))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.11.0/AltTab-3.11.0.zip"
         sparkle:version="3.11.0"
@@ -442,13 +296,6 @@
       <title>Version 3.10.0</title>
       <pubDate>Sun, 19 Apr 2020 09:00:57 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="3100-httpsgithubcomlwouisalt-tab-macoscomparev391v3100-2020-04-19">3.10.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0">https://github.com/lwouis/alt-tab-macos/compare/v3.9.1...v3.10.0</a>) (2020-04-19)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* issues with preferences window on mojave (closes #233 (https://github.com/lwouis/alt-tab-macos/issues/233)) (8d7f121 (https://github.com/lwouis/alt-tab-macos/commit/8d7f121))</code></pre><h3 id="features">Features</h3>
-<pre><code>* trim fonticon to reduce app size (closes #168 (https://github.com/lwouis/alt-tab-macos/issues/168)) (0d27cf7 (https://github.com/lwouis/alt-tab-macos/commit/0d27cf7))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.10.0/AltTab-3.10.0.zip"
         sparkle:version="3.10.0"
@@ -462,13 +309,6 @@
       <title>Version 3.9.1</title>
       <pubDate>Sat, 18 Apr 2020 18:39:37 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="391-httpsgithubcomlwouisalt-tab-macoscomparev390v391-2020-04-18">3.9.1 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1">https://github.com/lwouis/alt-tab-macos/compare/v3.9.0...v3.9.1</a>) (2020-04-18)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* show windows from steam app (closes #236 (https://github.com/lwouis/alt-tab-macos/issues/236)) (d17c9d5 (https://github.com/lwouis/alt-tab-macos/commit/d17c9d5))
-* thumbnails layout was wrong sometimes (06c6f48 (https://github.com/lwouis/alt-tab-macos/commit/06c6f48))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.9.1/AltTab-3.9.1.zip"
         sparkle:version="3.9.1"
@@ -482,12 +322,6 @@
       <title>Version 3.9.0</title>
       <pubDate>Sat, 18 Apr 2020 16:37:30 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="390-httpsgithubcomlwouisalt-tab-macoscomparev380v390-2020-04-18">3.9.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0">https://github.com/lwouis/alt-tab-macos/compare/v3.8.0...v3.9.0</a>) (2020-04-18)</h1>
-<h3 id="features">Features</h3>
-<pre><code>* allow shortcuts to be modifiers-only (closes #243 (https://github.com/lwouis/alt-tab-macos/issues/243)) (d4be095 (https://github.com/lwouis/alt-tab-macos/commit/d4be095))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.9.0/AltTab-3.9.0.zip"
         sparkle:version="3.9.0"
@@ -501,14 +335,6 @@
       <title>Version 3.8.0</title>
       <pubDate>Sat, 18 Apr 2020 15:45:10 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h1 id="380-httpsgithubcomlwouisalt-tab-macoscomparev373v380-2020-04-18">3.8.0 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0">https://github.com/lwouis/alt-tab-macos/compare/v3.7.3...v3.8.0</a>) (2020-04-18)</h1>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* clearer debug profile (i.e. no &quot;optional&quot;) (e2b94f7 (https://github.com/lwouis/alt-tab-macos/commit/e2b94f7))</code></pre><h3 id="features">Features</h3>
-<pre><code>* add acknowledgments for third-party software (closes #177 (https://github.com/lwouis/alt-tab-macos/issues/177)) (9398cff (https://github.com/lwouis/alt-tab-macos/commit/9398cff))
-* remove runtime checker for better perf (e9ce575 (https://github.com/lwouis/alt-tab-macos/commit/e9ce575))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.8.0/AltTab-3.8.0.zip"
         sparkle:version="3.8.0"
@@ -522,12 +348,6 @@
       <title>Version 3.7.3</title>
       <pubDate>Thu, 09 Apr 2020 07:51:32 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <description><![CDATA[
-<h2 id="373-httpsgithubcomlwouisalt-tab-macoscomparev372v373-2020-04-09">3.7.3 (<a href="https://github.com/lwouis/alt-tab-macos/compare/v3.7.2...v3.7.3">https://github.com/lwouis/alt-tab-macos/compare/v3.7.2...v3.7.3</a>) (2020-04-09)</h2>
-<h3 id="bug-fixes">Bug Fixes</h3>
-<pre><code>* typos in korean and chinese labels (closes #228 (https://github.com/lwouis/alt-tab-macos/issues/228)) (c655675 (https://github.com/lwouis/alt-tab-macos/commit/c655675))</code></pre>
-      ]]>
-      </description>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.3/AltTab-3.7.3.zip"
         sparkle:version="3.7.3"
@@ -541,7 +361,7 @@
       <title>Version 3.7.2</title>
       <pubDate>Thu, 09 Apr 2020 06:03:27 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.2/AltTab-3.7.2.zip"
         sparkle:version="3.7.2"
@@ -555,7 +375,7 @@
       <title>Version 3.7.1</title>
       <pubDate>Wed, 08 Apr 2020 18:33:10 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.1/AltTab-3.7.1.zip"
         sparkle:version="3.7.1"
@@ -569,7 +389,7 @@
       <title>Version 3.7.0</title>
       <pubDate>Wed, 08 Apr 2020 15:14:08 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.7.0/AltTab-3.7.0.zip"
         sparkle:version="3.7.0"
@@ -583,7 +403,7 @@
       <title>Version 3.6.2</title>
       <pubDate>Wed, 08 Apr 2020 10:37:13 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.6.2/AltTab-3.6.2.zip"
         sparkle:version="3.6.2"
@@ -597,7 +417,7 @@
       <title>Version 3.6.1</title>
       <pubDate>Wed, 08 Apr 2020 07:25:44 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.6.1/AltTab-3.6.1.zip"
         sparkle:version="3.6.1"
@@ -611,7 +431,7 @@
       <title>Version 3.6.0</title>
       <pubDate>Tue, 07 Apr 2020 09:14:24 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.6.0/AltTab-3.6.0.zip"
         sparkle:version="3.6.0"
@@ -625,7 +445,7 @@
       <title>Version 3.5.0</title>
       <pubDate>Sun, 05 Apr 2020 13:35:21 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.5.0/AltTab-3.5.0.zip"
         sparkle:version="3.5.0"
@@ -639,7 +459,7 @@
       <title>Version 3.4.1</title>
       <pubDate>Sun, 05 Apr 2020 13:20:12 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.4.1/AltTab-3.4.1.zip"
         sparkle:version="3.4.1"
@@ -653,7 +473,7 @@
       <title>Version 3.4.0</title>
       <pubDate>Fri, 03 Apr 2020 06:51:12 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.4.0/AltTab-3.4.0.zip"
         sparkle:version="3.4.0"
@@ -667,7 +487,7 @@
       <title>Version 3.3.3</title>
       <pubDate>Fri, 03 Apr 2020 04:18:26 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.3/AltTab-3.3.3.zip"
         sparkle:version="3.3.3"
@@ -681,7 +501,7 @@
       <title>Version 3.3.2</title>
       <pubDate>Thu, 02 Apr 2020 16:23:14 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.2/AltTab-3.3.2.zip"
         sparkle:version="3.3.2"
@@ -695,7 +515,7 @@
       <title>Version 3.3.1</title>
       <pubDate>Thu, 02 Apr 2020 12:33:49 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.1/AltTab-3.3.1.zip"
         sparkle:version="3.3.1"
@@ -709,7 +529,7 @@
       <title>Version 3.3.0</title>
       <pubDate>Thu, 02 Apr 2020 10:46:53 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.3.0/AltTab-3.3.0.zip"
         sparkle:version="3.3.0"
@@ -723,7 +543,7 @@
       <title>Version 3.2.1</title>
       <pubDate>Wed, 25 Mar 2020 05:50:32 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.2.1/AltTab-3.2.1.zip"
         sparkle:version="3.2.1"
@@ -737,7 +557,7 @@
       <title>Version 3.2.0</title>
       <pubDate>Tue, 24 Mar 2020 11:09:19 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.2.0/AltTab-3.2.0.zip"
         sparkle:version="3.2.0"
@@ -751,7 +571,7 @@
       <title>Version 3.1.3</title>
       <pubDate>Thu, 12 Mar 2020 08:32:27 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.3/AltTab-3.1.3.zip"
         sparkle:version="3.1.3"
@@ -765,7 +585,7 @@
       <title>Version 3.1.2</title>
       <pubDate>Thu, 12 Mar 2020 03:15:56 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.2/AltTab-3.1.2.zip"
         sparkle:version="3.1.2"
@@ -779,7 +599,7 @@
       <title>Version 3.1.1</title>
       <pubDate>Wed, 11 Mar 2020 16:03:52 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.1/AltTab-3.1.1.zip"
         sparkle:version="3.1.1"
@@ -793,7 +613,7 @@
       <title>Version 3.1.0</title>
       <pubDate>Tue, 10 Mar 2020 17:21:29 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.1.0/AltTab-3.1.0.zip"
         sparkle:version="3.1.0"
@@ -807,7 +627,7 @@
       <title>Version 3.0.5</title>
       <pubDate>Tue, 10 Mar 2020 14:03:49 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.5/AltTab-3.0.5.zip"
         sparkle:version="3.0.5"
@@ -821,7 +641,7 @@
       <title>Version 3.0.4</title>
       <pubDate>Tue, 10 Mar 2020 12:48:38 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.4/AltTab-3.0.4.zip"
         sparkle:version="3.0.4"
@@ -835,7 +655,7 @@
       <title>Version 3.0.3</title>
       <pubDate>Tue, 10 Mar 2020 11:10:39 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.3/AltTab-3.0.3.zip"
         sparkle:version="3.0.3"
@@ -849,7 +669,7 @@
       <title>Version 3.0.2</title>
       <pubDate>Tue, 10 Mar 2020 10:19:08 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.2/AltTab-3.0.2.zip"
         sparkle:version="3.0.2"
@@ -863,7 +683,7 @@
       <title>Version 3.0.1</title>
       <pubDate>Tue, 10 Mar 2020 09:34:49 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.1/AltTab-3.0.1.zip"
         sparkle:version="3.0.1"
@@ -877,7 +697,7 @@
       <title>Version 3.0.0</title>
       <pubDate>Tue, 10 Mar 2020 09:03:47 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://lwouis.github.io/alt-tab-macos/CHANGELOG</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
       <enclosure
         url="https://github.com/lwouis/alt-tab-macos/releases/download/v3.0.0/AltTab-3.0.0.zip"
         sparkle:version="3.0.0"
