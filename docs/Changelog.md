@@ -1,5 +1,12 @@
 # Release notes
 
+## [3.22.5](https://github.com/lwouis/alt-tab-macos/compare/v3.22.4...v3.22.5) (2020-05-10)
+
+
+### Bug Fixes
+
+* implement a 2min timeout for unresponsive apps (closes [#274](https://github.com/lwouis/alt-tab-macos/issues/274)) ([7ab7c82](https://github.com/lwouis/alt-tab-macos/commit/7ab7c82))
+
 ## [3.22.4](https://github.com/lwouis/alt-tab-macos/compare/v3.22.3...v3.22.4) (2020-05-10)
 
 
