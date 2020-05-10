@@ -1,5 +1,13 @@
 # Release notes
 
+## [3.22.2](https://github.com/lwouis/alt-tab-macos/compare/v3.22.1...v3.22.2) (2020-05-10)
+
+
+### Bug Fixes
+
+* auto-update was pointing to the wrong release notes url ([b5f1499](https://github.com/lwouis/alt-tab-macos/commit/b5f1499))
+* crash on launch trying to open a file that was renamed ([52b8666](https://github.com/lwouis/alt-tab-macos/commit/52b8666))
+
 ## [3.22.1](https://github.com/lwouis/alt-tab-macos/compare/v3.22.0...v3.22.1) (2020-05-10)
 
 # [3.22.0](https://github.com/lwouis/alt-tab-macos/compare/v3.21.2...v3.22.0) (2020-05-10)
