@@ -1,5 +1,13 @@
 # Release notes
 
+## [3.22.4](https://github.com/lwouis/alt-tab-macos/compare/v3.22.3...v3.22.4) (2020-05-10)
+
+
+### Bug Fixes
+
+* update korean localization ([0b61bce](https://github.com/lwouis/alt-tab-macos/commit/0b61bce))
+* workaround some odd bug that's breaking protege.app (closes [#314](https://github.com/lwouis/alt-tab-macos/issues/314)) ([8f4efdf](https://github.com/lwouis/alt-tab-macos/commit/8f4efdf))
+
 ## [3.22.3](https://github.com/lwouis/alt-tab-macos/compare/v3.22.2...v3.22.3) (2020-05-10)
 
 ## [3.22.2](https://github.com/lwouis/alt-tab-macos/compare/v3.22.1...v3.22.2) (2020-05-10)
