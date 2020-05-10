@@ -1,5 +1,12 @@
 # Release notes
 
+## [3.22.6](https://github.com/lwouis/alt-tab-macos/compare/v3.22.5...v3.22.6) (2020-05-10)
+
+
+### Bug Fixes
+
+* exotic scenario where the os reports no main screen (closes [#330](https://github.com/lwouis/alt-tab-macos/issues/330)) ([f83ef40](https://github.com/lwouis/alt-tab-macos/commit/f83ef40))
+
 ## [3.22.5](https://github.com/lwouis/alt-tab-macos/compare/v3.22.4...v3.22.5) (2020-05-10)
 
 
