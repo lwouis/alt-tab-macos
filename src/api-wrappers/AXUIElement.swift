@@ -103,42 +103,28 @@ extension AXUIElement {
         AXUIElementPerformAction(self, kAXRaiseAction as CFString)
     }
 
-    func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)? = nil, _ runningApplication: NSRunningApplication? = nil, _ wid: CGWindowID? = nil, _ attemptsCount: Int = 0) {
+    func subscribeWithRetry(_ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)? = nil, _ runningApplication: NSRunningApplication? = nil, _ wid: CGWindowID? = nil, _ startTime: DispatchTime = DispatchTime.now()) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] () -> () in
             guard let self = self else { return }
-            DispatchQueue.main.async { () -> () in
-                // TODO: this code is probably wrong and should be reviewed
-                if let runningApplication = runningApplication, (!Applications.appsInSubscriptionRetryLoop.contains { $0 == String(runningApplication.processIdentifier) + String(notification) }) { return }
-                if let wid = wid, (!Windows.windowsInSubscriptionRetryLoop.contains { $0 == String(wid) + String(notification) }) { return }
-            }
+            // some apps return .isFinishedLaunching = true but will return .cannotComplete when we try to subscribe to them
+            // this happens for example when apps launch and have heavy loading to do (e.g. Gimp).
+            // we have no way to know if they are one day going to be letting us subscribe, so we timeout after 2 min
+            let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
+            if timePassedInSeconds > 120 { return }
             let result = AXObserverAddNotification(axObserver, self, notification as CFString, pointer)
-            self.handleSubscriptionAttempt(result, axObserver, notification, pointer, callback, runningApplication, wid, attemptsCount)
+            self.handleSubscriptionAttempt(result, axObserver, notification, pointer, callback, runningApplication, wid, startTime)
         }
     }
 
-    func handleSubscriptionAttempt(_ result: AXError, _ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)?, _ runningApplication: NSRunningApplication?, _ wid: CGWindowID?, _ attemptsCount: Int) -> Void {
+    func handleSubscriptionAttempt(_ result: AXError, _ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)?, _ runningApplication: NSRunningApplication?, _ wid: CGWindowID?, _ startTime: DispatchTime) -> Void {
         if result == .success || result == .notificationAlreadyRegistered {
             DispatchQueue.main.async { [weak self] () -> () in
                 callback?()
-                self?.stopRetries(runningApplication, wid, notification)
             }
-        } else if result == .notificationUnsupported || result == .notImplemented {
-            DispatchQueue.main.async { [weak self] () -> () in
-                self?.stopRetries(runningApplication, wid, notification)
-            }
-        } else {
+        } else if result != .notificationUnsupported && result != .notImplemented {
             DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(10), execute: { [weak self] in
-                self?.subscribeWithRetry(axObserver, notification, pointer, callback, runningApplication, wid, attemptsCount + 1)
+                self?.subscribeWithRetry(axObserver, notification, pointer, callback, runningApplication, wid, startTime)
             })
-        }
-    }
-
-    func stopRetries(_ runningApplication: NSRunningApplication?, _ wid: CGWindowID?, _ notification: String) {
-        if let runningApplication = runningApplication {
-            Application.stopSubscriptionRetries(notification, runningApplication)
-        }
-        if let wid = wid {
-            Window.stopSubscriptionRetries(notification, wid)
         }
     }
 

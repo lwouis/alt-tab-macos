@@ -25,12 +25,6 @@ class Window {
         kAXWindowResizedNotification,
     ]
 
-    static func stopSubscriptionRetries(_ notification: String, _ cgWindowId: CGWindowID) {
-        Windows.windowsInSubscriptionRetryLoop.removeAll { (subscription: String) -> Bool in
-            subscription == String(cgWindowId) + notification
-        }
-    }
-
     init(_ axUiElement: AXUIElement, _ application: Application) {
         // TODO: make a efficient batched AXUIElementCopyMultipleAttributeValues call once for each window, and store the values
         self.axUiElement = axUiElement
@@ -48,16 +42,10 @@ class Window {
         observeEvents()
     }
 
-    deinit {
-        // some windows never finish launching; subscription retries should be stopped to avoid infinite loops
-        Window.notifications.forEach { Window.stopSubscriptionRetries($0, cgWindowId) }
-    }
-
     private func observeEvents() {
         AXObserverCreate(application.runningApplication.processIdentifier, axObserverCallback, &axObserver)
         guard let axObserver = axObserver else { return }
         for notification in Window.notifications {
-            Windows.windowsInSubscriptionRetryLoop.append(String(cgWindowId) + String(notification))
             axUiElement.subscribeWithRetry(axObserver, notification, nil, nil, nil, cgWindowId)
         }
         CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)

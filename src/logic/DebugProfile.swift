@@ -6,7 +6,6 @@ class DebugProfile {
     static let interSeparator = ", "
     static let bulletPoint = "* "
     static let nestedSeparator = "\n  " + bulletPoint
-    static let subscriptionRetriesRegex = try! NSRegularExpression(pattern: "[^0-9]+")
 
     static func make() -> String {
         let tuples: [(String, String)] = [
@@ -15,8 +14,6 @@ class DebugProfile {
             ("App preferences", appPreferences()),
             ("Applications", String(Applications.list.count)),
             ("Windows", listLevel2(Windows.list, appWindow)),
-            ("Apps subscription retries", listLevel2(Applications.appsInSubscriptionRetryLoop, subscriptionRetriesForApp)),
-            ("Windows subscription retries", listLevel2(Windows.windowsInSubscriptionRetryLoop, subscriptionRetriesForWindow)),
             // os
             ("OS version", ProcessInfo.processInfo.operatingSystemVersionString),
             ("OS architecture", Sysctl.run("hw.machine")),
@@ -56,32 +53,6 @@ class DebugProfile {
             .map { $0.0 + intraSeparator + $0.1 }
             .joined(separator: interSeparator)
             + "}"
-    }
-
-    static func subscriptionRetriesForWindow(_ subscriptionId: String) -> String {
-        let range = NSMakeRange(0, subscriptionId.count)
-        let widString = subscriptionRetriesRegex.stringByReplacingMatches(in: subscriptionId, range: range, withTemplate: "")
-        let wid = CGWindowID(truncating: NumberFormatter().number(from: widString)!)
-        let window = (CGWindowListCopyWindowInfo(.optionAll, wid) as! [CGWindow]).first!
-        return listLevel3([
-            ("wid", widString),
-            ("title", window.title() ?? "nil"),
-            ("ownerPID", window.ownerPID().flatMap { String($0) } ?? "nil"),
-            ("ownerName", window.ownerName() ?? "nil"),
-            ("layer", window.layer().flatMap { String($0) } ?? "nil"),
-        ])
-    }
-
-    static func subscriptionRetriesForApp(_ subscriptionId: String) -> String {
-        let range = NSMakeRange(0, subscriptionId.count)
-        let pidString = subscriptionRetriesRegex.stringByReplacingMatches(in: subscriptionId, range: range, withTemplate: "")
-        let pid = pid_t(truncating: NumberFormatter().number(from: pidString)!)
-        let app = NSRunningApplication(processIdentifier: pid)!
-        return listLevel3([
-            ("pid", pidString),
-            ("bundleIdentifier", app.bundleIdentifier ?? "nil"),
-            ("bundleURL", app.bundleURL?.path ?? "nil"),
-        ])
     }
 
     private static func appPreferences() -> String {

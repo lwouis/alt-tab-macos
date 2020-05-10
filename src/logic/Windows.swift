@@ -5,7 +5,6 @@ class Windows {
     static var list = [Window]()
     static var previousFocusedWindowIndex = Int(0)
     static var focusedWindowIndex = Int(0)
-    static var windowsInSubscriptionRetryLoop = [String]()
 
     static func updateFocusedWindowIndex(_ newIndex: Int) {
         previousFocusedWindowIndex = focusedWindowIndex
