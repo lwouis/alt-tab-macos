@@ -21,10 +21,14 @@ class Screen {
         window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 
-    static func uuid(_ screen: NSScreen) -> ScreenUuid {
+    static func uuid(_ screen: NSScreen) -> ScreenUuid? {
         let screenNumber = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! UInt32
         let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber).takeRetainedValue()
-        return CFUUIDCreateString(nil, screenUuid)!
+        if screenUuid != nil,
+           let uuid = CFUUIDCreateString(nil, screenUuid) {
+            return uuid
+        }
+        return nil
     }
 }
 

@@ -18,8 +18,12 @@ class Spaces {
     }
 
     static func refreshCurrentSpaceId() {
-        currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, Screen.uuid(NSScreen.main!))
-        debugPrint("currentSpaceId", currentSpaceId)
+        // it seems that in some rare scenarios, some of these values are nil; we wrap to avoid crashing
+        if let mainScreen = NSScreen.main,
+           let uuid = Screen.uuid(mainScreen) {
+            currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, uuid)
+            debugPrint("currentSpaceId", currentSpaceId)
+        }
     }
 
     static func initialDiscovery() {
@@ -38,13 +42,13 @@ class Spaces {
 
     static func allIdsAndIndexes() -> [(CGSSpaceID, SpaceIndex)] {
         return (CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary])
-                .map { (display: NSDictionary) -> [NSDictionary] in
-                    display["Spaces"] as! [NSDictionary]
-                }
-                .joined().enumerated()
-                .map { (space: (offset: Int, element: NSDictionary)) -> (CGSSpaceID, SpaceIndex) in
-                    (space.element["id64"]! as! CGSSpaceID, space.offset + 1)
-                }
+            .map { (display: NSDictionary) -> [NSDictionary] in
+                display["Spaces"] as! [NSDictionary]
+            }
+            .joined().enumerated()
+            .map { (space: (offset: Int, element: NSDictionary)) -> (CGSSpaceID, SpaceIndex) in
+                (space.element["id64"]! as! CGSSpaceID, space.offset + 1)
+            }
     }
 
     static func otherSpaces() -> [CGSSpaceID] {
