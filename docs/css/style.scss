@@ -30,7 +30,7 @@ header {
   align-items: center;
 
   h1 {
-    margin: 20px 0 5px 15px;
+    margin: 20px 0 5px 10px;
     line-height: 1;
 
     a {
@@ -39,7 +39,7 @@ header {
   }
 
   p {
-    margin: 0 0 0 15px;
+    margin: 0 0 0 10px;
     color: #666;
   }
 
@@ -49,6 +49,7 @@ header {
 
   & > div {
     display: flex;
+    margin-top: 5px;
   }
 }
 
@@ -136,6 +137,8 @@ nav {
 .page {
   width: 100%;
   max-width: $width;
+  padding-left: 10px;
+  padding-right: 10px;
 
   img {
     max-width: 100%;
