@@ -10,8 +10,9 @@ class AcknowledgmentsTab: NSViewController, PreferencePane {
     let toolbarItemIcon = NSImage(named: NSImage.userAccountsName)!
 
     override func loadView() {
-        let markdownFileUrl = Bundle.main.url(forResource: "ACKNOWLEDGMENTS", withExtension: "md")!
+        let markdownFileUrl = Bundle.main.url(forResource: "Acknowledgments", withExtension: "md")!
         let md = SwiftyMarkdown(url: markdownFileUrl)!
+        md.h1.fontSize = 24
         md.h2.fontSize = 20
         let textView = TextField(md.attributedString())
 
