@@ -1,6 +1,6 @@
 # AltTab
 
-[![Screenshot](docs/img/alt-tab-macos/frontpage.jpg)](docs/img/alt-tab-macos/frontpage.jpg)
+[![Screenshot](docs/public/demo/frontpage.jpg)](docs/public/demo/frontpage.jpg)
 
 **AltTab** brings the power of Windows alt-tab to macOS
 
