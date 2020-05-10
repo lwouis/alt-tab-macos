@@ -3,7 +3,6 @@ import ApplicationServices
 
 class Applications {
     static var list = [Application]()
-    static var appsInSubscriptionRetryLoop = [String]()
 
     static func observeNewWindows() {
         for app in list {

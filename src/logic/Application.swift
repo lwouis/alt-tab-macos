@@ -23,14 +23,6 @@ class Application: NSObject {
         return n
     }
 
-    // some apps never finish their subscription retry loop; they should be stopped to avoid infinite loop
-    static func stopSubscriptionRetries(_ notification: String, _ runningApplication: NSRunningApplication) {
-        let subscriptionToRemove: String = String(runningApplication.processIdentifier) + notification
-        Applications.appsInSubscriptionRetryLoop.removeAll { (subscription: String) -> Bool in
-            return subscription == subscriptionToRemove
-        }
-    }
-
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         super.init()
@@ -42,8 +34,6 @@ class Application: NSObject {
     }
 
     deinit {
-        // some apps never finish launching; subscription retries should be stopped to avoid infinite loops
-        Application.notifications(runningApplication).forEach { Application.stopSubscriptionRetries($0, runningApplication) }
         // some apps never finish launching; observer should be removed to avoid leak
         removeObserver()
     }
@@ -88,7 +78,6 @@ class Application: NSObject {
         guard let axObserver = axObserver else { return }
         let selfPointer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
         for notification in Application.notifications(runningApplication) {
-            Applications.appsInSubscriptionRetryLoop.append(String(runningApplication.processIdentifier) + String(notification))
             axUiElement!.subscribeWithRetry(axObserver, notification, selfPointer, { [weak self] in
                 // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
                 // we consider them ready when the first subscription succeeds, and list their windows again at that point
