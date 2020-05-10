@@ -1,4 +1,4 @@
-Release notes
+# Release notes
 
 # [3.22.0](https://github.com/lwouis/alt-tab-macos/compare/v3.21.2...v3.22.0) (2020-05-10)
 
