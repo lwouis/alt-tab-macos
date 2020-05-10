@@ -17,6 +17,7 @@ if [ $IS_RELEASE ]; then
   scripts/package_and_notarize_release.sh
   scripts/update_appcast.sh
   npx semantic-release
+  scripts/update_website.sh
 else
   scripts/codesign/setup_ci_pr.sh
   xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Debug -derivedDataPath DerivedData
