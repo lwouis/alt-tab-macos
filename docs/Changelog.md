@@ -1,5 +1,17 @@
 # Release notes
 
+# [3.23.0](https://github.com/lwouis/alt-tab-macos/compare/v3.22.6...v3.23.0) (2020-05-11)
+
+
+### Bug Fixes
+
+* update korean localization ([34e6877](https://github.com/lwouis/alt-tab-macos/commit/34e6877))
+
+
+### Features
+
+* localize release notes using google translate ([1927f2c](https://github.com/lwouis/alt-tab-macos/commit/1927f2c))
+
 ## [3.22.6](https://github.com/lwouis/alt-tab-macos/compare/v3.22.5...v3.22.6) (2020-05-10)
 
 
