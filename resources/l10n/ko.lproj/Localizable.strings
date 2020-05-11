@@ -105,7 +105,7 @@
 "Min windows per row:" = "한 줄당 최소 윈도우 개수:";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "창 최소화 / 최소화 창";
+"Minimize/Deminimize window" = "창 최소화 / 최대화";
 
 /*No comment provided by engineer.*/
 "Minimized" = "최소화된 화면";
@@ -174,7 +174,7 @@
 "Show on:" = "보여질 곳:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "기본 탭을 윈도우로 보여주기:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "다음 윈도우들이 보여집니다:";
