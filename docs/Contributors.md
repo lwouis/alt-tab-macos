@@ -32,5 +32,6 @@
 * Tomoa Nozawa
 * Umutakkaya1996
 * Vlad
+* Whatsmine-HaoshuaiXu
 * Yukai
 * yumechan
