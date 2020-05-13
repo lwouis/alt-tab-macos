@@ -17,9 +17,9 @@ extension NSObject {
 
 extension Array where Element == Window {
     func firstIndexThatMatches(_ element: AXUIElement) -> Self.Index? {
-        // == is safer than comparing `CGWindowID` because it will succeed even if the window is deallocated
-        // by the OS, in which case the `CGWindowID` will be `-1`
-        return firstIndex(where: { $0.axUiElement == element })
+        // the window can be deallocated by the OS, in which case its `CGWindowID` will be `-1`
+        // we check for equality both on the AXUIElement, and the CGWindowID, in order to catch all scenarios
+        return firstIndex(where: { $0.axUiElement == element || ($0.cgWindowId != -1 && $0.cgWindowId == element.cgWindowId()) })
     }
 
     mutating func insertAndScaleRecycledPool(_ elements: [Element], at i: Int) {

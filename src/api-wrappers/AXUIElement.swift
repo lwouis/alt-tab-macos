@@ -16,13 +16,14 @@ extension AXUIElement {
     }
 
     func isActualWindow(_ bundleIdentifier: String?) -> Bool {
+        // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
         // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs
         let subrole_ = subrole()
-        return subrole_ != nil &&
+        return cgWindowId() != 0 && subrole_ != nil &&
             (["AXStandardWindow", "AXDialog"].contains(subrole_) ||
                 // All Steam windows have subrole = AXUnknown
                 // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
