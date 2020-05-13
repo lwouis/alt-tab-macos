@@ -1,5 +1,13 @@
 # Release notes
 
+## [3.23.1](https://github.com/lwouis/alt-tab-macos/compare/v3.23.0...v3.23.1) (2020-05-13)
+
+
+### Bug Fixes
+
+* duplicate windows shown after login (closes [#292](https://github.com/lwouis/alt-tab-macos/issues/292)) ([804b7e2](https://github.com/lwouis/alt-tab-macos/commit/804b7e2))
+* update russian, chinese, chinese (tw) localizations ([bf97f53](https://github.com/lwouis/alt-tab-macos/commit/bf97f53))
+
 # [3.23.0](https://github.com/lwouis/alt-tab-macos/compare/v3.22.6...v3.23.0) (2020-05-11)
 
 
