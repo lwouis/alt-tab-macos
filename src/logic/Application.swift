@@ -52,7 +52,8 @@ class Application: NSObject {
     func observeNewWindows() {
         if let windows = (axUiElement!.windows()?
             .filter { $0.isActualWindow(runningApplication.bundleIdentifier) }) {
-            let actualWindows = windows.filter { Windows.list.firstIndexThatMatches($0) == nil }
+            // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
+            let actualWindows = Array(Set(windows.filter { Windows.list.firstIndexThatMatches($0) == nil }))
             if actualWindows.count > 0 {
                 addWindows(actualWindows)
             }
