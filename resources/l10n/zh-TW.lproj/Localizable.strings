@@ -30,13 +30,13 @@
 "All spaces" = "全部桌面";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "殘影延遲：";
+"Apparition delay:" = "顯示前的延遲：";
 
 /*No comment provided by engineer.*/
 "Appearance" = "外觀";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "您確定不想收到回覆嗎？";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "方向鍵";
@@ -69,7 +69,7 @@
 "Don’t check for updates periodically" = "不要定期自動檢查更新";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "淡出動畫：";
 
 /*No comment provided by engineer.*/
 "General" = "一般";
@@ -153,7 +153,7 @@
 "Send" = "送出";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+"Send anyway" = "送出";
 
 /*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "送出除錯資訊（CPU, 記憶體, …）";
@@ -174,7 +174,7 @@
 "Show on:" = "顯示在：";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "將分頁顯示為視窗：";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "顯示以下的視窗：";
@@ -210,7 +210,7 @@
 "Window title font size:" = "視窗標題的字體大小：";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "若沒有填寫 Email，您將無法收到回覆";
 
 /*No comment provided by engineer.*/
 " macOS" = " macOS";
