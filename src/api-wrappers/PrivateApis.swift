@@ -160,6 +160,16 @@ let kAXFullscreenAttribute = "AXFullScreen"
 //@_silgen_name("GetProcessPID")
 //func GetProcessPID(_ psn: inout ProcessSerialNumber, _ pid: inout pid_t) -> Void
 //
+//// returns info about a given psn
+//// * macOS 10.9-
+//@_silgen_name("GetProcessInformation") @discardableResult
+//func GetProcessInformation(_ psn: inout ProcessSerialNumber, _ info: inout ProcessInfoRec) -> OSErr
+//
+//// returns the psn for a given pid
+//// * macOS 10.9-
+//@_silgen_name("GetProcessForPID") @discardableResult
+//func GetProcessForPID(_ pid: pid_t, _ psn: inout ProcessSerialNumber) -> OSStatus
+//
 //// crashed the app with SIGSEGV
 //// * macOS 10.10+
 //@_silgen_name("CGSGetWindowType") @discardableResult

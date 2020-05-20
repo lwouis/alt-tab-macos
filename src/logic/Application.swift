@@ -1,6 +1,8 @@
 import Cocoa
 
 class Application: NSObject {
+    // kvObservers should be listed first, so it gets deinit'ed first; otherwise it can crash
+    var kvObservers: [NSKeyValueObservation]?
     var runningApplication: NSRunningApplication
     var axUiElement: AXUIElement?
     var axObserver: AXObserver?
@@ -26,44 +28,35 @@ class Application: NSObject {
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         super.init()
-        if runningApplication.isFinishedLaunching {
-            addAndObserveWindows()
-        } else {
-            runningApplication.addObserver(self, forKeyPath: "isFinishedLaunching", options: [.new], context: nil)
-        }
-    }
-
-    deinit {
-        // some apps never finish launching; observer should be removed to avoid leak
-        removeObserver()
+        addAndObserveWindows()
+        kvObservers = [
+            runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in self?.addAndObserveWindows() },
+            runningApplication.observe(\.activationPolicy, options: [.new]) { [weak self] _, _ in self?.addAndObserveWindows() },
+        ]
     }
 
     func removeObserver() {
         runningApplication.safeRemoveObserver(self, "isFinishedLaunching")
     }
 
-    private func addAndObserveWindows() {
-        axUiElement = AXUIElementCreateApplication(runningApplication.processIdentifier)
-        AXObserverCreate(runningApplication.processIdentifier, axObserverCallback, &axObserver)
-        debugPrint("Adding app", runningApplication.processIdentifier, runningApplication.bundleIdentifier ?? "nil")
-        observeEvents()
+    func addAndObserveWindows() {
+        if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
+            axUiElement = AXUIElementCreateApplication(runningApplication.processIdentifier)
+            AXObserverCreate(runningApplication.processIdentifier, axObserverCallback, &axObserver)
+            debugPrint("Adding app", runningApplication.processIdentifier, runningApplication.bundleIdentifier ?? "nil")
+            observeEvents()
+        }
     }
 
     func observeNewWindows() {
-        if let windows = (axUiElement!.windows()?
-            .filter { $0.isActualWindow(runningApplication.bundleIdentifier) }) {
+        if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited,
+           let windows = (axUiElement!.windows()?.filter { $0.isActualWindow(runningApplication.bundleIdentifier) }) {
             // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
             let actualWindows = Array(Set(windows.filter { Windows.list.firstIndexThatMatches($0) == nil }))
             if actualWindows.count > 0 {
                 addWindows(actualWindows)
             }
         }
-    }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        guard let isFinishedLaunching = change![.newKey], isFinishedLaunching as! Bool else { return }
-        removeObserver()
-        addAndObserveWindows()
     }
 
     private func addWindows(_ axWindows: [AXUIElement]) {

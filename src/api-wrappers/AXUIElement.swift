@@ -28,6 +28,7 @@ extension AXUIElement {
                 // All Steam windows have subrole = AXUnknown
                 // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
                 (bundleIdentifier == "com.valvesoftware.steam" && title() != "" && role() != nil)) &&
+            // don't show floating windows
             isOnNormalLevel()
     }
 
@@ -119,7 +120,7 @@ extension AXUIElement {
 
     func handleSubscriptionAttempt(_ result: AXError, _ axObserver: AXObserver, _ notification: String, _ pointer: UnsafeMutableRawPointer?, _ callback: (() -> Void)?, _ runningApplication: NSRunningApplication?, _ wid: CGWindowID?, _ startTime: DispatchTime) -> Void {
         if result == .success || result == .notificationAlreadyRegistered {
-            DispatchQueue.main.async { [weak self] () -> () in
+            DispatchQueue.main.async { () -> () in
                 callback?()
             }
         } else if result != .notificationUnsupported && result != .notImplemented {
