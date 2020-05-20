@@ -1,23 +1,24 @@
 import Cocoa
 
-class WorkspaceEvents: NSObject {
-    private static var appsObserver = WorkspaceEvents()
+class WorkspaceEvents {
+    private static var appsObserver: NSKeyValueObservation!
+    private static var previousValueOfRunningApps: Set<NSRunningApplication>!
 
     static func observeRunningApplications() {
-        NSWorkspace.shared.addObserver(appsObserver, forKeyPath: "runningApplications", options: [.old, .new], context: nil)
+        previousValueOfRunningApps = Set(NSWorkspace.shared.runningApplications)
+        appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: observerCallback)
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        let type = NSKeyValueChange(rawValue: change![.kindKey]! as! UInt)
-        if type == .insertion {
-            let apps = change![.newKey] as! [NSRunningApplication]
-            debugPrint("OS event", "apps launched", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
-            Applications.addRunningApplications(apps)
-        } else if type == .removal {
-            let apps = change![.oldKey] as! [NSRunningApplication]
-            debugPrint("OS event", "apps quit", apps.map { ($0.processIdentifier, $0.bundleIdentifier) })
-            Applications.removeRunningApplications(apps)
-
+    static func observerCallback<A>(_ application: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
+        let workspaceApps = Set(NSWorkspace.shared.runningApplications)
+        let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
+        if change.kind == .insertion {
+            debugPrint("OS event", "apps launched", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
+            Applications.addRunningApplications(diff)
+        } else if change.kind == .removal {
+            debugPrint("OS event", "apps quit", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
+            Applications.removeRunningApplications(diff)
         }
+        previousValueOfRunningApps = workspaceApps
     }
 }
