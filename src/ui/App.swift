@@ -189,9 +189,8 @@ class App: NSApplication, NSApplicationDelegate {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
             if Windows.list.count == 0 || CGWindow.isMissionControlActive() { hideUi(); return }
-            // TODO: find a way to update isSingleSpace by listening to space creation, instead of on every trigger
+            // TODO: find a way to update space info when spaces are changed, instead of on every trigger
             Spaces.idsAndIndexes = Spaces.allIdsAndIndexes()
-            // TODO: find a way to update space index when windows are moved to another space, instead of on every trigger
             Windows.updateSpaces()
             let screen = Screen.preferred()
             Windows.refreshWhichWindowsToShowTheUser(screen)
