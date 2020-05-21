@@ -1,5 +1,14 @@
 # Release notes
 
+## [3.23.2](https://github.com/lwouis/alt-tab-macos/compare/v3.23.1...v3.23.2) (2020-05-21)
+
+
+### Bug Fixes
+
+* better handle apps that start as background processes ([49816ab](https://github.com/lwouis/alt-tab-macos/commit/49816ab))
+* update contributors ([b303d2f](https://github.com/lwouis/alt-tab-macos/commit/b303d2f))
+* update german localization ([b047443](https://github.com/lwouis/alt-tab-macos/commit/b047443))
+
 ## [3.23.1](https://github.com/lwouis/alt-tab-macos/compare/v3.23.0...v3.23.1) (2020-05-13)
 
 
