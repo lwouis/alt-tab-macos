@@ -194,7 +194,6 @@ class App: NSApplication, NSApplicationDelegate {
             // TODO: find a way to update space index when windows are moved to another space, instead of on every trigger
             Windows.updateSpaces()
             let screen = Screen.preferred()
-            Windows.removeWindowsWhichBecameInvalid()
             Windows.refreshWhichWindowsToShowTheUser(screen)
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)

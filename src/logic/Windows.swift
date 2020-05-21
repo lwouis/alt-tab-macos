@@ -95,12 +95,6 @@ class Windows {
         }
     }
 
-    // some window can get invalid *after* we add them to our list, but without us getting notified about it
-    // workaround: we remove the invalid windows right before showing the UI
-    static func removeWindowsWhichBecameInvalid() {
-        Windows.list.removeAll(where: { !$0.axUiElement.isActualWindow($0.application.runningApplication.bundleIdentifier) })
-    }
-
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
         window.shouldShowTheUser = !(!Preferences.showMinimizedWindows && window.isMinimized) &&
             !(!Preferences.showHiddenWindows && window.isHidden) &&
