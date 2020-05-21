@@ -5,8 +5,9 @@ class ThumbnailView: NSStackView {
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Preferences.fontHeight)
+    var fullscreenIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledPlusSign, Preferences.fontIconSize, .white)
     var minimizedIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledMinusSign, Preferences.fontIconSize, .white)
-    var hiddenIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledDotSign, Preferences.fontIconSize, .white)
+    var hiddenIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledSlashSign, Preferences.fontIconSize, .white)
     var spaceIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
     var hStackView: NSStackView!
     var mouseDownCallback: (() -> Void)!
@@ -32,7 +33,7 @@ class ThumbnailView: NSStackView {
         let shadow = ThumbnailView.makeShadow(.gray)
         thumbnail.shadow = shadow
         appIcon.shadow = shadow
-        hStackView = NSStackView(views: [appIcon, label, hiddenIcon, minimizedIcon, spaceIcon])
+        hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
         hStackView.spacing = Preferences.intraCellPadding
         setViews([hStackView, thumbnail], in: .leading)
     }
@@ -78,6 +79,7 @@ class ThumbnailView: NSStackView {
             label.string = element.title
         }
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden)
+        assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen)
         assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized)
         assignIfDifferent(&spaceIcon.isHidden, Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels)
         if !spaceIcon.isHidden {
@@ -89,7 +91,7 @@ class ThumbnailView: NSStackView {
         }
         assignIfDifferent(&frame.size.width, max(thumbnail.frame.size.width + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)))
         assignIfDifferent(&frame.size.height, newHeight)
-        let fontIconWidth = CGFloat([minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
+        let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
         assignIfDifferent(&subviews.first!.frame.size, frame.size)
         self.mouseDownCallback = { () -> Void in App.app.focusSelectedWindow(element) }

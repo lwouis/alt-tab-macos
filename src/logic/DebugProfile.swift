@@ -78,8 +78,10 @@ class DebugProfile {
 
     private static func appWindow(_ window: Window) -> String {
         return listLevel3([
+            ("isFullscreen", String(window.isFullscreen)),
             ("isMinimized", String(window.isMinimized)),
             ("isHidden", String(window.isHidden)),
+            ("isTabbed", String(window.isTabbed)),
             ("isOnAllSpaces", String(window.isOnAllSpaces)),
             ("spaceId", String(window.spaceId)),
             ("spaceIndex", String(window.spaceIndex)),
