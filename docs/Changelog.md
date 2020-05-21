@@ -1,5 +1,19 @@
 # Release notes
 
+# [3.24.0](https://github.com/lwouis/alt-tab-macos/compare/v3.23.2...v3.24.0) (2020-05-21)
+
+
+### Bug Fixes
+
+* don't freeze when invoked while unity is recompiling (closes [#342](https://github.com/lwouis/alt-tab-macos/issues/342)) ([41cb701](https://github.com/lwouis/alt-tab-macos/commit/41cb701)), closes [#292](https://github.com/lwouis/alt-tab-macos/issues/292) [#200](https://github.com/lwouis/alt-tab-macos/issues/200)
+* don't freeze when sending a command to an frozen window ([408b800](https://github.com/lwouis/alt-tab-macos/commit/408b800))
+* show windows which are opened in fullscreen (closes [#335](https://github.com/lwouis/alt-tab-macos/issues/335)) ([2674c8f](https://github.com/lwouis/alt-tab-macos/commit/2674c8f))
+
+
+### Features
+
+* show indicator for fullscreen windows ([0138cd1](https://github.com/lwouis/alt-tab-macos/commit/0138cd1))
+
 ## [3.23.2](https://github.com/lwouis/alt-tab-macos/compare/v3.23.1...v3.23.2) (2020-05-21)
 
 
