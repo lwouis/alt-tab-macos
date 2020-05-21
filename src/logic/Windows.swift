@@ -96,7 +96,9 @@ class Windows {
     }
 
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
-        window.shouldShowTheUser = !(!Preferences.showMinimizedWindows && window.isMinimized) &&
+        window.shouldShowTheUser =
+            !(!Preferences.showFullscreenWindows && window.isFullscreen) &&
+            !(!Preferences.showMinimizedWindows && window.isMinimized) &&
             !(!Preferences.showHiddenWindows && window.isHidden) &&
             !(Preferences.appsToShow == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
             !(Preferences.spacesToShow == .active && window.spaceId != Spaces.currentSpaceId) &&

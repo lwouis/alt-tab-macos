@@ -43,11 +43,12 @@ class GeneralTab: NSViewController, PreferencePane {
         let appsToShow = dropdown("appsToShow", AppsToShowPreference.allCases)
         let spacesToShow = dropdown("spacesToShow", SpacesToShowPreference.allCases)
         let screensToShow = dropdown("screensToShow", ScreensToShowPreference.allCases)
+        let showFullscreenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fullscreen", comment: ""), "showFullscreenWindows", labelPosition: .right))
         let showMinimizedWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Minimized", comment: ""), "showMinimizedWindows", labelPosition: .right))
         let showHiddenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hidden", comment: ""), "showHiddenWindows", labelPosition: .right))
         let shortcuts = StackView([nextWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
         let toShowDropdowns = StackView([appsToShow, spacesToShow, screensToShow], .vertical)
-        let toShowCheckboxes = StackView([showMinimizedWindows, showHiddenWindows], .vertical)
+        let toShowCheckboxes = StackView([showMinimizedWindows, showHiddenWindows, showFullscreenWindows], .vertical)
         let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show the following windows:", comment: ""))
         let toShow = StackView([toShowDropdowns, toShowCheckboxes], .vertical)
 

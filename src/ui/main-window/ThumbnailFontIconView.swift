@@ -3,8 +3,9 @@ import Cocoa
 // Font icon using SF Symbols from the SF Pro font from Apple
 // see https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
 class ThumbnailFontIconView: ThumbnailTitleView {
+    static let sfSymbolCircledPlusSign = "􀁌"
     static let sfSymbolCircledMinusSign = "􀁎"
-    static let sfSymbolCircledDotSign = "􀍷"
+    static let sfSymbolCircledSlashSign = "􀕧"
     static let sfSymbolCircledNumber0 = "􀀸"
     static let sfSymbolCircledNumber10 = "􀓵"
     static let sfSymbolCircledStart = "􀕬"

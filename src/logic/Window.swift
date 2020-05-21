@@ -2,12 +2,13 @@ import Cocoa
 
 class Window {
     var cgWindowId: CGWindowID
-    var title: String
+    var title: String = ""
     var thumbnail: NSImage?
     var icon: NSImage?
     var shouldShowTheUser = true
-    var isTabbed: Bool
+    var isTabbed: Bool = false
     var isHidden: Bool
+    var isFullscreen: Bool
     var isMinimized: Bool
     var isOnAllSpaces: Bool
     var spaceId: CGSSpaceID
@@ -33,11 +34,12 @@ class Window {
         self.spaceId = Spaces.currentSpaceId
         self.spaceIndex = Spaces.currentSpaceIndex
         self.icon = application.runningApplication.icon
-        self.isTabbed = axUiElement.isTabbed(application.axUiElement!, spaceId)
         self.isHidden = application.runningApplication.isHidden
+        self.isFullscreen = axUiElement.isFullScreen()
         self.isMinimized = axUiElement.isMinimized()
         self.isOnAllSpaces = false
-        self.title = Window.bestEffortTitle(axUiElement, cgWindowId, application)
+        self.title = bestEffortTitle()
+        self.isTabbed = getIsTabbed()
         debugPrint("Adding window", cgWindowId, title, application.runningApplication.bundleIdentifier ?? "nil", Spaces.currentSpaceId, Spaces.currentSpaceIndex)
         observeEvents()
     }
@@ -54,6 +56,13 @@ class Window {
     func refreshThumbnail() {
         guard let cgImage = cgWindowId.screenshot() else { return }
         thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
+    }
+
+    func getIsTabbed() -> Bool {
+        // we can only detect tabs for windows on the current space, as AXUIElement.windows() only reports current space windows
+        // also, windows that start in fullscreen will have the wrong spaceID at that point in time, so we check if they are fullscreen too
+        return spaceId == Spaces.currentSpaceId && !isFullscreen &&
+            application.axUiElement!.windows()?.first { $0 == axUiElement } == nil
     }
 
     func close() {
@@ -121,7 +130,7 @@ class Window {
     }
 
     // for some windows (e.g. Slack), the AX API doesn't return a title; we try CG API; finally we resort to the app name
-    static func bestEffortTitle(_ axUiElement: AXUIElement, _ cgWindowId: CGWindowID, _ application: Application) -> String {
+    func bestEffortTitle() -> String {
         if let axTitle = axUiElement.title(), !axTitle.isEmpty {
             return axTitle
         }

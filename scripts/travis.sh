@@ -3,8 +3,8 @@
 set -exu
 
 env | sort
+
 npm ci
-brew install jq
 
 npx commitlint-travis
 scripts/ensure_generated_files_are_up_to_date.sh

@@ -49,13 +49,6 @@ extension AXUIElement {
         return attribute(kAXWindowsAttribute, [AXUIElement].self)
     }
 
-    func isTabbed(_ app: AXUIElement, _ spaceId: CGSSpaceID) -> Bool {
-        // we can only detect tabs for windows on the current space, as AXUIElement.windows() only reports current space windows
-        // also, windows that start in fullscreen will have the wrong spaceID at that point in time, so we check if they are fullscreen too
-        return spaceId == Spaces.currentSpaceId && !isFullScreen() &&
-            app.windows()?.first { $0 == self } == nil
-    }
-
     func isMinimized() -> Bool {
         return attribute(kAXMinimizedAttribute, Bool.self) == true
     }

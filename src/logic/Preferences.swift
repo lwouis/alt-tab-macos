@@ -22,6 +22,7 @@ class Preferences {
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
         "mouseHoverEnabled": "true",
+        "showFullscreenWindows": "true",
         "showMinimizedWindows": "true",
         "showHiddenWindows": "true",
         "showTabsAsWindows": "false",
@@ -63,6 +64,7 @@ class Preferences {
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
+    static var showFullscreenWindows: Bool { defaults.bool("showFullscreenWindows") }
     static var showMinimizedWindows: Bool { defaults.bool("showMinimizedWindows") }
     static var showHiddenWindows: Bool { defaults.bool("showHiddenWindows") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }

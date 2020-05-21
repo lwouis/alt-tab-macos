@@ -20,11 +20,11 @@ func axObserverCallback(observer: AXObserver, element: AXUIElement, notification
 }
 
 private func focusedUiElementChanged(_ element: AXUIElement, _ applicationPointer: UnsafeMutableRawPointer?) {
-    // this event is the only opportunity we have to check if a window became a tab, or a tab became a window
     let application = Unmanaged<Application>.fromOpaque(applicationPointer!).takeUnretainedValue()
     Windows.list.forEach {
         if $0.application == application {
-            $0.isTabbed = $0.axUiElement.isTabbed(application.axUiElement!, $0.spaceId)
+            // this event is the only opportunity we have to check if a window became a tab, or a tab became a window
+            $0.isTabbed = $0.getIsTabbed()
         }
     }
 }
@@ -96,5 +96,6 @@ private func windowTitleChanged(_ element: AXUIElement) {
 private func windowResized(_ element: AXUIElement) {
     guard let index = Windows.list.firstIndexThatMatches(element) else { return }
     let window = Windows.list[index]
+    window.isFullscreen = window.axUiElement.isFullScreen()
     App.app.refreshOpenUi([window])
 }
