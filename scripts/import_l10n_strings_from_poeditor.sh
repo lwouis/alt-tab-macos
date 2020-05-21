@@ -20,7 +20,7 @@ function getLanguagesOnPoeditor() {
   languagesOnPoeditor="$(curl -s -X POST https://api.poeditor.com/v2/languages/list \
     -d api_token="$readOnlyToken" \
     -d id="$projectId")"
-  jq -r .result.languages[].code <<<"$languagesOnPoeditor"
+  jq -r '.result.languages[] | select( .percentage != 0 ) | .code' <<<"$languagesOnPoeditor"
 }
 
 export -f updateLanguageFile
