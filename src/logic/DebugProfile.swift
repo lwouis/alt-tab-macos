@@ -81,8 +81,8 @@ class DebugProfile {
             ("isMinimized", String(window.isMinimized)),
             ("isHidden", String(window.isHidden)),
             ("isOnAllSpaces", String(window.isOnAllSpaces)),
-            ("spaceId", window.spaceId.flatMap { String($0) } ?? "nil"),
-            ("spaceIndex", window.spaceIndex.flatMap { String($0) } ?? "nil"),
+            ("spaceId", String(window.spaceId)),
+            ("spaceIndex", String(window.spaceIndex)),
         ])
     }
 

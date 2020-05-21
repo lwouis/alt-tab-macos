@@ -10,8 +10,8 @@ class Window {
     var isHidden: Bool
     var isMinimized: Bool
     var isOnAllSpaces: Bool
-    var spaceId: CGSSpaceID?
-    var spaceIndex: SpaceIndex?
+    var spaceId: CGSSpaceID
+    var spaceIndex: SpaceIndex
     var axUiElement: AXUIElement
     var application: Application
     var axObserver: AXObserver?
@@ -30,12 +30,12 @@ class Window {
         self.axUiElement = axUiElement
         self.application = application
         self.cgWindowId = axUiElement.cgWindowId()
-        self.icon = application.runningApplication.icon
-        self.isTabbed = application.axUiElement!.isTabbed(axUiElement)
-        self.isHidden = application.runningApplication.isHidden
-        self.isMinimized = axUiElement.isMinimized()
         self.spaceId = Spaces.currentSpaceId
         self.spaceIndex = Spaces.currentSpaceIndex
+        self.icon = application.runningApplication.icon
+        self.isTabbed = axUiElement.isTabbed(application.axUiElement!, spaceId)
+        self.isHidden = application.runningApplication.isHidden
+        self.isMinimized = axUiElement.isMinimized()
         self.isOnAllSpaces = false
         self.title = Window.bestEffortTitle(axUiElement, cgWindowId, application)
         debugPrint("Adding window", cgWindowId, title, application.runningApplication.bundleIdentifier ?? "nil", Spaces.currentSpaceId, Spaces.currentSpaceIndex)

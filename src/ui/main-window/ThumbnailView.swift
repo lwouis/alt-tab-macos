@@ -79,12 +79,12 @@ class ThumbnailView: NSStackView {
         }
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden)
         assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized)
-        assignIfDifferent(&spaceIcon.isHidden, element.spaceIndex == nil || Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels)
+        assignIfDifferent(&spaceIcon.isHidden, Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels)
         if !spaceIcon.isHidden {
             if element.isOnAllSpaces {
                 spaceIcon.setStar()
             } else {
-                spaceIcon.setNumber(UInt32(element.spaceIndex!))
+                spaceIcon.setNumber(UInt32(element.spaceIndex))
             }
         }
         assignIfDifferent(&frame.size.width, max(thumbnail.frame.size.width + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)))
