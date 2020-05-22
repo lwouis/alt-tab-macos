@@ -1,5 +1,12 @@
 # Release notes
 
+## [3.24.1](https://github.com/lwouis/alt-tab-macos/compare/v3.24.0...v3.24.1) (2020-05-22)
+
+
+### Bug Fixes
+
+* localized release notes were not working ([125da44](https://github.com/lwouis/alt-tab-macos/commit/125da44))
+
 # [3.24.0](https://github.com/lwouis/alt-tab-macos/compare/v3.23.2...v3.24.0) (2020-05-21)
 
 
