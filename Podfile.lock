@@ -2,29 +2,30 @@ PODS:
   - LetsMove (1.24)
   - Preferences (1.0.1)
   - ShortcutRecorder (3.1)
-  - Sparkle (1.23.0)
+  - Sparkle (1.23.1)
   - SwiftyMarkdown (1.1.0)
 
 DEPENDENCIES:
-  - LetsMove (from `https://github.com/lwouis/LetsMove.git`, branch `master`)
+  - LetsMove (from `https://github.com/lwouis/LetsMove.git`, commit `7abf4daed1a25218f2b52f2dfd190aee5a50071c`)
   - Preferences (= 1.0.1)
-  - ShortcutRecorder (from `https://github.com/Kentzo/ShortcutRecorder.git`, branch `issue-114`)
-  - Sparkle (= 1.23.0)
+  - ShortcutRecorder (from `https://github.com/Kentzo/ShortcutRecorder.git`, commit `f718220854575bad86fa89dd2bb3decd0b14b2b0`)
+  - Sparkle (from `https://raw.githubusercontent.com/lwouis/Sparkle/master/Sparkle.podspec`)
   - SwiftyMarkdown (= 1.1.0)
 
 SPEC REPOS:
   trunk:
     - Preferences
-    - Sparkle
     - SwiftyMarkdown
 
 EXTERNAL SOURCES:
   LetsMove:
-    :branch: master
+    :commit: 7abf4daed1a25218f2b52f2dfd190aee5a50071c
     :git: https://github.com/lwouis/LetsMove.git
   ShortcutRecorder:
-    :branch: issue-114
+    :commit: f718220854575bad86fa89dd2bb3decd0b14b2b0
     :git: https://github.com/Kentzo/ShortcutRecorder.git
+  Sparkle:
+    :podspec: https://raw.githubusercontent.com/lwouis/Sparkle/master/Sparkle.podspec
 
 CHECKOUT OPTIONS:
   LetsMove:
@@ -38,9 +39,9 @@ SPEC CHECKSUMS:
   LetsMove: fefe56bc7bc7fb7d37049e28a14f297961229fc5
   Preferences: a5afbe0ae3e6bd886328b1960f4998e65d58f2c4
   ShortcutRecorder: fdf620aca34101b0cba3b10fca815e0459254189
-  Sparkle: 55b1a87ba69d56913375a281546b7c82dec95bb0
+  Sparkle: ea073ba9c69cee3ebaab8685ba1e732e14d249f7
   SwiftyMarkdown: 033abc9dad9a37903f81aec5188cade436f40520
 
-PODFILE CHECKSUM: a076a48ff65c4ac69af442cabb8e8f8409f3d6ce
+PODFILE CHECKSUM: e7011f43849744a924e7df7735fb8dfabeb15628
 
 COCOAPODS: 1.9.1
