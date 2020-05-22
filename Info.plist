@@ -40,6 +40,8 @@
 	<string>https://raw.githubusercontent.com/lwouis/alt-tab-macos/master/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
+	<key>SUEnableJavaScript</key>
+	<string>true</string>
 	<key>CFBundleIconFile</key>
 	<string>app-icon</string>
 </dict>
