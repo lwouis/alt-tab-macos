@@ -77,6 +77,8 @@ class ThumbnailView: NSStackView {
         let labelChanged = label.string != element.title
         if labelChanged {
             label.string = element.title
+            // workaround: setting string on NSTextView changes the font (most likely a Cocoa bug)
+            label.font = Preferences.font
         }
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden)
         assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen)
