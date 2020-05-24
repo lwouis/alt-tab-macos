@@ -2,7 +2,7 @@ import Cocoa
 
 class Window {
     var cgWindowId: CGWindowID
-    var title: String = ""
+    var title: String!
     var thumbnail: NSImage?
     var icon: NSImage?
     var shouldShowTheUser = true
@@ -11,6 +11,7 @@ class Window {
     var isFullscreen: Bool
     var isMinimized: Bool
     var isOnAllSpaces: Bool
+    var position: CGPoint?
     var spaceId: CGSSpaceID
     var spaceIndex: SpaceIndex
     var axUiElement: AXUIElement
@@ -24,33 +25,42 @@ class Window {
         kAXWindowMiniaturizedNotification,
         kAXWindowDeminiaturizedNotification,
         kAXWindowResizedNotification,
+        kAXWindowMovedNotification,
     ]
 
-    init(_ axUiElement: AXUIElement, _ application: Application) {
+    init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?) {
         // TODO: make a efficient batched AXUIElementCopyMultipleAttributeValues call once for each window, and store the values
         self.axUiElement = axUiElement
         self.application = application
-        self.cgWindowId = axUiElement.cgWindowId()
+        self.cgWindowId = wid
         self.spaceId = Spaces.currentSpaceId
         self.spaceIndex = Spaces.currentSpaceIndex
         self.icon = application.runningApplication.icon
         self.isHidden = application.runningApplication.isHidden
-        self.isFullscreen = axUiElement.isFullScreen()
-        self.isMinimized = axUiElement.isMinimized()
+        self.isFullscreen = isFullscreen
+        self.isMinimized = isMinimized
         self.isOnAllSpaces = false
-        self.title = bestEffortTitle()
-        self.isTabbed = getIsTabbed()
-        debugPrint("Adding window", cgWindowId, title, application.runningApplication.bundleIdentifier ?? "nil", Spaces.currentSpaceId, Spaces.currentSpaceIndex)
+        self.position = position
+        self.title = bestEffortTitle(axTitle)
+        self.isTabbed = false
+        debugPrint("Adding window", cgWindowId, title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
+    }
+
+    deinit {
+        debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 
     private func observeEvents() {
         AXObserverCreate(application.runningApplication.processIdentifier, axObserverCallback, &axObserver)
         guard let axObserver = axObserver else { return }
         for notification in Window.notifications {
-            axUiElement.subscribeWithRetry(axObserver, notification, nil, nil, nil, cgWindowId)
+            retryUntilTimeout({ [weak self] in
+                guard let self = self else { return }
+                try self.axUiElement.subscribeToNotification(axObserver, notification, nil, nil, self.cgWindowId)
+            })
         }
-        CFRunLoopAddSource(CFRunLoopGetCurrent(), AXObserverGetRunLoopSource(axObserver), .defaultMode)
+        CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 
     func refreshThumbnail() {
@@ -58,33 +68,49 @@ class Window {
         thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
     }
 
-    func getIsTabbed() -> Bool {
+    func getIsTabbed(_ currentWindows: [AXUIElement]?) -> Bool {
         // we can only detect tabs for windows on the current space, as AXUIElement.windows() only reports current space windows
         // also, windows that start in fullscreen will have the wrong spaceID at that point in time, so we check if they are fullscreen too
         return spaceId == Spaces.currentSpaceId && !isFullscreen &&
-            application.axUiElement!.windows()?.first { $0 == axUiElement } == nil
+            currentWindows?.first { $0 == axUiElement } == nil
     }
 
     func close() {
-        DispatchQueues.accessibilityCommands.async { [weak self] in
-            self?.axUiElement.closeWindow()
+        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+            guard let self = self else { return }
+            if self.isFullscreen {
+                self.axUiElement.setAttribute(kAXFullscreenAttribute, false)
+            }
+            if let closeButton_ = try? self.axUiElement.closeButton() {
+                closeButton_.performAction(kAXPressAction)
+            }
         }
     }
 
     func minDemin() {
-        DispatchQueues.accessibilityCommands.async { [weak self] in
-            self?.axUiElement.minDeminWindow()
+        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+            guard let self = self else { return }
+            if self.isFullscreen {
+                self.axUiElement.setAttribute(kAXFullscreenAttribute, false)
+                // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
+                BackgroundWork.accessibilityCommandsQueue.asyncWithCap(.now() + .milliseconds(1000)) { [weak self] in
+                    guard let self = self else { return }
+                    self.axUiElement.setAttribute(kAXMinimizedAttribute, true)
+                }
+            } else {
+                self.axUiElement.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
+            }
         }
     }
 
     func quitApp() {
-        DispatchQueues.accessibilityCommands.async { [weak self] in
+        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             self?.application.runningApplication.terminate()
         }
     }
 
     func hideShowApp() {
-        DispatchQueues.accessibilityCommands.async { [weak self] in
+        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.application.runningApplication.isHidden {
                 self.application.runningApplication.unhide()
@@ -98,7 +124,7 @@ class Window {
         // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
         // but quickly switches back to another window in that space
         // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
-        DispatchQueues.accessibilityCommands.async { [weak self] in
+        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             var elementConnection = UInt32(0)
             CGSGetWindowOwner(cgsMainConnectionId, self.cgWindowId, &elementConnection)
@@ -130,8 +156,8 @@ class Window {
     }
 
     // for some windows (e.g. Slack), the AX API doesn't return a title; we try CG API; finally we resort to the app name
-    func bestEffortTitle() -> String {
-        if let axTitle = axUiElement.title(), !axTitle.isEmpty {
+    func bestEffortTitle(_ axTitle: String?) -> String {
+        if let axTitle = axTitle, !axTitle.isEmpty {
             return axTitle
         }
         if let cgTitle = cgWindowId.title(), !cgTitle.isEmpty {

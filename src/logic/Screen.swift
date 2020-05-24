@@ -23,7 +23,8 @@ class Screen {
 
     static func uuid(_ screen: NSScreen) -> ScreenUuid? {
         let screenNumber = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! UInt32
-        let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber).takeRetainedValue()
+        // this api from apple lies in its signature; the return value can be nil; we cast to remove the warning
+        let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber).takeRetainedValue() as CFUUID?
         if screenUuid != nil,
            let uuid = CFUUIDCreateString(nil, screenUuid) {
             return uuid
