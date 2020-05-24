@@ -34,8 +34,10 @@ class App: NSApplication, NSApplicationDelegate {
         #if !DEBUG
         PFMoveToApplicationsFolderIfNecessary()
         #endif
+        AXUIElement.setGlobalTimeout()
         SystemPermissions.ensureAccessibilityCheckboxIsChecked()
         SystemPermissions.ensureScreenRecordingCheckboxIsChecked()
+        BackgroundWork.start()
         Preferences.migratePreferences()
         Preferences.registerDefaults()
         statusItem = Menubar.make()
@@ -52,8 +54,6 @@ class App: NSApplication, NSApplicationDelegate {
 
     // pre-load some windows so they are faster on first display
     private func preloadWindows() {
-        preferencesWindowController.show()
-        preferencesWindowController.window!.orderOut(nil)
         thumbnailsPanel.orderFront(nil)
         thumbnailsPanel.orderOut(nil)
     }

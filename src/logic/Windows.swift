@@ -107,7 +107,7 @@ class Windows {
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {
-        if let position = window.axUiElement.position() {
+        if let position = window.position {
             var screenFrameInQuartzCoordinates = screen.frame
             screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
             return screenFrameInQuartzCoordinates.contains(position)

@@ -7,19 +7,11 @@ extension Collection {
     }
 }
 
-// removing an objc KVO observer if there is none throws an exception
-extension NSObject {
-    func safeRemoveObserver(_ observer: NSObject, _ key: String) {
-        guard observationInfo != nil else { return }
-        removeObserver(observer, forKeyPath: key)
-    }
-}
-
 extension Array where Element == Window {
-    func firstIndexThatMatches(_ element: AXUIElement) -> Self.Index? {
+    func firstIndexThatMatches(_ element: AXUIElement, _ wid: CGWindowID?) -> Self.Index? {
         // the window can be deallocated by the OS, in which case its `CGWindowID` will be `-1`
         // we check for equality both on the AXUIElement, and the CGWindowID, in order to catch all scenarios
-        return firstIndex(where: { $0.axUiElement == element || ($0.cgWindowId != -1 && $0.cgWindowId == element.cgWindowId()) })
+        return firstIndex { $0.axUiElement == element || ($0.cgWindowId != -1 && $0.cgWindowId == wid) }
     }
 
     mutating func insertAndScaleRecycledPool(_ elements: [Element], at i: Int) {
@@ -50,9 +42,11 @@ extension Array {
     func forEachAsync(fn: @escaping (Element) -> Void) {
         let group = DispatchGroup()
         for element in self {
-            group.enter()
-            DispatchQueue.global(qos: .userInteractive).async(group: group) {
+            BackgroundWork.globalSemaphore.wait()
+            BackgroundWork.uiDisplayQueue.async(group: group) {
+                group.enter()
                 fn(element)
+                BackgroundWork.globalSemaphore.signal()
                 group.leave()
             }
         }
