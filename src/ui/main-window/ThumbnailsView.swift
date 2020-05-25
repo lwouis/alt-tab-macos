@@ -59,7 +59,6 @@ class ThumbnailsView: NSVisualEffectView {
         var currentY = Preferences.interCellPadding
         var maxX = CGFloat(0)
         var maxY = currentY + height + Preferences.interCellPadding
-        var test = CGFloat(0)
         scrollView.documentView!.subviews.removeAll()
         rows.removeAll()
         rows.append([ThumbnailView]())
@@ -77,12 +76,10 @@ class ThumbnailsView: NSVisualEffectView {
                 currentX = projectedWidth(currentX, width).rounded(.down)
                 maxY = max(currentY + height + Preferences.interCellPadding, maxY)
                 rows.append([ThumbnailView]())
-                test = 0
             } else {
                 view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
                 currentX = projectedX
                 maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
-                test += width
             }
             scrollView.documentView!.subviews.append(view)
             rows[rows.count - 1].append(view)
@@ -126,7 +123,9 @@ class ThumbnailsView: NSVisualEffectView {
         var rowStartIndex = 0
         var rowWidth = Preferences.interCellPadding
         var rowY = Preferences.interCellPadding
-        for (index, _) in Windows.list.enumerated() {
+        for (index, window) in Windows.list.enumerated() {
+            guard App.app.appIsBeingUsed else { return }
+            guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             if view.frame.origin.y == rowY {
                 rowWidth += view.frame.size.width + Preferences.interCellPadding
