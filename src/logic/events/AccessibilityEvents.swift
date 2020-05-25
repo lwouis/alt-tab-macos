@@ -70,7 +70,7 @@ private func applicationActivated(_ element: AXUIElement) throws {
        let wid = try appFocusedWindow.cgWindowId() {
         DispatchQueue.main.async {
             guard let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow, wid) else { return }
-        Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
+        Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
             App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
         }
     }
@@ -102,7 +102,7 @@ private func windowCreated(_ element: AXUIElement, _ app: NSRunningApplication) 
             if Windows.list.firstIndexThatMatches(element, wid) == nil,
                let app = (Applications.list.first { $0.runningApplication.processIdentifier == app.processIdentifier }) {
                 let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position)
-            Windows.list.insertAndScaleRecycledPool([window], at: 0)
+            Windows.list.insertAndScaleRecycledPool(window, at: 0)
                 Windows.cycleFocusedWindowIndex(1)
                 App.app.refreshOpenUi([window])
             }
@@ -119,11 +119,11 @@ private func focusedWindowChanged(_ element: AXUIElement, _ app: NSRunningApplic
         let position = try element.position()
         DispatchQueue.main.async {
             if let existingIndex = Windows.list.firstIndexThatMatches(element, wid) {
-            Windows.list.insert(Windows.list.remove(at: existingIndex), at: 0)
+            Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
                 App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
             } else if isActualWindow,
                       let app = (Applications.list.first { $0.runningApplication.processIdentifier == app.processIdentifier }) {
-                Windows.list.insert(Window(element, app, wid, axTitle, isFullscreen, isMinimized, position), at: 0)
+                Windows.list.insertAndScaleRecycledPool(Window(element, app, wid, axTitle, isFullscreen, isMinimized, position), at: 0)
                 App.app.refreshOpenUi([Windows.list[0]])
             }
         }

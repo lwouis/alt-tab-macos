@@ -21,6 +21,10 @@ extension Array where Element == Window {
             (1...neededRecycledViews).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
         }
     }
+
+    mutating func insertAndScaleRecycledPool(_ element: Element, at i: Int) {
+        insertAndScaleRecycledPool([element], at: i)
+    }
 }
 
 extension NSView {
