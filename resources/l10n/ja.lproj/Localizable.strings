@@ -69,7 +69,7 @@
 "Don’t check for updates periodically" = "定期的に更新を確認しない";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "フェードアウトアニメーション";
 
 /*No comment provided by engineer.*/
 "General" = "一般設定";
@@ -174,7 +174,7 @@
 "Show on:" = "表示場所：";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "標準タブをウィンドウとして表示";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "ウィンドウを表示：";
