@@ -1,5 +1,27 @@
 # Release notes
 
+# [4.0.0](https://github.com/lwouis/alt-tab-macos/compare/v3.24.1...v4.0.0) (2020-05-25)
+
+
+### Bug Fixes
+
+* center-aligned layout was sometimes broken (closes [#352](https://github.com/lwouis/alt-tab-macos/issues/352)) ([e25dcd2](https://github.com/lwouis/alt-tab-macos/commit/e25dcd2))
+* crash in some rare scenarios with lots of windows ([a859347](https://github.com/lwouis/alt-tab-macos/commit/a859347))
+* potentially fix shortcuts not working sometimes ([8d833f5](https://github.com/lwouis/alt-tab-macos/commit/8d833f5))
+* rework all multi-threading to handle complex scenarios ([d144476](https://github.com/lwouis/alt-tab-macos/commit/d144476)), closes [#348](https://github.com/lwouis/alt-tab-macos/issues/348) [#157](https://github.com/lwouis/alt-tab-macos/issues/157) [#342](https://github.com/lwouis/alt-tab-macos/issues/342) [#93](https://github.com/lwouis/alt-tab-macos/issues/93)
+* sometimes windows titles use the wrong font ([fa1095e](https://github.com/lwouis/alt-tab-macos/commit/fa1095e))
+* update japanese localization ([acef0b2](https://github.com/lwouis/alt-tab-macos/commit/acef0b2))
+
+
+### BREAKING CHANGES
+
+* this rework should fix all sorts of issues when OS events happen in parallel: new windows, new apps, user shortcuts, etc. Here are example of use-cases that should work great now, without, and very quickly:
+
+* AltTab is open and an app/window is launched/quit
+* A window is minimized/deminimized, and while the animation is playing, the user invokes AltTab
+* An app starts and takes a long time to boot (e.g. Gimp)
+* An app becomes unresponsive, yet AltTab is unaffected and remains interactive while still processing the state of the window while its parent app finally stops being frozen
+
 ## [3.24.1](https://github.com/lwouis/alt-tab-macos/compare/v3.24.0...v3.24.1) (2020-05-22)
 
 
