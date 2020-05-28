@@ -1,5 +1,13 @@
 # Release notes
 
+## [4.0.1](https://github.com/lwouis/alt-tab-macos/compare/v4.0.0...v4.0.1) (2020-05-28)
+
+
+### Bug Fixes
+
+* firefox fullscreen videos are not listed (closes [#360](https://github.com/lwouis/alt-tab-macos/issues/360)) ([ce63367](https://github.com/lwouis/alt-tab-macos/commit/ce63367))
+* updated chinese/french/russian localizations ([797ed42](https://github.com/lwouis/alt-tab-macos/commit/797ed42))
+
 # [4.0.0](https://github.com/lwouis/alt-tab-macos/compare/v3.24.1...v4.0.0) (2020-05-25)
 
 
