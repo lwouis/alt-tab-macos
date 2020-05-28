@@ -1,5 +1,12 @@
 # Release notes
 
+# [4.1.0](https://github.com/lwouis/alt-tab-macos/compare/v4.0.1...v4.1.0) (2020-05-28)
+
+
+### Features
+
+* prevent users from quitting finder (closes [#362](https://github.com/lwouis/alt-tab-macos/issues/362)) ([a1338c0](https://github.com/lwouis/alt-tab-macos/commit/a1338c0))
+
 ## [4.0.1](https://github.com/lwouis/alt-tab-macos/compare/v4.0.0...v4.0.1) (2020-05-28)
 
 
