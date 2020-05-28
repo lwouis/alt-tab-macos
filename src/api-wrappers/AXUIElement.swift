@@ -57,9 +57,12 @@ extension AXUIElement {
             // don't show floating windows
             isOnNormalLevel(wid!) &&
             (["AXStandardWindow", "AXDialog"].contains(subrole()) ||
-                // All Steam windows have subrole = AXUnknown
+                // All Steam windows have subrole == AXUnknown
                 // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
-                (bundleIdentifier == "com.valvesoftware.steam" && title() != "" && role() != nil))
+                (bundleIdentifier == "com.valvesoftware.steam" && title() != "" && role() != nil) ||
+                // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
+                (bundleIdentifier == "org.mozilla.firefox" && role() == "AXWindow")
+            )
     }
 
     func isOnNormalLevel(_ wid: CGWindowID) -> Bool {
