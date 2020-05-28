@@ -104,6 +104,8 @@ class Window {
     }
 
     func quitApp() {
+        // prevent users from quitting Finder
+        if application.runningApplication.bundleIdentifier == "com.apple.finder" { return }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             self?.application.runningApplication.terminate()
         }
