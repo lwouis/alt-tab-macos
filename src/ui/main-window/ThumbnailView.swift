@@ -98,12 +98,6 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&subviews.first!.frame.size, frame.size)
         self.mouseDownCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
-        if trackingAreas.count == 0 {
-            addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseMoved, .activeAlways], owner: self, userInfo: nil))
-        } else if trackingAreas.count > 0 && trackingAreas[0].rect != bounds {
-            removeTrackingArea(trackingAreas[0])
-            addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseMoved, .activeAlways], owner: self, userInfo: nil))
-        }
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
         if labelChanged {
@@ -144,8 +138,8 @@ class ThumbnailView: NSStackView {
         return open != nil
     }
 
-    override func mouseMoved(with event: NSEvent) {
-        if Preferences.mouseHoverEnabled {
+    func mouseMoved() {
+        if !isHighlighted {
             mouseMovedCallback()
         }
     }

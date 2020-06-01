@@ -117,6 +117,10 @@ class ThumbnailsView: NSVisualEffectView {
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
         }
         scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
+        if let existingTrackingArea = scrollView.trackingAreas.first {
+            scrollView.documentView!.removeTrackingArea(existingTrackingArea)
+        }
+        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds, options: [.mouseMoved, .activeAlways], owner: scrollView, userInfo: nil))
     }
 
     func centerRows(_ maxX: CGFloat) {
@@ -163,6 +167,8 @@ class ScrollView: NSScrollView {
     // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
     override class var isCompatibleWithResponsiveScrolling: Bool { true }
 
+    var isCurrentlyScrolling = false
+
     convenience init() {
         self.init(frame: .zero)
         documentView = FlippedView(frame: .zero)
@@ -173,6 +179,30 @@ class ScrollView: NSScrollView {
         horizontalScrollElasticity = .none
         usesPredominantAxisScrolling = true
         forceOverlayStyle()
+        observeScrollingEvents()
+    }
+
+    private func observeScrollingEvents() {
+        NotificationCenter.default.addObserver(forName: NSScrollView.didEndLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
+            self?.isCurrentlyScrolling = false
+        }
+        NotificationCenter.default.addObserver(forName: NSScrollView.willStartLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
+            self?.isCurrentlyScrolling = true
+        }
+    }
+
+    override func mouseMoved(with event: NSEvent) {
+        // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
+        if !Preferences.mouseHoverEnabled || isCurrentlyScrolling { return }
+        if let hit = hitTest(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream) {
+            var target: NSView? = hit
+            while !(target is ThumbnailView) && target != nil {
+                target = target!.superview
+            }
+            if let target = target, target is ThumbnailView {
+                (target as! ThumbnailView).mouseMoved()
+            }
+        }
     }
 
     // holding shift and using the scrolling wheel will generate a horizontal movement
