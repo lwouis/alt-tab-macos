@@ -1,5 +1,14 @@
 # Release notes
 
+## [4.1.1](https://github.com/lwouis/alt-tab-macos/compare/v4.1.0...v4.1.1) (2020-06-07)
+
+
+### Bug Fixes
+
+* mouse hover during scroll bounce produced visual jank (closes [#259](https://github.com/lwouis/alt-tab-macos/issues/259)) ([c7e5daa](https://github.com/lwouis/alt-tab-macos/commit/c7e5daa))
+* sometimes switching apps wouldn't be noticed ([96a6ae6](https://github.com/lwouis/alt-tab-macos/commit/96a6ae6))
+* update korean localizations ([cec2756](https://github.com/lwouis/alt-tab-macos/commit/cec2756))
+
 # [4.1.0](https://github.com/lwouis/alt-tab-macos/compare/v4.0.1...v4.1.0) (2020-05-28)
 
 
