@@ -54,17 +54,18 @@ class Application: NSObject {
                 guard let self = self else { return }
                 if let windows_ = try self.axUiElement!.windows(), windows_.count > 0 {
                     // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
-                    let windows = try Array(Set(windows_)).map {
-                        (
-                            $0,
-                            try $0.isActualWindow(self.runningApplication.bundleIdentifier),
-                            try $0.cgWindowId(),
-                            try $0.title(),
-                            try $0.isFullscreen(),
-                            try $0.isMinimized(),
-                            try $0.position()
-                        )
-                    }
+                    let windows = try Array(Set(windows_)).compactMap {
+                        if let wid = try $0.cgWindowId() {
+                            let title = try $0.title()
+                            let subrole = try $0.subrole()
+                            let role = try $0.role()
+                            let isOnNormalLevel = try $0.isOnNormalLevel(wid)
+                            if $0.isActualWindow(self.runningApplication.bundleIdentifier, wid, isOnNormalLevel, title, subrole, role) {
+                                return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position())
+                            }
+                        }
+                        return nil
+                    } as [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
                         self.addWindows(windows)
@@ -74,9 +75,9 @@ class Application: NSObject {
         }
     }
 
-    private func addWindows(_ axWindows: [(AXUIElement, Bool, CGWindowID?, String?, Bool, Bool, CGPoint?)]) {
-        let windows: [Window] = axWindows.compactMap { (axUiElement, isActualWindow, wid, axTitle, isFullscreen, isMinimized, position) in
-            if let wid = wid, isActualWindow && Windows.list.firstIndexThatMatches(axUiElement, wid) == nil {
+    private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]) {
+        let windows: [Window] = axWindows.compactMap { (axUiElement, wid, axTitle, isFullscreen, isMinimized, position) in
+            if Windows.list.firstIndexThatMatches(axUiElement, wid) == nil {
                 return Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position)
             }
             return nil
