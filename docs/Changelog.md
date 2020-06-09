@@ -1,5 +1,12 @@
 # Release notes
 
+## [4.1.2](https://github.com/lwouis/alt-tab-macos/compare/v4.1.1...v4.1.2) (2020-06-09)
+
+
+### Bug Fixes
+
+* releasing the shortcut works even with other modifiers pressed ([23b17c1](https://github.com/lwouis/alt-tab-macos/commit/23b17c1)), closes [#230](https://github.com/lwouis/alt-tab-macos/issues/230)
+
 ## [4.1.1](https://github.com/lwouis/alt-tab-macos/compare/v4.1.0...v4.1.1) (2020-06-07)
 
 
