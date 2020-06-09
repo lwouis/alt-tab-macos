@@ -24,7 +24,7 @@ private func observe_() {
 }
 
 private func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-     if type == .keyDown || type == .keyUp || type == .flagsChanged {
+    if type == .keyDown || type == .keyUp || type == .flagsChanged {
         if let event_ = NSEvent(cgEvent: cgEvent),
            // workaround: NSEvent.characters is not safe outside of the main thread; this is not documented by Apple
             // see https://github.com/Kentzo/ShortcutRecorder/issues/114#issuecomment-606465340
@@ -32,7 +32,16 @@ private func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent:
                timestamp: event_.timestamp, windowNumber: event_.windowNumber, context: nil, characters: "",
                charactersIgnoringModifiers: "", isARepeat: type == .flagsChanged ? false : event_.isARepeat, keyCode: event_.keyCode) {
             let appWasBeingUsed = App.app.appIsBeingUsed
-            App.shortcutMonitor.handle(event, withTarget: nil)
+            // ShortcutRecorder handles only exact matches for modifiers-only .up shortcuts. We want to activate holdShortcut even if other modifiers are still pressed
+            // see https://github.com/lwouis/alt-tab-macos/issues/230
+            let holdShortcutAction = GeneralTab.shortcutActions["holdShortcut"]!
+            let holdShortcut = holdShortcutAction.shortcut!
+            if holdShortcut.keyCode == .none && type == .flagsChanged && event.sr_keyEventType == .up &&
+                   event.modifierFlags.isDisjoint(with: holdShortcut.modifierFlags) {
+                _ = holdShortcutAction.actionHandler!(holdShortcutAction)
+            } else {
+                App.shortcutMonitor.handle(event, withTarget: nil)
+            }
             if appWasBeingUsed || App.app.appIsBeingUsed {
                 return nil // focused app won't receive the event
             }
