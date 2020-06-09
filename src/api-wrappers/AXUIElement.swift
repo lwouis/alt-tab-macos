@@ -52,7 +52,7 @@ extension AXUIElement {
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
         // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs
-        return try wid != nil && wid != 0 &&
+        return wid != 0 &&
             // don't show floating windows
             isOnNormalLevel &&
             (["AXStandardWindow", "AXDialog"].contains(subrole) ||

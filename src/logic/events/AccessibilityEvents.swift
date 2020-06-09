@@ -96,7 +96,7 @@ private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
         let role = try element.role()
         let isFullscreen = try element.isFullscreen()
         let isMinimized = try element.isMinimized()
-        let isOnNormalLevel = try element.isOnNormalLevel(wid)
+        let isOnNormalLevel = element.isOnNormalLevel(wid)
         let position = try element.position()
         DispatchQueue.main.async {
             // a window being un-minimized can trigger kAXWindowCreatedNotification
@@ -120,7 +120,7 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
         let role = try element.role()
         let isFullscreen = try element.isFullscreen()
         let isMinimized = try element.isMinimized()
-        let isOnNormalLevel = try element.isOnNormalLevel(wid)
+        let isOnNormalLevel = element.isOnNormalLevel(wid)
         let position = try element.position()
         DispatchQueue.main.async {
             if let existingIndex = Windows.list.firstIndexThatMatches(element, wid) {
