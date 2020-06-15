@@ -65,7 +65,13 @@ class Applications {
     }
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
-        let bundlePackageType = app.bundleURL.flatMap { Bundle(url: $0) }.flatMap { $0.infoDictionary }.flatMap { $0["CFBundlePackageType"] as? String }
-        return bundlePackageType != "XPC!"
+        return app.activationPolicy != .prohibited || isNotXpc(app)
+    }
+
+    private static func isNotXpc(_ app: NSRunningApplication) -> Bool {
+        return app.bundleURL
+            .flatMap { Bundle(url: $0) }
+            .flatMap { $0.infoDictionary }
+            .flatMap { $0["CFBundlePackageType"] as? String } != "XPC!"
     }
 }
