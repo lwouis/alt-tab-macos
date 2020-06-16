@@ -21,7 +21,7 @@ func retryUntilTimeout(_ fn: @escaping () throws -> Void, _ startTime: DispatchT
 }
 
 func handleEvent(_ type: String, _ element: AXUIElement) throws {
-    debugPrint("Accessibility event", type, element)
+    debugPrint("Accessibility event", type, try element.title())
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid() {
         switch type {
@@ -102,7 +102,7 @@ private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
             // a window being un-minimized can trigger kAXWindowCreatedNotification
             if Windows.list.firstIndexThatMatches(element, wid) == nil,
                let runningApp = NSRunningApplication(processIdentifier: pid),
-               element.isActualWindow(runningApp.bundleIdentifier, wid, isOnNormalLevel, axTitle, subrole, role),
+               element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
                let app = (Applications.list.first { $0.runningApplication.processIdentifier == pid }) {
                 let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position)
                 Windows.list.insertAndScaleRecycledPool(window, at: 0)
@@ -127,7 +127,7 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
                 Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
                 App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
             } else if let runningApp = NSRunningApplication(processIdentifier: pid),
-                element.isActualWindow(runningApp.bundleIdentifier, wid, isOnNormalLevel, axTitle, subrole, role),
+                element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
                       let app = (Applications.list.first { $0.runningApplication.processIdentifier == pid }) {
                 Windows.list.insertAndScaleRecycledPool(Window(element, app, wid, axTitle, isFullscreen, isMinimized, position), at: 0)
                 App.app.refreshOpenUi([Windows.list[0]])

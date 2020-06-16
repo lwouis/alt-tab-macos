@@ -9,6 +9,12 @@ public struct Sysctl {
         return run(name, { $0.baseAddress?.withMemoryRebound(to: T.self, capacity: 1) { $0.pointee } })
     }
 
+    static func run(_ keys: [Int32]) -> String? {
+        return data(keys)?.withUnsafeBufferPointer() { dataPointer -> String? in
+            dataPointer.baseAddress.flatMap { String(validatingUTF8: $0) }
+        }
+    }
+
     private static func run<R>(_ name: String, _ fn: (UnsafeBufferPointer<Int8>) -> R?) -> R? {
         return keys(name).flatMap { keys in data(keys)?.withUnsafeBufferPointer() { fn($0) } }
     }
