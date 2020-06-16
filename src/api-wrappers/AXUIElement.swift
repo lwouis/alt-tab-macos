@@ -45,23 +45,43 @@ extension AXUIElement {
         return nil
     }
 
-    func isActualWindow(_ bundleIdentifier: String?, _ wid: CGWindowID, _ isOnNormalLevel: Bool, _ title: String?, _ subrole: String?, _ role: String?) -> Bool {
-        // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
+    func isActualWindow(_ runningApp: NSRunningApplication, _ wid: CGWindowID, _ isOnNormalLevel: Bool, _ title: String?, _ subrole: String?, _ role: String?) -> Bool {
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
-        // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs
+
+        // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0 &&
-            // don't show floating windows
+            // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
             isOnNormalLevel &&
             (["AXStandardWindow", "AXDialog"].contains(subrole) ||
-                // All Steam windows have subrole == AXUnknown
-                // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
-                (bundleIdentifier == "com.valvesoftware.steam" && title != "" && role != nil) ||
-                // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
-                (bundleIdentifier == "org.mozilla.firefox" && role == "AXWindow")
-            )
+                steam(runningApp, title, role) ||
+                firefoxFullscreenVideo(runningApp, role) ||
+                androidEmulator(runningApp, title))
+    }
+
+    private func steam(_ runningApp: NSRunningApplication, _ title: String?, _ role: String?) -> Bool {
+        // All Steam windows have subrole == AXUnknown
+        // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
+        return runningApp.bundleIdentifier == "com.valvesoftware.steam" && title != "" && role != nil
+    }
+
+    private func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+        // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
+        return runningApp.bundleIdentifier == "org.mozilla.firefox" && role == "AXWindow"
+    }
+
+    private func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
+        // android emulator small vertical menu is a "window" with empty title; we exclude it
+        if title != "",
+           // NSRunningApplication provides no way to identify the emulator; we pattern match on its KERN_PROCARGS
+           runningApp.bundleIdentifier == nil,
+           let executablePath = Sysctl.run([CTL_KERN, KERN_PROCARGS, runningApp.processIdentifier]) {
+            // example path: ~/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64
+            return executablePath.range(of: "qemu-system[^/]*$", options: .regularExpression, range: nil, locale: nil) != nil
+        }
+        return false
     }
 
     func isOnNormalLevel(_ wid: CGWindowID) -> Bool {
