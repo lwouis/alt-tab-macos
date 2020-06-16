@@ -1,5 +1,14 @@
 # Release notes
 
+## [4.1.3](https://github.com/lwouis/alt-tab-macos/compare/v4.1.2...v4.1.3) (2020-06-16)
+
+
+### Bug Fixes
+
+* rare crash if shortcut is pressed early during launch ([265c7a6](https://github.com/lwouis/alt-tab-macos/commit/265c7a6))
+* show android emulator window (closes [#376](https://github.com/lwouis/alt-tab-macos/issues/376)) ([bb8a5ce](https://github.com/lwouis/alt-tab-macos/commit/bb8a5ce))
+* show windows of apps without a bundle (e.g. not .app) ([fd0623a](https://github.com/lwouis/alt-tab-macos/commit/fd0623a))
+
 ## [4.1.2](https://github.com/lwouis/alt-tab-macos/compare/v4.1.1...v4.1.2) (2020-06-09)
 
 
