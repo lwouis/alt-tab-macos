@@ -45,8 +45,8 @@ class App: NSApplication, NSApplicationDelegate {
         thumbnailsPanel = ThumbnailsPanel()
         Spaces.initialDiscovery()
         Applications.initialDiscovery()
-        KeyboardEvents.observe()
         loadPreferencesWindow()
+        KeyboardEvents.observe()
         // TODO: undeterministic; events in the queue may still be processing; good enough for now
         DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
         preloadWindows()
