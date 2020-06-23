@@ -11,7 +11,7 @@
 * [lwouis](https://github.com/lwouis)
 * [notlmn](https://github.com/notlmn)
 * [phungtuanhoang1996](https://github.com/phungtuanhoang1996)
-* [Robinhuett](https://github.com/Robinhuett)
+* [rbnis](https://github.com/rbnis)
 * [shaqed](https://github.com/shaqed)
 
 ### They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
