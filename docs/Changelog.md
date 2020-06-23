@@ -1,5 +1,7 @@
 # Release notes
 
+## [4.1.4](https://github.com/lwouis/alt-tab-macos/compare/v4.1.3...v4.1.4) (2020-06-23)
+
 ## [4.1.3](https://github.com/lwouis/alt-tab-macos/compare/v4.1.2...v4.1.3) (2020-06-16)
 
 
