@@ -49,14 +49,17 @@ class FeedbackWindow: NSWindow {
         email = TextArea(80, 1, NSLocalizedString("Optional: email (if you want a reply)", comment: ""))
         debugProfile = NSButton(checkboxWithTitle: NSLocalizedString("Send debug profile (CPU, memory, etc)", comment: ""), target: nil, action: nil)
         debugProfile.state = .on
+        let warning = BoldLabel(NSLocalizedString("All data from this form will be made public, as a ticket on github.com", comment: ""))
         let view = GridView([
             [header],
             [body],
             [email],
             [debugProfile],
             [buttons],
+            [warning],
         ])
         view.cell(atColumnIndex: 0, rowIndex: 4).xPlacement = .trailing
+        view.cell(atColumnIndex: 0, rowIndex: 5).xPlacement = .trailing
         setContentSize(view.fittingSize)
         contentView = view
     }
