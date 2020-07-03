@@ -24,7 +24,7 @@
 "All apps" = "Alle programma’s";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Alle informatie ingevuld in dit formulier wordt openbaar gemaakt in een ticket op github.com";
 
 /*No comment provided by engineer.*/
 "All screens" = "Alle beeldschermen";
@@ -72,10 +72,10 @@
 "Don’t check for updates periodically" = "Controleer niet regelmatig op updates";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "Fade-out animatie:";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
+"Fullscreen" = "Volledig scherm";
 
 /*No comment provided by engineer.*/
 "General" = "Algemeen";
@@ -123,7 +123,7 @@
 "NSHumanReadableCopyright" = "GPL 3.0-licentie";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Optioneel: e-mail (als je antwoord wilt)";
+"Optional: email (if you want a reply)" = "Optioneel: e-mail (als je een reactie wilt ontvangen)";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Voorkeuren…";
@@ -180,7 +180,7 @@
 "Show on:" = "Toon op:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "Laat standaardtabbladen zien als vensters:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Toon de volgende vensters:";
