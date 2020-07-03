@@ -1,5 +1,13 @@
 # Release notes
 
+## [4.1.5](https://github.com/lwouis/alt-tab-macos/compare/v4.1.4...v4.1.5) (2020-07-03)
+
+
+### Bug Fixes
+
+* improve perf by only refreshing shown thumbnails (closes [#393](https://github.com/lwouis/alt-tab-macos/issues/393)) ([3c453f9](https://github.com/lwouis/alt-tab-macos/commit/3c453f9))
+* update dutch and russian localizations ([ff96bc3](https://github.com/lwouis/alt-tab-macos/commit/ff96bc3))
+
 ## [4.1.4](https://github.com/lwouis/alt-tab-macos/compare/v4.1.3...v4.1.4) (2020-06-23)
 
 ## [4.1.3](https://github.com/lwouis/alt-tab-macos/compare/v4.1.2...v4.1.3) (2020-06-16)
