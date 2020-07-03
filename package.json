@@ -2,9 +2,6 @@
   "private": true,
   "name": "alt-tab-macos",
   "version": "1.0.0",
-  "scripts": {
-    "subset-fonticon": "node scripts/subset_fonticon.js"
-  },
   "author": "",
   "license": "MIT",
   "husky": {
