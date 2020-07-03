@@ -84,9 +84,8 @@ class Windows {
     }
 
     static func refreshAllThumbnails() {
-        list.forEachAsync { window in
-            window.refreshThumbnail()
-        }
+        list.filter { $0.shouldShowTheUser }
+            .forEachAsync { window in window.refreshThumbnail() }
     }
 
     static func refreshWhichWindowsToShowTheUser(_ screen: NSScreen) {
