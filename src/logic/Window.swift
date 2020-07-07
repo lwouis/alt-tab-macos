@@ -55,7 +55,7 @@ class Window {
         AXObserverCreate(application.runningApplication.processIdentifier, axObserverCallback, &axObserver)
         guard let axObserver = axObserver else { return }
         for notification in Window.notifications {
-            retryUntilTimeout({ [weak self] in
+            retryAxCallUntilTimeout({ [weak self] in
                 guard let self = self else { return }
                 try self.axUiElement.subscribeToNotification(axObserver, notification, nil, nil, self.cgWindowId)
             })

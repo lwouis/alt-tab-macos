@@ -2,13 +2,16 @@ import Foundation
 
 // queues and dedicated threads to observe background events such as keyboard inputs, or accessibility events
 class BackgroundWork {
-    static let uiDisplayQueue = DispatchQueue.globalConcurrent("mainQueueConcurrentWork", .userInteractive)
-    static let accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommands", .userInteractive)
-    static let accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEvents")
-    static let keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEvents")
+    static let mainQueueConcurrentWorkQueue = DispatchQueue.globalConcurrent("mainQueueConcurrentWorkQueue", .userInteractive)
+    static let accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
+    static let axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
+    static let accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread")
+    static let keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread")
 
     // we cap concurrent tasks to .processorCount to avoid thread explosion on the .global queue
     static let globalSemaphore = DispatchSemaphore(value: ProcessInfo.processInfo.processorCount)
+    // AX calls may block for a long time. We use a big semaphore to avoid blocking the main thread in case the window server is busy
+    static let axCallsGlobalSemaphore = DispatchSemaphore(value: 100)
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
@@ -22,12 +25,12 @@ extension DispatchQueue {
         return DispatchQueue(label: label, target: .global(qos: qos.qosClass))
     }
 
-    func asyncWithCap(_ deadline: DispatchTime? = nil, _ fn: @escaping () -> Void) {
+    func asyncWithCap(_ deadline: DispatchTime? = nil, semaphore: DispatchSemaphore = BackgroundWork.globalSemaphore, _ fn: @escaping () -> Void) {
         let block = {
             fn()
-            BackgroundWork.globalSemaphore.signal()
+            semaphore.signal()
         }
-        BackgroundWork.globalSemaphore.wait()
+        semaphore.wait()
         if let deadline = deadline {
             asyncAfter(deadline: deadline, execute: block)
         } else {

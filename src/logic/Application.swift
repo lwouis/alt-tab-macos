@@ -50,7 +50,7 @@ class Application: NSObject {
 
     func observeNewWindows() {
         if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
-            retryUntilTimeout({ [weak self] in
+            retryAxCallUntilTimeout({ [weak self] in
                 guard let self = self else { return }
                 if let windows_ = try self.axUiElement!.windows(), windows_.count > 0 {
                     // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
@@ -92,15 +92,17 @@ class Application: NSObject {
     private func observeEvents() {
         guard let axObserver = axObserver else { return }
         for notification in Application.notifications(runningApplication) {
-            retryUntilTimeout({ [weak self] in
+            retryAxCallUntilTimeout({ [weak self] in
                 guard let self = self else { return }
-                try self.axUiElement!.subscribeToNotification(axObserver, notification, { [weak self] in
-                    guard let self = self else { return }
-                    // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
-                    // we consider them ready when the first subscription succeeds, and list their windows again at that point
-                    if !self.isReallyFinishedLaunching {
-                        self.isReallyFinishedLaunching = true
-                        self.observeNewWindows()
+                try self.axUiElement!.subscribeToNotification(axObserver, notification, {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
+                        // we consider them ready when the first subscription succeeds, and list their windows again at that point
+                        if !self.isReallyFinishedLaunching {
+                            self.isReallyFinishedLaunching = true
+                            self.observeNewWindows()
+                        }
                     }
                 }, self.runningApplication)
             })
