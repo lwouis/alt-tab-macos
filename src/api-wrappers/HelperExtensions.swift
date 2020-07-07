@@ -47,7 +47,7 @@ extension Array {
         let group = DispatchGroup()
         for element in self {
             BackgroundWork.globalSemaphore.wait()
-            BackgroundWork.uiDisplayQueue.async(group: group) {
+            BackgroundWork.mainQueueConcurrentWorkQueue.async(group: group) {
                 group.enter()
                 fn(element)
                 BackgroundWork.globalSemaphore.signal()
