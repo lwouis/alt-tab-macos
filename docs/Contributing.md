@@ -12,9 +12,8 @@ This document gives an technical overview of the project, for newcomers who want
 
 ## Building the project locally
 
-This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it using 2 commands:
+This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it by doing:
 
-* `pod install` to fetch the dependencies with [CocoaPods](https://cocoapods.org/)
 * `scripts/codesign/setup_local.sh` to generate a local self-signed certificate, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build
 * Either open `alt-tab-macos.xcworkspace` with XCode, or use the cli: `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Debug` to build the .app with the `Debug` build configuration
 
@@ -24,7 +23,7 @@ If you want to contribute a PR, please run `npm install` once. It will add the p
 
 ## Mac development ecosystem
 
-Mac development ecosystem is pretty terrible in general. They keep piling on the tech stacks on top of each other, so you have C APIs, ObjC APIs, Swift APIs, Interface builder, Playgrounds, Swift UI. All these are bridging each other with a bunch of macros, SDKs glue, compiler flags, compatibility mode, XCode legacy build system, etc. So keep that in mind. For alt-tab, we are on Swift 4.2. Note that swift just recently started being stable, but overall any change of version breaks a lot of stuff. Swift itself is the worst governed language project I’ve seen in modern times.
+Mac development ecosystem is pretty terrible in general. They keep piling on the tech stacks on top of each other, so you have C APIs, ObjC APIs, Swift APIs, Interface builder, Playgrounds, Swift UI, Mac Catalyst. All these are bridging with each other with a bunch of macros, SDKs glue, compiler flags, compatibility mode, XCode legacy build system, etc. For alt-tab, we are on Swift 5.0. Note that swift just recently started being stable, but overall any change of version breaks a lot of stuff. Swift itself is the mainstream language with the worst governance I’ve seen in modern times.
 
 Regarding SDKs, it’s very different from other (better) ecosystems like Java. Here the SDK is bundled with XCode, and XCode is bundled with the OS. This means that from a machine running let’s say macOS 10.10, you have access to only a specific range of XCode versions (you can’t run the latest for instance), and these give you access to a specific range of SDKs (i.e. Swift + objc + c + bridges + compiler + toolchain + etc)
 
@@ -32,7 +31,7 @@ Documentation is abysmal. Very simple things are not documented at all, and good
 
 Dependencies were historically never handled by Apple. The community came up with [Cocoapods](https://cocoapods.org/) which is the de-facto dependency manager for Apple ecosystem projects these days, even though Apple is now trying to push their own.
 
-OS APIs are quite limited for the kind of low-level, system-wide app alt-tab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing alt-tab on the Mac AppStore. We have tried my best to [document](../src/api-wrappers/PrivateApis.swift) the ones we are using, as well as ones we investigated in the past.
+OS APIs are quite limited for the kind of low-level, system-wide app AltTab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing AltTab on the Mac AppStore. We have tried my best to [document](../src/api-wrappers/PrivateApis.swift) the ones we are using, as well as ones we investigated in the past.
 
 ## This project specifically
 
@@ -41,8 +40,8 @@ To mitigate the issues listed above, we took some measures.
 We minimize reliance on XCode, InterfaceBuilder, Playground, and other GUI tools. You can’t cut the dependency completely though as only XCode can build macos apps. Currently the project has these files:
 
 * 1 xib (InterfaceBuilder UI file, describing the menubar items like “Edit” or “Format”)
-* `alt-tab-macos.xcodeproj` file describing alt-tab itself. It contains some settings for the app
-* `alt-tab-macos.xcworkspace` file describing an xcode workspace containing alt-tab + cocoapods dependencies. You open that file to open the project in XCode or AppCode
+* `alt-tab-macos.xcodeproj` file describing AltTab itself. It contains some settings for the app
+* `alt-tab-macos.xcworkspace` file describing an xcode workspace containing AltTab + cocoapods dependencies. You open that file to open the project in XCode or AppCode
 * `Alt-tab-macos.entitlements` and Info.plist which are static files describing some app config for XCode
 * `PodFile` and `PodFile.lock` describe dependencies on open-source libraries (e.g. [Sparkle](https://github.com/sparkle-project/Sparkle))
 * Some `.xcconfig` files in `config/` which contain XCode settings that people typically change using XCode UI, but that I want to be version controlled
@@ -78,7 +77,7 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * Windows from hidden apps
 * Windows of fullscreen apps
 * Windows of fullscreen apps with split-screen
-* Minimized windows merged into 1 as tabs (e.g. Finder "Merge All Windows") 
+* Windows merged into 1 as tabs (e.g. Finder "Merge All Windows", drag-and-drop a window onto an existing window, etc) 
 * Windows on multiple monitors
 * Windows on multiple Spaces
 * Should not show: dialogs, pop-overs, context menus (e.g. Outlook meeting reminder, iStats Pro menus)
@@ -102,7 +101,7 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * Long titles should be truncated
 * Many windows are opened
 * There is no open window
-* Alt-Tab should appear on top of all windows, dialogs, pop-overs, the Dock, etc
+* AltTab should appear on top of all windows, dialogs, pop-overs, the Dock, etc
 
 ### OS events to handle while AltTab's UI is shown
 
