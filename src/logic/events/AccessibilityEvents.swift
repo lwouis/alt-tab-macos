@@ -47,16 +47,14 @@ private func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throw
     let appAxUiElement = AXUIElementCreateApplication(pid)
     if let currentWindows = try appAxUiElement.windows() {
         DispatchQueue.main.async {
-            let windows = Windows.list.filter {
+            let windows = Windows.list.filter { w in
                 // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
-                let isFromApp = $0.application.runningApplication.processIdentifier == pid
+                let isFromApp = w.application.runningApplication.processIdentifier == pid
                 if isFromApp {
                     // this event is the only opportunity we have to check if a window became a tab, or a tab became a window
-                    let isTabbedNew = $0.getIsTabbed(currentWindows)
-                    if $0.isTabbed != isTabbedNew {
-                        $0.isTabbed = isTabbedNew
-                        return true
-                    }
+                    let oldIsTabbed = w.isTabbed
+                    w.refreshIsTabbed(currentWindows)
+                    return oldIsTabbed != w.isTabbed
                 }
                 return false
             }
@@ -128,7 +126,7 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
                 Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
                 App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
             } else if let runningApp = NSRunningApplication(processIdentifier: pid),
-                element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
+                      element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
                       let app = (Applications.list.first { $0.runningApplication.processIdentifier == pid }) {
                 Windows.list.insertAndScaleRecycledPool(Window(element, app, wid, axTitle, isFullscreen, isMinimized, position), at: 0)
                 App.app.refreshOpenUi([Windows.list[0]])
