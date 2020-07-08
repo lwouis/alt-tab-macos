@@ -48,6 +48,8 @@ class BackgroundThreadWithRunLoop {
             self.runLoop = CFRunLoopGetCurrent()
             while !self.thread!.isCancelled {
                 CFRunLoopRun()
+                // avoid tight loop while waiting for the first runloop source to be added
+                Thread.sleep(forTimeInterval: 0.1)
             }
         }
         thread!.name = name
