@@ -1,5 +1,14 @@
 # Release notes
 
+## [4.1.6](https://github.com/lwouis/alt-tab-macos/compare/v4.1.5...v4.1.6) (2020-07-08)
+
+
+### Bug Fixes
+
+* potential crash in very rare data-race scenario ([4ff5d89](https://github.com/lwouis/alt-tab-macos/commit/4ff5d89))
+* tabs would sometimes show as separate windows (closes [#383](https://github.com/lwouis/alt-tab-macos/issues/383)) ([c03d48f](https://github.com/lwouis/alt-tab-macos/commit/c03d48f))
+* update korean localization ([ecdeed8](https://github.com/lwouis/alt-tab-macos/commit/ecdeed8))
+
 ## [4.1.5](https://github.com/lwouis/alt-tab-macos/compare/v4.1.4...v4.1.5) (2020-07-03)
 
 
