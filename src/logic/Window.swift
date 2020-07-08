@@ -68,11 +68,15 @@ class Window {
         thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
     }
 
-    func getIsTabbed(_ currentWindows: [AXUIElement]?) -> Bool {
+    func refreshIsTabbed(_ currentWindows: [AXUIElement]) {
+        if (currentWindows.first { $0 == axUiElement } != nil) {
+            isTabbed = false
+        }
         // we can only detect tabs for windows on the current space, as AXUIElement.windows() only reports current space windows
         // also, windows that start in fullscreen will have the wrong spaceID at that point in time, so we check if they are fullscreen too
-        return spaceId == Spaces.currentSpaceId && !isFullscreen &&
-            currentWindows?.first { $0 == axUiElement } == nil
+        else if spaceId == Spaces.currentSpaceId {
+            isTabbed = true
+        }
     }
 
     func close() {
