@@ -1,5 +1,14 @@
 # Release notes
 
+## [4.1.7](https://github.com/lwouis/alt-tab-macos/compare/v4.1.6...v4.1.7) (2020-07-10)
+
+
+### Bug Fixes
+
+* on some machines, deadlocks happened at launch ([e2181c8](https://github.com/lwouis/alt-tab-macos/commit/e2181c8))
+* reduce cpu utilization at launch ([5306a4b](https://github.com/lwouis/alt-tab-macos/commit/5306a4b))
+* typo in chinese localization ([363ed3d](https://github.com/lwouis/alt-tab-macos/commit/363ed3d))
+
 ## [4.1.6](https://github.com/lwouis/alt-tab-macos/compare/v4.1.5...v4.1.6) (2020-07-08)
 
 
