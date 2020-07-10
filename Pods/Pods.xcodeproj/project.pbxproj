@@ -23,7 +23,6 @@
 		020E098C253F02CF5A2F89A505CA37EE /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B21676942A82066A5F890982D52AF601 /* nl.lproj */; };
 		052DFF48B54864D445EC884543F61EA8 /* Preferences-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEECA2C7DA4B21D9E8EDAC9D1A93589 /* Preferences-dummy.m */; };
 		056DD70A6AF75515312A3B0F3D08A6A7 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C53D764C43A51376171AD41E99B8ABE2 /* ru.lproj */; };
-		065C38D92B6E03C9C6D50A9A2BA623A8 /* Pods-alt-tab-macos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F71AC7B7C29C8922102AA39EFE0C /* Pods-alt-tab-macos-dummy.m */; };
 		09F6953D0A355AEEDD4DE40E8FD483B6 /* PFMoveApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F2F3145B49D9DB3BAE51E8B7A3930F8 /* PFMoveApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A1237C0C6C64DAE78E6F4CD771CA4B0 /* da.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 70A6FDD9C55154B728466D71B09FA6C8 /* da.lproj */; };
 		0EC5CD27183E62F0F15E6A3F73BA4E78 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A26EF044A853930BC884BE7CA27C0709 /* pt.lproj */; };
@@ -54,6 +53,7 @@
 		500A10E28FCAAFB0A968CCED417B3275 /* pt_BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C9C45730F9EB9F5D8FA6191C6BE61F9B /* pt_BR.lproj */; };
 		568560CA36FE09111F664C6BBA404742 /* zh_TW.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 60EF6FF60A94EF54E652E091F59466F8 /* zh_TW.lproj */; };
 		5B317668F69ADABCAD5AE47A1CE39D69 /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CEFC61EA791D4A6418CCFBE1787D6659 /* sk.lproj */; };
+		5B56114FA0E0C817FA294C155CB4E20D /* Pods-alt-tab-macos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F71AC7B7C29C8922102AA39EFE0C /* Pods-alt-tab-macos-dummy.m */; };
 		5C51919BE3EF096A7D986B57A51AB0D0 /* SRKeyEquivalentTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = E3FC5D75A84499105F55009A04A10DD7 /* SRKeyEquivalentTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E615985AE6C7D5B9238F364549E9677 /* LetsMove-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCC52DA333A8C35C6991FC1CD3DF26E /* LetsMove-dummy.m */; };
 		5EC2F2D2F2DF932A3F9E94B95287E797 /* SRShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 9315798BAC6D65C43AF979A33F184D6B /* SRShortcut.m */; };
@@ -81,6 +81,7 @@
 		890BDCB72A2DE7D73FE21F8DCDE993B1 /* String+SwiftyMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CF45DBF333E311734EDC683223961D /* String+SwiftyMarkdown.swift */; };
 		8999CEBAA3A313F1C8544DC1D581B339 /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E0FB4CDE9491FC1C156B7325AE1D8857 /* cs.lproj */; };
 		8C500482DF0DA821FBFD71A84CD466AD /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = EC118EC31AD795CC3304602F21EF2540 /* ko.lproj */; };
+		8F1D782BD8C586C96505E49EEC60BA36 /* Pods-alt-tab-macos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9398EB710E40217E35064D9686CCAD21 /* Pods-alt-tab-macos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FA35CBA2D53AA65111A9BB84328D8EA /* ShortcutRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 389D17F51E74ECE6DD3DD97BB7BFC5EC /* ShortcutRecorder-dummy.m */; };
 		9620CFD7DD4876E61B96B0159377215C /* ToolbarItemStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9C32777111FCAC14F8E11E1CA40BBB /* ToolbarItemStyleViewController.swift */; };
 		985F94722BB2E4A7E884FC402B0B449E /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DDCD54AC8BC1D62563C3CB60675A4D26 /* zh-Hant.lproj */; };
@@ -88,7 +89,6 @@
 		9B1015EC076147887BA26E2AE160FEF9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
 		9C725C84B6B0BD6649A2D7CCA3E08FAA /* SwiftyTokeniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F8E80B146D48943BB77C74278C42 /* SwiftyTokeniser.swift */; };
 		9D07D75F7C84943BDCE3ABC491CD59D1 /* LetsMove.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DCA1A0D659A7387F595FB5B43D5372C /* LetsMove.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		9E4AB6B87FD57669459AE37396650093 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
 		A2CC1A84A9C146A91EF5B68270D0F06C /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DD6AFCD8B457CF70372B8514509C413F /* de.lproj */; };
 		A2FCC58CB9470201B66FE93E38C2EEBC /* ShortcutRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 873F3E775BAC8098A237A45C06412D91 /* ShortcutRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A46ABA2611D41C8A890D2DF31B4B2504 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
@@ -96,7 +96,6 @@
 		A515F0D69E74E71489364F47E1A5513E /* SRModifierFlagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 95829DA5F921A137F1F6E2628BA30082 /* SRModifierFlagsTransformer.m */; };
 		A6543098065FB7C29E24719462ED3CD1 /* UserInteractionPausableWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2FDF50A2FD567398771682B97B897 /* UserInteractionPausableWindow.swift */; };
 		A6C76F2FFFDCF82636C355053430B94D /* ShortcutRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD1EDE447D15CF5739FA2D077648FC9 /* ShortcutRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB289F194B3CDC80E30BBAF51BFF5E7F /* Pods-alt-tab-macos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9398EB710E40217E35064D9686CCAD21 /* Pods-alt-tab-macos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB986179D17EE4638FF869F4B77A08CC /* SRShortcutController.h in Headers */ = {isa = PBXBuildFile; fileRef = DA8BCD816EFD85C046AE89262528583B /* SRShortcutController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AECE89CE5364011E4C71F28D0F0531E6 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D3F6CAE71B6E9F84B78E07936CBB97C1 /* de.lproj */; };
 		B125766C333F5D75F1B730C08219F4D9 /* SwiftyMarkdown-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 724F9C6739A2F8BA2CAF538B928201E0 /* SwiftyMarkdown-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -128,43 +127,44 @@
 		F87380A0F9BFC6970A7E72F4F7A2209D /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E624C4D4700EB7DE413A83FBB83B005E /* ko.lproj */; };
 		F8DD35F2A601BAF61B1EA1EA92531663 /* SwiftyMarkdown+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66B2E269BB4DE600FF5BD4EE9C0AA41 /* SwiftyMarkdown+iOS.swift */; };
 		FD50D88AF2AB7692F630B7E45B38603E /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BD8644D140BA89A0A856EC194645F193 /* sv.lproj */; };
+		FE5376EB3549F3491ABE070761324AD9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A5CD5AFD55E86C5D69812AE01A9770 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		410061BAE7EDE480E76AC8475CE707C5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D94AE99BF0C9025247C40F440DC9DB50;
-			remoteInfo = ShortcutRecorder;
-		};
-		88BA29EC06F72FC0B53D452FE24EF6FF /* PBXContainerItemProxy */ = {
+		0CCA584C587AEA50E28D24E7599DE7BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F83960005EA88D0C24A1D277DD0E8667;
 			remoteInfo = LetsMove;
 		};
-		A16D43FE9ED0B42859F78A6F9E5A5BC8 /* PBXContainerItemProxy */ = {
+		6CE1104FD951FBFE360AB3895E710ABB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 93523582DEC251A9E59F621510B882C3;
 			remoteInfo = SwiftyMarkdown;
 		};
-		C37A12F2E7DECBEBE22BD90BAB87EC71 /* PBXContainerItemProxy */ = {
+		C09E3715D3ED68E8A130C3E458C69ADF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = ED77B4B88587C894E85C361023D67C53;
-			remoteInfo = Sparkle;
+			remoteGlobalIDString = D94AE99BF0C9025247C40F440DC9DB50;
+			remoteInfo = ShortcutRecorder;
 		};
-		EED0AC4A25C19A9E18116CFDBC4B7CD8 /* PBXContainerItemProxy */ = {
+		CDD5E7DB19D441ACE862E1D07C47EFFA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 080990A33C8E049DC557762B0B4240DB;
 			remoteInfo = Preferences;
+		};
+		E63A1D71551B560E3990A4EA6424D7C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED77B4B88587C894E85C361023D67C53;
+			remoteInfo = Sparkle;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -331,14 +331,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0FF7E8ACE6A07BF9AF24F9EDAF02FB42 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9E4AB6B87FD57669459AE37396650093 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4E8C90F2E82BFDE64B2BAF44FF953C33 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -361,6 +353,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F459DB6DE5B5170EC4648779C99574FE /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A12BB3AE73E36B766602C6F87DE12500 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE5376EB3549F3491ABE070761324AD9 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,11 +744,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		51E44F5542524808F0A1E9BF1A4A09E3 /* Headers */ = {
+		6DC6E73AC74DB7C25774F8832DBFF2B4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB289F194B3CDC80E30BBAF51BFF5E7F /* Pods-alt-tab-macos-umbrella.h in Headers */,
+				8F1D782BD8C586C96505E49EEC60BA36 /* Pods-alt-tab-macos-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,21 +821,21 @@
 		};
 		DA8AE0681767D7A898B5697F983F9881 /* Pods-alt-tab-macos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7ED58B90454ECAFD10715DC2B0BE4987 /* Build configuration list for PBXNativeTarget "Pods-alt-tab-macos" */;
+			buildConfigurationList = 15DE95FC3B2FB559AB4180FE0147D1B8 /* Build configuration list for PBXNativeTarget "Pods-alt-tab-macos" */;
 			buildPhases = (
-				51E44F5542524808F0A1E9BF1A4A09E3 /* Headers */,
-				8B5707E4E14A070B8551B8C82274CF16 /* Sources */,
-				0FF7E8ACE6A07BF9AF24F9EDAF02FB42 /* Frameworks */,
-				BC34D312F3C69A039569ED445E2D49B4 /* Resources */,
+				6DC6E73AC74DB7C25774F8832DBFF2B4 /* Headers */,
+				ADCC4411F6C24402B50570FD741C3BDA /* Sources */,
+				A12BB3AE73E36B766602C6F87DE12500 /* Frameworks */,
+				BD18399B11166ED23480931101DB2F69 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F11DA15E5CDC561582A79B426F5718C3 /* PBXTargetDependency */,
-				0CD773D9F4327BB17CCEA7229426248D /* PBXTargetDependency */,
-				86027A29851AD1A30F11320DF3B2CCFB /* PBXTargetDependency */,
-				59AC954D1CEE7E59F9C62173905EB20B /* PBXTargetDependency */,
-				5F66D4B7CCAAE9F48ABA6B7232ED0A07 /* PBXTargetDependency */,
+				D5BF66ED31D0F837D5A7C5846398214B /* PBXTargetDependency */,
+				FB95C821DDEE4569E2D3E52EEA5EED2D /* PBXTargetDependency */,
+				36B476683688B8A3429A19B2C4715E8A /* PBXTargetDependency */,
+				89D637AD43FFD98B7A0DEDED2C65C627 /* PBXTargetDependency */,
+				495B1B06F081A4C076783DF48FB4A013 /* PBXTargetDependency */,
 			);
 			name = "Pods-alt-tab-macos";
 			productName = "Pods-alt-tab-macos";
@@ -923,7 +923,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC34D312F3C69A039569ED445E2D49B4 /* Resources */ = {
+		BD18399B11166ED23480931101DB2F69 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1019,14 +1019,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8B5707E4E14A070B8551B8C82274CF16 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				065C38D92B6E03C9C6D50A9A2BA623A8 /* Pods-alt-tab-macos-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		96FD95D4278368B7BE939B853925C9F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1048,38 +1040,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ADCC4411F6C24402B50570FD741C3BDA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B56114FA0E0C817FA294C155CB4E20D /* Pods-alt-tab-macos-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0CD773D9F4327BB17CCEA7229426248D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Preferences;
-			target = 080990A33C8E049DC557762B0B4240DB /* Preferences */;
-			targetProxy = EED0AC4A25C19A9E18116CFDBC4B7CD8 /* PBXContainerItemProxy */;
-		};
-		59AC954D1CEE7E59F9C62173905EB20B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Sparkle;
-			target = ED77B4B88587C894E85C361023D67C53 /* Sparkle */;
-			targetProxy = C37A12F2E7DECBEBE22BD90BAB87EC71 /* PBXContainerItemProxy */;
-		};
-		5F66D4B7CCAAE9F48ABA6B7232ED0A07 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftyMarkdown;
-			target = 93523582DEC251A9E59F621510B882C3 /* SwiftyMarkdown */;
-			targetProxy = A16D43FE9ED0B42859F78A6F9E5A5BC8 /* PBXContainerItemProxy */;
-		};
-		86027A29851AD1A30F11320DF3B2CCFB /* PBXTargetDependency */ = {
+		36B476683688B8A3429A19B2C4715E8A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ShortcutRecorder;
 			target = D94AE99BF0C9025247C40F440DC9DB50 /* ShortcutRecorder */;
-			targetProxy = 410061BAE7EDE480E76AC8475CE707C5 /* PBXContainerItemProxy */;
+			targetProxy = C09E3715D3ED68E8A130C3E458C69ADF /* PBXContainerItemProxy */;
 		};
-		F11DA15E5CDC561582A79B426F5718C3 /* PBXTargetDependency */ = {
+		495B1B06F081A4C076783DF48FB4A013 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftyMarkdown;
+			target = 93523582DEC251A9E59F621510B882C3 /* SwiftyMarkdown */;
+			targetProxy = 6CE1104FD951FBFE360AB3895E710ABB /* PBXContainerItemProxy */;
+		};
+		89D637AD43FFD98B7A0DEDED2C65C627 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sparkle;
+			target = ED77B4B88587C894E85C361023D67C53 /* Sparkle */;
+			targetProxy = E63A1D71551B560E3990A4EA6424D7C9 /* PBXContainerItemProxy */;
+		};
+		D5BF66ED31D0F837D5A7C5846398214B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = LetsMove;
 			target = F83960005EA88D0C24A1D277DD0E8667 /* LetsMove */;
-			targetProxy = 88BA29EC06F72FC0B53D452FE24EF6FF /* PBXContainerItemProxy */;
+			targetProxy = 0CCA584C587AEA50E28D24E7599DE7BC /* PBXContainerItemProxy */;
+		};
+		FB95C821DDEE4569E2D3E52EEA5EED2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Preferences;
+			target = 080990A33C8E049DC557762B0B4240DB /* Preferences */;
+			targetProxy = CDD5E7DB19D441ACE862E1D07C47EFFA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1260,6 +1260,42 @@
 			};
 			name = Release;
 		};
+		5A56A1D8DBF667DEABBFC341EE436893 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7475BBC3CE1397DCE052D215F2D73234 /* Pods-alt-tab-macos.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		816C679D58750316935F7386A438309D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1358,42 +1394,6 @@
 			};
 			name = Debug;
 		};
-		8987C8DF0738315BDEB2127909587175 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCA0A6B74F3699962F44535ACC0B5945 /* Pods-alt-tab-macos.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		A8142E01EDFD8D2A43D470D404D97B7A /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 73FB426CEB2A10C50A4DEEED7CB5BFFC /* ShortcutRecorder.release.xcconfig */;
@@ -1476,42 +1476,6 @@
 			};
 			name = Debug;
 		};
-		E3A6532BF07F8C7997A4964E040F0640 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7475BBC3CE1397DCE052D215F2D73234 /* Pods-alt-tab-macos.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		EF04CAF450752F3FC331757CB84767C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6A62C708622A3ECB9ED597AD909FA362 /* SwiftyMarkdown.release.xcconfig */;
@@ -1580,6 +1544,42 @@
 			};
 			name = Debug;
 		};
+		FA8A263C40CD32501AD35E0D166E23C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCA0A6B74F3699962F44535ACC0B5945 /* Pods-alt-tab-macos.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1588,6 +1588,15 @@
 			buildConfigurations = (
 				D76C4EC72B7AF1782357C7149D66D5C7 /* Debug */,
 				EF04CAF450752F3FC331757CB84767C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15DE95FC3B2FB559AB4180FE0147D1B8 /* Build configuration list for PBXNativeTarget "Pods-alt-tab-macos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA8A263C40CD32501AD35E0D166E23C2 /* Debug */,
+				5A56A1D8DBF667DEABBFC341EE436893 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1633,15 +1642,6 @@
 			buildConfigurations = (
 				83AFD6423969CD41D7582445F70A1568 /* Debug */,
 				59999EBC3E317FC5DE17F29E37C4F95E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7ED58B90454ECAFD10715DC2B0BE4987 /* Build configuration list for PBXNativeTarget "Pods-alt-tab-macos" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8987C8DF0738315BDEB2127909587175 /* Debug */,
-				E3A6532BF07F8C7997A4964E040F0640 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

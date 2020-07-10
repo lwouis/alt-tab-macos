@@ -7,8 +7,4 @@ target 'alt-tab-macos' do
   pod 'ShortcutRecorder', :git => 'https://github.com/Kentzo/ShortcutRecorder.git', :commit => 'f718220854575bad86fa89dd2bb3decd0b14b2b0'
   pod 'SwiftyMarkdown', '1.1.0'
   pod 'Preferences', '1.0.1'
-
-  post_install do |installer|
-    system('scripts/update_acknowledgments.sh')
-  end
 end

@@ -10,23 +10,31 @@ class AcknowledgmentsTab: NSViewController, PreferencePane {
     let toolbarItemIcon = NSImage(named: NSImage.userAccountsName)!
 
     override func loadView() {
-        let markdownFileUrl = Bundle.main.url(forResource: "Acknowledgments", withExtension: "md")!
-        let md = SwiftyMarkdown(url: markdownFileUrl)!
-        md.h1.fontSize = 24
-        md.h2.fontSize = 20
-        let textView = TextField(md.attributedString())
+        let textViews: [TextField] = ["Contributors", "Acknowledgments"].map {
+            let markdownFileUrl = Bundle.main.url(forResource: $0, withExtension: "md")!
+            let md = SwiftyMarkdown(url: markdownFileUrl)!
+            md.h1.fontSize = 16
+            md.underlineLinks = false
+            md.bullet = "•"
+            let textView = TextField(md.attributedString())
+            textView.allowsEditingTextAttributes = true
+            textView.isSelectable = true
+            return textView
+        }
+        let subGrid = GridView([textViews])
+        subGrid.column(at: 1).leadingPadding = 20
+        subGrid.fit()
 
         let scrollView = ScrollView()
         scrollView.scrollerKnobStyle = .default
-        scrollView.documentView!.subviews = [textView]
-        let height = min(textView.fittingSize.width, AcknowledgmentsTab.maxTabHeight)
-        scrollView.frame.size = NSSize(width: textView.fittingSize.width, height: height)
-        scrollView.contentView.frame.size = textView.fittingSize
-        scrollView.documentView!.frame.size = textView.fittingSize
-        scrollView.fit(textView.fittingSize.width, height)
+        scrollView.documentView!.subviews = [subGrid]
+        let totalWidth = subGrid.fittingSize.width
+        let totalHeight = min(subGrid.fittingSize.height, AcknowledgmentsTab.maxTabHeight)
+        scrollView.frame.size = NSSize(width: totalWidth, height: totalHeight)
+        scrollView.contentView.frame.size = scrollView.frame.size
+        scrollView.documentView!.frame.size = subGrid.fittingSize
+        scrollView.fit(totalWidth, totalHeight)
 
-        let grid = GridView([[scrollView]])
-        grid.fit()
-        view = grid
+        view = scrollView
     }
 }

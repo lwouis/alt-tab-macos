@@ -39,6 +39,7 @@
 		D04BA4575B13F1A148C108E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA459B8804ABFBDA50663 /* InfoPlist.strings */; };
 		D04BA48B00B4211A465C7337 /* DebugProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACABD048E62EBE4576CC /* DebugProfile.swift */; };
 		D04BA4A11F821548EE3C5E95 /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA514F1C4B475B3CA6EB6 /* Bash.swift */; };
+		D04BA530F00E5989D66C6A1F /* Contributors.md in Resources */ = {isa = PBXBuildFile; fileRef = D04BA812B8DCB915B8F4B915 /* Contributors.md */; };
 		D04BA5863E8AD08C36B52F80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAC86E60B1B850059BC54 /* Localizable.strings */; };
 		D04BA6187A91A847844B6ABB /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA015A45DE7AFDC9794FE /* Window.swift */; };
 		D04BA69012A483201B375D46 /* Acknowledgments.md in Resources */ = {isa = PBXBuildFile; fileRef = D04BAADF01EB8FF8A15AECC6 /* Acknowledgments.md */; };
@@ -130,7 +131,6 @@
 		D04BA2E723062A1DAC58618F /* setup_ci_pr.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup_ci_pr.sh; sourceTree = "<group>"; };
 		D04BA2E8D5D5CC23456BC8F7 /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BA32F25860B686DFE818A /* 3 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line.jpg"; sourceTree = "<group>"; };
-		D04BA332D13755B53E86D550 /* update_acknowledgments.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_acknowledgments.sh; sourceTree = "<group>"; };
 		D04BA3632A2EB5C64A3FEE59 /* hu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hu; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA369B4D9FD6A13936F53 /* bare.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = bare.html; sourceTree = "<group>"; };
 		D04BA399F1DF2C61FC2C9599 /* menubar-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar-icon@2x.png"; sourceTree = "<group>"; };
@@ -590,7 +590,6 @@
 				D04BAA5ECAE8BB8F8656DEDF /* update_contributors.sh */,
 				D04BAD65AA870A49D2F89DBC /* ensure_generated_files_are_up_to_date.sh */,
 				D04BA4D5DF349429527824A2 /* determine_version.sh */,
-				D04BA332D13755B53E86D550 /* update_acknowledgments.sh */,
 				D04BAAE6E6823304D66B74F8 /* update_website.sh */,
 				D04BA7A758026814667273DC /* convert_iconset_to_icns.sh */,
 			);
@@ -929,6 +928,7 @@
 				D04BAAB5C4E78AE375EA7D3C /* Localizable.strings in Resources */,
 				D04BAC463D66BB8E19CF8E2E /* InfoPlist.strings in Resources */,
 				D04BA7B9421871EDBD58F4E3 /* Localizable.strings in Resources */,
+				D04BA530F00E5989D66C6A1F /* Contributors.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
