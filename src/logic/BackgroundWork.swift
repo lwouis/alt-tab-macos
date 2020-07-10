@@ -10,8 +10,6 @@ class BackgroundWork {
 
     // we cap concurrent tasks to .processorCount to avoid thread explosion on the .global queue
     static let globalSemaphore = DispatchSemaphore(value: ProcessInfo.processInfo.processorCount)
-    // AX calls may block for a long time. We use a big semaphore to avoid blocking the main thread in case the window server is busy
-    static let axCallsGlobalSemaphore = DispatchSemaphore(value: 100)
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
@@ -25,12 +23,12 @@ extension DispatchQueue {
         return DispatchQueue(label: label, target: .global(qos: qos.qosClass))
     }
 
-    func asyncWithCap(_ deadline: DispatchTime? = nil, semaphore: DispatchSemaphore = BackgroundWork.globalSemaphore, _ fn: @escaping () -> Void) {
+    func asyncWithCap(_ deadline: DispatchTime? = nil, _ fn: @escaping () -> Void) {
         let block = {
             fn()
-            semaphore.signal()
+            BackgroundWork.globalSemaphore.signal()
         }
-        semaphore.wait()
+        BackgroundWork.globalSemaphore.wait()
         if let deadline = deadline {
             asyncAfter(deadline: deadline, execute: block)
         } else {
