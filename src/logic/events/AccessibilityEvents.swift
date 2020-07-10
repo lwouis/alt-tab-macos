@@ -7,15 +7,19 @@ func axObserverCallback(observer: AXObserver, element: AXUIElement, notification
 
 // if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
 func retryAxCallUntilTimeout(_ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
-    BackgroundWork.axCallsQueue.asyncWithCap(semaphore: BackgroundWork.axCallsGlobalSemaphore) {
+    BackgroundWork.axCallsQueue.async {
+        retryAxCallUntilTimeout_(fn, startTime)
+    }
+}
+
+func retryAxCallUntilTimeout_(_ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
         do {
             try fn()
         } catch {
             let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
             if timePassedInSeconds < Double(AXUIElement.globalTimeoutInSeconds) {
-                BackgroundWork.axCallsQueue.asyncWithCap(.now() + .milliseconds(10), semaphore: BackgroundWork.axCallsGlobalSemaphore) {
-                    retryAxCallUntilTimeout(fn, startTime)
-                }
+                BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(10)) {
+                retryAxCallUntilTimeout_(fn, startTime)
             }
         }
     }
