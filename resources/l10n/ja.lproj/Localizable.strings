@@ -134,6 +134,9 @@
 /*No comment provided by engineer.*/
 "Quit app" = "アプリケーションを終了";
 
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
 /*No comment provided by engineer.*/
 "Rows of windows:" = "ウィンドウ列：";
 
@@ -190,6 +193,9 @@
 
 /*No comment provided by engineer.*/
 "Start at login:" = "ログイン時に起動：";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "テーマ：";

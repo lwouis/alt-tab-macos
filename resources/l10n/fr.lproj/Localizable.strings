@@ -134,6 +134,9 @@
 /*No comment provided by engineer.*/
 "Quit app" = "Quitter l’app";
 
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Rangées de fenêtres :";
 
@@ -190,6 +193,9 @@
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Lancer au démarrage :";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Thème :";

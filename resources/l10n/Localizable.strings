@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "About" = "About";
 
 /* No comment provided by engineer. */
@@ -128,6 +128,9 @@
 "Quit app" = "Quit app";
 
 /* No comment provided by engineer. */
+"Quit" = "Quit";
+
+/* No comment provided by engineer. */
 "Rows of windows:" = "Rows of windows:";
 
 /* No comment provided by engineer. */
@@ -183,6 +186,9 @@
 
 /* No comment provided by engineer. */
 "Start at login:" = "Start at login:";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
 
 /* No comment provided by engineer. */
 "Theme:" = "Theme:";

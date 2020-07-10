@@ -7,3 +7,7 @@ IDEWorkspaceChecks.plist
 /build/
 .DS_Store
 docs/_site/
+codesign.p12
+codesign.key
+codesign.crt
+codesign.conf

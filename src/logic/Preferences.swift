@@ -36,6 +36,7 @@ class Preferences {
         "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
         "startAtLogin": "true",
+        "hideMenubarIcon": "false"
     ]
 
     // constant values
@@ -72,6 +73,7 @@ class Preferences {
     static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
+    static var hideMenubarIcon: Bool { defaults.bool("hideMenubarIcon") }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }

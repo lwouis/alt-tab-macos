@@ -134,6 +134,9 @@
 /*No comment provided by engineer.*/
 "Quit app" = "앱 종료";
 
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
 /*No comment provided by engineer.*/
 "Rows of windows:" = "윈도우 줄 개수:";
 
@@ -190,6 +193,9 @@
 
 /*No comment provided by engineer.*/
 "Start at login:" = "로그인 시 자동 실행:";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "테마:";

@@ -13,23 +13,23 @@ class App: NSApplication, NSApplicationDelegate {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static var app: App!
     static let shortcutMonitor = LocalShortcutMonitor()
-    var statusItem: NSStatusItem!
+    static var statusItem: NSStatusItem!
     var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindowController: PreferencesWindowController!
     var feedbackWindow: FeedbackWindow?
     var isFirstSummon = true
     var appIsBeingUsed = false
-
+    
     override init() {
         super.init()
         delegate = self
         App.app = self
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         #if !DEBUG
         PFMoveToApplicationsFolderIfNecessary()
@@ -40,7 +40,7 @@ class App: NSApplication, NSApplicationDelegate {
         BackgroundWork.start()
         Preferences.migratePreferences()
         Preferences.registerDefaults()
-        statusItem = Menubar.make()
+        App.statusItem = Menubar.make()
         loadMainMenuXib()
         thumbnailsPanel = ThumbnailsPanel()
         Spaces.initialDiscovery()
@@ -50,14 +50,25 @@ class App: NSApplication, NSApplicationDelegate {
         // TODO: undeterministic; events in the queue may still be processing; good enough for now
         DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
         preloadWindows()
+        
+        #if DEBUG
+        showPreferencesPanel()
+        #endif
+        
     }
-
+    
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        NSApp.activate(ignoringOtherApps: true)
+        showPreferencesPanel()
+        return true
+    }
+    
     // pre-load some windows so they are faster on first display
     private func preloadWindows() {
         thumbnailsPanel.orderFront(nil)
         thumbnailsPanel.orderOut(nil)
     }
-
+    
     private func loadPreferencesWindow() {
         let tabs = [
             GeneralTab(),
@@ -69,8 +80,20 @@ class App: NSApplication, NSApplicationDelegate {
         // pre-load tabs so we can interact with them before the user opens the preferences window
         tabs.forEach { (tab: NSViewController) in tab.loadView() }
         preferencesWindowController = PreferencesWindowController(preferencePanes: tabs as! [PreferencePane])
-    }
+        
+        if let window = preferencesWindowController.window {
+            let quitButton = NSButton(title: NSLocalizedString("Quit", comment: ""), target: nil, action: #selector(NSApplication.terminate(_:)))
 
+            let titleBarView = window.standardWindowButton(.closeButton)!.superview!
+            titleBarView.addSubview(quitButton)
+            quitButton.translatesAutoresizingMaskIntoConstraints = false
+            let topConstraint = NSLayoutConstraint(item: quitButton, attribute: .top, relatedBy: .equal, toItem: titleBarView, attribute: .top, multiplier: 1, constant: 5)
+            let rightConstraint = NSLayoutConstraint(item: quitButton, attribute: .right, relatedBy: .equal, toItem: titleBarView, attribute: .right, multiplier: 1, constant: -5)
+            titleBarView.addConstraints([topConstraint, rightConstraint])
+        }
+        
+    }
+    
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
     // see https://stackoverflow.com/a/3746058/2249756
     private func loadMainMenuXib() {
@@ -78,50 +101,50 @@ class App: NSApplication, NSApplicationDelegate {
         Bundle.main.loadNibNamed("MainMenu", owner: self, topLevelObjects: &menuObjects)
         menu = menuObjects?.first { $0 is NSMenu } as? NSMenu
     }
-
+    
     // we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
         ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
         thumbnailsPanel.thumbnailsView.layer!.cornerRadius = Preferences.windowCornerRadius
     }
-
+    
     func hideUi() {
         debugPrint("hideUi")
         appIsBeingUsed = false
         isFirstSummon = true
         thumbnailsPanel.orderOut(nil)
     }
-
+    
     func closeSelectedWindow() {
         Windows.focusedWindow()?.close()
     }
-
+    
     func minDeminSelectedWindow() {
         Windows.focusedWindow()?.minDemin()
     }
-
+    
     func quitSelectedApp() {
         Windows.focusedWindow()?.quitApp()
     }
-
+    
     func hideShowSelectedApp() {
         Windows.focusedWindow()?.hideShowApp()
     }
-
+    
     func focusTarget() {
         debugPrint("focusTarget")
         focusSelectedWindow(Windows.focusedWindow())
     }
-
+    
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
         UpdatesTab.checkForUpdatesNow(sender)
     }
-
+    
     @objc func showPreferencesPanel() {
         Screen.repositionPanel(preferencesWindowController.window!, Screen.preferred(), .appleCentered)
         preferencesWindowController.show()
     }
-
+    
     @objc func showFeedbackPanel() {
         if feedbackWindow == nil {
             feedbackWindow = FeedbackWindow()
@@ -129,12 +152,12 @@ class App: NSApplication, NSApplicationDelegate {
         Screen.repositionPanel(feedbackWindow!, Screen.preferred(), .appleCentered)
         feedbackWindow?.show()
     }
-
+    
     @objc func showUi() {
         appIsBeingUsed = true
         DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(.neutral) }
     }
-
+    
     func cycleSelection(_ direction: Direction) {
         if direction == .up || direction == .down {
             thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction)
@@ -142,18 +165,18 @@ class App: NSApplication, NSApplicationDelegate {
             Windows.cycleFocusedWindowIndex(direction.step())
         }
     }
-
+    
     func focusSelectedWindow(_ window: Window?) {
         hideUi()
         guard !CGWindow.isMissionControlActive() else { return }
         window?.focus()
     }
-
+    
     func reopenUi() {
         thumbnailsPanel.orderOut(nil)
         rebuildUi()
     }
-
+    
     func refreshOpenUi(_ windowsToUpdate: [Window]? = nil) {
         guard appIsBeingUsed else { return }
         let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
@@ -168,7 +191,7 @@ class App: NSApplication, NSApplicationDelegate {
         guard appIsBeingUsed else { return }
         Screen.repositionPanel(thumbnailsPanel, currentScreen, .appleCentered)
     }
-
+    
     private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
         windowsToUpdate?.forEach { (window: Window) in
             guard appIsBeingUsed else { return }
@@ -182,7 +205,7 @@ class App: NSApplication, NSApplicationDelegate {
             }
         }
     }
-
+    
     func showUiOrCycleSelection(_ direction: Direction) {
         debugPrint("showUiOrCycleSelection", direction)
         if isFirstSummon {
@@ -204,7 +227,7 @@ class App: NSApplication, NSApplicationDelegate {
             cycleSelection(direction)
         }
     }
-
+    
     func rebuildUi() {
         guard appIsBeingUsed else { return }
         Windows.refreshAllThumbnails()

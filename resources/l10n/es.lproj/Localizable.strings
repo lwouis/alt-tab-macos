@@ -134,6 +134,9 @@
 /*No comment provided by engineer.*/
 "Quit app" = "Cerrar aplicación";
 
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Filas de ventanas:";
 
@@ -190,6 +193,9 @@
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Cargar al inicio:";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Tema:";

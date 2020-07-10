@@ -134,6 +134,9 @@
 /*No comment provided by engineer.*/
 "Quit app" = "離開程式";
 
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
 /*No comment provided by engineer.*/
 "Rows of windows:" = "每列視窗數：";
 
@@ -190,6 +193,9 @@
 
 /*No comment provided by engineer.*/
 "Start at login:" = "在登入時啟動：";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "主題：";

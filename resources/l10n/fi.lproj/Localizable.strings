@@ -134,6 +134,9 @@
 /*No comment provided by engineer.*/
 "Quit app" = "Sulje ohjelma";
 
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Ikkunarivejä:";
 
@@ -190,6 +193,9 @@
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Käynnistä kirjautuessa:";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Teema:";

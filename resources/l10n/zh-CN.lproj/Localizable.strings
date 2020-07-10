@@ -18,13 +18,13 @@
 "Active space" = "活跃桌面";
 
 /*No comment provided by engineer.*/
-"Align windows:" = "窗口对齐方式：";
+"Align windows:" = "窗口对齐方式:";
 
 /*No comment provided by engineer.*/
 "All apps" = "所有应用";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "该表单中的所有数据都将作为 ticket 公开在 github.com 上";
 
 /*No comment provided by engineer.*/
 "All screens" = "所有屏幕";
@@ -33,7 +33,7 @@
 "All spaces" = "所有桌面";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "切换窗口出现延迟：";
+"Apparition delay:" = "切换窗口出现延迟:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "外观";
@@ -84,7 +84,7 @@
 "Hidden" = "隐藏";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "隐藏桌面编号：";
+"Hide space number labels:" = "隐藏桌面编号:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "隐藏/显示应用";
@@ -102,13 +102,13 @@
 "Left" = "居左";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "最大屏幕占用尺寸：";
+"Max size on screen:" = "最大屏幕占用尺寸:";
 
 /*No comment provided by engineer.*/
-"Max windows per row:" = "每行最多窗口数：";
+"Max windows per row:" = "每行最多窗口数:";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "每行最少窗口数：";
+"Min windows per row:" = "每行最少窗口数:";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "最小化/最大化窗口";
@@ -134,8 +134,11 @@
 /*No comment provided by engineer.*/
 "Quit app" = "退出应用";
 
+/* No comment provided by engineer. */
+"Quit" = "退出";
+
 /*No comment provided by engineer.*/
-"Rows of windows:" = "窗口行数：";
+"Rows of windows:" = "窗口行数:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "菜单栏所在屏幕";
@@ -153,7 +156,7 @@
 "Select previous window" = "选择上一个窗口";
 
 /*No comment provided by engineer.*/
-"Select windows using:" = "切换窗口方式：";
+"Select windows using:" = "切换窗口方式:";
 
 /*No comment provided by engineer.*/
 "Send" = "发送";
@@ -177,31 +180,34 @@
 "Show" = "显示";
 
 /*No comment provided by engineer.*/
-"Show on:" = "显示在：";
+"Show on:" = "显示在:";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "以窗口形式显示某些程序的标签页";
 
 /*No comment provided by engineer.*/
-"Show the following windows:" = "显示以下窗口：";
+"Show the following windows:" = "显示以下窗口:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "源代码仓库";
 
 /*No comment provided by engineer.*/
-"Start at login:" = "开机启动：";
+"Start at login:" = "开机启动:";
 
 /*No comment provided by engineer.*/
-"Theme:" = "主题：";
+"Hide menubar icon:" = "隐藏菜单栏图标:";
 
 /*No comment provided by engineer.*/
-"then press:" = "并按下：";
+"Theme:" = "主题:";
+
+/*No comment provided by engineer.*/
+"then press:" = "并按下:";
 
 /*No comment provided by engineer.*/
 "Updates" = "更新";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "更新方式：";
+"Updates policy:" = "更新方式:";
 
 /*No comment provided by engineer.*/
 "Version" = "版本";
@@ -210,10 +216,10 @@
 "View existing discussions" = "查看现有讨论";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "窗口图标大小：";
+"Window app icon size:" = "窗口图标大小:";
 
 /*No comment provided by engineer.*/
-"Window title font size:" = "窗口标题字号：";
+"Window title font size:" = "窗口标题字号:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "未填写电子邮箱地址将无法收到回复。";

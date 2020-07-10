@@ -10,6 +10,7 @@ class UpdatesTab: NSViewController, PreferencePane {
     var dontPeriodicallyCheck: NSButton!
     var periodicallyCheck: NSButton!
     var periodicallyInstall: NSButton!
+    var checkForUpdates: NSButton!
     // this helps prevent double-dipping (i.e. user updates the UI > changes the preference > updates the UI)
     var policyLock = false
 
@@ -24,9 +25,10 @@ class UpdatesTab: NSViewController, PreferencePane {
         policyLabel.isSelectable = false
         let policies = StackView([dontPeriodicallyCheck, periodicallyCheck, periodicallyInstall], .vertical)
         policies.spacing = GridView.interPadding / 2
+        checkForUpdates = NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: nil, action: #selector(UpdatesTab.checkForUpdatesNow))
         let grid = GridView([
             [policyLabel, policies],
-            [NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: nil, action: #selector(UpdatesTab.checkForUpdatesNow))],
+            [checkForUpdates],
         ])
         grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .trailing
         let row1 = grid.row(at: 1)

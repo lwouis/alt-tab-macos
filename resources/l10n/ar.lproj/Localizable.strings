@@ -134,6 +134,9 @@
 /*No comment provided by engineer.*/
 "Quit app" = "إغلاق البرنامج";
 
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
 /*No comment provided by engineer.*/
 "Rows of windows:" = "صفوف النوافذ:";
 
@@ -190,6 +193,9 @@
 
 /*No comment provided by engineer.*/
 "Start at login:" = "شغّل البرنامج عند الدخول:";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "المظهر:";
