@@ -24,7 +24,7 @@
 "All apps" = "所有应用";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "该表单中的所有数据都将作为 ticket 公开在 github.com 上";
 
 /*No comment provided by engineer.*/
 "All screens" = "所有屏幕";
@@ -72,7 +72,7 @@
 "Don’t check for updates periodically" = "不自动检查更新";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "淡出动画";
+"Fade out animation:" = "淡出动画：";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "全屏";
@@ -82,6 +82,9 @@
 
 /*No comment provided by engineer.*/
 "Hidden" = "隐藏";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "隐藏菜单栏图标：";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "隐藏桌面编号：";
@@ -127,6 +130,9 @@
 
 /*No comment provided by engineer.*/
 "Preferences…" = "偏好设置…";
+
+/*No comment provided by engineer.*/
+"Quit" = "退出";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "退出 %@";

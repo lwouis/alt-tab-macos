@@ -84,6 +84,9 @@
 "Hidden" = "Cachées";
 
 /*No comment provided by engineer.*/
+"Hide menubar icon:" = "Cacher l’icône de la barre de menu :";
+
+/*No comment provided by engineer.*/
 "Hide space number labels:" = "Cacher les numéros des Espaces :";
 
 /*No comment provided by engineer.*/
@@ -127,6 +130,9 @@
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Préférences…";
+
+/*No comment provided by engineer.*/
+"Quit" = "Quitter";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Quitter %@";
