@@ -13,7 +13,7 @@ class App: NSApplication, NSApplicationDelegate {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static var app: App!
     static let shortcutMonitor = LocalShortcutMonitor()
-    var statusItem: NSStatusItem!
+    static var statusItem: NSStatusItem!
     var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindowController: PreferencesWindowController!
     var feedbackWindow: FeedbackWindow?
@@ -40,7 +40,7 @@ class App: NSApplication, NSApplicationDelegate {
         BackgroundWork.start()
         Preferences.migratePreferences()
         Preferences.registerDefaults()
-        statusItem = Menubar.make()
+        App.statusItem = Menubar.make()
         loadMainMenuXib()
         thumbnailsPanel = ThumbnailsPanel()
         Spaces.initialDiscovery()
@@ -50,8 +50,19 @@ class App: NSApplication, NSApplicationDelegate {
         // TODO: undeterministic; events in the queue may still be processing; good enough for now
         DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
         preloadWindows()
+        
+        #if DEBUG
+        showPreferencesPanel()
+        #endif
+        
     }
-
+    
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        NSApp.activate(ignoringOtherApps: true)
+        showPreferencesPanel()
+        return true
+    }
+    
     // pre-load some windows so they are faster on first display
     private func preloadWindows() {
         thumbnailsPanel.orderFront(nil)
@@ -69,6 +80,16 @@ class App: NSApplication, NSApplicationDelegate {
         // pre-load tabs so we can interact with them before the user opens the preferences window
         tabs.forEach { (tab: NSViewController) in tab.loadView() }
         preferencesWindowController = PreferencesWindowController(preferencePanes: tabs as! [PreferencePane])
+        
+        let window = preferencesWindowController.window!
+        let quitButton = NSButton(title: NSLocalizedString("Quit", comment: ""), target: nil, action: #selector(NSApplication.terminate(_:)))
+        let titleBarView = window.standardWindowButton(.closeButton)!.superview!
+        titleBarView.addSubview(quitButton)
+        quitButton.translatesAutoresizingMaskIntoConstraints = false
+        let topConstraint = NSLayoutConstraint(item: quitButton, attribute: .top, relatedBy: .equal, toItem: titleBarView, attribute: .top, multiplier: 1, constant: 5)
+        let rightConstraint = NSLayoutConstraint(item: quitButton, attribute: .right, relatedBy: .equal, toItem: titleBarView, attribute: .right, multiplier: 1, constant: -10)
+        titleBarView.addConstraints([topConstraint, rightConstraint])
+        
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
