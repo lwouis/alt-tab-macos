@@ -19,6 +19,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * 73
 * Aarni Koskela
 * Abdulelah
+* Albert Abdilim
 * Chun Fei Lung
 * Elisabeth landblok
 * Hokuto Kato
