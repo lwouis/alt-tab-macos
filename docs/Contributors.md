@@ -24,7 +24,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Elisabeth landblok
 * Hokuto Kato
 * Ialiendeg
-* Jaeyong0201
+* Jaeyong Sung
 * Jord Nijhuis
 * Kagurazaka Tsuki
 * Kushnee5
