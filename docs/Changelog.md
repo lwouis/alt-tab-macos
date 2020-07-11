@@ -1,5 +1,18 @@
 # Release notes
 
+# [4.2.0](https://github.com/lwouis/alt-tab-macos/compare/v4.1.7...v4.2.0) (2020-07-11)
+
+
+### Bug Fixes
+
+* further chinese and french localizations ([99668ae](https://github.com/lwouis/alt-tab-macos/commit/99668ae))
+* further chinese/korean/french localizations ([d638eb0](https://github.com/lwouis/alt-tab-macos/commit/d638eb0))
+
+
+### Features
+
+* add preference to hide menubar icon (closes [#103](https://github.com/lwouis/alt-tab-macos/issues/103)) ([6635117](https://github.com/lwouis/alt-tab-macos/commit/6635117))
+
 ## [4.1.7](https://github.com/lwouis/alt-tab-macos/compare/v4.1.6...v4.1.7) (2020-07-10)
 
 
