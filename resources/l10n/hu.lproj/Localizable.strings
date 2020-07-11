@@ -84,6 +84,9 @@
 "Hidden" = "Rejtett";
 
 /*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
+
+/*No comment provided by engineer.*/
 "Hide space number labels:" = "Számok elrejtése a terület cimkékben:";
 
 /*No comment provided by engineer.*/
@@ -127,6 +130,9 @@
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Beállítások…";
+
+/*No comment provided by engineer.*/
+"Quit" = "Quit";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Kilépés %@";

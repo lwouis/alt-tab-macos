@@ -84,6 +84,9 @@
 "Hidden" = "숨겨진 화면";
 
 /*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
+
+/*No comment provided by engineer.*/
 "Hide space number labels:" = "Space 번호 숨기기:";
 
 /*No comment provided by engineer.*/
@@ -127,6 +130,9 @@
 
 /*No comment provided by engineer.*/
 "Preferences…" = "설정…";
+
+/*No comment provided by engineer.*/
+"Quit" = "Quit";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "%@ 종료";

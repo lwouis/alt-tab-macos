@@ -84,6 +84,9 @@
 "Hidden" = "隱藏";
 
 /*No comment provided by engineer.*/
+"Hide menubar icon:" = "Hide menubar icon:";
+
+/*No comment provided by engineer.*/
 "Hide space number labels:" = "隱藏空間編號的標籤：";
 
 /*No comment provided by engineer.*/
@@ -127,6 +130,9 @@
 
 /*No comment provided by engineer.*/
 "Preferences…" = "偏好設定…";
+
+/*No comment provided by engineer.*/
+"Quit" = "Quit";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "離開 %@";

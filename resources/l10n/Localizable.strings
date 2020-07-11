@@ -80,6 +80,9 @@
 "Hidden" = "Hidden";
 
 /* No comment provided by engineer. */
+"Hide menubar icon:" = "Hide menubar icon:";
+
+/* No comment provided by engineer. */
 "Hide space number labels:" = "Hide space number labels:";
 
 /* No comment provided by engineer. */
@@ -121,14 +124,14 @@
 /* Menubar option */
 "Preferences…" = "Preferences…";
 
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
 /* Menubar option. %@ is AltTab */
 "Quit %@" = "Quit %@";
 
 /* No comment provided by engineer. */
 "Quit app" = "Quit app";
-
-/* No comment provided by engineer. */
-"Quit" = "Quit";
 
 /* No comment provided by engineer. */
 "Rows of windows:" = "Rows of windows:";
@@ -186,9 +189,6 @@
 
 /* No comment provided by engineer. */
 "Start at login:" = "Start at login:";
-
-/*No comment provided by engineer.*/
-"Hide menubar icon:" = "Hide menubar icon:";
 
 /* No comment provided by engineer. */
 "Theme:" = "Theme:";
