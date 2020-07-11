@@ -26,6 +26,7 @@ class GeneralTab: NSViewController, PreferencePane {
 
     override func loadView() {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
+        let hideMenubarIcon = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide menubar icon:", comment: ""), "hideMenubarIcon", extraAction: hideMenubarIconCallback)
         var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut", Preferences.holdShortcut, false, labelPosition: .leftWithoutSeparator)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("then press:", comment: "")))
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), "nextWindowShortcut", Preferences.nextWindowShortcut, labelPosition: .right)
@@ -54,18 +55,20 @@ class GeneralTab: NSViewController, PreferencePane {
 
         let grid = GridView([
             startAtLogin,
+            hideMenubarIcon,
             [holdAndPress, shortcuts],
             [checkboxesExplanations, checkboxes],
             [toShowExplanations, toShow],
         ])
         grid.column(at: 0).xPlacement = .trailing
-        [1, 2, 3].forEach { grid.row(at: $0).topPadding = GridView.interPadding }
+        [2, 3, 4].forEach { grid.row(at: $0).topPadding = GridView.interPadding }
         grid.fit()
 
         GeneralTab.shortcutsDependentOnHoldShortcut.append(contentsOf: [enableArrows[0] as! NSControl] +
             [nextWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { $0[0] as! NSControl })
         GeneralTab.arrowKeysEnabledCallback(enableArrows[0] as! NSControl)
         startAtLoginCallback(startAtLogin[1] as! NSControl)
+        hideMenubarIconCallback(hideMenubarIcon[1] as! NSControl)
 
         view = grid
     }
@@ -149,5 +152,9 @@ class GeneralTab: NSViewController, PreferencePane {
         if (sender as! NSButton).state == .on {
             let _ = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst.takeRetainedValue(), nil, nil, itemUrl, nil, nil).takeRetainedValue()
         }
+    }
+    
+    private func hideMenubarIconCallback(_ sender: NSControl) {
+        App.statusItem.isVisible = (sender as! NSButton).state == .off
     }
 }
