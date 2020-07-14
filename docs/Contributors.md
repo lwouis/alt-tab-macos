@@ -8,6 +8,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [damonpam](https://github.com/damonpam)
 * [gcbw](https://github.com/gcbw)
 * [gingerr](https://github.com/gingerr)
+* [L1cardo](https://github.com/L1cardo)
 * [lwouis](https://github.com/lwouis)
 * [notlmn](https://github.com/notlmn)
 * [phungtuanhoang1996](https://github.com/phungtuanhoang1996)
@@ -32,7 +33,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Michael
 * Nilton Souza
 * ponchik
-* Robin
+* rbnis
 * Tomoa Nozawa
 * Umutakkaya1996
 * Viggo Lekdorf
