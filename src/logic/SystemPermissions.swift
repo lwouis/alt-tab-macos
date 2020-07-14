@@ -2,33 +2,85 @@ import Cocoa
 
 // macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy
 class SystemPermissions {
-    static func ensureAccessibilityCheckboxIsChecked() {
-        guard #available(OSX 10.9, *) else { return }
-        if !AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeRetainedValue(): true] as CFDictionary) {
-            debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
-                "Please authorize and re-launch.",
-                "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
-                separator: "\n")
-            App.shared.terminate(self)
-        } else {
-            // if the user removes the permission while the app is running, it can break keyboard inputs
-            DistributedNotificationCenter.default().addObserver(forName: NSNotification.Name("com.apple.accessibility.api"), object: nil, queue: nil) { _ in
-                // there is a delay between the notification and the permission being actually changed
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                    ensureAccessibilityCheckboxIsChecked()
-                }
-            }
+    static var changeCallback: (() -> Void)!
+    static var screenRecordingObserver: Timer!
+    static var permissionsWindow: PermissionsWindow!
+
+    static func accessibilityIsGranted() -> Bool {
+        if #available(OSX 10.9, *) {
+            return AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeRetainedValue(): false] as CFDictionary)
         }
+        return true
     }
 
-    static func ensureScreenRecordingCheckboxIsChecked() {
-        guard #available(OSX 10.15, *) else { return }
-        if SLSRequestScreenCaptureAccess() != 1 {
-            debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Screen Recording.",
-                "Please authorize and re-launch.",
-                "See https://dropshare.zendesk.com/hc/en-us/articles/360033453434-Enabling-Screen-Recording-Permission-on-macOS-Catalina-10-15-",
-                separator: "\n")
-            App.shared.terminate(self)
+    static func screenRecordingIsGranted() -> Bool {
+        if #available(OSX 10.15, *) {
+            return screenRecordingIsGranted_()
+        }
+        return true
+    }
+
+    // there is no official API to check the status of the Screen Recording permission
+    // there is the private API SLSRequestScreenCaptureAccess, but its value is not updated during the app lifetime
+    // workaround: we check if we can get the title of at least one window, except from AltTab or the Dock
+    private static func screenRecordingIsGranted_() -> Bool {
+        let appPid = NSRunningApplication.current.processIdentifier
+        if let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [CGWindow],
+           let _ = windows.first(where: { (window) -> Bool in
+               if let windowPid = window.ownerPID(),
+                  windowPid != appPid,
+                  let windowRunningApplication = NSRunningApplication(processIdentifier: windowPid),
+                  windowRunningApplication.executableURL?.lastPathComponent != "Dock",
+                  let _ = window.title() {
+                   return true
+               }
+               return false
+           }) {
+            return true
+        }
+        return false
+    }
+
+    static func observePermissionsPostStartup() {
+        screenRecordingObserver = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
+            if !(accessibilityIsGranted() && screenRecordingIsGranted()) {
+                App.app.restart()
+            }
+        })
+    }
+
+    static func observePermissionsPreStartup(_ startupBlock: @escaping () -> Void) {
+        // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
+        SLSRequestScreenCaptureAccess()
+        screenRecordingObserver = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+            let accessibility = accessibilityIsGranted()
+            let screenRecording = screenRecordingIsGranted()
+            if accessibility && screenRecording {
+                permissionsWindow.close()
+                screenRecordingObserver.invalidate()
+                startupBlock()
+            } else {
+                if accessibility != permissionsWindow.accessibilityView.isPermissionGranted {
+                    permissionsWindow.accessibilityView.updatePermissionStatus(accessibility)
+                }
+                if #available(OSX 10.15, *), screenRecording != permissionsWindow.screenRecordingView.isPermissionGranted {
+                    permissionsWindow.screenRecordingView.updatePermissionStatus(screenRecording)
+                }
+            }
+        })
+    }
+
+    static func ensurePermissionsAreGranted(_ continueAppStartup: @escaping () -> Void) {
+        let startupBlock = {
+            observePermissionsPostStartup()
+            continueAppStartup()
+        }
+        if accessibilityIsGranted() && screenRecordingIsGranted() {
+            startupBlock()
+        } else {
+            permissionsWindow = PermissionsWindow()
+            permissionsWindow.show()
+            observePermissionsPreStartup(startupBlock)
         }
     }
 }

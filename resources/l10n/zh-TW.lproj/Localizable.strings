@@ -6,6 +6,9 @@
 "About" = "關於";
 
 /*No comment provided by engineer.*/
+"Accessibility" = "Accessibility";
+
+/*No comment provided by engineer.*/
 "Acknowledgments" = "鳴謝";
 
 /*No comment provided by engineer.*/
@@ -24,13 +27,19 @@
 "All apps" = "全部程式";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "此表單的所有資料都會被公開為 GitHub 上的 Ticket";
 
 /*No comment provided by engineer.*/
 "All screens" = "全部螢幕";
 
 /*No comment provided by engineer.*/
 "All spaces" = "全部桌面";
+
+/*No comment provided by engineer.*/
+"Allowed" = "Allowed";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "AltTab needs some permissions";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "顯示前的延遲：";
@@ -75,7 +84,7 @@
 "Fade out animation:" = "淡出動畫：";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
+"Fullscreen" = "全螢幕";
 
 /*No comment provided by engineer.*/
 "General" = "一般";
@@ -84,7 +93,7 @@
 "Hidden" = "隱藏";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "Hide menubar icon:";
+"Hide menubar icon:" = "隱藏選單列上的圖示：";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "隱藏空間編號的標籤：";
@@ -122,8 +131,17 @@
 /*No comment provided by engineer.*/
 "Mouse hover" = "滑鼠懸停";
 
+/*No comment provided by engineer.*/
+"Not allowed" = "Not allowed";
+
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 授權";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "電子信箱（選填，如果你想要收到回覆）";
@@ -132,7 +150,7 @@
 "Preferences…" = "偏好設定…";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "離開";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "離開 %@";
@@ -148,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "滑鼠所在的螢幕";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Screen Recording";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "要顯示 AltTab 的螢幕";
@@ -202,6 +223,12 @@
 
 /*No comment provided by engineer.*/
 "then press:" = "並按下：";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
 
 /*No comment provided by engineer.*/
 "Updates" = "更新";

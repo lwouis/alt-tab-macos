@@ -6,6 +6,9 @@
 "About" = "О программе";
 
 /*No comment provided by engineer.*/
+"Accessibility" = "Accessibility";
+
+/*No comment provided by engineer.*/
 "Acknowledgments" = "Лицензии";
 
 /*No comment provided by engineer.*/
@@ -31,6 +34,12 @@
 
 /*No comment provided by engineer.*/
 "All spaces" = "Все рабочие столы";
+
+/*No comment provided by engineer.*/
+"Allowed" = "Allowed";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "AltTab needs some permissions";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Задержка появления:";
@@ -122,8 +131,17 @@
 /*No comment provided by engineer.*/
 "Mouse hover" = "Наведение мышью";
 
+/*No comment provided by engineer.*/
+"Not allowed" = "Not allowed";
+
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "Лицензия GPL-3.0";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Опционально: эл.почта (если вы хотите ответа)";
@@ -148,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "Экран с курсором";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Screen Recording";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Экран, показывающий AltTab";
@@ -202,6 +223,12 @@
 
 /*No comment provided by engineer.*/
 "then press:" = "затем нажать:";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
 
 /*No comment provided by engineer.*/
 "Updates" = "Обновления";
