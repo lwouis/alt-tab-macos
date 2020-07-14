@@ -6,6 +6,9 @@
 "About" = "À propos";
 
 /*No comment provided by engineer.*/
+"Accessibility" = "Accessibilité";
+
+/*No comment provided by engineer.*/
 "Acknowledgments" = "Remerciements";
 
 /*No comment provided by engineer.*/
@@ -31,6 +34,12 @@
 
 /*No comment provided by engineer.*/
 "All spaces" = "Tous les Espaces";
+
+/*No comment provided by engineer.*/
+"Allowed" = "Autorisé";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "AltTab a besoin de permissions";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Délai d’apparition :";
@@ -122,8 +131,17 @@
 /*No comment provided by engineer.*/
 "Mouse hover" = "Survol de la souris";
 
+/*No comment provided by engineer.*/
+"Not allowed" = "Non autorisé";
+
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "Licence GPL-3.0";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Ouvrir Préférences Accessibilité…";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Ouvrir Préférences Enregistrement de l’écran…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Optionnel : email (si vous voulez une réponse)";
@@ -148,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "Écran contenant la souris";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Enregistrement de l’écran";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Écran affichant AltTab";
@@ -202,6 +223,12 @@
 
 /*No comment provided by engineer.*/
 "then press:" = "puis presser :";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "Cette permission est nécessaire pour afficher la fenêtre après le relâchement du raccourci clavier";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "Cette permission est nécessaire pour afficher les miniatures et titres des fenêtres ouvertes";
 
 /*No comment provided by engineer.*/
 "Updates" = "Mises-à-jour";

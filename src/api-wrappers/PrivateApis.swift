@@ -116,6 +116,7 @@ func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout
 
 // returns status of the checkbox in System Preferences > Security & Privacy > Privacy > Screen Recording
 // returns 1 if checked or 0 if unchecked; also prompts the user the first time if unchecked
+// the return value will be the same during the app lifetime; it will not reflect the actual status of the checkbox
 @_silgen_name("SLSRequestScreenCaptureAccess") @discardableResult
 func SLSRequestScreenCaptureAccess() -> UInt8
 

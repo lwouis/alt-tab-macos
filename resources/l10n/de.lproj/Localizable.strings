@@ -6,6 +6,9 @@
 "About" = "Über";
 
 /*No comment provided by engineer.*/
+"Accessibility" = "Accessibility";
+
+/*No comment provided by engineer.*/
 "Acknowledgments" = "Drittanbieter Lizenzen";
 
 /*No comment provided by engineer.*/
@@ -24,13 +27,19 @@
 "All apps" = "Alle Anwendungen";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Alle hier eigegebenen Daten werden auf github.com als Issue öffentlich einsehbar sein";
 
 /*No comment provided by engineer.*/
 "All screens" = "Alle Bildschirme";
 
 /*No comment provided by engineer.*/
 "All spaces" = "Alle Spaces";
+
+/*No comment provided by engineer.*/
+"Allowed" = "Allowed";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "AltTab needs some permissions";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Verzögertes Einblenden:";
@@ -75,7 +84,7 @@
 "Fade out animation:" = "Ausblenden animieren:";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
+"Fullscreen" = "Vollbild";
 
 /*No comment provided by engineer.*/
 "General" = "Allgemein";
@@ -84,7 +93,7 @@
 "Hidden" = "Versteckt";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "Hide menubar icon:";
+"Hide menubar icon:" = "Icon in Menüleiste verstecken:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "Space Nummer ausblenden:";
@@ -122,8 +131,17 @@
 /*No comment provided by engineer.*/
 "Mouse hover" = "Maus hover";
 
+/*No comment provided by engineer.*/
+"Not allowed" = "Not allowed";
+
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 Lizenz";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Optional: E-Mail (wenn du benachrichtigt werden willst)";
@@ -132,7 +150,7 @@
 "Preferences…" = "Einstellungen…";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "Beenden";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Beenden %@";
@@ -148,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "Bildschirm mit Maus";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Screen Recording";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Bildschirm zum Anzeigen von AltTab";
@@ -202,6 +223,12 @@
 
 /*No comment provided by engineer.*/
 "then press:" = "und drücke:";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
 
 /*No comment provided by engineer.*/
 "Updates" = "Updates";
