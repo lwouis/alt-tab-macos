@@ -1,5 +1,12 @@
 # Release notes
 
+# [4.3.0](https://github.com/lwouis/alt-tab-macos/compare/v4.2.0...v4.3.0) (2020-07-14)
+
+
+### Features
+
+* better system permissions onboarding (closes [#127](https://github.com/lwouis/alt-tab-macos/issues/127)) ([6ef0a6f](https://github.com/lwouis/alt-tab-macos/commit/6ef0a6f))
+
 # [4.2.0](https://github.com/lwouis/alt-tab-macos/compare/v4.1.7...v4.2.0) (2020-07-11)
 
 
