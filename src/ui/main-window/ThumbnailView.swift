@@ -10,7 +10,7 @@ class ThumbnailView: NSStackView {
     var hiddenIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledSlashSign, Preferences.fontIconSize, .white)
     var spaceIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
     var hStackView: NSStackView!
-    var mouseDownCallback: (() -> Void)!
+    var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
     var isHighlighted = false
@@ -96,7 +96,7 @@ class ThumbnailView: NSStackView {
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
         assignIfDifferent(&subviews.first!.frame.size, frame.size)
-        self.mouseDownCallback = { () -> Void in App.app.focusSelectedWindow(element) }
+        self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
@@ -120,7 +120,7 @@ class ThumbnailView: NSStackView {
 
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         dragAndDropTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
-            self.mouseDownCallback()
+            self.mouseUpCallback()
         })
         return .link
     }
@@ -144,8 +144,10 @@ class ThumbnailView: NSStackView {
         }
     }
 
-    override func mouseDown(with theEvent: NSEvent) {
-        mouseDownCallback()
+    override func mouseUp(with theEvent: NSEvent) {
+        if theEvent.clickCount >= 1 {
+            mouseUpCallback()
+        }
     }
 
     static func makeShadow(_ color: NSColor) -> NSShadow {

@@ -1,13 +1,13 @@
 import Cocoa
 import Carbon.HIToolbox.Events
 
+fileprivate var eventTap: CFMachPort?
+
 class KeyboardEvents {
     static func observe() {
         observe_()
     }
 }
-
-private var eventTap: CFMachPort?
 
 private func observe_() {
     let eventMask = [CGEventType.keyDown, CGEventType.keyUp, CGEventType.flagsChanged].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })

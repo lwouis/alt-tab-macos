@@ -2,19 +2,24 @@ import Foundation
 
 // queues and dedicated threads to observe background events such as keyboard inputs, or accessibility events
 class BackgroundWork {
-    static let mainQueueConcurrentWorkQueue = DispatchQueue.globalConcurrent("mainQueueConcurrentWorkQueue", .userInteractive)
-    static let accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
-    static let axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
-    static let accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread")
-    static let keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread")
+    static var mainQueueConcurrentWorkQueue: DispatchQueue!
+    static var accessibilityCommandsQueue: DispatchQueue!
+    static var axCallsQueue: DispatchQueue!
+    static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
+    static var keyboardEventsThread: BackgroundThreadWithRunLoop!
+    static var mouseEventsThread: BackgroundThreadWithRunLoop!
 
     // we cap concurrent tasks to .processorCount to avoid thread explosion on the .global queue
     static let globalSemaphore = DispatchSemaphore(value: ProcessInfo.processInfo.processorCount)
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
-        _ = accessibilityEventsThread
-        _ = keyboardEventsThread
+        mainQueueConcurrentWorkQueue = DispatchQueue.globalConcurrent("mainQueueConcurrentWorkQueue", .userInteractive)
+        accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
+        axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
+        accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread")
+        keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread")
+        mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread")
     }
 }
 
