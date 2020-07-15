@@ -22,10 +22,20 @@ class ThumbnailTitleView: BaseLabel {
 
     private func makeParagraphStyle(_ size: CGFloat) -> NSMutableParagraphStyle {
         let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        paragraphStyle.lineBreakMode = .byTruncatingTail
+        paragraphStyle.lineBreakMode = getTruncationMode()
         paragraphStyle.maximumLineHeight = size + magicOffset
         paragraphStyle.minimumLineHeight = size + magicOffset
         paragraphStyle.allowsDefaultTighteningForTruncation = false
         return paragraphStyle
+    }
+
+    private func getTruncationMode() -> NSLineBreakMode {
+        if Preferences.titleTruncation == .end {
+            return .byTruncatingTail
+        }
+        if Preferences.titleTruncation == .middle {
+            return .byTruncatingMiddle
+        }
+        return .byTruncatingHead
     }
 }

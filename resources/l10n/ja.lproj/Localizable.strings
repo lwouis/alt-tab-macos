@@ -81,6 +81,9 @@
 "Don’t check for updates periodically" = "定期的に更新を確認しない";
 
 /*No comment provided by engineer.*/
+"End" = "End";
+
+/*No comment provided by engineer.*/
 "Fade out animation:" = "フェードアウトアニメーション";
 
 /*No comment provided by engineer.*/
@@ -118,6 +121,9 @@
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "一列に最大表示可能な個数：";
+
+/*No comment provided by engineer.*/
+"Middle" = "Middle";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "一列に最小表示可能な個数：";
@@ -216,6 +222,9 @@
 "Source code repository" = "ソースコードレポジトリ";
 
 /*No comment provided by engineer.*/
+"Start" = "Start";
+
+/*No comment provided by engineer.*/
 "Start at login:" = "ログイン時に起動：";
 
 /*No comment provided by engineer.*/
@@ -247,6 +256,9 @@
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "ウィンドウに表示されるタイトルフォントサイズ：";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Window title truncation:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";

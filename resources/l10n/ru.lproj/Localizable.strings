@@ -81,6 +81,9 @@
 "Don’t check for updates periodically" = "Не проверять обновления";
 
 /*No comment provided by engineer.*/
+"End" = "End";
+
+/*No comment provided by engineer.*/
 "Fade out animation:" = "Анимация затухания:";
 
 /*No comment provided by engineer.*/
@@ -118,6 +121,9 @@
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Макс. количество окон в ряду:";
+
+/*No comment provided by engineer.*/
+"Middle" = "Middle";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "Мин. количество окон в ряду:";
@@ -216,6 +222,9 @@
 "Source code repository" = "Репозиторий исходного кода";
 
 /*No comment provided by engineer.*/
+"Start" = "Start";
+
+/*No comment provided by engineer.*/
 "Start at login:" = "Запускать при входе в систему:";
 
 /*No comment provided by engineer.*/
@@ -247,6 +256,9 @@
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Размер заголовка:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Window title truncation:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Вы не написали свою электронную почту, поэтому не можете получить ответ.";

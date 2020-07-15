@@ -81,6 +81,9 @@
 "Don’t check for updates periodically" = "No comprobar actualizaciones periódicamente";
 
 /*No comment provided by engineer.*/
+"End" = "End";
+
+/*No comment provided by engineer.*/
 "Fade out animation:" = "Fade out animation:";
 
 /*No comment provided by engineer.*/
@@ -118,6 +121,9 @@
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Ventanas máximas por fila:";
+
+/*No comment provided by engineer.*/
+"Middle" = "Middle";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "Ventanas mínimas por fila:";
@@ -216,6 +222,9 @@
 "Source code repository" = "Repositorio de código fuente";
 
 /*No comment provided by engineer.*/
+"Start" = "Start";
+
+/*No comment provided by engineer.*/
 "Start at login:" = "Cargar al inicio:";
 
 /*No comment provided by engineer.*/
@@ -247,6 +256,9 @@
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tamaño de fuente del título de la ventana:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Window title truncation:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";

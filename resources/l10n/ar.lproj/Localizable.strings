@@ -81,6 +81,9 @@
 "Don’t check for updates periodically" = "لا تبحث عن تحديثات بشكل دوري";
 
 /*No comment provided by engineer.*/
+"End" = "End";
+
+/*No comment provided by engineer.*/
 "Fade out animation:" = "Fade out animation:";
 
 /*No comment provided by engineer.*/
@@ -118,6 +121,9 @@
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "الحد الأعلى للنوافذ للصف:";
+
+/*No comment provided by engineer.*/
+"Middle" = "Middle";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "الحد الأدنى للنوافذ للصف:";
@@ -216,6 +222,9 @@
 "Source code repository" = "مخزن شفرة المصدر";
 
 /*No comment provided by engineer.*/
+"Start" = "Start";
+
+/*No comment provided by engineer.*/
 "Start at login:" = "شغّل البرنامج عند الدخول:";
 
 /*No comment provided by engineer.*/
@@ -247,6 +256,9 @@
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "حجم خط عنوان النافذة:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Window title truncation:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "لم تكتب بريدك؛ فلذلك لن تحصل على رد.";

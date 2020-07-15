@@ -81,6 +81,9 @@
 "Don’t check for updates periodically" = "Nicht regelmäßig nach Updates suchen";
 
 /*No comment provided by engineer.*/
+"End" = "End";
+
+/*No comment provided by engineer.*/
 "Fade out animation:" = "Ausblenden animieren:";
 
 /*No comment provided by engineer.*/
@@ -118,6 +121,9 @@
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Maximale Anzahl von Fenstern pro Reihe:";
+
+/*No comment provided by engineer.*/
+"Middle" = "Middle";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "Minimale Anzahl von Fenstern pro Reihe:";
@@ -216,6 +222,9 @@
 "Source code repository" = "Code Repository";
 
 /*No comment provided by engineer.*/
+"Start" = "Start";
+
+/*No comment provided by engineer.*/
 "Start at login:" = "Bei Login starten:";
 
 /*No comment provided by engineer.*/
@@ -247,6 +256,9 @@
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Fenster Titel Größe:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Window title truncation:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Du hast keine Mail-Adresse angegeben, sodass man dir nicht antworten kann.";

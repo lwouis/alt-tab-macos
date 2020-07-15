@@ -29,6 +29,7 @@ class Preferences {
         "windowDisplayDelay": "0",
         "theme": "0",
         "showOnScreen": "0",
+        "titleTruncation": "0",
         "alignThumbnails": "0",
         "appsToShow": "0",
         "spacesToShow": "0",
@@ -78,6 +79,7 @@ class Preferences {
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
+    static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
     static var appsToShow: AppsToShowPreference { defaults.macroPref("appsToShow", AppsToShowPreference.allCases) }
     static var spacesToShow: SpacesToShowPreference { defaults.macroPref("spacesToShow", SpacesToShowPreference.allCases) }
@@ -200,6 +202,20 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
             case .active: return NSLocalizedString("Active screen", comment: "")
             case .includingMouse: return NSLocalizedString("Screen including mouse", comment: "")
             case .includingMenubar: return NSLocalizedString("Screen including menu bar", comment: "")
+        }
+    }
+}
+
+enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
+    case end = "End"
+    case middle = "Middle"
+    case start = "Start"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .end: return NSLocalizedString("End", comment: "")
+            case .middle: return NSLocalizedString("Middle", comment: "")
+            case .start: return NSLocalizedString("Start", comment: "")
         }
     }
 }
