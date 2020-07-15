@@ -47,6 +47,7 @@ class App: NSApplication, NSApplicationDelegate {
             Applications.initialDiscovery()
             self.loadPreferencesWindow()
             KeyboardEvents.observe()
+            MouseEvents.observe()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
@@ -116,6 +117,7 @@ class App: NSApplication, NSApplicationDelegate {
         debugPrint("hideUi")
         appIsBeingUsed = false
         isFirstSummon = true
+        MouseEvents.disable()
         thumbnailsPanel.orderOut(nil)
     }
 
