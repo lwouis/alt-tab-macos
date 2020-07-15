@@ -4,6 +4,8 @@ class ThumbnailsView: NSVisualEffectView {
     let scrollView = ScrollView()
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
+    static let mouseTraveledDistanceThreshold = CGFloat(35)
+    static var mouseTraveledDistance: CGFloat!
 
     convenience init() {
         self.init(frame: .zero)
@@ -14,6 +16,34 @@ class ThumbnailsView: NSVisualEffectView {
         addSubview(scrollView)
         // TODO: think about this optimization more
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+    }
+
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        if let existingTrackingArea = trackingAreas.first {
+            removeTrackingArea(existingTrackingArea)
+        }
+        addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseMoved, .activeAlways], owner: self, userInfo: nil))
+    }
+
+    override func mouseMoved(with event: NSEvent) {
+        if !Preferences.mouseHoverEnabled { return }
+        // to avoid unintended mouse hovers, we ignore mouse hover until the mouse reaches a threshold traveled distance
+        if ThumbnailsView.mouseTraveledDistance < ThumbnailsView.mouseTraveledDistanceThreshold {
+            ThumbnailsView.mouseTraveledDistance += sqrt(pow(event.deltaX, 2) + pow(event.deltaY, 2))
+            return
+        }
+        // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
+        if ScrollView.isCurrentlyScrolling { return }
+        if let hit = hitTest(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream) {
+            var target: NSView? = hit
+            while !(target is ThumbnailView) && target != nil {
+                target = target!.superview
+            }
+            if let target = target, target is ThumbnailView {
+                (target as! ThumbnailView).mouseMoved()
+            }
+        }
     }
 
     func nextRow(_ direction: Direction) -> [ThumbnailView] {
@@ -117,10 +147,6 @@ class ThumbnailsView: NSVisualEffectView {
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
         }
         scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
-        if let existingTrackingArea = scrollView.trackingAreas.first {
-            scrollView.documentView!.removeTrackingArea(existingTrackingArea)
-        }
-        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds, options: [.mouseMoved, .activeAlways], owner: scrollView, userInfo: nil))
     }
 
     func centerRows(_ maxX: CGFloat) {
@@ -167,7 +193,7 @@ class ScrollView: NSScrollView {
     // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
     override class var isCompatibleWithResponsiveScrolling: Bool { true }
 
-    var isCurrentlyScrolling = false
+    static var isCurrentlyScrolling = false
 
     convenience init() {
         self.init(frame: .zero)
@@ -183,25 +209,11 @@ class ScrollView: NSScrollView {
     }
 
     private func observeScrollingEvents() {
-        NotificationCenter.default.addObserver(forName: NSScrollView.didEndLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.isCurrentlyScrolling = false
+        NotificationCenter.default.addObserver(forName: NSScrollView.didEndLiveScrollNotification, object: nil, queue: nil) { _ in
+            ScrollView.isCurrentlyScrolling = false
         }
-        NotificationCenter.default.addObserver(forName: NSScrollView.willStartLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.isCurrentlyScrolling = true
-        }
-    }
-
-    override func mouseMoved(with event: NSEvent) {
-        // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
-        if !Preferences.mouseHoverEnabled || isCurrentlyScrolling { return }
-        if let hit = hitTest(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream) {
-            var target: NSView? = hit
-            while !(target is ThumbnailView) && target != nil {
-                target = target!.superview
-            }
-            if let target = target, target is ThumbnailView {
-                (target as! ThumbnailView).mouseMoved()
-            }
+        NotificationCenter.default.addObserver(forName: NSScrollView.willStartLiveScrollNotification, object: nil, queue: nil) { _ in
+            ScrollView.isCurrentlyScrolling = true
         }
     }
 

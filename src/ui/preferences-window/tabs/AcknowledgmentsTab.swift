@@ -25,8 +25,12 @@ class AcknowledgmentsTab: NSViewController, PreferencePane {
         subGrid.column(at: 1).leadingPadding = 20
         subGrid.fit()
 
-        let scrollView = ScrollView()
+        let scrollView = NSScrollView()
         scrollView.scrollerKnobStyle = .default
+        scrollView.drawsBackground = false
+        scrollView.hasVerticalScroller = true
+        scrollView.scrollerStyle = .overlay
+        scrollView.documentView = FlippedView(frame: .zero)
         scrollView.documentView!.subviews = [subGrid]
         let totalWidth = subGrid.fittingSize.width
         let totalHeight = min(subGrid.fittingSize.height, AcknowledgmentsTab.maxTabHeight)

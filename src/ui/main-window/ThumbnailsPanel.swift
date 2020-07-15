@@ -25,6 +25,7 @@ class ThumbnailsPanel: NSPanel {
     }
 
     func show() {
+        ThumbnailsView.mouseTraveledDistance = 0
         makeKeyAndOrderFront(nil)
         thumbnailsView.scrollView.flashScrollers()
     }
