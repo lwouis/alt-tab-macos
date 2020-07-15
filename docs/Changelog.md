@@ -1,5 +1,18 @@
 # Release notes
 
+# [4.4.0](https://github.com/lwouis/alt-tab-macos/compare/v4.3.0...v4.4.0) (2020-07-15)
+
+
+### Bug Fixes
+
+* update chinese localization ([95d75d3](https://github.com/lwouis/alt-tab-macos/commit/95d75d3))
+
+
+### Features
+
+* add preference for title truncation style ([3bddd7e](https://github.com/lwouis/alt-tab-macos/commit/3bddd7e))
+* click outside alt-tab main window to cancel (closes [#341](https://github.com/lwouis/alt-tab-macos/issues/341)) ([1fc620d](https://github.com/lwouis/alt-tab-macos/commit/1fc620d))
+
 # [4.3.0](https://github.com/lwouis/alt-tab-macos/compare/v4.2.0...v4.3.0) (2020-07-14)
 
 
