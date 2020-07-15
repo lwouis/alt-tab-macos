@@ -11,6 +11,7 @@ class ThumbnailsPanel: NSPanel {
         hasShadow = false
         titleVisibility = .hidden
         styleMask.remove(.titled)
+        styleMask.update(with: .nonactivatingPanel)
         backgroundColor = .clear
         contentView!.addSubview(thumbnailsView)
         // 2nd highest level possible; this allows the app to go on top of context menus
@@ -25,7 +26,8 @@ class ThumbnailsPanel: NSPanel {
     }
 
     func show() {
-        makeKeyAndOrderFront(nil)
+        orderFrontRegardless()
+        MouseEvents.enable()
         thumbnailsView.scrollView.flashScrollers()
     }
 
