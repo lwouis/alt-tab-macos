@@ -6,7 +6,7 @@
 "About" = "关于";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "辅助功能";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "致谢";
@@ -27,7 +27,7 @@
 "All apps" = "所有应用";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "该表单中的所有数据都将作为 ticket 公开在 github.com 上";
+"All data from this form will be made public, as a ticket on github.com" = "该表单内的所有资料都会作为 ticket 在 github.com 公开";
 
 /*No comment provided by engineer.*/
 "All screens" = "所有屏幕";
@@ -36,10 +36,10 @@
 "All spaces" = "所有桌面";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "允许";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "AltTab 需要获取一些隐私权限";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "切换窗口出现延迟：";
@@ -132,16 +132,16 @@
 "Mouse hover" = "鼠标悬停";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "阻止";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 协议";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "打开辅助功能偏好设置";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "打开屏幕录制偏好设置";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "电子邮箱地址 (可选，若想接收答复)";
@@ -168,7 +168,7 @@
 "Screen including mouse" = "鼠标所在屏幕";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "屏幕录制";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "显示 AltTab 的屏幕";
@@ -225,10 +225,10 @@
 "then press:" = "并按下：";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "需要此权限在释放快捷键后切换鼠标焦点";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "需要此权限来显示打开窗口的截屏和标题";
 
 /*No comment provided by engineer.*/
 "Updates" = "更新";
