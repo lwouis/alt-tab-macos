@@ -7,6 +7,7 @@ import Cocoa
 // Some links:
 // * Webkit repo: https://github.com/WebKit/webkit/blob/master/Source/WebCore/PAL/pal/spi/cg/CoreGraphicsSPI.h
 // * Alt-tab-macos issue: https://github.com/lwouis/alt-tab-macos/pull/87#issuecomment-558624755
+// * Github repo with retro-engineered internals: https://github.com/NUIKit/CGSInternal
 
 typealias CGSConnectionID = UInt32
 typealias CGSSpaceID = UInt64
