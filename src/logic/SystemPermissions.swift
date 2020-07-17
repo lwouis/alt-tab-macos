@@ -3,7 +3,7 @@ import Cocoa
 // macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy
 class SystemPermissions {
     static var changeCallback: (() -> Void)!
-    static var screenRecordingObserver: Timer!
+    static var timer: Timer!
     static var permissionsWindow: PermissionsWindow!
 
     static func accessibilityIsGranted() -> Bool {
@@ -42,7 +42,7 @@ class SystemPermissions {
     }
 
     static func observePermissionsPostStartup() {
-        screenRecordingObserver = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
             if !(accessibilityIsGranted() && screenRecordingIsGranted()) {
                 App.app.restart()
             }
@@ -50,14 +50,16 @@ class SystemPermissions {
     }
 
     static func observePermissionsPreStartup(_ startupBlock: @escaping () -> Void) {
-        // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
-        SLSRequestScreenCaptureAccess()
-        screenRecordingObserver = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+        if #available(OSX 10.15, *) {
+            // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
+            SLSRequestScreenCaptureAccess()
+        }
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
             let accessibility = accessibilityIsGranted()
             let screenRecording = screenRecordingIsGranted()
             if accessibility && screenRecording {
                 permissionsWindow.close()
-                screenRecordingObserver.invalidate()
+                timer.invalidate()
                 startupBlock()
             } else {
                 if accessibility != permissionsWindow.accessibilityView.isPermissionGranted {
