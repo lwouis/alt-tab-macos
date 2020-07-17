@@ -22,6 +22,17 @@ class LabelAndControl: NSObject {
         return views
     }
 
+    static func makeTextArea(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
+        let textArea = TextArea(nCharactersWide, nLinesHigh, placeholder)
+        textArea.callback = {
+            controlWasChanged(textArea)
+            extraAction?(textArea)
+        }
+        textArea.identifier = NSUserInterfaceItemIdentifier(rawName)
+        textArea.stringValue = Preferences.getString(rawName)!
+        return [textArea]
+    }
+
     static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [MacroPreference], _ suffixText: String? = nil) -> [NSView] {
         return makeLabelWithProvidedControl(labelText, rawName, makeDropDown(rawName, values), suffixText)
     }

@@ -9,8 +9,8 @@ class TextArea: NSTextField, NSTextFieldDelegate {
         self.callback = callback
         delegate = self
         cell = TextFieldCell(placeholder, nLinesHigh == 1)
-        let width: CGFloat = font!.xHeight * nCharactersWide + TextArea.padding * 2
-        let height: CGFloat = fittingSize.height * CGFloat(nLinesHigh) + TextArea.padding * 2
+        let width: CGFloat = (font!.xHeight * nCharactersWide + TextArea.padding * 2).rounded()
+        let height: CGFloat = (fittingSize.height * CGFloat(nLinesHigh) + TextArea.padding * 2).rounded()
         fit(width, height)
     }
 

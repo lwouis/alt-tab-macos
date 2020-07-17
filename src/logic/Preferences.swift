@@ -37,7 +37,10 @@ class Preferences {
         "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
         "startAtLogin": "true",
-        "hideMenubarIcon": "false"
+        "hideMenubarIcon": "false",
+        "dontShowBlacklist": "",
+        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.vm", "com.citrix.XenAppViewer"].joined(separator: "\n"),
+        "disableShortcutsBlacklistOnlyFullscreen": "true",
     ]
 
     // constant values
@@ -75,6 +78,9 @@ class Preferences {
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var hideMenubarIcon: Bool { defaults.bool("hideMenubarIcon") }
+    static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
+    static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
+    static var disableShortcutsBlacklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlacklistOnlyFullscreen") }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
@@ -136,6 +142,10 @@ class Preferences {
            let new = oldAndNew[old] {
             defaults.set(new, forKey: preference)
         }
+    }
+
+    static func blacklistStringToArray(_ blacklist: String) -> [String] {
+        return blacklist.components(separatedBy: "\n").map { $0.trimmingCharacters(in: .whitespaces) }
     }
 }
 

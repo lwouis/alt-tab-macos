@@ -8,6 +8,7 @@ let cgsMainConnectionId = CGSMainConnectionID()
 
 class App: NSApplication, NSApplicationDelegate {
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+    static let id = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
@@ -19,6 +20,7 @@ class App: NSApplication, NSApplicationDelegate {
     var feedbackWindow: FeedbackWindow?
     var isFirstSummon = true
     var appIsBeingUsed = false
+    var shortcutsShouldBeDisabled = false
 
     override init() {
         super.init()
@@ -71,6 +73,7 @@ class App: NSApplication, NSApplicationDelegate {
             GeneralTab(),
             AppearanceTab(),
             UpdatesTab(),
+            BlacklistsTab(),
             AboutTab(),
             AcknowledgmentsTab(),
         ]

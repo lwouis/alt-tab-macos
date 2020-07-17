@@ -56,6 +56,9 @@
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Güncellemeleri periyodik olarak otomatik yükle";
 
+/*No comment provided by engineer.*/
+"Blacklists" = "Blacklists";
+
 /*Cancel button*/
 "Cancel" = "İptal";
 
@@ -79,6 +82,9 @@
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Güncellemeleri periyodik olarak kontrol etme";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "Don’t show windows from these apps";
 
 /*No comment provided by engineer.*/
 "End" = "End";
@@ -109,6 +115,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Bence uygulama … ile geliştirilebilir.";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Son sürüm";
@@ -142,6 +151,9 @@
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 lisansı";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "Only if the window is fullscreen";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";

@@ -56,6 +56,9 @@
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Updates regelmäßig automatisch installieren";
 
+/*No comment provided by engineer.*/
+"Blacklists" = "Blacklists";
+
 /*Cancel button*/
 "Cancel" = "Abbrechen";
 
@@ -79,6 +82,9 @@
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Nicht regelmäßig nach Updates suchen";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "Don’t show windows from these apps";
 
 /*No comment provided by engineer.*/
 "End" = "End";
@@ -109,6 +115,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Ich denke so könnte die Anwendung verbessert werden…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Neuste Versionen";
@@ -142,6 +151,9 @@
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 Lizenz";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "Only if the window is fullscreen";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";
