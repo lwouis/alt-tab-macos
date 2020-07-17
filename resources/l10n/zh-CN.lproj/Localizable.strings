@@ -56,6 +56,9 @@
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "定期自动安装更新";
 
+/*No comment provided by engineer.*/
+"Blacklists" = "Blacklists";
+
 /*Cancel button*/
 "Cancel" = "取消";
 
@@ -79,6 +82,9 @@
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "不自动检查更新";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "Don’t show windows from these apps";
 
 /*No comment provided by engineer.*/
 "End" = "End";
@@ -109,6 +115,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "我认为该应用程序可以这样改进…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "最新版本";
@@ -142,6 +151,9 @@
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 协议";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "Only if the window is fullscreen";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "打开辅助功能偏好设置";

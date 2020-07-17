@@ -74,6 +74,7 @@ private func applicationActivated(_ element: AXUIElement) throws {
             guard let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow, wid) else { return }
             Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
             App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
+            Windows.checkIfShortcutsShouldBeDisabled()
         }
     }
 }
@@ -135,6 +136,7 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
                 Windows.list.insertAndScaleRecycledPool(Window(element, app, wid, axTitle, isFullscreen, isMinimized, position), at: 0)
                 App.app.refreshOpenUi([Windows.list[0]])
             }
+            Windows.checkIfShortcutsShouldBeDisabled()
         }
     }
 }
@@ -184,6 +186,7 @@ private func windowResized(_ element: AXUIElement) throws {
             let window = Windows.list[index]
             window.isFullscreen = isFullscreen
             App.app.refreshOpenUi([window])
+            Windows.checkIfShortcutsShouldBeDisabled()
         }
     }
 }

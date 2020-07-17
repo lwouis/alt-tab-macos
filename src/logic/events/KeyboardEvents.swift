@@ -24,7 +24,7 @@ private func observe_() {
 }
 
 private func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-    if type == .keyDown || type == .keyUp || type == .flagsChanged {
+    if (type == .keyDown || type == .keyUp || type == .flagsChanged) && !App.app.shortcutsShouldBeDisabled {
         if let event_ = NSEvent(cgEvent: cgEvent),
            // workaround: NSEvent.characters is not safe outside of the main thread; this is not documented by Apple
             // see https://github.com/Kentzo/ShortcutRecorder/issues/114#issuecomment-606465340
