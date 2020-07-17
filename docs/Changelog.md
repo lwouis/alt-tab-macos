@@ -1,5 +1,18 @@
 # Release notes
 
+# [4.5.0](https://github.com/lwouis/alt-tab-macos/compare/v4.4.0...v4.5.0) (2020-07-17)
+
+
+### Bug Fixes
+
+* alt-tab preferences panel was sometimes not listed ([e25716b](https://github.com/lwouis/alt-tab-macos/commit/e25716b))
+* launch crash on macOS versions < 10.15 ([d817545](https://github.com/lwouis/alt-tab-macos/commit/d817545))
+
+
+### Features
+
+* allow backlisting apps, with 2 different types of blacklist ([d32951f](https://github.com/lwouis/alt-tab-macos/commit/d32951f)), closes [#239](https://github.com/lwouis/alt-tab-macos/issues/239)
+
 # [4.4.0](https://github.com/lwouis/alt-tab-macos/compare/v4.3.0...v4.4.0) (2020-07-15)
 
 
