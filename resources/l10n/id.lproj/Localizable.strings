@@ -1,0 +1,273 @@
+
+/*No comment provided by engineer.*/
+"About" = "Tentang";
+
+/*No comment provided by engineer.*/
+"Accessibility" = "Aksesibilitas";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Ucapan Terima Kasih";
+
+/*No comment provided by engineer.*/
+"Active app" = "Aplikasi aktif";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Layar aktif";
+
+/*No comment provided by engineer.*/
+"Active space" = "Ruang aktif";
+
+/*No comment provided by engineer.*/
+"Align windows:" = "Luruskan jendela:";
+
+/*No comment provided by engineer.*/
+"All apps" = "Semua aplikasi";
+
+/*No comment provided by engineer.*/
+"All data from this form will be made public, as a ticket on github.com" = "Semua data dari formulir ini akan dipublikasikan, sebagai tiket di github.com";
+
+/*No comment provided by engineer.*/
+"All screens" = "Semua layar";
+
+/*No comment provided by engineer.*/
+"All spaces" = "Semua ruang";
+
+/*No comment provided by engineer.*/
+"Allowed" = "Dibolehkan";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "AltTab membutuhkan beberapa izin";
+
+/*No comment provided by engineer.*/
+"Apparition delay:" = "Penundaan penampakan:";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Penampilan";
+
+/*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "Apakah Anda yakin tidak ingin mendapat tanggapan?";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Tombol panah";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Instal pembaruan secara berkala";
+
+/*No comment provided by engineer.*/
+"Blacklists" = "Daftar hitam";
+
+/*Cancel button*/
+"Cancel" = "Batal";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Batalkan dan sembunyikan";
+
+/*No comment provided by engineer.*/
+"Center" = "Tengah";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "Periksa pembaruan sekarang…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Periksa pembaruan secara berkala";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Periksa pembaruan…";
+
+/*No comment provided by engineer.*/
+"Close window" = "Tutup jendela";
+
+/*No comment provided by engineer.*/
+"Don’t check for updates periodically" = "Jangan periksa pembaruan secara berkala";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "Jangan tampilkan jendela dari aplikasi ini";
+
+/*No comment provided by engineer.*/
+"End" = "Akhiri";
+
+/*No comment provided by engineer.*/
+"Fade out animation:" = "Animasi fade out:";
+
+/*No comment provided by engineer.*/
+"Fullscreen" = "Layar penuh";
+
+/*No comment provided by engineer.*/
+"General" = "Umum";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Tersembunyi";
+
+/*No comment provided by engineer.*/
+"Hide menubar icon:" = "Sembunyikan ikon menubar:";
+
+/*No comment provided by engineer.*/
+"Hide space number labels:" = "Sembunyikan label nomor ruang:";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Tampilkan/Sembunyikan app";
+
+/*No comment provided by engineer.*/
+"Hold" = "Tahan";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Saya pikir aplikasi dapat ditingkatkan dengan…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "Abaikan pintasan saat jendela dari aplikasi ini aktif";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Rilis terbaru";
+
+/*No comment provided by engineer.*/
+"Left" = "Kiri";
+
+/*No comment provided by engineer.*/
+"Max size on screen:" = "Ukuran maks di layar:";
+
+/*No comment provided by engineer.*/
+"Max windows per row:" = "Jendela maks per baris:";
+
+/*No comment provided by engineer.*/
+"Middle" = "Tengah";
+
+/*No comment provided by engineer.*/
+"Min windows per row:" = "Jendela minimum per baris:";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Minimalkan / Deminimalkan jendela";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Diminimalkan";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Arahkan mouse";
+
+/*No comment provided by engineer.*/
+"Not allowed" = "Tidak dibolehkan";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "Lisensi GPL-3.0";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "Hanya jika jendela nya layar penuh";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Buka Preferensi Aksesibilitas…";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Buka Preferensi Perekaman Layar…";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Opsional: surel (jika kamu ingin dapatkan balasan)";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Preferensi…";
+
+/*No comment provided by engineer.*/
+"Quit" = "Keluar";
+
+/*No comment provided by engineer.*/
+"Quit %@" = "Keluar %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Keluar app";
+
+/*No comment provided by engineer.*/
+"Rows of windows:" = "Barisan jendela:";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Layar termasuk bilah menu";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Layar termasuk mouse";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Rekaman Layar";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Layar menampilkan AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Pilih jendela berikutnya";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Pilih jendela sebelumnya";
+
+/*No comment provided by engineer.*/
+"Select windows using:" = "Pilih jendela menggunakan:";
+
+/*No comment provided by engineer.*/
+"Send" = "Kirim";
+
+/*No comment provided by engineer.*/
+"Send anyway" = "Tetap kirim";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Kirim profil debug (CPU, memori, dll)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Kirim umpan balik";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Kirim umpan balik…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Bagikan gagasan peningkatan, atau laporkan bug";
+
+/*No comment provided by engineer.*/
+"Show" = "Tampilkan";
+
+/*No comment provided by engineer.*/
+"Show on:" = "Tunjukkan:";
+
+/*No comment provided by engineer.*/
+"Show standard tabs as windows:" = "Tampilkan tab standar sebagai jendela:";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "Perlihatkan jendela berikut:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Repositori kode sumber";
+
+/*No comment provided by engineer.*/
+"Start" = "Mulai";
+
+/*No comment provided by engineer.*/
+"Start at login:" = "Mulai saat masuk:";
+
+/*No comment provided by engineer.*/
+"Theme:" = "Tema:";
+
+/*No comment provided by engineer.*/
+"then press:" = "lalu tekan:";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "Izin ini diperlukan untuk memfokuskan jendela setelah Anda melepaskan pintasan";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "Izin ini diperlukan untuk menampilkan tangkapan layar dan judul jendela yang terbuka";
+
+/*No comment provided by engineer.*/
+"Updates" = "Pembaruan";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Kebijakan pembaruan:";
+
+/*No comment provided by engineer.*/
+"Version" = "Versi";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "Lihat diskusi yang ada";
+
+/*No comment provided by engineer.*/
+"Window app icon size:" = "Ukuran ikon aplikasi jendela:";
+
+/*No comment provided by engineer.*/
+"Window title font size:" = "Ukuran font judul jendela:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Pemotongan judul jendela:";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "Anda tidak menulis email Anda, sehingga tidak dapat menerima tanggapan apa pun.";
