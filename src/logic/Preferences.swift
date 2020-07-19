@@ -248,8 +248,8 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .macOs: return NSLocalizedString(" macOS", comment: "")
-            case .windows10: return NSLocalizedString("❖ Windows 10", comment: "")
+            case .macOs: return ThemePreference.macOs.rawValue
+            case .windows10: return ThemePreference.windows10.rawValue
         }
     }
 

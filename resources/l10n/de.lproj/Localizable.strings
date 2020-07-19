@@ -1,12 +1,9 @@
 
 /*No comment provided by engineer.*/
-"❖ Windows 10" = "❖ Windows 10";
-
-/*No comment provided by engineer.*/
 "About" = "Über";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "Bedienungshilfe";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "Drittanbieter Lizenzen";
@@ -36,10 +33,10 @@
 "All spaces" = "Alle Spaces";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "Erlaubt";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "AltTab braucht einige Erlaubnisse";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Verzögertes Einblenden:";
@@ -57,7 +54,7 @@
 "Auto-install updates periodically" = "Updates regelmäßig automatisch installieren";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Schwarze Listen";
 
 /*Cancel button*/
 "Cancel" = "Abbrechen";
@@ -84,10 +81,10 @@
 "Don’t check for updates periodically" = "Nicht regelmäßig nach Updates suchen";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "Fenster dieser Anwendungen nicht anzeigen";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "Ende";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Ausblenden animieren:";
@@ -117,7 +114,7 @@
 "I think the app could be improved with…" = "Ich denke so könnte die Anwendung verbessert werden…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "Tastenkürzel ignorieren wenn ein Fenster dieser Applikationen aktiv ist";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Neuste Versionen";
@@ -132,7 +129,7 @@
 "Max windows per row:" = "Maximale Anzahl von Fenstern pro Reihe:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "Mitte";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "Minimale Anzahl von Fenstern pro Reihe:";
@@ -147,19 +144,19 @@
 "Mouse hover" = "Maus hover";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "Nicht erlaubt";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 Lizenz";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "Nur bei Vollbild";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Einstellungen der Bedienungshilfe aufrufen…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Einstellungen der Bildschirmaufnahme öffnen…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Optional: E-Mail (wenn du benachrichtigt werden willst)";
@@ -186,7 +183,7 @@
 "Screen including mouse" = "Bildschirm mit Maus";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Bildschirmaufnahme";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Bildschirm zum Anzeigen von AltTab";
@@ -234,7 +231,7 @@
 "Source code repository" = "Code Repository";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "Anfang";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Bei Login starten:";
@@ -246,10 +243,10 @@
 "then press:" = "und drücke:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Diese Erlaubnis ist nötig um Fenster nach dem Drücken des Tastenkürzels anzuzeigen";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Diese Erlaubnis is nötig um Bildschirmaufnahmen und Titel offener Fenster anzuzeigen";
 
 /*No comment provided by engineer.*/
 "Updates" = "Updates";
@@ -270,10 +267,7 @@
 "Window title font size:" = "Fenster Titel Größe:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "Fenster Titel abschneiden:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Du hast keine Mail-Adresse angegeben, sodass man dir nicht antworten kann.";
-
-/*No comment provided by engineer.*/
-" macOS" = " macOS";

@@ -24,6 +24,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Albert Abdilim
 * Chun Fei Lung
 * Elisabeth landblok
+* Eric WANTZ
 * Hokuto Kato
 * Ialiendeg
 * Jaeyong Sung
