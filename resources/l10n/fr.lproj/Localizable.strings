@@ -1,8 +1,5 @@
 
 /*No comment provided by engineer.*/
-"❖ Windows 10" = "❖ Windows 10";
-
-/*No comment provided by engineer.*/
 "About" = "À propos";
 
 /*No comment provided by engineer.*/
@@ -57,7 +54,7 @@
 "Auto-install updates periodically" = "Auto-installer les mises-à-jour périodiquement";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Listes noires";
 
 /*Cancel button*/
 "Cancel" = "Annuler";
@@ -84,7 +81,7 @@
 "Don’t check for updates periodically" = "Ne pas chercher de mise-à-jour périodiquement";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "Ne pas afficher les fenêtres de ces applications";
 
 /*No comment provided by engineer.*/
 "End" = "Fin";
@@ -117,7 +114,7 @@
 "I think the app could be improved with…" = "Je pense que l’app pourrait être améliorée avec…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "Ignorer les raccourcis si une fenêtre de ces applications est active";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Dernières versions";
@@ -153,7 +150,7 @@
 "NSHumanReadableCopyright" = "Licence GPL-3.0";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "Seulement si la fenêtre est en mode plein écran";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Ouvrir Préférences Accessibilité…";
@@ -274,6 +271,3 @@
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Vous n’avez pas saisi votre email, et ne pourrez donc pas recevoir de réponse.";
-
-/*No comment provided by engineer.*/
-" macOS" = " macOS";
