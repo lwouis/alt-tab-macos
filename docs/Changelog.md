@@ -1,5 +1,20 @@
 # Release notes
 
+# [4.7.0](https://github.com/lwouis/alt-tab-macos/compare/v4.6.0...v4.7.0) (2020-07-20)
+
+
+### Bug Fixes
+
+* android emulator not showing because of blacklist (closes [#444](https://github.com/lwouis/alt-tab-macos/issues/444)) ([60bf384](https://github.com/lwouis/alt-tab-macos/commit/60bf384))
+
+
+### Features
+
+* add second shortcut to active the app (closes [#237](https://github.com/lwouis/alt-tab-macos/issues/237)) ([a6285ba](https://github.com/lwouis/alt-tab-macos/commit/a6285ba))
+* default layout based on screen aspect ratio (closes [#436](https://github.com/lwouis/alt-tab-macos/issues/436)) ([11fb95d](https://github.com/lwouis/alt-tab-macos/commit/11fb95d))
+* easier back-cycling shortcut ([#420](https://github.com/lwouis/alt-tab-macos/issues/420)) ([a31544d](https://github.com/lwouis/alt-tab-macos/commit/a31544d))
+* updated german and hungarian localizations ([7a23046](https://github.com/lwouis/alt-tab-macos/commit/7a23046))
+
 # [4.6.0](https://github.com/lwouis/alt-tab-macos/compare/v4.5.0...v4.6.0) (2020-07-20)
 
 
