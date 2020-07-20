@@ -1,5 +1,13 @@
 # Release notes
 
+# [4.6.0](https://github.com/lwouis/alt-tab-macos/compare/v4.5.0...v4.6.0) (2020-07-20)
+
+
+### Features
+
+* add indonesian and luxembourgish localizations ([d3432a9](https://github.com/lwouis/alt-tab-macos/commit/d3432a9))
+* updating german, french, korean localizations ([53a2f5f](https://github.com/lwouis/alt-tab-macos/commit/53a2f5f))
+
 # [4.5.0](https://github.com/lwouis/alt-tab-macos/compare/v4.4.0...v4.5.0) (2020-07-17)
 
 
