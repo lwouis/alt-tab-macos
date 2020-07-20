@@ -96,12 +96,12 @@ class Windows {
 
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
         window.shouldShowTheUser =
-            !(!Preferences.showFullscreenWindows && window.isFullscreen) &&
-            !(!Preferences.showMinimizedWindows && window.isMinimized) &&
-            !(!Preferences.showHiddenWindows && window.isHidden) &&
-            !(Preferences.appsToShow == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
-            !(Preferences.spacesToShow == .active && window.spaceId != Spaces.currentSpaceId) &&
-            !(Preferences.screensToShow == .showingAltTab && !isOnScreen(window, screen)) &&
+            !(!Preferences.showFullscreenWindows[App.app.shortcutIndex] && window.isFullscreen) &&
+            !(!Preferences.showMinimizedWindows[App.app.shortcutIndex] && window.isMinimized) &&
+            !(!Preferences.showHiddenWindows[App.app.shortcutIndex] && window.isHidden) &&
+            !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
+            !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
+            !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
             (Preferences.showTabsAsWindows || !window.isTabbed) &&
             !Preferences.dontShowBlacklist.contains(window.application.runningApplication.bundleIdentifier ?? "")
     }

@@ -6,6 +6,7 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
 
     convenience init(_ shortcutString: String, _ clearable: Bool) {
         self.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         self.clearable = clearable
         delegate = self
         allowsEscapeToCancelRecording = false

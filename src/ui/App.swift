@@ -21,6 +21,7 @@ class App: NSApplication, NSApplicationDelegate {
     var isFirstSummon = true
     var appIsBeingUsed = false
     var shortcutsShouldBeDisabled = false
+    var shortcutIndex = 0
 
     override init() {
         super.init()
@@ -33,6 +34,9 @@ class App: NSApplication, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        #if DEBUG
+        UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
+        #endif
         #if !DEBUG
         PFMoveToApplicationsFolderIfNecessary()
         #endif
@@ -53,6 +57,9 @@ class App: NSApplication, NSApplicationDelegate {
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
+            #if DEBUG
+            self.preferencesWindowController.show()
+            #endif
         }
     }
 
@@ -164,7 +171,7 @@ class App: NSApplication, NSApplicationDelegate {
 
     @objc func showUi() {
         appIsBeingUsed = true
-        DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection() }
+        DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(0) }
     }
 
     func cycleSelection(_ direction: Direction) {
@@ -215,7 +222,7 @@ class App: NSApplication, NSApplicationDelegate {
         }
     }
 
-    func showUiOrCycleSelection() {
+    func showUiOrCycleSelection(_ shortcutIndex: Int) {
         debugPrint("showUiOrCycleSelection")
         if isFirstSummon {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
@@ -231,6 +238,7 @@ class App: NSApplication, NSApplicationDelegate {
             Spaces.idsAndIndexes = Spaces.allIdsAndIndexes()
             Windows.updateSpaces()
             let screen = Screen.preferred()
+            self.shortcutIndex = shortcutIndex
             Windows.refreshWhichWindowsToShowTheUser(screen)
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)
