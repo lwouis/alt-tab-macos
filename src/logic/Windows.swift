@@ -103,7 +103,7 @@ class Windows {
             !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
             !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
             (Preferences.showTabsAsWindows || !window.isTabbed) &&
-            !Preferences.dontShowBlacklist.contains(window.application.runningApplication.bundleIdentifier ?? "")
+            !(window.application.runningApplication.bundleIdentifier.flatMap { Preferences.dontShowBlacklist.contains($0) } ?? false)
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {
