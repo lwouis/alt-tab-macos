@@ -39,6 +39,9 @@
 "AltTab needs some permissions" = "AltTab braucht einige Berechtigungen";
 
 /*No comment provided by engineer.*/
+"and press:" = "and press:";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "Verzögertes Einblenden:";
 
 /*No comment provided by engineer.*/
@@ -88,6 +91,9 @@
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Ausblenden animieren:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Vollbild";
@@ -160,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Optional: E-Mail (wenn du benachrichtigt werden willst)";
+
+/*No comment provided by engineer.*/
+"or press:" = "or press:";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Einstellungen…";
@@ -240,7 +249,7 @@
 "Theme:" = "Thema:";
 
 /*No comment provided by engineer.*/
-"then press:" = "und drücke:";
+"then release:" = "then release:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Diese Erlaubnis ist nötig um Fenster nach dem Drücken des Tastenkürzels anzuzeigen";

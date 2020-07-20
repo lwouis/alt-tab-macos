@@ -11,7 +11,7 @@ class Preferences {
         "fontHeight": "15",
         "holdShortcut": "⌥",
         "nextWindowShortcut": "⇥",
-        "previousWindowShortcut": "⇧⇥",
+        "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
         "minDeminWindowShortcut": "M",

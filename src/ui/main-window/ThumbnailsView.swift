@@ -231,9 +231,8 @@ class FlippedView: NSView {
 }
 
 enum Direction {
-    case neutral
-    case left
     case right
+    case left
     case leading
     case trailing
     case up
@@ -241,14 +240,10 @@ enum Direction {
 
     func step() -> Int {
         if self == .left {
-            return -1
-        } else if self == .right {
-            return 1
-        } else if self == .leading {
-            return App.shared.userInterfaceLayoutDirection == .leftToRight ? 1 : -1
-        } else if self == .trailing {
             return App.shared.userInterfaceLayoutDirection == .leftToRight ? -1 : 1
+        } else if self == .right {
+            return App.shared.userInterfaceLayoutDirection == .leftToRight ? 1 : -1
         }
-        return 0
+        return self == .leading ? 1 : -1
     }
 }

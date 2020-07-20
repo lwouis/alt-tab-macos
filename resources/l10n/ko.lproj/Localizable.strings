@@ -39,6 +39,9 @@
 "AltTab needs some permissions" = "AltTab이 권한을 필요로 합니다";
 
 /*No comment provided by engineer.*/
+"and press:" = "and press:";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "나타나는 지연 시간:";
 
 /*No comment provided by engineer.*/
@@ -88,6 +91,9 @@
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "페이드 아웃 애니메이션:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "전체화면";
@@ -160,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "답변을 원하면 이메일 주소를 남겨주세요";
+
+/*No comment provided by engineer.*/
+"or press:" = "or press:";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "설정…";
@@ -240,7 +249,7 @@
 "Theme:" = "테마:";
 
 /*No comment provided by engineer.*/
-"then press:" = "을 누르고 다음을 누르면:";
+"then release:" = "then release:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "이 권한은 단축키를 사용했을 때 원하는 윈도우로 이동할 수 있게 해줍니다";

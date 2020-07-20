@@ -39,6 +39,9 @@
 "AltTab needs some permissions" = "AltTab 需要获取一些隐私权限";
 
 /*No comment provided by engineer.*/
+"and press:" = "and press:";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "切换窗口出现延迟：";
 
 /*No comment provided by engineer.*/
@@ -88,6 +91,9 @@
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "淡出动画：";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "全屏";
@@ -160,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "电子邮箱地址 (可选，若想接收答复)";
+
+/*No comment provided by engineer.*/
+"or press:" = "or press:";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "偏好设置…";
@@ -240,7 +249,7 @@
 "Theme:" = "主题：";
 
 /*No comment provided by engineer.*/
-"then press:" = "并按下：";
+"then release:" = "then release:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "需要此权限在释放快捷键后切换鼠标焦点";

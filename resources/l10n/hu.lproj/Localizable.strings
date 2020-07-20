@@ -39,6 +39,9 @@
 "AltTab needs some permissions" = "Az AltTab-nak néhány jogosultságra van szüksége";
 
 /*No comment provided by engineer.*/
+"and press:" = "and press:";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "Megjelenítés késleltetése:";
 
 /*No comment provided by engineer.*/
@@ -88,6 +91,9 @@
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Áttűnési animáció:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Teljes képernyő";
@@ -160,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Opcionális: email (ha választ szeretnél kapni)";
+
+/*No comment provided by engineer.*/
+"or press:" = "or press:";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Beállítások…";
@@ -240,7 +249,7 @@
 "Theme:" = "Téma:";
 
 /*No comment provided by engineer.*/
-"then press:" = "majd nyomjon:";
+"then release:" = "then release:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Ez a jogosultság ahhoz szükséges hogy az ablak fókuszba kerüljön miután a parancsikont elengedte";

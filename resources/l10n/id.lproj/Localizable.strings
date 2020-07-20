@@ -39,6 +39,9 @@
 "AltTab needs some permissions" = "AltTab membutuhkan beberapa izin";
 
 /*No comment provided by engineer.*/
+"and press:" = "and press:";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "Penundaan penampakan:";
 
 /*No comment provided by engineer.*/
@@ -88,6 +91,9 @@
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Animasi fade out:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Layar penuh";
@@ -160,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Opsional: surel (jika kamu ingin dapatkan balasan)";
+
+/*No comment provided by engineer.*/
+"or press:" = "or press:";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Preferensi…";
@@ -240,7 +249,7 @@
 "Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
-"then press:" = "lalu tekan:";
+"then release:" = "then release:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Izin ini diperlukan untuk memfokuskan jendela setelah Anda melepaskan pintasan";

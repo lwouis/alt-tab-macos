@@ -11,10 +11,10 @@ class GeneralTab: NSViewController, PreferencePane {
     static var shortcutsDependentOnHoldShortcut = [NSControl]()
     static var shortcutsActionsBlocks = [
         "holdShortcut": { App.app.focusTarget() },
-        "nextWindowShortcut": { App.app.showUiOrCycleSelection(.right) },
-        "previousWindowShortcut": { App.app.showUiOrCycleSelection(.left) },
-        "→": { App.app.cycleSelection(.leading) },
-        "←": { App.app.cycleSelection(.trailing) },
+        "nextWindowShortcut": { App.app.showUiOrCycleSelection() },
+        "previousWindowShortcut": { App.app.cycleSelection(.trailing) },
+        "→": { App.app.cycleSelection(.right) },
+        "←": { App.app.cycleSelection(.left) },
         "↑": { App.app.cycleSelection(.up) },
         "↓": { App.app.cycleSelection(.down) },
         "cancelShortcut": { App.app.hideUi() },
@@ -28,7 +28,7 @@ class GeneralTab: NSViewController, PreferencePane {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
         let hideMenubarIcon = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide menubar icon:", comment: ""), "hideMenubarIcon", extraAction: hideMenubarIconCallback)
         var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut", Preferences.holdShortcut, false, labelPosition: .leftWithoutSeparator)
-        holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("then press:", comment: "")))
+        holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press:", comment: "")))
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), "nextWindowShortcut", Preferences.nextWindowShortcut, labelPosition: .right)
         let previousWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select previous window", comment: ""), "previousWindowShortcut", Preferences.previousWindowShortcut, labelPosition: .right)
         let cancelShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Cancel and hide", comment: ""), "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)
@@ -47,7 +47,10 @@ class GeneralTab: NSViewController, PreferencePane {
         let showFullscreenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fullscreen", comment: ""), "showFullscreenWindows", labelPosition: .right))
         let showMinimizedWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Minimized", comment: ""), "showMinimizedWindows", labelPosition: .right))
         let showHiddenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hidden", comment: ""), "showHiddenWindows", labelPosition: .right))
-        let shortcuts = StackView([nextWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
+        let shortcuts = StackView([previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
+        let thenRelease = LabelAndControl.makeLabel(NSLocalizedString("then release:", comment: ""))
+        let orPress = LabelAndControl.makeLabel(NSLocalizedString("or press:", comment: ""))
+        let focusSelectedWindow = LabelAndControl.makeLabel(NSLocalizedString("Focus selected window", comment: ""))
         let toShowDropdowns = StackView([appsToShow, spacesToShow, screensToShow], .vertical)
         let toShowCheckboxes = StackView([showMinimizedWindows, showHiddenWindows, showFullscreenWindows], .vertical)
         let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show the following windows:", comment: ""))
@@ -56,12 +59,14 @@ class GeneralTab: NSViewController, PreferencePane {
         let grid = GridView([
             startAtLogin,
             hideMenubarIcon,
-            [holdAndPress, shortcuts],
+            [holdAndPress, StackView(nextWindowShortcut)],
+            [thenRelease, focusSelectedWindow],
+            [orPress, shortcuts],
             [checkboxesExplanations, checkboxes],
             [toShowExplanations, toShow],
         ])
         grid.column(at: 0).xPlacement = .trailing
-        [2, 3, 4].forEach { grid.row(at: $0).topPadding = GridView.interPadding }
+        [2, 5, 6].forEach { grid.row(at: $0).topPadding = GridView.interPadding }
         grid.fit()
 
         GeneralTab.shortcutsDependentOnHoldShortcut.append(contentsOf: [enableArrows[0] as! NSControl] +
@@ -81,7 +86,7 @@ class GeneralTab: NSViewController, PreferencePane {
     private static func addShortcut(_ type: KeyEventType, _ shortcut: Shortcut, _ controlId: String) {
         removeShortcutIfExists(controlId, type) // remove the previous shortcut
         shortcutActions[controlId] = ShortcutAction(shortcut: shortcut, actionHandler: { _ in
-            let isShortcutInitiatingTheApp = ["previousWindowShortcut", "nextWindowShortcut"].contains(controlId)
+            let isShortcutInitiatingTheApp = controlId == "nextWindowShortcut"
             if isShortcutInitiatingTheApp {
                 App.app.appIsBeingUsed = true
             }
