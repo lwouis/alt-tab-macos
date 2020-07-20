@@ -17,7 +17,7 @@ class Applications {
             guard app.runningApplication.isFinishedLaunching else { continue }
             app.observeNewWindows(group)
         }
-        group.wait(wallTimeout: .now() + .seconds(1))
+        _ = group.wait(wallTimeout: .now() + .seconds(1))
     }
 
     static func initialDiscovery() {
