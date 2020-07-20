@@ -28,7 +28,7 @@ func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ fn: @escaping () throws
 }
 
 func handleEvent(_ type: String, _ element: AXUIElement) throws {
-    debugPrint("Accessibility event", type, try element.title())
+    debugPrint("Accessibility event", type, try element.title() ?? "nil")
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid() {
         switch type {
