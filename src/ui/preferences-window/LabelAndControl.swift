@@ -17,6 +17,7 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : "", target: nil, action: nil)
+        checkbox.translatesAutoresizingMaskIntoConstraints = false
         checkbox.state = (Preferences.getString(rawName)! as NSString).boolValue ? .on : .off
         let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
@@ -39,6 +40,7 @@ class LabelAndControl: NSObject {
 
     static func makeDropDown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
         let popUp = NSPopUpButton()
+        popUp.translatesAutoresizingMaskIntoConstraints = false
         popUp.addItems(withTitles: macroPreferences.map { $0.localizedString })
         popUp.selectItem(at: Int(Preferences.getString(rawName)!)!)
         return popUp
@@ -97,7 +99,7 @@ class LabelAndControl: NSObject {
     }
 
     static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator) -> NSTextField {
-        let label = NSTextField(wrappingLabelWithString: labelText)
+        let label = TextField(labelText)
         label.isSelectable = false
         label.usesSingleLineMode = true
         label.alignment = .right
@@ -149,4 +151,15 @@ class LabelAndControl: NSObject {
 
 enum ControlIdentifierDiscriminator: String {
     case SUFFIX = "_suffix"
+}
+
+class TabView: NSTabView {
+    // without the left/right value, the whole view is shifted to the right for some reason
+//    let insets = NSEdgeInsets(top: 0, left: 7, bottom: 0, right: 7)
+//    override var alignmentRectInsets: NSEdgeInsets { get { insets } }
+
+    convenience init() {
+        self.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
+    }
 }

@@ -11,6 +11,7 @@ class Preferences {
         "fontHeight": "15",
         "holdShortcut": "⌥",
         "nextWindowShortcut": "⇥",
+        "nextWindowShortcut2": "`",
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
@@ -20,8 +21,11 @@ class Preferences {
         "arrowKeysEnabled": "true",
         "mouseHoverEnabled": "true",
         "showFullscreenWindows": "true",
+        "showFullscreenWindows2": "true",
         "showMinimizedWindows": "true",
+        "showMinimizedWindows2": "true",
         "showHiddenWindows": "true",
+        "showHiddenWindows2": "true",
         "showTabsAsWindows": "false",
         "windowDisplayDelay": "0",
         "theme": "0",
@@ -29,8 +33,11 @@ class Preferences {
         "titleTruncation": "0",
         "alignThumbnails": "0",
         "appsToShow": "0",
+        "appsToShow2": "1",
         "spacesToShow": "0",
+        "spacesToShow2": "0",
         "screensToShow": "0",
+        "screensToShow2": "0",
         "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
         "startAtLogin": "true",
@@ -57,7 +64,7 @@ class Preferences {
     static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
     static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
     static var holdShortcut: String { defaults.string("holdShortcut") }
-    static var nextWindowShortcut: String { defaults.string("nextWindowShortcut") }
+    static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2"].map { defaults.string($0) } }
     static var previousWindowShortcut: String { defaults.string("previousWindowShortcut") }
     static var cancelShortcut: String { defaults.string("cancelShortcut") }
     static var closeWindowShortcut: String { defaults.string("closeWindowShortcut") }
@@ -66,9 +73,9 @@ class Preferences {
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
-    static var showFullscreenWindows: Bool { defaults.bool("showFullscreenWindows") }
-    static var showMinimizedWindows: Bool { defaults.bool("showMinimizedWindows") }
-    static var showHiddenWindows: Bool { defaults.bool("showHiddenWindows") }
+    static var showFullscreenWindows: [Bool] { ["showFullscreenWindows", "showFullscreenWindows2"].map { defaults.bool($0) } }
+    static var showMinimizedWindows: [Bool] { ["showMinimizedWindows", "showMinimizedWindows2"].map { defaults.bool($0) } }
+    static var showHiddenWindows: [Bool] { ["showHiddenWindows", "showHiddenWindows2"].map { defaults.bool($0) } }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
     static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
@@ -84,9 +91,9 @@ class Preferences {
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
-    static var appsToShow: AppsToShowPreference { defaults.macroPref("appsToShow", AppsToShowPreference.allCases) }
-    static var spacesToShow: SpacesToShowPreference { defaults.macroPref("spacesToShow", SpacesToShowPreference.allCases) }
-    static var screensToShow: ScreensToShowPreference { defaults.macroPref("screensToShow", ScreensToShowPreference.allCases) }
+    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
+    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
+    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
