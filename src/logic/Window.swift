@@ -55,10 +55,10 @@ class Window {
         AXObserverCreate(application.runningApplication.processIdentifier, axObserverCallback, &axObserver)
         guard let axObserver = axObserver else { return }
         for notification in Window.notifications {
-            retryAxCallUntilTimeout({ [weak self] in
+            retryAxCallUntilTimeout { [weak self] in
                 guard let self = self else { return }
                 try self.axUiElement.subscribeToNotification(axObserver, notification, nil, nil, self.cgWindowId)
-            })
+            }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
@@ -99,7 +99,7 @@ class Window {
             if self.isFullscreen {
                 self.axUiElement.setAttribute(kAXFullscreenAttribute, false)
                 // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
-                BackgroundWork.accessibilityCommandsQueue.asyncWithCap(.now() + .milliseconds(1000)) { [weak self] in
+                BackgroundWork.accessibilityCommandsQueue.asyncWithCap(.now() + .seconds(1)) { [weak self] in
                     guard let self = self else { return }
                     self.axUiElement.setAttribute(kAXMinimizedAttribute, true)
                 }

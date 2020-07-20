@@ -36,7 +36,7 @@ class Application: NSObject {
     }
 
     deinit {
-        debugPrint("Deinit app", runningApplication.bundleIdentifier ?? "nil")
+        debugPrint("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
     }
 
     func addAndObserveWindows() {
@@ -48,9 +48,9 @@ class Application: NSObject {
         }
     }
 
-    func observeNewWindows() {
+    func observeNewWindows(_ group: DispatchGroup? = nil) {
         if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
-            retryAxCallUntilTimeout({ [weak self] in
+            retryAxCallUntilTimeout(group) { [weak self] in
                 guard let self = self else { return }
                 if let windows_ = try self.axUiElement!.windows(), windows_.count > 0 {
                     // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
@@ -71,7 +71,7 @@ class Application: NSObject {
                         self.addWindows(windows)
                     }
                 }
-            })
+            }
         }
     }
 
@@ -92,7 +92,7 @@ class Application: NSObject {
     private func observeEvents() {
         guard let axObserver = axObserver else { return }
         for notification in Application.notifications(runningApplication) {
-            retryAxCallUntilTimeout({ [weak self] in
+            retryAxCallUntilTimeout { [weak self] in
                 guard let self = self else { return }
                 try self.axUiElement!.subscribeToNotification(axObserver, notification, {
                     DispatchQueue.main.async { [weak self] in
@@ -105,7 +105,7 @@ class Application: NSObject {
                         }
                     }
                 }, self.runningApplication)
-            })
+            }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }

@@ -2,24 +2,26 @@ import Cocoa
 
 func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
     let type = notificationName as String
-    retryAxCallUntilTimeout({ try handleEvent(type, element) })
+    retryAxCallUntilTimeout { try handleEvent(type, element) }
 }
 
 // if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-func retryAxCallUntilTimeout(_ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
+func retryAxCallUntilTimeout(_ group: DispatchGroup? = nil, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
+    group?.enter()
     BackgroundWork.axCallsQueue.async {
-        retryAxCallUntilTimeout_(fn, startTime)
+        retryAxCallUntilTimeout_(group, fn, startTime)
     }
 }
 
-func retryAxCallUntilTimeout_(_ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
+func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
         do {
             try fn()
+            group?.leave()
         } catch {
             let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
             if timePassedInSeconds < Double(AXUIElement.globalTimeoutInSeconds) {
                 BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(10)) {
-                retryAxCallUntilTimeout_(fn, startTime)
+                retryAxCallUntilTimeout_(group, fn, startTime)
             }
         }
     }
