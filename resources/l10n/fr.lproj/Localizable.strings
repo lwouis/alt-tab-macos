@@ -39,6 +39,9 @@
 "AltTab needs some permissions" = "AltTab a besoin de permissions";
 
 /*No comment provided by engineer.*/
+"and press:" = "and press:";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "Délai d’apparition :";
 
 /*No comment provided by engineer.*/
@@ -88,6 +91,9 @@
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Animer la disparition :";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Plein écran";
@@ -160,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Optionnel : email (si vous voulez une réponse)";
+
+/*No comment provided by engineer.*/
+"or press:" = "or press:";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Préférences…";
@@ -240,7 +249,7 @@
 "Theme:" = "Thème :";
 
 /*No comment provided by engineer.*/
-"then press:" = "puis presser :";
+"then release:" = "then release:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Cette permission est nécessaire pour afficher la fenêtre après le relâchement du raccourci clavier";

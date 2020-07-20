@@ -39,6 +39,9 @@
 "AltTab needs some permissions" = "AltTab needs some permissions";
 
 /*No comment provided by engineer.*/
+"and press:" = "and press:";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "Tonen met vertraging:";
 
 /*No comment provided by engineer.*/
@@ -88,6 +91,9 @@
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Fade-out animatie:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Volledig scherm";
@@ -160,6 +166,9 @@
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Optioneel: e-mail (als je een reactie wilt ontvangen)";
+
+/*No comment provided by engineer.*/
+"or press:" = "or press:";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Voorkeuren…";
@@ -240,7 +249,7 @@
 "Theme:" = "Thema:";
 
 /*No comment provided by engineer.*/
-"then press:" = "ingedrukt, en druk dan op:";
+"then release:" = "then release:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";

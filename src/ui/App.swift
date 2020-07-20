@@ -164,7 +164,7 @@ class App: NSApplication, NSApplicationDelegate {
 
     @objc func showUi() {
         appIsBeingUsed = true
-        DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(.neutral) }
+        DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection() }
     }
 
     func cycleSelection(_ direction: Direction) {
@@ -215,8 +215,8 @@ class App: NSApplication, NSApplicationDelegate {
         }
     }
 
-    func showUiOrCycleSelection(_ direction: Direction) {
-        debugPrint("showUiOrCycleSelection", direction)
+    func showUiOrCycleSelection() {
+        debugPrint("showUiOrCycleSelection")
         if isFirstSummon {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
@@ -234,12 +234,12 @@ class App: NSApplication, NSApplicationDelegate {
             Windows.refreshWhichWindowsToShowTheUser(screen)
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)
-            Windows.cycleFocusedWindowIndex(direction.step())
+            Windows.cycleFocusedWindowIndex(1)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
                 self.rebuildUi()
             }
         } else {
-            cycleSelection(direction)
+            cycleSelection(.leading)
         }
     }
 
