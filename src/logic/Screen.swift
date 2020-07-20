@@ -1,6 +1,11 @@
 import Cocoa
 
 class Screen {
+    static func mainScreenRatio() -> CGFloat {
+        let mainScreen = NSScreen.main!.frame
+        return mainScreen.width / mainScreen.height
+    }
+
     static func preferred() -> NSScreen {
         switch Preferences.showOnScreen {
             case .includingMouse: return withMouse() ?? NSScreen.main! // .main as fall-back

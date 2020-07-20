@@ -7,9 +7,6 @@ class Preferences {
     // default values
     static var defaultValues: [String: String] = [
         "maxScreenUsage": "80",
-        "minCellsPerRow": "5",
-        "maxCellsPerRow": "10",
-        "rowsCount": "3",
         "iconSize": "32",
         "fontHeight": "15",
         "holdShortcut": "⌥",
@@ -41,7 +38,7 @@ class Preferences {
         "dontShowBlacklist": "",
         "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.vm", "com.citrix.XenAppViewer"].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
-    ]
+    ].merging(defaultsDependingOnScreenRatio()) { (_, new) in new }
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
@@ -146,6 +143,21 @@ class Preferences {
 
     static func blacklistStringToArray(_ blacklist: String) -> [String] {
         return blacklist.components(separatedBy: "\n").map { $0.trimmingCharacters(in: .whitespaces) }
+    }
+
+    static func defaultsDependingOnScreenRatio() -> [String: String] {
+        let ratio = Screen.mainScreenRatio()
+        // landscape
+        if ratio > 1 {
+            // 15/10 and wider; tested with 16/10 and 16/9
+            if ratio > (15 / 10) {
+                return ["rowsCount": "4", "minCellsPerRow": "4", "maxCellsPerRow": "7"]
+            }
+            // narrower than 15/10; tested with 4/3
+            return ["rowsCount": "3", "minCellsPerRow": "4", "maxCellsPerRow": "7"]
+        }
+        // vertical; tested with 10/16
+        return ["rowsCount": "6", "minCellsPerRow": "3", "maxCellsPerRow": "4"]
     }
 }
 
