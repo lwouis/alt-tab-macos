@@ -11,6 +11,15 @@ class Applications {
         }
     }
 
+    static func observeNewWindowsBlocking() {
+        let group = DispatchGroup()
+        for app in list {
+            guard app.runningApplication.isFinishedLaunching else { continue }
+            app.observeNewWindows(group)
+        }
+        group.wait(wallTimeout: .now() + .seconds(1))
+    }
+
     static func initialDiscovery() {
         addInitialRunningApplications()
         addInitialRunningApplicationsWindows()
@@ -32,7 +41,7 @@ class Applications {
             if windowsOnlyOnOtherSpaces.count > 0 {
                 // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
                 CGSAddWindowsToSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
-                Applications.observeNewWindows()
+                Applications.observeNewWindowsBlocking()
                 CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
             }
         }

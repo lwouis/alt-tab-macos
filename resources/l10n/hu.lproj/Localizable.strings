@@ -3,7 +3,7 @@
 "About" = "Az App-ról";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "Kisegítő lehetőségek";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "Köszönetnyílvánítás";
@@ -24,7 +24,7 @@
 "All apps" = "Minden alkalmazás";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Minden adat amit ezen az űrlapon megadott publikus lesz egy Github jegy formájában";
 
 /*No comment provided by engineer.*/
 "All screens" = "Minden képernyő";
@@ -33,10 +33,10 @@
 "All spaces" = "Minden terület";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "Engedélyezve";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "Az AltTab-nak néhány jogosultságra van szüksége";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Megjelenítés késleltetése:";
@@ -45,7 +45,7 @@
 "Appearance" = "Megjelenés";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Biztos benne, hogy letiltja az értesítéseket?";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Nyíl billentyűk";
@@ -54,7 +54,7 @@
 "Auto-install updates periodically" = "Frissítések automatikus telepítése";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Tiltó lista";
 
 /*Cancel button*/
 "Cancel" = "Mégsem";
@@ -81,16 +81,16 @@
 "Don’t check for updates periodically" = "Ne keressen frissítéseket automatikusan";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "Ablakok elrejtése ezekből az alkalmazásokból";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "Befejezés";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "Áttűnési animáció:";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
+"Fullscreen" = "Teljes képernyő";
 
 /*No comment provided by engineer.*/
 "General" = "Általános";
@@ -99,7 +99,7 @@
 "Hidden" = "Rejtett";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "Hide menubar icon:";
+"Hide menubar icon:" = "Menü elrejtése:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "Számok elrejtése a terület cimkékben:";
@@ -114,7 +114,7 @@
 "I think the app could be improved with…" = "Azt gondolom hasznos lenne az app bővítése ezzel…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "Parancsikonok kihagyása amikor van aktív ablak ezekből az alkalmazásokból";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Legutóbbi kiadások";
@@ -129,7 +129,7 @@
 "Max windows per row:" = "Legtöbb ablak soronként:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "Középre";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "Legkevesebb ablak soronként:";
@@ -144,19 +144,19 @@
 "Mouse hover" = "Egér főlé vitele";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "Nincs engedélyezve";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 license";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "Csak ha az ablak teljesképernyős ";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Kisegítő lehetőségek megnyitása…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Képernyőfelvételi beállítások megnyitása…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Opcionális: email (ha választ szeretnél kapni)";
@@ -165,7 +165,7 @@
 "Preferences…" = "Beállítások…";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "Kilépés";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Kilépés %@";
@@ -183,7 +183,7 @@
 "Screen including mouse" = "A képernyő ahol az egér van";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Képernyő felvétel";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Az AltTab képernyője";
@@ -201,7 +201,7 @@
 "Send" = "Küldés";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+"Send anyway" = "Küldés mindenképp";
 
 /*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Hibakeresési profil (CPU, memória, stb.) küldése";
@@ -222,7 +222,7 @@
 "Show on:" = "Megjelenítés:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "Szabványos lapok megjelenítése ablakokként:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Megjelenítendő ablakok kiválasztása:";
@@ -231,7 +231,7 @@
 "Source code repository" = "Forrás kód tárhely";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "Indítás";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Betöltés bejelentkezéskor:";
@@ -243,10 +243,10 @@
 "then press:" = "majd nyomjon:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Ez a jogosultság ahhoz szükséges hogy az ablak fókuszba kerüljön miután a parancsikont elengedte";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Ez a jogosultság ahhoz szükséges hogy megjeleníthessük a képernyőképeket és csempéket a nyitott ablakokhoz";
 
 /*No comment provided by engineer.*/
 "Updates" = "Frissítések";
@@ -267,7 +267,7 @@
 "Window title font size:" = "Ablak címsor font méret:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "Ablak címsor rövidítése:";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "Ha nem ad meg e-mail címet, nem tudunk választ küldeni";
