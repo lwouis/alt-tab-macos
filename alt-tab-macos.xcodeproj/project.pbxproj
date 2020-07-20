@@ -918,6 +918,7 @@
 				ru,
 				ar,
 				nl,
+				id,
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
