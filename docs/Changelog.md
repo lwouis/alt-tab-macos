@@ -1,5 +1,12 @@
 # Release notes
 
+## [4.7.1](https://github.com/lwouis/alt-tab-macos/compare/v4.7.0...v4.7.1) (2020-07-21)
+
+
+### Bug Fixes
+
+* sanguosha game wasn't listed in alt-tab (closes [#441](https://github.com/lwouis/alt-tab-macos/issues/441)) ([e67b075](https://github.com/lwouis/alt-tab-macos/commit/e67b075))
+
 # [4.7.0](https://github.com/lwouis/alt-tab-macos/compare/v4.6.0...v4.7.0) (2020-07-20)
 
 
