@@ -58,7 +58,12 @@ extension AXUIElement {
             (["AXStandardWindow", "AXDialog"].contains(subrole) ||
                 steam(runningApp, title, role) ||
                 firefoxFullscreenVideo(runningApp, role) ||
-                androidEmulator(runningApp, title))
+                androidEmulator(runningApp, title) ||
+                SanGuoShaAirWD(runningApp))
+    }
+
+    private func SanGuoShaAirWD(_ runningApp: NSRunningApplication) -> Bool {
+        return runningApp.bundleIdentifier == "SanGuoShaAirWD"
     }
 
     private func steam(_ runningApp: NSRunningApplication, _ title: String?, _ role: String?) -> Bool {
