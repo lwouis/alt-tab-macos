@@ -5,15 +5,20 @@ class ThumbnailView: NSStackView {
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Preferences.fontHeight)
-    var fullscreenIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledPlusSign, Preferences.fontIconSize, .white)
-    var minimizedIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledMinusSign, Preferences.fontIconSize, .white)
-    var hiddenIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledSlashSign, Preferences.fontIconSize, .white)
-    var spaceIcon = ThumbnailFontIconView(ThumbnailFontIconView.sfSymbolCircledNumber0, Preferences.fontIconSize, .white)
+    var fullscreenIcon = ThumbnailFontIconView(.circledPlusSign)
+    var minimizedIcon = ThumbnailFontIconView(.circledMinusSign)
+    var hiddenIcon = ThumbnailFontIconView(.circledSlashSign)
+    var spaceIcon = ThumbnailFontIconView(.circledNumber0)
+    var closeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledMultiplySign, Preferences.fontIconSize, NSColor(srgbRed: 1, green: 0.35, blue: 0.32, alpha: 1)), NSColor(srgbRed: 0.64, green: 0.03, blue: 0.02, alpha: 1))
+    var minimizeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledMinusSign, Preferences.fontIconSize, NSColor(srgbRed: 0.91, green: 0.75, blue: 0.16, alpha: 1)), NSColor(srgbRed: 0.71, green: 0.55, blue: 0.09, alpha: 1))
+    var maximizeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledPlusSign, Preferences.fontIconSize, NSColor(srgbRed: 0.32, green: 0.76, blue: 0.17, alpha: 1)), NSColor(srgbRed: 0.04, green: 0.39, blue: 0.02, alpha: 1))
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
     var isHighlighted = false
+    var shouldShowWindowControls = false
+    var isShowingWindowControls = false
 
     convenience init() {
         self.init(frame: .zero)
@@ -36,6 +41,32 @@ class ThumbnailView: NSStackView {
         hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
         hStackView.spacing = Preferences.intraCellPadding
         setViews([hStackView, thumbnail], in: .leading)
+        addWindowControls()
+    }
+
+    func addWindowControls() {
+        thumbnail.addSubview(closeIcon, positioned: .above, relativeTo: nil)
+        thumbnail.addSubview(minimizeIcon, positioned: .above, relativeTo: nil)
+        thumbnail.addSubview(maximizeIcon, positioned: .above, relativeTo: nil)
+        let windowsControlSpacing = CGFloat(3)
+        [closeIcon, minimizeIcon, maximizeIcon].forEach {
+            $0.topAnchor.constraint(equalTo: thumbnail.topAnchor, constant: 1).isActive = true
+        }
+        closeIcon.leftAnchor.constraint(equalTo: thumbnail.leftAnchor).isActive = true
+        minimizeIcon.leftAnchor.constraint(equalTo: closeIcon.rightAnchor, constant: windowsControlSpacing).isActive = true
+        maximizeIcon.leftAnchor.constraint(equalTo: minimizeIcon.rightAnchor, constant: windowsControlSpacing).isActive = true
+        [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = true }
+    }
+
+    func showOrHideWindowControls(_ shouldShowWindowControls_: Bool? = nil) {
+        if let shouldShowWindowControls = shouldShowWindowControls_ {
+            self.shouldShowWindowControls = shouldShowWindowControls
+        }
+        let shouldShow = shouldShowWindowControls && isHighlighted
+        if isShowingWindowControls != shouldShow {
+            isShowingWindowControls = shouldShow
+            [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = !shouldShow }
+        }
     }
 
     func highlight(_ highlight: Bool) {
@@ -45,6 +76,7 @@ class ThumbnailView: NSStackView {
                 highlightOrNot()
             }
         }
+        showOrHideWindowControls()
     }
 
     func highlightOrNot() {
@@ -139,14 +171,24 @@ class ThumbnailView: NSStackView {
     }
 
     func mouseMoved() {
+        showOrHideWindowControls(true)
         if !isHighlighted {
             mouseMovedCallback()
         }
     }
 
-    override func mouseUp(with theEvent: NSEvent) {
-        if theEvent.clickCount >= 1 {
-            mouseUpCallback()
+    override func mouseUp(with event: NSEvent) {
+        if event.clickCount >= 1 {
+            let target = thumbnail.hitTest(convert(event.locationInWindow, from: nil))?.superview
+            if target == closeIcon {
+                window_!.close()
+            } else if target == minimizeIcon {
+                window_!.minDemin()
+            } else if target == maximizeIcon {
+                window_!.toggleFullscreen()
+            } else {
+                mouseUpCallback()
+            }
         }
     }
 

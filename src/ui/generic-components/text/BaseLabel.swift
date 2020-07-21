@@ -13,6 +13,7 @@ class BaseLabel: NSTextView {
     }
 
     private func setup() {
+        translatesAutoresizingMaskIntoConstraints = false
         drawsBackground = true
         backgroundColor = .clear
         isSelectable = false

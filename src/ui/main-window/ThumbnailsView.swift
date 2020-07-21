@@ -120,7 +120,7 @@ class ThumbnailsView: NSVisualEffectView {
         if let existingTrackingArea = scrollView.trackingAreas.first {
             scrollView.documentView!.removeTrackingArea(existingTrackingArea)
         }
-        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds, options: [.mouseMoved, .activeAlways], owner: scrollView, userInfo: nil))
+        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
     }
 
     func centerRows(_ maxX: CGFloat) {
@@ -168,6 +168,7 @@ class ScrollView: NSScrollView {
     override class var isCompatibleWithResponsiveScrolling: Bool { true }
 
     var isCurrentlyScrolling = false
+    var previousTarget: ThumbnailView?
 
     convenience init() {
         self.init(frame: .zero)
@@ -200,9 +201,21 @@ class ScrollView: NSScrollView {
                 target = target!.superview
             }
             if let target = target, target is ThumbnailView {
+                if previousTarget != target {
+                    previousTarget?.showOrHideWindowControls(false)
+                    previousTarget = target as! ThumbnailView
+                }
                 (target as! ThumbnailView).mouseMoved()
+            } else {
+                previousTarget?.showOrHideWindowControls(false)
             }
+        } else {
+            previousTarget?.showOrHideWindowControls(false)
         }
+    }
+
+    override func mouseExited(with event: NSEvent) {
+        previousTarget?.showOrHideWindowControls(false)
     }
 
     // holding shift and using the scrolling wheel will generate a horizontal movement

@@ -109,6 +109,13 @@ class Window {
         }
     }
 
+    func toggleFullscreen() {
+        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+            guard let self = self else { return }
+            self.axUiElement.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
+        }
+    }
+
     func quitApp() {
         // prevent users from quitting Finder
         if application.runningApplication.bundleIdentifier == "com.apple.finder" { return }
