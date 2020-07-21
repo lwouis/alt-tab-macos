@@ -1,5 +1,12 @@
 # Release notes
 
+# [4.8.0](https://github.com/lwouis/alt-tab-macos/compare/v4.7.2...v4.8.0) (2020-07-21)
+
+
+### Features
+
+* hovering thumbnails reveals icons to close/min/max windows ([#9](https://github.com/lwouis/alt-tab-macos/issues/9)) ([11e0d2a](https://github.com/lwouis/alt-tab-macos/commit/11e0d2a))
+
 ## [4.7.2](https://github.com/lwouis/alt-tab-macos/compare/v4.7.1...v4.7.2) (2020-07-21)
 
 
