@@ -3,6 +3,7 @@ import Carbon.HIToolbox.Events
 
 fileprivate var eventTap: CFMachPort!
 fileprivate var shouldBeEnabled: Bool!
+fileprivate var isPointerInsideUi: Bool!
 
 class MouseEvents {
     static func observe() {
@@ -37,17 +38,25 @@ private func observe_() {
 }
 
 private func mouseHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-    if type == .leftMouseDown && !isPointerInsideUi() {
-        return nil // focused app won't receive the event
-    } else if type == .leftMouseUp && cgEvent.getIntegerValueField(.mouseEventClickState) >= 1 && !isPointerInsideUi() {
-        App.app.hideUi()
-        return nil // focused app won't receive the event
+    if type == .leftMouseDown {
+        isPointerInsideUi_()
+        if !isPointerInsideUi {
+            return nil // focused app won't receive the event
+        }
+    } else if type == .leftMouseUp && cgEvent.getIntegerValueField(.mouseEventClickState) >= 1 {
+        isPointerInsideUi_()
+        if !isPointerInsideUi {
+            DispatchQueue.main.async { App.app.hideUi() }
+            return nil // focused app won't receive the event
+        }
     } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
     return Unmanaged.passRetained(cgEvent) // focused app will receive the event
 }
 
-private func isPointerInsideUi() -> Bool {
-    App.app.thumbnailsPanel.contentLayoutRect.contains(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream)
+private func isPointerInsideUi_() {
+    DispatchQueue.main.sync {
+        isPointerInsideUi = App.app.thumbnailsPanel.contentLayoutRect.contains(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream)
+    }
 }
