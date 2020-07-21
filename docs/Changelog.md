@@ -1,5 +1,12 @@
 # Release notes
 
+## [4.8.1](https://github.com/lwouis/alt-tab-macos/compare/v4.8.0...v4.8.1) (2020-07-21)
+
+
+### Bug Fixes
+
+* rare crash when clicking while alt-tab is open ([#439](https://github.com/lwouis/alt-tab-macos/issues/439)) ([b3c6031](https://github.com/lwouis/alt-tab-macos/commit/b3c6031))
+
 # [4.8.0](https://github.com/lwouis/alt-tab-macos/compare/v4.7.2...v4.8.0) (2020-07-21)
 
 
