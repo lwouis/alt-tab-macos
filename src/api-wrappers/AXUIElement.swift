@@ -59,10 +59,15 @@ extension AXUIElement {
                 steam(runningApp, title, role) ||
                 firefoxFullscreenVideo(runningApp, role) ||
                 androidEmulator(runningApp, title) ||
-                SanGuoShaAirWD(runningApp))
+                sanGuoShaAirWD(runningApp) ||
+                dvdFab(runningApp))
     }
 
-    private func SanGuoShaAirWD(_ runningApp: NSRunningApplication) -> Bool {
+    private func dvdFab(_ runningApp: NSRunningApplication) -> Bool {
+        return runningApp.bundleIdentifier == "com.goland.dvdfab.macos"
+    }
+
+    private func sanGuoShaAirWD(_ runningApp: NSRunningApplication) -> Bool {
         return runningApp.bundleIdentifier == "SanGuoShaAirWD"
     }
 
