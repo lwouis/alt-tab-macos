@@ -1,5 +1,12 @@
 # Release notes
 
+## [4.7.2](https://github.com/lwouis/alt-tab-macos/compare/v4.7.1...v4.7.2) (2020-07-21)
+
+
+### Bug Fixes
+
+* dvdfab app wasn't listed in alt-tab (closes [#450](https://github.com/lwouis/alt-tab-macos/issues/450)) ([13e41ab](https://github.com/lwouis/alt-tab-macos/commit/13e41ab))
+
 ## [4.7.1](https://github.com/lwouis/alt-tab-macos/compare/v4.7.0...v4.7.1) (2020-07-21)
 
 
