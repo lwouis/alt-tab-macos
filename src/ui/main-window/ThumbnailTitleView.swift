@@ -3,7 +3,7 @@ import Cocoa
 class ThumbnailTitleView: BaseLabel {
     var magicOffset = CGFloat(0)
 
-    convenience init(_ size: CGFloat, _ magicOffset: CGFloat = 0) {
+    convenience init(_ size: CGFloat, _ magicOffset: CGFloat = 0, shadow: NSShadow? = ThumbnailView.makeShadow(.darkGray)) {
         let textStorage = NSTextStorage()
         let layoutManager = NSLayoutManager()
         textStorage.addLayoutManager(layoutManager)
@@ -15,7 +15,7 @@ class ThumbnailTitleView: BaseLabel {
         font = Preferences.font
         self.magicOffset = magicOffset
         textColor = Preferences.fontColor
-        shadow = ThumbnailView.makeShadow(.darkGray)
+        self.shadow = shadow
         defaultParagraphStyle = makeParagraphStyle(size)
         heightAnchor.constraint(equalToConstant: size + magicOffset).isActive = true
     }
