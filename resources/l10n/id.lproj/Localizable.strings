@@ -36,7 +36,13 @@
 "Allowed" = "Dibolehkan";
 
 /*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+
+/*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab membutuhkan beberapa izin";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "Always send crash reports";
 
 /*No comment provided by engineer.*/
 "and press:" = "and press:";
@@ -52,6 +58,9 @@
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Tombol panah";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Instal pembaruan secara berkala";
@@ -81,7 +90,13 @@
 "Close window" = "Tutup jendela";
 
 /*No comment provided by engineer.*/
+"Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Jangan periksa pembaruan secara berkala";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "Don’t send";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Jangan tampilkan jendela dari aplikasi ini";
@@ -150,6 +165,9 @@
 "Mouse hover" = "Arahkan mouse";
 
 /*No comment provided by engineer.*/
+"Never send crash reports" = "Never send crash reports";
+
+/*No comment provided by engineer.*/
 "Not allowed" = "Tidak dibolehkan";
 
 /*Copyright (human-readable)*/
@@ -171,6 +189,9 @@
 "or press:" = "or press:";
 
 /*No comment provided by engineer.*/
+"Policies" = "Policies";
+
+/*No comment provided by engineer.*/
 "Preferences…" = "Preferensi…";
 
 /*No comment provided by engineer.*/
@@ -181,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Quit app" = "Keluar app";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Remember my choice";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Barisan jendela:";
@@ -208,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "Send" = "Kirim";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Send a crash report?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Tetap kirim";
@@ -256,9 +283,6 @@
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Izin ini diperlukan untuk menampilkan tangkapan layar dan judul jendela yang terbuka";
-
-/*No comment provided by engineer.*/
-"Updates" = "Pembaruan";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Kebijakan pembaruan:";

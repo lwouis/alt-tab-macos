@@ -3,7 +3,7 @@
 "About" = "О программе";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "Универсальный доступ";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "Лицензии";
@@ -33,13 +33,19 @@
 "All spaces" = "Все рабочие столы";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "Разрешено";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"AltTab needs some permissions" = "AltTab требуются некоторые разрешения";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "Always send crash reports";
+
+/*No comment provided by engineer.*/
+"and press:" = "и нажать:";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Задержка появления:";
@@ -54,10 +60,13 @@
 "Arrow keys" = "Клавиши стрелок";
 
 /*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
+
+/*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Автоматически устанавливать обновления";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Черные списки";
 
 /*Cancel button*/
 "Cancel" = "Отмена";
@@ -81,13 +90,19 @@
 "Close window" = "Закрыть окно";
 
 /*No comment provided by engineer.*/
+"Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Не проверять обновления";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t send" = "Don’t send";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"Don’t show windows from these apps" = "Не показывать окна этих приложений";
+
+/*No comment provided by engineer.*/
+"End" = "Конец";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Анимация затухания:";
@@ -105,7 +120,7 @@
 "Hidden" = "Скрытые";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "Hide menubar icon:";
+"Hide menubar icon:" = "Скрыть иконку из строки меню:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "Скрыть номера рабочих столов:";
@@ -120,7 +135,7 @@
 "I think the app could be improved with…" = "Я думаю, что приложение может быть улучшено…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "Игнорировать комбинации клавиш пока окно приложения из этого списка активно";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Последние обновления";
@@ -135,7 +150,7 @@
 "Max windows per row:" = "Макс. количество окон в ряду:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "Посередине";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "Мин. количество окон в ряду:";
@@ -150,19 +165,22 @@
 "Mouse hover" = "Наведение мышью";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Never send crash reports" = "Never send crash reports";
+
+/*No comment provided by engineer.*/
+"Not allowed" = "Не разрешено";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "Лицензия GPL-3.0";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "Только если окно на полный экран";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Открыть настройки Универсального доступа…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Открыть настройки Записи экрана…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Опционально: эл.почта (если вы хотите ответа)";
@@ -171,16 +189,22 @@
 "or press:" = "or press:";
 
 /*No comment provided by engineer.*/
+"Policies" = "Policies";
+
+/*No comment provided by engineer.*/
 "Preferences…" = "Настройки…";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "Выход";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Выход из %@";
 
 /*No comment provided by engineer.*/
 "Quit app" = "Выйти из приложения";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Remember my choice";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Количество рядов окон:";
@@ -192,7 +216,7 @@
 "Screen including mouse" = "Экран с курсором";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Запись экрана";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Экран, показывающий AltTab";
@@ -208,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "Send" = "Отправить";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Send a crash report?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Все равно отправить";
@@ -240,7 +267,7 @@
 "Source code repository" = "Репозиторий исходного кода";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "Начало";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Запускать при входе в систему:";
@@ -252,13 +279,10 @@
 "then release:" = "then release:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Это разрешение нужно для фокусировки окна после отпускания комбинации клавиш";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
-
-/*No comment provided by engineer.*/
-"Updates" = "Обновления";
+"This permission is needed to show screenshots and titles of open windows" = "Это разрешение нужно для показа скриншотов и заголовков открытых окон";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Правило обновлений:";
@@ -276,7 +300,7 @@
 "Window title font size:" = "Размер заголовка:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "Обрезка заголовка окна:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Вы не написали свою электронную почту, поэтому не можете получить ответ.";

@@ -45,6 +45,8 @@ class Preferences {
         "dontShowBlacklist": "",
         "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.vm", "com.citrix.XenAppViewer"].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
+        "updatePolicy": "1",
+        "crashPolicy": "1",
     ].merging(defaultsDependingOnScreenRatio()) { (_, new) in new }
 
     // constant values
@@ -91,6 +93,8 @@ class Preferences {
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
+    static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
+    static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
     static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
     static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
@@ -198,8 +202,8 @@ enum AppsToShowPreference: String, CaseIterable, MacroPreference {
 }
 
 enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
-    case all = "All spaces"
-    case active = "Active space"
+    case all = "0"
+    case active = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -210,8 +214,8 @@ enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
 }
 
 enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
-    case all = "All screens"
-    case showingAltTab = "Screen showing AltTab"
+    case all = "0"
+    case showingAltTab = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -222,9 +226,9 @@ enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
 }
 
 enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
-    case active = "Active screen"
-    case includingMouse = "Screen including mouse"
-    case includingMenubar = "Screen including menu bar"
+    case active = "0"
+    case includingMouse = "1"
+    case includingMenubar = "2"
 
     var localizedString: LocalizedString {
         switch self {
@@ -236,9 +240,9 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
 }
 
 enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
-    case end = "End"
-    case middle = "Middle"
-    case start = "Start"
+    case end = "0"
+    case middle = "1"
+    case start = "2"
 
     var localizedString: LocalizedString {
         switch self {
@@ -250,8 +254,8 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
 }
 
 enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
-    case left = "Left"
-    case center = "Center"
+    case left = "0"
+    case center = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -262,13 +266,13 @@ enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
 }
 
 enum ThemePreference: String, CaseIterable, MacroPreference {
-    case macOs = " macOS"
-    case windows10 = "❖ Windows 10"
+    case macOs = "0"
+    case windows10 = "1"
 
     var localizedString: LocalizedString {
         switch self {
-            case .macOs: return ThemePreference.macOs.rawValue
-            case .windows10: return ThemePreference.windows10.rawValue
+            case .macOs: return " macOS"
+            case .windows10: return "❖ Windows 10"
         }
     }
 
@@ -276,6 +280,34 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
         switch self {
             case .macOs: return ThemeParameters(label: localizedString, cellBorderWidth: 0, cellCornerRadius: 10, windowCornerRadius: 23, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
             case .windows10: return ThemeParameters(label: localizedString, cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
+        }
+    }
+}
+
+enum UpdatePolicyPreference: String, CaseIterable, MacroPreference {
+    case manual = "0"
+    case autoCheck = "1"
+    case autoInstall = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .manual: return NSLocalizedString("Don’t check for updates periodically", comment: "")
+            case .autoCheck: return NSLocalizedString("Check for updates periodically", comment: "")
+            case .autoInstall: return NSLocalizedString("Auto-install updates periodically", comment: "")
+        }
+    }
+}
+
+enum CrashPolicyPreference: String, CaseIterable, MacroPreference {
+    case never = "0"
+    case ask = "1"
+    case always = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .never: return NSLocalizedString("Never send crash reports", comment: "")
+            case .ask: return NSLocalizedString("Ask whether to send crash reports", comment: "")
+            case .always: return NSLocalizedString("Always send crash reports", comment: "")
         }
     }
 }

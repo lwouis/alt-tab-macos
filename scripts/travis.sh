@@ -15,6 +15,7 @@ if [ $IS_RELEASE ]; then
   scripts/codesign/setup_ci_master.sh
   xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -derivedDataPath DerivedData
   scripts/package_and_notarize_release.sh
+  scripts/upload_symbols_to_appcenter.sh
   scripts/update_appcast.sh
   npx semantic-release
   scripts/update_website.sh

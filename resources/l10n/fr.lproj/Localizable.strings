@@ -36,7 +36,13 @@
 "Allowed" = "Autorisé";
 
 /*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+
+/*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab a besoin de permissions";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "Always send crash reports";
 
 /*No comment provided by engineer.*/
 "and press:" = "and press:";
@@ -52,6 +58,9 @@
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Touches flèches";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Auto-installer les mises-à-jour périodiquement";
@@ -81,7 +90,13 @@
 "Close window" = "Fermer la fenêtre";
 
 /*No comment provided by engineer.*/
+"Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Ne pas chercher de mise-à-jour périodiquement";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "Don’t send";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Ne pas afficher les fenêtres de ces applications";
@@ -150,6 +165,9 @@
 "Mouse hover" = "Survol de la souris";
 
 /*No comment provided by engineer.*/
+"Never send crash reports" = "Never send crash reports";
+
+/*No comment provided by engineer.*/
 "Not allowed" = "Non autorisé";
 
 /*Copyright (human-readable)*/
@@ -171,6 +189,9 @@
 "or press:" = "or press:";
 
 /*No comment provided by engineer.*/
+"Policies" = "Policies";
+
+/*No comment provided by engineer.*/
 "Preferences…" = "Préférences…";
 
 /*No comment provided by engineer.*/
@@ -181,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Quit app" = "Quitter l’app";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Remember my choice";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Rangées de fenêtres :";
@@ -208,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "Send" = "Envoyer";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Send a crash report?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Envoyer tout de même";
@@ -256,9 +283,6 @@
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Cette permission est nécessaire pour afficher les miniatures et titres des fenêtres ouvertes";
-
-/*No comment provided by engineer.*/
-"Updates" = "Mises-à-jour";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Politique de mise-à-jour :";

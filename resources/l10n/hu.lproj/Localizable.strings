@@ -36,7 +36,13 @@
 "Allowed" = "Engedélyezve";
 
 /*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+
+/*No comment provided by engineer.*/
 "AltTab needs some permissions" = "Az AltTab-nak néhány jogosultságra van szüksége";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "Always send crash reports";
 
 /*No comment provided by engineer.*/
 "and press:" = "and press:";
@@ -52,6 +58,9 @@
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Nyíl billentyűk";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Frissítések automatikus telepítése";
@@ -81,7 +90,13 @@
 "Close window" = "Ablak bezárása";
 
 /*No comment provided by engineer.*/
+"Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Ne keressen frissítéseket automatikusan";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "Don’t send";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Ablakok elrejtése ezekből az alkalmazásokból";
@@ -150,6 +165,9 @@
 "Mouse hover" = "Egér főlé vitele";
 
 /*No comment provided by engineer.*/
+"Never send crash reports" = "Never send crash reports";
+
+/*No comment provided by engineer.*/
 "Not allowed" = "Nincs engedélyezve";
 
 /*Copyright (human-readable)*/
@@ -171,6 +189,9 @@
 "or press:" = "or press:";
 
 /*No comment provided by engineer.*/
+"Policies" = "Policies";
+
+/*No comment provided by engineer.*/
 "Preferences…" = "Beállítások…";
 
 /*No comment provided by engineer.*/
@@ -181,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Quit app" = "Kilépés az alkalmazásból";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Remember my choice";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Ablak sorok száma:";
@@ -208,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "Send" = "Küldés";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Send a crash report?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Küldés mindenképp";
@@ -256,9 +283,6 @@
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Ez a jogosultság ahhoz szükséges hogy megjeleníthessük a képernyőképeket és csempéket a nyitott ablakokhoz";
-
-/*No comment provided by engineer.*/
-"Updates" = "Frissítések";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Frissítési beállítások:";

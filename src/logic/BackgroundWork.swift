@@ -5,6 +5,7 @@ class BackgroundWork {
     static var mainQueueConcurrentWorkQueue: DispatchQueue!
     static var accessibilityCommandsQueue: DispatchQueue!
     static var axCallsQueue: DispatchQueue!
+    static var crashReportsQueue: DispatchQueue!
     static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
     static var keyboardEventsThread: BackgroundThreadWithRunLoop!
     static var mouseEventsThread: BackgroundThreadWithRunLoop!
@@ -17,6 +18,7 @@ class BackgroundWork {
         mainQueueConcurrentWorkQueue = DispatchQueue.globalConcurrent("mainQueueConcurrentWorkQueue", .userInteractive)
         accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
         axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
+        crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread")
         keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread")
         mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread")

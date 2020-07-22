@@ -36,10 +36,16 @@
 "Allowed" = "허용됨";
 
 /*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+
+/*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab이 권한을 필요로 합니다";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"Always send crash reports" = "Always send crash reports";
+
+/*No comment provided by engineer.*/
+"and press:" = "와 다음을 누르면:";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "나타나는 지연 시간:";
@@ -52,6 +58,9 @@
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "방향키";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "자동으로 업데이트 설치하기";
@@ -81,7 +90,13 @@
 "Close window" = "윈도우 닫기";
 
 /*No comment provided by engineer.*/
+"Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "주기적으로 업데이트를 확인하지 않기";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "Don’t send";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "다음 앱들의 윈도우가 보여지지 않습니다";
@@ -93,7 +108,7 @@
 "Fade out animation:" = "페이드 아웃 애니메이션:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "선택된 윈도우로 이동";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "전체화면";
@@ -150,6 +165,9 @@
 "Mouse hover" = "마우스 올려놓기";
 
 /*No comment provided by engineer.*/
+"Never send crash reports" = "Never send crash reports";
+
+/*No comment provided by engineer.*/
 "Not allowed" = "허용되지 않음";
 
 /*Copyright (human-readable)*/
@@ -168,7 +186,10 @@
 "Optional: email (if you want a reply)" = "답변을 원하면 이메일 주소를 남겨주세요";
 
 /*No comment provided by engineer.*/
-"or press:" = "or press:";
+"or press:" = "또는 다음을 누르면:";
+
+/*No comment provided by engineer.*/
+"Policies" = "Policies";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "설정…";
@@ -181,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Quit app" = "앱 종료";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Remember my choice";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "윈도우 줄 개수:";
@@ -208,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "Send" = "보내기";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Send a crash report?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "보내기";
@@ -249,16 +276,13 @@
 "Theme:" = "테마:";
 
 /*No comment provided by engineer.*/
-"then release:" = "then release:";
+"then release:" = "놓으면:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "이 권한은 단축키를 사용했을 때 원하는 윈도우로 이동할 수 있게 해줍니다";
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "이 권한은 윈도우의 이미지와 제목을 띄울 수 있게 해줍니다";
-
-/*No comment provided by engineer.*/
-"Updates" = "업데이트";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "업데이트 방법:";

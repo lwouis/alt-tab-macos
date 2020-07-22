@@ -10,8 +10,8 @@ enum LabelPosition {
 class LabelAndControl: NSObject {
     static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let input = CustomRecorderControl(shortcutString, clearable)
-        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: GeneralTab.shortcutChangedCallback)
-        GeneralTab.shortcutChangedCallback(input)
+        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in GeneralTab.shortcutChangedCallback(input, rawName) })
+        GeneralTab.shortcutChangedCallback(input, rawName)
         return views
     }
 
@@ -26,7 +26,7 @@ class LabelAndControl: NSObject {
     static func makeTextArea(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
         let textArea = TextArea(nCharactersWide, nLinesHigh, placeholder)
         textArea.callback = {
-            controlWasChanged(textArea)
+            controlWasChanged(textArea, rawName, nil)
             extraAction?(textArea)
         }
         textArea.identifier = NSUserInterfaceItemIdentifier(rawName)
@@ -46,6 +46,18 @@ class LabelAndControl: NSObject {
         return popUp
     }
 
+    static func makeRadioButtons(_ macroPreferences: [MacroPreference], _ rawName: String, extraAction: ActionClosure? = nil) -> [NSButton] {
+        var i = 0
+        return macroPreferences.map {
+            let button = NSButton(radioButtonWithTitle: $0.localizedString, target: nil, action: nil)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.state = Int(Preferences.getString(rawName)!)! == i ? .on : .off
+            _ = setupControl(button, rawName, String(i), extraAction: extraAction)
+            i += 1
+            return button
+        }
+    }
+
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "") -> [NSView] {
         let value = Preferences.getString(rawName)!
         let suffixText = MeasurementFormatter().string(from: Measurement(value: Double(value)!, unit: Unit(symbol: unitText)))
@@ -62,7 +74,7 @@ class LabelAndControl: NSObject {
     }
 
     static func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil, labelPosition: LabelPosition = .leftWithSeparator, extraAction: ActionClosure? = nil) -> [NSView] {
-        _ = setupControl(control, rawName, extraAction)
+        _ = setupControl(control, rawName, extraAction: extraAction)
         if labelPosition == .right && control is NSButton {
             return [control]
         }
@@ -79,21 +91,21 @@ class LabelAndControl: NSObject {
         return [label, control]
     }
 
-    static func setupControl(_ control: NSControl, _ rawName: String, _ extraAction: ActionClosure? = nil) -> NSControl {
-        control.identifier = NSUserInterfaceItemIdentifier(rawName)
+    static func setupControl(_ control: NSControl, _ rawName: String, _ controlId: String? = nil, extraAction: ActionClosure? = nil) -> NSControl {
         control.onAction = {
-            controlWasChanged($0)
+            controlWasChanged($0, rawName, controlId)
             extraAction?($0)
         }
         return control
     }
 
-    static func controlWasChanged(_ senderControl: NSControl) {
-        let newValue = LabelAndControl.getControlValue(senderControl)
-        LabelAndControl.updateControlExtras(senderControl, newValue)
-        Preferences.set(senderControl.identifier!.rawValue, newValue)
+    static func controlWasChanged(_ senderControl: NSControl, _ rawName: String, _ controlId: String?) {
+        if let newValue = LabelAndControl.getControlValue(senderControl, controlId) {
+            LabelAndControl.updateControlExtras(senderControl, newValue)
+            Preferences.set(rawName, newValue)
+        }
         // some preferences require re-creating some components
-        if ["iconSize", "fontHeight", "theme", "titleTruncation"].contains(where: { (pref: String) -> Bool in pref == senderControl.identifier!.rawValue }) {
+        if ["iconSize", "fontHeight", "theme", "titleTruncation"].contains(where: { (pref: String) -> Bool in pref == rawName }) {
             (App.shared as! App).resetPreferencesDependentComponents()
         }
     }
@@ -119,13 +131,17 @@ class LabelAndControl: NSObject {
         return suffix
     }
 
-    static func getControlValue(_ control: NSControl) -> String {
+    static func getControlValue(_ control: NSControl, _ controlId: String?) -> String? {
         if control is NSPopUpButton {
             return String((control as! NSPopUpButton).indexOfSelectedItem)
         } else if control is NSSlider {
             return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
         } else if control is NSButton {
-            return String((control as! NSButton).state == NSButton.StateValue.on)
+            if let controlId = controlId {
+                return ((control as! NSButton).state == NSButton.StateValue.on) ? controlId : nil
+            } else {
+                return String((control as! NSButton).state == NSButton.StateValue.on)
+            }
         } else {
             return control.stringValue
         }
