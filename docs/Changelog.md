@@ -1,5 +1,19 @@
 # Release notes
 
+# [4.9.0](https://github.com/lwouis/alt-tab-macos/compare/v4.8.1...v4.9.0) (2020-07-22)
+
+
+### Bug Fixes
+
+* dr.betotte app wasn't listed in alt-tab (closes [#455](https://github.com/lwouis/alt-tab-macos/issues/455)) ([85b5ee7](https://github.com/lwouis/alt-tab-macos/commit/85b5ee7))
+* occasional crash when focusing a window (closes [#459](https://github.com/lwouis/alt-tab-macos/issues/459)) ([19be9a1](https://github.com/lwouis/alt-tab-macos/commit/19be9a1))
+* occasional crash when no there are no open window (closes [#459](https://github.com/lwouis/alt-tab-macos/issues/459)) ([6df92da](https://github.com/lwouis/alt-tab-macos/commit/6df92da))
+
+
+### Features
+
+* after a crash, suggest to send a crash report (closes [#132](https://github.com/lwouis/alt-tab-macos/issues/132)) ([a8970dd](https://github.com/lwouis/alt-tab-macos/commit/a8970dd))
+
 ## [4.8.1](https://github.com/lwouis/alt-tab-macos/compare/v4.8.0...v4.8.1) (2020-07-21)
 
 
