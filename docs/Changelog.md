@@ -1,5 +1,12 @@
 # Release notes
 
+## [4.9.1](https://github.com/lwouis/alt-tab-macos/compare/v4.9.0...v4.9.1) (2020-07-22)
+
+
+### Bug Fixes
+
+* occasional crash when updating some preferences ([3d36cb7](https://github.com/lwouis/alt-tab-macos/commit/3d36cb7))
+
 # [4.9.0](https://github.com/lwouis/alt-tab-macos/compare/v4.8.1...v4.9.0) (2020-07-22)
 
 
