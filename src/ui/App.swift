@@ -22,6 +22,7 @@ class App: NSApplication, NSApplicationDelegate {
     var appIsBeingUsed = false
     var shortcutsShouldBeDisabled = false
     var shortcutIndex = 0
+    var appCenterDelegate: AppCenterCrash?
 
     override init() {
         super.init()
@@ -34,6 +35,7 @@ class App: NSApplication, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        appCenterDelegate = AppCenterCrash()
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -79,7 +81,7 @@ class App: NSApplication, NSApplicationDelegate {
         let tabs = [
             GeneralTab(),
             AppearanceTab(),
-            UpdatesTab(),
+            PoliciesTab(),
             BlacklistsTab(),
             AboutTab(),
             AcknowledgmentsTab(),
@@ -153,7 +155,7 @@ class App: NSApplication, NSApplicationDelegate {
     }
 
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
-        UpdatesTab.checkForUpdatesNow(sender)
+        PoliciesTab.checkForUpdatesNow(sender)
     }
 
     @objc func showPreferencesPanel() {

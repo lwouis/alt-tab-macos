@@ -1,4 +1,7 @@
 PODS:
+  - AppCenter/Core (3.3.1)
+  - AppCenter/Crashes (3.3.1):
+    - AppCenter/Core
   - LetsMove (1.24)
   - Preferences (1.0.1)
   - ShortcutRecorder (3.1)
@@ -6,6 +9,7 @@ PODS:
   - SwiftyMarkdown (1.1.0)
 
 DEPENDENCIES:
+  - AppCenter/Crashes (= 3.3.1)
   - LetsMove (from `https://github.com/lwouis/LetsMove.git`, commit `7abf4daed1a25218f2b52f2dfd190aee5a50071c`)
   - Preferences (= 1.0.1)
   - ShortcutRecorder (from `https://github.com/Kentzo/ShortcutRecorder.git`, commit `f718220854575bad86fa89dd2bb3decd0b14b2b0`)
@@ -14,6 +18,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppCenter
     - Preferences
     - SwiftyMarkdown
 
@@ -36,12 +41,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/Kentzo/ShortcutRecorder.git
 
 SPEC CHECKSUMS:
+  AppCenter: 76ecf7e959a68e36b0fd314e8dc5897660214423
   LetsMove: fefe56bc7bc7fb7d37049e28a14f297961229fc5
   Preferences: a5afbe0ae3e6bd886328b1960f4998e65d58f2c4
   ShortcutRecorder: fdf620aca34101b0cba3b10fca815e0459254189
   Sparkle: ea073ba9c69cee3ebaab8685ba1e732e14d249f7
   SwiftyMarkdown: 033abc9dad9a37903f81aec5188cade436f40520
 
-PODFILE CHECKSUM: ccd8822c0e64188b9aaf554188c72ef13a7c81f4
+PODFILE CHECKSUM: 356279aa09d4eac74abe0d828422386fe7345766
 
 COCOAPODS: 1.9.1

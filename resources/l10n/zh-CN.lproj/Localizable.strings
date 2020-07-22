@@ -36,10 +36,16 @@
 "Allowed" = "允许";
 
 /*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+
+/*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab 需要获取一些隐私权限";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"Always send crash reports" = "Always send crash reports";
+
+/*No comment provided by engineer.*/
+"and press:" = "并点击";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "切换窗口出现延迟：";
@@ -54,10 +60,13 @@
 "Arrow keys" = "方向键";
 
 /*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
+
+/*No comment provided by engineer.*/
 "Auto-install updates periodically" = "定期自动安装更新";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "禁止名单";
 
 /*Cancel button*/
 "Cancel" = "取消";
@@ -81,19 +90,25 @@
 "Close window" = "关闭窗口";
 
 /*No comment provided by engineer.*/
+"Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "不自动检查更新";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t send" = "Don’t send";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"Don’t show windows from these apps" = "不显示这些应用程序的窗口";
+
+/*No comment provided by engineer.*/
+"End" = "结尾";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "淡出动画：";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "前置选中窗口";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "全屏";
@@ -120,7 +135,7 @@
 "I think the app could be improved with…" = "我认为该应用程序可以这样改进…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "这些应用程序的窗口处于活动状态时，忽略快捷键";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "最新版本";
@@ -135,7 +150,7 @@
 "Max windows per row:" = "每行最多窗口数：";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "中间";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "每行最少窗口数：";
@@ -150,13 +165,16 @@
 "Mouse hover" = "鼠标悬停";
 
 /*No comment provided by engineer.*/
+"Never send crash reports" = "Never send crash reports";
+
+/*No comment provided by engineer.*/
 "Not allowed" = "阻止";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 协议";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "仅当窗口全屏时";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "打开辅助功能偏好设置";
@@ -168,7 +186,10 @@
 "Optional: email (if you want a reply)" = "电子邮箱地址 (可选，若想接收答复)";
 
 /*No comment provided by engineer.*/
-"or press:" = "or press:";
+"or press:" = "或点击";
+
+/*No comment provided by engineer.*/
+"Policies" = "Policies";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "偏好设置…";
@@ -181,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Quit app" = "退出应用";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Remember my choice";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "窗口行数：";
@@ -208,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "Send" = "发送";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Send a crash report?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "仍然发送";
@@ -240,7 +267,7 @@
 "Source code repository" = "源代码仓库";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "开始";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "开机启动：";
@@ -249,16 +276,13 @@
 "Theme:" = "主题：";
 
 /*No comment provided by engineer.*/
-"then release:" = "then release:";
+"then release:" = "然后松开";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "需要此权限在释放快捷键后切换鼠标焦点";
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "需要此权限来显示打开窗口的截屏和标题";
-
-/*No comment provided by engineer.*/
-"Updates" = "更新";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "更新方式：";
@@ -276,7 +300,7 @@
 "Window title font size:" = "窗口标题字号：";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "窗口标题截断：";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "未填写电子邮箱地址将无法收到回复。";

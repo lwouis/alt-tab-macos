@@ -35,7 +35,13 @@
 "Allowed" = "Allowed";
 
 /* No comment provided by engineer. */
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab needs some permissions";
+
+/* No comment provided by engineer. */
+"Always send crash reports" = "Always send crash reports";
 
 /* No comment provided by engineer. */
 "and press:" = "and press:";
@@ -51,6 +57,9 @@
 
 /* No comment provided by engineer. */
 "Arrow keys" = "Arrow keys";
+
+/* No comment provided by engineer. */
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /* No comment provided by engineer. */
 "Auto-install updates periodically" = "Auto-install updates periodically";
@@ -80,7 +89,13 @@
 "Close window" = "Close window";
 
 /* No comment provided by engineer. */
+"Crash reports policy:" = "Crash reports policy:";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Don’t check for updates periodically";
+
+/* No comment provided by engineer. */
+"Don’t send" = "Don’t send";
 
 /* No comment provided by engineer. */
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
@@ -149,6 +164,9 @@
 "Mouse hover" = "Mouse hover";
 
 /* No comment provided by engineer. */
+"Never send crash reports" = "Never send crash reports";
+
+/* No comment provided by engineer. */
 "Not allowed" = "Not allowed";
 
 /* No comment provided by engineer. */
@@ -166,6 +184,9 @@
 /* No comment provided by engineer. */
 "or press:" = "or press:";
 
+/* No comment provided by engineer. */
+"Policies" = "Policies";
+
 /* Menubar option */
 "Preferences…" = "Preferences…";
 
@@ -177,6 +198,9 @@
 
 /* No comment provided by engineer. */
 "Quit app" = "Quit app";
+
+/* No comment provided by engineer. */
+"Remember my choice" = "Remember my choice";
 
 /* No comment provided by engineer. */
 "Rows of windows:" = "Rows of windows:";
@@ -204,6 +228,9 @@
 
 /* No comment provided by engineer. */
 "Send" = "Send";
+
+/* No comment provided by engineer. */
+"Send a crash report?" = "Send a crash report?";
 
 /* No comment provided by engineer. */
 "Send anyway" = "Send anyway";
@@ -252,9 +279,6 @@
 
 /* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
-
-/* No comment provided by engineer. */
-"Updates" = "Updates";
 
 /* No comment provided by engineer. */
 "Updates policy:" = "Updates policy:";

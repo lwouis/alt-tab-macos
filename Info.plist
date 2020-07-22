@@ -22,6 +22,8 @@
 	<string>#VERSION#</string>
 	<key>FeedbackToken</key>
 	<string>#FEEDBACK_TOKEN#</string>
+	<key>AppCenterSecret</key>
+	<string>#APPCENTER_SECRET#</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSUIElement</key>
