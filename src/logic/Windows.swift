@@ -116,12 +116,13 @@ class Windows {
     }
 
     static func checkIfShortcutsShouldBeDisabled() {
-        let activeWindow = list[0]
-        App.app.shortcutsShouldBeDisabled =
-            Preferences.disableShortcutsBlacklist.contains(activeWindow.application.runningApplication.bundleIdentifier ?? "") &&
-            (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen)
-        if App.app.shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
-            App.app.hideUi()
+        if let activeWindow = list.first {
+            App.app.shortcutsShouldBeDisabled =
+                Preferences.disableShortcutsBlacklist.contains(activeWindow.application.runningApplication.bundleIdentifier ?? "") &&
+                (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen)
+            if App.app.shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
+                App.app.hideUi()
+            }
         }
     }
 }
