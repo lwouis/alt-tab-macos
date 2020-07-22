@@ -166,8 +166,11 @@ class Window {
         memset(&bytes1[0x20], 0xFF, 0x10)
         memcpy(&bytes2[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
         memset(&bytes2[0x20], 0xFF, 0x10)
-        SLPSPostEventRecordTo(&psn_, &(UnsafeMutablePointer(mutating: UnsafePointer<UInt8>(bytes1)).pointee))
-        SLPSPostEventRecordTo(&psn_, &(UnsafeMutablePointer(mutating: UnsafePointer<UInt8>(bytes2)).pointee))
+        [bytes1, bytes2].forEach { bytes in
+            _ = bytes.withUnsafeBufferPointer() { pointer in
+                SLPSPostEventRecordTo(&psn_, &UnsafeMutablePointer(mutating: pointer.baseAddress)!.pointee)
+            }
+        }
     }
 
     // for some windows (e.g. Slack), the AX API doesn't return a title; we try CG API; finally we resort to the app name
