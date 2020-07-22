@@ -54,7 +54,7 @@ class ThumbnailFilledFontIconView: NSView {
     convenience init(_ thumbnailFontIconView: ThumbnailFontIconView, _ backgroundColor: NSColor) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        var backgroundView = ThumbnailFontIconView(.filledCircled, thumbnailFontIconView.font!.pointSize, backgroundColor, true)
+        let backgroundView = ThumbnailFontIconView(.filledCircled, thumbnailFontIconView.font!.pointSize, backgroundColor, true)
         addSubview(backgroundView)
         addSubview(thumbnailFontIconView, positioned: .above, relativeTo: nil)
         fit(backgroundView.fittingSize.width, backgroundView.fittingSize.height)

@@ -203,7 +203,7 @@ class ScrollView: NSScrollView {
             if let target = target, target is ThumbnailView {
                 if previousTarget != target {
                     previousTarget?.showOrHideWindowControls(false)
-                    previousTarget = target as! ThumbnailView
+                    previousTarget = target as? ThumbnailView
                 }
                 (target as! ThumbnailView).mouseMoved()
             } else {
