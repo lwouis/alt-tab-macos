@@ -60,7 +60,12 @@ extension AXUIElement {
                 firefoxFullscreenVideo(runningApp, role) ||
                 androidEmulator(runningApp, title) ||
                 sanGuoShaAirWD(runningApp) ||
-                dvdFab(runningApp))
+                dvdFab(runningApp) ||
+                drBetotte(runningApp))
+    }
+
+    private func drBetotte(_ runningApp: NSRunningApplication) -> Bool {
+        return runningApp.bundleIdentifier == "com.ssworks.drbetotte"
     }
 
     private func dvdFab(_ runningApp: NSRunningApplication) -> Bool {
