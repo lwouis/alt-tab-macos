@@ -10,8 +10,8 @@ enum LabelPosition {
 class LabelAndControl: NSObject {
     static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let input = CustomRecorderControl(shortcutString, clearable)
-        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in GeneralTab.shortcutChangedCallback(input, rawName) })
-        GeneralTab.shortcutChangedCallback(input, rawName)
+        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in GeneralTab.shortcutChangedCallback(input) })
+        GeneralTab.shortcutChangedCallback(input)
         return views
     }
 
@@ -26,7 +26,7 @@ class LabelAndControl: NSObject {
     static func makeTextArea(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
         let textArea = TextArea(nCharactersWide, nLinesHigh, placeholder)
         textArea.callback = {
-            controlWasChanged(textArea, rawName, nil)
+            controlWasChanged(textArea, nil)
             extraAction?(textArea)
         }
         textArea.identifier = NSUserInterfaceItemIdentifier(rawName)
@@ -92,20 +92,21 @@ class LabelAndControl: NSObject {
     }
 
     static func setupControl(_ control: NSControl, _ rawName: String, _ controlId: String? = nil, extraAction: ActionClosure? = nil) -> NSControl {
+        control.identifier = NSUserInterfaceItemIdentifier(rawName)
         control.onAction = {
-            controlWasChanged($0, rawName, controlId)
+            controlWasChanged($0, controlId)
             extraAction?($0)
         }
         return control
     }
 
-    static func controlWasChanged(_ senderControl: NSControl, _ rawName: String, _ controlId: String?) {
+    static func controlWasChanged(_ senderControl: NSControl, _ controlId: String?) {
         if let newValue = LabelAndControl.getControlValue(senderControl, controlId) {
             LabelAndControl.updateControlExtras(senderControl, newValue)
-            Preferences.set(rawName, newValue)
+            Preferences.set(senderControl.identifier!.rawValue, newValue)
         }
         // some preferences require re-creating some components
-        if ["iconSize", "fontHeight", "theme", "titleTruncation"].contains(where: { (pref: String) -> Bool in pref == rawName }) {
+        if ["iconSize", "fontHeight", "theme", "titleTruncation"].contains(where: { (pref: String) -> Bool in pref == senderControl.identifier!.rawValue }) {
             (App.shared as! App).resetPreferencesDependentComponents()
         }
     }
