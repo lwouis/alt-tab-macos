@@ -66,7 +66,7 @@
 "Auto-install updates periodically" = "Auto-installer les mises-à-jour périodiquement";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Listes noires";
+"Blocklists" = "Listes noires";
 
 /*Cancel button*/
 "Cancel" = "Annuler";

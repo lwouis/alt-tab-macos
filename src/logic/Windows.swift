@@ -103,7 +103,7 @@ class Windows {
             !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
             !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
             (Preferences.showTabsAsWindows || !window.isTabbed) &&
-            !(window.application.runningApplication.bundleIdentifier.flatMap { Preferences.dontShowBlacklist.contains($0) } ?? false)
+            !(window.application.runningApplication.bundleIdentifier.flatMap { Preferences.dontShowBlocklist.contains($0) } ?? false)
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {
@@ -118,8 +118,8 @@ class Windows {
     static func checkIfShortcutsShouldBeDisabled() {
         if let activeWindow = list.first {
             App.app.shortcutsShouldBeDisabled =
-                Preferences.disableShortcutsBlacklist.contains(activeWindow.application.runningApplication.bundleIdentifier ?? "") &&
-                (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen)
+                Preferences.disableShortcutsBlocklist.contains(activeWindow.application.runningApplication.bundleIdentifier ?? "") &&
+                (!Preferences.disableShortcutsBlocklistOnlyFullscreen || activeWindow.isFullscreen)
             if App.app.shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
                 App.app.hideUi()
             }
