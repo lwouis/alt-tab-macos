@@ -112,9 +112,9 @@ class ThumbnailView: NSStackView {
             // workaround: setting string on NSTextView changes the font (most likely a Cocoa bug)
             label.font = Preferences.font
         }
-        assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden)
-        assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen)
-        assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized)
+        assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden || Preferences.hideStatusIcons)
+        assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
+        assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized || Preferences.hideStatusIcons)
         assignIfDifferent(&spaceIcon.isHidden, Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels)
         if !spaceIcon.isHidden {
             if element.isOnAllSpaces {
