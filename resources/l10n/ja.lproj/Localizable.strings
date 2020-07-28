@@ -120,10 +120,16 @@
 "Hidden" = "ウィンドウをしまう";
 
 /*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+
+/*No comment provided by engineer.*/
 "Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "スペース番号ラベルを隠す：";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Hide status icons:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "アプリケーションを隠す / 表示";

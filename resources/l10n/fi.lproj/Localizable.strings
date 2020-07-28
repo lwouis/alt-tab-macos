@@ -120,10 +120,16 @@
 "Hidden" = "Piilossa";
 
 /*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+
+/*No comment provided by engineer.*/
 "Hide menubar icon:" = "Hide menubar icon:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "Piilota tilojen numerot:";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Hide status icons:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Piilota/näytä ohjelma";

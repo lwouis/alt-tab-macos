@@ -120,10 +120,16 @@
 "Hidden" = "隱藏";
 
 /*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+
+/*No comment provided by engineer.*/
 "Hide menubar icon:" = "隱藏選單列上的圖示：";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "隱藏空間編號的標籤：";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Hide status icons:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "隱藏/顯示程式";

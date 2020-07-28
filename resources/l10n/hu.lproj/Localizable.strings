@@ -120,10 +120,16 @@
 "Hidden" = "Rejtett";
 
 /*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+
+/*No comment provided by engineer.*/
 "Hide menubar icon:" = "Menü elrejtése:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "Számok elrejtése a terület cimkékben:";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Hide status icons:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Applikáció elrejtése/megjelenítése";
