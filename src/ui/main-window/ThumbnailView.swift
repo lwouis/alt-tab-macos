@@ -62,7 +62,7 @@ class ThumbnailView: NSStackView {
         if let shouldShowWindowControls = shouldShowWindowControls_ {
             self.shouldShowWindowControls = shouldShowWindowControls
         }
-        let shouldShow = shouldShowWindowControls && isHighlighted
+        let shouldShow = shouldShowWindowControls && isHighlighted && !Preferences.hideColoredCircles
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
             [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = !shouldShow }

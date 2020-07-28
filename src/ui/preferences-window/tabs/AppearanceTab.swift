@@ -22,6 +22,7 @@ class AppearanceTab: NSViewController, PreferencePane {
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fade out animation:", comment: ""), "fadeOutAnimation", extraAction: { _ in App.app.thumbnailsPanel.updateFadeOutAnimation() }),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide space number labels:", comment: ""), "hideSpaceNumberLabels"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Show standard tabs as windows:", comment: ""), "showTabsAsWindows"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide colored circles on mouse hover:", comment: ""), "hideColoredCircles"),
         ])
         grid.column(at: 0).xPlacement = .trailing
         grid.rowAlignment = .lastBaseline
