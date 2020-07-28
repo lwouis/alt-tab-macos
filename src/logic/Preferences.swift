@@ -27,6 +27,7 @@ class Preferences {
         "showHiddenWindows": "true",
         "showHiddenWindows2": "true",
         "showTabsAsWindows": "false",
+        "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
         "theme": "0",
         "showOnScreen": "0",
@@ -79,6 +80,7 @@ class Preferences {
     static var showMinimizedWindows: [Bool] { ["showMinimizedWindows", "showMinimizedWindows2"].map { defaults.bool($0) } }
     static var showHiddenWindows: [Bool] { ["showHiddenWindows", "showHiddenWindows2"].map { defaults.bool($0) } }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
+    static var hideColoredCircles: Bool { defaults.bool("hideColoredCircles") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
     static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
