@@ -1,5 +1,14 @@
 # Release notes
 
+# [4.10.0](https://github.com/lwouis/alt-tab-macos/compare/v4.9.1...v4.10.0) (2020-07-28)
+
+
+### Features
+
+* preference to hide colored circles on mouse hover (closes [#460](https://github.com/lwouis/alt-tab-macos/issues/460)) ([02776f0](https://github.com/lwouis/alt-tab-macos/commit/02776f0))
+* preference to hide windows status icons (closes [#467](https://github.com/lwouis/alt-tab-macos/issues/467)) ([d305eb8](https://github.com/lwouis/alt-tab-macos/commit/d305eb8))
+* update korean, chinese, russian localizations ([685bd10](https://github.com/lwouis/alt-tab-macos/commit/685bd10))
+
 ## [4.9.1](https://github.com/lwouis/alt-tab-macos/compare/v4.9.0...v4.9.1) (2020-07-22)
 
 
