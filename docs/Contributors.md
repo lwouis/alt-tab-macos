@@ -31,6 +31,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jord Nijhuis
 * Kagurazaka Tsuki
 * Kushnee5
+* Lumaxis
 * lwouis
 * Michael
 * Nilton Souza
