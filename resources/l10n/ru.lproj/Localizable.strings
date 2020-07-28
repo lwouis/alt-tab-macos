@@ -36,13 +36,13 @@
 "Allowed" = "Разрешено";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab аварийно завершился в последний раз, когда вы его использовали. Отправка отчета поможет исправить проблему";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab требуются некоторые разрешения";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Всегда отправлять отчеты о вылетах";
 
 /*No comment provided by engineer.*/
 "and press:" = "и нажать:";
@@ -60,7 +60,7 @@
 "Arrow keys" = "Клавиши стрелок";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Спрашивать, отправлять ли отчеты о вылетах";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Автоматически устанавливать обновления";
@@ -90,13 +90,13 @@
 "Close window" = "Закрыть окно";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "Правило отчетов о вылетах:";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Не проверять обновления";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "Не отправлять";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Не показывать окна этих приложений";
@@ -108,7 +108,7 @@
 "Fade out animation:" = "Анимация затухания:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Фокус на выбранное окно";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Полноэкранные";
@@ -165,7 +165,7 @@
 "Mouse hover" = "Наведение мышью";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Никогда не отправлять отчеты о вылетах";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Не разрешено";
@@ -186,10 +186,10 @@
 "Optional: email (if you want a reply)" = "Опционально: эл.почта (если вы хотите ответа)";
 
 /*No comment provided by engineer.*/
-"or press:" = "or press:";
+"or press:" = "или нажать:";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "Правила";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Настройки…";
@@ -204,7 +204,7 @@
 "Quit app" = "Выйти из приложения";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "Запомнить мой выбор";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Количество рядов окон:";
@@ -234,7 +234,7 @@
 "Send" = "Отправить";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Отправить отчет о вылете?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Все равно отправить";
@@ -276,7 +276,7 @@
 "Theme:" = "Тема:";
 
 /*No comment provided by engineer.*/
-"then release:" = "then release:";
+"then release:" = "затем отпустить:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Это разрешение нужно для фокусировки окна после отпускания комбинации клавиш";

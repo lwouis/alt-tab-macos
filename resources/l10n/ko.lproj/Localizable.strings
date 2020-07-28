@@ -36,13 +36,13 @@
 "Allowed" = "허용됨";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "마지막으로 사용하고 나서 AltTab이 충돌했습니다. 충돌 리포트를 보내는 것은 이 문제를 해결하는데 도움을 줄 수 있습니다";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab이 권한을 필요로 합니다";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "항상 충돌 리포트 보내기";
 
 /*No comment provided by engineer.*/
 "and press:" = "와 다음을 누르면:";
@@ -60,7 +60,7 @@
 "Arrow keys" = "방향키";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "충돌 리포트를 보낼때 물어보기";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "자동으로 업데이트 설치하기";
@@ -90,13 +90,13 @@
 "Close window" = "윈도우 닫기";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "충돌 리포트 처리 방법:";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "주기적으로 업데이트를 확인하지 않기";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "보내지 않기";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "다음 앱들의 윈도우가 보여지지 않습니다";
@@ -165,7 +165,7 @@
 "Mouse hover" = "마우스 올려놓기";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "절대 보내지 않기";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "허용되지 않음";
@@ -189,7 +189,7 @@
 "or press:" = "또는 다음을 누르면:";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "방법";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "설정…";
@@ -204,7 +204,7 @@
 "Quit app" = "앱 종료";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "내 선택 기억하기";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "윈도우 줄 개수:";
@@ -234,7 +234,7 @@
 "Send" = "보내기";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "충돌 리포트를 보낼까요?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "보내기";
@@ -276,7 +276,7 @@
 "Theme:" = "테마:";
 
 /*No comment provided by engineer.*/
-"then release:" = "놓으면:";
+"then release:" = "그리고 놓으면:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "이 권한은 단축키를 사용했을 때 원하는 윈도우로 이동할 수 있게 해줍니다";
