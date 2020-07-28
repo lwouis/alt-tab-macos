@@ -41,6 +41,7 @@ class Preferences {
         "screensToShow2": "0",
         "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
+        "hideStatusIcons": "false",
         "startAtLogin": "true",
         "hideMenubarIcon": "false",
         "dontShowBlacklist": "",
@@ -84,6 +85,7 @@ class Preferences {
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
     static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
+    static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var hideMenubarIcon: Bool { defaults.bool("hideMenubarIcon") }
     static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
