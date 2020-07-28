@@ -120,10 +120,16 @@
 "Hidden" = "隐藏";
 
 /*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+
+/*No comment provided by engineer.*/
 "Hide menubar icon:" = "隐藏菜单栏图标：";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "隐藏桌面编号：";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Hide status icons:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "隐藏/显示应用";
