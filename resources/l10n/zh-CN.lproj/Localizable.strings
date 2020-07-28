@@ -36,16 +36,16 @@
 "Allowed" = "允许";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用时崩溃了， 发送崩溃报告将有助于解决问题";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab 需要获取一些隐私权限";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "总是发送崩溃报告";
 
 /*No comment provided by engineer.*/
-"and press:" = "并点击";
+"and press:" = "并点击：";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "切换窗口出现延迟：";
@@ -60,7 +60,7 @@
 "Arrow keys" = "方向键";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "询问是否发送崩溃报告";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "定期自动安装更新";
@@ -90,13 +90,13 @@
 "Close window" = "关闭窗口";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "崩溃报告政策：";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "不自动检查更新";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "不发送";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "不显示这些应用程序的窗口";
@@ -165,7 +165,7 @@
 "Mouse hover" = "鼠标悬停";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "从不发送崩溃报告";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "阻止";
@@ -186,10 +186,10 @@
 "Optional: email (if you want a reply)" = "电子邮箱地址 (可选，若想接收答复)";
 
 /*No comment provided by engineer.*/
-"or press:" = "或点击";
+"or press:" = "或点击：";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "政策";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "偏好设置…";
@@ -204,7 +204,7 @@
 "Quit app" = "退出应用";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "记住我的选择";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "窗口行数：";
@@ -234,7 +234,7 @@
 "Send" = "发送";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "发送一个崩溃报告？";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "仍然发送";
@@ -276,7 +276,7 @@
 "Theme:" = "主题：";
 
 /*No comment provided by engineer.*/
-"then release:" = "然后松开";
+"then release:" = "然后松开：";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "需要此权限在释放快捷键后切换鼠标焦点";
