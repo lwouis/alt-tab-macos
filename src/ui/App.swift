@@ -13,7 +13,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static var app: App!
-    static let shortcutMonitor = LocalShortcutMonitor()
     static var statusItem: NSStatusItem!
     var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindowController: PreferencesWindowController!
@@ -81,6 +80,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     private func loadPreferencesWindow() {
         let tabs = [
             GeneralTab(),
+            ControlsTab(),
             AppearanceTab(),
             PoliciesTab(),
             BlacklistsTab(),
@@ -88,7 +88,14 @@ class App: AppCenterApplication, NSApplicationDelegate {
             AcknowledgmentsTab(),
         ]
         // pre-load tabs so we can interact with them before the user opens the preferences window
-        tabs.forEach { (tab: NSViewController) in tab.loadView() }
+        let widest = tabs.reduce(CGFloat(0), {
+            $1.loadView()
+            return max($0, $1.view.subviews[0].fittingSize.width)
+        })
+        tabs.forEach {
+            $0.view.fit(widest, $0.view.subviews[0].fittingSize.height)
+        }
+
         preferencesWindowController = PreferencesWindowController(preferencePanes: tabs as! [PreferencePane])
 
         let window = preferencesWindowController.window!
@@ -96,10 +103,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
         let titleBarView = window.standardWindowButton(.closeButton)!.superview!
         titleBarView.addSubview(quitButton)
         quitButton.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = NSLayoutConstraint(item: quitButton, attribute: .top, relatedBy: .equal, toItem: titleBarView, attribute: .top, multiplier: 1, constant: 5)
-        let rightConstraint = NSLayoutConstraint(item: quitButton, attribute: .right, relatedBy: .equal, toItem: titleBarView, attribute: .right, multiplier: 1, constant: -10)
-        titleBarView.addConstraints([topConstraint, rightConstraint])
-
+        quitButton.topAnchor.constraint(equalTo: titleBarView.topAnchor, constant: 5).isActive = true
+        quitButton.rightAnchor.constraint(equalTo: titleBarView.rightAnchor, constant: -8).isActive = true
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it

@@ -36,6 +36,9 @@
 "Allowed" = "Разрешено";
 
 /*No comment provided by engineer.*/
+"Also select windows using:" = "Also select windows using:";
+
+/*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab аварийно завершился в последний раз, когда вы его использовали. Отправка отчета поможет исправить проблему";
 
 /*No comment provided by engineer.*/
@@ -90,7 +93,13 @@
 "Close window" = "Закрыть окно";
 
 /*No comment provided by engineer.*/
+"Controls" = "Controls";
+
+/*No comment provided by engineer.*/
 "Crash reports policy:" = "Правило отчетов о вылетах:";
+
+/*No comment provided by engineer.*/
+"Do nothing" = "Do nothing";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Не проверять обновления";
@@ -258,6 +267,12 @@
 "Share improvement ideas, or report bugs" = "Поделитесь идеями по улучшению или сообщите об ошибках";
 
 /*No comment provided by engineer.*/
+"Shortcut 1" = "Shortcut 1";
+
+/*No comment provided by engineer.*/
+"Shortcut 2" = "Shortcut 2";
+
+/*No comment provided by engineer.*/
 "Show" = "Показать";
 
 /*No comment provided by engineer.*/
@@ -298,6 +313,9 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "Посмотреть обсуждения";
+
+/*No comment provided by engineer.*/
+"While open, press:" = "While open, press:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Размер иконки окна:";

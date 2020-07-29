@@ -26,6 +26,8 @@ class AcknowledgmentsTab: NSViewController, PreferencePane {
         subGrid.fit()
 
         let scrollView = ScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.documentView!.translatesAutoresizingMaskIntoConstraints = false
         scrollView.scrollerKnobStyle = .default
         scrollView.documentView!.subviews = [subGrid]
         let totalWidth = subGrid.fittingSize.width
@@ -35,6 +37,6 @@ class AcknowledgmentsTab: NSViewController, PreferencePane {
         scrollView.documentView!.frame.size = subGrid.fittingSize
         scrollView.fit(totalWidth, totalHeight)
 
-        view = scrollView
+        setView(scrollView)
     }
 }

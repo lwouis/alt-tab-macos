@@ -10,8 +10,8 @@ enum LabelPosition {
 class LabelAndControl: NSObject {
     static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let input = CustomRecorderControl(shortcutString, clearable)
-        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in GeneralTab.shortcutChangedCallback(input) })
-        GeneralTab.shortcutChangedCallback(input)
+        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in ControlsTab.shortcutChangedCallback(input) })
+        ControlsTab.shortcutChangedCallback(input)
         return views
     }
 
@@ -35,15 +35,20 @@ class LabelAndControl: NSObject {
     }
 
     static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [MacroPreference], _ suffixText: String? = nil) -> [NSView] {
-        return makeLabelWithProvidedControl(labelText, rawName, makeDropDown(rawName, values), suffixText)
+        return makeLabelWithProvidedControl(labelText, rawName, dropdown_(rawName, values), suffixText)
     }
 
-    static func makeDropDown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
+    static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
         let popUp = NSPopUpButton()
         popUp.translatesAutoresizingMaskIntoConstraints = false
         popUp.addItems(withTitles: macroPreferences.map { $0.localizedString })
         popUp.selectItem(at: Int(Preferences.getString(rawName)!)!)
         return popUp
+    }
+
+    static func makeDropdown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSControl {
+        let dropdown = dropdown_(rawName, macroPreferences)
+        return setupControl(dropdown, rawName)
     }
 
     static func makeRadioButtons(_ macroPreferences: [MacroPreference], _ rawName: String, extraAction: ActionClosure? = nil) -> [NSButton] {
@@ -111,11 +116,14 @@ class LabelAndControl: NSObject {
         }
     }
 
-    static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator) -> NSTextField {
+    static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator, shouldFit: Bool = true) -> NSTextField {
         let label = TextField(labelText)
         label.isSelectable = false
         label.usesSingleLineMode = true
         label.alignment = .right
+        if shouldFit {
+            label.fit()
+        }
         return label
     }
 
@@ -170,13 +178,30 @@ enum ControlIdentifierDiscriminator: String {
     case SUFFIX = "_suffix"
 }
 
-class TabView: NSTabView {
-    // without the left/right value, the whole view is shifted to the right for some reason
-//    let insets = NSEdgeInsets(top: 0, left: 7, bottom: 0, right: 7)
-//    override var alignmentRectInsets: NSEdgeInsets { get { insets } }
+class TabView: NSTabView, NSTabViewDelegate {
+    // removing insets fixes a bug where tab views shift to the right and bottom by 7px when switching to tab #2
+    let insets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    override var alignmentRectInsets: NSEdgeInsets { get { insets } }
 
-    convenience init() {
+    // workaround: this is the only I found to have NSTabView fittingSize be correct
+    override var intrinsicContentSize: NSSize {
+        get {
+            NSSize(width: selectedTabViewItem!.view!.fittingSize.width + TabView.padding * 2,
+                height: selectedTabViewItem!.view!.fittingSize.height + TabView.padding * 2 + subviews[0].frame.height)
+        }
+    }
+
+    static let padding = CGFloat(7)
+
+    convenience init(_ labelsAndViews: [(String, NSView)]) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        labelsAndViews.enumerated().forEach { (i, tuple) in
+            let tab = NSTabViewItem(identifier: i)
+            tab.label = tuple.0
+            tab.view = tuple.1
+            addTabViewItem(tab)
+            tab.view!.fit()
+        }
     }
 }

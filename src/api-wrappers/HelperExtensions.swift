@@ -127,3 +127,23 @@ extension DispatchQoS {
         }
     }
 }
+
+extension NSGridColumn {
+    func width(_ skipCell: Int? = nil) -> CGFloat {
+        var maxWidth = CGFloat(0)
+        for i in (0..<numberOfCells) {
+            if let skipCell = skipCell, i == skipCell { continue }
+            maxWidth = max(maxWidth, cell(at: i).contentView!.fittingSize.width)
+        }
+        return maxWidth
+    }
+}
+
+extension NSViewController {
+    func setView(_ subview: NSView) {
+        view = NSView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.subviews = [subview]
+        subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+}

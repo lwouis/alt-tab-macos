@@ -13,8 +13,10 @@ class Preferences {
         "iconSize": "32",
         "fontHeight": "15",
         "holdShortcut": "⌥",
+        "holdShortcut2": "⌥",
         "nextWindowShortcut": "⇥",
         "nextWindowShortcut2": keyAboveTabDependingOnInputSource(),
+        "focusWindowShortcut": "↩",
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
@@ -55,6 +57,7 @@ class Preferences {
         "rowsCount": defaultsDependingOnScreenRatio_["rowsCount"]!,
         "minCellsPerRow": defaultsDependingOnScreenRatio_["minCellsPerRow"]!,
         "maxCellsPerRow": defaultsDependingOnScreenRatio_["maxCellsPerRow"]!,
+        "shortcutStyle": "0",
     ]
 
     // constant values
@@ -74,7 +77,9 @@ class Preferences {
     static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
     static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
     static var holdShortcut: String { defaults.string("holdShortcut") }
+    static var holdShortcut2: String { defaults.string("holdShortcut2") }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2"].map { defaults.string($0) } }
+    static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
     static var previousWindowShortcut: String { defaults.string("previousWindowShortcut") }
     static var cancelShortcut: String { defaults.string("cancelShortcut") }
     static var closeWindowShortcut: String { defaults.string("closeWindowShortcut") }
@@ -108,6 +113,7 @@ class Preferences {
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
     static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
     static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
+    static var shortcutStyle: ShortcutStylePreference { defaults.macroPref("shortcutStyle", ShortcutStylePreference.allCases) }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
@@ -203,9 +209,21 @@ struct ThemeParameters {
 
 typealias LocalizedString = String
 
-enum AppsToShowPreference: String, CaseIterable, MacroPreference {
-    case all = "All apps"
-    case active = "Active app"
+enum ShortcutStylePreference: CaseIterable, MacroPreference {
+    case focusOnRelease
+    case doNothingOnRelease
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .focusOnRelease: return NSLocalizedString("Focus selected window", comment: "")
+            case .doNothingOnRelease: return NSLocalizedString("Do nothing", comment: "")
+        }
+    }
+}
+
+enum AppsToShowPreference: CaseIterable, MacroPreference {
+    case all
+    case active
 
     var localizedString: LocalizedString {
         switch self {
@@ -215,9 +233,9 @@ enum AppsToShowPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
-    case all = "0"
-    case active = "1"
+enum SpacesToShowPreference: CaseIterable, MacroPreference {
+    case all
+    case active
 
     var localizedString: LocalizedString {
         switch self {
@@ -227,9 +245,9 @@ enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
-    case all = "0"
-    case showingAltTab = "1"
+enum ScreensToShowPreference: CaseIterable, MacroPreference {
+    case all
+    case showingAltTab
 
     var localizedString: LocalizedString {
         switch self {
@@ -239,10 +257,10 @@ enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
-    case active = "0"
-    case includingMouse = "1"
-    case includingMenubar = "2"
+enum ShowOnScreenPreference: CaseIterable, MacroPreference {
+    case active
+    case includingMouse
+    case includingMenubar
 
     var localizedString: LocalizedString {
         switch self {
@@ -253,10 +271,10 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
-    case end = "0"
-    case middle = "1"
-    case start = "2"
+enum TitleTruncationPreference: CaseIterable, MacroPreference {
+    case end
+    case middle
+    case start
 
     var localizedString: LocalizedString {
         switch self {
@@ -267,9 +285,9 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
-    case left = "0"
-    case center = "1"
+enum AlignThumbnailsPreference: CaseIterable, MacroPreference {
+    case left
+    case center
 
     var localizedString: LocalizedString {
         switch self {
@@ -279,9 +297,9 @@ enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ThemePreference: String, CaseIterable, MacroPreference {
-    case macOs = "0"
-    case windows10 = "1"
+enum ThemePreference: CaseIterable, MacroPreference {
+    case macOs
+    case windows10
 
     var localizedString: LocalizedString {
         switch self {
@@ -298,10 +316,10 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum UpdatePolicyPreference: String, CaseIterable, MacroPreference {
-    case manual = "0"
-    case autoCheck = "1"
-    case autoInstall = "2"
+enum UpdatePolicyPreference: CaseIterable, MacroPreference {
+    case manual
+    case autoCheck
+    case autoInstall
 
     var localizedString: LocalizedString {
         switch self {
@@ -312,10 +330,10 @@ enum UpdatePolicyPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum CrashPolicyPreference: String, CaseIterable, MacroPreference {
-    case never = "0"
-    case ask = "1"
-    case always = "2"
+enum CrashPolicyPreference: CaseIterable, MacroPreference {
+    case never
+    case ask
+    case always
 
     var localizedString: LocalizedString {
         switch self {
