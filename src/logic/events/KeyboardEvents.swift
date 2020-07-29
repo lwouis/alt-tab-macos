@@ -23,7 +23,7 @@ private func observe_() {
     CFRunLoopAddSource(BackgroundWork.keyboardEventsThread.runLoop, runLoopSource, .commonModes)
 }
 
-private func keyboardHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+private func keyboardHandler(_: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, _: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     if (type == .keyDown || type == .keyUp || type == .flagsChanged) && !App.app.shortcutsShouldBeDisabled {
         if let event_ = NSEvent(cgEvent: cgEvent),
            // workaround: NSEvent.characters is not safe outside of the main thread; this is not documented by Apple
