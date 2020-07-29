@@ -19,7 +19,9 @@ private func observe_() {
         eventsOfInterest: eventMask,
         callback: keyboardHandler,
         userInfo: nil)
-    let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+    // permission can have been removed before SystemPermissions timer triggers, thus we check and restart if needed
+    if eventTap == nil { App.app.restart() }
+    let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
     CFRunLoopAddSource(BackgroundWork.keyboardEventsThread.runLoop, runLoopSource, .commonModes)
 }
 
