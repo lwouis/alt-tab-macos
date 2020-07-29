@@ -12,6 +12,8 @@ class AppCenterCrash: NSObject, MSCrashesDelegate {
 //        MSAppCenter.setLogLevel(MSLogLevel.none)
         MSAppCenter.start(AppCenterCrash.secret, withServices: [MSCrashes.self])
         MSCrashes.setDelegate(self)
+        // when the app starts, this code can execute before defaults are set; we pre-set this default in case
+        defaults.register(defaults: ["crashPolicy": "1"])
         MSCrashes.setUserConfirmationHandler({ (errorReports: [MSErrorReport]) in
             if Preferences.crashPolicy == .ask {
                 App.app.activate(ignoringOtherApps: true)
