@@ -22,7 +22,6 @@ class PoliciesTab: NSViewController, PreferencePane {
             PoliciesTab.policyLock = false
         })
         let updateOptions = StackView(PoliciesTab.updateButtons, .vertical)
-        updateOptions.spacing = GridView.interPadding / 2
         let checkForUpdates = NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: nil, action: #selector(PoliciesTab.checkForUpdatesNow))
 
         let crashLabel = LabelAndControl.makeLabel(NSLocalizedString("Crash reports policy:", comment: ""))
@@ -30,7 +29,7 @@ class PoliciesTab: NSViewController, PreferencePane {
         let crashOptions = StackView(PoliciesTab.crashButtons, .vertical)
         let grid = GridView([
             [updateLabel, updateOptions],
-            [NSView(), checkForUpdates],
+            [NSGridCell.emptyContentView, checkForUpdates],
             [crashLabel, crashOptions],
         ])
         grid.column(at: 0).xPlacement = .trailing
