@@ -1,5 +1,20 @@
 # Release notes
 
+# [4.11.0](https://github.com/lwouis/alt-tab-macos/compare/v4.10.0...v4.11.0) (2020-07-29)
+
+
+### Bug Fixes
+
+* crash if accessibility permission is granted then removed quickly ([0bca1e0](https://github.com/lwouis/alt-tab-macos/commit/0bca1e0))
+* prevent macos restoring the app (conflict with login items) ([62037a0](https://github.com/lwouis/alt-tab-macos/commit/62037a0))
+* rare crash at launch if the app previously crashed ([69168f9](https://github.com/lwouis/alt-tab-macos/commit/69168f9))
+* rare crash when the os doesn't return the main screen uuid ([2232f81](https://github.com/lwouis/alt-tab-macos/commit/2232f81))
+
+
+### Features
+
+* update korean localization ([d31e369](https://github.com/lwouis/alt-tab-macos/commit/d31e369))
+
 # [4.10.0](https://github.com/lwouis/alt-tab-macos/compare/v4.9.1...v4.10.0) (2020-07-28)
 
 
