@@ -29,6 +29,6 @@ class AppearanceTab: NSViewController, PreferencePane {
         grid.rowAlignment = .lastBaseline
         grid.fit()
 
-        view = grid
+        setView(grid)
     }
 }

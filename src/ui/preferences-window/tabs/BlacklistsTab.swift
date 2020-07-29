@@ -23,6 +23,7 @@ class BlacklistsTab: NSViewController, PreferencePane {
         ])
         grid.row(at: 2).topPadding = GridView.interPadding * 1.5
         grid.fit()
-        view = grid
+
+        setView(grid)
     }
 }

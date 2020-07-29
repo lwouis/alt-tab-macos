@@ -36,6 +36,9 @@
 "Allowed" = "Dibolehkan";
 
 /*No comment provided by engineer.*/
+"Also select windows using:" = "Also select windows using:";
+
+/*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 
 /*No comment provided by engineer.*/
@@ -90,7 +93,13 @@
 "Close window" = "Tutup jendela";
 
 /*No comment provided by engineer.*/
+"Controls" = "Controls";
+
+/*No comment provided by engineer.*/
 "Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
+"Do nothing" = "Do nothing";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Jangan periksa pembaruan secara berkala";
@@ -258,6 +267,12 @@
 "Share improvement ideas, or report bugs" = "Bagikan gagasan peningkatan, atau laporkan bug";
 
 /*No comment provided by engineer.*/
+"Shortcut 1" = "Shortcut 1";
+
+/*No comment provided by engineer.*/
+"Shortcut 2" = "Shortcut 2";
+
+/*No comment provided by engineer.*/
 "Show" = "Tampilkan";
 
 /*No comment provided by engineer.*/
@@ -298,6 +313,9 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "Lihat diskusi yang ada";
+
+/*No comment provided by engineer.*/
+"While open, press:" = "While open, press:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Ukuran ikon aplikasi jendela:";

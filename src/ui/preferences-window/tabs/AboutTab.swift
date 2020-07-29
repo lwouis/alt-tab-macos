@@ -31,6 +31,7 @@ class AboutTab: NSViewController, PreferencePane {
         sendFeedbackCell.xPlacement = .center
         sendFeedbackCell.row!.topPadding = GridView.interPadding
         grid.fit()
-        view = grid
+
+        setView(grid)
     }
 }

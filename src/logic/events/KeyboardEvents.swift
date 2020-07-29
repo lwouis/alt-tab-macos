@@ -1,5 +1,6 @@
 import Cocoa
 import Carbon.HIToolbox.Events
+import ShortcutRecorder
 
 fileprivate var eventTap: CFMachPort?
 
@@ -27,22 +28,16 @@ private func observe_() {
 
 private func keyboardHandler(_: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, _: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     if (type == .keyDown || type == .keyUp || type == .flagsChanged) && !App.app.shortcutsShouldBeDisabled {
-        if let event_ = NSEvent(cgEvent: cgEvent),
-           // workaround: NSEvent.characters is not safe outside of the main thread; this is not documented by Apple
-            // see https://github.com/Kentzo/ShortcutRecorder/issues/114#issuecomment-606465340
-           let event = NSEvent.keyEvent(with: event_.type, location: event_.locationInWindow, modifierFlags: event_.modifierFlags,
-               timestamp: event_.timestamp, windowNumber: event_.windowNumber, context: nil, characters: "",
-               charactersIgnoringModifiers: "", isARepeat: type == .flagsChanged ? false : event_.isARepeat, keyCode: event_.keyCode) {
+        if let event = NSEvent(cgEvent: cgEvent) {
             let appWasBeingUsed = App.app.appIsBeingUsed
-            // ShortcutRecorder handles only exact matches for modifiers-only .up shortcuts. We want to activate holdShortcut even if other modifiers are still pressed
-            // see https://github.com/lwouis/alt-tab-macos/issues/230
-            let holdShortcutAction = GeneralTab.shortcutActions["holdShortcut"]!
-            let holdShortcut = holdShortcutAction.shortcut!
-            if holdShortcut.keyCode == .none && type == .flagsChanged && event.sr_keyEventType == .up &&
-                   event.modifierFlags.isDisjoint(with: holdShortcut.modifierFlags) {
-                _ = holdShortcutAction.actionHandler!(holdShortcutAction)
-            } else {
-                App.shortcutMonitor.handle(event, withTarget: nil)
+            if let shortcut = shortcutThatMatches(event, type) {
+                if shortcut.hasPrefix("nextWindowShortcut") {
+                    App.app.appIsBeingUsed = true
+                } else if shortcut.hasPrefix("holdShortcut") || shortcut == "cancelShortcut" || shortcut == "focusWindowShortcut" {
+                    App.app.appIsBeingUsed = false
+                    App.app.isFirstSummon = true
+                }
+                DispatchQueue.main.async { () -> () in ControlsTab.shortcutsActions[shortcut]!() }
             }
             if appWasBeingUsed || App.app.appIsBeingUsed {
                 return nil // focused app won't receive the event
@@ -52,4 +47,32 @@ private func keyboardHandler(_: CGEventTapProxy, type: CGEventType, cgEvent: CGE
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
     return Unmanaged.passRetained(cgEvent) // focused app will receive the event
+}
+
+// shortcutMonitor.handle only does exact matching; we match manually to allow flexible matching
+// see https://github.com/lwouis/alt-tab-macos/issues/230
+private func shortcutThatMatches(_ event: NSEvent, _ type: CGEventType) -> String? {
+    for shortcutId in ControlsTab.shortcuts.keys {
+        let postfix = App.app.shortcutIndex == 0 ? "" : "2"
+        let shortcut = ControlsTab.shortcuts[shortcutId]!
+        if shortcutId.hasPrefix("holdShortcut") {
+            if event.sr_keyEventType == .up && type == .flagsChanged && shortcut.keyCode == .none && event.modifierFlags.isDisjoint(with: shortcut.modifierFlags) &&
+                   shortcutId == "holdShortcut" + postfix && App.app.appIsBeingUsed && Preferences.shortcutStyle == .focusOnRelease {
+                return shortcutId
+            }
+        } else if event.sr_keyEventType == .down && (shortcut.keyCode == .none || event.keyCode == shortcut.carbonKeyCode) {
+            if shortcutId.hasPrefix("nextWindowShortcut") {
+                if event.modifierFlags.intersection(.deviceIndependentFlagsMask) == shortcut.modifierFlags &&
+                       (!App.app.appIsBeingUsed || shortcutId == "nextWindowShortcut" + postfix) {
+                    return shortcutId
+                }
+            } else {
+                if event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(shortcut.modifierFlags) &&
+                       App.app.appIsBeingUsed {
+                    return shortcutId
+                }
+            }
+        }
+    }
+    return nil
 }
