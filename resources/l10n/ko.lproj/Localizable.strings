@@ -60,7 +60,7 @@
 "Arrow keys" = "방향키";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "충돌 리포트를 보낼때 물어보기";
+"Ask whether to send crash reports" = "충돌 리포트를 보낼 때 물어보기";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "자동으로 업데이트 설치하기";
@@ -120,7 +120,7 @@
 "Hidden" = "숨겨진 화면";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "마우스를 올릴 때 색칠된 원들 숨기기:";
 
 /*No comment provided by engineer.*/
 "Hide menubar icon:" = "메뉴막대 아이콘 숨기기:";
@@ -129,7 +129,7 @@
 "Hide space number labels:" = "Space 번호 숨기기:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "상태 아이콘 숨기기:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "앱 숨기기/보이기";
