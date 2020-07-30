@@ -1,5 +1,13 @@
 # Release notes
 
+## [4.11.1](https://github.com/lwouis/alt-tab-macos/compare/v4.11.0...v4.11.1) (2020-07-30)
+
+
+### Bug Fixes
+
+* rare crash at launch if the app previously crashed ([12c27f1](https://github.com/lwouis/alt-tab-macos/commit/12c27f1))
+* rare crash when user cycles while all windows get closed ([e901ca3](https://github.com/lwouis/alt-tab-macos/commit/e901ca3))
+
 # [4.11.0](https://github.com/lwouis/alt-tab-macos/compare/v4.10.0...v4.11.0) (2020-07-29)
 
 
