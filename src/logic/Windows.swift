@@ -24,6 +24,7 @@ class Windows {
     }
 
     static func windowIndexAfterCycling(_ step: Int) -> Int {
+        if list.count == 0 { return 0 }
         var iterations = 0
         var targetIndex = focusedWindowIndex
         repeat {
