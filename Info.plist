@@ -31,7 +31,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>GPL-3.0 licence</string>
 	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+	<string>AppCenterApplication</string>
 	<key>NSSupportsSuddenTermination</key>
 	<string>true</string>
 	<key>SUEnableAutomaticChecks</key>
@@ -46,5 +46,7 @@
 	<string>true</string>
 	<key>CFBundleIconFile</key>
 	<string>app-icon</string>
+	<key>AppCenterApplicationForwarderEnabled</key>
+	<string>0</string>
 </dict>
 </plist>
