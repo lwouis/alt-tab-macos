@@ -6,7 +6,7 @@ import Preferences
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
-class App: NSApplication, NSApplicationDelegate {
+class App: AppCenterApplication, NSApplicationDelegate {
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     static let id = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
