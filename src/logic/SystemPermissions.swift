@@ -47,6 +47,7 @@ class SystemPermissions {
                 App.app.restart()
             }
         })
+        timer.tolerance = 4.9
     }
 
     static func observePermissionsPreStartup(_ startupBlock: @escaping () -> Void) {
@@ -70,6 +71,7 @@ class SystemPermissions {
                 }
             }
         })
+        timer.tolerance = 0.09
     }
 
     static func ensurePermissionsAreGranted(_ continueAppStartup: @escaping () -> Void) {

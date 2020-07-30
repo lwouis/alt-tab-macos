@@ -154,6 +154,7 @@ class ThumbnailView: NSStackView {
         dragAndDropTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
             self.mouseUpCallback()
         })
+        dragAndDropTimer?.tolerance = 0.2
         return .link
     }
 
