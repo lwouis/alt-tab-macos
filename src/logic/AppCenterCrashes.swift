@@ -28,7 +28,9 @@ class AppCenterCrash: NSObject, MSCrashesDelegate {
                 alert.accessoryView = checkbox
                 let userChoice = alert.runModal()
                 let id = self.crashButtonIdToUpdate(userChoice, checkbox)
-                PoliciesTab.crashButtons[id].state = .on
+                if let buttons = PoliciesTab.crashButtons, buttons.count > id {
+                    buttons[id].state = .on
+                }
                 Preferences.set("crashPolicy", String(id))
                 BackgroundWork.crashReportsQueue.async { MSCrashes.notify(with: userChoice == .alertFirstButtonReturn ? .send : .dontSend) }
             } else {
