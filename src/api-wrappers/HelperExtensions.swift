@@ -115,3 +115,15 @@ func assignIfDifferent<T: Equatable>(_ a: UnsafeMutablePointer<T>, _ b: T) {
         a.pointee = b
     }
 }
+
+extension DispatchQoS {
+    func toQualityOfService() -> QualityOfService {
+        switch self {
+            case .userInteractive: return .userInteractive
+            case .userInitiated: return .userInitiated
+            case .utility: return .utility
+            case .background: return .background
+            default: return .default
+        }
+    }
+}

@@ -19,9 +19,9 @@ class BackgroundWork {
         accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
         axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
         crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
-        accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread")
-        keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread")
-        mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread")
+        accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
+        keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread", .userInteractive)
+        mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread", .userInteractive)
     }
 }
 
@@ -48,7 +48,7 @@ class BackgroundThreadWithRunLoop {
     var thread: Thread?
     var runLoop: CFRunLoop?
 
-    init(_ name: String) {
+    init(_ name: String, _ qos: DispatchQoS) {
         thread = Thread {
             self.runLoop = CFRunLoopGetCurrent()
             while !self.thread!.isCancelled {
@@ -58,6 +58,7 @@ class BackgroundThreadWithRunLoop {
             }
         }
         thread!.name = name
+        thread!.qualityOfService = qos.toQualityOfService()
         thread!.start()
     }
 }
