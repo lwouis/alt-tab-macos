@@ -1,9 +1,12 @@
 import Cocoa
 import Carbon.HIToolbox.Events
+import ShortcutRecorder
 
 let defaults = UserDefaults.standard
 
 class Preferences {
+    static var defaultsDependingOnScreenRatio_ = defaultsDependingOnScreenRatio()
+
     // default values
     static var defaultValues: [String: String] = [
         "maxScreenUsage": "80",
@@ -11,7 +14,7 @@ class Preferences {
         "fontHeight": "15",
         "holdShortcut": "⌥",
         "nextWindowShortcut": "⇥",
-        "nextWindowShortcut2": "`",
+        "nextWindowShortcut2": keyAboveTabDependingOnInputSource(),
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
@@ -49,7 +52,10 @@ class Preferences {
         "disableShortcutsBlacklistOnlyFullscreen": "true",
         "updatePolicy": "1",
         "crashPolicy": "1",
-    ].merging(defaultsDependingOnScreenRatio()) { (_, new) in new }
+        "rowsCount": defaultsDependingOnScreenRatio_["rowsCount"]!,
+        "minCellsPerRow": defaultsDependingOnScreenRatio_["minCellsPerRow"]!,
+        "maxCellsPerRow": defaultsDependingOnScreenRatio_["maxCellsPerRow"]!,
+    ]
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
@@ -173,6 +179,10 @@ class Preferences {
         }
         // vertical; tested with 10/16
         return ["rowsCount": "6", "minCellsPerRow": "3", "maxCellsPerRow": "4"]
+    }
+
+    static func keyAboveTabDependingOnInputSource() -> String {
+        return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_ANSI_Grave)) ?? "`"
     }
 }
 
