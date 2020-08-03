@@ -22,6 +22,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Abdulelah
 * Aden Aziz
 * Albert Abdilim
+* blanorama
 * Chun Fei Lung
 * Elisabeth landblok
 * Eric WANTZ
