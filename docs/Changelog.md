@@ -1,5 +1,19 @@
 # Release notes
 
+# [4.12.0](https://github.com/lwouis/alt-tab-macos/compare/v4.11.1...v4.12.0) (2020-08-03)
+
+
+### Features
+
+* better default shortcuts on non-us keyboards (closes [#480](https://github.com/lwouis/alt-tab-macos/issues/480)) ([ea52111](https://github.com/lwouis/alt-tab-macos/commit/ea52111))
+* update german, korean, chinese localizations ([fcbc89e](https://github.com/lwouis/alt-tab-macos/commit/fcbc89e))
+
+
+### Performance Improvements
+
+* slightly less latency for keyboard/mouse/os events ([28fb5f4](https://github.com/lwouis/alt-tab-macos/commit/28fb5f4))
+* slightly reduce energy usage ([26e840c](https://github.com/lwouis/alt-tab-macos/commit/26e840c))
+
 ## [4.11.1](https://github.com/lwouis/alt-tab-macos/compare/v4.11.0...v4.11.1) (2020-07-30)
 
 
