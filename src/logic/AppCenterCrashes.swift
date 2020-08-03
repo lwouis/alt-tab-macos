@@ -12,9 +12,8 @@ class AppCenterCrash: NSObject, MSCrashesDelegate {
 //        MSAppCenter.setLogLevel(MSLogLevel.none)
         MSAppCenter.start(AppCenterCrash.secret, withServices: [MSCrashes.self])
         MSCrashes.setDelegate(self)
-        // when the app starts, this code can execute before defaults are set; we pre-set this default in case
-        defaults.register(defaults: ["crashPolicy": "1"])
         MSCrashes.setUserConfirmationHandler({ (errorReports: [MSErrorReport]) in
+            self.initNecessaryFacilities()
             if Preferences.crashPolicy == .ask {
                 App.app.activate(ignoringOtherApps: true)
                 let alert = NSAlert()
@@ -38,6 +37,16 @@ class AppCenterCrash: NSObject, MSCrashesDelegate {
             }
             return true
         })
+    }
+
+    // at launch, the crash report handler can be called before some things are not yet ready; we ensure they are
+    func initNecessaryFacilities() {
+        if defaults.string(forKey: "crashPolicy") == nil {
+            defaults.register(defaults: ["crashPolicy": "1"])
+        }
+        if BackgroundWork.crashReportsQueue == nil {
+            BackgroundWork.crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
+        }
     }
 
     func crashButtonIdToUpdate(_ userChoice: NSApplication.ModalResponse, _ checkbox: NSButton) -> Int {
