@@ -12,6 +12,7 @@ class Application: NSObject {
         var n = [
             kAXApplicationActivatedNotification,
             kAXMainWindowChangedNotification,
+            kAXFocusedWindowChangedNotification,
             kAXWindowCreatedNotification,
             kAXApplicationHiddenNotification,
             kAXApplicationShownNotification,

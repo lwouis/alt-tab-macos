@@ -14,13 +14,13 @@ func retryAxCallUntilTimeout(_ group: DispatchGroup? = nil, _ fn: @escaping () t
 }
 
 func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
-        do {
-            try fn()
-            group?.leave()
-        } catch {
-            let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
-            if timePassedInSeconds < Double(AXUIElement.globalTimeoutInSeconds) {
-                BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(10)) {
+    do {
+        try fn()
+        group?.leave()
+    } catch {
+        let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
+        if timePassedInSeconds < Double(AXUIElement.globalTimeoutInSeconds) {
+            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(10)) {
                 retryAxCallUntilTimeout_(group, fn, startTime)
             }
         }
@@ -36,7 +36,8 @@ func handleEvent(_ type: String, _ element: AXUIElement) throws {
             case kAXApplicationHiddenNotification,
                  kAXApplicationShownNotification: try applicationHiddenOrShown(element, pid, type)
             case kAXWindowCreatedNotification: try windowCreated(element, pid)
-            case kAXMainWindowChangedNotification: try focusedWindowChanged(element, pid)
+            case kAXMainWindowChangedNotification,
+                 kAXFocusedWindowChangedNotification: try focusedWindowChanged(element, pid)
             case kAXUIElementDestroyedNotification: try windowDestroyed(element)
             case kAXWindowMiniaturizedNotification,
                  kAXWindowDeminiaturizedNotification: try windowMiniaturizedOrDeminiaturized(element, type)
@@ -130,8 +131,10 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
         let position = try element.position()
         DispatchQueue.main.async {
             if let existingIndex = Windows.list.firstIndexThatMatches(element, wid) {
-                Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
-                App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
+                if existingIndex != 0 {
+                    Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
+                    App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
+                }
             } else if let runningApp = NSRunningApplication(processIdentifier: pid),
                       element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
                       let app = (Applications.list.first { $0.runningApplication.processIdentifier == pid }) {
