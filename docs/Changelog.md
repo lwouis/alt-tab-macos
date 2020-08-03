@@ -1,5 +1,12 @@
 # Release notes
 
+## [4.12.1](https://github.com/lwouis/alt-tab-macos/compare/v4.12.0...v4.12.1) (2020-08-03)
+
+
+### Bug Fixes
+
+* occasional wrong window order after focusing a window (closes [#484](https://github.com/lwouis/alt-tab-macos/issues/484)) ([d6b1fb4](https://github.com/lwouis/alt-tab-macos/commit/d6b1fb4))
+
 # [4.12.0](https://github.com/lwouis/alt-tab-macos/compare/v4.11.1...v4.12.0) (2020-08-03)
 
 
