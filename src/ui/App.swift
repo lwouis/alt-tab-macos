@@ -83,7 +83,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             GeneralTab(),
             AppearanceTab(),
             PoliciesTab(),
-            BlacklistsTab(),
+            BlocklistsTab(),
             AboutTab(),
             AcknowledgmentsTab(),
         ]

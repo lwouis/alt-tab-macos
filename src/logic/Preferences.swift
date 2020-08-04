@@ -47,9 +47,9 @@ class Preferences {
         "hideStatusIcons": "false",
         "startAtLogin": "true",
         "hideMenubarIcon": "false",
-        "dontShowBlacklist": "",
-        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.vm", "com.citrix.XenAppViewer"].joined(separator: "\n"),
-        "disableShortcutsBlacklistOnlyFullscreen": "true",
+        "dontShowBlocklist": "",
+        "disableShortcutsBlocklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.vm", "com.citrix.XenAppViewer"].joined(separator: "\n"),
+        "disableShortcutsBlocklistOnlyFullscreen": "true",
         "updatePolicy": "1",
         "crashPolicy": "1",
         "rowsCount": defaultsDependingOnScreenRatio_["rowsCount"]!,
@@ -94,9 +94,9 @@ class Preferences {
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var hideMenubarIcon: Bool { defaults.bool("hideMenubarIcon") }
-    static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
-    static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
-    static var disableShortcutsBlacklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlacklistOnlyFullscreen") }
+    static var dontShowBlocklist: [String] { blocklistStringToArray(defaults.string("dontShowBlocklist")) }
+    static var disableShortcutsBlocklist: [String] { blocklistStringToArray(defaults.string("disableShortcutsBlocklist")) }
+    static var disableShortcutsBlocklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlocklistOnlyFullscreen") }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
@@ -162,8 +162,8 @@ class Preferences {
         }
     }
 
-    static func blacklistStringToArray(_ blacklist: String) -> [String] {
-        return blacklist.components(separatedBy: "\n").map { $0.trimmingCharacters(in: .whitespaces) }
+    static func blocklistStringToArray(_ blocklist: String) -> [String] {
+        return blocklist.components(separatedBy: "\n").map { $0.trimmingCharacters(in: .whitespaces) }
     }
 
     static func defaultsDependingOnScreenRatio() -> [String: String] {
