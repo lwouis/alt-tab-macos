@@ -1,5 +1,13 @@
 # Release notes
 
+## [4.12.2](https://github.com/lwouis/alt-tab-macos/compare/v4.12.1...v4.12.2) (2020-08-04)
+
+
+### Bug Fixes
+
+* rare crash at launch if the app previously crashed ([6444732](https://github.com/lwouis/alt-tab-macos/commit/6444732))
+* rare crash when being started twice quickly at login ([a6365fb](https://github.com/lwouis/alt-tab-macos/commit/a6365fb))
+
 ## [4.12.1](https://github.com/lwouis/alt-tab-macos/compare/v4.12.0...v4.12.1) (2020-08-03)
 
 
