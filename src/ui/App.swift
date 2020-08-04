@@ -160,8 +160,10 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     @objc func showPreferencesPanel() {
-        Screen.repositionPanel(preferencesWindowController.window!, Screen.preferred(), .appleCentered)
-        preferencesWindowController.show()
+        if let preferencesWindow = preferencesWindowController.window {
+            Screen.repositionPanel(preferencesWindow, Screen.preferred(), .appleCentered)
+            preferencesWindowController.show()
+        }
     }
 
     @objc func showFeedbackPanel() {
