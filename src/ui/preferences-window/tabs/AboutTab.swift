@@ -7,7 +7,7 @@ class AboutTab: NSViewController, PreferencePane {
     let toolbarItemIcon = NSImage(named: "about")!
 
     override func loadView() {
-        let appIcon = NSImageView(image: NSImage(named: "app-icon")!.resizedCopy(150, 150))
+        let appIcon = NSImageView(image: NSImage(named: "app-icon")!.resizedCopy(256, 256))
         appIcon.imageScaling = .scaleNone
         let appText = StackView([
             BoldLabel(App.name),
