@@ -1,5 +1,18 @@
 # Release notes
 
+# [4.13.0](https://github.com/lwouis/alt-tab-macos/compare/v4.12.2...v4.13.0) (2020-08-05)
+
+
+### Features
+
+* even more flexible controls (closes [#458](https://github.com/lwouis/alt-tab-macos/issues/458), closes [#463](https://github.com/lwouis/alt-tab-macos/issues/463)) ([a990bbe](https://github.com/lwouis/alt-tab-macos/commit/a990bbe))
+* new icons for the preferences window tabs ([b20c71c](https://github.com/lwouis/alt-tab-macos/commit/b20c71c))
+
+
+### Performance Improvements
+
+* reduced size of app ([2df0c22](https://github.com/lwouis/alt-tab-macos/commit/2df0c22))
+
 ## [4.12.2](https://github.com/lwouis/alt-tab-macos/compare/v4.12.1...v4.12.2) (2020-08-04)
 
 
