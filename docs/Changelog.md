@@ -1,5 +1,13 @@
 # Release notes
 
+## [4.13.1](https://github.com/lwouis/alt-tab-macos/compare/v4.13.0...v4.13.1) (2020-08-05)
+
+
+### Bug Fixes
+
+* increase app icon size in about tab ([94a0cd8](https://github.com/lwouis/alt-tab-macos/commit/94a0cd8))
+* preference window now always appears centered ([e770f18](https://github.com/lwouis/alt-tab-macos/commit/e770f18))
+
 # [4.13.0](https://github.com/lwouis/alt-tab-macos/compare/v4.12.2...v4.13.0) (2020-08-05)
 
 
