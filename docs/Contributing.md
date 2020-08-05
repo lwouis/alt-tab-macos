@@ -129,6 +129,25 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * A window is moved to another space by destroying the Space it is in
 * An app is assigned to a specific space or all spaces by clicking it's Dock icon > Options > Assign to
 
+### Shortcuts
+
+* The hold "key" can be multiple modifiers (e.g. `⌥⇧`)
+* All shortcuts, except the hold key, can be disabled by the user
+* Shortcuts can include the `escape` and `delete` key; these should not stop recording shortcuts
+* [Secure Input](https://github.com/lwouis/alt-tab-macos/issues/157#issuecomment-659170293) can prevent AltTab from listening to the keyboard
+* Some shortcuts should only work when AltTab is open
+* The shortcut sets 1 and 2 should not interact with each other (e.g. opening AltTab with one, then using the other to navigate)
+* Shortcuts can focus the window on release, or be pressing a key or using the mouse
+* Keyboards from other countries have different layout which impact shortcuts
+  * e.g. the default ``` ⌥` ``` shortcut should become `⌥>` on a Spanish ISO keyboard
+
+### Localization
+
+* Right-to-left languages (e.g. arabic) have the whole layout reversed
+  * For the main window, even navigation is reversed
+  * For preferences and feedback windows, all layout is reversed
+* Text length can varies per languages which can create layout issues
+
 ### Misc
 
 * AltTab is launched after some apps/windows are already opened
