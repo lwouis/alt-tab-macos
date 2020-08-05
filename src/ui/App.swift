@@ -60,7 +60,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
             #if DEBUG
-            self.preferencesWindowController.show()
+            self.showPreferencesPanel()
             #endif
         }
     }
@@ -166,8 +166,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     @objc func showPreferencesPanel() {
         if let preferencesWindow = preferencesWindowController.window {
-            Screen.repositionPanel(preferencesWindow, Screen.preferred(), .appleCentered)
             preferencesWindowController.show()
+            Screen.repositionPanel(preferencesWindow, Screen.preferred(), .appleCentered)
         }
     }
 
