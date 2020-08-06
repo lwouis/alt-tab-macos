@@ -1,5 +1,17 @@
 # Release notes
 
+# [4.14.0](https://github.com/lwouis/alt-tab-macos/compare/v4.13.1...v4.14.0) (2020-08-06)
+
+
+### Bug Fixes
+
+* rare crash at launch ([461840e](https://github.com/lwouis/alt-tab-macos/commit/461840e))
+
+
+### Features
+
+* can now pick between multiple menubar icons (closes [#191](https://github.com/lwouis/alt-tab-macos/issues/191)) ([30f0322](https://github.com/lwouis/alt-tab-macos/commit/30f0322))
+
 ## [4.13.1](https://github.com/lwouis/alt-tab-macos/compare/v4.13.0...v4.13.1) (2020-08-05)
 
 
