@@ -62,7 +62,7 @@ private func shortcutThatMatches(_ event: NSEvent, _ type: CGEventType) -> Strin
             }
         } else if event.sr_keyEventType == .down && (shortcut.keyCode == .none || event.keyCode == shortcut.carbonKeyCode) {
             if shortcutId.hasPrefix("nextWindowShortcut") {
-                if event.modifierFlags.intersection(.deviceIndependentFlagsMask) == shortcut.modifierFlags &&
+                if event.modifierFlags.intersection(.deviceIndependentFlagsMask).subtracting(.capsLock) == shortcut.modifierFlags &&
                        (!App.app.appIsBeingUsed || shortcutId == "nextWindowShortcut" + postfix) {
                     return shortcutId
                 }
