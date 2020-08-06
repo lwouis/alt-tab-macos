@@ -48,7 +48,7 @@ class Preferences {
         "hideSpaceNumberLabels": "false",
         "hideStatusIcons": "false",
         "startAtLogin": "true",
-        "hideMenubarIcon": "false",
+        "menubarIcon": "0",
         "dontShowBlacklist": "",
         "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.vm", "com.citrix.XenAppViewer"].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
@@ -98,7 +98,6 @@ class Preferences {
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
-    static var hideMenubarIcon: Bool { defaults.bool("hideMenubarIcon") }
     static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
     static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
     static var disableShortcutsBlacklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlacklistOnlyFullscreen") }
@@ -114,6 +113,7 @@ class Preferences {
     static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
     static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
     static var shortcutStyle: ShortcutStylePreference { defaults.macroPref("shortcutStyle", ShortcutStylePreference.allCases) }
+    static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
@@ -157,6 +157,13 @@ class Preferences {
         migrateDropdownMenuPreference("appsToShow", ["All apps": "0", "Active app": "1"])
         migrateDropdownMenuPreference("spacesToShow", ["All spaces": "0", "Active space": "1"])
         migrateDropdownMenuPreference("screensToShow", ["All screens": "0", "Screen showing AltTab": "1"])
+        // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+        if let old = defaults.string(forKey: "hideMenubarIcon") {
+            if old == "true" {
+                defaults.set("2", forKey: "menubarIcon")
+            }
+            defaults.removeObject(forKey: "hideMenubarIcon")
+        }
         defaults.set(App.version, forKey: preferencesVersion)
     }
 
@@ -208,6 +215,21 @@ struct ThemeParameters {
 }
 
 typealias LocalizedString = String
+
+enum MenubarIconPreference: CaseIterable, MacroPreference {
+    case outlined
+    case filled
+    case hidden
+
+    var localizedString: LocalizedString {
+        switch self {
+            // these 3 spaces are different from each other; they have to be unique
+            case .outlined: return " "
+            case .filled: return " "
+            case .hidden: return " "
+        }
+    }
+}
 
 enum ShortcutStylePreference: CaseIterable, MacroPreference {
     case focusOnRelease
