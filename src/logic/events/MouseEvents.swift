@@ -10,17 +10,13 @@ class MouseEvents {
         observe_()
     }
 
-    static func disable() {
-        shouldBeEnabled = false
-        CGEvent.tapEnable(tap: eventTap, enable: false)
-    }
-
-    static func enable() {
-        shouldBeEnabled = true
-        CGEvent.tapEnable(tap: eventTap, enable: true)
+    static func toggle(_ enabled: Bool) {
+        shouldBeEnabled = enabled
+        if let eventTap = eventTap {
+            CGEvent.tapEnable(tap: eventTap, enable: enabled)
+        }
     }
 }
-
 
 private func observe_() {
     let eventMask = [CGEventType.leftMouseDown, CGEventType.leftMouseUp].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
@@ -32,7 +28,7 @@ private func observe_() {
         eventsOfInterest: eventMask,
         callback: mouseHandler,
         userInfo: nil)
-    MouseEvents.disable()
+    MouseEvents.toggle(false)
     let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
     CFRunLoopAddSource(BackgroundWork.mouseEventsThread.runLoop, runLoopSource, .commonModes)
 }
