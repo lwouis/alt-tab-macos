@@ -1,5 +1,17 @@
 # Release notes
 
+# [4.15.0](https://github.com/lwouis/alt-tab-macos/compare/v4.14.0...v4.15.0) (2020-08-06)
+
+
+### Features
+
+* add new colorful menubar icon ([8f5c2a0](https://github.com/lwouis/alt-tab-macos/commit/8f5c2a0))
+
+
+### Performance Improvements
+
+* reduce size of app icon (closes [#169](https://github.com/lwouis/alt-tab-macos/issues/169)) ([bb49302](https://github.com/lwouis/alt-tab-macos/commit/bb49302))
+
 # [4.14.0](https://github.com/lwouis/alt-tab-macos/compare/v4.13.1...v4.14.0) (2020-08-06)
 
 
