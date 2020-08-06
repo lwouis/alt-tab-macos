@@ -1,5 +1,18 @@
 # Release notes
 
+# [4.16.0](https://github.com/lwouis/alt-tab-macos/compare/v4.15.0...v4.16.0) (2020-08-06)
+
+
+### Bug Fixes
+
+* removing shortcut 2 was not working properly (see [#493](https://github.com/lwouis/alt-tab-macos/issues/493)) ([fcdf40a](https://github.com/lwouis/alt-tab-macos/commit/fcdf40a))
+* shortcut would not register if capslock was on (closes [#493](https://github.com/lwouis/alt-tab-macos/issues/493)) ([9db0fe4](https://github.com/lwouis/alt-tab-macos/commit/9db0fe4))
+
+
+### Features
+
+* let users minimize the preferences window ([2a0adf0](https://github.com/lwouis/alt-tab-macos/commit/2a0adf0))
+
 # [4.15.0](https://github.com/lwouis/alt-tab-macos/compare/v4.14.0...v4.15.0) (2020-08-06)
 
 
