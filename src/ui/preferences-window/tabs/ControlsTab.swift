@@ -132,7 +132,11 @@ class ControlsTab: NSViewController, PreferencePane {
         if controlId == "nextWindowShortcut" || controlId == "nextWindowShortcut2" {
             let holdShortcut = controlId == "nextWindowShortcut" ? Preferences.holdShortcut : Preferences.holdShortcut2
             // remove the holdShortcut character in case they also use it in the other shortcuts
-            return holdShortcut + holdShortcut.reduce(baseValue, { $0.replacingOccurrences(of: String($1), with: "") })
+            let cleanedShortcut = holdShortcut + holdShortcut.reduce(baseValue, { $0.replacingOccurrences(of: String($1), with: "") })
+            if cleanedShortcut.sorted() == holdShortcut.sorted() {
+                return ""
+            }
+            return cleanedShortcut
         }
         return baseValue
     }
