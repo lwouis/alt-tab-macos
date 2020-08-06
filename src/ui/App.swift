@@ -98,6 +98,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         preferencesWindowController = PreferencesWindowController(preferencePanes: tabs as! [PreferencePane])
 
         let window = preferencesWindowController.window!
+        window.styleMask.update(with: .miniaturizable)
         let quitButton = NSButton(title: NSLocalizedString("Quit", comment: ""), target: nil, action: #selector(NSApplication.terminate(_:)))
         let titleBarView = window.standardWindowButton(.closeButton)!.superview!
         titleBarView.addSubview(quitButton)
