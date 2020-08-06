@@ -182,6 +182,7 @@
 		D04BA5488C8142D30E7D3EF9 /* browserconfig.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = browserconfig.xml; sourceTree = "<group>"; };
 		D04BA55D1B2C8BFF61954466 /* generate_selfsigned_certificate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_selfsigned_certificate.sh; sourceTree = "<group>"; };
 		D04BA561B958D1AD495C7A40 /* menubar-icon-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar-icon-1@2x.png"; sourceTree = "<group>"; };
+		D04BA59FD487D0DEBBA66A94 /* createicns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = createicns; sourceTree = "<group>"; };
 		D04BA5ABFA5457A86536E2E4 /* 5 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA5BD11C365C19461458C /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		D04BA5C401AFA55CC67C7188 /* PrivateApis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateApis.swift; sourceTree = "<group>"; };
@@ -663,6 +664,7 @@
 				D04BA7A758026814667273DC /* convert_iconset_to_icns.sh */,
 				D04BA6ED38651224DB117A5A /* upload_symbols_to_appcenter.sh */,
 				D04BAD19B495AC18AC782A39 /* fonticon_to_image.sh */,
+				D04BA59FD487D0DEBBA66A94 /* createicns */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
