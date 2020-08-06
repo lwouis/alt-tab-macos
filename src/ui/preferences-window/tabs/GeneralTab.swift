@@ -8,11 +8,21 @@ class GeneralTab: NSViewController, PreferencePane {
 
     override func loadView() {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
-        let hideMenubarIcon = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide menubar icon:", comment: ""), "hideMenubarIcon", extraAction: hideMenubarIconCallback)
+        let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
+        let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
+        for i in 0...1 {
+            let image = NSImage(named: "menubar-icon-" + String(i + 1))!
+            image.isTemplate = true
+            menubarIconDropdown.item(at: i)!.image = image
+        }
+        let cell = menubarIconDropdown.cell! as! NSPopUpButtonCell
+        cell.bezelStyle = .regularSquare
+        cell.arrowPosition = .arrowAtBottom
+        cell.imagePosition = .imageOverlaps
 
         let grid = GridView([
             startAtLogin,
-            hideMenubarIcon,
+            menubarIcon,
         ])
         grid.column(at: 0).xPlacement = .trailing
         grid.fit()
@@ -20,7 +30,6 @@ class GeneralTab: NSViewController, PreferencePane {
         setView(grid)
 
         startAtLoginCallback(startAtLogin[1] as! NSControl)
-        hideMenubarIconCallback(hideMenubarIcon[1] as! NSControl)
     }
 
     // adding/removing login item depending on the checkbox state
@@ -39,9 +48,5 @@ class GeneralTab: NSViewController, PreferencePane {
         if (sender as! NSButton).state == .on {
             let _ = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst.takeRetainedValue(), nil, nil, itemUrl, nil, nil).takeRetainedValue()
         }
-    }
-
-    private func hideMenubarIconCallback(_ sender: NSControl) {
-        App.statusItem.isVisible = (sender as! NSButton).state == .off
     }
 }

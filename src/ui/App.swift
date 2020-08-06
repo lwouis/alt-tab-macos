@@ -13,7 +13,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static var app: App!
-    static var statusItem: NSStatusItem!
     var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindowController: PreferencesWindowController!
     var feedbackWindow: FeedbackWindow?
@@ -48,7 +47,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             BackgroundWork.start()
             Preferences.migratePreferences()
             Preferences.registerDefaults()
-            App.statusItem = Menubar.make()
+            Menubar.initialize()
             self.loadMainMenuXib()
             self.thumbnailsPanel = ThumbnailsPanel()
             Spaces.initialDiscovery()

@@ -34,8 +34,8 @@ class LabelAndControl: NSObject {
         return [textArea]
     }
 
-    static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [MacroPreference], _ suffixText: String? = nil) -> [NSView] {
-        return makeLabelWithProvidedControl(labelText, rawName, dropdown_(rawName, values), suffixText)
+    static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [MacroPreference], _ suffixText: String? = nil, extraAction: ActionClosure? = nil) -> [NSView] {
+        return makeLabelWithProvidedControl(labelText, rawName, dropdown_(rawName, values), suffixText, extraAction: extraAction)
     }
 
     static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
