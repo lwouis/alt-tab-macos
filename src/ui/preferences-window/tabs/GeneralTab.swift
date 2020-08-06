@@ -10,9 +10,9 @@ class GeneralTab: NSViewController, PreferencePane {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
         let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
         let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
-        for i in 0...1 {
+        for i in 0...2 {
             let image = NSImage(named: "menubar-icon-" + String(i + 1))!
-            image.isTemplate = true
+            image.isTemplate = i == 2 ? false : true
             menubarIconDropdown.item(at: i)!.image = image
         }
         let cell = menubarIconDropdown.cell! as! NSPopUpButtonCell

@@ -40,9 +40,19 @@ class Menubar {
     }
 
     static private func loadPreferredIcon() {
-        let image = NSImage(named: Preferences.menubarIcon == .outlined ? "menubar-icon-1" : "menubar-icon-2")!
-        image.isTemplate = true
+        let i = imageIndexFromPreference()
+        let image = NSImage(named: "menubar-icon-" + i)!
+        image.isTemplate = i == "3" ? false : true
         statusItem.button!.image = image
         statusItem.isVisible = true
+    }
+
+    static private func imageIndexFromPreference() -> String {
+        switch Preferences.menubarIcon {
+            case .outlined: return "1"
+            case .filled: return "2"
+            case .colored: return "3"
+            default: return "4"
+        }
     }
 }

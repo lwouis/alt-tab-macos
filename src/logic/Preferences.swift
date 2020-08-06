@@ -160,7 +160,7 @@ class Preferences {
         // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
         if let old = defaults.string(forKey: "hideMenubarIcon") {
             if old == "true" {
-                defaults.set("2", forKey: "menubarIcon")
+                defaults.set("3", forKey: "menubarIcon")
             }
             defaults.removeObject(forKey: "hideMenubarIcon")
         }
@@ -219,13 +219,15 @@ typealias LocalizedString = String
 enum MenubarIconPreference: CaseIterable, MacroPreference {
     case outlined
     case filled
+    case colored
     case hidden
 
     var localizedString: LocalizedString {
         switch self {
-            // these 3 spaces are different from each other; they have to be unique
+            // these spaces are different from each other; they have to be unique
             case .outlined: return " "
             case .filled: return " "
+            case .colored: return " "
             case .hidden: return " "
         }
     }
