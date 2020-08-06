@@ -27,7 +27,7 @@ class ThumbnailsPanel: NSPanel {
 
     func show() {
         orderFrontRegardless()
-        MouseEvents.enable()
+        MouseEvents.toggle(true)
         thumbnailsView.scrollView.flashScrollers()
     }
 

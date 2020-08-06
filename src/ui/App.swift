@@ -135,7 +135,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         debugPrint("hideUi")
         appIsBeingUsed = false
         isFirstSummon = true
-        MouseEvents.disable()
+        MouseEvents.toggle(false)
         thumbnailsPanel.orderOut(nil)
     }
 
