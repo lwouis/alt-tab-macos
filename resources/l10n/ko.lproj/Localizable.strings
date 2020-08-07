@@ -36,7 +36,7 @@
 "Allowed" = "허용됨";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "또한 다음을 이용해 윈도우를 선택하기:";
 
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "마지막으로 사용하고 나서 AltTab이 충돌했습니다. 충돌 리포트를 보내는 것은 이 문제를 해결하는데 도움을 줄 수 있습니다";
@@ -93,13 +93,13 @@
 "Close window" = "윈도우 닫기";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "조작";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "충돌 리포트 처리 방법:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "아무것도 하지 않기";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "주기적으로 업데이트를 확인하지 않기";
@@ -165,7 +165,7 @@
 "Max windows per row:" = "한 줄당 최대 윈도우 개수:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "메뉴바 아이콘";
 
 /*No comment provided by engineer.*/
 "Middle" = "중간";
@@ -270,10 +270,10 @@
 "Share improvement ideas, or report bugs" = "개선방안을 공유하거나 버그를 제보해주세요";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "단축키 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "단축키 2";
 
 /*No comment provided by engineer.*/
 "Show" = "보기";
@@ -318,7 +318,7 @@
 "View existing discussions" = "진행중인 논의 보기";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "켜져 있을 때, 다음을 누르면:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "윈도우 앱 아이콘 크기:";
