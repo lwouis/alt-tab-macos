@@ -1,5 +1,17 @@
 # Release notes
 
+# [4.17.0](https://github.com/lwouis/alt-tab-macos/compare/v4.16.0...v4.17.0) (2020-08-07)
+
+
+### Bug Fixes
+
+* rare crash when started at login ([80945c8](https://github.com/lwouis/alt-tab-macos/commit/80945c8))
+
+
+### Features
+
+* update korean localization ([640bad8](https://github.com/lwouis/alt-tab-macos/commit/640bad8))
+
 # [4.16.0](https://github.com/lwouis/alt-tab-macos/compare/v4.15.0...v4.16.0) (2020-08-06)
 
 
