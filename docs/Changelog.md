@@ -1,5 +1,12 @@
 # Release notes
 
+## [4.17.2](https://github.com/lwouis/alt-tab-macos/compare/v4.17.1...v4.17.2) (2020-08-07)
+
+
+### Bug Fixes
+
+* shortcut 2 was showing shortcut 1 value after restart (closes [#500](https://github.com/lwouis/alt-tab-macos/issues/500)) ([74ed25d](https://github.com/lwouis/alt-tab-macos/commit/74ed25d))
+
 ## [4.17.1](https://github.com/lwouis/alt-tab-macos/compare/v4.17.0...v4.17.1) (2020-08-07)
 
 
