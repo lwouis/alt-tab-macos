@@ -4,7 +4,7 @@ import Preferences
 class AboutTab: NSViewController, PreferencePane {
     let preferencePaneIdentifier = PreferencePane.Identifier("About")
     let preferencePaneTitle = NSLocalizedString("About", comment: "")
-    let toolbarItemIcon = NSImage(named: "about")!
+    let toolbarItemIcon = NSImage.initTemplate("about")
 
     override func loadView() {
         let appIcon = NSImageView(image: NSImage(named: "app-icon")!.resizedCopy(256, 256))

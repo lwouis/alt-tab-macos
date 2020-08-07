@@ -4,7 +4,7 @@ import Preferences
 class GeneralTab: NSViewController, PreferencePane {
     let preferencePaneIdentifier = PreferencePane.Identifier("General")
     let preferencePaneTitle = NSLocalizedString("General", comment: "")
-    let toolbarItemIcon = NSImage(named: "general")!
+    let toolbarItemIcon = NSImage.initTemplate("general")
 
     override func loadView() {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)

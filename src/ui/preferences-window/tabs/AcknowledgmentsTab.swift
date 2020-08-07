@@ -7,7 +7,7 @@ class AcknowledgmentsTab: NSViewController, PreferencePane {
     static let maxTabHeight = CGFloat(450)
     let preferencePaneIdentifier = PreferencePane.Identifier("Acknowledgments")
     let preferencePaneTitle = NSLocalizedString("Acknowledgments", comment: "")
-    let toolbarItemIcon = NSImage(named: "acknowledgments")!
+    let toolbarItemIcon = NSImage.initTemplate("acknowledgments")
 
     override func loadView() {
         let textViews: [TextField] = ["Contributors", "Acknowledgments"].map {
