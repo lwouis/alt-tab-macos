@@ -43,6 +43,7 @@ class Menubar {
         let i = imageIndexFromPreference()
         let image = NSImage(named: "menubar-icon-" + i)!
         image.isTemplate = i == "3" ? false : true
+        statusItem.button!.appearance = i == "3" ? NSAppearance(named: .aqua) : nil
         statusItem.button!.image = image
         statusItem.isVisible = true
     }
