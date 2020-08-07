@@ -76,8 +76,7 @@ class Preferences {
     static var rowsCount: CGFloat { defaults.cgfloat("rowsCount") }
     static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
     static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
-    static var holdShortcut: String { defaults.string("holdShortcut") }
-    static var holdShortcut2: String { defaults.string("holdShortcut2") }
+    static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2"].map { defaults.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2"].map { defaults.string($0) } }
     static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
     static var previousWindowShortcut: String { defaults.string("previousWindowShortcut") }

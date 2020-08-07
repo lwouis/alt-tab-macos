@@ -7,8 +7,7 @@ class ControlsTab: NSViewController, PreferencePane {
     let preferencePaneTitle = NSLocalizedString("Controls", comment: "")
     let toolbarItemIcon = NSImage.initTemplate("controls")
 
-    static var nextWindowShortcut: NSControl!
-    static var nextWindowShortcut2: NSControl!
+    static var nextWindowShortcut: [NSControl]!
     static var shortcuts = [String: Shortcut]()
     static var shortcutsActions = [
         "holdShortcut": { App.app.focusTarget() },
@@ -47,8 +46,7 @@ class ControlsTab: NSViewController, PreferencePane {
         let (nextWindowShortcut2, tab2View) = toShowSection("2")
         let tabView = TabView([(NSLocalizedString("Shortcut 1", comment: ""), tab1View), (NSLocalizedString("Shortcut 2", comment: ""), tab2View)])
 
-        ControlsTab.nextWindowShortcut = nextWindowShortcut[0] as! NSControl
-        ControlsTab.nextWindowShortcut2 = nextWindowShortcut2[0] as! NSControl
+        ControlsTab.nextWindowShortcut = [nextWindowShortcut, nextWindowShortcut2].map { $0[0] as! NSControl }
         ControlsTab.arrowKeysEnabledCallback(enableArrows[0] as! NSControl)
 
         let grid = GridView([
@@ -78,7 +76,7 @@ class ControlsTab: NSViewController, PreferencePane {
 
     private func toShowSection(_ postfix: String) -> ([NSView], GridView) {
         let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show the following windows:", comment: ""))
-        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut" + postfix, Preferences.holdShortcut, false, labelPosition: .leftWithoutSeparator)
+        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut" + postfix, Preferences.holdShortcut[postfix == "" ? 0 : 1], false, labelPosition: .leftWithoutSeparator)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press:", comment: "")))
         let holdAndPress = StackView(holdShortcut)
         let appsToShow = LabelAndControl.makeDropdown("appsToShow" + postfix, AppsToShowPreference.allCases)
@@ -107,14 +105,10 @@ class ControlsTab: NSViewController, PreferencePane {
 
     @objc static func shortcutChangedCallback(_ sender: NSControl) {
         let controlId = sender.identifier!.rawValue
-        if controlId == "holdShortcut" {
-            addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut)!, controlId)
-            if let s = nextWindowShortcut {
-                shortcutChangedCallback(s)
-            }
-        } else if controlId == "holdShortcut2" {
-            addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut2)!, controlId)
-            if let s = nextWindowShortcut2 {
+        if controlId.hasPrefix("holdShortcut") {
+            let i = controlId == "holdShortcut" ? 0 : 1
+            addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut[i])!, controlId)
+            if let s = nextWindowShortcut?[i] {
                 shortcutChangedCallback(s)
             }
         } else {
@@ -130,7 +124,7 @@ class ControlsTab: NSViewController, PreferencePane {
     static func shortcutStringValue(_ controlId: String, _ sender: NSControl) -> String {
         let baseValue = (sender as! RecorderControl).stringValue
         if controlId == "nextWindowShortcut" || controlId == "nextWindowShortcut2" {
-            let holdShortcut = controlId == "nextWindowShortcut" ? Preferences.holdShortcut : Preferences.holdShortcut2
+            let holdShortcut = controlId == "nextWindowShortcut" ? Preferences.holdShortcut[0] : Preferences.holdShortcut[1]
             // remove the holdShortcut character in case they also use it in the other shortcuts
             let cleanedShortcut = holdShortcut + holdShortcut.reduce(baseValue, { $0.replacingOccurrences(of: String($1), with: "") })
             if cleanedShortcut.sorted() == holdShortcut.sorted() {
