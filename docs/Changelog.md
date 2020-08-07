@@ -1,5 +1,13 @@
 # Release notes
 
+## [4.17.1](https://github.com/lwouis/alt-tab-macos/compare/v4.17.0...v4.17.1) (2020-08-07)
+
+
+### Bug Fixes
+
+* in dark mode, the colored menubar icon was too bright ([845ae5c](https://github.com/lwouis/alt-tab-macos/commit/845ae5c))
+* preference window tab icons adapt to dark mode (closes [#498](https://github.com/lwouis/alt-tab-macos/issues/498)) ([0c44c50](https://github.com/lwouis/alt-tab-macos/commit/0c44c50))
+
 # [4.17.0](https://github.com/lwouis/alt-tab-macos/compare/v4.16.0...v4.17.0) (2020-08-07)
 
 
