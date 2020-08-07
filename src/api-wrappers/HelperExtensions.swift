@@ -147,3 +147,11 @@ extension NSViewController {
         subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
+
+extension NSImage {
+    static func initTemplate(_ name: String) -> NSImage {
+        let image = NSImage(named: name)!
+        image.isTemplate = true
+        return image
+    }
+}

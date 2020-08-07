@@ -5,7 +5,7 @@ import Preferences
 class PoliciesTab: NSViewController, PreferencePane {
     let preferencePaneIdentifier = PreferencePane.Identifier("Policies")
     let preferencePaneTitle = NSLocalizedString("Policies", comment: "")
-    let toolbarItemIcon = NSImage(named: "policies")!
+    let toolbarItemIcon = NSImage.initTemplate("policies")
 
     static var updateButtons: [NSButton]!
     static var crashButtons: [NSButton]!
