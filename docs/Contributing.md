@@ -31,7 +31,7 @@ Documentation is abysmal. Very simple things are not documented at all, and good
 
 Dependencies were historically never handled by Apple. The community came up with [Cocoapods](https://cocoapods.org/) which is the de-facto dependency manager for Apple ecosystem projects these days, even though Apple is now trying to push their own.
 
-OS APIs are quite limited for the kind of low-level, system-wide app AltTab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing AltTab on the Mac AppStore. We have tried my best to [document](../src/api-wrappers/PrivateApis.swift) the ones we are using, as well as ones we investigated in the past.
+OS APIs are quite limited for the kind of low-level, system-wide app AltTab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing AltTab on the Mac AppStore. We have tried my best to [document](https://github.com/lwouis/alt-tab-macos/blob/master/src/api-wrappers/PrivateApis.swift) the ones we are using, as well as ones we investigated in the past.
 
 ## This project specifically
 
@@ -45,8 +45,6 @@ We minimize reliance on XCode, InterfaceBuilder, Playground, and other GUI tools
 * `Alt-tab-macos.entitlements` and Info.plist which are static files describing some app config for XCode
 * `PodFile` and `PodFile.lock` describe dependencies on open-source libraries (e.g. [Sparkle](https://github.com/sparkle-project/Sparkle))
 * Some `.xcconfig` files in `config/` which contain XCode settings that people typically change using XCode UI, but that I want to be version controlled
-
-We use the command line to build the project, not XCode GUI. See how to build in the [README.md](../README.md).
 
 The project directory is organized in the following way:
 
