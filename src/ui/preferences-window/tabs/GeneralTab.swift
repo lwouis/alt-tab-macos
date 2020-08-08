@@ -15,6 +15,7 @@ class GeneralTab: NSViewController, PreferencePane {
             image.isTemplate = i == 2 ? false : true
             menubarIconDropdown.item(at: i)!.image = image
         }
+        menubarIconDropdown.item(at: 3)!.image = NSImage(size: NSSize(width: 1, height: menubarIconDropdown.item(at: 0)!.image!.size.height))
         let cell = menubarIconDropdown.cell! as! NSPopUpButtonCell
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
