@@ -4,15 +4,15 @@ import Preferences
 class GeneralTab: NSViewController, PreferencePane {
     let preferencePaneIdentifier = PreferencePane.Identifier("General")
     let preferencePaneTitle = NSLocalizedString("General", comment: "")
-    let toolbarItemIcon = NSImage.initTemplate("general")
+    let toolbarItemIcon = NSImage.initTemplateCopy("general")
 
     override func loadView() {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
         let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
         let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
         for i in 0...2 {
-            let image = NSImage(named: "menubar-icon-" + String(i + 1))!
-            image.isTemplate = i == 2 ? false : true
+            let image = NSImage.initCopy("menubar-icon-" + String(i + 1))
+            image.isTemplate = false
             menubarIconDropdown.item(at: i)!.image = image
         }
         menubarIconDropdown.item(at: 3)!.image = NSImage(size: NSSize(width: 1, height: menubarIconDropdown.item(at: 0)!.image!.size.height))

@@ -97,18 +97,6 @@ extension NSControl {
     }
 }
 
-extension NSImage {
-    // copy and resize an image using high quality interpolation
-    func resizedCopy(_ width: CGFloat, _ height: CGFloat) -> NSImage {
-        let img = NSImage(size: CGSize(width: width, height: height))
-        img.lockFocus()
-        NSGraphicsContext.current?.imageInterpolation = .high
-        draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, size.width, size.height), operation: .copy, fraction: 1)
-        img.unlockFocus()
-        return img
-    }
-}
-
 // only assign if different; useful for performance
 func assignIfDifferent<T: Equatable>(_ a: UnsafeMutablePointer<T>, _ b: T) {
     if a.pointee != b {
@@ -149,9 +137,25 @@ extension NSViewController {
 }
 
 extension NSImage {
-    static func initTemplate(_ name: String) -> NSImage {
-        let image = NSImage(named: name)!
+    // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
+    static func initCopy(_ name: String) -> NSImage {
+        return NSImage(named: name)!.copy() as! NSImage
+    }
+
+    static func initTemplateCopy(_ name: String) -> NSImage {
+        let image = initCopy(name)
         image.isTemplate = true
         return image
+    }
+
+    // copy and resize an image using high quality interpolation
+    static func initResizedCopy(_ name: String, _ width: CGFloat, _ height: CGFloat) -> NSImage {
+        let original = initCopy(name)
+        let img = NSImage(size: CGSize(width: width, height: height))
+        img.lockFocus()
+        NSGraphicsContext.current?.imageInterpolation = .high
+        original.draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, original.size.width, original.size.height), operation: .copy, fraction: 1)
+        img.unlockFocus()
+        return img
     }
 }

@@ -5,7 +5,7 @@ import Preferences
 class BlacklistsTab: NSViewController, PreferencePane {
     let preferencePaneIdentifier = PreferencePane.Identifier("Blacklists")
     let preferencePaneTitle = NSLocalizedString("Blacklists", comment: "")
-    let toolbarItemIcon = NSImage.initTemplate("blacklists")
+    let toolbarItemIcon = NSImage.initTemplateCopy("blacklists")
 
     override func loadView() {
         let dontShowBlacklistLabel = NSTextField(labelWithString: NSLocalizedString("Don’t show windows from these apps", comment: ""))

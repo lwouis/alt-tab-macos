@@ -26,7 +26,7 @@ class FeedbackWindow: NSWindow {
     }
 
     private func setupView() {
-        let appIcon = NSImageView(image: NSImage(named: "app-icon")!.resizedCopy(80, 80))
+        let appIcon = NSImageView(image: NSImage.initResizedCopy("app-icon", 80, 80))
         appIcon.imageScaling = .scaleNone
         let appText = StackView([
             BoldLabel(NSLocalizedString("Share improvement ideas, or report bugs", comment: "")),

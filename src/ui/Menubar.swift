@@ -4,8 +4,7 @@ class Menubar {
     static var statusItem: NSStatusItem!
 
     static func initialize() {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem.button!.imageScaling = .scaleProportionallyUpOrDown
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         statusItem.menu = NSMenu()
         statusItem.menu!.addItem(
             withTitle: NSLocalizedString("Show", comment: "Menubar option"),
@@ -43,9 +42,9 @@ class Menubar {
         let i = imageIndexFromPreference()
         let image = NSImage(named: "menubar-icon-" + i)!
         image.isTemplate = i == "3" ? false : true
-        statusItem.button!.appearance = i == "3" ? NSAppearance(named: .aqua) : nil
         statusItem.button!.image = image
         statusItem.isVisible = true
+        statusItem.button!.imageScaling = .scaleProportionallyUpOrDown
     }
 
     static private func imageIndexFromPreference() -> String {
