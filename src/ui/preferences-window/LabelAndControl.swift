@@ -16,7 +16,7 @@ class LabelAndControl: NSObject {
     }
 
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
-        let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : "", target: nil, action: nil)
+        let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : " ", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         checkbox.state = (Preferences.getString(rawName)! as NSString).boolValue ? .on : .off
         let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
