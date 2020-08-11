@@ -290,6 +290,7 @@
 		D04BAD60C97E609A759E721E /* PoliciesTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliciesTab.swift; sourceTree = "<group>"; };
 		D04BAD65AA870A49D2F89DBC /* ensure_generated_files_are_up_to_date.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ensure_generated_files_are_up_to_date.sh; sourceTree = "<group>"; };
 		D04BAD6700415D6F7C8B2BEE /* travis.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = travis.sh; sourceTree = "<group>"; };
+		D04BAD6A486222A422A0B55F /* icon_512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_512x512.png; sourceTree = "<group>"; };
 		D04BAD7008ED1D9CBC147A75 /* pull_request_template.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = pull_request_template.md; sourceTree = "<group>"; };
 		D04BAD7D8F3CC2C36C8769C6 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .travis.yml; sourceTree = "<group>"; };
 		D04BAD82F652C4ED5D8BF7AE /* 3 windows - 1 line - tall window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line - tall window.jpg"; sourceTree = "<group>"; };
@@ -530,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				D04BAF9052D852CD38B03EF6 /* icon_512x512@2x.png */,
+				D04BAD6A486222A422A0B55F /* icon_512x512.png */,
 			);
 			path = "app-icon.iconset";
 			sourceTree = "<group>";
