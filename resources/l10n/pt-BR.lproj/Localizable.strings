@@ -39,13 +39,13 @@
 "Also select windows using:" = "Também selecionar janelas usando:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab falhou na última utilização. Enviar um relatório de falha pode ajudar a consertá-lo";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab precisa de algumas permissões";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Sempre enviar relatórios de falhas";
+"Always send crash reports" = "Sempre enviar relatórios de falha";
 
 /*No comment provided by engineer.*/
 "and press:" = "e pressione:";
@@ -63,7 +63,7 @@
 "Arrow keys" = "Teclas direcionais";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Perguntar antes de enviar relatórios de falhas";
+"Ask whether to send crash reports" = "Perguntar antes de enviar relatórios de falha";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Instalar atualizações periódicas automaticamente";
@@ -96,7 +96,7 @@
 "Controls" = "Controles";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Políticas de relatórios de falhas:";
+"Crash reports policy:" = "Políticas de relatórios de falha:";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Faz nada";
@@ -183,7 +183,7 @@
 "Mouse hover" = "Ao passar o mouse";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Nunca enviar relatórios de falhas";
+"Never send crash reports" = "Nunca enviar relatórios de falha";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Não permitido";
@@ -252,7 +252,7 @@
 "Send" = "Enviar";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Enviar um relatório de falhas?";
+"Send a crash report?" = "Enviar um relatório de falha?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Enviar assim mesmo";
