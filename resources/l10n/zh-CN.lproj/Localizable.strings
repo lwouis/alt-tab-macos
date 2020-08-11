@@ -36,7 +36,7 @@
 "Allowed" = "允许";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "同时使用此方式选择窗口：";
 
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用时崩溃了， 发送崩溃报告将有助于解决问题";
@@ -93,13 +93,13 @@
 "Close window" = "关闭窗口";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "控制";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "崩溃报告政策：";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "不执行任何操作";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "不自动检查更新";
@@ -165,7 +165,7 @@
 "Max windows per row:" = "每行最多窗口数：";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "菜单栏图标：";
 
 /*No comment provided by engineer.*/
 "Middle" = "中间";
@@ -270,10 +270,10 @@
 "Share improvement ideas, or report bugs" = "反馈建议或报告错误";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "快捷键 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "快捷键 2";
 
 /*No comment provided by engineer.*/
 "Show" = "显示";
@@ -291,7 +291,7 @@
 "Source code repository" = "源代码仓库";
 
 /*No comment provided by engineer.*/
-"Start" = "开始";
+"Start" = "开头";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "开机启动：";
@@ -318,7 +318,7 @@
 "View existing discussions" = "查看现有讨论";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "在打开时按：";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "窗口图标大小：";
@@ -327,7 +327,7 @@
 "Window title font size:" = "窗口标题字号：";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "窗口标题截断：";
+"Window title truncation:" = "窗口标题删节：";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "未填写电子邮箱地址将无法收到回复。";
