@@ -1,5 +1,18 @@
 # Release notes
 
+# [4.19.0](https://github.com/lwouis/alt-tab-macos/compare/v4.18.0...v4.19.0) (2020-08-11)
+
+
+### Bug Fixes
+
+* checkboxes not showing properly on macos 10.13 (see [#507](https://github.com/lwouis/alt-tab-macos/issues/507)) ([43a9cb1](https://github.com/lwouis/alt-tab-macos/commit/43a9cb1))
+* menubar icon not showing on macos 10.13 (closes [#507](https://github.com/lwouis/alt-tab-macos/issues/507)) ([2fa0b8a](https://github.com/lwouis/alt-tab-macos/commit/2fa0b8a))
+
+
+### Features
+
+* update portuguese (brazil) and chinese (simplified) localizations ([2b1b5fa](https://github.com/lwouis/alt-tab-macos/commit/2b1b5fa))
+
 # [4.18.0](https://github.com/lwouis/alt-tab-macos/compare/v4.17.2...v4.18.0) (2020-08-11)
 
 
