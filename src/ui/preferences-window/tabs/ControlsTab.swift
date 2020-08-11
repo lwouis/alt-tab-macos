@@ -5,7 +5,7 @@ import Preferences
 class ControlsTab: NSViewController, PreferencePane {
     let preferencePaneIdentifier = PreferencePane.Identifier("Controls")
     let preferencePaneTitle = NSLocalizedString("Controls", comment: "")
-    let toolbarItemIcon = NSImage.initTemplate("controls")
+    let toolbarItemIcon = NSImage.initTemplateCopy("controls")
 
     static var nextWindowShortcut: [NSControl]!
     static var shortcuts = [String: Shortcut]()

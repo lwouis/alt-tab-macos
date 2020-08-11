@@ -4,7 +4,7 @@ import Preferences
 class AppearanceTab: NSViewController, PreferencePane {
     let preferencePaneIdentifier = PreferencePane.Identifier("Appearance")
     let preferencePaneTitle = NSLocalizedString("Appearance", comment: "")
-    let toolbarItemIcon = NSImage.initTemplate("appearance")
+    let toolbarItemIcon = NSImage.initTemplateCopy("appearance")
 
     override func loadView() {
         let grid = GridView([

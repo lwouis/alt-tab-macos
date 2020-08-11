@@ -10,7 +10,7 @@ class PermissionView: StackView {
     var isPermissionGranted = false
 
     convenience init(_ iconName: String, _ title: String, _ justification: String, _ buttonText: String, _ buttonUrl: String, _ checkFunction: @escaping () -> Bool) {
-        let icon = NSImageView(image: NSImage(named: iconName)!)
+        let icon = NSImageView(image: NSImage.initCopy(iconName))
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.fit()
         let title = BoldLabel(title)
