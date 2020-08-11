@@ -36,7 +36,7 @@
 "Allowed" = "Разрешено";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "Также выбирать окна, используя:";
 
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab аварийно завершился в последний раз, когда вы его использовали. Отправка отчета поможет исправить проблему";
@@ -93,13 +93,13 @@
 "Close window" = "Закрыть окно";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "Управление";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "Правило отчетов о вылетах:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "Ничего не делать";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Не проверять обновления";
@@ -129,7 +129,7 @@
 "Hidden" = "Скрытые";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "Скрыть цветные круги при наведении мышью:";
 
 /*No comment provided by engineer.*/
 "Hide menubar icon:" = "Скрыть иконку из строки меню:";
@@ -138,7 +138,7 @@
 "Hide space number labels:" = "Скрыть номера рабочих столов:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "Скрыть иконки состояния:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Скрыть/Показать приложение";
@@ -165,7 +165,7 @@
 "Max windows per row:" = "Макс. количество окон в ряду:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "Иконка в строке меню:";
 
 /*No comment provided by engineer.*/
 "Middle" = "Посередине";
@@ -270,10 +270,10 @@
 "Share improvement ideas, or report bugs" = "Поделитесь идеями по улучшению или сообщите об ошибках";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "Комбинация 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "Комбинация 2";
 
 /*No comment provided by engineer.*/
 "Show" = "Показать";
@@ -318,7 +318,7 @@
 "View existing discussions" = "Посмотреть обсуждения";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "Когда открыто, нажать:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Размер иконки окна:";
