@@ -1,5 +1,18 @@
 # Release notes
 
+# [4.18.0](https://github.com/lwouis/alt-tab-macos/compare/v4.17.2...v4.18.0) (2020-08-11)
+
+
+### Bug Fixes
+
+* "no menubar icon" preference has correct height ([025053d](https://github.com/lwouis/alt-tab-macos/commit/025053d))
+
+
+### Features
+
+* add portuguese localization ([fd705b4](https://github.com/lwouis/alt-tab-macos/commit/fd705b4))
+* update portuguese (brazil) and russian localizations ([2cebaaa](https://github.com/lwouis/alt-tab-macos/commit/2cebaaa))
+
 ## [4.17.2](https://github.com/lwouis/alt-tab-macos/compare/v4.17.1...v4.17.2) (2020-08-07)
 
 
