@@ -7,7 +7,6 @@ class BackgroundWork {
     static var axCallsQueue: DispatchQueue!
     static var crashReportsQueue: DispatchQueue!
     static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
-    static var keyboardEventsThread: BackgroundThreadWithRunLoop!
     static var mouseEventsThread: BackgroundThreadWithRunLoop!
 
     // we cap concurrent tasks to .processorCount to avoid thread explosion on the .global queue
@@ -20,7 +19,6 @@ class BackgroundWork {
         axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
         crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
-        keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread", .userInteractive)
         mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread", .userInteractive)
     }
 }

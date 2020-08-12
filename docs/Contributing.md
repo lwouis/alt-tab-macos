@@ -130,10 +130,13 @@ In an attempt to not have too many regressions, this documents will list OS inte
 ### Shortcuts
 
 * The hold "key" can be multiple modifiers (e.g. `⌥⇧`)
+* Shortcuts should have priority over system shortcuts such as `cmd+tab`, so the user can replace these
+* The "select next window" shortcut can be modifiers, modifiers+key, or just key; it can also contain the same modifiers as the hold "key"
 * All shortcuts, except the hold key, can be disabled by the user
 * Shortcuts can include the `escape` and `delete` key; these should not stop recording shortcuts
 * [Secure Input](https://github.com/lwouis/alt-tab-macos/issues/157#issuecomment-659170293) can prevent AltTab from listening to the keyboard
 * Some shortcuts should only work when AltTab is open
+* Shortcuts should work with capslock active or inactive
 * The shortcut sets 1 and 2 should not interact with each other (e.g. opening AltTab with one, then using the other to navigate)
 * Shortcuts can focus the window on release, or be pressing a key or using the mouse
 * Keyboards from other countries have different layout which impact shortcuts

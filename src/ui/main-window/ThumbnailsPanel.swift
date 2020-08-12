@@ -2,6 +2,7 @@ import Cocoa
 
 class ThumbnailsPanel: NSPanel {
     var thumbnailsView = ThumbnailsView()
+    override var canBecomeKey: Bool { true }
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .utilityWindow, backing: .buffered, defer: true)
@@ -26,7 +27,7 @@ class ThumbnailsPanel: NSPanel {
     }
 
     func show() {
-        orderFrontRegardless()
+        makeKeyAndOrderFront(nil)
         MouseEvents.toggle(true)
         thumbnailsView.scrollView.flashScrollers()
     }

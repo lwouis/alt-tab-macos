@@ -33,7 +33,7 @@
 	<key>NSPrincipalClass</key>
 	<string>AppCenterApplication</string>
 	<key>NSSupportsSuddenTermination</key>
-	<string>true</string>
+	<string>false</string>
 	<key>SUEnableAutomaticChecks</key>
 	<string>true</string>
 	<key>SUScheduledCheckInterval</key>
