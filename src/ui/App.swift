@@ -70,6 +70,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
         return true
     }
 
+    func applicationWillTerminate(_ notification: Notification) {
+        // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
+        setNativeCommandTabEnabled(true)
+    }
+
     // pre-load some windows so they are faster on first display
     private func preloadWindows() {
         thumbnailsPanel.orderFront(nil)

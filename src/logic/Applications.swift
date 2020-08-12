@@ -74,7 +74,7 @@ class Applications {
     }
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
-        return app.activationPolicy != .prohibited || isNotXpc(app)
+        return (app.activationPolicy != .prohibited || isNotXpc(app)) && notAltTab(app)
     }
 
     private static func isNotXpc(_ app: NSRunningApplication) -> Bool {
@@ -82,5 +82,11 @@ class Applications {
             .flatMap { Bundle(url: $0) }
             .flatMap { $0.infoDictionary }
             .flatMap { $0["CFBundlePackageType"] as? String } != "XPC!"
+    }
+
+    // managing AltTab windows within AltTab create all sorts of side effects
+    // e.g. hiding the thumbnails panel gives focus to the preferences panel if open, thus changing its order in the list
+    private static func notAltTab(_ app: NSRunningApplication) -> Bool {
+        return app.processIdentifier != ProcessInfo.processInfo.processIdentifier
     }
 }
