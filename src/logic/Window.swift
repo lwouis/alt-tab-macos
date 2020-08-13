@@ -4,10 +4,11 @@ class Window {
     var cgWindowId: CGWindowID
     var title: String!
     var thumbnail: NSImage?
-    var icon: NSImage?
+    var icon: NSImage? { get { application.runningApplication.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
-    var isHidden: Bool
+    var isHidden: Bool { get { application.runningApplication.isHidden } }
+    var dockLabel: Int? { get { application.dockLabel.flatMap { Int($0) } } }
     var isFullscreen: Bool
     var isMinimized: Bool
     var isOnAllSpaces: Bool
@@ -35,8 +36,6 @@ class Window {
         self.cgWindowId = wid
         self.spaceId = Spaces.currentSpaceId
         self.spaceIndex = Spaces.currentSpaceIndex
-        self.icon = application.runningApplication.icon
-        self.isHidden = application.runningApplication.isHidden
         self.isFullscreen = isFullscreen
         self.isMinimized = isMinimized
         self.isOnAllSpaces = false

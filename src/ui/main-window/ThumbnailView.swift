@@ -9,9 +9,10 @@ class ThumbnailView: NSStackView {
     var minimizedIcon = ThumbnailFontIconView(.circledMinusSign)
     var hiddenIcon = ThumbnailFontIconView(.circledSlashSign)
     var spaceIcon = ThumbnailFontIconView(.circledNumber0)
-    var closeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledMultiplySign, Preferences.fontIconSize, NSColor(srgbRed: 1, green: 0.35, blue: 0.32, alpha: 1)), NSColor(srgbRed: 0.64, green: 0.03, blue: 0.02, alpha: 1))
-    var minimizeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledMinusSign, Preferences.fontIconSize, NSColor(srgbRed: 0.91, green: 0.75, blue: 0.16, alpha: 1)), NSColor(srgbRed: 0.71, green: 0.55, blue: 0.09, alpha: 1))
-    var maximizeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledPlusSign, Preferences.fontIconSize, NSColor(srgbRed: 0.32, green: 0.76, blue: 0.17, alpha: 1)), NSColor(srgbRed: 0.04, green: 0.39, blue: 0.02, alpha: 1))
+    var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, (Preferences.fontIconSize * 0.7).rounded(), NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white, true)
+    var closeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledMultiplySign, Preferences.fontIconSize, NSColor(srgbRed: 1, green: 0.35, blue: 0.32, alpha: 1), nil), NSColor(srgbRed: 0.64, green: 0.03, blue: 0.02, alpha: 1))
+    var minimizeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledMinusSign, Preferences.fontIconSize, NSColor(srgbRed: 0.91, green: 0.75, blue: 0.16, alpha: 1), nil), NSColor(srgbRed: 0.71, green: 0.55, blue: 0.09, alpha: 1))
+    var maximizeIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledPlusSign, Preferences.fontIconSize, NSColor(srgbRed: 0.32, green: 0.76, blue: 0.17, alpha: 1), nil), NSColor(srgbRed: 0.04, green: 0.39, blue: 0.02, alpha: 1))
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -42,9 +43,16 @@ class ThumbnailView: NSStackView {
         hStackView.spacing = Preferences.intraCellPadding
         setViews([hStackView, thumbnail], in: .leading)
         addWindowControls()
+        addDockLabelIcon()
     }
 
-    func addWindowControls() {
+    private func addDockLabelIcon() {
+        appIcon.addSubview(dockLabelIcon, positioned: .above, relativeTo: nil)
+        dockLabelIcon.topAnchor.constraint(equalTo: appIcon.topAnchor, constant: -4).isActive = true
+        dockLabelIcon.rightAnchor.constraint(equalTo: appIcon.rightAnchor, constant: 1).isActive = true
+    }
+
+    private func addWindowControls() {
         thumbnail.addSubview(closeIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(minimizeIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(maximizeIcon, positioned: .above, relativeTo: nil)
@@ -117,10 +125,19 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized || Preferences.hideStatusIcons)
         assignIfDifferent(&spaceIcon.isHidden, Spaces.isSingleSpace || Preferences.hideSpaceNumberLabels)
         if !spaceIcon.isHidden {
-            if element.isOnAllSpaces {
+            if element.spaceIndex > 30 || element.isOnAllSpaces {
                 spaceIcon.setStar()
             } else {
-                spaceIcon.setNumber(UInt32(element.spaceIndex))
+                spaceIcon.setNumber(element.spaceIndex, false)
+            }
+        }
+        assignIfDifferent(&dockLabelIcon.isHidden, element.dockLabel == nil || Preferences.hideAppBadges || Preferences.iconSize == 0)
+        if !dockLabelIcon.isHidden, let dockLabel = element.dockLabel {
+            let view = dockLabelIcon.subviews[1] as! ThumbnailFontIconView
+            if dockLabel > 30 {
+                view.setFilledStar()
+            } else {
+                view.setNumber(dockLabel, true)
             }
         }
         assignIfDifferent(&frame.size.width, max(thumbnail.frame.size.width + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)))

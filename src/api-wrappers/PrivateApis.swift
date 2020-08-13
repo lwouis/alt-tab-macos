@@ -121,8 +121,9 @@ func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout
 @_silgen_name("SLSRequestScreenCaptureAccess") @discardableResult
 func SLSRequestScreenCaptureAccess() -> UInt8
 
-// for some reason, this attribute is missing from AXAttributeConstants
+// for some reason, these attributes are missing from AXAttributeConstants
 let kAXFullscreenAttribute = "AXFullScreen"
+let kAXStatusLabelAttribute = "AXStatusLabel"
 
 // enables/disables a symbolic hotkeys. These are system shortcuts such as command+tab or Spotlight
 // it is possible to find all the existing hotkey IDs by using CGSGetSymbolicHotKeyValue on the first few hundred numbers
