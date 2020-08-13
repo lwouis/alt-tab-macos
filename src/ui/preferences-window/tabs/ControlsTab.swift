@@ -1,12 +1,7 @@
 import Cocoa
 import ShortcutRecorder
-import Preferences
 
-class ControlsTab: NSViewController, PreferencePane {
-    let preferencePaneIdentifier = PreferencePane.Identifier("Controls")
-    let preferencePaneTitle = NSLocalizedString("Controls", comment: "")
-    let toolbarItemIcon = NSImage.initTemplateCopy("controls")
-
+class ControlsTab {
     static var nextWindowShortcut: [NSControl]!
     static var localShortcuts = [String: Shortcut]()
     static var globalShortcuts = [String: Shortcut]()
@@ -28,7 +23,7 @@ class ControlsTab: NSViewController, PreferencePane {
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
     ]
 
-    override func loadView() {
+    static func initTab() -> NSView {
         let shortcutStyle = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("then release:", comment: ""), "shortcutStyle", ShortcutStylePreference.allCases)
         let focusWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Focus selected window", comment: ""), "focusWindowShortcut", Preferences.focusWindowShortcut, labelPosition: .right)
         let previousWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select previous window", comment: ""), "previousWindowShortcut", Preferences.previousWindowShortcut, labelPosition: .right)
@@ -71,10 +66,10 @@ class ControlsTab: NSViewController, PreferencePane {
             tabView.leftAnchor.constraint(equalTo: tabView.superview!.leftAnchor, constant: leftColumnWidthTopView - leftColumnWidthTabView + 3).isActive = true
         }
 
-        setView(grid)
+        return grid
     }
 
-    private func toShowSection(_ postfix: String) -> ([NSView], GridView) {
+    private static func toShowSection(_ postfix: String) -> ([NSView], GridView) {
         let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show the following windows:", comment: ""))
         var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut" + postfix, Preferences.holdShortcut[postfix == "" ? 0 : 1], false, labelPosition: .leftWithoutSeparator)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press:", comment: "")))

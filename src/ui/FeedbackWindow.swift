@@ -13,11 +13,6 @@ class FeedbackWindow: NSWindow {
         setupView()
     }
 
-    func show() {
-        App.shared.activate(ignoringOtherApps: true)
-        makeKeyAndOrderFront(nil)
-    }
-
     private func setupWindow() {
         title = NSLocalizedString("Send feedback", comment: "")
         hidesOnDeactivate = false

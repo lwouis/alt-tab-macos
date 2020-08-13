@@ -1,12 +1,7 @@
 import Cocoa
-import Preferences
 
-class AppearanceTab: NSViewController, PreferencePane {
-    let preferencePaneIdentifier = PreferencePane.Identifier("Appearance")
-    let preferencePaneTitle = NSLocalizedString("Appearance", comment: "")
-    let toolbarItemIcon = NSImage.initTemplateCopy("appearance")
-
-    override func loadView() {
+class AppearanceTab {
+    static func initTab() -> NSView {
         let grid = GridView([
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases),
@@ -30,6 +25,6 @@ class AppearanceTab: NSViewController, PreferencePane {
         grid.rowAlignment = .lastBaseline
         grid.fit()
 
-        setView(grid)
+        return grid
     }
 }
