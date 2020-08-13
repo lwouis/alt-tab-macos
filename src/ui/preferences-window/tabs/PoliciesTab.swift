@@ -1,18 +1,13 @@
 import Cocoa
 import Sparkle
-import Preferences
 
-class PoliciesTab: NSViewController, PreferencePane {
-    let preferencePaneIdentifier = PreferencePane.Identifier("Policies")
-    let preferencePaneTitle = NSLocalizedString("Policies", comment: "")
-    let toolbarItemIcon = NSImage.initTemplateCopy("policies")
-
+class PoliciesTab {
     static var updateButtons: [NSButton]!
     static var crashButtons: [NSButton]!
     // this helps prevent double-dipping (i.e. user updates the UI > changes the preference > updates the UI)
     static var policyLock = false
 
-    override func loadView() {
+    static func initTab() -> NSView {
         let updateLabel = LabelAndControl.makeLabel(NSLocalizedString("Updates policy:", comment: ""))
         PoliciesTab.updateButtons = LabelAndControl.makeRadioButtons(UpdatePolicyPreference.allCases, "updatePolicy", extraAction: { _ in
             PoliciesTab.policyLock = true
@@ -36,9 +31,9 @@ class PoliciesTab: NSViewController, PreferencePane {
         grid.row(at: 2).topPadding = GridView.interPadding * 1.5
         grid.fit()
 
-        setView(grid)
-
         UserDefaultsEvents.observe()
+
+        return grid
     }
 
     @objc static func checkForUpdatesNow(_ sender: Any) {

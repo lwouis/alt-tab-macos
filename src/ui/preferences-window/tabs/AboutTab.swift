@@ -1,12 +1,7 @@
 import Cocoa
-import Preferences
 
-class AboutTab: NSViewController, PreferencePane {
-    let preferencePaneIdentifier = PreferencePane.Identifier("About")
-    let preferencePaneTitle = NSLocalizedString("About", comment: "")
-    let toolbarItemIcon = NSImage.initTemplateCopy("about")
-
-    override func loadView() {
+class AboutTab {
+    static func initTab() -> NSView {
         let appIcon = NSImageView(image: NSImage.initResizedCopy("app-icon", 256, 256))
         appIcon.imageScaling = .scaleNone
         let appText = StackView([
@@ -32,6 +27,6 @@ class AboutTab: NSViewController, PreferencePane {
         sendFeedbackCell.row!.topPadding = GridView.interPadding
         grid.fit()
 
-        setView(grid)
+        return grid
     }
 }

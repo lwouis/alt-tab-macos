@@ -2,7 +2,6 @@ import Cocoa
 import Darwin
 import LetsMove
 import ShortcutRecorder
-import Preferences
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
@@ -14,7 +13,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static var app: App!
     var thumbnailsPanel: ThumbnailsPanel!
-    var preferencesWindowController: PreferencesWindowController!
+    var preferencesWindow: PreferencesWindow!
     var feedbackWindow: FeedbackWindow?
     var isFirstSummon = true
     var appIsBeingUsed = false
@@ -34,7 +33,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         appCenterDelegate = AppCenterCrash()
-        NSApp.disableRelaunchOnLogin()
+        App.shared.disableRelaunchOnLogin()
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -52,21 +51,20 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.thumbnailsPanel = ThumbnailsPanel()
             Spaces.initialDiscovery()
             Applications.initialDiscovery()
-            self.loadPreferencesWindow()
+            self.preferencesWindow = PreferencesWindow()
             KeyboardEvents.observe()
             MouseEvents.observe()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
             #if DEBUG
-            self.showPreferencesPanel()
+            self.showPreferencesWindow()
             #endif
         }
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        NSApp.activate(ignoringOtherApps: true)
-        showPreferencesPanel()
+        showPreferencesWindow()
         return true
     }
 
@@ -79,37 +77,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
     private func preloadWindows() {
         thumbnailsPanel.orderFront(nil)
         thumbnailsPanel.orderOut(nil)
-    }
-
-    private func loadPreferencesWindow() {
-        let tabs = [
-            GeneralTab(),
-            ControlsTab(),
-            AppearanceTab(),
-            PoliciesTab(),
-            BlacklistsTab(),
-            AboutTab(),
-            AcknowledgmentsTab(),
-        ]
-        // pre-load tabs so we can interact with them before the user opens the preferences window
-        let widest = tabs.reduce(CGFloat(0), {
-            $1.loadView()
-            return max($0, $1.view.subviews[0].fittingSize.width)
-        })
-        tabs.forEach {
-            $0.view.fit(widest, $0.view.subviews[0].fittingSize.height)
-        }
-
-        preferencesWindowController = PreferencesWindowController(preferencePanes: tabs as! [PreferencePane])
-
-        let window = preferencesWindowController.window!
-        window.styleMask.update(with: .miniaturizable)
-        let quitButton = NSButton(title: NSLocalizedString("Quit", comment: ""), target: nil, action: #selector(NSApplication.terminate(_:)))
-        let titleBarView = window.standardWindowButton(.closeButton)!.superview!
-        titleBarView.addSubview(quitButton)
-        quitButton.translatesAutoresizingMaskIntoConstraints = false
-        quitButton.topAnchor.constraint(equalTo: titleBarView.topAnchor, constant: 5).isActive = true
-        quitButton.rightAnchor.constraint(equalTo: titleBarView.rightAnchor, constant: -8).isActive = true
     }
 
     // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
@@ -169,19 +136,21 @@ class App: AppCenterApplication, NSApplicationDelegate {
         PoliciesTab.checkForUpdatesNow(sender)
     }
 
-    @objc func showPreferencesPanel() {
-        if let preferencesWindow = preferencesWindowController?.window {
-            preferencesWindowController.show()
-            Screen.repositionPanel(preferencesWindow, Screen.preferred(), .appleCentered)
-        }
-    }
-
     @objc func showFeedbackPanel() {
         if feedbackWindow == nil {
             feedbackWindow = FeedbackWindow()
         }
         Screen.repositionPanel(feedbackWindow!, Screen.preferred(), .appleCentered)
-        feedbackWindow?.show()
+        App.shared.activate(ignoringOtherApps: true)
+        feedbackWindow!.makeKeyAndOrderFront(nil)
+    }
+
+    @objc func showPreferencesWindow() {
+        if let preferencesWindow = preferencesWindow {
+            Screen.repositionPanel(preferencesWindow, Screen.preferred(), .appleCentered)
+            App.shared.activate(ignoringOtherApps: true)
+            preferencesWindow.makeKeyAndOrderFront(nil)
+        }
     }
 
     @objc func showUi() {

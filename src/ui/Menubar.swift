@@ -12,7 +12,7 @@ class Menubar {
             keyEquivalent: "")
         statusItem.menu!.addItem(
             withTitle: NSLocalizedString("Preferences…", comment: "Menubar option"),
-            action: #selector(App.app.showPreferencesPanel),
+            action: #selector(App.app.showPreferencesWindow),
             keyEquivalent: ",")
         statusItem.menu!.addItem(
             withTitle: NSLocalizedString("Check for updates…", comment: "Menubar option"),

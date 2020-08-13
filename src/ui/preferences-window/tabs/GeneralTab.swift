@@ -1,12 +1,7 @@
 import Cocoa
-import Preferences
 
-class GeneralTab: NSViewController, PreferencePane {
-    let preferencePaneIdentifier = PreferencePane.Identifier("General")
-    let preferencePaneTitle = NSLocalizedString("General", comment: "")
-    let toolbarItemIcon = NSImage.initTemplateCopy("general")
-
-    override func loadView() {
+class GeneralTab {
+    static func initTab() -> NSView {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
         let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
         let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
@@ -28,14 +23,14 @@ class GeneralTab: NSViewController, PreferencePane {
         grid.column(at: 0).xPlacement = .trailing
         grid.fit()
 
-        setView(grid)
-
         startAtLoginCallback(startAtLogin[1] as! NSControl)
+
+        return grid
     }
 
     // adding/removing login item depending on the checkbox state
     @available(OSX, deprecated: 10.11)
-    func startAtLoginCallback(_ sender: NSControl) {
+    static func startAtLoginCallback(_ sender: NSControl) {
         let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
         let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
         let itemName = Bundle.main.bundleURL.lastPathComponent as CFString

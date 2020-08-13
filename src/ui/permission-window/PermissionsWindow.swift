@@ -65,7 +65,7 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
         }
         let view = GridView(rows as! [[NSView]])
         view.fit()
-//        view.cell(atColumnIndex: 0, rowIndex: 4).xPlacement = .trailing
+
         setContentSize(view.fittingSize)
         contentView = view
     }

@@ -1,15 +1,11 @@
 import Cocoa
 import SwiftyMarkdown
-import Preferences
 
-class AcknowledgmentsTab: NSViewController, PreferencePane {
+class AcknowledgmentsTab {
     // going taller than this will crop the view on small screens or low scaling modes on retina displays
     static let maxTabHeight = CGFloat(450)
-    let preferencePaneIdentifier = PreferencePane.Identifier("Acknowledgments")
-    let preferencePaneTitle = NSLocalizedString("Acknowledgments", comment: "")
-    let toolbarItemIcon = NSImage.initTemplateCopy("acknowledgments")
 
-    override func loadView() {
+    static func initTab() -> NSView {
         let textViews: [TextField] = ["Contributors", "Acknowledgments"].map {
             let markdownFileUrl = Bundle.main.url(forResource: $0, withExtension: "md")!
             let md = SwiftyMarkdown(url: markdownFileUrl)!
@@ -37,6 +33,6 @@ class AcknowledgmentsTab: NSViewController, PreferencePane {
         scrollView.documentView!.frame.size = subGrid.fittingSize
         scrollView.fit(totalWidth, totalHeight)
 
-        setView(scrollView)
+        return scrollView
     }
 }
