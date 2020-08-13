@@ -7,6 +7,7 @@ class Application: NSObject {
     var axUiElement: AXUIElement?
     var axObserver: AXObserver?
     var isReallyFinishedLaunching = false
+    var dockLabel: String?
 
     static func notifications(_ app: NSRunningApplication) -> [String] {
         var n = [

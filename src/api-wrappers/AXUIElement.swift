@@ -116,6 +116,10 @@ extension AXUIElement {
         return try attribute(kAXParentAttribute, AXUIElement.self)
     }
 
+    func children() throws -> [AXUIElement]? {
+        return try attribute(kAXChildrenAttribute, [AXUIElement].self)
+    }
+
     func windows() throws -> [AXUIElement]? {
         return try attribute(kAXWindowsAttribute, [AXUIElement].self)
     }
@@ -138,6 +142,10 @@ extension AXUIElement {
 
     func subrole() throws -> String? {
         return try attribute(kAXSubroleAttribute, String.self)
+    }
+
+    func appIsRunning() throws -> Bool? {
+        return try attribute(kAXIsApplicationRunningAttribute, Bool.self)
     }
 
     func closeButton() throws -> AXUIElement? {

@@ -58,6 +58,7 @@ class Preferences {
         "minCellsPerRow": defaultsDependingOnScreenRatio_["minCellsPerRow"]!,
         "maxCellsPerRow": defaultsDependingOnScreenRatio_["maxCellsPerRow"]!,
         "shortcutStyle": "0",
+        "hideAppBadges": "false",
     ]
 
     // constant values
@@ -96,6 +97,7 @@ class Preferences {
     static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
+    static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
     static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }

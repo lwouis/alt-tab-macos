@@ -270,6 +270,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
         guard appIsBeingUsed else { return }
         Windows.refreshAllThumbnails()
         guard appIsBeingUsed else { return }
+        Applications.refreshBadges()
+        guard appIsBeingUsed else { return }
         refreshOpenUi()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()

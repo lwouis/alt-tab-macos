@@ -86,11 +86,7 @@ private func applicationHiddenOrShown(_ element: AXUIElement, _ pid: pid_t, _ ty
     DispatchQueue.main.async {
         let windows = Windows.list.filter {
             // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
-            let isFromApp = $0.application.runningApplication.processIdentifier == pid
-            if isFromApp {
-                $0.isHidden = type == kAXApplicationHiddenNotification
-            }
-            return isFromApp
+            return $0.application.runningApplication.processIdentifier == pid
         }
         App.app.refreshOpenUi(windows)
     }
