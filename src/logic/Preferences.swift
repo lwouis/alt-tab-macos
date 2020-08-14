@@ -16,7 +16,7 @@ class Preferences {
         "holdShortcut2": "⌥",
         "nextWindowShortcut": "⇥",
         "nextWindowShortcut2": keyAboveTabDependingOnInputSource(),
-        "focusWindowShortcut": "↩",
+        "focusWindowShortcut": "Space",
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
