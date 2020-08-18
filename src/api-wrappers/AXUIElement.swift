@@ -57,11 +57,23 @@ extension AXUIElement {
             isOnNormalLevel &&
             (["AXStandardWindow", "AXDialog"].contains(subrole) ||
                 steam(runningApp, title, role) ||
+                worldOfWarcraft(runningApp, role) ||
+                battleNetBootstrapper(runningApp, role) ||
                 firefoxFullscreenVideo(runningApp, role) ||
                 androidEmulator(runningApp, title) ||
                 sanGuoShaAirWD(runningApp) ||
                 dvdFab(runningApp) ||
                 drBetotte(runningApp))
+    }
+
+    private func worldOfWarcraft(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+        // Battlenet bootstrapper windows have subrole == AXUnknown
+        return runningApp.bundleIdentifier == "com.blizzard.worldofwarcraft" && role == "AXWindow"
+    }
+
+    private func battleNetBootstrapper(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+        // Battlenet bootstrapper windows have subrole == AXUnknown
+        return runningApp.bundleIdentifier == "net.battle.bootstrapper" && role == "AXWindow"
     }
 
     private func drBetotte(_ runningApp: NSRunningApplication) -> Bool {
