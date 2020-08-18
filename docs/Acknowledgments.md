@@ -2,9 +2,6 @@
 
 These third-party libraries are used:
 
-**Preferences**
-[Website](https://github.com/sindresorhus/Preferences) - [MIT License](https://github.com/sindresorhus/Preferences/blob/master/license)
-
 **ShortcutRecorder**
 [Website](https://github.com/Kentzo/ShortcutRecorder) - [CC 4.0 license](https://github.com/Kentzo/ShortcutRecorder/blob/master/LICENSE.txt)
 
