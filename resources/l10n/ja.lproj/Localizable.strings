@@ -93,19 +93,19 @@
 "Close window" = "ウィンドウを閉じる";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "詳細設定";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "クラッシュ時の動作：";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "何もしない";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "定期的に更新を確認しない";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "送信しない";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
@@ -114,10 +114,10 @@
 "End" = "End";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "フェードアウトアニメーション";
+"Fade out animation:" = "フェードアウトアニメーション：";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "選択されたウィンドウを表示";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Fullscreen";
@@ -141,7 +141,7 @@
 "Hide space number labels:" = "スペース番号ラベルを隠す：";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "メニューバーにアイコンを表示しない：";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "アプリケーションを隠す / 表示";
@@ -150,7 +150,7 @@
 "Hold" = " ";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "アプリの◯◯を改善したい";
+"I think the app could be improved with…" = "アプリの◯◯を改善したい…";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
@@ -168,7 +168,7 @@
 "Max windows per row:" = "一列に最大表示可能な個数：";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "メニューバーアイコン：";
 
 /*No comment provided by engineer.*/
 "Middle" = "Middle";
@@ -198,7 +198,7 @@
 "Only if the window is fullscreen" = "Only if the window is fullscreen";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "アクセシビリティ設定を開く…";
 
 /*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
@@ -237,7 +237,7 @@
 "Screen including mouse" = "マウスのあるスクリーン";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "画面録画";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "AltTabが表示されるスクリーン";
@@ -285,7 +285,7 @@
 "Show on:" = "表示場所：";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "標準タブをウィンドウとして表示";
+"Show standard tabs as windows:" = "標準タブをウィンドウとして表示：";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "ウィンドウを表示：";
@@ -303,7 +303,7 @@
 "Theme:" = "テーマ：";
 
 /*No comment provided by engineer.*/
-"then release:" = "then release:";
+"then release:" = "離した時の動作：";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
