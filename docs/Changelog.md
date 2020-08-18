@@ -1,5 +1,30 @@
 # Release notes
 
+# [5.0.0](https://github.com/lwouis/alt-tab-macos/compare/v4.19.0...v5.0.0) (2020-08-18)
+
+
+### Bug Fixes
+
+* app icon was not showing on macos 10.12 (see [#522](https://github.com/lwouis/alt-tab-macos/issues/522)) ([2a45dec](https://github.com/lwouis/alt-tab-macos/commit/2a45dec))
+* battle.net installer and wow were not showing in alt-tab ([793b10b](https://github.com/lwouis/alt-tab-macos/commit/793b10b)), closes [#536](https://github.com/lwouis/alt-tab-macos/issues/536)
+* portuguese from portugal was shown to brazil users ([e54c2de](https://github.com/lwouis/alt-tab-macos/commit/e54c2de))
+* rare crash when the os was not providing the current space id ([cf05044](https://github.com/lwouis/alt-tab-macos/commit/cf05044))
+* rewrote the preference window to fix crashes and jank (closes [#502](https://github.com/lwouis/alt-tab-macos/issues/502)) ([f9f5b8a](https://github.com/lwouis/alt-tab-macos/commit/f9f5b8a))
+
+
+### Features
+
+* change default key to select window from `return` to `space` ([eec694e](https://github.com/lwouis/alt-tab-macos/commit/eec694e))
+* complete rewrite of the keyboard support (closes [#157](https://github.com/lwouis/alt-tab-macos/issues/157)) ([d3253ba](https://github.com/lwouis/alt-tab-macos/commit/d3253ba))
+* show notification badges on top of app icons (closes [#523](https://github.com/lwouis/alt-tab-macos/issues/523)) ([fb62834](https://github.com/lwouis/alt-tab-macos/commit/fb62834))
+* update portuguese (brazil) localization ([726acd3](https://github.com/lwouis/alt-tab-macos/commit/726acd3))
+* updated japanese localization ([36c7b0a](https://github.com/lwouis/alt-tab-macos/commit/36c7b0a))
+
+
+### BREAKING CHANGES
+
+* the previous keyboard support implementation was not working if any app on the system activated Secure Input and didn't turn it off. This is a major hurdle for most global shortcut apps. This update introduces a new implementation which is unaffected by Secure Input. AltTab shortcuts should now work reliably
+
 # [4.19.0](https://github.com/lwouis/alt-tab-macos/compare/v4.18.0...v4.19.0) (2020-08-11)
 
 
