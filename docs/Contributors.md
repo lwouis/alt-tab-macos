@@ -25,6 +25,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * blanorama
 * caduellery
 * Chun Fei Lung
+* Daniel M
 * Elisabeth landblok
 * Eric WANTZ
 * Filipe
@@ -46,5 +47,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Viggo Lekdorf
 * Vlad
 * Whatsmine-HaoshuaiXu
+* ysaito
 * Yukai
 * yumechan
