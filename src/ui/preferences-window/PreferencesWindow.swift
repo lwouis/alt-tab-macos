@@ -13,10 +13,12 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         isReleasedWhenClosed = false
         hidesOnDeactivate = false
         styleMask.insert([.miniaturizable, .closable])
-        addQuitButton()
+        // Disabled, see issue #543
+        // addQuitButton()
     }
 
     private func addQuitButton() {
+        // TODO: Something breaks here! See issue #543
         let quitButton = NSButton(title: NSLocalizedString("Quit", comment: ""), target: nil, action: #selector(NSApplication.terminate(_:)))
         quitButton.translatesAutoresizingMaskIntoConstraints = false
         let accessoryViewController = NSTitlebarAccessoryViewController()
