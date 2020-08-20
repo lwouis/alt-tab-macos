@@ -18,11 +18,11 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
 
     private func addQuitButton() {
         let quitButton = NSButton(title: NSLocalizedString("Quit", comment: ""), target: nil, action: #selector(NSApplication.terminate(_:)))
+        let titleBarView = standardWindowButton(.closeButton)!.superview!
+        titleBarView.addSubview(quitButton)
         quitButton.translatesAutoresizingMaskIntoConstraints = false
-        let accessoryViewController = NSTitlebarAccessoryViewController()
-        accessoryViewController.view = quitButton
-        accessoryViewController.layoutAttribute = NSLayoutConstraint.Attribute.trailing
-        addTitlebarAccessoryViewController(accessoryViewController)
+        quitButton.topAnchor.constraint(equalTo: titleBarView.topAnchor, constant: 5).isActive = true
+        quitButton.rightAnchor.constraint(equalTo: titleBarView.rightAnchor, constant: -8).isActive = true
     }
 
     private func setupView() {
