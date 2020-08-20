@@ -29,7 +29,7 @@ private func observe_() {
         callback: mouseHandler,
         userInfo: nil)
     MouseEvents.toggle(false)
-    let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+    let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
     CFRunLoopAddSource(BackgroundWork.mouseEventsThread.runLoop, runLoopSource, .commonModes)
 }
 
@@ -48,7 +48,7 @@ private func mouseHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CG
     } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
-    return Unmanaged.passRetained(cgEvent) // focused app will receive the event
+    return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
 }
 
 private func isPointerInsideUi_() {
