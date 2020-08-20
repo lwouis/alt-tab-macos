@@ -99,7 +99,7 @@
 "Crash reports policy:" = "Política de relatórios de falha:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Faz nada";
+"Do nothing" = "Não fazer nada";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Não verificar periodicamente por atualizações";
@@ -303,7 +303,7 @@
 "Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
-"then release:" = "então ao soltar:";
+"then release:" = "Ao soltar:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Esta permissão é necessária para focar a janela após acionar o atalho";

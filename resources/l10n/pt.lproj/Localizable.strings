@@ -36,10 +36,10 @@
 "Allowed" = "Permitido";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Também escolher janelas usando:";
+"Also select windows using:" = "Também escolher janelas utilizando:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "O AltTab \"crashou\" na última vez que foi usado. Ao enviar um relatório event ajuda a corrigir o erro";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "O AltTab terminou inesperadamente na última vez que foi utilizado. Ao enviar um relatório ajuda a corrigir o erro";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab necessita de algumas permissões";
@@ -129,19 +129,19 @@
 "Hidden" = "Escondido";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "Esconder emblemas:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Esconder círculos coloridos onde o rato passar:";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "Esconder icon da barra:";
+"Hide menubar icon:" = "Esconder ícone da barra:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "Não exibir número do space:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Esconder icons de estado:";
+"Hide status icons:" = "Esconder ícones de estado:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Esconder/Mostrar aplicação";
@@ -168,7 +168,7 @@
 "Max windows per row:" = "Máximo de janelas por linha:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Icon da barra:";
+"Menubar icon:" = "Ícone da barra:";
 
 /*No comment provided by engineer.*/
 "Middle" = "Meio";
@@ -249,7 +249,7 @@
 "Select previous window" = "Seleccionar janela anterior";
 
 /*No comment provided by engineer.*/
-"Select windows using:" = "Seleccionar janela usando:";
+"Select windows using:" = "Seleccionar janela utilizando:";
 
 /*No comment provided by engineer.*/
 "Send" = "Enviar";
@@ -324,7 +324,7 @@
 "While open, press:" = "Enquanto activa, carregar:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Tamanho do icon da aplicação:";
+"Window app icon size:" = "Tamanho do ícone da aplicação:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tamanho da fonte do título da aplicação:";
