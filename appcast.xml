@@ -5,6 +5,20 @@
     <language>en</language>
 
     <item>
+      <title>Version 5.1.0</title>
+      <pubDate>Thu, 20 Aug 2020 11:11:38 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v5.1.0/AltTab-5.1.0.zip"
+        sparkle:version="5.1.0"
+        sparkle:shortVersionString="5.1.0"
+        sparkle:edSignature="TxRcuBTKfGzkGTUHUtscZaPzJQknMm57lAG71di95TBHH4+7Ak706lIoUT/1TLLcH3HIzo4E6psaRaisWfJ/CA==" length="7069475"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 5.0.0</title>
       <pubDate>Tue, 18 Aug 2020 14:52:57 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

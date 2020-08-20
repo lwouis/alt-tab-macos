@@ -1,5 +1,22 @@
 # Release notes
 
+# [5.1.0](https://github.com/lwouis/alt-tab-macos/compare/v5.0.0...v5.1.0) (2020-08-20)
+
+
+### Bug Fixes
+
+* sometimes crashed when opening the preferences window (closes [#543](https://github.com/lwouis/alt-tab-macos/issues/543)) ([0f3c91a](https://github.com/lwouis/alt-tab-macos/commit/0f3c91a))
+
+
+### Features
+
+* update korean and portuguese localizations ([32ff753](https://github.com/lwouis/alt-tab-macos/commit/32ff753))
+
+
+### Performance Improvements
+
+* fix very small memory leaks ([8b7da21](https://github.com/lwouis/alt-tab-macos/commit/8b7da21))
+
 # [5.0.0](https://github.com/lwouis/alt-tab-macos/compare/v4.19.0...v5.0.0) (2020-08-18)
 
 
