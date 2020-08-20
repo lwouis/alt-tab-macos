@@ -18,9 +18,10 @@ class KeyboardEvents {
     static var eventHotKeyRefs = [EventHotKeyRef?](repeating: nil, count: globalShortcuts.count)
     static var hotModifierEventHandler: EventHandlerRef?
     static var hotKeyEventHandler: EventHandlerRef?
+    static var localMonitor: Any?
 
     static func observe() {
-        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .flagsChanged]) { event in
+        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .flagsChanged]) { event in
             // global .flagsChanged events are not send to the app when it's active, thus modifiers-only shortcuts should be matched in global and local handlers
             if handleHotModifier(cocoaToCarbonFlags(event.modifierFlags)) || handleLocalEvents(event) {
                 return nil // don't propagate event
