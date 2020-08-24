@@ -21,7 +21,7 @@
 "Align windows:" = "Aligner les fenêtres :";
 
 /*No comment provided by engineer.*/
-"All apps" = "Toutes les apps";
+"All apps" = "Toutes les Apps";
 
 /*No comment provided by engineer.*/
 "All data from this form will be made public, as a ticket on github.com" = "Toutes les données de ce formulaire seront rendues publiques, dans un ticket sur github.com";
@@ -36,19 +36,19 @@
 "Allowed" = "Autorisé";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "Sélectionner aussi les fenêtres en utilisant :";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab a crashé la dernière fois que vous l’avez utilisé. L’envoi d’un rapport d’erreur aidera à résoudre le problème.";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab a besoin de permissions";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Toujours envoyer un rapport d’erreur";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"and press:" = "puis sur :";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Délai d’apparition :";
@@ -63,7 +63,7 @@
 "Arrow keys" = "Touches flèches";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Demander avant d’envoyer un rapport d’erreur";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Auto-installer les mises-à-jour périodiquement";
@@ -93,31 +93,31 @@
 "Close window" = "Fermer la fenêtre";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "Contrôles";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "Politique des rapports d’erreur :";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "Ne rien faire";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Ne pas chercher de mise-à-jour périodiquement";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "Ne pas envoyer";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Ne pas afficher les fenêtres de ces applications";
+"Don’t show windows from these apps" = "Ne pas afficher les fenêtres de ces Apps";
 
 /*No comment provided by engineer.*/
 "End" = "Fin";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Animer la disparition :";
+"Fade out animation:" = "Animation de disparition :";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Surligner la fenêtre sélectionnée";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Plein écran";
@@ -129,10 +129,10 @@
 "Hidden" = "Cachées";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "Masquer les badges des Apps :";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "Masquer les cercles colorés au survol de la souris :";
 
 /*No comment provided by engineer.*/
 "Hide menubar icon:" = "Cacher l’icône de la barre de menu :";
@@ -141,19 +141,19 @@
 "Hide space number labels:" = "Cacher les numéros des Espaces :";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "Masquer les icônes de statut :";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Masquer/Afficher l’app";
+"Hide/Show app" = "Masquer/Afficher l’App";
 
 /*No comment provided by engineer.*/
 "Hold" = "Maintenir";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Je pense que l’app pourrait être améliorée avec…";
+"I think the app could be improved with…" = "Je pense que AltTab pourrait être améliorée avec…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignorer les raccourcis si une fenêtre de ces applications est active";
+"Ignore shortcuts while a window from these apps is active" = "Ignorer les raccourcis si une fenêtre de ces Apps est active";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Dernières versions";
@@ -168,7 +168,7 @@
 "Max windows per row:" = "Max de fenêtres par ligne :";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "Icône de la barre des menus :";
 
 /*No comment provided by engineer.*/
 "Middle" = "Milieu";
@@ -177,7 +177,7 @@
 "Min windows per row:" = "Min de fenêtres par ligne :";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimiser/Déminimiser la fenêtre";
+"Minimize/Deminimize window" = "Minimiser/Maximiser la fenêtre";
 
 /*No comment provided by engineer.*/
 "Minimized" = "Minimisées";
@@ -186,7 +186,7 @@
 "Mouse hover" = "Survol de la souris";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Ne jamais envoyer de rapport d’erreur";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Non autorisé";
@@ -198,19 +198,19 @@
 "Only if the window is fullscreen" = "Seulement si la fenêtre est en mode plein écran";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Ouvrir Préférences Accessibilité…";
+"Open Accessibility Preferences…" = "Ouvrir les Préférences d’Accessibilité…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Ouvrir Préférences Enregistrement de l’écran…";
+"Open Screen Recording Preferences…" = "Ouvrir les Préférences d’Enregistrement de l’écran…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Optionnel : email (si vous voulez une réponse)";
 
 /*No comment provided by engineer.*/
-"or press:" = "or press:";
+"or press:" = "ou presser :";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "Politiques";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Préférences…";
@@ -222,10 +222,10 @@
 "Quit %@" = "Quitter %@";
 
 /*No comment provided by engineer.*/
-"Quit app" = "Quitter l’app";
+"Quit app" = "Quitter l’App";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "Se souvenir de mon choix";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Rangées de fenêtres :";
@@ -255,7 +255,7 @@
 "Send" = "Envoyer";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Envoyer un rapport d’erreur ?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Envoyer tout de même";
@@ -273,10 +273,10 @@
 "Share improvement ideas, or report bugs" = "Partagez des idées d’amélioration, ou signalez des bugs";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "Raccourci 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "Raccourci 2";
 
 /*No comment provided by engineer.*/
 "Show" = "Afficher";
@@ -291,7 +291,7 @@
 "Show the following windows:" = "Afficher les fenêtres suivantes :";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "Repo du code source";
+"Source code repository" = "Archive du code source";
 
 /*No comment provided by engineer.*/
 "Start" = "Début";
@@ -303,7 +303,7 @@
 "Theme:" = "Thème :";
 
 /*No comment provided by engineer.*/
-"then release:" = "then release:";
+"then release:" = "puis relâcher :";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Cette permission est nécessaire pour afficher la fenêtre après le relâchement du raccourci clavier";
@@ -321,10 +321,10 @@
 "View existing discussions" = "Voir les discussions existantes";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "Une fois visible, presser :";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Taille des icones des applications :";
+"Window app icon size:" = "Taille des icones des Apps :";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Taille du titres des fenêtres :";
