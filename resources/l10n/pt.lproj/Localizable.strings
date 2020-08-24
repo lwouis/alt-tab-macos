@@ -1,6 +1,6 @@
 
 /*No comment provided by engineer.*/
-"About" = "Sobre";
+"About" = "Informações";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Acessibilidade";
@@ -15,7 +15,7 @@
 "Active screen" = "Ecrã activo";
 
 /*No comment provided by engineer.*/
-"Active space" = "Desktop activo";
+"Active space" = "Space activo";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Alinhar janelas:";
@@ -39,13 +39,13 @@
 "Also select windows using:" = "Também escolher janelas utilizando:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "O AltTab terminou inesperadamente na última vez que foi utilizado. Ao enviar um relatório ajuda a corrigir o erro";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "O AltTab terminou inesperadamente na última vez que foi utilizado. Ao enviar um relatório de falha ajuda a corrigir o erro";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab necessita de algumas permissões";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Enviar sempre relatórios de crashes";
+"Always send crash reports" = "Enviar sempre relatórios de falha";
 
 /*No comment provided by engineer.*/
 "and press:" = "e carregar:";
@@ -63,13 +63,13 @@
 "Arrow keys" = "Teclas direccionais";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Perguntar para enviar relatórios de crashes";
+"Ask whether to send crash reports" = "Perguntar para enviar relatórios de falha";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Instalar actualizações periódicas automaticamente";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Excepções";
 
 /*Cancel button*/
 "Cancel" = "Cancelar";
@@ -78,16 +78,16 @@
 "Cancel and hide" = "Cancelar e esconder";
 
 /*No comment provided by engineer.*/
-"Center" = "Centrar";
+"Center" = "Centro";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Verificar actualizações agora…";
+"Check for updates now…" = "Procurar actualizações agora…";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Verificar periodicamente por atualizações";
+"Check for updates periodically" = "Procurar actualizações periodicamente";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "Verificar actualizações…";
+"Check for updates…" = "Procurar actualizações…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Fechar janela";
@@ -96,13 +96,13 @@
 "Controls" = "Controlos";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Política de relatórios de crashes:";
+"Crash reports policy:" = "Política de relatórios de falha:";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Não fazer nada";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Não verifique periodicamente por actualizações";
+"Don’t check for updates periodically" = "Não procurar actualizações periodicamente";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Não enviar";
@@ -117,7 +117,7 @@
 "Fade out animation:" = "Animação de desaparecimento:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Foco na janela activa";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Ecrã Completo";
@@ -153,7 +153,7 @@
 "I think the app could be improved with…" = "Eu acho que a aplicação poderia ser melhorada se…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "Ignorar atalhos sempre que uma destas janelas esteja activa";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Últimas actualizações";
@@ -186,7 +186,7 @@
 "Mouse hover" = "Ao passar o rato";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Nunca enviar relatórios de crashes";
+"Never send crash reports" = "Nunca enviar relatórios de falha";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Não permitido";
@@ -255,7 +255,7 @@
 "Send" = "Enviar";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Enviar Relatório?";
+"Send a crash report?" = "Enviar relatório de falha?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Enviar na mesma";
@@ -306,7 +306,7 @@
 "then release:" = "depois soltar:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "Esta permissão é necessária para focar janelas após carregar nos atalhos";
+"This permission is needed to focus windows after you release the shortcut" = "Esta permissão é necessária para dar foco em janelas após carregar nos atalhos";
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Esta permissão é necessária para mostrar capturas de ecrã e títulos das janelas abertas";
