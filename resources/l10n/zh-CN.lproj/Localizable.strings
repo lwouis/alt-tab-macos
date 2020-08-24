@@ -135,9 +135,6 @@
 "Hide colored circles on mouse hover:" = "鼠标悬停时隐藏彩色圆圈：";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "隐藏菜单栏图标：";
-
-/*No comment provided by engineer.*/
 "Hide space number labels:" = "隐藏桌面编号：";
 
 /*No comment provided by engineer.*/
@@ -207,9 +204,6 @@
 "Optional: email (if you want a reply)" = "电子邮箱地址 (可选，若想接收答复)";
 
 /*No comment provided by engineer.*/
-"or press:" = "或点击：";
-
-/*No comment provided by engineer.*/
 "Policies" = "政策";
 
 /*No comment provided by engineer.*/
@@ -247,9 +241,6 @@
 
 /*No comment provided by engineer.*/
 "Select previous window" = "选择上一个窗口";
-
-/*No comment provided by engineer.*/
-"Select windows using:" = "切换窗口方式：";
 
 /*No comment provided by engineer.*/
 "Send" = "发送";
