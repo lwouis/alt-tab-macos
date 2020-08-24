@@ -49,7 +49,7 @@ class Preferences {
         "hideStatusIcons": "false",
         "startAtLogin": "true",
         "menubarIcon": "0",
-        "dontShowBlacklist": "",
+        "dontShowBlacklist": ["com.McAfee.McAfeeSafariHost"].joined(separator: "\n"),
         "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer"].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
         "updatePolicy": "1",
