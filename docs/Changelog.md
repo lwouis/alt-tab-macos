@@ -1,5 +1,23 @@
 # Release notes
 
+# [5.2.0](https://github.com/lwouis/alt-tab-macos/compare/v5.1.0...v5.2.0) (2020-08-24)
+
+
+### Bug Fixes
+
+* books.app windows were not always showing (closes [#481](https://github.com/lwouis/alt-tab-macos/issues/481)) ([9e92dfa](https://github.com/lwouis/alt-tab-macos/commit/9e92dfa))
+
+
+### Features
+
+* blacklisting apps can use start of the bundle id (closes [#549](https://github.com/lwouis/alt-tab-macos/issues/549)) ([de9cf46](https://github.com/lwouis/alt-tab-macos/commit/de9cf46))
+* update french and portuguese localizations ([7a02ea5](https://github.com/lwouis/alt-tab-macos/commit/7a02ea5))
+
+
+### Performance Improvements
+
+* remove no-longer-used localization strings ([ce7836a](https://github.com/lwouis/alt-tab-macos/commit/ce7836a))
+
 # [5.1.0](https://github.com/lwouis/alt-tab-macos/compare/v5.0.0...v5.1.0) (2020-08-20)
 
 
