@@ -75,14 +75,15 @@ class Applications {
 
     static func refreshBadges() {
         retryAxCallUntilTimeout {
-            let axDock = AXUIElementCreateApplication(Applications.list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }!.runningApplication.processIdentifier)
-            let axList = try axDock.children()!.first { try $0.role() == "AXList" }!
-            let axAppDockItem = try axList.children()!.filter { try $0.subrole() == "AXApplicationDockItem" && ($0.appIsRunning() ?? false) }
-            try Applications.list.forEach { app in
-                if app.runningApplication.activationPolicy == .regular,
-                   let bundleId = app.runningApplication.bundleIdentifier,
-                   let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId) {
-                    app.dockLabel = try axAppDockItem.first { try $0.attribute(kAXURLAttribute, URL.self) == url }?.attribute(kAXStatusLabelAttribute, String.self)
+            if let dockPid = (Applications.list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.runningApplication.processIdentifier),
+               let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == "AXList" }),
+               let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == "AXApplicationDockItem" && ($0.appIsRunning() ?? false) }) {
+                try Applications.list.forEach { app in
+                    if app.runningApplication.activationPolicy == .regular,
+                       let bundleId = app.runningApplication.bundleIdentifier,
+                       let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId) {
+                        app.dockLabel = try axAppDockItem.first { try $0.attribute(kAXURLAttribute, URL.self) == url }?.attribute(kAXStatusLabelAttribute, String.self)
+                    }
                 }
             }
         }
