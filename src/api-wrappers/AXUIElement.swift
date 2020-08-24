@@ -53,17 +53,23 @@ extension AXUIElement {
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0 &&
+            books(runningApp) || (
             // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
             isOnNormalLevel &&
-            (["AXStandardWindow", "AXDialog"].contains(subrole) ||
-                steam(runningApp, title, role) ||
-                worldOfWarcraft(runningApp, role) ||
-                battleNetBootstrapper(runningApp, role) ||
-                firefoxFullscreenVideo(runningApp, role) ||
-                androidEmulator(runningApp, title) ||
-                sanGuoShaAirWD(runningApp) ||
-                dvdFab(runningApp) ||
-                drBetotte(runningApp))
+                (["AXStandardWindow", "AXDialog"].contains(subrole) ||
+                    steam(runningApp, title, role) ||
+                    worldOfWarcraft(runningApp, role) ||
+                    battleNetBootstrapper(runningApp, role) ||
+                    firefoxFullscreenVideo(runningApp, role) ||
+                    androidEmulator(runningApp, title) ||
+                    sanGuoShaAirWD(runningApp) ||
+                    dvdFab(runningApp) ||
+                    drBetotte(runningApp)))
+    }
+
+    private func books(_ runningApp: NSRunningApplication) -> Bool {
+        // Books.app has animations on window creation. This means windows are originally created with subrole == AXUnknown or isOnNormalLevel == false
+        return runningApp.bundleIdentifier == "com.apple.iBooksX"
     }
 
     private func worldOfWarcraft(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
