@@ -135,9 +135,6 @@
 "Hide colored circles on mouse hover:" = "Скрыть цветные круги при наведении мышью:";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "Скрыть иконку из строки меню:";
-
-/*No comment provided by engineer.*/
 "Hide space number labels:" = "Скрыть номера рабочих столов:";
 
 /*No comment provided by engineer.*/
@@ -207,9 +204,6 @@
 "Optional: email (if you want a reply)" = "Опционально: эл.почта (если вы хотите ответа)";
 
 /*No comment provided by engineer.*/
-"or press:" = "или нажать:";
-
-/*No comment provided by engineer.*/
 "Policies" = "Правила";
 
 /*No comment provided by engineer.*/
@@ -247,9 +241,6 @@
 
 /*No comment provided by engineer.*/
 "Select previous window" = "Выбрать предыдущее окно";
-
-/*No comment provided by engineer.*/
-"Select windows using:" = "Выбирать окна, используя:";
 
 /*No comment provided by engineer.*/
 "Send" = "Отправить";

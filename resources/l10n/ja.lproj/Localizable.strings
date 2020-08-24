@@ -135,9 +135,6 @@
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "Hide menubar icon:";
-
-/*No comment provided by engineer.*/
 "Hide space number labels:" = "スペース番号ラベルを隠す：";
 
 /*No comment provided by engineer.*/
@@ -207,9 +204,6 @@
 "Optional: email (if you want a reply)" = "任意：Eメール（返信を希望する場合）";
 
 /*No comment provided by engineer.*/
-"or press:" = "or press:";
-
-/*No comment provided by engineer.*/
 "Policies" = "Policies";
 
 /*No comment provided by engineer.*/
@@ -247,9 +241,6 @@
 
 /*No comment provided by engineer.*/
 "Select previous window" = "前のウィンドウを選択";
-
-/*No comment provided by engineer.*/
-"Select windows using:" = "使用中のウィンドウを選択：";
 
 /*No comment provided by engineer.*/
 "Send" = "送信";

@@ -135,9 +135,6 @@
 "Hide colored circles on mouse hover:" = "Bunte Kreise beim Markieren mit Maus verbergen:";
 
 /*No comment provided by engineer.*/
-"Hide menubar icon:" = "Icon in Menüleiste verstecken:";
-
-/*No comment provided by engineer.*/
 "Hide space number labels:" = "Space Nummer ausblenden:";
 
 /*No comment provided by engineer.*/
@@ -207,9 +204,6 @@
 "Optional: email (if you want a reply)" = "Optional: E-Mail (wenn du benachrichtigt werden willst)";
 
 /*No comment provided by engineer.*/
-"or press:" = "oder drücke:";
-
-/*No comment provided by engineer.*/
 "Policies" = "Richtlinien";
 
 /*No comment provided by engineer.*/
@@ -247,9 +241,6 @@
 
 /*No comment provided by engineer.*/
 "Select previous window" = "Voriges Fenster auswählen";
-
-/*No comment provided by engineer.*/
-"Select windows using:" = "Fenster auswählen mit:";
 
 /*No comment provided by engineer.*/
 "Send" = "Senden";
