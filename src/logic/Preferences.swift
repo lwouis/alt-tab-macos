@@ -50,7 +50,7 @@ class Preferences {
         "startAtLogin": "true",
         "menubarIcon": "0",
         "dontShowBlacklist": "",
-        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.vm", "com.citrix.XenAppViewer"].joined(separator: "\n"),
+        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer"].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
         "updatePolicy": "1",
         "crashPolicy": "1",
@@ -177,7 +177,13 @@ class Preferences {
     }
 
     static func blacklistStringToArray(_ blacklist: String) -> [String] {
-        return blacklist.components(separatedBy: "\n").map { $0.trimmingCharacters(in: .whitespaces) }
+        return blacklist.components(separatedBy: "\n").compactMap {
+            let line = $0.trimmingCharacters(in: .whitespaces)
+            if line.isEmpty {
+                return nil
+            }
+            return line
+        }
     }
 
     static func defaultsDependingOnScreenRatio() -> [String: String] {
