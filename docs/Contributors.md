@@ -45,6 +45,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * rbnis
 * Tomoa Nozawa
 * Umutakkaya1996
+* Vegard
 * Viggo Lekdorf
 * Vlad
 * Whatsmine-HaoshuaiXu

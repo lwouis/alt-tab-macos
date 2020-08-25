@@ -1,0 +1,327 @@
+
+/*No comment provided by engineer.*/
+"About" = "Om";
+
+/*No comment provided by engineer.*/
+"Accessibility" = "Tilgjengelighet";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Anerkjennelser";
+
+/*No comment provided by engineer.*/
+"Active app" = "Aktiv app";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Aktiv skjerm";
+
+/*No comment provided by engineer.*/
+"Active space" = "Aktivt område";
+
+/*No comment provided by engineer.*/
+"Align windows:" = "Sammenstill vinduer:";
+
+/*No comment provided by engineer.*/
+"All apps" = "Alle apper";
+
+/*No comment provided by engineer.*/
+"All data from this form will be made public, as a ticket on github.com" = "Alle data fra dette skjema vil bli offentlig, som en ticket på github.com";
+
+/*No comment provided by engineer.*/
+"All screens" = "Alle skjermer";
+
+/*No comment provided by engineer.*/
+"All spaces" = "Alle områder";
+
+/*No comment provided by engineer.*/
+"Allowed" = "Tillatt";
+
+/*No comment provided by engineer.*/
+"Also select windows using:" = "Velg også vinduer som bruker:";
+
+/*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab krasjet sist du brukte det. Å sende krasjrapport vil hjelpe til med å løse problemet";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "AltTab trenger noen tillatelser";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "Send alltid krasjrapporter";
+
+/*No comment provided by engineer.*/
+"and press:" = "og trykk:";
+
+/*No comment provided by engineer.*/
+"Apparition delay:" = "Visningsforsinkelse:";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Utseende";
+
+/*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "Er du sikker på at du ikke vil ha en tilbakemelding?";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Piltaster";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Spør om det skal sendes krasjrapporter";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Installér jevnlige oppdateringer automatisk";
+
+/*No comment provided by engineer.*/
+"Blacklists" = "Svartelister";
+
+/*Cancel button*/
+"Cancel" = "Avbryt";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Avbryd og skjul";
+
+/*No comment provided by engineer.*/
+"Center" = "Sentrum";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "Se etter oppdateringer nå…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Se jevnlig etter oppdateringer";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Se etter oppdateringer…";
+
+/*No comment provided by engineer.*/
+"Close window" = "Lukk vindu";
+
+/*No comment provided by engineer.*/
+"Controls" = "Kontroller";
+
+/*No comment provided by engineer.*/
+"Crash reports policy:" = "Krasjrapportpolicy:";
+
+/*No comment provided by engineer.*/
+"Do nothing" = "Ikke gjør noe";
+
+/*No comment provided by engineer.*/
+"Don’t check for updates periodically" = "Ikke se jevnlig etter oppdateringer";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "Ikke send";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "Ikke vis vinduer fra disse appene";
+
+/*No comment provided by engineer.*/
+"End" = "Slutt";
+
+/*No comment provided by engineer.*/
+"Fade out animation:" = "Fade ut-animasjon:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Fokuser på valgt vindu";
+
+/*No comment provided by engineer.*/
+"Fullscreen" = "Fullskjerm";
+
+/*No comment provided by engineer.*/
+"General" = "Generelt";
+
+/*No comment provided by engineer.*/
+"Hidden" = "Skjult";
+
+/*No comment provided by engineer.*/
+"Hide app badges:" = "Skjul app-badges:";
+
+/*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Skjul fargede sirkler når musa er over:";
+
+/*No comment provided by engineer.*/
+"Hide space number labels:" = "Skjul merking av områdenummer:";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Skjul statusikoner:";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Skjul/vis app";
+
+/*No comment provided by engineer.*/
+"Hold" = "Hold";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Jeg synes appen kunne vært forbedret med…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "Ignorér hurtigtaster mens et vindu fra disse appene er aktivt";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Siste versjoner";
+
+/*No comment provided by engineer.*/
+"Left" = "Venstre";
+
+/*No comment provided by engineer.*/
+"Max size on screen:" = "Maks størrelse på skjerm:";
+
+/*No comment provided by engineer.*/
+"Max windows per row:" = "Maks vinduer per rad:";
+
+/*No comment provided by engineer.*/
+"Menubar icon:" = "Menylinjeikon:";
+
+/*No comment provided by engineer.*/
+"Middle" = "Midten";
+
+/*No comment provided by engineer.*/
+"Min windows per row:" = "Min vinduer per rad:";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Minimér/Gjenopprett vindu";
+
+/*No comment provided by engineer.*/
+"Minimized" = "Minimert";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Holde musa over";
+
+/*No comment provided by engineer.*/
+"Never send crash reports" = "Send aldri krasjrapporter";
+
+/*No comment provided by engineer.*/
+"Not allowed" = "Ikke tillatt";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0-lisens";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "Bare hvis vinduet er i fullskjerm";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Åpen tilgjengelighetsinnstillinger…";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Åpen skjermopptaksinnstillinger…";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Valgfirtt: e-post (hvis du ønsker svar)";
+
+/*No comment provided by engineer.*/
+"Policies" = "Policyer";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Valg…";
+
+/*No comment provided by engineer.*/
+"Quit" = "Avslutt";
+
+/*No comment provided by engineer.*/
+"Quit %@" = "Avslutt %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Avslutt app";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Husk valget mitt";
+
+/*No comment provided by engineer.*/
+"Rows of windows:" = "Rader med vinduer:";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Skjerm med menylinje";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Skjerm med mus";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Skjermopptak";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Skjerm som viser AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Velg neste vindu";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Velg forrige vindu";
+
+/*No comment provided by engineer.*/
+"Send" = "Send";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Send en krasjrapport?";
+
+/*No comment provided by engineer.*/
+"Send anyway" = "Send likevel";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Send debug-informasjon (CPU, minne, osv)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Send tilbakemelding";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Send tilbakemelding…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Del idéer til forbedringer, eller rapportér bugs";
+
+/*No comment provided by engineer.*/
+"Shortcut 1" = "Hurtigtast 1";
+
+/*No comment provided by engineer.*/
+"Shortcut 2" = "Hurtigtast 2";
+
+/*No comment provided by engineer.*/
+"Show" = "Vis";
+
+/*No comment provided by engineer.*/
+"Show on:" = "Vis på:";
+
+/*No comment provided by engineer.*/
+"Show standard tabs as windows:" = "Vis standardtaber som vindu:";
+
+/*No comment provided by engineer.*/
+"Show the following windows:" = "Vis følgende vindu:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Kildekodearkiv";
+
+/*No comment provided by engineer.*/
+"Start" = "Start";
+
+/*No comment provided by engineer.*/
+"Start at login:" = "Start ved innlogging:";
+
+/*No comment provided by engineer.*/
+"Theme:" = "Tema:";
+
+/*No comment provided by engineer.*/
+"then release:" = "så slipp:";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "Denne tillatelsen er nødvendig for å kunne fokusere på vindu når du slipper hurtigtasten";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "Denne tillatelsen er nødvendig for å kunne vise skjermbilde og tittel på åpne vinduer";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Oppdateringspolicy:";
+
+/*No comment provided by engineer.*/
+"Version" = "Versjon";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "Se eksisterende diskusjoner";
+
+/*No comment provided by engineer.*/
+"While open, press:" = "Når åpen, trykk:";
+
+/*No comment provided by engineer.*/
+"Window app icon size:" = "Størrelse på vinduappikon:";
+
+/*No comment provided by engineer.*/
+"Window title font size:" = "Skriftstørrelse på vindutittel:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Forkortelse av vindustittel:";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "Du la ikke inn din epost, derfor kan du ikke få tilbakemelding.";
