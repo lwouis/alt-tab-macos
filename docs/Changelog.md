@@ -1,5 +1,21 @@
 # Release notes
 
+# [5.3.0](https://github.com/lwouis/alt-tab-macos/compare/v5.2.0...v5.3.0) (2020-08-25)
+
+
+### Bug Fixes
+
+* app badges would sometimes not be up-to-date ([8ad03a5](https://github.com/lwouis/alt-tab-macos/commit/8ad03a5))
+* rare crash when alt-tab is triggered when the dock isn't running ([9c02ceb](https://github.com/lwouis/alt-tab-macos/commit/9c02ceb))
+* second blacklist was too tall on some systems ([522633b](https://github.com/lwouis/alt-tab-macos/commit/522633b))
+* the ui would not hide if capslock was active (closes [#551](https://github.com/lwouis/alt-tab-macos/issues/551)) ([b4b82b2](https://github.com/lwouis/alt-tab-macos/commit/b4b82b2))
+
+
+### Features
+
+* add norwegian localization ([c344da7](https://github.com/lwouis/alt-tab-macos/commit/c344da7))
+* blacklist mcafee safari host by default (closes [#386](https://github.com/lwouis/alt-tab-macos/issues/386)) ([a7ef4c7](https://github.com/lwouis/alt-tab-macos/commit/a7ef4c7))
+
 # [5.2.0](https://github.com/lwouis/alt-tab-macos/compare/v5.1.0...v5.2.0) (2020-08-24)
 
 
