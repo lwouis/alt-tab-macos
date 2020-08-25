@@ -48,8 +48,6 @@ class ThumbnailView: NSStackView {
 
     private func addDockLabelIcon() {
         appIcon.addSubview(dockLabelIcon, positioned: .above, relativeTo: nil)
-        dockLabelIcon.topAnchor.constraint(equalTo: appIcon.topAnchor, constant: -4).isActive = true
-        dockLabelIcon.rightAnchor.constraint(equalTo: appIcon.rightAnchor, constant: 1).isActive = true
     }
 
     private func addWindowControls() {
@@ -139,6 +137,7 @@ class ThumbnailView: NSStackView {
             } else {
                 view.setNumber(dockLabel, true)
             }
+            dockLabelIcon.setFrameOrigin(NSPoint(x: appIcon.frame.maxX - dockLabelIcon.fittingSize.width - 1, y: appIcon.frame.maxY - dockLabelIcon.fittingSize.height + 4))
         }
         assignIfDifferent(&frame.size.width, max(thumbnail.frame.size.width + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)))
         assignIfDifferent(&frame.size.height, newHeight)

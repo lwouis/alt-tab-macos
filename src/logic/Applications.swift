@@ -74,7 +74,8 @@ class Applications {
     }
 
     static func refreshBadges() {
-        retryAxCallUntilTimeout {
+        let group = DispatchGroup()
+        retryAxCallUntilTimeout(group) {
             if let dockPid = (Applications.list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.runningApplication.processIdentifier),
                let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == "AXList" }),
                let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == "AXApplicationDockItem" && ($0.appIsRunning() ?? false) }) {
@@ -87,6 +88,7 @@ class Applications {
                 }
             }
         }
+        _ = group.wait(wallTimeout: .now() + .seconds(1))
     }
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
