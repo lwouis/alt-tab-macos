@@ -2,6 +2,7 @@ import Cocoa
 
 class TextArea: NSTextField, NSTextFieldDelegate {
     static let padding = CGFloat(5)
+    static let interLineFactor = CGFloat(1.6)
     var callback: (() -> Void)!
 
     convenience init(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ callback: (() -> Void)? = nil) {
@@ -10,7 +11,7 @@ class TextArea: NSTextField, NSTextFieldDelegate {
         delegate = self
         cell = TextFieldCell(placeholder, nLinesHigh == 1)
         let width: CGFloat = (font!.xHeight * nCharactersWide + TextArea.padding * 2).rounded()
-        let height: CGFloat = (fittingSize.height * CGFloat(nLinesHigh) + TextArea.padding * 2).rounded()
+        let height: CGFloat = (NSFont.systemFontSize * TextArea.interLineFactor * CGFloat(nLinesHigh) + TextArea.padding * 2).rounded()
         fit(width, height)
     }
 
