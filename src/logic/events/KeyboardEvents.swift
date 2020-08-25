@@ -102,7 +102,7 @@ fileprivate func handleHotModifier(_ modifiers: UInt32) -> Bool {
         if value.keyCode != .none { continue }
         let shortcutIndex = KeyboardEvents.globalShortcuts[key]!
         // modifiers down
-        if value.carbonModifierFlags == modifiers {
+        if modifiers == value.carbonModifierFlags || modifiers == value.carbonModifierFlags | UInt32(alphaLock) {
             if key.hasPrefix("holdShortcut") {
                 KeyboardEvents.holdShortcutWasDown[shortcutIndex] = true
             } else {
