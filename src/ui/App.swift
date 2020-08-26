@@ -188,6 +188,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout(currentScreen)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.setFrame(thumbnailsPanel.thumbnailsView.frame, display: false)
+        thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
         Screen.repositionPanel(thumbnailsPanel, currentScreen, .appleCentered)
     }
