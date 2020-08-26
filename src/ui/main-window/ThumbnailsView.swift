@@ -59,7 +59,7 @@ class ThumbnailsView: NSVisualEffectView {
         var currentY = Preferences.interCellPadding
         var maxX = CGFloat(0)
         var maxY = currentY + height + Preferences.interCellPadding
-        scrollView.documentView!.subviews.removeAll()
+        var newViews = [ThumbnailView]()
         rows.removeAll()
         rows.append([ThumbnailView]())
         for (index, window) in Windows.list.enumerated() {
@@ -81,10 +81,11 @@ class ThumbnailsView: NSVisualEffectView {
                 currentX = projectedX
                 maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
             }
-            scrollView.documentView!.subviews.append(view)
+            newViews.append(view)
             rows[rows.count - 1].append(view)
             window.row = rows.count - 1
         }
+        scrollView.documentView!.subviews = newViews
         return (maxX, maxY)
     }
 
