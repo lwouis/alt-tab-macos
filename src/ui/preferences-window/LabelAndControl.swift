@@ -70,10 +70,6 @@ class LabelAndControl: NSObject {
         slider.minValue = minValue
         slider.maxValue = maxValue
         slider.stringValue = value
-//        slider.numberOfTickMarks = numberOfTickMarks
-//        slider.allowsTickMarkValuesOnly = allowsTickMarkValuesOnly
-//        slider.tickMarkPosition = .below
-        // TODO: update suffix continuously, but only trigger action on mouse release
         slider.isContinuous = true
         return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText)
     }
@@ -107,11 +103,16 @@ class LabelAndControl: NSObject {
 
     static func controlWasChanged(_ senderControl: NSControl, _ controlId: String?) {
         if let newValue = LabelAndControl.getControlValue(senderControl, controlId) {
-            LabelAndControl.updateControlExtras(senderControl, newValue)
+            if senderControl is NSSlider {
+                updateSuffixWithValue(senderControl as! NSSlider, newValue)
+            }
             Preferences.set(senderControl.identifier!.rawValue, newValue)
         }
         // some preferences require re-creating some components
-        if ["iconSize", "fontHeight", "theme", "titleTruncation"].contains(where: { (pref: String) -> Bool in pref == senderControl.identifier!.rawValue }) {
+        if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
+               (["iconSize", "fontHeight", "theme", "titleTruncation"].contains { (pref: String) -> Bool in
+                   pref == senderControl.identifier!.rawValue
+               }) {
             (App.shared as! App).resetPreferencesDependentComponents()
         }
     }
@@ -153,12 +154,6 @@ class LabelAndControl: NSObject {
             }
         } else {
             return control.stringValue
-        }
-    }
-
-    static func updateControlExtras(_ control: NSControl, _ value: String) {
-        if control is NSSlider {
-            updateSuffixWithValue(control as! NSSlider, value)
         }
     }
 
