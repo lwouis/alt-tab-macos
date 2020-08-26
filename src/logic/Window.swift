@@ -42,6 +42,7 @@ class Window {
         self.position = position
         self.title = bestEffortTitle(axTitle)
         self.isTabbed = false
+        refreshThumbnail()
         debugPrint("Adding window", cgWindowId, title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
     }

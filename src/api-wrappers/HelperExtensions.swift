@@ -41,7 +41,7 @@ extension NSView {
     }
 }
 
-extension Array {
+extension Collection {
     // forEach with each iteration run concurrently on the global queue
     func forEachAsync(fn: @escaping (Element) -> Void) {
         let group = DispatchGroup()

@@ -228,21 +228,23 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(1)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
-                self.rebuildUi()
+                self.rebuildUi(screen)
             }
         } else {
             cycleSelection(.leading)
         }
     }
 
-    func rebuildUi() {
+    func rebuildUi(_ screen: NSScreen = Screen.preferred()) {
         guard appIsBeingUsed else { return }
-        Windows.refreshAllThumbnails()
+        Windows.refreshFirstFewThumbnailsSync()
         guard appIsBeingUsed else { return }
         Applications.refreshBadges()
         guard appIsBeingUsed else { return }
         refreshOpenUi()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
+        guard appIsBeingUsed else { return }
+        Windows.refreshThumbnailsAsync(screen)
     }
 }
