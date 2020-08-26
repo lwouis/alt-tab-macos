@@ -6,7 +6,7 @@ class GeneralTab {
         let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
         let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
         for i in 0...2 {
-            let image = NSImage.initCopy("menubar-icon-" + String(i + 1))
+            let image = NSImage.initCopy("menubar-" + String(i + 1))
             image.isTemplate = false
             menubarIconDropdown.item(at: i)!.image = image
         }

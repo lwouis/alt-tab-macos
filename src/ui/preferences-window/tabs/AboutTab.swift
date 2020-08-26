@@ -2,7 +2,7 @@ import Cocoa
 
 class AboutTab {
     static func initTab() -> NSView {
-        let appIcon = NSImageView(image: NSImage.initResizedCopy("app-icon", 256, 256))
+        let appIcon = NSImageView(image: NSImage.initResizedCopy("app", 256, 256))
         appIcon.imageScaling = .scaleNone
         let appText = StackView([
             BoldLabel(App.name),
