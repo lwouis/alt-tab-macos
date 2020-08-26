@@ -397,8 +397,8 @@ extension UserDefaults {
     }
 
     func cgfloat(_ key: String) -> CGFloat {
-        if let result = (NumberFormatter().number(from: string(key)).flatMap { CGFloat(truncating: $0) }) {
-            return result
+        if let intResult = Int(string(key)) {
+            return CGFloat(intResult)
         }
         removeObject(forKey: key)
         return cgfloat(key)
