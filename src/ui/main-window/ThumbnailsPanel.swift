@@ -5,14 +5,12 @@ class ThumbnailsPanel: NSPanel {
     override var canBecomeKey: Bool { true }
 
     convenience init() {
-        self.init(contentRect: .zero, styleMask: .utilityWindow, backing: .buffered, defer: true)
+        self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: true)
         isFloatingPanel = true
         updateFadeOutAnimation()
         hidesOnDeactivate = false
         hasShadow = false
         titleVisibility = .hidden
-        styleMask.remove(.titled)
-        styleMask.update(with: .nonactivatingPanel)
         backgroundColor = .clear
         contentView!.addSubview(thumbnailsView)
         // 2nd highest level possible; this allows the app to go on top of context menus
