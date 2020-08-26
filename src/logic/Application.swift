@@ -7,6 +7,8 @@ class Application: NSObject {
     var axUiElement: AXUIElement?
     var axObserver: AXObserver?
     var isReallyFinishedLaunching = false
+    var isHidden: Bool!
+    var icon: NSImage?
     var dockLabel: String?
 
     static func notifications(_ app: NSRunningApplication) -> [String] {
@@ -30,6 +32,8 @@ class Application: NSObject {
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         super.init()
+        isHidden = runningApplication.isHidden
+        icon = runningApplication.icon
         addAndObserveWindows()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in self?.addAndObserveWindows() },
