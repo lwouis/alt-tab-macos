@@ -92,7 +92,7 @@ class Applications {
     }
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
-        return (app.activationPolicy != .prohibited || isNotXpc(app)) && notAltTab(app)
+        return app.activationPolicy != .prohibited || isNotXpc(app)
     }
 
     private static func isNotXpc(_ app: NSRunningApplication) -> Bool {

@@ -30,7 +30,8 @@ func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ fn: @escaping () throws
 func handleEvent(_ type: String, _ element: AXUIElement) throws {
     debugPrint("Accessibility event", type, try element.title() ?? "nil")
     // events are handled concurrently, thus we check that the app is still running
-    if let pid = try element.pid() {
+    if let pid = try element.pid(),
+       try (!(pid == ProcessInfo.processInfo.processIdentifier && element.subrole() == "AXUnknown")) {
         switch type {
             case kAXApplicationActivatedNotification: try applicationActivated(element)
             case kAXApplicationHiddenNotification,
@@ -120,7 +121,9 @@ private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
 }
 
 private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-    if let wid = try element.cgWindowId() {
+    if let wid = try element.cgWindowId(),
+       pid != ProcessInfo.processInfo.processIdentifier ||
+           (App.app.preferencesWindow.isKeyWindow || App.app.feedbackWindow?.isKeyWindow ?? false) {
         let axTitle = try element.title()
         let subrole = try element.subrole()
         let role = try element.role()
