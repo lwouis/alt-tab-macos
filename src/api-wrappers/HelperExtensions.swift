@@ -158,4 +158,17 @@ extension NSImage {
         img.unlockFocus()
         return img
     }
+
+    func tinted(_ tint: NSColor) -> NSImage {
+        let dimmed = copy() as! NSImage
+        let scaling = Screen.withMouse()?.backingScaleFactor ?? 1
+        let scaledSize = NSSize(width: (size.width * scaling).rounded(), height: (size.height * scaling).rounded())
+        dimmed.size = scaledSize
+        dimmed.lockFocus()
+        tint.set()
+        let imageRect = NSRect(origin: .zero, size: scaledSize)
+        imageRect.fill(using: .sourceAtop)
+        dimmed.unlockFocus()
+        return dimmed
+    }
 }

@@ -9,9 +9,6 @@ enum Symbols: String {
     case circledStar = "􀕬"
     case filledCircledStar = "􀕭"
     case filledCircled = "􀀁"
-    case filledCircledMultiplySign = "􀁑"
-    case filledCircledMinusSign = "􀁏"
-    case filledCircledPlusSign = "􀁍"
     case filledCircledNumber0 = "􀀹"
     case filledCircledNumber10 = "􀔔"
 }
