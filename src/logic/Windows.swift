@@ -5,6 +5,8 @@ class Windows {
     static var list = [Window]()
     static var previousFocusedWindowIndex = Int(0)
     static var focusedWindowIndex = Int(0)
+    // the first few thumbnails are the most commonly looked at; we pay special attention to them
+    static let criticalFirstThumbnails = 3
 
     static func updateFocusedWindowIndex(_ newIndex: Int) {
         previousFocusedWindowIndex = focusedWindowIndex
@@ -84,9 +86,33 @@ class Windows {
         Windows.list = sortedTuples.map { $0.1 }
     }
 
-    static func refreshAllThumbnails() {
+    static func refreshFirstFewThumbnailsSync() {
         list.filter { $0.shouldShowTheUser }
+            .prefix(criticalFirstThumbnails)
             .forEachAsync { window in window.refreshThumbnail() }
+    }
+
+    static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails) {
+        guard App.app.appIsBeingUsed else { return }
+        BackgroundWork.mainQueueConcurrentWorkQueue.async {
+            if currentIndex < list.count {
+                let window = list[currentIndex]
+                if window.shouldShowTheUser {
+                    window.refreshThumbnail()
+                    DispatchQueue.main.async {
+                        let view = ThumbnailsView.recycledViews[currentIndex]
+                        if view.thumbnail.image != window.thumbnail {
+                            view.thumbnail.image = window.thumbnail
+                            let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(window.thumbnail, screen)
+                            let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
+                            view.thumbnail.image?.size = thumbnailSize
+                            view.thumbnail.frame.size = thumbnailSize
+                        }
+                    }
+                }
+                refreshThumbnailsAsync(screen, currentIndex + 1)
+            }
+        }
     }
 
     static func refreshWhichWindowsToShowTheUser(_ screen: NSScreen) {
