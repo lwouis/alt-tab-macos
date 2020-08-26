@@ -14,7 +14,7 @@ class Screen {
         }
     }
 
-    private static func withMouse() -> NSScreen? {
+    static func withMouse() -> NSScreen? {
         return NSScreen.screens.first { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }
     }
 
