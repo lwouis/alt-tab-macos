@@ -4,10 +4,10 @@ class Window {
     var cgWindowId: CGWindowID
     var title: String!
     var thumbnail: NSImage?
-    var icon: NSImage? { get { application.runningApplication.icon } }
+    var icon: NSImage? { get { application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
-    var isHidden: Bool { get { application.runningApplication.isHidden } }
+    var isHidden: Bool { get { application.isHidden } }
     var dockLabel: Int? { get { application.dockLabel.flatMap { Int($0) } } }
     var isFullscreen: Bool
     var isMinimized: Bool
