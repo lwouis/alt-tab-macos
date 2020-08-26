@@ -45,7 +45,7 @@
 	<key>SUEnableJavaScript</key>
 	<string>true</string>
 	<key>CFBundleIconFile</key>
-	<string>app-icon</string>
+	<string>app.icns</string>
 	<key>AppCenterApplicationForwarderEnabled</key>
 	<string>0</string>
 </dict>

@@ -40,7 +40,7 @@ class Menubar {
 
     static private func loadPreferredIcon() {
         let i = imageIndexFromPreference()
-        let image = NSImage(named: "menubar-icon-" + i)!
+        let image = NSImage(named: "menubar-" + i)!
         image.isTemplate = i == "3" ? false : true
         statusItem.button!.image = image
         statusItem.isVisible = true
