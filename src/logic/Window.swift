@@ -1,7 +1,7 @@
 import Cocoa
 
 class Window {
-    var cgWindowId: CGWindowID
+    var cgWindowId = CGWindowID.max
     var title: String!
     var thumbnail: NSImage?
     var thumbnailFullSize: NSSize?
@@ -10,13 +10,14 @@ class Window {
     var isTabbed: Bool = false
     var isHidden: Bool { get { application.isHidden } }
     var dockLabel: Int? { get { application.dockLabel.flatMap { Int($0) } } }
-    var isFullscreen: Bool
-    var isMinimized: Bool
-    var isOnAllSpaces: Bool
+    var isFullscreen = false
+    var isMinimized = false
+    var isOnAllSpaces = false
+    var isWindowlessApp = false
     var position: CGPoint?
-    var spaceId: CGSSpaceID
-    var spaceIndex: SpaceIndex
-    var axUiElement: AXUIElement
+    var spaceId = CGSSpaceID.max
+    var spaceIndex = SpaceIndex.max
+    var axUiElement: AXUIElement!
     var application: Application
     var axObserver: AXObserver?
     var row: Int?
@@ -43,9 +44,19 @@ class Window {
         self.position = position
         self.title = bestEffortTitle(axTitle)
         self.isTabbed = false
-        refreshThumbnail()
+        if !Preferences.hideThumbnails {
+            refreshThumbnail()
+        }
+        application.removeWindowslessAppWindow()
         debugPrint("Adding window", cgWindowId, title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
+    }
+
+    init(_ application: Application) {
+        isWindowlessApp = true
+        self.application = application
+        self.title = application.runningApplication.localizedName
+        debugPrint("Adding app-window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 
     deinit {
@@ -53,7 +64,7 @@ class Window {
     }
 
     private func observeEvents() {
-        AXObserverCreate(application.runningApplication.processIdentifier, axObserverCallback, &axObserver)
+        AXObserverCreate(application.pid, axObserverCallback, &axObserver)
         guard let axObserver = axObserver else { return }
         for notification in Window.notifications {
             retryAxCallUntilTimeout { [weak self] in
@@ -84,6 +95,7 @@ class Window {
     }
 
     func close() {
+        if isWindowlessApp { return }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
@@ -96,6 +108,7 @@ class Window {
     }
 
     func minDemin() {
+        if isWindowlessApp { return }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
@@ -112,6 +125,7 @@ class Window {
     }
 
     func toggleFullscreen() {
+        if isWindowlessApp { return }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             self.axUiElement.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
@@ -140,6 +154,12 @@ class Window {
     func focus() {
         if application.runningApplication.processIdentifier == ProcessInfo.processInfo.processIdentifier {
             App.app.showSecondaryWindow(App.app.window(withWindowNumber: Int(cgWindowId)))
+        } else if isWindowlessApp {
+            if let bundleID = application.runningApplication.bundleIdentifier {
+                NSWorkspace.shared.launchApplication(withBundleIdentifier: bundleID, additionalEventParamDescriptor: nil, launchIdentifier: nil)
+            } else {
+                application.runningApplication.activate(options: .activateIgnoringOtherApps)
+            }
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
@@ -190,3 +210,4 @@ class Window {
         return application.runningApplication.localizedName ?? ""
     }
 }
+

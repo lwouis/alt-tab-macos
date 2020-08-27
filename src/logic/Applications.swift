@@ -10,7 +10,7 @@ class Applications {
             guard app.runningApplication.isFinishedLaunching else { continue }
             app.observeNewWindows(group)
         }
-        _ = group.wait(wallTimeout: .now() + .seconds(1))
+        _ = group.wait(wallTimeout: .now() + .seconds(2))
     }
 
     static func initialDiscovery() {
@@ -49,13 +49,13 @@ class Applications {
     static func removeRunningApplications(_ runningApps: [NSRunningApplication]) {
         var windowsOnTheLeftOfFocusedWindow = 0
         for runningApp in runningApps {
-            Applications.list.removeAll(where: { $0.runningApplication.isEqual(runningApp) })
+            Applications.list.removeAll(where: { $0.pid == runningApp.processIdentifier })
             Windows.list.enumerated().forEach { (index, window) in
-                if window.application.runningApplication.isEqual(runningApp) && index < Windows.focusedWindowIndex {
+                if window.application.pid == runningApp.processIdentifier && index < Windows.focusedWindowIndex {
                     windowsOnTheLeftOfFocusedWindow += 1
                 }
             }
-            Windows.list.removeAll(where: { $0.application.runningApplication.isEqual(runningApp) })
+            Windows.list.removeAll(where: { $0.application.pid == runningApp.processIdentifier })
         }
         guard Windows.list.count > 0 else { App.app.hideUi(); return }
         if windowsOnTheLeftOfFocusedWindow > 0 {
@@ -67,7 +67,7 @@ class Applications {
     static func refreshBadges() {
         let group = DispatchGroup()
         retryAxCallUntilTimeout(group) {
-            if let dockPid = (Applications.list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.runningApplication.processIdentifier),
+            if let dockPid = (Applications.list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.pid),
                let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == "AXList" }),
                let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == "AXApplicationDockItem" && ($0.appIsRunning() ?? false) }) {
                 try Applications.list.forEach { app in

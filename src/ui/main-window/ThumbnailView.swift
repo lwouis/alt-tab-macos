@@ -20,6 +20,7 @@ class ThumbnailView: NSStackView {
     var isHighlighted = false
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
+    var windowlessIcon = FontIcon(.newWindow)
 
     convenience init() {
         self.init(frame: .zero)
@@ -44,6 +45,7 @@ class ThumbnailView: NSStackView {
         setViews([hStackView, thumbnail], in: .leading)
         addWindowControls()
         addDockLabelIcon()
+        thumbnail.addSubview(windowlessIcon, positioned: .above, relativeTo: nil)
     }
 
     private func addDockLabelIcon() {
@@ -68,7 +70,7 @@ class ThumbnailView: NSStackView {
         if let shouldShowWindowControls = shouldShowWindowControls_ {
             self.shouldShowWindowControls = shouldShowWindowControls
         }
-        let shouldShow = shouldShowWindowControls && isHighlighted && !Preferences.hideColoredCircles
+        let shouldShow = shouldShowWindowControls && isHighlighted && !Preferences.hideColoredCircles && !window_!.isWindowlessApp
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
             [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = !shouldShow }
@@ -144,7 +146,18 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
-        assignIfDifferent(&subviews.first!.frame.size, frame.size)
+        assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp)
+        if element.isWindowlessApp {
+            let maxWidth = (ThumbnailView.widthMin(screen) - Preferences.intraCellPadding * 2).rounded()
+            let maxHeight = ((ThumbnailView.height(screen) - hStackView.fittingSize.height) - Preferences.intraCellPadding * 2).rounded()
+            // heuristic to determine font size based on bounding box
+            let fontSize = (min(maxWidth, maxHeight) * 0.6).rounded()
+            // 1.25 is a heuristic to fit the SF Symbol into the bounding box
+            windowlessIcon.frame.size = CGSize(width: maxWidth, height: (fontSize * 1.25).rounded())
+            windowlessIcon.font = NSFont(name: windowlessIcon.font!.fontName, size: fontSize)
+            // 2.5 is a heuristic to have a _perceived_ vertical alignment on this particular icon
+            windowlessIcon.frame.origin = CGPoint(x: (-maxWidth / 2).rounded(), y: (-maxHeight / 2 - windowlessIcon.frame.size.height / 2.5).rounded())
+        }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197

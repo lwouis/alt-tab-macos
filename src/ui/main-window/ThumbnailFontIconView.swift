@@ -11,6 +11,17 @@ enum Symbols: String {
     case filledCircled = "􀀁"
     case filledCircledNumber0 = "􀀹"
     case filledCircledNumber10 = "􀔔"
+    case newWindow = "􀥃"
+}
+
+class FontIcon: BaseLabel {
+    convenience init(_ symbol: Symbols, _ color: NSColor = .white) {
+        self.init(symbol.rawValue)
+        font = NSFont(name: "SF Pro Text", size: Preferences.fontHeight)!
+        textColor = color
+        alignment = .center
+        shadow = ThumbnailView.makeShadow(.darkGray)
+    }
 }
 
 // Font icon using SF Symbols from the SF Pro font from Apple
