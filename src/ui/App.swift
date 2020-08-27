@@ -14,7 +14,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static var app: App!
     var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindow: PreferencesWindow!
-    var feedbackWindow: FeedbackWindow?
+    var feedbackWindow: FeedbackWindow!
     var isFirstSummon = true
     var appIsBeingUsed = false
     var shortcutsShouldBeDisabled = false
@@ -51,6 +51,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Spaces.initialDiscovery()
             Applications.initialDiscovery()
             self.preferencesWindow = PreferencesWindow()
+            self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.observe()
             MouseEvents.observe()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
@@ -107,7 +108,16 @@ class App: AppCenterApplication, NSApplicationDelegate {
         appIsBeingUsed = false
         isFirstSummon = true
         MouseEvents.toggle(false)
+        hideThumbnailPanelWithoutChangingKeyWindow()
+    }
+
+    // we don't want another window to become key when the thumbnailPanel is hidden
+    func hideThumbnailPanelWithoutChangingKeyWindow() {
+        preferencesWindow.canBecomeKey_ = false
+        feedbackWindow.canBecomeKey_ = false
         thumbnailsPanel.orderOut(nil)
+        preferencesWindow.canBecomeKey_ = true
+        feedbackWindow.canBecomeKey_ = true
     }
 
     func closeSelectedWindow() {
@@ -136,19 +146,18 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     @objc func showFeedbackPanel() {
-        if feedbackWindow == nil {
-            feedbackWindow = FeedbackWindow()
-        }
-        Screen.repositionPanel(feedbackWindow!, Screen.preferred(), .appleCentered)
-        App.shared.activate(ignoringOtherApps: true)
-        feedbackWindow!.makeKeyAndOrderFront(nil)
+        showSecondaryWindow(feedbackWindow)
     }
 
     @objc func showPreferencesWindow() {
-        if let preferencesWindow = preferencesWindow {
-            Screen.repositionPanel(preferencesWindow, Screen.preferred(), .appleCentered)
+        showSecondaryWindow(preferencesWindow)
+    }
+
+    func showSecondaryWindow(_ window: NSWindow?) {
+        if let window = window {
+            Screen.repositionPanel(window, Screen.preferred(), .appleCentered)
             App.shared.activate(ignoringOtherApps: true)
-            preferencesWindow.makeKeyAndOrderFront(nil)
+            window.makeKeyAndOrderFront(nil)
         }
     }
 

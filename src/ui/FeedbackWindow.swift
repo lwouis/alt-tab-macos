@@ -6,6 +6,8 @@ class FeedbackWindow: NSWindow {
     var email: TextArea!
     var sendButton: NSButton!
     var debugProfile: NSButton!
+    var canBecomeKey_ = true
+    override var canBecomeKey: Bool { canBecomeKey_ }
 
     override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
         super.init(contentRect: .zero, styleMask: style, backing: backingStoreType, defer: flag)

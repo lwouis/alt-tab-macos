@@ -136,18 +136,22 @@ class Window {
     }
 
     func focus() {
-        // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
-        // but quickly switches back to another window in that space
-        // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
-        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
-            guard let self = self else { return }
-            var elementConnection = UInt32(0)
-            CGSGetWindowOwner(cgsMainConnectionId, self.cgWindowId, &elementConnection)
-            var psn = ProcessSerialNumber()
-            CGSGetConnectionPSN(elementConnection, &psn)
-            _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId, .userGenerated)
-            self.makeKeyWindow(psn)
-            self.axUiElement.focusWindow()
+        if application.runningApplication.processIdentifier == ProcessInfo.processInfo.processIdentifier {
+            App.app.showSecondaryWindow(App.app.window(withWindowNumber: Int(cgWindowId)))
+        } else {
+            // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
+            // but quickly switches back to another window in that space
+            // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
+            BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+                guard let self = self else { return }
+                var elementConnection = UInt32(0)
+                CGSGetWindowOwner(cgsMainConnectionId, self.cgWindowId, &elementConnection)
+                var psn = ProcessSerialNumber()
+                CGSGetConnectionPSN(elementConnection, &psn)
+                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId, .userGenerated)
+                self.makeKeyWindow(psn)
+                self.axUiElement.focusWindow()
+            }
         }
     }
 

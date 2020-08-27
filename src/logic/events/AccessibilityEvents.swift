@@ -123,9 +123,7 @@ private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
 }
 
 private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-    if let wid = try element.cgWindowId(),
-       pid != ProcessInfo.processInfo.processIdentifier ||
-           (App.app.preferencesWindow.isKeyWindow || App.app.feedbackWindow?.isKeyWindow ?? false) {
+    if let wid = try element.cgWindowId() {
         let axTitle = try element.title()
         let subrole = try element.subrole()
         let role = try element.role()
