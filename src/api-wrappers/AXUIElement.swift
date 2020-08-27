@@ -102,7 +102,7 @@ extension AXUIElement {
 
     private func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
-        return runningApp.bundleIdentifier == "org.mozilla.firefox" && role == "AXWindow"
+        return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == "AXWindow"
     }
 
     private func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
