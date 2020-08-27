@@ -1,5 +1,36 @@
 # Release notes
 
+# [6.0.0](https://github.com/lwouis/alt-tab-macos/compare/v5.3.0...v6.0.0) (2020-08-27)
+
+
+### Bug Fixes
+
+* alt-tab own windows were not shown in alt-tab (closes [#555](https://github.com/lwouis/alt-tab-macos/issues/555)) ([8bcbc04](https://github.com/lwouis/alt-tab-macos/commit/8bcbc04))
+* clicking the main window would steal focus ([de02e5b](https://github.com/lwouis/alt-tab-macos/commit/de02e5b))
+* display firefox develop edition fullscreen windows (closes [#558](https://github.com/lwouis/alt-tab-macos/issues/558)) ([3250d37](https://github.com/lwouis/alt-tab-macos/commit/3250d37))
+* guarantee alt-tab window is always up-to-date on display ([be4c5f1](https://github.com/lwouis/alt-tab-macos/commit/be4c5f1))
+* ignore zombie processes ([50c8c82](https://github.com/lwouis/alt-tab-macos/commit/50c8c82))
+* moving some of the preferences sliders was very laggy ([a552c4c](https://github.com/lwouis/alt-tab-macos/commit/a552c4c))
+* shortcuts stop working if active app is quit (closes [#557](https://github.com/lwouis/alt-tab-macos/issues/557)) ([023561d](https://github.com/lwouis/alt-tab-macos/commit/023561d))
+
+
+### Features
+
+* display quickly even with many open windows (closes [#171](https://github.com/lwouis/alt-tab-macos/issues/171)) ([da16a0b](https://github.com/lwouis/alt-tab-macos/commit/da16a0b))
+* improve the 3 colored buttons when hovering (closes [#516](https://github.com/lwouis/alt-tab-macos/issues/516)) ([3ddedff](https://github.com/lwouis/alt-tab-macos/commit/3ddedff))
+* update chinese localization ([e150a9a](https://github.com/lwouis/alt-tab-macos/commit/e150a9a))
+
+
+### Performance Improvements
+
+* alt-tab appears quicker when summoned ([c2bb896](https://github.com/lwouis/alt-tab-macos/commit/c2bb896))
+* main window appears (a few frames) faster on trigger ([2bc09e6](https://github.com/lwouis/alt-tab-macos/commit/2bc09e6))
+
+
+### BREAKING CHANGES
+
+* the window thumbnails are now updated *after* the UI is shown. AltTab will first display its window, with the first 3 thumbnails up-to-date, then asynchronously update the rest of the thumbnails one-by-one. This improves the experience of users with lots of windows open.
+
 # [5.3.0](https://github.com/lwouis/alt-tab-macos/compare/v5.2.0...v5.3.0) (2020-08-25)
 
 
