@@ -28,10 +28,10 @@ func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ fn: @escaping () throws
 }
 
 func handleEvent(_ type: String, _ element: AXUIElement) throws {
-    debugPrint("Accessibility event", type, try element.title() ?? "nil")
+    debugPrint("Accessibility event", type, type != kAXFocusedUIElementChangedNotification ? (try element.title() ?? "nil") : "nil")
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid(),
-       try (!(pid == ProcessInfo.processInfo.processIdentifier && element.subrole() == "AXUnknown")) {
+       try (!(type == kAXWindowCreatedNotification && pid == ProcessInfo.processInfo.processIdentifier && element.subrole() == "AXUnknown")) {
         switch type {
             case kAXApplicationActivatedNotification: try applicationActivated(element)
             case kAXApplicationHiddenNotification,
@@ -57,7 +57,7 @@ private func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throw
         DispatchQueue.main.async {
             let windows = Windows.list.filter { w in
                 // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
-                let isFromApp = w.application.runningApplication.processIdentifier == pid
+                let isFromApp = w.application.pid == pid
                 if isFromApp {
                     // this event is the only opportunity we have to check if a window became a tab, or a tab became a window
                     let oldIsTabbed = w.isTabbed
@@ -87,12 +87,12 @@ private func applicationActivated(_ element: AXUIElement) throws {
 
 private func applicationHiddenOrShown(_ element: AXUIElement, _ pid: pid_t, _ type: String) throws {
     DispatchQueue.main.async {
-        if let app = (Applications.list.first { $0.runningApplication.processIdentifier == pid }) {
+        if let app = (Applications.list.first { $0.pid == pid }) {
             app.isHidden = type == kAXApplicationHiddenNotification
         }
         let windows = Windows.list.filter {
             // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
-            return $0.application.runningApplication.processIdentifier == pid
+            return $0.application.pid == pid
         }
         App.app.refreshOpenUi(windows)
     }
@@ -112,7 +112,7 @@ private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
             if Windows.list.firstIndexThatMatches(element, wid) == nil,
                let runningApp = NSRunningApplication(processIdentifier: pid),
                element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
-               let app = (Applications.list.first { $0.runningApplication.processIdentifier == pid }) {
+               let app = (Applications.list.first { $0.pid == pid }) {
                 let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position)
                 Windows.list.insertAndScaleRecycledPool(window, at: 0)
                 Windows.cycleFocusedWindowIndex(1)
@@ -139,7 +139,7 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
                 }
             } else if let runningApp = NSRunningApplication(processIdentifier: pid),
                       element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
-                      let app = (Applications.list.first { $0.runningApplication.processIdentifier == pid }) {
+                      let app = (Applications.list.first { $0.pid == pid }) {
                 Windows.list.insertAndScaleRecycledPool(Window(element, app, wid, axTitle, isFullscreen, isMinimized, position), at: 0)
                 App.app.refreshOpenUi([Windows.list[0]])
             }
@@ -152,7 +152,9 @@ private func windowDestroyed(_ element: AXUIElement) throws {
     let wid = try element.cgWindowId()
     DispatchQueue.main.async {
         guard let existingIndex = Windows.list.firstIndexThatMatches(element, wid) else { return }
+        let window = Windows.list[existingIndex]
         Windows.list.remove(at: existingIndex)
+        window.application.addWindowslessAppsIfNeeded()
         guard Windows.list.count > 0 else { App.app.hideUi(); return }
         Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
         App.app.refreshOpenUi()

@@ -122,14 +122,16 @@ class Windows {
 
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
         window.shouldShowTheUser =
-            !(!Preferences.showFullscreenWindows[App.app.shortcutIndex] && window.isFullscreen) &&
-            !(!Preferences.showMinimizedWindows[App.app.shortcutIndex] && window.isMinimized) &&
-            !(!Preferences.showHiddenWindows[App.app.shortcutIndex] && window.isHidden) &&
+            !(window.application.runningApplication.bundleIdentifier.flatMap { Preferences.dontShowBlacklist.contains($0) } ?? false) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
-            !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
-            !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
-            (Preferences.showTabsAsWindows || !window.isTabbed) &&
-            !(window.application.runningApplication.bundleIdentifier.flatMap { Preferences.dontShowBlacklist.contains($0) } ?? false)
+            !(!Preferences.showHiddenWindows[App.app.shortcutIndex] && window.isHidden) &&
+            ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
+                !window.isWindowlessApp &&
+                !(!Preferences.showFullscreenWindows[App.app.shortcutIndex] && window.isFullscreen) &&
+                !(!Preferences.showMinimizedWindows[App.app.shortcutIndex] && window.isMinimized) &&
+                !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
+                !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
+                (Preferences.showTabsAsWindows || !window.isTabbed))
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {

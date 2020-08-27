@@ -10,6 +10,7 @@ class Application: NSObject {
     var isHidden: Bool!
     var icon: NSImage?
     var dockLabel: String?
+    var pid: pid_t { runningApplication.processIdentifier }
 
     static func notifications(_ app: NSRunningApplication) -> [String] {
         var n = [
@@ -36,8 +37,17 @@ class Application: NSObject {
         icon = runningApplication.icon
         addAndObserveWindows()
         kvObservers = [
-            runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in self?.addAndObserveWindows() },
-            runningApplication.observe(\.activationPolicy, options: [.new]) { [weak self] _, _ in self?.addAndObserveWindows() },
+            runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
+                guard let self = self else { return }
+                self.addAndObserveWindows()
+            },
+            runningApplication.observe(\.activationPolicy, options: [.new]) { [weak self] _, _ in
+                guard let self = self else { return }
+                if self.runningApplication.activationPolicy != .regular {
+                    self.removeWindowslessAppWindow()
+                }
+                self.addAndObserveWindows()
+            },
         ]
     }
 
@@ -45,8 +55,15 @@ class Application: NSObject {
         debugPrint("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
     }
 
+    func removeWindowslessAppWindow() {
+        if let windowlessAppWindow = Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid } {
+            Windows.list.remove(at: windowlessAppWindow)
+            App.app.refreshOpenUi()
+        }
+    }
+
     func addAndObserveWindows() {
-        if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
+        if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited && axUiElement == nil {
             axUiElement = AXUIElementCreateApplication(runningApplication.processIdentifier)
             AXObserverCreate(runningApplication.processIdentifier, axObserverCallback, &axObserver)
             debugPrint("Adding app", runningApplication.processIdentifier, runningApplication.bundleIdentifier ?? "nil")
@@ -75,6 +92,14 @@ class Application: NSObject {
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
                         self.addWindows(windows)
+                        self.addWindowslessAppsIfNeeded()
+                        App.app.refreshOpenUi()
+                    }
+                } else {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        self.addWindowslessAppsIfNeeded()
+                        App.app.refreshOpenUi()
                     }
                 }
             }
@@ -92,7 +117,15 @@ class Application: NSObject {
         if App.app.appIsBeingUsed {
             Windows.cycleFocusedWindowIndex(windows.count)
         }
-        App.app.refreshOpenUi(windows)
+    }
+
+    func addWindowslessAppsIfNeeded() {
+        if !Preferences.hideWindowlessApps &&
+               runningApplication.activationPolicy == .regular &&
+               !runningApplication.isTerminated &&
+               (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
+            Windows.list.insertAndScaleRecycledPool(Window(self), at: Windows.list.count)
+        }
     }
 
     private func observeEvents() {
