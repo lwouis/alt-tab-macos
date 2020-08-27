@@ -75,6 +75,8 @@ private func applicationActivated(_ element: AXUIElement) throws {
     if let appFocusedWindow = try element.focusedWindow(),
        let wid = try appFocusedWindow.cgWindowId() {
         DispatchQueue.main.async {
+            // ensure alt-tab window remains key, so local shortcuts work
+            if App.app.appIsBeingUsed { App.app.thumbnailsPanel.makeKeyAndOrderFront(nil) }
             guard let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow, wid) else { return }
             Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
             App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
