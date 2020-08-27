@@ -1,4 +1,5 @@
 import Cocoa
+import Darwin
 
 extension Collection {
     // recursive flatMap
@@ -170,5 +171,18 @@ extension NSImage {
         imageRect.fill(using: .sourceAtop)
         dimmed.unlockFocus()
         return dimmed
+    }
+}
+
+extension pid_t {
+    func isZombie() -> Bool {
+        var kinfo = kinfo_proc()
+        var size = MemoryLayout<kinfo_proc>.stride
+        var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, self]
+        sysctl(&mib, u_int(mib.count), &kinfo, &size, nil, 0)
+        let command = withUnsafePointer(to: &kinfo.kp_proc.p_comm) {
+            String(cString: UnsafeRawPointer($0).assumingMemoryBound(to: CChar.self))
+        }
+        return kinfo.kp_proc.p_stat == SZOMB
     }
 }
