@@ -4,13 +4,6 @@ import ApplicationServices
 class Applications {
     static var list = [Application]()
 
-    static func observeNewWindows() {
-        for app in list {
-            guard app.runningApplication.isFinishedLaunching else { continue }
-            app.observeNewWindows()
-        }
-    }
-
     static func observeNewWindowsBlocking() {
         let group = DispatchGroup()
         for app in list {
@@ -32,9 +25,7 @@ class Applications {
 
     static func addInitialRunningApplicationsWindows() {
         let otherSpaces = Spaces.otherSpaces()
-        if otherSpaces.count == 0 {
-            Applications.observeNewWindows()
-        } else {
+        if otherSpaces.count > 0 {
             let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId])
             let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces)
             let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
