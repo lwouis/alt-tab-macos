@@ -124,6 +124,21 @@ class Preferences {
     static var highlightBackgroundColor: NSColor { theme.themeParameters.highlightBackgroundColor }
     static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
 
+    static func initialize() {
+        removeCorruptedPreferences()
+        migratePreferences()
+        registerDefaults()
+    }
+
+    static func removeCorruptedPreferences() {
+        // from v5.1.0+, there are crash reports of users somehow having their hold shortcuts set to ""
+        ["holdShortcut", "holdShortcut2"].forEach {
+            if let s = defaults.string(forKey: $0), s == "" {
+                defaults.removeObject(forKey: $0)
+            }
+        }
+    }
+
     static func registerDefaults() {
         defaults.register(defaults: defaultValues)
     }
