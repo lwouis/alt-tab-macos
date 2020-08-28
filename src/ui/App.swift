@@ -44,8 +44,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         SystemPermissions.ensurePermissionsAreGranted { [weak self] in
             guard let self = self else { return }
             BackgroundWork.start()
-            Preferences.migratePreferences()
-            Preferences.registerDefaults()
+            Preferences.initialize()
             Menubar.initialize()
             self.loadMainMenuXib()
             self.thumbnailsPanel = ThumbnailsPanel()
