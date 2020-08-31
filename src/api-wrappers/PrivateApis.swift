@@ -128,7 +128,7 @@ let kAXStatusLabelAttribute = "AXStatusLabel"
 // enables/disables a symbolic hotkeys. These are system shortcuts such as command+tab or Spotlight
 // it is possible to find all the existing hotkey IDs by using CGSGetSymbolicHotKeyValue on the first few hundred numbers
 // note: the effect of enabling/disabling persists after the app is quit
-@_silgen_name("CGSSetSymbolicHotKeyEnabled")
+@_silgen_name("CGSSetSymbolicHotKeyEnabled") @discardableResult
 func CGSSetSymbolicHotKeyEnabled(_ hotKey: Int, _ isEnabled: Bool) -> CGError
 
 func setNativeCommandTabEnabled(_ isEnabled: Bool) {
