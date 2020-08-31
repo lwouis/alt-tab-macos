@@ -1,5 +1,25 @@
 # Release notes
 
+# [6.1.0](https://github.com/lwouis/alt-tab-macos/compare/v6.0.0...v6.1.0) (2020-08-31)
+
+
+### Bug Fixes
+
+* crash when user click a specific spot of shortcut ui (closes [#495](https://github.com/lwouis/alt-tab-macos/issues/495)) ([959a8ae](https://github.com/lwouis/alt-tab-macos/commit/959a8ae))
+* focusing alt-tab own windows with alt-tab had jank (closes [#501](https://github.com/lwouis/alt-tab-macos/issues/501)) ([c927920](https://github.com/lwouis/alt-tab-macos/commit/c927920))
+* some users have corrupted preferences, crashing on launch ([3062566](https://github.com/lwouis/alt-tab-macos/commit/3062566))
+
+
+### Features
+
+* add polish localization ([9fd25df](https://github.com/lwouis/alt-tab-macos/commit/9fd25df))
+* update indonesian localization ([4ee875b](https://github.com/lwouis/alt-tab-macos/commit/4ee875b))
+
+
+### Performance Improvements
+
+* compress the 3 colored circle icons ([20e474b](https://github.com/lwouis/alt-tab-macos/commit/20e474b))
+
 # [6.0.0](https://github.com/lwouis/alt-tab-macos/compare/v5.3.0...v6.0.0) (2020-08-27)
 
 
