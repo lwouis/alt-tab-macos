@@ -102,11 +102,10 @@ class Windows {
                     DispatchQueue.main.async {
                         let view = ThumbnailsView.recycledViews[currentIndex]
                         if view.thumbnail.image != window.thumbnail {
+                            let oldSize = view.thumbnail.frame.size
                             view.thumbnail.image = window.thumbnail
-                            let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(window.thumbnail, screen)
-                            let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
-                            view.thumbnail.image?.size = thumbnailSize
-                            view.thumbnail.frame.size = thumbnailSize
+                            view.thumbnail.image?.size = oldSize
+                            view.thumbnail.frame.size = oldSize
                         }
                     }
                 }

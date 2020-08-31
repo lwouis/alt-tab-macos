@@ -4,6 +4,7 @@ class Window {
     var cgWindowId: CGWindowID
     var title: String!
     var thumbnail: NSImage?
+    var thumbnailFullSize: NSSize?
     var icon: NSImage? { get { application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
@@ -66,6 +67,7 @@ class Window {
     func refreshThumbnail() {
         guard let cgImage = cgWindowId.screenshot() else { return }
         thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
+        thumbnailFullSize = thumbnail!.size
     }
 
     func refreshIsTabbed(_ currentWindows: [AXUIElement]) {
