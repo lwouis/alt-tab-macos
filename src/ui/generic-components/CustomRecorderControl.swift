@@ -23,6 +23,12 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
         }
     }
 
+    override func clearAndEndRecording() {
+        if clearable {
+            super.clearAndEndRecording()
+        }
+    }
+
     // only allow modifiers: ⌥ -> valid, e -> invalid, ⌥e -> invalid
     func recorderControl(_ aControl: RecorderControl, canRecord aShortcut: Shortcut) -> Bool {
         if !clearable && aShortcut.keyCode != .none {
