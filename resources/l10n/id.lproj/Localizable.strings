@@ -36,19 +36,19 @@
 "Allowed" = "Dibolehkan";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "Juga pilih jendela menggunakan:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab macet terakhir kali Anda menggunakannya. Mengirim laporan kerusakan akan membantu menyelesaikan masalah";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab membutuhkan beberapa izin";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Selalu kirim laporan kerusakan";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"and press:" = "lalu tekan:";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Penundaan penampakan:";
@@ -63,7 +63,7 @@
 "Arrow keys" = "Tombol panah";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Tanyakan apakah ingin mengirim laporan kerusakan";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Instal pembaruan secara berkala";
@@ -93,19 +93,19 @@
 "Close window" = "Tutup jendela";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "Kontrol";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "Kebijakan laporan kerusakan:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "Tidak melakukan apapun";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Jangan periksa pembaruan secara berkala";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "Jangan kirim";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Jangan tampilkan jendela dari aplikasi ini";
@@ -117,7 +117,7 @@
 "Fade out animation:" = "Animasi fade out:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Fokus ke jendela yang dipilih";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Layar penuh";
@@ -129,16 +129,16 @@
 "Hidden" = "Tersembunyi";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "Sembunyikan lencana app:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "Sembunyikan lingkaran berwarna pada mouse hover:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "Sembunyikan label nomor ruang:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "Sembunyikan status ikon:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Tampilkan/Sembunyikan app";
@@ -165,7 +165,7 @@
 "Max windows per row:" = "Jendela maks per baris:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "Ikon menubar:";
 
 /*No comment provided by engineer.*/
 "Middle" = "Tengah";
@@ -183,7 +183,7 @@
 "Mouse hover" = "Arahkan mouse";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Jangan pernah kirim laporan kerusakan";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Tidak dibolehkan";
@@ -204,7 +204,7 @@
 "Optional: email (if you want a reply)" = "Opsional: surel (jika kamu ingin dapatkan balasan)";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "Kebijakan";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Preferensi…";
@@ -219,7 +219,7 @@
 "Quit app" = "Keluar app";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "Ingat pilihan saya";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Barisan jendela:";
@@ -246,7 +246,7 @@
 "Send" = "Kirim";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Kirim sebuah laporan kerusakan?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Tetap kirim";
@@ -264,10 +264,10 @@
 "Share improvement ideas, or report bugs" = "Bagikan gagasan peningkatan, atau laporkan bug";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "Pintasan 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "Pintasan 2";
 
 /*No comment provided by engineer.*/
 "Show" = "Tampilkan";
@@ -294,7 +294,7 @@
 "Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
-"then release:" = "then release:";
+"then release:" = "lalu lepaskan:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Izin ini diperlukan untuk memfokuskan jendela setelah Anda melepaskan pintasan";
@@ -312,7 +312,7 @@
 "View existing discussions" = "Lihat diskusi yang ada";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "Ketika terbuka, tekan:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Ukuran ikon aplikasi jendela:";
