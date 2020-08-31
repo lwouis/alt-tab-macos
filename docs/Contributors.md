@@ -35,6 +35,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Ialiendeg
 * Jaeyong Sung
 * Jord Nijhuis
+* Julian Nowaczyk
 * Kagurazaka Tsuki
 * Kushnee5
 * Lcwhhh
@@ -42,6 +43,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * lwouis
 * Michael
 * Nilton Souza
+* Petr Kolář
 * ponchik
 * rbnis
 * Tomoa Nozawa
