@@ -60,6 +60,7 @@ class Preferences {
         "shortcutStyle": "0",
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
+        "hideThumbnails": "false",
     ]
 
     // constant values
@@ -69,7 +70,6 @@ class Preferences {
     static var windowPadding: CGFloat { 18 }
     static var interCellPadding: CGFloat { 5 }
     static var intraCellPadding: CGFloat { 5 }
-    static var fontIconSize: CGFloat { 20 }
 
     // persisted values
     static var maxScreenUsage: CGFloat { defaults.cgfloat("maxScreenUsage") / CGFloat(100) }
@@ -100,6 +100,7 @@ class Preferences {
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
+    static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
     static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }

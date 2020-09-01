@@ -64,9 +64,9 @@ class Application: NSObject {
 
     func addAndObserveWindows() {
         if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited && axUiElement == nil {
-            axUiElement = AXUIElementCreateApplication(runningApplication.processIdentifier)
-            AXObserverCreate(runningApplication.processIdentifier, axObserverCallback, &axObserver)
-            debugPrint("Adding app", runningApplication.processIdentifier, runningApplication.bundleIdentifier ?? "nil")
+            axUiElement = AXUIElementCreateApplication(pid)
+            AXObserverCreate(pid, axObserverCallback, &axObserver)
+            debugPrint("Adding app", pid, runningApplication.bundleIdentifier ?? "nil")
             observeEvents()
         }
     }

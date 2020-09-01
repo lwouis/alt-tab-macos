@@ -9,7 +9,7 @@ class ThumbnailView: NSStackView {
     var minimizedIcon = ThumbnailFontIconView(.circledMinusSign)
     var hiddenIcon = ThumbnailFontIconView(.circledSlashSign)
     var spaceIcon = ThumbnailFontIconView(.circledNumber0)
-    var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, (Preferences.fontIconSize * 0.7).rounded(), NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white, true)
+    var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, 14, NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white)
     var closeIcon = WindowControlView("close", 16)
     var minimizeIcon = WindowControlView("minimize", 16)
     var maximizeIcon = WindowControlView("fullscreen", 16)
@@ -36,12 +36,10 @@ class ThumbnailView: NSStackView {
         layer!.borderWidth = Preferences.cellBorderWidth
         edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
         orientation = .vertical
-        spacing = Preferences.intraCellPadding
         let shadow = ThumbnailView.makeShadow(.gray)
         thumbnail.shadow = shadow
         appIcon.shadow = shadow
         hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
-        hStackView.spacing = Preferences.intraCellPadding
         setViews([hStackView, thumbnail], in: .leading)
         addWindowControls()
         addDockLabelIcon()
@@ -70,7 +68,7 @@ class ThumbnailView: NSStackView {
         if let shouldShowWindowControls = shouldShowWindowControls_ {
             self.shouldShowWindowControls = shouldShowWindowControls
         }
-        let shouldShow = shouldShowWindowControls && isHighlighted && !Preferences.hideColoredCircles && !window_!.isWindowlessApp
+        let shouldShow = shouldShowWindowControls && isHighlighted && !Preferences.hideColoredCircles && !window_!.isWindowlessApp && !Preferences.hideThumbnails
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
             [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = !shouldShow }
@@ -101,14 +99,19 @@ class ThumbnailView: NSStackView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
-        thumbnail.image = element.thumbnail
-        if let image = thumbnail.image {
-            image.size = element.thumbnailFullSize!
+        assignIfDifferent(&thumbnail.isHidden, Preferences.hideThumbnails)
+        if !Preferences.hideThumbnails {
+            thumbnail.image = element.thumbnail
+            if let image = thumbnail.image {
+                image.size = element.thumbnailFullSize!
+            }
+            let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(element.thumbnail, screen)
+            let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
+            thumbnail.image?.size = thumbnailSize
+            thumbnail.frame.size = thumbnailSize
         }
-        let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(element.thumbnail, screen)
-        let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
-        thumbnail.image?.size = thumbnailSize
-        thumbnail.frame.size = thumbnailSize
+        assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
+        assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
         if appIcon.image != element.icon {
             appIcon.image = element.icon
             let appIconSize = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
@@ -142,11 +145,11 @@ class ThumbnailView: NSStackView {
             }
             dockLabelIcon.setFrameOrigin(NSPoint(x: appIcon.frame.maxX - dockLabelIcon.fittingSize.width - 1, y: appIcon.frame.maxY - dockLabelIcon.fittingSize.height + 4))
         }
-        assignIfDifferent(&frame.size.width, max(thumbnail.frame.size.width + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)))
+        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)))
         assignIfDifferent(&frame.size.height, newHeight)
-        let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontIconSize + Preferences.intraCellPadding)
+        let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
-        assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp)
+        assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
             let maxWidth = (ThumbnailView.widthMin(screen) - Preferences.intraCellPadding * 2).rounded()
             let maxHeight = ((ThumbnailView.height(screen) - hStackView.fittingSize.height) - Preferences.intraCellPadding * 2).rounded()

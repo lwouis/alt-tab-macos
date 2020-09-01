@@ -9,7 +9,7 @@ class AppearanceTab {
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Rows of windows:", comment: ""), "rowsCount", 1, 20, 20, true),
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Min windows per row:", comment: ""), "minCellsPerRow", 1, 20, 20, true),
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max windows per row:", comment: ""), "maxCellsPerRow", 1, 40, 20, true),
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window app icon size:", comment: ""), "iconSize", 0, 64, 11, false, "px"),
+            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window app icon size:", comment: ""), "iconSize", 0, 128, 11, false, "px"),
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window title font size:", comment: ""), "fontHeight", 0, 64, 11, false, "px"),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""), "titleTruncation", TitleTruncationPreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
@@ -21,6 +21,7 @@ class AppearanceTab {
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide colored circles on mouse hover:", comment: ""), "hideColoredCircles"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide app badges:", comment: ""), "hideAppBadges"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide apps with no open window:", comment: ""), "hideWindowlessApps"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide window thumbnails:", comment: ""), "hideThumbnails"),
         ])
         grid.column(at: 0).xPlacement = .trailing
         grid.rowAlignment = .lastBaseline

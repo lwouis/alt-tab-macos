@@ -152,7 +152,7 @@ class Window {
     }
 
     func focus() {
-        if application.runningApplication.processIdentifier == ProcessInfo.processInfo.processIdentifier {
+        if application.pid == ProcessInfo.processInfo.processIdentifier {
             App.app.showSecondaryWindow(App.app.window(withWindowNumber: Int(cgWindowId)))
         } else if isWindowlessApp {
             if let bundleID = application.runningApplication.bundleIdentifier {
