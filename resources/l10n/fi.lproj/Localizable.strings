@@ -3,7 +3,7 @@
 "About" = "Tietoja";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "Helppokäyttöisyys";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "Kiitokset";
@@ -24,7 +24,7 @@
 "All apps" = "Kaikki ohjelmat";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Tämän lomakkeen tiedot tulevat julkisiksi Github.comiin";
 
 /*No comment provided by engineer.*/
 "All screens" = "Kaikki ruudut";
@@ -33,22 +33,22 @@
 "All spaces" = "Kaikki tilat";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "Sallittu";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "Valitse ikkunoita myös:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kaatui viime käyttökerralla. Vikaraportin lähettäminen auttaa ongelman korjaamiseen";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "AltTab tarvitsee joitakin oikeuksia";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Lähetä vikaraportit aina";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"and press:" = "ja paina:";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Ilmestymisviive:";
@@ -57,19 +57,19 @@
 "Appearance" = "Ulkonäkö";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Oletko varma ettet halua vastausta?";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Nuolinäppäimet";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Kysy lähetetäänkö vikaraportit";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Asenna päivitykset automaattisesti aika ajoin";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Estolistat";
 
 /*Cancel button*/
 "Cancel" = "Peru";
@@ -93,34 +93,34 @@
 "Close window" = "Sulje ikkuna";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "Ohjaimet";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "Vikaraporttipolitiikka:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "Älä tee mitään";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Älä tarkista päivityksiä";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "Älä lähetä";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "Älä näytä ikkunoita näistä ohjelmista";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "Loppu";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "Haipumisanimaatio:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Kohdenna valittu ikkuna";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
+"Fullscreen" = "Koko näyttö";
 
 /*No comment provided by engineer.*/
 "General" = "Yleinen";
@@ -129,16 +129,19 @@
 "Hidden" = "Piilossa";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "Piilota lätkät:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide apps with no open window:" = "Hide apps with no open window:";
+
+/*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Piilota väriympyrät hiirellä liikuttaessa:";
 
 /*No comment provided by engineer.*/
 "Hide space number labels:" = "Piilota tilojen numerot:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "Piilota statusikonit:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Piilota/näytä ohjelma";
@@ -150,7 +153,7 @@
 "I think the app could be improved with…" = "Ohjelmaa voisi mielestäni parantaa…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "Älä käsittele pikanäppäimiä näiden ohjelmien ollessa aktiivisia";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Uusimmat julkaisut";
@@ -165,10 +168,10 @@
 "Max windows per row:" = "Enimmäismäärä ikkunoita rivillä:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "Valikkopalkin ikoni:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "Keski";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "Vähimmäismäärä ikkunoita rivillä:";
@@ -183,34 +186,34 @@
 "Mouse hover" = "Hiiren liike";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Älä lähetä vikaraportteja";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "Ei sallittu";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 -lisenssi";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "Vain jos ikkuna on koko ruudun";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Avaa Helppokäyttöisyysasetukset…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Avaa Näytön nauhoitusasetukset…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Vapaaehtoinen: sähköposti (jos haluat vastauksen)";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "Politiikat";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Asetukset…";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "Lopeta";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Lopeta %@";
@@ -219,7 +222,7 @@
 "Quit app" = "Sulje ohjelma";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "Muista valintani";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Ikkunarivejä:";
@@ -231,7 +234,7 @@
 "Screen including mouse" = "Ruudulla jossa hiiri";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Näytön nauhoitus";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Ruudulla jossa AltTab";
@@ -246,10 +249,10 @@
 "Send" = "Lähetä";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Lähetä vikaraportti?";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+"Send anyway" = "Lähetä silti";
 
 /*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Lähetä debug-profiili (prosessori, muisti ym.)";
@@ -264,10 +267,10 @@
 "Share improvement ideas, or report bugs" = "Jaa parannusehdotuksia tai raportoi bugeja";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "Pikanäppäin 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "Pikanäppäin 2";
 
 /*No comment provided by engineer.*/
 "Show" = "Näytä";
@@ -276,7 +279,7 @@
 "Show on:" = "Näytä:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "Näytä standarditabit ikkunoina:";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Show the following windows:";
@@ -285,7 +288,7 @@
 "Source code repository" = "Lähdekoodi";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "Alku";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Käynnistä kirjautuessa:";
@@ -294,13 +297,13 @@
 "Theme:" = "Teema:";
 
 /*No comment provided by engineer.*/
-"then release:" = "then release:";
+"then release:" = "sitten päästä:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Tarvitaan ikkunoiden valitsemiseksi";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Tarvitaan ikkunoiden otsikoiden ja pikkukuvien näyttämiseen";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Päivityspolitiikka:";
@@ -312,7 +315,7 @@
 "View existing discussions" = "Näytä keskustelut";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "Kun auki, paina:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Ohjelmaikonin koko:";
@@ -321,7 +324,7 @@
 "Window title font size:" = "Otsikkotekstin koko:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "Ikkunaotsikoiden lyhennys:";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "Et antanut sähköpostiosoitettasi, joten emme voi lähettää sinulle vastausta.";

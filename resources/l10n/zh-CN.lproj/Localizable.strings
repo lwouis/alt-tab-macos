@@ -132,6 +132,9 @@
 "Hide app badges:" = "隐藏应用通知标志：";
 
 /*No comment provided by engineer.*/
+"Hide apps with no open window:" = "Hide apps with no open window:";
+
+/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "鼠标悬停时隐藏彩色圆圈：";
 
 /*No comment provided by engineer.*/
@@ -195,10 +198,10 @@
 "Only if the window is fullscreen" = "仅当窗口全屏时";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "打开辅助功能偏好设置";
+"Open Accessibility Preferences…" = "打开辅助功能偏好设置…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "打开屏幕录制偏好设置";
+"Open Screen Recording Preferences…" = "打开屏幕录制偏好设置…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "电子邮箱地址 (可选，若想接收答复)";
