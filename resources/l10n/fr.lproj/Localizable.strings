@@ -132,6 +132,9 @@
 "Hide app badges:" = "Masquer les badges des Apps :";
 
 /*No comment provided by engineer.*/
+"Hide apps with no open window:" = "Cacher les apps sans fenêtre :";
+
+/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Masquer les cercles colorés au survol de la souris :";
 
 /*No comment provided by engineer.*/

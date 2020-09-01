@@ -132,6 +132,9 @@
 "Hide app badges:" = "Esconder emblemas:";
 
 /*No comment provided by engineer.*/
+"Hide apps with no open window:" = "Hide apps with no open window:";
+
+/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Esconder círculos coloridos onde o rato passar:";
 
 /*No comment provided by engineer.*/
@@ -207,7 +210,7 @@
 "Policies" = "Políticas";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Preferências";
+"Preferences…" = "Preferências…";
 
 /*No comment provided by engineer.*/
 "Quit" = "Sair";
