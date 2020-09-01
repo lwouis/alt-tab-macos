@@ -87,6 +87,7 @@ class Windows {
     }
 
     static func refreshFirstFewThumbnailsSync() {
+        if Preferences.hideThumbnails { return }
         list.filter { $0.shouldShowTheUser }
             .prefix(criticalFirstThumbnails)
             .forEachAsync { window in window.refreshThumbnail() }
@@ -94,6 +95,7 @@ class Windows {
 
     static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails) {
         guard App.app.appIsBeingUsed else { return }
+        if Preferences.hideThumbnails { return }
         BackgroundWork.mainQueueConcurrentWorkQueue.async {
             if currentIndex < list.count {
                 let window = list[currentIndex]

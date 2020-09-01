@@ -51,8 +51,15 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
+    func rowHeight(_ screen: NSScreen) -> CGFloat {
+        if Preferences.hideThumbnails {
+            return max(Preferences.iconSize, Preferences.fontHeight + 3) + Preferences.intraCellPadding * 2
+        }
+        return ThumbnailView.height(screen).rounded(.down)
+    }
+
     private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
-        let height = ThumbnailView.height(screen).rounded(.down)
+        let height = rowHeight(screen)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
         let startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
         var currentX = startingX
