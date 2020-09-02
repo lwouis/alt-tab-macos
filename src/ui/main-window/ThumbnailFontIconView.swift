@@ -31,7 +31,7 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         self.init(size, shadow)
         string = symbol.rawValue
         // This helps SF symbols display vertically centered and not clipped at the top
-        font = NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())
+        font = NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())!
         textColor = color
         // This helps SF symbols not be clipped on the right
         widthAnchor.constraint(equalToConstant: size * 1.15).isActive = true
