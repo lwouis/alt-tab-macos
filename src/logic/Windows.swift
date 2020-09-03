@@ -40,6 +40,8 @@ class Windows {
     static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ destroyedWindowIndex: Int) {
         if focusedWindowIndex > destroyedWindowIndex {
             cycleFocusedWindowIndex(-1)
+        } else if focusedWindowIndex == destroyedWindowIndex && !focusedWindow()!.shouldShowTheUser {
+            cycleFocusedWindowIndex(1)
         }
     }
 
