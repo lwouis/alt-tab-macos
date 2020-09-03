@@ -195,7 +195,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         guard appIsBeingUsed else { return }
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout(currentScreen)
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.setFrame(thumbnailsPanel.thumbnailsView.frame, display: false)
+        thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
         Screen.repositionPanel(thumbnailsPanel, currentScreen, .appleCentered)
@@ -249,6 +249,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
         Windows.refreshFirstFewThumbnailsSync()
         guard appIsBeingUsed else { return }
         Applications.refreshBadges()
+        guard appIsBeingUsed else { return }
+        thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 monitors make thumbnailPanel invisible
         guard appIsBeingUsed else { return }
         refreshOpenUi()
         guard appIsBeingUsed else { return }

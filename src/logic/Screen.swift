@@ -9,7 +9,7 @@ class Screen {
     static func preferred() -> NSScreen {
         switch Preferences.showOnScreen {
             case .includingMouse: return withMouse() ?? NSScreen.main! // .main as fall-back
-            case .active: return NSScreen.main!
+            case .active: return NSScreen.main! // macOS bug: this will return screens[0] if the main screen shows a fullscreen app
             case .includingMenubar: return NSScreen.screens.first!
         }
     }
