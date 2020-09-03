@@ -52,20 +52,18 @@ func handleEvent(_ type: String, _ element: AXUIElement) throws {
 }
 
 private func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-    let appAxUiElement = AXUIElementCreateApplication(pid)
-    if let currentWindows = try appAxUiElement.windows() {
-        DispatchQueue.main.async {
-            let windows = Windows.list.filter { w in
-                // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
-                let isFromApp = w.application.pid == pid
-                if isFromApp {
-                    // this event is the only opportunity we have to check if a window became a tab, or a tab became a window
-                    let oldIsTabbed = w.isTabbed
-                    w.refreshIsTabbed(currentWindows)
-                    return oldIsTabbed != w.isTabbed
-                }
-                return false
+    if let app = NSRunningApplication(processIdentifier: pid) {
+        let currentWindows = try AXUIElementCreateApplication(pid).windows()
+        let windows = Windows.list.filter { w in
+            if w.application.pid == pid && pid != ProcessInfo.processInfo.processIdentifier &&
+                   w.spaceId == Spaces.currentSpaceId {
+                let oldIsTabbed = w.isTabbed
+                w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil) ?? true
+                return oldIsTabbed != w.isTabbed
             }
+            return false
+        }
+        DispatchQueue.main.async {
             App.app.refreshOpenUi(windows)
         }
     }
