@@ -109,6 +109,8 @@ class ControlsTab {
         if controlId.hasPrefix("holdShortcut") {
             let i = controlId == "holdShortcut" ? 0 : 1
             addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut[i])!, controlId, globalId)
+            // hold shortcuts need to also be local for the case of space transition reopening the ui
+            addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut[i])!, controlId, nil)
             if let s = nextWindowShortcut?[i] {
                 shortcutChangedCallback(s)
             }
