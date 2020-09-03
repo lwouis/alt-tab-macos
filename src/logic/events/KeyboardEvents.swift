@@ -14,7 +14,7 @@ class KeyboardEvents {
         "holdShortcut": 2,
         "holdShortcut2": 3,
     ]
-    static var holdShortcutWasDown = [2: false, 3: false]
+    static var holdShortcutWasDown = ["holdShortcut": false, "holdShortcut2": false]
     static var eventHotKeyRefs = [EventHotKeyRef?](repeating: nil, count: globalShortcuts.count)
     static var hotModifierEventHandler: EventHandlerRef?
     static var hotKeyEventHandler: EventHandlerRef?
@@ -104,7 +104,7 @@ fileprivate func handleHotModifier(_ modifiers: UInt32) -> Bool {
         // modifiers down
         if modifiers == value.carbonModifierFlags || modifiers == value.carbonModifierFlags | UInt32(alphaLock) {
             if key.hasPrefix("holdShortcut") {
-                KeyboardEvents.holdShortcutWasDown[shortcutIndex] = true
+                KeyboardEvents.holdShortcutWasDown[key] = true
             } else {
                 if handleHotAny(key, shortcutIndex) {
                     return true
@@ -112,8 +112,12 @@ fileprivate func handleHotModifier(_ modifiers: UInt32) -> Bool {
             }
         }
         // modifiers up
-        else if key.hasPrefix("holdShortcut") && (modifiers & value.carbonModifierFlags == 0) && KeyboardEvents.holdShortcutWasDown[shortcutIndex]! {
-            KeyboardEvents.holdShortcutWasDown[shortcutIndex] = false
+        else if key.hasPrefix("holdShortcut") && (modifiers & value.carbonModifierFlags == 0) && KeyboardEvents.holdShortcutWasDown[key]! {
+            KeyboardEvents.holdShortcutWasDown[key] = false
+            if ControlsTab.globalShortcuts["holdShortcut"]!.carbonModifierFlags == ControlsTab.globalShortcuts["holdShortcut"]!.carbonModifierFlags {
+                let otherKey = key == "holdShortcut" ? "holdShortcut2" : "holdShortcut"
+                KeyboardEvents.holdShortcutWasDown[key] = false
+            }
             if Preferences.shortcutStyle == .focusOnRelease && handleHotAny(key, shortcutIndex) {
                 return true
             }
