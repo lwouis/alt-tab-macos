@@ -5,7 +5,7 @@ class ThumbnailsPanel: NSPanel {
     override var canBecomeKey: Bool { true }
 
     convenience init() {
-        self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: true)
+        self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
         isFloatingPanel = true
         updateFadeOutAnimation()
         hidesOnDeactivate = false
@@ -13,6 +13,8 @@ class ThumbnailsPanel: NSPanel {
         titleVisibility = .hidden
         backgroundColor = .clear
         contentView!.addSubview(thumbnailsView)
+        preservesContentDuringLiveResize = false
+        disableSnapshotRestoration()
         // 2nd highest level possible; this allows the app to go on top of context menus
         // highest level is .screenSaver but makes drag and drop on top the main window impossible
         level = .popUpMenu

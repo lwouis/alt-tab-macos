@@ -5,8 +5,8 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
     var canBecomeKey_ = true
     override var canBecomeKey: Bool { canBecomeKey_ }
 
-    override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
-        super.init(contentRect: .zero, styleMask: style, backing: backingStoreType, defer: flag)
+    convenience init() {
+        self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
         setupWindow()
         setupView()
     }
@@ -14,7 +14,6 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
     private func setupWindow() {
         isReleasedWhenClosed = false
         hidesOnDeactivate = false
-        styleMask.insert([.miniaturizable, .closable])
         addQuitButton()
     }
 
