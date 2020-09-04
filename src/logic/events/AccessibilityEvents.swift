@@ -121,7 +121,11 @@ private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
 }
 
 private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-    if let wid = try element.cgWindowId() {
+    if let wid = try element.cgWindowId(),
+       let runningApp = NSRunningApplication(processIdentifier: pid),
+       // photoshop will focus a window *after* you focus another app
+       // we check that a focused window happens within an active app
+       runningApp.isActive {
         let axTitle = try element.title()
         let subrole = try element.subrole()
         let role = try element.role()
@@ -135,9 +139,8 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
                     Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
                     App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
                 }
-            } else if let runningApp = NSRunningApplication(processIdentifier: pid),
-                      element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
-                      let app = (Applications.list.first { $0.pid == pid }) {
+            } else if element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
+            let app = (Applications.list.first { $0.pid == pid }) {
                 Windows.list.insertAndScaleRecycledPool(Window(element, app, wid, axTitle, isFullscreen, isMinimized, position), at: 0)
                 App.app.refreshOpenUi([Windows.list[0]])
             }
