@@ -2,6 +2,9 @@
 /*No comment provided by engineer.*/
 "About" = "Iwwer";
 
+/*Menubar option. %@ is AltTab*/
+"About %@" = "About %@";
+
 /*No comment provided by engineer.*/
 "Accessibility" = "Accessibility";
 
@@ -144,6 +147,9 @@
 "Hide status icons:" = "Hide status icons:";
 
 /*No comment provided by engineer.*/
+"Hide window thumbnails:" = "Hide window thumbnails:";
+
+/*No comment provided by engineer.*/
 "Hide/Show app" = "Hide/Show app";
 
 /*No comment provided by engineer.*/
@@ -195,7 +201,7 @@
 "NSHumanReadableCopyright" = "GPL-3.0 Lizenz";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Nëmme wann d'Fënster am Vollbild ass";
+"Only if the window is fullscreen" = "Nëmme wann d’Fënster am Vollbild ass";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";

@@ -7,6 +7,11 @@ class Menubar {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         statusItem.menu = NSMenu()
         statusItem.menu!.addItem(
+            withTitle: String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name),
+            action: #selector(App.app.showAboutTab),
+            keyEquivalent: "")
+        statusItem.menu!.addItem(NSMenuItem.separator())
+        statusItem.menu!.addItem(
             withTitle: NSLocalizedString("Show", comment: "Menubar option"),
             action: #selector(App.app.showUi),
             keyEquivalent: "")

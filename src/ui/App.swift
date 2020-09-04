@@ -163,7 +163,12 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     @objc func showUi() {
         appIsBeingUsed = true
-        DispatchQueue.main.async { () -> () in self.showUiOrCycleSelection(0) }
+        showUiOrCycleSelection(0)
+    }
+
+    @objc func showAboutTab() {
+        preferencesWindow.selectTab("about")
+        showPreferencesWindow()
     }
 
     func cycleSelection(_ direction: Direction) {

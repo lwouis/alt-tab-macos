@@ -2,6 +2,9 @@
 /*No comment provided by engineer.*/
 "About" = "Hakkında";
 
+/*Menubar option. %@ is AltTab*/
+"About %@" = "About %@";
+
 /*No comment provided by engineer.*/
 "Accessibility" = "Accessibility";
 
@@ -142,6 +145,9 @@
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";
+
+/*No comment provided by engineer.*/
+"Hide window thumbnails:" = "Hide window thumbnails:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Uygulamayı gizle / göster";

@@ -2,6 +2,9 @@
 /*No comment provided by engineer.*/
 "About" = "О программе";
 
+/*Menubar option. %@ is AltTab*/
+"About %@" = "About %@";
+
 /*No comment provided by engineer.*/
 "Accessibility" = "Универсальный доступ";
 
@@ -142,6 +145,9 @@
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Скрыть иконки состояния:";
+
+/*No comment provided by engineer.*/
+"Hide window thumbnails:" = "Hide window thumbnails:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Скрыть/Показать приложение";
