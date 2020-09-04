@@ -75,9 +75,9 @@ class Application: NSObject {
         if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
             retryAxCallUntilTimeout(group) { [weak self] in
                 guard let self = self else { return }
-                if let windows_ = try self.axUiElement!.windows(), windows_.count > 0 {
+                if let axWindows_ = try self.axUiElement!.windows(), axWindows_.count > 0 {
                     // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
-                    let windows = try Array(Set(windows_)).compactMap {
+                    let axWindows = try Array(Set(axWindows_)).compactMap {
                         if let wid = try $0.cgWindowId() {
                             let title = try $0.title()
                             let subrole = try $0.subrole()
@@ -91,22 +91,24 @@ class Application: NSObject {
                     } as [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
-                        self.addWindows(windows)
-                        self.addWindowslessAppsIfNeeded()
-                        App.app.refreshOpenUi()
+                        var windows = self.addWindows(axWindows)
+                        if let window = self.addWindowslessAppsIfNeeded() {
+                            windows.append(contentsOf: window)
+                        }
+                        App.app.refreshOpenUi(windows)
                     }
                 } else {
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
-                        self.addWindowslessAppsIfNeeded()
-                        App.app.refreshOpenUi()
+                        let window = self.addWindowslessAppsIfNeeded()
+                        App.app.refreshOpenUi(window)
                     }
                 }
             }
         }
     }
 
-    private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]) {
+    private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]) -> [Window] {
         let windows: [Window] = axWindows.compactMap { (axUiElement, wid, axTitle, isFullscreen, isMinimized, position) in
             if Windows.list.firstIndexThatMatches(axUiElement, wid) == nil {
                 return Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position)
@@ -117,15 +119,19 @@ class Application: NSObject {
         if App.app.appIsBeingUsed {
             Windows.cycleFocusedWindowIndex(windows.count)
         }
+        return windows
     }
 
-    func addWindowslessAppsIfNeeded() {
+    func addWindowslessAppsIfNeeded() -> [Window]? {
         if !Preferences.hideWindowlessApps &&
                runningApplication.activationPolicy == .regular &&
                !runningApplication.isTerminated &&
                (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
-            Windows.list.insertAndScaleRecycledPool(Window(self), at: Windows.list.count)
+            let window = [Window(self)]
+            Windows.list.insertAndScaleRecycledPool(window, at: Windows.list.count)
+            return window
         }
+        return nil
     }
 
     private func observeEvents() {

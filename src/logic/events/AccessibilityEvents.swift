@@ -155,10 +155,10 @@ private func windowDestroyed(_ element: AXUIElement) throws {
         guard let existingIndex = Windows.list.firstIndexThatMatches(element, wid) else { return }
         let window = Windows.list[existingIndex]
         Windows.list.remove(at: existingIndex)
-        window.application.addWindowslessAppsIfNeeded()
+        let window_ = window.application.addWindowslessAppsIfNeeded()
         guard Windows.list.count > 0 else { App.app.hideUi(); return }
         Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
-        App.app.refreshOpenUi()
+        App.app.refreshOpenUi(window_)
     }
 }
 
