@@ -46,7 +46,11 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         Array(toolbarItems.values).forEach {
             $0.2.fit(largestTabWidth, $0.2.subviews[0].fittingSize.height)
         }
-        toolbar!.selectedItemIdentifier = Array(toolbarItems).first { (k, v) in v.0 == 0 }!.key
+        selectTab("general")
+    }
+
+    func selectTab(_ id: String) {
+        toolbar!.selectedItemIdentifier = NSToolbarItem.Identifier(rawValue: id)
         tabItemClicked(toolbarItems[toolbar!.selectedItemIdentifier!]!.1)
     }
 

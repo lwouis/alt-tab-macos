@@ -2,6 +2,9 @@
 /*No comment provided by engineer.*/
 "About" = "詳細";
 
+/*Menubar option. %@ is AltTab*/
+"About %@" = "About %@";
+
 /*No comment provided by engineer.*/
 "Accessibility" = "アクセシビリティ";
 
@@ -142,6 +145,9 @@
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "メニューバーにアイコンを表示しない：";
+
+/*No comment provided by engineer.*/
+"Hide window thumbnails:" = "Hide window thumbnails:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "アプリケーションを隠す / 表示";
