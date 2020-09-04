@@ -6,6 +6,7 @@ class Menubar {
     static func initialize() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         statusItem.menu = NSMenu()
+        statusItem.menu!.title = App.name // perf: prevent going through expensive code-path within appkit
         statusItem.menu!.addItem(
             withTitle: String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name),
             action: #selector(App.app.showAboutTab),
