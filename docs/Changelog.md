@@ -1,5 +1,39 @@
 # Release notes
 
+# [6.2.0](https://github.com/lwouis/alt-tab-macos/compare/v6.1.0...v6.2.0) (2020-09-04)
+
+
+### Bug Fixes
+
+* apps would not quit properly sometimes (regression from 10b2c71) ([41384d9](https://github.com/lwouis/alt-tab-macos/commit/41384d9))
+* avoid random delay after releasing shortcut (closes [#563](https://github.com/lwouis/alt-tab-macos/issues/563)) ([cbc4c39](https://github.com/lwouis/alt-tab-macos/commit/cbc4c39))
+* crash on launch if the user didn't have sf symbols font ([58e9026](https://github.com/lwouis/alt-tab-macos/commit/58e9026))
+* focused wrong window in rare scenario ([66820a1](https://github.com/lwouis/alt-tab-macos/commit/66820a1))
+* issue when selecting windowless app from fullscreen window ([657c9e5](https://github.com/lwouis/alt-tab-macos/commit/657c9e5))
+* smoother behavior when summoned during a space transition ([e6ded6c](https://github.com/lwouis/alt-tab-macos/commit/e6ded6c))
+* thumbnail sizes could be wrong when switching between screens ([e13a263](https://github.com/lwouis/alt-tab-macos/commit/e13a263))
+* triggering alt-tab during space transition failed (closes [#566](https://github.com/lwouis/alt-tab-macos/issues/566)) ([d66d788](https://github.com/lwouis/alt-tab-macos/commit/d66d788))
+* windowless apps would rarely show despite the blacklist ([355225b](https://github.com/lwouis/alt-tab-macos/commit/355225b))
+* workaround a quick in photoshop (closes [#571](https://github.com/lwouis/alt-tab-macos/issues/571)) ([7218418](https://github.com/lwouis/alt-tab-macos/commit/7218418))
+
+
+### Features
+
+* allow per-shortcut release action preference (closes [#573](https://github.com/lwouis/alt-tab-macos/issues/573)) ([2a9c33b](https://github.com/lwouis/alt-tab-macos/commit/2a9c33b))
+* first blacklist can now match prefixes instead of full ids ([10693d0](https://github.com/lwouis/alt-tab-macos/commit/10693d0))
+* new preference to hide thumbnails (closes [#384](https://github.com/lwouis/alt-tab-macos/issues/384)) ([877c93c](https://github.com/lwouis/alt-tab-macos/commit/877c93c))
+* show about item in menubar menu (closes [#574](https://github.com/lwouis/alt-tab-macos/issues/574)) ([78d1d8f](https://github.com/lwouis/alt-tab-macos/commit/78d1d8f))
+* show apps with no open window (closes [#397](https://github.com/lwouis/alt-tab-macos/issues/397)) ([f0fa02c](https://github.com/lwouis/alt-tab-macos/commit/f0fa02c))
+* update fi, hu, nl, pl, ru, zn-tw localizations ([df3010a](https://github.com/lwouis/alt-tab-macos/commit/df3010a))
+* update japanese and korean localizations ([2a2368d](https://github.com/lwouis/alt-tab-macos/commit/2a2368d))
+
+
+### Performance Improvements
+
+* add preferences cache to reduce app latency by a few ms ([17863b5](https://github.com/lwouis/alt-tab-macos/commit/17863b5))
+* menubar takes a few frame less to compute ([3b7350f](https://github.com/lwouis/alt-tab-macos/commit/3b7350f))
+* reduce image assets size even further using optimage ([63d8545](https://github.com/lwouis/alt-tab-macos/commit/63d8545))
+
 # [6.1.0](https://github.com/lwouis/alt-tab-macos/compare/v6.0.0...v6.1.0) (2020-08-31)
 
 
