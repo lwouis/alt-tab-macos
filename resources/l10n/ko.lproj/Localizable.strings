@@ -132,7 +132,7 @@
 "Hide app badges:" = "앱 뱃지 숨기기:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "열려있는 윈도우가 없는 앱 숨기기:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "마우스를 올릴 때 색칠된 원들 숨기기:";
