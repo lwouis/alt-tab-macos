@@ -57,6 +57,10 @@ extension Collection {
         }
         group.wait()
     }
+
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 }
 
 // allow using a closure for NSControl action, instead of selector
