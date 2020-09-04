@@ -303,7 +303,7 @@
 "Theme:" = "テーマ：";
 
 /*No comment provided by engineer.*/
-"then release:" = "離した時の動作：";
+"Then release:" = "離した時の動作：";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "こちらの許可は、ショートカットキーを離した後、ウィンドウにフォーカスするのに必要です。";

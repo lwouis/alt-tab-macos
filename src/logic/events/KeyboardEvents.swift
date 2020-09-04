@@ -118,7 +118,7 @@ fileprivate func handleHotModifier(_ modifiers: UInt32) -> Bool {
                 let otherKey = key == "holdShortcut" ? "holdShortcut2" : "holdShortcut"
                 KeyboardEvents.holdShortcutWasDown[key] = false
             }
-            if Preferences.shortcutStyle == .focusOnRelease && handleHotAny(key, shortcutIndex) {
+            if Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease && handleHotAny(key, shortcutIndex) {
                 return true
             }
         }
@@ -151,7 +151,7 @@ fileprivate func localShortcutThatMatches(_ event: NSEvent) -> String? {
         if shortcutId.hasPrefix("holdShortcut") {
             let postfix = App.app.shortcutIndex == 0 ? "" : "2"
             if event.sr_keyEventType == .up && event.type == .flagsChanged && shortcut.keyCode == .none && event.modifierFlags.isDisjoint(with: shortcut.modifierFlags) &&
-                   shortcutId == "holdShortcut" + postfix && App.app.appIsBeingUsed && Preferences.shortcutStyle == .focusOnRelease {
+                   shortcutId == "holdShortcut" + postfix && App.app.appIsBeingUsed && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
                 return shortcutId
             }
         } else if event.sr_keyEventType == .down && (shortcut.keyCode == .none || event.keyCode == shortcut.carbonKeyCode) &&

@@ -303,7 +303,7 @@
 "Theme:" = "主题：";
 
 /*No comment provided by engineer.*/
-"then release:" = "然后松开：";
+"Then release:" = "然后松开：";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "需要此权限在释放快捷键后切换鼠标焦点";
