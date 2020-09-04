@@ -3,7 +3,7 @@
 "About" = "詳細";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "アクセシビリティ";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "謝辞";
@@ -24,7 +24,7 @@
 "All apps" = "全てのアプリケーション";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "こちらのフォームからのデータはgithub.com上でチケットとして公開になります。";
 
 /*No comment provided by engineer.*/
 "All screens" = "全てのスクリーン";
@@ -39,13 +39,13 @@
 "Also select windows using:" = "Also select windows using:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTabはあなたが最後に使用した際にクラッシュしました。クラッシュレポートの送信は、問題の改善につながります。";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "AltTabが許可を求めています。";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "常にクラッシュレポートを送信する";
 
 /*No comment provided by engineer.*/
 "and press:" = "and press:";
@@ -57,19 +57,19 @@
 "Appearance" = "表示設定";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "本当に回答を受信しなくてもよろしいですか？";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "カーソルキー";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "クラッシュレポートを送るかどうか聞く";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "更新を定期的に自動インストールする";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "ブラックリスト";
 
 /*Cancel button*/
 "Cancel" = "キャンセル";
@@ -108,7 +108,7 @@
 "Don’t send" = "送信しない";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "これらのアプリからウィンドウを表示しない";
 
 /*No comment provided by engineer.*/
 "End" = "End";
@@ -120,7 +120,7 @@
 "Focus selected window" = "選択されたウィンドウを表示";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
+"Fullscreen" = "フルスクリーン";
 
 /*No comment provided by engineer.*/
 "General" = "一般設定";
@@ -129,7 +129,7 @@
 "Hidden" = "ウィンドウをしまう";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "アプリのアイコンを隠す";
 
 /*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Hide apps with no open window:";
@@ -153,7 +153,7 @@
 "I think the app could be improved with…" = "アプリの◯◯を改善したい…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "これらのアプリのウィンドウがアクティブの間はショートカットを無効にする";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "最新バージョン";
@@ -186,7 +186,7 @@
 "Mouse hover" = "マウスホバー";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "クラッシュレポートを送らない";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Not allowed";
@@ -201,19 +201,19 @@
 "Open Accessibility Preferences…" = "アクセシビリティ設定を開く…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "スクリーンレコーディング設定開く…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "任意：Eメール（返信を希望する場合）";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "ポリシー";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "環境設定…";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "終了する";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "閉じる %@";
@@ -222,7 +222,7 @@
 "Quit app" = "アプリケーションを終了";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "設定を記憶する";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "ウィンドウ列：";
@@ -252,7 +252,7 @@
 "Send a crash report?" = "Send a crash report?";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+"Send anyway" = "送信する";
 
 /*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "デバッグプロファイル（CPU、メモリなど）";
@@ -267,10 +267,10 @@
 "Share improvement ideas, or report bugs" = "改善点のご共有あるいはバグのご報告";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "ショートカット１";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "ショートカット２";
 
 /*No comment provided by engineer.*/
 "Show" = "アプリを表示";
@@ -300,10 +300,10 @@
 "then release:" = "離した時の動作：";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "こちらの許可は、ショートカットキーを離した後、ウィンドウにフォーカスするのに必要です。";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "こちらの許可は、スクリーンショットと開いているウィンドウを表示するのに必要です。";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "アップデートポリシー：";
@@ -324,7 +324,7 @@
 "Window title font size:" = "ウィンドウに表示されるタイトルフォントサイズ：";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "ウィンドウタイトル短縮";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "ご自身のEmailを入力しなかったため、回答を受信できません。";
