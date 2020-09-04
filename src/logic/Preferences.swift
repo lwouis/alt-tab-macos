@@ -152,6 +152,7 @@ class Preferences {
 
     static func set(_ key: String, _ value: Any?) {
         defaults.set(value, forKey: key)
+        UserDefaults.cache.removeValue(forKey: key)
     }
 
     static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
@@ -394,40 +395,39 @@ enum CrashPolicyPreference: CaseIterable, MacroPreference {
 }
 
 extension UserDefaults {
+    static var cache = [String: Any]()
+
+    func getFromCacheOrFresh<T>(_ key: String, _ getterFn: () -> T?) -> T {
+        if let c = UserDefaults.cache[key] {
+            return c as! T
+        }
+        if let v = getterFn() {
+            UserDefaults.cache[key] = v
+            return v
+        }
+        removeObject(forKey: key)
+        let v = getterFn()!
+        UserDefaults.cache[key] = v
+        return v
+    }
+
     func string(_ key: String) -> String {
-        string(forKey: key)!
+        return getFromCacheOrFresh(key, { string(forKey: key)! })
     }
 
     func int(_ key: String) -> Int {
-        if let result = Int(string(key)) {
-            return result
-        }
-        removeObject(forKey: key)
-        return int(key)
+        return getFromCacheOrFresh(key, { Int(string(key)) })
     }
 
     func bool(_ key: String) -> Bool {
-        if let result = Bool(string(key)) {
-            return result
-        }
-        removeObject(forKey: key)
-        return bool(key)
+        return getFromCacheOrFresh(key, { Bool(string(key)) })
     }
 
     func cgfloat(_ key: String) -> CGFloat {
-        if let intResult = Int(string(key)) {
-            return CGFloat(intResult)
-        }
-        removeObject(forKey: key)
-        return cgfloat(key)
+        return getFromCacheOrFresh(key, { Int(string(key)).map { CGFloat($0) } })
     }
 
     func macroPref<A>(_ key: String, _ macroPreferences: [A]) -> A {
-        let index = int(key)
-        if index >= 0 && index < macroPreferences.count {
-            return macroPreferences[index]
-        }
-        removeObject(forKey: key)
-        return macroPref(key, macroPreferences)
+        return getFromCacheOrFresh(key, { macroPreferences[safe: int(key)] })
     }
 }
