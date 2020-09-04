@@ -24,7 +24,6 @@ class ControlsTab {
     ]
 
     static func initTab() -> NSView {
-        let shortcutStyle = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("then release:", comment: ""), "shortcutStyle", ShortcutStylePreference.allCases)
         let focusWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Focus selected window", comment: ""), "focusWindowShortcut", Preferences.focusWindowShortcut, labelPosition: .right)
         let previousWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select previous window", comment: ""), "previousWindowShortcut", Preferences.previousWindowShortcut, labelPosition: .right)
         let cancelShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Cancel and hide", comment: ""), "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)
@@ -47,7 +46,6 @@ class ControlsTab {
 
         let grid = GridView([
             [tabView],
-            shortcutStyle,
             [orPress, shortcuts],
             [checkboxesExplanations, checkboxes],
         ])
@@ -81,12 +79,14 @@ class ControlsTab {
         let showHiddenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hidden", comment: ""), "showHiddenWindows" + postfix, labelPosition: .right))
         let showFullscreenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fullscreen", comment: ""), "showFullscreenWindows" + postfix, labelPosition: .right))
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), "nextWindowShortcut" + postfix, Preferences.nextWindowShortcut[postfix == "" ? 0 : 1], labelPosition: .right)
+        let shortcutStyle = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Then release:", comment: ""), "shortcutStyle" + postfix, ShortcutStylePreference.allCases)
         let toShowDropdowns = StackView([appsToShow, spacesToShow, screensToShow, showMinimizedWindows, showHiddenWindows, showFullscreenWindows], .vertical, false)
         toShowDropdowns.spacing = TabView.padding
         toShowDropdowns.fit()
         let tab = GridView([
             [toShowExplanations, toShowDropdowns],
             [holdAndPress, StackView(nextWindowShortcut)],
+            shortcutStyle,
         ], TabView.padding)
         tab.column(at: 0).xPlacement = .trailing
         tab.fit()

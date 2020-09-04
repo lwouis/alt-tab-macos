@@ -58,6 +58,7 @@ class Preferences {
         "minCellsPerRow": defaultsDependingOnScreenRatio_["minCellsPerRow"]!,
         "maxCellsPerRow": defaultsDependingOnScreenRatio_["maxCellsPerRow"]!,
         "shortcutStyle": "0",
+        "shortcutStyle2": "0",
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
@@ -116,7 +117,7 @@ class Preferences {
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
     static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
     static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
-    static var shortcutStyle: ShortcutStylePreference { defaults.macroPref("shortcutStyle", ShortcutStylePreference.allCases) }
+    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
     // derived values
