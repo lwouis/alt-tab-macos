@@ -137,9 +137,7 @@ class Window {
     }
 
     func focus() {
-        if application.pid == ProcessInfo.processInfo.processIdentifier {
-            App.app.showSecondaryWindow(App.app.window(withWindowNumber: Int(cgWindowId)))
-        } else if isWindowlessApp {
+        if isWindowlessApp {
             if let bundleID = application.runningApplication.bundleIdentifier {
                 NSWorkspace.shared.launchApplication(withBundleIdentifier: bundleID, additionalEventParamDescriptor: nil, launchIdentifier: nil)
             } else {
