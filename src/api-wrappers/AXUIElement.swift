@@ -31,7 +31,7 @@ extension AXUIElement {
         return try axCallWhichCanThrow(AXUIElementGetPid(self, &pid), &pid)
     }
 
-    func attribute<T>(_ key: String, _ type: T.Type) throws -> T? {
+    func attribute<T>(_ key: String, _ _: T.Type) throws -> T? {
         var value: AnyObject?
         return try axCallWhichCanThrow(AXUIElementCopyAttributeValue(self, key as CFString, &value), &value) as? T
     }
