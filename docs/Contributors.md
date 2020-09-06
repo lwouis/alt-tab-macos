@@ -28,6 +28,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Chun Fei Lung
 * Dan84
 * Daniel M
+* Didier Deschrijver
 * Elisabeth landblok
 * Eric WANTZ
 * Filipe
@@ -41,6 +42,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lcwhhh
 * Lumaxis
 * lwouis
+* Masatora
 * Michael
 * Nilton Souza
 * Petr Kolář

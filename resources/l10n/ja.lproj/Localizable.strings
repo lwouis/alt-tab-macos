@@ -54,7 +54,7 @@
 "and press:" = "and press:";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "スクリーン表示速度：";
+"Apparition delay:" = "表示を遅延：";
 
 /*No comment provided by engineer.*/
 "Appearance" = "表示設定";
@@ -114,7 +114,7 @@
 "Don’t show windows from these apps" = "これらのアプリからウィンドウを表示しない";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "文末";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "フェードアウトアニメーション：";
@@ -132,22 +132,22 @@
 "Hidden" = "ウィンドウをしまう";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "アプリのアイコンを隠す";
+"Hide app badges:" = "アプリのバッジを隠す：";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "開いているウィンドウがないアプリを隠す：";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "マウスホバーしたときカラーボタンを表示しない：";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "スペース番号ラベルを隠す：";
+"Hide space number labels:" = "スペース番号ラベルを表示しない：";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "メニューバーにアイコンを表示しない：";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "ウィンドウサムネイルを隠す：";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "アプリケーションを隠す / 表示";
@@ -177,7 +177,7 @@
 "Menubar icon:" = "メニューバーアイコン：";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "文中";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "一列に最小表示可能な個数：";
@@ -255,13 +255,13 @@
 "Send" = "送信";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "クラッシュレポートを送りますか？";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "送信する";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "デバッグプロファイル（CPU、メモリなど）";
+"Send debug profile (CPU, memory, etc)" = "デバッグプロファイルを送信（CPU、メモリなど）";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "フィードバック提出";
@@ -294,7 +294,7 @@
 "Source code repository" = "ソースコードレポジトリ";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "文頭";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "ログイン時に起動：";
@@ -321,7 +321,7 @@
 "View existing discussions" = "既にあるディスカッションを見る";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "キーを押した時の動作：";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "ウィンドウに表示されるアイコンサイズ：";
