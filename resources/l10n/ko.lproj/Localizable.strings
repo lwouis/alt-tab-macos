@@ -3,7 +3,7 @@
 "About" = "정보";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "%@에 관하여";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "손쉬운 사용";
@@ -147,7 +147,7 @@
 "Hide status icons:" = "상태 아이콘 숨기기:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "윈도우 썸네일 숨기기:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "앱 숨기기/보이기";

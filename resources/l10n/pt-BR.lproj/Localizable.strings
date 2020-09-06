@@ -3,7 +3,7 @@
 "About" = "Sobre";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "Sobre o %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Acessibilidade";
@@ -135,7 +135,7 @@
 "Hide app badges:" = "Ocultar emblemas de aplicativos:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Ocultar aplicações sem janelas abertas:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Não exibir os círculos coloridos ao passar o mouse:";
@@ -147,7 +147,7 @@
 "Hide status icons:" = "Ocultar ícone de status:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Ocultar miniaturas das janelas:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Oculta/Exibe a aplicação";

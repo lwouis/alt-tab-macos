@@ -3,7 +3,7 @@
 "About" = "Over";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "Over %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Toegankelijkheid";
@@ -135,7 +135,7 @@
 "Hide app badges:" = "Verberg app-badges:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Verberg programma’s zonder open venster:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Verberg gekleurde cirkels wanneer de muis erover zweeft:";
@@ -147,7 +147,7 @@
 "Hide status icons:" = "Verberg statusiconen:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Verberg vensterminiaturen:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Verberg/Toon programma";
@@ -270,7 +270,7 @@
 "Send feedback…" = "Verstuur feedback…";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Deel verbetervoorstellen of meld bugs";
+"Share improvement ideas, or report bugs" = "Deel verbeteringen of meld bugs";
 
 /*No comment provided by engineer.*/
 "Shortcut 1" = "Snelkoppeling 1";
