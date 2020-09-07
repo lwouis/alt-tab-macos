@@ -63,7 +63,7 @@ class LabelAndControl: NSObject {
         }
     }
 
-    static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "") -> [NSView] {
+    static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "", extraAction: ActionClosure? = nil) -> [NSView] {
         let value = Preferences.getString(rawName)!
         let suffixText = MeasurementFormatter().string(from: Measurement(value: Double(value)!, unit: Unit(symbol: unitText)))
         let slider = NSSlider()
@@ -71,7 +71,7 @@ class LabelAndControl: NSObject {
         slider.maxValue = maxValue
         slider.stringValue = value
         slider.isContinuous = true
-        return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText)
+        return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText, extraAction: extraAction)
     }
 
     static func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil, labelPosition: LabelPosition = .leftWithSeparator, extraAction: ActionClosure? = nil) -> [NSView] {

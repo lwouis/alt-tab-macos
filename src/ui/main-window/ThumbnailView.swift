@@ -145,7 +145,7 @@ class ThumbnailView: NSStackView {
             }
             dockLabelIcon.setFrameOrigin(NSPoint(x: appIcon.frame.maxX - dockLabelIcon.fittingSize.width - 1, y: appIcon.frame.maxY - dockLabelIcon.fittingSize.height + 4))
         }
-        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)))
+        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)).rounded())
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
@@ -249,11 +249,11 @@ class ThumbnailView: NSStackView {
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.widthMax(screen) - Preferences.interCellPadding) / Preferences.minCellsPerRow - Preferences.interCellPadding
+        return ThumbnailsPanel.widthMax(screen) * Preferences.windowMaxWidthInRow - Preferences.interCellPadding * 2
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.widthMax(screen) - Preferences.interCellPadding) / Preferences.maxCellsPerRow - Preferences.interCellPadding
+        return ThumbnailsPanel.widthMax(screen) * Preferences.windowMinWidthInRow - Preferences.interCellPadding * 2
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
