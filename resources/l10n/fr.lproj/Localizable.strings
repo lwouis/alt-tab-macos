@@ -126,10 +126,19 @@
 "Fullscreen" = "Plein écran";
 
 /*No comment provided by engineer.*/
+"Fullscreen windows:" = "Fullscreen windows:";
+
+/*No comment provided by engineer.*/
 "General" = "Général";
 
 /*No comment provided by engineer.*/
 "Hidden" = "Cachées";
+
+/*No comment provided by engineer.*/
+"Hidden windows:" = "Hidden windows:";
+
+/*No comment provided by engineer.*/
+"Hide" = "Hide";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Masquer les badges des Apps :";
@@ -168,7 +177,13 @@
 "Left" = "À gauche";
 
 /*No comment provided by engineer.*/
+"Max height on screen:" = "Max height on screen:";
+
+/*No comment provided by engineer.*/
 "Max size on screen:" = "Taille max à l’écran :";
+
+/*No comment provided by engineer.*/
+"Max width on screen:" = "Max width on screen:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Max de fenêtres par ligne :";
@@ -187,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Minimized" = "Minimisées";
+
+/*No comment provided by engineer.*/
+"Minimized windows:" = "Minimized windows:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Survol de la souris";
@@ -229,6 +247,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Se souvenir de mon choix";
+
+/*No comment provided by engineer.*/
+"Rows of thumbnails:" = "Rows of thumbnails:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Rangées de fenêtres :";
@@ -282,6 +303,9 @@
 "Show" = "Afficher";
 
 /*No comment provided by engineer.*/
+"Show at the end" = "Show at the end";
+
+/*No comment provided by engineer.*/
 "Show on:" = "Afficher sur :";
 
 /*No comment provided by engineer.*/
@@ -289,6 +313,9 @@
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Afficher les fenêtres suivantes :";
+
+/*No comment provided by engineer.*/
+"Show windows from:" = "Show windows from:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Archive du code source";
@@ -325,6 +352,12 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Taille des icones des Apps :";
+
+/*No comment provided by engineer.*/
+"Window max width in row:" = "Window max width in row:";
+
+/*No comment provided by engineer.*/
+"Window min width in row:" = "Window min width in row:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Taille du titres des fenêtres :";

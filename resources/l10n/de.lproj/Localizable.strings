@@ -126,10 +126,19 @@
 "Fullscreen" = "Vollbild";
 
 /*No comment provided by engineer.*/
+"Fullscreen windows:" = "Fullscreen windows:";
+
+/*No comment provided by engineer.*/
 "General" = "Allgemein";
 
 /*No comment provided by engineer.*/
 "Hidden" = "Versteckt";
+
+/*No comment provided by engineer.*/
+"Hidden windows:" = "Hidden windows:";
+
+/*No comment provided by engineer.*/
+"Hide" = "Hide";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Hide app badges:";
@@ -168,7 +177,13 @@
 "Left" = "Links";
 
 /*No comment provided by engineer.*/
+"Max height on screen:" = "Max height on screen:";
+
+/*No comment provided by engineer.*/
 "Max size on screen:" = "Maximale Größe auf dem Bildschirm:";
+
+/*No comment provided by engineer.*/
+"Max width on screen:" = "Max width on screen:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Maximale Anzahl von Fenstern pro Reihe:";
@@ -187,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Minimized" = "Minimiert";
+
+/*No comment provided by engineer.*/
+"Minimized windows:" = "Minimized windows:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Maus hover";
@@ -229,6 +247,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Auswahl merken";
+
+/*No comment provided by engineer.*/
+"Rows of thumbnails:" = "Rows of thumbnails:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Fenster Reihen:";
@@ -282,6 +303,9 @@
 "Show" = "Anzeigen";
 
 /*No comment provided by engineer.*/
+"Show at the end" = "Show at the end";
+
+/*No comment provided by engineer.*/
 "Show on:" = "Anzeigen auf:";
 
 /*No comment provided by engineer.*/
@@ -289,6 +313,9 @@
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Folgende Fenster anzeigen:";
+
+/*No comment provided by engineer.*/
+"Show windows from:" = "Show windows from:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Code Repository";
@@ -325,6 +352,12 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Fenster Icon Größe:";
+
+/*No comment provided by engineer.*/
+"Window max width in row:" = "Window max width in row:";
+
+/*No comment provided by engineer.*/
+"Window min width in row:" = "Window min width in row:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Fenster Titel Größe:";

@@ -126,10 +126,19 @@
 "Fullscreen" = "Полноэкранные";
 
 /*No comment provided by engineer.*/
+"Fullscreen windows:" = "Fullscreen windows:";
+
+/*No comment provided by engineer.*/
 "General" = "Основное";
 
 /*No comment provided by engineer.*/
 "Hidden" = "Скрытые";
+
+/*No comment provided by engineer.*/
+"Hidden windows:" = "Hidden windows:";
+
+/*No comment provided by engineer.*/
+"Hide" = "Hide";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Скрыть значки приложений:";
@@ -168,7 +177,13 @@
 "Left" = "Слева";
 
 /*No comment provided by engineer.*/
+"Max height on screen:" = "Max height on screen:";
+
+/*No comment provided by engineer.*/
 "Max size on screen:" = "Макс. размер на экране:";
+
+/*No comment provided by engineer.*/
+"Max width on screen:" = "Max width on screen:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Макс. количество окон в ряду:";
@@ -187,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Minimized" = "Свернутые";
+
+/*No comment provided by engineer.*/
+"Minimized windows:" = "Minimized windows:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Наведение мышью";
@@ -229,6 +247,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Запомнить мой выбор";
+
+/*No comment provided by engineer.*/
+"Rows of thumbnails:" = "Rows of thumbnails:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Количество рядов окон:";
@@ -282,6 +303,9 @@
 "Show" = "Показать";
 
 /*No comment provided by engineer.*/
+"Show at the end" = "Show at the end";
+
+/*No comment provided by engineer.*/
 "Show on:" = "Показать на:";
 
 /*No comment provided by engineer.*/
@@ -289,6 +313,9 @@
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Показывать следующие окна:";
+
+/*No comment provided by engineer.*/
+"Show windows from:" = "Show windows from:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Репозиторий исходного кода";
@@ -325,6 +352,12 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Размер иконки окна:";
+
+/*No comment provided by engineer.*/
+"Window max width in row:" = "Window max width in row:";
+
+/*No comment provided by engineer.*/
+"Window min width in row:" = "Window min width in row:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Размер заголовка:";

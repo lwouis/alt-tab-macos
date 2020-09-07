@@ -1,18 +1,75 @@
 import Cocoa
 
 class Windows {
-    // order in the array is important: most-recently-used elements are first
     static var list = [Window]()
-    static var previousFocusedWindowIndex = Int(0)
     static var focusedWindowIndex = Int(0)
     // the first few thumbnails are the most commonly looked at; we pay special attention to them
     static let criticalFirstThumbnails = 3
 
+    // reordered list based on preferences, keeping the original index
+    static func reorderList() {
+        list.sort {
+            if let bool = sortByBooleanAttribute($0.isWindowlessApp, $1.isWindowlessApp) {
+                return bool
+            }
+            if Preferences.showHiddenWindows[App.app.shortcutIndex] == .showAtTheEnd,
+               let bool = sortByBooleanAttribute($0.isHidden, $1.isHidden) {
+                return bool
+            }
+            if Preferences.showMinimizedWindows[App.app.shortcutIndex] == .showAtTheEnd,
+               let bool = sortByBooleanAttribute($0.isMinimized, $1.isMinimized) {
+                return bool
+            }
+            return $0.lastFocusOrder < $1.lastFocusOrder
+        }
+    }
+
+    static func appendAndUpdateFocus(_ window: Window) {
+        list.forEach {
+            $0.lastFocusOrder += 1
+        }
+        list.append(window)
+        if list.count > ThumbnailsView.recycledViews.count {
+            ThumbnailsView.recycledViews.append(ThumbnailView())
+        }
+    }
+
+    static func removeAndUpdateFocus(_ window: Window) {
+        let removedWindowOldFocusOrder = window.lastFocusOrder
+        list.removeAll {
+            if $0.lastFocusOrder == removedWindowOldFocusOrder {
+                return true
+            }
+            if $0.lastFocusOrder > removedWindowOldFocusOrder {
+                $0.lastFocusOrder -= 1
+            }
+            return false
+        }
+    }
+
+    static func updateLastFocus(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID) -> [Window]? {
+        if let focusedWindow = (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) }) {
+            let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
+            var windowsToRefresh = [focusedWindow]
+            list.forEach {
+                if $0.lastFocusOrder == focusedWindowOldFocusOrder {
+                    $0.lastFocusOrder = 0
+                } else if $0.lastFocusOrder < focusedWindowOldFocusOrder {
+                    $0.lastFocusOrder += 1
+                }
+                if $0.lastFocusOrder == 0 {
+                    windowsToRefresh.append($0)
+                }
+            }
+            return windowsToRefresh
+        }
+        return nil
+    }
+
     static func updateFocusedWindowIndex(_ newIndex: Int) {
-        previousFocusedWindowIndex = focusedWindowIndex
+        ThumbnailsView.recycledViews[focusedWindowIndex].highlight(false)
         focusedWindowIndex = newIndex
         let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
-        ThumbnailsView.recycledViews[previousFocusedWindowIndex].highlight(false)
         focusedView.highlight(true)
         App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
     }
@@ -128,11 +185,11 @@ class Windows {
         window.shouldShowTheUser =
             !(window.application.runningApplication.bundleIdentifier.flatMap { id in Preferences.dontShowBlacklist.contains { id.hasPrefix($0) } } ?? false) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
-            !(!Preferences.showHiddenWindows[App.app.shortcutIndex] && window.isHidden) &&
+            !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
             ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
                 !window.isWindowlessApp &&
-                !(!Preferences.showFullscreenWindows[App.app.shortcutIndex] && window.isFullscreen) &&
-                !(!Preferences.showMinimizedWindows[App.app.shortcutIndex] && window.isMinimized) &&
+                !(!(Preferences.showFullscreenWindows[App.app.shortcutIndex] != .hide) && window.isFullscreen) &&
+                !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide) && window.isMinimized) &&
                 !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
                 !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
@@ -162,3 +219,14 @@ class Windows {
         }
     }
 }
+
+func sortByBooleanAttribute(_ b1: Bool, _ b2: Bool) -> Bool? {
+    if b1 && !b2 {
+        return false
+    }
+    if !b1 && b2 {
+        return true
+    }
+    return nil
+}
+

@@ -126,10 +126,19 @@
 "Fullscreen" = "Fullskjerm";
 
 /*No comment provided by engineer.*/
+"Fullscreen windows:" = "Fullscreen windows:";
+
+/*No comment provided by engineer.*/
 "General" = "Generelt";
 
 /*No comment provided by engineer.*/
 "Hidden" = "Skjult";
+
+/*No comment provided by engineer.*/
+"Hidden windows:" = "Hidden windows:";
+
+/*No comment provided by engineer.*/
+"Hide" = "Hide";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Skjul app-badges:";
@@ -168,7 +177,13 @@
 "Left" = "Venstre";
 
 /*No comment provided by engineer.*/
+"Max height on screen:" = "Max height on screen:";
+
+/*No comment provided by engineer.*/
 "Max size on screen:" = "Maks størrelse på skjerm:";
+
+/*No comment provided by engineer.*/
+"Max width on screen:" = "Max width on screen:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Maks vinduer per rad:";
@@ -187,6 +202,9 @@
 
 /*No comment provided by engineer.*/
 "Minimized" = "Minimert";
+
+/*No comment provided by engineer.*/
+"Minimized windows:" = "Minimized windows:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Holde musa over";
@@ -229,6 +247,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Husk valget mitt";
+
+/*No comment provided by engineer.*/
+"Rows of thumbnails:" = "Rows of thumbnails:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Rader med vinduer:";
@@ -282,6 +303,9 @@
 "Show" = "Vis";
 
 /*No comment provided by engineer.*/
+"Show at the end" = "Show at the end";
+
+/*No comment provided by engineer.*/
 "Show on:" = "Vis på:";
 
 /*No comment provided by engineer.*/
@@ -289,6 +313,9 @@
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Vis følgende vindu:";
+
+/*No comment provided by engineer.*/
+"Show windows from:" = "Show windows from:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Kildekodearkiv";
@@ -325,6 +352,12 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Størrelse på vinduappikon:";
+
+/*No comment provided by engineer.*/
+"Window max width in row:" = "Window max width in row:";
+
+/*No comment provided by engineer.*/
+"Window min width in row:" = "Window min width in row:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Skriftstørrelse på vindutittel:";

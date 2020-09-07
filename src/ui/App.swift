@@ -196,6 +196,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refreshCurrentSpaceId()
+        Windows.reorderList()
         refreshSpecificWindows(windowsToUpdate, currentScreen)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout(currentScreen)
@@ -238,6 +239,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             let screen = Screen.preferred()
             self.shortcutIndex = shortcutIndex
             Windows.refreshWhichWindowsToShowTheUser(screen)
+            Windows.reorderList()
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(1)

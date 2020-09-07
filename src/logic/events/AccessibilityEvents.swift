@@ -52,20 +52,18 @@ func handleEvent(_ type: String, _ element: AXUIElement) throws {
 }
 
 private func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-    if let app = NSRunningApplication(processIdentifier: pid) {
-        let currentWindows = try AXUIElementCreateApplication(pid).windows()
+    let currentWindows = try AXUIElementCreateApplication(pid).windows()
+    DispatchQueue.main.async {
         let windows = Windows.list.filter { w in
             if w.application.pid == pid && pid != ProcessInfo.processInfo.processIdentifier &&
                    w.spaceId == Spaces.currentSpaceId {
                 let oldIsTabbed = w.isTabbed
-                w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil) ?? true
+                w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil)
                 return oldIsTabbed != w.isTabbed
             }
             return false
         }
-        DispatchQueue.main.async {
-            App.app.refreshOpenUi(windows)
-        }
+        App.app.refreshOpenUi(windows)
     }
 }
 
@@ -75,9 +73,9 @@ private func applicationActivated(_ element: AXUIElement) throws {
         DispatchQueue.main.async {
             // ensure alt-tab window remains key, so local shortcuts work
             if App.app.appIsBeingUsed { App.app.thumbnailsPanel.makeKeyAndOrderFront(nil) }
-            guard let existingIndex = Windows.list.firstIndexThatMatches(appFocusedWindow, wid) else { return }
-            Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
-            App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
+            if let windows = Windows.updateLastFocus(appFocusedWindow, wid) {
+                App.app.refreshOpenUi(windows)
+            }
             Windows.checkIfShortcutsShouldBeDisabled()
         }
     }
@@ -87,12 +85,12 @@ private func applicationHiddenOrShown(_ element: AXUIElement, _ pid: pid_t, _ ty
     DispatchQueue.main.async {
         if let app = (Applications.list.first { $0.pid == pid }) {
             app.isHidden = type == kAXApplicationHiddenNotification
+            let windows = Windows.list.filter {
+                // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
+                return $0.application.pid == pid
+            }
+            App.app.refreshOpenUi(windows)
         }
-        let windows = Windows.list.filter {
-            // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
-            return $0.application.pid == pid
-        }
-        App.app.refreshOpenUi(windows)
     }
 }
 
@@ -106,13 +104,12 @@ private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
         let isOnNormalLevel = element.isOnNormalLevel(wid)
         let position = try element.position()
         DispatchQueue.main.async {
-            // a window being un-minimized can trigger kAXWindowCreatedNotification
-            if Windows.list.firstIndexThatMatches(element, wid) == nil,
+            if (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) == nil,
                let runningApp = NSRunningApplication(processIdentifier: pid),
                element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
                let app = (Applications.list.first { $0.pid == pid }) {
                 let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position)
-                Windows.list.insertAndScaleRecycledPool(window, at: 0)
+                Windows.appendAndUpdateFocus(window)
                 Windows.cycleFocusedWindowIndex(1)
                 App.app.refreshOpenUi([window])
             }
@@ -134,15 +131,13 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
         let isOnNormalLevel = element.isOnNormalLevel(wid)
         let position = try element.position()
         DispatchQueue.main.async {
-            if let existingIndex = Windows.list.firstIndexThatMatches(element, wid) {
-                if existingIndex != 0 {
-                    Windows.list.insertAndScaleRecycledPool(Windows.list.remove(at: existingIndex), at: 0)
-                    App.app.refreshOpenUi([Windows.list[0], Windows.list[existingIndex]])
-                }
+            if let windows = Windows.updateLastFocus(element, wid) {
+                App.app.refreshOpenUi(windows)
             } else if element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
             let app = (Applications.list.first { $0.pid == pid }) {
-                Windows.list.insertAndScaleRecycledPool(Window(element, app, wid, axTitle, isFullscreen, isMinimized, position), at: 0)
-                App.app.refreshOpenUi([Windows.list[0]])
+                let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position)
+                Windows.appendAndUpdateFocus(window)
+                App.app.refreshOpenUi([window])
             }
             Windows.checkIfShortcutsShouldBeDisabled()
         }
@@ -152,23 +147,26 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
 private func windowDestroyed(_ element: AXUIElement) throws {
     let wid = try element.cgWindowId()
     DispatchQueue.main.async {
-        guard let existingIndex = Windows.list.firstIndexThatMatches(element, wid) else { return }
-        let window = Windows.list[existingIndex]
-        Windows.list.remove(at: existingIndex)
-        let window_ = window.application.addWindowslessAppsIfNeeded()
-        guard Windows.list.count > 0 else { App.app.hideUi(); return }
-        Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(existingIndex)
-        App.app.refreshOpenUi(window_)
+        if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+            Windows.removeAndUpdateFocus(window)
+            let windowlessApp = window.application.addWindowslessAppsIfNeeded()
+            if Windows.list.count > 0 {
+                Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(window.lastFocusOrder)
+                App.app.refreshOpenUi(windowlessApp)
+            } else {
+                App.app.hideUi()
+            }
+        }
     }
 }
 
 private func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ type: String) throws {
     if let wid = try element.cgWindowId() {
         DispatchQueue.main.async {
-            guard let index = Windows.list.firstIndexThatMatches(element, wid) else { return }
-            let window = Windows.list[index]
+            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
             window.isMinimized = type == kAXWindowMiniaturizedNotification
-            App.app.refreshOpenUi([window])
+                App.app.refreshOpenUi([window])
+            }
         }
     }
 }
@@ -177,11 +175,11 @@ private func windowTitleChanged(_ element: AXUIElement) throws {
     if let wid = try element.cgWindowId() {
         let newTitle = try element.title()
         DispatchQueue.main.async {
-            guard let index = Windows.list.firstIndexThatMatches(element, wid) else { return }
-            let window = Windows.list[index]
-            guard newTitle != nil && newTitle != window.title else { return }
-            window.title = newTitle!
-            App.app.refreshOpenUi([window])
+            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }),
+               newTitle != nil && newTitle != window.title {
+                window.title = newTitle!
+                App.app.refreshOpenUi([window])
+            }
         }
     }
 }
@@ -192,10 +190,10 @@ private func windowResized(_ element: AXUIElement) throws {
     if let wid = try element.cgWindowId() {
         let isFullscreen = try element.isFullscreen()
         DispatchQueue.main.async {
-            guard let index = Windows.list.firstIndexThatMatches(element, wid) else { return }
-            let window = Windows.list[index]
-            window.isFullscreen = isFullscreen
-            App.app.refreshOpenUi([window])
+            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+                window.isFullscreen = isFullscreen
+                App.app.refreshOpenUi([window])
+            }
             Windows.checkIfShortcutsShouldBeDisabled()
         }
     }
@@ -205,10 +203,10 @@ private func windowMoved(_ element: AXUIElement) throws {
     if let wid = try element.cgWindowId() {
         let position = try element.position()
         DispatchQueue.main.async {
-            guard let index = Windows.list.firstIndexThatMatches(element, wid) else { return }
-            let window = Windows.list[index]
-            window.position = position
-            App.app.refreshOpenUi([window])
+            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+                window.position = position
+                App.app.refreshOpenUi([window])
+            }
         }
     }
 }

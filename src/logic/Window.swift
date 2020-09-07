@@ -2,6 +2,7 @@ import Cocoa
 
 class Window {
     var cgWindowId = CGWindowID.max
+    var lastFocusOrder = Int.zero
     var title: String!
     var thumbnail: NSImage?
     var thumbnailFullSize: NSSize?
@@ -59,6 +60,12 @@ class Window {
 
     deinit {
         debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+    }
+
+    func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
+        // the window can be deallocated by the OS, in which case its `CGWindowID` will be `-1`
+        // we check for equality both on the AXUIElement, and the CGWindowID, in order to catch all scenarios
+        return otherWindowAxUiElement == axUiElement || (cgWindowId != -1 && otherWindowWid == cgWindowId)
     }
 
     private func observeEvents() {

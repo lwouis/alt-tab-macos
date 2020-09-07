@@ -122,13 +122,16 @@
 "Focus selected window" = "Focus selected window";
 
 /* No comment provided by engineer. */
-"Fullscreen" = "Fullscreen";
+"Fullscreen windows:" = "Fullscreen windows:";
 
 /* No comment provided by engineer. */
 "General" = "General";
 
 /* No comment provided by engineer. */
-"Hidden" = "Hidden";
+"Hidden windows:" = "Hidden windows:";
+
+/* No comment provided by engineer. */
+"Hide" = "Hide";
 
 /* No comment provided by engineer. */
 "Hide app badges:" = "Hide app badges:";
@@ -167,10 +170,10 @@
 "Left" = "Left";
 
 /* No comment provided by engineer. */
-"Max size on screen:" = "Max size on screen:";
+"Max height on screen:" = "Max height on screen:";
 
 /* No comment provided by engineer. */
-"Max windows per row:" = "Max windows per row:";
+"Max width on screen:" = "Max width on screen:";
 
 /* No comment provided by engineer. */
 "Menubar icon:" = "Menubar icon:";
@@ -179,13 +182,10 @@
 "Middle" = "Middle";
 
 /* No comment provided by engineer. */
-"Min windows per row:" = "Min windows per row:";
-
-/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimize/Deminimize window";
 
 /* No comment provided by engineer. */
-"Minimized" = "Minimized";
+"Minimized windows:" = "Minimized windows:";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Mouse hover";
@@ -227,7 +227,7 @@
 "Remember my choice" = "Remember my choice";
 
 /* No comment provided by engineer. */
-"Rows of windows:" = "Rows of windows:";
+"Rows of thumbnails:" = "Rows of thumbnails:";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Screen including menu bar";
@@ -278,13 +278,16 @@
 "Show" = "Show";
 
 /* No comment provided by engineer. */
+"Show at the end" = "Show at the end";
+
+/* No comment provided by engineer. */
 "Show on:" = "Show on:";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows:" = "Show standard tabs as windows:";
 
 /* No comment provided by engineer. */
-"Show the following windows:" = "Show the following windows:";
+"Show windows from:" = "Show windows from:";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Source code repository";
@@ -321,6 +324,12 @@
 
 /* No comment provided by engineer. */
 "Window app icon size:" = "Window app icon size:";
+
+/* No comment provided by engineer. */
+"Window max width in row:" = "Window max width in row:";
+
+/* No comment provided by engineer. */
+"Window min width in row:" = "Window min width in row:";
 
 /* No comment provided by engineer. */
 "Window title font size:" = "Window title font size:";

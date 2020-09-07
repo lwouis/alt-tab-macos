@@ -68,27 +68,37 @@ class ControlsTab {
     }
 
     private static func toShowSection(_ postfix: String) -> ([NSView], GridView) {
-        let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show the following windows:", comment: ""))
+        let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show windows from:", comment: ""))
+        let toShowExplanations2 = LabelAndControl.makeLabel(NSLocalizedString("Minimized windows:", comment: ""))
+        let toShowExplanations3 = LabelAndControl.makeLabel(NSLocalizedString("Hidden windows:", comment: ""))
+        let toShowExplanations4 = LabelAndControl.makeLabel(NSLocalizedString("Fullscreen windows:", comment: ""))
         var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut" + postfix, Preferences.holdShortcut[postfix == "" ? 0 : 1], false, labelPosition: .leftWithoutSeparator)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press:", comment: "")))
         let holdAndPress = StackView(holdShortcut)
         let appsToShow = LabelAndControl.makeDropdown("appsToShow" + postfix, AppsToShowPreference.allCases)
         let spacesToShow = LabelAndControl.makeDropdown("spacesToShow" + postfix, SpacesToShowPreference.allCases)
         let screensToShow = LabelAndControl.makeDropdown("screensToShow" + postfix, ScreensToShowPreference.allCases)
-        let showMinimizedWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Minimized", comment: ""), "showMinimizedWindows" + postfix, labelPosition: .right))
-        let showHiddenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hidden", comment: ""), "showHiddenWindows" + postfix, labelPosition: .right))
-        let showFullscreenWindows = StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fullscreen", comment: ""), "showFullscreenWindows" + postfix, labelPosition: .right))
+        let showMinimizedWindows = LabelAndControl.makeDropdown("showMinimizedWindows" + postfix, ShowHowPreference.allCases)
+        let showHiddenWindows = LabelAndControl.makeDropdown("showHiddenWindows" + postfix, ShowHowPreference.allCases)
+        let showFullscreenWindows = LabelAndControl.makeDropdown("showFullscreenWindows" + postfix, ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
+        let separator = NSBox()
+        separator.boxType = .separator
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), "nextWindowShortcut" + postfix, Preferences.nextWindowShortcut[postfix == "" ? 0 : 1], labelPosition: .right)
         let shortcutStyle = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Then release:", comment: ""), "shortcutStyle" + postfix, ShortcutStylePreference.allCases)
-        let toShowDropdowns = StackView([appsToShow, spacesToShow, screensToShow, showMinimizedWindows, showHiddenWindows, showFullscreenWindows], .vertical, false)
+        let toShowDropdowns = StackView([appsToShow, spacesToShow, screensToShow], .vertical, false)
         toShowDropdowns.spacing = TabView.padding
         toShowDropdowns.fit()
         let tab = GridView([
             [toShowExplanations, toShowDropdowns],
+            [toShowExplanations2, showMinimizedWindows],
+            [toShowExplanations3, showHiddenWindows],
+            [toShowExplanations4, showFullscreenWindows],
+            [separator],
             [holdAndPress, StackView(nextWindowShortcut)],
             shortcutStyle,
         ], TabView.padding)
         tab.column(at: 0).xPlacement = .trailing
+        tab.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 4, length: 1))
         tab.fit()
         return (nextWindowShortcut, tab)
     }
