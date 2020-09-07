@@ -1,14 +1,24 @@
 import Cocoa
 
 class AppearanceTab {
+    static var rowsCount: [NSView]!
+    static var minWidthInRow: [NSView]!
+    static var maxWidthInRow: [NSView]!
+
     static func initTab() -> NSView {
+        rowsCount = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Rows of thumbnails:", comment: ""), "rowsCount", 1, 20, 20, true)
+        minWidthInRow = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window min width in row:", comment: ""), "windowMinWidthInRow", 0, 100, 10, true, "%", extraAction: { _ in capMinMaxWidthInRow() })
+        maxWidthInRow = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window max width in row:", comment: ""), "windowMaxWidthInRow", 0, 100, 10, true, "%", extraAction: { _ in capMinMaxWidthInRow() })
+
         let grid = GridView([
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases),
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max size on screen:", comment: ""), "maxScreenUsage", 10, 100, 10, true, "%"),
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Rows of windows:", comment: ""), "rowsCount", 1, 20, 20, true),
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Min windows per row:", comment: ""), "minCellsPerRow", 1, 20, 20, true),
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max windows per row:", comment: ""), "maxCellsPerRow", 1, 40, 20, true),
+            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max width on screen:", comment: ""), "maxWidthOnScreen", 10, 100, 10, true, "%"),
+            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max height on screen:", comment: ""), "maxHeightOnScreen", 10, 100, 10, true, "%"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide window thumbnails:", comment: ""), "hideThumbnails", extraAction: { _ in toggleRowsCount() }),
+            rowsCount,
+            minWidthInRow,
+            maxWidthInRow,
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window app icon size:", comment: ""), "iconSize", 0, 128, 11, false, "px"),
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window title font size:", comment: ""), "fontHeight", 0, 64, 11, false, "px"),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""), "titleTruncation", TitleTruncationPreference.allCases),
@@ -21,12 +31,26 @@ class AppearanceTab {
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide colored circles on mouse hover:", comment: ""), "hideColoredCircles"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide app badges:", comment: ""), "hideAppBadges"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide apps with no open window:", comment: ""), "hideWindowlessApps"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide window thumbnails:", comment: ""), "hideThumbnails"),
         ])
         grid.column(at: 0).xPlacement = .trailing
         grid.rowAlignment = .lastBaseline
         grid.fit()
 
+        toggleRowsCount()
+        capMinMaxWidthInRow()
+
         return grid
+    }
+
+    static func capMinMaxWidthInRow() {
+        let minSlider = minWidthInRow[1] as! NSSlider
+        let maxSlider = maxWidthInRow[1] as! NSSlider
+        maxSlider.minValue = minSlider.doubleValue
+        debugPrint(maxSlider.minValue, maxSlider.doubleValue)
+        LabelAndControl.controlWasChanged(maxSlider, "windowMaxWidthInRow")
+    }
+
+    static func toggleRowsCount() {
+        (rowsCount[1] as! NSSlider).isEnabled = !Preferences.hideThumbnails
     }
 }

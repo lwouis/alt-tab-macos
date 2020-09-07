@@ -5,11 +5,10 @@ import ShortcutRecorder
 let defaults = UserDefaults.standard
 
 class Preferences {
-    static var defaultsDependingOnScreenRatio_ = defaultsDependingOnScreenRatio()
-
     // default values
     static var defaultValues: [String: String] = [
-        "maxScreenUsage": "80",
+        "maxWidthOnScreen": "80",
+        "maxHeightOnScreen": "80",
         "iconSize": "32",
         "fontHeight": "15",
         "holdShortcut": "⌥",
@@ -73,9 +72,10 @@ class Preferences {
     static var intraCellPadding: CGFloat { 5 }
 
     // persisted values
-    static var maxScreenUsage: CGFloat { defaults.cgfloat("maxScreenUsage") / CGFloat(100) }
-    static var minCellsPerRow: CGFloat { defaults.cgfloat("minCellsPerRow") }
-    static var maxCellsPerRow: CGFloat { defaults.cgfloat("maxCellsPerRow") }
+    static var maxWidthOnScreen: CGFloat { defaults.cgfloat("maxWidthOnScreen") / CGFloat(100) }
+    static var maxHeightOnScreen: CGFloat { defaults.cgfloat("maxHeightOnScreen") / CGFloat(100) }
+    static var windowMaxWidthInRow: CGFloat { defaults.cgfloat("windowMaxWidthInRow") / CGFloat(100) }
+    static var windowMinWidthInRow: CGFloat { defaults.cgfloat("windowMinWidthInRow") / CGFloat(100) }
     static var rowsCount: CGFloat { defaults.cgfloat("rowsCount") }
     static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
     static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
@@ -188,6 +188,13 @@ class Preferences {
         defaults.set(App.version, forKey: preferencesVersion)
     }
 
+    private static func migrateMaxSizeOnScreenToWidthAndHeight() {
+        if let old = defaults.string(forKey: "maxScreenUsage") {
+            defaults.set(old, forKey: "maxWidthOnScreen")
+            defaults.set(old, forKey: "maxHeightOnScreen")
+        }
+    }
+
     // dropdowns preferences used to store English text; now they store indexes
     static func migrateDropdownMenuPreference(_ preference: String, _ oldAndNew: [String: String]) {
         if let old = defaults.string(forKey: preference),
@@ -206,19 +213,13 @@ class Preferences {
         }
     }
 
-    static func defaultsDependingOnScreenRatio() -> [String: String] {
-        let ratio = Screen.mainScreenRatio()
-        // landscape
-        if ratio > 1 {
-            // 15/10 and wider; tested with 16/10 and 16/9
-            if ratio > (15 / 10) {
-                return ["rowsCount": "4", "minCellsPerRow": "4", "maxCellsPerRow": "7"]
-            }
-            // narrower than 15/10; tested with 4/3
-            return ["rowsCount": "3", "minCellsPerRow": "4", "maxCellsPerRow": "7"]
+    static func rowCountDependingOnScreenRatio() -> String {
+        // landscape; tested with 4/3, 16/10, 16/9
+        if Screen.mainScreenRatio() > 1 {
+            return "4"
         }
         // vertical; tested with 10/16
-        return ["rowsCount": "6", "minCellsPerRow": "3", "maxCellsPerRow": "4"]
+        return "6"
     }
 
     static func keyAboveTabDependingOnInputSource() -> String {
