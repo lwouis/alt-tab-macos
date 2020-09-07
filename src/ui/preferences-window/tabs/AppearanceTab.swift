@@ -46,7 +46,6 @@ class AppearanceTab {
         let minSlider = minWidthInRow[1] as! NSSlider
         let maxSlider = maxWidthInRow[1] as! NSSlider
         maxSlider.minValue = minSlider.doubleValue
-        debugPrint(maxSlider.minValue, maxSlider.doubleValue)
         LabelAndControl.controlWasChanged(maxSlider, "windowMaxWidthInRow")
     }
 

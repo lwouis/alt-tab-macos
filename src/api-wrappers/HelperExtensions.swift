@@ -8,26 +8,6 @@ extension Collection {
     }
 }
 
-extension Array where Element == Window {
-    func firstIndexThatMatches(_ element: AXUIElement, _ wid: CGWindowID?) -> Self.Index? {
-        // the window can be deallocated by the OS, in which case its `CGWindowID` will be `-1`
-        // we check for equality both on the AXUIElement, and the CGWindowID, in order to catch all scenarios
-        return firstIndex { $0.axUiElement == element || ($0.cgWindowId != -1 && $0.cgWindowId == wid) }
-    }
-
-    mutating func insertAndScaleRecycledPool(_ elements: [Element], at i: Int) {
-        insert(contentsOf: elements, at: i)
-        let neededRecycledViews = count - ThumbnailsView.recycledViews.count
-        if neededRecycledViews > 0 {
-            (1...neededRecycledViews).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
-        }
-    }
-
-    mutating func insertAndScaleRecycledPool(_ element: Element, at i: Int) {
-        insertAndScaleRecycledPool([element], at: i)
-    }
-}
-
 extension NSView {
     // constrain size to fittingSize
     func fit() {

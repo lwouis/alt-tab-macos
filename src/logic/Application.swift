@@ -56,7 +56,7 @@ class Application: NSObject {
     }
 
     func removeWindowslessAppWindow() {
-        if let windowlessAppWindow = Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid } {
+        if let windowlessAppWindow = (Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid }) {
             Windows.list.remove(at: windowlessAppWindow)
             App.app.refreshOpenUi()
         }
@@ -83,6 +83,7 @@ class Application: NSObject {
                             let subrole = try $0.subrole()
                             let role = try $0.role()
                             let isOnNormalLevel = $0.isOnNormalLevel(wid)
+                            debugPrint(self.runningApplication.bundleIdentifier, wid, isOnNormalLevel, title, subrole, role)
                             if $0.isActualWindow(self.runningApplication, wid, isOnNormalLevel, title, subrole, role) {
                                 return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position())
                             }
@@ -110,12 +111,13 @@ class Application: NSObject {
 
     private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]) -> [Window] {
         let windows: [Window] = axWindows.compactMap { (axUiElement, wid, axTitle, isFullscreen, isMinimized, position) in
-            if Windows.list.firstIndexThatMatches(axUiElement, wid) == nil {
-                return Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position)
+            if (Windows.list.firstIndex { $0.isEqualRobust(axUiElement, wid) }) == nil {
+                let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position)
+                Windows.appendAndUpdateFocus(window)
+                return window
             }
             return nil
         }
-        Windows.list.insertAndScaleRecycledPool(windows, at: 0)
         if App.app.appIsBeingUsed {
             Windows.cycleFocusedWindowIndex(windows.count)
         }
@@ -127,9 +129,9 @@ class Application: NSObject {
                runningApplication.activationPolicy == .regular &&
                !runningApplication.isTerminated &&
                (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
-            let window = [Window(self)]
-            Windows.list.insertAndScaleRecycledPool(window, at: Windows.list.count)
-            return window
+            let window = Window(self)
+            Windows.appendAndUpdateFocus(window)
+            return [window]
         }
         return nil
     }

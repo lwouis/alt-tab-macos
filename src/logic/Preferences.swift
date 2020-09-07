@@ -24,40 +24,40 @@ class Preferences {
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
         "mouseHoverEnabled": "true",
-        "showFullscreenWindows": "true",
-        "showFullscreenWindows2": "true",
-        "showMinimizedWindows": "true",
-        "showMinimizedWindows2": "true",
-        "showHiddenWindows": "true",
-        "showHiddenWindows2": "true",
+        "showMinimizedWindows": ShowHowPreference.show.rawValue,
+        "showMinimizedWindows2": ShowHowPreference.show.rawValue,
+        "showHiddenWindows": ShowHowPreference.show.rawValue,
+        "showHiddenWindows2": ShowHowPreference.show.rawValue,
+        "showFullscreenWindows": ShowHowPreference.show.rawValue,
+        "showFullscreenWindows2": ShowHowPreference.show.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
-        "theme": "0",
-        "showOnScreen": "0",
-        "titleTruncation": "0",
-        "alignThumbnails": "0",
-        "appsToShow": "0",
-        "appsToShow2": "1",
-        "spacesToShow": "0",
-        "spacesToShow2": "0",
-        "screensToShow": "0",
-        "screensToShow2": "0",
+        "theme": ThemePreference.macOs.rawValue,
+        "showOnScreen": ShowOnScreenPreference.active.rawValue,
+        "titleTruncation": TitleTruncationPreference.end.rawValue,
+        "alignThumbnails": AlignThumbnailsPreference.left.rawValue,
+        "appsToShow": AppsToShowPreference.all.rawValue,
+        "appsToShow2": AppsToShowPreference.active.rawValue,
+        "spacesToShow": SpacesToShowPreference.all.rawValue,
+        "spacesToShow2": SpacesToShowPreference.all.rawValue,
+        "screensToShow": ScreensToShowPreference.all.rawValue,
+        "screensToShow2": ScreensToShowPreference.all.rawValue,
         "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
         "hideStatusIcons": "false",
         "startAtLogin": "true",
-        "menubarIcon": "0",
+        "menubarIcon": MenubarIconPreference.outlined.rawValue,
         "dontShowBlacklist": ["com.McAfee.McAfeeSafariHost"].joined(separator: "\n"),
         "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer"].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
-        "updatePolicy": "1",
-        "crashPolicy": "1",
-        "rowsCount": defaultsDependingOnScreenRatio_["rowsCount"]!,
-        "minCellsPerRow": defaultsDependingOnScreenRatio_["minCellsPerRow"]!,
-        "maxCellsPerRow": defaultsDependingOnScreenRatio_["maxCellsPerRow"]!,
-        "shortcutStyle": "0",
-        "shortcutStyle2": "0",
+        "updatePolicy": UpdatePolicyPreference.autoCheck.rawValue,
+        "crashPolicy": CrashPolicyPreference.ask.rawValue,
+        "rowsCount": rowCountDependingOnScreenRatio(),
+        "windowMinWidthInRow": "15",
+        "windowMaxWidthInRow": "30",
+        "shortcutStyle": ShortcutStylePreference.focusOnRelease.rawValue,
+        "shortcutStyle2": ShortcutStylePreference.focusOnRelease.rawValue,
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
@@ -90,9 +90,6 @@ class Preferences {
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
-    static var showFullscreenWindows: [Bool] { ["showFullscreenWindows", "showFullscreenWindows2"].map { defaults.bool($0) } }
-    static var showMinimizedWindows: [Bool] { ["showMinimizedWindows", "showMinimizedWindows2"].map { defaults.bool($0) } }
-    static var showHiddenWindows: [Bool] { ["showHiddenWindows", "showHiddenWindows2"].map { defaults.bool($0) } }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { defaults.bool("hideColoredCircles") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
@@ -117,6 +114,9 @@ class Preferences {
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
     static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
     static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
+    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
@@ -171,20 +171,14 @@ class Preferences {
     }
 
     private static func updateToNewPreferences(_ preferencesVersion: String) {
-        migrateDropdownMenuPreference("theme", [" macOS": "0", "❖ Windows 10": "1"])
-        // "Main screen" was renamed to "Active screen"
-        migrateDropdownMenuPreference("showOnScreen", ["Main screen": "0", "Active screen": "0", "Screen including mouse": "1"])
-        migrateDropdownMenuPreference("alignThumbnails", ["Left": "0", "Center": "1"])
-        migrateDropdownMenuPreference("appsToShow", ["All apps": "0", "Active app": "1"])
-        migrateDropdownMenuPreference("spacesToShow", ["All spaces": "0", "Active space": "1"])
-        migrateDropdownMenuPreference("screensToShow", ["All screens": "0", "Screen showing AltTab": "1"])
+        // dropdowns preferences used to store English text; now they store indexes
+        migrateDropdownsFromTextToIndexes()
         // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-        if let old = defaults.string(forKey: "hideMenubarIcon") {
-            if old == "true" {
-                defaults.set("3", forKey: "menubarIcon")
-            }
-            defaults.removeObject(forKey: "hideMenubarIcon")
-        }
+        migrateMenubarIconFromCheckboxToDropdown()
+        // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+        migrateShowWindowsCheckboxToDropdown()
+        // "Max size on screen" was split into max width and max height
+        migrateMaxSizeOnScreenToWidthAndHeight()
         defaults.set(App.version, forKey: preferencesVersion)
     }
 
@@ -195,8 +189,39 @@ class Preferences {
         }
     }
 
-    // dropdowns preferences used to store English text; now they store indexes
-    static func migrateDropdownMenuPreference(_ preference: String, _ oldAndNew: [String: String]) {
+    private static func migrateShowWindowsCheckboxToDropdown() {
+        ["showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows"]
+            .flatMap { [$0, $0 + "2"] }
+            .forEach {
+                if let old = defaults.string(forKey: $0) {
+                    if old == "true" {
+                        defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
+                    } else if old == "false" {
+                        defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
+                    }
+                }
+            }
+    }
+
+    private static func migrateDropdownsFromTextToIndexes() {
+        migratePreferenceValue("theme", [" macOS": "0", "❖ Windows 10": "1"])
+        // "Main screen" was renamed to "Active screen"
+        migratePreferenceValue("showOnScreen", ["Main screen": "0", "Active screen": "0", "Screen including mouse": "1"])
+        migratePreferenceValue("alignThumbnails", ["Left": "0", "Center": "1"])
+        migratePreferenceValue("appsToShow", ["All apps": "0", "Active app": "1"])
+        migratePreferenceValue("spacesToShow", ["All spaces": "0", "Active space": "1"])
+        migratePreferenceValue("screensToShow", ["All screens": "0", "Screen showing AltTab": "1"])
+    }
+
+    private static func migrateMenubarIconFromCheckboxToDropdown() {
+        if let old = defaults.string(forKey: "hideMenubarIcon") {
+            if old == "true" {
+                defaults.set("3", forKey: "menubarIcon")
+            }
+        }
+    }
+
+    static func migratePreferenceValue(_ preference: String, _ oldAndNew: [String: String]) {
         if let old = defaults.string(forKey: preference),
            let new = oldAndNew[old] {
             defaults.set(new, forKey: preference)
@@ -244,11 +269,11 @@ struct ThemeParameters {
 
 typealias LocalizedString = String
 
-enum MenubarIconPreference: CaseIterable, MacroPreference {
-    case outlined
-    case filled
-    case colored
-    case hidden
+enum MenubarIconPreference: String, CaseIterable, MacroPreference {
+    case outlined = "0"
+    case filled = "1"
+    case colored = "2"
+    case hidden = "3"
 
     var localizedString: LocalizedString {
         switch self {
@@ -261,9 +286,9 @@ enum MenubarIconPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum ShortcutStylePreference: CaseIterable, MacroPreference {
-    case focusOnRelease
-    case doNothingOnRelease
+enum ShortcutStylePreference: String, CaseIterable, MacroPreference {
+    case focusOnRelease = "0"
+    case doNothingOnRelease = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -273,9 +298,23 @@ enum ShortcutStylePreference: CaseIterable, MacroPreference {
     }
 }
 
-enum AppsToShowPreference: CaseIterable, MacroPreference {
-    case all
-    case active
+enum ShowHowPreference: String, CaseIterable, MacroPreference {
+    case show = "0"
+    case hide = "1"
+    case showAtTheEnd = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .show: return NSLocalizedString("Show", comment: "")
+            case .showAtTheEnd: return NSLocalizedString("Show at the end", comment: "")
+            case .hide: return NSLocalizedString("Hide", comment: "")
+        }
+    }
+}
+
+enum AppsToShowPreference: String, CaseIterable, MacroPreference {
+    case all = "0"
+    case active = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -285,9 +324,9 @@ enum AppsToShowPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum SpacesToShowPreference: CaseIterable, MacroPreference {
-    case all
-    case active
+enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
+    case all = "0"
+    case active = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -297,9 +336,9 @@ enum SpacesToShowPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum ScreensToShowPreference: CaseIterable, MacroPreference {
-    case all
-    case showingAltTab
+enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
+    case all = "0"
+    case showingAltTab = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -309,10 +348,10 @@ enum ScreensToShowPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum ShowOnScreenPreference: CaseIterable, MacroPreference {
-    case active
-    case includingMouse
-    case includingMenubar
+enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
+    case active = "0"
+    case includingMouse = "1"
+    case includingMenubar = "2"
 
     var localizedString: LocalizedString {
         switch self {
@@ -323,10 +362,10 @@ enum ShowOnScreenPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum TitleTruncationPreference: CaseIterable, MacroPreference {
-    case end
-    case middle
-    case start
+enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
+    case end = "0"
+    case middle = "1"
+    case start = "2"
 
     var localizedString: LocalizedString {
         switch self {
@@ -337,9 +376,9 @@ enum TitleTruncationPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum AlignThumbnailsPreference: CaseIterable, MacroPreference {
-    case left
-    case center
+enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
+    case left = "0"
+    case center = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -349,9 +388,9 @@ enum AlignThumbnailsPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum ThemePreference: CaseIterable, MacroPreference {
-    case macOs
-    case windows10
+enum ThemePreference: String, CaseIterable, MacroPreference {
+    case macOs = "0"
+    case windows10 = "1"
 
     var localizedString: LocalizedString {
         switch self {
@@ -368,10 +407,10 @@ enum ThemePreference: CaseIterable, MacroPreference {
     }
 }
 
-enum UpdatePolicyPreference: CaseIterable, MacroPreference {
-    case manual
-    case autoCheck
-    case autoInstall
+enum UpdatePolicyPreference: String, CaseIterable, MacroPreference {
+    case manual = "0"
+    case autoCheck = "1"
+    case autoInstall = "2"
 
     var localizedString: LocalizedString {
         switch self {
@@ -382,10 +421,10 @@ enum UpdatePolicyPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum CrashPolicyPreference: CaseIterable, MacroPreference {
-    case never
-    case ask
-    case always
+enum CrashPolicyPreference: String, CaseIterable, MacroPreference {
+    case never = "0"
+    case ask = "1"
+    case always = "2"
 
     var localizedString: LocalizedString {
         switch self {

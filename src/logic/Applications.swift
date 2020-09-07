@@ -50,13 +50,13 @@ class Applications {
         var windowsOnTheLeftOfFocusedWindow = 0
         for runningApp in runningApps {
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
-            Applications.list.removeAll(where: { $0.runningApplication.isEqual(runningApp) })
+            Applications.list.removeAll { $0.runningApplication.isEqual(runningApp) }
             Windows.list.enumerated().forEach { (index, window) in
                 if window.application.runningApplication.isEqual(runningApp) && index < Windows.focusedWindowIndex {
                     windowsOnTheLeftOfFocusedWindow += 1
                 }
             }
-            Windows.list.removeAll(where: { $0.application.runningApplication.isEqual(runningApp) })
+            Windows.list.removeAll { $0.application.runningApplication.isEqual(runningApp) }
         }
         guard Windows.list.count > 0 else { App.app.hideUi(); return }
         if windowsOnTheLeftOfFocusedWindow > 0 {

@@ -116,7 +116,7 @@ fileprivate func handleHotModifier(_ modifiers: UInt32) -> Bool {
             KeyboardEvents.holdShortcutWasDown[key] = false
             if ControlsTab.globalShortcuts["holdShortcut"]!.carbonModifierFlags == ControlsTab.globalShortcuts["holdShortcut"]!.carbonModifierFlags {
                 let otherKey = key == "holdShortcut" ? "holdShortcut2" : "holdShortcut"
-                KeyboardEvents.holdShortcutWasDown[key] = false
+                KeyboardEvents.holdShortcutWasDown[otherKey] = false
             }
             if Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease && handleHotAny(key, shortcutIndex) {
                 return true
