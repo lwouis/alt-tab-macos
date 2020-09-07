@@ -264,5 +264,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.show()
         guard appIsBeingUsed else { return }
         Windows.refreshThumbnailsAsync(screen)
+        guard appIsBeingUsed else { return }
+        Applications.refreshBadges()
     }
 }

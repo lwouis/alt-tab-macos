@@ -66,21 +66,38 @@ class Applications {
     }
 
     static func refreshBadges() {
-        let group = DispatchGroup()
-        retryAxCallUntilTimeout(group) {
-            if let dockPid = (Applications.list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.pid),
+        if !App.app.appIsBeingUsed || Preferences.hideAppBadges { return }
+        retryAxCallUntilTimeout {
+            if let dockPid = (list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.pid),
                let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == "AXList" }),
                let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == "AXApplicationDockItem" && ($0.appIsRunning() ?? false) }) {
-                try Applications.list.forEach { app in
-                    if app.runningApplication.activationPolicy == .regular,
-                       let bundleId = app.runningApplication.bundleIdentifier,
-                       let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId) {
-                        app.dockLabel = try axAppDockItem.first { try $0.attribute(kAXURLAttribute, URL.self) == url }?.attribute(kAXStatusLabelAttribute, String.self)
-                    }
+                let axAppDockItemUrlAndLabel = try axAppDockItem.map { try ($0.attribute(kAXURLAttribute, URL.self), $0.attribute(kAXStatusLabelAttribute, String.self)) }
+                DispatchQueue.main.async {
+                    refreshBadges_(axAppDockItemUrlAndLabel)
                 }
             }
         }
-        _ = group.wait(wallTimeout: .now() + .seconds(1))
+    }
+
+    static func refreshBadges_(_ items: [(URL?, String?)], _ currentIndex: Int = 0) {
+        Windows.list.enumerated().forEach { (i, window) in
+            let view = ThumbnailsView.recycledViews[i]
+            if let app = (Applications.list.first { window.application.pid == $0.pid }) {
+                if App.app.appIsBeingUsed,
+                   app.runningApplication.activationPolicy == .regular,
+                   let bundleId = app.runningApplication.bundleIdentifier,
+                   let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId),
+                   let matchingItem = (items.first { $0.0 == url }),
+                   let label = matchingItem.1,
+                   let labelInt = Int(label) {
+                    app.dockLabel = label
+                    view.updateDockLabelIcon(labelInt)
+                } else {
+                    app.dockLabel = nil
+                    assignIfDifferent(&view.dockLabelIcon.isHidden, true)
+                }
+            }
+        }
     }
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {

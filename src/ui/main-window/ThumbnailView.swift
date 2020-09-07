@@ -135,16 +135,7 @@ class ThumbnailView: NSStackView {
                 spaceIcon.setNumber(element.spaceIndex, false)
             }
         }
-        assignIfDifferent(&dockLabelIcon.isHidden, element.dockLabel == nil || Preferences.hideAppBadges || Preferences.iconSize == 0)
-        if !dockLabelIcon.isHidden, let dockLabel = element.dockLabel {
-            let view = dockLabelIcon.subviews[1] as! ThumbnailFontIconView
-            if dockLabel > 30 {
-                view.setFilledStar()
-            } else {
-                view.setNumber(dockLabel, true)
-            }
-            dockLabelIcon.setFrameOrigin(NSPoint(x: appIcon.frame.maxX - dockLabelIcon.fittingSize.width - 1, y: appIcon.frame.maxY - dockLabelIcon.fittingSize.height + 4))
-        }
+        updateDockLabelIcon(element.dockLabel)
         assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)).rounded())
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
@@ -167,6 +158,19 @@ class ThumbnailView: NSStackView {
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
         if labelChanged {
             label.display()
+        }
+    }
+
+    func updateDockLabelIcon(_ dockLabel: Int?) {
+        assignIfDifferent(&dockLabelIcon.isHidden, dockLabel == nil || Preferences.hideAppBadges || Preferences.iconSize == 0)
+        if !dockLabelIcon.isHidden, let dockLabel = dockLabel {
+            let view = dockLabelIcon.subviews[1] as! ThumbnailFontIconView
+            if dockLabel > 30 {
+                view.setFilledStar()
+            } else {
+                view.setNumber(dockLabel, true)
+            }
+            dockLabelIcon.setFrameOrigin(NSPoint(x: appIcon.frame.maxX - dockLabelIcon.fittingSize.width - 1, y: appIcon.frame.maxY - dockLabelIcon.fittingSize.height + 4))
         }
     }
 

@@ -153,8 +153,7 @@ class Windows {
     }
 
     static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails) {
-        guard App.app.appIsBeingUsed else { return }
-        if Preferences.hideThumbnails { return }
+        if !App.app.appIsBeingUsed || Preferences.hideThumbnails { return }
         BackgroundWork.mainQueueConcurrentWorkQueue.async {
             if currentIndex < list.count {
                 let window = list[currentIndex]
