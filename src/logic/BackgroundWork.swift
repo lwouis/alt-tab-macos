@@ -8,6 +8,7 @@ class BackgroundWork {
     static var crashReportsQueue: DispatchQueue!
     static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
     static var mouseEventsThread: BackgroundThreadWithRunLoop!
+    static var systemPermissionsThread: BackgroundThreadWithRunLoop!
 
     // we cap concurrent tasks to .processorCount to avoid thread explosion on the .global queue
     static let globalSemaphore = DispatchSemaphore(value: ProcessInfo.processInfo.processorCount)
@@ -20,6 +21,10 @@ class BackgroundWork {
         crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
         mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread", .userInteractive)
+    }
+
+    static func startSystemPermissionThread() {
+        systemPermissionsThread = BackgroundThreadWithRunLoop("systemPermissionsThread", .utility)
     }
 }
 

@@ -4,8 +4,8 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
     var accessibilityView: PermissionView!
     var screenRecordingView: PermissionView!
 
-    override init(contentRect: NSRect, styleMask style: StyleMask, backing backingStoreType: BackingStoreType, defer flag: Bool) {
-        super.init(contentRect: .zero, styleMask: style, backing: backingStoreType, defer: flag)
+    convenience init() {
+        self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
         delegate = self
         setupWindow()
         setupView()
