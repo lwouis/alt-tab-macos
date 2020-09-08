@@ -126,7 +126,7 @@
 "Fullscreen" = "전체화면";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "전체 화면 윈도우:";
 
 /*No comment provided by engineer.*/
 "General" = "일반";
@@ -135,10 +135,10 @@
 "Hidden" = "숨겨진 화면";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "숨겨진 윈도우:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "숨기기";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "앱 뱃지 숨기기:";
@@ -177,13 +177,13 @@
 "Left" = "왼쪽";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "화면 내의 최대 높이:";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "화면 최대 크기:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "화면 내의 최대 너비:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "한 줄당 최대 윈도우 개수:";
@@ -204,7 +204,7 @@
 "Minimized" = "최소화된 화면";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "최소화된 윈도우:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "마우스 올려놓기";
@@ -249,7 +249,7 @@
 "Remember my choice" = "내 선택 기억하기";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "썸네일의 줄 개수:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "윈도우 줄 개수:";
@@ -303,7 +303,7 @@
 "Show" = "보기";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "맨 뒤에서 보기";
 
 /*No comment provided by engineer.*/
 "Show on:" = "보여질 곳:";
@@ -315,7 +315,7 @@
 "Show the following windows:" = "다음 윈도우들이 보여집니다:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "윈도우가 보일 곳:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "소스 코드";
@@ -354,10 +354,10 @@
 "Window app icon size:" = "윈도우 앱 아이콘 크기:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "한 줄 내의 윈도우 최대 너비:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "한 줄 내의 윈도우 최대 너비:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "윈도우 제목 글꼴 크기:";

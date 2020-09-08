@@ -3,7 +3,7 @@
 "About" = "关于";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "关于 %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "辅助功能";
@@ -39,7 +39,7 @@
 "Allowed" = "允许";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "同时使用此方式选择窗口：";
+"Also select windows using:" = "窗口选择方式：";
 
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用时崩溃了， 发送崩溃报告将有助于解决问题";
@@ -126,7 +126,7 @@
 "Fullscreen" = "全屏";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "全屏窗口：";
 
 /*No comment provided by engineer.*/
 "General" = "通用";
@@ -135,16 +135,16 @@
 "Hidden" = "隐藏";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "隐藏窗口：";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "隐藏";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "隐藏应用通知标志：";
+"Hide app badges:" = "隐藏应用通知标识：";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "在无窗口打开时隐藏应用：";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "鼠标悬停时隐藏彩色圆圈：";
@@ -156,7 +156,7 @@
 "Hide status icons:" = "隐藏状态图标：";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "隐藏窗口缩略图：";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "隐藏/显示应用";
@@ -177,13 +177,13 @@
 "Left" = "居左";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "最大屏幕占用高度：";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "最大屏幕占用尺寸：";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "最大屏幕占用宽度：";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "每行最多窗口数：";
@@ -204,7 +204,7 @@
 "Minimized" = "最小化";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "最小化窗口：";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "鼠标悬停";
@@ -213,13 +213,13 @@
 "Never send crash reports" = "从不发送崩溃报告";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "阻止";
+"Not allowed" = "未允许";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 协议";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "仅当窗口全屏时";
+"Only if the window is fullscreen" = "仅在窗口全屏时";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "打开辅助功能偏好设置…";
@@ -249,7 +249,7 @@
 "Remember my choice" = "记住我的选择";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "缩略图行数：";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "窗口行数：";
@@ -303,7 +303,7 @@
 "Show" = "显示";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "在最后显示";
 
 /*No comment provided by engineer.*/
 "Show on:" = "显示在：";
@@ -315,7 +315,7 @@
 "Show the following windows:" = "显示以下窗口：";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "显示以下窗口：";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "源代码仓库";
@@ -333,10 +333,10 @@
 "Then release:" = "然后松开：";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "需要此权限在释放快捷键后切换鼠标焦点";
+"This permission is needed to focus windows after you release the shortcut" = "需要此权限以使用快捷键切换窗口";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "需要此权限来显示打开窗口的截屏和标题";
+"This permission is needed to show screenshots and titles of open windows" = "需要此权限以显示窗口截屏与标题";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "更新方式：";
@@ -354,10 +354,10 @@
 "Window app icon size:" = "窗口图标大小：";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "每行窗口最大宽度：";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "每行窗口最小宽度：";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "窗口标题字号：";

@@ -3,7 +3,7 @@
 "About" = "Über";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "Über %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Bedienungshilfe";
@@ -39,7 +39,7 @@
 "Allowed" = "Erlaubt";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "Fenster auswählen auch mit:";
 
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ist bei der letzten Ausführung abgestürzt. Das Absenden von Absturzberichten hilft bei der Fehlerbeseitigung.";
@@ -96,13 +96,13 @@
 "Close window" = "Fenster schließen";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "Steuerung";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "Richtlinie für Absturzberichte:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "Nichts machen";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Nicht regelmäßig nach Updates suchen";
@@ -126,7 +126,7 @@
 "Fullscreen" = "Vollbild";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Vollbildfenster:";
 
 /*No comment provided by engineer.*/
 "General" = "Allgemein";
@@ -135,16 +135,16 @@
 "Hidden" = "Versteckt";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Verborgene Fenster:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Verbergen";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "App-Badges verbergen:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Verberge Apps ohne offene Fenster:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Bunte Kreise beim Markieren mit Maus verbergen:";
@@ -156,7 +156,7 @@
 "Hide status icons:" = "Statussymbole verbergen:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Fenstervorschau verbergen:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "App aus-/einblenden";
@@ -177,19 +177,19 @@
 "Left" = "Links";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Maximale Höhe im Bildschirm:";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "Maximale Größe auf dem Bildschirm:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Maximale Breite im Bildschirm:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Maximale Anzahl von Fenstern pro Reihe:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "Menüleistensymbol:";
 
 /*No comment provided by engineer.*/
 "Middle" = "Mitte";
@@ -204,7 +204,7 @@
 "Minimized" = "Minimiert";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Minimierte Fenster:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Maus hover";
@@ -249,7 +249,7 @@
 "Remember my choice" = "Auswahl merken";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Reihen an Vorschauen:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Fenster Reihen:";
@@ -294,16 +294,16 @@
 "Share improvement ideas, or report bugs" = "Teile uns deine Vorschläge mit oder melden Fehler";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "Tastenkürzel 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "Tastenkürzel 2";
 
 /*No comment provided by engineer.*/
 "Show" = "Anzeigen";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Am Ende anzeigen";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Anzeigen auf:";
@@ -315,7 +315,7 @@
 "Show the following windows:" = "Folgende Fenster anzeigen:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Fenster anzeigen von:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Code Repository";
@@ -348,16 +348,16 @@
 "View existing discussions" = "Bestehende Vorschläge anzeigen";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "Während geöffnet, drücke:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Fenster Icon Größe:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Maximale Vorschaubreite in Reihe:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Minimale Vorschaubreite in Reihe:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Fenster Titel Größe:";
