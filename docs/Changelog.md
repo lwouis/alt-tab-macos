@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.4.0](https://github.com/lwouis/alt-tab-macos/compare/v6.3.0...v6.4.0) (2020-09-08)
+
+
+### Features
+
+* update chinese, korean, and german localizations ([1514eca](https://github.com/lwouis/alt-tab-macos/commit/1514eca))
+
+
+### Performance Improvements
+
+* guaranty app nap is not interfering ([4895ee7](https://github.com/lwouis/alt-tab-macos/commit/4895ee7))
+* prevent random freezes of the ui ([#563](https://github.com/lwouis/alt-tab-macos/issues/563)) ([e208da9](https://github.com/lwouis/alt-tab-macos/commit/e208da9))
+
 # [6.3.0](https://github.com/lwouis/alt-tab-macos/compare/v6.2.0...v6.3.0) (2020-09-08)
 
 
