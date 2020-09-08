@@ -42,12 +42,13 @@ class SystemPermissions {
     }
 
     static func observePermissionsPostStartup() {
-        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
+        timer = Timer(timeInterval: 5, repeats: true, block: { _ in
             if !(accessibilityIsGranted() && screenRecordingIsGranted()) {
                 App.app.restart()
             }
         })
         timer.tolerance = 4.9
+        CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timer, .defaultMode)
     }
 
     static func observePermissionsPreStartup(_ startupBlock: @escaping () -> Void) {
@@ -55,23 +56,26 @@ class SystemPermissions {
             // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
             SLSRequestScreenCaptureAccess()
         }
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+        timer = Timer(timeInterval: 0.1, repeats: true) { _ in
             let accessibility = accessibilityIsGranted()
             let screenRecording = screenRecordingIsGranted()
-            if accessibility && screenRecording {
-                permissionsWindow.close()
-                timer.invalidate()
-                startupBlock()
-            } else {
-                if accessibility != permissionsWindow.accessibilityView.isPermissionGranted {
-                    permissionsWindow.accessibilityView.updatePermissionStatus(accessibility)
-                }
-                if #available(OSX 10.15, *), screenRecording != permissionsWindow.screenRecordingView.isPermissionGranted {
-                    permissionsWindow.screenRecordingView.updatePermissionStatus(screenRecording)
+            DispatchQueue.main.async {
+                if accessibility && screenRecording {
+                    permissionsWindow.close()
+                    timer.invalidate()
+                    startupBlock()
+                } else {
+                    if accessibility != permissionsWindow.accessibilityView.isPermissionGranted {
+                        permissionsWindow.accessibilityView.updatePermissionStatus(accessibility)
+                    }
+                    if #available(OSX 10.15, *), screenRecording != permissionsWindow.screenRecordingView.isPermissionGranted {
+                        permissionsWindow.screenRecordingView.updatePermissionStatus(screenRecording)
+                    }
                 }
             }
-        })
+        }
         timer.tolerance = 0.09
+        CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timer, .defaultMode)
     }
 
     static func ensurePermissionsAreGranted(_ continueAppStartup: @escaping () -> Void) {

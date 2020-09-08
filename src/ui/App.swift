@@ -41,6 +41,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         PFMoveToApplicationsFolderIfNecessary()
         #endif
         AXUIElement.setGlobalTimeout()
+        BackgroundWork.startSystemPermissionThread()
         SystemPermissions.ensurePermissionsAreGranted { [weak self] in
             guard let self = self else { return }
             BackgroundWork.start()
