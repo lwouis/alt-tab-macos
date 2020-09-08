@@ -1,5 +1,22 @@
 # Release notes
 
+# [6.3.0](https://github.com/lwouis/alt-tab-macos/compare/v6.2.0...v6.3.0) (2020-09-08)
+
+
+### Bug Fixes
+
+* adobe audition windows were not showing up (closes [#581](https://github.com/lwouis/alt-tab-macos/issues/581)) ([6edced0](https://github.com/lwouis/alt-tab-macos/commit/6edced0))
+* crash from appcenter in rare scenario ([c49a2bc](https://github.com/lwouis/alt-tab-macos/commit/c49a2bc)), closes [#1](https://github.com/lwouis/alt-tab-macos/issues/1)
+* load app badges asynchronously to avoid system lag (closes [#563](https://github.com/lwouis/alt-tab-macos/issues/563)) ([29eff03](https://github.com/lwouis/alt-tab-macos/commit/29eff03))
+* prevent rare crash seen in app center ([6ca58b1](https://github.com/lwouis/alt-tab-macos/commit/6ca58b1))
+
+
+### Features
+
+* show minimized/hidden windows last in the list (closes [#289](https://github.com/lwouis/alt-tab-macos/issues/289)) ([4fea943](https://github.com/lwouis/alt-tab-macos/commit/4fea943))
+* split max screen size preference into width/height (closes [#579](https://github.com/lwouis/alt-tab-macos/issues/579)) ([6e2e5b4](https://github.com/lwouis/alt-tab-macos/commit/6e2e5b4))
+* update es, ja, ko, nl, pt, pt-br localizations ([af5ed9b](https://github.com/lwouis/alt-tab-macos/commit/af5ed9b))
+
 # [6.2.0](https://github.com/lwouis/alt-tab-macos/compare/v6.1.0...v6.2.0) (2020-09-04)
 
 
