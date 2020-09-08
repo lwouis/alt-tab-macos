@@ -94,10 +94,10 @@ class Windows {
         return targetIndex
     }
 
-    static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ destroyedWindowIndex: Int) {
-        if focusedWindowIndex > destroyedWindowIndex {
+    static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ window: Window) {
+        if focusedWindowIndex > window.lastFocusOrder {
             cycleFocusedWindowIndex(-1)
-        } else if focusedWindowIndex == destroyedWindowIndex && !focusedWindow()!.shouldShowTheUser {
+        } else if focusedWindowIndex == window.lastFocusOrder && !window.shouldShowTheUser {
             cycleFocusedWindowIndex(1)
         }
     }
