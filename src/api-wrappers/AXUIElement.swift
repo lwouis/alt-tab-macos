@@ -56,7 +56,8 @@ extension AXUIElement {
             books(runningApp) || (
             // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
             isOnNormalLevel &&
-                (["AXStandardWindow", "AXDialog"].contains(subrole) ||
+                ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
+                    adobeAudition(runningApp, subrole) ||
                     steam(runningApp, title, role) ||
                     worldOfWarcraft(runningApp, role) ||
                     battleNetBootstrapper(runningApp, role) ||
@@ -67,6 +68,11 @@ extension AXUIElement {
                     drBetotte(runningApp)))
     }
 
+    private func adobeAudition(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
+        // Books.app has animations on window creation. This means windows are originally created with subrole == AXUnknown or isOnNormalLevel == false
+        return runningApp.bundleIdentifier == "com.adobe.Audition" && subrole == kAXFloatingWindowSubrole
+    }
+
     private func books(_ runningApp: NSRunningApplication) -> Bool {
         // Books.app has animations on window creation. This means windows are originally created with subrole == AXUnknown or isOnNormalLevel == false
         return runningApp.bundleIdentifier == "com.apple.iBooksX"
@@ -74,12 +80,12 @@ extension AXUIElement {
 
     private func worldOfWarcraft(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         // Battlenet bootstrapper windows have subrole == AXUnknown
-        return runningApp.bundleIdentifier == "com.blizzard.worldofwarcraft" && role == "AXWindow"
+        return runningApp.bundleIdentifier == "com.blizzard.worldofwarcraft" && role == kAXWindowRole
     }
 
     private func battleNetBootstrapper(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         // Battlenet bootstrapper windows have subrole == AXUnknown
-        return runningApp.bundleIdentifier == "net.battle.bootstrapper" && role == "AXWindow"
+        return runningApp.bundleIdentifier == "net.battle.bootstrapper" && role == kAXWindowRole
     }
 
     private func drBetotte(_ runningApp: NSRunningApplication) -> Bool {
@@ -102,7 +108,7 @@ extension AXUIElement {
 
     private func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
-        return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == "AXWindow"
+        return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == kAXWindowRole
     }
 
     private func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {

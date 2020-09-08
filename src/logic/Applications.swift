@@ -69,8 +69,8 @@ class Applications {
         if !App.app.appIsBeingUsed || Preferences.hideAppBadges { return }
         retryAxCallUntilTimeout {
             if let dockPid = (list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.pid),
-               let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == "AXList" }),
-               let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == "AXApplicationDockItem" && ($0.appIsRunning() ?? false) }) {
+               let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == kAXListRole }),
+               let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == kAXApplicationDockItemSubrole && ($0.appIsRunning() ?? false) }) {
                 let axAppDockItemUrlAndLabel = try axAppDockItem.map { try ($0.attribute(kAXURLAttribute, URL.self), $0.attribute(kAXStatusLabelAttribute, String.self)) }
                 DispatchQueue.main.async {
                     refreshBadges_(axAppDockItemUrlAndLabel)
