@@ -151,7 +151,7 @@ private func windowDestroyed(_ element: AXUIElement) throws {
             Windows.removeAndUpdateFocus(window)
             let windowlessApp = window.application.addWindowslessAppsIfNeeded()
             if Windows.list.count > 0 {
-                Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(window.lastFocusOrder)
+                Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(window)
                 App.app.refreshOpenUi(windowlessApp)
             } else {
                 App.app.hideUi()
