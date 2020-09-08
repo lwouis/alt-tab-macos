@@ -5,6 +5,9 @@ import ShortcutRecorder
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
+var activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
+    reason: "Prevent App Nap to preserve responsiveness")
+
 class App: AppCenterApplication, NSApplicationDelegate {
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     static let id = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
