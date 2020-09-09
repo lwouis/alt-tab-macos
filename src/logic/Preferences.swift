@@ -240,7 +240,7 @@ class Preferences {
 
     static func rowCountDependingOnScreenRatio() -> String {
         // landscape; tested with 4/3, 16/10, 16/9
-        if Screen.mainScreenRatio() > 1 {
+        if NSScreen.main!.ratio() > 1 {
             return "4"
         }
         // vertical; tested with 10/16

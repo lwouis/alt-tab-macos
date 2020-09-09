@@ -1,5 +1,27 @@
 import Cocoa
 
+// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
+func retryAxCallUntilTimeout(_ group: DispatchGroup? = nil, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
+    group?.enter()
+    BackgroundWork.axCallsQueue.async {
+        retryAxCallUntilTimeout_(group, fn, startTime)
+    }
+}
+
+func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
+    do {
+        try fn()
+        group?.leave()
+    } catch {
+        let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
+        if timePassedInSeconds < Double(AXUIElement.globalTimeoutInSeconds) {
+            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(10)) {
+                retryAxCallUntilTimeout_(group, fn, startTime)
+            }
+        }
+    }
+}
+
 extension AXUIElement {
     static let globalTimeoutInSeconds = Float(120)
 

@@ -3,15 +3,14 @@ import ShortcutRecorder
 
 class ControlsTab {
     static var nextWindowShortcut: [NSControl]!
-    static var localShortcuts = [String: Shortcut]()
-    static var globalShortcuts = [String: Shortcut]()
+    static var shortcuts = [String: ATShortcut]()
     static var shortcutsActions = [
         "holdShortcut": { App.app.focusTarget() },
         "holdShortcut2": { App.app.focusTarget() },
         "focusWindowShortcut": { App.app.focusTarget() },
         "nextWindowShortcut": { App.app.showUiOrCycleSelection(0) },
         "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1) },
-        "previousWindowShortcut": { App.app.cycleSelection(.trailing) },
+        "previousWindowShortcut": { App.app.previousWindowShortcutWithRepeatingKey() },
         "→": { App.app.cycleSelection(.right) },
         "←": { App.app.cycleSelection(.left) },
         "↑": { App.app.cycleSelection(.up) },
@@ -103,40 +102,37 @@ class ControlsTab {
         return (nextWindowShortcut, tab)
     }
 
-    private static func addShortcut(_ type: KeyEventType, _ shortcut: Shortcut, _ controlId: String, _ globalId: Int?) {
-        removeShortcutIfExists(controlId, type, globalId) // remove the previous shortcut
-        if let globalId = globalId {
-            globalShortcuts[controlId] = shortcut
-            KeyboardEvents.addGlobalShortcut(shortcut, globalId)
-        } else {
-            localShortcuts[controlId] = shortcut
+    private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {
+        let atShortcut = ATShortcut(shortcut, controlId, scope, triggerPhase, index)
+        removeShortcutIfExists(controlId) // remove the previous shortcut
+        shortcuts[controlId] = atShortcut
+        if scope == .global {
+            KeyboardEvents.addGlobalShortcut(controlId, atShortcut.shortcut)
         }
     }
 
     @objc static func shortcutChangedCallback(_ sender: NSControl) {
         let controlId = sender.identifier!.rawValue
-        let globalId = KeyboardEvents.globalShortcuts[controlId]
         if controlId.hasPrefix("holdShortcut") {
             let i = controlId == "holdShortcut" ? 0 : 1
-            addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut[i])!, controlId, globalId)
-            // hold shortcuts need to also be local for the case of space transition reopening the ui
-            addShortcut(.up, Shortcut(keyEquivalent: Preferences.holdShortcut[i])!, controlId, nil)
+            addShortcut(.up, .global, Shortcut(keyEquivalent: Preferences.holdShortcut[i])!, controlId, i)
             if let s = nextWindowShortcut?[i] {
                 shortcutChangedCallback(s)
             }
         } else {
-            let newValue = shortcutStringValue(controlId, sender, globalId)
+            let newValue = shortcutStringValue(controlId, sender)
             if newValue.isEmpty {
-                removeShortcutIfExists(controlId, .down, globalId)
+                removeShortcutIfExists(controlId)
             } else {
-                addShortcut(.down, Shortcut(keyEquivalent: newValue)!, controlId, globalId)
+                let i = controlId.hasPrefix("nextWindowShortcut") ? (controlId == "nextWindowShortcut" ? 0 : 1) : nil
+                addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, Shortcut(keyEquivalent: newValue)!, controlId, i)
             }
         }
     }
 
-    static func shortcutStringValue(_ controlId: String, _ sender: NSControl, _ globalId: Int?) -> String {
+    static func shortcutStringValue(_ controlId: String, _ sender: NSControl) -> String {
         let baseValue = (sender as! RecorderControl).stringValue
-        if globalId != nil {
+        if KeyboardEvents.globalShortcutsIds[controlId] != nil {
             let holdShortcut = controlId == "nextWindowShortcut" ? Preferences.holdShortcut[0] : Preferences.holdShortcut[1]
             // remove the holdShortcut character in case they also use it in the other shortcuts
             let cleanedShortcut = holdShortcut + holdShortcut.reduce(baseValue, { $0.replacingOccurrences(of: String($1), with: "") })
@@ -151,22 +147,18 @@ class ControlsTab {
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
         let keys = ["←", "→", "↑", "↓"]
         if (sender as! NSButton).state == .on {
-            keys.forEach { addShortcut(.down, Shortcut(keyEquivalent: $0)!, $0, nil) }
+            keys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
         } else {
-            keys.forEach { removeShortcutIfExists($0, .down, nil) }
+            keys.forEach { removeShortcutIfExists($0) }
         }
     }
 
-    private static func removeShortcutIfExists(_ controlId: String, _ type: KeyEventType, _ globalId: Int?) {
-        if let globalId = globalId {
-            if globalShortcuts[controlId] != nil {
-                KeyboardEvents.removeGlobalShortcut(globalId, globalShortcuts[controlId]!)
-                globalShortcuts.removeValue(forKey: controlId)
+    private static func removeShortcutIfExists(_ controlId: String) {
+        if let atShortcut = shortcuts[controlId] {
+            if atShortcut.scope == .global {
+                KeyboardEvents.removeGlobalShortcut(controlId, atShortcut.shortcut)
             }
-        } else {
-            if localShortcuts[controlId] != nil {
-                localShortcuts.removeValue(forKey: controlId)
-            }
+            shortcuts.removeValue(forKey: controlId)
         }
     }
 }

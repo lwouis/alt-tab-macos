@@ -19,7 +19,7 @@ class Spaces {
     static func refreshCurrentSpaceId() {
         // it seems that in some rare scenarios, some of these values are nil; we wrap to avoid crashing
         if let mainScreen = NSScreen.main,
-           let uuid = Screen.uuid(mainScreen) {
+           let uuid = mainScreen.uuid() {
             currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, uuid)
         }
     }

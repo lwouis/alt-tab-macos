@@ -2,6 +2,8 @@ import Cocoa
 import Darwin
 import LetsMove
 import ShortcutRecorder
+import AppCenterCrashes
+
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
@@ -20,7 +22,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var feedbackWindow: FeedbackWindow!
     var isFirstSummon = true
     var appIsBeingUsed = false
-    var shortcutsShouldBeDisabled = false
+    var globalShortcutsAreDisabled = false
     var shortcutIndex = 0
     var appCenterDelegate: AppCenterCrash?
 
@@ -56,7 +58,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Applications.initialDiscovery()
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
-            KeyboardEvents.observe()
+            KeyboardEvents.addLocalEventHandler()
             MouseEvents.observe()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
@@ -159,7 +161,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func showSecondaryWindow(_ window: NSWindow?) {
         if let window = window {
-            Screen.repositionPanel(window, Screen.preferred(), .appleCentered)
+            NSScreen.preferred().repositionPanel(window, .appleCentered)
             App.shared.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
         }
@@ -183,6 +185,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
         }
     }
 
+    func previousWindowShortcutWithRepeatingKey() {
+        cycleSelection(.trailing)
+        KeyRepeatTimer.toggleRepeatingKeyPreviousWindow()
+    }
+
     func focusSelectedWindow(_ window: Window?) {
         hideUi()
         guard !CGWindow.isMissionControlActive() else { return }
@@ -196,7 +203,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func refreshOpenUi(_ windowsToUpdate: [Window]? = nil) {
         guard appIsBeingUsed else { return }
-        let currentScreen = Screen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
+        let currentScreen = NSScreen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refreshCurrentSpaceId()
@@ -208,7 +215,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
-        Screen.repositionPanel(thumbnailsPanel, currentScreen, .appleCentered)
+        currentScreen.repositionPanel(thumbnailsPanel, .appleCentered)
     }
 
     private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
@@ -240,7 +247,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             // (At that point we won't be able to see what the element was, of course.)
             Spaces.idsAndIndexes = Spaces.allIdsAndIndexes()
             Windows.updateSpaces()
-            let screen = Screen.preferred()
+            let screen = NSScreen.preferred()
             self.shortcutIndex = shortcutIndex
             Windows.refreshWhichWindowsToShowTheUser(screen)
             Windows.reorderList()
@@ -252,10 +259,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
             }
         } else {
             cycleSelection(.leading)
+            KeyRepeatTimer.toggleRepeatingKeyNextWindow()
         }
     }
 
-    func rebuildUi(_ screen: NSScreen = Screen.preferred()) {
+    func rebuildUi(_ screen: NSScreen = NSScreen.preferred()) {
         guard appIsBeingUsed else { return }
         Windows.refreshFirstFewThumbnailsSync()
         guard appIsBeingUsed else { return }
@@ -268,5 +276,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
         Windows.refreshThumbnailsAsync(screen)
         guard appIsBeingUsed else { return }
         Applications.refreshBadges()
+        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
     }
 }

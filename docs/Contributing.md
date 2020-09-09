@@ -136,7 +136,11 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * Shortcuts can include the `escape` and `delete` key; these should not stop recording shortcuts
 * [Secure Input](https://github.com/lwouis/alt-tab-macos/issues/157#issuecomment-659170293) can prevent AltTab from listening to the keyboard
 * Some shortcuts should only work when AltTab is open
+  * These shortcuts should active whether the hold shortcut is held or not
 * Shortcuts should work with capslock active or inactive
+* Shortcuts should repeat if kept pressed
+  * Repeat rate and initial delay should match the values set in `System Preference` > `Keyboard`
+  * when navigating left/right/up/down, the repeating behavior should stop when hitting the last window in the list. The user can then manually do the shortcut once more to cycle to the other side; it then repeats again
 * The shortcut sets 1 and 2 should not interact with each other (e.g. opening AltTab with one, then using the other to navigate)
 * Shortcuts can focus the window on release, or be pressing a key or using the mouse
 * Keyboards from other countries have different layout which impact shortcuts
