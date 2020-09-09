@@ -53,6 +53,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Vegard
 * Viggo Lekdorf
 * Vlad
+* Webmaster
 * Whatsmine-HaoshuaiXu
 * ysaito
 * Yukai
