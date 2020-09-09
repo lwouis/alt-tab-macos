@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.5.0](https://github.com/lwouis/alt-tab-macos/compare/v6.4.0...v6.5.0) (2020-09-09)
+
+
+### Bug Fixes
+
+* ui would take time to display sometimes (see [#563](https://github.com/lwouis/alt-tab-macos/issues/563)) ([7efc806](https://github.com/lwouis/alt-tab-macos/commit/7efc806))
+
+
+### Features
+
+* update russian and dutch localizations ([eaa0cc9](https://github.com/lwouis/alt-tab-macos/commit/eaa0cc9))
+
 # [6.4.0](https://github.com/lwouis/alt-tab-macos/compare/v6.3.0...v6.4.0) (2020-09-08)
 
 
