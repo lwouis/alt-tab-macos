@@ -126,7 +126,7 @@
 "Fullscreen" = "Volledig scherm";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Schermvullende vensters:";
 
 /*No comment provided by engineer.*/
 "General" = "Algemeen";
@@ -135,10 +135,10 @@
 "Hidden" = "Verborgen";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Verborgen vensters:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Verberg";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Verberg app-badges:";
@@ -177,13 +177,13 @@
 "Left" = "Links";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Max hoogte op scherm:";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "Maximale grootte op beeldscherm:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Max breedte op scherm:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Maximaal aantal vensters per rij:";
@@ -204,7 +204,7 @@
 "Minimized" = "Geminimaliseerd";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Geminimaliseerde vensters:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Muisbeweging";
@@ -249,7 +249,7 @@
 "Remember my choice" = "Onthoud mijn keuze";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Rijen met miniaturen:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Aantal vensterrijen:";
@@ -303,7 +303,7 @@
 "Show" = "Toon";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Toon aan het einde";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Toon op:";
@@ -315,7 +315,7 @@
 "Show the following windows:" = "Toon de volgende vensters:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Vensters weergeven van:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Broncode-repository";
@@ -354,10 +354,10 @@
 "Window app icon size:" = "Icoongrootte vensterapplicatie:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Maximale vensterbreedte in rij:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Minimale vensterbreedte in rij:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tekstgrootte venstertitel:";
