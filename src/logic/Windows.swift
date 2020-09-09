@@ -79,7 +79,13 @@ class Windows {
     }
 
     static func cycleFocusedWindowIndex(_ step: Int) {
-        updateFocusedWindowIndex(windowIndexAfterCycling(step))
+        let nextIndex = windowIndexAfterCycling(step)
+        if ((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
+               (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
+            KeyRepeatTimer.timer?.invalidate()
+            return
+        }
+        updateFocusedWindowIndex(nextIndex)
     }
 
     static func windowIndexAfterCycling(_ step: Int) -> Int {
@@ -203,18 +209,17 @@ class Windows {
         return true
     }
 
-    static func checkIfShortcutsShouldBeDisabled() {
-        if let activeWindow = list.first {
-            App.app.shortcutsShouldBeDisabled = (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen) &&
-                (Preferences.disableShortcutsBlacklist.first { blacklistedId in
-                    if let id = activeWindow.application.runningApplication.bundleIdentifier {
-                        return id.hasPrefix(blacklistedId)
-                    }
-                    return false
-                } != nil)
-            if App.app.shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
-                App.app.hideUi()
-            }
+    static func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window) {
+        let shortcutsShouldBeDisabled = (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen) &&
+            (Preferences.disableShortcutsBlacklist.first { blacklistedId in
+                if let id = activeWindow.application.runningApplication.bundleIdentifier {
+                    return id.hasPrefix(blacklistedId)
+                }
+                return false
+            } != nil)
+        KeyboardEvents.toggleGlobalShortcuts(shortcutsShouldBeDisabled)
+        if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
+            App.app.hideUi()
         }
     }
 }

@@ -5,29 +5,7 @@ func axObserverCallback(observer: AXObserver, element: AXUIElement, notification
     retryAxCallUntilTimeout { try handleEvent(type, element) }
 }
 
-// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-func retryAxCallUntilTimeout(_ group: DispatchGroup? = nil, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
-    group?.enter()
-    BackgroundWork.axCallsQueue.async {
-        retryAxCallUntilTimeout_(group, fn, startTime)
-    }
-}
-
-func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
-    do {
-        try fn()
-        group?.leave()
-    } catch {
-        let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
-        if timePassedInSeconds < Double(AXUIElement.globalTimeoutInSeconds) {
-            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(10)) {
-                retryAxCallUntilTimeout_(group, fn, startTime)
-            }
-        }
-    }
-}
-
-func handleEvent(_ type: String, _ element: AXUIElement) throws {
+fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
     debugPrint("Accessibility event", type, type != kAXFocusedUIElementChangedNotification ? (try element.title() ?? "nil") : "nil")
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid(),
@@ -51,7 +29,7 @@ func handleEvent(_ type: String, _ element: AXUIElement) throws {
     }
 }
 
-private func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throws {
+fileprivate func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throws {
     let currentWindows = try AXUIElementCreateApplication(pid).windows()
     DispatchQueue.main.async {
         let windows = Windows.list.filter { w in
@@ -67,21 +45,21 @@ private func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throw
     }
 }
 
-private func applicationActivated(_ element: AXUIElement) throws {
+fileprivate func applicationActivated(_ element: AXUIElement) throws {
     if let appFocusedWindow = try element.focusedWindow(),
        let wid = try appFocusedWindow.cgWindowId() {
         DispatchQueue.main.async {
             // ensure alt-tab window remains key, so local shortcuts work
             if App.app.appIsBeingUsed { App.app.thumbnailsPanel.makeKeyAndOrderFront(nil) }
-            if let windows = Windows.updateLastFocus(appFocusedWindow, wid) {
-                App.app.refreshOpenUi(windows)
+            if let window = Windows.updateLastFocus(appFocusedWindow, wid) {
+                Windows.checkIfShortcutsShouldBeDisabled(window.first!)
+                App.app.refreshOpenUi(window)
             }
-            Windows.checkIfShortcutsShouldBeDisabled()
         }
     }
 }
 
-private func applicationHiddenOrShown(_ element: AXUIElement, _ pid: pid_t, _ type: String) throws {
+fileprivate func applicationHiddenOrShown(_ element: AXUIElement, _ pid: pid_t, _ type: String) throws {
     DispatchQueue.main.async {
         if let app = (Applications.list.first { $0.pid == pid }) {
             app.isHidden = type == kAXApplicationHiddenNotification
@@ -94,7 +72,7 @@ private func applicationHiddenOrShown(_ element: AXUIElement, _ pid: pid_t, _ ty
     }
 }
 
-private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
+fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
     if let wid = try element.cgWindowId() {
         let axTitle = try element.title()
         let subrole = try element.subrole()
@@ -117,11 +95,11 @@ private func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
     }
 }
 
-private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
+fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
     if let wid = try element.cgWindowId(),
        let runningApp = NSRunningApplication(processIdentifier: pid),
        // photoshop will focus a window *after* you focus another app
-       // we check that a focused window happens within an active app
+        // we check that a focused window happens within an active app
        runningApp.isActive {
         let axTitle = try element.title()
         let subrole = try element.subrole()
@@ -134,17 +112,16 @@ private func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
             if let windows = Windows.updateLastFocus(element, wid) {
                 App.app.refreshOpenUi(windows)
             } else if element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role),
-            let app = (Applications.list.first { $0.pid == pid }) {
+                      let app = (Applications.list.first { $0.pid == pid }) {
                 let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position)
                 Windows.appendAndUpdateFocus(window)
                 App.app.refreshOpenUi([window])
             }
-            Windows.checkIfShortcutsShouldBeDisabled()
         }
     }
 }
 
-private func windowDestroyed(_ element: AXUIElement) throws {
+fileprivate func windowDestroyed(_ element: AXUIElement) throws {
     let wid = try element.cgWindowId()
     DispatchQueue.main.async {
         if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
@@ -160,18 +137,18 @@ private func windowDestroyed(_ element: AXUIElement) throws {
     }
 }
 
-private func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ type: String) throws {
+fileprivate func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ type: String) throws {
     if let wid = try element.cgWindowId() {
         DispatchQueue.main.async {
             if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
-            window.isMinimized = type == kAXWindowMiniaturizedNotification
+                window.isMinimized = type == kAXWindowMiniaturizedNotification
                 App.app.refreshOpenUi([window])
             }
         }
     }
 }
 
-private func windowTitleChanged(_ element: AXUIElement) throws {
+fileprivate func windowTitleChanged(_ element: AXUIElement) throws {
     if let wid = try element.cgWindowId() {
         let newTitle = try element.title()
         DispatchQueue.main.async {
@@ -184,22 +161,24 @@ private func windowTitleChanged(_ element: AXUIElement) throws {
     }
 }
 
-private func windowResized(_ element: AXUIElement) throws {
+fileprivate func windowResized(_ element: AXUIElement) throws {
     // TODO: only trigger this at the end of the resize, not on every tick
     // currenly resizing a window will lag AltTab as it triggers too much UI work
     if let wid = try element.cgWindowId() {
         let isFullscreen = try element.isFullscreen()
         DispatchQueue.main.async {
             if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
-                window.isFullscreen = isFullscreen
+                if window.isFullscreen != isFullscreen {
+                    window.isFullscreen = isFullscreen
+                    Windows.checkIfShortcutsShouldBeDisabled(window)
+                }
                 App.app.refreshOpenUi([window])
             }
-            Windows.checkIfShortcutsShouldBeDisabled()
         }
     }
 }
 
-private func windowMoved(_ element: AXUIElement) throws {
+fileprivate func windowMoved(_ element: AXUIElement) throws {
     if let wid = try element.cgWindowId() {
         let position = try element.position()
         DispatchQueue.main.async {

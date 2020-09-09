@@ -16,28 +16,35 @@ class ThumbnailsView: NSVisualEffectView {
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
     }
 
-    func nextRow(_ direction: Direction) -> [ThumbnailView] {
+    func nextRow(_ direction: Direction) -> [ThumbnailView]? {
         let step = direction == .down ? 1 : -1
-        let indexAfterStep = (Windows.focusedWindow()!.row! + step) % rows.count
-        let targetRowIndex = indexAfterStep < 0 ? rows.count + indexAfterStep : indexAfterStep
-        return rows[targetRowIndex]
+        let currentRow = Windows.focusedWindow()!.row!
+        let nextRow = (currentRow + step) % rows.count
+        let nextRow_ = nextRow < 0 ? rows.count + nextRow : nextRow
+        if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow)) &&
+               (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
+            KeyRepeatTimer.timer?.invalidate()
+            return nil
+        }
+        return rows[nextRow_]
     }
 
     func navigateUpOrDown(_ direction: Direction) {
         let focusedViewFrame = ThumbnailsView.recycledViews[Windows.focusedWindowIndex].frame
         let originCenter = NSMidX(focusedViewFrame)
-        let targetRow = nextRow(direction)
-        let leftSide = originCenter < NSMidX(frame)
-        let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
-        let iterable = leadingSide ? targetRow : targetRow.reversed()
-        let targetView = iterable.first {
-            if App.shared.userInterfaceLayoutDirection == .leftToRight {
-                return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
-            }
-            return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
-        } ?? iterable.last!
-        let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
-        Windows.updateFocusedWindowIndex(targetIndex)
+        if let targetRow = nextRow(direction) {
+            let leftSide = originCenter < NSMidX(frame)
+            let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
+            let iterable = leadingSide ? targetRow : targetRow.reversed()
+            let targetView = iterable.first {
+                if App.shared.userInterfaceLayoutDirection == .leftToRight {
+                    return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
+                }
+                return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
+            } ?? iterable.last!
+            let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
+            Windows.updateFocusedWindowIndex(targetIndex)
+        }
     }
 
     func updateItemsAndLayout(_ screen: NSScreen) {
