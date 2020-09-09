@@ -81,10 +81,10 @@ class Applications {
 
     static func refreshBadges_(_ items: [(URL?, String?)], _ currentIndex: Int = 0) {
         Windows.list.enumerated().forEach { (i, window) in
+            if !App.app.appIsBeingUsed { return }
             let view = ThumbnailsView.recycledViews[i]
             if let app = (Applications.list.first { window.application.pid == $0.pid }) {
-                if App.app.appIsBeingUsed,
-                   app.runningApplication.activationPolicy == .regular,
+                if app.runningApplication.activationPolicy == .regular,
                    let bundleId = app.runningApplication.bundleIdentifier,
                    let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId),
                    let matchingItem = (items.first { $0.0 == url }),
