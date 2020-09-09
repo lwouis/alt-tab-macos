@@ -30,7 +30,7 @@ class BackgroundWork {
 
 extension DispatchQueue {
     static func globalConcurrent(_ label: String, _ qos: DispatchQoS) -> DispatchQueue {
-        return DispatchQueue(label: label, target: .global(qos: qos.qosClass))
+        return DispatchQueue(label: label, attributes: .concurrent, target: .global(qos: qos.qosClass))
     }
 
     func asyncWithCap(_ deadline: DispatchTime? = nil, _ fn: @escaping () -> Void) {
