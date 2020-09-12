@@ -18,7 +18,7 @@
 "Active screen" = "Ecrã activo";
 
 /*No comment provided by engineer.*/
-"Active space" = "Space activo";
+"Active Space" = "Space activo";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Alinhar janelas:";
@@ -33,7 +33,7 @@
 "All screens" = "Todas os ecrãs";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Todos os spaces";
+"All Spaces" = "Todos os spaces";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Permitido";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Esconder círculos coloridos onde o rato passar:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Não exibir número do space:";
+"Hide Space number labels:" = "Não exibir número do space:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Esconder ícones de estado:";

@@ -18,7 +18,7 @@
 "Active screen" = "活跃屏幕";
 
 /*No comment provided by engineer.*/
-"Active space" = "活跃桌面";
+"Active Space" = "活跃桌面";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "窗口对齐方式：";
@@ -33,7 +33,7 @@
 "All screens" = "所有屏幕";
 
 /*No comment provided by engineer.*/
-"All spaces" = "所有桌面";
+"All Spaces" = "所有桌面";
 
 /*No comment provided by engineer.*/
 "Allowed" = "允许";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "鼠标悬停时隐藏彩色圆圈：";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "隐藏桌面编号：";
+"Hide Space number labels:" = "隐藏桌面编号：";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "隐藏状态图标：";

@@ -18,7 +18,7 @@
 "Active screen" = "活躍的螢幕";
 
 /*No comment provided by engineer.*/
-"Active space" = "活躍的桌面";
+"Active Space" = "活躍的桌面";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "排列視窗：";
@@ -33,7 +33,7 @@
 "All screens" = "全部螢幕";
 
 /*No comment provided by engineer.*/
-"All spaces" = "全部桌面";
+"All Spaces" = "全部桌面";
 
 /*No comment provided by engineer.*/
 "Allowed" = "允許";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "隱藏滑鼠懸停時顯示的視窗控制鈕：";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "隱藏空間編號的標籤：";
+"Hide Space number labels:" = "隱藏空間編號的標籤：";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "隱藏狀態圖示：";

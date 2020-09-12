@@ -330,8 +330,8 @@ enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .all: return NSLocalizedString("All spaces", comment: "")
-            case .active: return NSLocalizedString("Active space", comment: "")
+            case .all: return NSLocalizedString("All Spaces", comment: "")
+            case .active: return NSLocalizedString("Active Space", comment: "")
         }
     }
 }

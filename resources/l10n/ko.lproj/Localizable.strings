@@ -18,7 +18,7 @@
 "Active screen" = "활성화된 화면";
 
 /*No comment provided by engineer.*/
-"Active space" = "활성화된 Space";
+"Active Space" = "활성화된 Space";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "윈도우 정렬방식:";
@@ -33,7 +33,7 @@
 "All screens" = "모든 화면";
 
 /*No comment provided by engineer.*/
-"All spaces" = "모든 Space";
+"All Spaces" = "모든 Space";
 
 /*No comment provided by engineer.*/
 "Allowed" = "허용됨";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "마우스를 올릴 때 색칠된 원들 숨기기:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Space 번호 숨기기:";
+"Hide Space number labels:" = "Space 번호 숨기기:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "상태 아이콘 숨기기:";
