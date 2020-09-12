@@ -18,7 +18,7 @@
 "Active screen" = "Actieve scherm";
 
 /*No comment provided by engineer.*/
-"Active space" = "Actieve space";
+"Active Space" = "Actieve space";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Lijn vensters uit:";
@@ -33,7 +33,7 @@
 "All screens" = "Alle beeldschermen";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Alle spaces";
+"All Spaces" = "Alle spaces";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Toegestaan";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Verberg gekleurde cirkels wanneer de muis erover zweeft:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Verberg space-nummer:";
+"Hide Space number labels:" = "Verberg space-nummer:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Verberg statusiconen:";

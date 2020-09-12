@@ -18,7 +18,7 @@
 "Active screen" = "Aktif ekran";
 
 /*No comment provided by engineer.*/
-"Active space" = "Aktif boşluk";
+"Active Space" = "Aktif boşluk";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Pencereleri hizala:";
@@ -33,7 +33,7 @@
 "All screens" = "Tüm pencereler";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Tüm boşluklar";
+"All Spaces" = "Tüm boşluklar";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Allowed";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Ekran etiketlerini gizle:";
+"Hide Space number labels:" = "Ekran etiketlerini gizle:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";

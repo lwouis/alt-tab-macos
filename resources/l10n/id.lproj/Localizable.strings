@@ -18,7 +18,7 @@
 "Active screen" = "Layar aktif";
 
 /*No comment provided by engineer.*/
-"Active space" = "Ruang aktif";
+"Active Space" = "Ruang aktif";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Luruskan jendela:";
@@ -33,7 +33,7 @@
 "All screens" = "Semua layar";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Semua ruang";
+"All Spaces" = "Semua ruang";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Dibolehkan";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Sembunyikan lingkaran berwarna pada mouse hover:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Sembunyikan label nomor ruang:";
+"Hide Space number labels:" = "Sembunyikan label nomor ruang:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Sembunyikan status ikon:";

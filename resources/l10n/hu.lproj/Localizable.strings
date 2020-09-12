@@ -18,7 +18,7 @@
 "Active screen" = "Aktív képernyő";
 
 /*No comment provided by engineer.*/
-"Active space" = "Aktív terület";
+"Active Space" = "Aktív terület";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Ablakok rendezése:";
@@ -33,7 +33,7 @@
 "All screens" = "Minden képernyő";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Minden terület";
+"All Spaces" = "Minden terület";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Engedélyezve";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "A színes körök elrejtése amikor az egeret fölé viszi:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Számok elrejtése a terület cimkékben:";
+"Hide Space number labels:" = "Számok elrejtése a terület cimkékben:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Státusz ikonok elrejtése:";

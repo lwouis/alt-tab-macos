@@ -18,7 +18,7 @@
 "Active screen" = "الشاشة الحالية";
 
 /*No comment provided by engineer.*/
-"Active space" = "المساحة الحالية";
+"Active Space" = "المساحة الحالية";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "ترتيب النوافذ:";
@@ -33,7 +33,7 @@
 "All screens" = "كل الشاشات";
 
 /*No comment provided by engineer.*/
-"All spaces" = "كل المساحات";
+"All Spaces" = "كل المساحات";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Allowed";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "إخفاء مساحة الأرقام:";
+"Hide Space number labels:" = "إخفاء مساحة الأرقام:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";

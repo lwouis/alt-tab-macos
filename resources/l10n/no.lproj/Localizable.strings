@@ -18,7 +18,7 @@
 "Active screen" = "Aktiv skjerm";
 
 /*No comment provided by engineer.*/
-"Active space" = "Aktivt område";
+"Active Space" = "Aktivt område";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Sammenstill vinduer:";
@@ -33,7 +33,7 @@
 "All screens" = "Alle skjermer";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Alle områder";
+"All Spaces" = "Alle områder";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Tillatt";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Skjul fargede sirkler når musa er over:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Skjul merking av områdenummer:";
+"Hide Space number labels:" = "Skjul merking av områdenummer:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Skjul statusikoner:";

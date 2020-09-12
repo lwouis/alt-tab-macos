@@ -18,7 +18,7 @@
 "Active screen" = "Aktiivinen ruutu";
 
 /*No comment provided by engineer.*/
-"Active space" = "Aktiivinen tila";
+"Active Space" = "Aktiivinen tila";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Tasaa ikkunat:";
@@ -33,7 +33,7 @@
 "All screens" = "Kaikki ruudut";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Kaikki tilat";
+"All Spaces" = "Kaikki tilat";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Sallittu";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Piilota väriympyrät hiirellä liikuttaessa:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Piilota tilojen numerot:";
+"Hide Space number labels:" = "Piilota tilojen numerot:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Piilota statusikonit:";

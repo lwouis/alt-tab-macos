@@ -18,7 +18,7 @@
 "Active screen" = "Aktywny ekran";
 
 /*No comment provided by engineer.*/
-"Active space" = "Aktywna przestrzeń";
+"Active Space" = "Aktywna przestrzeń";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Wyrównaj okna:";
@@ -33,7 +33,7 @@
 "All screens" = "Wszystkie ekrany";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Wszystkie przestrzenie";
+"All Spaces" = "Wszystkie przestrzenie";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Dozwolone";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Hide space number labels:";
+"Hide Space number labels:" = "Hide Space number labels:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";

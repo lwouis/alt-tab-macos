@@ -18,7 +18,7 @@
 "Active screen" = "Активный экран";
 
 /*No comment provided by engineer.*/
-"Active space" = "Активный рабочий стол";
+"Active Space" = "Активный рабочий стол";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Выравнивание окон:";
@@ -33,7 +33,7 @@
 "All screens" = "Все экраны";
 
 /*No comment provided by engineer.*/
-"All spaces" = "Все рабочие столы";
+"All Spaces" = "Все рабочие столы";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Разрешено";
@@ -150,7 +150,7 @@
 "Hide colored circles on mouse hover:" = "Скрыть цветные круги при наведении мышью:";
 
 /*No comment provided by engineer.*/
-"Hide space number labels:" = "Скрыть номера рабочих столов:";
+"Hide Space number labels:" = "Скрыть номера рабочих столов:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Скрыть иконки состояния:";
