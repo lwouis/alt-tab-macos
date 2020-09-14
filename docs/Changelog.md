@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.6.0](https://github.com/lwouis/alt-tab-macos/compare/v6.5.0...v6.6.0) (2020-09-14)
+
+
+### Bug Fixes
+
+* app would sometimes crash at launch (closes [#607](https://github.com/lwouis/alt-tab-macos/issues/607)) ([7288013](https://github.com/lwouis/alt-tab-macos/commit/7288013))
+
+
+### Features
+
+* update japanese localization ([473e08f](https://github.com/lwouis/alt-tab-macos/commit/473e08f))
+
 # [6.5.0](https://github.com/lwouis/alt-tab-macos/compare/v6.4.0...v6.5.0) (2020-09-09)
 
 
