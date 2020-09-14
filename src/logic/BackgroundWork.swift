@@ -12,6 +12,8 @@ class BackgroundWork {
 
     // we cap concurrent tasks to .processorCount to avoid thread explosion on the .global queue
     static let globalSemaphore = DispatchSemaphore(value: ProcessInfo.processInfo.processorCount)
+    // Thread.start() is async; we use a semaphore to ensure threads are actually ready before we continue the launch sequence
+    static let threadStartSemaphore = DispatchSemaphore(value: 0)
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
@@ -50,11 +52,16 @@ extension DispatchQueue {
 class BackgroundThreadWithRunLoop {
     var thread: Thread?
     var runLoop: CFRunLoop?
+    var hasSentSemaphoreSignal = false
 
     init(_ name: String, _ qos: DispatchQoS) {
         thread = Thread {
             self.runLoop = CFRunLoopGetCurrent()
             while !self.thread!.isCancelled {
+                if !self.hasSentSemaphoreSignal {
+                    BackgroundWork.threadStartSemaphore.signal()
+                    self.hasSentSemaphoreSignal = true
+                }
                 CFRunLoopRun()
                 // avoid tight loop while waiting for the first runloop source to be added
                 Thread.sleep(forTimeInterval: 0.1)
@@ -63,5 +70,6 @@ class BackgroundThreadWithRunLoop {
         thread!.name = name
         thread!.qualityOfService = qos.toQualityOfService()
         thread!.start()
+        BackgroundWork.threadStartSemaphore.wait()
     }
 }
