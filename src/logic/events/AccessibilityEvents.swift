@@ -30,18 +30,20 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
 }
 
 fileprivate func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-    let currentWindows = try AXUIElementCreateApplication(pid).windows()
-    DispatchQueue.main.async {
-        let windows = Windows.list.filter { w in
-            if w.application.pid == pid && pid != ProcessInfo.processInfo.processIdentifier &&
-                   w.spaceId == Spaces.currentSpaceId {
-                let oldIsTabbed = w.isTabbed
-                w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil)
-                return oldIsTabbed != w.isTabbed
+    if NSRunningApplication(processIdentifier: pid) != nil {
+        let currentWindows = try AXUIElementCreateApplication(pid).windows()
+        DispatchQueue.main.async {
+            let windows = Windows.list.filter { w in
+                if w.application.pid == pid && pid != ProcessInfo.processInfo.processIdentifier &&
+                       w.spaceId == Spaces.currentSpaceId {
+                    let oldIsTabbed = w.isTabbed
+                    w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil)
+                    return oldIsTabbed != w.isTabbed
+                }
+                return false
             }
-            return false
+            App.app.refreshOpenUi(windows)
         }
-        App.app.refreshOpenUi(windows)
     }
 }
 
