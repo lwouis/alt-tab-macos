@@ -151,7 +151,7 @@ class Preferences {
         defaults.string(forKey: key)
     }
 
-    static func set(_ key: String, _ value: Any?) {
+    static func set(_ key: String, _ value: String) {
         defaults.set(value, forKey: key)
         UserDefaults.cache.removeValue(forKey: key)
     }
@@ -436,39 +436,50 @@ enum CrashPolicyPreference: String, CaseIterable, MacroPreference {
 }
 
 extension UserDefaults {
-    static var cache = [String: Any]()
+    static var cache = [String: String]()
 
-    func getFromCacheOrFresh<T>(_ key: String, _ getterFn: () -> T?) -> T {
+    func getFromCacheOrFetchAndCache(_ key: String) -> String {
         if let c = UserDefaults.cache[key] {
-            return c as! T
+            return c
         }
-        if let v = getterFn() {
-            UserDefaults.cache[key] = v
-            return v
-        }
-        removeObject(forKey: key)
-        let v = getterFn()!
+        let v = defaults.string(forKey: key)!
         UserDefaults.cache[key] = v
         return v
     }
 
+    func getThenConvertOrReset<T>(_ key: String, _ getterFn: (String) -> T?) -> T {
+        let stringValue = getFromCacheOrFetchAndCache(key)
+        if let v = getterFn(stringValue) {
+            return v
+        }
+        removeObject(forKey: key)
+        UserDefaults.cache.removeValue(forKey: key)
+        let stringValue2 = getFromCacheOrFetchAndCache(key)
+        let v = getterFn(stringValue2)!
+        return v
+    }
+
     func string(_ key: String) -> String {
-        return getFromCacheOrFresh(key, { string(forKey: key)! })
+        return getFromCacheOrFetchAndCache(key)
     }
 
     func int(_ key: String) -> Int {
-        return getFromCacheOrFresh(key, { Int(string(key)) })
+        return getThenConvertOrReset(key, { s in Int(s) })
     }
 
     func bool(_ key: String) -> Bool {
-        return getFromCacheOrFresh(key, { Bool(string(key)) })
+        return getThenConvertOrReset(key, { s in Bool(s) })
     }
 
     func cgfloat(_ key: String) -> CGFloat {
-        return getFromCacheOrFresh(key, { Int(string(key)).map { CGFloat($0) } })
+        return getThenConvertOrReset(key, { s in Int(s).flatMap { CGFloat($0) } })
+    }
+
+    func double(_ key: String) -> Double {
+        return getThenConvertOrReset(key, { s in Double(s) })
     }
 
     func macroPref<A>(_ key: String, _ macroPreferences: [A]) -> A {
-        return getFromCacheOrFresh(key, { macroPreferences[safe: int(key)] })
+        return getThenConvertOrReset(key, { s in Int(s).flatMap { macroPreferences[safe: $0] } })
     }
 }

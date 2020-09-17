@@ -18,7 +18,7 @@ class LabelAndControl: NSObject {
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : " ", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
-        checkbox.state = (Preferences.getString(rawName)! as NSString).boolValue ? .on : .off
+        checkbox.state = defaults.bool(rawName) ? .on : .off
         let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
     }
@@ -30,7 +30,7 @@ class LabelAndControl: NSObject {
             extraAction?(textArea)
         }
         textArea.identifier = NSUserInterfaceItemIdentifier(rawName)
-        textArea.stringValue = Preferences.getString(rawName)!
+        textArea.stringValue = defaults.string(rawName)
         return [textArea]
     }
 
@@ -42,7 +42,7 @@ class LabelAndControl: NSObject {
         let popUp = NSPopUpButton()
         popUp.translatesAutoresizingMaskIntoConstraints = false
         popUp.addItems(withTitles: macroPreferences.map { $0.localizedString })
-        popUp.selectItem(at: Int(Preferences.getString(rawName)!)!)
+        popUp.selectItem(at: defaults.int(rawName))
         return popUp
     }
 
@@ -56,7 +56,7 @@ class LabelAndControl: NSObject {
         return macroPreferences.map {
             let button = NSButton(radioButtonWithTitle: $0.localizedString, target: nil, action: nil)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.state = Int(Preferences.getString(rawName)!)! == i ? .on : .off
+            button.state = defaults.int(rawName) == i ? .on : .off
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
             i += 1
             return button
@@ -64,12 +64,12 @@ class LabelAndControl: NSObject {
     }
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "", extraAction: ActionClosure? = nil) -> [NSView] {
-        let value = Preferences.getString(rawName)!
-        let suffixText = MeasurementFormatter().string(from: Measurement(value: Double(value)!, unit: Unit(symbol: unitText)))
+        let value = defaults.double(rawName)
+        let suffixText = MeasurementFormatter().string(from: Measurement(value: value, unit: Unit(symbol: unitText)))
         let slider = NSSlider()
         slider.minValue = minValue
         slider.maxValue = maxValue
-        slider.stringValue = value
+        slider.stringValue = String(value)
         slider.isContinuous = true
         return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText, extraAction: extraAction)
     }
