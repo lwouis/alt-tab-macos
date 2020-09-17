@@ -3,7 +3,7 @@
 "About" = "О программе";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "О приложении %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Универсальный доступ";
@@ -126,7 +126,7 @@
 "Fullscreen" = "Полноэкранные";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Развернутые окна:";
 
 /*No comment provided by engineer.*/
 "General" = "Основное";
@@ -135,10 +135,10 @@
 "Hidden" = "Скрытые";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Скрытые окна:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Скрыть";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Скрыть значки приложений:";
@@ -156,7 +156,7 @@
 "Hide status icons:" = "Скрыть иконки состояния:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Скрыть эскизы окон:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Скрыть/Показать приложение";
@@ -177,13 +177,13 @@
 "Left" = "Слева";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Макс. высота на экране:";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "Макс. размер на экране:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Макс. ширина на экране:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Макс. количество окон в ряду:";
@@ -204,7 +204,7 @@
 "Minimized" = "Свернутые";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Свернутые окна:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Наведение мышью";
@@ -249,7 +249,7 @@
 "Remember my choice" = "Запомнить мой выбор";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Ряды с эскизами окон:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Количество рядов окон:";
@@ -303,7 +303,7 @@
 "Show" = "Показать";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Показывать в конце";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Показать на:";
@@ -315,7 +315,7 @@
 "Show the following windows:" = "Показывать следующие окна:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Показывать окна:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Репозиторий исходного кода";
@@ -354,10 +354,10 @@
 "Window app icon size:" = "Размер иконки окна:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Максимальная ширина эскиза в ряду:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Минимальная ширина эскиза в ряду:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Размер заголовка:";
