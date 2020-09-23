@@ -79,6 +79,7 @@ extension AXUIElement {
             // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
             isOnNormalLevel &&
                 ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
+                    openBoard(runningApp) ||
                     adobeAudition(runningApp, subrole) ||
                     steam(runningApp, title, role) ||
                     worldOfWarcraft(runningApp, role) ||
@@ -88,6 +89,11 @@ extension AXUIElement {
                     sanGuoShaAirWD(runningApp) ||
                     dvdFab(runningApp) ||
                     drBetotte(runningApp)))
+    }
+
+    private func openBoard(_ runningApp: NSRunningApplication) -> Bool {
+        // Books.app has animations on window creation. This means windows are originally created with subrole == AXUnknown or isOnNormalLevel == false
+        return runningApp.bundleIdentifier == "org.oe-f.OpenBoard"
     }
 
     private func adobeAudition(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
