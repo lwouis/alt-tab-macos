@@ -32,6 +32,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Elisabeth landblok
 * Eric WANTZ
 * Filipe
+* hann-solo
 * Hokuto Kato
 * Ialiendeg
 * Jaeyong Sung
@@ -42,7 +43,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lcwhhh
 * Lumaxis
 * lwouis
-* Masatora
 * Michael
 * Nilton Souza
 * Petr Kolář
