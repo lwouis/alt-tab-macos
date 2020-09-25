@@ -1,5 +1,21 @@
 # Release notes
 
+# [6.7.0](https://github.com/lwouis/alt-tab-macos/compare/v6.6.0...v6.7.0) (2020-09-25)
+
+
+### Bug Fixes
+
+* cpu usage higher than normal for 2min after quitting an app ([2f4c56c](https://github.com/lwouis/alt-tab-macos/commit/2f4c56c))
+* crash on launch in some rare scenarios (closes [#615](https://github.com/lwouis/alt-tab-macos/issues/615)) ([5d4b2b0](https://github.com/lwouis/alt-tab-macos/commit/5d4b2b0))
+
+
+### Features
+
+* make shortcuts repeat when held down (closes [#556](https://github.com/lwouis/alt-tab-macos/issues/556)) ([6803b02](https://github.com/lwouis/alt-tab-macos/commit/6803b02))
+* show openboard window ([#621](https://github.com/lwouis/alt-tab-macos/issues/621)) ([5b35601](https://github.com/lwouis/alt-tab-macos/commit/5b35601))
+* update japanese and portuguese (brazil) localizations ([85638df](https://github.com/lwouis/alt-tab-macos/commit/85638df))
+* update russian localization ([40ef009](https://github.com/lwouis/alt-tab-macos/commit/40ef009))
+
 # [6.6.0](https://github.com/lwouis/alt-tab-macos/compare/v6.5.0...v6.6.0) (2020-09-14)
 
 
