@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.7.1](https://github.com/lwouis/alt-tab-macos/compare/v6.7.0...v6.7.1) (2020-09-27)
+
+
+### Bug Fixes
+
+* crashes when some shortcuts was set to nothing ([9b3e4b1](https://github.com/lwouis/alt-tab-macos/commit/9b3e4b1))
+
 # [6.7.0](https://github.com/lwouis/alt-tab-macos/compare/v6.6.0...v6.7.0) (2020-09-25)
 
 
