@@ -54,7 +54,7 @@ class ATShortcut {
             return modifiers == (modifiers | shortcut.carbonModifierFlags)
         }
         let suffix = App.app.shortcutIndex == 0 ? "" : "2"
-        let holdModifiers = ControlsTab.shortcuts["nextWindowShortcut" + suffix]!.shortcut.carbonModifierFlags
+        let holdModifiers = ControlsTab.shortcuts["holdShortcut" + suffix]!.shortcut.carbonModifierFlags
         // contains exactly or exactly + holdShortcut modifiers
         return modifiers == shortcut.carbonModifierFlags || modifiers == (shortcut.carbonModifierFlags | holdModifiers)
     }
