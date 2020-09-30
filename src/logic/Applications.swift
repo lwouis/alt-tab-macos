@@ -101,14 +101,18 @@ class Applications {
     }
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
-        return (app.activationPolicy != .prohibited || isNotXpc(app)) && !app.processIdentifier.isZombie()
+        // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
+        return app.activationPolicy != .prohibited && isNotXpc(app) && !app.processIdentifier.isZombie()
     }
 
     private static func isNotXpc(_ app: NSRunningApplication) -> Bool {
-        return app.bundleURL
-            .flatMap { Bundle(url: $0) }
-            .flatMap { $0.infoDictionary }
-            .flatMap { $0["CFBundlePackageType"] as? String } != "XPC!"
+        // these private APIs are more reliable than Bundle.init? as it can return nil (e.g. for com.apple.dock.etci)
+        var psn = ProcessSerialNumber()
+        GetProcessForPID(app.processIdentifier, &psn)
+        var info = ProcessInfoRec()
+        GetProcessInformation(&psn, &info)
+        debugPrint(app.bundleIdentifier, String(info.processType))
+        return String(info.processType) != "XPC!"
     }
 
     // managing AltTab windows within AltTab create all sorts of side effects

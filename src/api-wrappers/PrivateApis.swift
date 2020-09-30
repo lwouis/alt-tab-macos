@@ -136,6 +136,16 @@ func setNativeCommandTabEnabled(_ isEnabled: Bool) {
     CGSSetSymbolicHotKeyEnabled(2, isEnabled) // command+shift+tab
 }
 
+// returns info about a given psn
+// * macOS 10.9-10.15 (officially removed in 10.9, but available as a private API still)
+@_silgen_name("GetProcessInformation") @discardableResult
+func GetProcessInformation(_ psn: inout ProcessSerialNumber, _ info: inout ProcessInfoRec) -> OSErr
+//
+// returns the psn for a given pid
+// * macOS 10.9-10.15 (officially removed in 10.9, but available as a private API still)
+@_silgen_name("GetProcessForPID") @discardableResult
+func GetProcessForPID(_ pid: pid_t, _ psn: inout ProcessSerialNumber) -> OSStatus
+
 
 // ------------------------------------------------------------
 // below are some notes on some private APIs I experimented with
@@ -189,16 +199,6 @@ func setNativeCommandTabEnabled(_ isEnabled: Bool) {
 //// * deprecated in macOS 10.9, so we have to declare it to use it in Swift
 //@_silgen_name("GetProcessPID")
 //func GetProcessPID(_ psn: inout ProcessSerialNumber, _ pid: inout pid_t) -> Void
-//
-//// returns info about a given psn
-//// * macOS 10.9-
-//@_silgen_name("GetProcessInformation") @discardableResult
-//func GetProcessInformation(_ psn: inout ProcessSerialNumber, _ info: inout ProcessInfoRec) -> OSErr
-//
-//// returns the psn for a given pid
-//// * macOS 10.9-
-//@_silgen_name("GetProcessForPID") @discardableResult
-//func GetProcessForPID(_ pid: pid_t, _ psn: inout ProcessSerialNumber) -> OSStatus
 //
 //// crashed the app with SIGSEGV
 //// * macOS 10.10+
