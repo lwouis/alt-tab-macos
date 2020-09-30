@@ -170,3 +170,10 @@ extension pid_t {
         return kinfo.kp_proc.p_stat == SZOMB
     }
 }
+
+extension String {
+    // convert a FourCharCode into a String
+    init(_ fourCharCode: FourCharCode) { // or `OSType`, or `UInt32`
+        self = NSFileTypeForHFSTypeCode(fourCharCode).trimmingCharacters(in: CharacterSet(charactersIn: "'"))
+    }
+}
