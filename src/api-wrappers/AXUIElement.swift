@@ -92,12 +92,10 @@ extension AXUIElement {
     }
 
     private func openBoard(_ runningApp: NSRunningApplication) -> Bool {
-        // Books.app has animations on window creation. This means windows are originally created with subrole == AXUnknown or isOnNormalLevel == false
         return runningApp.bundleIdentifier == "org.oe-f.OpenBoard"
     }
 
     private func adobeAudition(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
-        // Books.app has animations on window creation. This means windows are originally created with subrole == AXUnknown or isOnNormalLevel == false
         return runningApp.bundleIdentifier == "com.adobe.Audition" && subrole == kAXFloatingWindowSubrole
     }
 
@@ -107,7 +105,6 @@ extension AXUIElement {
     }
 
     private func worldOfWarcraft(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
-        // Battlenet bootstrapper windows have subrole == AXUnknown
         return runningApp.bundleIdentifier == "com.blizzard.worldofwarcraft" && role == kAXWindowRole
     }
 
