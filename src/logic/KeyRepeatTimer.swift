@@ -41,7 +41,6 @@ class KeyRepeatTimer {
     }
 
     private static func ticksToSeconds(_ appleNumber: String) -> Double {
-        let refreshRate = NSScreen.preferred().refreshRate() ?? 60
-        return Double(appleNumber)! / refreshRate
+        return Double(appleNumber)! / 60
     }
 }
