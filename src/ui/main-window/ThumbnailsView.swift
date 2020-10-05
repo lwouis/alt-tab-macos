@@ -18,15 +18,17 @@ class ThumbnailsView: NSVisualEffectView {
 
     func nextRow(_ direction: Direction) -> [ThumbnailView]? {
         let step = direction == .down ? 1 : -1
-        let currentRow = Windows.focusedWindow()!.row!
-        let nextRow = (currentRow + step) % rows.count
-        let nextRow_ = nextRow < 0 ? rows.count + nextRow : nextRow
-        if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow)) &&
-               (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
-            KeyRepeatTimer.timer?.invalidate()
-            return nil
+        if let currentRow = Windows.focusedWindow()?.row {
+            let nextRow = (currentRow + step) % rows.count
+            let nextRow_ = nextRow < 0 ? rows.count + nextRow : nextRow
+            if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow)) &&
+                   (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
+                KeyRepeatTimer.timer?.invalidate()
+                return nil
+            }
+            return rows[nextRow_]
         }
-        return rows[nextRow_]
+        return nil
     }
 
     func navigateUpOrDown(_ direction: Direction) {
