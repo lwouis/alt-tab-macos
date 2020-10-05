@@ -55,8 +55,9 @@ class KeyboardEvents {
         if shouldDisable != App.app.globalShortcutsAreDisabled {
             let fn = shouldDisable ? unregisterHotKeyIfNeeded : registerHotKeyIfNeeded
             for shortcutId in globalShortcutsIds.keys {
-                let shortcut = ControlsTab.shortcuts[shortcutId]!.shortcut
-                fn(shortcutId, shortcut)
+                if let shortcut = ControlsTab.shortcuts[shortcutId]?.shortcut {
+                    fn(shortcutId, shortcut)
+                }
             }
             debugPrint("toggleGlobalShortcuts", shouldDisable)
             App.app.globalShortcutsAreDisabled = shouldDisable
