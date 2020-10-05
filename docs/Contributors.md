@@ -23,6 +23,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Abdulelah
 * Aden Aziz
 * Albert Abdilim
+* anushree b
 * blanorama
 * caduellery
 * Chun Fei Lung
