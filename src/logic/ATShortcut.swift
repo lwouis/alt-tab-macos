@@ -25,6 +25,11 @@ class ATShortcut {
                 state = state == .down ? .up : .down
                 if state == .up {
                     KeyRepeatTimer.timer?.invalidate()
+                } else {
+                    // macOS bug: the app doesn't receive either local or global modifierChanged events during Space transition
+                    // we force holdShortcut to be .down if nextWindowShortcut trigger during a transition, since we know it has to be down at that point
+                    let suffix = shortcutId == "nextWindowShortcut" ? "" : "2"
+                    ControlsTab.shortcuts["holdShortcut" + suffix]!.state = .down
                 }
                 if (triggerPhase == .down && shortcutState == .down) || (triggerPhase == .up && shortcutState == .up) {
                     return true
