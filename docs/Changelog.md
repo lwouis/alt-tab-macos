@@ -1,5 +1,17 @@
 # Release notes
 
+## [6.7.2](https://github.com/lwouis/alt-tab-macos/compare/v6.7.1...v6.7.2) (2020-10-06)
+
+
+### Bug Fixes
+
+* crash in rare unknown scenario scenario ([08581f5](https://github.com/lwouis/alt-tab-macos/commit/08581f5))
+* crash on blacklisted app with main shortcut cleared ([c3f0686](https://github.com/lwouis/alt-tab-macos/commit/c3f0686))
+* ignore more non-user-facing apps (xpc processes) ([8417564](https://github.com/lwouis/alt-tab-macos/commit/8417564))
+* key repeat rate was too fast on high fps monitors (closes [#633](https://github.com/lwouis/alt-tab-macos/issues/633)) ([b408f14](https://github.com/lwouis/alt-tab-macos/commit/b408f14))
+* keynote was not showing while in slideshow mode (closes [#636](https://github.com/lwouis/alt-tab-macos/issues/636)) ([ec7b69f](https://github.com/lwouis/alt-tab-macos/commit/ec7b69f))
+* space transition sometimes absorbed the shortcut (closes [#588](https://github.com/lwouis/alt-tab-macos/issues/588)) ([5e6a0c2](https://github.com/lwouis/alt-tab-macos/commit/5e6a0c2))
+
 ## [6.7.1](https://github.com/lwouis/alt-tab-macos/compare/v6.7.0...v6.7.1) (2020-09-27)
 
 
