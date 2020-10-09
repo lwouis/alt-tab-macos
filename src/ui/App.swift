@@ -25,6 +25,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var globalShortcutsAreDisabled = false
     var shortcutIndex = 0
     var appCenterDelegate: AppCenterCrash?
+    // multiple delayed display triggers should only show the ui when the last one triggers
+    var delayedDisplayScheduled = 0
 
     override init() {
         super.init()
@@ -254,8 +256,12 @@ class App: AppCenterApplication, NSApplicationDelegate {
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(1)
+            delayedDisplayScheduled += 1
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
-                self.rebuildUi(screen)
+                if self.delayedDisplayScheduled == 1 {
+                    self.rebuildUi(screen)
+                }
+                self.delayedDisplayScheduled -= 1
             }
         } else {
             cycleSelection(.leading)
