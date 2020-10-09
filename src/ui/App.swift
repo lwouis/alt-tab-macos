@@ -60,7 +60,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Applications.initialDiscovery()
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
-            KeyboardEvents.addLocalEventHandler()
+            KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
