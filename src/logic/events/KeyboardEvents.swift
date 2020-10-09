@@ -14,7 +14,6 @@ class KeyboardEvents {
         "holdShortcut2": 3,
     ]
     static var eventHotKeyRefs = [String: EventHotKeyRef?]()
-    static var hotModifierEventHandler: EventHandlerRef?
     static var hotKeyPressedEventHandler: EventHandlerRef?
     static var hotKeyReleasedEventHandler: EventHandlerRef?
     static var localMonitor: Any!
@@ -70,22 +69,33 @@ class KeyboardEvents {
         }
     }
 
-    static func addLocalEventHandler() {
-        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp, .flagsChanged]) { event in
+    static func addEventHandlers() {
+        addLocalMonitorForKeyDownAndKeyUp()
+        addCgEventTapForModifierFlags()
+    }
+
+    private static func addLocalMonitorForKeyDownAndKeyUp() {
+        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { event in
             return handleEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, cocoaToCarbonFlags(event.modifierFlags), event.type == .keyDown ? event.isARepeat : false) ? nil : event
         }
     }
 
+    private static func addCgEventTapForModifierFlags() {
+        let eventMask = [CGEventType.flagsChanged].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
+        // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
+        // CGEvent.tapCreate is unaffected by SecureInput for .flagsChanged
+        eventTap = CGEvent.tapCreate(
+            tap: .cgSessionEventTap,
+            place: .headInsertEventTap,
+            options: .defaultTap,
+            eventsOfInterest: eventMask,
+            callback: cgEventFlagsChangedHandler,
+            userInfo: nil)
+        let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
+        CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
+    }
+
     private static func addGlobalHandlerIfNeeded(_ shortcut: Shortcut) {
-        if shortcut.keyCode == .none && hotModifierEventHandler == nil {
-            var eventTypes = [EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: OSType(kEventRawKeyModifiersChanged))]
-            InstallEventHandler(GetEventMonitorTarget(), { (_: EventHandlerCallRef?, event: EventRef?, _: UnsafeMutableRawPointer?) -> OSStatus in
-                var modifiers = UInt32(0)
-                GetEventParameter(event, EventParamName(kEventParamKeyModifiers), EventParamType(typeUInt32), nil, MemoryLayout<UInt32>.size, nil, &modifiers)
-                handleEvent(nil, nil, nil, modifiers, false)
-                return noErr
-            }, eventTypes.count, &eventTypes, nil, &hotModifierEventHandler)
-        }
         if shortcut.keyCode != .none && hotKeyPressedEventHandler == nil {
             var eventTypes = [EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: OSType(kEventHotKeyPressed))]
             InstallEventHandler(shortcutEventTarget, { (_: EventHandlerCallRef?, event: EventRef?, _: UnsafeMutableRawPointer?) -> OSStatus in
@@ -114,9 +124,6 @@ class KeyboardEvents {
             hotKeyPressedEventHandler = nil
             RemoveEventHandler(hotKeyReleasedEventHandler_)
             hotKeyReleasedEventHandler = nil
-        } else if let hotModifierEventHandler_ = hotModifierEventHandler, (globalShortcuts.allSatisfy { $0.shortcut.keyCode != .none }) {
-            RemoveEventHandler(hotModifierEventHandler_)
-            hotModifierEventHandler = nil
         }
     }
 }
@@ -131,4 +138,16 @@ fileprivate func handleEvent(_ id: EventHotKeyID?, _ shortcutState: ShortcutStat
         }
     }
     return someShortcutTriggered
+}
+
+fileprivate func cgEventFlagsChangedHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+    if type == .flagsChanged {
+        let modifiers = cocoaToCarbonFlags(NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue)))
+        if handleEvent(nil, nil, nil, modifiers, false) {
+            return nil // focused app won't receive the event
+        }
+    } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) {
+        CGEvent.tapEnable(tap: eventTap!, enable: true)
+    }
+    return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
 }

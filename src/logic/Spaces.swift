@@ -11,8 +11,6 @@ class Spaces {
             debugPrint("OS event", "activeSpaceDidChangeNotification")
             idsAndIndexes = allIdsAndIndexes()
             updateCurrentSpace()
-            guard App.app.appIsBeingUsed else { return }
-            App.app.reopenUi()
         })
     }
 
