@@ -1,5 +1,13 @@
 # Release notes
 
+## [6.7.3](https://github.com/lwouis/alt-tab-macos/compare/v6.7.2...v6.7.3) (2020-10-10)
+
+
+### Bug Fixes
+
+* apparition delay preference would sometimes not be respected ([3019dd5](https://github.com/lwouis/alt-tab-macos/commit/3019dd5))
+* ui would sometimes stay open (closes [#588](https://github.com/lwouis/alt-tab-macos/issues/588)) ([8912c70](https://github.com/lwouis/alt-tab-macos/commit/8912c70))
+
 ## [6.7.2](https://github.com/lwouis/alt-tab-macos/compare/v6.7.1...v6.7.2) (2020-10-06)
 
 
