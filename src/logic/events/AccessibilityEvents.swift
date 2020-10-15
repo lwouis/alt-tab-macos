@@ -1,4 +1,6 @@
 import Cocoa
+import ApplicationServices.HIServices.AXUIElement
+import ApplicationServices.HIServices.AXNotificationConstants
 
 func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
     let type = notificationName as String

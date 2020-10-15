@@ -1,4 +1,10 @@
 import Cocoa
+import ApplicationServices.HIServices.AXUIElement
+import ApplicationServices.HIServices.AXValue
+import ApplicationServices.HIServices.AXError
+import ApplicationServices.HIServices.AXRoleConstants
+import ApplicationServices.HIServices.AXAttributeConstants
+import ApplicationServices.HIServices.AXActionConstants
 
 // if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
 func retryAxCallUntilTimeout(_ group: DispatchGroup? = nil, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {

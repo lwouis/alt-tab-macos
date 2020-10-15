@@ -1,4 +1,5 @@
 import Cocoa
+import ApplicationServices.HIServices.AXNotificationConstants
 
 class Application: NSObject {
     // kvObservers should be listed first, so it gets deinit'ed first; otherwise it can crash
@@ -22,10 +23,10 @@ class Application: NSObject {
             kAXApplicationShownNotification,
             kAXFocusedUIElementChangedNotification,
         ]
-        // workaround: Protégé exhibits bugs when we subscribe to its kAXFocusedUIElementChangedNotification
-        // we don't know what's happening; we hardcode this exception to make the app usable
-        if app.bundleIdentifier == "edu.stanford.protege" {
-            n.remove(at: 5)
+        // workaround: some apps exhibit bugs when we subscribe to its kAXFocusedUIElementChangedNotification
+        // we don't know what's happening; we avoid this subscription to make these app usable
+        if app.bundleIdentifier == "edu.stanford.protege" || app.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?EAP$", options: .regularExpression) != nil {
+            return n.filter { $0 != kAXFocusedUIElementChangedNotification }
         }
         return n
     }
