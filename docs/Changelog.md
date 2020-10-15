@@ -1,5 +1,13 @@
 # Release notes
 
+## [6.7.4](https://github.com/lwouis/alt-tab-macos/compare/v6.7.3...v6.7.4) (2020-10-15)
+
+
+### Bug Fixes
+
+* shortcuts temporarily stuck in intellij eap (closes [#652](https://github.com/lwouis/alt-tab-macos/issues/652)) ([7c171c2](https://github.com/lwouis/alt-tab-macos/commit/7c171c2))
+* show the android emulator (closes [#653](https://github.com/lwouis/alt-tab-macos/issues/653)) ([16c7a93](https://github.com/lwouis/alt-tab-macos/commit/16c7a93))
+
 ## [6.7.3](https://github.com/lwouis/alt-tab-macos/compare/v6.7.2...v6.7.3) (2020-10-10)
 
 
