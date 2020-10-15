@@ -83,7 +83,6 @@ class Application: NSObject {
                             let subrole = try $0.subrole()
                             let role = try $0.role()
                             let isOnNormalLevel = $0.isOnNormalLevel(wid)
-                            debugPrint(self.runningApplication.bundleIdentifier, wid, isOnNormalLevel, title, subrole, role)
                             if $0.isActualWindow(self.runningApplication, wid, isOnNormalLevel, title, subrole, role) {
                                 return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position())
                             }

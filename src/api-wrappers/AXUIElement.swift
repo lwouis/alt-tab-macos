@@ -145,14 +145,7 @@ extension AXUIElement {
 
     private func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
         // android emulator small vertical menu is a "window" with empty title; we exclude it
-        if title != "",
-           // NSRunningApplication provides no way to identify the emulator; we pattern match on its KERN_PROCARGS
-           runningApp.bundleIdentifier == nil,
-           let executablePath = Sysctl.run([CTL_KERN, KERN_PROCARGS, runningApp.processIdentifier]) {
-            // example path: ~/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64
-            return executablePath.range(of: "qemu-system[^/]*$", options: .regularExpression, range: nil, locale: nil) != nil
-        }
-        return false
+        return title != "" && Applications.isAndroidEmulator(runningApp)
     }
 
     func isOnNormalLevel(_ wid: CGWindowID) -> Bool {
