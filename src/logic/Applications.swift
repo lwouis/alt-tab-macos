@@ -102,7 +102,7 @@ class Applications {
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
         // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
-        return app.activationPolicy != .prohibited && isNotXpc(app) && !app.processIdentifier.isZombie()
+        return (app.activationPolicy != .prohibited || isAndroidEmulator(app)) && isNotXpc(app) && !app.processIdentifier.isZombie()
     }
 
     private static func isNotXpc(_ app: NSRunningApplication) -> Bool {
@@ -111,7 +111,6 @@ class Applications {
         GetProcessForPID(app.processIdentifier, &psn)
         var info = ProcessInfoRec()
         GetProcessInformation(&psn, &info)
-        debugPrint(app.bundleIdentifier, String(info.processType))
         return String(info.processType) != "XPC!"
     }
 
@@ -119,5 +118,15 @@ class Applications {
     // e.g. hiding the thumbnails panel gives focus to the preferences panel if open, thus changing its order in the list
     private static func notAltTab(_ app: NSRunningApplication) -> Bool {
         return app.processIdentifier != ProcessInfo.processInfo.processIdentifier
+    }
+
+    static func isAndroidEmulator(_ app: NSRunningApplication) -> Bool {
+        // NSRunningApplication provides no way to identify the emulator; we pattern match on its KERN_PROCARGS
+        if app.bundleIdentifier == nil,
+           let executablePath = Sysctl.run([CTL_KERN, KERN_PROCARGS, app.processIdentifier]) {
+            // example path: ~/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64
+            return executablePath.range(of: "qemu-system[^/]*$", options: .regularExpression, range: nil, locale: nil) != nil
+        }
+        return false
     }
 }
