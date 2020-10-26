@@ -61,8 +61,8 @@ class SystemPermissions {
             let screenRecording = screenRecordingIsGranted()
             DispatchQueue.main.async {
                 if accessibility && screenRecording {
-                    permissionsWindow.close()
                     timer.invalidate()
+                    permissionsWindow.close()
                     startupBlock()
                 } else {
                     if accessibility != permissionsWindow.accessibilityView.isPermissionGranted {
