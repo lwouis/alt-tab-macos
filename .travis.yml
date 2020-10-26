@@ -27,6 +27,3 @@ deploy:
   on:
     repo: lwouis/alt-tab-macos
 after_deploy: scripts/update_homebrew_cask.sh
-branches:
-  only:
-    - master
