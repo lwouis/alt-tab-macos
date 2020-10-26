@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.8.0](https://github.com/lwouis/alt-tab-macos/compare/v6.7.4...v6.8.0) (2020-10-26)
+
+
+### Bug Fixes
+
+* rare crash at launch during permissions grant ([6120418](https://github.com/lwouis/alt-tab-macos/commit/6120418))
+
+
+### Features
+
+* update dutch localization ([8cf9954](https://github.com/lwouis/alt-tab-macos/commit/8cf9954))
+
 ## [6.7.4](https://github.com/lwouis/alt-tab-macos/compare/v6.7.3...v6.7.4) (2020-10-15)
 
 
