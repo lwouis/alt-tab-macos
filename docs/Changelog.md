@@ -1,5 +1,14 @@
 # Release notes
 
+# [6.9.0](https://github.com/lwouis/alt-tab-macos/compare/v6.8.0...v6.9.0) (2020-10-27)
+
+
+### Features
+
+* don't show glitchy windows from non-native apps (closes [#562](https://github.com/lwouis/alt-tab-macos/issues/562)) ([84dbaa0](https://github.com/lwouis/alt-tab-macos/commit/84dbaa0)), closes [#456](https://github.com/lwouis/alt-tab-macos/issues/456)
+* update chinese localization ([9240040](https://github.com/lwouis/alt-tab-macos/commit/9240040))
+* update french localization ([e9a6f54](https://github.com/lwouis/alt-tab-macos/commit/e9a6f54))
+
 # [6.8.0](https://github.com/lwouis/alt-tab-macos/compare/v6.7.4...v6.8.0) (2020-10-26)
 
 
