@@ -126,7 +126,7 @@
 "Fullscreen" = "Plein écran";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Fenêtres plein écran :";
 
 /*No comment provided by engineer.*/
 "General" = "Général";
@@ -135,16 +135,16 @@
 "Hidden" = "Cachées";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Fenêtres masquées :";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Masquer";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Masquer les badges des Apps :";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Cacher les apps sans fenêtre :";
+"Hide apps with no open window:" = "Cacher les Apps sans fenêtre :";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Masquer les cercles colorés au survol de la souris :";
@@ -156,7 +156,7 @@
 "Hide status icons:" = "Masquer les icônes de statut :";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Cacher les miniatures des fenêtres :";
+"Hide window thumbnails:" = "Cacher les aperçus des fenêtres :";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Masquer/Afficher l’App";
@@ -177,16 +177,16 @@
 "Left" = "À gauche";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Hauteur maximum à l’écran :";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "Taille max à l’écran :";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Largeur maximum à l’écran :";
 
 /*No comment provided by engineer.*/
-"Max windows per row:" = "Max de fenêtres par ligne :";
+"Max windows per row:" = "Maximum d’aperçus par ligne :";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Icône de la barre des menus :";
@@ -195,7 +195,7 @@
 "Middle" = "Milieu";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Min de fenêtres par ligne :";
+"Min windows per row:" = "Minimum d’aperçus par ligne :";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimiser/Maximiser la fenêtre";
@@ -204,7 +204,7 @@
 "Minimized" = "Minimisées";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Fenêtres réduites :";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Survol de la souris";
@@ -249,7 +249,7 @@
 "Remember my choice" = "Se souvenir de mon choix";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Lignes d’apercus :";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Rangées de fenêtres :";
@@ -282,7 +282,7 @@
 "Send anyway" = "Envoyer tout de même";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Envoyer un profile technique (processeur, mémoire, etc)";
+"Send debug profile (CPU, memory, etc)" = "Envoyer le profil technique (processeur, mémoire, etc)";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "Partager un retour d’expérience";
@@ -303,7 +303,7 @@
 "Show" = "Afficher";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Mettre à la fin";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Afficher sur :";
@@ -315,7 +315,7 @@
 "Show the following windows:" = "Afficher les fenêtres suivantes :";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Fenêtres montrées :";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Archive du code source";
@@ -354,16 +354,16 @@
 "Window app icon size:" = "Taille des icones des Apps :";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Largeur maximum des aperçus :";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Largeur minimum des aperçus :";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Taille du titres des fenêtres :";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Troncature du titres des fenêtres :";
+"Window title truncation:" = "Troncature du titre des fenêtres :";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Vous n’avez pas saisi votre email, et ne pourrez donc pas recevoir de réponse.";

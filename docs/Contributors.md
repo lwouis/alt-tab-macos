@@ -27,6 +27,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * blanorama
 * caduellery
 * Chun Fei Lung
+* Dan
 * Dan84
 * Daniel M
 * Didier Deschrijver
