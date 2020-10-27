@@ -35,6 +35,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Eric WANTZ
 * Filipe
 * hann-solo
+* Haoshuai Xu
 * Hokuto Kato
 * Ialiendeg
 * Jaeyong Sung
