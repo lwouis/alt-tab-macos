@@ -144,7 +144,7 @@
 "Hide app badges:" = "隐藏应用通知标识：";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "在无窗口打开时隐藏应用：";
+"Hide apps with no open window:" = "隐藏没有窗口的应用：";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "鼠标悬停时隐藏彩色圆圈：";
