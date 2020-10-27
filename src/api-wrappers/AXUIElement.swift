@@ -73,7 +73,7 @@ extension AXUIElement {
         return nil
     }
 
-    func isActualWindow(_ runningApp: NSRunningApplication, _ wid: CGWindowID, _ isOnNormalLevel: Bool, _ title: String?, _ subrole: String?, _ role: String?) -> Bool {
+    func isActualWindow(_ runningApp: NSRunningApplication, _ wid: CGWindowID, _ isOnNormalLevel: Bool, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?) -> Bool {
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
@@ -81,20 +81,21 @@ extension AXUIElement {
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0 &&
-            (books(runningApp) || keynote(runningApp)) || (
-            // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
-            isOnNormalLevel &&
-                ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
-                    openBoard(runningApp) ||
-                    adobeAudition(runningApp, subrole) ||
-                    steam(runningApp, title, role) ||
-                    worldOfWarcraft(runningApp, role) ||
-                    battleNetBootstrapper(runningApp, role) ||
-                    firefoxFullscreenVideo(runningApp, role) ||
-                    androidEmulator(runningApp, title) ||
-                    sanGuoShaAirWD(runningApp) ||
-                    dvdFab(runningApp) ||
-                    drBetotte(runningApp)))
+            size != nil && size!.width > 100 && size!.height > 100 &&
+            (books(runningApp) || keynote(runningApp) || (
+                // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
+                isOnNormalLevel &&
+                    ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
+                        openBoard(runningApp) ||
+                        adobeAudition(runningApp, subrole) ||
+                        steam(runningApp, title, role) ||
+                        worldOfWarcraft(runningApp, role) ||
+                        battleNetBootstrapper(runningApp, role) ||
+                        firefoxFullscreenVideo(runningApp, role) ||
+                        androidEmulator(runningApp, title) ||
+                        sanGuoShaAirWD(runningApp) ||
+                        dvdFab(runningApp) ||
+                        drBetotte(runningApp))))
     }
 
     private func keynote(_ runningApp: NSRunningApplication) -> Bool {
@@ -161,6 +162,10 @@ extension AXUIElement {
 
     func position() throws -> CGPoint? {
         return try value(kAXPositionAttribute, CGPoint.zero, .cgPoint)
+    }
+
+    func size() throws -> CGSize? {
+        return try value(kAXSizeAttribute, CGSize.zero, .cgSize)
     }
 
     func title() throws -> String? {
