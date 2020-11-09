@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.10.0](https://github.com/lwouis/alt-tab-macos/compare/v6.9.0...v6.10.0) (2020-11-09)
+
+
+### Bug Fixes
+
+* some apps were not showing (closes [#677](https://github.com/lwouis/alt-tab-macos/issues/677), closes [#679](https://github.com/lwouis/alt-tab-macos/issues/679)) ([e0fa680](https://github.com/lwouis/alt-tab-macos/commit/e0fa680))
+
+
+### Features
+
+* improve french, hungarian and polish localizations ([bf21a4e](https://github.com/lwouis/alt-tab-macos/commit/bf21a4e))
+
 # [6.9.0](https://github.com/lwouis/alt-tab-macos/compare/v6.8.0...v6.9.0) (2020-10-27)
 
 
