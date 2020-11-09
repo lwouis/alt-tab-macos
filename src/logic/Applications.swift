@@ -101,8 +101,9 @@ class Applications {
     }
 
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
+        // an app can start with .activationPolicy == .prohibited, then transition to != .prohibited later
         // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
-        return (app.activationPolicy != .prohibited || isAndroidEmulator(app)) && isNotXpc(app) && !app.processIdentifier.isZombie()
+        return (isNotXpc(app) || isAndroidEmulator(app)) && !app.processIdentifier.isZombie()
     }
 
     private static func isNotXpc(_ app: NSRunningApplication) -> Bool {
