@@ -3,7 +3,7 @@
 "About" = "O aplikacji";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "O %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Dostępość";
@@ -27,7 +27,7 @@
 "All apps" = "Wszystkie aplikacje";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Wszystkie dane z tej ankiety zostaną upublicznione jako kwitek na github.com";
 
 /*No comment provided by engineer.*/
 "All screens" = "Wszystkie ekrany";
@@ -93,10 +93,10 @@
 "Check for updates…" = "Sprawdź aktualizacje…";
 
 /*No comment provided by engineer.*/
-"Close window" = "Close window";
+"Close window" = "Zamknij okno";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "Kontrola";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "Polityka raportów crashów:";
@@ -117,16 +117,16 @@
 "End" = "Zakończ";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "Animacja wyjścia:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Skup się na wybranym oknie";
 
 /*No comment provided by engineer.*/
 "Fullscreen" = "Pełny ekran";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Okna pełnoekranowe:";
 
 /*No comment provided by engineer.*/
 "General" = "Ogólne";
@@ -135,28 +135,28 @@
 "Hidden" = "Ukryte";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Ukryte okna:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Ukryj";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "Ukryj odznaki aplikacji:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Ukryj aplikacje bez otwartych okien:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "Ukryj kolorowe kółka na najeździe myszą";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Hide Space number labels:";
+"Hide Space number labels:" = "Ukryj etykiety numerów przestrzeni:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "Ukryj ikony statusu:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Ukryj miniatury okien:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Pokaż/ukryj aplikacje";
@@ -165,7 +165,7 @@
 "Hold" = "Wstrzymaj";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Myśle że aplikacja może zostać…";
+"I think the app could be improved with…" = "Myśle że aplikacja może zostać ulepszona dzięki…";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignoruj skróty podczas gdy jedna z tych aplikacji jest aktywna";
@@ -177,13 +177,13 @@
 "Left" = "Lewo";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Maksymalna wysokość na ekranie";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "Maksymalna wielkość na ekranie:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Maksymalna szerokość na ekranie";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Maksymalna ilość okien w rzędzie:";
@@ -204,7 +204,7 @@
 "Minimized" = "Zminimalizowane";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Zminimalizowane okna:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Najechanie myszką";
@@ -213,7 +213,7 @@
 "Never send crash reports" = "Nigdy nie wysyłaj raportów crashów";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "Nie dozwolone";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "Licencja GPL v3.0";
@@ -237,7 +237,7 @@
 "Preferences…" = "Preferencje…";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "Wyjdź";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Zakończ %@";
@@ -249,7 +249,7 @@
 "Remember my choice" = "Pamiętaj mój wybór";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Rzędy miniatur:";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Rzędy okien:";
@@ -258,19 +258,19 @@
 "Screen including menu bar" = "Ekran włączając menu bar";
 
 /*No comment provided by engineer.*/
-"Screen including mouse" = "Screen including mouse";
+"Screen including mouse" = "Ekran włączając mysz";
 
 /*No comment provided by engineer.*/
 "Screen Recording" = "Nagranie ekranu";
 
 /*No comment provided by engineer.*/
-"Screen showing AltTab" = "Screen showing AltTab";
+"Screen showing AltTab" = "Ekran wyświetlający AltTab";
 
 /*No comment provided by engineer.*/
-"Select next window" = "Select next window";
+"Select next window" = "Wybierz następne okno";
 
 /*No comment provided by engineer.*/
-"Select previous window" = "Select previous window";
+"Select previous window" = "Wybierz poprzednie okno";
 
 /*No comment provided by engineer.*/
 "Send" = "Wyślij";
@@ -279,7 +279,7 @@
 "Send a crash report?" = "Wysłać raport crasha?";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+"Send anyway" = "Wyślij mimo to";
 
 /*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Wysyłaj profile debugowania (CPU, pamięć, itp.)";
@@ -303,19 +303,19 @@
 "Show" = "Pokaż";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Pokazuj na końcu";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Pokaż na:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "Pokazuj karty jako okna:";
 
 /*No comment provided by engineer.*/
-"Show the following windows:" = "Show the following windows:";
+"Show the following windows:" = "Pokazuj następujące okna:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Pokazuj okna z:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Repozytorium kodu źródłowego";
@@ -355,10 +355,10 @@
 "Window app icon size:" = "Rozmiar ikony aplikacji w oknie:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Maksymalna szerokość okna w rzędzie";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Minimalna szerokość okna w rzędzie";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Rozmiar czcionki tytułu okna:";

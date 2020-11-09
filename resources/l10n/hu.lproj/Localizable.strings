@@ -126,7 +126,7 @@
 "Fullscreen" = "Teljes képernyő";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Teljesképernyős ablakok:";
 
 /*No comment provided by engineer.*/
 "General" = "Általános";
@@ -135,16 +135,16 @@
 "Hidden" = "Rejtett";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Rejtett ablakok:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Elrejt";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Alkalmazás jelek eltüntetése:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Nyitott ablak nélküli alkalmazások elrejtése:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "A színes körök elrejtése amikor az egeret fölé viszi:";
@@ -177,13 +177,13 @@
 "Left" = "Bal";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Maximális magasság a képernyőn:";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "Legnagyobb méret a képernyőn:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Maximális szélesség a képernyőn:";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Legtöbb ablak soronként:";
@@ -204,7 +204,7 @@
 "Minimized" = "Kicsinyít";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Kicsinyített ablakok:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Egér főlé vitele";
