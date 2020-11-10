@@ -2,6 +2,7 @@ import Cocoa
 
 class Spaces {
     static var currentSpaceId = CGSSpaceID(1)
+    static var visibleSpaceIds = [CGSSpaceID]()
     static var currentSpaceIndex = SpaceIndex(1)
     static var isSingleSpace = true
     static var idsAndIndexes: [(CGSSpaceID, SpaceIndex)] = allIdsAndIndexes()
@@ -11,6 +12,11 @@ class Spaces {
             debugPrint("OS event", "activeSpaceDidChangeNotification")
             idsAndIndexes = allIdsAndIndexes()
             updateCurrentSpace()
+            refreshVisibleSpaces()
+        })
+        NSWorkspace.shared.notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification , object: nil, queue: nil, using: { _ in
+            debugPrint("OS event", "didChangeScreenParametersNotification")
+            refreshVisibleSpaces()
         })
     }
 
@@ -22,8 +28,18 @@ class Spaces {
         }
     }
 
+    static func refreshVisibleSpaces() {
+        visibleSpaceIds = NSScreen.screens.compactMap {
+            if let uuid = $0.uuid() {
+                return CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, uuid)
+            }
+            return nil
+        }
+    }
+
     static func initialDiscovery() {
         updateCurrentSpace()
+        refreshVisibleSpaces()
         updateIsSingleSpace()
         observeSpaceChanges()
     }

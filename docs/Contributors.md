@@ -47,6 +47,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lcwhhh
 * Lumaxis
 * lwouis
+* Marko McLion
 * Michael
 * Nilton Souza
 * Petr Kolář
