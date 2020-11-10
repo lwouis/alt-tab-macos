@@ -327,11 +327,13 @@ enum AppsToShowPreference: String, CaseIterable, MacroPreference {
 enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
     case all = "0"
     case active = "1"
+    case visible = "2"
 
     var localizedString: LocalizedString {
         switch self {
             case .all: return NSLocalizedString("All Spaces", comment: "")
             case .active: return NSLocalizedString("Active Space", comment: "")
+            case .visible: return NSLocalizedString("Visible Spaces", comment: "")
         }
     }
 }
