@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.11.0](https://github.com/lwouis/alt-tab-macos/compare/v6.10.0...v6.11.0) (2020-11-11)
+
+
+### Bug Fixes
+
+* some windows would not be shown in fullscreen app (closes [#688](https://github.com/lwouis/alt-tab-macos/issues/688)) ([5f9caed](https://github.com/lwouis/alt-tab-macos/commit/5f9caed))
+
+
+### Features
+
+* add preference to show visible spaces (closes [#583](https://github.com/lwouis/alt-tab-macos/issues/583)) ([545437e](https://github.com/lwouis/alt-tab-macos/commit/545437e))
+* added slovenian localization ([8b22d41](https://github.com/lwouis/alt-tab-macos/commit/8b22d41))
+
 # [6.10.0](https://github.com/lwouis/alt-tab-macos/compare/v6.9.0...v6.10.0) (2020-11-09)
 
 
