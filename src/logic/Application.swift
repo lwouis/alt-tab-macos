@@ -12,9 +12,10 @@ class Application: NSObject {
     var icon: NSImage?
     var dockLabel: String?
     var pid: pid_t { runningApplication.processIdentifier }
+    var wasLaunchedBeforeAltTab = false
 
     static func notifications(_ app: NSRunningApplication) -> [String] {
-        var n = [
+        let n = [
             kAXApplicationActivatedNotification,
             kAXMainWindowChangedNotification,
             kAXFocusedWindowChangedNotification,
@@ -74,7 +75,7 @@ class Application: NSObject {
 
     func observeNewWindows(_ group: DispatchGroup? = nil) {
         if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
-            retryAxCallUntilTimeout(group) { [weak self] in
+            retryAxCallUntilTimeout(group, 5) { [weak self] in
                 guard let self = self else { return }
                 if let axWindows_ = try self.axUiElement!.windows(), axWindows_.count > 0 {
                     // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
@@ -104,6 +105,10 @@ class Application: NSObject {
                         guard let self = self else { return }
                         let window = self.addWindowslessAppsIfNeeded()
                         App.app.refreshOpenUi(window)
+                    }
+                    // workaround: opening an app while the active app is fullscreen; we wait out the space transition animation
+                    if group == nil && !self.wasLaunchedBeforeAltTab && CGSSpaceGetType(cgsMainConnectionId, Spaces.currentSpaceId) == .fullscreen {
+                        throw AxError.runtimeError
                     }
                 }
             }

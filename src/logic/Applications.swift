@@ -7,6 +7,7 @@ class Applications {
     static func observeNewWindowsBlocking() {
         let group = DispatchGroup()
         for app in list {
+            app.wasLaunchedBeforeAltTab = true
             guard app.runningApplication.isFinishedLaunching else { continue }
             app.observeNewWindows(group)
         }
