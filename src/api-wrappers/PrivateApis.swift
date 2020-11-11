@@ -146,10 +146,26 @@ func GetProcessInformation(_ psn: inout ProcessSerialNumber, _ info: inout Proce
 @_silgen_name("GetProcessForPID") @discardableResult
 func GetProcessForPID(_ pid: pid_t, _ psn: inout ProcessSerialNumber) -> OSStatus
 
+enum CGSSpaceType: Int {
+    case user = 0
+    case system = 2
+    case fullscreen = 4
+}
+
+// get the CGSSpaceType for a given space. Maybe useful for fullscreen windows
+// * macOS 10.10+
+@_silgen_name("CGSSpaceGetType")
+func CGSSpaceGetType(_ cid: CGSConnectionID, _ sid: CGSSpaceID) -> CGSSpaceType
+
+
 
 // ------------------------------------------------------------
 // below are some notes on some private APIs I experimented with
 // ------------------------------------------------------------
+
+// returns true if the display is animating
+//@_silgen_name("CGSManagedDisplayIsAnimating") @discardableResult
+//func CGSManagedDisplayIsAnimating(_ cid: CGSConnectionID, _ displayUuid: CFString) -> Bool
 
 //@_silgen_name("CGSGetSymbolicHotKeyValue")
 //func CGSGetSymbolicHotKeyValue(_ hotKey: Int, _ options: inout UInt32, _ keyCode: inout UInt32, _ modifiers: inout UInt32) -> CGError
@@ -256,17 +272,6 @@ func GetProcessForPID(_ pid: pid_t, _ psn: inout ProcessSerialNumber) -> OSStatu
 //@_silgen_name("CGSGetWorkspaceWindowList") @discardableResult
 //func CGSGetWorkspaceWindowList(_ cid: CGSConnectionID, _ workspaceNumber: CGSSpaceID, _ count: Int, _ list: [Int], _ outCount: [Int]) -> OSStatus
 //
-//enum CGSSpaceType {
-//    case user
-//    case fullscreen
-//    case system
-//    case unknown
-//}
-//
-//// get the CGSSpaceType for a given space. Maybe useful for fullscreen windows
-//// * macOS 10.10+
-//@_silgen_name("CGSSpaceGetType")
-//func CGSSpaceGetType(_ connection: CGSConnectionID, _ space: CGSSpaceID) -> CGSSpaceType
 //
 //// assigns a process to all spaces. This creates weird behaviours where its windows are available from all spaces
 //// * macOS 10.10+
