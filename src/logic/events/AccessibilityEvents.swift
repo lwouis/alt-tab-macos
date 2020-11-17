@@ -19,7 +19,7 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
             case kAXWindowCreatedNotification: try windowCreated(element, pid)
             case kAXMainWindowChangedNotification,
                  kAXFocusedWindowChangedNotification: try focusedWindowChanged(element, pid)
-            case kAXUIElementDestroyedNotification: try windowDestroyed(element)
+            case kAXUIElementDestroyedNotification: try windowDestroyed(element, pid)
             case kAXWindowMiniaturizedNotification,
                  kAXWindowDeminiaturizedNotification: try windowMiniaturizedOrDeminiaturized(element, type)
             case kAXTitleChangedNotification: try windowTitleChanged(element)
@@ -35,18 +35,23 @@ fileprivate func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) t
     if NSRunningApplication(processIdentifier: pid) != nil {
         let currentWindows = try AXUIElementCreateApplication(pid).windows()
         DispatchQueue.main.async {
-            let windows = Windows.list.filter { w in
-                if w.application.pid == pid && pid != ProcessInfo.processInfo.processIdentifier &&
-                       w.spaceId == Spaces.currentSpaceId {
-                    let oldIsTabbed = w.isTabbed
-                    w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil)
-                    return oldIsTabbed != w.isTabbed
-                }
-                return false
-            }
+            let windows = updateTabs(pid, currentWindows)
             App.app.refreshOpenUi(windows)
         }
     }
+}
+
+fileprivate func updateTabs(_ pid: pid_t, _ currentWindows: [AXUIElement]?) -> [Window] {
+    let windows = Windows.list.filter { w in
+        if w.application.pid == pid && pid != ProcessInfo.processInfo.processIdentifier &&
+               w.spaceId == Spaces.currentSpaceId {
+            let oldIsTabbed = w.isTabbed
+            w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil)
+            return oldIsTabbed != w.isTabbed
+        }
+        return false
+    }
+    return windows
 }
 
 fileprivate func applicationActivated(_ element: AXUIElement) throws {
@@ -127,15 +132,22 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
     }
 }
 
-fileprivate func windowDestroyed(_ element: AXUIElement) throws {
+fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
     let wid = try element.cgWindowId()
+    let appIsStillRunning = NSRunningApplication(processIdentifier: pid) != nil
+    let currentWindows = appIsStillRunning ? try AXUIElementCreateApplication(pid).windows() : []
     DispatchQueue.main.async {
         if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
             Windows.removeAndUpdateFocus(window)
             let windowlessApp = window.application.addWindowslessAppsIfNeeded()
             if Windows.list.count > 0 {
+                // closing a tab may make another tab visible; we refresh tab status
+                var windows = updateTabs(pid, currentWindows)
                 Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(window)
-                App.app.refreshOpenUi(windowlessApp)
+                if let windowlessApp = windowlessApp {
+                    windows.append(contentsOf: windowlessApp)
+                }
+                App.app.refreshOpenUi(windows)
             } else {
                 App.app.hideUi()
             }
