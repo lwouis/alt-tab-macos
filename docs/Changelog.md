@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.12.0](https://github.com/lwouis/alt-tab-macos/compare/v6.11.0...v6.12.0) (2020-11-17)
+
+
+### Bug Fixes
+
+* window was not shown after closing tab (closes [#696](https://github.com/lwouis/alt-tab-macos/issues/696)) ([a7e96f2](https://github.com/lwouis/alt-tab-macos/commit/a7e96f2))
+
+
+### Features
+
+* add slovak localization ([06027dc](https://github.com/lwouis/alt-tab-macos/commit/06027dc))
+
 # [6.11.0](https://github.com/lwouis/alt-tab-macos/compare/v6.10.0...v6.11.0) (2020-11-11)
 
 
