@@ -22,7 +22,7 @@ From macOS 10.12 to 10.15
 
 The app is available in:
 
-Bahasa Indonesia, Deutsch, English, Español, Français, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), العربية, Slovenščina, Suomi, Türkçe, Русский язык, 中文 (简体), 中文 (繁体), 日本語, 한국어
+Bahasa Indonesia, Deutsch, English, Español, Français, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), العربية, Slovenčina, Slovenščina, Suomi, Türkçe, Русский язык, 中文 (简体), 中文 (繁体), 日本語, 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 

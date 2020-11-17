@@ -38,6 +38,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Haoshuai Xu
 * Hokuto Kato
 * Ialiendeg
+* J.v.trigueros
 * Jaeyong Sung
 * Jakub Bartušek
 * Jord Nijhuis
@@ -48,6 +49,8 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lumaxis
 * lwouis
 * Marko McLion
+* Martin Mitka
+* Martin. mitka
 * Michael
 * Nilton Souza
 * Petr Kolář
