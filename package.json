@@ -18,6 +18,6 @@
     "fontkit": "^1.8.0",
     "husky": "^3.0.4",
     "marked": "^0.8.0",
-    "semantic-release": "^15.13.24"
+    "semantic-release": "^17.2.3"
   }
 }
