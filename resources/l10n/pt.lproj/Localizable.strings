@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Esta permissão é necessária para mostrar capturas de ecrã e títulos das janelas abertas";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "Ocultar miniaturas de janela:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "Regras de actualização:";
 

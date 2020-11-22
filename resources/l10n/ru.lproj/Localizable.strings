@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Это разрешение нужно для показа скриншотов и заголовков открытых окон";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "Скрыть эскизы окон:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "Правило обновлений:";
 

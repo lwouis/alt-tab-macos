@@ -167,12 +167,7 @@ class Windows {
                     window.refreshThumbnail()
                     DispatchQueue.main.async {
                         let view = ThumbnailsView.recycledViews[currentIndex]
-                        if view.thumbnail.image != window.thumbnail {
-                            let oldSize = view.thumbnail.frame.size
-                            view.thumbnail.image = window.thumbnail
-                            view.thumbnail.image?.size = oldSize
-                            view.thumbnail.frame.size = oldSize
-                        }
+                        view.updateThumbnailIfNeeded(window.thumbnail)
                     }
                 }
                 refreshThumbnailsAsync(screen, currentIndex + 1)

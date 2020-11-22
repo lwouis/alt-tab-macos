@@ -61,6 +61,7 @@ class Preferences {
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
+        "thumbnailAntiAliasing": "true",
     ]
 
     // constant values
@@ -99,6 +100,7 @@ class Preferences {
     static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
+    static var thumbnailAntiAliasing: Bool { defaults.bool("thumbnailAntiAliasing") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
     static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }

@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Deze permissie is nodig om screenshots en titels van geopende vensters te tonen";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "Verberg vensterminiaturen:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "Updatebeleid:";
 

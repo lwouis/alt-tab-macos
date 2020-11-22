@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Denne tillatelsen er nødvendig for å kunne vise skjermbilde og tittel på åpne vinduer";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "Skjul miniatyrbilder av vinduer:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "Oppdateringspolicy:";
 

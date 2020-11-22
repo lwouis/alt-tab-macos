@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "Thumbnail Anti Aliasing:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "Updates policy:";
 

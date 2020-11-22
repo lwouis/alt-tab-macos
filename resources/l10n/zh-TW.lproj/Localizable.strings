@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "需要取得此權限，才能顯示打開視窗的截圖與標題資訊";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "隱藏視窗縮圖:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "更新策略：";
 
