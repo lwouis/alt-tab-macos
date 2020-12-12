@@ -87,11 +87,11 @@ class Application: NSObject {
                             let size = try $0.size()
                             let isOnNormalLevel = $0.isOnNormalLevel(wid)
                             if $0.isActualWindow(self.runningApplication, wid, isOnNormalLevel, title, subrole, role, size) {
-                                return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position())
+                                return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position(), size)
                             }
                         }
                         return nil
-                    } as [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]
+                    } as [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?, CGSize?)]
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
                         var windows = self.addWindows(axWindows)
@@ -115,10 +115,10 @@ class Application: NSObject {
         }
     }
 
-    private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]) -> [Window] {
-        let windows: [Window] = axWindows.compactMap { (axUiElement, wid, axTitle, isFullscreen, isMinimized, position) in
+    private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?, CGSize?)]) -> [Window] {
+        let windows: [Window] = axWindows.compactMap { (axUiElement, wid, axTitle, isFullscreen, isMinimized, position, size) in
             if (Windows.list.firstIndex { $0.isEqualRobust(axUiElement, wid) }) == nil {
-                let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position)
+                let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position, size)
                 Windows.appendAndUpdateFocus(window)
                 return window
             }

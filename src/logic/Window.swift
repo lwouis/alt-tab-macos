@@ -16,6 +16,7 @@ class Window {
     var isOnAllSpaces = false
     var isWindowlessApp = false
     var position: CGPoint?
+    var size: CGSize?
     var spaceId = CGSSpaceID.max
     var spaceIndex = SpaceIndex.max
     var axUiElement: AXUIElement!
@@ -32,7 +33,7 @@ class Window {
         kAXWindowMovedNotification,
     ]
 
-    init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?) {
+    init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) {
         // TODO: make a efficient batched AXUIElementCopyMultipleAttributeValues call once for each window, and store the values
         self.axUiElement = axUiElement
         self.application = application
@@ -42,6 +43,7 @@ class Window {
         self.isFullscreen = isFullscreen
         self.isMinimized = isMinimized
         self.position = position
+        self.size = size
         self.title = bestEffortTitle(axTitle)
         if !Preferences.hideThumbnails {
             refreshThumbnail()
