@@ -202,10 +202,11 @@ class Windows {
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {
-        if let position = window.position {
+        if let topLeftCorner = window.position, let size = window.size {
             var screenFrameInQuartzCoordinates = screen.frame
             screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
-            return screenFrameInQuartzCoordinates.contains(position)
+            let windowRect = CGRect(origin: topLeftCorner, size: size)
+            return windowRect.intersects(screenFrameInQuartzCoordinates)
         }
         return true
     }

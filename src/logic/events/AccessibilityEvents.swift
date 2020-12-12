@@ -96,7 +96,7 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
                let runningApp = NSRunningApplication(processIdentifier: pid),
                element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role, size),
                let app = (Applications.list.first { $0.pid == pid }) {
-                let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position)
+                let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                 Windows.appendAndUpdateFocus(window)
                 Windows.cycleFocusedWindowIndex(1)
                 App.app.refreshOpenUi([window])
@@ -124,7 +124,7 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                 App.app.refreshOpenUi(windows)
             } else if element.isActualWindow(runningApp, wid, isOnNormalLevel, axTitle, subrole, role, size),
                       let app = (Applications.list.first { $0.pid == pid }) {
-                let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position)
+                let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                 Windows.appendAndUpdateFocus(window)
                 App.app.refreshOpenUi([window])
             }
