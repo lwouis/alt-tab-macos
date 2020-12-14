@@ -3,10 +3,10 @@
 "About" = "Hakkında";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "Hakkında %@";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "Erişilebilirlik";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "Teşekkür";
@@ -27,7 +27,7 @@
 "All apps" = "Tüm uygulamalar";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Bu formdaki tüm veriler github.com'da herkese açık bir ticket olarak yayınlanacaktır.";
 
 /*No comment provided by engineer.*/
 "All screens" = "Tüm pencereler";
@@ -36,43 +36,43 @@
 "All Spaces" = "Tüm boşluklar";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "İzin verildi";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "Bunları kullanan pencereleri de seç:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Son kullanımınızda AltTab çöktü. Çökme raporlarını göndermek, hataların düzeltilmesine yardımcı olur";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "AltTab'ın bir kaç izine ihtiyacı var";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Çökmeleri her zaman rapor gönder";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"and press:" = "ve basın:";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "Görünüm gecikmesi:";
+"Apparition delay:" = "Belirme gecikmesi:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Görünüm";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Bir cevap vermek istemediğinize emin misiniz?";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Yön tuşları";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Çökme raporlarının ne zaman gönderileceğini sor";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Güncellemeleri periyodik olarak otomatik yükle";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Karaliste";
 
 /*Cancel button*/
 "Cancel" = "İptal";
@@ -81,10 +81,10 @@
 "Cancel and hide" = "İptal ve gizle";
 
 /*No comment provided by engineer.*/
-"Center" = "Merkez";
+"Center" = "Orta";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Güncellemeleri kontrol et…";
+"Check for updates now…" = "Güncellemeleri şimdi kontrol et…";
 
 /*No comment provided by engineer.*/
 "Check for updates periodically" = "Güncellemeleri periyodik olarak kontrol et";
@@ -96,37 +96,37 @@
 "Close window" = "Pencereyi kapat";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "Kontroller";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "Çökme raporları politikası:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "Hiçbir şey yapma";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Güncellemeleri periyodik olarak kontrol etme";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "Gönderme";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "Bu uygulamaya ait pencereleri gösterme";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "Son";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "Fade out animasyon";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Seçilen pencereye odaklan";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
+"Fullscreen" = "Tam ekran";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Tam ekran pencereler:";
 
 /*No comment provided by engineer.*/
 "General" = "Genel";
@@ -135,28 +135,28 @@
 "Hidden" = "Gizli";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Gizli pencereler:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Gizle";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "Uygulama etiketlerini gizle:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Açık penceresi olmayan uygulamaları gizle:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "Fare üstüne gelince renkli halkaları gizle";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Ekran etiketlerini gizle:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "Durum ikonlarını gizle:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Pencere önizlemelerini gizle:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Uygulamayı gizle / göster";
@@ -168,76 +168,76 @@
 "I think the app could be improved with…" = "Bence uygulama … ile geliştirilebilir.";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "Bu uygulama aktifken kısayolları devredışı bırak";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "Son sürüm";
+"Latest releases" = "Son sürümler";
 
 /*No comment provided by engineer.*/
 "Left" = "Sol";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Ekrandaki maximum yükseklik";
 
 /*No comment provided by engineer.*/
 "Max size on screen:" = "Ekrandaki maksimum boyut:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Ekrandaki maximum genişlik";
 
 /*No comment provided by engineer.*/
 "Max windows per row:" = "Satır başına maksimum pencere sayısı:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "Menubar ikonu:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "Orta";
 
 /*No comment provided by engineer.*/
 "Min windows per row:" = "Satır başına minimum pencere sayısı:";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Simge Durumuna Küçült / Deminimize Et";
+"Minimize/Deminimize window" = "Minimize / Deminimize Et";
 
 /*No comment provided by engineer.*/
 "Minimized" = "Gizlenmiş";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Ufaltılmış pencereler";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "Fare ";
+"Mouse hover" = "Üstüne gelince";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Çökme raporlarını asla gönderme";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "İzin verilmedi";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 lisansı";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "Eğer pencere tam ekran ise";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Erişilebilirlik ayarlarını açın";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Ekran Kaydı ayarlarını açın";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "İsteğe bağlı: e-posta (bir yanıt istiyorsanız)";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "Politikalar";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Tercihler…";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "Çıkış";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Çık %@";
@@ -246,10 +246,10 @@
 "Quit app" = "Uygulamadan çık";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "Seçimimi hatırla";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Önizleme satırları";
 
 /*No comment provided by engineer.*/
 "Rows of windows:" = "Pencere satırları:";
@@ -261,7 +261,7 @@
 "Screen including mouse" = "İmleçin olduğu ekran";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Ekran Kaydı";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "AltTab'ı gösteren ekran";
@@ -276,10 +276,10 @@
 "Send" = "Gönder";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Hatayı raporla?";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+"Send anyway" = "Yine de gönder";
 
 /*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (CPU, memory, vs)";
@@ -291,37 +291,37 @@
 "Send feedback…" = "Geri bildirim gönder…";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Fikir yada hata paylaş";
+"Share improvement ideas, or report bugs" = "Geliştirme önerisi veya hata bilgisi paylaşın";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "Kısayol 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "Kısayol 2";
 
 /*No comment provided by engineer.*/
 "Show" = "Göster";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "En sonda göster";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Göstermek:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "Standart tabları pencere olarak göster";
 
 /*No comment provided by engineer.*/
 "Show the following windows:" = "Takipeden pencereleri göster:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Burdaki pencereleri göster";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Kaynak kodu deposu";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "Baş";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Başlangıçta çalıştır:";
@@ -330,13 +330,13 @@
 "Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
-"Then release:" = "Then release:";
+"Then release:" = "Sonra bırak:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Bu izin, kısayolu bıraktıktan sonra ilgili pencereye geçmeniz için gerekiyor";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Bu izin, açık pencerelerin başlıklarını ve ekran görüntülerini göstermek için gerekiyor";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Güncelleme politikası:";
@@ -348,25 +348,25 @@
 "View existing discussions" = "Mevcut tartışmaları görüntüle";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Görünen Boşluklar";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "Açıkken, basın:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Pencere simge boyutu:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Satırdaki maximum pencere sayısı";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Satırdaki minimum pencere sayısı";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Pencere başlığı yazı tipi boyutu:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "Pencere başlığını kısaltma";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "E-posta adresinizi yazmadığınızdan bir yanıt alamayacaksınız.";
