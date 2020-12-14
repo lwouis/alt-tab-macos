@@ -68,7 +68,7 @@ class ThumbnailView: NSStackView {
         if let shouldShowWindowControls = shouldShowWindowControls_ {
             self.shouldShowWindowControls = shouldShowWindowControls
         }
-        let shouldShow = shouldShowWindowControls && isHighlighted && !Preferences.hideColoredCircles && !window_!.isWindowlessApp && !Preferences.hideThumbnails
+        let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !window_!.isWindowlessApp && !Preferences.hideThumbnails
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
             [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = !shouldShow }
@@ -210,7 +210,7 @@ class ThumbnailView: NSStackView {
 
     func mouseMoved() {
         showOrHideWindowControls(true)
-        if !isHighlighted {
+        if Preferences.mouseHoverEnabled && !isHighlighted {
             mouseMovedCallback()
         }
         hoverWindowControls()

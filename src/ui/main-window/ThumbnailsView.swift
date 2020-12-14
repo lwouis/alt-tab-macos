@@ -211,7 +211,7 @@ class ScrollView: NSScrollView {
 
     override func mouseMoved(with event: NSEvent) {
         // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
-        if !Preferences.mouseHoverEnabled || isCurrentlyScrolling { return }
+        if isCurrentlyScrolling { return }
         if let hit = hitTest(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream) {
             var target: NSView? = hit
             while !(target is ThumbnailView) && target != nil {
