@@ -32,6 +32,8 @@
 	<string>GPL-3.0 licence</string>
 	<key>NSPrincipalClass</key>
 	<string>AppCenterApplication</string>
+	<key>NSSupportsAutomaticTermination</key>
+	<string>false</string>
 	<key>NSSupportsSuddenTermination</key>
 	<string>false</string>
 	<key>SUEnableAutomaticChecks</key>
