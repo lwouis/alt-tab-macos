@@ -23,7 +23,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Abdulelah
 * Aden Aziz
 * Albert Abdilim
-* Ali
+* Ali Gokmen
 * anushree b
 * blanorama
 * caduellery
@@ -58,6 +58,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Petr Kolář
 * ponchik
 * rbnis
+* SheNeVmerla
 * Tomoa Nozawa
 * Umutakkaya1996
 * Vegard
