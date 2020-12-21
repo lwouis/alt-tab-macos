@@ -196,17 +196,18 @@ class Windows {
                 !(!(Preferences.showFullscreenWindows[App.app.shortcutIndex] != .hide) && window.isFullscreen) &&
                 !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide) && window.isMinimized) &&
                 !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
-                !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaceIds.contains(window.spaceId)) &&
+                !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.screenToVisibleSpaceMap.values.contains(window.spaceId)) &&
                 !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {
-        if let topLeftCorner = window.position, let size = window.size {
+        if let topLeftCorner = window.position, let size = window.size, let screenUuid = screen.uuid(), let screenSpaceId = Spaces.screenToVisibleSpaceMap[screenUuid] {
             var screenFrameInQuartzCoordinates = screen.frame
             screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
             let windowRect = CGRect(origin: topLeftCorner, size: size)
-            return windowRect.intersects(screenFrameInQuartzCoordinates)
+            debugPrint(windowRect.intersects(screenFrameInQuartzCoordinates), screenSpaceId, window.spaceId)
+            return windowRect.intersects(screenFrameInQuartzCoordinates) && screenSpaceId == window.spaceId
         }
         return true
     }
