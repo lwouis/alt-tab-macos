@@ -13,6 +13,7 @@ function updateLanguageFile() {
     -d order="terms" \
     -d type="apple_strings")"
   fileUrl="$(jq -r '.result.url' <<<"$exportApiJson")"
+  mkdir -p "resources/l10n/$1.lproj"
   curl -s "$fileUrl" > "resources/l10n/$1.lproj/Localizable.strings"
 }
 
