@@ -61,7 +61,7 @@ class Preferences {
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
-        "thumbnailAntiAliasing": "true",
+        "thumbnailAntiAliasing": ThumbnailAntiAliasingPreference.none.rawValue,
     ]
 
     // constant values
@@ -100,7 +100,6 @@ class Preferences {
     static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
-    static var thumbnailAntiAliasing: Bool { defaults.bool("thumbnailAntiAliasing") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
     static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
@@ -121,6 +120,7 @@ class Preferences {
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
+    static var thumbnailAntiAliasing: ThumbnailAntiAliasingPreference { defaults.macroPref("thumbnailAntiAliasing", ThumbnailAntiAliasingPreference.allCases) }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
@@ -388,6 +388,22 @@ enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
         switch self {
             case .left: return NSLocalizedString("Left", comment: "")
             case .center: return NSLocalizedString("Center", comment: "")
+        }
+    }
+}
+
+enum ThumbnailAntiAliasingPreference: String, CaseIterable, MacroPreference {
+    case none = "0"
+    case low = "1"
+    case medium = "2"
+    case high = "3"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .none: return NSLocalizedString("None", comment: "")
+            case .low: return NSLocalizedString("Low", comment: "")
+            case .medium: return NSLocalizedString("Medium", comment: "")
+            case .high: return NSLocalizedString("High", comment: "")
         }
     }
 }

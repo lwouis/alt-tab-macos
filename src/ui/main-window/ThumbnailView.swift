@@ -4,7 +4,6 @@ class ThumbnailView: NSStackView {
     var window_: Window?
     var thumbnail = NSImageView()
     var thumbnailRaw = NSImage?(nil)
-    var thumbnailScaled = NSImage?(nil)
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Preferences.fontHeight)
     var fullscreenIcon = ThumbnailFontIconView(.circledPlusSign)
@@ -99,33 +98,31 @@ class ThumbnailView: NSStackView {
         edgeInsets.left = edgeInsets_
     }
 
+    private func getThumbnailInterpolationLevel() -> NSImageInterpolation {
+        if Preferences.thumbnailAntiAliasing == .high {
+            return .high
+        }
+        if Preferences.thumbnailAntiAliasing == .medium {
+            return .medium
+        }
+        if Preferences.thumbnailAntiAliasing == .low {
+            return .low
+        }
+        return .none
+    }
+
     func updateThumbnailIfNeeded(_ image: NSImage?)
     {
-        func imageScale(anImage: NSImage?, newSize: NSSize) -> NSImage? {
-            if anImage == nil {
-                return anImage
-            }
-            let sourceImage = anImage!
-            let newImage = NSImage(size: newSize)
-            newImage.lockFocus()
-            sourceImage.size = newSize
-            NSGraphicsContext.current?.imageInterpolation = NSImageInterpolation.medium
-            sourceImage.draw(at: NSZeroPoint, from: NSZeroRect, operation: NSCompositingOperation.copy, fraction: CGFloat(1.0))
-            newImage.unlockFocus()
-            return newImage
-        }
-
         if thumbnailRaw != image {
             let effectSize = thumbnail.frame.size
             thumbnailRaw = image
-            if Preferences.thumbnailAntiAliasing {
-                thumbnailScaled = imageScale(anImage: thumbnailRaw, newSize: effectSize)
-                thumbnail.image = thumbnailScaled
-            }
-            else {
+            let thumbnailAntiAliasing = getThumbnailInterpolationLevel()
+            if thumbnailAntiAliasing == .none {
                 thumbnail.image = image
                 thumbnail.image?.size = effectSize
-                thumbnail.frame.size = effectSize
+                thumbnail.setFrameSize(effectSize)
+            } else {
+                thumbnail.image = thumbnailRaw?.resizeToCopy(newSize: effectSize, interpolation: thumbnailAntiAliasing)
             }
         }
     }

@@ -16,7 +16,7 @@ class AppearanceTab {
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max width on screen:", comment: ""), "maxWidthOnScreen", 10, 100, 10, true, "%"),
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max height on screen:", comment: ""), "maxHeightOnScreen", 10, 100, 10, true, "%"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide window thumbnails:", comment: ""), "hideThumbnails", extraAction: { _ in toggleRowsCount() }),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Thumbnail Anti Aliasing:", comment: ""), "thumbnailAntiAliasing"),
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Thumbnail Anti Aliasing:", comment: ""), "thumbnailAntiAliasing", ThumbnailAntiAliasingPreference.allCases),
             rowsCount,
             minWidthInRow,
             maxWidthInRow,
