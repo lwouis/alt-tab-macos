@@ -48,6 +48,8 @@ class Preferences {
         "hideStatusIcons": "false",
         "startAtLogin": "true",
         "menubarIcon": MenubarIconPreference.outlined.rawValue,
+        "persistToDisk": "false",
+        "persistDirectory": FileManager.default.homeDirectoryForCurrentUser.absoluteString,
         "dontShowBlacklist": ["com.McAfee.McAfeeSafariHost"].joined(separator: "\n"),
         "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer"].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
@@ -100,6 +102,8 @@ class Preferences {
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
+    static var persistToDisk: Bool { defaults.bool("persistToDisk") }
+    static var persistDirectory: String { defaults.string("persistDirectory") }
     static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
     static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
     static var disableShortcutsBlacklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlacklistOnlyFullscreen") }

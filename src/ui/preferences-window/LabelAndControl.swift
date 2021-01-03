@@ -22,6 +22,44 @@ class LabelAndControl: NSObject {
         let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
     }
+    
+    static func makeLabelWithFileInput(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
+        let button = NSButton(title: "Set directory", target: nil, action: nil)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        let pathControl = NSPathControl()
+        pathControl.url = URL(string: Preferences.getString(rawName)!)
+        pathControl.identifier = NSUserInterfaceItemIdentifier(rawName)
+        button.onAction = { _ in
+            openFilePicker(rawName, pathControl)
+        }
+        
+        let label = makeLabel(labelText, labelPosition)
+
+        return [label, button, pathControl]
+    }
+    
+    private static func openFilePicker(_ rawValue: String, _ pathControl: NSPathControl) {
+        let dialog = NSOpenPanel();
+
+        dialog.title = "Choose directory";
+        dialog.showsResizeIndicator = true;
+        dialog.showsHiddenFiles = false;
+        dialog.canChooseFiles = false;
+        dialog.canChooseDirectories = true;
+
+        if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
+            let result = dialog.url
+
+            if let path = result?.path {
+                Preferences.set(rawValue, path)
+                pathControl.url = URL(string: path)
+            }
+        } else {
+            // User clicked on "Cancel"
+            return
+        }
+    }
 
     static func makeTextArea(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
         let textArea = TextArea(nCharactersWide, nLinesHigh, placeholder)

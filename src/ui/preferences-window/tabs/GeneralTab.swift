@@ -15,10 +15,14 @@ class GeneralTab {
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
+        let persistToDisk = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Persist to disk:", comment: ""), "persistToDisk")
+        let persistDirectory = LabelAndControl.makeLabelWithFileInput(NSLocalizedString("Persist directory:", comment: ""), "persistDirectory")
 
         let grid = GridView([
             startAtLogin,
             menubarIcon,
+            persistToDisk,
+            persistDirectory,
         ])
         grid.column(at: 0).xPlacement = .trailing
         grid.fit()
