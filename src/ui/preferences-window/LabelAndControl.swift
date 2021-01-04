@@ -39,7 +39,7 @@ class LabelAndControl: NSObject {
         return [label, button, pathControl]
     }
     
-    private static func openFilePicker(_ rawValue: String, _ pathControl: NSPathControl) {
+    private static func openFilePicker(_ rawName: String, _ pathControl: NSPathControl) {
         let dialog = NSOpenPanel();
 
         dialog.title = "Choose directory";
@@ -52,8 +52,9 @@ class LabelAndControl: NSObject {
             let result = dialog.url
 
             if let path = result?.path {
-                Preferences.set(rawValue, path)
-                pathControl.url = URL(string: path)
+                let filepath = "file://" + path
+                Preferences.set(rawName, filepath)
+                pathControl.url = URL(string: filepath)
             }
         } else {
             // User clicked on "Cancel"

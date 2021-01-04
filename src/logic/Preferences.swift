@@ -103,7 +103,7 @@ class Preferences {
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var persistToDisk: Bool { defaults.bool("persistToDisk") }
-    static var persistDirectory: String { defaults.string("persistDirectory") }
+    static var persistDirectory: URL { defaults.url("persistDirectory") }
     static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
     static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
     static var disableShortcutsBlacklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlacklistOnlyFullscreen") }
@@ -475,6 +475,10 @@ extension UserDefaults {
 
     func bool(_ key: String) -> Bool {
         return getThenConvertOrReset(key, { s in Bool(s) })
+    }
+    
+    func url(_ key: String) -> URL {
+        return getThenConvertOrReset(key, { s in URL(string: s) })
     }
 
     func cgfloat(_ key: String) -> CGFloat {
