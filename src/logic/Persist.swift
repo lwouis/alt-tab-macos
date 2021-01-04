@@ -24,7 +24,9 @@ class Persist {
     }
     static func writeWindowsToFileWithPermission(_ windows: [Window]) {
         if Preferences.persistToDisk {
-            writeWindowsToFile(windows)
+            DispatchQueue.main.async {
+                writeWindowsToFile(windows)
+            }
         }
     }
 }
