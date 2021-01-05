@@ -27,14 +27,17 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * anushree b
 * blanorama
 * caduellery
+* Christian Keilmann
 * Chun Fei Lung
 * Dan
 * Dan84
 * Daniel M
+* David. ringqvist
 * Didier Deschrijver
 * Elisabeth landblok
 * Eric WANTZ
 * Filipe
+* Frank
 * hann-solo
 * Haoshuai Xu
 * Hokuto Kato
@@ -45,14 +48,17 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jord Nijhuis
 * Julian Nowaczyk
 * Kagurazaka Tsuki
+* Klara
 * Kushnee5
 * Lcwhhh
 * Lumaxis
 * lwouis
+* Marekscholle
 * Marko McLion
 * Martin Mitka
 * Martin. mitka
 * Michael
+* Mr. axel. bock
 * Nilton Souza
 * Pehovorka
 * Petr Kolář
