@@ -28,6 +28,7 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
             case kAXFocusedUIElementChangedNotification: try focusedUiElementChanged(element, pid)
             default: return
         }
+        Persist.writeWindowsToFileWithPermission(Windows.list)
     }
 }
 

@@ -20,5 +20,6 @@ class WorkspaceEvents {
             Applications.removeRunningApplications(diff)
         }
         previousValueOfRunningApps = workspaceApps
+        Persist.writeWindowsToFileWithPermission(Windows.list)
     }
 }

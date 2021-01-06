@@ -6,7 +6,7 @@ class Persist {
     private static func writeWindowsToFile(_ windows: [Window]) {
         var isDirectory: ObjCBool = false
         let persistDirectory = Preferences.persistDirectory
-        FileManager.default.fileExists(atPath: persistDirectory.absoluteString, isDirectory: &isDirectory)
+        FileManager.default.fileExists(atPath: persistDirectory.path, isDirectory: &isDirectory)
         if !isDirectory.boolValue {
             return
         }

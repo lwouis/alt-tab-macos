@@ -61,7 +61,6 @@ class Windows {
                     windowsToRefresh.append($0)
                 }
             }
-            Persist.writeWindowsToFileWithPermission(list)
             return windowsToRefresh
         }
         return nil
