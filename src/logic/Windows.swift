@@ -206,7 +206,6 @@ class Windows {
             var screenFrameInQuartzCoordinates = screen.frame
             screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
             let windowRect = CGRect(origin: topLeftCorner, size: size)
-            debugPrint(windowRect.intersects(screenFrameInQuartzCoordinates), screenSpaceId, window.spaceId)
             return windowRect.intersects(screenFrameInQuartzCoordinates) && screenSpaceId == window.spaceId
         }
         return true
