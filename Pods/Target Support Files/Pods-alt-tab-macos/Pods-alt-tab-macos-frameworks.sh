@@ -201,6 +201,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ShortcutRecorder/ShortcutRecorder.framework"
   install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
   install_dsym "${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM"
+  install_framework "${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyMarkdown/SwiftyMarkdown.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -208,6 +209,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ShortcutRecorder/ShortcutRecorder.framework"
   install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
   install_dsym "${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM"
+  install_framework "${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyMarkdown/SwiftyMarkdown.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
