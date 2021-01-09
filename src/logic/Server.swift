@@ -19,10 +19,11 @@ func stopServer() {
 private func setEndpoints() {
     server["/"] = { request in HttpResponse.ok(.text("{}")) }
     server["/windows"] = { _ in getWindows() }
+    server.PUT["/window/focus"] = focusWindow
     server.DELETE["/window"] = closeWindow
 }
 
-func getWindows() -> HttpResponse {
+private func getWindows() -> HttpResponse {
     let windowData = Windows.list.map({
         [
             "name": $0.title ?? "(Unknown)", "isFullscreen": $0.isFullscreen,
@@ -40,7 +41,20 @@ func getWindows() -> HttpResponse {
     return HttpResponse.ok(.json(payload))
 }
 
-func closeWindow(_ request: HttpRequest) -> HttpResponse {
+private func focusWindow(_ request: HttpRequest) -> HttpResponse {
+    let form = request.parseUrlencodedForm()
+    return form.first(where: { $0.0 == "windowId" })
+        .flatMap({ Int($0.1) })
+        .flatMap({ windowId in
+            Windows.list.first(where: { $0.cgWindowId == windowId })
+        }).map({ window in
+            window.focus()
+        }).map({ _ in
+            HttpResponse.ok(.text(""))
+        }) ?? HttpResponse.badRequest(.text(""))
+}
+
+private func closeWindow(_ request: HttpRequest) -> HttpResponse {
     let form = request.parseUrlencodedForm()
 
     return form.first(where: { $0.0 == "windowId" })
