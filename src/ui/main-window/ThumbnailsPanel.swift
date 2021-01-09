@@ -5,7 +5,8 @@ class ThumbnailsPanel: NSPanel {
     override var canBecomeKey: Bool { true }
 
     convenience init() {
-        self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
+        self.init(
+            contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
         isFloatingPanel = true
         updateFadeOutAnimation()
         hidesOnDeactivate = false

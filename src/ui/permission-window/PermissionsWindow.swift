@@ -5,7 +5,9 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
     var screenRecordingView: PermissionView!
 
     convenience init() {
-        self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
+        self.init(
+            contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable],
+            backing: .buffered, defer: false)
         delegate = self
         setupWindow()
         setupView()
@@ -18,7 +20,8 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
     }
 
     func windowShouldClose(_ sender: NSWindow) -> Bool {
-        debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
+        debugPrint(
+            "Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
             "Please authorize and re-launch.",
             "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
             separator: "\n")
@@ -43,7 +46,9 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
         accessibilityView = PermissionView(
             "accessibility",
             NSLocalizedString("Accessibility", comment: ""),
-            NSLocalizedString("This permission is needed to focus windows after you release the shortcut", comment: ""),
+            NSLocalizedString(
+                "This permission is needed to focus windows after you release the shortcut",
+                comment: ""),
             NSLocalizedString("Open Accessibility Preferences…", comment: ""),
             "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
             SystemPermissions.accessibilityIsGranted
@@ -56,7 +61,9 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
             screenRecordingView = PermissionView(
                 "screen-recording",
                 NSLocalizedString("Screen Recording", comment: ""),
-                NSLocalizedString("This permission is needed to show screenshots and titles of open windows", comment: ""),
+                NSLocalizedString(
+                    "This permission is needed to show screenshots and titles of open windows",
+                    comment: ""),
                 NSLocalizedString("Open Screen Recording Preferences…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
                 SystemPermissions.screenRecordingIsGranted

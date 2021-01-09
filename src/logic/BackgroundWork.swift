@@ -18,11 +18,14 @@ class BackgroundWork {
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
-        mainQueueConcurrentWorkQueue = DispatchQueue.globalConcurrent("mainQueueConcurrentWorkQueue", .userInteractive)
-        accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
+        mainQueueConcurrentWorkQueue = DispatchQueue.globalConcurrent(
+            "mainQueueConcurrentWorkQueue", .userInteractive)
+        accessibilityCommandsQueue = DispatchQueue.globalConcurrent(
+            "accessibilityCommandsQueue", .userInteractive)
         axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
         crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
-        accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
+        accessibilityEventsThread = BackgroundThreadWithRunLoop(
+            "accessibilityEventsThread", .userInteractive)
         mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread", .userInteractive)
         repeatingKeyThread = BackgroundThreadWithRunLoop("repeatingKeyThread", .userInteractive)
     }
@@ -34,7 +37,8 @@ class BackgroundWork {
 
 extension DispatchQueue {
     static func globalConcurrent(_ label: String, _ qos: DispatchQoS) -> DispatchQueue {
-        return DispatchQueue(label: label, attributes: .concurrent, target: .global(qos: qos.qosClass))
+        return DispatchQueue(
+            label: label, attributes: .concurrent, target: .global(qos: qos.qosClass))
     }
 
     func asyncWithCap(_ deadline: DispatchTime? = nil, _ fn: @escaping () -> Void) {

@@ -8,22 +8,27 @@ class Spaces {
     static var idsAndIndexes: [(CGSSpaceID, SpaceIndex)] = allIdsAndIndexes()
 
     static func observeSpaceChanges() {
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
-            debugPrint("OS event", "activeSpaceDidChangeNotification")
-            idsAndIndexes = allIdsAndIndexes()
-            updateCurrentSpace()
-            refreshVisibleSpaces()
-        })
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification , object: nil, queue: nil, using: { _ in
-            debugPrint("OS event", "didChangeScreenParametersNotification")
-            refreshVisibleSpaces()
-        })
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil,
+            using: { _ in
+                debugPrint("OS event", "activeSpaceDidChangeNotification")
+                idsAndIndexes = allIdsAndIndexes()
+                updateCurrentSpace()
+                refreshVisibleSpaces()
+            })
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: nil,
+            using: { _ in
+                debugPrint("OS event", "didChangeScreenParametersNotification")
+                refreshVisibleSpaces()
+            })
     }
 
     static func refreshCurrentSpaceId() {
         // it seems that in some rare scenarios, some of these values are nil; we wrap to avoid crashing
         if let mainScreen = NSScreen.main,
-           let uuid = mainScreen.uuid() {
+            let uuid = mainScreen.uuid()
+        {
             currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, uuid)
         }
     }
@@ -46,9 +51,10 @@ class Spaces {
 
     static func updateCurrentSpace() {
         refreshCurrentSpaceId()
-        currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
-            spaceId == currentSpaceId
-        }?.1 ?? SpaceIndex(1)
+        currentSpaceIndex =
+            idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
+                spaceId == currentSpaceId
+            }?.1 ?? SpaceIndex(1)
         debugPrint("Current space", currentSpaceId)
     }
 
@@ -70,7 +76,8 @@ class Spaces {
     static func windowsInSpaces(_ spaceIds: [CGSSpaceID]) -> [CGWindowID] {
         var set_tags = UInt64(0)
         var clear_tags = UInt64(0)
-        return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, 2, &set_tags, &clear_tags) as! [CGWindowID]
+        return CGSCopyWindowsWithOptionsAndTags(
+            cgsMainConnectionId, 0, spaceIds as CFArray, 2, &set_tags, &clear_tags) as! [CGWindowID]
     }
 
     static func updateIsSingleSpace() {

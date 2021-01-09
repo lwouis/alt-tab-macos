@@ -5,11 +5,18 @@ class UserDefaultsEvents: NSObject {
     private static var policyObserver = UserDefaultsEvents()
 
     static func observe() {
-        UserDefaults.standard.addObserver(policyObserver, forKeyPath: "SUAutomaticallyUpdate", options: [.initial, .new], context: nil)
-        UserDefaults.standard.addObserver(policyObserver, forKeyPath: "SUEnableAutomaticChecks", options: [.initial, .new], context: nil)
+        UserDefaults.standard.addObserver(
+            policyObserver, forKeyPath: "SUAutomaticallyUpdate", options: [.initial, .new],
+            context: nil)
+        UserDefaults.standard.addObserver(
+            policyObserver, forKeyPath: "SUEnableAutomaticChecks", options: [.initial, .new],
+            context: nil)
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(
+        forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?,
+        context: UnsafeMutableRawPointer?
+    ) {
         guard !PoliciesTab.policyLock else { return }
         let buttons = PoliciesTab.updateButtons!
         let id = buttonIdToUpdate()

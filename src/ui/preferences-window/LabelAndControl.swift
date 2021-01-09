@@ -8,22 +8,35 @@ enum LabelPosition {
 }
 
 class LabelAndControl: NSObject {
-    static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
+    static func makeLabelWithRecorder(
+        _ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true,
+        labelPosition: LabelPosition = .leftWithSeparator
+    ) -> [NSView] {
         let input = CustomRecorderControl(shortcutString, clearable)
-        let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in ControlsTab.shortcutChangedCallback(input) })
+        let views = makeLabelWithProvidedControl(
+            labelText, rawName, input, labelPosition: labelPosition,
+            extraAction: { _ in ControlsTab.shortcutChangedCallback(input) })
         ControlsTab.shortcutChangedCallback(input)
         return views
     }
 
-    static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
-        let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : " ", target: nil, action: nil)
+    static func makeLabelWithCheckbox(
+        _ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil,
+        labelPosition: LabelPosition = .leftWithSeparator
+    ) -> [NSView] {
+        let checkbox = NSButton(
+            checkboxWithTitle: labelPosition == .right ? labelText : " ", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         checkbox.state = defaults.bool(rawName) ? .on : .off
-        let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
+        let views = makeLabelWithProvidedControl(
+            labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
     }
 
-    static func makeTextArea(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
+    static func makeTextArea(
+        _ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String,
+        extraAction: ActionClosure? = nil
+    ) -> [NSView] {
         let textArea = TextArea(nCharactersWide, nLinesHigh, placeholder)
         textArea.callback = {
             controlWasChanged(textArea, nil)
@@ -34,11 +47,16 @@ class LabelAndControl: NSObject {
         return [textArea]
     }
 
-    static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [MacroPreference], _ suffixText: String? = nil, extraAction: ActionClosure? = nil) -> [NSView] {
-        return makeLabelWithProvidedControl(labelText, rawName, dropdown_(rawName, values), suffixText, extraAction: extraAction)
+    static func makeLabelWithDropdown(
+        _ labelText: String, _ rawName: String, _ values: [MacroPreference],
+        _ suffixText: String? = nil, extraAction: ActionClosure? = nil
+    ) -> [NSView] {
+        return makeLabelWithProvidedControl(
+            labelText, rawName, dropdown_(rawName, values), suffixText, extraAction: extraAction)
     }
 
-    static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
+    static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton
+    {
         let popUp = NSPopUpButton()
         popUp.translatesAutoresizingMaskIntoConstraints = false
         popUp.addItems(withTitles: macroPreferences.map { $0.localizedString })
@@ -46,15 +64,19 @@ class LabelAndControl: NSObject {
         return popUp
     }
 
-    static func makeDropdown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSControl {
+    static func makeDropdown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSControl
+    {
         let dropdown = dropdown_(rawName, macroPreferences)
         return setupControl(dropdown, rawName)
     }
 
-    static func makeRadioButtons(_ macroPreferences: [MacroPreference], _ rawName: String, extraAction: ActionClosure? = nil) -> [NSButton] {
+    static func makeRadioButtons(
+        _ macroPreferences: [MacroPreference], _ rawName: String, extraAction: ActionClosure? = nil
+    ) -> [NSButton] {
         var i = 0
         return macroPreferences.map {
-            let button = NSButton(radioButtonWithTitle: $0.localizedString, target: nil, action: nil)
+            let button = NSButton(
+                radioButtonWithTitle: $0.localizedString, target: nil, action: nil)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.state = defaults.int(rawName) == i ? .on : .off
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
@@ -63,18 +85,28 @@ class LabelAndControl: NSObject {
         }
     }
 
-    static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "", extraAction: ActionClosure? = nil) -> [NSView] {
+    static func makeLabelWithSlider(
+        _ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,
+        _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "",
+        extraAction: ActionClosure? = nil
+    ) -> [NSView] {
         let value = defaults.double(rawName)
-        let suffixText = MeasurementFormatter().string(from: Measurement(value: value, unit: Unit(symbol: unitText)))
+        let suffixText = MeasurementFormatter().string(
+            from: Measurement(value: value, unit: Unit(symbol: unitText)))
         let slider = NSSlider()
         slider.minValue = minValue
         slider.maxValue = maxValue
         slider.stringValue = String(value)
         slider.isContinuous = true
-        return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText, extraAction: extraAction)
+        return makeLabelWithProvidedControl(
+            labelText, rawName, slider, suffixText, extraAction: extraAction)
     }
 
-    static func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil, labelPosition: LabelPosition = .leftWithSeparator, extraAction: ActionClosure? = nil) -> [NSView] {
+    static func makeLabelWithProvidedControl(
+        _ labelText: String, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil,
+        _ suffixUrl: String? = nil, labelPosition: LabelPosition = .leftWithSeparator,
+        extraAction: ActionClosure? = nil
+    ) -> [NSView] {
         _ = setupControl(control, rawName, extraAction: extraAction)
         if labelPosition == .right && control is NSButton {
             return [control]
@@ -92,7 +124,10 @@ class LabelAndControl: NSObject {
         return [label, control]
     }
 
-    static func setupControl(_ control: NSControl, _ rawName: String, _ controlId: String? = nil, extraAction: ActionClosure? = nil) -> NSControl {
+    static func setupControl(
+        _ control: NSControl, _ rawName: String, _ controlId: String? = nil,
+        extraAction: ActionClosure? = nil
+    ) -> NSControl {
         control.identifier = NSUserInterfaceItemIdentifier(rawName)
         control.onAction = {
             controlWasChanged($0, controlId)
@@ -109,15 +144,20 @@ class LabelAndControl: NSObject {
             Preferences.set(senderControl.identifier!.rawValue, newValue)
         }
         // some preferences require re-creating some components
-        if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-               (["iconSize", "fontHeight", "theme", "titleTruncation"].contains { (pref: String) -> Bool in
-                   pref == senderControl.identifier!.rawValue
-               }) {
+        if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0)
+            && (["iconSize", "fontHeight", "theme", "titleTruncation"].contains {
+                (pref: String) -> Bool in
+                pref == senderControl.identifier!.rawValue
+            })
+        {
             (App.shared as! App).resetPreferencesDependentComponents()
         }
     }
 
-    static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator, shouldFit: Bool = true) -> NSTextField {
+    static func makeLabel(
+        _ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator,
+        shouldFit: Bool = true
+    ) -> NSTextField {
         let label = TextField(labelText)
         label.isSelectable = false
         label.usesSingleLineMode = true
@@ -128,7 +168,9 @@ class LabelAndControl: NSObject {
         return label
     }
 
-    private static func makeSuffix(_ controlName: String, _ text: String, _ url: String? = nil) -> NSTextField {
+    private static func makeSuffix(_ controlName: String, _ text: String, _ url: String? = nil)
+        -> NSTextField
+    {
         let suffix: NSTextField
         if url == nil {
             suffix = NSTextField(labelWithString: text)
@@ -136,7 +178,8 @@ class LabelAndControl: NSObject {
             suffix = HyperlinkLabel(text, url!)
         }
         suffix.textColor = .gray
-        suffix.identifier = NSUserInterfaceItemIdentifier(controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
+        suffix.identifier = NSUserInterfaceItemIdentifier(
+            controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
         suffix.fit()
         return suffix
     }
@@ -145,7 +188,7 @@ class LabelAndControl: NSObject {
         if control is NSPopUpButton {
             return String((control as! NSPopUpButton).indexOfSelectedItem)
         } else if control is NSSlider {
-            return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
+            return String(format: "%.0f", control.doubleValue)  // we are only interested in decimals of the provided double
         } else if control is NSButton {
             if let controlId = controlId {
                 return ((control as! NSButton).state == NSButton.StateValue.on) ? controlId : nil
@@ -159,12 +202,16 @@ class LabelAndControl: NSObject {
 
     private static func updateSuffixWithValue(_ control: NSControl, _ value: String) {
         let suffixIdentifierPredicate = { (view: NSView) -> Bool in
-            view.identifier?.rawValue == control.identifier!.rawValue + ControlIdentifierDiscriminator.SUFFIX.rawValue
+            view.identifier?.rawValue == control.identifier!.rawValue
+                + ControlIdentifierDiscriminator.SUFFIX.rawValue
         }
-        if let suffixView: NSTextField = control.superview?.subviews.first(where: suffixIdentifierPredicate) as? NSTextField {
-            let regex = try! NSRegularExpression(pattern: "^[0-9]+") // first decimal
+        if let suffixView: NSTextField = control.superview?.subviews.first(
+            where: suffixIdentifierPredicate) as? NSTextField
+        {
+            let regex = try! NSRegularExpression(pattern: "^[0-9]+")  // first decimal
             let range = NSMakeRange(0, suffixView.stringValue.count)
-            suffixView.stringValue = regex.stringByReplacingMatches(in: suffixView.stringValue, range: range, withTemplate: value)
+            suffixView.stringValue = regex.stringByReplacingMatches(
+                in: suffixView.stringValue, range: range, withTemplate: value)
         }
     }
 }
@@ -176,14 +223,14 @@ enum ControlIdentifierDiscriminator: String {
 class TabView: NSTabView, NSTabViewDelegate {
     // removing insets fixes a bug where tab views shift to the right and bottom by 7px when switching to tab #2
     let insets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    override var alignmentRectInsets: NSEdgeInsets { get { insets } }
+    override var alignmentRectInsets: NSEdgeInsets { insets }
 
     // workaround: this is the only I found to have NSTabView fittingSize be correct
     override var intrinsicContentSize: NSSize {
-        get {
-            NSSize(width: selectedTabViewItem!.view!.fittingSize.width + TabView.padding * 2,
-                height: selectedTabViewItem!.view!.fittingSize.height + TabView.padding * 2 + subviews[0].frame.height)
-        }
+        NSSize(
+            width: selectedTabViewItem!.view!.fittingSize.width + TabView.padding * 2,
+            height: selectedTabViewItem!.view!.fittingSize.height + TabView.padding * 2
+                + subviews[0].frame.height)
     }
 
     static let padding = CGFloat(7)

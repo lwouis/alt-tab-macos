@@ -59,7 +59,7 @@ class SelectorWrapper<T> {
     }
 }
 
-fileprivate var handle: Int = 0
+private var handle: Int = 0
 
 typealias ActionClosure = (NSControl) -> Void
 
@@ -71,7 +71,8 @@ extension NSControl {
         set {
             if let newValue = newValue {
                 let selectorWrapper = SelectorWrapper<NSControl>(withClosure: newValue)
-                objc_setAssociatedObject(self, &handle, selectorWrapper, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(
+                    self, &handle, selectorWrapper, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 action = selectorWrapper.selector
                 target = selectorWrapper
             } else {
@@ -92,11 +93,11 @@ func assignIfDifferent<T: Equatable>(_ a: UnsafeMutablePointer<T>, _ b: T) {
 extension DispatchQoS {
     func toQualityOfService() -> QualityOfService {
         switch self {
-            case .userInteractive: return .userInteractive
-            case .userInitiated: return .userInitiated
-            case .utility: return .utility
-            case .background: return .background
-            default: return .default
+        case .userInteractive: return .userInteractive
+        case .userInitiated: return .userInitiated
+        case .utility: return .utility
+        case .background: return .background
+        default: return .default
         }
     }
 }
@@ -139,7 +140,10 @@ extension NSImage {
         let img = NSImage(size: CGSize(width: width, height: height))
         img.lockFocus()
         NSGraphicsContext.current?.imageInterpolation = .high
-        original.draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, original.size.width, original.size.height), operation: .copy, fraction: 1)
+        original.draw(
+            in: NSMakeRect(0, 0, width, height),
+            from: NSMakeRect(0, 0, original.size.width, original.size.height), operation: .copy,
+            fraction: 1)
         img.unlockFocus()
         return img
     }
@@ -147,7 +151,8 @@ extension NSImage {
     func tinted(_ tint: NSColor) -> NSImage {
         let dimmed = copy() as! NSImage
         let scaling = NSScreen.withMouse()?.backingScaleFactor ?? 1
-        let scaledSize = NSSize(width: (size.width * scaling).rounded(), height: (size.height * scaling).rounded())
+        let scaledSize = NSSize(
+            width: (size.width * scaling).rounded(), height: (size.height * scaling).rounded())
         dimmed.size = scaledSize
         dimmed.lockFocus()
         tint.set()
@@ -173,7 +178,8 @@ extension pid_t {
 
 extension String {
     // convert a FourCharCode into a String
-    init(_ fourCharCode: FourCharCode) { // or `OSType`, or `UInt32`
-        self = NSFileTypeForHFSTypeCode(fourCharCode).trimmingCharacters(in: CharacterSet(charactersIn: "'"))
+    init(_ fourCharCode: FourCharCode) {  // or `OSType`, or `UInt32`
+        self = NSFileTypeForHFSTypeCode(fourCharCode).trimmingCharacters(
+            in: CharacterSet(charactersIn: "'"))
     }
 }

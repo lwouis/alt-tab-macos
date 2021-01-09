@@ -1,20 +1,21 @@
+import AppCenterCrashes
 import Cocoa
 import Darwin
 import LetsMove
 import ShortcutRecorder
-import AppCenterCrashes
-
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
-var activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
+var activity = ProcessInfo.processInfo.beginActivity(
+    options: .userInitiatedAllowingIdleSystemSleep,
     reason: "Prevent App Nap to preserve responsiveness")
 
 class App: AppCenterApplication, NSApplicationDelegate {
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     static let id = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
-    static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
+    static let licence =
+        Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static var app: App!
     var thumbnailsPanel: ThumbnailsPanel!
@@ -42,10 +43,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
         #if DEBUG
-        UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
+            UserDefaults.standard.set(
+                true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
         #if !DEBUG
-        PFMoveToApplicationsFolderIfNecessary()
+            PFMoveToApplicationsFolderIfNecessary()
         #endif
         AXUIElement.setGlobalTimeout()
         BackgroundWork.startSystemPermissionThread()
@@ -63,15 +65,17 @@ class App: AppCenterApplication, NSApplicationDelegate {
             KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
-            DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
+            DispatchQueue.main.async { () -> Void in Windows.sortByLevel() }
             self.preloadWindows()
             #if DEBUG
-            self.showPreferencesWindow()
+                self.showPreferencesWindow()
             #endif
         }
     }
 
-    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool)
+        -> Bool
+    {
         showPreferencesWindow()
         return true
     }
@@ -205,7 +209,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func refreshOpenUi(_ windowsToUpdate: [Window]? = nil) {
         guard appIsBeingUsed else { return }
-        let currentScreen = NSScreen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
+        let currentScreen = NSScreen.preferred()  // fix screen between steps since it could change (e.g. mouse moved to another screen)
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
         Spaces.refreshCurrentSpaceId()
@@ -220,13 +224,17 @@ class App: AppCenterApplication, NSApplicationDelegate {
         currentScreen.repositionPanel(thumbnailsPanel, .appleCentered)
     }
 
-    private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
+    private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen)
+        -> ()?
+    {
         windowsToUpdate?.forEach { (window: Window) in
             guard appIsBeingUsed else { return }
             window.refreshThumbnail()
             Windows.refreshIfWindowShouldBeShownToTheUser(window, currentScreen)
-            if !window.shouldShowTheUser && window.cgWindowId == Windows.focusedWindow()!.cgWindowId {
-                let stepWithClosestWindow = Windows.windowIndexAfterCycling(-1) > Windows.focusedWindowIndex ? 1 : -1
+            if !window.shouldShowTheUser && window.cgWindowId == Windows.focusedWindow()!.cgWindowId
+            {
+                let stepWithClosestWindow =
+                    Windows.windowIndexAfterCycling(-1) > Windows.focusedWindowIndex ? 1 : -1
                 Windows.cycleFocusedWindowIndex(stepWithClosestWindow)
             } else {
                 Windows.updatesWindowSpace(window)
@@ -239,7 +247,10 @@ class App: AppCenterApplication, NSApplicationDelegate {
         if isFirstSummon {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
-            if Windows.list.count == 0 || CGWindow.isMissionControlActive() { hideUi(); return }
+            if Windows.list.count == 0 || CGWindow.isMissionControlActive() {
+                hideUi()
+                return
+            }
             // TODO: find a way to update space info when spaces are changed, instead of on every trigger
             // replace with:
             // So far, the best signal I've found is to watch com.apple.dock for the uiElementDestroyed notification.
@@ -253,11 +264,16 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.shortcutIndex = shortcutIndex
             Windows.refreshWhichWindowsToShowTheUser(screen)
             Windows.reorderList()
-            if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
+            if !Windows.list.contains { $0.shouldShowTheUser } {
+                hideUi()
+                return
+            }
             Windows.updateFocusedWindowIndex(0)
             Windows.cycleFocusedWindowIndex(1)
             delayedDisplayScheduled += 1
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
+            DispatchQueue.main.asyncAfter(
+                deadline: DispatchTime.now() + Preferences.windowDisplayDelay
+            ) { () -> Void in
                 if self.delayedDisplayScheduled == 1 {
                     self.rebuildUi(screen)
                 }
@@ -273,7 +289,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         guard appIsBeingUsed else { return }
         Windows.refreshFirstFewThumbnailsSync()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 monitors make thumbnailPanel invisible
+        thumbnailsPanel.makeKeyAndOrderFront(nil)  // workaround: without this, switching between 2 monitors make thumbnailPanel invisible
         guard appIsBeingUsed else { return }
         refreshOpenUi()
         guard appIsBeingUsed else { return }

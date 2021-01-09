@@ -1,5 +1,5 @@
-import Cocoa
 import ApplicationServices.HIServices.AXNotificationConstants
+import Cocoa
 
 class Application: NSObject {
     // kvObservers should be listed first, so it gets deinit'ed first; otherwise it can crash
@@ -26,7 +26,10 @@ class Application: NSObject {
         ]
         // workaround: some apps exhibit bugs when we subscribe to its kAXFocusedUIElementChangedNotification
         // we don't know what's happening; we avoid this subscription to make these app usable
-        if app.bundleIdentifier == "edu.stanford.protege" || app.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?EAP$", options: .regularExpression) != nil {
+        if app.bundleIdentifier == "edu.stanford.protege"
+            || app.bundleIdentifier?.range(
+                of: "^com\\.jetbrains\\..+?EAP$", options: .regularExpression) != nil
+        {
             return n.filter { $0 != kAXFocusedUIElementChangedNotification }
         }
         return n
@@ -54,18 +57,24 @@ class Application: NSObject {
     }
 
     deinit {
-        debugPrint("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
+        debugPrint(
+            "Deinit app",
+            runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
     }
 
     func removeWindowslessAppWindow() {
-        if let windowlessAppWindow = (Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid }) {
+        if let windowlessAppWindow =
+            (Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid })
+        {
             Windows.list.remove(at: windowlessAppWindow)
             App.app.refreshOpenUi()
         }
     }
 
     func addAndObserveWindows() {
-        if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited && axUiElement == nil {
+        if runningApplication.isFinishedLaunching
+            && runningApplication.activationPolicy != .prohibited && axUiElement == nil
+        {
             axUiElement = AXUIElementCreateApplication(pid)
             AXObserverCreate(pid, axObserverCallback, &axObserver)
             debugPrint("Adding app", pid, runningApplication.bundleIdentifier ?? "nil")
@@ -74,24 +83,33 @@ class Application: NSObject {
     }
 
     func observeNewWindows(_ group: DispatchGroup? = nil) {
-        if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
+        if runningApplication.isFinishedLaunching
+            && runningApplication.activationPolicy != .prohibited
+        {
             retryAxCallUntilTimeout(group, 5) { [weak self] in
                 guard let self = self else { return }
                 if let axWindows_ = try self.axUiElement!.windows(), axWindows_.count > 0 {
                     // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
-                    let axWindows = try Array(Set(axWindows_)).compactMap {
-                        if let wid = try $0.cgWindowId() {
-                            let title = try $0.title()
-                            let subrole = try $0.subrole()
-                            let role = try $0.role()
-                            let size = try $0.size()
-                            let isOnNormalLevel = $0.isOnNormalLevel(wid)
-                            if $0.isActualWindow(self.runningApplication, wid, isOnNormalLevel, title, subrole, role, size) {
-                                return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position())
+                    let axWindows =
+                        try Array(Set(axWindows_)).compactMap {
+                            if let wid = try $0.cgWindowId() {
+                                let title = try $0.title()
+                                let subrole = try $0.subrole()
+                                let role = try $0.role()
+                                let size = try $0.size()
+                                let isOnNormalLevel = $0.isOnNormalLevel(wid)
+                                if $0.isActualWindow(
+                                    self.runningApplication, wid, isOnNormalLevel, title, subrole,
+                                    role, size)
+                                {
+                                    return (
+                                        $0, wid, title, try $0.isFullscreen(), try $0.isMinimized(),
+                                        try $0.position()
+                                    )
+                                }
                             }
-                        }
-                        return nil
-                    } as [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]
+                            return nil
+                        } as [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
                         var windows = self.addWindows(axWindows)
@@ -107,7 +125,10 @@ class Application: NSObject {
                         App.app.refreshOpenUi(window)
                     }
                     // workaround: opening an app while the active app is fullscreen; we wait out the space transition animation
-                    if group == nil && !self.wasLaunchedBeforeAltTab && CGSSpaceGetType(cgsMainConnectionId, Spaces.currentSpaceId) == .fullscreen {
+                    if group == nil && !self.wasLaunchedBeforeAltTab
+                        && CGSSpaceGetType(cgsMainConnectionId, Spaces.currentSpaceId)
+                            == .fullscreen
+                    {
                         throw AxError.runtimeError
                     }
                 }
@@ -115,10 +136,14 @@ class Application: NSObject {
         }
     }
 
-    private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)]) -> [Window] {
-        let windows: [Window] = axWindows.compactMap { (axUiElement, wid, axTitle, isFullscreen, isMinimized, position) in
+    private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?)])
+        -> [Window]
+    {
+        let windows: [Window] = axWindows.compactMap {
+            (axUiElement, wid, axTitle, isFullscreen, isMinimized, position) in
             if (Windows.list.firstIndex { $0.isEqualRobust(axUiElement, wid) }) == nil {
-                let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position)
+                let window = Window(
+                    axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position)
                 Windows.appendAndUpdateFocus(window)
                 return window
             }
@@ -131,10 +156,10 @@ class Application: NSObject {
     }
 
     func addWindowslessAppsIfNeeded() -> [Window]? {
-        if !Preferences.hideWindowlessApps &&
-               runningApplication.activationPolicy == .regular &&
-               !runningApplication.isTerminated &&
-               (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
+        if !Preferences.hideWindowlessApps && runningApplication.activationPolicy == .regular
+            && !runningApplication.isTerminated
+            && (Windows.list.firstIndex { $0.application.pid == pid }) == nil
+        {
             let window = Window(self)
             Windows.appendAndUpdateFocus(window)
             return [window]
@@ -147,19 +172,23 @@ class Application: NSObject {
         for notification in Application.notifications(runningApplication) {
             retryAxCallUntilTimeout { [weak self] in
                 guard let self = self else { return }
-                try self.axUiElement!.subscribeToNotification(axObserver, notification, {
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
-                        // we consider them ready when the first subscription succeeds, and list their windows again at that point
-                        if !self.isReallyFinishedLaunching {
-                            self.isReallyFinishedLaunching = true
-                            self.observeNewWindows()
+                try self.axUiElement!.subscribeToNotification(
+                    axObserver, notification,
+                    {
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else { return }
+                            // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
+                            // we consider them ready when the first subscription succeeds, and list their windows again at that point
+                            if !self.isReallyFinishedLaunching {
+                                self.isReallyFinishedLaunching = true
+                                self.observeNewWindows()
+                            }
                         }
-                    }
-                }, self.runningApplication)
+                    }, self.runningApplication)
             }
         }
-        CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
+        CFRunLoopAddSource(
+            BackgroundWork.accessibilityEventsThread.runLoop,
+            AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 }

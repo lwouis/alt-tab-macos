@@ -39,12 +39,17 @@ func CGSMainConnectionID() -> CGSConnectionID
 // * offscreen content: no
 // * macOS 10.10+
 @_silgen_name("CGSHWCaptureWindowList")
-func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: inout CGWindowID, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> Unmanaged<CFArray>
+func CGSHWCaptureWindowList(
+    _ cid: CGSConnectionID, _ windowList: inout CGWindowID, _ windowCount: UInt32,
+    _ options: CGSWindowCaptureOptions
+) -> Unmanaged<CFArray>
 
 // returns the connection ID for the provided window
 // * macOS 10.10+
 @_silgen_name("CGSGetWindowOwner") @discardableResult
-func CGSGetWindowOwner(_ cid: CGSConnectionID, _ wid: CGWindowID, _ windowCid: inout CGSConnectionID) -> CGError
+func CGSGetWindowOwner(
+    _ cid: CGSConnectionID, _ wid: CGWindowID, _ windowCid: inout CGSConnectionID
+) -> CGError
 
 // returns the PSN for the provided connection ID
 // * macOS 10.10+
@@ -61,7 +66,10 @@ func CGSCopyManagedDisplaySpaces(_ cid: CGSConnectionID) -> CFArray
 // the elements of the array are ordered by the z-index order of the windows in each space, with some exceptions where spaces mix
 // * macOS 10.10+
 @_silgen_name("CGSCopyWindowsWithOptionsAndTags")
-func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: UInt32, _ spaces: CFArray, _ options: UInt32, _ setTags: inout UInt64, _ clearTags: inout UInt64) -> CFArray
+func CGSCopyWindowsWithOptionsAndTags(
+    _ cid: CGSConnectionID, _ owner: UInt32, _ spaces: CFArray, _ options: UInt32,
+    _ setTags: inout UInt64, _ clearTags: inout UInt64
+) -> CFArray
 
 // returns the current space ID on the provided display UUID
 // * macOS 10.10+
@@ -71,17 +79,19 @@ func CGSManagedDisplayGetCurrentSpace(_ cid: CGSConnectionID, _ displayUuid: CFS
 // adds the provided windows to the provided spaces
 // * macOS 10.10+
 @_silgen_name("CGSAddWindowsToSpaces")
-func CGSAddWindowsToSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray) -> Void
+func CGSAddWindowsToSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray)
 
 // remove the provided windows from the provided spaces
 // * macOS 10.10+
 @_silgen_name("CGSRemoveWindowsFromSpaces")
-func CGSRemoveWindowsFromSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray) -> Void
+func CGSRemoveWindowsFromSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray)
 
 // focuses the front process
 // * macOS 10.12+
 @_silgen_name("_SLPSSetFrontProcessWithOptions") @discardableResult
-func _SLPSSetFrontProcessWithOptions(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID, _ mode: SLPSMode) -> CGError
+func _SLPSSetFrontProcessWithOptions(
+    _ psn: inout ProcessSerialNumber, _ wid: CGWindowID, _ mode: SLPSMode
+) -> CGError
 
 // sends bytes to the WindowServer
 // more context: https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
@@ -97,7 +107,9 @@ func _AXUIElementGetWindow(_ axUiElement: AXUIElement, _ wid: inout CGWindowID) 
 // returns the provided CGWindow property for the provided CGWindowID
 // * macOS 10.10+
 @_silgen_name("CGSCopyWindowProperty") @discardableResult
-func CGSCopyWindowProperty(_ cid: CGSConnectionID, _ wid: CGWindowID, _ property: CFString, _ value: inout CFTypeRef?) -> CGError
+func CGSCopyWindowProperty(
+    _ cid: CGSConnectionID, _ wid: CGWindowID, _ property: CFString, _ value: inout CFTypeRef?
+) -> CGError
 
 enum CGSSpaceMask: Int {
     case current = 5
@@ -108,12 +120,14 @@ enum CGSSpaceMask: Int {
 // get the CGSSpaceIDs for the given windows (CGWindowIDs)
 // * macOS 10.10+
 @_silgen_name("CGSCopySpacesForWindows")
-func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawValue, _ wids: CFArray) -> CFArray
+func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawValue, _ wids: CFArray)
+    -> CFArray
 
 // returns window level (see definition in CGWindowLevel.h) of provided window
 // * macOS 10.10+
 @_silgen_name("CGSGetWindowLevel") @discardableResult
-func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout CGWindowLevel) -> CGError
+func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout CGWindowLevel)
+    -> CGError
 
 // returns status of the checkbox in System Preferences > Security & Privacy > Privacy > Screen Recording
 // returns 1 if checked or 0 if unchecked; also prompts the user the first time if unchecked
@@ -132,8 +146,8 @@ let kAXStatusLabelAttribute = "AXStatusLabel"
 func CGSSetSymbolicHotKeyEnabled(_ hotKey: Int, _ isEnabled: Bool) -> CGError
 
 func setNativeCommandTabEnabled(_ isEnabled: Bool) {
-    CGSSetSymbolicHotKeyEnabled(1, isEnabled) // command+tab
-    CGSSetSymbolicHotKeyEnabled(2, isEnabled) // command+shift+tab
+    CGSSetSymbolicHotKeyEnabled(1, isEnabled)  // command+tab
+    CGSSetSymbolicHotKeyEnabled(2, isEnabled)  // command+shift+tab
 }
 
 // returns info about a given psn
@@ -156,8 +170,6 @@ enum CGSSpaceType: Int {
 // * macOS 10.10+
 @_silgen_name("CGSSpaceGetType")
 func CGSSpaceGetType(_ cid: CGSConnectionID, _ sid: CGSSpaceID) -> CGSSpaceType
-
-
 
 // ------------------------------------------------------------
 // below are some notes on some private APIs I experimented with

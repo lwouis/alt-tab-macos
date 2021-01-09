@@ -12,7 +12,9 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
         allowsEscapeToCancelRecording = false
         allowsDeleteToClearShortcutAndEndRecording = false
         allowsModifierFlagsOnlyShortcut = true
-        set(allowedModifierFlags: CocoaModifierFlagsMask, requiredModifierFlags: [], allowsEmptyModifierFlags: true)
+        set(
+            allowedModifierFlags: CocoaModifierFlagsMask, requiredModifierFlags: [],
+            allowsEmptyModifierFlags: true)
         objectValue = Shortcut(keyEquivalent: shortcutString)
         widthAnchor.constraint(equalToConstant: 100).isActive = true
     }

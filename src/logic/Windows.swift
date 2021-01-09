@@ -13,11 +13,13 @@ class Windows {
                 return bool
             }
             if Preferences.showHiddenWindows[App.app.shortcutIndex] == .showAtTheEnd,
-               let bool = sortByBooleanAttribute($0.isHidden, $1.isHidden) {
+                let bool = sortByBooleanAttribute($0.isHidden, $1.isHidden)
+            {
                 return bool
             }
             if Preferences.showMinimizedWindows[App.app.shortcutIndex] == .showAtTheEnd,
-               let bool = sortByBooleanAttribute($0.isMinimized, $1.isMinimized) {
+                let bool = sortByBooleanAttribute($0.isMinimized, $1.isMinimized)
+            {
                 return bool
             }
             return $0.lastFocusOrder < $1.lastFocusOrder
@@ -47,8 +49,12 @@ class Windows {
         }
     }
 
-    static func updateLastFocus(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID) -> [Window]? {
-        if let focusedWindow = (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) }) {
+    static func updateLastFocus(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID)
+        -> [Window]?
+    {
+        if let focusedWindow =
+            (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) })
+        {
             let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
             var windowsToRefresh = [focusedWindow]
             list.forEach {
@@ -71,7 +77,8 @@ class Windows {
         focusedWindowIndex = newIndex
         let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
         focusedView.highlight(true)
-        App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+        App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(
+            focusedView.frame)
     }
 
     static func focusedWindow() -> Window? {
@@ -80,8 +87,10 @@ class Windows {
 
     static func cycleFocusedWindowIndex(_ step: Int) {
         let nextIndex = windowIndexAfterCycling(step)
-        if ((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
-               (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
+        if ((step > 0 && nextIndex < focusedWindowIndex)
+            || (step < 0 && nextIndex > focusedWindowIndex))
+            && (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false)
+        {
             KeyRepeatTimer.timer?.invalidate()
             return
         }
@@ -158,7 +167,9 @@ class Windows {
             .forEachAsync { window in window.refreshThumbnail() }
     }
 
-    static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails) {
+    static func refreshThumbnailsAsync(
+        _ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails
+    ) {
         if !App.app.appIsBeingUsed || Preferences.hideThumbnails { return }
         BackgroundWork.mainQueueConcurrentWorkQueue.async {
             if currentIndex < list.count {
@@ -188,31 +199,42 @@ class Windows {
 
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
         window.shouldShowTheUser =
-            !(window.application.runningApplication.bundleIdentifier.flatMap { id in Preferences.dontShowBlacklist.contains { id.hasPrefix($0) } } ?? false) &&
-            !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
-            !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
-            ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
-                !window.isWindowlessApp &&
-                !(!(Preferences.showFullscreenWindows[App.app.shortcutIndex] != .hide) && window.isFullscreen) &&
-                !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide) && window.isMinimized) &&
-                !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
-                !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaceIds.contains(window.spaceId)) &&
-                !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
-                (Preferences.showTabsAsWindows || !window.isTabbed))
+            !(window.application.runningApplication.bundleIdentifier.flatMap { id in
+                Preferences.dontShowBlacklist.contains { id.hasPrefix($0) }
+            } ?? false)
+            && !(Preferences.appsToShow[App.app.shortcutIndex] == .active
+                && window.application.runningApplication != NSWorkspace.shared.frontmostApplication)
+            && !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide)
+                && window.isHidden)
+            && ((!Preferences.hideWindowlessApps && window.isWindowlessApp)
+                || !window.isWindowlessApp
+                    && !(!(Preferences.showFullscreenWindows[App.app.shortcutIndex] != .hide)
+                        && window.isFullscreen)
+                    && !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide)
+                        && window.isMinimized)
+                    && !(Preferences.spacesToShow[App.app.shortcutIndex] == .active
+                        && window.spaceId != Spaces.currentSpaceId)
+                    && !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible
+                        && !Spaces.visibleSpaceIds.contains(window.spaceId))
+                    && !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
+                        && !isOnScreen(window, screen))
+                    && (Preferences.showTabsAsWindows || !window.isTabbed))
     }
 
     static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {
         if let position = window.position {
             var screenFrameInQuartzCoordinates = screen.frame
-            screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
+            screenFrameInQuartzCoordinates.origin.y =
+                NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
             return screenFrameInQuartzCoordinates.contains(position)
         }
         return true
     }
 
     static func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window) {
-        let shortcutsShouldBeDisabled = (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen) &&
-            (Preferences.disableShortcutsBlacklist.first { blacklistedId in
+        let shortcutsShouldBeDisabled =
+            (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen)
+            && (Preferences.disableShortcutsBlacklist.first { blacklistedId in
                 if let id = activeWindow.application.runningApplication.bundleIdentifier {
                     return id.hasPrefix(blacklistedId)
                 }
@@ -234,4 +256,3 @@ func sortByBooleanAttribute(_ b1: Bool, _ b2: Bool) -> Bool? {
     }
     return nil
 }
-

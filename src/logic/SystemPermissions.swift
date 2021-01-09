@@ -8,7 +8,8 @@ class SystemPermissions {
 
     static func accessibilityIsGranted() -> Bool {
         if #available(OSX 10.9, *) {
-            return AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeRetainedValue(): false] as CFDictionary)
+            return AXIsProcessTrustedWithOptions(
+                [kAXTrustedCheckOptionPrompt.takeRetainedValue(): false] as CFDictionary)
         }
         return true
     }
@@ -25,28 +26,34 @@ class SystemPermissions {
     // workaround: we check if we can get the title of at least one window, except from AltTab or the Dock
     private static func screenRecordingIsGranted_() -> Bool {
         let appPid = NSRunningApplication.current.processIdentifier
-        if let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [CGWindow],
-           let _ = windows.first(where: { (window) -> Bool in
-               if let windowPid = window.ownerPID(),
-                  windowPid != appPid,
-                  let windowRunningApplication = NSRunningApplication(processIdentifier: windowPid),
-                  windowRunningApplication.executableURL?.lastPathComponent != "Dock",
-                  let _ = window.title() {
-                   return true
-               }
-               return false
-           }) {
+        if let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID)
+            as? [CGWindow],
+            let _ = windows.first(where: { (window) -> Bool in
+                if let windowPid = window.ownerPID(),
+                    windowPid != appPid,
+                    let windowRunningApplication = NSRunningApplication(
+                        processIdentifier: windowPid),
+                    windowRunningApplication.executableURL?.lastPathComponent != "Dock",
+                    let _ = window.title()
+                {
+                    return true
+                }
+                return false
+            })
+        {
             return true
         }
         return false
     }
 
     static func observePermissionsPostStartup() {
-        timer = Timer(timeInterval: 5, repeats: true, block: { _ in
-            if !(accessibilityIsGranted() && screenRecordingIsGranted()) {
-                App.app.restart()
-            }
-        })
+        timer = Timer(
+            timeInterval: 5, repeats: true,
+            block: { _ in
+                if !(accessibilityIsGranted() && screenRecordingIsGranted()) {
+                    App.app.restart()
+                }
+            })
         timer.tolerance = 4.9
         CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timer, .defaultMode)
     }
@@ -68,8 +75,11 @@ class SystemPermissions {
                     if accessibility != permissionsWindow.accessibilityView.isPermissionGranted {
                         permissionsWindow.accessibilityView.updatePermissionStatus(accessibility)
                     }
-                    if #available(OSX 10.15, *), screenRecording != permissionsWindow.screenRecordingView.isPermissionGranted {
-                        permissionsWindow.screenRecordingView.updatePermissionStatus(screenRecording)
+                    if #available(OSX 10.15, *),
+                        screenRecording != permissionsWindow.screenRecordingView.isPermissionGranted
+                    {
+                        permissionsWindow.screenRecordingView.updatePermissionStatus(
+                            screenRecording)
                     }
                 }
             }

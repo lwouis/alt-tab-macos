@@ -6,9 +6,11 @@ class Menubar {
     static func initialize() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         statusItem.menu = NSMenu()
-        statusItem.menu!.title = App.name // perf: prevent going through expensive code-path within appkit
+        statusItem.menu!.title = App.name  // perf: prevent going through expensive code-path within appkit
         statusItem.menu!.addItem(
-            withTitle: String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name),
+            withTitle: String(
+                format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"),
+                App.name),
             action: #selector(App.app.showAboutTab),
             keyEquivalent: "")
         statusItem.menu!.addItem(NSMenuItem.separator())
@@ -30,7 +32,9 @@ class Menubar {
             keyEquivalent: "")
         statusItem.menu!.addItem(NSMenuItem.separator())
         statusItem.menu!.addItem(
-            withTitle: String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name),
+            withTitle: String(
+                format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"),
+                App.name),
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
         menubarIconCallback(nil)
@@ -55,10 +59,10 @@ class Menubar {
 
     static private func imageIndexFromPreference() -> String {
         switch Preferences.menubarIcon {
-            case .outlined: return "1"
-            case .filled: return "2"
-            case .colored: return "3"
-            default: return "4"
+        case .outlined: return "1"
+        case .filled: return "2"
+        case .colored: return "3"
+        default: return "4"
         }
     }
 }

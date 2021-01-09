@@ -1,5 +1,5 @@
-import Cocoa
 import ApplicationServices
+import Cocoa
 
 class Applications {
     static var list = [Application]()
@@ -29,12 +29,17 @@ class Applications {
         if otherSpaces.count > 0 {
             let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId])
             let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces)
-            let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
+            let windowsOnlyOnOtherSpaces = Array(
+                Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
             if windowsOnlyOnOtherSpaces.count > 0 {
                 // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
-                CGSAddWindowsToSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
+                CGSAddWindowsToSpaces(
+                    cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray,
+                    [Spaces.currentSpaceId])
                 Applications.observeNewWindowsBlocking()
-                CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
+                CGSRemoveWindowsFromSpaces(
+                    cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray,
+                    [Spaces.currentSpaceId])
             }
         }
     }
@@ -53,13 +58,18 @@ class Applications {
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
             Applications.list.removeAll { $0.runningApplication.isEqual(runningApp) }
             Windows.list.enumerated().forEach { (index, window) in
-                if window.application.runningApplication.isEqual(runningApp) && index < Windows.focusedWindowIndex {
+                if window.application.runningApplication.isEqual(runningApp)
+                    && index < Windows.focusedWindowIndex
+                {
                     windowsOnTheLeftOfFocusedWindow += 1
                 }
             }
             Windows.list.removeAll { $0.application.runningApplication.isEqual(runningApp) }
         }
-        guard Windows.list.count > 0 else { App.app.hideUi(); return }
+        guard Windows.list.count > 0 else {
+            App.app.hideUi()
+            return
+        }
         if windowsOnTheLeftOfFocusedWindow > 0 {
             Windows.cycleFocusedWindowIndex(-windowsOnTheLeftOfFocusedWindow)
         }
@@ -69,10 +79,24 @@ class Applications {
     static func refreshBadges() {
         if !App.app.appIsBeingUsed || Preferences.hideAppBadges { return }
         retryAxCallUntilTimeout {
-            if let dockPid = (list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.pid),
-               let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == kAXListRole }),
-               let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == kAXApplicationDockItemSubrole && ($0.appIsRunning() ?? false) }) {
-                let axAppDockItemUrlAndLabel = try axAppDockItem.map { try ($0.attribute(kAXURLAttribute, URL.self), $0.attribute(kAXStatusLabelAttribute, String.self)) }
+            if let dockPid =
+                (list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.pid),
+                let axList =
+                    (try AXUIElementCreateApplication(dockPid).children()?.first {
+                        try $0.role() == kAXListRole
+                    }),
+                let axAppDockItem =
+                    (try axList.children()?.filter {
+                        try $0.subrole() == kAXApplicationDockItemSubrole
+                            && ($0.appIsRunning() ?? false)
+                    })
+            {
+                let axAppDockItemUrlAndLabel = try axAppDockItem.map {
+                    try (
+                        $0.attribute(kAXURLAttribute, URL.self),
+                        $0.attribute(kAXStatusLabelAttribute, String.self)
+                    )
+                }
                 DispatchQueue.main.async {
                     refreshBadges_(axAppDockItemUrlAndLabel)
                 }
@@ -86,11 +110,12 @@ class Applications {
             let view = ThumbnailsView.recycledViews[i]
             if let app = (Applications.list.first { window.application.pid == $0.pid }) {
                 if app.runningApplication.activationPolicy == .regular,
-                   let bundleId = app.runningApplication.bundleIdentifier,
-                   let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId),
-                   let matchingItem = (items.first { $0.0 == url }),
-                   let label = matchingItem.1,
-                   let labelInt = Int(label) {
+                    let bundleId = app.runningApplication.bundleIdentifier,
+                    let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId),
+                    let matchingItem = (items.first { $0.0 == url }),
+                    let label = matchingItem.1,
+                    let labelInt = Int(label)
+                {
                     app.dockLabel = label
                     view.updateDockLabelIcon(labelInt)
                 } else {
@@ -125,9 +150,12 @@ class Applications {
     static func isAndroidEmulator(_ app: NSRunningApplication) -> Bool {
         // NSRunningApplication provides no way to identify the emulator; we pattern match on its KERN_PROCARGS
         if app.bundleIdentifier == nil,
-           let executablePath = Sysctl.run([CTL_KERN, KERN_PROCARGS, app.processIdentifier]) {
+            let executablePath = Sysctl.run([CTL_KERN, KERN_PROCARGS, app.processIdentifier])
+        {
             // example path: ~/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64
-            return executablePath.range(of: "qemu-system[^/]*$", options: .regularExpression, range: nil, locale: nil) != nil
+            return executablePath.range(
+                of: "qemu-system[^/]*$", options: .regularExpression, range: nil, locale: nil)
+                != nil
         }
         return false
     }

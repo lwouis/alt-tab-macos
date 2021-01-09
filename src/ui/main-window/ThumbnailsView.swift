@@ -21,8 +21,9 @@ class ThumbnailsView: NSVisualEffectView {
         if let currentRow = Windows.focusedWindow()?.row {
             let nextRow = (currentRow + step) % rows.count
             let nextRow_ = nextRow < 0 ? rows.count + nextRow : nextRow
-            if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow)) &&
-                   (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
+            if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow))
+                && (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false)
+            {
                 KeyRepeatTimer.timer?.invalidate()
                 return nil
             }
@@ -36,14 +37,18 @@ class ThumbnailsView: NSVisualEffectView {
         let originCenter = NSMidX(focusedViewFrame)
         if let targetRow = nextRow(direction) {
             let leftSide = originCenter < NSMidX(frame)
-            let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
+            let leadingSide =
+                App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
             let iterable = leadingSide ? targetRow : targetRow.reversed()
-            let targetView = iterable.first {
-                if App.shared.userInterfaceLayoutDirection == .leftToRight {
-                    return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
-                }
-                return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
-            } ?? iterable.last!
+            let targetView =
+                iterable.first {
+                    if App.shared.userInterfaceLayoutDirection == .leftToRight {
+                        return leadingSide
+                            ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
+                    }
+                    return leadingSide
+                        ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
+                } ?? iterable.last!
             let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
             Windows.updateFocusedWindowIndex(targetIndex)
         }
@@ -62,15 +67,19 @@ class ThumbnailsView: NSVisualEffectView {
 
     func rowHeight(_ screen: NSScreen) -> CGFloat {
         if Preferences.hideThumbnails {
-            return max(Preferences.iconSize, Preferences.fontHeight + 3) + Preferences.intraCellPadding * 2
+            return max(Preferences.iconSize, Preferences.fontHeight + 3)
+                + Preferences.intraCellPadding * 2
         }
         return ThumbnailView.height(screen).rounded(.down)
     }
 
-    private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
+    private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (
+        CGFloat, CGFloat
+    )? {
         let height = rowHeight(screen)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
-        let startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
+        let startingX =
+            isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
         var currentX = startingX
         var currentY = Preferences.interCellPadding
         var maxX = CGFloat(0)
@@ -123,11 +132,16 @@ class ThumbnailsView: NSVisualEffectView {
         App.shared.userInterfaceLayoutDirection == .leftToRight ? currentX : currentX - width
     }
 
-    private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
+    private func layoutParentViews(
+        _ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat
+    ) {
         let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
-        frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
+        frame.size = NSSize(
+            width: min(maxX, widthMax) + Preferences.windowPadding * 2,
+            height: min(maxY, heightMax) + Preferences.windowPadding * 2)
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
-        scrollView.frame.origin = CGPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)
+        scrollView.frame.origin = CGPoint(
+            x: Preferences.windowPadding, y: Preferences.windowPadding)
         scrollView.contentView.frame.size = scrollView.frame.size
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
@@ -137,7 +151,11 @@ class ThumbnailsView: NSVisualEffectView {
         if let existingTrackingArea = scrollView.trackingAreas.first {
             scrollView.documentView!.removeTrackingArea(existingTrackingArea)
         }
-        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
+        scrollView.addTrackingArea(
+            NSTrackingArea(
+                rect: scrollView.bounds,
+                options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView,
+                userInfo: nil))
     }
 
     func centerRows(_ maxX: CGFloat) {
@@ -153,7 +171,9 @@ class ThumbnailsView: NSVisualEffectView {
             } else {
                 shiftRow(maxX, rowWidth, rowStartIndex, index)
                 rowStartIndex = index
-                rowWidth = Preferences.interCellPadding + view.frame.size.width + Preferences.interCellPadding
+                rowWidth =
+                    Preferences.interCellPadding + view.frame.size.width
+                    + Preferences.interCellPadding
                 rowY = view.frame.origin.y
             }
         }
@@ -170,11 +190,13 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
-    private func shiftRow(_ maxX: CGFloat, _ rowWidth: CGFloat, _ rowStartIndex: Int, _ index: Int) {
+    private func shiftRow(_ maxX: CGFloat, _ rowWidth: CGFloat, _ rowStartIndex: Int, _ index: Int)
+    {
         let offset = ((maxX - rowWidth) / 2).rounded()
         if offset > 0 {
             (rowStartIndex..<index).forEach {
-                ThumbnailsView.recycledViews[$0].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
+                ThumbnailsView.recycledViews[$0].frame.origin.x +=
+                    App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
             }
         }
     }
@@ -201,10 +223,14 @@ class ScrollView: NSScrollView {
     }
 
     private func observeScrollingEvents() {
-        NotificationCenter.default.addObserver(forName: NSScrollView.didEndLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
+        NotificationCenter.default.addObserver(
+            forName: NSScrollView.didEndLiveScrollNotification, object: nil, queue: nil
+        ) { [weak self] _ in
             self?.isCurrentlyScrolling = false
         }
-        NotificationCenter.default.addObserver(forName: NSScrollView.willStartLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
+        NotificationCenter.default.addObserver(
+            forName: NSScrollView.willStartLiveScrollNotification, object: nil, queue: nil
+        ) { [weak self] _ in
             self?.isCurrentlyScrolling = true
         }
     }
@@ -240,7 +266,9 @@ class ScrollView: NSScrollView {
     override func scrollWheel(with event: NSEvent) {
         if event.modifierFlags.contains(.shift) && event.scrollingDeltaY == 0 {
             let cgEvent = event.cgEvent!
-            cgEvent.setDoubleValueField(.scrollWheelEventDeltaAxis1, value: cgEvent.getDoubleValueField(.scrollWheelEventDeltaAxis2))
+            cgEvent.setDoubleValueField(
+                .scrollWheelEventDeltaAxis1,
+                value: cgEvent.getDoubleValueField(.scrollWheelEventDeltaAxis2))
             cgEvent.setDoubleValueField(.scrollWheelEventDeltaAxis2, value: 0)
             super.scrollWheel(with: NSEvent(cgEvent: cgEvent)!)
         } else {
@@ -250,7 +278,9 @@ class ScrollView: NSScrollView {
 
     // force overlay style after a change in System Preference > General > Show scroll bars
     private func forceOverlayStyle() {
-        NotificationCenter.default.addObserver(forName: NSScroller.preferredScrollerStyleDidChangeNotification, object: nil, queue: nil) { [weak self] _ in
+        NotificationCenter.default.addObserver(
+            forName: NSScroller.preferredScrollerStyleDidChangeNotification, object: nil, queue: nil
+        ) { [weak self] _ in
             self?.scrollerStyle = .overlay
         }
     }

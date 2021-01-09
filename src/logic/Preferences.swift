@@ -1,5 +1,5 @@
-import Cocoa
 import Carbon.HIToolbox.Events
+import Cocoa
 import ShortcutRecorder
 
 let defaults = UserDefaults.standard
@@ -49,7 +49,10 @@ class Preferences {
         "startAtLogin": "true",
         "menubarIcon": MenubarIconPreference.outlined.rawValue,
         "dontShowBlacklist": ["com.McAfee.McAfeeSafariHost"].joined(separator: "\n"),
-        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer"].joined(separator: "\n"),
+        "disableShortcutsBlacklist": [
+            "com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer",
+            "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer",
+        ].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
         "updatePolicy": UpdatePolicyPreference.autoCheck.rawValue,
         "crashPolicy": CrashPolicyPreference.ask.rawValue,
@@ -74,13 +77,21 @@ class Preferences {
     // persisted values
     static var maxWidthOnScreen: CGFloat { defaults.cgfloat("maxWidthOnScreen") / CGFloat(100) }
     static var maxHeightOnScreen: CGFloat { defaults.cgfloat("maxHeightOnScreen") / CGFloat(100) }
-    static var windowMaxWidthInRow: CGFloat { defaults.cgfloat("windowMaxWidthInRow") / CGFloat(100) }
-    static var windowMinWidthInRow: CGFloat { defaults.cgfloat("windowMinWidthInRow") / CGFloat(100) }
+    static var windowMaxWidthInRow: CGFloat {
+        defaults.cgfloat("windowMaxWidthInRow") / CGFloat(100)
+    }
+    static var windowMinWidthInRow: CGFloat {
+        defaults.cgfloat("windowMinWidthInRow") / CGFloat(100)
+    }
     static var rowsCount: CGFloat { defaults.cgfloat("rowsCount") }
     static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
     static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
-    static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2"].map { defaults.string($0) } }
-    static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2"].map { defaults.string($0) } }
+    static var holdShortcut: [String] {
+        ["holdShortcut", "holdShortcut2"].map { defaults.string($0) }
+    }
+    static var nextWindowShortcut: [String] {
+        ["nextWindowShortcut", "nextWindowShortcut2"].map { defaults.string($0) }
+    }
     static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
     static var previousWindowShortcut: String { defaults.string("previousWindowShortcut") }
     static var cancelShortcut: String { defaults.string("cancelShortcut") }
@@ -92,7 +103,9 @@ class Preferences {
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { defaults.bool("hideColoredCircles") }
-    static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
+    static var windowDisplayDelay: DispatchTimeInterval {
+        DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay"))
+    }
     static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
@@ -100,25 +113,69 @@ class Preferences {
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
-    static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
-    static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
-    static var disableShortcutsBlacklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlacklistOnlyFullscreen") }
+    static var dontShowBlacklist: [String] {
+        blacklistStringToArray(defaults.string("dontShowBlacklist"))
+    }
+    static var disableShortcutsBlacklist: [String] {
+        blacklistStringToArray(defaults.string("disableShortcutsBlacklist"))
+    }
+    static var disableShortcutsBlacklistOnlyFullscreen: Bool {
+        defaults.bool("disableShortcutsBlacklistOnlyFullscreen")
+    }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
-    static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
-    static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
-    static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
-    static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
-    static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
-    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
-    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
-    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
-    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
-    static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
+    static var showOnScreen: ShowOnScreenPreference {
+        defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases)
+    }
+    static var titleTruncation: TitleTruncationPreference {
+        defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases)
+    }
+    static var alignThumbnails: AlignThumbnailsPreference {
+        defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases)
+    }
+    static var updatePolicy: UpdatePolicyPreference {
+        defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases)
+    }
+    static var crashPolicy: CrashPolicyPreference {
+        defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases)
+    }
+    static var appsToShow: [AppsToShowPreference] {
+        ["appsToShow", "appsToShow2"].map { defaults.macroPref($0, AppsToShowPreference.allCases) }
+    }
+    static var spacesToShow: [SpacesToShowPreference] {
+        ["spacesToShow", "spacesToShow2"].map {
+            defaults.macroPref($0, SpacesToShowPreference.allCases)
+        }
+    }
+    static var screensToShow: [ScreensToShowPreference] {
+        ["screensToShow", "screensToShow2"].map {
+            defaults.macroPref($0, ScreensToShowPreference.allCases)
+        }
+    }
+    static var showMinimizedWindows: [ShowHowPreference] {
+        ["showMinimizedWindows", "showMinimizedWindows2"].map {
+            defaults.macroPref($0, ShowHowPreference.allCases)
+        }
+    }
+    static var showHiddenWindows: [ShowHowPreference] {
+        ["showHiddenWindows", "showHiddenWindows2"].map {
+            defaults.macroPref($0, ShowHowPreference.allCases)
+        }
+    }
+    static var showFullscreenWindows: [ShowHowPreference] {
+        ["showFullscreenWindows", "showFullscreenWindows2"].map {
+            defaults.macroPref($0, ShowHowPreference.allCases)
+        }
+    }
+    static var shortcutStyle: [ShortcutStylePreference] {
+        ["shortcutStyle", "shortcutStyle2"].map {
+            defaults.macroPref($0, ShortcutStylePreference.allCases)
+        }
+    }
+    static var menubarIcon: MenubarIconPreference {
+        defaults.macroPref("menubarIcon", MenubarIconPreference.allCases)
+    }
 
     // derived values
     static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
@@ -156,7 +213,9 @@ class Preferences {
         UserDefaults.cache.removeValue(forKey: key)
     }
 
-    static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
+    static var all: [String: Any] {
+        defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)!
+    }
 
     static func migratePreferences() {
         let preferencesVersion = "preferencesVersion"
@@ -206,7 +265,9 @@ class Preferences {
     private static func migrateDropdownsFromTextToIndexes() {
         migratePreferenceValue("theme", [" macOS": "0", "❖ Windows 10": "1"])
         // "Main screen" was renamed to "Active screen"
-        migratePreferenceValue("showOnScreen", ["Main screen": "0", "Active screen": "0", "Screen including mouse": "1"])
+        migratePreferenceValue(
+            "showOnScreen",
+            ["Main screen": "0", "Active screen": "0", "Screen including mouse": "1"])
         migratePreferenceValue("alignThumbnails", ["Left": "0", "Center": "1"])
         migratePreferenceValue("appsToShow", ["All apps": "0", "Active app": "1"])
         migratePreferenceValue("spacesToShow", ["All spaces": "0", "Active space": "1"])
@@ -223,7 +284,8 @@ class Preferences {
 
     static func migratePreferenceValue(_ preference: String, _ oldAndNew: [String: String]) {
         if let old = defaults.string(forKey: preference),
-           let new = oldAndNew[old] {
+            let new = oldAndNew[old]
+        {
             defaults.set(new, forKey: preference)
         }
     }
@@ -248,7 +310,8 @@ class Preferences {
     }
 
     static func keyAboveTabDependingOnInputSource() -> String {
-        return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_ANSI_Grave)) ?? "`"
+        return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_ANSI_Grave))
+            ?? "`"
     }
 }
 
@@ -277,11 +340,11 @@ enum MenubarIconPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            // these spaces are different from each other; they have to be unique
-            case .outlined: return " "
-            case .filled: return " "
-            case .colored: return " "
-            case .hidden: return " "
+        // these spaces are different from each other; they have to be unique
+        case .outlined: return " "
+        case .filled: return " "
+        case .colored: return " "
+        case .hidden: return " "
         }
     }
 }
@@ -292,8 +355,8 @@ enum ShortcutStylePreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .focusOnRelease: return NSLocalizedString("Focus selected window", comment: "")
-            case .doNothingOnRelease: return NSLocalizedString("Do nothing", comment: "")
+        case .focusOnRelease: return NSLocalizedString("Focus selected window", comment: "")
+        case .doNothingOnRelease: return NSLocalizedString("Do nothing", comment: "")
         }
     }
 }
@@ -305,9 +368,9 @@ enum ShowHowPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .show: return NSLocalizedString("Show", comment: "")
-            case .showAtTheEnd: return NSLocalizedString("Show at the end", comment: "")
-            case .hide: return NSLocalizedString("Hide", comment: "")
+        case .show: return NSLocalizedString("Show", comment: "")
+        case .showAtTheEnd: return NSLocalizedString("Show at the end", comment: "")
+        case .hide: return NSLocalizedString("Hide", comment: "")
         }
     }
 }
@@ -318,8 +381,8 @@ enum AppsToShowPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .all: return NSLocalizedString("All apps", comment: "")
-            case .active: return NSLocalizedString("Active app", comment: "")
+        case .all: return NSLocalizedString("All apps", comment: "")
+        case .active: return NSLocalizedString("Active app", comment: "")
         }
     }
 }
@@ -331,9 +394,9 @@ enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .all: return NSLocalizedString("All Spaces", comment: "")
-            case .active: return NSLocalizedString("Active Space", comment: "")
-            case .visible: return NSLocalizedString("Visible Spaces", comment: "")
+        case .all: return NSLocalizedString("All Spaces", comment: "")
+        case .active: return NSLocalizedString("Active Space", comment: "")
+        case .visible: return NSLocalizedString("Visible Spaces", comment: "")
         }
     }
 }
@@ -344,8 +407,8 @@ enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .all: return NSLocalizedString("All screens", comment: "")
-            case .showingAltTab: return NSLocalizedString("Screen showing AltTab", comment: "")
+        case .all: return NSLocalizedString("All screens", comment: "")
+        case .showingAltTab: return NSLocalizedString("Screen showing AltTab", comment: "")
         }
     }
 }
@@ -357,9 +420,9 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .active: return NSLocalizedString("Active screen", comment: "")
-            case .includingMouse: return NSLocalizedString("Screen including mouse", comment: "")
-            case .includingMenubar: return NSLocalizedString("Screen including menu bar", comment: "")
+        case .active: return NSLocalizedString("Active screen", comment: "")
+        case .includingMouse: return NSLocalizedString("Screen including mouse", comment: "")
+        case .includingMenubar: return NSLocalizedString("Screen including menu bar", comment: "")
         }
     }
 }
@@ -371,9 +434,9 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .end: return NSLocalizedString("End", comment: "")
-            case .middle: return NSLocalizedString("Middle", comment: "")
-            case .start: return NSLocalizedString("Start", comment: "")
+        case .end: return NSLocalizedString("End", comment: "")
+        case .middle: return NSLocalizedString("Middle", comment: "")
+        case .start: return NSLocalizedString("Start", comment: "")
         }
     }
 }
@@ -384,8 +447,8 @@ enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .left: return NSLocalizedString("Left", comment: "")
-            case .center: return NSLocalizedString("Center", comment: "")
+        case .left: return NSLocalizedString("Left", comment: "")
+        case .center: return NSLocalizedString("Center", comment: "")
         }
     }
 }
@@ -396,15 +459,23 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .macOs: return " macOS"
-            case .windows10: return "❖ Windows 10"
+        case .macOs: return " macOS"
+        case .windows10: return "❖ Windows 10"
         }
     }
 
     var themeParameters: ThemeParameters {
         switch self {
-            case .macOs: return ThemeParameters(label: localizedString, cellBorderWidth: 0, cellCornerRadius: 10, windowCornerRadius: 23, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
-            case .windows10: return ThemeParameters(label: localizedString, cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
+        case .macOs:
+            return ThemeParameters(
+                label: localizedString, cellBorderWidth: 0, cellCornerRadius: 10,
+                windowCornerRadius: 23, highlightBorderColor: .clear,
+                highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
+        case .windows10:
+            return ThemeParameters(
+                label: localizedString, cellBorderWidth: 2, cellCornerRadius: 0,
+                windowCornerRadius: 0, highlightBorderColor: .white,
+                highlightBackgroundColor: .clear)
         }
     }
 }
@@ -416,9 +487,10 @@ enum UpdatePolicyPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .manual: return NSLocalizedString("Don’t check for updates periodically", comment: "")
-            case .autoCheck: return NSLocalizedString("Check for updates periodically", comment: "")
-            case .autoInstall: return NSLocalizedString("Auto-install updates periodically", comment: "")
+        case .manual: return NSLocalizedString("Don’t check for updates periodically", comment: "")
+        case .autoCheck: return NSLocalizedString("Check for updates periodically", comment: "")
+        case .autoInstall:
+            return NSLocalizedString("Auto-install updates periodically", comment: "")
         }
     }
 }
@@ -430,9 +502,9 @@ enum CrashPolicyPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .never: return NSLocalizedString("Never send crash reports", comment: "")
-            case .ask: return NSLocalizedString("Ask whether to send crash reports", comment: "")
-            case .always: return NSLocalizedString("Always send crash reports", comment: "")
+        case .never: return NSLocalizedString("Never send crash reports", comment: "")
+        case .ask: return NSLocalizedString("Ask whether to send crash reports", comment: "")
+        case .always: return NSLocalizedString("Always send crash reports", comment: "")
         }
     }
 }

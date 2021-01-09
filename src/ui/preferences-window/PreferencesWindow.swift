@@ -6,7 +6,9 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
     override var canBecomeKey: Bool { canBecomeKey_ }
 
     convenience init() {
-        self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
+        self.init(
+            contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable],
+            backing: .buffered, defer: false)
         setupWindow()
         setupView()
     }
@@ -18,12 +20,16 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
     }
 
     private func addQuitButton() {
-        let quitButton = NSButton(title: NSLocalizedString("Quit", comment: ""), target: nil, action: #selector(NSApplication.terminate(_:)))
+        let quitButton = NSButton(
+            title: NSLocalizedString("Quit", comment: ""), target: nil,
+            action: #selector(NSApplication.terminate(_:)))
         let titleBarView = standardWindowButton(.closeButton)!.superview!
         titleBarView.addSubview(quitButton)
         quitButton.translatesAutoresizingMaskIntoConstraints = false
-        quitButton.topAnchor.constraint(equalTo: titleBarView.topAnchor, constant: 5).isActive = true
-        quitButton.rightAnchor.constraint(equalTo: titleBarView.rightAnchor, constant: -8).isActive = true
+        quitButton.topAnchor.constraint(equalTo: titleBarView.topAnchor, constant: 5).isActive =
+            true
+        quitButton.rightAnchor.constraint(equalTo: titleBarView.rightAnchor, constant: -8).isActive =
+            true
     }
 
     private func setupView() {
@@ -34,15 +40,26 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         [
             (0, NSLocalizedString("General", comment: ""), "general", GeneralTab.initTab()),
             (1, NSLocalizedString("Controls", comment: ""), "controls", ControlsTab.initTab()),
-            (2, NSLocalizedString("Appearance", comment: ""), "appearance", AppearanceTab.initTab()),
+            (
+                2, NSLocalizedString("Appearance", comment: ""), "appearance",
+                AppearanceTab.initTab()
+            ),
             (3, NSLocalizedString("Policies", comment: ""), "policies", PoliciesTab.initTab()),
-            (4, NSLocalizedString("Blacklists", comment: ""), "blacklists", BlacklistsTab.initTab()),
+            (
+                4, NSLocalizedString("Blacklists", comment: ""), "blacklists",
+                BlacklistsTab.initTab()
+            ),
             (5, NSLocalizedString("About", comment: ""), "about", AboutTab.initTab()),
-            (6, NSLocalizedString("Acknowledgments", comment: ""), "acknowledgments", AcknowledgmentsTab.initTab()),
+            (
+                6, NSLocalizedString("Acknowledgments", comment: ""), "acknowledgments",
+                AcknowledgmentsTab.initTab()
+            ),
         ]
-            .forEach { makeToolbarItem($0.0, $0.1, $0.2, $0.3) }
+        .forEach { makeToolbarItem($0.0, $0.1, $0.2, $0.3) }
 
-        let largestTabWidth = Array(toolbarItems.values).reduce(CGFloat(0)) { max($0, $1.2.subviews[0].fittingSize.width) }
+        let largestTabWidth = Array(toolbarItems.values).reduce(CGFloat(0)) {
+            max($0, $1.2.subviews[0].fittingSize.width)
+        }
         Array(toolbarItems.values).forEach {
             $0.2.fit(largestTabWidth, $0.2.subviews[0].fittingSize.height)
         }
@@ -75,7 +92,10 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         title = item.1.label
     }
 
-    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+    func toolbar(
+        _ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier,
+        willBeInsertedIntoToolbar flag: Bool
+    ) -> NSToolbarItem? {
         return toolbarItems[itemIdentifier]!.1
     }
 

@@ -9,7 +9,10 @@ class PermissionView: StackView {
     var status: NSTextField!
     var isPermissionGranted = false
 
-    convenience init(_ iconName: String, _ title: String, _ justification: String, _ buttonText: String, _ buttonUrl: String, _ checkFunction: @escaping () -> Bool) {
+    convenience init(
+        _ iconName: String, _ title: String, _ justification: String, _ buttonText: String,
+        _ buttonUrl: String, _ checkFunction: @escaping () -> Bool
+    ) {
         let icon = NSImageView(image: NSImage.initCopy(iconName))
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.fit()
@@ -24,7 +27,8 @@ class PermissionView: StackView {
         let justification = NSTextField(wrappingLabelWithString: justification)
         justification.translatesAutoresizingMaskIntoConstraints = false
         justification.preferredMaxLayoutWidth = 500
-        justification.widthAnchor.constraint(equalToConstant: justification.fittingSize.width + 5).isActive = true
+        justification.widthAnchor.constraint(equalToConstant: justification.fittingSize.width + 5)
+            .isActive = true
         let button = NSButton(title: buttonText, target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.onAction = { _ in NSWorkspace.shared.open(URL(string: buttonUrl)!) }
@@ -34,7 +38,10 @@ class PermissionView: StackView {
         let buttonStack = NSStackView(views: [button, status])
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.alignment = .centerY
-        self.init([titleStack, justification, buttonStack], .vertical, top: GridView.interPadding, right: GridView.interPadding, bottom: GridView.interPadding, left: GridView.interPadding)
+        self.init(
+            [titleStack, justification, buttonStack], .vertical, top: GridView.interPadding,
+            right: GridView.interPadding, bottom: GridView.interPadding, left: GridView.interPadding
+        )
         self.checkFunction = checkFunction
         self.button = button
         self.status = status

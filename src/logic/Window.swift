@@ -6,11 +6,11 @@ class Window {
     var title: String!
     var thumbnail: NSImage?
     var thumbnailFullSize: NSSize?
-    var icon: NSImage? { get { application.icon } }
+    var icon: NSImage? { application.icon }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
-    var isHidden: Bool { get { application.isHidden } }
-    var dockLabel: Int? { get { application.dockLabel.flatMap { Int($0) } } }
+    var isHidden: Bool { application.isHidden }
+    var dockLabel: Int? { application.dockLabel.flatMap { Int($0) } }
     var isFullscreen = false
     var isMinimized = false
     var isOnAllSpaces = false
@@ -32,7 +32,10 @@ class Window {
         kAXWindowMovedNotification,
     ]
 
-    init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?) {
+    init(
+        _ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID,
+        _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?
+    ) {
         // TODO: make a efficient batched AXUIElementCopyMultipleAttributeValues call once for each window, and store the values
         self.axUiElement = axUiElement
         self.application = application
@@ -47,7 +50,9 @@ class Window {
             refreshThumbnail()
         }
         application.removeWindowslessAppWindow()
-        debugPrint("Adding window", cgWindowId, title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        debugPrint(
+            "Adding window", cgWindowId, title ?? "nil",
+            application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
     }
 
@@ -55,17 +60,23 @@ class Window {
         isWindowlessApp = true
         self.application = application
         self.title = application.runningApplication.localizedName
-        debugPrint("Adding app-window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        debugPrint(
+            "Adding app-window", title ?? "nil",
+            application.runningApplication.bundleIdentifier ?? "nil")
     }
 
     deinit {
-        debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        debugPrint(
+            "Deinit window", title ?? "nil",
+            application.runningApplication.bundleIdentifier ?? "nil")
     }
 
-    func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
+    func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool
+    {
         // the window can be deallocated by the OS, in which case its `CGWindowID` will be `-1`
         // we check for equality both on the AXUIElement, and the CGWindowID, in order to catch all scenarios
-        return otherWindowAxUiElement == axUiElement || (cgWindowId != -1 && otherWindowWid == cgWindowId)
+        return otherWindowAxUiElement == axUiElement
+            || (cgWindowId != -1 && otherWindowWid == cgWindowId)
     }
 
     private func observeEvents() {
@@ -74,15 +85,19 @@ class Window {
         for notification in Window.notifications {
             retryAxCallUntilTimeout { [weak self] in
                 guard let self = self else { return }
-                try self.axUiElement.subscribeToNotification(axObserver, notification, nil, nil, self.cgWindowId)
+                try self.axUiElement.subscribeToNotification(
+                    axObserver, notification, nil, nil, self.cgWindowId)
             }
         }
-        CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
+        CFRunLoopAddSource(
+            BackgroundWork.accessibilityEventsThread.runLoop,
+            AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 
     func refreshThumbnail() {
         guard let cgImage = cgWindowId.screenshot() else { return }
-        thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
+        thumbnail = NSImage(
+            cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
         thumbnailFullSize = thumbnail!.size
     }
 
@@ -106,7 +121,8 @@ class Window {
             if self.isFullscreen {
                 self.axUiElement.setAttribute(kAXFullscreenAttribute, false)
                 // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
-                BackgroundWork.accessibilityCommandsQueue.asyncWithCap(.now() + .seconds(1)) { [weak self] in
+                BackgroundWork.accessibilityCommandsQueue.asyncWithCap(.now() + .seconds(1)) {
+                    [weak self] in
                     guard let self = self else { return }
                     self.axUiElement.setAttribute(kAXMinimizedAttribute, true)
                 }
@@ -146,7 +162,9 @@ class Window {
     func focus() {
         if isWindowlessApp {
             if let bundleID = application.runningApplication.bundleIdentifier {
-                NSWorkspace.shared.launchApplication(withBundleIdentifier: bundleID, additionalEventParamDescriptor: nil, launchIdentifier: nil)
+                NSWorkspace.shared.launchApplication(
+                    withBundleIdentifier: bundleID, additionalEventParamDescriptor: nil,
+                    launchIdentifier: nil)
             } else {
                 application.runningApplication.activate(options: .activateIgnoringOtherApps)
             }
@@ -168,7 +186,7 @@ class Window {
     }
 
     // The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
-    func makeKeyWindow(_ psn: ProcessSerialNumber) -> Void {
+    func makeKeyWindow(_ psn: ProcessSerialNumber) {
         var psn_ = psn
         var bytes1 = [UInt8](repeating: 0, count: 0xf8)
         bytes1[0x04] = 0xF8
@@ -183,8 +201,9 @@ class Window {
         memcpy(&bytes2[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
         memset(&bytes2[0x20], 0xFF, 0x10)
         [bytes1, bytes2].forEach { bytes in
-            _ = bytes.withUnsafeBufferPointer() { pointer in
-                SLPSPostEventRecordTo(&psn_, &UnsafeMutablePointer(mutating: pointer.baseAddress)!.pointee)
+            _ = bytes.withUnsafeBufferPointer { pointer in
+                SLPSPostEventRecordTo(
+                    &psn_, &UnsafeMutablePointer(mutating: pointer.baseAddress)!.pointee)
             }
         }
     }
@@ -200,4 +219,3 @@ class Window {
         return application.runningApplication.localizedName ?? ""
     }
 }
-

@@ -1,25 +1,34 @@
-import Cocoa
-import ApplicationServices.HIServices.AXUIElement
-import ApplicationServices.HIServices.AXValue
+import ApplicationServices.HIServices.AXActionConstants
+import ApplicationServices.HIServices.AXAttributeConstants
 import ApplicationServices.HIServices.AXError
 import ApplicationServices.HIServices.AXRoleConstants
-import ApplicationServices.HIServices.AXAttributeConstants
-import ApplicationServices.HIServices.AXActionConstants
+import ApplicationServices.HIServices.AXUIElement
+import ApplicationServices.HIServices.AXValue
+import Cocoa
 
 // if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-func retryAxCallUntilTimeout(_ group: DispatchGroup? = nil, _ timeoutInSeconds: Double = Double(AXUIElement.globalTimeoutInSeconds), _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
+func retryAxCallUntilTimeout(
+    _ group: DispatchGroup? = nil,
+    _ timeoutInSeconds: Double = Double(AXUIElement.globalTimeoutInSeconds),
+    _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()
+) {
     group?.enter()
     BackgroundWork.axCallsQueue.async {
         retryAxCallUntilTimeout_(group, timeoutInSeconds, fn, startTime)
     }
 }
 
-func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ timeoutInSeconds: Double, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
+func retryAxCallUntilTimeout_(
+    _ group: DispatchGroup?, _ timeoutInSeconds: Double, _ fn: @escaping () throws -> Void,
+    _ startTime: DispatchTime = DispatchTime.now()
+) {
     do {
         try fn()
         group?.leave()
     } catch {
-        let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
+        let timePassedInSeconds =
+            Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds)
+            / 1_000_000_000
         if timePassedInSeconds < timeoutInSeconds {
             BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(10)) {
                 retryAxCallUntilTimeout_(group, timeoutInSeconds, fn, startTime)
@@ -41,11 +50,11 @@ extension AXUIElement {
 
     func axCallWhichCanThrow<T>(_ result: AXError, _ successValue: inout T) throws -> T? {
         switch result {
-            case .success: return successValue
-            // .cannotComplete can happen if the app is unresponsive; we throw in that case to retry until the call succeeds
-            case .cannotComplete: throw AxError.runtimeError
-            // for other errors it's pointless to retry
-            default: return nil
+        case .success: return successValue
+        // .cannotComplete can happen if the app is unresponsive; we throw in that case to retry until the call succeeds
+        case .cannotComplete: throw AxError.runtimeError
+        // for other errors it's pointless to retry
+        default: return nil
         }
     }
 
@@ -61,7 +70,8 @@ extension AXUIElement {
 
     func attribute<T>(_ key: String, _ _: T.Type) throws -> T? {
         var value: AnyObject?
-        return try axCallWhichCanThrow(AXUIElementCopyAttributeValue(self, key as CFString, &value), &value) as? T
+        return try axCallWhichCanThrow(
+            AXUIElementCopyAttributeValue(self, key as CFString, &value), &value) as? T
     }
 
     private func value<T>(_ key: String, _ target: T, _ type: AXValueType) throws -> T? {
@@ -73,29 +83,28 @@ extension AXUIElement {
         return nil
     }
 
-    func isActualWindow(_ runningApp: NSRunningApplication, _ wid: CGWindowID, _ isOnNormalLevel: Bool, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?) -> Bool {
+    func isActualWindow(
+        _ runningApp: NSRunningApplication, _ wid: CGWindowID, _ isOnNormalLevel: Bool,
+        _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?
+    ) -> Bool {
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
-        return wid != 0 &&
-            size != nil && size!.width > 100 && size!.height > 100 &&
-            (books(runningApp) || keynote(runningApp) || (
-                // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
-                isOnNormalLevel &&
-                    ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
-                        openBoard(runningApp) ||
-                        adobeAudition(runningApp, subrole) ||
-                        steam(runningApp, title, role) ||
-                        worldOfWarcraft(runningApp, role) ||
-                        battleNetBootstrapper(runningApp, role) ||
-                        firefoxFullscreenVideo(runningApp, role) ||
-                        androidEmulator(runningApp, title) ||
-                        sanGuoShaAirWD(runningApp) ||
-                        dvdFab(runningApp) ||
-                        drBetotte(runningApp))))
+        return wid != 0 && size != nil && size!.width > 100 && size!.height > 100
+            && (books(runningApp) || keynote(runningApp)
+                || (
+                    // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
+                    isOnNormalLevel
+                    && ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole)
+                        || openBoard(runningApp) || adobeAudition(runningApp, subrole)
+                        || steam(runningApp, title, role) || worldOfWarcraft(runningApp, role)
+                        || battleNetBootstrapper(runningApp, role)
+                        || firefoxFullscreenVideo(runningApp, role)
+                        || androidEmulator(runningApp, title) || sanGuoShaAirWD(runningApp)
+                        || dvdFab(runningApp) || drBetotte(runningApp))))
     }
 
     private func keynote(_ runningApp: NSRunningApplication) -> Bool {
@@ -110,7 +119,8 @@ extension AXUIElement {
     }
 
     private func adobeAudition(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
-        return runningApp.bundleIdentifier == "com.adobe.Audition" && subrole == kAXFloatingWindowSubrole
+        return runningApp.bundleIdentifier == "com.adobe.Audition"
+            && subrole == kAXFloatingWindowSubrole
     }
 
     private func books(_ runningApp: NSRunningApplication) -> Bool {
@@ -119,10 +129,12 @@ extension AXUIElement {
     }
 
     private func worldOfWarcraft(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
-        return runningApp.bundleIdentifier == "com.blizzard.worldofwarcraft" && role == kAXWindowRole
+        return runningApp.bundleIdentifier == "com.blizzard.worldofwarcraft"
+            && role == kAXWindowRole
     }
 
-    private func battleNetBootstrapper(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+    private func battleNetBootstrapper(_ runningApp: NSRunningApplication, _ role: String?) -> Bool
+    {
         // Battlenet bootstrapper windows have subrole == AXUnknown
         return runningApp.bundleIdentifier == "net.battle.bootstrapper" && role == kAXWindowRole
     }
@@ -139,15 +151,20 @@ extension AXUIElement {
         return runningApp.bundleIdentifier == "SanGuoShaAirWD"
     }
 
-    private func steam(_ runningApp: NSRunningApplication, _ title: String?, _ role: String?) -> Bool {
+    private func steam(_ runningApp: NSRunningApplication, _ title: String?, _ role: String?)
+        -> Bool
+    {
         // All Steam windows have subrole == AXUnknown
         // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
-        return runningApp.bundleIdentifier == "com.valvesoftware.steam" && title != "" && role != nil
+        return runningApp.bundleIdentifier == "com.valvesoftware.steam" && title != ""
+            && role != nil
     }
 
-    private func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+    private func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool
+    {
         // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
-        return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == kAXWindowRole
+        return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false)
+            && role == kAXWindowRole
     }
 
     private func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
@@ -216,7 +233,11 @@ extension AXUIElement {
         performAction(kAXRaiseAction)
     }
 
-    func subscribeToNotification(_ axObserver: AXObserver, _ notification: String, _ callback: (() -> Void)? = nil, _ runningApplication: NSRunningApplication? = nil, _ wid: CGWindowID? = nil, _ startTime: DispatchTime = DispatchTime.now()) throws {
+    func subscribeToNotification(
+        _ axObserver: AXObserver, _ notification: String, _ callback: (() -> Void)? = nil,
+        _ runningApplication: NSRunningApplication? = nil, _ wid: CGWindowID? = nil,
+        _ startTime: DispatchTime = DispatchTime.now()
+    ) throws {
         let result = AXObserverAddNotification(axObserver, self, notification as CFString, nil)
         if result == .success || result == .notificationAlreadyRegistered {
             callback?()

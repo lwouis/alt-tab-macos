@@ -3,11 +3,19 @@ import Sparkle
 
 class BlacklistsTab {
     static func initTab() -> NSView {
-        let dontShowBlacklistLabel = NSTextField(labelWithString: NSLocalizedString("Don’t show windows from these apps", comment: ""))
-        let dontShowBlacklist = LabelAndControl.makeTextArea(50, 6, Preferences.dontShowBlacklist.joined(separator: "\n"), "dontShowBlacklist")
-        let disableShortcutsBlacklistLabel = NSTextField(labelWithString: NSLocalizedString("Ignore shortcuts while a window from these apps is active", comment: ""))
-        let disableShortcutsBlacklistCheckbox = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Only if the window is fullscreen", comment: ""), "disableShortcutsBlacklistOnlyFullscreen", labelPosition: .right)
-        let disableShortcutsBlacklist = LabelAndControl.makeTextArea(50, 6, Preferences.disableShortcutsBlacklist.joined(separator: "\n"), "disableShortcutsBlacklist")
+        let dontShowBlacklistLabel = NSTextField(
+            labelWithString: NSLocalizedString("Don’t show windows from these apps", comment: ""))
+        let dontShowBlacklist = LabelAndControl.makeTextArea(
+            50, 6, Preferences.dontShowBlacklist.joined(separator: "\n"), "dontShowBlacklist")
+        let disableShortcutsBlacklistLabel = NSTextField(
+            labelWithString: NSLocalizedString(
+                "Ignore shortcuts while a window from these apps is active", comment: ""))
+        let disableShortcutsBlacklistCheckbox = LabelAndControl.makeLabelWithCheckbox(
+            NSLocalizedString("Only if the window is fullscreen", comment: ""),
+            "disableShortcutsBlacklistOnlyFullscreen", labelPosition: .right)
+        let disableShortcutsBlacklist = LabelAndControl.makeTextArea(
+            50, 6, Preferences.disableShortcutsBlacklist.joined(separator: "\n"),
+            "disableShortcutsBlacklist")
 
         let grid = GridView([
             [dontShowBlacklistLabel],

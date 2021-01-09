@@ -6,8 +6,10 @@ extension NSScreen {
     }
 
     func refreshRate() -> Double? {
-        if let screenNumber = deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID,
-           let screenMode = CGDisplayCopyDisplayMode(screenNumber) {
+        if let screenNumber = deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")]
+            as? CGDirectDisplayID,
+            let screenMode = CGDisplayCopyDisplayMode(screenNumber)
+        {
             return screenMode.refreshRate
         }
         return nil
@@ -15,9 +17,9 @@ extension NSScreen {
 
     static func preferred() -> NSScreen {
         switch Preferences.showOnScreen {
-            case .includingMouse: return withMouse() ?? NSScreen.main! // .main as fall-back
-            case .active: return NSScreen.main! // macOS bug: this will return screens[0] if the main screen shows a fullscreen app
-            case .includingMenubar: return NSScreen.screens.first!
+        case .includingMouse: return withMouse() ?? NSScreen.main!  // .main as fall-back
+        case .active: return NSScreen.main!  // macOS bug: this will return screens[0] if the main screen shows a fullscreen app
+        case .includingMenubar: return NSScreen.screens.first!
         }
     }
 
@@ -29,15 +31,17 @@ extension NSScreen {
         let screenFrame = visibleFrame
         let panelFrame = window.frame
         let x = screenFrame.minX + max(screenFrame.width - panelFrame.width, 0) * 0.5
-        let y = screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * alignment.rawValue
+        let y =
+            screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * alignment.rawValue
         window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 
     func uuid() -> ScreenUuid? {
         if let screenNumber = deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")],
-           // these APIs implicitly unwrap their return values, but it can actually be nil thus we check
-           let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber as! UInt32),
-           let uuid = CFUUIDCreateString(nil, screenUuid.takeRetainedValue()) {
+            // these APIs implicitly unwrap their return values, but it can actually be nil thus we check
+            let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber as! UInt32),
+            let uuid = CFUUIDCreateString(nil, screenUuid.takeRetainedValue())
+        {
             return uuid
         }
         return nil

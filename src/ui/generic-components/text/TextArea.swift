@@ -5,13 +5,18 @@ class TextArea: NSTextField, NSTextFieldDelegate {
     static let interLineFactor = CGFloat(1.6)
     var callback: (() -> Void)!
 
-    convenience init(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ callback: (() -> Void)? = nil) {
+    convenience init(
+        _ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String,
+        _ callback: (() -> Void)? = nil
+    ) {
         self.init(frame: .zero)
         self.callback = callback
         delegate = self
         cell = TextFieldCell(placeholder, nLinesHigh == 1)
         let width: CGFloat = (font!.xHeight * nCharactersWide + TextArea.padding * 2).rounded()
-        let height: CGFloat = (NSFont.systemFontSize * TextArea.interLineFactor * CGFloat(nLinesHigh) + TextArea.padding * 2).rounded()
+        let height: CGFloat =
+            (NSFont.systemFontSize * TextArea.interLineFactor * CGFloat(nLinesHigh)
+            + TextArea.padding * 2).rounded()
         fit(width, height)
     }
 
@@ -20,7 +25,9 @@ class TextArea: NSTextField, NSTextFieldDelegate {
     }
 
     // enter key inserts new line instead of submitting
-    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector)
+        -> Bool
+    {
         guard commandSelector == #selector(NSResponder.insertNewline) else { return false }
         textView.insertNewlineIgnoringFieldEditor(self)
         return true
@@ -38,16 +45,17 @@ class TextFieldCell: NSTextFieldCell {
         stringValue = ""
         placeholderString = placeholder
         self.usesSingleLineMode = usesSingleLineMode
-        alignment = .natural // appkit bug: the docs say default is .natural but it's .left
+        alignment = .natural  // appkit bug: the docs say default is .natural but it's .left
     }
 
     // add padding all around
     override func drawingRect(forBounds rect: NSRect) -> NSRect {
-        return super.drawingRect(forBounds: NSMakeRect(
+        return super.drawingRect(
+            forBounds: NSMakeRect(
                 rect.origin.x + TextArea.padding,
                 rect.origin.y + TextArea.padding,
                 rect.size.width - TextArea.padding * 2,
                 rect.size.height - TextArea.padding * 2
-        ))
+            ))
     }
 }

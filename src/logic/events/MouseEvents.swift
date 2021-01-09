@@ -1,9 +1,9 @@
-import Cocoa
 import Carbon.HIToolbox.Events
+import Cocoa
 
-fileprivate var eventTap: CFMachPort!
-fileprivate var shouldBeEnabled: Bool!
-fileprivate var isPointerInsideUi: Bool!
+private var eventTap: CFMachPort!
+private var shouldBeEnabled: Bool!
+private var isPointerInsideUi: Bool!
 
 class MouseEvents {
     static func observe() {
@@ -19,7 +19,8 @@ class MouseEvents {
 }
 
 private func observe_() {
-    let eventMask = [CGEventType.leftMouseDown, CGEventType.leftMouseUp].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
+    let eventMask = [CGEventType.leftMouseDown, CGEventType.leftMouseUp].reduce(
+        CGEventMask(0), { $0 | (1 << $1.rawValue) })
     // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
     eventTap = CGEvent.tapCreate(
         tap: .cgSessionEventTap,
@@ -33,26 +34,30 @@ private func observe_() {
     CFRunLoopAddSource(BackgroundWork.mouseEventsThread.runLoop, runLoopSource, .commonModes)
 }
 
-private func mouseHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+private func mouseHandler(
+    proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?
+) -> Unmanaged<CGEvent>? {
     if type == .leftMouseDown {
         isPointerInsideUi_()
         if !isPointerInsideUi {
-            return nil // focused app won't receive the event
+            return nil  // focused app won't receive the event
         }
     } else if type == .leftMouseUp && cgEvent.getIntegerValueField(.mouseEventClickState) >= 1 {
         isPointerInsideUi_()
         if !isPointerInsideUi {
             DispatchQueue.main.async { App.app.hideUi() }
-            return nil // focused app won't receive the event
+            return nil  // focused app won't receive the event
         }
-    } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
+    } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled
+    {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
-    return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
+    return Unmanaged.passUnretained(cgEvent)  // focused app will receive the event
 }
 
 private func isPointerInsideUi_() {
     DispatchQueue.main.sync {
-        isPointerInsideUi = App.app.thumbnailsPanel.contentLayoutRect.contains(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream)
+        isPointerInsideUi = App.app.thumbnailsPanel.contentLayoutRect.contains(
+            App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream)
     }
 }

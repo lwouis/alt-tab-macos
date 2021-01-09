@@ -27,7 +27,10 @@ class FontIcon: BaseLabel {
 // Font icon using SF Symbols from the SF Pro font from Apple
 // see https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
 class ThumbnailFontIconView: ThumbnailTitleView {
-    convenience init(_ symbol: Symbols, _ size: CGFloat = Preferences.fontHeight, _ color: NSColor = .white, _ shadow: NSShadow? = ThumbnailView.makeShadow(.darkGray)) {
+    convenience init(
+        _ symbol: Symbols, _ size: CGFloat = Preferences.fontHeight, _ color: NSColor = .white,
+        _ shadow: NSShadow? = ThumbnailView.makeShadow(.darkGray)
+    ) {
         self.init(size, shadow)
         string = symbol.rawValue
         // This helps SF symbols display vertically centered and not clipped at the top
@@ -40,15 +43,23 @@ class ThumbnailFontIconView: ThumbnailTitleView {
     // number should be in the interval [0-50]
     func setNumber(_ number: Int, _ filled: Bool) {
         let (baseCharacter, offset) = baseCharacterAndOffset(number, filled)
-        assignIfDifferent(&string, String(UnicodeScalar(Int(baseCharacter.unicodeScalars.first!.value) + offset)!))
+        assignIfDifferent(
+            &string, String(UnicodeScalar(Int(baseCharacter.unicodeScalars.first!.value) + offset)!)
+        )
     }
 
     private func baseCharacterAndOffset(_ number: Int, _ filled: Bool) -> (String, Int) {
         if number <= 9 {
             // numbers alternate between empty and full circles; we skip the full circles
-            return ((filled ? Symbols.filledCircledNumber0 : Symbols.circledNumber0).rawValue, number * 2)
+            return (
+                (filled ? Symbols.filledCircledNumber0 : Symbols.circledNumber0).rawValue,
+                number * 2
+            )
         } else {
-            return ((filled ? Symbols.filledCircledNumber10 : Symbols.circledNumber10).rawValue, number - 10)
+            return (
+                (filled ? Symbols.filledCircledNumber10 : Symbols.circledNumber10).rawValue,
+                number - 10
+            )
         }
     }
 
@@ -68,7 +79,8 @@ class ThumbnailFilledFontIconView: NSView {
         let backgroundView = ThumbnailFontIconView(.filledCircled, 14 - 2, backgroundColor, nil)
         addSubview(backgroundView)
         addSubview(thumbnailFontIconView, positioned: .above, relativeTo: nil)
-        backgroundView.frame.origin = CGPoint(x: backgroundView.frame.origin.x + 1, y: backgroundView.frame.origin.y + 1)
+        backgroundView.frame.origin = CGPoint(
+            x: backgroundView.frame.origin.x + 1, y: backgroundView.frame.origin.y + 1)
         fit(thumbnailFontIconView.fittingSize.width, thumbnailFontIconView.fittingSize.height)
     }
 }
