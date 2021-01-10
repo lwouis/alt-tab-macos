@@ -1,6 +1,6 @@
 {
   "name": "Sparkle",
-  "version": "1.23.1",
+  "version": "1.24.0",
   "summary": "A software update framework for macOS",
   "description": "Sparkle is an easy-to-use software update framework for Cocoa developers.",
   "homepage": "http://sparkle-project.org",
@@ -21,7 +21,7 @@
     "osx": "10.7"
   },
   "source": {
-    "http": "https://github.com/lwouis/Sparkle/releases/download/1.23.1/Sparkle-1.23.1.tar.xz"
+    "http": "https://github.com/lwouis/Sparkle/releases/download/1.24.0/Sparkle-1.24.0.tar.xz"
   },
   "source_files": "Sparkle.framework/Versions/A/Headers/*.h",
   "preserve_paths": "bin/*",
