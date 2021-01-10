@@ -20,8 +20,8 @@ Homebrew 2.5 or above | Homebrew 2.4 or below
 
 ## Compatibility
 
-* __macOS version:__ from 10.12 to 10.15. macOS 11 seems to run mostly fine
-* __Apple Silicon:__ the app is not yet [universal](https://developer.apple.com/documentation/apple-silicon/porting-your-macos-apps-to-apple-silicon), but seems to run fine with Rosetta
+* __macOS version:__ from 10.12 to 12 (Monterey)
+* __Apple Silicon:__ yes, the app is [universal](https://developer.apple.com/documentation/apple-silicon/porting-your-macos-apps-to-apple-silicon)
 
 ## Localization
 

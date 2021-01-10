@@ -1,0 +1,12 @@
+framework module AppCenter {
+  umbrella header "AppCenter.h"
+  
+  export *
+  module * { export * }
+  
+  link framework "Foundation"
+  link framework "SystemConfiguration"
+  link framework "UIKit"
+  link "sqlite3"
+  link "z"
+}
