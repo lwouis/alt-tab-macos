@@ -1,6 +1,6 @@
 CODE_SIGN_IDENTITY =
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/AppCenter
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/macOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple" "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework/macos-arm64_x86_64" "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterCrashes.xcframework/macos-arm64_x86_64"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 OTHER_LDFLAGS = $(inherited) -l"c++" -l"sqlite3" -l"z" -framework "AppKit" -framework "Foundation" -framework "SystemConfiguration"
 PODS_BUILD_DIR = ${BUILD_DIR}
