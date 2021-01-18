@@ -12,7 +12,14 @@ permalink: /
 
 [**Download the latest release**]({{ site.github.latest_release.assets[0].browser_download_url }})
 
-Alternatively, you can use [homebrew](https://brew.sh/): `brew install --cask alt-tab`
+Alternatively, you can use [homebrew](https://brew.sh/): 
+```sh
+# Latest homebrew
+brew install --cask alt-tab
+
+# Homebrew 2.5 or below
+brew cask install alt-tab
+```
 
 ## Compatibility
 
