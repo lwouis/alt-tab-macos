@@ -4,10 +4,16 @@
 <dict>
 	<key>ATSApplicationFontsPath</key>
 	<string></string>
+	<key>AppCenterApplicationForwarderEnabled</key>
+	<string>0</string>
+	<key>AppCenterSecret</key>
+	<string>#APPCENTER_SECRET#</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIconFile</key>
+	<string>app.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -22,8 +28,8 @@
 	<string>#VERSION#</string>
 	<key>FeedbackToken</key>
 	<string>#FEEDBACK_TOKEN#</string>
-	<key>AppCenterSecret</key>
-	<string>#APPCENTER_SECRET#</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSUIElement</key>
@@ -38,17 +44,13 @@
 	<string>false</string>
 	<key>SUEnableAutomaticChecks</key>
 	<string>true</string>
-	<key>SUScheduledCheckInterval</key>
-	<string>604800</string>
+	<key>SUEnableJavaScript</key>
+	<string>true</string>
 	<key>SUFeedURL</key>
 	<string>https://raw.githubusercontent.com/lwouis/alt-tab-macos/master/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
-	<key>SUEnableJavaScript</key>
-	<string>true</string>
-	<key>CFBundleIconFile</key>
-	<string>app.icns</string>
-	<key>AppCenterApplicationForwarderEnabled</key>
-	<string>0</string>
+	<key>SUScheduledCheckInterval</key>
+	<string>604800</string>
 </dict>
 </plist>
