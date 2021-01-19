@@ -20,25 +20,19 @@ class SystemPermissions {
         return true
     }
 
-    // there is no official API to check the status of the Screen Recording permission
-    // there is the private API SLSRequestScreenCaptureAccess, but its value is not updated during the app lifetime
-    // workaround: we check if we can get the title of at least one window, except from AltTab or the Dock
+    // workaround: public API CGPreflightScreenCaptureAccess and private API SLSRequestScreenCaptureAccess exist, but
+    // their return value is not updated during the app lifetime
+    // note: shows the system prompt if there's no permission
     private static func screenRecordingIsGranted_() -> Bool {
-        let appPid = NSRunningApplication.current.processIdentifier
-        if let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [CGWindow],
-           let _ = windows.first(where: { (window) -> Bool in
-               if let windowPid = window.ownerPID(),
-                  windowPid != appPid,
-                  let windowRunningApplication = NSRunningApplication(processIdentifier: windowPid),
-                  windowRunningApplication.executableURL?.lastPathComponent != "Dock",
-                  let _ = window.title() {
-                   return true
-               }
-               return false
-           }) {
-            return true
-        }
-        return false
+        return CGDisplayStream(
+            dispatchQueueDisplay: CGMainDisplayID(),
+            outputWidth: 1,
+            outputHeight: 1,
+            pixelFormat: Int32(kCVPixelFormatType_32BGRA),
+            properties: nil,
+            queue: .global(),
+            handler: { _, _, _, _ in }
+        ) != nil
     }
 
     static func observePermissionsPostStartup() {
