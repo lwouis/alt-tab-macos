@@ -102,13 +102,10 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func restart() {
-        let url = URL(fileURLWithPath: Bundle.main.resourcePath!)
-        let path = url.deletingLastPathComponent().deletingLastPathComponent().absoluteString
-        let task = Process()
-        task.launchPath = "/usr/bin/open"
-        task.arguments = [path]
-        task.launch()
-        exit(0)
+        // we use -n to open a new instance, to avoid calling applicationShouldHandleReopen
+        // we use Bundle.main.bundlePath in case of multiple AltTab versions on the machine
+        Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["-n", Bundle.main.bundlePath])
+        App.shared.terminate(self)
     }
 
     func hideUi() {
