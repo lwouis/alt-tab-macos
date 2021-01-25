@@ -1,5 +1,26 @@
 # Release notes
 
+# [6.13.0](https://github.com/lwouis/alt-tab-macos/compare/v6.12.0...v6.13.0) (2021-01-25)
+
+
+### Bug Fixes
+
+* app would sometimes quit while in the background (closes [#704](https://github.com/lwouis/alt-tab-macos/issues/704)) ([d621ce5](https://github.com/lwouis/alt-tab-macos/commit/d621ce5))
+* disable standard tab detection for all JetBrains apps ([25343ea](https://github.com/lwouis/alt-tab-macos/commit/25343ea)), closes [#716](https://github.com/lwouis/alt-tab-macos/issues/716)
+* prevent macos 11 from terminating alt-tab randomly ([2447140](https://github.com/lwouis/alt-tab-macos/commit/2447140))
+* restarting the app would sometimes fail to start again ([56d47fc](https://github.com/lwouis/alt-tab-macos/commit/56d47fc))
+* show window controls, even when mouse hover option is disabled ([c256933](https://github.com/lwouis/alt-tab-macos/commit/c256933))
+
+
+### Features
+
+* add app category meta-data ([96572a8](https://github.com/lwouis/alt-tab-macos/commit/96572a8))
+* add swedish and czech localizations ([00e95d6](https://github.com/lwouis/alt-tab-macos/commit/00e95d6))
+* add ukrainian localization ([e576ca1](https://github.com/lwouis/alt-tab-macos/commit/e576ca1))
+* display windows partially on screen correctly (closes [#727](https://github.com/lwouis/alt-tab-macos/issues/727)) ([2f92936](https://github.com/lwouis/alt-tab-macos/commit/2f92936))
+* show window partially on-screen (closes [#727](https://github.com/lwouis/alt-tab-macos/issues/727)) ([b121162](https://github.com/lwouis/alt-tab-macos/commit/b121162))
+* update japanese, turkish, chinese localizations ([7226c25](https://github.com/lwouis/alt-tab-macos/commit/7226c25))
+
 # [6.12.0](https://github.com/lwouis/alt-tab-macos/compare/v6.11.0...v6.12.0) (2020-11-17)
 
 
