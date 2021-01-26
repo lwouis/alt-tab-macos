@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "이 권한은 윈도우의 이미지와 제목을 띄울 수 있게 해줍니다";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "창 축소판 숨기기:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "업데이트 방법:";
 

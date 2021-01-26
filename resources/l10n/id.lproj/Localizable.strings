@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Izin ini diperlukan untuk menampilkan tangkapan layar dan judul jendela yang terbuka";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "Sembunyikan thumbnail jendela:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "Kebijakan pembaruan:";
 

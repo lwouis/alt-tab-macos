@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Toto povolenie je potrebné na zobrazovanie snímok obrazovky a názvov otvorených okien";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "Skryť miniatúry okien:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "Pravidlá aktualizácií:";
 

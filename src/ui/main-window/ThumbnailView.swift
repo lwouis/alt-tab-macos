@@ -3,6 +3,7 @@ import Cocoa
 class ThumbnailView: NSStackView {
     var window_: Window?
     var thumbnail = NSImageView()
+    var thumbnailRaw = NSImage?(nil)
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Preferences.fontHeight)
     var fullscreenIcon = ThumbnailFontIconView(.circledPlusSign)
@@ -97,18 +98,43 @@ class ThumbnailView: NSStackView {
         edgeInsets.left = edgeInsets_
     }
 
+    private func getThumbnailInterpolationLevel() -> NSImageInterpolation {
+        if Preferences.thumbnailAntiAliasing == .high {
+            return .high
+        }
+        if Preferences.thumbnailAntiAliasing == .medium {
+            return .medium
+        }
+        if Preferences.thumbnailAntiAliasing == .low {
+            return .low
+        }
+        return .none
+    }
+
+    func updateThumbnailIfNeeded(_ image: NSImage?)
+    {
+        if thumbnailRaw != image {
+            let effectSize = thumbnail.frame.size
+            thumbnailRaw = image
+            let thumbnailAntiAliasing = getThumbnailInterpolationLevel()
+            if thumbnailAntiAliasing == .none {
+                thumbnail.image = image
+                thumbnail.image?.size = effectSize
+                thumbnail.setFrameSize(effectSize)
+            } else {
+                thumbnail.image = thumbnailRaw?.resizeToCopy(newSize: effectSize, interpolation: thumbnailAntiAliasing)
+            }
+        }
+    }
+
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
         assignIfDifferent(&thumbnail.isHidden, Preferences.hideThumbnails)
         if !Preferences.hideThumbnails {
-            thumbnail.image = element.thumbnail
-            if let image = thumbnail.image {
-                image.size = element.thumbnailFullSize!
-            }
             let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(element.thumbnail, screen)
             let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
-            thumbnail.image?.size = thumbnailSize
             thumbnail.frame.size = thumbnailSize
+            updateThumbnailIfNeeded(element.thumbnail)
         }
         assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)

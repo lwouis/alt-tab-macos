@@ -338,6 +338,9 @@
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "こちらの許可は、スクリーンショットと開いているウィンドウを表示するのに必要です。";
 
+/* No comment provided by engineer. */
+"Thumbnail Anti Aliasing:" = "ウィンドウのサムネイルを非表示にする:";
+
 /*No comment provided by engineer.*/
 "Updates policy:" = "アップデートポリシー：";
 
