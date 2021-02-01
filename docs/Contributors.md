@@ -11,9 +11,9 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [L1cardo](https://github.com/L1cardo)
 * [lwouis](https://github.com/lwouis)
 * [notlmn](https://github.com/notlmn)
-* [overseeing](https://github.com/overseeing)
 * [phungtuanhoang1996](https://github.com/phungtuanhoang1996)
 * [rbnis](https://github.com/rbnis)
+* [samdenty](https://github.com/samdenty)
 * [shaqed](https://github.com/shaqed)
 
 They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
@@ -32,7 +32,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Dan
 * Dan84
 * Daniel M
-* David. ringqvist
+* David R
 * Didier Deschrijver
 * Elisabeth landblok
 * Eric WANTZ
