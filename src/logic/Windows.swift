@@ -158,23 +158,25 @@ class Windows {
     }
 
     static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails) {
-        if !App.app.appIsBeingUsed || Preferences.hideThumbnails { return }
-        BackgroundWork.mainQueueConcurrentWorkQueue.async {
-            if currentIndex < list.count {
-                let window = list[currentIndex]
-                if window.shouldShowTheUser {
-                    window.refreshThumbnail()
-                    DispatchQueue.main.async {
-                        let view = ThumbnailsView.recycledViews[currentIndex]
-                        if view.thumbnail.image != window.thumbnail {
-                            let oldSize = view.thumbnail.frame.size
-                            view.thumbnail.image = window.thumbnail
-                            view.thumbnail.image?.size = oldSize
-                            view.thumbnail.frame.size = oldSize
+        DispatchQueue.main.async {
+            if !App.app.appIsBeingUsed || Preferences.hideThumbnails { return }
+            BackgroundWork.mainQueueConcurrentWorkQueue.async {
+                if currentIndex < list.count {
+                    let window = list[currentIndex]
+                    if window.shouldShowTheUser {
+                        window.refreshThumbnail()
+                        DispatchQueue.main.async {
+                            let view = ThumbnailsView.recycledViews[currentIndex]
+                            if view.thumbnail.image != window.thumbnail {
+                                let oldSize = view.thumbnail.frame.size
+                                view.thumbnail.image = window.thumbnail
+                                view.thumbnail.image?.size = oldSize
+                                view.thumbnail.frame.size = oldSize
+                            }
                         }
                     }
+                    refreshThumbnailsAsync(screen, currentIndex + 1)
                 }
-                refreshThumbnailsAsync(screen, currentIndex + 1)
             }
         }
     }
