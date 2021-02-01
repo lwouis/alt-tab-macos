@@ -244,7 +244,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             // There's no way to observe this with the AX API, other than polling. However, when Mission Control is deactivated,
             // that AXGroup gets destroyed, triggering the uiElementDestroyed notification.
             // (At that point we won't be able to see what the element was, of course.)
-            Spaces.idsAndIndexes = Spaces.allIdsAndIndexes()
+            Spaces.refreshAllIdsAndIndexes()
             Windows.updateSpaces()
             let screen = NSScreen.preferred()
             self.shortcutIndex = shortcutIndex

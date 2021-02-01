@@ -18,7 +18,7 @@ class DebugProfile {
             ("OS version", ProcessInfo.processInfo.operatingSystemVersionString),
             ("OS architecture", Sysctl.run("hw.machine")),
             ("Locale", Locale.current.debugDescription),
-            ("Spaces", String(Spaces.allIdsAndIndexes().count)),
+            ("Spaces", String(Spaces.idsAndIndexes.count)),
             ("Dark mode", defaults.string(forKey: "AppleInterfaceStyle") ?? "Light"),
             ("\"Displays have separate Spaces\"", NSScreen.screensHaveSeparateSpaces ? "checked" : "unchecked"),
             // hardware
