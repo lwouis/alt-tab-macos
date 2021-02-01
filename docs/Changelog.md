@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.14.0](https://github.com/lwouis/alt-tab-macos/compare/v6.13.0...v6.14.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* crash in very rare data-race ([e9e61af](https://github.com/lwouis/alt-tab-macos/commit/e9e61af)), closes [#1](https://github.com/lwouis/alt-tab-macos/issues/1)
+* didn't show windows on same screen (closes [#794](https://github.com/lwouis/alt-tab-macos/issues/794)) ([b02e8be](https://github.com/lwouis/alt-tab-macos/commit/b02e8be))
+
+
+### Features
+
+* update korean, portuguese, swedish localizations ([81a33b8](https://github.com/lwouis/alt-tab-macos/commit/81a33b8))
+
 # [6.13.0](https://github.com/lwouis/alt-tab-macos/compare/v6.12.0...v6.13.0) (2021-01-25)
 
 
