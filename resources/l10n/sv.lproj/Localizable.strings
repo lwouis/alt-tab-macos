@@ -39,7 +39,7 @@
 "Allowed" = "Tillåten";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Välj även fönster genom: ";
+"Also select windows using:" = "Välj även fönster med:";
 
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kraschade vid förra användingen. Skicka felrapport för att underlätta åtgärder";
@@ -54,7 +54,7 @@
 "and press:" = "och tryck:";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "Visningsfördröjning";
+"Apparition delay:" = "Visningsfördröjning:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Utseende";
@@ -96,7 +96,7 @@
 "Close window" = "Stäng fönster";
 
 /*No comment provided by engineer.*/
-"Controls" = "Kontroller";
+"Controls" = "Kommandon";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "Felrapportspolicy:";
@@ -141,16 +141,16 @@
 "Hide" = "Dölj";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Dölj appmärken:";
+"Hide app badges:" = "Dölj appsymbolbrickor:";
 
 /*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Dölj appar utan öppna fönster:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Dölj färgcirklar när musen hålls över:";
+"Hide colored circles on mouse hover:" = "Dölj fönsterradsknappar när musen hålls över:";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Dölj Spaces-nummeretiketter:";
+"Hide Space number labels:" = "Dölj nummeretiketter för Spaces-fönster:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Dölj statusikoner:";
@@ -207,7 +207,7 @@
 "Minimized windows:" = "Minifierade fönster:";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "Håll muspekaren över";
+"Mouse hover" = "Hålla muspekaren över";
 
 /*No comment provided by engineer.*/
 "Never send crash reports" = "Skicka aldrig felrapporter";
@@ -306,7 +306,7 @@
 "Show at the end" = "Visa på slutet";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Visa då:";
+"Show on:" = "Visa på:";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Visa standardflikar som fönster:";
@@ -330,7 +330,7 @@
 "Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
-"Then release:" = "Släpp sedan:";
+"Then release:" = "När kommando släpps:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Denna behörigheten behövs för att fokusera på fönster efter kommandot släpps";
