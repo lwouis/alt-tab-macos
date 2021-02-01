@@ -2,21 +2,20 @@ import Cocoa
 
 class Spaces {
     static var currentSpaceId = CGSSpaceID(1)
-    static var screenToVisibleSpaceMap = [ScreenUuid: CGSSpaceID]()
     static var currentSpaceIndex = SpaceIndex(1)
-    static var isSingleSpace = true
-    static var idsAndIndexes: [(CGSSpaceID, SpaceIndex)] = allIdsAndIndexes()
+    static var visibleSpaces = [CGSSpaceID]()
+    static var screenSpacesMap = [ScreenUuid: [CGSSpaceID]]()
+    static var idsAndIndexes = [(CGSSpaceID, SpaceIndex)]()
 
     static func observeSpaceChanges() {
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
             debugPrint("OS event", "activeSpaceDidChangeNotification")
-            idsAndIndexes = allIdsAndIndexes()
+            refreshAllIdsAndIndexes()
             updateCurrentSpace()
-            refreshVisibleSpaces()
         })
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: nil, using: { _ in
             debugPrint("OS event", "didChangeScreenParametersNotification")
-            refreshVisibleSpaces()
+            refreshAllIdsAndIndexes()
         })
     }
 
@@ -28,19 +27,9 @@ class Spaces {
         }
     }
 
-    static func refreshVisibleSpaces() {
-        screenToVisibleSpaceMap.removeAll()
-        NSScreen.screens.forEach {
-            if let uuid = $0.uuid() {
-                screenToVisibleSpaceMap[uuid] = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, uuid)
-            }
-        }
-    }
-
     static func initialDiscovery() {
+        refreshAllIdsAndIndexes()
         updateCurrentSpace()
-        refreshVisibleSpaces()
-        updateIsSingleSpace()
         observeSpaceChanges()
     }
 
@@ -52,15 +41,21 @@ class Spaces {
         debugPrint("Current space", currentSpaceId)
     }
 
-    static func allIdsAndIndexes() -> [(CGSSpaceID, SpaceIndex)] {
-        return (CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary])
-            .map { (display: NSDictionary) -> [NSDictionary] in
-                display["Spaces"] as! [NSDictionary]
+    static func refreshAllIdsAndIndexes() -> Void {
+        idsAndIndexes.removeAll()
+        screenSpacesMap.removeAll()
+        visibleSpaces.removeAll()
+        var spaceIndex = 0
+        (CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary]).forEach { (screen: NSDictionary) in
+            let display = screen["Display Identifier"] as! ScreenUuid
+            (screen["Spaces"] as! [NSDictionary]).forEach { (space: NSDictionary) in
+                let spaceId = space["id64"] as! CGSSpaceID
+                idsAndIndexes.append((spaceId, spaceIndex))
+                screenSpacesMap[display, default: []].append(spaceId)
+                spaceIndex += 1
             }
-            .joined().enumerated()
-            .map { (space: (offset: Int, element: NSDictionary)) -> (CGSSpaceID, SpaceIndex) in
-                (space.element["id64"]! as! CGSSpaceID, space.offset + 1)
-            }
+            visibleSpaces.append((screen["Current Space"] as! NSDictionary)["id64"] as! CGSSpaceID)
+        }
     }
 
     static func otherSpaces() -> [CGSSpaceID] {
@@ -73,8 +68,8 @@ class Spaces {
         return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, 2, &set_tags, &clear_tags) as! [CGWindowID]
     }
 
-    static func updateIsSingleSpace() {
-        isSingleSpace = idsAndIndexes.count == 1
+    static func isSingleSpace() -> Bool {
+        return idsAndIndexes.count == 1
     }
 }
 
