@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.15.0](https://github.com/lwouis/alt-tab-macos/compare/v6.14.0...v6.15.0) (2021-02-02)
+
+
+### Bug Fixes
+
+* show vlc fullscreen video (closes [#792](https://github.com/lwouis/alt-tab-macos/issues/792)) ([e675fab](https://github.com/lwouis/alt-tab-macos/commit/e675fab))
+
+
+### Features
+
+* update russian localization ([909c123](https://github.com/lwouis/alt-tab-macos/commit/909c123))
+
 # [6.14.0](https://github.com/lwouis/alt-tab-macos/compare/v6.13.0...v6.14.0) (2021-02-01)
 
 
