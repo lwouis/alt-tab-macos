@@ -92,6 +92,7 @@ extension AXUIElement {
                         worldOfWarcraft(runningApp, role) ||
                         battleNetBootstrapper(runningApp, role) ||
                         firefoxFullscreenVideo(runningApp, role) ||
+                        vlcFullscreenVideo(runningApp, role) ||
                         androidEmulator(runningApp, title) ||
                         sanGuoShaAirWD(runningApp) ||
                         dvdFab(runningApp) ||
@@ -148,6 +149,11 @@ extension AXUIElement {
     private func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
         return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == kAXWindowRole
+    }
+
+    private func vlcFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+        // VLC fullscreen video have subrole == AXUnknown if fullscreen'ed
+        return (runningApp.bundleIdentifier?.hasPrefix("org.videolan.vlc") ?? false) && role == kAXWindowRole
     }
 
     private func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
