@@ -73,7 +73,7 @@ extension AXUIElement {
         return nil
     }
 
-    func isActualWindow(_ runningApp: NSRunningApplication, _ wid: CGWindowID, _ isOnNormalLevel: Bool, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?) -> Bool {
+    func isActualWindow(_ runningApp: NSRunningApplication, _ wid: CGWindowID, _ level: CGWindowLevel, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?) -> Bool {
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
@@ -84,7 +84,7 @@ extension AXUIElement {
             size != nil && size!.width > 100 && size!.height > 100 &&
             (books(runningApp) || keynote(runningApp) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
-                isOnNormalLevel &&
+                level == AXUIElement.normalLevel &&
                     ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
                         openBoard(runningApp) ||
                         adobeAudition(runningApp, subrole) ||
@@ -159,11 +159,6 @@ extension AXUIElement {
     private func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
         // android emulator small vertical menu is a "window" with empty title; we exclude it
         return title != "" && Applications.isAndroidEmulator(runningApp)
-    }
-
-    func isOnNormalLevel(_ wid: CGWindowID) -> Bool {
-        let level: CGWindowLevel = wid.level()
-        return level == AXUIElement.normalLevel
     }
 
     func position() throws -> CGPoint? {
