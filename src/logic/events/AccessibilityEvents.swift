@@ -88,7 +88,7 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
         let role = try element.role()
         let isFullscreen = try element.isFullscreen()
         let isMinimized = try element.isMinimized()
-        let isOnNormalLevel = element.isOnNormalLevel(wid)
+        let isOnNormalLevel = try element.isOnNormalLevel(wid)
         let position = try element.position()
         let size = try element.size()
         DispatchQueue.main.async {
@@ -116,7 +116,7 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
         let role = try element.role()
         let isFullscreen = try element.isFullscreen()
         let isMinimized = try element.isMinimized()
-        let isOnNormalLevel = element.isOnNormalLevel(wid)
+        let isOnNormalLevel = try element.isOnNormalLevel(wid)
         let position = try element.position()
         let size = try element.size()
         DispatchQueue.main.async {

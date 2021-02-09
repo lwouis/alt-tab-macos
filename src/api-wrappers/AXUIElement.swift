@@ -161,8 +161,8 @@ extension AXUIElement {
         return title != "" && Applications.isAndroidEmulator(runningApp)
     }
 
-    func isOnNormalLevel(_ wid: CGWindowID) -> Bool {
-        let level: CGWindowLevel = wid.level()
+    func isOnNormalLevel(_ wid: CGWindowID) throws -> Bool {
+        let level = try wid.level()
         return level == AXUIElement.normalLevel
     }
 
