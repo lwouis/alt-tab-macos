@@ -26,7 +26,9 @@ class Application: NSObject {
         ]
         // workaround: some apps exhibit bugs when we subscribe to its kAXFocusedUIElementChangedNotification
         // we don't know what's happening; we avoid this subscription to make these app usable
-        if app.bundleIdentifier == "edu.stanford.protege" || app.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?$", options: .regularExpression) != nil {
+        if app.bundleIdentifier == "edu.stanford.protege" ||
+               app.bundleIdentifier?.range(of: "^com\\.live2d\\.cubism\\..+?$", options: .regularExpression) != nil ||
+               app.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?$", options: .regularExpression) != nil {
             return n.filter { $0 != kAXFocusedUIElementChangedNotification }
         }
         return n
@@ -85,8 +87,8 @@ class Application: NSObject {
                             let subrole = try $0.subrole()
                             let role = try $0.role()
                             let size = try $0.size()
-                            let isOnNormalLevel = try $0.isOnNormalLevel(wid)
-                            if $0.isActualWindow(self.runningApplication, wid, isOnNormalLevel, title, subrole, role, size) {
+                            let level = try wid.level()
+                            if $0.isActualWindow(self.runningApplication, wid, level, title, subrole, role, size) {
                                 return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position(), size)
                             }
                         }
