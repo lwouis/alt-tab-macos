@@ -1,3 +1,6 @@
+branches:
+  only:
+    - master
 os: osx
 osx_image: xcode11.5
 language: node_js
