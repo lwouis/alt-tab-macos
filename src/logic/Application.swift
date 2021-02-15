@@ -27,6 +27,7 @@ class Application: NSObject {
         // workaround: some apps exhibit bugs when we subscribe to its kAXFocusedUIElementChangedNotification
         // we don't know what's happening; we avoid this subscription to make these app usable
         if app.bundleIdentifier == "edu.stanford.protege" ||
+               app.bundleIdentifier == "com.install4j.2884-1958-5872-3865.59" || // MediathekView
                app.bundleIdentifier?.range(of: "^com\\.live2d\\.cubism\\..+?$", options: .regularExpression) != nil ||
                app.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?$", options: .regularExpression) != nil {
             return n.filter { $0 != kAXFocusedUIElementChangedNotification }
