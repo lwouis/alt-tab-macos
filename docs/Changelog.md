@@ -1,5 +1,14 @@
 # Release notes
 
+## [6.15.1](https://github.com/lwouis/alt-tab-macos/compare/v6.15.0...v6.15.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* didn't show skim app windows (closes [#772](https://github.com/lwouis/alt-tab-macos/issues/772)) ([fed2eb6](https://github.com/lwouis/alt-tab-macos/commit/fed2eb6))
+* issues with the app mediathekview (closes [#822](https://github.com/lwouis/alt-tab-macos/issues/822)) ([0181547](https://github.com/lwouis/alt-tab-macos/commit/0181547))
+* live2d cubism editor stuck on startup (closes [#813](https://github.com/lwouis/alt-tab-macos/issues/813)) ([ee5c44f](https://github.com/lwouis/alt-tab-macos/commit/ee5c44f))
+
 # [6.15.0](https://github.com/lwouis/alt-tab-macos/compare/v6.14.0...v6.15.0) (2021-02-02)
 
 
