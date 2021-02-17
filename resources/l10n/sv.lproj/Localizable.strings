@@ -72,7 +72,7 @@
 "Auto-install updates periodically" = "Installera regelbundna uppdateringar automatiskt";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Svartlista";
+"Blocklists" = "Blocklistor";
 
 /*Cancel button*/
 "Cancel" = "Avbryt";

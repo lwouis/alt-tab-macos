@@ -48,9 +48,9 @@ class Preferences {
         "hideStatusIcons": "false",
         "startAtLogin": "true",
         "menubarIcon": MenubarIconPreference.outlined.rawValue,
-        "dontShowBlacklist": ["com.McAfee.McAfeeSafariHost"].joined(separator: "\n"),
-        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer"].joined(separator: "\n"),
-        "disableShortcutsBlacklistOnlyFullscreen": "true",
+        "dontShowBlocklist": ["com.McAfee.McAfeeSafariHost"].joined(separator: "\n"),
+        "disableShortcutsBlocklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer"].joined(separator: "\n"),
+        "disableShortcutsBlocklistOnlyFullscreen": "true",
         "updatePolicy": UpdatePolicyPreference.autoCheck.rawValue,
         "crashPolicy": CrashPolicyPreference.ask.rawValue,
         "rowsCount": rowCountDependingOnScreenRatio(),
@@ -100,9 +100,9 @@ class Preferences {
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
-    static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
-    static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
-    static var disableShortcutsBlacklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlacklistOnlyFullscreen") }
+    static var dontShowBlocklist: [String] { blocklistStringToArray(defaults.string("dontShowBlocklist")) }
+    static var disableShortcutsBlocklist: [String] { blocklistStringToArray(defaults.string("disableShortcutsBlocklist")) }
+    static var disableShortcutsBlocklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlocklistOnlyFullscreen") }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
@@ -228,8 +228,8 @@ class Preferences {
         }
     }
 
-    static func blacklistStringToArray(_ blacklist: String) -> [String] {
-        return blacklist.components(separatedBy: "\n").compactMap {
+    static func blocklistStringToArray(_ blocklist: String) -> [String] {
+        return blocklist.components(separatedBy: "\n").compactMap {
             let line = $0.trimmingCharacters(in: .whitespaces)
             if line.isEmpty {
                 return nil

@@ -72,7 +72,7 @@
 "Auto-install updates periodically" = "Güncellemeleri periyodik olarak otomatik yükle";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Karaliste";
+"Blocklists" = "Blok listeleri";
 
 /*Cancel button*/
 "Cancel" = "İptal";

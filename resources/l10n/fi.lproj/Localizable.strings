@@ -72,7 +72,7 @@
 "Auto-install updates periodically" = "Asenna päivitykset automaattisesti aika ajoin";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Estolistat";
+"Blocklists" = "Estolistat";
 
 /*Cancel button*/
 "Cancel" = "Peru";

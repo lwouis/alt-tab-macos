@@ -189,7 +189,7 @@ class Windows {
 
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
         window.shouldShowTheUser =
-            !(window.application.runningApplication.bundleIdentifier.flatMap { id in Preferences.dontShowBlacklist.contains { id.hasPrefix($0) } } ?? false) &&
+            !(window.application.runningApplication.bundleIdentifier.flatMap { id in Preferences.dontShowBlocklist.contains { id.hasPrefix($0) } } ?? false) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication != NSWorkspace.shared.frontmostApplication) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
             ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
@@ -210,10 +210,10 @@ class Windows {
     }
 
     static func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window) {
-        let shortcutsShouldBeDisabled = (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen) &&
-            (Preferences.disableShortcutsBlacklist.first { blacklistedId in
+        let shortcutsShouldBeDisabled = (!Preferences.disableShortcutsBlocklistOnlyFullscreen || activeWindow.isFullscreen) &&
+            (Preferences.disableShortcutsBlocklist.first { blocklistedId in
                 if let id = activeWindow.application.runningApplication.bundleIdentifier {
-                    return id.hasPrefix(blacklistedId)
+                    return id.hasPrefix(blocklistedId)
                 }
                 return false
             } != nil)

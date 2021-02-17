@@ -135,7 +135,7 @@
 ### Bug Fixes
 
 * crash in rare unknown scenario scenario ([08581f5](https://github.com/lwouis/alt-tab-macos/commit/08581f5))
-* crash on blacklisted app with main shortcut cleared ([c3f0686](https://github.com/lwouis/alt-tab-macos/commit/c3f0686))
+* crash on blocklisted app with main shortcut cleared ([c3f0686](https://github.com/lwouis/alt-tab-macos/commit/c3f0686))
 * ignore more non-user-facing apps (xpc processes) ([8417564](https://github.com/lwouis/alt-tab-macos/commit/8417564))
 * key repeat rate was too fast on high fps monitors (closes [#633](https://github.com/lwouis/alt-tab-macos/issues/633)) ([b408f14](https://github.com/lwouis/alt-tab-macos/commit/b408f14))
 * keynote was not showing while in slideshow mode (closes [#636](https://github.com/lwouis/alt-tab-macos/issues/636)) ([ec7b69f](https://github.com/lwouis/alt-tab-macos/commit/ec7b69f))
@@ -231,14 +231,14 @@
 * smoother behavior when summoned during a space transition ([e6ded6c](https://github.com/lwouis/alt-tab-macos/commit/e6ded6c))
 * thumbnail sizes could be wrong when switching between screens ([e13a263](https://github.com/lwouis/alt-tab-macos/commit/e13a263))
 * triggering alt-tab during space transition failed (closes [#566](https://github.com/lwouis/alt-tab-macos/issues/566)) ([d66d788](https://github.com/lwouis/alt-tab-macos/commit/d66d788))
-* windowless apps would rarely show despite the blacklist ([355225b](https://github.com/lwouis/alt-tab-macos/commit/355225b))
+* windowless apps would rarely show despite the blocklist ([355225b](https://github.com/lwouis/alt-tab-macos/commit/355225b))
 * workaround a quick in photoshop (closes [#571](https://github.com/lwouis/alt-tab-macos/issues/571)) ([7218418](https://github.com/lwouis/alt-tab-macos/commit/7218418))
 
 
 ### Features
 
 * allow per-shortcut release action preference (closes [#573](https://github.com/lwouis/alt-tab-macos/issues/573)) ([2a9c33b](https://github.com/lwouis/alt-tab-macos/commit/2a9c33b))
-* first blacklist can now match prefixes instead of full ids ([10693d0](https://github.com/lwouis/alt-tab-macos/commit/10693d0))
+* first blocklist can now match prefixes instead of full ids ([10693d0](https://github.com/lwouis/alt-tab-macos/commit/10693d0))
 * new preference to hide thumbnails (closes [#384](https://github.com/lwouis/alt-tab-macos/issues/384)) ([877c93c](https://github.com/lwouis/alt-tab-macos/commit/877c93c))
 * show about item in menubar menu (closes [#574](https://github.com/lwouis/alt-tab-macos/issues/574)) ([78d1d8f](https://github.com/lwouis/alt-tab-macos/commit/78d1d8f))
 * show apps with no open window (closes [#397](https://github.com/lwouis/alt-tab-macos/issues/397)) ([f0fa02c](https://github.com/lwouis/alt-tab-macos/commit/f0fa02c))
@@ -310,14 +310,14 @@
 
 * app badges would sometimes not be up-to-date ([8ad03a5](https://github.com/lwouis/alt-tab-macos/commit/8ad03a5))
 * rare crash when alt-tab is triggered when the dock isn't running ([9c02ceb](https://github.com/lwouis/alt-tab-macos/commit/9c02ceb))
-* second blacklist was too tall on some systems ([522633b](https://github.com/lwouis/alt-tab-macos/commit/522633b))
+* second blocklist was too tall on some systems ([522633b](https://github.com/lwouis/alt-tab-macos/commit/522633b))
 * the ui would not hide if capslock was active (closes [#551](https://github.com/lwouis/alt-tab-macos/issues/551)) ([b4b82b2](https://github.com/lwouis/alt-tab-macos/commit/b4b82b2))
 
 
 ### Features
 
 * add norwegian localization ([c344da7](https://github.com/lwouis/alt-tab-macos/commit/c344da7))
-* blacklist mcafee safari host by default (closes [#386](https://github.com/lwouis/alt-tab-macos/issues/386)) ([a7ef4c7](https://github.com/lwouis/alt-tab-macos/commit/a7ef4c7))
+* blocklist mcafee safari host by default (closes [#386](https://github.com/lwouis/alt-tab-macos/issues/386)) ([a7ef4c7](https://github.com/lwouis/alt-tab-macos/commit/a7ef4c7))
 
 # [5.2.0](https://github.com/lwouis/alt-tab-macos/compare/v5.1.0...v5.2.0) (2020-08-24)
 
@@ -329,7 +329,7 @@
 
 ### Features
 
-* blacklisting apps can use start of the bundle id (closes [#549](https://github.com/lwouis/alt-tab-macos/issues/549)) ([de9cf46](https://github.com/lwouis/alt-tab-macos/commit/de9cf46))
+* blocklisting apps can use start of the bundle id (closes [#549](https://github.com/lwouis/alt-tab-macos/issues/549)) ([de9cf46](https://github.com/lwouis/alt-tab-macos/commit/de9cf46))
 * update french and portuguese localizations ([7a02ea5](https://github.com/lwouis/alt-tab-macos/commit/7a02ea5))
 
 
@@ -605,7 +605,7 @@
 
 ### Bug Fixes
 
-* android emulator not showing because of blacklist (closes [#444](https://github.com/lwouis/alt-tab-macos/issues/444)) ([60bf384](https://github.com/lwouis/alt-tab-macos/commit/60bf384))
+* android emulator not showing because of blocklist (closes [#444](https://github.com/lwouis/alt-tab-macos/issues/444)) ([60bf384](https://github.com/lwouis/alt-tab-macos/commit/60bf384))
 
 
 ### Features
@@ -634,7 +634,7 @@
 
 ### Features
 
-* allow backlisting apps, with 2 different types of blacklist ([d32951f](https://github.com/lwouis/alt-tab-macos/commit/d32951f)), closes [#239](https://github.com/lwouis/alt-tab-macos/issues/239)
+* allow backlisting apps, with 2 different types of blocklist ([d32951f](https://github.com/lwouis/alt-tab-macos/commit/d32951f)), closes [#239](https://github.com/lwouis/alt-tab-macos/issues/239)
 
 # [4.4.0](https://github.com/lwouis/alt-tab-macos/compare/v4.3.0...v4.4.0) (2020-07-15)
 

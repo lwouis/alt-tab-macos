@@ -72,7 +72,7 @@
 "Auto-install updates periodically" = "Instaluj aktualizacje automatycznie";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Czarna lista";
+"Blocklists" = "Blocklists";
 
 /*Cancel button*/
 "Cancel" = "Anuluj";

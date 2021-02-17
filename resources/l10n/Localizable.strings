@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "About" = "About";
 
 /* Menubar option. %@ is AltTab */
@@ -71,7 +71,7 @@
 "Auto-install updates periodically" = "Auto-install updates periodically";
 
 /* No comment provided by engineer. */
-"Blacklists" = "Blacklists";
+"Blocklists" = "Blocklists";
 
 /* No comment provided by engineer. */
 "Cancel" = "Cancel";

@@ -36,7 +36,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
             (1, NSLocalizedString("Controls", comment: ""), "controls", ControlsTab.initTab()),
             (2, NSLocalizedString("Appearance", comment: ""), "appearance", AppearanceTab.initTab()),
             (3, NSLocalizedString("Policies", comment: ""), "policies", PoliciesTab.initTab()),
-            (4, NSLocalizedString("Blacklists", comment: ""), "blacklists", BlacklistsTab.initTab()),
+            (4, NSLocalizedString("Blocklists", comment: ""), "blocklists", BlocklistsTab.initTab()),
             (5, NSLocalizedString("About", comment: ""), "about", AboutTab.initTab()),
             (6, NSLocalizedString("Acknowledgments", comment: ""), "acknowledgments", AcknowledgmentsTab.initTab()),
         ]

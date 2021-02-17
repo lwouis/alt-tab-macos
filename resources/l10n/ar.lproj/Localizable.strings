@@ -72,7 +72,7 @@
 "Auto-install updates periodically" = "تثبيت التحديثات بشكل دوري تلقائي";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blocklists" = "قوائم الحظر";
 
 /*Cancel button*/
 "Cancel" = "إلغاء";
