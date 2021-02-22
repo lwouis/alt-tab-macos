@@ -11,9 +11,9 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
     debugPrint("Accessibility event", type, type != kAXFocusedUIElementChangedNotification ? (try element.title() ?? "nil") : "nil")
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid(),
-       try (!(type == kAXWindowCreatedNotification && pid == ProcessInfo.processInfo.processIdentifier && element.subrole() == kAXUnknownSubrole)) {
+       try (!(pid == ProcessInfo.processInfo.processIdentifier && element.subrole() == kAXUnknownSubrole)) {
         switch type {
-            case kAXApplicationActivatedNotification: try applicationActivated(element)
+            case kAXApplicationActivatedNotification: try applicationActivated(element, pid)
             case kAXApplicationHiddenNotification,
                  kAXApplicationShownNotification: try applicationHiddenOrShown(element, pid, type)
             case kAXWindowCreatedNotification: try windowCreated(element, pid)
@@ -54,10 +54,13 @@ fileprivate func updateTabs(_ pid: pid_t, _ currentWindows: [AXUIElement]?) -> [
     return windows
 }
 
-fileprivate func applicationActivated(_ element: AXUIElement) throws {
+fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) throws {
     if let appFocusedWindow = try element.focusedWindow(),
        let wid = try appFocusedWindow.cgWindowId() {
         DispatchQueue.main.async {
+            if let app = (Applications.list.first { $0.pid == pid }), !app.hasBeenActiveOnce {
+                app.hasBeenActiveOnce = true
+            }
             // ensure alt-tab window remains key, so local shortcuts work
             if App.app.appIsBeingUsed { App.app.thumbnailsPanel.makeKeyAndOrderFront(nil) }
             if let window = Windows.updateLastFocus(appFocusedWindow, wid) {
@@ -107,26 +110,38 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
 
 fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
     if let wid = try element.cgWindowId(),
-       let runningApp = NSRunningApplication(processIdentifier: pid),
-       // photoshop will focus a window *after* you focus another app
+       let runningApp = NSRunningApplication(processIdentifier: pid) {
+        // photoshop will focus a window *after* you focus another app
         // we check that a focused window happens within an active app
-       runningApp.isActive {
-        let axTitle = try element.title()
-        let subrole = try element.subrole()
-        let role = try element.role()
-        let isFullscreen = try element.isFullscreen()
-        let isMinimized = try element.isMinimized()
-        let level = try wid.level()
-        let position = try element.position()
-        let size = try element.size()
-        DispatchQueue.main.async {
-            if let windows = Windows.updateLastFocus(element, wid) {
-                App.app.refreshOpenUi(windows)
-            } else if element.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
-                      let app = (Applications.list.first { $0.pid == pid }) {
-                let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
-                Windows.appendAndUpdateFocus(window)
-                App.app.refreshOpenUi([window])
+        if runningApp.isActive {
+            let axTitle = try element.title()
+            let subrole = try element.subrole()
+            let role = try element.role()
+            let isFullscreen = try element.isFullscreen()
+            let isMinimized = try element.isMinimized()
+            let level = try wid.level()
+            let position = try element.position()
+            let size = try element.size()
+            DispatchQueue.main.async {
+                if let windows = Windows.updateLastFocus(element, wid) {
+                    App.app.refreshOpenUi(windows)
+                } else if element.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
+                          let app = (Applications.list.first { $0.pid == pid }) {
+                    let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
+                    Windows.appendAndUpdateFocus(window)
+                    App.app.refreshOpenUi([window])
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                if let app = (Applications.list.first { $0.pid == pid }) {
+                    // work-around for apps started "hidden" like in Login Items with the "Hide" checkbox, or with `open -j`
+                    // these apps report isHidden=false, don't generate windowCreated events initially, and have a delay before their windows are created
+                    // our only recourse is to manually check their windows once they emit
+                    if (!app.hasBeenActiveOnce) {
+                        app.observeNewWindows()
+                    }
+                }
             }
         }
     }
