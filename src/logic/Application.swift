@@ -9,6 +9,7 @@ class Application: NSObject {
     var axObserver: AXObserver?
     var isReallyFinishedLaunching = false
     var isHidden: Bool!
+    var hasBeenActiveOnce: Bool!
     var icon: NSImage?
     var dockLabel: String?
     var pid: pid_t { runningApplication.processIdentifier }
@@ -39,6 +40,7 @@ class Application: NSObject {
         self.runningApplication = runningApplication
         super.init()
         isHidden = runningApplication.isHidden
+        hasBeenActiveOnce = runningApplication.isActive
         icon = runningApplication.icon
         addAndObserveWindows()
         kvObservers = [
