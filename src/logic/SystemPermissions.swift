@@ -36,9 +36,19 @@ class SystemPermissions {
     }
 
     static func observePermissionsPostStartup() {
+        var counter = 0
         timer = Timer(timeInterval: 5, repeats: true, block: { _ in
-            if !(accessibilityIsGranted() && screenRecordingIsGranted()) {
+            if !accessibilityIsGranted() {
                 App.app.restart()
+            }
+            if !screenRecordingIsGranted() {
+                // permission check may yield a false negative during wake-up
+                // we restart after 2 negative checks
+                if counter >= 2 {
+                    App.app.restart()
+                } else {
+                    counter += 1
+                }
             }
         })
         timer.tolerance = 4.9
