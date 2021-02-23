@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.15.3](https://github.com/lwouis/alt-tab-macos/compare/v6.15.2...v6.15.3) (2021-02-23)
+
+
+### Bug Fixes
+
+* better permission revocation detection ([f6d75fb](https://github.com/lwouis/alt-tab-macos/commit/f6d75fb))
+
 ## [6.15.2](https://github.com/lwouis/alt-tab-macos/compare/v6.15.1...v6.15.2) (2021-02-23)
 
 
