@@ -1,5 +1,13 @@
 # Release notes
 
+## [6.15.2](https://github.com/lwouis/alt-tab-macos/compare/v6.15.1...v6.15.2) (2021-02-23)
+
+
+### Bug Fixes
+
+* avoid restarting alt-tab in some rare scenarios ([#825](https://github.com/lwouis/alt-tab-macos/issues/825)) ([4003df4](https://github.com/lwouis/alt-tab-macos/commit/4003df4))
+* show windows of apps launched hidden ([#390](https://github.com/lwouis/alt-tab-macos/issues/390)) ([eb5d019](https://github.com/lwouis/alt-tab-macos/commit/eb5d019))
+
 ## [6.15.1](https://github.com/lwouis/alt-tab-macos/compare/v6.15.0...v6.15.1) (2021-02-16)
 
 
