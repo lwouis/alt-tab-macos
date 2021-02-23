@@ -49,6 +49,8 @@ class SystemPermissions {
                 } else {
                     counter += 1
                 }
+            } else {
+                counter = 0
             }
         })
         timer.tolerance = 4.9
