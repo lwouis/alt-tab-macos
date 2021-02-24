@@ -96,6 +96,9 @@
 "Close window" = "Fechar janela";
 
 /*No comment provided by engineer.*/
+"Conflicting shortcut" = "Conflicting shortcut";
+
+/*No comment provided by engineer.*/
 "Controls" = "Controlos";
 
 /*No comment provided by engineer.*/
@@ -300,6 +303,9 @@
 "Shortcut 2" = "Atalho 2";
 
 /*No comment provided by engineer.*/
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+
+/*No comment provided by engineer.*/
 "Show" = "Mostrar";
 
 /*No comment provided by engineer.*/
@@ -337,6 +343,9 @@
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Esta permissão é necessária para mostrar capturas de ecrã e títulos das janelas abertas";
+
+/*No comment provided by engineer.*/
+"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Regras de actualização:";

@@ -96,6 +96,9 @@
 "Close window" = "Chiudi la finestra";
 
 /*No comment provided by engineer.*/
+"Conflicting shortcut" = "Conflicting shortcut";
+
+/*No comment provided by engineer.*/
 "Controls" = "Controls";
 
 /*No comment provided by engineer.*/
@@ -300,6 +303,9 @@
 "Shortcut 2" = "Shortcut 2";
 
 /*No comment provided by engineer.*/
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+
+/*No comment provided by engineer.*/
 "Show" = "Mostra";
 
 /*No comment provided by engineer.*/
@@ -337,6 +343,9 @@
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+
+/*No comment provided by engineer.*/
+"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Politica sugli aggiornamenti:";

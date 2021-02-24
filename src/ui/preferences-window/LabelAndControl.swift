@@ -9,9 +9,10 @@ enum LabelPosition {
 
 class LabelAndControl: NSObject {
     static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
-        let input = CustomRecorderControl(shortcutString, clearable)
+        let input = CustomRecorderControl(shortcutString, clearable, rawName)
         let views = makeLabelWithProvidedControl(labelText, rawName, input, labelPosition: labelPosition, extraAction: { _ in ControlsTab.shortcutChangedCallback(input) })
         ControlsTab.shortcutChangedCallback(input)
+        ControlsTab.shortcutControls[rawName] = (input, labelText)
         return views
     }
 

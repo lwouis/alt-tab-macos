@@ -4,6 +4,7 @@ import ShortcutRecorder
 class ControlsTab {
     static var nextWindowShortcut: [NSControl]!
     static var shortcuts = [String: ATShortcut]()
+    static var shortcutControls = [String: (CustomRecorderControl, String)]()
     static var shortcutsActions = [
         "holdShortcut": { App.app.focusTarget() },
         "holdShortcut2": { App.app.focusTarget() },

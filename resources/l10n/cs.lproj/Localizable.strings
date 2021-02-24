@@ -97,6 +97,9 @@
 "Close window" = "Zavřít okno";
 
 /*No comment provided by engineer.*/
+"Conflicting shortcut" = "Conflicting shortcut";
+
+/*No comment provided by engineer.*/
 "Controls" = "Ovládání";
 
 /*No comment provided by engineer.*/
@@ -305,6 +308,9 @@
 "Shortcut 2" = "Zkratka 2";
 
 /*No comment provided by engineer.*/
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+
+/*No comment provided by engineer.*/
 "Show" = "Zobrazit";
 
 /*No comment provided by engineer.*/
@@ -342,6 +348,9 @@
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Toto oprávnění je potřeba k zobrazení náhledů a titulků otevřených oken";
+
+/*No comment provided by engineer.*/
+"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Kontrola aktualizací:";
