@@ -126,16 +126,10 @@
 "Focus selected window" = "Fokusera på valt fönster";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullskärm";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fönster i fullskärm:";
 
 /*No comment provided by engineer.*/
 "General" = "Allmänt";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Dold";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Dölj fönster:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Maxhöjd på skärm:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Maxstorlek på skärm:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Maxbredd på skärm:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Maxantal fönster per rad:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Ikon i menylist:";
@@ -198,13 +186,7 @@
 "Middle" = "Mitten";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Minantal fönster per rad:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minifiera/Avminifiera fönster";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Minifierat";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Minifierade fönster:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rader av tumnaglar:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Rader med fönster:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Skärm med menylist";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Visa standardflikar som fönster:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Visa följande fönster:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Visa fönster från:";

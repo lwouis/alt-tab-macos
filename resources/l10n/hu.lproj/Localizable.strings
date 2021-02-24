@@ -126,16 +126,10 @@
 "Focus selected window" = "A kiválasztott ablak előtérbe hozása";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Teljes képernyő";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Teljesképernyős ablakok:";
 
 /*No comment provided by engineer.*/
 "General" = "Általános";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Rejtett";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Rejtett ablakok:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Maximális magasság a képernyőn:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Legnagyobb méret a képernyőn:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Maximális szélesség a képernyőn:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Legtöbb ablak soronként:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Menü-sor ikon:";
@@ -198,13 +186,7 @@
 "Middle" = "Középre";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Legkevesebb ablak soronként:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Ablak kicsinyítés/visszaállítása";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Kicsinyít";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Kicsinyített ablakok:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rows of thumbnails:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Ablak sorok száma:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Képernyő a menü sávval";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Szabványos lapok megjelenítése ablakokként:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Megjelenítendő ablakok kiválasztása:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Show windows from:";

@@ -126,16 +126,10 @@
 "Focus selected window" = "선택된 윈도우로 이동";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "전체화면";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "전체 화면 윈도우:";
 
 /*No comment provided by engineer.*/
 "General" = "일반";
-
-/*No comment provided by engineer.*/
-"Hidden" = "숨겨진 화면";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "숨겨진 윈도우:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "화면 내의 최대 높이:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "화면 최대 크기:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "화면 내의 최대 너비:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "한 줄당 최대 윈도우 개수:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "메뉴바 아이콘:";
@@ -198,13 +186,7 @@
 "Middle" = "중간";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "한 줄당 최소 윈도우 개수:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "윈도우 최소화 / 최대화";
-
-/*No comment provided by engineer.*/
-"Minimized" = "최소화된 화면";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "최소화된 윈도우:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "썸네일의 줄 개수:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "윈도우 줄 개수:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "메뉴 바를 포함한 화면";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "기본 탭을 윈도우로 보여주기:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "다음 윈도우들이 보여집니다:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "윈도우가 보일 곳:";

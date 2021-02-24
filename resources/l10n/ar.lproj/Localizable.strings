@@ -126,16 +126,10 @@
 "Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fullscreen windows:";
 
 /*No comment provided by engineer.*/
 "General" = "عام";
-
-/*No comment provided by engineer.*/
-"Hidden" = "مخفي";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Hidden windows:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Max height on screen:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "أكبر حجم على الشاشة:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Max width on screen:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "الحد الأعلى للنوافذ للصف:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Menubar icon:";
@@ -198,13 +186,7 @@
 "Middle" = "Middle";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "الحد الأدنى للنوافذ للصف:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "تصغير/تكبير نافذة";
-
-/*No comment provided by engineer.*/
-"Minimized" = "مصغّر";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Minimized windows:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rows of thumbnails:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "صفوف النوافذ:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "شاشة شريط القوائم";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Show standard tabs as windows:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "حدد النوافذ التالية:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Show windows from:";

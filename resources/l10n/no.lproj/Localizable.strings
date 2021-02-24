@@ -126,16 +126,10 @@
 "Focus selected window" = "Fokuser på valgt vindu";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullskjerm";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fullscreen windows:";
 
 /*No comment provided by engineer.*/
 "General" = "Generelt";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Skjult";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Hidden windows:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Max height on screen:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Maks størrelse på skjerm:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Max width on screen:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Maks vinduer per rad:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Menylinjeikon:";
@@ -198,13 +186,7 @@
 "Middle" = "Midten";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Min vinduer per rad:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimér/Gjenopprett vindu";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Minimert";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Minimized windows:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rows of thumbnails:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Rader med vinduer:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Skjerm med menylinje";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Vis standardtaber som vindu:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Vis følgende vindu:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Show windows from:";
