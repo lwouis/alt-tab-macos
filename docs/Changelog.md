@@ -1,5 +1,13 @@
 # Release notes
 
+# [6.16.0](https://github.com/lwouis/alt-tab-macos/compare/v6.15.3...v6.16.0) (2021-02-24)
+
+
+### Features
+
+* remove unused localized text ([e7ef15b](https://github.com/lwouis/alt-tab-macos/commit/e7ef15b))
+* tell users about conflicting shortcuts (close [#832](https://github.com/lwouis/alt-tab-macos/issues/832)) ([b345648](https://github.com/lwouis/alt-tab-macos/commit/b345648))
+
 ## [6.15.3](https://github.com/lwouis/alt-tab-macos/compare/v6.15.2...v6.15.3) (2021-02-23)
 
 
