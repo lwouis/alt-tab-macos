@@ -126,16 +126,10 @@
 "Focus selected window" = "Фокус на выбранное окно";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Полноэкранные";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Развернутые окна:";
 
 /*No comment provided by engineer.*/
 "General" = "Основное";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Скрытые";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Скрытые окна:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Макс. высота на экране:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Макс. размер на экране:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Макс. ширина на экране:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Макс. количество окон в ряду:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Иконка в строке меню:";
@@ -198,13 +186,7 @@
 "Middle" = "Посередине";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Мин. количество окон в ряду:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Свернуть/Развернуть окно";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Свернутые";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Свернутые окна:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Ряды с эскизами окон:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Количество рядов окон:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Экран с панелью меню";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Показывать вкладки стандартных приложений как окна:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Показывать следующие окна:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Показывать окна:";

@@ -126,16 +126,10 @@
 "Focus selected window" = "選択されたウィンドウを表示";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "フルスクリーン";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "フルスクリーンウィンドウ：";
 
 /*No comment provided by engineer.*/
 "General" = "一般設定";
-
-/*No comment provided by engineer.*/
-"Hidden" = "ウィンドウをしまう";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "非表示のウィンドウ：";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "スクリーン最大の高さ：";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "スクリーン表示サイズ：";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "スクリーン最大の幅：";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "一列に最大表示可能な個数：";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "メニューバーアイコン：";
@@ -198,13 +186,7 @@
 "Middle" = "文中";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "一列に最小表示可能な個数：";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "ウィンドウをしまう / 開く";
-
-/*No comment provided by engineer.*/
-"Minimized" = "ウィンドウを非表示";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "しまわれたウィンドウ：";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "サムネイルの列：";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "ウィンドウ列：";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "メニューバーのあるスクリーン";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "標準タブをウィンドウとして表示：";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "ウィンドウを表示：";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "次からウィンドウを表示：";

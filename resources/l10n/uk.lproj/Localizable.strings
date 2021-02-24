@@ -126,16 +126,10 @@
 "Focus selected window" = "Focus selected window";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Fullscreen";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fullscreen windows:";
 
 /*No comment provided by engineer.*/
 "General" = "General";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Hidden";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Hidden windows:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Max height on screen:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Макс. розмiр на дисплеї";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Max width on screen:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Макс. кiлькiсть вiкон в рядку";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Menubar icon:";
@@ -198,13 +186,7 @@
 "Middle" = "Middle";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Мiн. кiлькiсть вiкон в рядку";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimize/Deminimize window";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Minimized";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Minimized windows:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rows of thumbnails:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Rows of windows:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Screen including menu bar";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Show standard tabs as windows:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Show the following windows:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Show windows from:";

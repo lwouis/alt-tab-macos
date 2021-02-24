@@ -126,16 +126,10 @@
 "Focus selected window" = "Foca a janela selecionada";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Em tela cheia";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Janelas em tela cheia:";
 
 /*No comment provided by engineer.*/
 "General" = "Geral";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Ocultas";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Janelas ocultas:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Altura máxima na tela:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Tamanho máximo na tela:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Largura máxima na tela:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Máximo de janelas por linha:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Ícone da barra de menus:";
@@ -198,13 +186,7 @@
 "Middle" = "No meio";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Mínimo de janelas por linha:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimiza/Restaura a janela";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Minimizadas";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Janelas minimizadas:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Linhas de miniaturas:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Linhas de janelas:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Na tela com a barra de menus";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Exibir abas padrão como janelas:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Exibir as seguintes janelas:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Exibir janelas de:";

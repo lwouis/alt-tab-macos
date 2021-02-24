@@ -128,16 +128,10 @@
 "Focus selected window" = "Přepnout do vybraného okna";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Celá obrazovka";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Okna na celou obrazovku:";
 
 /*No comment provided by engineer.*/
 "General" = "Obecné";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Skryté";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Skrytá okna:";
@@ -186,13 +180,7 @@
 "Max height on screen:" = "Maximální výška na obrazovce";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Maximální velikost na obrazovce";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Maximální šířka na obrazovce";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Maximální počet oken na řádek";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Ikona v menu";
@@ -201,13 +189,7 @@
 "Middle" = "Na středu";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Minimální počet oken na řádek";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimalizovat/odminimalizovat okno";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Minimalizovaná";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Minimalizovaná okna:";
@@ -258,9 +240,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Počet řádků náhledů:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Řádků oken:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Obrazovka s hlavní nabídkou";
@@ -321,9 +300,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Zobrazit standardní taby jako okna";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Zobrazit následující okna";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Zobrazit okna z:";

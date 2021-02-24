@@ -126,16 +126,10 @@
 "Focus selected window" = "Focus geselecteerde venster";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Volledig scherm";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Schermvullende vensters:";
 
 /*No comment provided by engineer.*/
 "General" = "Algemeen";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Verborgen";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Verborgen vensters:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Max hoogte op scherm:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Maximale grootte op beeldscherm:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Max breedte op scherm:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Maximaal aantal vensters per rij:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Menubalk-icoon:";
@@ -198,13 +186,7 @@
 "Middle" = "Midden";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Minimaal aantal vensters per rij:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimaliseer/Deminimaliseer venster";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Geminimaliseerd";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Geminimaliseerde vensters:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rijen met miniaturen:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Aantal vensterrijen:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Beeldscherm met menubalk";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Laat standaardtabbladen zien als vensters:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Toon de volgende vensters:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Vensters weergeven van:";

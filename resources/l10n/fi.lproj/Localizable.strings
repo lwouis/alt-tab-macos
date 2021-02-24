@@ -126,16 +126,10 @@
 "Focus selected window" = "Kohdenna valittu ikkuna";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "Koko näyttö";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fullscreen windows:";
 
 /*No comment provided by engineer.*/
 "General" = "Yleinen";
-
-/*No comment provided by engineer.*/
-"Hidden" = "Piilossa";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Hidden windows:";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "Max height on screen:";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "Enimmäiskoko ruudulla:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Max width on screen:";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "Enimmäismäärä ikkunoita rivillä:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Valikkopalkin ikoni:";
@@ -198,13 +186,7 @@
 "Middle" = "Keski";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "Vähimmäismäärä ikkunoita rivillä:";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Pienennä/palauta ikkuna";
-
-/*No comment provided by engineer.*/
-"Minimized" = "Pienennetty";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Minimized windows:";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rows of thumbnails:";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "Ikkunarivejä:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Ruudulla jossa valikkopalkki";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Näytä standarditabit ikkunoina:";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "Show the following windows:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Show windows from:";

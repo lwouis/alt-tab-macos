@@ -126,16 +126,10 @@
 "Focus selected window" = "前置选中窗口";
 
 /*No comment provided by engineer.*/
-"Fullscreen" = "全屏";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "全屏窗口：";
 
 /*No comment provided by engineer.*/
 "General" = "通用";
-
-/*No comment provided by engineer.*/
-"Hidden" = "隐藏";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "隐藏窗口：";
@@ -183,13 +177,7 @@
 "Max height on screen:" = "最大屏幕占用高度：";
 
 /*No comment provided by engineer.*/
-"Max size on screen:" = "最大屏幕占用尺寸：";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "最大屏幕占用宽度：";
-
-/*No comment provided by engineer.*/
-"Max windows per row:" = "每行最多窗口数：";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "菜单栏图标：";
@@ -198,13 +186,7 @@
 "Middle" = "中间";
 
 /*No comment provided by engineer.*/
-"Min windows per row:" = "每行最少窗口数：";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "最小化/最大化窗口";
-
-/*No comment provided by engineer.*/
-"Minimized" = "最小化";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "最小化窗口：";
@@ -253,9 +235,6 @@
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "缩略图行数：";
-
-/*No comment provided by engineer.*/
-"Rows of windows:" = "窗口行数：";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "菜单栏所在屏幕";
@@ -316,9 +295,6 @@
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "以窗口形式显示某些程序的标签页：";
-
-/*No comment provided by engineer.*/
-"Show the following windows:" = "显示以下窗口：";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "显示以下窗口：";
