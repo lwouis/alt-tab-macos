@@ -1,5 +1,12 @@
 # Release notes
 
+# [6.17.0](https://github.com/lwouis/alt-tab-macos/compare/v6.16.0...v6.17.0) (2021-02-26)
+
+
+### Features
+
+* space number start at 1 instead of 0 ([#838](https://github.com/lwouis/alt-tab-macos/issues/838)) ([200dafa](https://github.com/lwouis/alt-tab-macos/commit/200dafa))
+
 # [6.16.0](https://github.com/lwouis/alt-tab-macos/compare/v6.15.3...v6.16.0) (2021-02-24)
 
 
