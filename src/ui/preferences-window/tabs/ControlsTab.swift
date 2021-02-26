@@ -110,6 +110,18 @@ class ControlsTab {
         if scope == .global {
             KeyboardEvents.addGlobalShortcut(controlId, atShortcut.shortcut)
         }
+        toggleNativeCommandTabIfNeeded()
+    }
+
+    private static func toggleNativeCommandTabIfNeeded() {
+        for atShortcut in shortcuts.values {
+            let shortcut = atShortcut.shortcut
+            if (shortcut.carbonModifierFlags == cmdKey || shortcut.carbonModifierFlags == (cmdKey | shiftKey)) && shortcut.carbonKeyCode == kVK_Tab {
+                setNativeCommandTabEnabled(false)
+                return
+            }
+        }
+        setNativeCommandTabEnabled(true)
     }
 
     @objc static func shortcutChangedCallback(_ sender: NSControl) {

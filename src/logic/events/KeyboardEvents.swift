@@ -21,13 +21,11 @@ class KeyboardEvents {
     static func addGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
         addGlobalHandlerIfNeeded(shortcut)
         registerHotKeyIfNeeded(controlId, shortcut)
-        toggleNativeCommandTabIfNeeded(shortcut, false)
     }
 
     static func removeGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
         unregisterHotKeyIfNeeded(controlId, shortcut)
         removeHandlerIfNeeded()
-        toggleNativeCommandTabIfNeeded(shortcut, true)
     }
 
     private static func unregisterHotKeyIfNeeded(_ controlId: String, _ shortcut: Shortcut) {
@@ -60,12 +58,6 @@ class KeyboardEvents {
             }
             debugPrint("toggleGlobalShortcuts", shouldDisable)
             App.app.globalShortcutsAreDisabled = shouldDisable
-        }
-    }
-
-    private static func toggleNativeCommandTabIfNeeded(_ shortcut: Shortcut, _ enabled: Bool) {
-        if (shortcut.carbonModifierFlags == cmdKey || shortcut.carbonModifierFlags == (cmdKey | shiftKey)) && shortcut.carbonKeyCode == kVK_Tab {
-            setNativeCommandTabEnabled(enabled)
         }
     }
 
