@@ -73,7 +73,7 @@ extension AXUIElement {
         return nil
     }
 
-    func isActualWindow(_ runningApp: NSRunningApplication, _ wid: CGWindowID, _ level: CGWindowLevel, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?) -> Bool {
+    static func isActualWindow(_ runningApp: NSRunningApplication, _ wid: CGWindowID, _ level: CGWindowLevel, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?) -> Bool {
         // Some non-windows have title: nil (e.g. some OS elements)
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
@@ -99,64 +99,64 @@ extension AXUIElement {
                         drBetotte(runningApp))))
     }
 
-    private func keynote(_ runningApp: NSRunningApplication) -> Bool {
+    private static func keynote(_ runningApp: NSRunningApplication) -> Bool {
         // apple Keynote has a fake fullscreen window when in presentation mode
         // it covers the screen with a AXUnknown window instead of using standard fullscreen mode
         return runningApp.bundleIdentifier == "com.apple.iWork.Keynote"
     }
 
-    private func openBoard(_ runningApp: NSRunningApplication) -> Bool {
+    private static func openBoard(_ runningApp: NSRunningApplication) -> Bool {
         // OpenBoard is a ported app which doesn't use standard macOS windows
         return runningApp.bundleIdentifier == "org.oe-f.OpenBoard"
     }
 
-    private func adobeAudition(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
+    private static func adobeAudition(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
         return runningApp.bundleIdentifier == "com.adobe.Audition" && subrole == kAXFloatingWindowSubrole
     }
 
-    private func books(_ runningApp: NSRunningApplication) -> Bool {
+    private static func books(_ runningApp: NSRunningApplication) -> Bool {
         // Books.app has animations on window creation. This means windows are originally created with subrole == AXUnknown or isOnNormalLevel == false
         return runningApp.bundleIdentifier == "com.apple.iBooksX"
     }
 
-    private func worldOfWarcraft(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+    private static func worldOfWarcraft(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         return runningApp.bundleIdentifier == "com.blizzard.worldofwarcraft" && role == kAXWindowRole
     }
 
-    private func battleNetBootstrapper(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+    private static func battleNetBootstrapper(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         // Battlenet bootstrapper windows have subrole == AXUnknown
         return runningApp.bundleIdentifier == "net.battle.bootstrapper" && role == kAXWindowRole
     }
 
-    private func drBetotte(_ runningApp: NSRunningApplication) -> Bool {
+    private static func drBetotte(_ runningApp: NSRunningApplication) -> Bool {
         return runningApp.bundleIdentifier == "com.ssworks.drbetotte"
     }
 
-    private func dvdFab(_ runningApp: NSRunningApplication) -> Bool {
+    private static func dvdFab(_ runningApp: NSRunningApplication) -> Bool {
         return runningApp.bundleIdentifier == "com.goland.dvdfab.macos"
     }
 
-    private func sanGuoShaAirWD(_ runningApp: NSRunningApplication) -> Bool {
+    private static func sanGuoShaAirWD(_ runningApp: NSRunningApplication) -> Bool {
         return runningApp.bundleIdentifier == "SanGuoShaAirWD"
     }
 
-    private func steam(_ runningApp: NSRunningApplication, _ title: String?, _ role: String?) -> Bool {
+    private static func steam(_ runningApp: NSRunningApplication, _ title: String?, _ role: String?) -> Bool {
         // All Steam windows have subrole == AXUnknown
         // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
         return runningApp.bundleIdentifier == "com.valvesoftware.steam" && title != "" && role != nil
     }
 
-    private func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+    private static func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
         return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == kAXWindowRole
     }
 
-    private func vlcFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+    private static func vlcFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
         // VLC fullscreen video have subrole == AXUnknown if fullscreen'ed
         return (runningApp.bundleIdentifier?.hasPrefix("org.videolan.vlc") ?? false) && role == kAXWindowRole
     }
 
-    private func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
+    private static func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
         // android emulator small vertical menu is a "window" with empty title; we exclude it
         return title != "" && Applications.isAndroidEmulator(runningApp)
     }
