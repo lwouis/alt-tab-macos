@@ -97,7 +97,7 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
         DispatchQueue.main.async {
             if (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) == nil,
                let runningApp = NSRunningApplication(processIdentifier: pid),
-               element.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
+               AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
                let app = (Applications.list.first { $0.pid == pid }) {
                 let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                 Windows.appendAndUpdateFocus(window)
@@ -125,7 +125,7 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
             DispatchQueue.main.async {
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows)
-                } else if element.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
+                } else if AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
                           let app = (Applications.list.first { $0.pid == pid }) {
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)

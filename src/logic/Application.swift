@@ -91,7 +91,7 @@ class Application: NSObject {
                             let role = try $0.role()
                             let size = try $0.size()
                             let level = try wid.level()
-                            if $0.isActualWindow(self.runningApplication, wid, level, title, subrole, role, size) {
+                            if AXUIElement.isActualWindow(self.runningApplication, wid, level, title, subrole, role, size) {
                                 return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position(), size)
                             }
                         }
