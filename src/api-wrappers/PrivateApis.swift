@@ -157,6 +157,10 @@ enum CGSSpaceType: Int {
 @_silgen_name("CGSSpaceGetType")
 func CGSSpaceGetType(_ cid: CGSConnectionID, _ sid: CGSSpaceID) -> CGSSpaceType
 
+// returns true if the current screen is animating
+// useful to detect Spaces transitions, windows going fullscreen, etc
+@_silgen_name("SLSManagedDisplayIsAnimating")
+func SLSManagedDisplayIsAnimating(_ cid: CGSConnectionID, _ displayUuid: CFString) -> Bool
 
 
 // ------------------------------------------------------------

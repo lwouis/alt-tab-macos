@@ -34,13 +34,31 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
 fileprivate func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throws {
     if NSRunningApplication(processIdentifier: pid) != nil {
         let currentWindows = try AXUIElementCreateApplication(pid).windows()
-        DispatchQueue.main.async {
-            let windows = updateTabs(pid, currentWindows)
+        retryToRefreshTabsUntilScreenIsNotAnimating(pid, currentWindows) { windows in
             App.app.refreshOpenUi(windows)
         }
     }
 }
 
+// the algorithm used by updateTabs is incorrect is the screen is in the middle of an animation (e.g. window going fullscreen)
+// we retry until there is no animation, then we proceed
+fileprivate func retryToRefreshTabsUntilScreenIsNotAnimating(_ pid: pid_t, _ currentWindows: [AXUIElement]?, _ fn: @escaping ([Window]) -> Void) {
+    if let mainScreen = NSScreen.main,
+       let uuid = mainScreen.uuid() {
+        retryAxCallUntilTimeout {
+            if SLSManagedDisplayIsAnimating(cgsMainConnectionId, uuid) {
+                throw AxError.runtimeError
+            }
+            DispatchQueue.main.async {
+                fn(updateTabs(pid, currentWindows))
+            }
+        }
+    }
+}
+
+// when a window is tabbed, the AX call to get windows doesn't list it
+// we compare a fresh call to get the windows (currentWindows) to the windows we have already (Windows.list)
+// any window not in currentWindows is considered tabbed
 fileprivate func updateTabs(_ pid: pid_t, _ currentWindows: [AXUIElement]?) -> [Window] {
     let windows = Windows.list.filter { w in
         if w.application.pid == pid && pid != ProcessInfo.processInfo.processIdentifier &&
@@ -157,12 +175,14 @@ fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
             let windowlessApp = window.application.addWindowslessAppsIfNeeded()
             if Windows.list.count > 0 {
                 // closing a tab may make another tab visible; we refresh tab status
-                var windows = updateTabs(pid, currentWindows)
-                Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(window)
-                if let windowlessApp = windowlessApp {
-                    windows.append(contentsOf: windowlessApp)
+                retryToRefreshTabsUntilScreenIsNotAnimating(pid, currentWindows) { windows in
+                    Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(window)
+                    if let windowlessApp = windowlessApp {
+                        App.app.refreshOpenUi(windows + windowlessApp)
+                    } else {
+                        App.app.refreshOpenUi(windows)
+                    }
                 }
-                App.app.refreshOpenUi(windows)
             } else {
                 App.app.hideUi()
             }
