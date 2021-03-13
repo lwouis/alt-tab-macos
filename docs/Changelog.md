@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.18.1](https://github.com/lwouis/alt-tab-macos/compare/v6.18.0...v6.18.1) (2021-03-13)
+
+
+### Bug Fixes
+
+* force new release ([1a098af](https://github.com/lwouis/alt-tab-macos/commit/1a098af))
+
 # [6.18.0](https://github.com/lwouis/alt-tab-macos/compare/v6.17.0...v6.18.0) (2021-03-13)
 
 
