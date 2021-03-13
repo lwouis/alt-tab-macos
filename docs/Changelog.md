@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.18.0](https://github.com/lwouis/alt-tab-macos/compare/v6.17.0...v6.18.0) (2021-03-13)
+
+
+### Bug Fixes
+
+* more robust handling of custom shortcuts ([339aeaa](https://github.com/lwouis/alt-tab-macos/commit/339aeaa))
+* windows launched already fullscreen sometimes didn't show ([#824](https://github.com/lwouis/alt-tab-macos/issues/824)) ([62b43f2](https://github.com/lwouis/alt-tab-macos/commit/62b43f2))
+
+
+### Features
+
+* avoid disabling native command-tab (closes [#834](https://github.com/lwouis/alt-tab-macos/issues/834)) ([fb51c5d](https://github.com/lwouis/alt-tab-macos/commit/fb51c5d))
+* update contributors list ([5c7aa38](https://github.com/lwouis/alt-tab-macos/commit/5c7aa38))
+
 # [6.17.0](https://github.com/lwouis/alt-tab-macos/compare/v6.16.0...v6.17.0) (2021-02-26)
 
 
