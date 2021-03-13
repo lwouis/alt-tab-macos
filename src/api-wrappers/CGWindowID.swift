@@ -2,7 +2,7 @@ import Cocoa
 
 extension CGWindowID {
     func title() -> String? {
-        return cgProperty("kCGSWindowTitle", String.self)
+        cgProperty("kCGSWindowTitle", String.self)
     }
 
     func level() throws -> CGWindowLevel {
