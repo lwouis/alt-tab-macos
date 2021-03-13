@@ -2,7 +2,6 @@ import Cocoa
 import ShortcutRecorder
 
 class ControlsTab {
-    static var nextWindowShortcut: [NSControl]!
     static var shortcuts = [String: ATShortcut]()
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
     static var shortcutsActions = [
@@ -37,12 +36,14 @@ class ControlsTab {
         let checkboxes = StackView([StackView(enableArrows), StackView(enableMouse)], .vertical)
         let shortcuts = StackView([focusWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
         let orPress = LabelAndControl.makeLabel(NSLocalizedString("While open, press:", comment: ""), shouldFit: false)
-        let (nextWindowShortcut, tab1View) = toShowSection("")
-        let (nextWindowShortcut2, tab2View) = toShowSection("2")
+        let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection("")
+        let (holdShortcut2, nextWindowShortcut2, tab2View) = toShowSection("2")
         let tabView = TabView([(NSLocalizedString("Shortcut 1", comment: ""), tab1View), (NSLocalizedString("Shortcut 2", comment: ""), tab2View)])
 
-        ControlsTab.nextWindowShortcut = [nextWindowShortcut, nextWindowShortcut2].map { $0[0] as! NSControl }
         ControlsTab.arrowKeysEnabledCallback(enableArrows[0] as! NSControl)
+        // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
+        [holdShortcut, holdShortcut2].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
+        [nextWindowShortcut, nextWindowShortcut2].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
 
         let grid = GridView([
             [tabView],
@@ -67,7 +68,7 @@ class ControlsTab {
         return grid
     }
 
-    private static func toShowSection(_ postfix: String) -> ([NSView], GridView) {
+    private static func toShowSection(_ postfix: String) -> ([NSView], [NSView], GridView) {
         let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show windows from:", comment: ""))
         let toShowExplanations2 = LabelAndControl.makeLabel(NSLocalizedString("Minimized windows:", comment: ""))
         let toShowExplanations3 = LabelAndControl.makeLabel(NSLocalizedString("Hidden windows:", comment: ""))
@@ -100,7 +101,7 @@ class ControlsTab {
         tab.column(at: 0).xPlacement = .trailing
         tab.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 4, length: 1))
         tab.fit()
-        return (nextWindowShortcut, tab)
+        return (holdShortcut, nextWindowShortcut, tab)
     }
 
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {
@@ -129,30 +130,40 @@ class ControlsTab {
         if controlId.hasPrefix("holdShortcut") {
             let i = controlId == "holdShortcut" ? 0 : 1
             addShortcut(.up, .global, Shortcut(keyEquivalent: Preferences.holdShortcut[i])!, controlId, i)
-            if let s = nextWindowShortcut?[i] {
-                shortcutChangedCallback(s)
+            if let nextWindowShortcut = shortcutControls["nextWindowShortcut" + (i == 0 ? "" : "2")]?.0 {
+                nextWindowShortcut.restrictModifiers([(sender as! CustomRecorderControl).objectValue!.modifierFlags])
+                shortcutChangedCallback(nextWindowShortcut)
             }
         } else {
-            let newValue = shortcutStringValue(controlId, sender)
+            let newValue = combineHoldAndNextWindow(controlId, sender)
             if newValue.isEmpty {
                 removeShortcutIfExists(controlId)
+                restrictModifiersOfHoldShortcut(controlId, [])
             } else {
                 let i = controlId.hasPrefix("nextWindowShortcut") ? (controlId == "nextWindowShortcut" ? 0 : 1) : nil
                 addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, Shortcut(keyEquivalent: newValue)!, controlId, i)
+                restrictModifiersOfHoldShortcut(controlId, [(sender as! CustomRecorderControl).objectValue!.modifierFlags])
             }
         }
     }
 
-    static func shortcutStringValue(_ controlId: String, _ sender: NSControl) -> String {
-        let baseValue = (sender as! RecorderControl).stringValue
-        if KeyboardEvents.globalShortcutsIds[controlId] != nil {
-            let holdShortcut = controlId == "nextWindowShortcut" ? Preferences.holdShortcut[0] : Preferences.holdShortcut[1]
-            // remove the holdShortcut character in case they also use it in the other shortcuts
-            let cleanedShortcut = holdShortcut + holdShortcut.reduce(baseValue, { $0.replacingOccurrences(of: String($1), with: "") })
-            if cleanedShortcut.sorted() == holdShortcut.sorted() {
-                return ""
+    private static func restrictModifiersOfHoldShortcut(_ controlId: String, _ modifiers: NSEvent.ModifierFlags) {
+        if controlId.hasPrefix("nextWindowShortcut") {
+            let i = controlId == "nextWindowShortcut" ? "" : "2"
+            if let holdShortcut = shortcutControls["holdShortcut" + i]?.0 {
+                holdShortcut.restrictModifiers(modifiers)
             }
-            return cleanedShortcut
+        }
+    }
+
+    static func combineHoldAndNextWindow(_ controlId: String, _ sender: NSControl) -> String {
+        let baseValue = (sender as! RecorderControl).stringValue
+        if baseValue == "" {
+            return ""
+        }
+        if controlId.starts(with: "nextWindowShortcut") {
+            let holdShortcut = controlId.last == "2" ? Preferences.holdShortcut[1] : Preferences.holdShortcut[0]
+            return holdShortcut + baseValue
         }
         return baseValue
     }
