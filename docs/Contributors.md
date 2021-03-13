@@ -25,6 +25,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Albert Abdilim
 * Ali Gokmen
 * anushree b
+* Ash
 * blanorama
 * caduellery
 * Christian Keilmann
@@ -48,6 +49,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jord Nijhuis
 * Julian Nowaczyk
 * Kagurazaka Tsuki
+* kal
 * Klara
 * Kushnee5
 * Lcwhhh
