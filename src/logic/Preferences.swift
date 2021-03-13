@@ -171,15 +171,31 @@ class Preferences {
     }
 
     private static func updateToNewPreferences(_ preferencesVersion: String) {
-        // dropdowns preferences used to store English text; now they store indexes
-        migrateDropdownsFromTextToIndexes()
-        // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-        migrateMenubarIconFromCheckboxToDropdown()
-        // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-        migrateShowWindowsCheckboxToDropdown()
-        // "Max size on screen" was split into max width and max height
-        migrateMaxSizeOnScreenToWidthAndHeight()
+        if App.version.compare("6.3.0", options: .numeric) == .orderedAscending {
+            // dropdowns preferences used to store English text; now they store indexes
+            migrateDropdownsFromTextToIndexes()
+            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+            migrateMenubarIconFromCheckboxToDropdown()
+            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+            migrateShowWindowsCheckboxToDropdown()
+            // "Max size on screen" was split into max width and max height
+            migrateMaxSizeOnScreenToWidthAndHeight()
+        }
+        // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+        migrateNextWindowShortcuts()
         defaults.set(App.version, forKey: preferencesVersion)
+    }
+
+    private static func migrateNextWindowShortcuts() {
+        ["", "2"].forEach { suffix in
+            if let oldHoldShortcut = defaults.string(forKey: "holdShortcut" + suffix),
+               let oldNextWindowShortcut = defaults.string(forKey: "nextWindowShortcut" + suffix) {
+                let nextWindowShortcutCleanedUp = oldHoldShortcut.reduce(oldNextWindowShortcut, { $0.replacingOccurrences(of: String($1), with: "") })
+                if oldNextWindowShortcut != nextWindowShortcutCleanedUp {
+                    defaults.set(nextWindowShortcutCleanedUp, forKey: "nextWindowShortcut" + suffix)
+                }
+            }
+        }
     }
 
     private static func migrateMaxSizeOnScreenToWidthAndHeight() {

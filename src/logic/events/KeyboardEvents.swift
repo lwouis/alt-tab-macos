@@ -39,8 +39,8 @@ class KeyboardEvents {
         if shortcut.keyCode != .none {
             let id = globalShortcutsIds[controlId]!
             let hotkeyId = EventHotKeyID(signature: signature, id: UInt32(id))
-            let key = UInt32(shortcut.carbonKeyCode)
-            let mods = UInt32(shortcut.carbonModifierFlags)
+            let key = shortcut.carbonKeyCode
+            let mods = shortcut.carbonModifierFlags
             let options = UInt32(kEventHotKeyNoOptions)
             var shortcutsReference: EventHotKeyRef?
             RegisterEventHotKey(key, mods, hotkeyId, shortcutEventTarget, options, &shortcutsReference)
