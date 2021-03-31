@@ -201,5 +201,20 @@ class Window {
         }
         return application.runningApplication.localizedName ?? ""
     }
+
+    func updatesWindowSpace() {
+        // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
+        // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
+        // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
+        let spaceIds = cgWindowId.spaces()
+        if spaceIds.count == 1 {
+            spaceId = spaceIds.first!
+            spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
+        } else if spaceIds.count > 1 {
+            spaceId = Spaces.currentSpaceId
+            spaceIndex = Spaces.currentSpaceIndex
+            isOnAllSpaces = true
+        }
+    }
 }
 

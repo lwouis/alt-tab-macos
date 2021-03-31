@@ -15,61 +15,24 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
         switch type {
             case kAXApplicationActivatedNotification: try applicationActivated(element, pid)
             case kAXApplicationHiddenNotification,
-                 kAXApplicationShownNotification: try applicationHiddenOrShown(element, pid, type)
+                 kAXApplicationShownNotification: try applicationHiddenOrShown(pid, type)
             case kAXWindowCreatedNotification: try windowCreated(element, pid)
             case kAXMainWindowChangedNotification,
                  kAXFocusedWindowChangedNotification: try focusedWindowChanged(element, pid)
             case kAXUIElementDestroyedNotification: try windowDestroyed(element, pid)
             case kAXWindowMiniaturizedNotification,
                  kAXWindowDeminiaturizedNotification: try windowMiniaturizedOrDeminiaturized(element, type)
-            case kAXTitleChangedNotification: try windowTitleChanged(element)
+            case kAXTitleChangedNotification: try windowTitleChanged(element, pid)
             case kAXWindowResizedNotification: try windowResized(element)
             case kAXWindowMovedNotification: try windowMoved(element)
-            case kAXFocusedUIElementChangedNotification: try focusedUiElementChanged(element, pid)
+            case kAXFocusedUIElementChangedNotification: try focusedUiElementChanged(pid)
             default: return
         }
     }
 }
 
-fileprivate func focusedUiElementChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-    if NSRunningApplication(processIdentifier: pid) != nil {
-        let currentWindows = try AXUIElementCreateApplication(pid).windows()
-        retryToRefreshTabsUntilScreenIsNotAnimating(pid, currentWindows) { windows in
-            App.app.refreshOpenUi(windows)
-        }
-    }
-}
-
-// the algorithm used by updateTabs is incorrect is the screen is in the middle of an animation (e.g. window going fullscreen)
-// we retry until there is no animation, then we proceed
-fileprivate func retryToRefreshTabsUntilScreenIsNotAnimating(_ pid: pid_t, _ currentWindows: [AXUIElement]?, _ fn: @escaping ([Window]) -> Void) {
-    if let mainScreen = NSScreen.main,
-       let uuid = mainScreen.uuid() {
-        retryAxCallUntilTimeout {
-            if SLSManagedDisplayIsAnimating(cgsMainConnectionId, uuid) {
-                throw AxError.runtimeError
-            }
-            DispatchQueue.main.async {
-                fn(updateTabs(pid, currentWindows))
-            }
-        }
-    }
-}
-
-// when a window is tabbed, the AX call to get windows doesn't list it
-// we compare a fresh call to get the windows (currentWindows) to the windows we have already (Windows.list)
-// any window not in currentWindows is considered tabbed
-fileprivate func updateTabs(_ pid: pid_t, _ currentWindows: [AXUIElement]?) -> [Window] {
-    let windows = Windows.list.filter { w in
-        if w.application.pid == pid && pid != ProcessInfo.processInfo.processIdentifier &&
-               w.spaceId == Spaces.currentSpaceId {
-            let oldIsTabbed = w.isTabbed
-            w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil)
-            return oldIsTabbed != w.isTabbed
-        }
-        return false
-    }
-    return windows
+fileprivate func focusedUiElementChanged(_ pid: pid_t) throws {
+    pid.retryToRefreshTabsUntilScreenIsNotAnimating { App.app.refreshOpenUi($0) }
 }
 
 fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) throws {
@@ -89,7 +52,7 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
     }
 }
 
-fileprivate func applicationHiddenOrShown(_ element: AXUIElement, _ pid: pid_t, _ type: String) throws {
+fileprivate func applicationHiddenOrShown(_ pid: pid_t, _ type: String) throws {
     DispatchQueue.main.async {
         if let app = (Applications.list.first { $0.pid == pid }) {
             app.isHidden = type == kAXApplicationHiddenNotification
@@ -167,15 +130,13 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
 
 fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
     let wid = try element.cgWindowId()
-    let appIsStillRunning = NSRunningApplication(processIdentifier: pid) != nil
-    let currentWindows = appIsStillRunning ? try AXUIElementCreateApplication(pid).windows() : []
     DispatchQueue.main.async {
         if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
             Windows.removeAndUpdateFocus(window)
             let windowlessApp = window.application.addWindowslessAppsIfNeeded()
             if Windows.list.count > 0 {
                 // closing a tab may make another tab visible; we refresh tab status
-                retryToRefreshTabsUntilScreenIsNotAnimating(pid, currentWindows) { windows in
+                pid.retryToRefreshTabsUntilScreenIsNotAnimating { windows in
                     Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(window)
                     if let windowlessApp = windowlessApp {
                         App.app.refreshOpenUi(windows + windowlessApp)
@@ -201,14 +162,17 @@ fileprivate func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ ty
     }
 }
 
-fileprivate func windowTitleChanged(_ element: AXUIElement) throws {
+fileprivate func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws {
     if let wid = try element.cgWindowId() {
         let newTitle = try element.title()
         DispatchQueue.main.async {
             if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }),
                newTitle != nil && newTitle != window.title {
                 window.title = newTitle!
-                App.app.refreshOpenUi([window])
+                // refreshing tabs during title change helps mitigate some false positives of tab detection
+                pid.retryToRefreshTabsUntilScreenIsNotAnimating {
+                    App.app.refreshOpenUi($0)
+                }
             }
         }
     }
