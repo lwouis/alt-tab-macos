@@ -71,6 +71,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Umutakkaya1996
 * Vegard
 * Viggo Lekdorf
+* Vincent Orback
 * Vlad
 * Webmaster
 * Whatsmine-HaoshuaiXu

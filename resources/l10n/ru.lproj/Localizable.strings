@@ -96,7 +96,7 @@
 "Close window" = "Закрыть окно";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Комбинация клавиш с конфликтом";
 
 /*No comment provided by engineer.*/
 "Controls" = "Управление";
@@ -282,7 +282,7 @@
 "Shortcut 2" = "Комбинация 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Комбинация уже назначена к другом действие: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Показать";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Это разрешение нужно для показа скриншотов и заголовков открытых окон";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Назначение отменить и дальше";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Правило обновлений:";

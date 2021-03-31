@@ -96,7 +96,7 @@
 "Close window" = "Stäng fönster";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Motstridiga kommandon";
 
 /*No comment provided by engineer.*/
 "Controls" = "Kommandon";
@@ -282,7 +282,7 @@
 "Shortcut 2" = "Kortkommando 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Kommandot är redan kopplat till en annan funktion: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Visa";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Denna behörigheten behövs för skärmdumpar och titlar från öppna fönster";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Ta bort nuvarande kommando och fortsätt";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Policy för uppdateringar:";

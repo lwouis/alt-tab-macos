@@ -96,7 +96,7 @@
 "Close window" = "Fenster schließen";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Tastenkürzelkonflikt";
 
 /*No comment provided by engineer.*/
 "Controls" = "Steuerung";
@@ -282,7 +282,7 @@
 "Shortcut 2" = "Tastenkürzel 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Kürzel bereits anderer Aktion zugewiesen: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Anzeigen";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Diese Erlaubnis is nötig um Bildschirmaufnahmen und Titel offener Fenster anzuzeigen";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Kürzelzuweisung lösen und weiter";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Update Richtlinie:";
