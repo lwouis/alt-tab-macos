@@ -2,7 +2,7 @@ import Cocoa
 
 class ThumbnailView: NSStackView {
     var window_: Window?
-    var thumbnail = NSImageView()
+    var thumbnail = InterpolatedImageView()
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Preferences.fontHeight)
     var fullscreenIcon = ThumbnailFontIconView(.circledPlusSign)
