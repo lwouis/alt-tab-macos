@@ -226,7 +226,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
                 let stepWithClosestWindow = Windows.windowIndexAfterCycling(-1) > Windows.focusedWindowIndex ? 1 : -1
                 Windows.cycleFocusedWindowIndex(stepWithClosestWindow)
             } else {
-                Windows.updatesWindowSpace(window)
+                Spaces.refreshAllIdsAndIndexes()
+                window.updatesWindowSpace()
             }
         }
     }
