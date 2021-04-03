@@ -29,6 +29,8 @@ private func getWindows() -> HttpResponse {
             "name": $0.title ?? "(Unknown)", "isFullscreen": $0.isFullscreen,
             "isMinimized": $0.isMinimized, "spaceIndex": $0.spaceIndex,
             "lastFocusOrder": $0.lastFocusOrder,
+            "position": ["x": $0.position?.x, "y": $0.position?.y],
+            "size": ["width": $0.size?.width, "height": $0.size?.height],
             "application": $0.application.runningApplication.localizedName ?? "(Unknown)",
             "applicationBundleUrl": $0.application.runningApplication.bundleURL?.absoluteString
                 ?? "file:///", "windowId": $0.cgWindowId, "isHidden": $0.isHidden,
