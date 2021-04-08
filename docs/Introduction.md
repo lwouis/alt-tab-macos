@@ -47,7 +47,7 @@ Before building my own app, I looked around at similar apps. However, none was c
 | [Switch](https://github.com/numist/Switch)                                                  | Open Source. Thumbnails are small. Very little customization. Latest release is from 2016                    |
 | [Witch](https://manytricks.com/witch/) and [Context](https://contexts.co/)                  | $10-15. Closed-source. Focus on text. No thumbnails                                                          |
 | [MissionControl Plus](https://www.fadel.io/missioncontrolplus)                              | $10. Closed-source. No chronology and order to windows. Hard to navigate windows with keyboard               |
-| Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_\(macOS\))          | No keyboard support                                                                                          |
+| Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_(macOS))          | No keyboard support                                                                                          |
 | Built-in `⌘ command` + `⇥ tab`                                                              | Only shows apps, not windows (note: can press down to see window of selected app)                            |
 | Built-in `⌘ command` + `` ` ``                                                              | Cycles through tabs and windows, but only of the same app. Only cycling, no direct access                    |
 
