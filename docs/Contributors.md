@@ -8,6 +8,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [damonpam](https://github.com/damonpam)
 * [gcbw](https://github.com/gcbw)
 * [gingerr](https://github.com/gingerr)
+* [karbassi](https://github.com/karbassi)
 * [L1cardo](https://github.com/L1cardo)
 * [lwouis](https://github.com/lwouis)
 * [notlmn](https://github.com/notlmn)
@@ -25,6 +26,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Albert Abdilim
 * Ali Gokmen
 * anushree b
+* Arthur
 * Ash
 * blanorama
 * caduellery
@@ -43,7 +45,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Haoshuai Xu
 * Hokuto Kato
 * Ialiendeg
-* J.v.trigueros
+* Indexerrowaty
 * Jaeyong Sung
 * Jakub Bartušek
 * Jord Nijhuis
@@ -63,6 +65,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Mr. axel. bock
 * Nilton Souza
 * Pehovorka
+* Peterkim0620
 * Petr Kolář
 * ponchik
 * rbnis
