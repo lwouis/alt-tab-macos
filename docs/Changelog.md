@@ -1,5 +1,21 @@
 # Release notes
 
+# [6.19.0](https://github.com/lwouis/alt-tab-macos/compare/v6.18.1...v6.19.0) (2021-04-14)
+
+
+### Bug Fixes
+
+* correct Wikipedia link ([5a41561](https://github.com/lwouis/alt-tab-macos/commit/5a41561))
+* intellij fullscreen windows sometimes not showing ([#824](https://github.com/lwouis/alt-tab-macos/issues/824)) ([4dcb6bb](https://github.com/lwouis/alt-tab-macos/commit/4dcb6bb))
+* rare crash when the ui was kept open during space transition ([e869900](https://github.com/lwouis/alt-tab-macos/commit/e869900))
+
+
+### Features
+
+* added NICE DCV to the don't show list ([3a98628](https://github.com/lwouis/alt-tab-macos/commit/3a98628))
+* update german, russian, swedish localization ([6f1a27a](https://github.com/lwouis/alt-tab-macos/commit/6f1a27a))
+* update korean, polish, and brazilian localizations ([5bc8f82](https://github.com/lwouis/alt-tab-macos/commit/5bc8f82))
+
 ## [6.18.1](https://github.com/lwouis/alt-tab-macos/compare/v6.18.0...v6.18.1) (2021-03-13)
 
 
