@@ -69,7 +69,7 @@
 "Ask whether to send crash reports" = "Perguntar antes de enviar relatórios de falha";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Instalar automaticamente atualizações periódicas";
+"Auto-install updates periodically" = "Instalar automaticamente atualizações periodicamente";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Negações";
@@ -96,7 +96,7 @@
 "Close window" = "Fecha a janela";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Atalho conflitante";
 
 /*No comment provided by engineer.*/
 "Controls" = "Controles";
@@ -282,7 +282,7 @@
 "Shortcut 2" = "Atalho 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Atalho já atribuído para outra ação: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Exibir";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Esta permissão é necessária para exibir pré-visualizações e títulos das janelas abertas";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Remover atribuição do atalho existente e continuar";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Política de atualizações:";

@@ -96,7 +96,7 @@
 "Close window" = "윈도우 닫기";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "단축키 충돌";
 
 /*No comment provided by engineer.*/
 "Controls" = "조작";
@@ -159,7 +159,7 @@
 "Hide/Show app" = "앱 숨기기/보이기";
 
 /*No comment provided by engineer.*/
-"Hold" = " ";
+"Hold" = "누르고 있기";
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "이 앱의 개선방안은…";
@@ -282,7 +282,7 @@
 "Shortcut 2" = "단축키 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "단축키가 이미 다른 동작에 할당되어 있습니다: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "보기";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "이 권한은 윈도우의 이미지와 제목을 띄울 수 있게 해줍니다";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "이미 존재하는 단축키를 할당 해제하고 계속";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "업데이트 방법:";
