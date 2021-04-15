@@ -8,6 +8,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [damonpam](https://github.com/damonpam)
 * [gcbw](https://github.com/gcbw)
 * [gingerr](https://github.com/gingerr)
+* [hughlilly](https://github.com/hughlilly)
 * [karbassi](https://github.com/karbassi)
 * [L1cardo](https://github.com/L1cardo)
 * [lwouis](https://github.com/lwouis)
@@ -16,6 +17,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [rbnis](https://github.com/rbnis)
 * [samdenty](https://github.com/samdenty)
 * [shaqed](https://github.com/shaqed)
+* [xanathar](https://github.com/xanathar)
 
 They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 
