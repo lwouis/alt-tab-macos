@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.20.0](https://github.com/lwouis/alt-tab-macos/compare/v6.19.0...v6.20.0) (2021-04-15)
+
+
+### Bug Fixes
+
+* broken preferences window toolbar on macos 11 (closes [#914](https://github.com/lwouis/alt-tab-macos/issues/914)) ([1539030](https://github.com/lwouis/alt-tab-macos/commit/1539030))
+
+
+### Features
+
+* update contributors ([9847038](https://github.com/lwouis/alt-tab-macos/commit/9847038))
+
 # [6.19.0](https://github.com/lwouis/alt-tab-macos/compare/v6.18.1...v6.19.0) (2021-04-14)
 
 
