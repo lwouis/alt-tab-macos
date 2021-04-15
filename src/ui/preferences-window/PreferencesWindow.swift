@@ -29,6 +29,8 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
     private func setupView() {
         toolbar = NSToolbar(identifier: "1")
         toolbar!.delegate = self
+        // toolbar breaks with the new default style on macOS 11; we force the classic style (see #914)
+        if #available(OSX 11, *) { toolbarStyle = .expanded }
         toolbar!.displayMode = .iconAndLabel
         toolbar!.showsBaselineSeparator = true
         [
