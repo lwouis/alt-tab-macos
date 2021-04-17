@@ -216,5 +216,12 @@ class Window {
             isOnAllSpaces = true
         }
     }
+
+    func isOnScreen(_ screen: NSScreen) -> Bool {
+        if let screenUuid = screen.uuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
+            return screenSpaces.contains { $0 == spaceId }
+        }
+        return true
+    }
 }
 

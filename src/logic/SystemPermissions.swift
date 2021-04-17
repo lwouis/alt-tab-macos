@@ -93,7 +93,7 @@ class SystemPermissions {
             startupBlock()
         } else {
             permissionsWindow = PermissionsWindow()
-            permissionsWindow.show()
+            App.app.showSecondaryWindow(permissionsWindow)
             observePermissionsPreStartup(startupBlock)
         }
     }

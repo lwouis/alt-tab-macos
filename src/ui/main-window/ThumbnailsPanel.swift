@@ -1,11 +1,12 @@
 import Cocoa
 
-class ThumbnailsPanel: NSPanel {
+class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     var thumbnailsView = ThumbnailsView()
     override var canBecomeKey: Bool { true }
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
+        delegate = self
         isFloatingPanel = true
         updateFadeOutAnimation()
         hidesOnDeactivate = false
@@ -22,6 +23,16 @@ class ThumbnailsPanel: NSPanel {
         level = .popUpMenu
         // helps filter out this window from the thumbnails
         setAccessibilitySubrole(.unknown)
+    }
+
+    func windowDidResignKey(_ notification: Notification) {
+        // other windows can steal key focus from alt-tab; we make sure that if it's active, if keeps key focus
+        // dispatching to the main queue is necessary to introduce a delay in scheduling the makeKey; otherwise it is ignored
+        DispatchQueue.main.async {
+            if App.app.appIsBeingUsed {
+                App.app.thumbnailsPanel.makeKeyAndOrderFront(nil)
+            }
+        }
     }
 
     func updateFadeOutAnimation() {
