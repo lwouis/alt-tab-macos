@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.21.0](https://github.com/lwouis/alt-tab-macos/compare/v6.20.0...v6.21.0) (2021-04-17)
+
+
+### Bug Fixes
+
+* apps could steal key focus from alt-tab main window ([#719](https://github.com/lwouis/alt-tab-macos/issues/719) [#916](https://github.com/lwouis/alt-tab-macos/issues/916)) ([6be72f3](https://github.com/lwouis/alt-tab-macos/commit/6be72f3))
+
+
+### Features
+
+* update korean location ([c1fc40d](https://github.com/lwouis/alt-tab-macos/commit/c1fc40d))
+
 # [6.20.0](https://github.com/lwouis/alt-tab-macos/compare/v6.19.0...v6.20.0) (2021-04-15)
 
 
