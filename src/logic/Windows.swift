@@ -181,29 +181,8 @@ class Windows {
                 !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide) && window.isMinimized) &&
                 !(Preferences.spacesToShow[App.app.shortcutIndex] == .active && window.spaceId != Spaces.currentSpaceId) &&
                 !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaces.contains(window.spaceId)) &&
-                !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !isOnScreen(window, screen)) &&
+                !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(screen)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
-    }
-
-    static func isOnScreen(_ window: Window, _ screen: NSScreen) -> Bool {
-        if let screenUuid = screen.uuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
-            return screenSpaces.contains { $0 == window.spaceId }
-        }
-        return true
-    }
-
-    static func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window) {
-        let shortcutsShouldBeDisabled = (!Preferences.disableShortcutsBlacklistOnlyFullscreen || activeWindow.isFullscreen) &&
-            (Preferences.disableShortcutsBlacklist.first { blacklistedId in
-                if let id = activeWindow.application.runningApplication.bundleIdentifier {
-                    return id.hasPrefix(blacklistedId)
-                }
-                return false
-            } != nil)
-        KeyboardEvents.toggleGlobalShortcuts(shortcutsShouldBeDisabled)
-        if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
-            App.app.hideUi()
-        }
     }
 }
 

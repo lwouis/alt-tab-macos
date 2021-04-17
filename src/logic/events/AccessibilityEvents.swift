@@ -36,18 +36,16 @@ fileprivate func focusedUiElementChanged(_ pid: pid_t) throws {
 }
 
 fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) throws {
-    if let appFocusedWindow = try element.focusedWindow(),
-       let wid = try appFocusedWindow.cgWindowId() {
-        DispatchQueue.main.async {
-            if let app = (Applications.list.first { $0.pid == pid }), !app.hasBeenActiveOnce {
+    let appFocusedWindow = try element.focusedWindow()
+    let wid = try appFocusedWindow?.cgWindowId()
+    DispatchQueue.main.async {
+        if let app = (Applications.list.first { $0.pid == pid }) {
+            if !app.hasBeenActiveOnce {
                 app.hasBeenActiveOnce = true
             }
-            // ensure alt-tab window remains key, so local shortcuts work
-            if App.app.appIsBeingUsed { App.app.thumbnailsPanel.makeKeyAndOrderFront(nil) }
-            if let window = Windows.updateLastFocus(appFocusedWindow, wid) {
-                Windows.checkIfShortcutsShouldBeDisabled(window.first!)
-                App.app.refreshOpenUi(window)
-            }
+            let window = (appFocusedWindow != nil && wid != nil) ? Windows.updateLastFocus(appFocusedWindow!, wid!)?.first : nil
+            App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
+            App.app.refreshOpenUi(window != nil ? [window!] : nil)
         }
     }
 }
@@ -187,7 +185,7 @@ fileprivate func windowResized(_ element: AXUIElement) throws {
             if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
                 if window.isFullscreen != isFullscreen {
                     window.isFullscreen = isFullscreen
-                    Windows.checkIfShortcutsShouldBeDisabled(window)
+                    App.app.checkIfShortcutsShouldBeDisabled(window, nil)
                 }
                 App.app.refreshOpenUi([window])
             }
