@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.21.1](https://github.com/lwouis/alt-tab-macos/compare/v6.21.0...v6.21.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* crash on launch on a new install (closes [#928](https://github.com/lwouis/alt-tab-macos/issues/928)) ([bed3351](https://github.com/lwouis/alt-tab-macos/commit/bed3351))
+
 # [6.21.0](https://github.com/lwouis/alt-tab-macos/compare/v6.20.0...v6.21.0) (2021-04-17)
 
 
