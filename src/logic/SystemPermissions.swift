@@ -93,7 +93,9 @@ class SystemPermissions {
             startupBlock()
         } else {
             permissionsWindow = PermissionsWindow()
-            App.app.showSecondaryWindow(permissionsWindow)
+            permissionsWindow.center()
+            App.shared.activate(ignoringOtherApps: true)
+            permissionsWindow.makeKeyAndOrderFront(nil)
             observePermissionsPreStartup(startupBlock)
         }
     }
