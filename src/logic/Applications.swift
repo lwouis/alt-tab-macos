@@ -53,7 +53,7 @@ class Applications {
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
             Applications.list.removeAll { $0.runningApplication.isEqual(runningApp) }
             Windows.list.enumerated().forEach { (index, window) in
-                if window.application.runningApplication.isEqual(runningApp) && index < Windows.focusedWindowIndex {
+                if window.application.runningApplication.isEqual(runningApp) && index < Windows.focusedWindowIndex && window.shouldShowTheUser {
                     windowsOnTheLeftOfFocusedWindow += 1
                 }
             }

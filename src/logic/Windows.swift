@@ -100,11 +100,19 @@ class Windows {
         return targetIndex
     }
 
-    static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ window: Window) {
-        if focusedWindowIndex > window.lastFocusOrder {
+    static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ index: Int) {
+        if index < focusedWindowIndex {
             cycleFocusedWindowIndex(-1)
-        } else if focusedWindowIndex == window.lastFocusOrder && !window.shouldShowTheUser {
-            cycleFocusedWindowIndex(1)
+        }
+    }
+
+    static func updateFocusedWindowIndex() {
+        if let focusedWindow = focusedWindow() {
+            if !focusedWindow.shouldShowTheUser {
+                cycleFocusedWindowIndex(windowIndexAfterCycling(1) > focusedWindowIndex ? 1 : -1)
+            }
+        } else {
+            cycleFocusedWindowIndex(-1)
         }
     }
 

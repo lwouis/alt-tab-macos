@@ -192,7 +192,6 @@ extension pid_t {
     // we compare a fresh call to get the windows (currentWindows) to the windows we have already (Windows.list)
     // any window not in currentWindows is considered tabbed
     private func updateTabs(_ currentWindows: [AXUIElement]?) -> [Window] {
-        debugPrint(try? Windows.list.map { w in (w.cgWindowId, w.title, w.spaceId == Spaces.currentSpaceId, try currentWindows?.map { try $0.cgWindowId() }) })
         let windows = Windows.list.filter { w in
             if w.application.pid == self && self != ProcessInfo.processInfo.processIdentifier &&
                    w.spaceId == Spaces.currentSpaceId {
