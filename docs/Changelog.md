@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.21.2](https://github.com/lwouis/alt-tab-macos/compare/v6.21.1...v6.21.2) (2021-04-20)
+
+
+### Bug Fixes
+
+* selected thumbnail was sometimes wrong (closes [#926](https://github.com/lwouis/alt-tab-macos/issues/926)) ([1da3f32](https://github.com/lwouis/alt-tab-macos/commit/1da3f32))
+
 ## [6.21.1](https://github.com/lwouis/alt-tab-macos/compare/v6.21.0...v6.21.1) (2021-04-19)
 
 
