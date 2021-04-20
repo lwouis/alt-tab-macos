@@ -129,13 +129,14 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
 fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
     let wid = try element.cgWindowId()
     DispatchQueue.main.async {
-        if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+        if let index = (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) {
+            let window = Windows.list[index]
             Windows.removeAndUpdateFocus(window)
             let windowlessApp = window.application.addWindowslessAppsIfNeeded()
             if Windows.list.count > 0 {
                 // closing a tab may make another tab visible; we refresh tab status
                 pid.retryToRefreshTabsUntilScreenIsNotAnimating { windows in
-                    Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(window)
+                    Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
                     if let windowlessApp = windowlessApp {
                         App.app.refreshOpenUi(windows + windowlessApp)
                     } else {
