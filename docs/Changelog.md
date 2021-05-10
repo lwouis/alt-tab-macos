@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.22.0](https://github.com/lwouis/alt-tab-macos/compare/v6.21.2...v6.22.0) (2021-05-10)
+
+
+### Bug Fixes
+
+* remove jetbrain app non-windows (closes [#885](https://github.com/lwouis/alt-tab-macos/issues/885)) ([a368af3](https://github.com/lwouis/alt-tab-macos/commit/a368af3))
+
+
+### Features
+
+* add citrix viewer in the default blacklist (see [#381](https://github.com/lwouis/alt-tab-macos/issues/381)) ([e630acf](https://github.com/lwouis/alt-tab-macos/commit/e630acf))
+
 ## [6.21.2](https://github.com/lwouis/alt-tab-macos/compare/v6.21.1...v6.21.2) (2021-04-20)
 
 
