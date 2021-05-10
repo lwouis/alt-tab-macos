@@ -85,6 +85,7 @@ extension AXUIElement {
             (books(runningApp) || keynote(runningApp) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
                 level == AXUIElement.normalLevel &&
+                    jetbrainApp(runningApp, title) &&
                     ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
                         openBoard(runningApp) ||
                         adobeAudition(runningApp, subrole) ||
@@ -97,6 +98,12 @@ extension AXUIElement {
                         sanGuoShaAirWD(runningApp) ||
                         dvdFab(runningApp) ||
                         drBetotte(runningApp))))
+    }
+
+    private static func jetbrainApp(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
+        // jetbrain apps sometimes generate non-windows that pass all checks in isActualWindow
+        // they have no title, so we can filter them out based on that
+        return runningApp.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?$", options: .regularExpression) == nil || (title != nil && title != "")
     }
 
     private static func keynote(_ runningApp: NSRunningApplication) -> Bool {
