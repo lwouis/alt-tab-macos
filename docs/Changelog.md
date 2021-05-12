@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.22.1](https://github.com/lwouis/alt-tab-macos/compare/v6.22.0...v6.22.1) (2021-05-12)
+
+
+### Bug Fixes
+
+* certain jetbrain apps windows were not shown (closes [#948](https://github.com/lwouis/alt-tab-macos/issues/948)) ([5958107](https://github.com/lwouis/alt-tab-macos/commit/5958107))
+
 # [6.22.0](https://github.com/lwouis/alt-tab-macos/compare/v6.21.2...v6.22.0) (2021-05-10)
 
 
