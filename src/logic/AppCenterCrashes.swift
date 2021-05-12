@@ -2,17 +2,17 @@ import Cocoa
 import AppCenter
 import AppCenterCrashes
 
-class AppCenterCrash: NSObject, MSCrashesDelegate {
+class AppCenterCrash: NSObject, CrashesDelegate {
     static let secret = Bundle.main.object(forInfoDictionaryKey: "AppCenterSecret") as! String
 
     override init() {
         super.init()
         // Enable catching uncaught exceptions thrown on the main thread
         UserDefaults.standard.register(defaults: ["NSApplicationCrashOnExceptions": true])
-//        MSAppCenter.setLogLevel(MSLogLevel.none)
-        MSAppCenter.start(AppCenterCrash.secret, withServices: [MSCrashes.self])
-        MSCrashes.setDelegate(self)
-        MSCrashes.setUserConfirmationHandler({ (errorReports: [MSErrorReport]) in
+//        AppCenter.setLogLevel(LogLevel.none)
+        AppCenter.start(withAppSecret: AppCenterCrash.secret, services: [Crashes.self])
+        Crashes.delegate = self
+        Crashes.userConfirmationHandler = { (errorReports: [ErrorReport]) in
             self.initNecessaryFacilities()
             if Preferences.crashPolicy == .ask {
                 App.app.activate(ignoringOtherApps: true)
@@ -31,12 +31,12 @@ class AppCenterCrash: NSObject, MSCrashesDelegate {
                     buttons[id].state = .on
                 }
                 Preferences.set("crashPolicy", String(id))
-                BackgroundWork.crashReportsQueue.async { MSCrashes.notify(with: userChoice == .alertFirstButtonReturn ? .send : .dontSend) }
+                BackgroundWork.crashReportsQueue.async { Crashes.notify(with: userChoice == .alertFirstButtonReturn ? .send : .dontSend) }
             } else {
-                BackgroundWork.crashReportsQueue.async { MSCrashes.notify(with: Preferences.crashPolicy == .always ? .send : .dontSend) }
+                BackgroundWork.crashReportsQueue.async { Crashes.notify(with: Preferences.crashPolicy == .always ? .send : .dontSend) }
             }
             return true
-        })
+        }
     }
 
     // at launch, the crash report handler can be called before some things are not yet ready; we ensure they are
@@ -62,7 +62,7 @@ class AppCenterCrash: NSObject, MSCrashesDelegate {
         return 1
     }
 
-    func attachments(with crashes: MSCrashes, for errorReport: MSErrorReport) -> [MSErrorAttachmentLog] {
-        return [MSErrorAttachmentLog.attachment(withText: DebugProfile.make(), filename: "debug-profile.md")!]
+    func attachments(with crashes: Crashes, for errorReport: ErrorReport) -> [ErrorAttachmentLog] {
+        return [ErrorAttachmentLog.attachment(withText: DebugProfile.make(), filename: "debug-profile.md")!]
     }
 }
