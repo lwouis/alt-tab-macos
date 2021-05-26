@@ -154,6 +154,8 @@ class ThumbnailView: NSStackView {
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
+        showOrHideWindowControls(false)
+        [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.hovered(false) }
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
         if labelChanged {
