@@ -83,8 +83,12 @@ class KeyboardEvents {
             eventsOfInterest: eventMask,
             callback: cgEventFlagsChangedHandler,
             userInfo: nil)
-        let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-        CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
+        if let eventTap = eventTap {
+            let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
+            CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
+        } else {
+            App.app.restart()
+        }
     }
 
     private static func addGlobalHandlerIfNeeded(_ shortcut: Shortcut) {

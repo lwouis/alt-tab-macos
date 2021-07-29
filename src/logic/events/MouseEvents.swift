@@ -28,9 +28,13 @@ private func observe_() {
         eventsOfInterest: eventMask,
         callback: mouseHandler,
         userInfo: nil)
-    MouseEvents.toggle(false)
-    let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-    CFRunLoopAddSource(BackgroundWork.mouseEventsThread.runLoop, runLoopSource, .commonModes)
+    if let eventTap = eventTap {
+        MouseEvents.toggle(false)
+        let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
+        CFRunLoopAddSource(BackgroundWork.mouseEventsThread.runLoop, runLoopSource, .commonModes)
+    } else {
+        App.app.restart()
+    }
 }
 
 private func mouseHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {

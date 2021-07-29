@@ -68,7 +68,7 @@ class SystemPermissions {
             DispatchQueue.main.async {
                 if accessibility && screenRecording {
                     timer.invalidate()
-                    permissionsWindow.close()
+                    permissionsWindow?.close()
                     startupBlock()
                 } else {
                     if accessibility != permissionsWindow.accessibilityView.isPermissionGranted {
