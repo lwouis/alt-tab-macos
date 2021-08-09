@@ -37,7 +37,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Chun Fei Lung
 * Dan
 * Dan84
-* Daniel M
 * David R
 * Didier Deschrijver
 * Eric WANTZ
