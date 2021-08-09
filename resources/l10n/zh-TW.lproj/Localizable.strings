@@ -3,7 +3,7 @@
 "About" = "關於";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "關於 %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "無障礙";
@@ -18,7 +18,7 @@
 "Active screen" = "活躍的螢幕";
 
 /*No comment provided by engineer.*/
-"Active Space" = "活躍的桌面";
+"Active Space" = "活躍的空間";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "排列視窗：";
@@ -33,22 +33,22 @@
 "All screens" = "全部螢幕";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "全部桌面";
+"All Spaces" = "全部空間";
 
 /*No comment provided by engineer.*/
 "Allowed" = "允許";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "自動選擇視窗：";
+"Also select windows using:" = "選擇視窗方式：";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在你上次使用時崩潰了。送出崩潰報告會幫助我們解決這個問題";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用時當機了，送出當機報告會幫助我們解決這個問題";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab 需要取得權限";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "總是送出崩潰報告";
+"Always send crash reports" = "總是送出當機報告";
 
 /*No comment provided by engineer.*/
 "and press:" = "然後按下：";
@@ -66,7 +66,7 @@
 "Arrow keys" = "方向鍵";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "詢問我是否送出崩潰報告";
+"Ask whether to send crash reports" = "詢問是否送出當機報告";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "定期自動安裝更新";
@@ -96,13 +96,13 @@
 "Close window" = "關閉視窗";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "快速鍵衝突";
 
 /*No comment provided by engineer.*/
 "Controls" = "控制";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "崩潰報告策略：";
+"Crash reports policy:" = "當機報告策略：";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "什麼都別做";
@@ -126,22 +126,22 @@
 "Focus selected window" = "聚焦選擇的視窗";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "全螢幕視窗：";
 
 /*No comment provided by engineer.*/
 "General" = "一般";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "隱藏視窗：";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "隱藏";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "隱藏程式的通知標記：";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "隱藏沒有視窗的程式";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "隱藏滑鼠懸停時顯示的視窗控制鈕：";
@@ -153,16 +153,16 @@
 "Hide status icons:" = "隱藏狀態圖示：";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "隱藏視窗的縮圖：";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "隱藏/顯示程式";
+"Hide/Show app" = "隱藏／顯示程式";
 
 /*No comment provided by engineer.*/
 "Hold" = "按住";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "我認為這個 app 可以改善在…";
+"I think the app could be improved with…" = "我認為這個程式可以改善在…";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "當這些程式的視窗活躍時，忽略快速鍵";
@@ -174,10 +174,10 @@
 "Left" = "靠左";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "最大螢幕佔用高度";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "最大螢幕佔用寬度";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "選單列圖示：";
@@ -186,16 +186,16 @@
 "Middle" = "中間";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "最小化/最大化視窗";
+"Minimize/Deminimize window" = "最小化／最大化視窗";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "最小化視窗";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "滑鼠懸停";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "永遠不要送出崩潰報告";
+"Never send crash reports" = "永不送出當機報告";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "不允許";
@@ -234,7 +234,7 @@
 "Remember my choice" = "記住我的選擇";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "縮圖列數：";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "包含選單列的螢幕";
@@ -246,7 +246,7 @@
 "Screen Recording" = "螢幕錄製";
 
 /*No comment provided by engineer.*/
-"Screen showing AltTab" = "要顯示 AltTab 的螢幕";
+"Screen showing AltTab" = "顯示 AltTab 的螢幕";
 
 /*No comment provided by engineer.*/
 "Select next window" = "選擇下一個視窗";
@@ -258,13 +258,13 @@
 "Send" = "送出";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "要送出崩潰報告嗎？";
+"Send a crash report?" = "要送出當機報告嗎？";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "送出";
+"Send anyway" = "直接送出";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "送出除錯資訊（CPU, 記憶體, …）";
+"Send debug profile (CPU, memory, etc)" = "送出除錯資訊（CPU、記憶體、…等）";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "送出回饋";
@@ -282,13 +282,13 @@
 "Shortcut 2" = "快速鍵 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "快速鍵已分配給另一個動作：%@";
 
 /*No comment provided by engineer.*/
 "Show" = "顯示";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "在最後顯示";
 
 /*No comment provided by engineer.*/
 "Show on:" = "顯示在：";
@@ -297,7 +297,7 @@
 "Show standard tabs as windows:" = "將分頁顯示為視窗：";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "顯示以下視窗：";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "原始碼儲存庫";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "需要取得此權限，才能顯示打開視窗的截圖與標題資訊";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "取消現有快速鍵並繼續";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "更新策略：";
@@ -333,7 +333,7 @@
 "View existing discussions" = "觀看目前的討論";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "可見空間";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "當打開時，按下：";
@@ -342,10 +342,10 @@
 "Window app icon size:" = "視窗圖示的大小：";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "每列視窗最大寬度：";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "每列視窗最小寬度：";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "視窗標題的字體大小：";
@@ -354,4 +354,4 @@
 "Window title truncation:" = "視窗標題截斷：";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "若沒有填寫 Email，您將無法收到回覆";
+"You didn’t write your email, thus can’t receive any response." = "若沒有填寫電子信箱，您將無法收到回覆";

@@ -96,7 +96,7 @@
 "Close window" = "关闭窗口";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "快捷键冲突";
 
 /*No comment provided by engineer.*/
 "Controls" = "控制";
@@ -282,7 +282,7 @@
 "Shortcut 2" = "快捷键 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "快捷键已经分配给了另一个动作：%@";
 
 /*No comment provided by engineer.*/
 "Show" = "显示";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "需要此权限以显示窗口截屏与标题";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "取消指定现有的快捷键并继续";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "更新方式：";

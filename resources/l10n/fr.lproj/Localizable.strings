@@ -3,7 +3,7 @@
 "About" = "À propos";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "À Propos de %@";
+"About %@" = "À propos de %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Accessibilité";
@@ -234,7 +234,7 @@
 "Remember my choice" = "Se souvenir de mon choix";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Lignes d’apercus :";
+"Rows of thumbnails:" = "Lignes d’aperçus :";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Écran contenant la barre de menu";
@@ -333,7 +333,7 @@
 "View existing discussions" = "Voir les discussions existantes";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Espaces visibles";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Une fois visible, presser :";

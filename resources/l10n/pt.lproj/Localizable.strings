@@ -96,7 +96,7 @@
 "Close window" = "Fechar janela";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Atalho em conflito";
 
 /*No comment provided by engineer.*/
 "Controls" = "Controlos";
@@ -126,16 +126,16 @@
 "Focus selected window" = "Foco na janela activa";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Janelas fullscreen:";
 
 /*No comment provided by engineer.*/
 "General" = "Geral";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Janelas escondidas:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Esconder";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Esconder emblemas:";
@@ -174,10 +174,10 @@
 "Left" = "Esquerda";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Altura max. no ecrã:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Largura max. no ecrã:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Ícone da barra:";
@@ -189,7 +189,7 @@
 "Minimize/Deminimize window" = "Minimizar/Restaurar janela";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Janelas minimizadas:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Ao passar o rato";
@@ -234,7 +234,7 @@
 "Remember my choice" = "Lembrar a minha escolha";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Linhas de miniaturas:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Ecrã da barra";
@@ -282,13 +282,13 @@
 "Shortcut 2" = "Atalho 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Atalho já atribuído a outra acção: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Mostrar";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Mostrar no fim";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Mostrar em:";
@@ -297,7 +297,7 @@
 "Show standard tabs as windows:" = "Mostrar separadores como janelas:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Mostrar janelas de:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Repositório do Código Fonte";
@@ -306,7 +306,7 @@
 "Start" = "Início";
 
 /*No comment provided by engineer.*/
-"Start at login:" = "Iniciar ao efetuar login:";
+"Start at login:" = "Iniciar ao efectuar login:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Tema:";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Esta permissão é necessária para mostrar capturas de ecrã e títulos das janelas abertas";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Eliminar atalho e continuar";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Regras de actualização:";
@@ -333,7 +333,7 @@
 "View existing discussions" = "Ver discussões existentes";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Spaces Visíveis";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Enquanto activa, carregar:";
@@ -342,10 +342,10 @@
 "Window app icon size:" = "Tamanho do ícone da aplicação:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Largura max. da janela na linha:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Largura min. da janela na linha:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tamanho da fonte do título da aplicação:";
