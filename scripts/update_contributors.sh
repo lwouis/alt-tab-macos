@@ -10,6 +10,8 @@ projectId="316051"
 
   echo -e "They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors):\n"
 
+  # this script is ran on shared CI machines which go over github's quota
+  # thus we use a token here to guaranty that the call will succeed
   curl https://api.github.com/repos/lwouis/alt-tab-macos/contributors \
     -H "Authorization: token $GITHUB_TOKEN" |
     jq -r '.[]|("[" + .login + "](" + .html_url + ")")' |
