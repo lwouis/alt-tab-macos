@@ -14,6 +14,8 @@ class WindowControlView: NSImageView {
         originalImage = image
         hoveredImage = image.tinted(.init(white: 0, alpha: 0.25))
         hovered(false)
+        setAccessibilityLabel(imageName)
+        setAccessibilityRole(.button)
     }
 
     func hovered(_ isHovered: Bool) {

@@ -72,6 +72,15 @@ class Windows {
         let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
         focusedView.highlight(true)
         App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+        voiceOverFocusedWindow()
+    }
+
+    static func voiceOverFocusedWindow() {
+        guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
+        let window = ThumbnailsView.recycledViews[focusedWindowIndex]
+        if window.window_ != nil && window.window != nil {
+            App.app.thumbnailsPanel.makeFirstResponder(window)
+        }
     }
 
     static func focusedWindow() -> Window? {

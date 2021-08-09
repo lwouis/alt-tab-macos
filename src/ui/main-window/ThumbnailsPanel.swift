@@ -14,8 +14,6 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         titleVisibility = .hidden
         backgroundColor = .clear
         contentView!.addSubview(thumbnailsView)
-        preservesContentDuringLiveResize = false
-        disableSnapshotRestoration()
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
         // 2nd highest level possible; this allows the app to go on top of context menus
@@ -23,6 +21,8 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         level = .popUpMenu
         // helps filter out this window from the thumbnails
         setAccessibilitySubrole(.unknown)
+        // for VoiceOver
+        setAccessibilityLabel(App.name)
     }
 
     func windowDidResignKey(_ notification: Notification) {

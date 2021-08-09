@@ -217,6 +217,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout(currentScreen)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
+        Windows.voiceOverFocusedWindow() // at this point ThumbnailViews are assigned to the window, and ready
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
         currentScreen.repositionPanel(thumbnailsPanel, .appleCentered)

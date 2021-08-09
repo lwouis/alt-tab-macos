@@ -22,6 +22,12 @@ class ThumbnailView: NSStackView {
     var isShowingWindowControls = false
     var windowlessIcon = FontIcon(.newWindow)
 
+    // for VoiceOver cursor
+    override var canBecomeKeyView: Bool { true }
+    override var acceptsFirstResponder: Bool { true }
+
+    override func isAccessibilityElement() -> Bool { true }
+
     convenience init() {
         self.init(frame: .zero)
         setupView()
@@ -44,6 +50,7 @@ class ThumbnailView: NSStackView {
         addWindowControls()
         addDockLabelIcon()
         thumbnail.addSubview(windowlessIcon, positioned: .above, relativeTo: nil)
+        setAccessibilityChildren([])
     }
 
     private func addDockLabelIcon() {
@@ -109,6 +116,7 @@ class ThumbnailView: NSStackView {
             let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
             thumbnail.image?.size = thumbnailSize
             thumbnail.frame.size = thumbnailSize
+            thumbnail.setAccessibilityLabel(element.title)
         }
         assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
@@ -117,12 +125,14 @@ class ThumbnailView: NSStackView {
             let appIconSize = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
+            appIcon.setAccessibilityTitle(element.application.runningApplication.localizedName)
         }
         let labelChanged = label.string != element.title
         if labelChanged {
             label.string = element.title
             // workaround: setting string on NSTextView changes the font (most likely a Cocoa bug)
             label.font = Preferences.font
+            setAccessibilityTitle(element.title)
         }
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden || Preferences.hideStatusIcons)
         assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
@@ -169,8 +179,10 @@ class ThumbnailView: NSStackView {
             let view = dockLabelIcon.subviews[1] as! ThumbnailFontIconView
             if dockLabel > 30 {
                 view.setFilledStar()
+                view.setAccessibilityLabel("Red badge with star")
             } else {
                 view.setNumber(dockLabel, true)
+                view.setAccessibilityLabel("Red badge with number \(dockLabel)")
             }
             dockLabelIcon.setFrameOrigin(NSPoint(x: appIcon.frame.maxX - dockLabelIcon.fittingSize.width - 1, y: appIcon.frame.maxY - dockLabelIcon.fittingSize.height + 4))
         }
