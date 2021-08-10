@@ -183,7 +183,22 @@ class Preferences {
         }
         // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
         migrateNextWindowShortcuts()
+        // "Show windows from:" got the "Active Space" option removed
+        migrateShowWindowsFrom()
         defaults.set(App.version, forKey: preferencesVersion)
+    }
+
+    private static func migrateShowWindowsFrom() {
+        ["", "2"].forEach { suffix in
+            if let spacesToShow = defaults.string(forKey: "spacesToShow" + suffix) {
+                if spacesToShow == "2" {
+                    defaults.set("1", forKey: "screensToShow" + suffix)
+                    defaults.set("1", forKey: "spacesToShow" + suffix)
+                } else if spacesToShow == "1" {
+                    defaults.set("1", forKey: "screensToShow" + suffix)
+                }
+            }
+        }
     }
 
     private static func migrateNextWindowShortcuts() {
@@ -342,13 +357,11 @@ enum AppsToShowPreference: String, CaseIterable, MacroPreference {
 
 enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
     case all = "0"
-    case active = "1"
     case visible = "2"
 
     var localizedString: LocalizedString {
         switch self {
             case .all: return NSLocalizedString("All Spaces", comment: "")
-            case .active: return NSLocalizedString("Active Space", comment: "")
             case .visible: return NSLocalizedString("Visible Spaces", comment: "")
         }
     }
