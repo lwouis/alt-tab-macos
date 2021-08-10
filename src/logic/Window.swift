@@ -218,8 +218,17 @@ class Window {
     }
 
     func isOnScreen(_ screen: NSScreen) -> Bool {
-        if let screenUuid = screen.uuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
-            return screenSpaces.contains { $0 == spaceId }
+        if NSScreen.screensHaveSeparateSpaces {
+            if let screenUuid = screen.uuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
+                return screenSpaces.contains { $0 == spaceId }
+            }
+        } else {
+            if let topLeftCorner = position, let size = size {
+                var screenFrameInQuartzCoordinates = screen.frame
+                screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
+                let windowRect = CGRect(origin: topLeftCorner, size: size)
+                return windowRect.intersects(screenFrameInQuartzCoordinates) && Spaces.visibleSpaces.contains(spaceId)
+            }
         }
         return true
     }

@@ -52,8 +52,61 @@ func CGSGetWindowOwner(_ cid: CGSConnectionID, _ wid: CGWindowID, _ windowCid: i
 func CGSGetConnectionPSN(_ cid: CGSConnectionID, _ psn: inout ProcessSerialNumber) -> CGError
 
 // returns an array of displays (as NSDictionary) -> each having an array of spaces (as NSDictionary) at the "Spaces" key; each having a space ID (as UInt64) at the "id64" key
-// /!\ only returns correct values if the user has checked the checkbox in Preferences > Mission Control > "Displays have separate Spaces"
 // * macOS 10.10+
+// /!\ only returns correct values if the user has checked the checkbox in Preferences > Mission Control > "Displays have separate Spaces"
+// See this example with 2 monitors (1 laptop internal + 1 external):
+// * Output with "Displays have separate Spaces" checked:
+//   [{
+//       "Current Space" =     {
+//           ManagedSpaceID = 4;
+//           id64 = 4;
+//           type = 0;
+//           uuid = "6622AC87-2FD2-48E8-934D-F6EB303AC9BA";
+//       };
+//       "Display Identifier" = "6FBB92D9-84CE-8D20-C114-3B1052DD9529";
+//       Spaces =     (
+//           {
+//               ManagedSpaceID = 4;
+//               id64 = 4;
+//               type = 0;
+//               uuid = "6622AC87-2FD2-48E8-934D-F6EB303AC9BA";
+//           }
+//       );
+//   }, {
+//       "Current Space" =     {
+//           ManagedSpaceID = 5;
+//           id64 = 5;
+//           type = 0;
+//           uuid = "BE05AFA2-B253-4199-B39E-A8E77CD4851B";
+//       };
+//       "Display Identifier" = "BB2327F9-3D4F-FD8F-A0EA-B9745A0B818F";
+//       Spaces =     (
+//           {
+//               ManagedSpaceID = 5;
+//               id64 = 5;
+//               type = 0;
+//               uuid = "BE05AFA2-B253-4199-B39E-A8E77CD4851B";
+//           }
+//       );
+//   }]
+// * Output with "Displays have separate Spaces" unchecked:
+//   [{
+//       "Current Space" =     {
+//           ManagedSpaceID = 4;
+//           id64 = 4;
+//           type = 0;
+//           uuid = "6622AC87-2FD2-48E8-934D-F6EB303AC9BA";
+//       };
+//       "Display Identifier" = Main;
+//       Spaces =     (
+//           {
+//               ManagedSpaceID = 4;
+//               id64 = 4;
+//               type = 0;
+//               uuid = "6622AC87-2FD2-48E8-934D-F6EB303AC9BA";
+//           }
+//       );
+//   }]
 @_silgen_name("CGSCopyManagedDisplaySpaces")
 func CGSCopyManagedDisplaySpaces(_ cid: CGSConnectionID) -> CFArray
 
