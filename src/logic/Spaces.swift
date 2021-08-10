@@ -49,7 +49,10 @@ class Spaces {
         visibleSpaces.removeAll()
         var spaceIndex = SpaceIndex(1)
         (CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary]).forEach { (screen: NSDictionary) in
-            let display = screen["Display Identifier"] as! ScreenUuid
+            var display = screen["Display Identifier"] as! ScreenUuid
+            if display as String == "Main", let mainUuid = NSScreen.main?.uuid() {
+                display = mainUuid
+            }
             (screen["Spaces"] as! [NSDictionary]).forEach { (space: NSDictionary) in
                 let spaceId = space["id64"] as! CGSSpaceID
                 idsAndIndexes.append((spaceId, spaceIndex))
