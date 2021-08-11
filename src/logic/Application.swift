@@ -14,6 +14,7 @@ class Application: NSObject {
     var dockLabel: String?
     var pid: pid_t { runningApplication.processIdentifier }
     var wasLaunchedBeforeAltTab = false
+    var focusedWindow: Window? = nil
 
     static func notifications(_ app: NSRunningApplication) -> [String] {
         let n = [

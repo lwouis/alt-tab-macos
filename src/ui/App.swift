@@ -252,8 +252,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Windows.refreshWhichWindowsToShowTheUser(screen)
             Windows.reorderList()
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
-            Windows.updateFocusedWindowIndex(0)
-            Windows.cycleFocusedWindowIndex(1)
+            Windows.setInitialFocusedWindowIndex()
             delayedDisplayScheduled += 1
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
                 if self.delayedDisplayScheduled == 1 {

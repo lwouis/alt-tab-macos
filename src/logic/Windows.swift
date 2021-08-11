@@ -24,6 +24,29 @@ class Windows {
         }
     }
 
+    static func setInitialFocusedWindowIndex() {
+        if let app = Applications.list.first { $0.pid == NSWorkspace.shared.frontmostApplication?.processIdentifier },
+           app.focusedWindow == nil,
+           let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
+            updateFocusedWindowIndex(lastFocusedWindowIndex)
+        } else {
+            updateFocusedWindowIndex(0)
+            cycleFocusedWindowIndex(1)
+        }
+    }
+
+    static func getLastFocusedWindowIndex() -> Int? {
+        var index: Int? = nil
+        var lastFocusOrderMin = Int.max
+        Windows.list.enumerated().forEach {
+            if !$0.element.isWindowlessApp && $0.element.lastFocusOrder < lastFocusOrderMin {
+                lastFocusOrderMin = $0.element.lastFocusOrder
+                index = $0.offset
+            }
+        }
+        return index
+    }
+
     static func appendAndUpdateFocus(_ window: Window) {
         list.forEach {
             $0.lastFocusOrder += 1
