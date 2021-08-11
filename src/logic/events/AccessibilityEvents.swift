@@ -44,6 +44,7 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
                 app.hasBeenActiveOnce = true
             }
             let window = (appFocusedWindow != nil && wid != nil) ? Windows.updateLastFocus(appFocusedWindow!, wid!)?.first : nil
+            app.focusedWindow = window
             App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
             App.app.refreshOpenUi(window != nil ? [window!] : nil)
         }
@@ -122,6 +123,13 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                     }
                 }
             }
+        }
+        DispatchQueue.main.async {
+            Applications.list.first { $0.pid == pid }?.focusedWindow = Windows.list.first { $0.isEqualRobust(element, wid) }
+        }
+    } else {
+        DispatchQueue.main.async {
+            Applications.list.first { $0.pid == pid }?.focusedWindow = nil
         }
     }
 }
