@@ -11,15 +11,19 @@ class ControlsTab {
         "nextWindowShortcut": { App.app.showUiOrCycleSelection(0) },
         "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1) },
         "previousWindowShortcut": { App.app.previousWindowShortcutWithRepeatingKey() },
-        "→": { App.app.cycleSelection(.right) },
-        "←": { App.app.cycleSelection(.left) },
-        "↑": { App.app.cycleSelection(.up) },
-        "↓": { App.app.cycleSelection(.down) },
         "cancelShortcut": { App.app.hideUi() },
         "closeWindowShortcut": { App.app.closeSelectedWindow() },
         "minDeminWindowShortcut": { App.app.minDeminSelectedWindow() },
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
+        "cycleSelectionRightArrow": { App.app.cycleSelection(.right) },
+        "cycleSelectionRightVim": { App.app.cycleSelection(.right) },
+        "cycleSelectionLeftArrow": { App.app.cycleSelection(.left) },
+        "cycleSelectionLeftVim": { App.app.cycleSelection(.left) },
+        "cycleSelectionUpArrow": { App.app.cycleSelection(.up) },
+        "cycleSelectionUpVim": { App.app.cycleSelection(.up) },
+        "cycleSelectionDownArrow": { App.app.cycleSelection(.down) },
+        "cycleSelectionDownVim": { App.app.cycleSelection(.down) },
     ]
 
     static func initTab() -> NSView {
@@ -31,9 +35,10 @@ class ControlsTab {
         let quitAppShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Quit app", comment: ""), "quitAppShortcut", Preferences.quitAppShortcut, labelPosition: .right)
         let hideShowAppShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hide/Show app", comment: ""), "hideShowAppShortcut", Preferences.hideShowAppShortcut, labelPosition: .right)
         let enableArrows = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Arrow keys", comment: ""), "arrowKeysEnabled", extraAction: ControlsTab.arrowKeysEnabledCallback, labelPosition: .right)
+        let enableVimKeys = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Vim keys", comment: ""), "vimKeysEnabled", extraAction: ControlsTab.vimKeysEnabledCallback, labelPosition: .right)
         let enableMouse = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Mouse hover", comment: ""), "mouseHoverEnabled", labelPosition: .right)
         let checkboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Also select windows using:", comment: ""))
-        let checkboxes = StackView([StackView(enableArrows), StackView(enableMouse)], .vertical)
+        let checkboxes = StackView([StackView(enableArrows), StackView(enableMouse), StackView(enableVimKeys)], .vertical)
         let shortcuts = StackView([focusWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
         let orPress = LabelAndControl.makeLabel(NSLocalizedString("While open, press:", comment: ""), shouldFit: false)
         let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection("")
@@ -41,6 +46,7 @@ class ControlsTab {
         let tabView = TabView([(NSLocalizedString("Shortcut 1", comment: ""), tab1View), (NSLocalizedString("Shortcut 2", comment: ""), tab2View)])
 
         ControlsTab.arrowKeysEnabledCallback(enableArrows[0] as! NSControl)
+        ControlsTab.vimKeysEnabledCallback(enableVimKeys[0] as! NSControl)
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
         [holdShortcut, holdShortcut2].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
@@ -169,11 +175,37 @@ class ControlsTab {
     }
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
-        let keys = ["←", "→", "↑", "↓"]
+        let keyActions = [
+            "←": "cycleSelectionLeftArrow",
+            "→": "cycleSelectionRightArrow",
+            "↑": "cycleSelectionUpArrow",
+            "↓": "cycleSelectionDownArrow"
+        ]
         if (sender as! NSButton).state == .on {
-            keys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
+            keyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
         } else {
-            keys.forEach { removeShortcutIfExists($0) }
+            keyActions.forEach { removeShortcutIfExists($1) }
+        }
+    }
+
+    @objc static func vimKeysEnabledCallback(_ sender: NSControl) {
+        let keyActions = [
+            "h": "cycleSelectionLeftVim",
+            "l": "cycleSelectionRightVim",
+            "k": "cycleSelectionUpVim",
+            "j": "cycleSelectionDownVim"
+        ]
+        let hideShowAppShortcutIsSetToDefaultKey = Preferences.hideShowAppShortcut == "H"
+        if (sender as! NSButton).state == .on {
+            if (hideShowAppShortcutIsSetToDefaultKey) {
+                removeShortcutIfExists("hideShowAppShortcut")
+            }
+            keyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
+        } else {
+            keyActions.forEach { removeShortcutIfExists($1) }
+            if (hideShowAppShortcutIsSetToDefaultKey) {
+                addShortcut(.down, .local, Shortcut(keyEquivalent: "H")!, "hideShowAppShortcut", nil)
+            }
         }
     }
 

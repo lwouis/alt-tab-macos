@@ -23,6 +23,7 @@ class Preferences {
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
+        "vimKeysEnabled": "false",
         "mouseHoverEnabled": "true",
         "showMinimizedWindows": ShowHowPreference.show.rawValue,
         "showMinimizedWindows2": ShowHowPreference.show.rawValue,
@@ -89,6 +90,7 @@ class Preferences {
     static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
+    static var vimKeysEnabled: Bool { defaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { defaults.bool("hideColoredCircles") }
