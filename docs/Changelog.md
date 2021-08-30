@@ -1,5 +1,24 @@
 # Release notes
 
+# [6.23.0](https://github.com/lwouis/alt-tab-macos/compare/v6.22.1...v6.23.0) (2021-08-30)
+
+
+### Bug Fixes
+
+* fix situations from some crash reports ([c18aa4d](https://github.com/lwouis/alt-tab-macos/commit/c18aa4d))
+* ghost popup windows in android studio (closes [#1056](https://github.com/lwouis/alt-tab-macos/issues/1056)) ([6f33e3a](https://github.com/lwouis/alt-tab-macos/commit/6f33e3a))
+* hide window controls after a window is closed (closes [#925](https://github.com/lwouis/alt-tab-macos/issues/925)) ([0dad739](https://github.com/lwouis/alt-tab-macos/commit/0dad739))
+* highlight right thumbnail when no window is focused (closes [#1044](https://github.com/lwouis/alt-tab-macos/issues/1044)) ([f4d3db7](https://github.com/lwouis/alt-tab-macos/commit/f4d3db7))
+* showing windows of other screens when it shouldn't (closes [#1052](https://github.com/lwouis/alt-tab-macos/issues/1052)) ([b5b3c38](https://github.com/lwouis/alt-tab-macos/commit/b5b3c38))
+
+
+### Features
+
+* add vietnamese and luxembourgish localizations ([749db12](https://github.com/lwouis/alt-tab-macos/commit/749db12))
+* improve french, portuguese and chinese localizations ([a7026a4](https://github.com/lwouis/alt-tab-macos/commit/a7026a4))
+* remove "active space" from filter list ([4623e5b](https://github.com/lwouis/alt-tab-macos/commit/4623e5b))
+* support voiceover + "speak items under the cursor" (closes [#1070](https://github.com/lwouis/alt-tab-macos/issues/1070)) ([c7911f3](https://github.com/lwouis/alt-tab-macos/commit/c7911f3))
+
 ## [6.22.1](https://github.com/lwouis/alt-tab-macos/compare/v6.22.0...v6.22.1) (2021-05-12)
 
 
