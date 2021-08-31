@@ -13,3 +13,6 @@ These third-party libraries are used:
 
 **LetsMove**
 [Website](https://github.com/potionfactory/LetsMove) - [Public domain](https://github.com/potionfactory/LetsMove#license)
+
+**LoginServiceKit**
+[Website](https://github.com/Clipy/LoginServiceKit) - [Apache License](https://github.com/Clipy/LoginServiceKit/blob/master/LICENSE)
