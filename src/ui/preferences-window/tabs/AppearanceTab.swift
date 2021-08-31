@@ -33,7 +33,6 @@ class AppearanceTab {
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide apps with no open window:", comment: ""), "hideWindowlessApps"),
         ])
         grid.column(at: 0).xPlacement = .trailing
-        grid.rowAlignment = .lastBaseline
         grid.fit()
 
         toggleRowsCount()
