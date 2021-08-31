@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BB26FDC26DE8E9A003F4085 /* LoginServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0BB26FDB26DE8E9A003F4085 /* LoginServiceKit */; };
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
@@ -391,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */,
+				0BB26FDC26DE8E9A003F4085 /* LoginServiceKit in Frameworks */,
 				76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1161,7 +1163,6 @@
 			buildConfigurationList = D04BA4D71CBB2FA4B9947B10 /* Build configuration list for PBXNativeTarget "alt-tab-macos" */;
 			buildPhases = (
 				5968B81A43F20B6ECD92C7F7 /* [CP] Check Pods Manifest.lock */,
-				227E072A129F600186F7BB9A /* [CP] Prepare Artifacts */,
 				D04BAD01F4BCEDF8B539AFD2 /* Sources */,
 				D04BA82F32FB183F65DC3E42 /* Frameworks */,
 				D04BA96F3DC99263120BCD21 /* Resources */,
@@ -1173,6 +1174,9 @@
 			dependencies = (
 			);
 			name = "alt-tab-macos";
+			packageProductDependencies = (
+				0BB26FDB26DE8E9A003F4085 /* LoginServiceKit */,
+			);
 			productName = "alt-tab-macos";
 			productReference = D04BA82F792DF53958D92572 /* AltTab.app */;
 			productType = "com.apple.product-type.application";
@@ -1222,6 +1226,9 @@
 				bg,
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
+			packageReferences = (
+				0BB26FDA26DE8E9A003F4085 /* XCRemoteSwiftPackageReference "LoginServiceKit" */,
+			);
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1320,25 +1327,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		227E072A129F600186F7BB9A /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-artifacts.sh",
-				"${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework",
-				"${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterCrashes.xcframework",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		48B68D6C23F6412C009BF4AD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1386,11 +1374,9 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
 				"${BUILT_PRODUCTS_DIR}/LetsMove/LetsMove.framework",
 				"${BUILT_PRODUCTS_DIR}/ShortcutRecorder/ShortcutRecorder.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
-				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/SwiftyMarkdown/SwiftyMarkdown.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1398,7 +1384,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LetsMove.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ShortcutRecorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyMarkdown.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2060,7 +2045,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -2086,6 +2072,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0BB26FDA26DE8E9A003F4085 /* XCRemoteSwiftPackageReference "LoginServiceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Clipy/LoginServiceKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0BB26FDB26DE8E9A003F4085 /* LoginServiceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BB26FDA26DE8E9A003F4085 /* XCRemoteSwiftPackageReference "LoginServiceKit" */;
+			productName = LoginServiceKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D04BA59EB5ED6F005E8F4407 /* Project object */;
 }
