@@ -34,6 +34,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Arthur
 * Ash
 * blanorama
+* bovirus
 * caduellery
 * Christian Keilmann
 * Chun Fei Lung
@@ -77,6 +78,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * ponchik
 * rbnis
 * SheNeVmerla
+* Stefan
 * Tomoa Nozawa
 * Tran
 * Umutakkaya1996
