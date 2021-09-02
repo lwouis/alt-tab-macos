@@ -87,7 +87,7 @@
 "Check for updates now…" = "Controleer nu op updates…";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Controleer regelmatig op updates";
+"Check for updates periodically" = "Controleer periodiek op updates";
 
 /*No comment provided by engineer.*/
 "Check for updates…" = "Controleer op updates…";
@@ -96,7 +96,7 @@
 "Close window" = "Sluit venster";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Conflicterende toetscombinatie";
 
 /*No comment provided by engineer.*/
 "Controls" = "Besturing";
@@ -108,7 +108,7 @@
 "Do nothing" = "Doe niets";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Controleer niet regelmatig op updates";
+"Don’t check for updates periodically" = "Controleer niet periodiek op updates";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Niet verzenden";
@@ -147,7 +147,7 @@
 "Hide colored circles on mouse hover:" = "Verberg gekleurde cirkels wanneer de muis erover zweeft:";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Verberg space-nummer:";
+"Hide Space number labels:" = "Verberg space-nummer labels:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Verberg statusiconen:";
@@ -282,7 +282,7 @@
 "Shortcut 2" = "Snelkoppeling 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Toetscombinatie is al toegewezen aan een andere actie: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Toon";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Deze permissie is nodig om screenshots en titels van geopende vensters te tonen";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Verwijder toetscombinatie en ga verder";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Updatebeleid:";
@@ -333,7 +333,7 @@
 "View existing discussions" = "Bekijk bestaande discussies";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Zichtbare spaces";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Druk terwijl het geopend is:";
