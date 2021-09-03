@@ -100,9 +100,13 @@ class Windows {
 
     static func voiceOverFocusedWindow() {
         guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
-        let window = ThumbnailsView.recycledViews[focusedWindowIndex]
-        if window.window_ != nil && window.window != nil {
-            App.app.thumbnailsPanel.makeFirstResponder(window)
+        // it seems that sometimes makeFirstResponder is called before the view is visible
+        // and it creates a delay in showing the main window; calling it with some delay seems to work around this
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            let window = ThumbnailsView.recycledViews[focusedWindowIndex]
+            if window.window_ != nil && window.window != nil {
+                App.app.thumbnailsPanel.makeFirstResponder(window)
+            }
         }
     }
 
