@@ -36,6 +36,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * blanorama
 * bovirus
 * caduellery
+* Caner İlhan
 * Christian Keilmann
 * Chun Fei Lung
 * Dan
