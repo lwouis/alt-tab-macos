@@ -12,7 +12,7 @@ class Application: NSObject {
     var hasBeenActiveOnce: Bool!
     var icon: NSImage?
     var dockLabel: String?
-    var pid: pid_t { runningApplication.processIdentifier }
+    var pid: pid_t!
     var wasLaunchedBeforeAltTab = false
     var focusedWindow: Window? = nil
 
@@ -40,6 +40,7 @@ class Application: NSObject {
 
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
+        pid = runningApplication.processIdentifier
         super.init()
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
