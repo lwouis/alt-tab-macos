@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.24.0](https://github.com/lwouis/alt-tab-macos/compare/v6.23.0...v6.24.0) (2021-09-04)
+
+
+### Bug Fixes
+
+* main window would sometimes appear after a delay (closes [#1096](https://github.com/lwouis/alt-tab-macos/issues/1096)) ([8ab0e61](https://github.com/lwouis/alt-tab-macos/commit/8ab0e61))
+
+
+### Features
+
+* update dutch localization ([91821f7](https://github.com/lwouis/alt-tab-macos/commit/91821f7))
+* update italian and turkish localizations ([5cd7b44](https://github.com/lwouis/alt-tab-macos/commit/5cd7b44))
+
 # [6.23.0](https://github.com/lwouis/alt-tab-macos/compare/v6.22.1...v6.23.0) (2021-08-30)
 
 
