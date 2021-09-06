@@ -116,23 +116,25 @@ class ThumbnailView: NSStackView {
             let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
             thumbnail.image?.size = thumbnailSize
             thumbnail.frame.size = thumbnailSize
+            // for Accessibility > "speak items under the pointer"
             thumbnail.setAccessibilityLabel(element.title)
         }
         assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
-        if appIcon.image != element.icon {
+        let appIconChanged = appIcon.image != element.icon
+        if appIconChanged {
             appIcon.image = element.icon
             let appIconSize = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
-            appIcon.setAccessibilityTitle(element.application.runningApplication.localizedName)
+            appIcon.setAccessibilityLabel(element.application.runningApplication.localizedName)
         }
         let labelChanged = label.string != element.title
         if labelChanged {
             label.string = element.title
             // workaround: setting string on NSTextView changes the font (most likely a Cocoa bug)
             label.font = Preferences.font
-            setAccessibilityTitle(element.title)
+            setAccessibilityLabel(element.title)
         }
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden || Preferences.hideStatusIcons)
         assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
@@ -145,7 +147,10 @@ class ThumbnailView: NSStackView {
                 spaceIcon.setNumber(element.spaceIndex, false)
             }
         }
-        updateDockLabelIcon(element.dockLabel)
+        let dockLabelChanged = updateDockLabelIcon(element.dockLabel)
+        if appIconChanged || dockLabelChanged {
+            setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
+        }
         assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)).rounded())
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
@@ -173,19 +178,30 @@ class ThumbnailView: NSStackView {
         }
     }
 
-    func updateDockLabelIcon(_ dockLabel: Int?) {
+    func updateDockLabelIcon(_ dockLabel: Int?) -> Bool {
         assignIfDifferent(&dockLabelIcon.isHidden, dockLabel == nil || Preferences.hideAppBadges || Preferences.iconSize == 0)
         if !dockLabelIcon.isHidden, let dockLabel = dockLabel {
             let view = dockLabelIcon.subviews[1] as! ThumbnailFontIconView
             if dockLabel > 30 {
                 view.setFilledStar()
-                view.setAccessibilityLabel("Red badge with star")
             } else {
                 view.setNumber(dockLabel, true)
-                view.setAccessibilityLabel("Red badge with number \(dockLabel)")
             }
             dockLabelIcon.setFrameOrigin(NSPoint(x: appIcon.frame.maxX - dockLabelIcon.fittingSize.width - 1, y: appIcon.frame.maxY - dockLabelIcon.fittingSize.height + 4))
+            view.setAccessibilityLabel(getAccessibilityTextForBadge(dockLabel))
+            return true
         }
+        return false
+    }
+
+    func getAccessibilityHelp(_ appName: String?, _ dockLabel: Int?) -> String {
+        [appName, dockLabel.map { getAccessibilityTextForBadge($0) }]
+            .compactMap { $0 }
+            .joined(separator: " - ")
+    }
+
+    func getAccessibilityTextForBadge(_ dockLabel: Int) -> String {
+        "Red badge with number \(dockLabel)"
     }
 
     private func observeDragAndDrop() {
