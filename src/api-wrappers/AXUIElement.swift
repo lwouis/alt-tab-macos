@@ -82,7 +82,7 @@ extension AXUIElement {
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0 &&
             size != nil && size!.width > 100 && size!.height > 100 &&
-            (books(runningApp) || keynote(runningApp) || (
+            (books(runningApp) || keynote(runningApp) || iina(runningApp) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
                 level == AXUIElement.normalLevel &&
                     jetbrainApp(runningApp, title, subrole) &&
@@ -105,6 +105,12 @@ extension AXUIElement {
         // they have no title, so we can filter them out based on that
         return runningApp.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?$", options: .regularExpression) == nil ||
             (subrole == kAXStandardWindowSubrole || title != nil && title != "")
+    }
+
+    private static func iina(_ runningApp: NSRunningApplication) -> Bool {
+        // IINA.app can have videos float (level == 2 instead of 0)
+        // there is also complex animations during which we may or may not consider the window not a window
+        return runningApp.bundleIdentifier == "com.colliderli.iina"
     }
 
     private static func keynote(_ runningApp: NSRunningApplication) -> Bool {
