@@ -1,42 +1,42 @@
 
 /*No comment provided by engineer.*/
-"About" = "حول";
+"About" = "जानकारी";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "%@ की जानकारी";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "إمكانية الوصول";
+"Accessibility" = "Accessibility";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "شكر وتقدير";
+"Acknowledgments" = "आभार";
 
 /*No comment provided by engineer.*/
-"Active app" = "البرنامج الحالي";
+"Active app" = "सक्रिय ऐप";
 
 /*No comment provided by engineer.*/
-"Active screen" = "الشاشة الحالية";
+"Active screen" = "सक्रिय स्क्रीन";
 
 /*No comment provided by engineer.*/
-"Active Space" = "المساحة الحالية";
+"Active Space" = "सक्रिय स्पेस";
 
 /*No comment provided by engineer.*/
-"Align windows:" = "ترتيب النوافذ:";
+"Align windows:" = "Align windows:";
 
 /*No comment provided by engineer.*/
-"All apps" = "كل البرامج";
+"All apps" = "सब ऐप्स";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "كل البيانات في هده الاستمارة سوف تصبح متاحة بشكل عام على github.com";
+"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
 
 /*No comment provided by engineer.*/
-"All screens" = "كل الشاشات";
+"All screens" = "सब स्क्रीन्स";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "كل المساحات";
+"All Spaces" = "सब स्पेस";
 
 /*No comment provided by engineer.*/
-"Allowed" = "مسموح";
+"Allowed" = "Allowed";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Also select windows using:";
@@ -45,82 +45,82 @@
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab بحتاج لبعض الأذونات";
+"AltTab needs some permissions" = "AltTab needs some permissions";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Always send crash reports";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"and press:" = "और दबाओ:";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "تأخر الوموض:";
+"Apparition delay:" = "Apparition delay:";
 
 /*No comment provided by engineer.*/
-"Appearance" = "المظهر";
+"Appearance" = "दिखावट";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "هل أنت متأكد بأنك لا تريد رداً ؟";
+"Are you sure you don’t want a response?" = "क्या आप सुनिश्चित हैं कि आपको कोई जवाब नहीं चाहिए?";
 
 /*No comment provided by engineer.*/
-"Arrow keys" = "أزرار الأسهم";
+"Arrow keys" = "Arrow keys";
 
 /*No comment provided by engineer.*/
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "تثبيت التحديثات بشكل دوري تلقائي";
+"Auto-install updates periodically" = "समय-समय पर अपडेट खुद ब खुद इंस्टॉल करो";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Blacklists";
 
 /*Cancel button*/
-"Cancel" = "إلغاء";
+"Cancel" = "रद्द करो";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "إلغاء وإخفاء";
+"Cancel and hide" = "रद्द करो और छुपाओ";
 
 /*No comment provided by engineer.*/
-"Center" = "توسيط";
+"Center" = "मध्य";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "البحث عن تحديثات الآن…";
+"Check for updates now…" = "अभी अपडेट चेक करो...";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "ابحث عن تحديثات بشكل دوري";
+"Check for updates periodically" = "समय-समय पर अपडेट चेक करो";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "ابحث عن تحديثات…";
+"Check for updates…" = "अपडेट चेक करो...";
 
 /*No comment provided by engineer.*/
-"Close window" = "إغلاق النافذة";
+"Close window" = "विंडो बंद करो";
 
 /*No comment provided by engineer.*/
 "Conflicting shortcut" = "Conflicting shortcut";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "नियंत्रण";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "Crash reports policy:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "कुछ मत करो";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "لا تبحث عن تحديثات بشكل دوري";
+"Don’t check for updates periodically" = "समय-समय पर अपडेट चेक मत करो";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "मत भेजो";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "अंत";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "تأثير الإختفاء:";
+"Fade out animation:" = "Fade out animation:";
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "Focus selected window";
@@ -129,13 +129,13 @@
 "Fullscreen windows:" = "Fullscreen windows:";
 
 /*No comment provided by engineer.*/
-"General" = "عام";
+"General" = "सामान्य";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Hidden windows:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "छिपाओ";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Hide app badges:";
@@ -147,7 +147,7 @@
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "إخفاء مساحة الأرقام:";
+"Hide Space number labels:" = "स्पेस नंबर लेबल छुपाओ:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";
@@ -156,22 +156,22 @@
 "Hide window thumbnails:" = "Hide window thumbnails:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "إخفاء/إظهار برنامج";
+"Hide/Show app" = "छुपाओ/दिखाओ ऐप";
 
 /*No comment provided by engineer.*/
-"Hold" = "ثبّت";
+"Hold" = "दबाए रखें";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "اعتقد أنه بالإمكان تطوير البرنامج بـ…";
+"I think the app could be improved with…" = "I think the app could be improved with…";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "آخر الإصدارات";
+"Latest releases" = "सबसे नये रिलीज़";
 
 /*No comment provided by engineer.*/
-"Left" = "يسار";
+"Left" = "बाएं";
 
 /*No comment provided by engineer.*/
 "Max height on screen:" = "Max height on screen:";
@@ -183,100 +183,97 @@
 "Menubar icon:" = "Menubar icon:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "मध्य";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "تصغير/تكبير نافذة";
+"Minimize/Deminimize window" = "Minimize/Deminimize window";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Minimized windows:";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "تمرير المؤشر";
+"Mouse hover" = "Mouse hover";
 
 /*No comment provided by engineer.*/
 "Never send crash reports" = "Never send crash reports";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "غير مسموح";
+"Not allowed" = "Not allowed";
 
 /*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "رخصة GPL-3.0";
+"NSHumanReadableCopyright" = "जी.पी.एल-3.0 लाइसेंस";
 
 /*No comment provided by engineer.*/
 "Only if the window is fullscreen" = "Only if the window is fullscreen";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
-"Open Accessibility Preferences…" = "توجة لإعدادات إمكانية الوصول ...";
+"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
-"Open Screen Recording Preferences…" = "توجة لإعدادات تسجيل الشاشة";
+"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "اختياري: بريد (إذا كنت تريد رد)";
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "नियम";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "التفضيلات…";
+"Preferences…" = "Preferences…";
 
 /*No comment provided by engineer.*/
-"Quit" = "إغلاق";
+"Quit" = "बंद करो";
 
 /*No comment provided by engineer.*/
-"Quit %@" = "خروج %@";
+"Quit %@" = "बंद करो %@";
 
 /*No comment provided by engineer.*/
-"Quit app" = "إغلاق البرنامج";
+"Quit app" = "ऐप क्विट करो";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "मेरी पसंद याद रखो";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rows of thumbnails:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "شاشة شريط القوائم";
+"Screen including menu bar" = "Screen including menu bar";
 
 /*No comment provided by engineer.*/
-"Screen including mouse" = "شاشة المؤشر";
+"Screen including mouse" = "स्क्रीन जिसमे माउस हो";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
-"Screen Recording" = "تسجيل الشاشة";
+"Screen Recording" = "Screen Recording";
 
 /*No comment provided by engineer.*/
-"Screen showing AltTab" = "شاشة الـAltTab";
+"Screen showing AltTab" = "स्क्रीन जिसमे ऑल्टटैब हो";
 
 /*No comment provided by engineer.*/
-"Select next window" = "حدد النافذة التالية";
+"Select next window" = "अगली विंडो चुनो";
 
 /*No comment provided by engineer.*/
-"Select previous window" = "حدد النافذة السابقة";
+"Select previous window" = "पिछली विंडो चुनो";
 
 /*No comment provided by engineer.*/
-"Send" = "إرسال";
+"Send" = "भेज दो";
 
 /*No comment provided by engineer.*/
 "Send a crash report?" = "Send a crash report?";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "إرسال على أية حال";
+"Send anyway" = "फिर भी भेज दो";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "إرسال ملف الأخطاء (معالج، ذاكرة، إلخ)";
+"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
 
 /*No comment provided by engineer.*/
-"Send feedback" = "أرسل رأيك";
+"Send feedback" = "राय भेजो";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "أرسل رأيك…";
+"Send feedback…" = "राय भेजो...";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "شارك أفكارك التطويرية، أو بلغ عن أخطاء";
+"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
 
 /*No comment provided by engineer.*/
 "Shortcut 1" = "Shortcut 1";
@@ -288,34 +285,34 @@
 "Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
 /*No comment provided by engineer.*/
-"Show" = "إظهار";
+"Show" = "दिखाओ";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "अंत में दिखाओ";
 
 /*No comment provided by engineer.*/
-"Show on:" = "أظهر على:";
+"Show on:" = "इस्पे दिखाओ:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "إظهر التابات كشاشات:";
+"Show standard tabs as windows:" = "Show standard tabs as windows:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Show windows from:";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "مخزن شفرة المصدر";
+"Source code repository" = "Source code repository";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "शुरुआत";
 
 /*No comment provided by engineer.*/
-"Start at login:" = "شغّل البرنامج عند الدخول:";
+"Start at login:" = "लॉग इन पे चलाओ:";
 
 /*No comment provided by engineer.*/
-"Theme:" = "المظهر:";
+"Theme:" = "अंदाज:";
 
 /*No comment provided by engineer.*/
-"Then release:" = "Then release:";
+"Then release:" = "फिर छोड़ो:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
@@ -327,22 +324,22 @@
 "Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "سياسة التحديثات:";
+"Updates policy:" = "अपडेट नीति:";
 
 /*No comment provided by engineer.*/
-"Version" = "الإصدار";
+"Version" = "Version";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "أنظر للنقاشات الحالية";
+"View existing discussions" = "मौजूदा वाद-विवाद दिखाओ";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "दृश्यत स्पेस";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "खुला होने पर, दबाओ:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "حجم أيقونة النافذة:";
+"Window app icon size:" = "Window app icon size:";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Window max width in row:";
@@ -351,10 +348,10 @@
 "Window min width in row:" = "Window min width in row:";
 
 /*No comment provided by engineer.*/
-"Window title font size:" = "حجم خط عنوان النافذة:";
+"Window title font size:" = "Window title font size:";
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Window title truncation:";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "لم تكتب بريدك؛ فلذلك لن تحصل على رد.";
+"You didn’t write your email, thus can’t receive any response." = "आपने अपना ईमेल नहीं लिखा, इसलिए कोई जवाब नहीं मिल सकता ।";

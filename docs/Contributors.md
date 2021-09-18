@@ -63,6 +63,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Klara
 * Kushnee5
 * Lcwhhh
+* Lester
 * Lumaxis
 * lwouis
 * Marekscholle
@@ -72,13 +73,16 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Michael
 * Mr. axel. bock
 * MuDraconis
+* Mwolfinspace
 * Nilton Souza
+* Nmolham
 * Pehovorka
 * Peterkim0620
 * Petr Kolář
 * ponchik
 * rbnis
 * SheNeVmerla
+* Shivam Bansal
 * Stefan
 * Tomoa Nozawa
 * Tran
