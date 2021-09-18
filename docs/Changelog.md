@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.25.0](https://github.com/lwouis/alt-tab-macos/compare/v6.24.0...v6.25.0) (2021-09-18)
+
+
+### Bug Fixes
+
+* "show on active screen" could show the wrong screen (closes [#1129](https://github.com/lwouis/alt-tab-macos/issues/1129)) ([23bbd64](https://github.com/lwouis/alt-tab-macos/commit/23bbd64))
+* windows from the iina app would not show sometimes (closes [#1037](https://github.com/lwouis/alt-tab-macos/issues/1037)) ([47d283e](https://github.com/lwouis/alt-tab-macos/commit/47d283e))
+
+
+### Features
+
+* improve localization in hindi, arabic, vietnamese ([2905f7d](https://github.com/lwouis/alt-tab-macos/commit/2905f7d))
+* improve voiceover and speech accessibility ([194e726](https://github.com/lwouis/alt-tab-macos/commit/194e726))
+
 # [6.24.0](https://github.com/lwouis/alt-tab-macos/compare/v6.23.0...v6.24.0) (2021-09-04)
 
 
