@@ -14,11 +14,29 @@ extension NSScreen {
     }
 
     static func preferred() -> NSScreen {
+        preferred_() ?? NSScreen.screens.first!
+    }
+
+    static func preferred_() -> NSScreen? {
         switch Preferences.showOnScreen {
-            case .includingMouse: return withMouse() ?? NSScreen.main! // .main as fall-back
-            case .active: return NSScreen.main! // macOS bug: this will return screens[0] if the main screen shows a fullscreen app
-            case .includingMenubar: return NSScreen.screens.first!
+            case .includingMouse: return withMouse()
+            case .active: return NSScreen.active()
+            case .includingMenubar: return NSScreen.screens.first
         }
+    }
+
+    // NSScreen.main docs are incorrect. It stopped returning the screen with the key window in macOS 10.9
+    // see https://stackoverflow.com/a/56268826/2249756
+    // There are a few cases where .main doesn't return the screen with the key window:
+    //   * if the active screen shows a fullscreen app, it always returns screens[0]
+    //   * if NSScreen.screensHaveSeparateSpaces == false, and key window is on another screen than screens[0], it still returns screens[0]
+    // we find the screen with the key window ourselves manually
+    static func active() -> NSScreen? {
+        if let app = Applications.list.first { $0.pid == NSWorkspace.shared.frontmostApplication?.processIdentifier },
+           let focusedWindow = app.focusedWindow {
+            return NSScreen.screens.first { focusedWindow.isOnScreen($0) }
+        }
+        return nil
     }
 
     static func withMouse() -> NSScreen? {
