@@ -3,7 +3,7 @@
 "About" = "حول";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "حول %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "إمكانية الوصول";
@@ -39,19 +39,19 @@
 "Allowed" = "مسموح";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "أيضاً إختر النوافذ ب:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "تعطل AltTab عندما استخدمته آخر مرة. ارسال بلاغ التعطل سوف يساعد في إصلاح المشكلة";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab بحتاج لبعض الأذونات";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "أرسل بلاغات التعطل دائماً";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"and press:" = "واضغط:";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "تأخر الوموض:";
@@ -66,13 +66,13 @@
 "Arrow keys" = "أزرار الأسهم";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "اسأل قبل إرسال بلاغات التعطل";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "تثبيت التحديثات بشكل دوري تلقائي";
+"Auto-install updates periodically" = "تثبيت التحديثات تلقائياً بشكل دوري";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "القائمة السوداء";
 
 /*Cancel button*/
 "Cancel" = "إلغاء";
@@ -84,7 +84,7 @@
 "Center" = "توسيط";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "البحث عن تحديثات الآن…";
+"Check for updates now…" = "ابحث عن تحديثات الآن…";
 
 /*No comment provided by engineer.*/
 "Check for updates periodically" = "ابحث عن تحديثات بشكل دوري";
@@ -96,64 +96,64 @@
 "Close window" = "إغلاق النافذة";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "إختصار متعارض";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "التحكم";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "سياسات بلاغات التعطل:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "لا تفعل شيء";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "لا تبحث عن تحديثات بشكل دوري";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "لا ترسل";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "لا تُظهر نوافذ هذه التطبيقات";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "النهاية";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "تأثير الإختفاء:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "ركّز النافذة المختارة";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "النوافذ كاملة الشاشة:";
 
 /*No comment provided by engineer.*/
 "General" = "عام";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "النوافذ المخفية";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "إخفاء";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "إخفاء أيقونات التطبيقات:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "إخفاء التطبيقات بدون نوافذ مفتوحة:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "أخفاء الدوائر الملونة عند تحويم الفأرة:";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "إخفاء مساحة الأرقام:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "أخفاء أيقونة الحالة:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "إخفاء الصورة المصغرة للنافذة:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "إخفاء/إظهار برنامج";
@@ -162,10 +162,10 @@
 "Hold" = "ثبّت";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "اعتقد أنه بالإمكان تطوير البرنامج بـ…";
+"I think the app could be improved with…" = "أعتقد أنه بالإمكان تطوير البرنامج بـ…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "لا تفعّل الإختصارات عندما تكن نافذة من أحد هذه التطبيقات مفعّلة";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "آخر الإصدارات";
@@ -174,28 +174,28 @@
 "Left" = "يسار";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "أكبر طول على الشاشة:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "أكبر عرض على الشاشة:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "أيقونة شريط القوائم:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "المنتصف";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "تصغير/تكبير نافذة";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "النوافذ المصغرة:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "تمرير المؤشر";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "لا ترسل بلاغات أبداً";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "غير مسموح";
@@ -204,21 +204,21 @@
 "NSHumanReadableCopyright" = "رخصة GPL-3.0";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "فقط عندما تكون النافذة شاشة كاملة";
 
 /*No comment provided by engineer.*/
 /*Fuzzy*/
-"Open Accessibility Preferences…" = "توجة لإعدادات إمكانية الوصول ...";
+"Open Accessibility Preferences…" = "افتح إعدادات إمكانية الوصول ...";
 
 /*No comment provided by engineer.*/
 /*Fuzzy*/
-"Open Screen Recording Preferences…" = "توجة لإعدادات تسجيل الشاشة";
+"Open Screen Recording Preferences…" = "افتح إعدادات تسجيل الشاشة";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "اختياري: بريد (إذا كنت تريد رد)";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "سياسات";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "التفضيلات…";
@@ -233,10 +233,10 @@
 "Quit app" = "إغلاق البرنامج";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "تذكر خياري";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "صفوف الصور المصغرة:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "شاشة شريط القوائم";
@@ -261,7 +261,7 @@
 "Send" = "إرسال";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "هل تريد أرسال بلاغ تعطل؟";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "إرسال على أية حال";
@@ -279,19 +279,19 @@
 "Share improvement ideas, or report bugs" = "شارك أفكارك التطويرية، أو بلغ عن أخطاء";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "الإختصار ١";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "الإختصار ٢";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "الإختصار محجوز لفعل آخر: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "إظهار";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "أظهر في النهاية";
 
 /*No comment provided by engineer.*/
 "Show on:" = "أظهر على:";
@@ -300,13 +300,13 @@
 "Show standard tabs as windows:" = "إظهر التابات كشاشات:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "أظهر النوافذ من:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "مخزن شفرة المصدر";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "البداية";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "شغّل البرنامج عند الدخول:";
@@ -315,16 +315,16 @@
 "Theme:" = "المظهر:";
 
 /*No comment provided by engineer.*/
-"Then release:" = "Then release:";
+"Then release:" = "واترك:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "هذا الإذن يسمح لنا بالتركيز على النوافذ بعد تفعيلك للإختصار";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "هذا الإذن يسمح لنا بتصوير النوافذ والحصول على عناوينها";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "ألغ الفعل المحجوز واستمر";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "سياسة التحديثات:";
@@ -336,25 +336,25 @@
 "View existing discussions" = "أنظر للنقاشات الحالية";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "المسافات الظاهرة";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "عندما تكون مفتوحة، إضغط:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "حجم أيقونة النافذة:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "أكبر عرض للنافذة بالأعمدة:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "أصغر عرض للنافذة بالأعمدة:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "حجم خط عنوان النافذة:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "اقتطاع عنوان النافذة:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "لم تكتب بريدك؛ فلذلك لن تحصل على رد.";
