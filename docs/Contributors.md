@@ -47,6 +47,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Filipe
 * Frank
 * Giang
+* Gkostov
 * hann-solo
 * Haoshuai Xu
 * Hokuto Kato
@@ -71,6 +72,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Martin Mitka
 * Martin. mitka
 * Michael
+* Mohammad Al Zouabi
 * Mr. axel. bock
 * MuDraconis
 * Mwolfinspace
