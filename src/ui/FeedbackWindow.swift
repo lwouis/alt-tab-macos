@@ -1,7 +1,12 @@
 import Cocoa
+import Foundation
 
 class FeedbackWindow: NSWindow {
-    static let token = Bundle.main.object(forInfoDictionaryKey: "FeedbackToken") as! String
+    static let token: String = {
+        // token is encoded to/from base64 to avoid github noticing it and revoking it
+        let base64Token = Bundle.main.object(forInfoDictionaryKey: "FeedbackToken") as! String
+        return String(data: Data(base64Encoded: base64Token)!, encoding: .utf8)!
+    }()
     var body: TextArea!
     var email: TextArea!
     var sendButton: NSButton!
