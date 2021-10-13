@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.26.0](https://github.com/lwouis/alt-tab-macos/compare/v6.25.0...v6.26.0) (2021-10-13)
+
+
+### Bug Fixes
+
+* feedback form messages got broken by github ([1539727](https://github.com/lwouis/alt-tab-macos/commit/1539727))
+
+
+### Features
+
+* add bulgarian and improve arabic localizations ([f1be3cf](https://github.com/lwouis/alt-tab-macos/commit/f1be3cf))
+
 # [6.25.0](https://github.com/lwouis/alt-tab-macos/compare/v6.24.0...v6.25.0) (2021-09-18)
 
 
