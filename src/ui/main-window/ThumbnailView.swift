@@ -213,7 +213,9 @@ class ThumbnailView: NSStackView {
     }
 
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        mouseMovedCallback()
+        if Preferences.mouseHoverEnabled && !isHighlighted {
+            mouseMovedCallback()
+        }
         return .link
     }
 
