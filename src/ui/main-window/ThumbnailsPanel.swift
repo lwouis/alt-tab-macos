@@ -2,7 +2,9 @@ import Cocoa
 
 class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     var thumbnailsView = ThumbnailsView()
-    override var canBecomeKey: Bool { true }
+    override var canBecomeKey: Bool {
+        true
+    }
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
@@ -35,12 +37,37 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         }
     }
 
+    override func orderOut(_ sender: Any?) {
+        if #available(OSX 11, *), Preferences.fadeOutAnimation {
+            NSAnimationContext.runAnimationGroup(
+                    changes: { (context: NSAnimationContext) -> () in
+                        animator().alphaValue = 0
+                    },
+                    completionHandler: {
+                        super.orderOut(sender)
+                    }
+            )
+        } else {
+            super.orderOut(sender)
+        }
+    }
+
     func updateFadeOutAnimation() {
-        animationBehavior = Preferences.fadeOutAnimation ? .utilityWindow : .none
+        if #available(OSX 11, *) {
+            alphaValue = (Preferences.fadeOutAnimation && !isVisible) ? 0 : 1
+            animationBehavior = .none
+        } else {
+            animationBehavior = Preferences.fadeOutAnimation ? .utilityWindow : .none
+        }
     }
 
     func show() {
         makeKeyAndOrderFront(nil)
+
+        if #available(OSX 11, *), Preferences.fadeOutAnimation {
+            animator().alphaValue = 1
+        }
+
         MouseEvents.toggle(true)
         thumbnailsView.scrollView.flashScrollers()
     }
