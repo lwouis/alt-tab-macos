@@ -62,11 +62,8 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     }
 
     func show() {
+        alphaValue = 1
         makeKeyAndOrderFront(nil)
-
-        if #available(OSX 11, *), Preferences.fadeOutAnimation {
-            animator().alphaValue = 1
-        }
 
         MouseEvents.toggle(true)
         thumbnailsView.scrollView.flashScrollers()
