@@ -41,11 +41,11 @@ extension AXUIElement {
 
     func axCallWhichCanThrow<T>(_ result: AXError, _ successValue: inout T) throws -> T? {
         switch result {
-            case .success: return successValue
-            // .cannotComplete can happen if the app is unresponsive; we throw in that case to retry until the call succeeds
-            case .cannotComplete: throw AxError.runtimeError
-            // for other errors it's pointless to retry
-            default: return nil
+        case .success: return successValue
+                // .cannotComplete can happen if the app is unresponsive; we throw in that case to retry until the call succeeds
+        case .cannotComplete: throw AxError.runtimeError
+                // for other errors it's pointless to retry
+        default: return nil
         }
     }
 
@@ -81,30 +81,39 @@ extension AXUIElement {
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0 &&
-            size != nil && size!.width > 100 && size!.height > 100 &&
-            (books(runningApp) || keynote(runningApp) || iina(runningApp) || (
-                // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
-                level == AXUIElement.normalLevel &&
-                    jetbrainApp(runningApp, title, subrole) &&
-                    ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
-                        openBoard(runningApp) ||
-                        adobeAudition(runningApp, subrole) ||
-                        steam(runningApp, title, role) ||
-                        worldOfWarcraft(runningApp, role) ||
-                        battleNetBootstrapper(runningApp, role) ||
-                        firefoxFullscreenVideo(runningApp, role) ||
-                        vlcFullscreenVideo(runningApp, role) ||
-                        androidEmulator(runningApp, title) ||
-                        sanGuoShaAirWD(runningApp) ||
-                        dvdFab(runningApp) ||
-                        drBetotte(runningApp))))
+                size != nil && size!.width > 100 && size!.height > 100 &&
+                (books(runningApp) || keynote(runningApp) || iina(runningApp) || (
+                        // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
+                        level == AXUIElement.normalLevel &&
+                                jetbrainApp(runningApp, title, subrole) &&
+                                androidStudio(runningApp, title, subrole) &&
+                                ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
+                                        openBoard(runningApp) ||
+                                        adobeAudition(runningApp, subrole) ||
+                                        steam(runningApp, title, role) ||
+                                        worldOfWarcraft(runningApp, role) ||
+                                        battleNetBootstrapper(runningApp, role) ||
+                                        firefoxFullscreenVideo(runningApp, role) ||
+                                        vlcFullscreenVideo(runningApp, role) ||
+                                        androidEmulator(runningApp, title) ||
+                                        sanGuoShaAirWD(runningApp) ||
+                                        dvdFab(runningApp) ||
+                                        drBetotte(runningApp))))
     }
 
     private static func jetbrainApp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?) -> Bool {
         // jetbrain apps sometimes generate non-windows that pass all checks in isActualWindow
         // they have no title, so we can filter them out based on that
         return runningApp.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?$", options: .regularExpression) == nil ||
-            (subrole == kAXStandardWindowSubrole || title != nil && title != "")
+                (subrole == kAXStandardWindowSubrole || title != nil && title != "")
+    }
+
+    private static func androidStudio(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?) -> Bool {
+        // Android Studio is a fork of JetBrains IntelliJ IDEA, so run a similar check for it.
+        let result = runningApp.bundleIdentifier?.range(of: "^com\\.google\\.android\\.studio.+?$", options: .regularExpression) == nil ||
+                (subrole == kAXStandardWindowSubrole || title != nil && title != "")
+
+        return result
     }
 
     private static func iina(_ runningApp: NSRunningApplication) -> Bool {
