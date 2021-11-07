@@ -31,8 +31,7 @@ class Application: NSObject {
         if app.bundleIdentifier == "edu.stanford.protege" ||
                app.bundleIdentifier?.range(of: "^com\\.install4j\\..+?$", options: .regularExpression) != nil ||
                app.bundleIdentifier?.range(of: "^com\\.live2d\\.cubism\\..+?$", options: .regularExpression) != nil ||
-               app.bundleIdentifier?.range(of: "^com\\.jetbrains\\..+?$", options: .regularExpression) != nil ||
-               app.bundleIdentifier?.range(of: "^com\\.google\\.android\\.studio.*?$", options: .regularExpression) != nil {
+               app.bundleIdentifier?.range(of: "^com\\.(jetbrains\\.|google\\.android\\.studio).+?$", options: .regularExpression) != nil {
             return n.filter { $0 != kAXFocusedUIElementChangedNotification }
         }
         return n
