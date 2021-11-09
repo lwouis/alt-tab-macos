@@ -158,10 +158,8 @@ class Window {
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
                 guard let self = self else { return }
-                var elementConnection = UInt32(0)
-                CGSGetWindowOwner(cgsMainConnectionId, self.cgWindowId, &elementConnection)
                 var psn = ProcessSerialNumber()
-                CGSGetConnectionPSN(elementConnection, &psn)
+                GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId, .userGenerated)
                 self.makeKeyWindow(psn)
                 self.axUiElement.focusWindow()
