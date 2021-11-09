@@ -157,25 +157,17 @@ class Window {
             // but quickly switches back to another window in that space
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
-                do {
-                    guard let self = self else { return }
-                    var elementConnection = UInt32(0)
-                    CGSGetWindowOwner(cgsMainConnectionId, self.cgWindowId, &elementConnection)
-                    var psn = ProcessSerialNumber()
-                    CGSGetConnectionPSN(elementConnection, &psn)
+                guard let self = self else { return }
+                var elementConnection = UInt32(0)
+                CGSGetWindowOwner(cgsMainConnectionId, self.cgWindowId, &elementConnection)
 
-                    if psn.lowLongOfPSN == 0 && psn.highLongOfPSN == 0 {
-                        let wid = try self.axUiElement.pid()!
-                        GetProcessForPID(wid, &psn)
-                    }
+                var psn = ProcessSerialNumber()
+                GetProcessForPID(self.application.pid, &psn)
 
-                    _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId, .userGenerated)
+                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId, .userGenerated)
 
-                    self.makeKeyWindow(psn)
-                    self.axUiElement.focusWindow()
-                } catch {
-                    debugPrint("Error!")
-                }
+                self.makeKeyWindow(psn)
+                self.axUiElement.focusWindow()
             }
         }
     }
