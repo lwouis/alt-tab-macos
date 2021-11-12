@@ -34,13 +34,21 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         toolbar!.displayMode = .iconAndLabel
         toolbar!.showsBaselineSeparator = true
         [
+            (-1, "", NSToolbarItem.Identifier.flexibleSpace.rawValue, nil),
             (0, NSLocalizedString("General", comment: ""), "general", GeneralTab.initTab()),
+            (-1, "", NSToolbarItem.Identifier.flexibleSpace.rawValue, nil),
             (1, NSLocalizedString("Controls", comment: ""), "controls", ControlsTab.initTab()),
+            (-1, "", NSToolbarItem.Identifier.flexibleSpace.rawValue, nil),
             (2, NSLocalizedString("Appearance", comment: ""), "appearance", AppearanceTab.initTab()),
+            (-1, "", NSToolbarItem.Identifier.flexibleSpace.rawValue, nil),
             (3, NSLocalizedString("Policies", comment: ""), "policies", PoliciesTab.initTab()),
+            (-1, "", NSToolbarItem.Identifier.flexibleSpace.rawValue, nil),
             (4, NSLocalizedString("Blacklists", comment: ""), "blacklists", BlacklistsTab.initTab()),
+            (-1, "", NSToolbarItem.Identifier.flexibleSpace.rawValue, nil),
             (5, NSLocalizedString("About", comment: ""), "about", AboutTab.initTab()),
+            (-1, "", NSToolbarItem.Identifier.flexibleSpace.rawValue, nil),
             (6, NSLocalizedString("Acknowledgments", comment: ""), "acknowledgments", AcknowledgmentsTab.initTab()),
+            (-1, "", NSToolbarItem.Identifier.flexibleSpace.rawValue, nil),
         ]
             .forEach { makeToolbarItem($0.0, $0.1, $0.2, $0.3) }
 
@@ -56,19 +64,23 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         tabItemClicked(toolbarItems[toolbar!.selectedItemIdentifier!]!.1)
     }
 
-    func makeToolbarItem(_ index: Int, _ label: String, _ image: String, _ view: NSView) {
-        let id = NSToolbarItem.Identifier(rawValue: image)
-        let item = NSToolbarItem(itemIdentifier: id)
-        item.label = label
-        item.image = NSImage.initTemplateCopy(image)
-        item.target = self
-        item.action = #selector(tabItemClicked)
-        let wrapView = NSView(frame: .zero)
-        wrapView.translatesAutoresizingMaskIntoConstraints = false
-        wrapView.subviews = [view]
-        view.centerXAnchor.constraint(equalTo: wrapView.centerXAnchor).isActive = true
-        toolbarItems[id] = (index, item, wrapView)
-        toolbar!.insertItem(withItemIdentifier: id, at: index)
+    func makeToolbarItem(_ index: Int, _ label: String, _ image: String, _ view: NSView?) {
+        if view != nil {
+            let id = NSToolbarItem.Identifier(rawValue: image)
+            let item = NSToolbarItem(itemIdentifier: id)
+            item.label = label
+            item.target = self
+            item.action = #selector(tabItemClicked)
+            item.image = NSImage.initTemplateCopy(image)
+            let wrapView = NSView(frame: .zero)
+            wrapView.translatesAutoresizingMaskIntoConstraints = false
+            wrapView.subviews = [view!]
+            view!.centerXAnchor.constraint(equalTo: wrapView.centerXAnchor).isActive = true
+            toolbarItems[id] = (index, item, wrapView)
+            toolbar!.insertItem(withItemIdentifier: id, at: toolbar!.items.capacity)
+        } else {
+            toolbar!.insertItem(withItemIdentifier: .flexibleSpace, at: toolbar!.items.capacity)
+        }
     }
 
     @objc func tabItemClicked(_ item: NSToolbarItem) {
