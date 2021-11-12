@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.27.0](https://github.com/lwouis/alt-tab-macos/compare/v6.26.0...v6.27.0) (2021-11-12)
+
+
+### Bug Fixes
+
+* display all windows from android studio ([e2d26f2](https://github.com/lwouis/alt-tab-macos/commit/e2d26f2))
+* parallels windows wouldn't switch sometimes (closes [#1213](https://github.com/lwouis/alt-tab-macos/issues/1213)) ([21133ce](https://github.com/lwouis/alt-tab-macos/commit/21133ce))
+* the app would sometimes freeze or lag (closes [#563](https://github.com/lwouis/alt-tab-macos/issues/563)) ([4a264ab](https://github.com/lwouis/alt-tab-macos/commit/4a264ab))
+
+
+### Features
+
+* improved spanish localization ([3709b62](https://github.com/lwouis/alt-tab-macos/commit/3709b62))
+
 # [6.26.0](https://github.com/lwouis/alt-tab-macos/compare/v6.25.0...v6.26.0) (2021-10-13)
 
 
