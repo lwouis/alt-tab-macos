@@ -67,8 +67,9 @@ class KeyboardEvents {
     }
 
     private static func addLocalMonitorForKeyDownAndKeyUp() {
-        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { event in
-            return handleEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, cocoaToCarbonFlags(event.modifierFlags), event.type == .keyDown ? event.isARepeat : false) ? nil : event
+        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
+            let someShortcutTriggered = handleEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, cocoaToCarbonFlags(event.modifierFlags), event.type == .keyDown ? event.isARepeat : false)
+            return someShortcutTriggered ? nil : event
         }
     }
 

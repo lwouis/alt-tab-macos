@@ -75,7 +75,7 @@ class Application: NSObject {
         if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited && axUiElement == nil {
             axUiElement = AXUIElementCreateApplication(pid)
             AXObserverCreate(pid, axObserverCallback, &axObserver)
-            debugPrint("Adding app", pid, runningApplication.bundleIdentifier ?? "nil")
+            debugPrint("Adding app", pid ?? "nil", runningApplication.bundleIdentifier ?? "nil")
             observeEvents()
         }
     }

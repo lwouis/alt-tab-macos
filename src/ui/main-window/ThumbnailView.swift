@@ -178,6 +178,7 @@ class ThumbnailView: NSStackView {
         }
     }
 
+    @discardableResult
     func updateDockLabelIcon(_ dockLabel: Int?) -> Bool {
         assignIfDifferent(&dockLabelIcon.isHidden, dockLabel == nil || Preferences.hideAppBadges || Preferences.iconSize == 0)
         if !dockLabelIcon.isHidden, let dockLabel = dockLabel {
