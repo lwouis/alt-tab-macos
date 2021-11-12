@@ -11,7 +11,7 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
     debugPrint("Accessibility event", type, type != kAXFocusedUIElementChangedNotification ? (try element.title() ?? "nil") : "nil")
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid(),
-       try (!(pid == ProcessInfo.processInfo.processIdentifier && element.subrole() == kAXUnknownSubrole)) {
+       try pid != ProcessInfo.processInfo.processIdentifier || (element.subrole() != kAXUnknownSubrole && type != kAXFocusedUIElementChangedNotification) {
         switch type {
             case kAXApplicationActivatedNotification: try applicationActivated(element, pid)
             case kAXApplicationHiddenNotification,
