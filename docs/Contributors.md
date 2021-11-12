@@ -20,6 +20,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [samdenty](https://github.com/samdenty)
 * [shaqed](https://github.com/shaqed)
 * [xanathar](https://github.com/xanathar)
+* [zacharee](https://github.com/zacharee)
 
 They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 
@@ -60,6 +61,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Julian Nowaczyk
 * Kagurazaka Tsuki
 * kal
+* kant
 * Kevinsevinche
 * Klara
 * Kushnee5
