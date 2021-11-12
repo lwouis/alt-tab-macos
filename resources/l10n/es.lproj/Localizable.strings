@@ -96,7 +96,7 @@
 "Close window" = "Cerrar ventana";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Atajo conflictivo";
 
 /*No comment provided by engineer.*/
 "Controls" = "Controles";
@@ -126,16 +126,16 @@
 "Focus selected window" = "Dar el foco a la ventana seleccionada";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Ventanas a pantalla completa:";
 
 /*No comment provided by engineer.*/
 "General" = "General";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Ventanas ocultas:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Ocultar";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Ocultar emblemas de aplicación:";
@@ -174,10 +174,10 @@
 "Left" = "Izquierda";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Altura máxima en pantalla:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Ancho máximo en pantalla:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Icono de barra de menú:";
@@ -189,7 +189,7 @@
 "Minimize/Deminimize window" = "Minimizar/Desminimizar ventana";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Ventanas minimizadas:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Al pasar el ratón";
@@ -234,7 +234,7 @@
 "Remember my choice" = "Recordar mi elección";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Filas de miniaturas:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Pantalla que incluye la barra de menú";
@@ -282,13 +282,13 @@
 "Shortcut 2" = "Atajo 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Atajo ya asignado a otra acción: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Mostrar";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Mostrar al final";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Mostrar en:";
@@ -297,7 +297,7 @@
 "Show standard tabs as windows:" = "Mostrar pestañas como ventanas:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Mostrar ventanas desde:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Repositorio de código fuente";
@@ -321,7 +321,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Este permiso es necesario para mostrar capturas de pantalla y títulos de ventanas abiertas";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Anular la asignación del atajo existente y continuar";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Política de actualizaciones:";
@@ -333,7 +333,7 @@
 "View existing discussions" = "Ver discusiones existentes";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Spaces visible";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Mientras esté abierto, pulsar:";
@@ -342,10 +342,10 @@
 "Window app icon size:" = "Tamaño del icono de la ventana de aplicación:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Ancho máximo de ventana en fila";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Ancho mínimo de ventana en fila";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tamaño de fuente del título de la ventana:";
