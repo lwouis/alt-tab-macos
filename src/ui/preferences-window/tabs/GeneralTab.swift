@@ -29,12 +29,7 @@ class GeneralTab {
         return grid
     }
 
-    // adding/removing login item depending on the checkbox state
     static func startAtLoginCallback(_ sender: NSControl) {
-        if (sender as! NSButton).state == .on {
-            LaunchAtLogin.isEnabled = true
-        } else {
-            LaunchAtLogin.isEnabled = false
-        }
+        LaunchAtLogin.isEnabled = (sender as! NSButton).state == .on
     }
 }
