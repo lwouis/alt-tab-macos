@@ -60,6 +60,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Julian Nowaczyk
 * Kagurazaka Tsuki
 * kal
+* kant
 * Kevinsevinche
 * Klara
 * Kushnee5
