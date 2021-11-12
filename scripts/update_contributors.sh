@@ -12,8 +12,7 @@ projectId="316051"
 
   # this script is ran on shared CI machines which go over github's quota
   # thus we use a token here to guaranty that the call will succeed
-  curl https://api.github.com/repos/lwouis/alt-tab-macos/contributors \
-    -H "Authorization: token $GITHUB_TOKEN" |
+  curl https://api.github.com/repos/lwouis/alt-tab-macos/contributors |
     jq -r '.[]|("[" + .login + "](" + .html_url + ")")' |
     sed -e '/semantic-release-bot/d' |
     sort -f |
