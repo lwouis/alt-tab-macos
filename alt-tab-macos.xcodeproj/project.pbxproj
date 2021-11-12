@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0BB26FDC26DE8E9A003F4085 /* LoginServiceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0BB26FDB26DE8E9A003F4085 /* LoginServiceKit */; };
+		0B26C7C4273F1F2700D06912 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B26C7C2273F1F0300D06912 /* ServiceManagement.framework */; platformFilter = maccatalyst; };
+		0B5B91C9273F233300FCB1B7 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 0B5B91C8273F233300FCB1B7 /* LaunchAtLogin */; };
+		0B83F031273F0E9F0065688B /* SwiftyMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 0B83F030273F0E9F0065688B /* SwiftyMarkdown */; };
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
@@ -147,6 +149,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B26C7C2273F1F0300D06912 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
 		481FE54624D2D387001032F1 /* alt-tab-macos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "alt-tab-macos-Bridging-Header.h"; sourceTree = "<group>"; };
 		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
@@ -392,8 +395,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */,
-				0BB26FDC26DE8E9A003F4085 /* LoginServiceKit in Frameworks */,
+				0B26C7C4273F1F2700D06912 /* ServiceManagement.framework in Frameworks */,
 				76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */,
+				0B5B91C9273F233300FCB1B7 /* LaunchAtLogin in Frameworks */,
+				0B83F031273F0E9F0065688B /* SwiftyMarkdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +408,7 @@
 		4807A6C423A9CD190052A53E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B26C7C2273F1F0300D06912 /* ServiceManagement.framework */,
 				4807A6C523A9CD190052A53E /* SkyLight.framework */,
 				C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */,
 			);
@@ -1166,6 +1172,7 @@
 				D04BAD01F4BCEDF8B539AFD2 /* Sources */,
 				D04BA82F32FB183F65DC3E42 /* Frameworks */,
 				D04BA96F3DC99263120BCD21 /* Resources */,
+				0B5B91CA273F235600FCB1B7 /* Copy “Launch at Login Helper” */,
 				7641B7923B36478FBF4D7CCD /* [CP] Embed Pods Frameworks */,
 				48B68D6C23F6412C009BF4AD /* ShellScript */,
 			);
@@ -1175,7 +1182,8 @@
 			);
 			name = "alt-tab-macos";
 			packageProductDependencies = (
-				0BB26FDB26DE8E9A003F4085 /* LoginServiceKit */,
+				0B83F030273F0E9F0065688B /* SwiftyMarkdown */,
+				0B5B91C8273F233300FCB1B7 /* LaunchAtLogin */,
 			);
 			productName = "alt-tab-macos";
 			productReference = D04BA82F792DF53958D92572 /* AltTab.app */;
@@ -1187,6 +1195,7 @@
 		D04BA59EB5ED6F005E8F4407 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = lwouis;
 			};
@@ -1224,10 +1233,12 @@
 				lb,
 				hi,
 				bg,
+				Base,
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			packageReferences = (
-				0BB26FDA26DE8E9A003F4085 /* XCRemoteSwiftPackageReference "LoginServiceKit" */,
+				0B83F02F273F0E9F0065688B /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
+				0B5B91C7273F233300FCB1B7 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
 			projectDirPath = "";
@@ -1327,6 +1338,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0B5B91CA273F235600FCB1B7 /* Copy “Launch at Login Helper” */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy “Launch at Login Helper”";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
+		};
 		48B68D6C23F6412C009BF4AD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1377,14 +1406,12 @@
 				"${BUILT_PRODUCTS_DIR}/LetsMove/LetsMove.framework",
 				"${BUILT_PRODUCTS_DIR}/ShortcutRecorder/ShortcutRecorder.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyMarkdown/SwiftyMarkdown.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LetsMove.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ShortcutRecorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyMarkdown.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2074,21 +2101,34 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0BB26FDA26DE8E9A003F4085 /* XCRemoteSwiftPackageReference "LoginServiceKit" */ = {
+		0B5B91C7273F233300FCB1B7 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Clipy/LoginServiceKit";
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.1;
+				minimumVersion = 4.0.0;
+			};
+		};
+		0B83F02F273F0E9F0065688B /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimonFairbairn/SwiftyMarkdown";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0BB26FDB26DE8E9A003F4085 /* LoginServiceKit */ = {
+		0B5B91C8273F233300FCB1B7 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0BB26FDA26DE8E9A003F4085 /* XCRemoteSwiftPackageReference "LoginServiceKit" */;
-			productName = LoginServiceKit;
+			package = 0B5B91C7273F233300FCB1B7 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
+		};
+		0B83F030273F0E9F0065688B /* SwiftyMarkdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B83F02F273F0E9F0065688B /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */;
+			productName = SwiftyMarkdown;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
 		A3282A5B2437E609EEB85861D7ECE717 /* AppCenter */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 7BDE3E6C26A9DBBDA1B065A5220FE7A7 /* Build configuration list for PBXAggregateTarget "AppCenter" */;
+			buildConfigurationList = 5242D03FC5C1EAA4F817066052F80607 /* Build configuration list for PBXAggregateTarget "AppCenter" */;
 			buildPhases = (
-				3F0D7CFE659986B859F2B6D2703F23B6 /* [CP] Copy XCFrameworks */,
+				AAD7D4593ED3B713FDA455F0E36487CE /* [CP] Copy XCFrameworks */,
 			);
 			dependencies = (
 			);
@@ -19,9 +19,9 @@
 		};
 		ED77B4B88587C894E85C361023D67C53 /* Sparkle */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 6347E178A154C832C62FFEFD8D07C44A /* Build configuration list for PBXAggregateTarget "Sparkle" */;
+			buildConfigurationList = 31C3FA8CADE61CE3FE2492EDBA06C452 /* Build configuration list for PBXAggregateTarget "Sparkle" */;
 			buildPhases = (
-				A19A62E98EFD5224E676AA13D01CEF3A /* [CP] Copy dSYMs */,
+				9A181939804C9F1E56224ACF31BF086B /* [CP] Copy dSYMs */,
 			);
 			dependencies = (
 			);
@@ -30,134 +30,118 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		00A7403C910B228BC60CE384D22DD116 /* SRKeyEquivalentModifierMaskTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D9CAA1664918E4AB1F00D21F69DA0 /* SRKeyEquivalentModifierMaskTransformer.m */; };
-		020E098C253F02CF5A2F89A505CA37EE /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0C1C115AB4432BC83FCF0991BEBD1B77 /* nl.lproj */; };
-		056DD70A6AF75515312A3B0F3D08A6A7 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 89ECCF5C28954A7B3D6F209951DDE00A /* ru.lproj */; };
-		09E2FEA00C09258B6F49E62590C35767 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E609A6961DA372D43538B70AE7C773 /* Carbon.framework */; };
-		09F6953D0A355AEEDD4DE40E8FD483B6 /* PFMoveApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C0A38D967BB19D7B7B917986EB524A6 /* PFMoveApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0A1237C0C6C64DAE78E6F4CD771CA4B0 /* da.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FC659CA1A63C29E46ED310E18A3F1BE0 /* da.lproj */; };
-		0EC5CD27183E62F0F15E6A3F73BA4E78 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63FE26FF2073B3D5C0DD5241111D1F57 /* pt.lproj */; };
-		0F8E3C25F030CA95F52DCF21F516E66A /* SRShortcutAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FEC495D79E521A3360558B2AB629F87 /* SRShortcutAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1072B15890EA4B05629A311A9CB011F1 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C0D2B778DDB80D86C4C8EFA17AC24506 /* ca.lproj */; };
-		10F338979909A45B2DEB7AA8892046F4 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F193BE94CF7BE5654701B5D7522F4C14 /* tr.lproj */; };
-		11AD8D91EE9831FF03509804F70A1623 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 2EBD1890DD74FD50DDDA22779C6276A7 /* nb.lproj */; };
-		13D1860FD3212789A193B0BDCE8CBBB5 /* SwiftyMarkdown+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855885A95991E80DCB995A46F89BB307 /* SwiftyMarkdown+macOS.swift */; };
-		19C57F8B6328BE9F770A07F168426903 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B86492610E803CB63311E60BA60D54 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1F20EA886DD6BF2EE1017F54FF5BB295 /* SRShortcutFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF1D9DEABFD01EFDD98009B2B5E86EB /* SRShortcutFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1F20FB330787775FB0E9F0CE37EFE52F /* SRShortcutValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 99D4433DDA11CCBEA9F380638E6EA2CD /* SRShortcutValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2042A55FF7A1761CB25D0D86A254C442 /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 134A2AFC112592A749B5360CC4E6E74D /* hu.lproj */; };
-		20F20DA2B30091851980ED6F99A6F700 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B41A00DA0C0FD46305B0CC6372BC4 /* SRCommon.m */; };
-		213B07126B15B2E4F5FD1A26D8334D25 /* SRRecorderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BA98498254EB370EC2896007FA1354 /* SRRecorderControl.m */; };
-		24861984927BBA000705C74347889BB5 /* SRRecorderControlStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = A59E0F29C5A3AEE559B578267B79CCB2 /* SRRecorderControlStyle.m */; };
-		259277CEED53CBF04C1C40ACF7E834E9 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8C2733C167C0E7821ED4720D430FF76B /* ja.lproj */; };
-		2E15CAB0A52B69D3FA0D70119BBE8E53 /* LetsMove-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 98A2B5B7657D828C470D2B8407E5BA9D /* LetsMove-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2E94FD46CBC3E5D0224C95A723D7C3F6 /* SRKeyBindingTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F58ED244B5E980F6F5A3A0C3BF63EA /* SRKeyBindingTransformer.m */; };
-		3062091279B0580088241A258BA22674 /* Pods-alt-tab-macos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9398EB710E40217E35064D9686CCAD21 /* Pods-alt-tab-macos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		31194073C810A8C763DB8B070D931BE2 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 07918652981A3E11B412FC628C0BDBDA /* es.lproj */; };
-		318290C1F3C1A2EC2FD576E215621EBB /* SRShortcutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CCFE377BE43328D7EA024864B7808 /* SRShortcutAction.m */; };
-		37C40ADF03583366ED05A7392F44D253 /* SRRecorderControlStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D5A58BEECF8B8C8BADE2834DDBD8EB9 /* SRRecorderControlStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3CF2CD18FB573A30174F95AD6BA563C4 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B1F22BF6E61641C4CFBEE94BB20CEDFB /* ja.lproj */; };
-		40B5D8DA3D5A2FBCC834C16967CC8A5D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3480CD5320CDD65B1D12AE365F15E478 /* Cocoa.framework */; };
-		4BFE0CF9902E3C8141E725AB16276440 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 35FBAECA314692CE1E3803738D4B3A6F /* en.lproj */; };
-		4CB8337198FDE1993480CE70C221FABB /* sr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0987474A5DA6E3D386F8207B5921F2F3 /* sr.lproj */; };
-		500A10E28FCAAFB0A968CCED417B3275 /* pt_BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 9ADBC0AC63D18D70E357A51F73908402 /* pt_BR.lproj */; };
-		568560CA36FE09111F664C6BBA404742 /* zh_TW.lproj in Resources */ = {isa = PBXBuildFile; fileRef = AFE9F7335B2E8656C872665AE9B9A2AF /* zh_TW.lproj */; };
-		5B317668F69ADABCAD5AE47A1CE39D69 /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BF3C71667FBF2E88C082B93476C496D7 /* sk.lproj */; };
-		5C51919BE3EF096A7D986B57A51AB0D0 /* SRKeyEquivalentTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4895803C4694225A8A220BF4BE27131D /* SRKeyEquivalentTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5E615985AE6C7D5B9238F364549E9677 /* LetsMove-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0BC4AB603DF168A5625BAC1B22D37B /* LetsMove-dummy.m */; };
-		5EC2F2D2F2DF932A3F9E94B95287E797 /* SRShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D446A591B0FB7F34E777368CCC7343D /* SRShortcut.m */; };
-		624A88E7083E922D1E7A468628EF6763 /* SRKeyBindingTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 219002683854F53754B586BA37C02797 /* SRKeyBindingTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		646512A9E87882737F42741DF820A248 /* SRKeyEquivalentModifierMaskTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = E440E6FFF81AD5C2D4FCEBC3573F1929 /* SRKeyEquivalentModifierMaskTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66197FFF0B0D9B0F40D4EB34B2F0B15B /* SRKeyCodeTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 84E439B3E0DFC3EC4EA3BD0CD81047B0 /* SRKeyCodeTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		67DCED0B71E2F604884589FD8415F43C /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6569E4906CA5ACD6DE840925B0C22DDA /* th.lproj */; };
-		69D5B8B43F71C91C15DE6A606B791F5D /* mk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = EAB3DB14BEF850C0BC79AC9749202396 /* mk.lproj */; };
-		6C7847B5EE79878D537FF196B7F0ECFD /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A133F0764DB77639B7242874A5F3A4AC /* pl.lproj */; };
-		71662F5F1E7D06EE352DAD05FEA3D54C /* SRRecorderControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2626E74C87E423B9F77062FF3F954D5B /* SRRecorderControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		729B7AE3AE6C35966D88D0C140BFE6B3 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 40F691A0CE966A7169FA8E4A9155ABDF /* ca.lproj */; };
-		74082A600D2E1D2A7D6082B305F25731 /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A1DA1F3BA0571231732256D1B94DB7DA /* sk.lproj */; };
-		7802F6B93A977657D40DCA155B131429 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3480CD5320CDD65B1D12AE365F15E478 /* Cocoa.framework */; };
-		7865590A2BE59243B14AA920CB802D16 /* SRCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 98F28B35E83CBA58E79B5AEA1FC33716 /* SRCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7CB7460CEF50FA8AE32305B967DF611A /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1A57D39A7031825DAEE2F4BA45971AD1 /* pl.lproj */; };
-		826C126D2445D0F2586B6B3B671B40A1 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E6DCCB5E5A360877F0A70EB7BB859112 /* it.lproj */; };
-		82A0911ED4F09020DFDC4E17305FCA51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3480CD5320CDD65B1D12AE365F15E478 /* Cocoa.framework */; };
-		837BD56009CE3487ED907F825D51F478 /* SwiftyMarkdown-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A3197C179C3D03D7EF781C52046DDC99 /* SwiftyMarkdown-dummy.m */; };
-		84DA043E377D11D7E4BA94DF9CF0E60A /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 7824EFDA7D45387226C307950A54F61C /* nb.lproj */; };
-		8558903ED5DF4CF7C139032314286244 /* SRKeyEquivalentTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F5A5E9F57B22E233C9A4AEFF2A1F5 /* SRKeyEquivalentTransformer.m */; };
-		88044B1C761CA2BD4F17ADE1CFEAE3CD /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FB2995FDA04F692955D549C7730AA391 /* en.lproj */; };
-		890BDCB72A2DE7D73FE21F8DCDE993B1 /* String+SwiftyMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F73E676B87BFF762D9AD029D31534A /* String+SwiftyMarkdown.swift */; };
-		8999CEBAA3A313F1C8544DC1D581B339 /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 852ECB8481CDFE4F0698350571B7CD10 /* cs.lproj */; };
-		8C500482DF0DA821FBFD71A84CD466AD /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 340BD7AE073963BCE7A526AA5E8CA2A9 /* ko.lproj */; };
-		8FA35CBA2D53AA65111A9BB84328D8EA /* ShortcutRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F67B8E9BE3FCD57470A7E42D517CE7 /* ShortcutRecorder-dummy.m */; };
-		985F94722BB2E4A7E884FC402B0B449E /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E691C3C284C4F669DE4E711CC2BCC153 /* zh-Hant.lproj */; };
-		995FF511BD514AC60699AF6D02149A1F /* ro.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C536D2B694F12CF141AE9DFAA612490B /* ro.lproj */; };
-		9C725C84B6B0BD6649A2D7CCA3E08FAA /* SwiftyTokeniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00907FA8EFDB0D580F90E9C9E9C904C4 /* SwiftyTokeniser.swift */; };
-		9D07D75F7C84943BDCE3ABC491CD59D1 /* LetsMove.h in Headers */ = {isa = PBXBuildFile; fileRef = 58412D31C64C42BFD331740161DD0CA8 /* LetsMove.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A2CC1A84A9C146A91EF5B68270D0F06C /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3B50BA22BD11B0A09EA474254E9B2CDB /* de.lproj */; };
-		A2FCC58CB9470201B66FE93E38C2EEBC /* ShortcutRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = D649ACD8BEE005D3286D39B9B5EC53DF /* ShortcutRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A4E39AAA30EF40466757270F0F736814 /* SRShortcutController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5BE438BD0C6929B973E4014522945 /* SRShortcutController.m */; };
-		A515F0D69E74E71489364F47E1A5513E /* SRModifierFlagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D297E238A506752D25A28A6F3529EE4 /* SRModifierFlagsTransformer.m */; };
-		A6C76F2FFFDCF82636C355053430B94D /* ShortcutRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FE13AA22103F4727F68BC38EF22983C2 /* ShortcutRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB986179D17EE4638FF869F4B77A08CC /* SRShortcutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F541D7D15015E379B988256C9D371F9 /* SRShortcutController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AECE89CE5364011E4C71F28D0F0531E6 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = ED2F317F94D97E0C29AE53261213F73E /* de.lproj */; };
-		B125766C333F5D75F1B730C08219F4D9 /* SwiftyMarkdown-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EA9B64E024265E57C37921D3BDC8CE7 /* SwiftyMarkdown-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B456576A96AF747CDD54551DE86B6E8D /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 39820D7A28DF1B761FF28AA24AACBBF0 /* cs.lproj */; };
-		B6073B7D340523A56B48E26BD7E72D4A /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FBCB519280812795BE6186581A7F305D /* fr.lproj */; };
-		B62D71062B028DC6005EBE8F3A30F83D /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D3A9B1EE03CDA56B5F41D9FEF7DC37BA /* it.lproj */; };
-		B8DD041895DDBE5113EBA3B48F6D9F71 /* Pods-alt-tab-macos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F71AC7B7C29C8922102AA39EFE0C /* Pods-alt-tab-macos-dummy.m */; };
-		B96E7AF6A6260FA5D1E1ED99FC7F22C6 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 957B2E951691B2A2F7C5B426833413E7 /* nl.lproj */; };
-		BBF76189D619B847BD07E8CA986F3DF4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3480CD5320CDD65B1D12AE365F15E478 /* Cocoa.framework */; };
-		C1720CEFBCDF891D229E2933A25FB21F /* zh_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6D420DAB8C061F68778215AEB3D1EE6C /* zh_CN.lproj */; };
-		CBF6B269E6C670E063CB93B2A021214E /* SRShortcutFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDBD82157585F0B07E693927EE84938 /* SRShortcutFormatter.m */; };
-		CECE32B1DBF797B058EB51E7D22C990B /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A6D973739243ED6AF1BB51661BBB57C6 /* el.lproj */; };
-		D16D912F8C268F6BA1AAB01B40145A74 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DC2A9C94B0348ECB9FCA51CB9B787714 /* ru.lproj */; };
-		D94A6C0B6D81E2D9D99B3E5BFE9C74E0 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 409DFDD2158F6FF49DAD0795C0C9AA17 /* es.lproj */; };
-		DE3998CDB1667994B70CD3DAC2858695 /* SwiftyLineProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749F4E4900539F4514C8BDF08A1C396 /* SwiftyLineProcessor.swift */; };
-		DE7DCF5ADAE503201E2D92397107F29B /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E9DC74FA9D335C410789B5374E46F6F1 /* sv.lproj */; };
-		DF2207C5FFA3D5B05AD7B0A03B4A01CD /* SRShortcut.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8749CE44E7CED4284D02FB6DE7DDB7 /* SRShortcut.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF5FE8A4C33449686EE10BE7DFB3EF3D /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0AA0767085F6192AAD03CE35747ECDDF /* fr.lproj */; };
-		E2969FEA71F76C65EE303B90300C38D3 /* SRModifierFlagsTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = BE472CC34E2D6C4AC14A8E8AB705B3E5 /* SRModifierFlagsTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E5542ECF452E571B2DBB14284E7D6232 /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 527CC4CE389322016B894ADA2C752FAF /* zh-Hans.lproj */; };
-		E641BD12CF3AD3888CF543C07EAC8333 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 4426A315043517D284A125D98EA0B9A3 /* pt.lproj */; };
-		E8B7C953BE74D33A20E34A5374C690CE /* SwiftyMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124918D9276C12320E61B4442905F6D /* SwiftyMarkdown.swift */; };
-		EEB1634EB172198229B0DA244C349A1A /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8349D87D74BE8E6F1CDAD97286431D99 /* SRKeyCodeTransformer.m */; };
-		EF4D2B47722794AED41E79F194547935 /* pt-BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D745267B2411498BBFD6E04EBEBC6DE5 /* pt-BR.lproj */; };
-		EF6C113655CD1DAC81605D79B575A2B8 /* SRShortcutValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = A37AD8BD1A6D66EEECFD4B856040FFB1 /* SRShortcutValidator.m */; };
-		F1BF56FD4BD59ACE35F969146554BAA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B536D6E78C9289EE08A2CE5C65CF6FFE /* Images.xcassets */; };
-		F87380A0F9BFC6970A7E72F4F7A2209D /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D49A494932287285CF551356BDC50645 /* ko.lproj */; };
-		F8DD35F2A601BAF61B1EA1EA92531663 /* SwiftyMarkdown+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6BFFBF66500AF853BAE14FE89316F5 /* SwiftyMarkdown+iOS.swift */; };
-		FD50D88AF2AB7692F630B7E45B38603E /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = ACBC031D96D749EB7A8C6A26B4E7BC8E /* sv.lproj */; };
+		0DEC3A2A0B354E472AB21EC1611E97B4 /* LetsMove-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 30ED72AFF68A69E5271F78B26A70B643 /* LetsMove-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E35D9FB4D2163CEAC2877B93452C1F0 /* ShortcutRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E417D331F87D523DB7678F2E9969BF /* ShortcutRecorder-dummy.m */; };
+		0E95CBA32B409D0E9ED918E6B36ACC99 /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 55A5EE7998860647C2CC22353CE23F8D /* sv.lproj */; };
+		11598CBCB85FCD202C28F3D86DC8DEF0 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = F362B55619EBDD6E7E25A735A9444719 /* SRCommon.m */; };
+		178E7EAF963659E17997B9AC76556603 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 84796B70E3495C2A3C504A8FD3A7D099 /* ja.lproj */; };
+		194EB0FFFAB2EACDFC60D4AD7E3EB1B2 /* SRShortcutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E888B6779103E8E8474578E3C2F18 /* SRShortcutAction.m */; };
+		1D35553560975991D41A54507AF7D05B /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E609A6961DA372D43538B70AE7C773 /* Carbon.framework */; };
+		1F3F9BA98586D61964C686198A2698B1 /* SRShortcutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 13EDB38D764EFD7A61AD9AA434309D0F /* SRShortcutController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F54E2097C3C0F27EEA46CD3D938CDF2 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 622A9082AD27A8161C006301BDC46EA9 /* tr.lproj */; };
+		1F78716FC69EF523B459AA7954B48178 /* da.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A486AEA826BEA63048E4505E3CF03D8C /* da.lproj */; };
+		23BC781FC75CDB5A908D600CF897B3A3 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C581D16771EBAE667DDCC68CE5452A84 /* it.lproj */; };
+		25A53FC91988277AD93B80DEFBB6D3E1 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6CF9E1F9A0EB104752459279DF6BD906 /* de.lproj */; };
+		2B29D1B9EB9B7CBAC64A89D9EFDC9B20 /* SRShortcutFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90215C43113587E7F6B417103E8877EF /* SRShortcutFormatter.m */; };
+		31EEA166BA910C56AB1936C111DF17BF /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 73308E6103D0E39915642055F2739496 /* fr.lproj */; };
+		39486B6AC95C3F63A25AA253B0B3D6E0 /* ShortcutRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 39D80CE390F6440B3F9AF58EB83B2985 /* ShortcutRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A7E89EDF2763EF27009DFEC61CCFDB6 /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F5E2A64E9170A97E7C0CB0C05F5E9DB5 /* fr.lproj */; };
+		3B9B8F7C87EC7661EB8C6A9FF551E5CF /* SRShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = AA122DEA021FAB240F74EFC03C3DD93A /* SRShortcut.m */; };
+		3CE2D1A367C642DD1809C012AD897E08 /* SRKeyBindingTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = FECA3568761E6C5A2C7D027A5F7AD68F /* SRKeyBindingTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40963A7DA4089997A7772FE9D8FC4D00 /* PFMoveApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = D074F8D35FFA2AEEE6EA0799BBAE9C62 /* PFMoveApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40C5EAC684C7C4C1261A6BFAA7301F61 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3480CD5320CDD65B1D12AE365F15E478 /* Cocoa.framework */; };
+		4340778186D06CC87B43CA14BD0E3295 /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1AFD1BD59216BF523F8378FFD55D764D /* sk.lproj */; };
+		4591F27DFFF58A3976308AE716E8ED65 /* mk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0ED5F68EBC7F61607F0E56AAC2EEA992 /* mk.lproj */; };
+		4663CD041D8289281872EE29AD151FDF /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 2C93DFA6393ED1B71923CB208AED2566 /* zh-Hant.lproj */; };
+		49734ACF6BDE0E1699441CEC9C07FAF9 /* SRRecorderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF3AFDCCE311DE5A998C54068E60B12 /* SRRecorderControl.m */; };
+		550B1BF9E3027F779E7B270940001377 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1AC5B71D6EA023BE1D5EF227C9E08288 /* es.lproj */; };
+		5C90BE17AE90AE308D14E62D4C7CF064 /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C0E803D74F79746714FA05F1265D7511 /* el.lproj */; };
+		5CB50C683CD1D2EFA134D5B2C9F27C08 /* SRKeyEquivalentModifierMaskTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = DC997DCFA1834FCB9CE54710E1DD27F8 /* SRKeyEquivalentModifierMaskTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5CE4631247F366C075EA88D1D99FEE31 /* SRShortcutController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD70158AB1525662E02D690E4A0E572 /* SRShortcutController.m */; };
+		61776142D2FEDF9FCDA17BF8CC8DB3E1 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D3E7ECBB190CD8DB7161A2041EB73C7B /* ca.lproj */; };
+		664CE9F192239B56D5A3B5462575B64F /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3ED697E7D38E9414111460234CAB04FB /* nl.lproj */; };
+		6918BD3D86751F8335515624509F8CD0 /* SRShortcutValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D22575589C0D285B20101929D05D96 /* SRShortcutValidator.m */; };
+		69CA47C56053D189A5014EE002AB781B /* SRKeyEquivalentTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 642FD458C287FE8805C61F220B3BCE36 /* SRKeyEquivalentTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BE698B654A8410A6AA494F7A0331A6C /* SRCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 13273D907B6E9C45D44C1A37C2359652 /* SRCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D0418D51C4B03D265928F903BB66073 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEA68713ECCE1A920466A642992063AA /* Images.xcassets */; };
+		6EC2338FF937C7F882CCA4736900CA12 /* SRKeyEquivalentTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 230094EC4AC462855D04C7300C644B1F /* SRKeyEquivalentTransformer.m */; };
+		72CFDE169976C8820E37F8CA2834CE7F /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 74C85C9BF493E00DB2A2B5239CCF22EB /* ru.lproj */; };
+		8017F2909EFC549013E784846A619330 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 058BE9078F97CE311AB44E7C1A0054B7 /* it.lproj */; };
+		8096193A3981CD1B926C7531ADAB0CBC /* SRShortcutValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = CC27D91E50E91735B4F22816DB3067D4 /* SRShortcutValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		81FDF0E02301BF28CA30F9FBDE984114 /* Pods-alt-tab-macos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F71AC7B7C29C8922102AA39EFE0C /* Pods-alt-tab-macos-dummy.m */; };
+		863A9F4E78250C0D1914C5011BE7801D /* LetsMove-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ABF713BE8BAF12FAF20089630B5FD15 /* LetsMove-dummy.m */; };
+		87B37C9186C2B818C41D9C8E82450EC3 /* SRKeyEquivalentModifierMaskTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFC3806275F85276DB4D2D570CE746D /* SRKeyEquivalentModifierMaskTransformer.m */; };
+		898480A6228345B3841F381AEF38B32B /* ShortcutRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 3488A5ACFB288830F41461EA7DA809C9 /* ShortcutRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8BCA2517F62047D3C5CBED74D901BC99 /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD25E6646621F25D72A5BCE26819BEF /* SRKeyCodeTransformer.m */; };
+		91C3B7688EEAA946F22070FB8A097298 /* zh_TW.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DBA3194B190990DAA089B47294B179A8 /* zh_TW.lproj */; };
+		93900EBA639B5860E62AF00D9DC52E20 /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = B60439E61D72B7EE5186256536E4C41E /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9487311C2D16DF3B263DD91CC4DE4A67 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3480CD5320CDD65B1D12AE365F15E478 /* Cocoa.framework */; };
+		9633A3444F1105C2B6B4E36465596F38 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 47D8437E308FC79C5123E5DC2E7F8A9C /* en.lproj */; };
+		9A7564507E7232CD3690639CD7FFC1B0 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A45FEAD39FC456B96223C9095C67DB72 /* nb.lproj */; };
+		9B9C681A9054D825415BE58C4300F5B1 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 64DA82B50FF202DD18C1F74EE4C4247A /* nb.lproj */; };
+		9CF33045EE0197D04D81500ED271A8BD /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B99DA0241900F21428E11F0149DC6BB5 /* es.lproj */; };
+		A0DAF5137190588A5EB7F92C5D0C5D2B /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 01162A43953D5B9B7B64B9EBCD8D4283 /* zh-Hans.lproj */; };
+		A730408D5F9FE54D06CC94D464C23444 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = EC3152EF908FF32892F483C6B426D0B5 /* ru.lproj */; };
+		A8847453DDA1E85B260BB5A50359FBBC /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 71473BEF9A295876B9C56B489B528BD9 /* cs.lproj */; };
+		A96A16A559355C1833DE725F8B881762 /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 94EB4883B195C0917A08470445493C32 /* pl.lproj */; };
+		A9D46ED82B1F3FE41477FB7B6E093ED7 /* SRRecorderControlStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 33C491559DA34777D6DAF4353962F328 /* SRRecorderControlStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA58C58F5FD6FC55D195771211EE69D4 /* SRModifierFlagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = FD88076E3A12531F07C103C9E2E734C3 /* SRModifierFlagsTransformer.m */; };
+		AD07A66D394E6DB98B00088F1812ECB6 /* SRShortcut.h in Headers */ = {isa = PBXBuildFile; fileRef = 59D7F73427087ACDDB45DB6AFB4B9158 /* SRShortcut.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD0C8D70D7EFB84D0161C89C939C3815 /* pt-BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FD57903452E3AB65D73689E1728D3437 /* pt-BR.lproj */; };
+		AEBAECF2907A161A7F6FC2F22AAE3DB9 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 9F5E518A051B8A56AEB0A83C3BDF80CC /* nl.lproj */; };
+		AEEDF59CBC0B9350393DDB5958D04727 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B9674A281B11F8F383AB4ABAC337131A /* de.lproj */; };
+		B740D9F8A723785F1EDBC72A34985EC2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3480CD5320CDD65B1D12AE365F15E478 /* Cocoa.framework */; };
+		B7C39AA5BDECCB955D18AAF378334707 /* zh_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B9E0DF9409CE2AF7F80C2C304CBCF755 /* zh_CN.lproj */; };
+		B7DD0EA04EC1650701A5C63FCD0B72BA /* SRKeyCodeTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 231D4D1CE2466E3C107D8D474C712F63 /* SRKeyCodeTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B9F105BD91A765B7F902EFECCB961203 /* SRRecorderControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 451D4E698EEFE820333963EEDF21BDFF /* SRRecorderControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BEDE53B275C126D90D324D724114B90B /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CD45F6277C46837ABCB4A4273C58AB40 /* cs.lproj */; };
+		C0B180D7E6686D734C6C7E7C089AAF99 /* Pods-alt-tab-macos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9398EB710E40217E35064D9686CCAD21 /* Pods-alt-tab-macos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2BAE19159950C9BFA59A6F48A5DCEBE /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FCD1A09507B7441BD525BAE8F561BD8C /* sk.lproj */; };
+		C42C04364610C49314DDF3EAEF9E5716 /* ro.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5AECBCDC7B5936E5A820835BEA01E1C7 /* ro.lproj */; };
+		C570BACFC2CD4B01BD1EE9690B4F1A11 /* LetsMove.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AB00D924A58F6E58EBD276E79AFB2AE /* LetsMove.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C73C07888E36D3D006FE93AF6AC6E099 /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FABD9241CE01DF07D572A72D4D305328 /* ko.lproj */; };
+		C961E962F6E72D24C198E96CBD1F2644 /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1A6114406655255F6112514A31C00BC8 /* hu.lproj */; };
+		CAF34E5DBD1769250E795D520DC2434F /* SRModifierFlagsTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 385B658F88CFB876DA238EEE7B6F042C /* SRModifierFlagsTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD48D5698ED68FB0F88624077D20BF2A /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1F187693F17E98907C162B44EE76B6E5 /* ca.lproj */; };
+		CE3452FDB9E5A3F0341DF0F05F0F6DF7 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6F0858DABEB7FDF4A22BBD37C2519498 /* pt.lproj */; };
+		D5115660832045EAB52A8775850625FE /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D3C368F7DC035AC7442F6AACDCA2BA2A /* sv.lproj */; };
+		DC807C093125CB27F449A9D932D0E501 /* SRShortcutAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 56AF263207BBE600EB9B679BFF98AA98 /* SRShortcutAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE008EDF71170501A229D7CBD2C36FCC /* SRRecorderControlStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 26295AE8129BBA18AEA5ED85552B6C1C /* SRRecorderControlStyle.m */; };
+		DF6501809F3F66CFAB9BEBD889418BCC /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 37EBE08B99108181759AA26394599AAE /* pt.lproj */; };
+		DFCF25A14E68FBDE71E5E5061C24FCC5 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F0C7F426688253A4D9829916C2B4EEF6 /* ja.lproj */; };
+		E404A81BFE3B861A17F90FADD2A8D431 /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 106DE20EB2F11B2CF547856331126403 /* th.lproj */; };
+		E4B07CD3EED92FB6CB936D80D04EED85 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5DE28F2140456CC4DAFAA20EF0280A34 /* en.lproj */; };
+		E88A362211DD23931AC665075F0C845B /* SRKeyBindingTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9F4BA69238A0BD8461469C01CD1F50 /* SRKeyBindingTransformer.m */; };
+		EA23275D679FB078F382B9FEAC99AE9A /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1C7FD44AA214FE142652342CDDAFC871 /* pl.lproj */; };
+		F1ED76BAFEA85DD8E858B1FC31192B27 /* sr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C7328B345CC573DCC336AE5E36636596 /* sr.lproj */; };
+		F64355696E9F79EAEA3ADB4033486CE7 /* pt_BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = AE4A3DAD36DDADCEB23A44B1EAC7E0DF /* pt_BR.lproj */; };
+		F67D3F9AB3E792F9B5BF1295654CDDB6 /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 003E1F6B365922FE9F5850AD1D67ED65 /* ko.lproj */; };
+		F869274D89CD98C751D8F6C27EA445D1 /* SRShortcutFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 305996D5C150F8D7ABD14808BF867BC3 /* SRShortcutFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		10B3B47340BED371348B17DE4D5124C3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D94AE99BF0C9025247C40F440DC9DB50;
-			remoteInfo = ShortcutRecorder;
-		};
-		573D725B79A096FD494C4B816E5CDC08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 93523582DEC251A9E59F621510B882C3;
-			remoteInfo = SwiftyMarkdown;
-		};
-		93EC44DF9CEA416B3B750E338D95343C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = ED77B4B88587C894E85C361023D67C53;
-			remoteInfo = Sparkle;
-		};
-		CAA6597DB5D828123F1FA543A1B73698 /* PBXContainerItemProxy */ = {
+		8B5BE3CA040F88F5975F6693BDCF05C0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F83960005EA88D0C24A1D277DD0E8667;
 			remoteInfo = LetsMove;
 		};
-		E17DEEFEDFF1E4501EB5E7EB393CBD8A /* PBXContainerItemProxy */ = {
+		96C005E0C2267CC48261331008820618 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D94AE99BF0C9025247C40F440DC9DB50;
+			remoteInfo = ShortcutRecorder;
+		};
+		A977BD3250F5898D43A34B43E8450F09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED77B4B88587C894E85C361023D67C53;
+			remoteInfo = Sparkle;
+		};
+		C5566BB724058756C1FD4B31776A543C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -167,264 +151,311 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00907FA8EFDB0D580F90E9C9E9C904C4 /* SwiftyTokeniser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyTokeniser.swift; path = Sources/SwiftyMarkdown/SwiftyTokeniser.swift; sourceTree = "<group>"; };
-		07918652981A3E11B412FC628C0BDBDA /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = es.lproj; sourceTree = "<group>"; };
-		0987474A5DA6E3D386F8207B5921F2F3 /* sr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sr.lproj; sourceTree = "<group>"; };
-		0AA0767085F6192AAD03CE35747ECDDF /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fr.lproj; path = Resources/fr.lproj; sourceTree = "<group>"; };
-		0BC2296212C075CEBBE5E029BFBDFAD4 /* SUExport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUExport.h; path = Sparkle.framework/Versions/A/Headers/SUExport.h; sourceTree = "<group>"; };
-		0C1C115AB4432BC83FCF0991BEBD1B77 /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = nl.lproj; sourceTree = "<group>"; };
-		0E675EA013509FC5024447A0E50DD581 /* SwiftyMarkdown-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyMarkdown-prefix.pch"; sourceTree = "<group>"; };
-		0E74225A84AF67B7D05379424EA54F91 /* ShortcutRecorder-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ShortcutRecorder-Info.plist"; sourceTree = "<group>"; };
-		0EA9B64E024265E57C37921D3BDC8CE7 /* SwiftyMarkdown-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyMarkdown-umbrella.h"; sourceTree = "<group>"; };
-		131133847C1B52EE7A00C8D247364F91 /* LetsMove.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LetsMove.debug.xcconfig; sourceTree = "<group>"; };
-		1317D7A2DEE4726F9D0DA9D91D84E5FF /* SUAppcast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcast.h; path = Sparkle.framework/Versions/A/Headers/SUAppcast.h; sourceTree = "<group>"; };
-		134A2AFC112592A749B5360CC4E6E74D /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = hu.lproj; sourceTree = "<group>"; };
-		15C5E113CB33983E3D7CA2E549590C5A /* LetsMove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LetsMove.release.xcconfig; sourceTree = "<group>"; };
-		165CDDC23C92D01F47C253F4C4C8F6A8 /* Sparkle-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Sparkle-copy-dsyms.sh"; sourceTree = "<group>"; };
-		1A57D39A7031825DAEE2F4BA45971AD1 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pl.lproj; path = Resources/pl.lproj; sourceTree = "<group>"; };
-		1D2CCFE377BE43328D7EA024864B7808 /* SRShortcutAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutAction.m; path = Library/SRShortcutAction.m; sourceTree = "<group>"; };
+		003E1F6B365922FE9F5850AD1D67ED65 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ko.lproj; sourceTree = "<group>"; };
+		01162A43953D5B9B7B64B9EBCD8D4283 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
+		045EBB1A12662242CB64605BE5B3BD22 /* Sparkle-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Sparkle-copy-dsyms.sh"; sourceTree = "<group>"; };
+		04E16FE9CB841F8172C44091E5DA6DFF /* SPUDownloadData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloadData.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloadData.h; sourceTree = "<group>"; };
+		058BE9078F97CE311AB44E7C1A0054B7 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = it.lproj; path = Resources/it.lproj; sourceTree = "<group>"; };
+		0AF3AFDCCE311DE5A998C54068E60B12 /* SRRecorderControl.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControl.m; path = Library/SRRecorderControl.m; sourceTree = "<group>"; };
+		0CDC4FAC0832AD86A00724C224471FCE /* AppCenterCrashes.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = AppCenterCrashes.xcframework; path = "AppCenter-SDK-Apple/AppCenterCrashes.xcframework"; sourceTree = "<group>"; };
+		0D9F4BA69238A0BD8461469C01CD1F50 /* SRKeyBindingTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyBindingTransformer.m; path = Library/SRKeyBindingTransformer.m; sourceTree = "<group>"; };
+		0ED5F68EBC7F61607F0E56AAC2EEA992 /* mk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = mk.lproj; sourceTree = "<group>"; };
+		106DE20EB2F11B2CF547856331126403 /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = th.lproj; path = Resources/th.lproj; sourceTree = "<group>"; };
+		13273D907B6E9C45D44C1A37C2359652 /* SRCommon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRCommon.h; path = Library/SRCommon.h; sourceTree = "<group>"; };
+		13EDB38D764EFD7A61AD9AA434309D0F /* SRShortcutController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutController.h; path = Library/SRShortcutController.h; sourceTree = "<group>"; };
+		1987D54137969705DDD9B9AF1D2E79A6 /* LetsMove.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LetsMove.debug.xcconfig; sourceTree = "<group>"; };
+		1A6114406655255F6112514A31C00BC8 /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = hu.lproj; sourceTree = "<group>"; };
+		1AC5B71D6EA023BE1D5EF227C9E08288 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = es.lproj; sourceTree = "<group>"; };
+		1AFD1BD59216BF523F8378FFD55D764D /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sk.lproj; sourceTree = "<group>"; };
+		1C7FD44AA214FE142652342CDDAFC871 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pl.lproj; path = Resources/pl.lproj; sourceTree = "<group>"; };
 		1D34F54FDD063F2C6A35284EA34D77AB /* Pods-alt-tab-macos.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-alt-tab-macos.modulemap"; sourceTree = "<group>"; };
-		219002683854F53754B586BA37C02797 /* SRKeyBindingTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyBindingTransformer.h; path = Library/SRKeyBindingTransformer.h; sourceTree = "<group>"; };
+		1F187693F17E98907C162B44EE76B6E5 /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ca.lproj; sourceTree = "<group>"; };
 		22695B85D27AA84F0EA8EC8F1CF1C01C /* Pods-alt-tab-macos-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-alt-tab-macos-acknowledgements.markdown"; sourceTree = "<group>"; };
-		25071237EE84E6AFD3B12FE9A0664CB9 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_alt_tab_macos.framework; path = "Pods-alt-tab-macos.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		256B70B9E392F83BB526A16429F225AB /* SUErrors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUErrors.h; path = Sparkle.framework/Versions/A/Headers/SUErrors.h; sourceTree = "<group>"; };
+		22D8CDE7120D80DC910F02E3A1F8E0EB /* ShortcutRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShortcutRecorder.release.xcconfig; sourceTree = "<group>"; };
+		230094EC4AC462855D04C7300C644B1F /* SRKeyEquivalentTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyEquivalentTransformer.m; path = Library/SRKeyEquivalentTransformer.m; sourceTree = "<group>"; };
+		231D4D1CE2466E3C107D8D474C712F63 /* SRKeyCodeTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyCodeTransformer.h; path = Library/SRKeyCodeTransformer.h; sourceTree = "<group>"; };
+		25071237EE84E6AFD3B12FE9A0664CB9 /* Pods-alt-tab-macos */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-alt-tab-macos"; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		25E609A6961DA372D43538B70AE7C773 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = DEVELOPER_DIR; };
-		2626E74C87E423B9F77062FF3F954D5B /* SRRecorderControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRRecorderControl.h; path = Library/SRRecorderControl.h; sourceTree = "<group>"; };
-		2BDB7D7CA97334C45D04C07C4BE0D336 /* LetsMove-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LetsMove-Info.plist"; sourceTree = "<group>"; };
-		2EBD1890DD74FD50DDDA22779C6276A7 /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nb.lproj; path = Resources/nb.lproj; sourceTree = "<group>"; };
-		2FC005AC0672590643BE8A0CDE6324FC /* LetsMove-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LetsMove-prefix.pch"; sourceTree = "<group>"; };
-		3124918D9276C12320E61B4442905F6D /* SwiftyMarkdown.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyMarkdown.swift; path = Sources/SwiftyMarkdown/SwiftyMarkdown.swift; sourceTree = "<group>"; };
-		340BD7AE073963BCE7A526AA5E8CA2A9 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ko.lproj; sourceTree = "<group>"; };
+		26295AE8129BBA18AEA5ED85552B6C1C /* SRRecorderControlStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControlStyle.m; path = Library/SRRecorderControlStyle.m; sourceTree = "<group>"; };
+		26F6148CCC78CB19EFFC009275126E2C /* AppCenter.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = AppCenter.xcframework; path = "AppCenter-SDK-Apple/AppCenter.xcframework"; sourceTree = "<group>"; };
+		2AB00D924A58F6E58EBD276E79AFB2AE /* LetsMove.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LetsMove.h; sourceTree = "<group>"; };
+		2BECA169E9CFC568DCE0A24CC2A4FF96 /* AppCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.debug.xcconfig; sourceTree = "<group>"; };
+		2C93DFA6393ED1B71923CB208AED2566 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hant.lproj"; path = "Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
+		2E50FD406FB07ED8EB7B3E9CD7373B8A /* SUAppcast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcast.h; path = Sparkle.framework/Versions/A/Headers/SUAppcast.h; sourceTree = "<group>"; };
+		305996D5C150F8D7ABD14808BF867BC3 /* SRShortcutFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutFormatter.h; path = Library/SRShortcutFormatter.h; sourceTree = "<group>"; };
+		30ED72AFF68A69E5271F78B26A70B643 /* LetsMove-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LetsMove-umbrella.h"; sourceTree = "<group>"; };
+		33C491559DA34777D6DAF4353962F328 /* SRRecorderControlStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRRecorderControlStyle.h; path = Library/SRRecorderControlStyle.h; sourceTree = "<group>"; };
 		3480CD5320CDD65B1D12AE365F15E478 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		35FBAECA314692CE1E3803738D4B3A6F /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = Resources/en.lproj; sourceTree = "<group>"; };
-		3749F4E4900539F4514C8BDF08A1C396 /* SwiftyLineProcessor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyLineProcessor.swift; path = Sources/SwiftyMarkdown/SwiftyLineProcessor.swift; sourceTree = "<group>"; };
-		37B86492610E803CB63311E60BA60D54 /* PFMoveApplication.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PFMoveApplication.m; sourceTree = "<group>"; };
-		39820D7A28DF1B761FF28AA24AACBBF0 /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = cs.lproj; path = Resources/cs.lproj; sourceTree = "<group>"; };
+		3488A5ACFB288830F41461EA7DA809C9 /* ShortcutRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ShortcutRecorder.h; path = Library/ShortcutRecorder.h; sourceTree = "<group>"; };
+		37EBE08B99108181759AA26394599AAE /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pt.lproj; sourceTree = "<group>"; };
+		385B658F88CFB876DA238EEE7B6F042C /* SRModifierFlagsTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRModifierFlagsTransformer.h; path = Library/SRModifierFlagsTransformer.h; sourceTree = "<group>"; };
+		39D80CE390F6440B3F9AF58EB83B2985 /* ShortcutRecorder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ShortcutRecorder-umbrella.h"; sourceTree = "<group>"; };
 		3A50F71AC7B7C29C8922102AA39EFE0C /* Pods-alt-tab-macos-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-alt-tab-macos-dummy.m"; sourceTree = "<group>"; };
-		3AA396328BE748B9C7B4EB814B3684FA /* SUStandardVersionComparator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUStandardVersionComparator.h; path = Sparkle.framework/Versions/A/Headers/SUStandardVersionComparator.h; sourceTree = "<group>"; };
-		3B50BA22BD11B0A09EA474254E9B2CDB /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = Resources/de.lproj; sourceTree = "<group>"; };
-		3C56EC07364B81B55452E1133EC4422E /* SwiftyMarkdown-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftyMarkdown-Info.plist"; sourceTree = "<group>"; };
-		409DFDD2158F6FF49DAD0795C0C9AA17 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = Resources/es.lproj; sourceTree = "<group>"; };
-		40F691A0CE966A7169FA8E4A9155ABDF /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ca.lproj; sourceTree = "<group>"; };
-		423DA01D665F817A04B7A5966B05AB4E /* SwiftyMarkdown.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftyMarkdown.modulemap; sourceTree = "<group>"; };
-		4426A315043517D284A125D98EA0B9A3 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pt.lproj; sourceTree = "<group>"; };
-		4895803C4694225A8A220BF4BE27131D /* SRKeyEquivalentTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyEquivalentTransformer.h; path = Library/SRKeyEquivalentTransformer.h; sourceTree = "<group>"; };
-		4D991747CB7A2FDFB782E1EA0007C8B8 /* SwiftyMarkdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyMarkdown.debug.xcconfig; sourceTree = "<group>"; };
-		4F0BC4AB603DF168A5625BAC1B22D37B /* LetsMove-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LetsMove-dummy.m"; sourceTree = "<group>"; };
-		527CC4CE389322016B894ADA2C752FAF /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
-		53EBB658BFC6DF43EB4118F541BCF800 /* SUUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdater.h; path = Sparkle.framework/Versions/A/Headers/SUUpdater.h; sourceTree = "<group>"; };
-		5463C1B09CCF15CB07E7F942C32CF722 /* ShortcutRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShortcutRecorder.debug.xcconfig; sourceTree = "<group>"; };
-		56B23F41D11D9BB99F0E349A47FB137C /* AppCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.debug.xcconfig; sourceTree = "<group>"; };
-		58412D31C64C42BFD331740161DD0CA8 /* LetsMove.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LetsMove.h; sourceTree = "<group>"; };
-		5FEC495D79E521A3360558B2AB629F87 /* SRShortcutAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutAction.h; path = Library/SRShortcutAction.h; sourceTree = "<group>"; };
-		62A9DA467FFE4EA43F410744113CAF17 /* SPUDownloaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderDelegate.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderDelegate.h; sourceTree = "<group>"; };
-		63FE26FF2073B3D5C0DD5241111D1F57 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pt.lproj; path = Resources/pt.lproj; sourceTree = "<group>"; };
-		6569E4906CA5ACD6DE840925B0C22DDA /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = th.lproj; path = Resources/th.lproj; sourceTree = "<group>"; };
-		6742D51940B6CFE88A0DF98D84E49925 /* SUUpdaterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdaterDelegate.h; path = Sparkle.framework/Versions/A/Headers/SUUpdaterDelegate.h; sourceTree = "<group>"; };
-		6C1AE074B41EEDE0C17173479A2A0163 /* SUAppcastItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcastItem.h; path = Sparkle.framework/Versions/A/Headers/SUAppcastItem.h; sourceTree = "<group>"; };
-		6D420DAB8C061F68778215AEB3D1EE6C /* zh_CN.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = zh_CN.lproj; sourceTree = "<group>"; };
-		6D6A694F73E529EBE1F11B7CA024094A /* SUVersionComparisonProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionComparisonProtocol.h; path = Sparkle.framework/Versions/A/Headers/SUVersionComparisonProtocol.h; sourceTree = "<group>"; };
-		6E9D9CAA1664918E4AB1F00D21F69DA0 /* SRKeyEquivalentModifierMaskTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyEquivalentModifierMaskTransformer.m; path = Library/SRKeyEquivalentModifierMaskTransformer.m; sourceTree = "<group>"; };
-		6F541D7D15015E379B988256C9D371F9 /* SRShortcutController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutController.h; path = Library/SRShortcutController.h; sourceTree = "<group>"; };
-		7052A302FAC1AC46C49465822B2DC5C0 /* SwiftyMarkdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyMarkdown.release.xcconfig; sourceTree = "<group>"; };
+		3BD25E6646621F25D72A5BCE26819BEF /* SRKeyCodeTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyCodeTransformer.m; path = Library/SRKeyCodeTransformer.m; sourceTree = "<group>"; };
+		3ED697E7D38E9414111460234CAB04FB /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nl.lproj; path = Resources/nl.lproj; sourceTree = "<group>"; };
+		451D4E698EEFE820333963EEDF21BDFF /* SRRecorderControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRRecorderControl.h; path = Library/SRRecorderControl.h; sourceTree = "<group>"; };
+		47D8437E308FC79C5123E5DC2E7F8A9C /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = Resources/en.lproj; sourceTree = "<group>"; };
+		55A5EE7998860647C2CC22353CE23F8D /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sv.lproj; path = Resources/sv.lproj; sourceTree = "<group>"; };
+		56AF263207BBE600EB9B679BFF98AA98 /* SRShortcutAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutAction.h; path = Library/SRShortcutAction.h; sourceTree = "<group>"; };
+		587D7D8C2178097AF024402FF90792E3 /* SUVersionDisplayProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionDisplayProtocol.h; path = Sparkle.framework/Versions/A/Headers/SUVersionDisplayProtocol.h; sourceTree = "<group>"; };
+		59D7F73427087ACDDB45DB6AFB4B9158 /* SRShortcut.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcut.h; path = Library/SRShortcut.h; sourceTree = "<group>"; };
+		59FA1B2A1C13C58D35E763D6D3AF1BAB /* SPUDownloaderSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderSession.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderSession.h; sourceTree = "<group>"; };
+		5AECBCDC7B5936E5A820835BEA01E1C7 /* ro.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ro.lproj; path = Resources/ro.lproj; sourceTree = "<group>"; };
+		5AFC3806275F85276DB4D2D570CE746D /* SRKeyEquivalentModifierMaskTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyEquivalentModifierMaskTransformer.m; path = Library/SRKeyEquivalentModifierMaskTransformer.m; sourceTree = "<group>"; };
+		5DE28F2140456CC4DAFAA20EF0280A34 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = en.lproj; sourceTree = "<group>"; };
+		5F70012A72603D72D11150AE5210C7AF /* ShortcutRecorder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ShortcutRecorder.modulemap; sourceTree = "<group>"; };
+		5FE773B1A91F964BE7065996447FC2C6 /* SUExport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUExport.h; path = Sparkle.framework/Versions/A/Headers/SUExport.h; sourceTree = "<group>"; };
+		622A9082AD27A8161C006301BDC46EA9 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = tr.lproj; sourceTree = "<group>"; };
+		62D541858FAEFA17EA8617C03BB2EF9C /* SPUDownloaderDeprecated.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderDeprecated.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderDeprecated.h; sourceTree = "<group>"; };
+		631B68A808F2E0A0F1882F586854B896 /* SUUpdaterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdaterDelegate.h; path = Sparkle.framework/Versions/A/Headers/SUUpdaterDelegate.h; sourceTree = "<group>"; };
+		642FD458C287FE8805C61F220B3BCE36 /* SRKeyEquivalentTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyEquivalentTransformer.h; path = Library/SRKeyEquivalentTransformer.h; sourceTree = "<group>"; };
+		64DA82B50FF202DD18C1F74EE4C4247A /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nb.lproj; path = Resources/nb.lproj; sourceTree = "<group>"; };
+		6CF9E1F9A0EB104752459279DF6BD906 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = Resources/de.lproj; sourceTree = "<group>"; };
+		6F0858DABEB7FDF4A22BBD37C2519498 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pt.lproj; path = Resources/pt.lproj; sourceTree = "<group>"; };
+		6F3E888B6779103E8E8474578E3C2F18 /* SRShortcutAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutAction.m; path = Library/SRShortcutAction.m; sourceTree = "<group>"; };
+		71473BEF9A295876B9C56B489B528BD9 /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = cs.lproj; path = Resources/cs.lproj; sourceTree = "<group>"; };
+		73308E6103D0E39915642055F2739496 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fr.lproj; path = Resources/fr.lproj; sourceTree = "<group>"; };
 		7475BBC3CE1397DCE052D215F2D73234 /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
-		7824EFDA7D45387226C307950A54F61C /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = nb.lproj; sourceTree = "<group>"; };
-		7A3DD740894FE73E66768ABB17B36265 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ShortcutRecorder.framework; path = ShortcutRecorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7BC9568380AA37C58BECB0FFE8E495AC /* SUVersionDisplayProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionDisplayProtocol.h; path = Sparkle.framework/Versions/A/Headers/SUVersionDisplayProtocol.h; sourceTree = "<group>"; };
-		7C0A38D967BB19D7B7B917986EB524A6 /* PFMoveApplication.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PFMoveApplication.h; sourceTree = "<group>"; };
-		7D297E238A506752D25A28A6F3529EE4 /* SRModifierFlagsTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRModifierFlagsTransformer.m; path = Library/SRModifierFlagsTransformer.m; sourceTree = "<group>"; };
-		7D5A58BEECF8B8C8BADE2834DDBD8EB9 /* SRRecorderControlStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRRecorderControlStyle.h; path = Library/SRRecorderControlStyle.h; sourceTree = "<group>"; };
-		8349D87D74BE8E6F1CDAD97286431D99 /* SRKeyCodeTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyCodeTransformer.m; path = Library/SRKeyCodeTransformer.m; sourceTree = "<group>"; };
-		840F5A5E9F57B22E233C9A4AEFF2A1F5 /* SRKeyEquivalentTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyEquivalentTransformer.m; path = Library/SRKeyEquivalentTransformer.m; sourceTree = "<group>"; };
-		84E439B3E0DFC3EC4EA3BD0CD81047B0 /* SRKeyCodeTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyCodeTransformer.h; path = Library/SRKeyCodeTransformer.h; sourceTree = "<group>"; };
-		852ECB8481CDFE4F0698350571B7CD10 /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = cs.lproj; sourceTree = "<group>"; };
-		855885A95991E80DCB995A46F89BB307 /* SwiftyMarkdown+macOS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SwiftyMarkdown+macOS.swift"; path = "Sources/SwiftyMarkdown/SwiftyMarkdown+macOS.swift"; sourceTree = "<group>"; };
-		8599BAFC2630CC7F13627D60E5A86CDD /* LetsMove.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LetsMove.modulemap; sourceTree = "<group>"; };
-		89ECCF5C28954A7B3D6F209951DDE00A /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ru.lproj; path = Resources/ru.lproj; sourceTree = "<group>"; };
-		8A37363F7BD459E953CD7A2912ED1613 /* AppCenter-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "AppCenter-xcframeworks.sh"; sourceTree = "<group>"; };
-		8C2733C167C0E7821ED4720D430FF76B /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = Resources/ja.lproj; sourceTree = "<group>"; };
-		8D446A591B0FB7F34E777368CCC7343D /* SRShortcut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcut.m; path = Library/SRShortcut.m; sourceTree = "<group>"; };
-		8F8749CE44E7CED4284D02FB6DE7DDB7 /* SRShortcut.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcut.h; path = Library/SRShortcut.h; sourceTree = "<group>"; };
+		74C85C9BF493E00DB2A2B5239CCF22EB /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ru.lproj; sourceTree = "<group>"; };
+		7A3DD740894FE73E66768ABB17B36265 /* ShortcutRecorder */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ShortcutRecorder; path = ShortcutRecorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AC8426479860C4AB48D8C782A33DC9B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		84019F43A64CDED6BC42E104C4437C0D /* Sparkle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Sparkle.h; path = Sparkle.framework/Versions/A/Headers/Sparkle.h; sourceTree = "<group>"; };
+		84796B70E3495C2A3C504A8FD3A7D099 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ja.lproj; sourceTree = "<group>"; };
+		851355D8ACFE498D1D769A684420553C /* SUAppcastItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUAppcastItem.h; path = Sparkle.framework/Versions/A/Headers/SUAppcastItem.h; sourceTree = "<group>"; };
+		88F19E4E099979E5A5162EFC6A73F79D /* SPUURLRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUURLRequest.h; path = Sparkle.framework/Versions/A/Headers/SPUURLRequest.h; sourceTree = "<group>"; };
+		8E54C7C20E3931FD60723BB8B48A4D68 /* SPUDownloaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderDelegate.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderDelegate.h; sourceTree = "<group>"; };
+		90215C43113587E7F6B417103E8877EF /* SRShortcutFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutFormatter.m; path = Library/SRShortcutFormatter.m; sourceTree = "<group>"; };
+		90DB246DCFD2B340246F608775CCF26F /* SUVersionComparisonProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUVersionComparisonProtocol.h; path = Sparkle.framework/Versions/A/Headers/SUVersionComparisonProtocol.h; sourceTree = "<group>"; };
 		9398EB710E40217E35064D9686CCAD21 /* Pods-alt-tab-macos-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-alt-tab-macos-umbrella.h"; sourceTree = "<group>"; };
-		957B2E951691B2A2F7C5B426833413E7 /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nl.lproj; path = Resources/nl.lproj; sourceTree = "<group>"; };
-		98A2B5B7657D828C470D2B8407E5BA9D /* LetsMove-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LetsMove-umbrella.h"; sourceTree = "<group>"; };
-		98F28B35E83CBA58E79B5AEA1FC33716 /* SRCommon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRCommon.h; path = Library/SRCommon.h; sourceTree = "<group>"; };
-		99D4433DDA11CCBEA9F380638E6EA2CD /* SRShortcutValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutValidator.h; path = Library/SRShortcutValidator.h; sourceTree = "<group>"; };
-		9ADBC0AC63D18D70E357A51F73908402 /* pt_BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pt_BR.lproj; sourceTree = "<group>"; };
-		9C64FA1B5F19D197DBA939AC71AD92FA /* SUCodeSigningVerifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUCodeSigningVerifier.h; path = Sparkle.framework/Versions/A/Headers/SUCodeSigningVerifier.h; sourceTree = "<group>"; };
+		94EB4883B195C0917A08470445493C32 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pl.lproj; sourceTree = "<group>"; };
+		98BD14446C4DA6BB21C02CD551EEFC79 /* LetsMove.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LetsMove.modulemap; sourceTree = "<group>"; };
+		9ABF713BE8BAF12FAF20089630B5FD15 /* LetsMove-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LetsMove-dummy.m"; sourceTree = "<group>"; };
+		9B026133DE5E62B7D976ED58B3535FA6 /* AppCenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.release.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A133F0764DB77639B7242874A5F3A4AC /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pl.lproj; sourceTree = "<group>"; };
-		A1DA1F3BA0571231732256D1B94DB7DA /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sk.lproj; path = Resources/sk.lproj; sourceTree = "<group>"; };
-		A2D83F076C444AB57192413BA572C280 /* SPUDownloaderSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderSession.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderSession.h; sourceTree = "<group>"; };
-		A3197C179C3D03D7EF781C52046DDC99 /* SwiftyMarkdown-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyMarkdown-dummy.m"; sourceTree = "<group>"; };
-		A31F0BC7307FD636CDB3F18B3A6C920A /* Sparkle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Sparkle.h; path = Sparkle.framework/Versions/A/Headers/Sparkle.h; sourceTree = "<group>"; };
-		A37AD8BD1A6D66EEECFD4B856040FFB1 /* SRShortcutValidator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutValidator.m; path = Library/SRShortcutValidator.m; sourceTree = "<group>"; };
-		A59E0F29C5A3AEE559B578267B79CCB2 /* SRRecorderControlStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControlStyle.m; path = Library/SRRecorderControlStyle.m; sourceTree = "<group>"; };
-		A6D973739243ED6AF1BB51661BBB57C6 /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = el.lproj; path = Resources/el.lproj; sourceTree = "<group>"; };
-		AC17564D0F58DCA6B3280EDA07C2876D /* SwiftyMarkdown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyMarkdown.framework; path = SwiftyMarkdown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		ACBC031D96D749EB7A8C6A26B4E7BC8E /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sv.lproj; sourceTree = "<group>"; };
-		ACC479ED4C21CDC7CDA022708C842B8A /* SPUDownloaderDeprecated.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderDeprecated.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderDeprecated.h; sourceTree = "<group>"; };
-		AFE9F7335B2E8656C872665AE9B9A2AF /* zh_TW.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = zh_TW.lproj; sourceTree = "<group>"; };
-		B008CB2A94217562A06583527F413C2A /* AppCenter.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = AppCenter.xcframework; path = "AppCenter-SDK-Apple/AppCenter.xcframework"; sourceTree = "<group>"; };
-		B0BA98498254EB370EC2896007FA1354 /* SRRecorderControl.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControl.m; path = Library/SRRecorderControl.m; sourceTree = "<group>"; };
-		B1F22BF6E61641C4CFBEE94BB20CEDFB /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ja.lproj; sourceTree = "<group>"; };
-		B536D6E78C9289EE08A2CE5C65CF6FFE /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
-		B6A5BE438BD0C6929B973E4014522945 /* SRShortcutController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutController.m; path = Library/SRShortcutController.m; sourceTree = "<group>"; };
-		B7F73E676B87BFF762D9AD029D31534A /* String+SwiftyMarkdown.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+SwiftyMarkdown.swift"; path = "Sources/SwiftyMarkdown/String+SwiftyMarkdown.swift"; sourceTree = "<group>"; };
+		9F5E518A051B8A56AEB0A83C3BDF80CC /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = nl.lproj; sourceTree = "<group>"; };
+		A0110D186BF2AE81167F7FA813AE0F49 /* SUStandardVersionComparator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUStandardVersionComparator.h; path = Sparkle.framework/Versions/A/Headers/SUStandardVersionComparator.h; sourceTree = "<group>"; };
+		A45FEAD39FC456B96223C9095C67DB72 /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = nb.lproj; sourceTree = "<group>"; };
+		A486AEA826BEA63048E4505E3CF03D8C /* da.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = da.lproj; sourceTree = "<group>"; };
+		A6429B7D40F053D19E7A3CDAC44D5F24 /* ShortcutRecorder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ShortcutRecorder-prefix.pch"; sourceTree = "<group>"; };
+		AA122DEA021FAB240F74EFC03C3DD93A /* SRShortcut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcut.m; path = Library/SRShortcut.m; sourceTree = "<group>"; };
+		ADD70158AB1525662E02D690E4A0E572 /* SRShortcutController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutController.m; path = Library/SRShortcutController.m; sourceTree = "<group>"; };
+		AE4A3DAD36DDADCEB23A44B1EAC7E0DF /* pt_BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = pt_BR.lproj; sourceTree = "<group>"; };
+		B60439E61D72B7EE5186256536E4C41E /* PFMoveApplication.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PFMoveApplication.m; sourceTree = "<group>"; };
 		B8E37B919891F60149AC5703A01BD88B /* Pods-alt-tab-macos-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-alt-tab-macos-Info.plist"; sourceTree = "<group>"; };
-		BE2B41A00DA0C0FD46305B0CC6372BC4 /* SRCommon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRCommon.m; path = Library/SRCommon.m; sourceTree = "<group>"; };
-		BE472CC34E2D6C4AC14A8E8AB705B3E5 /* SRModifierFlagsTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRModifierFlagsTransformer.h; path = Library/SRModifierFlagsTransformer.h; sourceTree = "<group>"; };
-		BF3C71667FBF2E88C082B93476C496D7 /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sk.lproj; sourceTree = "<group>"; };
-		C0D2B778DDB80D86C4C8EFA17AC24506 /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ca.lproj; path = Resources/ca.lproj; sourceTree = "<group>"; };
-		C175B993DFF3BDFCBC5B3FFE9AE723F5 /* ShortcutRecorder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ShortcutRecorder.modulemap; sourceTree = "<group>"; };
-		C1F67B8E9BE3FCD57470A7E42D517CE7 /* ShortcutRecorder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ShortcutRecorder-dummy.m"; sourceTree = "<group>"; };
-		C536D2B694F12CF141AE9DFAA612490B /* ro.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ro.lproj; path = Resources/ro.lproj; sourceTree = "<group>"; };
-		C6A58CD47DE83BA5EE4F8AF0E4572175 /* SPUDownloadData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloadData.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloadData.h; sourceTree = "<group>"; };
-		C7079F0B06DA59D6CE225502BF1FCB19 /* Sparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.release.xcconfig; sourceTree = "<group>"; };
-		C978F5FBFEE32D549CE84A5C99653BAF /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		CA0588A2FC85200E4972A7DF513E178C /* AppCenterCrashes.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = AppCenterCrashes.xcframework; path = "AppCenter-SDK-Apple/AppCenterCrashes.xcframework"; sourceTree = "<group>"; };
-		CB2A4CBC955E48DEE4F49D642F5595FC /* SPUDownloader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloader.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloader.h; sourceTree = "<group>"; };
-		CCA6D5CB8429AAFD73A4BF844BE22362 /* SPUDownloaderProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderProtocol.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderProtocol.h; sourceTree = "<group>"; };
-		CD6BFFBF66500AF853BAE14FE89316F5 /* SwiftyMarkdown+iOS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SwiftyMarkdown+iOS.swift"; path = "Sources/SwiftyMarkdown/SwiftyMarkdown+iOS.swift"; sourceTree = "<group>"; };
-		D31D25BE8D714529115164134735639F /* ShortcutRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShortcutRecorder.release.xcconfig; sourceTree = "<group>"; };
-		D3A9B1EE03CDA56B5F41D9FEF7DC37BA /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = it.lproj; path = Resources/it.lproj; sourceTree = "<group>"; };
-		D49A494932287285CF551356BDC50645 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ko.lproj; path = Resources/ko.lproj; sourceTree = "<group>"; };
-		D4F37E557DFFFAECD2DE22C373F69D37 /* SPUURLRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUURLRequest.h; path = Sparkle.framework/Versions/A/Headers/SPUURLRequest.h; sourceTree = "<group>"; };
-		D649ACD8BEE005D3286D39B9B5EC53DF /* ShortcutRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ShortcutRecorder.h; path = Library/ShortcutRecorder.h; sourceTree = "<group>"; };
-		D745267B2411498BBFD6E04EBEBC6DE5 /* pt-BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "pt-BR.lproj"; path = "Resources/pt-BR.lproj"; sourceTree = "<group>"; };
-		D87AC91B19D0A6B161BD3ED08F81D6E9 /* LetsMove.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LetsMove.framework; path = LetsMove.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9674A281B11F8F383AB4ABAC337131A /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = de.lproj; sourceTree = "<group>"; };
+		B99DA0241900F21428E11F0149DC6BB5 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = Resources/es.lproj; sourceTree = "<group>"; };
+		B9E0DF9409CE2AF7F80C2C304CBCF755 /* zh_CN.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = zh_CN.lproj; sourceTree = "<group>"; };
+		BF90028AE146483461B49B5F92635C84 /* LetsMove-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LetsMove-Info.plist"; sourceTree = "<group>"; };
+		C0E803D74F79746714FA05F1265D7511 /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = el.lproj; path = Resources/el.lproj; sourceTree = "<group>"; };
+		C335940303B2F2A59600950E67528BB0 /* ShortcutRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShortcutRecorder.debug.xcconfig; sourceTree = "<group>"; };
+		C4AD900F01FFE8203E515CA9DFF89370 /* SUErrors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUErrors.h; path = Sparkle.framework/Versions/A/Headers/SUErrors.h; sourceTree = "<group>"; };
+		C581D16771EBAE667DDCC68CE5452A84 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = it.lproj; sourceTree = "<group>"; };
+		C7328B345CC573DCC336AE5E36636596 /* sr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sr.lproj; sourceTree = "<group>"; };
+		C92214DD7F3A614E660307DD0F12CA7A /* SUCodeSigningVerifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUCodeSigningVerifier.h; path = Sparkle.framework/Versions/A/Headers/SUCodeSigningVerifier.h; sourceTree = "<group>"; };
+		CB81A70760518A2DD236822EA705A9ED /* SUUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SUUpdater.h; path = Sparkle.framework/Versions/A/Headers/SUUpdater.h; sourceTree = "<group>"; };
+		CC27D91E50E91735B4F22816DB3067D4 /* SRShortcutValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutValidator.h; path = Library/SRShortcutValidator.h; sourceTree = "<group>"; };
+		CD45F6277C46837ABCB4A4273C58AB40 /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = cs.lproj; sourceTree = "<group>"; };
+		D074F8D35FFA2AEEE6EA0799BBAE9C62 /* PFMoveApplication.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PFMoveApplication.h; sourceTree = "<group>"; };
+		D0E417D331F87D523DB7678F2E9969BF /* ShortcutRecorder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ShortcutRecorder-dummy.m"; sourceTree = "<group>"; };
+		D3C368F7DC035AC7442F6AACDCA2BA2A /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = sv.lproj; sourceTree = "<group>"; };
+		D3E7ECBB190CD8DB7161A2041EB73C7B /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ca.lproj; path = Resources/ca.lproj; sourceTree = "<group>"; };
+		D6D22575589C0D285B20101929D05D96 /* SRShortcutValidator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutValidator.m; path = Library/SRShortcutValidator.m; sourceTree = "<group>"; };
+		D87AC91B19D0A6B161BD3ED08F81D6E9 /* LetsMove */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LetsMove; path = LetsMove.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95C079F75245DB989FC2F93DC3362FA /* Pods-alt-tab-macos-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-alt-tab-macos-acknowledgements.plist"; sourceTree = "<group>"; };
-		DAF1D9DEABFD01EFDD98009B2B5E86EB /* SRShortcutFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRShortcutFormatter.h; path = Library/SRShortcutFormatter.h; sourceTree = "<group>"; };
-		DC2A9C94B0348ECB9FCA51CB9B787714 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = ru.lproj; sourceTree = "<group>"; };
+		DBA3194B190990DAA089B47294B179A8 /* zh_TW.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = zh_TW.lproj; sourceTree = "<group>"; };
+		DC71B0B8A0834AC3E5C0E4AE5973A52E /* AppCenter-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "AppCenter-xcframeworks.sh"; sourceTree = "<group>"; };
+		DC997DCFA1834FCB9CE54710E1DD27F8 /* SRKeyEquivalentModifierMaskTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyEquivalentModifierMaskTransformer.h; path = Library/SRKeyEquivalentModifierMaskTransformer.h; sourceTree = "<group>"; };
 		DCA0A6B74F3699962F44535ACC0B5945 /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
-		DCDBD82157585F0B07E693927EE84938 /* SRShortcutFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRShortcutFormatter.m; path = Library/SRShortcutFormatter.m; sourceTree = "<group>"; };
-		E332D50EF953E3FD38274BD75F2192F5 /* Sparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.debug.xcconfig; sourceTree = "<group>"; };
-		E440E6FFF81AD5C2D4FCEBC3573F1929 /* SRKeyEquivalentModifierMaskTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyEquivalentModifierMaskTransformer.h; path = Library/SRKeyEquivalentModifierMaskTransformer.h; sourceTree = "<group>"; };
-		E691C3C284C4F669DE4E711CC2BCC153 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hant.lproj"; path = "Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
-		E6DCCB5E5A360877F0A70EB7BB859112 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = it.lproj; sourceTree = "<group>"; };
+		DEA68713ECCE1A920466A642992063AA /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
+		E79147D936BC00A3045C88C9B19BE7CC /* SPUDownloaderProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloaderProtocol.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloaderProtocol.h; sourceTree = "<group>"; };
 		E837F658B763ECCE73D0A1DC23C1AAEC /* Pods-alt-tab-macos-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-alt-tab-macos-frameworks.sh"; sourceTree = "<group>"; };
-		E9944C21F227E8E28F18FA017C13D539 /* AppCenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.release.xcconfig; sourceTree = "<group>"; };
-		E9DC74FA9D335C410789B5374E46F6F1 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sv.lproj; path = Resources/sv.lproj; sourceTree = "<group>"; };
-		EAB3DB14BEF850C0BC79AC9749202396 /* mk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = mk.lproj; sourceTree = "<group>"; };
-		ED2F317F94D97E0C29AE53261213F73E /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = de.lproj; sourceTree = "<group>"; };
-		F193BE94CF7BE5654701B5D7522F4C14 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = tr.lproj; sourceTree = "<group>"; };
-		F9F58ED244B5E980F6F5A3A0C3BF63EA /* SRKeyBindingTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRKeyBindingTransformer.m; path = Library/SRKeyBindingTransformer.m; sourceTree = "<group>"; };
-		FB2995FDA04F692955D549C7730AA391 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = en.lproj; sourceTree = "<group>"; };
-		FBCB519280812795BE6186581A7F305D /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = fr.lproj; sourceTree = "<group>"; };
-		FC659CA1A63C29E46ED310E18A3F1BE0 /* da.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = da.lproj; sourceTree = "<group>"; };
-		FD9B5E7FB7F96B402C4453603D532124 /* ShortcutRecorder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ShortcutRecorder-prefix.pch"; sourceTree = "<group>"; };
-		FE13AA22103F4727F68BC38EF22983C2 /* ShortcutRecorder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ShortcutRecorder-umbrella.h"; sourceTree = "<group>"; };
+		E9A95C118738C08A99056DE6F0CF70B2 /* LetsMove-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LetsMove-prefix.pch"; sourceTree = "<group>"; };
+		EBCFA93D733FF19AF6F2F0DA99B10908 /* LetsMove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LetsMove.release.xcconfig; sourceTree = "<group>"; };
+		EC3152EF908FF32892F483C6B426D0B5 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ru.lproj; path = Resources/ru.lproj; sourceTree = "<group>"; };
+		F0C7F426688253A4D9829916C2B4EEF6 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = Resources/ja.lproj; sourceTree = "<group>"; };
+		F362B55619EBDD6E7E25A735A9444719 /* SRCommon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRCommon.m; path = Library/SRCommon.m; sourceTree = "<group>"; };
+		F4662B70277F821559B5C4DD733F95A8 /* SPUDownloader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUDownloader.h; path = Sparkle.framework/Versions/A/Headers/SPUDownloader.h; sourceTree = "<group>"; };
+		F486E5F92087A7E0040DB81E4BEF7E3E /* Sparkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.release.xcconfig; sourceTree = "<group>"; };
+		F4EB8F0264C2E65E370378C1D56AF33B /* Sparkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sparkle.debug.xcconfig; sourceTree = "<group>"; };
+		F5E2A64E9170A97E7C0CB0C05F5E9DB5 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; path = fr.lproj; sourceTree = "<group>"; };
+		F75F26D342C8D5FC7134638E729DC1AD /* ShortcutRecorder-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ShortcutRecorder-Info.plist"; sourceTree = "<group>"; };
+		FABD9241CE01DF07D572A72D4D305328 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ko.lproj; path = Resources/ko.lproj; sourceTree = "<group>"; };
+		FCD1A09507B7441BD525BAE8F561BD8C /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sk.lproj; path = Resources/sk.lproj; sourceTree = "<group>"; };
+		FD57903452E3AB65D73689E1728D3437 /* pt-BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "pt-BR.lproj"; path = "Resources/pt-BR.lproj"; sourceTree = "<group>"; };
+		FD88076E3A12531F07C103C9E2E734C3 /* SRModifierFlagsTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRModifierFlagsTransformer.m; path = Library/SRModifierFlagsTransformer.m; sourceTree = "<group>"; };
+		FECA3568761E6C5A2C7D027A5F7AD68F /* SRKeyBindingTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRKeyBindingTransformer.h; path = Library/SRKeyBindingTransformer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4E8C90F2E82BFDE64B2BAF44FF953C33 /* Frameworks */ = {
+		536A99B4EFF9981AE2EA6162E0052BDC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09E2FEA00C09258B6F49E62590C35767 /* Carbon.framework in Frameworks */,
-				7802F6B93A977657D40DCA155B131429 /* Cocoa.framework in Frameworks */,
+				1D35553560975991D41A54507AF7D05B /* Carbon.framework in Frameworks */,
+				9487311C2D16DF3B263DD91CC4DE4A67 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		565852552A827103848C33DB1AC8358B /* Frameworks */ = {
+		8AE417BADD5794D6D868B0B824686D5D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B5D8DA3D5A2FBCC834C16967CC8A5D /* Cocoa.framework in Frameworks */,
+				B740D9F8A723785F1EDBC72A34985EC2 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		59790C3028F6BE42E46154A0A95551AE /* Frameworks */ = {
+		8C10AA0E16CEA0CA8FCFCEF21F16CECF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBF76189D619B847BD07E8CA986F3DF4 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C56772F8A8A35AE7A577E131EA84D541 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				82A0911ED4F09020DFDC4E17305FCA51 /* Cocoa.framework in Frameworks */,
+				40C5EAC684C7C4C1261A6BFAA7301F61 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A565FF406B732311DFF40678196319F /* Sparkle */ = {
+		0A18E2032D8F0C68E2ADDBF0426A8DEB /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				A31F0BC7307FD636CDB3F18B3A6C920A /* Sparkle.h */,
-				C6A58CD47DE83BA5EE4F8AF0E4572175 /* SPUDownloadData.h */,
-				CB2A4CBC955E48DEE4F49D642F5595FC /* SPUDownloader.h */,
-				62A9DA467FFE4EA43F410744113CAF17 /* SPUDownloaderDelegate.h */,
-				ACC479ED4C21CDC7CDA022708C842B8A /* SPUDownloaderDeprecated.h */,
-				CCA6D5CB8429AAFD73A4BF844BE22362 /* SPUDownloaderProtocol.h */,
-				A2D83F076C444AB57192413BA572C280 /* SPUDownloaderSession.h */,
-				D4F37E557DFFFAECD2DE22C373F69D37 /* SPUURLRequest.h */,
-				1317D7A2DEE4726F9D0DA9D91D84E5FF /* SUAppcast.h */,
-				6C1AE074B41EEDE0C17173479A2A0163 /* SUAppcastItem.h */,
-				9C64FA1B5F19D197DBA939AC71AD92FA /* SUCodeSigningVerifier.h */,
-				256B70B9E392F83BB526A16429F225AB /* SUErrors.h */,
-				0BC2296212C075CEBBE5E029BFBDFAD4 /* SUExport.h */,
-				3AA396328BE748B9C7B4EB814B3684FA /* SUStandardVersionComparator.h */,
-				53EBB658BFC6DF43EB4118F541BCF800 /* SUUpdater.h */,
-				6742D51940B6CFE88A0DF98D84E49925 /* SUUpdaterDelegate.h */,
-				6D6A694F73E529EBE1F11B7CA024094A /* SUVersionComparisonProtocol.h */,
-				7BC9568380AA37C58BECB0FFE8E495AC /* SUVersionDisplayProtocol.h */,
-				93FC4BC0016D4BE9D673D572B178342D /* Frameworks */,
-				8F59F98DC08506EE61D5F34F293A1F40 /* Support Files */,
+				DC71B0B8A0834AC3E5C0E4AE5973A52E /* AppCenter-xcframeworks.sh */,
+				2BECA169E9CFC568DCE0A24CC2A4FF96 /* AppCenter.debug.xcconfig */,
+				9B026133DE5E62B7D976ED58B3535FA6 /* AppCenter.release.xcconfig */,
 			);
-			name = Sparkle;
-			path = Sparkle;
+			name = "Support Files";
+			path = "../Target Support Files/AppCenter";
 			sourceTree = "<group>";
 		};
-		1BB6A58F29C51B06AB3025431F73FD02 /* Resources */ = {
+		11ABE7FA82EDC92CB3D420E7FBF7BA1D /* Crashes */ = {
 			isa = PBXGroup;
 			children = (
-				40F691A0CE966A7169FA8E4A9155ABDF /* ca.lproj */,
-				852ECB8481CDFE4F0698350571B7CD10 /* cs.lproj */,
-				FC659CA1A63C29E46ED310E18A3F1BE0 /* da.lproj */,
-				ED2F317F94D97E0C29AE53261213F73E /* de.lproj */,
-				FB2995FDA04F692955D549C7730AA391 /* en.lproj */,
-				07918652981A3E11B412FC628C0BDBDA /* es.lproj */,
-				FBCB519280812795BE6186581A7F305D /* fr.lproj */,
-				134A2AFC112592A749B5360CC4E6E74D /* hu.lproj */,
-				E6DCCB5E5A360877F0A70EB7BB859112 /* it.lproj */,
-				B1F22BF6E61641C4CFBEE94BB20CEDFB /* ja.lproj */,
-				340BD7AE073963BCE7A526AA5E8CA2A9 /* ko.lproj */,
-				EAB3DB14BEF850C0BC79AC9749202396 /* mk.lproj */,
-				7824EFDA7D45387226C307950A54F61C /* nb.lproj */,
-				0C1C115AB4432BC83FCF0991BEBD1B77 /* nl.lproj */,
-				A133F0764DB77639B7242874A5F3A4AC /* pl.lproj */,
-				4426A315043517D284A125D98EA0B9A3 /* pt.lproj */,
-				9ADBC0AC63D18D70E357A51F73908402 /* pt_BR.lproj */,
-				DC2A9C94B0348ECB9FCA51CB9B787714 /* ru.lproj */,
-				BF3C71667FBF2E88C082B93476C496D7 /* sk.lproj */,
-				0987474A5DA6E3D386F8207B5921F2F3 /* sr.lproj */,
-				ACBC031D96D749EB7A8C6A26B4E7BC8E /* sv.lproj */,
-				F193BE94CF7BE5654701B5D7522F4C14 /* tr.lproj */,
-				6D420DAB8C061F68778215AEB3D1EE6C /* zh_CN.lproj */,
-				AFE9F7335B2E8656C872665AE9B9A2AF /* zh_TW.lproj */,
+				1B39E0D123E22EF155B33B9066F224F8 /* Frameworks */,
+			);
+			name = Crashes;
+			sourceTree = "<group>";
+		};
+		1B39E0D123E22EF155B33B9066F224F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0CDC4FAC0832AD86A00724C224471FCE /* AppCenterCrashes.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1CC2DBC35CD29938455667FA6D0B42C5 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5F70012A72603D72D11150AE5210C7AF /* ShortcutRecorder.modulemap */,
+				D0E417D331F87D523DB7678F2E9969BF /* ShortcutRecorder-dummy.m */,
+				F75F26D342C8D5FC7134638E729DC1AD /* ShortcutRecorder-Info.plist */,
+				A6429B7D40F053D19E7A3CDAC44D5F24 /* ShortcutRecorder-prefix.pch */,
+				39D80CE390F6440B3F9AF58EB83B2985 /* ShortcutRecorder-umbrella.h */,
+				C335940303B2F2A59600950E67528BB0 /* ShortcutRecorder.debug.xcconfig */,
+				22D8CDE7120D80DC910F02E3A1F8E0EB /* ShortcutRecorder.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ShortcutRecorder";
+			sourceTree = "<group>";
+		};
+		1CE2DD9EC36B053A6D186F61A2AA25A4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BBA4106D8C1270026197553519376D94 /* Frameworks */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		22596F983548F9D29B1E383BC2EF17F5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D3E7ECBB190CD8DB7161A2041EB73C7B /* ca.lproj */,
+				71473BEF9A295876B9C56B489B528BD9 /* cs.lproj */,
+				6CF9E1F9A0EB104752459279DF6BD906 /* de.lproj */,
+				C0E803D74F79746714FA05F1265D7511 /* el.lproj */,
+				47D8437E308FC79C5123E5DC2E7F8A9C /* en.lproj */,
+				B99DA0241900F21428E11F0149DC6BB5 /* es.lproj */,
+				73308E6103D0E39915642055F2739496 /* fr.lproj */,
+				DEA68713ECCE1A920466A642992063AA /* Images.xcassets */,
+				058BE9078F97CE311AB44E7C1A0054B7 /* it.lproj */,
+				F0C7F426688253A4D9829916C2B4EEF6 /* ja.lproj */,
+				FABD9241CE01DF07D572A72D4D305328 /* ko.lproj */,
+				64DA82B50FF202DD18C1F74EE4C4247A /* nb.lproj */,
+				3ED697E7D38E9414111460234CAB04FB /* nl.lproj */,
+				1C7FD44AA214FE142652342CDDAFC871 /* pl.lproj */,
+				6F0858DABEB7FDF4A22BBD37C2519498 /* pt.lproj */,
+				FD57903452E3AB65D73689E1728D3437 /* pt-BR.lproj */,
+				5AECBCDC7B5936E5A820835BEA01E1C7 /* ro.lproj */,
+				EC3152EF908FF32892F483C6B426D0B5 /* ru.lproj */,
+				FCD1A09507B7441BD525BAE8F561BD8C /* sk.lproj */,
+				55A5EE7998860647C2CC22353CE23F8D /* sv.lproj */,
+				106DE20EB2F11B2CF547856331126403 /* th.lproj */,
+				01162A43953D5B9B7B64B9EBCD8D4283 /* zh-Hans.lproj */,
+				2C93DFA6393ED1B71923CB208AED2566 /* zh-Hant.lproj */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		2EF298E809D677405A37BAAFA859A13F /* Support Files */ = {
+		43E52C14D5AFB31B43D523D7605FCBC8 /* ShortcutRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				423DA01D665F817A04B7A5966B05AB4E /* SwiftyMarkdown.modulemap */,
-				A3197C179C3D03D7EF781C52046DDC99 /* SwiftyMarkdown-dummy.m */,
-				3C56EC07364B81B55452E1133EC4422E /* SwiftyMarkdown-Info.plist */,
-				0E675EA013509FC5024447A0E50DD581 /* SwiftyMarkdown-prefix.pch */,
-				0EA9B64E024265E57C37921D3BDC8CE7 /* SwiftyMarkdown-umbrella.h */,
-				4D991747CB7A2FDFB782E1EA0007C8B8 /* SwiftyMarkdown.debug.xcconfig */,
-				7052A302FAC1AC46C49465822B2DC5C0 /* SwiftyMarkdown.release.xcconfig */,
+				3488A5ACFB288830F41461EA7DA809C9 /* ShortcutRecorder.h */,
+				13273D907B6E9C45D44C1A37C2359652 /* SRCommon.h */,
+				F362B55619EBDD6E7E25A735A9444719 /* SRCommon.m */,
+				FECA3568761E6C5A2C7D027A5F7AD68F /* SRKeyBindingTransformer.h */,
+				0D9F4BA69238A0BD8461469C01CD1F50 /* SRKeyBindingTransformer.m */,
+				231D4D1CE2466E3C107D8D474C712F63 /* SRKeyCodeTransformer.h */,
+				3BD25E6646621F25D72A5BCE26819BEF /* SRKeyCodeTransformer.m */,
+				DC997DCFA1834FCB9CE54710E1DD27F8 /* SRKeyEquivalentModifierMaskTransformer.h */,
+				5AFC3806275F85276DB4D2D570CE746D /* SRKeyEquivalentModifierMaskTransformer.m */,
+				642FD458C287FE8805C61F220B3BCE36 /* SRKeyEquivalentTransformer.h */,
+				230094EC4AC462855D04C7300C644B1F /* SRKeyEquivalentTransformer.m */,
+				385B658F88CFB876DA238EEE7B6F042C /* SRModifierFlagsTransformer.h */,
+				FD88076E3A12531F07C103C9E2E734C3 /* SRModifierFlagsTransformer.m */,
+				451D4E698EEFE820333963EEDF21BDFF /* SRRecorderControl.h */,
+				0AF3AFDCCE311DE5A998C54068E60B12 /* SRRecorderControl.m */,
+				33C491559DA34777D6DAF4353962F328 /* SRRecorderControlStyle.h */,
+				26295AE8129BBA18AEA5ED85552B6C1C /* SRRecorderControlStyle.m */,
+				59D7F73427087ACDDB45DB6AFB4B9158 /* SRShortcut.h */,
+				AA122DEA021FAB240F74EFC03C3DD93A /* SRShortcut.m */,
+				56AF263207BBE600EB9B679BFF98AA98 /* SRShortcutAction.h */,
+				6F3E888B6779103E8E8474578E3C2F18 /* SRShortcutAction.m */,
+				13EDB38D764EFD7A61AD9AA434309D0F /* SRShortcutController.h */,
+				ADD70158AB1525662E02D690E4A0E572 /* SRShortcutController.m */,
+				305996D5C150F8D7ABD14808BF867BC3 /* SRShortcutFormatter.h */,
+				90215C43113587E7F6B417103E8877EF /* SRShortcutFormatter.m */,
+				CC27D91E50E91735B4F22816DB3067D4 /* SRShortcutValidator.h */,
+				D6D22575589C0D285B20101929D05D96 /* SRShortcutValidator.m */,
+				22596F983548F9D29B1E383BC2EF17F5 /* Resources */,
+				1CC2DBC35CD29938455667FA6D0B42C5 /* Support Files */,
+			);
+			name = ShortcutRecorder;
+			path = ShortcutRecorder;
+			sourceTree = "<group>";
+		};
+		45B8C22EAE97B81DBC4758CCFC7EF69B /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				98BD14446C4DA6BB21C02CD551EEFC79 /* LetsMove.modulemap */,
+				9ABF713BE8BAF12FAF20089630B5FD15 /* LetsMove-dummy.m */,
+				BF90028AE146483461B49B5F92635C84 /* LetsMove-Info.plist */,
+				E9A95C118738C08A99056DE6F0CF70B2 /* LetsMove-prefix.pch */,
+				30ED72AFF68A69E5271F78B26A70B643 /* LetsMove-umbrella.h */,
+				1987D54137969705DDD9B9AF1D2E79A6 /* LetsMove.debug.xcconfig */,
+				EBCFA93D733FF19AF6F2F0DA99B10908 /* LetsMove.release.xcconfig */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/SwiftyMarkdown";
+			path = "../Target Support Files/LetsMove";
+			sourceTree = "<group>";
+		};
+		4E9207F82A933F875B1C1BE69C9D5500 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				045EBB1A12662242CB64605BE5B3BD22 /* Sparkle-copy-dsyms.sh */,
+				F4EB8F0264C2E65E370378C1D56AF33B /* Sparkle.debug.xcconfig */,
+				F486E5F92087A7E0040DB81E4BEF7E3E /* Sparkle.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Sparkle";
 			sourceTree = "<group>";
 		};
 		503AF4784BE6FBC45BFA4E106E5AEDDB /* Pods-alt-tab-macos */ = {
@@ -444,53 +475,17 @@
 			path = "Target Support Files/Pods-alt-tab-macos";
 			sourceTree = "<group>";
 		};
-		756C8656F1708EB14EB83D1FCCE98CE1 /* Support Files */ = {
+		7F09890C65D0DF79AFE6671C1230748F /* LetsMove */ = {
 			isa = PBXGroup;
 			children = (
-				8599BAFC2630CC7F13627D60E5A86CDD /* LetsMove.modulemap */,
-				4F0BC4AB603DF168A5625BAC1B22D37B /* LetsMove-dummy.m */,
-				2BDB7D7CA97334C45D04C07C4BE0D336 /* LetsMove-Info.plist */,
-				2FC005AC0672590643BE8A0CDE6324FC /* LetsMove-prefix.pch */,
-				98A2B5B7657D828C470D2B8407E5BA9D /* LetsMove-umbrella.h */,
-				131133847C1B52EE7A00C8D247364F91 /* LetsMove.debug.xcconfig */,
-				15C5E113CB33983E3D7CA2E549590C5A /* LetsMove.release.xcconfig */,
+				2AB00D924A58F6E58EBD276E79AFB2AE /* LetsMove.h */,
+				D074F8D35FFA2AEEE6EA0799BBAE9C62 /* PFMoveApplication.h */,
+				B60439E61D72B7EE5186256536E4C41E /* PFMoveApplication.m */,
+				FA549C5CC88A5D9AE506941946C34E8E /* Resources */,
+				45B8C22EAE97B81DBC4758CCFC7EF69B /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/LetsMove";
-			sourceTree = "<group>";
-		};
-		777843B7A4B257FACE5623A6E0415E37 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				C175B993DFF3BDFCBC5B3FFE9AE723F5 /* ShortcutRecorder.modulemap */,
-				C1F67B8E9BE3FCD57470A7E42D517CE7 /* ShortcutRecorder-dummy.m */,
-				0E74225A84AF67B7D05379424EA54F91 /* ShortcutRecorder-Info.plist */,
-				FD9B5E7FB7F96B402C4453603D532124 /* ShortcutRecorder-prefix.pch */,
-				FE13AA22103F4727F68BC38EF22983C2 /* ShortcutRecorder-umbrella.h */,
-				5463C1B09CCF15CB07E7F942C32CF722 /* ShortcutRecorder.debug.xcconfig */,
-				D31D25BE8D714529115164134735639F /* ShortcutRecorder.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/ShortcutRecorder";
-			sourceTree = "<group>";
-		};
-		8F59F98DC08506EE61D5F34F293A1F40 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				165CDDC23C92D01F47C253F4C4C8F6A8 /* Sparkle-copy-dsyms.sh */,
-				E332D50EF953E3FD38274BD75F2192F5 /* Sparkle.debug.xcconfig */,
-				C7079F0B06DA59D6CE225502BF1FCB19 /* Sparkle.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Sparkle";
-			sourceTree = "<group>";
-		};
-		93FC4BC0016D4BE9D673D572B178342D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C978F5FBFEE32D549CE84A5C99653BAF /* Sparkle.framework */,
-			);
-			name = Frameworks;
+			name = LetsMove;
+			path = LetsMove;
 			sourceTree = "<group>";
 		};
 		9DBFCB119023E7E7CD9166825D639F68 /* Targets Support Files */ = {
@@ -501,68 +496,51 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		9EF17C350E2287B38FBCB836F59C9928 /* Support Files */ = {
+		9E328A474255F26360890FDBA02C4AB3 /* Sparkle */ = {
 			isa = PBXGroup;
 			children = (
-				8A37363F7BD459E953CD7A2912ED1613 /* AppCenter-xcframeworks.sh */,
-				56B23F41D11D9BB99F0E349A47FB137C /* AppCenter.debug.xcconfig */,
-				E9944C21F227E8E28F18FA017C13D539 /* AppCenter.release.xcconfig */,
+				84019F43A64CDED6BC42E104C4437C0D /* Sparkle.h */,
+				04E16FE9CB841F8172C44091E5DA6DFF /* SPUDownloadData.h */,
+				F4662B70277F821559B5C4DD733F95A8 /* SPUDownloader.h */,
+				8E54C7C20E3931FD60723BB8B48A4D68 /* SPUDownloaderDelegate.h */,
+				62D541858FAEFA17EA8617C03BB2EF9C /* SPUDownloaderDeprecated.h */,
+				E79147D936BC00A3045C88C9B19BE7CC /* SPUDownloaderProtocol.h */,
+				59FA1B2A1C13C58D35E763D6D3AF1BAB /* SPUDownloaderSession.h */,
+				88F19E4E099979E5A5162EFC6A73F79D /* SPUURLRequest.h */,
+				2E50FD406FB07ED8EB7B3E9CD7373B8A /* SUAppcast.h */,
+				851355D8ACFE498D1D769A684420553C /* SUAppcastItem.h */,
+				C92214DD7F3A614E660307DD0F12CA7A /* SUCodeSigningVerifier.h */,
+				C4AD900F01FFE8203E515CA9DFF89370 /* SUErrors.h */,
+				5FE773B1A91F964BE7065996447FC2C6 /* SUExport.h */,
+				A0110D186BF2AE81167F7FA813AE0F49 /* SUStandardVersionComparator.h */,
+				CB81A70760518A2DD236822EA705A9ED /* SUUpdater.h */,
+				631B68A808F2E0A0F1882F586854B896 /* SUUpdaterDelegate.h */,
+				90DB246DCFD2B340246F608775CCF26F /* SUVersionComparisonProtocol.h */,
+				587D7D8C2178097AF024402FF90792E3 /* SUVersionDisplayProtocol.h */,
+				E1A0957F3D557812A39C4AB8D3AF3507 /* Frameworks */,
+				4E9207F82A933F875B1C1BE69C9D5500 /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/AppCenter";
+			name = Sparkle;
+			path = Sparkle;
 			sourceTree = "<group>";
 		};
-		AB636F1A050BFE8707E711F1761231DA /* Crashes */ = {
+		B1607E3D28BF8638F5D86F53707B75D4 /* AppCenter */ = {
 			isa = PBXGroup;
 			children = (
-				FBFEC4CF11B2BAB0899D5C3AEF849A17 /* Frameworks */,
+				1CE2DD9EC36B053A6D186F61A2AA25A4 /* Core */,
+				11ABE7FA82EDC92CB3D420E7FBF7BA1D /* Crashes */,
+				0A18E2032D8F0C68E2ADDBF0426A8DEB /* Support Files */,
 			);
-			name = Crashes;
+			name = AppCenter;
+			path = AppCenter;
 			sourceTree = "<group>";
 		};
-		AE90FF2D2A4D31389156AEE9DC0AF660 /* ShortcutRecorder */ = {
+		BBA4106D8C1270026197553519376D94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D649ACD8BEE005D3286D39B9B5EC53DF /* ShortcutRecorder.h */,
-				98F28B35E83CBA58E79B5AEA1FC33716 /* SRCommon.h */,
-				BE2B41A00DA0C0FD46305B0CC6372BC4 /* SRCommon.m */,
-				219002683854F53754B586BA37C02797 /* SRKeyBindingTransformer.h */,
-				F9F58ED244B5E980F6F5A3A0C3BF63EA /* SRKeyBindingTransformer.m */,
-				84E439B3E0DFC3EC4EA3BD0CD81047B0 /* SRKeyCodeTransformer.h */,
-				8349D87D74BE8E6F1CDAD97286431D99 /* SRKeyCodeTransformer.m */,
-				E440E6FFF81AD5C2D4FCEBC3573F1929 /* SRKeyEquivalentModifierMaskTransformer.h */,
-				6E9D9CAA1664918E4AB1F00D21F69DA0 /* SRKeyEquivalentModifierMaskTransformer.m */,
-				4895803C4694225A8A220BF4BE27131D /* SRKeyEquivalentTransformer.h */,
-				840F5A5E9F57B22E233C9A4AEFF2A1F5 /* SRKeyEquivalentTransformer.m */,
-				BE472CC34E2D6C4AC14A8E8AB705B3E5 /* SRModifierFlagsTransformer.h */,
-				7D297E238A506752D25A28A6F3529EE4 /* SRModifierFlagsTransformer.m */,
-				2626E74C87E423B9F77062FF3F954D5B /* SRRecorderControl.h */,
-				B0BA98498254EB370EC2896007FA1354 /* SRRecorderControl.m */,
-				7D5A58BEECF8B8C8BADE2834DDBD8EB9 /* SRRecorderControlStyle.h */,
-				A59E0F29C5A3AEE559B578267B79CCB2 /* SRRecorderControlStyle.m */,
-				8F8749CE44E7CED4284D02FB6DE7DDB7 /* SRShortcut.h */,
-				8D446A591B0FB7F34E777368CCC7343D /* SRShortcut.m */,
-				5FEC495D79E521A3360558B2AB629F87 /* SRShortcutAction.h */,
-				1D2CCFE377BE43328D7EA024864B7808 /* SRShortcutAction.m */,
-				6F541D7D15015E379B988256C9D371F9 /* SRShortcutController.h */,
-				B6A5BE438BD0C6929B973E4014522945 /* SRShortcutController.m */,
-				DAF1D9DEABFD01EFDD98009B2B5E86EB /* SRShortcutFormatter.h */,
-				DCDBD82157585F0B07E693927EE84938 /* SRShortcutFormatter.m */,
-				99D4433DDA11CCBEA9F380638E6EA2CD /* SRShortcutValidator.h */,
-				A37AD8BD1A6D66EEECFD4B856040FFB1 /* SRShortcutValidator.m */,
-				E04DA9F3F5FDBF033F86AC50A12C15B2 /* Resources */,
-				777843B7A4B257FACE5623A6E0415E37 /* Support Files */,
+				26F6148CCC78CB19EFFC009275126E2C /* AppCenter.xcframework */,
 			);
-			name = ShortcutRecorder;
-			path = ShortcutRecorder;
-			sourceTree = "<group>";
-		};
-		B8294ECE16369A1A151AB53A55815788 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				D73095478C1696EF911A329427DEA5E1 /* Frameworks */,
-			);
-			name = Core;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C080C886C9E2F80D52E3E86A62E5B711 /* Frameworks */ = {
@@ -573,24 +551,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C410B415E423CE048D89544CC9A0A1AB /* AppCenter */ = {
-			isa = PBXGroup;
-			children = (
-				B8294ECE16369A1A151AB53A55815788 /* Core */,
-				AB636F1A050BFE8707E711F1761231DA /* Crashes */,
-				9EF17C350E2287B38FBCB836F59C9928 /* Support Files */,
-			);
-			name = AppCenter;
-			path = AppCenter;
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				C080C886C9E2F80D52E3E86A62E5B711 /* Frameworks */,
-				DC8AA14ADDA2CEC4F23E87BC099F1F53 /* Pods */,
-				DDF2DBBDCD4D62012895BEBE3D26A2FA /* Products */,
+				E0C04AEC09D9EBD85347DD693A3508B6 /* Pods */,
+				DE319E64E73235632E329EF9A5664DBF /* Products */,
 				9DBFCB119023E7E7CD9166825D639F68 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -604,183 +571,120 @@
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		D73095478C1696EF911A329427DEA5E1 /* Frameworks */ = {
+		DE319E64E73235632E329EF9A5664DBF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B008CB2A94217562A06583527F413C2A /* AppCenter.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DC8AA14ADDA2CEC4F23E87BC099F1F53 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C410B415E423CE048D89544CC9A0A1AB /* AppCenter */,
-				F07C623A4E81D1F5352C698CC2D46AC8 /* LetsMove */,
-				AE90FF2D2A4D31389156AEE9DC0AF660 /* ShortcutRecorder */,
-				0A565FF406B732311DFF40678196319F /* Sparkle */,
-				F8662E007A0E0F6E978147014A0122CF /* SwiftyMarkdown */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		DDF2DBBDCD4D62012895BEBE3D26A2FA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D87AC91B19D0A6B161BD3ED08F81D6E9 /* LetsMove.framework */,
-				25071237EE84E6AFD3B12FE9A0664CB9 /* Pods_alt_tab_macos.framework */,
-				7A3DD740894FE73E66768ABB17B36265 /* ShortcutRecorder.framework */,
-				AC17564D0F58DCA6B3280EDA07C2876D /* SwiftyMarkdown.framework */,
+				D87AC91B19D0A6B161BD3ED08F81D6E9 /* LetsMove */,
+				25071237EE84E6AFD3B12FE9A0664CB9 /* Pods-alt-tab-macos */,
+				7A3DD740894FE73E66768ABB17B36265 /* ShortcutRecorder */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E04DA9F3F5FDBF033F86AC50A12C15B2 /* Resources */ = {
+		E0C04AEC09D9EBD85347DD693A3508B6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C0D2B778DDB80D86C4C8EFA17AC24506 /* ca.lproj */,
-				39820D7A28DF1B761FF28AA24AACBBF0 /* cs.lproj */,
-				3B50BA22BD11B0A09EA474254E9B2CDB /* de.lproj */,
-				A6D973739243ED6AF1BB51661BBB57C6 /* el.lproj */,
-				35FBAECA314692CE1E3803738D4B3A6F /* en.lproj */,
-				409DFDD2158F6FF49DAD0795C0C9AA17 /* es.lproj */,
-				0AA0767085F6192AAD03CE35747ECDDF /* fr.lproj */,
-				B536D6E78C9289EE08A2CE5C65CF6FFE /* Images.xcassets */,
-				D3A9B1EE03CDA56B5F41D9FEF7DC37BA /* it.lproj */,
-				8C2733C167C0E7821ED4720D430FF76B /* ja.lproj */,
-				D49A494932287285CF551356BDC50645 /* ko.lproj */,
-				2EBD1890DD74FD50DDDA22779C6276A7 /* nb.lproj */,
-				957B2E951691B2A2F7C5B426833413E7 /* nl.lproj */,
-				1A57D39A7031825DAEE2F4BA45971AD1 /* pl.lproj */,
-				63FE26FF2073B3D5C0DD5241111D1F57 /* pt.lproj */,
-				D745267B2411498BBFD6E04EBEBC6DE5 /* pt-BR.lproj */,
-				C536D2B694F12CF141AE9DFAA612490B /* ro.lproj */,
-				89ECCF5C28954A7B3D6F209951DDE00A /* ru.lproj */,
-				A1DA1F3BA0571231732256D1B94DB7DA /* sk.lproj */,
-				E9DC74FA9D335C410789B5374E46F6F1 /* sv.lproj */,
-				6569E4906CA5ACD6DE840925B0C22DDA /* th.lproj */,
-				527CC4CE389322016B894ADA2C752FAF /* zh-Hans.lproj */,
-				E691C3C284C4F669DE4E711CC2BCC153 /* zh-Hant.lproj */,
+				B1607E3D28BF8638F5D86F53707B75D4 /* AppCenter */,
+				7F09890C65D0DF79AFE6671C1230748F /* LetsMove */,
+				43E52C14D5AFB31B43D523D7605FCBC8 /* ShortcutRecorder */,
+				9E328A474255F26360890FDBA02C4AB3 /* Sparkle */,
 			);
-			name = Resources;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		F07C623A4E81D1F5352C698CC2D46AC8 /* LetsMove */ = {
+		E1A0957F3D557812A39C4AB8D3AF3507 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				58412D31C64C42BFD331740161DD0CA8 /* LetsMove.h */,
-				7C0A38D967BB19D7B7B917986EB524A6 /* PFMoveApplication.h */,
-				37B86492610E803CB63311E60BA60D54 /* PFMoveApplication.m */,
-				1BB6A58F29C51B06AB3025431F73FD02 /* Resources */,
-				756C8656F1708EB14EB83D1FCCE98CE1 /* Support Files */,
-			);
-			name = LetsMove;
-			path = LetsMove;
-			sourceTree = "<group>";
-		};
-		F8662E007A0E0F6E978147014A0122CF /* SwiftyMarkdown */ = {
-			isa = PBXGroup;
-			children = (
-				B7F73E676B87BFF762D9AD029D31534A /* String+SwiftyMarkdown.swift */,
-				3749F4E4900539F4514C8BDF08A1C396 /* SwiftyLineProcessor.swift */,
-				3124918D9276C12320E61B4442905F6D /* SwiftyMarkdown.swift */,
-				CD6BFFBF66500AF853BAE14FE89316F5 /* SwiftyMarkdown+iOS.swift */,
-				855885A95991E80DCB995A46F89BB307 /* SwiftyMarkdown+macOS.swift */,
-				00907FA8EFDB0D580F90E9C9E9C904C4 /* SwiftyTokeniser.swift */,
-				2EF298E809D677405A37BAAFA859A13F /* Support Files */,
-			);
-			name = SwiftyMarkdown;
-			path = SwiftyMarkdown;
-			sourceTree = "<group>";
-		};
-		FBFEC4CF11B2BAB0899D5C3AEF849A17 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CA0588A2FC85200E4972A7DF513E178C /* AppCenterCrashes.xcframework */,
+				7AC8426479860C4AB48D8C782A33DC9B /* Sparkle.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA549C5CC88A5D9AE506941946C34E8E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1F187693F17E98907C162B44EE76B6E5 /* ca.lproj */,
+				CD45F6277C46837ABCB4A4273C58AB40 /* cs.lproj */,
+				A486AEA826BEA63048E4505E3CF03D8C /* da.lproj */,
+				B9674A281B11F8F383AB4ABAC337131A /* de.lproj */,
+				5DE28F2140456CC4DAFAA20EF0280A34 /* en.lproj */,
+				1AC5B71D6EA023BE1D5EF227C9E08288 /* es.lproj */,
+				F5E2A64E9170A97E7C0CB0C05F5E9DB5 /* fr.lproj */,
+				1A6114406655255F6112514A31C00BC8 /* hu.lproj */,
+				C581D16771EBAE667DDCC68CE5452A84 /* it.lproj */,
+				84796B70E3495C2A3C504A8FD3A7D099 /* ja.lproj */,
+				003E1F6B365922FE9F5850AD1D67ED65 /* ko.lproj */,
+				0ED5F68EBC7F61607F0E56AAC2EEA992 /* mk.lproj */,
+				A45FEAD39FC456B96223C9095C67DB72 /* nb.lproj */,
+				9F5E518A051B8A56AEB0A83C3BDF80CC /* nl.lproj */,
+				94EB4883B195C0917A08470445493C32 /* pl.lproj */,
+				37EBE08B99108181759AA26394599AAE /* pt.lproj */,
+				AE4A3DAD36DDADCEB23A44B1EAC7E0DF /* pt_BR.lproj */,
+				74C85C9BF493E00DB2A2B5239CCF22EB /* ru.lproj */,
+				1AFD1BD59216BF523F8378FFD55D764D /* sk.lproj */,
+				C7328B345CC573DCC336AE5E36636596 /* sr.lproj */,
+				D3C368F7DC035AC7442F6AACDCA2BA2A /* sv.lproj */,
+				622A9082AD27A8161C006301BDC46EA9 /* tr.lproj */,
+				B9E0DF9409CE2AF7F80C2C304CBCF755 /* zh_CN.lproj */,
+				DBA3194B190990DAA089B47294B179A8 /* zh_TW.lproj */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		2600EADD432930710991E46A87D4976C /* Headers */ = {
+		3BCC2FBEA614C2F1F4BD71F710FC4836 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3062091279B0580088241A258BA22674 /* Pods-alt-tab-macos-umbrella.h in Headers */,
+				C0B180D7E6686D734C6C7E7C089AAF99 /* Pods-alt-tab-macos-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3F99395CDAA04872E20139D45F2930B2 /* Headers */ = {
+		856B720B63D0DE0B1A31537A44C7084E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B125766C333F5D75F1B730C08219F4D9 /* SwiftyMarkdown-umbrella.h in Headers */,
+				C570BACFC2CD4B01BD1EE9690B4F1A11 /* LetsMove.h in Headers */,
+				0DEC3A2A0B354E472AB21EC1611E97B4 /* LetsMove-umbrella.h in Headers */,
+				40963A7DA4089997A7772FE9D8FC4D00 /* PFMoveApplication.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4B652090CB76AFAF13FB1BDE21B02C0B /* Headers */ = {
+		E7F136E700C0E0671F3355B05F0E3001 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6C76F2FFFDCF82636C355053430B94D /* ShortcutRecorder-umbrella.h in Headers */,
-				A2FCC58CB9470201B66FE93E38C2EEBC /* ShortcutRecorder.h in Headers */,
-				7865590A2BE59243B14AA920CB802D16 /* SRCommon.h in Headers */,
-				624A88E7083E922D1E7A468628EF6763 /* SRKeyBindingTransformer.h in Headers */,
-				66197FFF0B0D9B0F40D4EB34B2F0B15B /* SRKeyCodeTransformer.h in Headers */,
-				646512A9E87882737F42741DF820A248 /* SRKeyEquivalentModifierMaskTransformer.h in Headers */,
-				5C51919BE3EF096A7D986B57A51AB0D0 /* SRKeyEquivalentTransformer.h in Headers */,
-				E2969FEA71F76C65EE303B90300C38D3 /* SRModifierFlagsTransformer.h in Headers */,
-				71662F5F1E7D06EE352DAD05FEA3D54C /* SRRecorderControl.h in Headers */,
-				37C40ADF03583366ED05A7392F44D253 /* SRRecorderControlStyle.h in Headers */,
-				DF2207C5FFA3D5B05AD7B0A03B4A01CD /* SRShortcut.h in Headers */,
-				0F8E3C25F030CA95F52DCF21F516E66A /* SRShortcutAction.h in Headers */,
-				AB986179D17EE4638FF869F4B77A08CC /* SRShortcutController.h in Headers */,
-				1F20EA886DD6BF2EE1017F54FF5BB295 /* SRShortcutFormatter.h in Headers */,
-				1F20FB330787775FB0E9F0CE37EFE52F /* SRShortcutValidator.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8682336F8F6134B31C69E486A4DA6672 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E15CAB0A52B69D3FA0D70119BBE8E53 /* LetsMove-umbrella.h in Headers */,
-				9D07D75F7C84943BDCE3ABC491CD59D1 /* LetsMove.h in Headers */,
-				09F6953D0A355AEEDD4DE40E8FD483B6 /* PFMoveApplication.h in Headers */,
+				898480A6228345B3841F381AEF38B32B /* ShortcutRecorder.h in Headers */,
+				39486B6AC95C3F63A25AA253B0B3D6E0 /* ShortcutRecorder-umbrella.h in Headers */,
+				6BE698B654A8410A6AA494F7A0331A6C /* SRCommon.h in Headers */,
+				3CE2D1A367C642DD1809C012AD897E08 /* SRKeyBindingTransformer.h in Headers */,
+				B7DD0EA04EC1650701A5C63FCD0B72BA /* SRKeyCodeTransformer.h in Headers */,
+				5CB50C683CD1D2EFA134D5B2C9F27C08 /* SRKeyEquivalentModifierMaskTransformer.h in Headers */,
+				69CA47C56053D189A5014EE002AB781B /* SRKeyEquivalentTransformer.h in Headers */,
+				CAF34E5DBD1769250E795D520DC2434F /* SRModifierFlagsTransformer.h in Headers */,
+				B9F105BD91A765B7F902EFECCB961203 /* SRRecorderControl.h in Headers */,
+				A9D46ED82B1F3FE41477FB7B6E093ED7 /* SRRecorderControlStyle.h in Headers */,
+				AD07A66D394E6DB98B00088F1812ECB6 /* SRShortcut.h in Headers */,
+				DC807C093125CB27F449A9D932D0E501 /* SRShortcutAction.h in Headers */,
+				1F3F9BA98586D61964C686198A2698B1 /* SRShortcutController.h in Headers */,
+				F869274D89CD98C751D8F6C27EA445D1 /* SRShortcutFormatter.h in Headers */,
+				8096193A3981CD1B926C7531ADAB0CBC /* SRShortcutValidator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		93523582DEC251A9E59F621510B882C3 /* SwiftyMarkdown */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0B9D4AC818368EEDEEACE04B1DBF37C3 /* Build configuration list for PBXNativeTarget "SwiftyMarkdown" */;
-			buildPhases = (
-				3F99395CDAA04872E20139D45F2930B2 /* Headers */,
-				30C4B6C914761AFC4964336E9863D9FD /* Sources */,
-				C56772F8A8A35AE7A577E131EA84D541 /* Frameworks */,
-				F7B08D03679CDA4D3D628F53D2BDF4FE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SwiftyMarkdown;
-			productName = SwiftyMarkdown;
-			productReference = AC17564D0F58DCA6B3280EDA07C2876D /* SwiftyMarkdown.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		D94AE99BF0C9025247C40F440DC9DB50 /* ShortcutRecorder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 57CAAFD77F1F3EAC7729CE9781300459 /* Build configuration list for PBXNativeTarget "ShortcutRecorder" */;
+			buildConfigurationList = 75460B60A70CD8914FCA11F86102850C /* Build configuration list for PBXNativeTarget "ShortcutRecorder" */;
 			buildPhases = (
-				4B652090CB76AFAF13FB1BDE21B02C0B /* Headers */,
-				96FD95D4278368B7BE939B853925C9F0 /* Sources */,
-				4E8C90F2E82BFDE64B2BAF44FF953C33 /* Frameworks */,
-				7F3D7B95BD01DB0B8D7BB53FBE48E00C /* Resources */,
+				E7F136E700C0E0671F3355B05F0E3001 /* Headers */,
+				E93AF80D76B9F6FE1760DE8A5AD9CF3B /* Sources */,
+				536A99B4EFF9981AE2EA6162E0052BDC /* Frameworks */,
+				24A3E4425ED9BFE0F870B620E9876495 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -788,40 +692,39 @@
 			);
 			name = ShortcutRecorder;
 			productName = ShortcutRecorder;
-			productReference = 7A3DD740894FE73E66768ABB17B36265 /* ShortcutRecorder.framework */;
+			productReference = 7A3DD740894FE73E66768ABB17B36265 /* ShortcutRecorder */;
 			productType = "com.apple.product-type.framework";
 		};
 		DA8AE0681767D7A898B5697F983F9881 /* Pods-alt-tab-macos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E550067CAA69BA97B62FE17D983B0423 /* Build configuration list for PBXNativeTarget "Pods-alt-tab-macos" */;
+			buildConfigurationList = EB4DC24EA3727FB6DF36BF068BCAFE1C /* Build configuration list for PBXNativeTarget "Pods-alt-tab-macos" */;
 			buildPhases = (
-				2600EADD432930710991E46A87D4976C /* Headers */,
-				8D7D6DD32F057C55DBA8BC1F4F1A937D /* Sources */,
-				59790C3028F6BE42E46154A0A95551AE /* Frameworks */,
-				140906262202DACE7F7404AD38C0567C /* Resources */,
+				3BCC2FBEA614C2F1F4BD71F710FC4836 /* Headers */,
+				D07BDFFAC838F1251D98B158EE81E4C7 /* Sources */,
+				8AE417BADD5794D6D868B0B824686D5D /* Frameworks */,
+				379D3EA0265F4939D66CCA67AEEAC1DA /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0E4F8CE81DDCDB8CE3A110B13B33D956 /* PBXTargetDependency */,
-				F8A5CBD611D74F2B4CABAD4616C10A96 /* PBXTargetDependency */,
-				A3047B78DF156D84B1C2047B3D98C3D5 /* PBXTargetDependency */,
-				DA56EF1AA105B1FD9BA405BDDD85F436 /* PBXTargetDependency */,
-				36597507590ABE78689B8028D7C873D8 /* PBXTargetDependency */,
+				5518807BC6DFFA4260BBB539939BBFF2 /* PBXTargetDependency */,
+				03FF859B5E800D2D74370775BB875A4E /* PBXTargetDependency */,
+				03FAEDD1DB67D80F6EA171CE2339BD02 /* PBXTargetDependency */,
+				634ADA1E00E0E524EBBEBB98C045C808 /* PBXTargetDependency */,
 			);
 			name = "Pods-alt-tab-macos";
-			productName = "Pods-alt-tab-macos";
-			productReference = 25071237EE84E6AFD3B12FE9A0664CB9 /* Pods_alt_tab_macos.framework */;
+			productName = Pods_alt_tab_macos;
+			productReference = 25071237EE84E6AFD3B12FE9A0664CB9 /* Pods-alt-tab-macos */;
 			productType = "com.apple.product-type.framework";
 		};
 		F83960005EA88D0C24A1D277DD0E8667 /* LetsMove */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5EBD6E1F33E4C77AD65B08369A6FD5D0 /* Build configuration list for PBXNativeTarget "LetsMove" */;
+			buildConfigurationList = 423EA74D49485E8B01C634B86267A8BE /* Build configuration list for PBXNativeTarget "LetsMove" */;
 			buildPhases = (
-				8682336F8F6134B31C69E486A4DA6672 /* Headers */,
-				4B0A1E363566B1301D1C568EC2762DE8 /* Sources */,
-				565852552A827103848C33DB1AC8358B /* Frameworks */,
-				D12E0566EE75B1FDDA9AFDFF33629671 /* Resources */,
+				856B720B63D0DE0B1A31537A44C7084E /* Headers */,
+				B97A7653281B694302CAA758B2C61ED5 /* Sources */,
+				8C10AA0E16CEA0CA8FCFCEF21F16CECF /* Frameworks */,
+				E1D2F672AFEF483C664F02D82E52733D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -829,7 +732,7 @@
 			);
 			name = LetsMove;
 			productName = LetsMove;
-			productReference = D87AC91B19D0A6B161BD3ED08F81D6E9 /* LetsMove.framework */;
+			productReference = D87AC91B19D0A6B161BD3ED08F81D6E9 /* LetsMove */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -842,15 +745,44 @@
 				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ca,
+				cs,
+				da,
+				de,
+				el,
+				en,
+				es,
+				fr,
+				hu,
+				it,
+				ja,
+				ko,
+				mk,
+				nb,
+				nl,
+				pl,
+				pt,
+				"pt-BR",
+				pt_BR,
+				ro,
+				ru,
+				sk,
+				sr,
+				sv,
+				th,
+				tr,
+				"zh-Hans",
+				"zh-Hant",
+				zh_CN,
+				zh_TW,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = DDF2DBBDCD4D62012895BEBE3D26A2FA /* Products */;
+			productRefGroup = DE319E64E73235632E329EF9A5664DBF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -859,221 +791,207 @@
 				DA8AE0681767D7A898B5697F983F9881 /* Pods-alt-tab-macos */,
 				D94AE99BF0C9025247C40F440DC9DB50 /* ShortcutRecorder */,
 				ED77B4B88587C894E85C361023D67C53 /* Sparkle */,
-				93523582DEC251A9E59F621510B882C3 /* SwiftyMarkdown */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		140906262202DACE7F7404AD38C0567C /* Resources */ = {
+		24A3E4425ED9BFE0F870B620E9876495 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61776142D2FEDF9FCDA17BF8CC8DB3E1 /* ca.lproj in Resources */,
+				A8847453DDA1E85B260BB5A50359FBBC /* cs.lproj in Resources */,
+				25A53FC91988277AD93B80DEFBB6D3E1 /* de.lproj in Resources */,
+				5C90BE17AE90AE308D14E62D4C7CF064 /* el.lproj in Resources */,
+				9633A3444F1105C2B6B4E36465596F38 /* en.lproj in Resources */,
+				9CF33045EE0197D04D81500ED271A8BD /* es.lproj in Resources */,
+				31EEA166BA910C56AB1936C111DF17BF /* fr.lproj in Resources */,
+				6D0418D51C4B03D265928F903BB66073 /* Images.xcassets in Resources */,
+				8017F2909EFC549013E784846A619330 /* it.lproj in Resources */,
+				DFCF25A14E68FBDE71E5E5061C24FCC5 /* ja.lproj in Resources */,
+				C73C07888E36D3D006FE93AF6AC6E099 /* ko.lproj in Resources */,
+				9B9C681A9054D825415BE58C4300F5B1 /* nb.lproj in Resources */,
+				664CE9F192239B56D5A3B5462575B64F /* nl.lproj in Resources */,
+				EA23275D679FB078F382B9FEAC99AE9A /* pl.lproj in Resources */,
+				CE3452FDB9E5A3F0341DF0F05F0F6DF7 /* pt.lproj in Resources */,
+				AD0C8D70D7EFB84D0161C89C939C3815 /* pt-BR.lproj in Resources */,
+				C42C04364610C49314DDF3EAEF9E5716 /* ro.lproj in Resources */,
+				A730408D5F9FE54D06CC94D464C23444 /* ru.lproj in Resources */,
+				C2BAE19159950C9BFA59A6F48A5DCEBE /* sk.lproj in Resources */,
+				0E95CBA32B409D0E9ED918E6B36ACC99 /* sv.lproj in Resources */,
+				E404A81BFE3B861A17F90FADD2A8D431 /* th.lproj in Resources */,
+				A0DAF5137190588A5EB7F92C5D0C5D2B /* zh-Hans.lproj in Resources */,
+				4663CD041D8289281872EE29AD151FDF /* zh-Hant.lproj in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		379D3EA0265F4939D66CCA67AEEAC1DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7F3D7B95BD01DB0B8D7BB53FBE48E00C /* Resources */ = {
+		E1D2F672AFEF483C664F02D82E52733D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1072B15890EA4B05629A311A9CB011F1 /* ca.lproj in Resources */,
-				B456576A96AF747CDD54551DE86B6E8D /* cs.lproj in Resources */,
-				A2CC1A84A9C146A91EF5B68270D0F06C /* de.lproj in Resources */,
-				CECE32B1DBF797B058EB51E7D22C990B /* el.lproj in Resources */,
-				4BFE0CF9902E3C8141E725AB16276440 /* en.lproj in Resources */,
-				D94A6C0B6D81E2D9D99B3E5BFE9C74E0 /* es.lproj in Resources */,
-				DF5FE8A4C33449686EE10BE7DFB3EF3D /* fr.lproj in Resources */,
-				F1BF56FD4BD59ACE35F969146554BAA8 /* Images.xcassets in Resources */,
-				B62D71062B028DC6005EBE8F3A30F83D /* it.lproj in Resources */,
-				259277CEED53CBF04C1C40ACF7E834E9 /* ja.lproj in Resources */,
-				F87380A0F9BFC6970A7E72F4F7A2209D /* ko.lproj in Resources */,
-				11AD8D91EE9831FF03509804F70A1623 /* nb.lproj in Resources */,
-				B96E7AF6A6260FA5D1E1ED99FC7F22C6 /* nl.lproj in Resources */,
-				7CB7460CEF50FA8AE32305B967DF611A /* pl.lproj in Resources */,
-				EF4D2B47722794AED41E79F194547935 /* pt-BR.lproj in Resources */,
-				0EC5CD27183E62F0F15E6A3F73BA4E78 /* pt.lproj in Resources */,
-				995FF511BD514AC60699AF6D02149A1F /* ro.lproj in Resources */,
-				056DD70A6AF75515312A3B0F3D08A6A7 /* ru.lproj in Resources */,
-				74082A600D2E1D2A7D6082B305F25731 /* sk.lproj in Resources */,
-				DE7DCF5ADAE503201E2D92397107F29B /* sv.lproj in Resources */,
-				67DCED0B71E2F604884589FD8415F43C /* th.lproj in Resources */,
-				E5542ECF452E571B2DBB14284E7D6232 /* zh-Hans.lproj in Resources */,
-				985F94722BB2E4A7E884FC402B0B449E /* zh-Hant.lproj in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D12E0566EE75B1FDDA9AFDFF33629671 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				729B7AE3AE6C35966D88D0C140BFE6B3 /* ca.lproj in Resources */,
-				8999CEBAA3A313F1C8544DC1D581B339 /* cs.lproj in Resources */,
-				0A1237C0C6C64DAE78E6F4CD771CA4B0 /* da.lproj in Resources */,
-				AECE89CE5364011E4C71F28D0F0531E6 /* de.lproj in Resources */,
-				88044B1C761CA2BD4F17ADE1CFEAE3CD /* en.lproj in Resources */,
-				31194073C810A8C763DB8B070D931BE2 /* es.lproj in Resources */,
-				B6073B7D340523A56B48E26BD7E72D4A /* fr.lproj in Resources */,
-				2042A55FF7A1761CB25D0D86A254C442 /* hu.lproj in Resources */,
-				826C126D2445D0F2586B6B3B671B40A1 /* it.lproj in Resources */,
-				3CF2CD18FB573A30174F95AD6BA563C4 /* ja.lproj in Resources */,
-				8C500482DF0DA821FBFD71A84CD466AD /* ko.lproj in Resources */,
-				69D5B8B43F71C91C15DE6A606B791F5D /* mk.lproj in Resources */,
-				84DA043E377D11D7E4BA94DF9CF0E60A /* nb.lproj in Resources */,
-				020E098C253F02CF5A2F89A505CA37EE /* nl.lproj in Resources */,
-				6C7847B5EE79878D537FF196B7F0ECFD /* pl.lproj in Resources */,
-				E641BD12CF3AD3888CF543C07EAC8333 /* pt.lproj in Resources */,
-				500A10E28FCAAFB0A968CCED417B3275 /* pt_BR.lproj in Resources */,
-				D16D912F8C268F6BA1AAB01B40145A74 /* ru.lproj in Resources */,
-				5B317668F69ADABCAD5AE47A1CE39D69 /* sk.lproj in Resources */,
-				4CB8337198FDE1993480CE70C221FABB /* sr.lproj in Resources */,
-				FD50D88AF2AB7692F630B7E45B38603E /* sv.lproj in Resources */,
-				10F338979909A45B2DEB7AA8892046F4 /* tr.lproj in Resources */,
-				C1720CEFBCDF891D229E2933A25FB21F /* zh_CN.lproj in Resources */,
-				568560CA36FE09111F664C6BBA404742 /* zh_TW.lproj in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F7B08D03679CDA4D3D628F53D2BDF4FE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				CD48D5698ED68FB0F88624077D20BF2A /* ca.lproj in Resources */,
+				BEDE53B275C126D90D324D724114B90B /* cs.lproj in Resources */,
+				1F78716FC69EF523B459AA7954B48178 /* da.lproj in Resources */,
+				AEEDF59CBC0B9350393DDB5958D04727 /* de.lproj in Resources */,
+				E4B07CD3EED92FB6CB936D80D04EED85 /* en.lproj in Resources */,
+				550B1BF9E3027F779E7B270940001377 /* es.lproj in Resources */,
+				3A7E89EDF2763EF27009DFEC61CCFDB6 /* fr.lproj in Resources */,
+				C961E962F6E72D24C198E96CBD1F2644 /* hu.lproj in Resources */,
+				23BC781FC75CDB5A908D600CF897B3A3 /* it.lproj in Resources */,
+				178E7EAF963659E17997B9AC76556603 /* ja.lproj in Resources */,
+				F67D3F9AB3E792F9B5BF1295654CDDB6 /* ko.lproj in Resources */,
+				4591F27DFFF58A3976308AE716E8ED65 /* mk.lproj in Resources */,
+				9A7564507E7232CD3690639CD7FFC1B0 /* nb.lproj in Resources */,
+				AEBAECF2907A161A7F6FC2F22AAE3DB9 /* nl.lproj in Resources */,
+				A96A16A559355C1833DE725F8B881762 /* pl.lproj in Resources */,
+				DF6501809F3F66CFAB9BEBD889418BCC /* pt.lproj in Resources */,
+				F64355696E9F79EAEA3ADB4033486CE7 /* pt_BR.lproj in Resources */,
+				72CFDE169976C8820E37F8CA2834CE7F /* ru.lproj in Resources */,
+				4340778186D06CC87B43CA14BD0E3295 /* sk.lproj in Resources */,
+				F1ED76BAFEA85DD8E858B1FC31192B27 /* sr.lproj in Resources */,
+				D5115660832045EAB52A8775850625FE /* sv.lproj in Resources */,
+				1F54E2097C3C0F27EEA46CD3D938CDF2 /* tr.lproj in Resources */,
+				B7C39AA5BDECCB955D18AAF378334707 /* zh_CN.lproj in Resources */,
+				91C3B7688EEAA946F22070FB8A097298 /* zh_TW.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3F0D7CFE659986B859F2B6D2703F23B6 /* [CP] Copy XCFrameworks */ = {
+		9A181939804C9F1E56224ACF31BF086B /* [CP] Copy dSYMs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/AppCenter/AppCenter-xcframeworks.sh",
-				"${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework",
-				"${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterCrashes.xcframework",
-			);
-			name = "[CP] Copy XCFrameworks";
-			outputPaths = (
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AppCenter",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AppCenterCrashes",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/AppCenter/AppCenter-xcframeworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A19A62E98EFD5224E676AA13D01CEF3A /* [CP] Copy dSYMs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Sparkle/Sparkle-copy-dsyms-input-files.xcfilelist",
 			);
 			name = "[CP] Copy dSYMs";
-			outputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Sparkle/Sparkle-copy-dsyms-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Sparkle/Sparkle-copy-dsyms.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AAD7D4593ED3B713FDA455F0E36487CE /* [CP] Copy XCFrameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/AppCenter/AppCenter-xcframeworks-input-files.xcfilelist",
+			);
+			name = "[CP] Copy XCFrameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/AppCenter/AppCenter-xcframeworks-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/AppCenter/AppCenter-xcframeworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		30C4B6C914761AFC4964336E9863D9FD /* Sources */ = {
+		B97A7653281B694302CAA758B2C61ED5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				890BDCB72A2DE7D73FE21F8DCDE993B1 /* String+SwiftyMarkdown.swift in Sources */,
-				DE3998CDB1667994B70CD3DAC2858695 /* SwiftyLineProcessor.swift in Sources */,
-				F8DD35F2A601BAF61B1EA1EA92531663 /* SwiftyMarkdown+iOS.swift in Sources */,
-				13D1860FD3212789A193B0BDCE8CBBB5 /* SwiftyMarkdown+macOS.swift in Sources */,
-				837BD56009CE3487ED907F825D51F478 /* SwiftyMarkdown-dummy.m in Sources */,
-				E8B7C953BE74D33A20E34A5374C690CE /* SwiftyMarkdown.swift in Sources */,
-				9C725C84B6B0BD6649A2D7CCA3E08FAA /* SwiftyTokeniser.swift in Sources */,
+				863A9F4E78250C0D1914C5011BE7801D /* LetsMove-dummy.m in Sources */,
+				93900EBA639B5860E62AF00D9DC52E20 /* PFMoveApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4B0A1E363566B1301D1C568EC2762DE8 /* Sources */ = {
+		D07BDFFAC838F1251D98B158EE81E4C7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E615985AE6C7D5B9238F364549E9677 /* LetsMove-dummy.m in Sources */,
-				19C57F8B6328BE9F770A07F168426903 /* PFMoveApplication.m in Sources */,
+				81FDF0E02301BF28CA30F9FBDE984114 /* Pods-alt-tab-macos-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D7D6DD32F057C55DBA8BC1F4F1A937D /* Sources */ = {
+		E93AF80D76B9F6FE1760DE8A5AD9CF3B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8DD041895DDBE5113EBA3B48F6D9F71 /* Pods-alt-tab-macos-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		96FD95D4278368B7BE939B853925C9F0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8FA35CBA2D53AA65111A9BB84328D8EA /* ShortcutRecorder-dummy.m in Sources */,
-				20F20DA2B30091851980ED6F99A6F700 /* SRCommon.m in Sources */,
-				2E94FD46CBC3E5D0224C95A723D7C3F6 /* SRKeyBindingTransformer.m in Sources */,
-				EEB1634EB172198229B0DA244C349A1A /* SRKeyCodeTransformer.m in Sources */,
-				00A7403C910B228BC60CE384D22DD116 /* SRKeyEquivalentModifierMaskTransformer.m in Sources */,
-				8558903ED5DF4CF7C139032314286244 /* SRKeyEquivalentTransformer.m in Sources */,
-				A515F0D69E74E71489364F47E1A5513E /* SRModifierFlagsTransformer.m in Sources */,
-				213B07126B15B2E4F5FD1A26D8334D25 /* SRRecorderControl.m in Sources */,
-				24861984927BBA000705C74347889BB5 /* SRRecorderControlStyle.m in Sources */,
-				5EC2F2D2F2DF932A3F9E94B95287E797 /* SRShortcut.m in Sources */,
-				318290C1F3C1A2EC2FD576E215621EBB /* SRShortcutAction.m in Sources */,
-				A4E39AAA30EF40466757270F0F736814 /* SRShortcutController.m in Sources */,
-				CBF6B269E6C670E063CB93B2A021214E /* SRShortcutFormatter.m in Sources */,
-				EF6C113655CD1DAC81605D79B575A2B8 /* SRShortcutValidator.m in Sources */,
+				0E35D9FB4D2163CEAC2877B93452C1F0 /* ShortcutRecorder-dummy.m in Sources */,
+				11598CBCB85FCD202C28F3D86DC8DEF0 /* SRCommon.m in Sources */,
+				E88A362211DD23931AC665075F0C845B /* SRKeyBindingTransformer.m in Sources */,
+				8BCA2517F62047D3C5CBED74D901BC99 /* SRKeyCodeTransformer.m in Sources */,
+				87B37C9186C2B818C41D9C8E82450EC3 /* SRKeyEquivalentModifierMaskTransformer.m in Sources */,
+				6EC2338FF937C7F882CCA4736900CA12 /* SRKeyEquivalentTransformer.m in Sources */,
+				AA58C58F5FD6FC55D195771211EE69D4 /* SRModifierFlagsTransformer.m in Sources */,
+				49734ACF6BDE0E1699441CEC9C07FAF9 /* SRRecorderControl.m in Sources */,
+				DE008EDF71170501A229D7CBD2C36FCC /* SRRecorderControlStyle.m in Sources */,
+				3B9B8F7C87EC7661EB8C6A9FF551E5CF /* SRShortcut.m in Sources */,
+				194EB0FFFAB2EACDFC60D4AD7E3EB1B2 /* SRShortcutAction.m in Sources */,
+				5CE4631247F366C075EA88D1D99FEE31 /* SRShortcutController.m in Sources */,
+				2B29D1B9EB9B7CBAC64A89D9EFDC9B20 /* SRShortcutFormatter.m in Sources */,
+				6918BD3D86751F8335515624509F8CD0 /* SRShortcutValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0E4F8CE81DDCDB8CE3A110B13B33D956 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AppCenter;
-			target = A3282A5B2437E609EEB85861D7ECE717 /* AppCenter */;
-			targetProxy = E17DEEFEDFF1E4501EB5E7EB393CBD8A /* PBXContainerItemProxy */;
-		};
-		36597507590ABE78689B8028D7C873D8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftyMarkdown;
-			target = 93523582DEC251A9E59F621510B882C3 /* SwiftyMarkdown */;
-			targetProxy = 573D725B79A096FD494C4B816E5CDC08 /* PBXContainerItemProxy */;
-		};
-		A3047B78DF156D84B1C2047B3D98C3D5 /* PBXTargetDependency */ = {
+		03FAEDD1DB67D80F6EA171CE2339BD02 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ShortcutRecorder;
 			target = D94AE99BF0C9025247C40F440DC9DB50 /* ShortcutRecorder */;
-			targetProxy = 10B3B47340BED371348B17DE4D5124C3 /* PBXContainerItemProxy */;
+			targetProxy = 96C005E0C2267CC48261331008820618 /* PBXContainerItemProxy */;
 		};
-		DA56EF1AA105B1FD9BA405BDDD85F436 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Sparkle;
-			target = ED77B4B88587C894E85C361023D67C53 /* Sparkle */;
-			targetProxy = 93EC44DF9CEA416B3B750E338D95343C /* PBXContainerItemProxy */;
-		};
-		F8A5CBD611D74F2B4CABAD4616C10A96 /* PBXTargetDependency */ = {
+		03FF859B5E800D2D74370775BB875A4E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = LetsMove;
 			target = F83960005EA88D0C24A1D277DD0E8667 /* LetsMove */;
-			targetProxy = CAA6597DB5D828123F1FA543A1B73698 /* PBXContainerItemProxy */;
+			targetProxy = 8B5BE3CA040F88F5975F6693BDCF05C0 /* PBXContainerItemProxy */;
+		};
+		5518807BC6DFFA4260BBB539939BBFF2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AppCenter;
+			target = A3282A5B2437E609EEB85861D7ECE717 /* AppCenter */;
+			targetProxy = C5566BB724058756C1FD4B31776A543C /* PBXContainerItemProxy */;
+		};
+		634ADA1E00E0E524EBBEBB98C045C808 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sparkle;
+			target = ED77B4B88587C894E85C361023D67C53 /* Sparkle */;
+			targetProxy = A977BD3250F5898D43A34B43E8450F09 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0C2F5FBFABAECB5F2C5493A0FDF6600E /* Release */ = {
+		065EA18A1E429E9FDA1454CE0BCDEAC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7475BBC3CE1397DCE052D215F2D73234 /* Pods-alt-tab-macos.release.xcconfig */;
+			baseConfigurationReference = 2BECA169E9CFC568DCE0A24CC2A4FF96 /* AppCenter.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3134F5DEECA42AB7464AF8F97A3BD578 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCA0A6B74F3699962F44535ACC0B5945 /* Pods-alt-tab-macos.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1089,7 +1007,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.modulemap";
@@ -1103,100 +1025,7 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
-		};
-		16E50C362C9ABD35DF735BC8FBE79555 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15C5E113CB33983E3D7CA2E549590C5A /* LetsMove.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/LetsMove/LetsMove-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/LetsMove/LetsMove-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULEMAP_FILE = "Target Support Files/LetsMove/LetsMove.modulemap";
-				PRODUCT_MODULE_NAME = LetsMove;
-				PRODUCT_NAME = LetsMove;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		320EE6749793436C71B561CAE7003358 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5463C1B09CCF15CB07E7F942C32CF722 /* ShortcutRecorder.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ShortcutRecorder/ShortcutRecorder-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder.modulemap";
-				PRODUCT_BUNDLE_IDENTIFIER = com.kulakov.ShortcutRecorder;
-				PRODUCT_MODULE_NAME = ShortcutRecorder;
-				PRODUCT_NAME = ShortcutRecorder;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
 			name = Debug;
-		};
-		40941DF51D5B57699520AD2BED2795A7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9944C21F227E8E28F18FA017C13D539 /* AppCenter.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		5CA1056E4CA7272E9A79FDB6FC7B1FBF /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7079F0B06DA59D6CE225502BF1FCB19 /* Sparkle.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
-			};
-			name = Release;
 		};
 		5E5046922B2BADEB6AE175DCA2A5C450 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1264,41 +1093,26 @@
 			};
 			name = Debug;
 		};
-		660CED606EAF0F8332753478962CBF21 /* Debug */ = {
+		64C065F5D8E00A7569B9220163F6A238 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D991747CB7A2FDFB782E1EA0007C8B8 /* SwiftyMarkdown.debug.xcconfig */;
+			baseConfigurationReference = F486E5F92087A7E0040DB81E4BEF7E3E /* Sparkle.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown.modulemap";
-				PRODUCT_MODULE_NAME = SwiftyMarkdown;
-				PRODUCT_NAME = SwiftyMarkdown;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		6778838FA965FA0585243FBB2FF6784F /* Debug */ = {
+		7679A2FA618C556AB2A71968E593B422 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 131133847C1B52EE7A00C8D247364F91 /* LetsMove.debug.xcconfig */;
+			baseConfigurationReference = EBCFA93D733FF19AF6F2F0DA99B10908 /* LetsMove.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1314,7 +1128,47 @@
 				GCC_PREFIX_HEADER = "Target Support Files/LetsMove/LetsMove-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/LetsMove/LetsMove-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MODULEMAP_FILE = "Target Support Files/LetsMove/LetsMove.modulemap";
+				PRODUCT_MODULE_NAME = LetsMove;
+				PRODUCT_NAME = LetsMove;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		826373C950D13DB13FA17FE0D8B53E8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1987D54137969705DDD9B9AF1D2E79A6 /* LetsMove.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/LetsMove/LetsMove-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/LetsMove/LetsMove-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULEMAP_FILE = "Target Support Files/LetsMove/LetsMove.modulemap";
 				PRODUCT_MODULE_NAME = LetsMove;
@@ -1328,9 +1182,81 @@
 			};
 			name = Debug;
 		};
-		890C74D83301997A9B659FA40D76C62A /* Release */ = {
+		95AC6B34604C895BE85469E05EA5A6C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D31D25BE8D714529115164134735639F /* ShortcutRecorder.release.xcconfig */;
+			baseConfigurationReference = F4EB8F0264C2E65E370378C1D56AF33B /* Sparkle.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9E623E64397261C8A6E4F6FFAA095AC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7475BBC3CE1397DCE052D215F2D73234 /* Pods-alt-tab-macos.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A9659A6350F5980C5AC97C35E5B0AAAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B026133DE5E62B7D976ED58B3535FA6 /* AppCenter.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C4885EA9425B964C448DE7053F25F569 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22D8CDE7120D80DC910F02E3A1F8E0EB /* ShortcutRecorder.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1346,7 +1272,11 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ShortcutRecorder/ShortcutRecorder-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MODULEMAP_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kulakov.ShortcutRecorder;
@@ -1360,20 +1290,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		AA11DE0AA6B03D5A0FE68B0AA4FEA66C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56B23F41D11D9BB99F0E349A47FB137C /* AppCenter.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SDKROOT = macosx;
-			};
-			name = Debug;
 		};
 		D256BAA9A69C64A728E66C27D53FDD4B /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1437,57 +1353,9 @@
 			};
 			name = Release;
 		};
-		D4A0FB33E74DF8114C111139E4C17BF0 /* Debug */ = {
+		D43D932AB920F9453FC814DE62B2B9B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCA0A6B74F3699962F44535ACC0B5945 /* Pods-alt-tab-macos.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		E7EF24BC93D93766F59FBF1EF1711CFC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E332D50EF953E3FD38274BD75F2192F5 /* Sparkle.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		FE49160844A48E556E40E467C11294AB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7052A302FAC1AC46C49465822B2DC5C0 /* SwiftyMarkdown.release.xcconfig */;
+			baseConfigurationReference = C335940303B2F2A59600950E67528BB0 /* ShortcutRecorder.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1500,14 +1368,19 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/ShortcutRecorder/ShortcutRecorder-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/SwiftyMarkdown/SwiftyMarkdown.modulemap";
-				PRODUCT_MODULE_NAME = SwiftyMarkdown;
-				PRODUCT_NAME = SwiftyMarkdown;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kulakov.ShortcutRecorder;
+				PRODUCT_MODULE_NAME = ShortcutRecorder;
+				PRODUCT_NAME = ShortcutRecorder;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -1515,16 +1388,25 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0B9D4AC818368EEDEEACE04B1DBF37C3 /* Build configuration list for PBXNativeTarget "SwiftyMarkdown" */ = {
+		31C3FA8CADE61CE3FE2492EDBA06C452 /* Build configuration list for PBXAggregateTarget "Sparkle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				660CED606EAF0F8332753478962CBF21 /* Debug */,
-				FE49160844A48E556E40E467C11294AB /* Release */,
+				95AC6B34604C895BE85469E05EA5A6C3 /* Debug */,
+				64C065F5D8E00A7569B9220163F6A238 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		423EA74D49485E8B01C634B86267A8BE /* Build configuration list for PBXNativeTarget "LetsMove" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				826373C950D13DB13FA17FE0D8B53E8E /* Debug */,
+				7679A2FA618C556AB2A71968E593B422 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1538,47 +1420,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		57CAAFD77F1F3EAC7729CE9781300459 /* Build configuration list for PBXNativeTarget "ShortcutRecorder" */ = {
+		5242D03FC5C1EAA4F817066052F80607 /* Build configuration list for PBXAggregateTarget "AppCenter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				320EE6749793436C71B561CAE7003358 /* Debug */,
-				890C74D83301997A9B659FA40D76C62A /* Release */,
+				065EA18A1E429E9FDA1454CE0BCDEAC1 /* Debug */,
+				A9659A6350F5980C5AC97C35E5B0AAAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5EBD6E1F33E4C77AD65B08369A6FD5D0 /* Build configuration list for PBXNativeTarget "LetsMove" */ = {
+		75460B60A70CD8914FCA11F86102850C /* Build configuration list for PBXNativeTarget "ShortcutRecorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6778838FA965FA0585243FBB2FF6784F /* Debug */,
-				16E50C362C9ABD35DF735BC8FBE79555 /* Release */,
+				D43D932AB920F9453FC814DE62B2B9B8 /* Debug */,
+				C4885EA9425B964C448DE7053F25F569 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6347E178A154C832C62FFEFD8D07C44A /* Build configuration list for PBXAggregateTarget "Sparkle" */ = {
+		EB4DC24EA3727FB6DF36BF068BCAFE1C /* Build configuration list for PBXNativeTarget "Pods-alt-tab-macos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E7EF24BC93D93766F59FBF1EF1711CFC /* Debug */,
-				5CA1056E4CA7272E9A79FDB6FC7B1FBF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7BDE3E6C26A9DBBDA1B065A5220FE7A7 /* Build configuration list for PBXAggregateTarget "AppCenter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA11DE0AA6B03D5A0FE68B0AA4FEA66C /* Debug */,
-				40941DF51D5B57699520AD2BED2795A7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E550067CAA69BA97B62FE17D983B0423 /* Build configuration list for PBXNativeTarget "Pods-alt-tab-macos" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D4A0FB33E74DF8114C111139E4C17BF0 /* Debug */,
-				0C2F5FBFABAECB5F2C5493A0FDF6600E /* Release */,
+				3134F5DEECA42AB7464AF8F97A3BD578 /* Debug */,
+				9E623E64397261C8A6E4F6FFAA095AC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

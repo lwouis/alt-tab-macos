@@ -1,5 +1,5 @@
 import Cocoa
-import LoginServiceKit
+import LaunchAtLogin
 
 class GeneralTab {
     static func initTab() -> NSView {
@@ -18,8 +18,8 @@ class GeneralTab {
         cell.imagePosition = .imageOverlaps
 
         let grid = GridView([
-            startAtLogin,
             menubarIcon,
+            startAtLogin
         ])
         grid.column(at: 0).xPlacement = .trailing
         grid.fit()
@@ -32,13 +32,9 @@ class GeneralTab {
     // adding/removing login item depending on the checkbox state
     static func startAtLoginCallback(_ sender: NSControl) {
         if (sender as! NSButton).state == .on {
-            if (!LoginServiceKit.isExistLoginItems()) {
-                LoginServiceKit.addLoginItems()
-            }
+            LaunchAtLogin.isEnabled = true
         } else {
-            if (LoginServiceKit.isExistLoginItems()) {
-                LoginServiceKit.removeLoginItems()
-            }
+            LaunchAtLogin.isEnabled = false
         }
     }
 }

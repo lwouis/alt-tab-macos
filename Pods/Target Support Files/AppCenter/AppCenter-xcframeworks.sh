@@ -20,8 +20,8 @@ copy_dir()
   local destination="$2"
 
   # Use filter instead of exclude so missing patterns don't throw errors.
-  echo "rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --links --filter \"- CVS/\" --filter \"- .svn/\" --filter \"- .git/\" --filter \"- .hg/\" \"${source}\" \"${destination}\""
-  rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" "${source}" "${destination}"
+  echo "rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --links --filter \"- CVS/\" --filter \"- .svn/\" --filter \"- .git/\" --filter \"- .hg/\" \"${source}*\" \"${destination}\""
+  rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" "${source}"/* "${destination}"
 }
 
 SELECT_SLICE_RETVAL=""
@@ -80,54 +80,11 @@ select_slice() {
   done
 }
 
-install_library() {
-  local source="$1"
-  local name="$2"
-  local destination="${PODS_XCFRAMEWORKS_BUILD_DIR}/${name}"
-
-  # Libraries can contain headers, module maps, and a binary, so we'll copy everything in the folder over
-
-  local source="$binary"
-  echo "rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --links --filter \"- CVS/\" --filter \"- .svn/\" --filter \"- .git/\" --filter \"- .hg/\" \"${source}/*\" \"${destination}\""
-  rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" "${source}/*" "${destination}"
-}
-
-# Copies a framework to derived data for use in later build phases
-install_framework()
-{
-  local source="$1"
-  local name="$2"
-  local destination="${PODS_XCFRAMEWORKS_BUILD_DIR}/${name}"
-
-  if [ ! -d "$destination" ]; then
-    mkdir -p "$destination"
-  fi
-
-  copy_dir "$source" "$destination"
-  echo "Copied $source to $destination"
-}
-
-install_xcframework_library() {
-  local basepath="$1"
-  local name="$2"
-  local paths=("$@")
-
-  # Locate the correct slice of the .xcframework for the current architectures
-  select_slice "${paths[@]}"
-  local target_path="$SELECT_SLICE_RETVAL"
-  if [[ -z "$target_path" ]]; then
-    echo "warning: [CP] Unable to find matching .xcframework slice in '${paths[@]}' for the current build architectures ($ARCHS)."
-    return
-  fi
-
-  install_framework "$basepath/$target_path" "$name"
-}
-
 install_xcframework() {
   local basepath="$1"
   local name="$2"
   local package_type="$3"
-  local paths=("$@")
+  local paths=("${@:4}")
 
   # Locate the correct slice of the .xcframework for the current architectures
   select_slice "${paths[@]}"
@@ -145,10 +102,9 @@ install_xcframework() {
   fi
 
   copy_dir "$source/" "$destination"
-
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework" "AppCenter" "framework" "macos-arm64_x86_64"
-install_xcframework "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterCrashes.xcframework" "AppCenterCrashes" "framework" "macos-arm64_x86_64"
+install_xcframework "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework" "AppCenter/Core" "framework" "macos-arm64_x86_64"
+install_xcframework "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterCrashes.xcframework" "AppCenter/Crashes" "framework" "macos-arm64_x86_64"
 
