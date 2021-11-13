@@ -103,7 +103,7 @@ extension AXUIElement {
     private static func jetbrainApp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?) -> Bool {
         // jetbrain apps sometimes generate non-windows that pass all checks in isActualWindow
         // they have no title, so we can filter them out based on that
-        return runningApp.bundleIdentifier?.range(of: "^com\\.(jetbrains\\.|google\\.android\\.studio).+?$", options: .regularExpression) == nil ||
+        return runningApp.bundleIdentifier?.range(of: "^com\\.(jetbrains\\.|google\\.android\\.studio).*?$", options: .regularExpression) == nil ||
             (subrole == kAXStandardWindowSubrole || title != nil && title != "")
     }
 
