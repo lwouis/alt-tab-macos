@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.27.1](https://github.com/lwouis/alt-tab-macos/compare/v6.27.0...v6.27.1) (2021-11-13)
+
+
+### Bug Fixes
+
+* ghost windows in android studio (#closes 1224) ([b668928](https://github.com/lwouis/alt-tab-macos/commit/b668928))
+
 # [6.27.0](https://github.com/lwouis/alt-tab-macos/compare/v6.26.0...v6.27.0) (2021-11-12)
 
 
