@@ -23,3 +23,5 @@ else
   scripts/codesign/setup_ci_pr.sh
   xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Debug -derivedDataPath DerivedData
 fi
+
+file /Users/travis/build/lwouis/alt-tab-macos/DerivedData/Build/Products/Debug/AltTab.app/Contents/MacOS/AltTab
