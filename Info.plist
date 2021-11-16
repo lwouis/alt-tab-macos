@@ -52,5 +52,7 @@
 	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
 	<key>SUScheduledCheckInterval</key>
 	<string>604800</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>$(PRODUCT_NAME) needs this permission to toggle "Start at login"</string>
 </dict>
 </plist>

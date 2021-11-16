@@ -1,4 +1,5 @@
 import Cocoa
+import OSAKit
 
 class GeneralTab {
     static func initTab() -> NSView {
@@ -29,21 +30,18 @@ class GeneralTab {
     }
 
     // adding/removing login item depending on the checkbox state
-    @available(OSX, deprecated: 10.11)
     static func startAtLoginCallback(_ sender: NSControl) {
-        if let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil)?.takeRetainedValue() {
-            let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
-            let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
-            if let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil)?.takeRetainedValue() as? [LSSharedFileListItem] {
-                loginItemsSnapshot.forEach {
-                    if (LSSharedFileListItemCopyDisplayName($0).takeRetainedValue() == itemName) ||
-                           (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
-                        LSSharedFileListItemRemove(loginItems, $0)
-                    }
-                }
-            }
-            if (sender as! NSButton).state == .on {
-                let _ = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst.takeRetainedValue(), nil, nil, itemUrl, nil, nil)?.takeRetainedValue()
+        let shouldLaunchAtLogin = (sender as! NSButton).state == .on
+        let script = OSAScript(contentsOf: Bundle.main.url(forResource: "test", withExtension: "scpt")!, error: nil)!
+        var error: NSDictionary?
+        script.executeHandler(withName: "handler", arguments: [shouldLaunchAtLogin, Bundle.main.bundlePath], error: &error)
+        if let error = error {
+            debugPrint(error)
+            if error["OSAScriptErrorNumberKey"] as? Int32 == -1743 {
+                debugPrint("Missing permission in System Preferences > Security & Privacy > Privacy > Automation")
+                let stdout = Bash.command("tccutil reset AppleEvents com.lwouis.alt-tab-macos")
+                debugPrint(stdout)
+                App.app.restart()
             }
         }
     }

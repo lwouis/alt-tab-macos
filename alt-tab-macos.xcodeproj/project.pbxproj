@@ -17,6 +17,7 @@
 		BF0C829583ED47E458528F3A /* accessibility@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0C889529FF19620EDAC295 /* accessibility@2x.png */; };
 		BF0C83AB0186CC48FADF66A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C847B2D68EACFAC1B06D1 /* Localizable.strings */; };
 		BF0C83E902F75A97E8FD374A /* menubar-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8D3333653ACAEF730DD8 /* menubar-2@2x.png */; };
+		BF0C83F25F83004CCD689CF5 /* LoginItemsManager.scpt in Resources */ = {isa = PBXBuildFile; fileRef = BF0C85C11C0C0E9DC47B9CE3 /* LoginItemsManager.scpt */; };
 		BF0C8406805BDEC5B69E8803 /* screen-recording@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8E25373671B528AD448D /* screen-recording@2x.png */; };
 		BF0C8477850829E15FD4DD43 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8F9CE1699644A22EAF2C /* close@2x.png */; };
 		BF0C84D7DC2AC65BB1C111EB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8349BA94516E8760BAFA /* Localizable.strings */; };
@@ -166,6 +167,7 @@
 		BF0C847A108ABC72723ABBA2 /* hi */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hi; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C84E11784B3B0900D0963 /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = app.icns; sourceTree = "<group>"; };
 		BF0C850C46CCD8B978168CCD /* sv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sv; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C85C11C0C0E9DC47B9CE3 /* LoginItemsManager.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = LoginItemsManager.scpt; sourceTree = "<group>"; };
 		BF0C86370093A080DD5974D8 /* convert_svg_to_png.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = convert_svg_to_png.sh; sourceTree = "<group>"; };
 		BF0C864F182B6155A66D241D /* KeyRepeatTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyRepeatTimer.swift; sourceTree = "<group>"; };
 		BF0C86C2BB70A8E05D2103CA /* cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = cs; path = Localizable.strings; sourceTree = "<group>"; };
@@ -962,6 +964,7 @@
 				D04BA7568B7165A7726306A7 /* icons */,
 				D04BA60A6D08C041F5BF8CC9 /* SF-Pro-Text-Regular.otf */,
 				BF0C8465A0A9EA2814A22C35 /* SF-Pro-Text-Regular-Full.otf */,
+				BF0C85C11C0C0E9DC47B9CE3 /* LoginItemsManager.scpt */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -1314,6 +1317,7 @@
 				BF0C828D53D429C2B8B22391 /* Localizable.strings in Resources */,
 				BF0C8571D70170B73B46A262 /* Localizable.strings in Resources */,
 				BF0C8EA4654F8059F0AED40E /* InfoPlist.strings in Resources */,
+				BF0C83F25F83004CCD689CF5 /* LoginItemsManager.scpt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
