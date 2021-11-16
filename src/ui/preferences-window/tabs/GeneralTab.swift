@@ -28,21 +28,36 @@ class GeneralTab {
         return grid
     }
 
-    // adding/removing login item depending on the checkbox state
-    @available(OSX, deprecated: 10.11)
+    // add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
     static func startAtLoginCallback(_ sender: NSControl) {
-        let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
-        let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
-        let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
-        let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
-        loginItemsSnapshot.forEach {
-            if (LSSharedFileListItemCopyDisplayName($0)?.takeRetainedValue() == itemName) ||
-                   (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
-                LSSharedFileListItemRemove(loginItems, $0)
+        var launchAgentsPath = (try? FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)) ?? URL.init(fileURLWithPath: "~/Library", isDirectory: true)
+        launchAgentsPath.appendPathComponent("LaunchAgents", isDirectory: true)
+        if !FileManager.default.fileExists(atPath: launchAgentsPath.path) {
+            do {
+                try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
+            } catch let error {
+                debugPrint("Failed to create LaunchAgent directory at '\(launchAgentsPath.path)'", error)
             }
         }
+        launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
         if (sender as! NSButton).state == .on {
-            let _ = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst.takeRetainedValue(), nil, nil, itemUrl, nil, nil).takeRetainedValue()
+            let plist: NSDictionary = [
+                "Label": "com.lwouis.alt-tab-macos",
+                "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
+                "RunAtLoad": true,
+                "LimitLoadToSessionType": "Aqua",
+                "KeepAlive": [
+                    "Crashed": true,
+                    "SuccessfulExit": false,
+                ],
+            ]
+            plist.write(to: launchAgentsPath, atomically: true)
+        } else {
+            do {
+                try FileManager.default.removeItem(at: launchAgentsPath)
+            } catch let error {
+                debugPrint("Failed to remove LaunchAgent", error)
+            }
         }
     }
 }

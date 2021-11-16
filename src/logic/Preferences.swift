@@ -159,33 +159,55 @@ class Preferences {
     static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
 
     static func migratePreferences() {
-        let preferencesVersion = "preferencesVersion"
-        if let currentVersion = defaults.string(forKey: preferencesVersion) {
-            if currentVersion.compare(App.version, options: .numeric) == .orderedAscending {
-                updateToNewPreferences(preferencesVersion)
+        let preferencesKey = "preferencesVersion"
+        if let diskVersion = defaults.string(forKey: preferencesKey) {
+            if diskVersion.compare(App.version, options: .numeric) == .orderedAscending {
+                updateToNewPreferences(diskVersion)
             }
-        } else {
-            // first time migrating
-            updateToNewPreferences(preferencesVersion)
+        }
+        defaults.set(App.version, forKey: preferencesKey)
+    }
+
+    private static func updateToNewPreferences(_ currentVersion: String) {
+        if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
+            // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+            migrateLoginItem()
+            if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
+                // "Show windows from:" got the "Active Space" option removed
+                migrateShowWindowsFrom()
+                if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
+                    // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                    migrateNextWindowShortcuts()
+                    // dropdowns preferences used to store English text; now they store indexes
+                    migrateDropdownsFromTextToIndexes()
+                    // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                    migrateMenubarIconFromCheckboxToDropdown()
+                    // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                    migrateShowWindowsCheckboxToDropdown()
+                    // "Max size on screen" was split into max width and max height
+                    migrateMaxSizeOnScreenToWidthAndHeight()
+                }
+            }
         }
     }
 
-    private static func updateToNewPreferences(_ preferencesVersion: String) {
-        if App.version.compare("6.3.0", options: .numeric) == .orderedAscending {
-            // dropdowns preferences used to store English text; now they store indexes
-            migrateDropdownsFromTextToIndexes()
-            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-            migrateMenubarIconFromCheckboxToDropdown()
-            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-            migrateShowWindowsCheckboxToDropdown()
-            // "Max size on screen" was split into max width and max height
-            migrateMaxSizeOnScreenToWidthAndHeight()
+    @available(OSX, deprecated: 10.11)
+    private static func migrateLoginItem() {
+        do {
+            let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
+            let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
+            let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
+            let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
+            loginItemsSnapshot.forEach {
+                if (LSSharedFileListItemCopyDisplayName($0)?.takeRetainedValue() == itemName) ||
+                       (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
+                    LSSharedFileListItemRemove(loginItems, $0)
+                }
+            }
+        } catch {
+            // the LSSharedFile API is deprecated, and has a runtime crash on M1 Monterey
+            // we catch any exception to void the app crashing
         }
-        // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-        migrateNextWindowShortcuts()
-        // "Show windows from:" got the "Active Space" option removed
-        migrateShowWindowsFrom()
-        defaults.set(App.version, forKey: preferencesVersion)
     }
 
     private static func migrateShowWindowsFrom() {
