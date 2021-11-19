@@ -15,7 +15,7 @@ addons:
 env:
   global:
     - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
-    - XCODE_BUILD_PATH=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "DerivedData/Build/Products/Release"; else echo "DerivedData/Build/Products/Debug"; fi)
+    - XCODE_BUILD_PATH="DerivedData/Build/Products/Release"
     - VERSION_FILE="VERSION.txt"
     - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
 install: true # disable default install
