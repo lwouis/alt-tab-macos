@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.28.0](https://github.com/lwouis/alt-tab-macos/compare/v6.27.1...v6.28.0) (2021-11-19)
+
+
+### Bug Fixes
+
+* would sometimes crash when opening preferences > appearance ([c66e106](https://github.com/lwouis/alt-tab-macos/commit/c66e106))
+
+
+### Features
+
+* native support for apple silicon (e.g. m1 mac) ([6f93130](https://github.com/lwouis/alt-tab-macos/commit/6f93130))
+* support login-at-start on macos 11, 12, and m1 macs ([664c5b9](https://github.com/lwouis/alt-tab-macos/commit/664c5b9))
+
 ## [6.27.1](https://github.com/lwouis/alt-tab-macos/compare/v6.27.0...v6.27.1) (2021-11-13)
 
 
