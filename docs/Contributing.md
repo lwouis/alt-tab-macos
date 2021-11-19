@@ -144,7 +144,7 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * The shortcut sets 1 and 2 should not interact with each other (e.g. opening AltTab with one, then using the other to navigate)
 * Shortcuts can focus the window on release, or be pressing a key or using the mouse
 * Keyboards from other countries have different layout which impact shortcuts
-  * e.g. the default ``` ⌥` ``` shortcut should become `⌥>` on a Spanish ISO keyboard
+  * e.g. the default ``` ⌥` ``` shortcut should become `⌥<` on a Spanish ISO keyboard
 
 ### Localization
 
