@@ -7,8 +7,8 @@ class AppearanceTab {
 
     static func initTab() -> NSView {
         rowsCount = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Rows of thumbnails:", comment: ""), "rowsCount", 1, 20, 20, true)
-        minWidthInRow = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window min width in row:", comment: ""), "windowMinWidthInRow", 0, 100, 10, true, "%", extraAction: { _ in capMinMaxWidthInRow() })
-        maxWidthInRow = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window max width in row:", comment: ""), "windowMaxWidthInRow", 0, 100, 10, true, "%", extraAction: { _ in capMinMaxWidthInRow() })
+        minWidthInRow = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window min width in row:", comment: ""), "windowMinWidthInRow", 1, 100, 10, true, "%", extraAction: { _ in capMinMaxWidthInRow() })
+        maxWidthInRow = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window max width in row:", comment: ""), "windowMaxWidthInRow", 1, 100, 10, true, "%", extraAction: { _ in capMinMaxWidthInRow() })
 
         let grid = GridView([
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
