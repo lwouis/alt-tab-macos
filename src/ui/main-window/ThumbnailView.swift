@@ -151,13 +151,14 @@ class ThumbnailView: NSStackView {
         if appIconChanged || dockLabelChanged {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
-        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, ThumbnailView.widthMin(screen)).rounded())
+        let widthMin = ThumbnailView.widthMin(screen)
+        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, widthMin).rounded())
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
-            let maxWidth = (ThumbnailView.widthMin(screen) - Preferences.intraCellPadding * 2).rounded()
+            let maxWidth = (widthMin - Preferences.intraCellPadding * 2).rounded()
             let maxHeight = ((ThumbnailView.height(screen) - hStackView.fittingSize.height) - Preferences.intraCellPadding * 2).rounded()
             // heuristic to determine font size based on bounding box
             let fontSize = (min(maxWidth, maxHeight) * 0.6).rounded()

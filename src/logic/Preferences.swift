@@ -169,23 +169,36 @@ class Preferences {
     }
 
     private static func updateToNewPreferences(_ currentVersion: String) {
-        if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
-            // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-            migrateLoginItem()
-            if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
-                // "Show windows from:" got the "Active Space" option removed
-                migrateShowWindowsFrom()
-                if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
-                    // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                    migrateNextWindowShortcuts()
-                    // dropdowns preferences used to store English text; now they store indexes
-                    migrateDropdownsFromTextToIndexes()
-                    // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                    migrateMenubarIconFromCheckboxToDropdown()
-                    // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                    migrateShowWindowsCheckboxToDropdown()
-                    // "Max size on screen" was split into max width and max height
-                    migrateMaxSizeOnScreenToWidthAndHeight()
+        if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
+            migrateMinMaxWindowsWidthInRow()
+            if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
+                // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                migrateLoginItem()
+                if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
+                    // "Show windows from:" got the "Active Space" option removed
+                    migrateShowWindowsFrom()
+                    if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
+                        // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                        migrateNextWindowShortcuts()
+                        // dropdowns preferences used to store English text; now they store indexes
+                        migrateDropdownsFromTextToIndexes()
+                        // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                        migrateMenubarIconFromCheckboxToDropdown()
+                        // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                        migrateShowWindowsCheckboxToDropdown()
+                        // "Max size on screen" was split into max width and max height
+                        migrateMaxSizeOnScreenToWidthAndHeight()
+                    }
+                }
+            }
+        }
+    }
+
+    private static func migrateMinMaxWindowsWidthInRow() {
+        ["windowMinWidthInRow", "windowMaxWidthInRow"].forEach {
+            if let old = defaults.string(forKey: $0) {
+                if old == "0" {
+                    defaults.set("1", forKey: $0)
                 }
             }
         }
