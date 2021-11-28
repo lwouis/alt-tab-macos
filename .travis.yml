@@ -1,6 +1,7 @@
 branches:
   only:
     - master
+    - develop
 os: osx
 osx_image: xcode12.3
 language: node_js
