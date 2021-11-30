@@ -51,7 +51,7 @@ NS_SWIFT_NAME(CrashesDelegate)
  * @param errorReport The errorReport that App Center tried to send.
  * @param error The error that occurred.
  */
-- (void)crashes:(MSACCrashes *)crashes didFailSendingErrorReport:(MSACErrorReport *)errorReport withError:(NSError *)error;
+- (void)crashes:(MSACCrashes *)crashes didFailSendingErrorReport:(MSACErrorReport *)errorReport withError:(nullable NSError *)error;
 
 /**
  * Method to get the attachments associated to an error report.

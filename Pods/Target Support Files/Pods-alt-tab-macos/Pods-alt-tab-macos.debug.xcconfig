@@ -1,12 +1,15 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/LetsMove" "${PODS_CONFIGURATION_BUILD_DIR}/ShortcutRecorder" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyMarkdown" "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple" "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework/macos-arm64_x86_64" "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterCrashes.xcframework/macos-arm64_x86_64" "${PODS_ROOT}/Sparkle"
+CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/LetsMove" "${PODS_CONFIGURATION_BUILD_DIR}/ShortcutRecorder" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyMarkdown" "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple" "${PODS_ROOT}/Sparkle" "${PODS_XCFRAMEWORKS_BUILD_DIR}/AppCenter/Core" "${PODS_XCFRAMEWORKS_BUILD_DIR}/AppCenter/Crashes"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/LetsMove/LetsMove.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ShortcutRecorder/ShortcutRecorder.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyMarkdown/SwiftyMarkdown.framework/Headers"
-LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks' @loader_path/../Frameworks
-OTHER_LDFLAGS = $(inherited) -l"c++" -l"sqlite3" -l"z" -framework "AppCenter" -framework "AppCenterCrashes" -framework "AppKit" -framework "Carbon" -framework "Cocoa" -framework "Foundation" -framework "LetsMove" -framework "ShortcutRecorder" -framework "Sparkle" -framework "SwiftyMarkdown" -framework "SystemConfiguration"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) /usr/lib/swift '@executable_path/../Frameworks' '@loader_path/Frameworks' "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" @loader_path/../Frameworks
+LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" /usr/lib/swift
+OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"sqlite3" -l"z" -framework "AppCenter" -framework "AppCenterCrashes" -framework "AppKit" -framework "Carbon" -framework "Cocoa" -framework "Foundation" -framework "LetsMove" -framework "ShortcutRecorder" -framework "Sparkle" -framework "SwiftyMarkdown" -framework "SystemConfiguration"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
+PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates
 USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

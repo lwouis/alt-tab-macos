@@ -17,6 +17,7 @@
 #import <AppCenter/MSACLog.h>
 #import <AppCenter/MSACLogWithProperties.h>
 #import <AppCenter/MSACLogger.h>
+#import <AppCenter/MSACSerializableObject.h>
 #import <AppCenter/MSACService.h>
 #import <AppCenter/MSACServiceAbstract.h>
 #import <AppCenter/MSACWrapperLogger.h>
@@ -35,6 +36,7 @@
 #import "MSACLog.h"
 #import "MSACLogWithProperties.h"
 #import "MSACLogger.h"
+#import "MSACSerializableObject.h"
 #import "MSACService.h"
 #import "MSACServiceAbstract.h"
 #import "MSACWrapperLogger.h"
