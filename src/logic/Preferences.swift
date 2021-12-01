@@ -49,7 +49,7 @@ class Preferences {
         "startAtLogin": "true",
         "menubarIcon": MenubarIconPreference.outlined.rawValue,
         "dontShowBlacklist": ["com.McAfee.McAfeeSafariHost"].joined(separator: "\n"),
-        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer", "com.citrix.receiver.icaviewer.mac", "com.nicesoftware.dcvviewer", "com.vmware.fusion"].joined(separator: "\n"),
+        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer", "com.citrix.receiver.icaviewer.mac", "com.nicesoftware.dcvviewer", "com.vmware.fusion", "com.apple.ScreenSharing"].joined(separator: "\n"),
         "disableShortcutsBlacklistOnlyFullscreen": "true",
         "updatePolicy": UpdatePolicyPreference.autoCheck.rawValue,
         "crashPolicy": CrashPolicyPreference.ask.rawValue,
