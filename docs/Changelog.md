@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.29.0](https://github.com/lwouis/alt-tab-macos/compare/v6.28.0...v6.29.0) (2021-12-01)
+
+
+### Bug Fixes
+
+* only make network calls to appcenter when necessary (closes [#1265](https://github.com/lwouis/alt-tab-macos/issues/1265)) ([79c2906](https://github.com/lwouis/alt-tab-macos/commit/79c2906))
+* prevent setting min width to 0% in preferences (see [#1248](https://github.com/lwouis/alt-tab-macos/issues/1248)) ([467736c](https://github.com/lwouis/alt-tab-macos/commit/467736c))
+
+
+### Features
+
+* add apple screen sharing to default blacklist ([#1258](https://github.com/lwouis/alt-tab-macos/issues/1258)) ([d4780f6](https://github.com/lwouis/alt-tab-macos/commit/d4780f6))
+* add vmware fusion to default blacklist (closes [#1258](https://github.com/lwouis/alt-tab-macos/issues/1258)) ([17f98b5](https://github.com/lwouis/alt-tab-macos/commit/17f98b5))
+
 # [6.28.0](https://github.com/lwouis/alt-tab-macos/compare/v6.27.1...v6.28.0) (2021-11-19)
 
 
