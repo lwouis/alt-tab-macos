@@ -10,6 +10,8 @@
 @protocol MSACChannelProtocol;
 @protocol MSACLog;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol MSACChannelDelegate <NSObject>
 
 @optional
@@ -69,7 +71,7 @@
  * @param log The log to be sent.
  * @param error The error that occured.
  */
-- (void)channel:(id<MSACChannelProtocol>)channel didFailSendingLog:(id<MSACLog>)log withError:(NSError *)error;
+- (void)channel:(id<MSACChannelProtocol>)channel didFailSendingLog:(id<MSACLog>)log withError:(nullable NSError *)error;
 
 /**
  * A callback that is called when setEnabled has been invoked.
@@ -108,3 +110,5 @@
 - (BOOL)channelUnit:(id<MSACChannelUnitProtocol>)channelUnit shouldFilterLog:(id<MSACLog>)log;
 
 @end
+
+NS_ASSUME_NONNULL_END
