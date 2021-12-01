@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/AppCenterCrashes.h</key>
 		<data>
-		eS1L4vZ9uOJZWtS26mqGyfAfCvE=
+		SUQZOPrzwqVaEYuELhr7Z/cRTh0=
 		</data>
 		<key>Headers/MSACCrashHandlerSetupDelegate.h</key>
 		<data>
@@ -14,11 +14,11 @@
 		</data>
 		<key>Headers/MSACCrashes.h</key>
 		<data>
-		eHC+/SrZ0R08kZxHQSoVyQf+vCo=
+		r8P9kK348cdQnlFX6FacTW6y3+c=
 		</data>
 		<key>Headers/MSACCrashesDelegate.h</key>
 		<data>
-		czYUE2OOoD3lc+2UHRPFMakb0jQ=
+		qnhKqY+vAsatzNxGZyoxFMmwIxI=
 		</data>
 		<key>Headers/MSACErrorAttachmentLog+Utility.h</key>
 		<data>
@@ -32,13 +32,25 @@
 		<data>
 		OZkejnc70UL+wPdiV8fw2UAcBR0=
 		</data>
+		<key>Headers/MSACExceptionModel.h</key>
+		<data>
+		FGcXjyUYzvd/LDjl0hc2Ah+1D1Q=
+		</data>
+		<key>Headers/MSACStackFrame.h</key>
+		<data>
+		j8bbwC65keur+uW6rxfIERJNFWI=
+		</data>
 		<key>Headers/MSACWrapperCrashesHelper.h</key>
 		<data>
-		PRoMqamOgoTAX8mweVFBYStiziQ=
+		XjDlLOnOWP3EG0z+nuYQDxLEVcY=
+		</data>
+		<key>Headers/MSACWrapperExceptionModel.h</key>
+		<data>
+		fTPRyH4z/TDoTMVaRXo1TWACDzI=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		aMhE7UvcWzAgWCrN2k2rUGdH2U0=
+		JMjfyLGFjbABfCXy4P+PQwS+lCg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -51,11 +63,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			eS1L4vZ9uOJZWtS26mqGyfAfCvE=
+			SUQZOPrzwqVaEYuELhr7Z/cRTh0=
 			</data>
 			<key>hash2</key>
 			<data>
-			NFGxm6YjpGCjJNEfjv5SM7MyktNj/PHvSXflRV/5FPQ=
+			WBWD92kWeWBZQryXJRro9Jvi9658TsDl/cjdQNAbDnE=
 			</data>
 		</dict>
 		<key>Headers/MSACCrashHandlerSetupDelegate.h</key>
@@ -73,22 +85,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			eHC+/SrZ0R08kZxHQSoVyQf+vCo=
+			r8P9kK348cdQnlFX6FacTW6y3+c=
 			</data>
 			<key>hash2</key>
 			<data>
-			y7g3W+WahfsOp6fIuAPSEK9JbhjeFSzuTLIVlH5ij2o=
+			ArA6Fp1CT6yjdmOgK79Q9jnEO6aqIZyUIjHFq1c5QRk=
 			</data>
 		</dict>
 		<key>Headers/MSACCrashesDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			czYUE2OOoD3lc+2UHRPFMakb0jQ=
+			qnhKqY+vAsatzNxGZyoxFMmwIxI=
 			</data>
 			<key>hash2</key>
 			<data>
-			XWIFycuL8uPuweg15Kuzu0MAYjRG7O7p0VyVRzG0Ay0=
+			wBmXt8Cq5mUI+93edo6jk8yfyfYDxY35H+c4Lx6qjGE=
 			</data>
 		</dict>
 		<key>Headers/MSACErrorAttachmentLog+Utility.h</key>
@@ -124,15 +136,48 @@
 			Ph0QprvD6QWBekvlfshUpVdljO98TuiI8PRbZO/MB0Y=
 			</data>
 		</dict>
+		<key>Headers/MSACExceptionModel.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FGcXjyUYzvd/LDjl0hc2Ah+1D1Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			T3IzEs/a04qDb742vNe8EJwFOZgOGMa8zyKFSCXT/Rc=
+			</data>
+		</dict>
+		<key>Headers/MSACStackFrame.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			j8bbwC65keur+uW6rxfIERJNFWI=
+			</data>
+			<key>hash2</key>
+			<data>
+			mgx3oo8nZYPGWqp82VYFVJ5rj0oeEIiqnc+TOcled+I=
+			</data>
+		</dict>
 		<key>Headers/MSACWrapperCrashesHelper.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			PRoMqamOgoTAX8mweVFBYStiziQ=
+			XjDlLOnOWP3EG0z+nuYQDxLEVcY=
 			</data>
 			<key>hash2</key>
 			<data>
-			co5bCCKJlZU9L5fVlCUmO7enl7tPeRzM3TjHJkNwn58=
+			fq9x4VE7FvWa3M3oH8XTAeaDiZdZYxv8CTdkt24maBE=
+			</data>
+		</dict>
+		<key>Headers/MSACWrapperExceptionModel.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fTPRyH4z/TDoTMVaRXo1TWACDzI=
+			</data>
+			<key>hash2</key>
+			<data>
+			blUKL+sJciIHT1DLWNSuktzjorY6OWNpl8ncsGosGd8=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
