@@ -54,7 +54,13 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
         let alert = NSAlert()
         alert.alertStyle = .critical
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""), (isArrowKeys ? "Arrow keys" : existing!.1).replacingOccurrences(of: " ", with: "\u{00A0}"))
+        if shortcutAlreadyAssigned.id.contains("Vim") {
+            alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to window selection with Vim keys.", comment: ""))
+            alert.runModal()
+            return
+        }
+        let existing = ControlsTab.shortcutControls[shortcutAlreadyAssigned.id]!
+        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""), existing.1.replacingOccurrences(of: " ", with: "\u{00A0}"))
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         }

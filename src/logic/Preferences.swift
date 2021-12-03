@@ -23,6 +23,7 @@ class Preferences {
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
+        "vimKeysEnabled": "false",
         "mouseHoverEnabled": "true",
         "cursorFollowFocusEnabled": "false",
         "showMinimizedWindows": ShowHowPreference.show.rawValue,
@@ -93,6 +94,7 @@ class Preferences {
     static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
+    static var vimKeysEnabled: Bool { defaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
     static var cursorFollowFocusEnabled: Bool { defaults.bool("cursorFollowFocusEnabled") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
@@ -212,12 +214,12 @@ class Preferences {
     @available(OSX, deprecated: 10.11)
     private static func migrateLoginItem() {
         do {
-            let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
-            let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
+            let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil)!.takeRetainedValue()
+            let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil)!.takeRetainedValue() as! [LSSharedFileListItem]
             let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
             let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
             loginItemsSnapshot.forEach {
-                if (LSSharedFileListItemCopyDisplayName($0)?.takeRetainedValue() == itemName) ||
+                if (LSSharedFileListItemCopyDisplayName($0).takeRetainedValue() == itemName) ||
                        (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
                     LSSharedFileListItemRemove(loginItems, $0)
                 }

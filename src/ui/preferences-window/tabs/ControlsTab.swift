@@ -11,16 +11,21 @@ class ControlsTab {
         "nextWindowShortcut": { App.app.showUiOrCycleSelection(0) },
         "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1) },
         "previousWindowShortcut": { App.app.previousWindowShortcutWithRepeatingKey() },
-        "→": { App.app.cycleSelection(.right) },
-        "←": { App.app.cycleSelection(.left) },
-        "↑": { App.app.cycleSelection(.up) },
-        "↓": { App.app.cycleSelection(.down) },
         "cancelShortcut": { App.app.hideUi() },
         "closeWindowShortcut": { App.app.closeSelectedWindow() },
         "minDeminWindowShortcut": { App.app.minDeminSelectedWindow() },
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
+        "cycleSelectionRightArrow": { App.app.cycleSelection(.right) },
+        "cycleSelectionRightVim": { App.app.cycleSelection(.right) },
+        "cycleSelectionLeftArrow": { App.app.cycleSelection(.left) },
+        "cycleSelectionLeftVim": { App.app.cycleSelection(.left) },
+        "cycleSelectionUpArrow": { App.app.cycleSelection(.up) },
+        "cycleSelectionUpVim": { App.app.cycleSelection(.up) },
+        "cycleSelectionDownArrow": { App.app.cycleSelection(.down) },
+        "cycleSelectionDownVim": { App.app.cycleSelection(.down) },
     ]
+    static var shortcutStack = [String: ATShortcut]()
     static var arrowKeysCheckbox: NSButton!
 
     static func initTab() -> NSView {
@@ -33,6 +38,7 @@ class ControlsTab {
         let hideShowAppShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hide/Show app", comment: ""), "hideShowAppShortcut", Preferences.hideShowAppShortcut, labelPosition: .right)
         let enableArrows = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Arrow keys", comment: ""), "arrowKeysEnabled", extraAction: ControlsTab.arrowKeysEnabledCallback, labelPosition: .right)
         arrowKeysCheckbox = enableArrows[0] as! NSButton
+        let enableVimKeys = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Vim keys", comment: ""), "vimKeysEnabled", extraAction: ControlsTab.vimKeysEnabledCallback, labelPosition: .right)
         let enableMouse = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Mouse hover", comment: ""), "mouseHoverEnabled", labelPosition: .right)
         let enableCursorFollowFocus = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Cursor follows focus", comment: ""), "cursorFollowFocusEnabled", labelPosition: .right)
         let selectWindowcheckboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Also select windows using:", comment: ""))
@@ -175,11 +181,56 @@ class ControlsTab {
     }
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
-        let keys = ["←", "→", "↑", "↓"]
+        let keyActions = [
+            "←": "cycleSelectionLeftArrow",
+            "→": "cycleSelectionRightArrow",
+            "↑": "cycleSelectionUpArrow",
+            "↓": "cycleSelectionDownArrow"
+        ]
         if (sender as! NSButton).state == .on {
-            keys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
+            keyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
         } else {
-            keys.forEach { removeShortcutIfExists($0) }
+            keyActions.forEach { removeShortcutIfExists($1) }
+        }
+    }
+
+    @objc static func vimKeysEnabledCallback(_ sender: NSControl) {
+        let keyActions = [
+            "h": "cycleSelectionLeftVim",
+            "l": "cycleSelectionRightVim",
+            "k": "cycleSelectionUpVim",
+            "j": "cycleSelectionDownVim"
+        ]
+        if (sender as! NSButton).state == .on {
+            var maskedCharacters = [String]()
+            shortcuts.forEach {
+                if let shortcutCharacter = $1.shortcut.characters {
+                    // "Push" to shortcutStack
+                    if (Set([shortcutCharacter]).isSubset(of: Set(keyActions.keys))) {
+                        shortcutStack[shortcutCharacter] = $1
+                        removeShortcutIfExists($0)
+                        maskedCharacters.append(shortcutCharacter)
+                    }
+                }
+            }
+            if !(maskedCharacters.isEmpty) {
+                alertVimKeysOverrideExistingShortcuts(shortcutKeys: maskedCharacters)
+            }
+            keyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
+        } else {
+            keyActions.forEach { removeShortcutIfExists($1) }
+            if !(shortcutStack.isEmpty) {
+                var restoredCharacters = [String]()
+                // "Pop" from shortcutStack
+                shortcutStack.forEach {
+                    if (shortcuts[$1.id] == nil) {
+                        addShortcut($1.triggerPhase, $1.scope, $1.shortcut, $1.id, $1.index)
+                        restoredCharacters.append($1.shortcut.characters!)
+                    }
+                }
+                shortcutStack = [String: ATShortcut]()
+                alertShortcutsOverriddenByVimKeysAreNowRestored(shortcutKeys: restoredCharacters)
+            }
         }
     }
 
@@ -191,4 +242,34 @@ class ControlsTab {
             shortcuts.removeValue(forKey: controlId)
         }
     }
+
+    private static func alertVimKeysOverrideExistingShortcuts(shortcutKeys: [String]) {
+        if shortcutKeys.isEmpty { return }
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.messageText = NSLocalizedString("Vim Key Precidence Applied", comment: "")
+        let keysBeingMaskedMessage = NSLocalizedString(
+            "Enabling Vim movement keys will override existing shortcuts assigned to the following keys:", comment: ""
+        ) + "\n\n" + shortcutKeys.joined(separator: ", ") + "\n\n" + NSLocalizedString(
+            "Disable this setting to restore the overridden shortcuts.", comment: ""
+        )
+        alert.informativeText = keysBeingMaskedMessage
+        alert.runModal()
+        return
+    }
+
+    private static func alertShortcutsOverriddenByVimKeysAreNowRestored(shortcutKeys: [String]) {
+        if shortcutKeys.isEmpty { return }
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.messageText = NSLocalizedString("Standard Key Precidence Restored", comment: "")
+        let keysBeingRestoredMessage = NSLocalizedString(
+            "Shortcuts previously assigned to the following keys are now active:", comment: ""
+        ) + "\n\n" + shortcutKeys.joined(separator: ", ")
+
+        alert.informativeText = keysBeingRestoredMessage
+        alert.runModal()
+        return
+    }
+
 }
