@@ -189,10 +189,24 @@ class App: AppCenterApplication, NSApplicationDelegate {
         KeyRepeatTimer.toggleRepeatingKeyPreviousWindow()
     }
 
-    func focusSelectedWindow(_ window: Window?) {
+    func focusSelectedWindow(_ selectedWindow: Window?) {
         hideUi()
-        guard !CGWindow.isMissionControlActive() else { return }
-        window?.focus()
+        guard let window = selectedWindow, !CGWindow.isMissionControlActive() else { return }
+        window.focus()
+        if Preferences.cursorFollowFocusEnabled {
+            moveCursorToSelectedWindow(window)
+        }
+    }
+
+    func moveCursorToSelectedWindow(_ window: Window) {
+        guard let position = window.position, let size = window.size else { return }
+
+        let point = CGPoint(
+            x: position.x + size.width / 2,
+            y: position.y + size.height / 2
+        )
+
+        CGWarpMouseCursorPosition(point)
     }
 
     func reopenUi() {
