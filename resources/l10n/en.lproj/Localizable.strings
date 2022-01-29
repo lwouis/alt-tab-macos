@@ -41,6 +41,12 @@
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Also select windows using:";
 
+/* No comment provided by engineer. */
+"Miscellaneous:" = "Miscellaneous:";
+
+/* No comment provided by engineer. */
+"Cursor follows focus" = "Cursor follows focus"
+
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 

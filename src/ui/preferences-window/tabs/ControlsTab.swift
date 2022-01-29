@@ -32,8 +32,11 @@ class ControlsTab {
         let hideShowAppShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hide/Show app", comment: ""), "hideShowAppShortcut", Preferences.hideShowAppShortcut, labelPosition: .right)
         let enableArrows = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Arrow keys", comment: ""), "arrowKeysEnabled", extraAction: ControlsTab.arrowKeysEnabledCallback, labelPosition: .right)
         let enableMouse = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Mouse hover", comment: ""), "mouseHoverEnabled", labelPosition: .right)
-        let checkboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Also select windows using:", comment: ""))
-        let checkboxes = StackView([StackView(enableArrows), StackView(enableMouse)], .vertical)
+        let enableCursorFollowFocus = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Cursor follows focus", comment: ""), "cursorFollowFocusEnabled", labelPosition: .right)
+        let selectWindowcheckboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Also select windows using:", comment: ""))
+        let selectWindowCheckboxes = StackView([StackView(enableArrows), StackView(enableMouse)], .vertical)
+        let miscCheckboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Miscellaneous:", comment: ""))
+        let miscCheckboxes = StackView([StackView(enableCursorFollowFocus)], .vertical)
         let shortcuts = StackView([focusWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
         let orPress = LabelAndControl.makeLabel(NSLocalizedString("While open, press:", comment: ""), shouldFit: false)
         let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection("")
@@ -48,7 +51,8 @@ class ControlsTab {
         let grid = GridView([
             [tabView],
             [orPress, shortcuts],
-            [checkboxesExplanations, checkboxes],
+            [selectWindowcheckboxesExplanations, selectWindowCheckboxes],
+            [miscCheckboxesExplanations, miscCheckboxes]
         ])
         grid.column(at: 0).xPlacement = .trailing
         grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
