@@ -1,0 +1,360 @@
+
+/*No comment provided by engineer.*/
+"About" = "Sobre l'AltTab";
+
+/*Menubar option. %@ is AltTab*/
+"About %@" = "Sobre l'%@";
+
+/*No comment provided by engineer.*/
+"Accessibility" = "Accessibilitat";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Agraïments";
+
+/*No comment provided by engineer.*/
+"Active app" = "Aplicació activa";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Pantalla activa";
+
+/*No comment provided by engineer.*/
+"Active Space" = "Espai actiu";
+
+/*No comment provided by engineer.*/
+"Align windows:" = "Alinear finestres:";
+
+/*No comment provided by engineer.*/
+"All apps" = "Totes les aplicacions";
+
+/*No comment provided by engineer.*/
+"All data from this form will be made public, as a ticket on github.com" = "Les dades es faran públiques a github.com";
+
+/*No comment provided by engineer.*/
+"All screens" = "Totes les pantalles";
+
+/*No comment provided by engineer.*/
+"All Spaces" = "Tots els espais";
+
+/*No comment provided by engineer.*/
+"Allowed" = "Permès";
+
+/*No comment provided by engineer.*/
+"Also select windows using:" = "També seleccionar:";
+
+/*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab es va tancar a causa d'un problema. Enviar un informe d'error ajudarà a resoldre'l";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "L'AltTab necessita alguns permisos";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "Enviar sempre informes d'errors";
+
+/*No comment provided by engineer.*/
+"and press:" = "y prémer:";
+
+/*No comment provided by engineer.*/
+"Apparition delay:" = "Retard en aparèixer:";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Aparença";
+
+/*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "Estás segur que no vols rebre resposta?";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Tecles de fletxa";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Preguntar per cada informe d'error";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Instal·lar actualitzacions automàticament";
+
+/*No comment provided by engineer.*/
+"Blacklists" = "Excepcions";
+
+/*Cancel button*/
+"Cancel" = "Cancel·lar";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Cancel·lar i amagar";
+
+/*No comment provided by engineer.*/
+"Center" = "Centre";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "Cercar actualitzacions...";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Comprovar actualitzacions periòdicament";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Buscar actualitzacions...";
+
+/*No comment provided by engineer.*/
+"Close window" = "Tancar finestra";
+
+/*No comment provided by engineer.*/
+"Conflicting shortcut" = "Drecera ja en ús";
+
+/*No comment provided by engineer.*/
+"Controls" = "Controls";
+
+/*No comment provided by engineer.*/
+"Crash reports policy:" = "Política d'informes d'errors:";
+
+/*No comment provided by engineer.*/
+"Do nothing" = "No fer res";
+
+/*No comment provided by engineer.*/
+"Don’t check for updates periodically" = "No comprovar actualitzacions periòdicament";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "No enviar";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "No mostrar les finestres de les següents aplicacions";
+
+/*No comment provided by engineer.*/
+"End" = "Final";
+
+/*No comment provided by engineer.*/
+"Fade out animation:" = "Animació en desaparèixer:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Activar la finestra seleccionada";
+
+/*No comment provided by engineer.*/
+"Fullscreen windows:" = "Finestres a pantalla completa:";
+
+/*No comment provided by engineer.*/
+"General" = "General";
+
+/*No comment provided by engineer.*/
+"Hidden windows:" = "Finestres amagades:";
+
+/*No comment provided by engineer.*/
+"Hide" = "Amagar";
+
+/*No comment provided by engineer.*/
+"Hide app badges:" = "Amagar insígnies de l'aplicació:";
+
+/*No comment provided by engineer.*/
+"Hide apps with no open window:" = "Amagar aplicacions sense finestres obertes:";
+
+/*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Amagar cercles de colors en passar el cursor:";
+
+/*No comment provided by engineer.*/
+"Hide Space number labels:" = "No mostrar número de l'espai:";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Amagar icones d'estat:";
+
+/*No comment provided by engineer.*/
+"Hide window thumbnails:" = "Amagar miniatures de les finestres:";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Amagar/Mostrar aplicació";
+
+/*No comment provided by engineer.*/
+"Hold" = "Mantenir";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Crec que l'aplicació milloraria si...";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "Ignorar dreceres si una finestra d'aquestes aplicacions està activa";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "Últimes versions";
+
+/*No comment provided by engineer.*/
+"Left" = "Esquerra";
+
+/*No comment provided by engineer.*/
+"Max height on screen:" = "Alçada màxima a la pantalla:";
+
+/*No comment provided by engineer.*/
+"Max width on screen:" = "Amplada màxima a la pantalla:";
+
+/*No comment provided by engineer.*/
+"Menubar icon:" = "Icona de la barra de menús:";
+
+/*No comment provided by engineer.*/
+"Middle" = "Mig";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Minimitzar/Restaurar finestra";
+
+/*No comment provided by engineer.*/
+"Minimized windows:" = "Finestres minimitzades:";
+
+/*No comment provided by engineer.*/
+"Miscellaneous:" = "Miscellaneous:";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "En passar el cursor";
+
+/*No comment provided by engineer.*/
+"Never send crash reports" = "No enviar mai informes d'errors";
+
+/*No comment provided by engineer.*/
+"Not allowed" = "No permès";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "Llicència GPL-3.0";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "Només si la finestra està a pantalla completa";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Obrir preferències d'accessibilitat...";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Obrir preferències de gravació de pantalla...";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Opcional: adreça de correu (si esperes resposta)";
+
+/*No comment provided by engineer.*/
+"Policies" = "Polítiques";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Preferències...";
+
+/*No comment provided by engineer.*/
+"Quit" = "Sortir";
+
+/*No comment provided by engineer.*/
+"Quit %@" = "Sortir de l'%@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Sortir de l'aplicació";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Recordar la meva selecció";
+
+/*No comment provided by engineer.*/
+"Rows of thumbnails:" = "Files de miniatures:";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Pantalla on es mostra la barra de menús";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Pantalla on es troba el cursor";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Gravació de pantalla";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Pantalla on es mostra l'AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Seleccionar finestra següent";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Seleccionar finestra anterior";
+
+/*No comment provided by engineer.*/
+"Send" = "Enviar";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Enviar informe d'error?";
+
+/*No comment provided by engineer.*/
+"Send anyway" = "Enviar de totes maneres";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Enviar perfil de diagnòstic (CPU, memòria, etc.)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Enviar comentaris";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Enviar comentaris…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Proposa millores, o informa de problemes";
+
+/*No comment provided by engineer.*/
+"Shortcut 1" = "Drecera 1";
+
+/*No comment provided by engineer.*/
+"Shortcut 2" = "Drecera 2";
+
+/*No comment provided by engineer.*/
+"Shortcut already assigned to another action: %@" = "Drecera assignada a una altra acció: %@";
+
+/*No comment provided by engineer.*/
+"Show" = "Mostrar";
+
+/*No comment provided by engineer.*/
+"Show at the end" = "Mostrar al final";
+
+/*No comment provided by engineer.*/
+"Show on:" = "Mostrar a:";
+
+/*No comment provided by engineer.*/
+"Show standard tabs as windows:" = "Mostrar pestanyes com a finestres:";
+
+/*No comment provided by engineer.*/
+"Show windows from:" = "Mostrar finestres de:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Repositori del codi font";
+
+/*No comment provided by engineer.*/
+"Start" = "Inici";
+
+/*No comment provided by engineer.*/
+"Start at login:" = "Obrir en iniciar la sessió:";
+
+/*No comment provided by engineer.*/
+"Theme:" = "Tema:";
+
+/*No comment provided by engineer.*/
+"Then release:" = "En deixar anar:";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "Aquest permís és necessari per activar una finestra amb una drecera";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "Aquest permís és necessari per mostrar les miniatures i els títols de les finestres";
+
+/*No comment provided by engineer.*/
+"Unassign existing shortcut and continue" = "Eliminar drecera ja existent i continuar";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Política d'actualitzacions:";
+
+/*No comment provided by engineer.*/
+"Version" = "Versió";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "Veure discussions en curs";
+
+/*No comment provided by engineer.*/
+"Visible Spaces" = "Espais visibles";
+
+/*No comment provided by engineer.*/
+"While open, press:" = "Mentre es mostren les miniatures:";
+
+/*No comment provided by engineer.*/
+"Window app icon size:" = "Mida de les icones:";
+
+/*No comment provided by engineer.*/
+"Window max width in row:" = "Amplada màxima de finestra dins d'una fila:";
+
+/*No comment provided by engineer.*/
+"Window min width in row:" = "Amplada mínima de finestra dins d'una fila:";
+
+/*No comment provided by engineer.*/
+"Window title font size:" = "Mida dels títols:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Escurçament dels títols:";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "No has indicat adreça de correu, no rebràs cap resposta.";
