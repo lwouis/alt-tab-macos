@@ -10,6 +10,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [damonpam](https://github.com/damonpam)
 * [gcbw](https://github.com/gcbw)
 * [gingerr](https://github.com/gingerr)
+* [GrzegorzKazana](https://github.com/GrzegorzKazana)
 * [hughlilly](https://github.com/hughlilly)
 * [i0ntempest](https://github.com/i0ntempest)
 * [karbassi](https://github.com/karbassi)
