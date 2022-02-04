@@ -49,17 +49,22 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * David R
 * Didier Deschrijver
 * Eric WANTZ
+* Eukarya
 * Filipe
 * Frank
 * Giang
 * Gkostov
+* Grzegorz Kazana
+* Guillaume
 * hann-solo
 * Haoshuai Xu
 * Hokuto Kato
 * Huandngoc
 * Ialiendeg
 * Indexerrowaty
+* Isthereanybody
 * Jaeyong Sung
+* Jakob
 * Jakub Bartušek
 * Jord Nijhuis
 * Julian Nowaczyk
@@ -73,6 +78,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lester
 * Lumaxis
 * lwouis
+* Marc Pla
 * Marekscholle
 * Marko McLion
 * Martin Mitka
@@ -82,6 +88,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Mr. axel. bock
 * MuDraconis
 * Mwolfinspace
+* Nikola Rajić
 * Nilton Souza
 * Nmolham
 * Pehovorka
@@ -89,6 +96,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Petr Kolář
 * ponchik
 * rbnis
+* Seyedparsa Mirtaheri
 * SheNeVmerla
 * Shivam Bansal
 * Stefan

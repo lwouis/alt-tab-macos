@@ -96,7 +96,7 @@
 "Close window" = "ウィンドウを閉じる";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "競合するショートカット";
 
 /*No comment provided by engineer.*/
 "Controls" = "コントロール";
@@ -192,6 +192,9 @@
 "Minimized windows:" = "しまわれたウィンドウ：";
 
 /*No comment provided by engineer.*/
+"Miscellaneous:" = "Miscellaneous:";
+
+/*No comment provided by engineer.*/
 "Mouse hover" = "マウスホバー";
 
 /*No comment provided by engineer.*/
@@ -282,7 +285,7 @@
 "Shortcut 2" = "ショートカット２";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "既に：%@に割り当てられたショートカット";
 
 /*No comment provided by engineer.*/
 "Show" = "アプリを表示";
@@ -321,7 +324,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "こちらの許可は、スクリーンショットと開いているウィンドウを表示するのに必要です。";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "既存ショートカットの割当を解除して続く";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "アップデートポリシー：";

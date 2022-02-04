@@ -168,7 +168,7 @@
 "Ignore shortcuts while a window from these apps is active" = "다음 앱들이 활성화되면 단축키를 무시합니다";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "최신 출시";
+"Latest releases" = "최신 버전";
 
 /*No comment provided by engineer.*/
 "Left" = "왼쪽";
@@ -190,6 +190,9 @@
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "최소화된 윈도우:";
+
+/*No comment provided by engineer.*/
+"Miscellaneous:" = "Miscellaneous:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "마우스 올려놓기";

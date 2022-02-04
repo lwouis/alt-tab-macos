@@ -96,7 +96,7 @@
 "Close window" = "Fermer la fenêtre";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Raccourci en conflit";
 
 /*No comment provided by engineer.*/
 "Controls" = "Contrôles";
@@ -192,6 +192,9 @@
 "Minimized windows:" = "Fenêtres réduites :";
 
 /*No comment provided by engineer.*/
+"Miscellaneous:" = "Miscellaneous:";
+
+/*No comment provided by engineer.*/
 "Mouse hover" = "Survol de la souris";
 
 /*No comment provided by engineer.*/
@@ -282,7 +285,7 @@
 "Shortcut 2" = "Raccourci 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Raccourci déjà affecté à une autre action : %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Afficher";
@@ -321,7 +324,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Cette permission est nécessaire pour afficher les miniatures et titres des fenêtres ouvertes";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Retirer le raccourci existant et continuer";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Politique de mise-à-jour :";
