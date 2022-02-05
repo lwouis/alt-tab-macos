@@ -14,7 +14,6 @@ ditto -c -k --keepParent "$appFile" "$zipName"
 requestUuid=$(xcrun altool \
   --notarize-app \
   --verbose \
-  -ITunesTransport DAV \
   --primary-bundle-id "$bundleId" \
   --username "$APPLE_ID" \
   --password "$APPLE_PASSWORD" \
