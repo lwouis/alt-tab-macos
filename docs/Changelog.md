@@ -1,5 +1,14 @@
 # Release notes
 
+# [6.30.0](https://github.com/lwouis/alt-tab-macos/compare/v6.29.0...v6.30.0) (2022-02-05)
+
+
+### Features
+
+* add localization in danish, catalan, persian, serbian ([058a0f8](https://github.com/lwouis/alt-tab-macos/commit/058a0f8))
+* allow cursor follow focus behavior ([be50758](https://github.com/lwouis/alt-tab-macos/commit/be50758))
+* update some localizations ([17fbcc5](https://github.com/lwouis/alt-tab-macos/commit/17fbcc5))
+
 # [6.29.0](https://github.com/lwouis/alt-tab-macos/compare/v6.28.0...v6.29.0) (2021-12-01)
 
 
