@@ -1,5 +1,12 @@
 # Release notes
 
+# [6.31.0](https://github.com/lwouis/alt-tab-macos/compare/v6.30.0...v6.31.0) (2022-02-10)
+
+
+### Features
+
+* add hebrew localization ([26b72e3](https://github.com/lwouis/alt-tab-macos/commit/26b72e3))
+
 # [6.30.0](https://github.com/lwouis/alt-tab-macos/compare/v6.29.0...v6.30.0) (2022-02-05)
 
 
