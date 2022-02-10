@@ -27,7 +27,7 @@ Homebrew 2.5 or above | Homebrew 2.4 or below
 
 The app is available in:
 
-Bahasa Indonesia, Català, Dansk, Deutsch, English, Español, Français, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Български, Русский язык, Српски / Srpski, українська мова, العربية, فارسی, हिन्दी, 日本語, 简体中文, 繁體中文, 한국어
+Bahasa Indonesia, Català, Dansk, Deutsch, English, Español, Français, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, 日本語, 简体中文, 繁體中文, 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 

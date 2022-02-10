@@ -33,6 +33,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Aarni Koskela
 * Abdulelah
 * Aden Aziz
+* Admin
 * Albert Abdilim
 * Ali Gokmen
 * Allen Guan
@@ -89,9 +90,11 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Mr. axel. bock
 * MuDraconis
 * Mwolfinspace
+* Nathancodes
 * Nikola Rajić
 * Nilton Souza
 * Nmolham
+* Ori
 * Pehovorka
 * Peterkim0620
 * Petr Kolář
@@ -101,6 +104,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * SheNeVmerla
 * Shivam Bansal
 * Stefan
+* Svetoslav Stefanov
 * Tomoa Nozawa
 * Tran
 * Umutakkaya1996

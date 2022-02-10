@@ -48,10 +48,10 @@
 "AltTab needs some permissions" = "L'AltTab necessita alguns permisos";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Enviar sempre informes d'errors";
+"Always send crash reports" = "Enviar automàticament";
 
 /*No comment provided by engineer.*/
-"and press:" = "y prémer:";
+"and press:" = "i prémer:";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Retard en aparèixer:";
@@ -63,10 +63,10 @@
 "Are you sure you don’t want a response?" = "Estás segur que no vols rebre resposta?";
 
 /*No comment provided by engineer.*/
-"Arrow keys" = "Tecles de fletxa";
+"Arrow keys" = "Amb les tecles de fletxa";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Preguntar per cada informe d'error";
+"Ask whether to send crash reports" = "Preguntar cada vegada";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Instal·lar actualitzacions automàticament";
@@ -108,7 +108,7 @@
 "Do nothing" = "No fer res";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "No comprovar actualitzacions periòdicament";
+"Don’t check for updates periodically" = "No comprovar actualitzacions";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "No enviar";
@@ -123,7 +123,7 @@
 "Fade out animation:" = "Animació en desaparèixer:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Activar la finestra seleccionada";
+"Focus selected window" = "Activar finestra seleccionada";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Finestres a pantalla completa:";
@@ -183,7 +183,7 @@
 "Menubar icon:" = "Icona de la barra de menús:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Mig";
+"Middle" = "Centre";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimitzar/Restaurar finestra";
@@ -192,13 +192,13 @@
 "Minimized windows:" = "Finestres minimitzades:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Miscel·lània:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "En passar el cursor";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "No enviar mai informes d'errors";
+"Never send crash reports" = "No enviar mai";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "No permès";
