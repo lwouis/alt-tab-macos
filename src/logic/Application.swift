@@ -113,8 +113,14 @@ class Application: NSObject {
                         let window = self.addWindowslessAppsIfNeeded()
                         App.app.refreshOpenUi(window)
                     }
-                    // workaround: opening an app while the active app is fullscreen; we wait out the space transition animation
-                    if group == nil && !self.wasLaunchedBeforeAltTab && CGSSpaceGetType(cgsMainConnectionId, Spaces.currentSpaceId) == .fullscreen {
+                    if group == nil && !self.wasLaunchedBeforeAltTab && (
+                        // workaround: opening an app while the active app is fullscreen; we wait out the space transition animation
+                        CGSSpaceGetType(cgsMainConnectionId, Spaces.currentSpaceId) == .fullscreen ||
+                            // workaround: some apps launch but have no window ready instantly. It's very unlikely an app would launch with no window
+                            // so we retry until timeout, in those rare cases (e.g. Bear.app)
+                            // we only do this for active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
+                            self.runningApplication.isActive
+                    ) {
                         throw AxError.runtimeError
                     }
                 }
