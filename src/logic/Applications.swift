@@ -21,7 +21,7 @@ class Applications {
     }
 
     static func addInitialRunningApplications() {
-        addRunningApplications(NSWorkspace.shared.runningApplications)
+        addRunningApplications(NSWorkspace.shared.runningApplications, true)
     }
 
     static func addInitialRunningApplicationsWindows() {
@@ -39,10 +39,10 @@ class Applications {
         }
     }
 
-    static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
+    static func addRunningApplications(_ runningApps: [NSRunningApplication], _ wasLaunchedBeforeAltTab: Bool = false) {
         runningApps.forEach {
             if isActualApplication($0) {
-                Applications.list.append(Application($0))
+                Applications.list.append(Application($0, wasLaunchedBeforeAltTab))
             }
         }
     }

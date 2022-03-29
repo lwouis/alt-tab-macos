@@ -37,8 +37,9 @@ class Application: NSObject {
         return n
     }
 
-    init(_ runningApplication: NSRunningApplication) {
+    init(_ runningApplication: NSRunningApplication, _ wasLaunchedBeforeAltTab: Bool = false) {
         self.runningApplication = runningApplication
+        self.wasLaunchedBeforeAltTab = wasLaunchedBeforeAltTab
         pid = runningApplication.processIdentifier
         super.init()
         isHidden = runningApplication.isHidden
