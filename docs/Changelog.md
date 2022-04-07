@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.32.0](https://github.com/lwouis/alt-tab-macos/compare/v6.31.0...v6.32.0) (2022-04-07)
+
+
+### Bug Fixes
+
+* issue with some apps launched before alt-tab ([f97cd74](https://github.com/lwouis/alt-tab-macos/commit/f97cd74))
+* show window of some apps like jetbrains apps ([#1249](https://github.com/lwouis/alt-tab-macos/issues/1249) [#1079](https://github.com/lwouis/alt-tab-macos/issues/1079) [#1392](https://github.com/lwouis/alt-tab-macos/issues/1392)) ([0b85b09](https://github.com/lwouis/alt-tab-macos/commit/0b85b09))
+* show windows of some defective apps like bear.app ([9b5cd42](https://github.com/lwouis/alt-tab-macos/commit/9b5cd42))
+
+
+### Features
+
+* add greek and estonian, and update other localizations ([fccae77](https://github.com/lwouis/alt-tab-macos/commit/fccae77))
+
 # [6.31.0](https://github.com/lwouis/alt-tab-macos/compare/v6.30.0...v6.31.0) (2022-02-10)
 
 
