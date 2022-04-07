@@ -42,7 +42,7 @@
 "Also select windows using:" = "Também escolher janelas utilizando:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "O AltTab terminou inesperadamente na última vez que foi utilizado. Ao enviar um relatório de falha ajuda a corrigir o erro";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "A aplicação terminou inesperadamente na última vez que foi utilizado. Ao enviar um relatório de falha ajuda a corrigir o erro";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab necessita de algumas permissões";
@@ -192,7 +192,7 @@
 "Minimized windows:" = "Janelas minimizadas:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Diversos:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Ao passar o rato";

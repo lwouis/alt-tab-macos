@@ -55,6 +55,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Filipe
 * Frank
 * Giang
+* Github
 * Gkostov
 * Grzegorz Kazana
 * Guillaume
@@ -99,7 +100,10 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Peterkim0620
 * Petr Kolář
 * ponchik
+* Raphaël
+* Rasmus
 * rbnis
+* sawtooth
 * Seyedparsa Mirtaheri
 * SheNeVmerla
 * Shivam Bansal
