@@ -1,5 +1,12 @@
 # Release notes
 
+# [6.33.0](https://github.com/lwouis/alt-tab-macos/compare/v6.32.0...v6.33.0) (2022-04-08)
+
+
+### Features
+
+* allow quitting finder for power users (closes [#1328](https://github.com/lwouis/alt-tab-macos/issues/1328)) ([9e46bd8](https://github.com/lwouis/alt-tab-macos/commit/9e46bd8))
+
 # [6.32.0](https://github.com/lwouis/alt-tab-macos/compare/v6.31.0...v6.32.0) (2022-04-07)
 
 
