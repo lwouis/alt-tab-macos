@@ -21,7 +21,7 @@ func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ timeoutInSeconds: Doubl
     } catch {
         let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
         if timePassedInSeconds < timeoutInSeconds {
-            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(1000)) {
                 retryAxCallUntilTimeout_(group, timeoutInSeconds, fn, startTime)
             }
         }
