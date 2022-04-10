@@ -64,6 +64,9 @@ class Preferences {
         "hideThumbnails": "false",
     ]
 
+    // system preferences
+    static var finderShowsQuitMenuItem: Bool { UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false }
+
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
     static var windowMaterial: NSVisualEffectView.Material { .dark }

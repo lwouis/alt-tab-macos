@@ -1,42 +1,42 @@
 
 /*No comment provided by engineer.*/
-"About" = "Про нас";
+"About" = "Σχετικά";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "Σχετικά %@";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "Προσβασιμότητα";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "Подяки";
+"Acknowledgments" = "Acknowledgments";
 
 /*No comment provided by engineer.*/
-"Active app" = "Active app";
+"Active app" = "Ενεργή εφαρμογή";
 
 /*No comment provided by engineer.*/
-"Active screen" = "Активний екран";
+"Active screen" = "Ενεργή οθόνη";
 
 /*No comment provided by engineer.*/
-"Active Space" = "Активне мисце";
+"Active Space" = "Ενεργός Χώρος";
 
 /*No comment provided by engineer.*/
-"Align windows:" = "Align windows:";
+"Align windows:" = "Στοίχιση παραθύρων:";
 
 /*No comment provided by engineer.*/
-"All apps" = "All apps";
+"All apps" = "Όλες οι εφαρμογές";
 
 /*No comment provided by engineer.*/
 "All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
 
 /*No comment provided by engineer.*/
-"All screens" = "Всі екрани";
+"All screens" = "Όλες οι οθόνες";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "All Spaces";
+"All Spaces" = "Όλοι οι Χώροι";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "Επιτρέπεται";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Also select windows using:";
@@ -45,19 +45,19 @@
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "Το AltTab χρειάζεται κάποιες ";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Always send crash reports";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"and press:" = "και πατήστε:";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "Затримка вiдображення:";
+"Apparition delay:" = "Καθυστέρηση εμφάνισης";
 
 /*No comment provided by engineer.*/
-"Appearance" = "Вiдображення";
+"Appearance" = "Εμφάνιση";
 
 /*No comment provided by engineer.*/
 "Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
@@ -69,31 +69,31 @@
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Авт. встановлювати оновлення час вiд часу";
+"Auto-install updates periodically" = "Αυτόματη εγκατάσταση ενημερώσεων";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Blacklists";
 
 /*Cancel button*/
-"Cancel" = "Закiнчити";
+"Cancel" = "Ακύρωση";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "Cancel and hide";
+"Cancel and hide" = "Ακύρωση και απόκρυψη";
 
 /*No comment provided by engineer.*/
-"Center" = "Центр";
+"Center" = "Κεντράρισμα";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Перевiрити оновлення зараз...";
+"Check for updates now…" = "Έλεγχος ενημερώσεων τώρα...";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Перевiряти оновлення час вiд часу";
+"Check for updates periodically" = "Να γίνεται περιοδικός έλεγχος ενημερώσεων";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "Перевiрити оновлення...";
+"Check for updates…" = "Έλεγχος ενημερώσεων...";
 
 /*No comment provided by engineer.*/
-"Close window" = "Close window";
+"Close window" = "Κλείσιμο παραθύρου";
 
 /*No comment provided by engineer.*/
 "Conflicting shortcut" = "Conflicting shortcut";
@@ -108,7 +108,7 @@
 "Do nothing" = "Do nothing";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Не перевiряти оновлення час вiд часу";
+"Don’t check for updates periodically" = "Να μη γίνεται περιοδικός έλεγχος ενημερώσεων";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Don’t send";
@@ -117,7 +117,7 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "Τέλος";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Fade out animation:";
@@ -129,13 +129,13 @@
 "Fullscreen windows:" = "Fullscreen windows:";
 
 /*No comment provided by engineer.*/
-"General" = "General";
+"General" = "Γενικά";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Κρυμμένα παράθυρα:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Απόκρυψη";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Hide app badges:";
@@ -147,7 +147,7 @@
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Сховати заголовки з номерами простору";
+"Hide Space number labels:" = "Hide Space number labels:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";
@@ -162,16 +162,16 @@
 "Hold" = "Hold";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Я думаю додаток може бути покращено з...";
+"I think the app could be improved with…" = "Πιστεύω ότι η εφαρμογή θα μπορούσε να βελτιωθεί με...";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "Останнiй релiз";
+"Latest releases" = "Τελευταίες εκδόσεις";
 
 /*No comment provided by engineer.*/
-"Left" = "Left";
+"Left" = "Αριστερά";
 
 /*No comment provided by engineer.*/
 "Max height on screen:" = "Max height on screen:";
@@ -192,7 +192,7 @@
 "Minimized windows:" = "Minimized windows:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Διάφορα:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Mouse hover";
@@ -201,34 +201,34 @@
 "Never send crash reports" = "Never send crash reports";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "Δεν επιτρέπεται";
 
 /*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 лiцензiя";
+"NSHumanReadableCopyright" = "Άδεια χρήσης GPL-3.0";
 
 /*No comment provided by engineer.*/
 "Only if the window is fullscreen" = "Only if the window is fullscreen";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Άνοιγμα Επιλογών Προσβασιμότητας...";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Άνοιγμα Επιλογών Καταγραφής Οθόνης...";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Опцiонально: email(якщо бажаєте)";
+"Optional: email (if you want a reply)" = "Προαιρετικό: email (αν επιθυμείτε απάντηση)";
 
 /*No comment provided by engineer.*/
 "Policies" = "Policies";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Налаштування...";
+"Preferences…" = "Προτιμήσεις...";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "Εγκατάλειψη";
 
 /*No comment provided by engineer.*/
-"Quit %@" = "Вийти з %@";
+"Quit %@" = "Έξοδος %@";
 
 /*No comment provided by engineer.*/
 "Quit app" = "Quit app";
@@ -246,19 +246,19 @@
 "Screen including mouse" = "Screen including mouse";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Καταγραφή οθόνης";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Screen showing AltTab";
 
 /*No comment provided by engineer.*/
-"Select next window" = "Select next window";
+"Select next window" = "Επιλογή επόμενου παραθύρου";
 
 /*No comment provided by engineer.*/
-"Select previous window" = "Select previous window";
+"Select previous window" = "Επιλογή προηγούμενου παραθύρου";
 
 /*No comment provided by engineer.*/
-"Send" = "Вiдправити";
+"Send" = "Αποστολή";
 
 /*No comment provided by engineer.*/
 "Send a crash report?" = "Send a crash report?";
@@ -267,13 +267,13 @@
 "Send anyway" = "Send anyway";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+"Send debug profile (CPU, memory, etc)" = "Αποστολή διαγνωστικού προφίλ (επεξεργαστής, μνήμη, κλπ)";
 
 /*No comment provided by engineer.*/
-"Send feedback" = "Send feedback";
+"Send feedback" = "Αποστολή σχολίων";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "Send feedback…";
+"Send feedback…" = "Αποστολή σχολίων...";
 
 /*No comment provided by engineer.*/
 "Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
@@ -288,31 +288,31 @@
 "Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
 /*No comment provided by engineer.*/
-"Show" = "Показати";
+"Show" = "Εμφάνιση";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Εμφάνιση στο τέλος";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Show on:";
+"Show on:" = "Εμφάνιση σε:";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Show standard tabs as windows:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Εμφάνιση παραθύρων από:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Source code repository";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "Έναρξη";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Start at login:";
 
 /*No comment provided by engineer.*/
-"Theme:" = "Тема";
+"Theme:" = "Θέμα:";
 
 /*No comment provided by engineer.*/
 "Then release:" = "Then release:";
@@ -330,28 +330,28 @@
 "Updates policy:" = "Updates policy:";
 
 /*No comment provided by engineer.*/
-"Version" = "Версія";
+"Version" = "Έκδοση";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "View existing discussions";
+"View existing discussions" = "Εμφάνιση υπαρχουσών συζητήσεων";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Ορατοί Χώροι";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "While open, press:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Window app icon size:";
+"Window app icon size:" = "Μέγεθος εικονιδίου παραθύρου εφαρμογής:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Μέγιστο πλάτος παραθύρου στη σειρά:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Ελάχιστο πλάτος παραθύρου στη σειρά:";
 
 /*No comment provided by engineer.*/
-"Window title font size:" = "Window title font size:";
+"Window title font size:" = "Μέγεθος γραμματοσειράς τίτλου παραθύρου";
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Window title truncation:";

@@ -16,6 +16,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [karbassi](https://github.com/karbassi)
 * [L1cardo](https://github.com/L1cardo)
 * [lwouis](https://github.com/lwouis)
+* [metacodes](https://github.com/metacodes)
 * [mnin](https://github.com/mnin)
 * [nella17](https://github.com/nella17)
 * [notlmn](https://github.com/notlmn)
@@ -55,6 +56,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Filipe
 * Frank
 * Giang
+* Github
 * Gkostov
 * Grzegorz Kazana
 * Guillaume
@@ -99,7 +101,10 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Peterkim0620
 * Petr Kolář
 * ponchik
+* Raphaël
+* Rasmus
 * rbnis
+* sawtooth
 * Seyedparsa Mirtaheri
 * SheNeVmerla
 * Shivam Bansal

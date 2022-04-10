@@ -1,6 +1,6 @@
 
 /*No comment provided by engineer.*/
-"About" = "Про нас";
+"About" = "About";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "About %@";
@@ -9,16 +9,16 @@
 "Accessibility" = "Accessibility";
 
 /*No comment provided by engineer.*/
-"Acknowledgments" = "Подяки";
+"Acknowledgments" = "Acknowledgments";
 
 /*No comment provided by engineer.*/
 "Active app" = "Active app";
 
 /*No comment provided by engineer.*/
-"Active screen" = "Активний екран";
+"Active screen" = "Active screen";
 
 /*No comment provided by engineer.*/
-"Active Space" = "Активне мисце";
+"Active Space" = "Active Space";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Align windows:";
@@ -30,7 +30,7 @@
 "All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
 
 /*No comment provided by engineer.*/
-"All screens" = "Всі екрани";
+"All screens" = "All screens";
 
 /*No comment provided by engineer.*/
 "All Spaces" = "All Spaces";
@@ -54,43 +54,43 @@
 "and press:" = "and press:";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "Затримка вiдображення:";
+"Apparition delay:" = "Apparition delay:";
 
 /*No comment provided by engineer.*/
-"Appearance" = "Вiдображення";
+"Appearance" = "Välimus";
 
 /*No comment provided by engineer.*/
 "Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
 
 /*No comment provided by engineer.*/
-"Arrow keys" = "Arrow keys";
+"Arrow keys" = "Nooleklahvid";
 
 /*No comment provided by engineer.*/
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Авт. встановлювати оновлення час вiд часу";
+"Auto-install updates periodically" = "Auto-install updates periodically";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Blacklists";
 
 /*Cancel button*/
-"Cancel" = "Закiнчити";
+"Cancel" = "Tühista";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "Cancel and hide";
+"Cancel and hide" = "Tühista ja peida";
 
 /*No comment provided by engineer.*/
-"Center" = "Центр";
+"Center" = "Keskel";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Перевiрити оновлення зараз...";
+"Check for updates now…" = "Check for updates now…";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Перевiряти оновлення час вiд часу";
+"Check for updates periodically" = "Check for updates periodically";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "Перевiрити оновлення...";
+"Check for updates…" = "Check for updates…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Close window";
@@ -108,7 +108,7 @@
 "Do nothing" = "Do nothing";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Не перевiряти оновлення час вiд часу";
+"Don’t check for updates periodically" = "Don’t check for updates periodically";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Don’t send";
@@ -129,7 +129,7 @@
 "Fullscreen windows:" = "Fullscreen windows:";
 
 /*No comment provided by engineer.*/
-"General" = "General";
+"General" = "Üldine";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Hidden windows:";
@@ -147,7 +147,7 @@
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Сховати заголовки з номерами простору";
+"Hide Space number labels:" = "Hide Space number labels:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";
@@ -159,16 +159,16 @@
 "Hide/Show app" = "Hide/Show app";
 
 /*No comment provided by engineer.*/
-"Hold" = "Hold";
+"Hold" = "Hoia";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Я думаю додаток може бути покращено з...";
+"I think the app could be improved with…" = "I think the app could be improved with…";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "Останнiй релiз";
+"Latest releases" = "Latest releases";
 
 /*No comment provided by engineer.*/
 "Left" = "Left";
@@ -204,7 +204,7 @@
 "Not allowed" = "Not allowed";
 
 /*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 лiцензiя";
+"NSHumanReadableCopyright" = "GPL-3.0 litsents";
 
 /*No comment provided by engineer.*/
 "Only if the window is fullscreen" = "Only if the window is fullscreen";
@@ -216,19 +216,19 @@
 "Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Опцiонально: email(якщо бажаєте)";
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
 /*No comment provided by engineer.*/
 "Policies" = "Policies";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Налаштування...";
+"Preferences…" = "Preferences…";
 
 /*No comment provided by engineer.*/
 "Quit" = "Quit";
 
 /*No comment provided by engineer.*/
-"Quit %@" = "Вийти з %@";
+"Quit %@" = "Sulge %@";
 
 /*No comment provided by engineer.*/
 "Quit app" = "Quit app";
@@ -258,7 +258,7 @@
 "Select previous window" = "Select previous window";
 
 /*No comment provided by engineer.*/
-"Send" = "Вiдправити";
+"Send" = "Saada";
 
 /*No comment provided by engineer.*/
 "Send a crash report?" = "Send a crash report?";
@@ -288,7 +288,7 @@
 "Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
 /*No comment provided by engineer.*/
-"Show" = "Показати";
+"Show" = "Näita";
 
 /*No comment provided by engineer.*/
 "Show at the end" = "Show at the end";
@@ -312,7 +312,7 @@
 "Start at login:" = "Start at login:";
 
 /*No comment provided by engineer.*/
-"Theme:" = "Тема";
+"Theme:" = "Teema:";
 
 /*No comment provided by engineer.*/
 "Then release:" = "Then release:";
@@ -330,7 +330,7 @@
 "Updates policy:" = "Updates policy:";
 
 /*No comment provided by engineer.*/
-"Version" = "Версія";
+"Version" = "Version";
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "View existing discussions";
