@@ -124,11 +124,6 @@ class Application: NSObject {
                     ) {
                         throw AxError.runtimeError
                     }
-                    // workaround: sometimes some apps are launched and are actived but OS returns the windows.count == 0. we wait for a moment
-                    // for example: Bear.app
-                    if group == nil && !self.wasLaunchedBeforeAltTab && self.runningApplication.isActive {
-                        throw AxError.runtimeError
-                    }
                 }
             }
         }
