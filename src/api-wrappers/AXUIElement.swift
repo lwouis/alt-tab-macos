@@ -21,7 +21,7 @@ func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ timeoutInSeconds: Doubl
     } catch {
         let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
         if timePassedInSeconds < timeoutInSeconds {
-            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(250)) {
                 retryAxCallUntilTimeout_(group, timeoutInSeconds, fn, startTime)
             }
         }
@@ -246,80 +246,6 @@ extension AXUIElement {
 
     func performAction(_ action: String) {
         AXUIElementPerformAction(self, action as CFString)
-    }
-    
-    private static let ignoredBundleIDs = Set([
-        "com.apple.dashboard",
-        "com.apple.loginwindow",
-        "com.apple.notificationcenterui",
-        "com.apple.wifi.WiFiAgent",
-        "com.apple.Spotlight",
-        "com.apple.systemuiserver",
-        "com.apple.dock",
-        "com.apple.AirPlayUIAgent",
-        "com.apple.dock.extra",
-        "com.apple.PowerChime",
-        "com.apple.WebKit.Networking",
-        "com.apple.WebKit.WebContent",
-        "com.apple.WebKit.GPU",
-        "com.apple.FollowUpUI",
-        "com.apple.controlcenter",
-        "com.apple.SoftwareUpdateNotificationManager",
-        "com.apple.TextInputMenuAgent",
-        "com.apple.TextInputSwitcher"
-    ])
-
-    /**
-     *  Returns a Bool indicating whether or not the application will have windows.
-     *
-     *  @return true if the application will have windows and false otherwise.
-     */
-    static func isManageable(_ runningApp: NSRunningApplication) -> Bool {
-        guard let bundleIdentifier = runningApp.bundleIdentifier else {
-            return false
-        }
-        if case .prohibited = runningApp.activationPolicy {
-            return false
-        }
-        if AXUIElement.ignoredBundleIDs.contains(bundleIdentifier) {
-            return false
-        }
-        if isAgent(runningApp) {
-            return false
-        }
-        return true
-    }
-    
-    // LSBackgroundOnly (Boolean - macOS) specifies whether this app runs only in the background.
-    // If this key exists and is set to YES, Launch Services runs the app in the background only.
-    // You can use this key to create faceless background apps.
-    // You should also use this key if your app uses higher-level frameworks that connect to the window server, but are not intended to be visible to users.
-    // Background apps must be compiled as Mach-O executables. This option is not available for CFM apps.
-
-    // LSUIElement (Boolean - macOS) specifies whether the app runs as an agent app.
-    // If this key is set to YES, Launch Services runs the app as an agent app.
-    // Agent apps do not appear in the Dock or in the Force Quit window.
-    // Although they typically run as background apps, they can come to the foreground to present a user interface if desired.
-    // A click on a window belonging to an agent app brings that app forward to handle events.
-    /**
-     *  Returns a Bool indicating whether or not the application is an agent.
-     *
-     *  @return true if the application is an agent and false otherwise.
-     */
-    static func isAgent(_ runningApp: NSRunningApplication) -> Bool {
-        guard let bundle = Bundle.init(url: runningApp.bundleURL!) else {
-            return false
-        }
-        guard let bundleInfoDictionary = bundle.infoDictionary else {
-            return false
-        }
-        if bundleInfoDictionary["LSBackgroundOnly"] != nil {
-            return true
-        }
-        if bundleInfoDictionary["LSUIElement"] != nil {
-            return true
-        }
-        return false
     }
 }
 

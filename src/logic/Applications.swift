@@ -18,6 +18,7 @@ class Applications {
         addInitialRunningApplications()
         addInitialRunningApplicationsWindows()
         WorkspaceEvents.observeRunningApplications()
+        WorkspaceEvents.registerFrontAppChangeNote()
     }
 
     static func addInitialRunningApplications() {
@@ -104,7 +105,30 @@ class Applications {
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
         // an app can start with .activationPolicy == .prohibited, then transition to != .prohibited later
         // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
-        return (isNotXpc(app) || isAndroidEmulator(app)) && !app.processIdentifier.isZombie()
+        return (isNotXpc(app) || isAndroidEmulator(app)) && !app.processIdentifier.isZombie() && isAnWindowApplication(app)
+    }
+
+    private static func isAnWindowApplication(_ app: NSRunningApplication) -> Bool {
+        if (app.isActive) {
+            // Because we only add the application when we receive the didActivateApplicationNotification.
+            // So here is actually the handling for the case wasLaunchedBeforeAltTab=false. For applications where wasLaunchedBeforeAltTab=true, the majority of isActive is false.
+            // The reason for not using axUiElement.windows() here as a way to determine if it is a window application is that
+            // When we receive the didActivateApplicationNotification notification, the application may still be loading and axUiElement.windows() will throw an exception
+            // So we use isActive to determine if it is a window application, even if the application is not frontmost, isActive is still true at this time
+            return true;
+        } else {
+            do {
+                // For wasLaunchedBeforeAltTab=true, we assume that those apps are all launched, if they are programs with windows.
+                // Even if it has 0 windows at this point, axUiElement.windows() will not throw an exception. If they are programs without windows, then axUiElement.windows() will throw an exception.
+                // Here I consider there is an edge case where AltTab is starting up and this program has been loading, then it is possible that axUiElement.windows() will throw an exception.
+                // I'm not quite sure if this happens, but even if it does, then after restarting this application, AltTab captures its window without any problem. I think this happens rarely.
+                let axUiElement = AXUIElementCreateApplication(app.processIdentifier)
+                try axUiElement.windows()
+                return true
+            } catch {
+                return false
+            }
+        }
     }
 
     private static func isNotXpc(_ app: NSRunningApplication) -> Bool {

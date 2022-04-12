@@ -158,23 +158,20 @@ class Application: NSObject {
 
     private func observeEvents() {
         guard let axObserver = axObserver else { return }
-        // we only need to subscribe to those apps which will have windows
-        if AXUIElement.isManageable(runningApplication) {
-            for notification in Application.notifications(runningApplication) {
-                retryAxCallUntilTimeout { [weak self] in
-                    guard let self = self else { return }
-                    try self.axUiElement!.subscribeToNotification(axObserver, notification, {
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self = self else { return }
-                            // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
-                            // we consider them ready when the first subscription succeeds, and list their windows again at that point
-                            if !self.isReallyFinishedLaunching {
-                                self.isReallyFinishedLaunching = true
-                                self.observeNewWindows()
-                            }
+        for notification in Application.notifications(runningApplication) {
+            retryAxCallUntilTimeout { [weak self] in
+                guard let self = self else { return }
+                try self.axUiElement!.subscribeToNotification(axObserver, notification, {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
+                        // we consider them ready when the first subscription succeeds, and list their windows again at that point
+                        if !self.isReallyFinishedLaunching {
+                            self.isReallyFinishedLaunching = true
+                            self.observeNewWindows()
                         }
-                    }, self.runningApplication)
-                }
+                    }
+                }, self.runningApplication)
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
