@@ -10,19 +10,12 @@ class WorkspaceEvents {
     }
 
     static func observerCallback<A>(_ application: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
-        let workspaceApps = Set(NSWorkspace.shared.runningApplications)
-        let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
-        if change.kind == .insertion {
-            debugPrint("OS event", "apps launched", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
-        } else if change.kind == .removal {
-            debugPrint("OS event", "apps quit", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
-            Applications.removeRunningApplications(diff)
-            previousValueOfRunningApps = workspaceApps
-        }
     }
 
     static func registerFrontAppChangeNote() {
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(receiveFrontAppChangeNote(_:)), name: NSWorkspace.didActivateApplicationNotification, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(receiveFrontAppLaunchNote(_:)), name: NSWorkspace.didLaunchApplicationNotification, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(receiveFrontAppTerminateNote(_:)), name: NSWorkspace.didTerminateApplicationNotification, object: nil)
     }
 
     // We add apps when we receive a didActivateApplicationNotification notification, not when we receive an apps launched, because any app will have an apps launched notification.
@@ -32,12 +25,42 @@ class WorkspaceEvents {
     // If we go to add the application when we receive the message of apps launched, at this time NSRunningApplication.isActive may be false, and try axUiElement.windows() may also throw an exception.
     // For those background applications, we don't receive notifications of didActivateApplicationNotification until they have their own window. For example, those menu bar applications.
     @objc static func receiveFrontAppChangeNote(_ notification: Notification) {
-        if let application = notification.userInfo?["NSWorkspaceApplicationKey"] as? NSRunningApplication {
-            debugPrint("OS event", "didActivateApplicationNotification", application.bundleIdentifier)
-            let workspaceApps = Set(NSWorkspace.shared.runningApplications)
-            let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
-            Applications.addRunningApplications(diff)
-            previousValueOfRunningApps = workspaceApps
+        if let application = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication {
+            debugPrint("OS event", notification.name.rawValue, application.bundleIdentifier, application.processIdentifier)
+            guard let app = (Applications.list.first { application.processIdentifier == $0.pid }) else {
+                debugPrint("add running application", application.bundleIdentifier, application.processIdentifier)
+                application.notification = notification.name
+                Applications.addRunningApplications([application])
+                return
+            }
+            guard let win = (Windows.list.first { application.processIdentifier == $0.application.runningApplication.processIdentifier && !$0.isWindowlessApp }) else {
+                app.hasBeenActiveOnce = true
+                app.runningApplication.notification = notification.name
+                app.observeNewWindows()
+                return
+            }
+        }
+    }
+
+    @objc static func receiveFrontAppLaunchNote(_ notification: Notification) {
+        if let application = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication {
+            debugPrint("OS event", notification.name.rawValue, application.bundleIdentifier, application.processIdentifier)
+            guard let app = (Applications.list.first { application.processIdentifier == $0.pid }) else {
+                debugPrint("add running application", notification.name.rawValue, application.bundleIdentifier, application.processIdentifier)
+                application.notification = notification.name
+                Applications.addRunningApplications([application])
+                return
+            }
+        }
+    }
+
+    @objc static func receiveFrontAppTerminateNote(_ notification: Notification) {
+        if let application = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication {
+            debugPrint("OS event", notification.name.rawValue, application.bundleIdentifier, application.processIdentifier)
+            if let app = (Applications.list.first { application.processIdentifier == $0.pid }) {
+                debugPrint("remove running application", application.bundleIdentifier, application.processIdentifier)
+                Applications.removeRunningApplications([application])
+            }
         }
     }
 }

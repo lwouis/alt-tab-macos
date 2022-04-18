@@ -47,6 +47,12 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
             app.focusedWindow = window
             App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
             App.app.refreshOpenUi(window != nil ? [window!] : nil)
+            guard let win = (Windows.list.first { app.runningApplication.processIdentifier == $0.application.runningApplication.processIdentifier && !$0.isWindowlessApp }) else {
+                // for edge-case: some app (e.g. Bear.app) is loading and runningApplication.isFinishedLaunching is false (sometimes) when we call observeNewWindows() at first time
+                // as a result we miss their windows. but we will receive kAXApplicationActivatedNotification notification and we can add it successfully
+                app.observeNewWindows()
+                return
+            }
         }
     }
 }

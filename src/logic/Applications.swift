@@ -42,7 +42,7 @@ class Applications {
 
     static func addRunningApplications(_ runningApps: [NSRunningApplication], _ wasLaunchedBeforeAltTab: Bool = false) {
         runningApps.forEach {
-            if isActualApplication($0) {
+            if isActualApplication($0, wasLaunchedBeforeAltTab) {
                 Applications.list.append(Application($0, wasLaunchedBeforeAltTab))
             }
         }
@@ -102,32 +102,30 @@ class Applications {
         }
     }
 
-    private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
+    private static func isActualApplication(_ app: NSRunningApplication, _ wasLaunchedBeforeAltTab: Bool = false) -> Bool {
         // an app can start with .activationPolicy == .prohibited, then transition to != .prohibited later
         // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
-        return (isNotXpc(app) || isAndroidEmulator(app)) && !app.processIdentifier.isZombie() && isAnWindowApplication(app)
+        return isAnWindowApplication(app, wasLaunchedBeforeAltTab) && (isNotXpc(app) || isAndroidEmulator(app)) && !app.processIdentifier.isZombie()
     }
 
-    private static func isAnWindowApplication(_ app: NSRunningApplication) -> Bool {
-        if (app.isActive) {
+    private static func isAnWindowApplication(_ app: NSRunningApplication, _ wasLaunchedBeforeAltTab: Bool = false) -> Bool {
+        if (wasLaunchedBeforeAltTab) {
+            // For wasLaunchedBeforeAltTab=true, we assume that those apps are all launched, if they are programs with windows.
+            // Even if it has 0 windows at this point, axUiElement.windows() will not throw an exception. If they are programs without windows, then axUiElement.windows() will throw an exception.
+            // Here I consider there is an edge case where AltTab is starting up and this program has been loading, then it is possible that axUiElement.windows() will throw an exception.
+            // I'm not quite sure if this happens, but even if it does, then after restarting this application, AltTab captures its window without any problem. I think this happens rarely.
+            let allWindows = CGWindow.windows(.optionAll)
+            guard let winApp = (allWindows.first { app.processIdentifier == $0.ownerPID() && $0.isNotMenubarOrOthers() && $0.id() != nil && $0.title() != nil}) else {
+                return false
+            }
+            return true
+        } else {
             // Because we only add the application when we receive the didActivateApplicationNotification.
             // So here is actually the handling for the case wasLaunchedBeforeAltTab=false. For applications where wasLaunchedBeforeAltTab=true, the majority of isActive is false.
             // The reason for not using axUiElement.windows() here as a way to determine if it is a window application is that
             // When we receive the didActivateApplicationNotification notification, the application may still be loading and axUiElement.windows() will throw an exception
             // So we use isActive to determine if it is a window application, even if the application is not frontmost, isActive is still true at this time
             return true;
-        } else {
-            do {
-                // For wasLaunchedBeforeAltTab=true, we assume that those apps are all launched, if they are programs with windows.
-                // Even if it has 0 windows at this point, axUiElement.windows() will not throw an exception. If they are programs without windows, then axUiElement.windows() will throw an exception.
-                // Here I consider there is an edge case where AltTab is starting up and this program has been loading, then it is possible that axUiElement.windows() will throw an exception.
-                // I'm not quite sure if this happens, but even if it does, then after restarting this application, AltTab captures its window without any problem. I think this happens rarely.
-                let axUiElement = AXUIElementCreateApplication(app.processIdentifier)
-                try axUiElement.windows()
-                return true
-            } catch {
-                return false
-            }
         }
     }
 

@@ -84,8 +84,8 @@ class Application: NSObject {
     func observeNewWindows(_ group: DispatchGroup? = nil) {
         if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
             retryAxCallUntilTimeout(group, 5) { [weak self] in
-                guard let self = self else { return }
-                if let axWindows_ = try self.axUiElement!.windows(), axWindows_.count > 0 {
+                guard let self = self, let axWindows_ = try self.axUiElement!.windows() else { throw AxError.runtimeError }
+                if axWindows_.count > 0 {
                     // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
                     let axWindows = try Array(Set(axWindows_)).compactMap {
                         if let wid = try $0.cgWindowId() {
@@ -114,14 +114,10 @@ class Application: NSObject {
                         let window = self.addWindowslessAppsIfNeeded()
                         App.app.refreshOpenUi(window)
                     }
-                    if group == nil && !self.wasLaunchedBeforeAltTab && (
-                        // workaround: opening an app while the active app is fullscreen; we wait out the space transition animation
-                        CGSSpaceGetType(cgsMainConnectionId, Spaces.currentSpaceId) == .fullscreen ||
-                            // workaround: some apps launch but have no window ready instantly. It's very unlikely an app would launch with no window
-                            // so we retry until timeout, in those rare cases (e.g. Bear.app)
-                            // we only do this for active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
-                            self.runningApplication.isActive
-                    ) {
+                    // workaround: some apps launch but have no window ready instantly. It's very unlikely an app would launch with no window
+                    // so we retry until timeout, in those rare cases (e.g. Bear.app)
+                    // we only do this for active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
+                    if group == nil && self.runningApplication.notification == NSWorkspace.didActivateApplicationNotification {
                         throw AxError.runtimeError
                     }
                 }

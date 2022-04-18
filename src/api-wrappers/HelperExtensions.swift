@@ -211,3 +211,18 @@ extension String {
         self = NSFileTypeForHFSTypeCode(fourCharCode).trimmingCharacters(in: CharacterSet(charactersIn: "'"))
     }
 }
+
+fileprivate var notificationKey: Int = 1
+
+extension NSRunningApplication {
+    var notification: Notification.Name? {
+        get {
+            return objc_getAssociatedObject(self, &notificationKey) as? Notification.Name
+        }
+        set {
+            if let value = newValue {
+                objc_setAssociatedObject(self, &notificationKey, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+        }
+    }
+}
