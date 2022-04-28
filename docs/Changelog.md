@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.34.0](https://github.com/lwouis/alt-tab-macos/compare/v6.33.0...v6.34.0) (2022-04-28)
+
+
+### Bug Fixes
+
+* alt-tab could be relaunched in a loop (closes [#1367](https://github.com/lwouis/alt-tab-macos/issues/1367)) ([cdb461a](https://github.com/lwouis/alt-tab-macos/commit/cdb461a))
+* reduce alt-tab cpu usage in some scenarios (closes [#1481](https://github.com/lwouis/alt-tab-macos/issues/1481)) ([0569ed0](https://github.com/lwouis/alt-tab-macos/commit/0569ed0))
+
+
+### Features
+
+* update indian and russian localizations ([85210e2](https://github.com/lwouis/alt-tab-macos/commit/85210e2))
+
 # [6.33.0](https://github.com/lwouis/alt-tab-macos/compare/v6.32.0...v6.33.0) (2022-04-08)
 
 
