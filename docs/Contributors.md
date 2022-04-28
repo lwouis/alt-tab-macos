@@ -38,6 +38,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Albert Abdilim
 * Ali Gokmen
 * Allen Guan
+* Anurag
 * anushree b
 * Arthur
 * Ash
@@ -51,6 +52,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Dan84
 * David R
 * Didier Deschrijver
+* Eliezer Shpigelman
 * Eric WANTZ
 * Eukarya
 * Filipe
@@ -87,6 +89,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Marko McLion
 * Martin Mitka
 * Martin. mitka
+* Max
 * Michael
 * Mohammad Al Zouabi
 * Mr. axel. bock
