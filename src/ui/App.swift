@@ -19,6 +19,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static var app: App!
     var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindow: PreferencesWindow!
+    var helperWindow: HelperWindow!
     var feedbackWindow: FeedbackWindow!
     var isFirstSummon = true
     var appIsBeingUsed = false
@@ -59,6 +60,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Spaces.initialDiscovery()
             Applications.initialDiscovery()
             self.preferencesWindow = PreferencesWindow()
+            self.helperWindow = HelperWindow()
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
@@ -156,6 +158,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     @objc func showPreferencesWindow() {
         showSecondaryWindow(preferencesWindow)
+    }
+
+    // focus the helper window and we can go to that space
+    @objc func showHelperWindow() {
+        showSecondaryWindow(helperWindow)
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {

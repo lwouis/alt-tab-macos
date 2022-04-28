@@ -14,6 +14,14 @@ class Applications {
         _ = group.wait(wallTimeout: .now() + .seconds(2))
     }
 
+    static func addOtherSpaceWindows(_ windowsOnlyOnOtherSpaces: [CGWindowID]) {
+        for app in list {
+            app.wasLaunchedBeforeAltTab = true
+            guard app.runningApplication.isFinishedLaunching else { continue }
+            app.addOtherSpaceWindows(windowsOnlyOnOtherSpaces)
+        }
+    }
+
     static func initialDiscovery() {
         addInitialRunningApplications()
         addInitialRunningApplicationsWindows()
@@ -32,10 +40,11 @@ class Applications {
             let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces)
             let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
             if windowsOnlyOnOtherSpaces.count > 0 {
-                // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
-                CGSAddWindowsToSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
-                Applications.observeNewWindowsBlocking()
-                CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
+                // Currently we add those window in other space without AXUIElement init
+                // We don't need to get the AXUIElement until we focus these windows.
+                // when we need to focus these windows, we use the helper window to take us to that space,
+                // then get the AXUIElement, and finally focus that window.
+                Applications.addOtherSpaceWindows(windowsOnlyOnOtherSpaces)
             }
         }
     }
@@ -115,7 +124,13 @@ class Applications {
             // Here I consider there is an edge case where AltTab is starting up and this program has been loading, then it is possible that axUiElement.windows() will throw an exception.
             // I'm not quite sure if this happens, but even if it does, then after restarting this application, AltTab captures its window without any problem. I think this happens rarely.
             let allWindows = CGWindow.windows(.optionAll)
-            guard let winApp = (allWindows.first { app.processIdentifier == $0.ownerPID() && $0.isNotMenubarOrOthers() && $0.id() != nil && $0.title() != nil}) else {
+            guard let winApp = (allWindows.first { app.processIdentifier == $0.ownerPID()
+                    && $0.isNotMenubarOrOthers()
+                    && $0.id() != nil
+                    && $0.bounds() != nil
+                    && CGRect(dictionaryRepresentation: $0.bounds()!)!.width > 0
+                    && CGRect(dictionaryRepresentation: $0.bounds()!)!.height > 0
+            }) else {
                 return false
             }
             return true

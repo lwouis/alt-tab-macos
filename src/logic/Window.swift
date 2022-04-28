@@ -60,6 +60,44 @@ class Window {
         debugPrint("Adding app-window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 
+    // we init a window when this window is not at current active space
+    init(_ application: Application, _ cgWindow: CGWindow) {
+        self.application = application
+        self.title = bestEffortTitle(cgWindow.title())
+        self.cgWindowId = cgWindow.id()!
+        let bounds = CGRect(dictionaryRepresentation: cgWindow.bounds()!)
+        self.size = bounds!.size
+        self.position = bounds!.origin
+        updatesWindowSpace()
+        if CGSSpaceGetType(cgsMainConnectionId, self.spaceId) == .fullscreen {
+            self.isFullscreen = true
+        } else {
+            self.isFullscreen = false
+        }
+        self.isMinimized = false
+        if !Preferences.hideThumbnails {
+            refreshThumbnail()
+        }
+        application.removeWindowslessAppWindow()
+        debugPrint("Adding app-window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+    }
+
+    func getAxUiElementAndObserveEvents() throws {
+        guard let windows = try self.application.axUiElement?.windows(), windows.count > 0 else {
+            debugPrint("try to getAxUiElementAndObserveEvents nil", self.application.runningApplication.bundleIdentifier, self.title, self.spaceId)
+            return
+        }
+        for win in windows {
+            if try cgWindowId == win.cgWindowId() {
+                self.axUiElement = win
+                self.isMinimized = try self.axUiElement.isMinimized()
+                self.observeEvents()
+                return
+            }
+        }
+        debugPrint("try to getAxUiElementAndObserveEvents failed", self.application.runningApplication.bundleIdentifier, self.title, self.spaceId)
+    }
+
     deinit {
         debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
@@ -83,13 +121,13 @@ class Window {
     }
 
     func refreshThumbnail() {
-        guard let cgImage = cgWindowId.screenshot() else { return }
+        guard let cgImage = cgWindowId.screenshot(self) else { return }
         thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
         thumbnailFullSize = thumbnail!.size
     }
 
     func close() {
-        if isWindowlessApp { return }
+        if isWindowlessApp || self.axUiElement == nil { return }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
@@ -102,7 +140,7 @@ class Window {
     }
 
     func minDemin() {
-        if isWindowlessApp { return }
+        if isWindowlessApp || self.axUiElement == nil { return }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
@@ -119,7 +157,7 @@ class Window {
     }
 
     func toggleFullscreen() {
-        if isWindowlessApp { return }
+        if isWindowlessApp || self.axUiElement == nil { return }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             self.axUiElement.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
@@ -145,12 +183,42 @@ class Window {
         }
     }
 
+    func gotoSpace(_ spaceId: CGSSpaceID) {
+        CGSMoveWindowsToManagedSpace(cgsMainConnectionId, [App.app.helperWindow.windowNumber] as NSArray, spaceId)
+        App.app.showHelperWindow()
+    }
+
     func focus() {
         if isWindowlessApp {
             if let bundleID = application.runningApplication.bundleIdentifier {
                 NSWorkspace.shared.launchApplication(withBundleIdentifier: bundleID, additionalEventParamDescriptor: nil, launchIdentifier: nil)
             } else {
                 application.runningApplication.activate(options: .activateIgnoringOtherApps)
+            }
+        } else if self.axUiElement == nil {
+            // the window is in other space, we can not get AXUIElement before we go to it's space
+            // when we want to focus the window, it means we want to go to the space and focus the window
+            // so we just go to that space by using helperWindow, then we get AXUIElement and focus the window
+            gotoSpace(self.spaceId)
+            do {
+                retryAxCallUntilTimeout { [weak self] in
+                    guard let self = self else { return }
+                    try self.getAxUiElementAndObserveEvents()
+                    if self.axUiElement == nil {
+                        // retry until we get axUiElement
+                        throw AxError.runtimeError
+                    }
+                    BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+                        guard let self = self else { return }
+                        var psn = ProcessSerialNumber()
+                        GetProcessForPID(self.application.pid, &psn)
+                        _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId, .userGenerated)
+                        self.makeKeyWindow(psn)
+                        self.axUiElement.focusWindow()
+                    }
+                }
+            } catch {
+                debugPrint("can not setUpMissingInfoForCurrentWindow for", self.application.runningApplication.bundleIdentifier)
             }
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,

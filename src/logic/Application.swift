@@ -140,6 +140,42 @@ class Application: NSObject {
         return windows
     }
 
+    func getOtherSpaceWindows(_ windowsOnlyOnOtherSpaces: [CGWindowID]) -> [Window] {
+        var otherSpaceWindows: [Window] = []
+        for winId in windowsOnlyOnOtherSpaces {
+            let cgWinArray = CGWindowListCopyWindowInfo([.excludeDesktopElements, .optionIncludingWindow], winId) as! [CGWindow]
+            // get current app's windows only on other space
+            guard runningApplication.processIdentifier == cgWinArray.first!.ownerPID()
+                          && cgWinArray.first!.id() != nil
+                          && cgWinArray.first!.isNotMenubarOrOthers()
+                          && cgWinArray.first!.bounds() != nil
+                          && CGRect(dictionaryRepresentation: cgWinArray.first!.bounds()!)!.width > 100
+                          && CGRect(dictionaryRepresentation: cgWinArray.first!.bounds()!)!.height > 100
+                    else { continue }
+            guard let capture = CGWindowListCreateImage(CGRect.null, .optionIncludingWindow, cgWinArray.first!.id()!, .boundsIgnoreFraming) else { continue }
+            let win = Window(self, cgWinArray.first!)
+            Windows.appendAndUpdateFocus(win)
+            otherSpaceWindows.append(win)
+        }
+        return otherSpaceWindows
+    }
+
+    func addOtherSpaceWindows(_ windowsOnlyOnOtherSpaces: [CGWindowID]) {
+        if runningApplication.isFinishedLaunching && runningApplication.activationPolicy != .prohibited {
+            retryAxCallUntilTimeout { [weak self] in
+                guard let self = self else { return }
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    var windows = self.getOtherSpaceWindows(windowsOnlyOnOtherSpaces)
+                    if let window = self.addWindowslessAppsIfNeeded() {
+                        windows.append(contentsOf: window)
+                    }
+                    App.app.refreshOpenUi(windows)
+                }
+            }
+        }
+    }
+
     func addWindowslessAppsIfNeeded() -> [Window]? {
         if !Preferences.hideWindowlessApps &&
                runningApplication.activationPolicy == .regular &&
