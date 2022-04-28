@@ -46,10 +46,6 @@ class GeneralTab {
                 "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
                 "RunAtLoad": true,
                 "LimitLoadToSessionType": "Aqua",
-                "KeepAlive": [
-                    "Crashed": true,
-                    "SuccessfulExit": false,
-                ],
             ]
             plist.write(to: launchAgentsPath, atomically: true)
         } else {
