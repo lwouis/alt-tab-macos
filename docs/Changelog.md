@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.34.1](https://github.com/lwouis/alt-tab-macos/compare/v6.34.0...v6.34.1) (2022-04-30)
+
+
+### Bug Fixes
+
+* custom shortcuts can use arrow keys (closes [#1376](https://github.com/lwouis/alt-tab-macos/issues/1376)) ([bb1de75](https://github.com/lwouis/alt-tab-macos/commit/bb1de75))
+
 # [6.34.0](https://github.com/lwouis/alt-tab-macos/compare/v6.33.0...v6.34.0) (2022-04-28)
 
 
