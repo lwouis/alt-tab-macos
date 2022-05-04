@@ -170,7 +170,7 @@ extension pid_t {
         return kinfo.kp_proc.p_stat == SZOMB
     }
 
-    // the algorithm used by updateTabs is incorrect is the screen is in the middle of an animation (e.g. window going fullscreen)
+    // the algorithm used by updateTabs is incorrect if the screen is in the middle of an animation (e.g. window going fullscreen)
     // we retry until there is no animation, then we proceed
     func retryToRefreshTabsUntilScreenIsNotAnimating(_ fn: @escaping ([Window]) -> Void) {
         if NSRunningApplication(processIdentifier: self) != nil,

@@ -90,6 +90,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Martin Mitka
 * Martin. mitka
 * Max
+* MaximilianFreitag
 * Michael
 * Mohammad Al Zouabi
 * Mr. axel. bock
