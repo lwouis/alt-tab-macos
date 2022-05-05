@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.35.0](https://github.com/lwouis/alt-tab-macos/compare/v6.34.1...v6.35.0) (2022-05-05)
+
+
+### Bug Fixes
+
+* sometimes moved cursor on focus wrong (closes [#1087](https://github.com/lwouis/alt-tab-macos/issues/1087)) ([ed10201](https://github.com/lwouis/alt-tab-macos/commit/ed10201))
+
+
+### Features
+
+* update turkish localization ([9129ff6](https://github.com/lwouis/alt-tab-macos/commit/9129ff6))
+
 ## [6.34.1](https://github.com/lwouis/alt-tab-macos/compare/v6.34.0...v6.34.1) (2022-04-30)
 
 
