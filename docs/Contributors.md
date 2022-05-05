@@ -35,6 +35,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Abdulelah
 * Aden Aziz
 * Admin
+* afuio@qq. com
 * Albert Abdilim
 * Ali Gokmen
 * Allen Guan
@@ -54,6 +55,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Didier Deschrijver
 * Eliezer Shpigelman
 * Eric WANTZ
+* Ersagun Kuruca
 * Eukarya
 * Filipe
 * Frank
