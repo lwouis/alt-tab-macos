@@ -1,5 +1,12 @@
 # Release notes
 
+# [6.36.0](https://github.com/lwouis/alt-tab-macos/compare/v6.35.0...v6.36.0) (2022-05-06)
+
+
+### Features
+
+* improve traffic-light icons (closes [#1542](https://github.com/lwouis/alt-tab-macos/issues/1542)) ([6974de0](https://github.com/lwouis/alt-tab-macos/commit/6974de0))
+
 # [6.35.0](https://github.com/lwouis/alt-tab-macos/compare/v6.34.1...v6.35.0) (2022-05-05)
 
 
