@@ -49,6 +49,7 @@ class Window {
             refreshThumbnail()
         }
         application.removeWindowslessAppWindow()
+        checkIfFocused(application, wid)
         debugPrint("Adding window", cgWindowId, title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
     }
@@ -62,6 +63,17 @@ class Window {
 
     deinit {
         debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+    }
+
+    /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
+    /// workaround: we check and possibly do it here
+    func checkIfFocused(_ application: Application, _ wid: CGWindowID) {
+        retryAxCallUntilTimeout {
+            let focusedWid = try application.axUiElement?.focusedWindow()?.cgWindowId()
+            if wid == focusedWid {
+                application.focusedWindow = self
+            }
+        }
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {

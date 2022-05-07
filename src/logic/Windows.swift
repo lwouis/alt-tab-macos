@@ -180,8 +180,8 @@ class Windows {
     static func refreshFirstFewThumbnailsSync() {
         if Preferences.hideThumbnails { return }
         list.filter { $0.shouldShowTheUser }
-            .prefix(criticalFirstThumbnails)
-            .forEachAsync { window in window.refreshThumbnail() }
+                .prefix(criticalFirstThumbnails)
+                .forEachAsync { window in window.refreshThumbnail() }
     }
 
     static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails) {
