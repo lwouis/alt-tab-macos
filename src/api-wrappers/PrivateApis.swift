@@ -122,14 +122,20 @@ func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: UInt32, _
 func CGSManagedDisplayGetCurrentSpace(_ cid: CGSConnectionID, _ displayUuid: CFString) -> CGSSpaceID
 
 // adds the provided windows to the provided spaces
-// * macOS 10.10+
+// * macOS 10.10-12.2
 @_silgen_name("CGSAddWindowsToSpaces")
 func CGSAddWindowsToSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray) -> Void
 
 // remove the provided windows from the provided spaces
-// * macOS 10.10+
+// * macOS 10.10-12.2
 @_silgen_name("CGSRemoveWindowsFromSpaces")
 func CGSRemoveWindowsFromSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray) -> Void
+
+// Move the given windows (CGWindowIDs) to the given space (CGSSpaceID)
+// doesn't move fullscreen'ed windows
+// * macOS 10.10+
+@_silgen_name("CGSMoveWindowsToManagedSpace")
+func CGSMoveWindowsToManagedSpace(_ cid: CGSConnectionID, _ windows: NSArray, _ space: CGSSpaceID) -> Void
 
 // focuses the front process
 // * macOS 10.12+
