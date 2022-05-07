@@ -132,6 +132,7 @@ class TrafficLightButton: NSButton {
             // symbol.move(to: NSMakePoint(bounds.width * 0.80, bounds.height / 2))
             // symbol.line(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
             // symbol.lineWidth = 0.75
+            // NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == NSWindow.ButtonType.miniaturizeButton) {
             NSGraphicsContext.current?.shouldAntialias = false
             var symbol = NSBezierPath()
@@ -140,6 +141,7 @@ class TrafficLightButton: NSButton {
             symbol.lineWidth = 0.75
             lineColor.setStroke()
             symbol.stroke()
+            NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == NSWindow.ButtonType.closeButton) {
             var symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.30, bounds.height * 0.30))
