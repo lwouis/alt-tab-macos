@@ -1,5 +1,14 @@
 # Release notes
 
+## [6.36.1](https://github.com/lwouis/alt-tab-macos/compare/v6.36.0...v6.36.1) (2022-05-07)
+
+
+### Bug Fixes
+
+* better anti-aliasing on traffic-light icons ([022806b](https://github.com/lwouis/alt-tab-macos/commit/022806b))
+* libre-office would freeze with 2 open windows (closes [#1508](https://github.com/lwouis/alt-tab-macos/issues/1508)) ([1bb9fd0](https://github.com/lwouis/alt-tab-macos/commit/1bb9fd0))
+* switcher could select the wrong thumbnail (closes [#1198](https://github.com/lwouis/alt-tab-macos/issues/1198)) ([4c67778](https://github.com/lwouis/alt-tab-macos/commit/4c67778))
+
 # [6.36.0](https://github.com/lwouis/alt-tab-macos/compare/v6.35.0...v6.36.0) (2022-05-06)
 
 
