@@ -23,6 +23,7 @@ class ThumbnailView: NSStackView {
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
     var windowlessIcon = FontIcon(.newWindow)
+    var mouseIsHovering = false
 
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
@@ -66,11 +67,9 @@ class ThumbnailView: NSStackView {
         [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = true }
     }
 
-    func showOrHideWindowControls(_ shouldShowWindowControls_: Bool? = nil) {
-        if let shouldShowWindowControls = shouldShowWindowControls_ {
-            self.shouldShowWindowControls = shouldShowWindowControls
-        }
-        let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !window_!.isWindowlessApp && !Preferences.hideThumbnails
+    func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
+        self.shouldShowWindowControls = shouldShowWindowControls
+        let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !(window_?.isWindowlessApp ?? true) && !Preferences.hideThumbnails
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
             [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = !shouldShow }
@@ -92,7 +91,7 @@ class ThumbnailView: NSStackView {
                 highlightOrNot()
             }
         }
-        showOrHideWindowControls()
+        showOrHideWindowControls(isHighlighted && mouseIsHovering)
     }
 
     func highlightOrNot() {

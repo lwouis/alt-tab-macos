@@ -74,6 +74,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jaeyong Sung
 * Jakob
 * Jakub Bartušek
+* john doe
 * Jord Nijhuis
 * Julian Nowaczyk
 * Kagurazaka Tsuki
