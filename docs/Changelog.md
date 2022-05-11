@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.36.2](https://github.com/lwouis/alt-tab-macos/compare/v6.36.1...v6.36.2) (2022-05-11)
+
+
+### Bug Fixes
+
+* hide window controls when another window is selected (closes [#1557](https://github.com/lwouis/alt-tab-macos/issues/1557)) ([2e9cc3b](https://github.com/lwouis/alt-tab-macos/commit/2e9cc3b))
+
 ## [6.36.1](https://github.com/lwouis/alt-tab-macos/compare/v6.36.0...v6.36.1) (2022-05-07)
 
 
