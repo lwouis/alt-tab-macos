@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.37.1](https://github.com/lwouis/alt-tab-macos/compare/v6.37.0...v6.37.1) (2022-05-12)
+
+
+### Bug Fixes
+
+* hovering thumbnails would make alttab laggy ([#1567](https://github.com/lwouis/alt-tab-macos/issues/1567)) ([7e66009](https://github.com/lwouis/alt-tab-macos/commit/7e66009))
+
 # [6.37.0](https://github.com/lwouis/alt-tab-macos/compare/v6.36.2...v6.37.0) (2022-05-12)
 
 
