@@ -41,6 +41,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Allen Guan
 * Anurag Roy
 * anushree b
+* apple
 * Arthur
 * Ash
 * blanorama
@@ -59,6 +60,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Eukarya
 * Filipe
 * Frank
+* Gezimos
 * Giang
 * Github
 * Gkostov
@@ -87,6 +89,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lester
 * Lumaxis
 * lwouis
+* Maplevantablack
 * Marc Pla
 * Marekscholle
 * Marko McLion

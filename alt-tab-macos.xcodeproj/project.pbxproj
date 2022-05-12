@@ -53,8 +53,10 @@
 		BF0C8D610C93D48F572937F8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8FBA6B0F4DEB510C71CB /* Localizable.strings */; };
 		BF0C8DD7EBC3BA1E86BF4BDB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C841E403C1C6E8C65727E /* InfoPlist.strings */; };
 		BF0C8EA4654F8059F0AED40E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C82992C31AA542EF9E638 /* InfoPlist.strings */; };
+		BF0C8EF58A07D9752A6392FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8D928E2ABECB92738113 /* Localizable.strings */; };
 		BF0C8F3526BC393290D5BE59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C81EC1C5F3052A75C7D7B /* InfoPlist.strings */; };
 		BF0C8FA2D756D3258E3A16B6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C81DF55C6B0A279CE0FE1 /* Localizable.strings */; };
+		BF0C8FF2A4B00D409494EA80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C88D79FA0C773D94F351A /* InfoPlist.strings */; };
 		D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD91161791D42FEC4A60 /* HelperExtensions.swift */; };
 		D04BA0182F4734A5C8BB63DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA5461DAEE9B5350C3020 /* Localizable.strings */; };
 		D04BA03B560B681AF96E4610 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA88ED495C54CFE0B7B87 /* InfoPlist.strings */; };
@@ -169,6 +171,7 @@
 		BF0C817E063D1405392D6C5B /* he */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = he; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C828AF7BCC4F47E70B28F /* menubar-2.svg */ = {isa = PBXFileReference; lastKnownFileType = file.svg; path = "menubar-2.svg"; sourceTree = "<group>"; };
 		BF0C82C381FCBCF8109735AC /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = InfoPlist.strings; sourceTree = "<group>"; };
+		BF0C82D44C2DFAA5D8F60394 /* sq */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sq; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C833D471343CEA3DEFE56 /* icon_512x512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_512x512@2x.png"; sourceTree = "<group>"; };
 		BF0C83FC3C53FFB41A3832FD /* fa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fa; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C843C2EDF4EF3A7A2C64A /* app.svg */ = {isa = PBXFileReference; lastKnownFileType = file.svg; path = app.svg; sourceTree = "<group>"; };
@@ -178,6 +181,7 @@
 		BF0C848A4DDFF5D118CA9CAF /* ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ca; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C84E11784B3B0900D0963 /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = app.icns; sourceTree = "<group>"; };
 		BF0C850C46CCD8B978168CCD /* sv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sv; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C861255F42BF7B23408EF /* sq */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sq; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C86370093A080DD5974D8 /* convert_svg_to_png.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = convert_svg_to_png.sh; sourceTree = "<group>"; };
 		BF0C864F182B6155A66D241D /* KeyRepeatTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyRepeatTimer.swift; sourceTree = "<group>"; };
 		BF0C86C2BB70A8E05D2103CA /* cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = cs; path = Localizable.strings; sourceTree = "<group>"; };
@@ -517,6 +521,15 @@
 				BF0C8FBA6B0F4DEB510C71CB /* Localizable.strings */,
 			);
 			path = sl.lproj;
+			sourceTree = "<group>";
+		};
+		BF0C8342B4C4D14DB7860114 /* sq.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				BF0C8D928E2ABECB92738113 /* Localizable.strings */,
+				BF0C88D79FA0C773D94F351A /* InfoPlist.strings */,
+			);
+			path = sq.lproj;
 			sourceTree = "<group>";
 		};
 		BF0C86C288D4FD8F92D3C7DB /* app */ = {
@@ -1177,6 +1190,7 @@
 				BF0C8F8A40BCC2D044640239 /* he.lproj */,
 				BF0C8227F7CF10FB9DAE09C6 /* el.lproj */,
 				BF0C8CD2106F7BACF5534031 /* et.lproj */,
+				BF0C8342B4C4D14DB7860114 /* sq.lproj */,
 			);
 			path = l10n;
 			sourceTree = "<group>";
@@ -1302,6 +1316,7 @@
 				he,
 				el,
 				et,
+				sq,
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
@@ -1407,6 +1422,8 @@
 				BF0C81B64A1205F066AC796A /* Localizable.strings in Resources */,
 				BF0C8C1FDE88F7A0429BF466 /* InfoPlist.strings in Resources */,
 				BF0C8382435C0087E131BD83 /* InfoPlist.strings in Resources */,
+				BF0C8EF58A07D9752A6392FC /* Localizable.strings in Resources */,
+				BF0C8FF2A4B00D409494EA80 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1768,6 +1785,14 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		BF0C88D79FA0C773D94F351A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF0C861255F42BF7B23408EF /* sq */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		BF0C89348E07FC05870FEE62 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1838,6 +1863,14 @@
 				BF0C898614108C8DC7A178BB /* el */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BF0C8D928E2ABECB92738113 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF0C82D44C2DFAA5D8F60394 /* sq */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		BF0C8DC4F163F11248C637CE /* Localizable.strings */ = {
