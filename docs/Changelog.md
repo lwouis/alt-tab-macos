@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.37.0](https://github.com/lwouis/alt-tab-macos/compare/v6.36.2...v6.37.0) (2022-05-12)
+
+
+### Bug Fixes
+
+* prevent matlab freezing ([#890](https://github.com/lwouis/alt-tab-macos/issues/890)) ([0792838](https://github.com/lwouis/alt-tab-macos/commit/0792838))
+
+
+### Features
+
+* add albanian localization ([c22b364](https://github.com/lwouis/alt-tab-macos/commit/c22b364))
+* improve chinese/taiwanese localizations ([f1c0244](https://github.com/lwouis/alt-tab-macos/commit/f1c0244))
+
 ## [6.36.2](https://github.com/lwouis/alt-tab-macos/compare/v6.36.1...v6.36.2) (2022-05-11)
 
 
