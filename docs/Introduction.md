@@ -27,27 +27,24 @@ permalink: /
 
 Alternatively, you can use [homebrew](https://brew.sh/):
 
-Homebrew 2.5 or above | Homebrew 2.4 or below
--|-
-`brew install alt-tab` | `brew cask install alt-tab`
+* Homebrew 2.5 or above: `brew install alt-tab`
+* Homebrew 2.4 or below: `brew cask install alt-tab`
 
 ## Compatibility
 
 * __macOS version:__ from 10.12 to 12 (Monterey)
-* __Apple Silicon:__ yes, the app is [universal](https://developer.apple.com/documentation/apple-silicon/porting-your-macos-apps-to-apple-silicon)
+* __Apple Silicon:__ yes, AltTab is [universal](https://developer.apple.com/documentation/apple-silicon/porting-your-macos-apps-to-apple-silicon)
 
 ## Localization
 
-The app is available in:
-
-Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Ελληνικά, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, 日本語, 简体中文, 繁體中文, 한국어
+AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Ελληνικά, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, 日本語, 简体中文, 繁體中文, 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 
 ## Privacy and respecting the user
 
-* The app doesn’t send or receive any data without explicit user consent. It may ask the user to send a crash report after a crash for example, but it will never spy on the user.
-* The app tries to use as few resources as it can: CPU, memory, disk, etc. All images are compressed, the app is optimized to be as light as possible on the user resources.
+* AltTab doesn’t send or receive any data without explicit user consent. It may ask the user to send a crash report after a crash for example, but it will never spy on the user.
+* AltTab tries to use as few resources as it can: CPU, memory, disk, etc. All images are compressed, AltTab is optimized to be as light as possible on the user resources.
 
 ## Configuration
 
@@ -72,7 +69,7 @@ Before building my own app, I looked around at similar apps. However, none was c
 | Built-in `⌘ command` + `⇥ tab`                                                              | Only shows apps, not windows (note: can press down to see window of selected app)                            |
 | Built-in `⌘ command` + `` ` ``                                                              | Cycles through tabs and windows, but only of the same app. Only cycling, no direct access                    |
 
-There are also related apps which don’t really overlap in functionality, but target similar needs: [Swish](https://highlyopinionated.co/swish/), [Hookshot](https://hookshot.app/), [Magnet](https://magnet.crowdcafe.com/), [Spectacle](https://www.spectacleapp.com/), [Rectangle](https://github.com/rxhanson/Rectangle), [yabai](https://github.com/koekeishiya/yabai), [LayAuto](https://layautoapp.com/), [OptimalLayout](http://most-advantageous.com/optimal-layout/), [BetterTouchTool](https://folivora.ai/), [BetterSnapTool](https://folivora.ai/bettersnaptool), [Moom](https://manytricks.com/moom/), [uBar](https://brawersoftware.com/products/ubar)
+There are also related apps which don’t really overlap in functionality, but target similar needs: [Swish](https://highlyopinionated.co/swish/), [Hookshot](https://hookshot.app/), [Magnet](https://magnet.crowdcafe.com/), [Spectacle](https://www.spectacleapp.com/), [Rectangle](https://github.com/rxhanson/Rectangle), [yabai](https://github.com/koekeishiya/yabai), [LayAuto](https://layautoapp.com/), [OptimalLayout](http://most-advantageous.com/optimal-layout/), [BetterTouchTool](https://folivora.ai/), [BetterSnapTool](https://folivora.ai/bettersnaptool), [Moom](https://manytricks.com/moom/), [uBar](https://brawersoftware.com/products/ubar).
 
 ## More screenshots
 
