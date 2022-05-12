@@ -12,6 +12,7 @@ class TrafficLightButton: NSButton {
         target = self
         action = #selector(onClick)
         fit(size, size)
+        addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil))
     }
 
     required init?(coder: NSCoder) {
@@ -26,10 +27,6 @@ class TrafficLightButton: NSButton {
         } else if (type == .closeButton) {
             window_?.close()
         }
-    }
-
-    override func updateTrackingAreas() {
-        addTrackingArea(NSTrackingArea(rect: bounds, options: [.activeInActiveApp, .mouseEnteredAndExited, .assumeInside, .inVisibleRect], owner: self, userInfo: nil))
     }
 
     override func mouseEntered(with event: NSEvent) {
@@ -90,6 +87,7 @@ class TrafficLightButton: NSButton {
     }
 
     private func drawDimming(_ disk: NSBezierPath) {
+        disk.lineWidth = 1
         if (isHighlighted) {
             NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 0.5).setFill()
             disk.fill()
@@ -102,7 +100,7 @@ class TrafficLightButton: NSButton {
     private func drawDisk(_ backgroundGradient: NSGradient, _ strokeColor: NSColor) -> NSBezierPath {
         var disk = NSBezierPath()
         disk.appendOval(in: NSMakeRect(bounds.origin.x + 0.5, bounds.origin.y + 0.5, bounds.width - 1, bounds.height - 1))
-        backgroundGradient.draw(in: disk, relativeCenterPosition: NSMakePoint(0, 0))
+        backgroundGradient.draw(in: disk, relativeCenterPosition: .zero)
         strokeColor.setStroke()
         disk.lineWidth = 0.5
         disk.stroke()

@@ -68,7 +68,6 @@ class ThumbnailView: NSStackView {
     }
 
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
-        self.shouldShowWindowControls = shouldShowWindowControls
         let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !(window_?.isWindowlessApp ?? true) && !Preferences.hideThumbnails
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
