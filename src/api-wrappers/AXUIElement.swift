@@ -21,7 +21,7 @@ func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ timeoutInSeconds: Doubl
     } catch {
         let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
         if timePassedInSeconds < timeoutInSeconds {
-            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(250)) {
+            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(AXUIElement.retryDelayInMilliseconds)) {
                 retryAxCallUntilTimeout_(group, timeoutInSeconds, fn, startTime)
             }
         }
@@ -30,6 +30,9 @@ func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ timeoutInSeconds: Doubl
 
 extension AXUIElement {
     static let globalTimeoutInSeconds = Float(120)
+    // 250ms is similar to human delay in processing changes on screen
+    // See https://humanbenchmark.com/tests/reactiontime
+    static let retryDelayInMilliseconds = 250
 
     // default timeout for AX calls is 6s. We increase it in order to avoid retrying every 6s, thus saving resources
     static func setGlobalTimeout() {

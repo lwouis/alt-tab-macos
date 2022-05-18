@@ -41,15 +41,12 @@ class GeneralTab {
         }
         launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
         if (sender as! NSButton).state == .on {
+            // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
             let plist: NSDictionary = [
                 "Label": "com.lwouis.alt-tab-macos",
                 "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
                 "RunAtLoad": true,
                 "LimitLoadToSessionType": "Aqua",
-                "KeepAlive": [
-                    "Crashed": true,
-                    "SuccessfulExit": false,
-                ],
             ]
             plist.write(to: launchAgentsPath, atomically: true)
         } else {

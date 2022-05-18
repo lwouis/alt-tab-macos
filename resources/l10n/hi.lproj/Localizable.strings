@@ -6,7 +6,7 @@
 "About %@" = "%@ की जानकारी";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "अभिगम्यता";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "आभार";
@@ -21,13 +21,13 @@
 "Active Space" = "सक्रिय स्पेस";
 
 /*No comment provided by engineer.*/
-"Align windows:" = "Align windows:";
+"Align windows:" = "खिड़की संरेखित करें:";
 
 /*No comment provided by engineer.*/
 "All apps" = "सब ऐप्स";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "इस पत्र के सभी जानकारी को github.com पर टिकट के रूप में सार्वजनिक किया जाएगा";
 
 /*No comment provided by engineer.*/
 "All screens" = "सब स्क्रीन्स";
@@ -36,25 +36,25 @@
 "All Spaces" = "सब स्पेस";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "अनुमत";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "खिड़कियाँ इसका उपयोग करके चुनें:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "पिछली बार जब आपने ऑल्टटैब इस्तेमाल किया था तो दुर्घटनाग्रस्त हो गया था। दुर्घटना की रिपोर्ट भेजने से समस्या को ठीक करने में मदद मिलेगी";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "ऑल्टटैब को कुछ अनुमतियों की आवश्यकता है";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "हमेशा दुर्घटना की रिपोर्ट भेजें";
 
 /*No comment provided by engineer.*/
 "and press:" = "और दबाओ:";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "Apparition delay:";
+"Apparition delay:" = "प्रेत देरी:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "दिखावट";
@@ -63,16 +63,16 @@
 "Are you sure you don’t want a response?" = "क्या आप सुनिश्चित हैं कि आपको कोई जवाब नहीं चाहिए?";
 
 /*No comment provided by engineer.*/
-"Arrow keys" = "Arrow keys";
+"Arrow keys" = "ऐरो कुंजी";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "पूछें कि क्या दुर्घटना की रिपोर्ट भेजनी है";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "समय-समय पर अपडेट खुद ब खुद इंस्टॉल करो";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "काली सूची";
 
 /*Cancel button*/
 "Cancel" = "रद्द करो";
@@ -96,13 +96,13 @@
 "Close window" = "विंडो बंद करो";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "परस्पर विरोधी शॉर्टकट";
 
 /*No comment provided by engineer.*/
 "Controls" = "नियंत्रण";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "दुर्घटना की रिपोर्ट नीति:";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "कुछ मत करो";
@@ -114,58 +114,58 @@
 "Don’t send" = "मत भेजो";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "इन ऐप्स से खिड़की न दिखाएं";
 
 /*No comment provided by engineer.*/
 "End" = "अंत";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "फेड आउट एनीमेशन:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "चयनित खिड़की पर केंद्र करें";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "पूर्ण स्क्रीन खिड़कियाँ:";
 
 /*No comment provided by engineer.*/
 "General" = "सामान्य";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "छिपा हुआ खिड़कियाँ:";
 
 /*No comment provided by engineer.*/
-"Hide" = "छिपाओ";
+"Hide" = "छुपाएं";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "एप बैज छुपाएं:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "बिना खुली खिड़की वाले ऐप्स छिपाएं:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "माउस मँडराने पर पर रंगीन वृत्त छिपाएँ:";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "स्पेस नंबर लेबल छुपाओ:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "स्थिति चिह्न छुपाएं:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "खिड़की का थंबनेल छुपाएं:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "छुपाओ/दिखाओ ऐप";
+"Hide/Show app" = "ऐप छुपाओ/दिखाओ";
 
 /*No comment provided by engineer.*/
 "Hold" = "दबाए रखें";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "I think the app could be improved with…";
+"I think the app could be improved with…" = "मुझे लगता है कि इससे ऐप को बेहतर बनाया जा सकता है...";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "इन ऐप्स की खिड़की सक्रिय होने पर शॉर्टकट पर ध्यान न दें";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "सबसे नये रिलीज़";
@@ -174,55 +174,55 @@
 "Left" = "बाएं";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "स्क्रीन पर अधिकतम ऊंचाई:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "स्क्रीन पर अधिकतम चौड़ाई:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "मेनूबार आइकन:";
 
 /*No comment provided by engineer.*/
 "Middle" = "मध्य";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+"Minimize/Deminimize window" = "खिड़की छोटा/बड़ा करो";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "छोटा किया हुआ खिड़कियाँ:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "विविध:";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "Mouse hover";
+"Mouse hover" = "माउस मंडराना";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "दुर्घटना की रिपोर्ट कभी न भेजें";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "अनुमति नहीं हैं";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "जी.पी.एल-3.0 लाइसेंस";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "खिड़की फ़ुलस्क्रीन होने पर ही";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "अभिगम्यता पसंद खोलें...";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "स्क्रीन रिकॉर्डिंग पसंद खोलें...";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "ऐच्छिक: ईमेल (अगर आप जवाब देना चाहते हैं)";
 
 /*No comment provided by engineer.*/
 "Policies" = "नियम";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Preferences…";
+"Preferences…" = "पसंद";
 
 /*No comment provided by engineer.*/
 "Quit" = "बंद करो";
@@ -237,16 +237,16 @@
 "Remember my choice" = "मेरी पसंद याद रखो";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "थंबनेल की पंक्तियाँ:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including menu bar" = "मेनू बार सहित स्क्रीन";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "स्क्रीन जिसमे माउस हो";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "स्क्रीन रिकॉर्डिंग";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "स्क्रीन जिसमे ऑल्टटैब हो";
@@ -261,13 +261,13 @@
 "Send" = "भेज दो";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "दुर्घटना की रिपोर्ट भेजें?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "फिर भी भेज दो";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+"Send debug profile (CPU, memory, etc)" = "डिबग प्रोफ़ाइल भेजो (सीपीयू, स्मृति, आदि)";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "राय भेजो";
@@ -276,16 +276,16 @@
 "Send feedback…" = "राय भेजो...";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
+"Share improvement ideas, or report bugs" = "सुधार के विचार साझा करें, या बग की रिपोर्ट करें";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "शॉर्टकट १";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "शॉर्टकट २";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "शॉर्टकट पहले से ही किसी अन्य क्रिया को सौंपा गया है: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "दिखाओ";
@@ -297,13 +297,13 @@
 "Show on:" = "इस्पे दिखाओ:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "खिड़कियाँ के रूप में मानक टैब दिखाएं:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "यहां से खिड़कियाँ दिखाएं:";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "Source code repository";
+"Source code repository" = "स्रोत कोड भंडार";
 
 /*No comment provided by engineer.*/
 "Start" = "शुरुआत";
@@ -318,19 +318,19 @@
 "Then release:" = "फिर छोड़ो:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "शॉर्टकट जारी करने के बाद खिड़कियाँ पर केंद्र करने के लिए इस अनुमति की आवश्यकता है";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "खुली खिड़कियों के स्क्रीनशॉट और शीर्षक दिखाने के लिए इस अनुमति की आवश्यकता है";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "मौजूदा शॉर्टकट को सौंपना रद्द करें और जारी रखें";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "अपडेट नीति:";
 
 /*No comment provided by engineer.*/
-"Version" = "Version";
+"Version" = "संस्करण";
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "मौजूदा वाद-विवाद दिखाओ";
@@ -342,19 +342,19 @@
 "While open, press:" = "खुला होने पर, दबाओ:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Window app icon size:";
+"Window app icon size:" = "खिड़की ऐप आइकन आकार:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "पंक्ति में खिड़की की अधिकतम चौड़ाई:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "पंक्ति में खिड़की की न्यूनतम चौड़ाई:";
 
 /*No comment provided by engineer.*/
-"Window title font size:" = "Window title font size:";
+"Window title font size:" = "खिड़की शीर्षक फ़ॉन्ट आकार:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "खिड़की शीर्षक काट-छाँट:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "आपने अपना ईमेल नहीं लिखा, इसलिए कोई जवाब नहीं मिल सकता ।";

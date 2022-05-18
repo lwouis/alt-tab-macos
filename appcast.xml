@@ -5,6 +5,118 @@
     <language>en</language>
 
     <item>
+      <title>Version 6.37.1</title>
+      <pubDate>Thu, 12 May 2022 13:56:18 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.37.1/AltTab-6.37.1.zip"
+        sparkle:version="6.37.1"
+        sparkle:shortVersionString="6.37.1"
+        sparkle:edSignature="RMTUUVFmVOohYD/MXewo1c9ouj1huGsW9cJw5bPvQZBn1+Idz9JmEqpNgrczgXVEgxJH5HXZBENyjbRopoVnDg==" length="8786696"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 6.37.0</title>
+      <pubDate>Thu, 12 May 2022 12:44:50 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.37.0/AltTab-6.37.0.zip"
+        sparkle:version="6.37.0"
+        sparkle:shortVersionString="6.37.0"
+        sparkle:edSignature="xG+46kltZubUunN36OY2/GgI1UMiI9OHcDoHJglV4bW3rwLTTy9VxIjDnuoA2DeTrFHO3Bgsb8SQBrdLrXGUCQ==" length="8786839"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 6.36.2</title>
+      <pubDate>Wed, 11 May 2022 14:55:20 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.36.2/AltTab-6.36.2.zip"
+        sparkle:version="6.36.2"
+        sparkle:shortVersionString="6.36.2"
+        sparkle:edSignature="WoOYeDrchRsSwu04f8RRKa8KCJMHQVb1q78geJwcdUhxoq3BxZ0Gh21MvI2JbWUUtvg2/DcLhudRbnCSicfyDA==" length="8782449"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 6.36.1</title>
+      <pubDate>Sat, 07 May 2022 09:34:02 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.36.1/AltTab-6.36.1.zip"
+        sparkle:version="6.36.1"
+        sparkle:shortVersionString="6.36.1"
+        sparkle:edSignature="2XLTW1A9JY9Sdj7HgKFC9+HUO33FLAlz6n+w990jIa4Ck1zfOVOSUgRAqpKBCabX4S+hQ7QiBfilCMIjKfibDw==" length="8781957"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 6.36.0</title>
+      <pubDate>Fri, 06 May 2022 17:53:04 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.36.0/AltTab-6.36.0.zip"
+        sparkle:version="6.36.0"
+        sparkle:shortVersionString="6.36.0"
+        sparkle:edSignature="89dM7EStCMzXuioHkMRyzR76PljPTqMSI+7C2HnH84dbesFWkbAMzAqUu0eoohlxJrV+lDNbHl5iKCrUxMI2BQ==" length="8780995"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 6.35.0</title>
+      <pubDate>Thu, 05 May 2022 15:46:31 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.35.0/AltTab-6.35.0.zip"
+        sparkle:version="6.35.0"
+        sparkle:shortVersionString="6.35.0"
+        sparkle:edSignature="EIZroKL/hBQxT59PH3hVZUC38FTNTGZAh4j05512I2bTex6QLJfJXViVdRTDqzgt0+mMUG3D6EVsxqva4wpzDQ==" length="8782915"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 6.34.1</title>
+      <pubDate>Sat, 30 Apr 2022 15:50:21 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.34.1/AltTab-6.34.1.zip"
+        sparkle:version="6.34.1"
+        sparkle:shortVersionString="6.34.1"
+        sparkle:edSignature="3Di1a8aOePknmgRxVffq03tYcCE9WYiPuDQldudln9CgcnnjofIDB5CTONdMlL4TO/YsTAySjRVceIdh1tuXBw==" length="8782444"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
+      <title>Version 6.34.0</title>
+      <pubDate>Thu, 28 Apr 2022 14:33:32 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.34.0/AltTab-6.34.0.zip"
+        sparkle:version="6.34.0"
+        sparkle:shortVersionString="6.34.0"
+        sparkle:edSignature="QWxQUJOsDGinbY1r1CWp6mT3O0d/zWblHKypbcKBnErJE5ItOC8tVnRF0VzyaIit/5hyWXtb1Lt3ngFFezdVBg==" length="8780875"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 6.33.0</title>
       <pubDate>Fri, 08 Apr 2022 10:22:54 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

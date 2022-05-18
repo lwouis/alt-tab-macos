@@ -206,13 +206,9 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func moveCursorToSelectedWindow(_ window: Window) {
-        guard let position = window.position, let size = window.size else { return }
-
-        let point = CGPoint(
-            x: position.x + size.width / 2,
-            y: position.y + size.height / 2
-        )
-
+        let referenceWindow = window.referenceWindowForTabbedWindow()
+        guard let position = referenceWindow?.position, let size = referenceWindow?.size else { return }
+        let point = CGPoint(x: position.x + size.width / 2, y: position.y + size.height / 2)
         CGWarpMouseCursorPosition(point)
     }
 

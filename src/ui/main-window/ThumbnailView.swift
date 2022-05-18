@@ -1,6 +1,8 @@
 import Cocoa
 
 class ThumbnailView: NSStackView {
+    static let windowsControlSize = CGFloat(16)
+    static let windowsControlSpacing = CGFloat(8)
     var window_: Window?
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
@@ -10,9 +12,9 @@ class ThumbnailView: NSStackView {
     var hiddenIcon = ThumbnailFontIconView(.circledSlashSign)
     var spaceIcon = ThumbnailFontIconView(.circledNumber0)
     var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, 14, NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white)
-    var closeIcon = WindowControlView("close", 16)
-    var minimizeIcon = WindowControlView("minimize", 16)
-    var maximizeIcon = WindowControlView("fullscreen", 16)
+    var closeIcon = TrafficLightButton(.closeButton, windowsControlSize)
+    var minimizeIcon = TrafficLightButton(.miniaturizeButton, windowsControlSize)
+    var maximizeIcon = TrafficLightButton(.zoomButton, windowsControlSize)
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -21,6 +23,7 @@ class ThumbnailView: NSStackView {
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
     var windowlessIcon = FontIcon(.newWindow)
+    var mouseIsHovering = false
 
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
@@ -61,24 +64,22 @@ class ThumbnailView: NSStackView {
         thumbnail.addSubview(closeIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(minimizeIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(maximizeIcon, positioned: .above, relativeTo: nil)
-        [closeIcon, minimizeIcon, maximizeIcon].forEach {
-            $0.topAnchor.constraint(equalTo: thumbnail.topAnchor, constant: 2).isActive = true
-        }
-        closeIcon.leftAnchor.constraint(equalTo: thumbnail.leftAnchor, constant: 3).isActive = true
-        let windowsControlSpacing = CGFloat(6)
-        minimizeIcon.leftAnchor.constraint(equalTo: closeIcon.rightAnchor, constant: windowsControlSpacing).isActive = true
-        maximizeIcon.leftAnchor.constraint(equalTo: minimizeIcon.rightAnchor, constant: windowsControlSpacing).isActive = true
         [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = true }
     }
 
-    func showOrHideWindowControls(_ shouldShowWindowControls_: Bool? = nil) {
-        if let shouldShowWindowControls = shouldShowWindowControls_ {
-            self.shouldShowWindowControls = shouldShowWindowControls
-        }
-        let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !window_!.isWindowlessApp && !Preferences.hideThumbnails
+    func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
+        let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !(window_?.isWindowlessApp ?? true) && !Preferences.hideThumbnails
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
             [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = !shouldShow }
+        }
+        if isShowingWindowControls {
+            [closeIcon, minimizeIcon, maximizeIcon].enumerated().forEach { (i, icon: TrafficLightButton) in
+                icon.setFrameOrigin(.init(
+                    x: 3 + (ThumbnailView.windowsControlSpacing + ThumbnailView.windowsControlSize) * CGFloat(i),
+                    y: thumbnail.frame.height - ThumbnailView.windowsControlSize - 2))
+                icon.window_ = window_
+            }
         }
     }
 
@@ -89,7 +90,7 @@ class ThumbnailView: NSStackView {
                 highlightOrNot()
             }
         }
-        showOrHideWindowControls()
+        showOrHideWindowControls(isHighlighted && mouseIsHovering)
     }
 
     func highlightOrNot() {
@@ -171,7 +172,6 @@ class ThumbnailView: NSStackView {
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
         showOrHideWindowControls(false)
-        [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.hovered(false) }
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
         if labelChanged {
@@ -198,8 +198,8 @@ class ThumbnailView: NSStackView {
 
     func getAccessibilityHelp(_ appName: String?, _ dockLabel: Int?) -> String {
         [appName, dockLabel.map { getAccessibilityTextForBadge($0) }]
-            .compactMap { $0 }
-            .joined(separator: " - ")
+                .compactMap { $0 }
+                .joined(separator: " - ")
     }
 
     func getAccessibilityTextForBadge(_ dockLabel: Int) -> String {
@@ -245,34 +245,11 @@ class ThumbnailView: NSStackView {
         if Preferences.mouseHoverEnabled && !isHighlighted {
             mouseMovedCallback()
         }
-        hoverWindowControls()
-    }
-
-    func hoverWindowControls() {
-        let controls = [closeIcon, minimizeIcon, maximizeIcon]
-        if let target = thumbnail.hitTest(convert(window!.convertPoint(fromScreen: NSEvent.mouseLocation), from: nil)),
-           target is NSImageView {
-            if let control = (controls.first { $0 == target }) {
-                control.hovered(true)
-                controls.filter { $0 != control }.forEach { $0.hovered(false) }
-            } else {
-                controls.forEach { $0.hovered(false) }
-            }
-        }
     }
 
     override func mouseUp(with event: NSEvent) {
         if event.clickCount >= 1 {
-            let target = thumbnail.hitTest(convert(event.locationInWindow, from: nil))
-            if target == closeIcon {
-                window_!.close()
-            } else if target == minimizeIcon {
-                window_!.minDemin()
-            } else if target == maximizeIcon {
-                window_!.toggleFullscreen()
-            } else {
-                mouseUpCallback()
-            }
+            mouseUpCallback()
         }
     }
 

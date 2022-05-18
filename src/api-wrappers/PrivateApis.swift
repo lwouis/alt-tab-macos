@@ -132,9 +132,15 @@ func CGSAddWindowsToSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces:
 func CGSMoveWindowsToManagedSpace(_ cid: CGSConnectionID, _ windows: NSArray, _ space: CGSSpaceID) -> Void
 
 // remove the provided windows from the provided spaces
-// * macOS 10.10+
+// * macOS 10.10-12.2
 @_silgen_name("CGSRemoveWindowsFromSpaces")
 func CGSRemoveWindowsFromSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ spaces: NSArray) -> Void
+
+// Move the given windows (CGWindowIDs) to the given space (CGSSpaceID)
+// doesn't move fullscreen'ed windows
+// * macOS 10.10+
+@_silgen_name("CGSMoveWindowsToManagedSpace")
+func CGSMoveWindowsToManagedSpace(_ cid: CGSConnectionID, _ windows: NSArray, _ space: CGSSpaceID) -> Void
 
 // focuses the front process
 // * macOS 10.12+
@@ -407,3 +413,43 @@ func SLSManagedDisplayIsAnimating(_ cid: CGSConnectionID, _ displayUuid: CFStrin
 //    CGSGetConnectionPSN(elementConnection, &psn)
 //    return psn
 //}
+//
+//
+//// the following functions can be used to handle child-windows
+//// see https://developer.apple.com/documentation/appkit/nswindow/1419236-childwindows
+//// example of usage:
+////   var windowList = [] as CFArray
+////   var windowCount = 10 as UInt
+////   CGSCopyWindowGroup(cgsMainConnectionId, wid, "movementGroup" as CFString, &windowList, &windowCount)
+////   let wins = SLSCopyAssociatedWindows(cgsMainConnectionId, try currentWindows![0].cgWindowId()!)
+////   let query = SLSWindowQueryWindows(cgsMainConnectionId, [try currentWindows![0].cgWindowId()!] as CFArray, 1)
+////   let iterator = SLSWindowQueryResultCopyWindows(query)
+////   while SLSWindowIteratorAdvance(iterator) == .success {
+////       let parent_wid = SLSWindowIteratorGetParentID(iterator)
+////       let wid = SLSWindowIteratorGetWindowID(iterator)
+////       let tags = SLSWindowIteratorGetTags(iterator)
+////   }
+//
+//@_silgen_name("CGSCopyWindowGroup")
+//func CGSCopyWindowGroup(_ cid: CGSConnectionID, _ wid: CGWindowID, _ groupType: CFString, _ windowList: inout CFArray, _ windowCount: inout UInt) -> Void
+//
+//@_silgen_name("SLSCopyAssociatedWindows")
+//func SLSCopyAssociatedWindows(_ cid: CGSConnectionID, _ wid: CGWindowID) -> CFArray
+//
+//@_silgen_name("SLSWindowQueryWindows")
+//func SLSWindowQueryWindows(_ cid: CGSConnectionID, _ wids: CFArray, _ windowsCount: UInt) -> CFTypeRef
+//
+//@_silgen_name("SLSWindowQueryResultCopyWindows")
+//func SLSWindowQueryResultCopyWindows(_ query: CFTypeRef) -> CFTypeRef
+//
+//@_silgen_name("SLSWindowIteratorAdvance")
+//func SLSWindowIteratorAdvance(_ iterator: CFTypeRef) -> CGError
+//
+//@_silgen_name("SLSWindowIteratorGetParentID")
+//func SLSWindowIteratorGetParentID(_ iterator: CFTypeRef) -> CGWindowID
+//
+//@_silgen_name("SLSWindowIteratorGetWindowID")
+//func SLSWindowIteratorGetWindowID(_ iterator: CFTypeRef) -> CGWindowID
+//
+//@_silgen_name("SLSWindowIteratorGetTags")
+//func SLSWindowIteratorGetTags(_ iterator: CFTypeRef) -> UInt

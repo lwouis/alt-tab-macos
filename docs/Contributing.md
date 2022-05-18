@@ -115,6 +115,8 @@ In an attempt to not have too many regressions, this documents will list OS inte
 ### System Preferences
 
 * General > Appearance > "Dark": switches to Dark Mode
+* General > Accent color > "Graphite": traffic lights on thumbnails should be gray
+* Accessibility > Display > Reduce transparency: AltTab background should be a solid color
 * General > Show scroll bars > "Always": regenerates all scrollbars
 * Display > Resolution > Scaled: changes DPI and rescale AltTab
 * Mission Control > "Displays have separate Spaces": changes Spaces behavior on multi-displays setups

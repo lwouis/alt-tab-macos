@@ -1,5 +1,80 @@
 # Release notes
 
+## [6.37.1](https://github.com/lwouis/alt-tab-macos/compare/v6.37.0...v6.37.1) (2022-05-12)
+
+
+### Bug Fixes
+
+* hovering thumbnails would make alttab laggy ([#1567](https://github.com/lwouis/alt-tab-macos/issues/1567)) ([7e66009](https://github.com/lwouis/alt-tab-macos/commit/7e66009))
+
+# [6.37.0](https://github.com/lwouis/alt-tab-macos/compare/v6.36.2...v6.37.0) (2022-05-12)
+
+
+### Bug Fixes
+
+* prevent matlab freezing ([#890](https://github.com/lwouis/alt-tab-macos/issues/890)) ([0792838](https://github.com/lwouis/alt-tab-macos/commit/0792838))
+
+
+### Features
+
+* add albanian localization ([c22b364](https://github.com/lwouis/alt-tab-macos/commit/c22b364))
+* improve chinese/taiwanese localizations ([f1c0244](https://github.com/lwouis/alt-tab-macos/commit/f1c0244))
+
+## [6.36.2](https://github.com/lwouis/alt-tab-macos/compare/v6.36.1...v6.36.2) (2022-05-11)
+
+
+### Bug Fixes
+
+* hide window controls when another window is selected (closes [#1557](https://github.com/lwouis/alt-tab-macos/issues/1557)) ([2e9cc3b](https://github.com/lwouis/alt-tab-macos/commit/2e9cc3b))
+
+## [6.36.1](https://github.com/lwouis/alt-tab-macos/compare/v6.36.0...v6.36.1) (2022-05-07)
+
+
+### Bug Fixes
+
+* better anti-aliasing on traffic-light icons ([022806b](https://github.com/lwouis/alt-tab-macos/commit/022806b))
+* libre-office would freeze with 2 open windows (closes [#1508](https://github.com/lwouis/alt-tab-macos/issues/1508)) ([1bb9fd0](https://github.com/lwouis/alt-tab-macos/commit/1bb9fd0))
+* switcher could select the wrong thumbnail (closes [#1198](https://github.com/lwouis/alt-tab-macos/issues/1198)) ([4c67778](https://github.com/lwouis/alt-tab-macos/commit/4c67778))
+
+# [6.36.0](https://github.com/lwouis/alt-tab-macos/compare/v6.35.0...v6.36.0) (2022-05-06)
+
+
+### Features
+
+* improve traffic-light icons (closes [#1542](https://github.com/lwouis/alt-tab-macos/issues/1542)) ([6974de0](https://github.com/lwouis/alt-tab-macos/commit/6974de0))
+
+# [6.35.0](https://github.com/lwouis/alt-tab-macos/compare/v6.34.1...v6.35.0) (2022-05-05)
+
+
+### Bug Fixes
+
+* sometimes moved cursor on focus wrong (closes [#1087](https://github.com/lwouis/alt-tab-macos/issues/1087)) ([ed10201](https://github.com/lwouis/alt-tab-macos/commit/ed10201))
+
+
+### Features
+
+* update turkish localization ([9129ff6](https://github.com/lwouis/alt-tab-macos/commit/9129ff6))
+
+## [6.34.1](https://github.com/lwouis/alt-tab-macos/compare/v6.34.0...v6.34.1) (2022-04-30)
+
+
+### Bug Fixes
+
+* custom shortcuts can use arrow keys (closes [#1376](https://github.com/lwouis/alt-tab-macos/issues/1376)) ([bb1de75](https://github.com/lwouis/alt-tab-macos/commit/bb1de75))
+
+# [6.34.0](https://github.com/lwouis/alt-tab-macos/compare/v6.33.0...v6.34.0) (2022-04-28)
+
+
+### Bug Fixes
+
+* alt-tab could be relaunched in a loop (closes [#1367](https://github.com/lwouis/alt-tab-macos/issues/1367)) ([cdb461a](https://github.com/lwouis/alt-tab-macos/commit/cdb461a))
+* reduce alt-tab cpu usage in some scenarios (closes [#1481](https://github.com/lwouis/alt-tab-macos/issues/1481)) ([0569ed0](https://github.com/lwouis/alt-tab-macos/commit/0569ed0))
+
+
+### Features
+
+* update indian and russian localizations ([85210e2](https://github.com/lwouis/alt-tab-macos/commit/85210e2))
+
 # [6.33.0](https://github.com/lwouis/alt-tab-macos/compare/v6.32.0...v6.33.0) (2022-04-08)
 
 

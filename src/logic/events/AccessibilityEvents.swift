@@ -32,6 +32,10 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
 }
 
 fileprivate func focusedUiElementChanged(_ pid: pid_t) throws {
+    // this event is the only event triggered when the user tabs a window. However, macOS implementation is lazy: a
+    // window freshly tabbed will still return the size/position/screenshot as when it was still a standalone
+    // window. Only when the user clicks on the tab, and it gets displayed, will the tabbed window actually resize
+    // (it will send the windowResized event)
     pid.retryToRefreshTabsUntilScreenIsNotAnimating { App.app.refreshOpenUi($0) }
 }
 
@@ -193,11 +197,15 @@ fileprivate func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws
 
 fileprivate func windowResized(_ element: AXUIElement) throws {
     // TODO: only trigger this at the end of the resize, not on every tick
-    // currenly resizing a window will lag AltTab as it triggers too much UI work
+    // currently resizing a window will lag AltTab as it triggers too much UI work
     if let wid = try element.cgWindowId() {
         let isFullscreen = try element.isFullscreen()
+        let size = try element.size()
+        let position = try element.position()
         DispatchQueue.main.async {
             if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+                window.size = size
+                window.position = position
                 if window.isFullscreen != isFullscreen {
                     window.isFullscreen = isFullscreen
                     App.app.checkIfShortcutsShouldBeDisabled(window, nil)

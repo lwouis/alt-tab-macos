@@ -29,8 +29,10 @@ class Application: NSObject {
         // workaround: some apps exhibit bugs when we subscribe to its kAXFocusedUIElementChangedNotification
         // we don't know what's happening; we avoid this subscription to make these app usable
         if app.bundleIdentifier == "edu.stanford.protege" ||
+               app.bundleIdentifier == "com.mathworks.matlab" ||
                app.bundleIdentifier?.range(of: "^com\\.install4j\\..+?$", options: .regularExpression) != nil ||
                app.bundleIdentifier?.range(of: "^com\\.live2d\\.cubism\\..+?$", options: .regularExpression) != nil ||
+               app.bundleIdentifier?.range(of: "^org\\.libreoffice\\..+?$", options: .regularExpression) != nil ||
                app.bundleIdentifier?.range(of: "^com\\.(jetbrains\\.|google\\.android\\.studio).*?$", options: .regularExpression) != nil {
             return n.filter { $0 != kAXFocusedUIElementChangedNotification }
         }

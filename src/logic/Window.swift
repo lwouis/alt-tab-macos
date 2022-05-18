@@ -49,6 +49,7 @@ class Window {
             refreshThumbnail()
         }
         application.removeWindowslessAppWindow()
+        checkIfFocused(application, wid)
         debugPrint("Adding window", cgWindowId, title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
     }
@@ -100,6 +101,17 @@ class Window {
 
     deinit {
         debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+    }
+
+    /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
+    /// workaround: we check and possibly do it here
+    func checkIfFocused(_ application: Application, _ wid: CGWindowID) {
+        retryAxCallUntilTimeout {
+            let focusedWid = try application.axUiElement?.focusedWindow()?.cgWindowId()
+            if wid == focusedWid {
+                application.focusedWindow = self
+            }
+        }
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
@@ -289,7 +301,8 @@ class Window {
                 return screenSpaces.contains { $0 == spaceId }
             }
         } else {
-            if let topLeftCorner = position, let size = size {
+            let referenceWindow = referenceWindowForTabbedWindow()
+            if let topLeftCorner = referenceWindow?.position, let size = referenceWindow?.size {
                 var screenFrameInQuartzCoordinates = screen.frame
                 screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
                 let windowRect = CGRect(origin: topLeftCorner, size: size)
@@ -297,6 +310,14 @@ class Window {
             }
         }
         return true
+    }
+
+    func referenceWindowForTabbedWindow() -> Window? {
+        // if the window is tabbed, we can't know its position/size before it's focused, so we use the currently
+        // visible window-tab to decide where to put the cursor, as these are known and will match the other tab
+        // TODO: handle the case where the app has multiple window-groups. In that case, we need to find the right
+        //       window-group, instead of picking the focused one
+        return isTabbed ? application.focusedWindow : self
     }
 }
 

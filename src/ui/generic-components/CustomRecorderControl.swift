@@ -49,11 +49,12 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
     }
 
     func alertIfSameShortcutAlreadyAssigned(_ shortcut: Shortcut, _ shortcutAlreadyAssigned: ATShortcut) {
-        let existing = ControlsTab.shortcutControls[shortcutAlreadyAssigned.id]!
+        let isArrowKeys = ["←", "→", "↑", "↓"].contains(shortcutAlreadyAssigned.id)
+        let existing = ControlsTab.shortcutControls[shortcutAlreadyAssigned.id]
         let alert = NSAlert()
         alert.alertStyle = .critical
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""), existing.1.replacingOccurrences(of: " ", with: "\u{00A0}"))
+        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""), (isArrowKeys ? "Arrow keys" : existing!.1).replacingOccurrences(of: " ", with: "\u{00A0}"))
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         }
@@ -64,9 +65,15 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
         }
         let userChoice = alert.runModal()
         if !id.starts(with: "holdShortcut") && userChoice == .alertFirstButtonReturn {
-            existing.0.objectValue = nil
-            ControlsTab.shortcutChangedCallback(existing.0)
-            LabelAndControl.controlWasChanged(existing.0, shortcutAlreadyAssigned.id)
+            if isArrowKeys {
+                ControlsTab.arrowKeysCheckbox.state = .off
+                ControlsTab.arrowKeysEnabledCallback(ControlsTab.arrowKeysCheckbox)
+                LabelAndControl.controlWasChanged(ControlsTab.arrowKeysCheckbox, nil)
+            } else {
+                existing!.0.objectValue = nil
+                ControlsTab.shortcutChangedCallback(existing!.0)
+                LabelAndControl.controlWasChanged(existing!.0, shortcutAlreadyAssigned.id)
+            }
             ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
             ControlsTab.shortcutChangedCallback(self)
             LabelAndControl.controlWasChanged(self, id)
