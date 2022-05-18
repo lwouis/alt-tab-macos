@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+ <dictionary title="AltTab Terminology">
+     <suite name="AltTab Scripting Suite" code="atss" description="Standard suite for application communication.">
+         <command name="trigger" code="atssTrig" description="Goes to the next window, without showing Overlay/UI.">
+             <cocoa class="AltTab.TriggerScriptCommand"/>
+         </command>
+         <command name="show" code="atssShow" description="Show all app windows. (Regular AltTab shortcut)">
+             <cocoa class="AltTab.ShowScriptCommand"/>
+          </command>
+         <command name="hide" code="atssHide" description="Hide Overlay/UI.">
+             <cocoa class="AltTab.HideScriptCommand"/>
+         </command>
+         <command name="showApp" code="atssSApp" description="Show specific app windows. (ignores blacklist)">
+             <cocoa class="AltTab.showAppScriptCommand"/>
+             <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to show.">
+                 <cocoa key="appBID"/>
+             </parameter>
+        </command>
+         <command name="countWindows" code="atssCWin" description="The number of windows for an app (in all spaces).">
+             <cocoa class="AltTab.countWindowsScriptCommand"/>
+             <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to count.">
+                 <cocoa key="appBID"/>
+             </parameter>
+             <result type="integer" description="integer no. of windows"/>
+        </command>
+     </suite>
+ </dictionary>

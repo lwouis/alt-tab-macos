@@ -34,6 +34,8 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSUIElement</key>
 	<string>true</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>GPL-3.0 licence</string>
 	<key>NSPrincipalClass</key>
@@ -42,6 +44,8 @@
 	<string>false</string>
 	<key>NSSupportsSuddenTermination</key>
 	<string>false</string>
+	<key>OSAScriptingDefinition</key>
+	<string>AltTab.sdef</string>
 	<key>SUEnableAutomaticChecks</key>
 	<string>true</string>
 	<key>SUEnableJavaScript</key>

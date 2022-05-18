@@ -57,6 +57,12 @@
 		BF0C8F3526BC393290D5BE59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C81EC1C5F3052A75C7D7B /* InfoPlist.strings */; };
 		BF0C8FA2D756D3258E3A16B6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C81DF55C6B0A279CE0FE1 /* Localizable.strings */; };
 		BF0C8FF2A4B00D409494EA80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C88D79FA0C773D94F351A /* InfoPlist.strings */; };
+		BF42BC82283552B400F5D5E7 /* HideScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC7E283552B400F5D5E7 /* HideScriptCommand.swift */; };
+		BF42BC83283552B400F5D5E7 /* showAppScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */; };
+		BF42BC84283552B400F5D5E7 /* ShowScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC80283552B400F5D5E7 /* ShowScriptCommand.swift */; };
+		BF42BC85283552B400F5D5E7 /* TriggerScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC81283552B400F5D5E7 /* TriggerScriptCommand.swift */; };
+		BF49DF3228355340004517BD /* countWindowsScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */; };
+		BF49DF3428355372004517BD /* AltTab.sdef in Resources */ = {isa = PBXBuildFile; fileRef = BF49DF3328355372004517BD /* AltTab.sdef */; };
 		D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD91161791D42FEC4A60 /* HelperExtensions.swift */; };
 		D04BA0182F4734A5C8BB63DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA5461DAEE9B5350C3020 /* Localizable.strings */; };
 		D04BA03B560B681AF96E4610 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA88ED495C54CFE0B7B87 /* InfoPlist.strings */; };
@@ -222,6 +228,12 @@
 		BF0C8EE17F3ABD7A6D44BFFE /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8F0D1F5E9980C2E1A073 /* no */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = no; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8FC083A2443F3EAF5DB7 /* preferences-blacklist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-blacklist.jpg"; sourceTree = "<group>"; };
+		BF42BC7E283552B400F5D5E7 /* HideScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideScriptCommand.swift; sourceTree = "<group>"; };
+		BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = showAppScriptCommand.swift; sourceTree = "<group>"; };
+		BF42BC80283552B400F5D5E7 /* ShowScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowScriptCommand.swift; sourceTree = "<group>"; };
+		BF42BC81283552B400F5D5E7 /* TriggerScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerScriptCommand.swift; sourceTree = "<group>"; };
+		BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = countWindowsScriptCommand.swift; sourceTree = "<group>"; };
+		BF49DF3328355372004517BD /* AltTab.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AltTab.sdef; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA015A45DE7AFDC9794FE /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		D04BA03200F5A8FC0CD03607 /* CGWindowID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGWindowID.swift; sourceTree = "<group>"; };
@@ -653,6 +665,18 @@
 			path = he.lproj;
 			sourceTree = "<group>";
 		};
+		BF42BC7B2835527800F5D5E7 /* ScriptCommands */ = {
+			isa = PBXGroup;
+			children = (
+				BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */,
+				BF42BC7E283552B400F5D5E7 /* HideScriptCommand.swift */,
+				BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */,
+				BF42BC80283552B400F5D5E7 /* ShowScriptCommand.swift */,
+				BF42BC81283552B400F5D5E7 /* TriggerScriptCommand.swift */,
+			);
+			path = ScriptCommands;
+			sourceTree = "<group>";
+		};
 		D04BA07CB9DE3923A0D402D7 /* it.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -711,6 +735,7 @@
 				D04BAAF760E3A8A22BDA84D6 /* appcast.xml */,
 				D04BA6251F309645757C6000 /* src */,
 				D04BAF1058D2599E6E8ABBA6 /* Info.plist */,
+				BF49DF3328355372004517BD /* AltTab.sdef */,
 				D04BAF6F617FCA44D1F75B60 /* alt_tab_macos.entitlements */,
 				D04BAA17F1B492591AAAA9A7 /* config */,
 				D04BA9CA03317B315B267E21 /* resources */,
@@ -920,6 +945,7 @@
 		D04BA6251F309645757C6000 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				BF42BC7B2835527800F5D5E7 /* ScriptCommands */,
 				D04BA5BB6FB4E7D8F7AD357C /* api-wrappers */,
 				D04BA70746DEEC3D30B43F81 /* main.swift */,
 				D04BA0D80B24E72B9B981A1D /* logic */,
@@ -1406,6 +1432,7 @@
 				BF0C84D7DC2AC65BB1C111EB /* Localizable.strings in Resources */,
 				BF0C8DD7EBC3BA1E86BF4BDB /* InfoPlist.strings in Resources */,
 				BF0C83AB0186CC48FADF66A7 /* Localizable.strings in Resources */,
+				BF49DF3428355372004517BD /* AltTab.sdef in Resources */,
 				BF0C884D88B74F05B8BBF956 /* Localizable.strings in Resources */,
 				BF0C87732A6E660899D13BFD /* InfoPlist.strings in Resources */,
 				BF0C8C4381FB16A4DFBBB219 /* InfoPlist.strings in Resources */,
@@ -1531,6 +1558,7 @@
 			files = (
 				D04BAFBC862BA5FE0294EA7A /* AXUIElement.swift in Sources */,
 				D04BA73E90EFEF8247A5105D /* CGWindow.swift in Sources */,
+				BF49DF3228355340004517BD /* countWindowsScriptCommand.swift in Sources */,
 				D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */,
 				D04BAADED6FE28D42924AEBF /* PrivateApis.swift in Sources */,
 				D04BABED81800E18732912CC /* CGWindowID.swift in Sources */,
@@ -1548,8 +1576,11 @@
 				D04BA48B00B4211A465C7337 /* DebugProfile.swift in Sources */,
 				D04BAB68B7B8D1B548BC3AD5 /* App.swift in Sources */,
 				D04BAB048DE698E013577C51 /* ThumbnailsPanel.swift in Sources */,
+				BF42BC83283552B400F5D5E7 /* showAppScriptCommand.swift in Sources */,
 				D04BA69D47B5E60A6AD9CBD9 /* ThumbnailTitleView.swift in Sources */,
+				BF42BC82283552B400F5D5E7 /* HideScriptCommand.swift in Sources */,
 				D04BA1B133D53572D7B312C2 /* ThumbnailFontIconView.swift in Sources */,
+				BF42BC84283552B400F5D5E7 /* ShowScriptCommand.swift in Sources */,
 				D04BA1CEC6B9C8945FEC8740 /* ThumbnailView.swift in Sources */,
 				D04BA14D93726795A6937832 /* LabelAndControl.swift in Sources */,
 				D04BA7BE7F3DD24D58ACE942 /* AppearanceTab.swift in Sources */,
@@ -1572,6 +1603,7 @@
 				D04BAAAF5CFA991D3B078DB8 /* KeyboardEvents.swift in Sources */,
 				D04BA1766FBCB2E941D081A5 /* WorkspaceEvents.swift in Sources */,
 				D04BA0AE9865276FF8EF5DEB /* UserDefaultsEvents.swift in Sources */,
+				BF42BC85283552B400F5D5E7 /* TriggerScriptCommand.swift in Sources */,
 				D04BA4A11F821548EE3C5E95 /* Bash.swift in Sources */,
 				D04BAFB90E00AA5D662EAF24 /* PermissionsWindow.swift in Sources */,
 				D04BA7E39FA539DD8316447A /* PermissionView.swift in Sources */,
