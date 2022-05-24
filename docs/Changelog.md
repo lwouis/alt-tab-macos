@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.38.0](https://github.com/lwouis/alt-tab-macos/compare/v6.37.1...v6.38.0) (2022-05-24)
+
+
+### Bug Fixes
+
+* better mouse hover behavior ([#1557](https://github.com/lwouis/alt-tab-macos/issues/1557)) ([d3cabc1](https://github.com/lwouis/alt-tab-macos/commit/d3cabc1))
+
+
+### Features
+
+* improve ukrainian, polish, albanian localization ([b02972b](https://github.com/lwouis/alt-tab-macos/commit/b02972b))
+
 ## [6.37.1](https://github.com/lwouis/alt-tab-macos/compare/v6.37.0...v6.37.1) (2022-05-12)
 
 
