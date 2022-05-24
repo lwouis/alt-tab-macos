@@ -23,7 +23,6 @@ class ThumbnailView: NSStackView {
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
     var windowlessIcon = FontIcon(.newWindow)
-    var mouseIsHovering = false
 
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
@@ -90,7 +89,7 @@ class ThumbnailView: NSStackView {
                 highlightOrNot()
             }
         }
-        showOrHideWindowControls(isHighlighted && mouseIsHovering)
+        showOrHideWindowControls(false)
     }
 
     func highlightOrNot() {
@@ -171,7 +170,6 @@ class ThumbnailView: NSStackView {
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
-        showOrHideWindowControls(false)
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
         if labelChanged {
