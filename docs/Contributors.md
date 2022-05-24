@@ -39,6 +39,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Albert Abdilim
 * Ali Gokmen
 * Allen Guan
+* Ameng
 * Anurag Roy
 * anushree b
 * apple
@@ -68,6 +69,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Guillaume
 * hann-solo
 * Haoshuai Xu
+* Hjörtur Hjartarson
 * Hokuto Kato
 * Huandngoc
 * Ialiendeg
@@ -118,11 +120,13 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Seyedparsa Mirtaheri
 * SheNeVmerla
 * Shivam Bansal
+* Spartak
 * Stefan
 * Svetoslav Stefanov
 * Tomoa Nozawa
 * Tran
 * Umutakkaya1996
+* Vadym
 * Vegard
 * Vincent Orback
 * Vlad

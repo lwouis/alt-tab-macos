@@ -3,55 +3,55 @@
 "About" = "Про нас";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "Про %@";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+"Accessibility" = "Доступність";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "Подяки";
 
 /*No comment provided by engineer.*/
-"Active app" = "Active app";
+"Active app" = "Активної програми";
 
 /*No comment provided by engineer.*/
-"Active screen" = "Активний екран";
+"Active screen" = "Активних екранів";
 
 /*No comment provided by engineer.*/
 "Active Space" = "Активне мисце";
 
 /*No comment provided by engineer.*/
-"Align windows:" = "Align windows:";
+"Align windows:" = "Вирівняти вікна:";
 
 /*No comment provided by engineer.*/
-"All apps" = "All apps";
+"All apps" = "Усіх програм";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Усі дані з цієї форми будуть доступні публічно у вигляді квитку на github.com";
 
 /*No comment provided by engineer.*/
-"All screens" = "Всі екрани";
+"All screens" = "Всіх екранів";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "All Spaces";
+"All Spaces" = "Всі простори";
 
 /*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+"Allowed" = "Дозволено";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using:" = "Також обрати вікна, що використовують:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab вийшов з ладу востаннє, коли ви ним користувалися. Надсилання звіту про аварійне завершення роботи допоможе вирішити проблему";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "AltTab потребує деяких дозволів";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Завжди надсилати звіти про збій";
 
 /*No comment provided by engineer.*/
-"and press:" = "and press:";
+"and press:" = "та натисніть:";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Затримка вiдображення:";
@@ -60,25 +60,25 @@
 "Appearance" = "Вiдображення";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Ви впевнені, що не хочете відповіді?";
 
 /*No comment provided by engineer.*/
-"Arrow keys" = "Arrow keys";
+"Arrow keys" = "Клавіші зі стрілками";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Запитувати чи надсилати звіт про збій";
 
 /*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Авт. встановлювати оновлення час вiд часу";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Чорні списки";
 
 /*Cancel button*/
 "Cancel" = "Закiнчити";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "Cancel and hide";
+"Cancel and hide" = "Скасувати і сховати";
 
 /*No comment provided by engineer.*/
 "Center" = "Центр";
@@ -93,268 +93,268 @@
 "Check for updates…" = "Перевiрити оновлення...";
 
 /*No comment provided by engineer.*/
-"Close window" = "Close window";
+"Close window" = "Закрити вікно";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Конфліктний ярлик";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controls";
+"Controls" = "Управління";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy:" = "Політика звітування про збої:";
 
 /*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+"Do nothing" = "Нічого не робити";
 
 /*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Не перевiряти оновлення час вiд часу";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+"Don’t send" = "Не надсилати";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+"Don’t show windows from these apps" = "Не відображати вікна ций програм";
 
 /*No comment provided by engineer.*/
-"End" = "End";
+"End" = "Завершити";
 
 /*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation:" = "Анімація зникнення";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Фокусуватись на обраному вікні";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Повноекранні вікна:";
 
 /*No comment provided by engineer.*/
-"General" = "General";
+"General" = "Загальні";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Сховані вікна:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Сховати";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges:" = "Сховати значки програми:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Сховати програми, що не мають відкритих вікон:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover:" = "Сховати кольорові круги при наведені миші:";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Сховати заголовки з номерами простору";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons:" = "Сховати іконки статусу:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Сховати мініатюри вікон:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Hide/Show app";
+"Hide/Show app" = "Сховати/Показати програму";
 
 /*No comment provided by engineer.*/
-"Hold" = "Hold";
+"Hold" = "Утримання";
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Я думаю додаток може бути покращено з...";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts while a window from these apps is active" = "Ігнорувати ярлики поки вікна цих програм активні";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Останнiй релiз";
 
 /*No comment provided by engineer.*/
-"Left" = "Left";
+"Left" = "Вліво";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Максимальна висота на екрані:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Максимальна ширина на екрані:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "Іконка Панелі Меню:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Middle";
+"Middle" = "Середній";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+"Minimize/Deminimize window" = "Згорнути/Розгорнути вікно";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Згорнуті вікна:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Різне:";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "Mouse hover";
+"Mouse hover" = "Наведення миші";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Ніколи не надсилати звіти про збої";
 
 /*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+"Not allowed" = "Заборонено";
 
 /*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 лiцензiя";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+"Only if the window is fullscreen" = "Тільки якщо вікно повноекранне";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Відкрити Налаштування Доступності";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Відкрити Налаштування Запису Екрану...";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Опцiонально: email(якщо бажаєте)";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policies";
+"Policies" = "Політика";
 
 /*No comment provided by engineer.*/
 "Preferences…" = "Налаштування...";
 
 /*No comment provided by engineer.*/
-"Quit" = "Quit";
+"Quit" = "Вийти";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "Вийти з %@";
 
 /*No comment provided by engineer.*/
-"Quit app" = "Quit app";
+"Quit app" = "Вийти з програми";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+"Remember my choice" = "Запамʼятати мій вибір";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Рядки мініатюр:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including menu bar" = "Екран з панеллю меню";
 
 /*No comment provided by engineer.*/
-"Screen including mouse" = "Screen including mouse";
+"Screen including mouse" = "Екран з мишею";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Запис Екрану";
 
 /*No comment provided by engineer.*/
-"Screen showing AltTab" = "Screen showing AltTab";
+"Screen showing AltTab" = "Екрану відображення AltTab";
 
 /*No comment provided by engineer.*/
-"Select next window" = "Select next window";
+"Select next window" = "Вибрати наступне вікно";
 
 /*No comment provided by engineer.*/
-"Select previous window" = "Select previous window";
+"Select previous window" = "Вибрати попереднє вікно";
 
 /*No comment provided by engineer.*/
 "Send" = "Вiдправити";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Надіслати звіт про збій?";
 
 /*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+"Send anyway" = "Відправити в будь-якому випадку";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+"Send debug profile (CPU, memory, etc)" = "Надіслати профіль дебагу (ЦП, памʼять і т.д.)";
 
 /*No comment provided by engineer.*/
-"Send feedback" = "Send feedback";
+"Send feedback" = "Надіслати відгук";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "Send feedback…";
+"Send feedback…" = "Надіслати відгук...";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
+"Share improvement ideas, or report bugs" = "Поділитись ідеями покращення або надіслати звіт про помилку";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 1" = "Ярлик 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 2" = "Ярлик 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Ярлик уже призначено для іншої дії: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Показати";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Відобразити в кінці";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Show on:";
+"Show on:" = "Показати на:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows:" = "Відображати стандартні таби як вікна:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Відобразити вікна від:";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "Source code repository";
+"Source code repository" = "Репозиторій початкового коду";
 
 /*No comment provided by engineer.*/
-"Start" = "Start";
+"Start" = "Почати";
 
 /*No comment provided by engineer.*/
-"Start at login:" = "Start at login:";
+"Start at login:" = "Запускати під час входу:";
 
 /*No comment provided by engineer.*/
-"Theme:" = "Тема";
+"Theme:" = "Тема:";
 
 /*No comment provided by engineer.*/
-"Then release:" = "Then release:";
+"Then release:" = "Тоді випустити:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Цей дозвіл потрібен для фокусування вікон після того, як ви відпустите ярлик";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Цей дозвіл потрібен для показу скріншотів і заголовків відкритих вікон";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Скасувати призначення наявного ярлика та продовжити";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "Updates policy:";
+"Updates policy:" = "Політика оновлень:";
 
 /*No comment provided by engineer.*/
 "Version" = "Версія";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "View existing discussions";
+"View existing discussions" = "Переглянути наявні обговорення";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Видимі Простори";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+"While open, press:" = "Доки відкрито, натисніть:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Window app icon size:";
+"Window app icon size:" = "Розмір іконки вікна програми:";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Максимальна ширина вікна в рядку:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Мінімальна ширина вікна в рядку:";
 
 /*No comment provided by engineer.*/
-"Window title font size:" = "Window title font size:";
+"Window title font size:" = "Розмір шрифту заголовку вікна:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation:" = "Скорочення заголовку вікна:";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "Ви не вказали свою електронну пошту, тому не можете отримати жодної відповіді.";
