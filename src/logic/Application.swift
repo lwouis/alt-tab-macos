@@ -16,29 +16,6 @@ class Application: NSObject {
     var wasLaunchedBeforeAltTab = false
     var focusedWindow: Window? = nil
 
-    static func notifications(_ app: NSRunningApplication) -> [String] {
-        let n = [
-            kAXApplicationActivatedNotification,
-            kAXMainWindowChangedNotification,
-            kAXFocusedWindowChangedNotification,
-            kAXWindowCreatedNotification,
-            kAXApplicationHiddenNotification,
-            kAXApplicationShownNotification,
-            kAXFocusedUIElementChangedNotification,
-        ]
-        // workaround: some apps exhibit bugs when we subscribe to its kAXFocusedUIElementChangedNotification
-        // we don't know what's happening; we avoid this subscription to make these app usable
-        if app.bundleIdentifier == "edu.stanford.protege" ||
-               app.bundleIdentifier == "com.mathworks.matlab" ||
-               app.bundleIdentifier?.range(of: "^com\\.install4j\\..+?$", options: .regularExpression) != nil ||
-               app.bundleIdentifier?.range(of: "^com\\.live2d\\.cubism\\..+?$", options: .regularExpression) != nil ||
-               app.bundleIdentifier?.range(of: "^org\\.libreoffice\\..+?$", options: .regularExpression) != nil ||
-               app.bundleIdentifier?.range(of: "^com\\.(jetbrains\\.|google\\.android\\.studio).*?$", options: .regularExpression) != nil {
-            return n.filter { $0 != kAXFocusedUIElementChangedNotification }
-        }
-        return n
-    }
-
     init(_ runningApplication: NSRunningApplication, _ wasLaunchedBeforeAltTab: Bool = false) {
         self.runningApplication = runningApplication
         self.wasLaunchedBeforeAltTab = wasLaunchedBeforeAltTab
@@ -160,7 +137,14 @@ class Application: NSObject {
 
     private func observeEvents() {
         guard let axObserver = axObserver else { return }
-        for notification in Application.notifications(runningApplication) {
+        for notification in [
+            kAXApplicationActivatedNotification,
+            kAXMainWindowChangedNotification,
+            kAXFocusedWindowChangedNotification,
+            kAXWindowCreatedNotification,
+            kAXApplicationHiddenNotification,
+            kAXApplicationShownNotification,
+        ] {
             retryAxCallUntilTimeout { [weak self] in
                 guard let self = self else { return }
                 try self.axUiElement!.subscribeToNotification(axObserver, notification, {

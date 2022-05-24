@@ -169,40 +169,6 @@ extension pid_t {
         }
         return kinfo.kp_proc.p_stat == SZOMB
     }
-
-    // the algorithm used by updateTabs is incorrect if the screen is in the middle of an animation (e.g. window going fullscreen)
-    // we retry until there is no animation, then we proceed
-    func retryToRefreshTabsUntilScreenIsNotAnimating(_ fn: @escaping ([Window]) -> Void) {
-        if NSRunningApplication(processIdentifier: self) != nil,
-           let mainScreen = NSScreen.main,
-           let uuid = mainScreen.uuid() {
-            retryAxCallUntilTimeout {
-                if SLSManagedDisplayIsAnimating(cgsMainConnectionId, uuid) {
-                    throw AxError.runtimeError
-                }
-                let currentWindows = try AXUIElementCreateApplication(self).windows()
-                DispatchQueue.main.async {
-                    fn(self.updateTabs(currentWindows))
-                }
-            }
-        }
-    }
-
-    // when a window is tabbed, the AX call to get windows doesn't list it
-    // we compare a fresh call to get the windows (currentWindows) to the windows we have already (Windows.list)
-    // any window not in currentWindows is considered tabbed
-    private func updateTabs(_ currentWindows: [AXUIElement]?) -> [Window] {
-        let windows = Windows.list.filter { w in
-            if w.application.pid == self && self != ProcessInfo.processInfo.processIdentifier &&
-                   w.spaceId == Spaces.currentSpaceId {
-                let oldIsTabbed = w.isTabbed
-                w.isTabbed = (currentWindows?.first { $0 == w.axUiElement } == nil)
-                return oldIsTabbed != w.isTabbed
-            }
-            return false
-        }
-        return windows
-    }
 }
 
 extension String {

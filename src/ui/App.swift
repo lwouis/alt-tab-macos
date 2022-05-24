@@ -247,6 +247,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
             if Windows.list.count == 0 || CGWindow.isMissionControlActive() { hideUi(); return }
+            // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
+            Windows.detectTabbedWindows()
             // TODO: find a way to update space info when spaces are changed, instead of on every trigger
             // replace with:
             // So far, the best signal I've found is to watch com.apple.dock for the uiElementDestroyed notification.

@@ -159,6 +159,13 @@ class Windows {
         list.forEachAsync { $0.updatesWindowSpace() }
     }
 
+    static func detectTabbedWindows() {
+        let cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 })
+        list.forEach {
+            $0.isTabbed = !$0.isMinimized && !$0.isHidden && !cgsWindowIds.contains($0.cgWindowId)
+        }
+    }
+
     static func sortByLevel() {
         var windowLevelMap = [CGWindowID: Int]()
         for (index, cgWindowId) in Spaces.windowsInSpaces([Spaces.currentSpaceId]).enumerated() {

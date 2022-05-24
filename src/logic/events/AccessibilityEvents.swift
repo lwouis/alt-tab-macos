@@ -8,10 +8,10 @@ func axObserverCallback(observer: AXObserver, element: AXUIElement, notification
 }
 
 fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
-    debugPrint("Accessibility event", type, type != kAXFocusedUIElementChangedNotification ? (try element.title() ?? "nil") : "nil")
+    debugPrint("Accessibility event", type, try element.title() ?? "nil")
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid(),
-       try pid != ProcessInfo.processInfo.processIdentifier || (element.subrole() != kAXUnknownSubrole && type != kAXFocusedUIElementChangedNotification) {
+       try pid != ProcessInfo.processInfo.processIdentifier || (element.subrole() != kAXUnknownSubrole) {
         switch type {
             case kAXApplicationActivatedNotification: try applicationActivated(element, pid)
             case kAXApplicationHiddenNotification,
@@ -19,24 +19,15 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
             case kAXWindowCreatedNotification: try windowCreated(element, pid)
             case kAXMainWindowChangedNotification,
                  kAXFocusedWindowChangedNotification: try focusedWindowChanged(element, pid)
-            case kAXUIElementDestroyedNotification: try windowDestroyed(element, pid)
+            case kAXUIElementDestroyedNotification: try windowDestroyed(element)
             case kAXWindowMiniaturizedNotification,
                  kAXWindowDeminiaturizedNotification: try windowMiniaturizedOrDeminiaturized(element, type)
             case kAXTitleChangedNotification: try windowTitleChanged(element, pid)
             case kAXWindowResizedNotification: try windowResized(element)
             case kAXWindowMovedNotification: try windowMoved(element)
-            case kAXFocusedUIElementChangedNotification: try focusedUiElementChanged(pid)
             default: return
         }
     }
-}
-
-fileprivate func focusedUiElementChanged(_ pid: pid_t) throws {
-    // this event is the only event triggered when the user tabs a window. However, macOS implementation is lazy: a
-    // window freshly tabbed will still return the size/position/screenshot as when it was still a standalone
-    // window. Only when the user clicks on the tab, and it gets displayed, will the tabbed window actually resize
-    // (it will send the windowResized event)
-    pid.retryToRefreshTabsUntilScreenIsNotAnimating { App.app.refreshOpenUi($0) }
 }
 
 fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) throws {
@@ -138,7 +129,7 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
     }
 }
 
-fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
+fileprivate func windowDestroyed(_ element: AXUIElement) throws {
     let wid = try element.cgWindowId()
     DispatchQueue.main.async {
         if let index = (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) {
@@ -146,15 +137,8 @@ fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
             Windows.removeAndUpdateFocus(window)
             let windowlessApp = window.application.addWindowslessAppsIfNeeded()
             if Windows.list.count > 0 {
-                // closing a tab may make another tab visible; we refresh tab status
-                pid.retryToRefreshTabsUntilScreenIsNotAnimating { windows in
-                    Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
-                    if let windowlessApp = windowlessApp {
-                        App.app.refreshOpenUi(windows + windowlessApp)
-                    } else {
-                        App.app.refreshOpenUi(windows)
-                    }
-                }
+                Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
+                App.app.refreshOpenUi(windowlessApp)
             } else {
                 App.app.hideUi()
             }
@@ -180,10 +164,7 @@ fileprivate func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws
             if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }),
                newTitle != nil && newTitle != window.title {
                 window.title = newTitle!
-                // refreshing tabs during title change helps mitigate some false positives of tab detection
-                pid.retryToRefreshTabsUntilScreenIsNotAnimating {
-                    App.app.refreshOpenUi($0)
-                }
+                App.app.refreshOpenUi([window])
             }
         }
     }
