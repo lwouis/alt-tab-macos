@@ -59,8 +59,7 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
             alert.runModal()
             return
         }
-        let existing = ControlsTab.shortcutControls[shortcutAlreadyAssigned.id]!
-        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""), existing.1.replacingOccurrences(of: " ", with: "\u{00A0}"))
+        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""), (isArrowKeys ? "Arrow keys" : existing!.1).replacingOccurrences(of: " ", with: "\u{00A0}"))
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         }

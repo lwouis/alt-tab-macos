@@ -27,6 +27,7 @@ class ControlsTab {
     ]
     static var shortcutStack = [String: ATShortcut]()
     static var arrowKeysCheckbox: NSButton!
+    static var vimKeysCheckbox: NSButton!
 
     static func initTab() -> NSView {
         let focusWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Focus selected window", comment: ""), "focusWindowShortcut", Preferences.focusWindowShortcut, labelPosition: .right)
@@ -39,10 +40,11 @@ class ControlsTab {
         let enableArrows = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Arrow keys", comment: ""), "arrowKeysEnabled", extraAction: ControlsTab.arrowKeysEnabledCallback, labelPosition: .right)
         arrowKeysCheckbox = enableArrows[0] as! NSButton
         let enableVimKeys = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Vim keys", comment: ""), "vimKeysEnabled", extraAction: ControlsTab.vimKeysEnabledCallback, labelPosition: .right)
+        vimKeysCheckbox = enableVimKeys[0] as! NSButton
         let enableMouse = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Mouse hover", comment: ""), "mouseHoverEnabled", labelPosition: .right)
         let enableCursorFollowFocus = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Cursor follows focus", comment: ""), "cursorFollowFocusEnabled", labelPosition: .right)
         let selectWindowcheckboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Also select windows using:", comment: ""))
-        let selectWindowCheckboxes = StackView([StackView(enableArrows), StackView(enableMouse)], .vertical)
+        let selectWindowCheckboxes = StackView([StackView(enableArrows), StackView(enableMouse), StackView(enableVimKeys)], .vertical)
         let miscCheckboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Miscellaneous:", comment: ""))
         let miscCheckboxes = StackView([StackView(enableCursorFollowFocus)], .vertical)
         let shortcuts = StackView([focusWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
@@ -52,6 +54,7 @@ class ControlsTab {
         let tabView = TabView([(NSLocalizedString("Shortcut 1", comment: ""), tab1View), (NSLocalizedString("Shortcut 2", comment: ""), tab2View)])
 
         ControlsTab.arrowKeysEnabledCallback(arrowKeysCheckbox)
+        ControlsTab.vimKeysEnabledCallback(vimKeysCheckbox)
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
         [holdShortcut, holdShortcut2].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
@@ -247,7 +250,7 @@ class ControlsTab {
         if shortcutKeys.isEmpty { return }
         let alert = NSAlert()
         alert.alertStyle = .critical
-        alert.messageText = NSLocalizedString("Vim Key Precidence Applied", comment: "")
+        alert.messageText = NSLocalizedString("Vim Key Precedence Applied", comment: "")
         let keysBeingMaskedMessage = NSLocalizedString(
             "Enabling Vim movement keys will override existing shortcuts assigned to the following keys:", comment: ""
         ) + "\n\n" + shortcutKeys.joined(separator: ", ") + "\n\n" + NSLocalizedString(
@@ -262,7 +265,7 @@ class ControlsTab {
         if shortcutKeys.isEmpty { return }
         let alert = NSAlert()
         alert.alertStyle = .critical
-        alert.messageText = NSLocalizedString("Standard Key Precidence Restored", comment: "")
+        alert.messageText = NSLocalizedString("Standard Key Precedence Restored", comment: "")
         let keysBeingRestoredMessage = NSLocalizedString(
             "Shortcuts previously assigned to the following keys are now active:", comment: ""
         ) + "\n\n" + shortcutKeys.joined(separator: ", ")
