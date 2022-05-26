@@ -4,7 +4,6 @@ import LetsMove
 import ShortcutRecorder
 import AppCenterCrashes
 
-
 let cgsMainConnectionId = CGSMainConnectionID()
 
 var activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
