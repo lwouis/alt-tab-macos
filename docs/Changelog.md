@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.39.1](https://github.com/lwouis/alt-tab-macos/compare/v6.39.0...v6.39.1) (2022-05-26)
+
+
+### Bug Fixes
+
+* better tabs detection + fix issues with some apps (closes [#1540](https://github.com/lwouis/alt-tab-macos/issues/1540)) ([abd54b3](https://github.com/lwouis/alt-tab-macos/commit/abd54b3)), closes [#647](https://github.com/lwouis/alt-tab-macos/issues/647) [#718](https://github.com/lwouis/alt-tab-macos/issues/718)
+
 # [6.39.0](https://github.com/lwouis/alt-tab-macos/compare/v6.38.0...v6.39.0) (2022-05-26)
 
 
