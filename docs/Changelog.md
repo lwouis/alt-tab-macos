@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.39.0](https://github.com/lwouis/alt-tab-macos/compare/v6.38.0...v6.39.0) (2022-05-26)
+
+
+### Bug Fixes
+
+* handle being quit through activity-monitor (closes [#1622](https://github.com/lwouis/alt-tab-macos/issues/1622)) ([69a5ffd](https://github.com/lwouis/alt-tab-macos/commit/69a5ffd))
+
+
+### Features
+
+* middle-click a thumbnail to close that window (closes [#1621](https://github.com/lwouis/alt-tab-macos/issues/1621)) ([bc4c0cc](https://github.com/lwouis/alt-tab-macos/commit/bc4c0cc))
+* update contributors ([b1bf867](https://github.com/lwouis/alt-tab-macos/commit/b1bf867))
+
 # [6.38.0](https://github.com/lwouis/alt-tab-macos/compare/v6.37.1...v6.38.0) (2022-05-24)
 
 
