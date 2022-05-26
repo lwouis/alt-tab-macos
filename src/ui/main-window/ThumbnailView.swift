@@ -251,6 +251,13 @@ class ThumbnailView: NSStackView {
         }
     }
 
+    override func otherMouseUp(with event: NSEvent) {
+        // middle-click
+        if event.buttonNumber == 2 {
+            window_?.close()
+        }
+    }
+
     static func makeShadow(_ color: NSColor) -> NSShadow {
         let shadow = NSShadow()
         shadow.shadowColor = color
