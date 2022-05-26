@@ -222,6 +222,7 @@ func CGSSpaceGetType(_ cid: CGSConnectionID, _ sid: CGSSpaceID) -> CGSSpaceType
 func SLSManagedDisplayIsAnimating(_ cid: CGSConnectionID, _ displayUuid: CFString) -> Bool
 
 
+
 // ------------------------------------------------------------
 // below are some notes on some private APIs I experimented with
 // ------------------------------------------------------------
