@@ -164,6 +164,9 @@ class Window {
             } else {
                 application.runningApplication.activate(options: .activateIgnoringOtherApps)
             }
+        } else if let bundleID = application.runningApplication.bundleIdentifier, bundleID == App.id {
+            App.shared.activate(ignoringOtherApps: true)
+            App.app.window(withWindowNumber: Int(cgWindowId))?.makeKeyAndOrderFront(nil)
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
