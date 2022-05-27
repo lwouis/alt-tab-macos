@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.40.0](https://github.com/lwouis/alt-tab-macos/compare/v6.39.1...v6.40.0) (2022-05-27)
+
+
+### Bug Fixes
+
+* focusing alt-tab own windows could fail ([#759](https://github.com/lwouis/alt-tab-macos/issues/759)) ([08720d8](https://github.com/lwouis/alt-tab-macos/commit/08720d8))
+
+
+### Features
+
+* update spanish localization ([1ac0494](https://github.com/lwouis/alt-tab-macos/commit/1ac0494))
+
 ## [6.39.1](https://github.com/lwouis/alt-tab-macos/compare/v6.39.0...v6.39.1) (2022-05-26)
 
 
