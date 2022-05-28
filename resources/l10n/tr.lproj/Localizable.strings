@@ -3,7 +3,7 @@
 "About" = "Hakkında";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "Hakkında %@";
+"About %@" = "%@ Hakkında";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Erişilebilirlik";
@@ -42,10 +42,10 @@
 "Also select windows using:" = "Bunları kullanan pencereleri de seç:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Son sefer AltTab çöktü. Çökme raporlarını göndermek, hataların düzeltilmesine yardımcı olur";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Az önce AltTab çöktü. Çökme raporlarını göndermek, hataların düzeltilmesine yardımcı olur";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab'ın bir kaç izine ihtiyacı var";
+"AltTab needs some permissions" = "AltTab'ın birkaç izine ihtiyacı var";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Çökme raporlarını her zaman gönder";
@@ -162,13 +162,13 @@
 "Hold" = "Tut";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Bence uygulama şu şekilde iyileştirilebilir";
+"I think the app could be improved with…" = "Bence uygulama şu şekilde iyileştirilebilir...";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Bu uygulama aktifken kısayolları devredışı bırak";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "Son sürüm hakkında";
+"Latest releases" = "Son sürümler";
 
 /*No comment provided by engineer.*/
 "Left" = "Sol";
@@ -228,7 +228,7 @@
 "Quit" = "Çıkış";
 
 /*No comment provided by engineer.*/
-"Quit %@" = "Çık %@";
+"Quit %@" = "%@'dan Çık";
 
 /*No comment provided by engineer.*/
 "Quit app" = "Uygulamayı kapat";
@@ -267,7 +267,7 @@
 "Send anyway" = "Yine de gönder";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (CPU, memory vb)";
+"Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (CPU, memory vb.)";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "Geri bildirim gönder";
