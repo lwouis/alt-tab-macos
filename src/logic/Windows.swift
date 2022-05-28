@@ -25,7 +25,7 @@ class Windows {
     }
 
     static func setInitialFocusedWindowIndex() {
-        if let app = (Applications.list.first { $0.pid == NSWorkspace.shared.frontmostApplication?.processIdentifier }),
+        if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
            app.focusedWindow == nil,
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
             updateFocusedWindowIndex(lastFocusedWindowIndex)

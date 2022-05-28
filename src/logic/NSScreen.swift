@@ -32,7 +32,7 @@ extension NSScreen {
     //   * if NSScreen.screensHaveSeparateSpaces == false, and key window is on another screen than screens[0], it still returns screens[0]
     // we find the screen with the key window ourselves manually
     static func active() -> NSScreen? {
-        if let app = (Applications.list.first { $0.pid == NSWorkspace.shared.frontmostApplication?.processIdentifier }),
+        if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
            let focusedWindow = app.focusedWindow {
             return NSScreen.screens.first { focusedWindow.isOnScreen($0) }
         }

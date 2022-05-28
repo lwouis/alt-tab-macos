@@ -34,7 +34,7 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
     let appFocusedWindow = try element.focusedWindow()
     let wid = try appFocusedWindow?.cgWindowId()
     DispatchQueue.main.async {
-        if let app = (Applications.list.first { $0.pid == pid }) {
+        if let app = Applications.find(pid) {
             if !app.hasBeenActiveOnce {
                 app.hasBeenActiveOnce = true
             }
@@ -48,7 +48,7 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
 
 fileprivate func applicationHiddenOrShown(_ pid: pid_t, _ type: String) throws {
     DispatchQueue.main.async {
-        if let app = (Applications.list.first { $0.pid == pid }) {
+        if let app = Applications.find(pid) {
             app.isHidden = type == kAXApplicationHiddenNotification
             let windows = Windows.list.filter {
                 // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
@@ -73,7 +73,7 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
             if (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) == nil,
                let runningApp = NSRunningApplication(processIdentifier: pid),
                AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
-               let app = (Applications.list.first { $0.pid == pid }) {
+               let app = Applications.find(pid) {
                 let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                 Windows.appendAndUpdateFocus(window)
                 Windows.cycleFocusedWindowIndex(1)
@@ -101,30 +101,29 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows)
                 } else if AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
-                          let app = (Applications.list.first { $0.pid == pid }) {
+                          let app = Applications.find(pid) {
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
                     App.app.refreshOpenUi([window])
                 }
             }
-        } else {
-            DispatchQueue.main.async {
-                if let app = (Applications.list.first { $0.pid == pid }) {
-                    // work-around for apps started "hidden" like in Login Items with the "Hide" checkbox, or with `open -j`
-                    // these apps report isHidden=false, don't generate windowCreated events initially, and have a delay before their windows are created
-                    // our only recourse is to manually check their windows once they emit
-                    if (!app.hasBeenActiveOnce) {
-                        app.observeNewWindows()
-                    }
+        }
+        DispatchQueue.main.async {
+            if let app = Applications.find(pid) {
+                // work-around for apps started "hidden" like in Login Items with the "Hide" checkbox, or with `open -j`
+                // these apps report isHidden=false, don't generate windowCreated events initially, and have a delay before their windows are created
+                // our only recourse is to manually check their windows once they emit
+                if (!app.hasBeenActiveOnce) {
+                    app.observeNewWindows()
                 }
             }
         }
         DispatchQueue.main.async {
-            Applications.list.first { $0.pid == pid }?.focusedWindow = Windows.list.first { $0.isEqualRobust(element, wid) }
+            Applications.find(pid)?.focusedWindow = Windows.list.first { $0.isEqualRobust(element, wid) }
         }
     } else {
         DispatchQueue.main.async {
-            Applications.list.first { $0.pid == pid }?.focusedWindow = nil
+            Applications.find(pid)?.focusedWindow = nil
         }
     }
 }

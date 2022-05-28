@@ -84,7 +84,7 @@ class Applications {
         Windows.list.enumerated().forEach { (i, window) in
             if !App.app.appIsBeingUsed { return }
             let view = ThumbnailsView.recycledViews[i]
-            if let app = (Applications.list.first { window.application.pid == $0.pid }) {
+            if let app = Applications.find(window.application.pid) {
                 if app.runningApplication.activationPolicy == .regular,
                    let bundleId = app.runningApplication.bundleIdentifier,
                    let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId),
@@ -130,5 +130,9 @@ class Applications {
             return executablePath.range(of: "qemu-system[^/]*$", options: .regularExpression, range: nil, locale: nil) != nil
         }
         return false
+    }
+
+    static func find(_ pid: pid_t?) -> Application? {
+        return list.first { $0.pid == pid }
     }
 }
