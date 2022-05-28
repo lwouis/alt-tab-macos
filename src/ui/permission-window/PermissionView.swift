@@ -25,10 +25,7 @@ class PermissionView: StackView {
         justification.translatesAutoresizingMaskIntoConstraints = false
         justification.preferredMaxLayoutWidth = 500
         justification.widthAnchor.constraint(equalToConstant: justification.fittingSize.width + 5).isActive = true
-        let button = NSButton(title: buttonText, target: nil, action: nil)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.onAction = { _ in NSWorkspace.shared.open(URL(string: buttonUrl)!) }
-        button.fit()
+        let button = Button(buttonText) { _ in NSWorkspace.shared.open(URL(string: buttonUrl)!) }
         let status = NSTextField(wrappingLabelWithString: "")
         status.translatesAutoresizingMaskIntoConstraints = false
         let buttonStack = NSStackView(views: [button, status])

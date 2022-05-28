@@ -148,6 +148,10 @@ class Preferences {
         }
     }
 
+    static func resetAll() {
+        defaults.removePersistentDomain(forName: App.id)
+    }
+
     static func registerDefaults() {
         defaults.register(defaults: defaultValues)
     }
@@ -161,7 +165,7 @@ class Preferences {
         UserDefaults.cache.removeValue(forKey: key)
     }
 
-    static var all: [String: Any] { defaults.persistentDomain(forName: NSRunningApplication.current.bundleIdentifier!)! }
+    static var all: [String: Any] { defaults.persistentDomain(forName: App.id)! }
 
     static func migratePreferences() {
         let preferencesKey = "preferencesVersion"
