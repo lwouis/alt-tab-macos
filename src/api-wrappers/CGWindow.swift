@@ -3,6 +3,8 @@ import Cocoa
 typealias CGWindow = [CFString: Any]
 
 extension CGWindow {
+    static let normalLevel = CGWindowLevelForKey(.normalWindow)
+
     static func windows(_ option: CGWindowListOption) -> [CGWindow] {
         return CGWindowListCopyWindowInfo([.excludeDesktopElements, option], kCGNullWindowID) as! [CGWindow]
     }

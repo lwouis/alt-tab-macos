@@ -110,11 +110,30 @@ func CGSGetConnectionPSN(_ cid: CGSConnectionID, _ psn: inout ProcessSerialNumbe
 @_silgen_name("CGSCopyManagedDisplaySpaces")
 func CGSCopyManagedDisplaySpaces(_ cid: CGSConnectionID) -> CFArray
 
+struct CGSCopyWindowsOptions: OptionSet {
+    let rawValue: Int
+    static let minimized = CGSCopyWindowsOptions(rawValue: 1 << 0)
+    static let screenSaverLevel1000 = CGSCopyWindowsOptions(rawValue: 1 << 1)
+    static let minimized2 = CGSCopyWindowsOptions(rawValue: 1 << 2)
+    static let unknown1 = CGSCopyWindowsOptions(rawValue: 1 << 3)
+    static let unknown2 = CGSCopyWindowsOptions(rawValue: 1 << 4)
+    static let desktopIconWindowLevel2147483603 = CGSCopyWindowsOptions(rawValue: 1 << 5)
+}
+
+struct CGSCopyWindowsTags: OptionSet {
+    let rawValue: Int
+    static let level0 = CGSCopyWindowsTags(rawValue: 1 << 0)
+    static let noTitleMaybePopups = CGSCopyWindowsTags(rawValue: 1 << 1)
+    static let unknown1 = CGSCopyWindowsTags(rawValue: 1 << 2)
+    static let mainMenuWindowAndDesktopIconWindow = CGSCopyWindowsTags(rawValue: 1 << 3)
+    static let unknown2 = CGSCopyWindowsTags(rawValue: 1 << 4)
+}
+
 // returns an array of window IDs (as UInt32) for the space(s) provided as `spaces`
 // the elements of the array are ordered by the z-index order of the windows in each space, with some exceptions where spaces mix
 // * macOS 10.10+
 @_silgen_name("CGSCopyWindowsWithOptionsAndTags")
-func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: UInt32, _ spaces: CFArray, _ options: UInt32, _ setTags: inout UInt64, _ clearTags: inout UInt64) -> CFArray
+func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: Int, _ spaces: CFArray, _ options: Int, _ setTags: inout Int, _ clearTags: inout Int) -> CFArray
 
 // returns the current space ID on the provided display UUID
 // * macOS 10.10+
@@ -217,6 +236,13 @@ enum CGSSpaceType: Int {
 func CGSSpaceGetType(_ cid: CGSConnectionID, _ sid: CGSSpaceID) -> CGSSpaceType
 
 
+// move a window to a Space; works with fullscreen windows
+// with fullscreen window, sending it back to its original state later seems to mess with macOS internals. The Space appears fully black
+// this API seems unreliable to use
+// the last param seem to work with 0x80007; not sure what it means
+// * macOS 10.10-12.2
+@_silgen_name("CGSSpaceAddWindowsAndRemoveFromSpaces")
+func CGSSpaceAddWindowsAndRemoveFromSpaces(_ cid: CGSConnectionID, _ sid: CGSSpaceID, _ wid: NSArray, _ notSure: Int) -> Void
 
 // ------------------------------------------------------------
 // below are some notes on some private APIs I experimented with

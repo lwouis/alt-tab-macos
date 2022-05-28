@@ -114,7 +114,7 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                 // these apps report isHidden=false, don't generate windowCreated events initially, and have a delay before their windows are created
                 // our only recourse is to manually check their windows once they emit
                 if (!app.hasBeenActiveOnce) {
-                    app.observeNewWindows()
+                    app.manuallyUpdateWindows()
                 }
             }
         }

@@ -40,8 +40,6 @@ extension AXUIElement {
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), globalTimeoutInSeconds + 5)
     }
 
-    static let normalLevel = CGWindowLevelForKey(.normalWindow)
-
     func axCallWhichCanThrow<T>(_ result: AXError, _ successValue: inout T) throws -> T? {
         switch result {
             case .success: return successValue
@@ -87,7 +85,7 @@ extension AXUIElement {
             size != nil && size!.width > 100 && size!.height > 100 &&
             (books(runningApp) || keynote(runningApp) || iina(runningApp) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
-                level == AXUIElement.normalLevel &&
+                level == CGWindow.normalLevel &&
                     jetbrainApp(runningApp, title, subrole) &&
                     ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
                         openBoard(runningApp) ||
