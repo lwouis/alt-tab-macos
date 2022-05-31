@@ -8,7 +8,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
         delegate = self
         isFloatingPanel = true
-        updateFadeOutAnimation()
+        animationBehavior = .none
         hidesOnDeactivate = false
         hasShadow = false
         titleVisibility = .hidden
@@ -35,11 +35,19 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         }
     }
 
-    func updateFadeOutAnimation() {
-        animationBehavior = Preferences.fadeOutAnimation ? .utilityWindow : .none
+    override func orderOut(_ sender: Any?) {
+        if Preferences.fadeOutAnimation {
+            NSAnimationContext.runAnimationGroup(
+                { _ in animator().alphaValue = 0 },
+                completionHandler: { super.orderOut(sender) }
+            )
+        } else {
+            super.orderOut(sender)
+        }
     }
 
     func show() {
+        alphaValue = 1
         makeKeyAndOrderFront(nil)
         MouseEvents.toggle(true)
         thumbnailsView.scrollView.flashScrollers()
