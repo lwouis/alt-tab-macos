@@ -74,6 +74,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Huandngoc
 * Ialiendeg
 * Indexerrowaty
+* isametry
 * Isthereanybody
 * Jaeyong Sung
 * Jakob
@@ -85,6 +86,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * kal
 * kant
 * Kevinsevinche
+* Kim
 * Klara
 * Kushnee5
 * Lcwhhh
