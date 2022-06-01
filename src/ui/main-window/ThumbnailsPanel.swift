@@ -13,7 +13,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         hasShadow = false
         titleVisibility = .hidden
         backgroundColor = .clear
-        contentView!.addSubview(thumbnailsView)
+        contentView! = thumbnailsView
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
         // 2nd highest level possible; this allows the app to go on top of context menus

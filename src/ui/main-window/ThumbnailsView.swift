@@ -10,10 +10,24 @@ class ThumbnailsView: NSVisualEffectView {
         material = Preferences.windowMaterial
         state = .active
         wantsLayer = true
-        layer!.cornerRadius = Preferences.windowCornerRadius
+        updateRoundedCorners(Preferences.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+    }
+
+    /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners
+    /// see https://stackoverflow.com/a/29386935/2249756
+    func updateRoundedCorners(_ cornerRadius: CGFloat) {
+        let edgeLength = 2.0 * cornerRadius + 1.0
+        maskImage = NSImage(size: NSSize(width: edgeLength, height: edgeLength), flipped: false) { rect in
+            let bezierPath = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
+            NSColor.black.set()
+            bezierPath.fill()
+            return true
+        }
+        maskImage!.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
+        maskImage!.resizingMode = .stretch
     }
 
     func nextRow(_ direction: Direction) -> [ThumbnailView]? {

@@ -97,7 +97,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     // we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
         ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
-        thumbnailsPanel.thumbnailsView.layer!.cornerRadius = Preferences.windowCornerRadius
+        thumbnailsPanel.thumbnailsView.updateRoundedCorners(Preferences.windowCornerRadius)
     }
 
     func restart() {
