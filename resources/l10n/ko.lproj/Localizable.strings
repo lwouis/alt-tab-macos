@@ -105,6 +105,9 @@
 "Crash reports policy:" = "충돌 리포트 처리 방법:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "아무것도 하지 않기";
 
 /*No comment provided by engineer.*/
@@ -235,6 +238,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "내 선택 기억하기";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "썸네일의 줄 개수:";

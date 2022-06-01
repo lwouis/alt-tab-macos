@@ -105,6 +105,9 @@
 "Crash reports policy:" = "Beleid crashrapportages:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Doe niets";
 
 /*No comment provided by engineer.*/
@@ -235,6 +238,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Onthoud mijn keuze";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rijen met miniaturen:";

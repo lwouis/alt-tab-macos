@@ -105,6 +105,9 @@
 "Crash reports policy:" = "سياسات بلاغات التعطل:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "لا تفعل شيء";
 
 /*No comment provided by engineer.*/
@@ -237,6 +240,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "تذكر خياري";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "صفوف الصور المصغرة:";

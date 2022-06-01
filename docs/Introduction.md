@@ -6,7 +6,7 @@ permalink: /
 
 [![Screenshot](public/demo/frontpage.jpg)](public/demo/frontpage.jpg)
 
-**AltTab** brings the power of Windows's "alt-tab" window switcher to macOS.
+**AltTab** brings the power of Windows’s "alt-tab" window switcher to macOS.
 
 ## Features
 
@@ -37,7 +37,7 @@ Alternatively, you can use [homebrew](https://brew.sh/):
 
 ## Localization
 
-AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Ελληνικά, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, 日本語, 简体中文, 繁體中文, 한국어
+AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Galego, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Ελληνικά, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, 日本語, 简体中文, 繁體中文, 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 

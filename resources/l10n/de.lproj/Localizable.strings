@@ -105,6 +105,9 @@
 "Crash reports policy:" = "Richtlinie für Absturzberichte:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Nichts machen";
 
 /*No comment provided by engineer.*/
@@ -235,6 +238,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Auswahl merken";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Reihen an Vorschauen:";

@@ -105,6 +105,9 @@
 "Crash reports policy:" = "Правило отчетов о вылетах:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Ничего не делать";
 
 /*No comment provided by engineer.*/
@@ -235,6 +238,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Запомнить мой выбор";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Ряды с эскизами окон:";

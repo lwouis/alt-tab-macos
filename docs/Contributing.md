@@ -101,7 +101,7 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * There is no open window
 * AltTab should appear on top of all windows, dialogs, pop-overs, the Dock, etc
 
-### OS events to handle while AltTab's UI is shown
+### OS events to handle while AltTab’s UI is shown
 
 * An app is launching/quitting
 * A new window opens
@@ -109,8 +109,8 @@ In an attempt to not have too many regressions, this documents will list OS inte
 
 ### Drag-and-drop on top of the thumbnails
 
-* Drag-and-dropping a URL onto a window thumbnail should open it with that window's app
-* Drag-and-dropping a file onto a window thumbnail should open it with that window's app
+* Drag-and-dropping a URL onto a window thumbnail should open it with that window’s app
+* Drag-and-dropping a file onto a window thumbnail should open it with that window’s app
 
 ### System Preferences
 
@@ -127,7 +127,7 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * A window is moved to another space by drag-and-dropping on the Spaces thumbnails at the top of the Mission Control UI
 * A window is moved to another space by dragging it on the side of the current Space, and waiting for a Space transition, then dropping it
 * A window is moved to another space by destroying the Space it is in
-* An app is assigned to a specific space or all spaces by clicking it's Dock icon > Options > Assign to
+* An app is assigned to a specific space or all spaces by clicking it’s Dock icon > Options > Assign to
 
 ### Shortcuts
 
