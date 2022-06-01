@@ -1,5 +1,22 @@
 # Release notes
 
+# [6.41.0](https://github.com/lwouis/alt-tab-macos/compare/v6.40.0...v6.41.0) (2022-06-01)
+
+
+### Bug Fixes
+
+* fade-out animation was broken from macos 11 ([#760](https://github.com/lwouis/alt-tab-macos/issues/760)) ([d701bc7](https://github.com/lwouis/alt-tab-macos/commit/d701bc7))
+* menubar icons in preferences handle dark mode ([1653c16](https://github.com/lwouis/alt-tab-macos/commit/1653c16))
+
+
+### Features
+
+* add a button to reset the preferences ([#1275](https://github.com/lwouis/alt-tab-macos/issues/1275)) ([82e9ca9](https://github.com/lwouis/alt-tab-macos/commit/82e9ca9))
+* add galician localization ([965b179](https://github.com/lwouis/alt-tab-macos/commit/965b179))
+* improve windows detection ([de0497a](https://github.com/lwouis/alt-tab-macos/commit/de0497a))
+* smoother rounded corners for the main window ([5d0fff2](https://github.com/lwouis/alt-tab-macos/commit/5d0fff2))
+* update czech localization ([d7b6b7c](https://github.com/lwouis/alt-tab-macos/commit/d7b6b7c))
+
 # [6.40.0](https://github.com/lwouis/alt-tab-macos/compare/v6.39.1...v6.40.0) (2022-05-27)
 
 
