@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.41.1](https://github.com/lwouis/alt-tab-macos/compare/v6.41.0...v6.41.1) (2022-06-05)
+
+
+### Bug Fixes
+
+* tab detection got broken in v6.41.0 ([#1656](https://github.com/lwouis/alt-tab-macos/issues/1656)) ([95f97d3](https://github.com/lwouis/alt-tab-macos/commit/95f97d3))
+
 # [6.41.0](https://github.com/lwouis/alt-tab-macos/compare/v6.40.0...v6.41.0) (2022-06-01)
 
 
