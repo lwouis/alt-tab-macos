@@ -27,8 +27,8 @@ class Applications {
     static func addInitialRunningApplicationsWindows() {
         let otherSpaces = Spaces.otherSpaces()
         if otherSpaces.count > 0 {
-            let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId])
-            let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces)
+            let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId], [.minimizedAndTabbed])
+            let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces, [.minimizedAndTabbed])
             let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
             if windowsOnlyOnOtherSpaces.count > 0 {
                 // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space

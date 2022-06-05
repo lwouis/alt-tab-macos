@@ -112,7 +112,7 @@ func CGSCopyManagedDisplaySpaces(_ cid: CGSConnectionID) -> CFArray
 
 struct CGSCopyWindowsOptions: OptionSet {
     let rawValue: Int
-    static let minimized = CGSCopyWindowsOptions(rawValue: 1 << 0)
+    static let minimizedAndTabbed = CGSCopyWindowsOptions(rawValue: 1 << 0)
     static let screenSaverLevel1000 = CGSCopyWindowsOptions(rawValue: 1 << 1)
     static let minimized2 = CGSCopyWindowsOptions(rawValue: 1 << 2)
     static let unknown1 = CGSCopyWindowsOptions(rawValue: 1 << 3)
