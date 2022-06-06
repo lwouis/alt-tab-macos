@@ -27,7 +27,8 @@ permalink: /
 
 Alternatively, you can use [homebrew](https://brew.sh/):
 
-* Homebrew 2.5 or above: `brew install alt-tab`
+* Homebrew 2.7 or above: `brew install --cask alt-tab`
+* Homebrew 2.6 or below and 2.5 or above: `brew install alt-tab`
 * Homebrew 2.4 or below: `brew cask install alt-tab`
 
 ## Compatibility
