@@ -54,6 +54,12 @@
 "and press:" = "और दबाओ:";
 
 /*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "प्रेत देरी:";
 
 /*No comment provided by engineer.*/
@@ -127,6 +133,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "चयनित खिड़की पर केंद्र करें";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "पूर्ण स्क्रीन खिड़कियाँ:";
@@ -349,6 +358,18 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "खिड़की ऐप आइकन आकार:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "पंक्ति में खिड़की की अधिकतम चौड़ाई:";

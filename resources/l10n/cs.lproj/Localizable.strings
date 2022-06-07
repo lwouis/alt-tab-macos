@@ -54,6 +54,12 @@
 "and press:" = "a stiskněte:";
 
 /*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "Prodleva zobrazení:";
 
 /*No comment provided by engineer.*/
@@ -129,6 +135,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "Přepnout do vybraného okna";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Okna na celou obrazovku:";
@@ -354,6 +363,18 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Velikost ikony okna:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Maximální šířka okna v řádku:";

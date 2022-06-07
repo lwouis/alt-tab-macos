@@ -54,6 +54,12 @@
 "and press:" = "并点击：";
 
 /*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "切换窗口出现延迟：";
 
 /*No comment provided by engineer.*/
@@ -127,6 +133,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "前置选中窗口";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "全屏窗口：";
@@ -349,6 +358,18 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "窗口图标大小：";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "每行窗口最大宽度：";

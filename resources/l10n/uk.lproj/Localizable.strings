@@ -54,6 +54,12 @@
 "and press:" = "та натисніть:";
 
 /*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "Затримка вiдображення:";
 
 /*No comment provided by engineer.*/
@@ -127,6 +133,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "Фокусуватись на обраному вікні";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Повноекранні вікна:";
@@ -349,6 +358,18 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Розмір іконки вікна програми:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Максимальна ширина вікна в рядку:";

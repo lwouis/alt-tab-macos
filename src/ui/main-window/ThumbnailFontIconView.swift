@@ -15,19 +15,20 @@ enum Symbols: String {
 }
 
 class FontIcon: BaseLabel {
-    convenience init(_ symbol: Symbols, _ color: NSColor = .white) {
+    convenience init(_ symbol: Symbols, _ tooltip: String?, _ color: NSColor = .white) {
         self.init(symbol.rawValue)
         font = NSFont(name: "SF Pro Text", size: Preferences.fontHeight)!
         textColor = color
         alignment = .center
         shadow = ThumbnailView.makeShadow(.darkGray)
+        toolTip = tooltip
     }
 }
 
 // Font icon using SF Symbols from the SF Pro font from Apple
 // see https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
 class ThumbnailFontIconView: ThumbnailTitleView {
-    convenience init(_ symbol: Symbols, _ size: CGFloat = Preferences.fontHeight, _ color: NSColor = .white, _ shadow: NSShadow? = ThumbnailView.makeShadow(.darkGray)) {
+    convenience init(_ symbol: Symbols, _ tooltip: String?, _ size: CGFloat = Preferences.fontHeight, _ color: NSColor = .white, _ shadow: NSShadow? = ThumbnailView.makeShadow(.darkGray)) {
         self.init(size, shadow)
         string = symbol.rawValue
         // This helps SF symbols display vertically centered and not clipped at the top
@@ -35,6 +36,7 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         textColor = color
         // This helps SF symbols not be clipped on the right
         widthAnchor.constraint(equalToConstant: size * 1.15).isActive = true
+        toolTip = tooltip
     }
 
     // number should be in the interval [0-50]
@@ -65,7 +67,7 @@ class ThumbnailFilledFontIconView: NSView {
     convenience init(_ thumbnailFontIconView: ThumbnailFontIconView, _ backgroundColor: NSColor) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        let backgroundView = ThumbnailFontIconView(.filledCircled, 14 - 2, backgroundColor, nil)
+        let backgroundView = ThumbnailFontIconView(.filledCircled, nil, 14 - 2, backgroundColor, nil)
         addSubview(backgroundView)
         addSubview(thumbnailFontIconView, positioned: .above, relativeTo: nil)
         backgroundView.frame.origin = CGPoint(x: backgroundView.frame.origin.x + 1, y: backgroundView.frame.origin.y + 1)

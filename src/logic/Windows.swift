@@ -197,7 +197,7 @@ class Windows {
             BackgroundWork.mainQueueConcurrentWorkQueue.async {
                 if currentIndex < list.count {
                     let window = list[currentIndex]
-                    if window.shouldShowTheUser {
+                    if window.shouldShowTheUser && !window.isWindowlessApp {
                         window.refreshThumbnail()
                         DispatchQueue.main.async {
                             let view = ThumbnailsView.recycledViews[currentIndex]

@@ -54,6 +54,12 @@
 "and press:" = "와 다음을 누르면:";
 
 /*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "나타나는 지연 시간:";
 
 /*No comment provided by engineer.*/
@@ -127,6 +133,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "선택된 윈도우로 이동";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "전체 화면 윈도우:";
@@ -349,6 +358,18 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "윈도우 앱 아이콘 크기:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "한 줄 내의 윈도우 최대 너비:";

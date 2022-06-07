@@ -54,6 +54,12 @@
 "and press:" = "и натискане на";
 
 /*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
+
+/*No comment provided by engineer.*/
 "Apparition delay:" = "Изчакване преди появяване:";
 
 /*No comment provided by engineer.*/
@@ -127,6 +133,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "Покажи избрания прозорец";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Приложения на цял екран:";
@@ -349,6 +358,18 @@
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Размер на иконата:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Максимална част от реда за един прозорец:";

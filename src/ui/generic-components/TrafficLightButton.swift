@@ -6,13 +6,14 @@ class TrafficLightButton: NSButton {
     var type: NSWindow.ButtonType!
     var window_: Window?
 
-    init(_ type: NSWindow.ButtonType, _ size: CGFloat) {
+    init(_ type: NSWindow.ButtonType, _ tooltip: String, _ size: CGFloat) {
         super.init(frame: .init(origin: .zero, size: .init(width: size, height: size)))
         self.type = type
         target = self
         action = #selector(onClick)
         fit(size, size)
         addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil))
+        toolTip = tooltip
     }
 
     required init?(coder: NSCoder) {

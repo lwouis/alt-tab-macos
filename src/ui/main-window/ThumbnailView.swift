@@ -7,14 +7,14 @@ class ThumbnailView: NSStackView {
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Preferences.fontHeight)
-    var fullscreenIcon = ThumbnailFontIconView(.circledPlusSign)
-    var minimizedIcon = ThumbnailFontIconView(.circledMinusSign)
-    var hiddenIcon = ThumbnailFontIconView(.circledSlashSign)
-    var spaceIcon = ThumbnailFontIconView(.circledNumber0)
-    var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, 14, NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white)
-    var closeIcon = TrafficLightButton(.closeButton, windowsControlSize)
-    var minimizeIcon = TrafficLightButton(.miniaturizeButton, windowsControlSize)
-    var maximizeIcon = TrafficLightButton(.zoomButton, windowsControlSize)
+    var fullscreenIcon = ThumbnailFontIconView(.circledPlusSign, NSLocalizedString("Window is fullscreen", comment: ""))
+    var minimizedIcon = ThumbnailFontIconView(.circledMinusSign, NSLocalizedString("Window is minimized", comment: ""))
+    var hiddenIcon = ThumbnailFontIconView(.circledSlashSign, NSLocalizedString("App is hidden", comment: ""))
+    var spaceIcon = ThumbnailFontIconView(.circledNumber0, nil)
+    var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, nil, 14, NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white)
+    var closeIcon = TrafficLightButton(.closeButton, NSLocalizedString("Close window", comment: ""), windowsControlSize)
+    var minimizeIcon = TrafficLightButton(.miniaturizeButton, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
+    var maximizeIcon = TrafficLightButton(.zoomButton, NSLocalizedString("Fullscreen window", comment: ""), windowsControlSize)
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -22,7 +22,7 @@ class ThumbnailView: NSStackView {
     var isHighlighted = false
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
-    var windowlessIcon = FontIcon(.newWindow)
+    var windowlessIcon = FontIcon(.newWindow, NSLocalizedString("App is running but has no open window", comment: ""))
 
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
@@ -128,6 +128,7 @@ class ThumbnailView: NSStackView {
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
             appIcon.setAccessibilityLabel(element.application.runningApplication.localizedName)
+            appIcon.toolTip = element.application.runningApplication.localizedName
         }
         let labelChanged = label.string != element.title
         if labelChanged {
@@ -143,8 +144,10 @@ class ThumbnailView: NSStackView {
         if !spaceIcon.isHidden {
             if element.spaceIndex > 30 || element.isOnAllSpaces {
                 spaceIcon.setStar()
+                spaceIcon.toolTip = NSLocalizedString("Window is on every Space", comment: "")
             } else {
                 spaceIcon.setNumber(element.spaceIndex, false)
+                spaceIcon.toolTip = String(format: NSLocalizedString("Window is on Space %d", comment: ""), element.spaceIndex)
             }
         }
         let dockLabelChanged = updateDockLabelIcon(element.dockLabel)
@@ -156,6 +159,7 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
+        label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
             let maxWidth = (widthMin - Preferences.intraCellPadding * 2).rounded()
