@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.42.0](https://github.com/lwouis/alt-tab-macos/compare/v6.41.1...v6.42.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* some windows would not show ([#1655](https://github.com/lwouis/alt-tab-macos/issues/1655)) ([6a6c80d](https://github.com/lwouis/alt-tab-macos/commit/6a6c80d))
+
+
+### Features
+
+* show tooltips on mouse hover on main window ([#1661](https://github.com/lwouis/alt-tab-macos/issues/1661)) ([bb5cc23](https://github.com/lwouis/alt-tab-macos/commit/bb5cc23))
+
 ## [6.41.1](https://github.com/lwouis/alt-tab-macos/compare/v6.41.0...v6.41.1) (2022-06-05)
 
 
