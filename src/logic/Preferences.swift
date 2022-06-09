@@ -226,6 +226,7 @@ class Preferences {
                     LSSharedFileListItemRemove(loginItems, $0)
                 }
             }
+            throw AxError.runtimeError // remove compiler warning
         } catch {
             // the LSSharedFile API is deprecated, and has a runtime crash on M1 Monterey
             // we catch any exception to void the app crashing

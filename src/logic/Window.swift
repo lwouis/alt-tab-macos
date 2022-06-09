@@ -1,7 +1,7 @@
 import Cocoa
 
 class Window {
-    var cgWindowId = CGWindowID.max
+    var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
     var title: String!
     var thumbnail: NSImage?
@@ -50,7 +50,7 @@ class Window {
         }
         application.removeWindowslessAppWindow()
         checkIfFocused(application, wid)
-        debugPrint("Adding window", cgWindowId, title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        debugPrint("Adding window", cgWindowId ?? "nil", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
     }
 
@@ -79,7 +79,7 @@ class Window {
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
         // the window can be deallocated by the OS, in which case its `CGWindowID` will be `-1`
         // we check for equality both on the AXUIElement, and the CGWindowID, in order to catch all scenarios
-        return otherWindowAxUiElement == axUiElement || (cgWindowId != -1 && otherWindowWid == cgWindowId)
+        return otherWindowAxUiElement == axUiElement || (cgWindowId != nil && Int(cgWindowId!) != -1 && otherWindowWid == cgWindowId)
     }
 
     private func observeEvents() {
@@ -95,7 +95,7 @@ class Window {
     }
 
     func refreshThumbnail() {
-        guard let cgImage = cgWindowId.screenshot() else { return }
+        guard let cgWindowId = cgWindowId, let cgImage = cgWindowId.screenshot() else { return }
         thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
         thumbnailFullSize = thumbnail!.size
     }
@@ -158,7 +158,7 @@ class Window {
     }
 
     func focus() {
-        if isWindowlessApp {
+        if isWindowlessApp || cgWindowId == nil {
             if let bundleID = application.runningApplication.bundleIdentifier {
                 NSWorkspace.shared.launchApplication(withBundleIdentifier: bundleID, additionalEventParamDescriptor: nil, launchIdentifier: nil)
             } else {
@@ -166,7 +166,7 @@ class Window {
             }
         } else if let bundleID = application.runningApplication.bundleIdentifier, bundleID == App.id {
             App.shared.activate(ignoringOtherApps: true)
-            App.app.window(withWindowNumber: Int(cgWindowId))?.makeKeyAndOrderFront(nil)
+            App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
@@ -175,7 +175,7 @@ class Window {
                 guard let self = self else { return }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
-                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId, .userGenerated)
+                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, .userGenerated)
                 self.makeKeyWindow(psn)
                 self.axUiElement.focusWindow()
             }
@@ -209,7 +209,7 @@ class Window {
         if let axTitle = axTitle, !axTitle.isEmpty {
             return axTitle
         }
-        if let cgTitle = cgWindowId.title(), !cgTitle.isEmpty {
+        if let cgWindowId = cgWindowId, let cgTitle = cgWindowId.title(), !cgTitle.isEmpty {
             return cgTitle
         }
         return application.runningApplication.localizedName ?? ""
@@ -219,14 +219,16 @@ class Window {
         // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
         // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
         // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
-        let spaceIds = cgWindowId.spaces()
-        if spaceIds.count == 1 {
-            spaceId = spaceIds.first!
-            spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
-        } else if spaceIds.count > 1 {
-            spaceId = Spaces.currentSpaceId
-            spaceIndex = Spaces.currentSpaceIndex
-            isOnAllSpaces = true
+        if let cgWindowId = cgWindowId {
+            let spaceIds = cgWindowId.spaces()
+            if spaceIds.count == 1 {
+                spaceId = spaceIds.first!
+                spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
+            } else if spaceIds.count > 1 {
+                spaceId = Spaces.currentSpaceId
+                spaceIndex = Spaces.currentSpaceIndex
+                isOnAllSpaces = true
+            }
         }
     }
 

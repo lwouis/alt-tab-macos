@@ -162,7 +162,9 @@ class Windows {
     static func detectTabbedWindows() {
         let cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 }, [])
         list.forEach {
-            $0.isTabbed = !$0.isMinimized && !$0.isHidden && !cgsWindowIds.contains($0.cgWindowId)
+            if let cgWindowId = $0.cgWindowId {
+                $0.isTabbed = !$0.isMinimized && !$0.isHidden && !cgsWindowIds.contains(cgWindowId)
+            }
         }
     }
 
@@ -171,7 +173,9 @@ class Windows {
         for (index, cgWindowId) in Spaces.windowsInSpaces([Spaces.currentSpaceId], [.minimizedAndTabbed]).enumerated() {
             windowLevelMap[cgWindowId] = index
         }
-        var sortedTuples = Windows.list.map { (windowLevelMap[$0.cgWindowId], $0) }
+        var sortedTuples = Windows.list
+                .filter { $0.cgWindowId != nil }
+                .map { (windowLevelMap[$0.cgWindowId!], $0) }
         sortedTuples.sort(by: {
             if $0.0 == nil {
                 return false

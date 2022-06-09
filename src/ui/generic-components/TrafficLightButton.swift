@@ -43,7 +43,7 @@ class TrafficLightButton: NSButton {
     override func draw(_ dirtyRect: NSRect) {
         NSGraphicsContext.current?.saveGraphicsState()
         let (backgroundGradient, lineColor, strokeColor) = colors()
-        var disk = drawDisk(backgroundGradient, strokeColor)
+        let disk = drawDisk(backgroundGradient, strokeColor)
         drawSymbol(lineColor)
         drawDimming(disk)
         NSGraphicsContext.current?.restoreGraphicsState()
@@ -99,7 +99,7 @@ class TrafficLightButton: NSButton {
     }
 
     private func drawDisk(_ backgroundGradient: NSGradient, _ strokeColor: NSColor) -> NSBezierPath {
-        var disk = NSBezierPath()
+        let disk = NSBezierPath()
         disk.appendOval(in: NSMakeRect(bounds.origin.x + 0.5, bounds.origin.y + 0.5, bounds.width - 1, bounds.height - 1))
         backgroundGradient.draw(in: disk, relativeCenterPosition: .zero)
         strokeColor.setStroke()
@@ -110,7 +110,7 @@ class TrafficLightButton: NSButton {
 
     private func drawSymbol(_ lineColor: NSColor) {
         if (type == NSWindow.ButtonType.zoomButton) {
-            var symbol = NSBezierPath()
+            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.25, bounds.height * 0.75))
             symbol.line(to: NSMakePoint(bounds.width * 0.25, bounds.height * 1 / 3))
             symbol.line(to: NSMakePoint(bounds.width * 2 / 3, bounds.height * 0.75))
@@ -134,7 +134,7 @@ class TrafficLightButton: NSButton {
             // NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == NSWindow.ButtonType.miniaturizeButton) {
             NSGraphicsContext.current?.shouldAntialias = false
-            var symbol = NSBezierPath()
+            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.80, bounds.height / 2))
             symbol.line(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
             symbol.lineWidth = 0.75
@@ -142,7 +142,7 @@ class TrafficLightButton: NSButton {
             symbol.stroke()
             NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == NSWindow.ButtonType.closeButton) {
-            var symbol = NSBezierPath()
+            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.30, bounds.height * 0.30))
             symbol.line(to: NSMakePoint(bounds.width * 0.70, bounds.height * 0.70))
             symbol.move(to: NSMakePoint(bounds.width * 0.70, bounds.height * 0.30))
