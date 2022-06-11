@@ -48,10 +48,16 @@
 "AltTab needs some permissions" = "AltTab potrebuje nasledovné povolenia";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "Vždy zasielajte správy o zlyhaní";
 
 /*No comment provided by engineer.*/
 "and press:" = "a stlačiť:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "App is hidden";
@@ -158,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Skryť farebné kruhy pri umiestnení kurzora myši:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Skryť číslo plochy:";
 
@@ -175,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Myslím si, že by aplikácia mohla byť nasledovne vylepšená…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorovať skratky, kým je aktívne okno niektorej z týchto aplikácií";
@@ -352,6 +364,12 @@
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Viditeľné plochy";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Kým otvorené, stlačiť:";

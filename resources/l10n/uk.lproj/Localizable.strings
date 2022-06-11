@@ -48,10 +48,16 @@
 "AltTab needs some permissions" = "AltTab потребує деяких дозволів";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "Завжди надсилати звіти про збій";
 
 /*No comment provided by engineer.*/
 "and press:" = "та натисніть:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "App is hidden";
@@ -158,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Сховати кольорові круги при наведені миші:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Сховати заголовки з номерами простору";
 
@@ -175,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Я думаю додаток може бути покращено з...";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ігнорувати ярлики поки вікна цих програм активні";
@@ -352,6 +364,12 @@
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Видимі Простори";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Доки відкрито, натисніть:";

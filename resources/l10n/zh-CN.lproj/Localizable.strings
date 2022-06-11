@@ -48,10 +48,16 @@
 "AltTab needs some permissions" = "AltTab 需要获取一些隐私权限";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "总是发送崩溃报告";
 
 /*No comment provided by engineer.*/
 "and press:" = "并点击：";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "App is hidden";
@@ -158,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "鼠标悬停时隐藏彩色圆圈：";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "隐藏桌面编号：";
 
@@ -175,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "我认为该应用程序可以这样改进…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "这些应用程序的窗口处于活动状态时，忽略快捷键";
@@ -352,6 +364,12 @@
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "可见桌面";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "在打开时按：";

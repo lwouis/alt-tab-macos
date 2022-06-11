@@ -110,6 +110,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Mwolfinspace
 * Nathancodes
 * Nikola Rajić
+* Nils Fahldieck
 * Nilton Souza
 * Nmolham
 * Ori
@@ -119,6 +120,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * ponchik
 * Raphaël
 * Rasmus
+* Raymonf
 * rbnis
 * sawtooth
 * Seyedparsa Mirtaheri

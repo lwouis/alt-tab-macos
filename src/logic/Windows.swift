@@ -227,7 +227,12 @@ class Windows {
 
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
         window.shouldShowTheUser =
-            !(window.application.runningApplication.bundleIdentifier.flatMap { id in Preferences.dontShowBlacklist.contains { id.hasPrefix($0) } } ?? false) &&
+            !(window.application.runningApplication.bundleIdentifier.flatMap { id in
+                Preferences.blacklist.contains {
+                    id.hasPrefix($0.bundleIdentifier) &&
+                        ($0.hide == .always || (window.isWindowlessApp && $0.hide != .none))
+                }
+            } ?? false) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication.processIdentifier != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
             ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||

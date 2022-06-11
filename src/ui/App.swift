@@ -295,13 +295,13 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: NSRunningApplication?) {
         let app = activeWindow?.application.runningApplication ?? activeApp
-        let shortcutsShouldBeDisabled = (!Preferences.disableShortcutsBlacklistOnlyFullscreen || (activeWindow?.isFullscreen ?? false)) &&
-            (Preferences.disableShortcutsBlacklist.first { blacklistedId in
-                if let id = app?.bundleIdentifier {
-                    return id.hasPrefix(blacklistedId)
-                }
-                return false
-            } != nil)
+        let shortcutsShouldBeDisabled = Preferences.blacklist.contains { blacklistedId in
+            if let id = app?.bundleIdentifier {
+                return id.hasPrefix(blacklistedId.bundleIdentifier) &&
+                    (blacklistedId.ignore == .always || (blacklistedId.ignore == .whenFullscreen && (activeWindow?.isFullscreen ?? false)))
+            }
+            return false
+        }
         KeyboardEvents.toggleGlobalShortcuts(shortcutsShouldBeDisabled)
         if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
             App.app.hideUi()

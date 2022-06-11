@@ -48,10 +48,16 @@
 "AltTab needs some permissions" = "AltTab이 권한을 필요로 합니다";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "항상 충돌 리포트 보내기";
 
 /*No comment provided by engineer.*/
 "and press:" = "와 다음을 누르면:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "App is hidden";
@@ -158,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "마우스를 올릴 때 색칠된 원들 숨기기:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Space 번호 숨기기:";
 
@@ -175,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "이 앱의 개선방안은…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "다음 앱들이 활성화되면 단축키를 무시합니다";
@@ -352,6 +364,12 @@
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "보이는 Space";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "켜져 있을 때, 다음을 누르면:";

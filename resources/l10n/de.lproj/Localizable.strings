@@ -48,13 +48,16 @@
 "AltTab needs some permissions" = "AltTab braucht einige Berechtigungen";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "Immer absenden";
 
 /*No comment provided by engineer.*/
 "and press:" = "und drücke:";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App (BundleID starting with)" = "App (BundleID starting with)";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "App ist versteckt";
@@ -161,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Bunte Kreise beim Markieren mit Maus verbergen:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Space Nummer ausblenden:";
 
@@ -178,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Ich denke so könnte die Anwendung verbessert werden…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Tastenkürzel ignorieren wenn ein Fenster dieser Applikationen aktiv ist";
@@ -355,6 +364,12 @@
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Sichtbare Spaces";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Während geöffnet, drücke:";

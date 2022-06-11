@@ -48,10 +48,16 @@
 "AltTab needs some permissions" = "ऑल्टटैब को कुछ अनुमतियों की आवश्यकता है";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "हमेशा दुर्घटना की रिपोर्ट भेजें";
 
 /*No comment provided by engineer.*/
 "and press:" = "और दबाओ:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "App is hidden";
@@ -158,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "माउस मँडराने पर पर रंगीन वृत्त छिपाएँ:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "स्पेस नंबर लेबल छुपाओ:";
 
@@ -175,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "मुझे लगता है कि इससे ऐप को बेहतर बनाया जा सकता है...";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "इन ऐप्स की खिड़की सक्रिय होने पर शॉर्टकट पर ध्यान न दें";
@@ -352,6 +364,12 @@
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "दृश्यत स्पेस";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "खुला होने पर, दबाओ:";

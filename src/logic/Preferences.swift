@@ -49,9 +49,7 @@ class Preferences {
         "hideStatusIcons": "false",
         "startAtLogin": "true",
         "menubarIcon": MenubarIconPreference.outlined.rawValue,
-        "dontShowBlacklist": ["com.McAfee.McAfeeSafariHost"].joined(separator: "\n"),
-        "disableShortcutsBlacklist": ["com.realvnc.vncviewer", "com.microsoft.rdc.macos", "com.teamviewer.TeamViewer", "org.virtualbox.app.VirtualBoxVM", "com.parallels.", "com.citrix.XenAppViewer", "com.citrix.receiver.icaviewer.mac", "com.nicesoftware.dcvviewer", "com.vmware.fusion", "com.apple.ScreenSharing"].joined(separator: "\n"),
-        "disableShortcutsBlacklistOnlyFullscreen": "true",
+        "blacklist": defaultBlacklist(),
         "updatePolicy": UpdatePolicyPreference.autoCheck.rawValue,
         "crashPolicy": CrashPolicyPreference.ask.rawValue,
         "rowsCount": rowCountDependingOnScreenRatio(),
@@ -105,9 +103,7 @@ class Preferences {
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
-    static var dontShowBlacklist: [String] { blacklistStringToArray(defaults.string("dontShowBlacklist")) }
-    static var disableShortcutsBlacklist: [String] { blacklistStringToArray(defaults.string("disableShortcutsBlacklist")) }
-    static var disableShortcutsBlacklistOnlyFullscreen: Bool { defaults.bool("disableShortcutsBlacklistOnlyFullscreen") }
+    static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
@@ -160,8 +156,8 @@ class Preferences {
         defaults.string(forKey: key)
     }
 
-    static func set(_ key: String, _ value: String) {
-        defaults.set(value, forKey: key)
+    static func set<T>(_ key: String, _ value: T) where T: Encodable {
+        defaults.set(key == "blacklist" ? jsonEncode(value) : value, forKey: key)
         UserDefaults.cache.removeValue(forKey: key)
     }
 
@@ -178,28 +174,58 @@ class Preferences {
     }
 
     private static func updateToNewPreferences(_ currentVersion: String) {
-        if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
-            migrateMinMaxWindowsWidthInRow()
-            if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
-                // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                migrateLoginItem()
-                if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
-                    // "Show windows from:" got the "Active Space" option removed
-                    migrateShowWindowsFrom()
-                    if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
-                        // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                        migrateNextWindowShortcuts()
-                        // dropdowns preferences used to store English text; now they store indexes
-                        migrateDropdownsFromTextToIndexes()
-                        // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                        migrateMenubarIconFromCheckboxToDropdown()
-                        // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                        migrateShowWindowsCheckboxToDropdown()
-                        // "Max size on screen" was split into max width and max height
-                        migrateMaxSizeOnScreenToWidthAndHeight()
+        if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
+            migrateBlacklists()
+            if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
+                migrateMinMaxWindowsWidthInRow()
+                if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
+                    // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                    migrateLoginItem()
+                    if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
+                        // "Show windows from:" got the "Active Space" option removed
+                        migrateShowWindowsFrom()
+                        if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
+                            // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                            migrateNextWindowShortcuts()
+                            // dropdowns preferences used to store English text; now they store indexes
+                            migrateDropdownsFromTextToIndexes()
+                            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                            migrateMenubarIconFromCheckboxToDropdown()
+                            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                            migrateShowWindowsCheckboxToDropdown()
+                            // "Max size on screen" was split into max width and max height
+                            migrateMaxSizeOnScreenToWidthAndHeight()
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private static func migrateBlacklists() {
+        var entries = [BlacklistEntry]()
+        if let old = defaults.string(forKey: "dontShowBlacklist") {
+            entries.append(contentsOf: oldBlacklistEntriesToNewOnes(old, .always, .none))
+        }
+        if let old = defaults.string(forKey: "disableShortcutsBlacklist") {
+            let onlyFullscreen = defaults.bool(forKey: "disableShortcutsBlacklistOnlyFullscreen")
+            entries.append(contentsOf: oldBlacklistEntriesToNewOnes(old, .none, onlyFullscreen ? .whenFullscreen : .always))
+        }
+        if entries.count > 0 {
+            defaults.set(Preferences.jsonEncode(entries), forKey: "blacklist")
+            ["dontShowBlacklist", "disableShortcutsBlacklist", "disableShortcutsBlacklistOnlyFullscreen"].forEach {
+                defaults.removeObject(forKey: $0)
+            }
+        }
+    }
+
+    private static func oldBlacklistEntriesToNewOnes(_ old: String, _ hide: BlacklistHidePreference, _ ignore: BlacklistIgnorePreference) -> [BlacklistEntry] {
+        old.split(separator: "\n").compactMap { (e) -> BlacklistEntry? in
+            let line = e.trimmingCharacters(in: .whitespaces)
+            if line.isEmpty {
+                return nil
+            }
+            return BlacklistEntry(bundleIdentifier: line, hide: hide, ignore: ignore)
         }
     }
 
@@ -267,16 +293,16 @@ class Preferences {
 
     private static func migrateShowWindowsCheckboxToDropdown() {
         ["showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows"]
-            .flatMap { [$0, $0 + "2"] }
-            .forEach {
-                if let old = defaults.string(forKey: $0) {
-                    if old == "true" {
-                        defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
-                    } else if old == "false" {
-                        defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
+                .flatMap { [$0, $0 + "2"] }
+                .forEach {
+                    if let old = defaults.string(forKey: $0) {
+                        if old == "true" {
+                            defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
+                        } else if old == "false" {
+                            defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
+                        }
                     }
                 }
-            }
     }
 
     private static func migrateDropdownsFromTextToIndexes() {
@@ -304,16 +330,6 @@ class Preferences {
         }
     }
 
-    static func blacklistStringToArray(_ blacklist: String) -> [String] {
-        return blacklist.components(separatedBy: "\n").compactMap {
-            let line = $0.trimmingCharacters(in: .whitespaces)
-            if line.isEmpty {
-                return nil
-            }
-            return line
-        }
-    }
-
     static func rowCountDependingOnScreenRatio() -> String {
         // landscape; tested with 4/3, 16/10, 16/9
         if NSScreen.main!.ratio() > 1 {
@@ -325,6 +341,33 @@ class Preferences {
 
     static func keyAboveTabDependingOnInputSource() -> String {
         return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_ANSI_Grave)) ?? "`"
+    }
+
+    static func defaultBlacklist() -> String {
+        return jsonEncode([
+            BlacklistEntry(bundleIdentifier: "com.McAfee.McAfeeSafariHost", hide: .always, ignore: .none),
+            BlacklistEntry(bundleIdentifier: "com.apple.finder", hide: .whenNoOpenWindow, ignore: .none),
+        ] + [
+            "com.microsoft.rdc.macos",
+            "com.teamviewer.TeamViewer",
+            "org.virtualbox.app.VirtualBoxVM",
+            "com.parallels.",
+            "com.citrix.XenAppViewer",
+            "com.citrix.receiver.icaviewer.mac",
+            "com.nicesoftware.dcvviewer",
+            "com.vmware.fusion",
+            "com.apple.ScreenSharing"
+        ].map {
+            BlacklistEntry(bundleIdentifier: $0, hide: .none, ignore: .whenFullscreen)
+        })
+    }
+
+    static func jsonDecode<T>(_ type: T.Type, _ value: String) -> T where T: Decodable {
+        return try! JSONDecoder().decode(type, from: value.data(using: .utf8)!)
+    }
+
+    static func jsonEncode<T>(_ value: T) -> String where T: Encodable {
+        return String(data: try! JSONEncoder().encode(value), encoding: .utf8)!
     }
 }
 
@@ -509,6 +552,40 @@ enum CrashPolicyPreference: String, CaseIterable, MacroPreference {
             case .always: return NSLocalizedString("Always send crash reports", comment: "")
         }
     }
+}
+
+enum BlacklistHidePreference: String, CaseIterable, MacroPreference, Codable {
+    case none = "0"
+    case always = "1"
+    case whenNoOpenWindow = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .none: return ""
+            case .always: return NSLocalizedString("Always", comment: "")
+            case .whenNoOpenWindow: return NSLocalizedString("When no open window", comment: "")
+        }
+    }
+}
+
+enum BlacklistIgnorePreference: String, CaseIterable, MacroPreference, Codable {
+    case none = "0"
+    case always = "1"
+    case whenFullscreen = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .none: return ""
+            case .always: return NSLocalizedString("Always", comment: "")
+            case .whenFullscreen: return NSLocalizedString("When fullscreen", comment: "")
+        }
+    }
+}
+
+struct BlacklistEntry: Codable {
+    var bundleIdentifier: String
+    var hide: BlacklistHidePreference
+    var ignore: BlacklistIgnorePreference
 }
 
 extension UserDefaults {

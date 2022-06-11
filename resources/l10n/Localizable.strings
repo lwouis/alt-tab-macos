@@ -44,10 +44,16 @@
 "AltTab needs some permissions" = "AltTab needs some permissions";
 
 /* No comment provided by engineer. */
+"Always" = "Always";
+
+/* No comment provided by engineer. */
 "Always send crash reports" = "Always send crash reports";
 
 /* No comment provided by engineer. */
 "and press:" = "and press:";
+
+/* No comment provided by engineer. */
+"App (BundleID starting with)" = "App (BundleID starting with)";
 
 /* No comment provided by engineer. */
 "App is hidden" = "App is hidden";
@@ -119,9 +125,6 @@
 "Don’t send" = "Don’t send";
 
 /* No comment provided by engineer. */
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
-
-/* No comment provided by engineer. */
 "End" = "End";
 
 /* No comment provided by engineer. */
@@ -154,6 +157,9 @@
 /* No comment provided by engineer. */
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
+/* %@ is AltTab */
+"Hide in %@" = "Hide in %@";
+
 /* No comment provided by engineer. */
 "Hide Space number labels:" = "Hide Space number labels:";
 
@@ -173,7 +179,7 @@
 "I think the app could be improved with…" = "I think the app could be improved with…";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /* No comment provided by engineer. */
 "Latest releases" = "Latest releases";
@@ -210,9 +216,6 @@
 
 /* No comment provided by engineer. */
 "Not allowed" = "Not allowed";
-
-/* No comment provided by engineer. */
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
 
 /* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";
@@ -345,6 +348,12 @@
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";
+
+/* No comment provided by engineer. */
+"When fullscreen" = "When fullscreen";
+
+/* No comment provided by engineer. */
+"When no open window" = "When no open window";
 
 /* No comment provided by engineer. */
 "While open, press:" = "While open, press:";
