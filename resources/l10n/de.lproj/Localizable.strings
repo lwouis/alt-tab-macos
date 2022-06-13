@@ -57,7 +57,10 @@
 "App is hidden" = "App is hidden";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is hidden" = "App ist versteckt";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App wird ausgeführt, aber hat keine offenen Fenster";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Verzögertes Einblenden:";
@@ -111,7 +114,7 @@
 "Crash reports policy:" = "Richtlinie für Absturzberichte:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Cursor folgt Fokus";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Nichts machen";
@@ -135,7 +138,7 @@
 "Focus selected window" = "Ausgewähltes Fenster aktivieren";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Vollbildfenster";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Vollbildfenster:";
@@ -204,10 +207,10 @@
 "Minimized windows:" = "Minimierte Fenster:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Sonstiges";
+"Miscellaneous:" = "Verschiedenes:";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "Maus hover";
+"Mouse hover" = "Maus Hover";
 
 /*No comment provided by engineer.*/
 "Never send crash reports" = "Nie absenden";
@@ -249,7 +252,7 @@
 "Remember my choice" = "Auswahl merken";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Einstellungen zurücksetzen und neustarten";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Reihen an Vorschauen:";
@@ -360,16 +363,16 @@
 "Window app icon size:" = "Fenster Icon Größe:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Fenster ist im Vollbildmodus";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Fenster ist minimiert";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Fenster ist auf jedem Space";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Fenster ist auf Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Maximale Vorschaubreite in Reihe:";
