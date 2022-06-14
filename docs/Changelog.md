@@ -1,5 +1,13 @@
 # Release notes
 
+# [6.43.0](https://github.com/lwouis/alt-tab-macos/compare/v6.42.0...v6.43.0) (2022-06-14)
+
+
+### Features
+
+* improve blacklist ux (closes [#539](https://github.com/lwouis/alt-tab-macos/issues/539)) ([892a168](https://github.com/lwouis/alt-tab-macos/commit/892a168))
+* improve german and chinese (tw) localizations ([5133641](https://github.com/lwouis/alt-tab-macos/commit/5133641))
+
 # [6.42.0](https://github.com/lwouis/alt-tab-macos/compare/v6.41.1...v6.42.0) (2022-06-07)
 
 
