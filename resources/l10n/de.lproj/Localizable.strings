@@ -42,7 +42,7 @@
 "Also select windows using:" = "Fenster auswählen auch mit:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ist bei der letzten Ausführung abgestürzt. Das Absenden von Absturzberichten hilft bei der Fehlerbeseitigung.";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ist bei der letzten Ausführung abgestürzt. Das Senden von Absturzberichten hilft bei der Fehlerbeseitigung.";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab braucht einige Berechtigungen";
@@ -51,7 +51,7 @@
 "Always" = "Always";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Immer absenden";
+"Always send crash reports" = "Immer senden";
 
 /*No comment provided by engineer.*/
 "and press:" = "und drücke:";
@@ -78,10 +78,10 @@
 "Arrow keys" = "Pfeiltasten";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Nachfragen vor Absendung";
+"Ask whether to send crash reports" = "Vor dem Senden nachfragen";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Updates regelmäßig automatisch installieren";
+"Auto-install updates periodically" = "Regelmäßig nach Updates suchen und installieren";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Schwarze Listen";
@@ -126,7 +126,7 @@
 "Don’t check for updates periodically" = "Nicht regelmäßig nach Updates suchen";
 
 /*No comment provided by engineer.*/
-"Don’t send" = "Nicht absenden";
+"Don’t send" = "Nicht senden";
 
 /*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Fenster dieser Anwendungen nicht anzeigen";
@@ -198,10 +198,10 @@
 "Left" = "Links";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Maximale Höhe im Bildschirm:";
+"Max height on screen:" = "Maximale Höhe auf dem Bildschirm:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Maximale Breite im Bildschirm:";
+"Max width on screen:" = "Maximale Breite auf dem Bildschirm:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Menüleistensymbol:";
@@ -210,7 +210,7 @@
 "Middle" = "Mitte";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Fenster minimieren/entminimieren";
+"Minimize/Deminimize window" = "Fenster minimieren/wiederherstellen";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "Minimierte Fenster:";
@@ -222,7 +222,7 @@
 "Mouse hover" = "Maus Hover";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Nie absenden";
+"Never send crash reports" = "Nie senden";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Nicht erlaubt";
@@ -234,7 +234,7 @@
 "Only if the window is fullscreen" = "Nur bei Vollbild";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Einstellungen der Bedienungshilfe aufrufen…";
+"Open Accessibility Preferences…" = "Einstellungen der Bedienungshilfe öffnen…";
 
 /*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "Einstellungen der Bildschirmaufnahme öffnen…";
@@ -288,7 +288,7 @@
 "Send" = "Senden";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Absturzbericht absenden?";
+"Send a crash report?" = "Absturzbericht senden?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Trotzdem senden";
@@ -303,7 +303,7 @@
 "Send feedback…" = "Feedback senden…";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Teile uns deine Vorschläge mit oder melden Fehler";
+"Share improvement ideas, or report bugs" = "Teile uns deine Vorschläge mit oder melde einen Fehler";
 
 /*No comment provided by engineer.*/
 "Shortcut 1" = "Tastenkürzel 1";
@@ -345,10 +345,10 @@
 "Then release:" = "Dann loslassen:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "Diese Erlaubnis ist nötig um Fenster nach dem Drücken des Tastenkürzels anzuzeigen";
+"This permission is needed to focus windows after you release the shortcut" = "Diese Erlaubnis ist nötig, um Fenster nach dem Drücken des Tastenkürzels anzuzeigen";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "Diese Erlaubnis is nötig um Bildschirmaufnahmen und Titel offener Fenster anzuzeigen";
+"This permission is needed to show screenshots and titles of open windows" = "Diese Erlaubnis ist nötig, um Bildschirmaufnahmen und Titel offener Fenster anzuzeigen";
 
 /*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "Kürzelzuweisung lösen und weiter";
