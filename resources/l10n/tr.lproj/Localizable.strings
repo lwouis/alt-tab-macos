@@ -48,7 +48,7 @@
 "AltTab needs some permissions" = "AltTab'ın bir kaç izine ihtiyacı var";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Her zaman";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Çökme raporlarını her zaman gönder";
@@ -57,13 +57,13 @@
 "and press:" = "ve basın:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Uygulama (BundleID ile başlayan)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "Uygulama gizlendi";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Uygulama çalışıyor ancak açık penceresi yok";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Belirme gecikmesi:";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "Çökme raporları kuralları:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "İmleç odağını takip et";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Bir şey yapma";
@@ -141,7 +141,7 @@
 "Focus selected window" = "Seçilen pencereye odaklan";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Tam ekran penceresi";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Tam ekran pencereler:";
@@ -165,7 +165,7 @@
 "Hide colored circles on mouse hover:" = "Fare üzerindeyken renkli pencere düğmelerini gizle:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Gizle %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Masaüstü numaralarını gizle:";
@@ -186,7 +186,7 @@
 "I think the app could be improved with…" = "Bence uygulama şu şekilde iyileştirilebilir";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Etkinken kısayolları yoksay";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Bu uygulama aktifken kısayolları devredışı bırak";
@@ -261,7 +261,7 @@
 "Remember my choice" = "Tercihimi hatırla";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Tercihleri ​​sıfırlayın ve yeniden başlatın";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Önizleme satırları:";
@@ -366,10 +366,10 @@
 "Visible Spaces" = "Görünen Boşluklar";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Tam ekran olduğunda";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Açık pencere olmadığında";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Açıkken basın:";
@@ -378,10 +378,10 @@
 "Window app icon size:" = "Pencere simge boyutu:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Pencere tam ekran";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Pencere simge durumuna küçültüldü";
 
 /*No comment provided by engineer.*/
 "Window is on every Space" = "Window is on every Space";

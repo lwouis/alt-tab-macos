@@ -60,6 +60,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Eric WANTZ
 * Ersagun Kuruca
 * Eukarya
+* fabifabulousity
 * Filipe
 * Frangarciasalomon
 * Frank
@@ -93,6 +94,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Kushnee5
 * Lcwhhh
 * Lester
+* LostInCompilation
 * Lumaxis
 * lwouis
 * Maplevantablack
@@ -123,6 +125,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Raymonf
 * rbnis
 * sawtooth
+* Selcuk
 * Seyedparsa Mirtaheri
 * SheNeVmerla
 * Shivam Bansal
