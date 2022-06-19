@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.44.0](https://github.com/lwouis/alt-tab-macos/compare/v6.43.0...v6.44.0) (2022-06-19)
+
+
+### Bug Fixes
+
+* blacklist table colors were wrong in dark mode ([#1702](https://github.com/lwouis/alt-tab-macos/issues/1702)) ([95cc29f](https://github.com/lwouis/alt-tab-macos/commit/95cc29f))
+* don't show space icon for apps ([#1700](https://github.com/lwouis/alt-tab-macos/issues/1700)) ([f7d070b](https://github.com/lwouis/alt-tab-macos/commit/f7d070b))
+* round corners would be aliased after changing theme ([#1698](https://github.com/lwouis/alt-tab-macos/issues/1698)) ([9ae76a9](https://github.com/lwouis/alt-tab-macos/commit/9ae76a9))
+
+
+### Features
+
+* update german and turkish localizations ([b91696b](https://github.com/lwouis/alt-tab-macos/commit/b91696b))
+
 # [6.43.0](https://github.com/lwouis/alt-tab-macos/compare/v6.42.0...v6.43.0) (2022-06-14)
 
 
