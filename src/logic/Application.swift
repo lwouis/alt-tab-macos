@@ -14,6 +14,7 @@ class Application: NSObject {
     var dockLabel: String?
     var pid: pid_t!
     var focusedWindow: Window? = nil
+    var alreadyRequestedToQuit = false
 
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
@@ -103,6 +104,37 @@ class Application: NSObject {
         }
     }
 
+    func addWindowslessAppsIfNeeded() -> [Window]? {
+        if !Preferences.hideWindowlessApps &&
+               runningApplication.activationPolicy == .regular &&
+               !runningApplication.isTerminated &&
+               (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
+            let window = Window(self)
+            Windows.appendAndUpdateFocus(window)
+            return [window]
+        }
+        return nil
+    }
+
+    func hideOrShow() {
+        if runningApplication.isHidden {
+            runningApplication.unhide()
+        } else {
+            runningApplication.hide()
+        }
+    }
+
+    func quit() {
+        // only let power users quit Finder if they opt-in
+        if runningApplication.bundleIdentifier == "com.apple.finder" && !Preferences.finderShowsQuitMenuItem { return }
+        if alreadyRequestedToQuit {
+            runningApplication.forceTerminate()
+        } else {
+            runningApplication.terminate()
+            alreadyRequestedToQuit = true
+        }
+    }
+
     private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?, CGSize?)]) -> [Window] {
         let windows: [Window] = axWindows.compactMap { (axUiElement, wid, axTitle, isFullscreen, isMinimized, position, size) in
             if (Windows.list.firstIndex { $0.isEqualRobust(axUiElement, wid) }) == nil {
@@ -116,18 +148,6 @@ class Application: NSObject {
             Windows.cycleFocusedWindowIndex(windows.count)
         }
         return windows
-    }
-
-    func addWindowslessAppsIfNeeded() -> [Window]? {
-        if !Preferences.hideWindowlessApps &&
-               runningApplication.activationPolicy == .regular &&
-               !runningApplication.isTerminated &&
-               (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
-            let window = Window(self)
-            Windows.appendAndUpdateFocus(window)
-            return [window]
-        }
-        return nil
     }
 
     private func observeEvents() {

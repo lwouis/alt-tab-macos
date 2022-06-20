@@ -138,25 +138,6 @@ class Window {
         }
     }
 
-    func quitApp() {
-        // prevent users from quitting Finder
-        if application.runningApplication.bundleIdentifier == "com.apple.finder" && !Preferences.finderShowsQuitMenuItem { return }
-        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
-            self?.application.runningApplication.terminate()
-        }
-    }
-
-    func hideShowApp() {
-        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
-            guard let self = self else { return }
-            if self.application.runningApplication.isHidden {
-                self.application.runningApplication.unhide()
-            } else {
-                self.application.runningApplication.hide()
-            }
-        }
-    }
-
     func focus() {
         if isWindowlessApp || cgWindowId == nil {
             if let bundleID = application.runningApplication.bundleIdentifier {

@@ -133,11 +133,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func quitSelectedApp() {
-        Windows.focusedWindow()?.quitApp()
+        Windows.focusedWindow()?.application.quit()
     }
 
     func hideShowSelectedApp() {
-        Windows.focusedWindow()?.hideShowApp()
+        Windows.focusedWindow()?.application.hideOrShow()
     }
 
     func focusTarget() {
