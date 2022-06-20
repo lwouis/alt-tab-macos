@@ -36,6 +36,8 @@ class Applications {
                 Applications.manuallyUpdateWindowsFor2s()
                 CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
             }
+        } else {
+            Applications.manuallyUpdateWindowsFor2s()
         }
     }
 
