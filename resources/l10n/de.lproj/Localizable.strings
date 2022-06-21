@@ -18,7 +18,7 @@
 "Active screen" = "Aktiver Bildschirm";
 
 /*No comment provided by engineer.*/
-"Active Space" = "Aktiver Schreibtisch";
+"Active Space" = "Aktiver Space";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Fenster ausrichten:";
@@ -33,7 +33,7 @@
 "All screens" = "Alle Bildschirme";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "Alle Schreibtische";
+"All Spaces" = "Alle Spaces";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Erlaubt";
@@ -168,7 +168,7 @@
 "Hide in %@" = "In %@ verstecken";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Schreibtisch-Nummer ausblenden:";
+"Hide Space number labels:" = "Space-Nummer ausblenden:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Statussymbole verbergen:";
@@ -363,7 +363,7 @@
 "View existing discussions" = "Bestehende Vorschläge anzeigen";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Sichtbare Schreibtische";
+"Visible Spaces" = "Sichtbare Spaces";
 
 /*No comment provided by engineer.*/
 "When fullscreen" = "Wenn im Vollbildmodus";
@@ -384,10 +384,10 @@
 "Window is minimized" = "Fenster ist minimiert";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Fenster ist auf jedem Schreibtisch";
+"Window is on every Space" = "Fenster ist auf jedem Space";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Fenster ist auf Schreibtisch %d";
+"Window is on Space %d" = "Fenster ist auf Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Maximale Vorschaubreite in Reihe:";
