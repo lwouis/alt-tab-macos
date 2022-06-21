@@ -95,9 +95,10 @@ class Window {
     }
 
     func refreshThumbnail() {
-        guard let cgWindowId = cgWindowId, let cgImage = cgWindowId.screenshot() else { return }
-        thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
-        thumbnailFullSize = thumbnail!.size
+        if !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != -1, let cgImage = cgWindowId.screenshot() {
+            thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
+            thumbnailFullSize = thumbnail!.size
+        }
     }
 
     func close() {
