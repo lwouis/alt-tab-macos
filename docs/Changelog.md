@@ -1,5 +1,21 @@
 # Release notes
 
+# [6.45.0](https://github.com/lwouis/alt-tab-macos/compare/v6.44.0...v6.45.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* better guess at focus order on launch (closes [#1694](https://github.com/lwouis/alt-tab-macos/issues/1694)) ([be8631e](https://github.com/lwouis/alt-tab-macos/commit/be8631e))
+* may avoid rare crashes ([e32beea](https://github.com/lwouis/alt-tab-macos/commit/e32beea))
+
+
+### Features
+
+* add bengali localization ([2d32823](https://github.com/lwouis/alt-tab-macos/commit/2d32823))
+* improve chinese and german localizations ([69bfb41](https://github.com/lwouis/alt-tab-macos/commit/69bfb41))
+* improve tooltips on mouse hover (closes [#1661](https://github.com/lwouis/alt-tab-macos/issues/1661)) ([38262f1](https://github.com/lwouis/alt-tab-macos/commit/38262f1))
+* quitting an app twice force-quits it (closes [#1529](https://github.com/lwouis/alt-tab-macos/issues/1529)) ([bfcbaac](https://github.com/lwouis/alt-tab-macos/commit/bfcbaac))
+
 # [6.44.0](https://github.com/lwouis/alt-tab-macos/compare/v6.43.0...v6.44.0) (2022-06-19)
 
 
