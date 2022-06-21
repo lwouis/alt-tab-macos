@@ -48,10 +48,9 @@ class ThumbnailView: NSStackView {
         thumbnail.shadow = shadow
         appIcon.shadow = shadow
         hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
-        setViews([hStackView, thumbnail], in: .leading)
+        setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
         addWindowControls()
         addDockLabelIcon()
-        thumbnail.addSubview(windowlessIcon, positioned: .above, relativeTo: nil)
         setAccessibilityChildren([])
     }
 
@@ -107,7 +106,7 @@ class ThumbnailView: NSStackView {
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
         assignIfDifferent(&thumbnail.isHidden, Preferences.hideThumbnails)
-        if !Preferences.hideThumbnails {
+        if !thumbnail.isHidden {
             thumbnail.image = element.thumbnail
             if let image = thumbnail.image {
                 image.size = element.thumbnailFullSize!
@@ -162,15 +161,16 @@ class ThumbnailView: NSStackView {
         label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
-            let maxWidth = (widthMin - Preferences.intraCellPadding * 2).rounded()
-            let maxHeight = ((ThumbnailView.height(screen) - hStackView.fittingSize.height) - Preferences.intraCellPadding * 2).rounded()
+            let maxWidth = (frame.size.width - Preferences.intraCellPadding * 2).rounded()
+            let maxHeight = (frame.size.height - hStackView.fittingSize.height - Preferences.intraCellPadding * 2).rounded()
             // heuristic to determine font size based on bounding box
             let fontSize = (min(maxWidth, maxHeight) * 0.6).rounded()
-            // 1.25 is a heuristic to fit the SF Symbol into the bounding box
-            windowlessIcon.frame.size = CGSize(width: maxWidth, height: (fontSize * 1.25).rounded())
-            windowlessIcon.font = NSFont(name: windowlessIcon.font!.fontName, size: fontSize)
+            // heuristic to fit the SF Symbol into the bounding box
+            let labelViewHeight = (fontSize * 1.25).rounded()
             // 2.5 is a heuristic to have a _perceived_ vertical alignment on this particular icon
-            windowlessIcon.frame.origin = CGPoint(x: (-maxWidth / 2).rounded(), y: (-maxHeight / 2 - windowlessIcon.frame.size.height / 2.5).rounded())
+            windowlessIcon.labelView.frame = NSRect(x: 0, y: (maxHeight / 2 - labelViewHeight / 2.5).rounded(), width: maxWidth, height: labelViewHeight)
+            windowlessIcon.labelView.font = NSFont(name: windowlessIcon.labelView.font!.fontName, size: fontSize)
+            windowlessIcon.needsDisplay = true
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }

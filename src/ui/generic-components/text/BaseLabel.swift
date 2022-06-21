@@ -22,4 +22,8 @@ class BaseLabel: NSTextView {
         layoutManager!.ensureLayout(for: textContainer!)
         frame = layoutManager!.usedRect(for: textContainer!)
     }
+
+    override func mouseMoved(with event: NSEvent) {
+        // no-op here prevents tooltips from disappearing on mouseMoved
+    }
 }

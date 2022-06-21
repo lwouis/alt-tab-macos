@@ -14,14 +14,18 @@ enum Symbols: String {
     case newWindow = "􀥃"
 }
 
-class FontIcon: BaseLabel {
+class FontIcon: NSView {
+    var labelView: BaseLabel!
+
     convenience init(_ symbol: Symbols, _ tooltip: String?, _ color: NSColor = .white) {
-        self.init(symbol.rawValue)
-        font = NSFont(name: "SF Pro Text", size: Preferences.fontHeight)!
-        textColor = color
-        alignment = .center
-        shadow = ThumbnailView.makeShadow(.darkGray)
-        toolTip = tooltip
+        self.init(frame: .zero)
+        labelView = BaseLabel(symbol.rawValue)
+        labelView.font = NSFont(name: "SF Pro Text", size: Preferences.fontHeight)!
+        labelView.textColor = color
+        labelView.alignment = .center
+        labelView.shadow = ThumbnailView.makeShadow(.darkGray)
+        labelView.toolTip = tooltip
+        addSubview(labelView)
     }
 }
 
