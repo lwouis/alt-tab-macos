@@ -1,0 +1,405 @@
+
+/*No comment provided by engineer.*/
+"About" = "পরিচিতি";
+
+/*Menubar option. %@ is AltTab*/
+"About %@" = "পরিচিতি %@";
+
+/*No comment provided by engineer.*/
+"Accessibility" = "অ্যাক্সেসিবিলিটি";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "স্বীকৃতি";
+
+/*No comment provided by engineer.*/
+"Active app" = "সক্রিয় অ্যাপ";
+
+/*No comment provided by engineer.*/
+"Active screen" = "সক্রিয় স্ক্রীন";
+
+/*No comment provided by engineer.*/
+"Active Space" = "সক্রিয় স্পেস";
+
+/*No comment provided by engineer.*/
+"Align windows:" = "উইন্ডো সারিবদ্ধ করুন:";
+
+/*No comment provided by engineer.*/
+"All apps" = "সব অ্যাপ্লিকেশান";
+
+/*No comment provided by engineer.*/
+"All data from this form will be made public, as a ticket on github.com" = "এই ফর্ম থেকে সমস্ত তথ্য github.com-এ একটি টিকিট হিসাবে সর্বজনীন করা হবে";
+
+/*No comment provided by engineer.*/
+"All screens" = "সব স্ক্রীন";
+
+/*No comment provided by engineer.*/
+"All Spaces" = "সমস্ত স্পেস";
+
+/*No comment provided by engineer.*/
+"Allowed" = "অনুমোদিত";
+
+/*No comment provided by engineer.*/
+"Also select windows using:" = "এটা ব্যবহার করেও উইন্ডো নির্বাচন করুন:";
+
+/*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "আপনি শেষবার ব্যবহার করার সময় AltTab ক্র্যাশ হয়েছে। একটি ক্র্যাশ রিপোর্ট পাঠালে সেই সমস্যার সমাধান পেতে সাহায্য করবে";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "AltTab-এর কিছু অনুমতি প্রয়োজন";
+
+/*No comment provided by engineer.*/
+"Always" = "সর্বদা";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "সর্বদা ক্র্যাশ রিপোর্ট পাঠান";
+
+/*No comment provided by engineer.*/
+"and press:" = "এবং চাপুন:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "অ্যাপ (বান্ডেল আইডি দিয়ে শুরু)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "অ্যাপটি লুকানো আছে";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "অ্যাপ চলছে কিন্তু কোন খোলা উইন্ডো নেই";
+
+/*No comment provided by engineer.*/
+"Apparition delay:" = "আবির্ভাব বিলম্ব:";
+
+/*No comment provided by engineer.*/
+"Appearance" = "অলংকরণ";
+
+/*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "আপনি কি নিশ্চিত যে আপনি কোন রিপ্লে চান না?";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "তীর চিহ্ন";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "ক্র্যাশ রিপোর্ট পাঠাবে কিনা জিজ্ঞাসা করুন";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "পর্যায়ক্রমে আপডেটগুলি স্বয়ংক্রিয়ভাবে ইনস্টল করুন";
+
+/*No comment provided by engineer.*/
+"Blacklists" = "কালো তালিকা";
+
+/*Cancel button*/
+"Cancel" = "বাতিল";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "বাতিল এবং লুকান";
+
+/*No comment provided by engineer.*/
+"Center" = "কেন্দ্র";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "এখনি হালনাগাদ যাচাই করুন...";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "প্রতিনিয়ত হালনাগাদ যাচাই করুন";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "হালনাগাদ অনুসন্ধান করুন…";
+
+/*No comment provided by engineer.*/
+"Close window" = "উইন্ডো বন্ধ করুন";
+
+/*No comment provided by engineer.*/
+"Conflicting shortcut" = "পরস্পরবিরোধী শর্টকাট";
+
+/*No comment provided by engineer.*/
+"Controls" = "কন্ট্রোল";
+
+/*No comment provided by engineer.*/
+"Crash reports policy:" = "ক্র্যাশ রিপোর্ট নীতি:";
+
+/*No comment provided by engineer.*/
+"Cursor follows focus" = "কার্সার ফোকাস অনুসরণ করে";
+
+/*No comment provided by engineer.*/
+"Do nothing" = "কিছু করনা";
+
+/*No comment provided by engineer.*/
+"Don’t check for updates periodically" = "প্রতিনিয়ত হালনাগাদ অনুসন্ধান করবেন না";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "পাঠাবেন না";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "এই অ্যাপস থেকে উইন্ডো দেখাবেন না";
+
+/*No comment provided by engineer.*/
+"End" = "শেষ";
+
+/*No comment provided by engineer.*/
+"Fade out animation:" = "ফেইড আউট অ্যানিমেশন:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "নির্বাচিত উইন্ডোতে ফোকাস করুন";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "ফুলস্ক্রিন উইন্ডো";
+
+/*No comment provided by engineer.*/
+"Fullscreen windows:" = "ফুলস্ক্রিন উইন্ডোজ:";
+
+/*No comment provided by engineer.*/
+"General" = "সাধারন";
+
+/*No comment provided by engineer.*/
+"Hidden windows:" = "লুকানো উইন্ডোজ:";
+
+/*No comment provided by engineer.*/
+"Hide" = "লুকান";
+
+/*No comment provided by engineer.*/
+"Hide app badges:" = "অ্যাপ ব্যাজ লুকান:";
+
+/*No comment provided by engineer.*/
+"Hide apps with no open window:" = "কোন খোলা উইন্ডো ছাড়া অ্যাপ লুকান:";
+
+/*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "মাউস হোভারে রঙিন বৃত্ত লুকান:";
+
+/*%@ is AltTab*/
+"Hide in %@" = "%@ এ লুকান";
+
+/*No comment provided by engineer.*/
+"Hide Space number labels:" = "স্পেস নম্বর লেবেল লুকান:";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "স্ট্যাটাস আইকন লুকান:";
+
+/*No comment provided by engineer.*/
+"Hide window thumbnails:" = "উইন্ডো থাম্বনেল লুকান:";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "অ্যাপ লুকান/দেখান";
+
+/*No comment provided by engineer.*/
+"Hold" = "ধরে রাখ";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "আমি মনে করি অ্যাপটি আরো উন্নত করা যেতে পারে...";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "সক্রিয় থাকাকালীন শর্টকাট উপেক্ষা করুন";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "এই অ্যাপগুলির একটি উইন্ডো সক্রিয় থাকাকালীন শর্টকাটগুলি উপেক্ষা করুন৷";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "সর্বশেষ রিলিজ";
+
+/*No comment provided by engineer.*/
+"Left" = "বাম";
+
+/*No comment provided by engineer.*/
+"Max height on screen:" = "স্ক্রিনে সর্বোচ্চ উচ্চতা:";
+
+/*No comment provided by engineer.*/
+"Max width on screen:" = "স্ক্রিনে সর্বাধিক প্রস্থ:";
+
+/*No comment provided by engineer.*/
+"Menubar icon:" = "মেনুবার আইকন:";
+
+/*No comment provided by engineer.*/
+"Middle" = "মধ্য";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "উইন্ডো মিনিমাইজ/ডিমিনিমাইজ করুন";
+
+/*No comment provided by engineer.*/
+"Minimized windows:" = "মিনিমাইজ করা উইন্ডোজ:";
+
+/*No comment provided by engineer.*/
+"Miscellaneous:" = "বিবিধ:";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "মাউস হভার";
+
+/*No comment provided by engineer.*/
+"Never send crash reports" = "কখনোই ক্র্যাশ রিপোর্ট পাঠাবেন না";
+
+/*No comment provided by engineer.*/
+"Not allowed" = "অনুমতি নেই";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0 লাইসেন্স";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "উইন্ডো ফুলস্ক্রিন হলেই";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "অ্যাক্সেসিবিলিটি সেটিং খুলুন...";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "স্ক্রীন রেকর্ডিং সেটিং খুলুন...";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "ঐচ্ছিক: ইমেল (যদি আপনি একটি উত্তর চান)";
+
+/*No comment provided by engineer.*/
+"Policies" = "নীতিমালা";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "পছন্দ…";
+
+/*No comment provided by engineer.*/
+"Quit" = "প্রস্থান করুন";
+
+/*No comment provided by engineer.*/
+"Quit %@" = "প্রস্থান করুন %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "অ্যাপ বন্ধ করুন";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "আমার পছন্দ মনে রেখো";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "সেটিং রিসেট করুন এবং পুনরায় চালু করুন";
+
+/*No comment provided by engineer.*/
+"Rows of thumbnails:" = "থাম্বনেইলের সারি:";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "মেনু বার সহ স্ক্রীন";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "মাউস সহ স্ক্রীন";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "স্ক্রিন রেকর্ডিং";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "স্ক্রীন AltTab দেখাচ্ছে";
+
+/*No comment provided by engineer.*/
+"Select next window" = "পরবর্তী উইন্ডো নির্বাচন করুন";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "পূর্ববর্তী উইন্ডো নির্বাচন করুন";
+
+/*No comment provided by engineer.*/
+"Send" = "পাঠান";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "একটি ক্র্যাশ রিপোর্ট পাঠান?";
+
+/*No comment provided by engineer.*/
+"Send anyway" = "যেকোন ভাবেই পাঠান";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "ডিবাগ প্রোফাইল পাঠান (CPU, মেমরি, ইত্যাদি)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "মতামত পাঠান";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "মতামত পাঠান…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "উন্নতির ধারনা শেয়ার করুন বা বাগ রিপোর্ট করুন";
+
+/*No comment provided by engineer.*/
+"Shortcut 1" = "শর্টকাট ১";
+
+/*No comment provided by engineer.*/
+"Shortcut 2" = "শর্টকাট 2";
+
+/*No comment provided by engineer.*/
+"Shortcut already assigned to another action: %@" = "শর্টকাট ইতিমধ্যেই অন্য অ্যাকশনে অ্যাসাইন করা হয়েছে: %@";
+
+/*No comment provided by engineer.*/
+"Show" = "দেখান";
+
+/*No comment provided by engineer.*/
+"Show at the end" = "শেষে দেখান";
+
+/*No comment provided by engineer.*/
+"Show on:" = "প্রদর্শন:";
+
+/*No comment provided by engineer.*/
+"Show standard tabs as windows:" = "উইন্ডো হিসাবে স্ট্যান্ডার্ড ট্যাব দেখান:";
+
+/*No comment provided by engineer.*/
+"Show windows from:" = "এর থেকে উইন্ডো দেখান:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "সোর্স কোড সংগ্রহস্থল";
+
+/*No comment provided by engineer.*/
+"Start" = "শুরু করুন";
+
+/*No comment provided by engineer.*/
+"Start at login:" = "লগইন থেকে শুরু করুন:";
+
+/*No comment provided by engineer.*/
+"Theme:" = "থিম:";
+
+/*No comment provided by engineer.*/
+"Then release:" = "তারপর মুক্তি:";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "আপনি শর্টকাট রিলিজ করার পর উইন্ডোজ ফোকাস করার জন্য এই অনুমতি প্রয়োজন";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "খোলা উইন্ডোর স্ক্রিনশট এবং শিরোনাম দেখানোর জন্য এই অনুমতি প্রয়োজন";
+
+/*No comment provided by engineer.*/
+"Unassign existing shortcut and continue" = "বিদ্যমান শর্টকাট আনঅ্যাসাইন করুন এবং চালিয়ে যান";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "আপডেট নীতি:";
+
+/*No comment provided by engineer.*/
+"Version" = "সংস্করণ";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "বিদ্যমান আলোচনা দেখুন";
+
+/*No comment provided by engineer.*/
+"Visible Spaces" = "দৃশ্যমান স্থান";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "যখন ফুলস্ক্রিন";
+
+/*No comment provided by engineer.*/
+"When no open window" = "যখন খোলা জানালা নেই";
+
+/*No comment provided by engineer.*/
+"While open, press:" = "খোলার সময়, চাপুন:";
+
+/*No comment provided by engineer.*/
+"Window app icon size:" = "উইন্ডো অ্যাপ্লিকেশন আইকন আকার:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "উইন্ডো ফুলস্ক্রিন";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "উইন্ডোটি ছোট করা হয়েছে";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "উইন্ডো প্রতিটি স্পেসে আছে";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "উইন্ডো %d স্পেসে আছে";
+
+/*No comment provided by engineer.*/
+"Window max width in row:" = "সারিতে উইন্ডো সর্বাধিক প্রস্থ:";
+
+/*No comment provided by engineer.*/
+"Window min width in row:" = "সারিতে উইন্ডোর মিনিমাম প্রস্থ:";
+
+/*No comment provided by engineer.*/
+"Window title font size:" = "উইন্ডো শিরোনামের ফন্ট সাইজ:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "উইন্ডো শিরোনাম ছেদন:";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "আপনি আপনার ইমেল লেখেননি, তাই কোনো রিপ্লেও পাবেন না।";

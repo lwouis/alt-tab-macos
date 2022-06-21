@@ -127,6 +127,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * sawtooth
 * Selcuk
 * Seyedparsa Mirtaheri
+* Shameem Reza
 * SheNeVmerla
 * Shivam Bansal
 * Spartak
