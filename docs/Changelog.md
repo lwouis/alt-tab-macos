@@ -1,5 +1,13 @@
 # Release notes
 
+# [6.46.0](https://github.com/lwouis/alt-tab-macos/compare/v6.45.0...v6.46.0) (2022-06-23)
+
+
+### Features
+
+* add quit-app icon on mouse hover (closes [#1260](https://github.com/lwouis/alt-tab-macos/issues/1260)) ([5c3b503](https://github.com/lwouis/alt-tab-macos/commit/5c3b503))
+* improved turkish localization ([bb4a2b9](https://github.com/lwouis/alt-tab-macos/commit/bb4a2b9))
+
 # [6.45.0](https://github.com/lwouis/alt-tab-macos/compare/v6.44.0...v6.45.0) (2022-06-21)
 
 
