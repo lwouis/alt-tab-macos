@@ -17,13 +17,16 @@ enum Symbols: String {
 class FontIcon: NSView {
     var labelView: BaseLabel!
 
-    convenience init(_ symbol: Symbols, _ tooltip: String?, _ color: NSColor = .white) {
+    convenience init(_ symbol: Symbols, _ tooltip: String?) {
         self.init(frame: .zero)
+        shadow = ThumbnailView.makeShadow(.darkGray)
+        wantsLayer = true
+        layer!.cornerRadius = 2
+        layer!.backgroundColor = NSColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1).cgColor
         labelView = BaseLabel(symbol.rawValue)
         labelView.font = NSFont(name: "SF Pro Text", size: Preferences.fontHeight)!
-        labelView.textColor = color
+        labelView.textColor = .darkGray
         labelView.alignment = .center
-        labelView.shadow = ThumbnailView.makeShadow(.darkGray)
         labelView.toolTip = tooltip
         addSubview(labelView)
     }

@@ -12,9 +12,10 @@ class ThumbnailView: NSStackView {
     var hiddenIcon = ThumbnailFontIconView(.circledSlashSign, NSLocalizedString("App is hidden", comment: ""))
     var spaceIcon = ThumbnailFontIconView(.circledNumber0, nil)
     var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, nil, 14, NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white)
-    var closeIcon = TrafficLightButton(.closeButton, NSLocalizedString("Close window", comment: ""), windowsControlSize)
-    var minimizeIcon = TrafficLightButton(.miniaturizeButton, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
-    var maximizeIcon = TrafficLightButton(.zoomButton, NSLocalizedString("Fullscreen window", comment: ""), windowsControlSize)
+    var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""), windowsControlSize)
+    var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
+    var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
+    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen window", comment: ""), windowsControlSize)
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -46,6 +47,7 @@ class ThumbnailView: NSStackView {
         orientation = .vertical
         let shadow = ThumbnailView.makeShadow(.gray)
         thumbnail.shadow = shadow
+        windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
         hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
         setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
@@ -59,24 +61,30 @@ class ThumbnailView: NSStackView {
     }
 
     private func addWindowControls() {
+        thumbnail.addSubview(quitIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(closeIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(minimizeIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(maximizeIcon, positioned: .above, relativeTo: nil)
-        [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = true }
+        [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = true }
     }
 
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
-        let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !(window_?.isWindowlessApp ?? true) && !Preferences.hideThumbnails
+        let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !Preferences.hideThumbnails
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
-            [closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = !shouldShow }
-        }
-        if isShowingWindowControls {
-            [closeIcon, minimizeIcon, maximizeIcon].enumerated().forEach { (i, icon: TrafficLightButton) in
-                icon.setFrameOrigin(.init(
-                    x: 3 + (ThumbnailView.windowsControlSpacing + ThumbnailView.windowsControlSize) * CGFloat(i),
-                    y: thumbnail.frame.height - ThumbnailView.windowsControlSize - 2))
-                icon.window_ = window_
+            let target = (window_?.isWindowlessApp ?? true) ? windowlessIcon : thumbnail
+            target.addSubview(quitIcon, positioned: .above, relativeTo: nil)
+            var offset = CGFloat(0)
+            [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { icon in
+                icon.isHidden = !shouldShow ||
+                    ((window_?.isWindowlessApp ?? true) && icon.type != .quit) ||
+                    (icon.type == .quit && window_?.application.runningApplication.bundleIdentifier == "com.apple.finder" && !Preferences.finderShowsQuitMenuItem)
+                if !icon.isHidden {
+                    icon.setFrameOrigin(NSPoint(
+                        x: 3 + (ThumbnailView.windowsControlSpacing + ThumbnailView.windowsControlSize) * offset,
+                        y: target.frame.height - ThumbnailView.windowsControlSize - 2))
+                    offset += 1
+                }
             }
         }
     }
@@ -105,7 +113,7 @@ class ThumbnailView: NSStackView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
-        assignIfDifferent(&thumbnail.isHidden, Preferences.hideThumbnails)
+        assignIfDifferent(&thumbnail.isHidden, Preferences.hideThumbnails || element.isWindowlessApp)
         if !thumbnail.isHidden {
             thumbnail.image = element.thumbnail
             if let image = thumbnail.image {
@@ -154,7 +162,7 @@ class ThumbnailView: NSStackView {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
         let widthMin = ThumbnailView.widthMin(screen)
-        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, widthMin).rounded())
+        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, widthMin).rounded())
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
@@ -164,16 +172,16 @@ class ThumbnailView: NSStackView {
             let maxWidth = (frame.size.width - Preferences.intraCellPadding * 2).rounded()
             let maxHeight = (frame.size.height - hStackView.fittingSize.height - Preferences.intraCellPadding * 2).rounded()
             // heuristic to determine font size based on bounding box
-            let fontSize = (min(maxWidth, maxHeight) * 0.6).rounded()
+            let fontSize = (min(maxWidth - Preferences.intraCellPadding * 2, maxHeight - Preferences.intraCellPadding * 2) * 0.6).rounded()
             // heuristic to fit the SF Symbol into the bounding box
-            let labelViewHeight = (fontSize * 1.25).rounded()
-            // 2.5 is a heuristic to have a _perceived_ vertical alignment on this particular icon
-            windowlessIcon.labelView.frame = NSRect(x: 0, y: (maxHeight / 2 - labelViewHeight / 2.5).rounded(), width: maxWidth, height: labelViewHeight)
+            let labelViewHeight = (fontSize * 1.4).rounded()
+            windowlessIcon.labelView.frame = NSRect(x: Preferences.intraCellPadding, y: ((maxHeight - labelViewHeight) / 2).rounded(), width: maxWidth - Preferences.intraCellPadding * 2, height: labelViewHeight - Preferences.intraCellPadding * 2)
             windowlessIcon.labelView.font = NSFont(name: windowlessIcon.labelView.font!.fontName, size: fontSize)
             windowlessIcon.needsDisplay = true
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
+        [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.window_ = element }
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
         if labelChanged {

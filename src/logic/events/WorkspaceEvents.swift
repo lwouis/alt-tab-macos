@@ -11,6 +11,7 @@ class WorkspaceEvents {
 
     static func observerCallback<A>(_ application: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
         let workspaceApps = Set(NSWorkspace.shared.runningApplications)
+        // TODO: symmetricDifference has bad performance
         let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
         if change.kind == .insertion {
             debugPrint("OS event", "apps launched", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
