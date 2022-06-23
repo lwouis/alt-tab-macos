@@ -81,7 +81,7 @@
 "Ask whether to send crash reports" = "Çökme raporlarının ne zaman gönderileceğini sor";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Periyodik olarak güncelle";
+"Auto-install updates periodically" = "Periyodik olarak güncellemeleri otomatik yükle";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Karaliste";
@@ -123,7 +123,7 @@
 "Do nothing" = "Bir şey yapma";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Güncellemeleri kontrol etme";
+"Don’t check for updates periodically" = "Periyodik olarak güncellemeleri kontrol etme";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Gönderme";
@@ -165,10 +165,10 @@
 "Hide colored circles on mouse hover:" = "Fare üzerindeyken renkli pencere düğmelerini gizle:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Gizle %@";
+"Hide in %@" = "%@ Gizle";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Masaüstü numaralarını gizle:";
+"Hide Space number labels:" = "Masaüstü alan numaralarını gizle:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Durum ikonlarını gizle:";
@@ -294,7 +294,7 @@
 "Send anyway" = "Yine de gönder";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (CPU, memory vb)";
+"Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (İşlemci, bellek, vb)";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "Geri bildirim gönder";
@@ -357,7 +357,7 @@
 "Updates policy:" = "Güncelleme politikası:";
 
 /*No comment provided by engineer.*/
-"Version" = "Versiyon";
+"Version" = "Sürüm";
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "Mevcut tartışmaları görüntüle";
@@ -375,7 +375,7 @@
 "While open, press:" = "Açıkken basın:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Pencere simge boyutu:";
+"Window app icon size:" = "Uygulamanın simge boyutu:";
 
 /*No comment provided by engineer.*/
 "Window is fullscreen" = "Pencere tam ekran";
@@ -384,10 +384,10 @@
 "Window is minimized" = "Pencere simge durumuna küçültüldü";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Pencere bütün alanlarda";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Pencere %d bu alanda";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Azami pencere genişliği:";
