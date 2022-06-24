@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.46.1](https://github.com/lwouis/alt-tab-macos/compare/v6.46.0...v6.46.1) (2022-06-24)
+
+
+### Bug Fixes
+
+* mouse-hover controls remained after closing a window (closes [#1730](https://github.com/lwouis/alt-tab-macos/issues/1730)) ([6bd303d](https://github.com/lwouis/alt-tab-macos/commit/6bd303d))
+
 # [6.46.0](https://github.com/lwouis/alt-tab-macos/compare/v6.45.0...v6.46.0) (2022-06-23)
 
 
