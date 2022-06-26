@@ -180,7 +180,7 @@ class Preferences {
                 migrateMinMaxWindowsWidthInRow()
                 if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
                     // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                    migrateLoginItem()
+                    (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
                     if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
                         // "Show windows from:" got the "Active Space" option removed
                         migrateShowWindowsFrom()
@@ -240,16 +240,20 @@ class Preferences {
     }
 
     @available(OSX, deprecated: 10.11)
-    private static func migrateLoginItem() {
+    static func migrateLoginItem() {
         do {
-            let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
-            let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
-            let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
-            let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
-            loginItemsSnapshot.forEach {
-                if (LSSharedFileListItemCopyDisplayName($0)?.takeRetainedValue() == itemName) ||
-                       (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
-                    LSSharedFileListItemRemove(loginItems, $0)
+            if let loginItemsWrapped = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil) {
+                let loginItems = loginItemsWrapped.takeRetainedValue()
+                if let loginItemsSnapshotWrapped = LSSharedFileListCopySnapshot(loginItems, nil) {
+                    let loginItemsSnapshot = loginItemsSnapshotWrapped.takeRetainedValue() as! [LSSharedFileListItem]
+                    let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
+                    let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
+                    loginItemsSnapshot.forEach {
+                        if (LSSharedFileListItemCopyDisplayName($0).takeRetainedValue() == itemName) ||
+                               (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
+                            LSSharedFileListItemRemove(loginItems, $0)
+                        }
+                    }
                 }
             }
             throw AxError.runtimeError // remove compiler warning
@@ -369,6 +373,15 @@ class Preferences {
     static func jsonEncode<T>(_ value: T) -> String where T: Encodable {
         return String(data: try! JSONEncoder().encode(value), encoding: .utf8)!
     }
+}
+
+// workaround to silence compiler warning
+private protocol AvoidDeprecationWarnings {
+    static func migrateLoginItem()
+}
+
+// workaround to silence compiler warning
+extension Preferences: AvoidDeprecationWarnings {
 }
 
 // MacroPreference are collection of values derived from a single key
