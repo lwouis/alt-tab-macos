@@ -242,17 +242,20 @@ class Preferences {
     @available(OSX, deprecated: 10.11)
     private static func migrateLoginItem() {
         do {
-            let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue()
-            let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil).takeRetainedValue() as! [LSSharedFileListItem]
-            let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
-            let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
-            loginItemsSnapshot.forEach {
-                if (LSSharedFileListItemCopyDisplayName($0)?.takeRetainedValue() == itemName) ||
-                       (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
-                    LSSharedFileListItemRemove(loginItems, $0)
+            if let loginItemsWrapped = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil) {
+                let loginItems = loginItemsWrapped.takeRetainedValue()
+                if let loginItemsSnapshotWrapped = LSSharedFileListCopySnapshot(loginItems, nil) {
+                    let loginItemsSnapshot = loginItemsSnapshotWrapped.takeRetainedValue() as! [LSSharedFileListItem]
+                    let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
+                    let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
+                    loginItemsSnapshot.forEach {
+                        if (LSSharedFileListItemCopyDisplayName($0).takeRetainedValue() == itemName) ||
+                            (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
+                            LSSharedFileListItemRemove(loginItems, $0)
+                        }
+                    }
                 }
             }
-            throw AxError.runtimeError // remove compiler warning
         } catch {
             // the LSSharedFile API is deprecated, and has a runtime crash on M1 Monterey
             // we catch any exception to void the app crashing
