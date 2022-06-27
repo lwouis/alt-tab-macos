@@ -80,13 +80,13 @@ extension AXUIElement {
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
 
+//        debugPrint(runningApp.bundleIdentifier, title, level, CGWindow.normalLevel, subrole, role, size)
+
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
-        return wid != 0 &&
-            size != nil && size!.width > 100 && size!.height > 100 &&
+        return wid != 0 && size != nil &&
             (books(runningApp) || keynote(runningApp) || iina(runningApp) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
                 level == CGWindow.normalLevel &&
-                    jetbrainApp(runningApp, title, subrole) &&
                     ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
                         openBoard(runningApp) ||
                         adobeAudition(runningApp, subrole) ||
@@ -95,17 +95,24 @@ extension AXUIElement {
                         battleNetBootstrapper(runningApp, role) ||
                         firefoxFullscreenVideo(runningApp, role) ||
                         vlcFullscreenVideo(runningApp, role) ||
-                        androidEmulator(runningApp, title) ||
                         sanGuoShaAirWD(runningApp) ||
                         dvdFab(runningApp) ||
-                        drBetotte(runningApp))))
+                        drBetotte(runningApp) ||
+                        androidEmulator(runningApp, title)
+                    ) &&
+                    mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
+                    mustHaveIfSteam(runningApp, title, role)
+            ))
     }
 
-    private static func jetbrainApp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?) -> Bool {
+    private static func mustHaveIfJetbrainApp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?, _ size: NSSize) -> Bool {
         // jetbrain apps sometimes generate non-windows that pass all checks in isActualWindow
         // they have no title, so we can filter them out based on that
-        return runningApp.bundleIdentifier?.range(of: "^com\\.(jetbrains\\.|google\\.android\\.studio).*?$", options: .regularExpression) == nil ||
-            (subrole == kAXStandardWindowSubrole || title != nil && title != "")
+        // we also hide windows too small
+        return runningApp.bundleIdentifier?.range(of: "^com\\.(jetbrains\\.|google\\.android\\.studio).*?$", options: .regularExpression) == nil || (
+            (subrole == kAXStandardWindowSubrole || (title != nil && title != "")) &&
+                size.width > 100 && size.height > 100
+        )
     }
 
     private static func iina(_ runningApp: NSRunningApplication) -> Bool {
@@ -158,7 +165,13 @@ extension AXUIElement {
     private static func steam(_ runningApp: NSRunningApplication, _ title: String?, _ role: String?) -> Bool {
         // All Steam windows have subrole == AXUnknown
         // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
-        return runningApp.bundleIdentifier == "com.valvesoftware.steam" && title != "" && role != nil
+        return runningApp.bundleIdentifier == "com.valvesoftware.steam" && (title != nil && title != "" && role != nil)
+    }
+
+    private static func mustHaveIfSteam(_ runningApp: NSRunningApplication, _ title: String?, _ role: String?) -> Bool {
+        // All Steam windows have subrole == AXUnknown
+        // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
+        return runningApp.bundleIdentifier != "com.valvesoftware.steam" || (title != nil && title != "" && role != nil)
     }
 
     private static func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {

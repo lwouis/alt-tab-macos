@@ -65,26 +65,27 @@ class Application: NSObject {
             guard let self = self else { return }
             if let axWindows_ = try self.axUiElement!.windows(), axWindows_.count > 0 {
                 // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
-                let axWindows = try Array(Set(axWindows_)).compactMap {
-                    if let wid = try $0.cgWindowId() {
-                        let title = try $0.title()
-                        let subrole = try $0.subrole()
-                        let role = try $0.role()
-                        let size = try $0.size()
+                try Array(Set(axWindows_)).forEach { axWindow in
+                    if let wid = try axWindow.cgWindowId() {
+                        let title = try axWindow.title()
+                        let subrole = try axWindow.subrole()
+                        let role = try axWindow.role()
+                        let size = try axWindow.size()
                         let level = try wid.level()
                         if AXUIElement.isActualWindow(self.runningApplication, wid, level, title, subrole, role, size) {
-                            return ($0, wid, title, try $0.isFullscreen(), try $0.isMinimized(), try $0.position(), size)
+                            let isFullscreen = try axWindow.isFullscreen()
+                            let isMinimized = try axWindow.isMinimized()
+                            let position = try axWindow.position()
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self = self else { return }
+                                if let window = self.addWindow(axWindow, wid, title, isFullscreen, isMinimized, position, size) {
+                                    App.app.refreshOpenUi([window])
+                                } else if let window = self.addWindowslessAppsIfNeeded() {
+                                    App.app.refreshOpenUi(window)
+                                }
+                            }
                         }
                     }
-                    return nil
-                } as [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?, CGSize?)]
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    var windows = self.addWindows(axWindows)
-                    if let window = self.addWindowslessAppsIfNeeded() {
-                        windows.append(contentsOf: window)
-                    }
-                    App.app.refreshOpenUi(windows)
                 }
             } else {
                 DispatchQueue.main.async { [weak self] in
@@ -135,19 +136,16 @@ class Application: NSObject {
         }
     }
 
-    private func addWindows(_ axWindows: [(AXUIElement, CGWindowID, String?, Bool, Bool, CGPoint?, CGSize?)]) -> [Window] {
-        let windows: [Window] = axWindows.compactMap { (axUiElement, wid, axTitle, isFullscreen, isMinimized, position, size) in
-            if (Windows.list.firstIndex { $0.isEqualRobust(axUiElement, wid) }) == nil {
-                let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position, size)
-                Windows.appendAndUpdateFocus(window)
-                return window
+    private func addWindow(_ axUiElement: AXUIElement, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) -> Window? {
+        if (Windows.list.firstIndex { $0.isEqualRobust(axUiElement, wid) }) == nil {
+            let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position, size)
+            Windows.appendAndUpdateFocus(window)
+            if App.app.appIsBeingUsed {
+                Windows.cycleFocusedWindowIndex(1)
             }
-            return nil
+            return window
         }
-        if App.app.appIsBeingUsed {
-            Windows.cycleFocusedWindowIndex(windows.count)
-        }
-        return windows
+        return nil
     }
 
     private func observeEvents() {
