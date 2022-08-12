@@ -44,7 +44,9 @@ class Applications {
     static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
         runningApps.forEach {
             if isActualApplication($0) {
-                Applications.list.append(Application($0))
+                var isCurrent = $0.processIdentifier == NSRunningApplication.current.processIdentifier
+
+                Applications.list.append(Application($0, isCurrent: isCurrent))
             }
         }
     }

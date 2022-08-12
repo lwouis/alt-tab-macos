@@ -15,10 +15,12 @@ class Application: NSObject {
     var pid: pid_t!
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
+    var isCurrent: Bool!
 
-    init(_ runningApplication: NSRunningApplication) {
+    init(_ runningApplication: NSRunningApplication, isCurrent: Bool) {
         self.runningApplication = runningApplication
         pid = runningApplication.processIdentifier
+        self.isCurrent = isCurrent
         super.init()
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
@@ -160,22 +162,34 @@ class Application: NSObject {
             kAXApplicationHiddenNotification,
             kAXApplicationShownNotification,
         ] {
-            retryAxCallUntilTimeout { [weak self] in
-                guard let self = self else { return }
-                try self.axUiElement!.subscribeToNotification(axObserver, notification, {
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
-                        // we consider them ready when the first subscription succeeds
-                        // windows opened before that point won't send a notification, so check those windows manually here
-                        if !self.isReallyFinishedLaunching {
-                            self.isReallyFinishedLaunching = true
-                            self.manuallyUpdateWindows()
-                        }
-                    }
-                }, self.runningApplication)
+            if (!isCurrent) {
+                retryAxCallUntilTimeout { [weak self] in
+                    guard let self = self else { return }
+                    try self.subscribe(notification)
+                }
+            } else {
+                do {
+                    try subscribe(notification)
+                } catch let error {
+                    debugPrint("Error adding AltTab \(error)")
+                }
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
+    }
+
+    private func subscribe(_ notification: String) throws {
+        try axUiElement!.subscribeToNotification(axObserver!, notification, {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
+                // we consider them ready when the first subscription succeeds
+                // windows opened before that point won't send a notification, so check those windows manually here
+                if !self.isReallyFinishedLaunching {
+                    self.isReallyFinishedLaunching = true
+                    self.manuallyUpdateWindows()
+                }
+            }
+        }, isCurrent ? NSRunningApplication.current : runningApplication)
     }
 }
