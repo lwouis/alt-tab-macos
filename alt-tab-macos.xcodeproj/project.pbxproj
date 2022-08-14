@@ -162,6 +162,7 @@
 		D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACD976030676FD0761D5 /* Windows.swift */; };
 		D04BAFBC862BA5FE0294EA7A /* AXUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6F823BC0EDA9AA4B80A /* AXUIElement.swift */; };
 		D04BAFF30A98CF287F85DA1E /* BlacklistsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA27695D9A5824720BD7B /* BlacklistsTab.swift */; };
+		E0E22679AC8016061DC7523F /* WindowCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E2272B0496A7706A22CA8E /* WindowCheck.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -421,6 +422,7 @@
 		D04BAF77F9D94C397EB646AE /* 1-row.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1-row.jpg"; sourceTree = "<group>"; };
 		D04BAFA20F13FB588F6CCB81 /* bug_report.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = bug_report.md; sourceTree = "<group>"; };
 		D04BAFDA9E2623E21CBD6CEF /* zh-TW */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-TW"; path = InfoPlist.strings; sourceTree = "<group>"; };
+		E0E2272B0496A7706A22CA8E /* WindowCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowCheck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -709,6 +711,7 @@
 				D04BA7E3EA104941FE76DA70 /* AppCenterCrashes.swift */,
 				BF0C864F182B6155A66D241D /* KeyRepeatTimer.swift */,
 				BF0C8BA452332236D972C60E /* ATShortcut.swift */,
+				E0E224EAAF8C1DCBEFBA41B0 /* windowcheck */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -1282,6 +1285,14 @@
 			path = docs;
 			sourceTree = "<group>";
 		};
+		E0E224EAAF8C1DCBEFBA41B0 /* windowcheck */ = {
+			isa = PBXGroup;
+			children = (
+				E0E2272B0496A7706A22CA8E /* WindowCheck.swift */,
+			);
+			path = windowcheck;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1627,6 +1638,7 @@
 				BF0C8C7E96DB48120462DA00 /* TrafficLightButton.swift in Sources */,
 				BF0C898511686611E4D7D81E /* Button.swift in Sources */,
 				BF0C8E16F38203AEC71E062B /* TableView.swift in Sources */,
+				E0E22679AC8016061DC7523F /* WindowCheck.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
