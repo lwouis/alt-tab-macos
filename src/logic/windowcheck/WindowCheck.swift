@@ -22,7 +22,8 @@ let windowChecks: [WindowCheck] = [
     SteamWindowCheck(),
     FirefoxFullscreenVideoWindowCheck(),
     VLCFullscreenVideoWindowCheck(),
-    AndroidEmulatorWindowCheck()
+    AndroidEmulatorWindowCheck(),
+    ColorSlurpWindowCheck()
 ]
 
 struct WindowCheckOptions {
@@ -185,5 +186,12 @@ class AndroidEmulatorWindowCheck : WindowCheck {
     override func isValidWindow(_ opts: WindowCheckOptions) -> Bool {
         // android emulator small vertical menu is a "window" with empty title; we exclude it
         return opts.title != "" && Applications.isAndroidEmulator(opts.runningApp)
+    }
+}
+
+class ColorSlurpWindowCheck : WindowCheck {
+    override func isValidWindow(_ opts: WindowCheckOptions) -> Bool {
+        // ColorSlurp presents its dialog as a kAXSystemDialogSubrole, so we need a special check
+        return opts.runningApp.bundleIdentifier == "com.IdeaPunch.ColorSlurp"
     }
 }
