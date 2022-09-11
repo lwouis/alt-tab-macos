@@ -31,6 +31,8 @@ class Preferences {
         "showHiddenWindows2": ShowHowPreference.show.rawValue,
         "showFullscreenWindows": ShowHowPreference.show.rawValue,
         "showFullscreenWindows2": ShowHowPreference.show.rawValue,
+        "sortWindows": SortHowPreference.lastUsed.rawValue,
+        "sortWindows2": SortHowPreference.lastUsed.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
@@ -118,6 +120,7 @@ class Preferences {
     static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var sortWindows: [SortHowPreference] { ["sortWindows", "sortWindows2"].map { defaults.macroPref($0, SortHowPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
@@ -426,6 +429,22 @@ enum ShortcutStylePreference: String, CaseIterable, MacroPreference {
         switch self {
             case .focusOnRelease: return NSLocalizedString("Focus selected window", comment: "")
             case .doNothingOnRelease: return NSLocalizedString("Do nothing", comment: "")
+        }
+    }
+}
+
+enum SortHowPreference: String, CaseIterable, MacroPreference {
+    case lastUsed = "0"
+    case lastOpened = "1"
+    case mostFrequently = "2"
+    case application = "3"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .lastUsed: return NSLocalizedString("Last Used", comment: "")
+            case .lastOpened: return NSLocalizedString("Last Opened", comment: "")
+            case .mostFrequently: return NSLocalizedString("Most Frequently Used", comment: "")
+            case .application: return NSLocalizedString("Name", comment: "")
         }
     }
 }

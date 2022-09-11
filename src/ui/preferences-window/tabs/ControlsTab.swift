@@ -79,6 +79,7 @@ class ControlsTab {
         let toShowExplanations2 = LabelAndControl.makeLabel(NSLocalizedString("Minimized windows:", comment: ""))
         let toShowExplanations3 = LabelAndControl.makeLabel(NSLocalizedString("Hidden windows:", comment: ""))
         let toShowExplanations4 = LabelAndControl.makeLabel(NSLocalizedString("Fullscreen windows:", comment: ""))
+        let sortExplanations = LabelAndControl.makeLabel(NSLocalizedString("Sort windows by:", comment: ""))
         var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), "holdShortcut" + postfix, Preferences.holdShortcut[postfix == "" ? 0 : 1], false, labelPosition: .leftWithoutSeparator)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press:", comment: "")))
         let holdAndPress = StackView(holdShortcut)
@@ -88,6 +89,7 @@ class ControlsTab {
         let showMinimizedWindows = LabelAndControl.makeDropdown("showMinimizedWindows" + postfix, ShowHowPreference.allCases)
         let showHiddenWindows = LabelAndControl.makeDropdown("showHiddenWindows" + postfix, ShowHowPreference.allCases)
         let showFullscreenWindows = LabelAndControl.makeDropdown("showFullscreenWindows" + postfix, ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
+        let sortWindows = LabelAndControl.makeDropdown("sortWindows" + postfix, SortHowPreference.allCases)
         let separator = NSBox()
         separator.boxType = .separator
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), "nextWindowShortcut" + postfix, Preferences.nextWindowShortcut[postfix == "" ? 0 : 1], labelPosition: .right)
@@ -100,12 +102,13 @@ class ControlsTab {
             [toShowExplanations2, showMinimizedWindows],
             [toShowExplanations3, showHiddenWindows],
             [toShowExplanations4, showFullscreenWindows],
+            [sortExplanations, sortWindows],
             [separator],
             [holdAndPress, StackView(nextWindowShortcut)],
             shortcutStyle,
         ], TabView.padding)
         tab.column(at: 0).xPlacement = .trailing
-        tab.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 4, length: 1))
+        tab.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 5, length: 1))
         tab.fit()
         return (holdShortcut, nextWindowShortcut, tab)
     }

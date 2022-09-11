@@ -20,7 +20,22 @@ class Windows {
                let bool = sortByBooleanAttribute($0.isMinimized, $1.isMinimized) {
                 return bool
             }
-            return $0.lastFocusOrder < $1.lastFocusOrder
+            let sortType = Preferences.sortWindows[App.app.shortcutIndex]
+            var order: ComparisonResult = .orderedSame
+            if sortType == .mostFrequently {
+                order = sortByIntAttribute($1.focusCount, $0.focusCount)
+            } else if order == .orderedSame && sortType == .lastOpened {
+                order = sortByIntAttribute($0.lastOpenedOrder, $1.lastOpenedOrder)
+            } else if sortType == .application {
+                order = ($0.application.runningApplication.localizedName ?? "").localizedStandardCompare($1.application.runningApplication.localizedName ?? "")
+                if order == .orderedSame {
+                    order = ($0.title ?? "").localizedStandardCompare($1.title ?? "")
+                }
+            }
+            if order == .orderedSame || sortType == .lastUsed {
+                order = sortByIntAttribute($0.lastFocusOrder, $1.lastFocusOrder)
+            }
+            return order == .orderedAscending
         }
     }
 
@@ -73,6 +88,7 @@ class Windows {
     static func updateLastFocus(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID) -> [Window]? {
         if let focusedWindow = (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) }) {
             let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
+            focusedWindow.focusCount += 1
             var windowsToRefresh = [focusedWindow]
             list.forEach {
                 if $0.lastFocusOrder == focusedWindowOldFocusOrder {
@@ -243,6 +259,16 @@ class Windows {
                 !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(screen)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
     }
+}
+
+func sortByIntAttribute(_ i1: Int, _ i2: Int) -> ComparisonResult {
+    if i1 == i2 {
+        return .orderedSame
+    }
+    if i1 < i2 {
+        return .orderedAscending
+    }
+    return .orderedDescending
 }
 
 func sortByBooleanAttribute(_ b1: Bool, _ b2: Bool) -> Bool? {
