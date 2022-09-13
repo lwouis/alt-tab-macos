@@ -159,7 +159,7 @@
 "Hide app badges:" = "הסתר תג התראות:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "הסתר חוכנות ללא חלון פתוח:";
+"Hide apps with no open window:" = "הסתר תוכנות ללא חלון פתוח:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "הסתר עיגולים צבועים בריחוף עכבר:";
@@ -324,7 +324,7 @@
 "Show on:" = "הצג ב:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "הראה תאבים כחלונות:";
+"Show standard tabs as windows:" = "הראה טאבים כחלונות:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "הראה חלונות מ:";
