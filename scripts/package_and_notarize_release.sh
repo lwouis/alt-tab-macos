@@ -13,7 +13,6 @@ ditto -c -k --keepParent "$appFile" "$zipName"
 # request notarization
 requestUuid=$(xcrun altool \
   --notarize-app \
-  --verbose \
   --primary-bundle-id "$bundleId" \
   --username "$APPLE_ID" \
   --password "$APPLE_PASSWORD" \
