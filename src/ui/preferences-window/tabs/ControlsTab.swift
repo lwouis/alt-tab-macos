@@ -59,6 +59,7 @@ class ControlsTab {
         grid.column(at: 0).xPlacement = .trailing
         grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
         grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .leading
+        tabView.rightAnchor.constraint(equalTo: grid.rightAnchor, constant: -GridView.padding).isActive = true
 
         // TODO: better layout logic. Maybe freeze the width of the preference window and have labels wrap on multiple lines
         // currently this looks bad if the right column inside the tabView is larger than the right column of the top gridView
