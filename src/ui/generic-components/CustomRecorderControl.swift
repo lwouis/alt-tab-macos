@@ -86,15 +86,14 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
                 return false
             }
             if (id.starts(with: "holdShortcut") && $0.id.starts(with: "holdShortcut") || (id.starts(with: "nextWindowShortcut")) && $0.id.starts(with: "nextWindowShortcut")) {
-                let index = id.last == "2" ? 1 : 0
-                let otherIndex = id.last == "2" ? 0 : 1
-                let otherSuffix = id.last == "2" ? "" : "2"
+                let index = Preferences.nameToIndex(id)
+                let otherIndex = Preferences.nameToIndex($0.id)
                 if id.starts(with: "holdShortcut") {
                     return Preferences.nextWindowShortcut[index] == Preferences.nextWindowShortcut[otherIndex] &&
-                        shortcut.modifierFlags == ControlsTab.shortcutControls["holdShortcut" + otherSuffix]!.0.objectValue!.modifierFlags
+                        shortcut.modifierFlags == ControlsTab.shortcutControls[Preferences.indexToName("holdShortcut", otherIndex)]!.0.objectValue!.modifierFlags
                 }
                 if id.starts(with: "nextWindowShortcut") {
-                    if let nextWindowShortcut = ControlsTab.shortcutControls["nextWindowShortcut" + otherSuffix]?.0.objectValue {
+                    if let nextWindowShortcut = ControlsTab.shortcutControls[Preferences.indexToName("nextWindowShortcut", otherIndex)]?.0.objectValue {
                         return Preferences.holdShortcut[index] == Preferences.holdShortcut[otherIndex] &&
                             shortcut.modifierFlags == nextWindowShortcut.modifierFlags &&
                             shortcut.keyCode == nextWindowShortcut.keyCode
@@ -103,8 +102,8 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
                 }
             }
             if $0.id.starts(with: "nextWindowShortcut") {
-                let suffix = $0.id.last == "2" ? "2" : ""
-                return $0.shortcut.keyCode == shortcut.keyCode && ($0.shortcut.carbonModifierFlags ^ ControlsTab.shortcutControls["holdShortcut" + suffix]!.0.objectValue!.carbonModifierFlags) == shortcut.carbonModifierFlags
+                let index = Preferences.nameToIndex($0.id)
+                return $0.shortcut.keyCode == shortcut.keyCode && ($0.shortcut.carbonModifierFlags ^ ControlsTab.shortcutControls[Preferences.indexToName("holdShortcut", index)]!.0.objectValue!.carbonModifierFlags) == shortcut.carbonModifierFlags
             }
             return $0.shortcut.keyCode == shortcut.keyCode && $0.shortcut.modifierFlags == shortcut.modifierFlags
         }

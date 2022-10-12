@@ -15,10 +15,9 @@ class KeyRepeatTimer {
     }
 
     static func toggleRepeatingKeyNextWindow() {
-        let suffix = App.app.shortcutIndex == 0 ? "" : "2"
-        if let shortcut = ControlsTab.shortcuts["nextWindowShortcut" + suffix] {
+        if let shortcut = ControlsTab.shortcuts[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)] {
             toggleRepeatingKey(shortcut) {
-                ControlsTab.shortcutsActions["nextWindowShortcut" + suffix]!()
+                ControlsTab.shortcutsActions[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)]!()
             }
         }
     }
