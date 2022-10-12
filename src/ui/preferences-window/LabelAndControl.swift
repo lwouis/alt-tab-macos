@@ -193,11 +193,15 @@ class TabView: NSTabView, NSTabViewDelegate {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         labelsAndViews.enumerated().forEach { (i, tuple) in
+            let containerView = NSView()
+            containerView.addSubview(tuple.1)
+            containerView.widthAnchor.constraint(greaterThanOrEqualTo: tuple.1.widthAnchor).isActive = true
+            containerView.heightAnchor.constraint(greaterThanOrEqualTo: tuple.1.heightAnchor).isActive = true
             let tab = NSTabViewItem(identifier: i)
             tab.label = tuple.0
-            tab.view = tuple.1
+            tab.view = containerView
             addTabViewItem(tab)
-            tab.view!.fit()
+            tuple.1.fit()
         }
     }
 }
