@@ -44,6 +44,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Ali Gokmen
 * Allen Guan
 * Ameng
+* Anders Brandén
 * Anurag Roy
 * anushree b
 * apple
@@ -158,6 +159,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Vlad
 * Webmaster
 * Whatsmine-HaoshuaiXu
+* Yamada Keisuke
 * Yossi Zahn
 * ysaito
 * Yukai

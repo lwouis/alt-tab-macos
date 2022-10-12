@@ -296,6 +296,15 @@
 "Shortcut 2" = "Shortcut 2";
 
 /* No comment provided by engineer. */
+"Shortcut 3" = "Shortcut 3";
+
+/* No comment provided by engineer. */
+"Shortcut 4" = "Shortcut 4";
+
+/* No comment provided by engineer. */
+"Shortcut 5" = "Shortcut 5";
+
+/* No comment provided by engineer. */
 "Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
 /* Menubar option */
