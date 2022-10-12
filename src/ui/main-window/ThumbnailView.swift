@@ -74,16 +74,21 @@ class ThumbnailView: NSStackView {
             isShowingWindowControls = shouldShow
             let target = (window_?.isWindowlessApp ?? true) ? windowlessIcon : thumbnail
             target.addSubview(quitIcon, positioned: .above, relativeTo: nil)
-            var offset = CGFloat(0)
+            var xOffset = CGFloat(3)
+            var yOffset = CGFloat(2 + ThumbnailView.windowsControlSize)
             [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { icon in
                 icon.isHidden = !shouldShow ||
                     ((window_?.isWindowlessApp ?? true) && icon.type != .quit) ||
                     (icon.type == .quit && window_?.application.runningApplication.bundleIdentifier == "com.apple.finder" && !Preferences.finderShowsQuitMenuItem)
                 if !icon.isHidden {
                     icon.setFrameOrigin(NSPoint(
-                        x: 3 + (ThumbnailView.windowsControlSpacing + ThumbnailView.windowsControlSize) * offset,
-                        y: target.frame.height - ThumbnailView.windowsControlSize - 2))
-                    offset += 1
+                        x: xOffset,
+                        y: target.frame.height - yOffset))
+                    xOffset += ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing
+                    if xOffset + ThumbnailView.windowsControlSize > target.frame.width {
+                        xOffset = 3
+                        yOffset += ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing
+                    }
                 }
             }
         }
