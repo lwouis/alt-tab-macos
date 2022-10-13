@@ -97,6 +97,8 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
             let level = try wid.level()
             let position = try element.position()
             let size = try element.size()
+            let parent = try element.parent()
+            let parentWid = try parent?.cgWindowId()
             DispatchQueue.main.async {
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows)
@@ -105,6 +107,11 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
                     App.app.refreshOpenUi([window])
+                }
+                // if the window is shown by alt-tab, we mark her as focused for this app
+                // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
+                if let w = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+                    Applications.find(pid)?.focusedWindow = w
                 }
             }
         }
@@ -117,9 +124,6 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                     app.manuallyUpdateWindows()
                 }
             }
-        }
-        DispatchQueue.main.async {
-            Applications.find(pid)?.focusedWindow = Windows.list.first { $0.isEqualRobust(element, wid) }
         }
     } else {
         DispatchQueue.main.async {
