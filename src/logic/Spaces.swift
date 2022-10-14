@@ -14,6 +14,8 @@ class Spaces {
             updateCurrentSpace()
             // if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
             Windows.list.forEachAsync { $0.updatesWindowSpace() }
+            // from macos 12.2 beta onwards, we can't get other-space windows; grabbing windows when switching spaces mitigates the issue
+            Applications.manuallyUpdateWindows()
         })
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: nil, using: { _ in
             debugPrint("OS event", "didChangeScreenParametersNotification")

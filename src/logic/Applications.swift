@@ -6,12 +6,16 @@ class Applications {
 
     static func manuallyUpdateWindowsFor2s() {
         let group = DispatchGroup()
+        manuallyUpdateWindows(group)
+        _ = group.wait(wallTimeout: .now() + .seconds(2))
+    }
+
+    static func manuallyUpdateWindows(_ group: DispatchGroup? = nil) {
         for app in list {
             if app.runningApplication.isFinishedLaunching && app.runningApplication.activationPolicy != .prohibited {
                 app.manuallyUpdateWindows(group)
             }
         }
-        _ = group.wait(wallTimeout: .now() + .seconds(2))
     }
 
     static func initialDiscovery() {
