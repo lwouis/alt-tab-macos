@@ -54,16 +54,16 @@
 "Always send crash reports" = "总是发送崩溃报告";
 
 /*No comment provided by engineer.*/
-"and press:" = "并点击：";
+"and press:" = "并按下：";
 
 /*No comment provided by engineer.*/
 "App (BundleID starting with)" = "App（BundleID 开头是）";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App已隐藏";
+"App is hidden" = "应用程序已隐藏";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App正在运行但没有打开的窗口";
+"App is running but has no open window" = "应用程序正在运行但没有打开的窗口";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "切换窗口出现延迟：";
@@ -90,7 +90,7 @@
 "Cancel" = "取消";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "取消";
+"Cancel and hide" = "取消并隐藏";
 
 /*No comment provided by engineer.*/
 "Center" = "居中";
@@ -138,7 +138,7 @@
 "Fade out animation:" = "淡出动画：";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "前置选中窗口";
+"Focus selected window" = "前置选中的窗口";
 
 /*No comment provided by engineer.*/
 "Fullscreen window" = "全屏窗口";
@@ -378,10 +378,10 @@
 "Window app icon size:" = "窗口图标大小：";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "全屏窗口";
+"Window is fullscreen" = "窗口已全屏";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "最小化窗口";
+"Window is minimized" = "窗口已最小化";
 
 /*No comment provided by engineer.*/
 "Window is on every Space" = "窗口在每一个空间";
@@ -402,4 +402,4 @@
 "Window title truncation:" = "窗口标题删节：";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "未填写电子邮箱地址将无法收到回复。";
+"You didn’t write your email, thus can’t receive any response." = "您未填写电子邮箱地址，将无法收到回复。";

@@ -3,7 +3,7 @@
 "About" = "Om";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "Om %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Tilgjengelighet";
@@ -42,13 +42,13 @@
 "Also select windows using:" = "Velg også vinduer som bruker:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab krasjet sist du brukte det. Å sende krasjrapport vil hjelpe til med å løse problemet";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab krasjet sist du brukte det. Å sende en krasjrapport vil hjelpe til med å løse problemet";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab trenger noen tillatelser";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Alltid";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Send alltid krasjrapporter";
@@ -57,13 +57,13 @@
 "and press:" = "og trykk:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "App (BundleId starter med)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "App er skjult";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "App kjører uten åpne vinduer";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Visningsforsinkelse:";
@@ -108,7 +108,7 @@
 "Close window" = "Lukk vindu";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Motstridende snarvei";
 
 /*No comment provided by engineer.*/
 "Controls" = "Kontroller";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "Krasjrapportpolicy:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Peker følger fokus";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Ikke gjør noe";
@@ -141,31 +141,31 @@
 "Focus selected window" = "Fokuser på valgt vindu";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Fullskjerm vindu";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Vinduer i fullskjerm:";
 
 /*No comment provided by engineer.*/
 "General" = "Generelt";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Skjulte vinduer:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Skjul";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Skjul app-badges:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Skjul apper uten åpne vinduer:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Skjul fargede sirkler når musa er over:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Skjul i %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Skjul merking av områdenummer:";
@@ -174,7 +174,7 @@
 "Hide status icons:" = "Skjul statusikoner:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Skjul miniatyrbilder:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Skjul/vis app";
@@ -186,7 +186,7 @@
 "I think the app could be improved with…" = "Jeg synes appen kunne vært forbedret med…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignorer snarvei når aktiv";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorér hurtigtaster mens et vindu fra disse appene er aktivt";
@@ -198,10 +198,10 @@
 "Left" = "Venstre";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Maks høyde på skjerm:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Maks bredde på skjerm:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Menylinjeikon:";
@@ -210,13 +210,13 @@
 "Middle" = "Midten";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimér/Gjenopprett vindu";
+"Minimize/Deminimize window" = "Minimer/Gjenopprett vindu";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Minimerte vinduer:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Diverse:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Holde musa over";
@@ -240,7 +240,7 @@
 "Open Screen Recording Preferences…" = "Åpen skjermopptaksinnstillinger…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Valgfirtt: e-post (hvis du ønsker svar)";
+"Optional: email (if you want a reply)" = "Valgfritt: e-post (hvis du ønsker svar)";
 
 /*No comment provided by engineer.*/
 "Policies" = "Policyer";
@@ -261,10 +261,10 @@
 "Remember my choice" = "Husk valget mitt";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Tilbakestill innstillinger og restart";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Rader med miniatyrbilder:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Skjerm med menylinje";
@@ -288,7 +288,7 @@
 "Send" = "Send";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Send en krasjrapport?";
+"Send a crash report?" = "Sende en krasjrapport?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Send likevel";
@@ -303,7 +303,7 @@
 "Send feedback…" = "Send tilbakemelding…";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Del idéer til forbedringer, eller rapportér bugs";
+"Share improvement ideas, or report bugs" = "Del forbedringsideer, eller rapporter om feil";
 
 /*No comment provided by engineer.*/
 "Shortcut 1" = "Hurtigtast 1";
@@ -312,13 +312,13 @@
 "Shortcut 2" = "Hurtigtast 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Snarvei allerede tildelt en annen handling: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Vis";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Vis på slutten";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Vis på:";
@@ -327,7 +327,7 @@
 "Show standard tabs as windows:" = "Vis standardtaber som vindu:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Vis vinduer fra:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Kildekodearkiv";
@@ -351,7 +351,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Denne tillatelsen er nødvendig for å kunne vise skjermbilde og tittel på åpne vinduer";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Fjern eksisterende snarvei og fortsett";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Oppdateringspolicy:";
@@ -363,13 +363,13 @@
 "View existing discussions" = "Se eksisterende diskusjoner";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Synlige mellomrom";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Når i fullskjerm";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Når ingen åpne vinduer";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Når åpen, trykk:";
@@ -378,22 +378,22 @@
 "Window app icon size:" = "Størrelse på vinduappikon:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Vinduet er i fullskjerm";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Vinduet er minimert";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Vinduet er på alle områder";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Vinduet er på område %d";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Maks vindusbredde på rad:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Minimum vindusbredde på rad:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Skriftstørrelse på vindutittel:";

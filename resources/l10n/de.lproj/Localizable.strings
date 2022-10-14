@@ -6,7 +6,7 @@
 "About %@" = "Über %@";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "Bedienungshilfe";
+"Accessibility" = "Bedienungshilfen";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "Drittanbieter Lizenzen";
@@ -27,7 +27,7 @@
 "All apps" = "Alle Anwendungen";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "Alle hier eingegebenen Daten werden auf github.com als Issue öffentlich einsehbar sein";
+"All data from this form will be made public, as a ticket on github.com" = "Alle hier eingegebenen Daten werden auf github.com in Form eines Tickets öffentlich einsehbar sein";
 
 /*No comment provided by engineer.*/
 "All screens" = "Alle Bildschirme";
@@ -42,7 +42,7 @@
 "Also select windows using:" = "Fenster auch auswählen mit:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ist bei der letzten Verwendung abgestürzt. Das Senden von Absturzberichten hilft bei der Fehlerbehebung";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ist bei der letzten Verwendung abgestürzt. Das Senden von Absturzberichten hilft bei der Fehlerbehebung.";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab braucht einige Berechtigungen";
@@ -60,7 +60,7 @@
 "App (BundleID starting with)" = "App (BundleID startet mit)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App ist versteckt";
+"App is hidden" = "App ist ausgeblendet";
 
 /*No comment provided by engineer.*/
 "App is running but has no open window" = "App wird ausgeführt, aber hat keine offenen Fenster";
@@ -156,16 +156,16 @@
 "Hide" = "Verbergen";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "App-Badges verbergen:";
+"Hide app badges:" = "App-Symbol Kennzeichen verbergen:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Verberge Apps ohne offene Fenster:";
+"Hide apps with no open window:" = "Apps ohne offene Fenster verbergen:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Farbige Kreise beim Markieren mit der Maus verbergen:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "In %@ verstecken";
+"Hide in %@" = "In %@ ausblenden";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Space-Nummer ausblenden:";
@@ -219,7 +219,7 @@
 "Miscellaneous:" = "Verschiedenes:";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "Maus Hover";
+"Mouse hover" = "Mauszeiger";
 
 /*No comment provided by engineer.*/
 "Never send crash reports" = "Nie senden";
@@ -234,13 +234,13 @@
 "Only if the window is fullscreen" = "Nur bei Vollbild";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Einstellungen der Bedienungshilfe öffnen…";
+"Open Accessibility Preferences…" = "Einstellungen zu Bedienungshilfen öffnen…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Einstellungen der Bildschirmaufnahme öffnen…";
+"Open Screen Recording Preferences…" = "Einstellungen zu Bildschirmaufnahme öffnen…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Optional: E-Mail (wenn du eine Antwort haben willst)";
+"Optional: email (if you want a reply)" = "Optional: E-Mail (wenn du eine Antwort haben möchtest)";
 
 /*No comment provided by engineer.*/
 "Policies" = "Richtlinien";
@@ -252,7 +252,7 @@
 "Quit" = "Beenden";
 
 /*No comment provided by engineer.*/
-"Quit %@" = "%@ Beenden";
+"Quit %@" = "%@ beenden";
 
 /*No comment provided by engineer.*/
 "Quit app" = "App beenden";
@@ -348,7 +348,7 @@
 "This permission is needed to focus windows after you release the shortcut" = "Diese Erlaubnis ist nötig, um Fenster nach dem Drücken des Kurzbefehls anzuzeigen";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "Diese Erlaubnis ist nötig, um Bildschirmaufnahmen und Titel offener Fenster anzuzeigen";
+"This permission is needed to show screenshots and titles of open windows" = "Diese Erlaubnis ist nötig, um eine Vorschau der geöffneten Fenster und deren Titel anzuzeigen";
 
 /*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "Bestehenden Kurzbefehl löschen und weiter";
@@ -375,7 +375,7 @@
 "While open, press:" = "Während geöffnet, drücke:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Größe des Fenster App Icons:";
+"Window app icon size:" = "Größe des Fenster App-Symbols:";
 
 /*No comment provided by engineer.*/
 "Window is fullscreen" = "Fenster ist im Vollbildmodus";
@@ -399,7 +399,7 @@
 "Window title font size:" = "Größe des Fenstertitels:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Fenster Titel abschneiden:";
+"Window title truncation:" = "Fenstertitel abschneiden:";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Du hast keine Mail-Adresse angegeben, sodass man dir nicht antworten kann.";

@@ -42,28 +42,28 @@
 "Also select windows using:" = "또한 다음을 이용해 윈도우를 선택하기:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "마지막으로 사용하고 나서 AltTab이 충돌했습니다. 충돌 리포트를 보내는 것은 이 문제를 해결하는데 도움을 줄 수 있습니다";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab의 충돌이 감지되었습니다. 충돌 보고서를 보내는 것은 이 문제를 해결하는데 도움을 줄 수 있습니다";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab이 권한을 필요로 합니다";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "항상";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "항상 충돌 리포트 보내기";
+"Always send crash reports" = "항상 보내기";
 
 /*No comment provided by engineer.*/
 "and press:" = "와 다음을 누르면:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "앱 (다음으로 시작하는 번들ID)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "앱이 숨겨져 있습니다";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "앱이 실행 중이지만 열린 윈도우가 없습니다";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "나타나는 지연 시간:";
@@ -78,10 +78,10 @@
 "Arrow keys" = "방향키";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "충돌 리포트를 보낼 때 물어보기";
+"Ask whether to send crash reports" = "보내기 전에 물어보기";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "자동으로 업데이트 설치하기";
+"Auto-install updates periodically" = "주기적으로 자동 업데이트를 하기";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "블랙리스트";
@@ -114,10 +114,10 @@
 "Controls" = "조작";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "충돌 리포트 처리 방법:";
+"Crash reports policy:" = "충돌 보고서 처리 방법:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "커서가 포커스를 따름";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "아무것도 하지 않기";
@@ -141,7 +141,7 @@
 "Focus selected window" = "선택된 윈도우로 이동";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "윈도우를 전체 화면으로 전환";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "전체 화면 윈도우:";
@@ -165,7 +165,7 @@
 "Hide colored circles on mouse hover:" = "마우스를 올릴 때 색칠된 원들 숨기기:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "%@에서 숨기기";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Space 번호 숨기기:";
@@ -183,10 +183,10 @@
 "Hold" = " ";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "이 앱의 개선방안은…";
+"I think the app could be improved with…" = "이 앱의 개선안은…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "단축키 무시";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "다음 앱들이 활성화되면 단축키를 무시합니다";
@@ -210,7 +210,7 @@
 "Middle" = "중간";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "윈도우 최소화 / 최대화";
+"Minimize/Deminimize window" = "윈도우 최소화/최대화";
 
 /*No comment provided by engineer.*/
 "Minimized windows:" = "최소화된 윈도우:";
@@ -231,7 +231,7 @@
 "NSHumanReadableCopyright" = "GPL-3.0 라이선스";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "전체화면일 경우에만 무시합니다";
+"Only if the window is fullscreen" = "전체 화면일 경우에만";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "손쉬운 사용 설정 열기…";
@@ -261,7 +261,7 @@
 "Remember my choice" = "내 선택 기억하기";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "설정 초기화 후 다시 시작";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "썸네일의 줄 개수:";
@@ -288,7 +288,7 @@
 "Send" = "보내기";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "충돌 리포트를 보낼까요?";
+"Send a crash report?" = "충돌 보고서를 보낼까요?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "보내기";
@@ -303,7 +303,7 @@
 "Send feedback…" = "피드백 보내기…";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "개선방안을 공유하거나 버그를 제보해주세요";
+"Share improvement ideas, or report bugs" = "개선안을 제안하거나 버그를 제보해주세요";
 
 /*No comment provided by engineer.*/
 "Shortcut 1" = "단축키 1";
@@ -366,10 +366,10 @@
 "Visible Spaces" = "보이는 Space";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "전체 화면일 때";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "열린 윈도우가 없을 때";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "켜져 있을 때, 다음을 누르면:";
@@ -378,16 +378,16 @@
 "Window app icon size:" = "윈도우 앱 아이콘 크기:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "윈도우가 전체 화면 상태입니다";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "윈도우가 최소화 됐습니다";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "윈도우가 모든 Space에 있습니다";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "윈도우가 Space %d에 있습니다";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "한 줄 내의 윈도우 최대 너비:";

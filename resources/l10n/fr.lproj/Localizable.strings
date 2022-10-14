@@ -18,7 +18,7 @@
 "Active screen" = "Écran actif";
 
 /*No comment provided by engineer.*/
-"Active Space" = "Espace actif";
+"Active Space" = "Bureau actif";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Aligner les fenêtres :";
@@ -33,7 +33,7 @@
 "All screens" = "Tous les écrans";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "Tous les Espaces";
+"All Spaces" = "Tous les Bureaux";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Autorisé";
@@ -48,7 +48,7 @@
 "AltTab needs some permissions" = "AltTab a besoin de permissions";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Toujours";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Toujours envoyer un rapport d’erreur";
@@ -57,13 +57,13 @@
 "and press:" = "puis presser :";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "APP (démarrant avec)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "App caché";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "App active mais pas de fenêtre";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Délai d’apparition :";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "Politique des rapports d’erreur :";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Curseur suit la sélection";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Ne rien faire";
@@ -141,7 +141,7 @@
 "Focus selected window" = "Aller à la fenêtre sélectionnée";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Fenêtre plein écran";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fenêtres plein écran :";
@@ -165,10 +165,10 @@
 "Hide colored circles on mouse hover:" = "Masquer les cercles colorés au survol de la souris :";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Caché dans %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Cacher les numéros des Espaces :";
+"Hide Space number labels:" = "Cacher les numéros des Bureaux :";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Masquer les icônes de statut :";
@@ -186,7 +186,7 @@
 "I think the app could be improved with…" = "Je pense que AltTab pourrait être améliorée avec…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignorer les raccourcis à l'activation";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorer les raccourcis si une fenêtre de ces Apps est active";
@@ -261,7 +261,7 @@
 "Remember my choice" = "Se souvenir de mon choix";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Initialiser les Préférences et redémarrer ";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Lignes d’aperçus :";
@@ -363,13 +363,13 @@
 "View existing discussions" = "Voir les discussions existantes";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Espaces visibles";
+"Visible Spaces" = "Bureaux visibles";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Si en plein écran";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Si pas de fenêtre";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Une fois visible, presser :";
@@ -378,16 +378,16 @@
 "Window app icon size:" = "Taille des icones des Apps :";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Fenêtre en plein écran";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Fenêtre réduite";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Attribuer à Tous les bureaux";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Attribuer au Bureau %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Largeur maximum des aperçus :";

@@ -48,7 +48,7 @@
 "AltTab needs some permissions" = "L'AltTab necessita alguns permisos";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Sempre";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Enviar automàticament";
@@ -57,13 +57,13 @@
 "and press:" = "i prémer:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Aplicació";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "L'aplicació està oculta";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "L'aplicació no té finestres obertes";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Retard en aparèixer:";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "Política d'informes d'errors:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "El cursor segueix l'element actiu";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "No fer res";
@@ -141,7 +141,7 @@
 "Focus selected window" = "Activar finestra seleccionada";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "L'aplicació es veu a pantalla completa";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Finestres a pantalla completa:";
@@ -165,7 +165,7 @@
 "Hide colored circles on mouse hover:" = "Amagar cercles de colors en passar el cursor:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Amaga a %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "No mostrar número de l'espai:";
@@ -186,7 +186,7 @@
 "I think the app could be improved with…" = "Crec que l'aplicació milloraria si...";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignorar dreceres quan està activa";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorar dreceres si una finestra d'aquestes aplicacions està activa";
@@ -261,7 +261,7 @@
 "Remember my choice" = "Recordar la meva selecció";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Restablir preferències i reiniciar";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Files de miniatures:";
@@ -366,10 +366,10 @@
 "Visible Spaces" = "Espais visibles";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Quan es veu a pantalla completa";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Quan no hi ha finestres obertes";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Mentre es mostren les miniatures:";
@@ -378,16 +378,16 @@
 "Window app icon size:" = "Mida de les icones:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "La finestra es veu a pantalla completa";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "La finestra està minimitzada";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "La finestra és present a tots els espais";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "La finestra és present a l'espai %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Amplada màxima de finestra dins d'una fila:";

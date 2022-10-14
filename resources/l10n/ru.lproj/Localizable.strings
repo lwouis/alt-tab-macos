@@ -48,7 +48,7 @@
 "AltTab needs some permissions" = "AltTab требуются некоторые разрешения";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Всегда";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Всегда отправлять отчеты о вылетах";
@@ -57,13 +57,13 @@
 "and press:" = "и нажать:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Приложение (BundleID начинается с)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "Приложение скрыто";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Приложение запущено, но нет открытого окна";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Задержка появления:";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "Правило отчетов о вылетах:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Курсор следует за фокусом";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Ничего не делать";
@@ -141,7 +141,7 @@
 "Focus selected window" = "Фокус на выбранное окно";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Полноэкранное окно";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Развернутые окна:";
@@ -165,7 +165,7 @@
 "Hide colored circles on mouse hover:" = "Скрыть цветные круги при наведении мышью:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Скрыть в %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Скрыть номера рабочих столов:";
@@ -186,7 +186,7 @@
 "I think the app could be improved with…" = "Я думаю, что приложение может быть улучшено…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Игнорировать комбинации когда активно";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Игнорировать комбинации клавиш пока окно приложения из этого списка активно";
@@ -261,7 +261,7 @@
 "Remember my choice" = "Запомнить мой выбор";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Сброс настроек и перезапуск";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Ряды с эскизами окон:";
@@ -366,10 +366,10 @@
 "Visible Spaces" = "Видимые пространства";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Когда полноэкранный";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Когда нет открытых окон";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Когда открыто, нажать:";
@@ -378,16 +378,16 @@
 "Window app icon size:" = "Размер иконки окна:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Окно полноэкранное";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Окно свернуто";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Окно есть в каждом пространстве";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Окно в пространстве %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Максимальная ширина эскиза в ряду:";
