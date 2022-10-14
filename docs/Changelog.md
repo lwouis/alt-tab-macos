@@ -1,5 +1,21 @@
 # Release notes
 
+# [6.47.0](https://github.com/lwouis/alt-tab-macos/compare/v6.46.1...v6.47.0) (2022-10-14)
+
+
+### Bug Fixes
+
+* alt-tab would show on the wrong screen (closes [#2003](https://github.com/lwouis/alt-tab-macos/issues/2003)) ([b72c4db](https://github.com/lwouis/alt-tab-macos/commit/b72c4db))
+* discover windows when switching spaces ([#1324](https://github.com/lwouis/alt-tab-macos/issues/1324)) ([9c26d54](https://github.com/lwouis/alt-tab-macos/commit/9c26d54))
+* shortcut tabs right margin ([d207f86](https://github.com/lwouis/alt-tab-macos/commit/d207f86))
+* show finder file copy windows (closes [#1466](https://github.com/lwouis/alt-tab-macos/issues/1466)) ([c78481b](https://github.com/lwouis/alt-tab-macos/commit/c78481b))
+* wrap thumbnail buttons when needed ([ea05c03](https://github.com/lwouis/alt-tab-macos/commit/ea05c03))
+
+
+### Features
+
+* improve many localizations and add romanian ([71f1609](https://github.com/lwouis/alt-tab-macos/commit/71f1609))
+
 ## [6.46.1](https://github.com/lwouis/alt-tab-macos/compare/v6.46.0...v6.46.1) (2022-06-24)
 
 
