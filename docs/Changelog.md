@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.48.0](https://github.com/lwouis/alt-tab-macos/compare/v6.47.0...v6.48.0) (2022-10-27)
+
+
+### Bug Fixes
+
+* app name in system settings in macos 13 (closes [#2044](https://github.com/lwouis/alt-tab-macos/issues/2044)) ([02451e8](https://github.com/lwouis/alt-tab-macos/commit/02451e8))
+
+
+### Features
+
+* add 3 more shortcut tabs in the preferences (closes [#1064](https://github.com/lwouis/alt-tab-macos/issues/1064)) ([31bd0a6](https://github.com/lwouis/alt-tab-macos/commit/31bd0a6))
+
 # [6.47.0](https://github.com/lwouis/alt-tab-macos/compare/v6.46.1...v6.47.0) (2022-10-14)
 
 
