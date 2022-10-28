@@ -118,7 +118,6 @@ class Windows {
         let nextIndex = windowIndexAfterCycling(step)
         if ((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
                (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
-            KeyRepeatTimer.timer?.invalidate()
             return
         }
         updateFocusedWindowIndex(nextIndex)

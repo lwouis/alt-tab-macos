@@ -35,7 +35,7 @@ class GeneralTab {
         App.app.restart()
     }
 
-    // add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
+    /// add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
     static func startAtLoginCallback(_ sender: NSControl) {
         var launchAgentsPath = (try? FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)) ?? URL.init(fileURLWithPath: "~/Library", isDirectory: true)
         launchAgentsPath.appendPathComponent("LaunchAgents", isDirectory: true)
@@ -49,12 +49,19 @@ class GeneralTab {
         launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
         if (sender as! NSButton).state == .on {
             // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
+            // docs: man launchd.plist
             let plist: NSDictionary = [
                 "Label": App.id,
                 "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
                 "RunAtLoad": true,
                 "LimitLoadToSessionType": "Aqua",
                 "AssociatedBundleIdentifiers": App.id,
+                // "ProcessType: If left unspecified, the system will apply light resource limits to the job,
+                //               throttling its CPU usage and I/O bandwidth"
+                "ProcessType": "Interactive",
+                // "LegacyTimers": If this key is set to true, timers created by the job will opt into less
+                //                 efficient but more precise behavior and not be coalesced with other timers.
+                "LegacyTimers": true,
             ]
             plist.write(to: launchAgentsPath, atomically: true)
         } else {
