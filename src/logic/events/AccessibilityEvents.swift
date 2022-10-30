@@ -97,8 +97,6 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
             let level = try wid.level()
             let position = try element.position()
             let size = try element.size()
-            let parent = try element.parent()
-            let parentWid = try parent?.cgWindowId()
             DispatchQueue.main.async {
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows)
