@@ -370,6 +370,7 @@ class Preferences {
         return "6"
     }
 
+    /// key-above-tab is ` on US keyboard, but can be different on other keyboards
     static func keyAboveTabDependingOnInputSource() -> String {
         return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_ANSI_Grave)) ?? "`"
     }

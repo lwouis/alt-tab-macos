@@ -203,15 +203,22 @@ func SLSRequestScreenCaptureAccess() -> UInt8
 let kAXFullscreenAttribute = "AXFullScreen"
 let kAXStatusLabelAttribute = "AXStatusLabel"
 
+enum CGSSymbolicHotKey: Int, CaseIterable {
+    case commandTab = 1
+    case commandShiftTab = 2
+    case commandKeyAboveTab = 6 // see keyAboveTabDependingOnInputSource
+}
+
 // enables/disables a symbolic hotkeys. These are system shortcuts such as command+tab or Spotlight
 // it is possible to find all the existing hotkey IDs by using CGSGetSymbolicHotKeyValue on the first few hundred numbers
 // note: the effect of enabling/disabling persists after the app is quit
 @_silgen_name("CGSSetSymbolicHotKeyEnabled") @discardableResult
-func CGSSetSymbolicHotKeyEnabled(_ hotKey: Int, _ isEnabled: Bool) -> CGError
+func CGSSetSymbolicHotKeyEnabled(_ hotKey: CGSSymbolicHotKey.RawValue, _ isEnabled: Bool) -> CGError
 
-func setNativeCommandTabEnabled(_ isEnabled: Bool) {
-    CGSSetSymbolicHotKeyEnabled(1, isEnabled) // command+tab
-    CGSSetSymbolicHotKeyEnabled(2, isEnabled) // command+shift+tab
+func setNativeCommandTabEnabled(_ isEnabled: Bool, _ hotkeys: [CGSSymbolicHotKey] = CGSSymbolicHotKey.allCases) {
+    for hotkey in hotkeys {
+        CGSSetSymbolicHotKeyEnabled(hotkey.rawValue, isEnabled)
+    }
 }
 
 // returns info about a given psn
