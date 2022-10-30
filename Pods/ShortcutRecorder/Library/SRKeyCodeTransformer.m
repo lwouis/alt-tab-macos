@@ -318,6 +318,10 @@ typedef TISInputSourceRef (*_SRKeyCodeTransformerCacheInputSourceCreate)(void);
                                      explicitModifierFlags:0
                                                 usingCache:YES];
 
+            // fix: https://github.com/lwouis/alt-tab-macos/issues/1190
+            if (newTranslationToKeyCode[translation])
+                continue;
+
             if (translation.length)
                 newTranslationToKeyCode[translation] = keyCode;
         }
