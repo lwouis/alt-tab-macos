@@ -80,21 +80,21 @@ class App: AppCenterApplication, NSApplicationDelegate {
         setNativeCommandTabEnabled(true)
     }
 
-    // pre-load some windows so they are faster on first display
+    /// pre-load some windows so they are faster on first display
     private func preloadWindows() {
         thumbnailsPanel.orderFront(nil)
         thumbnailsPanel.orderOut(nil)
     }
 
-    // keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
-    // see https://stackoverflow.com/a/3746058/2249756
+    /// keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
+    /// see https://stackoverflow.com/a/3746058/2249756
     private func loadMainMenuXib() {
         var menuObjects: NSArray?
         Bundle.main.loadNibNamed("MainMenu", owner: self, topLevelObjects: &menuObjects)
         menu = menuObjects?.first { $0 is NSMenu } as? NSMenu
     }
 
-    // we put application code here which should be executed on init() and Preferences change
+    /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
         ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
         thumbnailsPanel.thumbnailsView.updateRoundedCorners(Preferences.windowCornerRadius)
@@ -115,7 +115,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         hideThumbnailPanelWithoutChangingKeyWindow()
     }
 
-    // we don't want another window to become key when the thumbnailPanel is hidden
+    /// we don't want another window to become key when the thumbnailPanel is hidden
     func hideThumbnailPanelWithoutChangingKeyWindow() {
         preferencesWindow.canBecomeKey_ = false
         feedbackWindow.canBecomeKey_ = false
