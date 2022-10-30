@@ -157,7 +157,7 @@ class Window {
                 guard let self = self else { return }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
-                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, .userGenerated)
+                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(psn)
                 self.axUiElement.focusWindow()
             }

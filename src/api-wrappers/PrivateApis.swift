@@ -159,7 +159,7 @@ func CGSMoveWindowsToManagedSpace(_ cid: CGSConnectionID, _ windows: NSArray, _ 
 // focuses the front process
 // * macOS 10.12+
 @_silgen_name("_SLPSSetFrontProcessWithOptions") @discardableResult
-func _SLPSSetFrontProcessWithOptions(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID, _ mode: SLPSMode) -> CGError
+func _SLPSSetFrontProcessWithOptions(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID, _ mode: SLPSMode.RawValue) -> CGError
 
 // sends bytes to the WindowServer
 // more context: https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
@@ -352,7 +352,7 @@ func CGSSpaceAddWindowsAndRemoveFromSpaces(_ cid: CGSConnectionID, _ sid: CGSSpa
 //// change window order. I tried with relativeToWindow=0, and place=.orderAbove, and it does nothing
 //// * macOS 10.10+
 //@_silgen_name("CGSOrderWindow") @discardableResult
-//func CGSOrderWindow(_ cid: CGSConnectionID, _ win: CGWindowID, _ place: CGSWindowOrderingMode, relativeTo: CGWindowID /* can be NULL */) -> OSStatus
+//func CGSOrderWindow(_ cid: CGSConnectionID, _ win: CGWindowID, _ place: CGSWindowOrderingMode.RawValue, relativeTo: CGWindowID /* can be NULL */) -> OSStatus
 //
 //// Get on-screen window counts and lists. With targetCID=1 -> returns []. With targetCID=0 -> crashes, with targetCID=cid -> crashes
 //// * macOS 10.10+
