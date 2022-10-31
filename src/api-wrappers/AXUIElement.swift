@@ -90,6 +90,7 @@ extension AXUIElement {
                     ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
                         openBoard(runningApp) ||
                         adobeAudition(runningApp, subrole) ||
+                        adobeAfterEffects(runningApp, subrole) ||
                         steam(runningApp, title, role) ||
                         worldOfWarcraft(runningApp, role) ||
                         battleNetBootstrapper(runningApp, role) ||
@@ -134,6 +135,10 @@ extension AXUIElement {
 
     private static func adobeAudition(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
         return runningApp.bundleIdentifier == "com.adobe.Audition" && subrole == kAXFloatingWindowSubrole
+    }
+
+    private static func adobeAfterEffects(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
+        return runningApp.bundleIdentifier == "com.adobe.AfterEffects" && subrole == kAXFloatingWindowSubrole
     }
 
     private static func books(_ runningApp: NSRunningApplication) -> Bool {
