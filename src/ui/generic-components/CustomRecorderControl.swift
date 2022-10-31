@@ -37,7 +37,7 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
         set(allowedModifierFlags: allowedModifiers.subtracting(restrictedModifiers), requiredModifierFlags: [], allowsEmptyModifierFlags: true)
     }
 
-    // only allow modifiers: ⌥ -> valid, e -> invalid, ⌥e -> invalid
+    /// only allow modifiers: ⌥ -> valid, e -> invalid, ⌥e -> invalid
     func recorderControl(_ control: RecorderControl, canRecord shortcut: Shortcut) -> Bool {
         if !clearable && shortcut.keyCode != .none {
             return false
@@ -81,31 +81,37 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
     }
 
     private func isShortcutAlreadyAssigned(_ shortcut: Shortcut) -> ATShortcut? {
-        ControlsTab.shortcuts.values.first {
-            if id == $0.id {
+        let comboShortcutName = id.starts(with: "holdShortcut") ?
+            Preferences.indexToName("nextWindowShortcut", Preferences.nameToIndex(id)) :
+            (id.starts(with: "nextWindowShortcut") ?
+                Preferences.indexToName("holdShortcut", Preferences.nameToIndex(id)) : id)
+        let comboShortcut = comboShortcutName.flatMap { ControlsTab.shortcuts[$0]?.shortcut }
+        return (ControlsTab.shortcuts.first { (id2, s2) in
+            let shortcut2 = s2.shortcut
+            if id == id2
+                   || (shortcut2.keyCode == .none && shortcut2.carbonModifierFlags == 0)
+                   || id2.starts(with: "holdShortcut")
+                   || ((id.starts(with: "holdShortcut") || id.starts(with: "nextWindowShortcut")) && id2 == comboShortcutName) {
                 return false
             }
-            if (id.starts(with: "holdShortcut") && $0.id.starts(with: "holdShortcut") || (id.starts(with: "nextWindowShortcut")) && $0.id.starts(with: "nextWindowShortcut")) {
-                let index = Preferences.nameToIndex(id)
-                let otherIndex = Preferences.nameToIndex($0.id)
-                if id.starts(with: "holdShortcut") {
-                    return Preferences.nextWindowShortcut[index] == Preferences.nextWindowShortcut[otherIndex] &&
-                        shortcut.modifierFlags == ControlsTab.shortcutControls[Preferences.indexToName("holdShortcut", otherIndex)]!.0.objectValue!.modifierFlags
-                }
-                if id.starts(with: "nextWindowShortcut") {
-                    if let nextWindowShortcut = ControlsTab.shortcutControls[Preferences.indexToName("nextWindowShortcut", otherIndex)]?.0.objectValue {
-                        return Preferences.holdShortcut[index] == Preferences.holdShortcut[otherIndex] &&
-                            shortcut.modifierFlags == nextWindowShortcut.modifierFlags &&
-                            shortcut.keyCode == nextWindowShortcut.keyCode
-                    }
+            if shortcut2.keyCode != (id.starts(with: "holdShortcut") ? comboShortcut?.keyCode : shortcut.keyCode) {
+                return false
+            }
+            if id.starts(with: "holdShortcut") {
+                if ((comboShortcut?.carbonModifierFlags ?? 0) ^ (ControlsTab.shortcuts[id]?.shortcut.carbonModifierFlags ?? 0) | shortcut.carbonModifierFlags)
+                       != (shortcut.carbonModifierFlags | shortcut2.carbonModifierFlags) {
                     return false
                 }
+            } else if id.starts(with: "nextWindowShortcut") {
+                if ((comboShortcut?.carbonModifierFlags ?? 0) | shortcut.carbonModifierFlags)
+                       != ((comboShortcut?.carbonModifierFlags ?? 0) | shortcut2.carbonModifierFlags) {
+                    return false
+                }
+            } else if !ControlsTab.combinedModifiersMatch(shortcut2.carbonModifierFlags, shortcut.carbonModifierFlags) {
+                return false
             }
-            if $0.id.starts(with: "nextWindowShortcut") {
-                let index = Preferences.nameToIndex($0.id)
-                return $0.shortcut.keyCode == shortcut.keyCode && ($0.shortcut.carbonModifierFlags ^ ControlsTab.shortcutControls[Preferences.indexToName("holdShortcut", index)]!.0.objectValue!.carbonModifierFlags) == shortcut.carbonModifierFlags
-            }
-            return $0.shortcut.keyCode == shortcut.keyCode && $0.shortcut.modifierFlags == shortcut.modifierFlags
-        }
+            return true
+        })?
+                .value
     }
 }
