@@ -125,15 +125,15 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func closeSelectedWindow() {
-        Windows.focusedWindow()?.close()
+        Windows.focusedWindow()?.close(true)
     }
 
     func minDeminSelectedWindow() {
-        Windows.focusedWindow()?.minDemin()
+        Windows.focusedWindow()?.minDemin(true)
     }
 
     func quitSelectedApp() {
-        Windows.focusedWindow()?.application.quit()
+        Windows.focusedWindow()?.application.quit(true)
     }
 
     func hideShowSelectedApp() {

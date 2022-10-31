@@ -101,8 +101,11 @@ class Window {
         }
     }
 
-    func close() {
-        if isWindowlessApp { return }
+    func close(_ alertSound: Bool = false) {
+        if isWindowlessApp {
+            if alertSound { NSSound.beep() }
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
@@ -114,8 +117,11 @@ class Window {
         }
     }
 
-    func minDemin() {
-        if isWindowlessApp { return }
+    func minDemin(_ alertSound: Bool = false) {
+        if isWindowlessApp || isTabbed {
+            if alertSound { NSSound.beep() }
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {

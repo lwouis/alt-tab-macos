@@ -125,9 +125,12 @@ class Application: NSObject {
         }
     }
 
-    func quit() {
+    func quit(_ alertSound: Bool = false) {
         // only let power users quit Finder if they opt-in
-        if runningApplication.bundleIdentifier == "com.apple.finder" && !Preferences.finderShowsQuitMenuItem { return }
+        if runningApplication.bundleIdentifier == "com.apple.finder" && !Preferences.finderShowsQuitMenuItem {
+            if alertSound { NSSound.beep() }
+            return
+        }
         if alreadyRequestedToQuit {
             runningApplication.forceTerminate()
         } else {
