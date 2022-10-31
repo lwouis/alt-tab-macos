@@ -101,8 +101,15 @@ class Window {
         }
     }
 
+    func canBeClosed() -> Bool {
+        return !isWindowlessApp
+    }
+
     func close() {
-        if isWindowlessApp { return }
+        if !canBeClosed() {
+            NSSound.beep()
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
@@ -114,8 +121,15 @@ class Window {
         }
     }
 
+    func canBeMinDeminOrFullscreened() -> Bool {
+        return !isWindowlessApp && !isTabbed
+    }
+
     func minDemin() {
-        if isWindowlessApp { return }
+        if !canBeMinDeminOrFullscreened() {
+            NSSound.beep()
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
@@ -132,7 +146,10 @@ class Window {
     }
 
     func toggleFullscreen() {
-        if isWindowlessApp { return }
+        if canBeMinDeminOrFullscreened() {
+            NSSound.beep()
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
             guard let self = self else { return }
             self.axUiElement.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
@@ -164,7 +181,7 @@ class Window {
         }
     }
 
-    // The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
+    /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
     func makeKeyWindow(_ psn: ProcessSerialNumber) -> Void {
         var psn_ = psn
         var bytes1 = [UInt8](repeating: 0, count: 0xf8)

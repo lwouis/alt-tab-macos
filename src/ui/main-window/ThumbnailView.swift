@@ -78,9 +78,9 @@ class ThumbnailView: NSStackView {
             var yOffset = CGFloat(2 + ThumbnailView.windowsControlSize)
             [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { icon in
                 icon.isHidden = !shouldShow ||
-                    ((window_?.isWindowlessApp ?? true) && icon.type != .quit) ||
-                    (icon.type == .quit && window_?.application.runningApplication.bundleIdentifier == "com.apple.finder" && !Preferences.finderShowsQuitMenuItem) ||
-                    ((icon.type == .miniaturize || icon.type == .fullscreen) && (window_?.isTabbed ?? true))
+                    (icon.type == .quit && !(window_?.application.canBeQuit() ?? true)) ||
+                    (icon.type == .close && !(window_?.canBeClosed() ?? true)) ||
+                    ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
                 if !icon.isHidden {
                     icon.setFrameOrigin(NSPoint(
                         x: xOffset,
