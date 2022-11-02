@@ -55,6 +55,8 @@ class GeneralTab {
                 "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
                 "RunAtLoad": true,
                 "LimitLoadToSessionType": "Aqua",
+                // starting from macOS 13, AssociatedBundleIdentifiers is required, otherwise the UI in
+                // System Settings > General > Login Items, will show "Louis Pontoise" instead of "AltTab.app"
                 "AssociatedBundleIdentifiers": App.id,
                 // "ProcessType: If left unspecified, the system will apply light resource limits to the job,
                 //               throttling its CPU usage and I/O bandwidth"
