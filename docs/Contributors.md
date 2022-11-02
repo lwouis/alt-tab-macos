@@ -42,6 +42,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * afuio@qq. com
 * Albert Abdilim
 * Ali Gokmen
+* Ali. tas103
 * Allen Guan
 * Ameng
 * Anders Brandén
