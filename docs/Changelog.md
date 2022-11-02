@@ -1,5 +1,25 @@
 # Release notes
 
+# [6.49.0](https://github.com/lwouis/alt-tab-macos/compare/v6.48.0...v6.49.0) (2022-11-02)
+
+
+### Bug Fixes
+
+* command+backtick not working if stage manager is on (closes [#2053](https://github.com/lwouis/alt-tab-macos/issues/2053)) ([848ae5f](https://github.com/lwouis/alt-tab-macos/commit/848ae5f))
+* crash when setting some shortcut combinations (closes [#2061](https://github.com/lwouis/alt-tab-macos/issues/2061)) ([8b2d659](https://github.com/lwouis/alt-tab-macos/commit/8b2d659))
+* hide minimize and fullscreen thumbnail buttons for tabs ([b62c422](https://github.com/lwouis/alt-tab-macos/commit/b62c422))
+* improve key repeat-rate when held (closes [#2026](https://github.com/lwouis/alt-tab-macos/issues/2026)) ([1821dea](https://github.com/lwouis/alt-tab-macos/commit/1821dea))
+* key-above-tab on international keyboards (closes [#1190](https://github.com/lwouis/alt-tab-macos/issues/1190)) ([4c31740](https://github.com/lwouis/alt-tab-macos/commit/4c31740))
+* thumbnails would sometimes be the wrong size ([1065c0d](https://github.com/lwouis/alt-tab-macos/commit/1065c0d))
+* wrong focus after active app becomes windowless (closes [#2065](https://github.com/lwouis/alt-tab-macos/issues/2065)) ([281b3ed](https://github.com/lwouis/alt-tab-macos/commit/281b3ed))
+
+
+### Features
+
+* improve some localizations ([292e6b0](https://github.com/lwouis/alt-tab-macos/commit/292e6b0))
+* play alert sound for unavailable thumbnail shortcuts ([fd84a9a](https://github.com/lwouis/alt-tab-macos/commit/fd84a9a))
+* support adobe after effects non-standard windows (closes [#1982](https://github.com/lwouis/alt-tab-macos/issues/1982)) ([7b54873](https://github.com/lwouis/alt-tab-macos/commit/7b54873))
+
 # [6.48.0](https://github.com/lwouis/alt-tab-macos/compare/v6.47.0...v6.48.0) (2022-10-27)
 
 
