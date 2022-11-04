@@ -21,3 +21,9 @@ Add screenshots to help explain your problem. You can also use Loom to easily re
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
+
+**Your environment**
+
+* AltTab version: 
+* macOS version: 
+* Other relevant info: e.g. using external keyboard, multiple monitors, etc
