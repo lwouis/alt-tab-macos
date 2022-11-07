@@ -33,7 +33,7 @@ Alternatively, you can use [homebrew](https://brew.sh/):
 
 ## Compatibility
 
-* __macOS version:__ from 10.12 to 12 (Monterey)
+* __macOS version:__ from 10.12 to latest
 * __Apple Silicon:__ yes, AltTab is [universal](https://developer.apple.com/documentation/apple-silicon/porting-your-macos-apps-to-apple-silicon)
 
 ## Localization
