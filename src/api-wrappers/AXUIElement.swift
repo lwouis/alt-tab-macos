@@ -94,7 +94,7 @@ extension AXUIElement {
                         steam(runningApp, title, role) ||
                         worldOfWarcraft(runningApp, role) ||
                         battleNetBootstrapper(runningApp, role) ||
-                        firefoxFullscreenVideo(runningApp, role) ||
+                        firefox(runningApp, role, size) ||
                         vlcFullscreenVideo(runningApp, role) ||
                         sanGuoShaAirWD(runningApp) ||
                         dvdFab(runningApp) ||
@@ -179,9 +179,10 @@ extension AXUIElement {
         return runningApp.bundleIdentifier != "com.valvesoftware.steam" || (title != nil && title != "" && role != nil)
     }
 
-    private static func firefoxFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
+    private static func firefox(_ runningApp: NSRunningApplication, _ role: String?, _ size: CGSize?) -> Bool {
         // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
-        return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == kAXWindowRole
+        // Firefox tooltips are implemented as windows with subrole == AXUnknown
+        return (runningApp.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == kAXWindowRole && size?.height != nil && size!.height > 400
     }
 
     private static func vlcFullscreenVideo(_ runningApp: NSRunningApplication, _ role: String?) -> Bool {
