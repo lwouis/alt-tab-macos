@@ -138,7 +138,7 @@ func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: Int, _ sp
 // returns the current space ID on the provided display UUID
 // * macOS 10.10+
 @_silgen_name("CGSManagedDisplayGetCurrentSpace")
-func CGSManagedDisplayGetCurrentSpace(_ cid: CGSConnectionID, _ displayUuid: CFString) -> CGSSpaceID
+func CGSManagedDisplayGetCurrentSpace(_ cid: CGSConnectionID, _ displayUuid: ScreenUuid) -> CGSSpaceID
 
 // adds the provided windows to the provided spaces
 // * macOS 10.10-12.2
@@ -251,6 +251,11 @@ func CGSSpaceGetType(_ cid: CGSConnectionID, _ sid: CGSSpaceID) -> CGSSpaceType
 @_silgen_name("CGSSpaceAddWindowsAndRemoveFromSpaces")
 func CGSSpaceAddWindowsAndRemoveFromSpaces(_ cid: CGSConnectionID, _ sid: CGSSpaceID, _ wid: NSArray, _ notSure: Int) -> Void
 
+// get the display UUID with the active menubar (other menubar are dimmed)
+@_silgen_name("CGSCopyActiveMenuBarDisplayIdentifier")
+func CGSCopyActiveMenuBarDisplayIdentifier(_ cid: CGSConnectionID) -> ScreenUuid
+
+
 // ------------------------------------------------------------
 // below are some notes on some private APIs I experimented with
 // ------------------------------------------------------------
@@ -263,7 +268,7 @@ func CGSSpaceAddWindowsAndRemoveFromSpaces(_ cid: CGSConnectionID, _ sid: CGSSpa
 //// returns true if the current screen is animating
 //// useful to detect Spaces transitions, windows going fullscreen, etc
 //@_silgen_name("SLSManagedDisplayIsAnimating")
-//func SLSManagedDisplayIsAnimating(_ cid: CGSConnectionID, _ displayUuid: CFString) -> Bool
+//func SLSManagedDisplayIsAnimating(_ cid: CGSConnectionID, _ displayUuid: ScreenUuid) -> Bool
 
 //@_silgen_name("CGSGetSymbolicHotKeyValue")
 //func CGSGetSymbolicHotKeyValue(_ hotKey: Int, _ options: inout UInt32, _ keyCode: inout UInt32, _ modifiers: inout UInt32) -> CGError
