@@ -1,5 +1,21 @@
 # Release notes
 
+# [6.50.0](https://github.com/lwouis/alt-tab-macos/compare/v6.49.0...v6.50.0) (2022-11-14)
+
+
+### Bug Fixes
+
+* don't show firefox tooltips as windows (closes [#2110](https://github.com/lwouis/alt-tab-macos/issues/2110)) ([bf905b1](https://github.com/lwouis/alt-tab-macos/commit/bf905b1))
+* tabs show as separate windows sometimes on monterey (closes [#2017](https://github.com/lwouis/alt-tab-macos/issues/2017)) ([0965a78](https://github.com/lwouis/alt-tab-macos/commit/0965a78))
+
+
+### Features
+
+* avoid accidental press of the "reset preferences" button ([#2093](https://github.com/lwouis/alt-tab-macos/issues/2093)) ([f6fcac5](https://github.com/lwouis/alt-tab-macos/commit/f6fcac5))
+* avoid confusion with native app-switcher (closes [#2080](https://github.com/lwouis/alt-tab-macos/issues/2080)) ([f906c0e](https://github.com/lwouis/alt-tab-macos/commit/f906c0e))
+* improve localizations ([2123af3](https://github.com/lwouis/alt-tab-macos/commit/2123af3))
+* show alttab on display with active menubar when needed ([#2107](https://github.com/lwouis/alt-tab-macos/issues/2107)) ([917e661](https://github.com/lwouis/alt-tab-macos/commit/917e661))
+
 # [6.49.0](https://github.com/lwouis/alt-tab-macos/compare/v6.48.0...v6.49.0) (2022-11-02)
 
 
