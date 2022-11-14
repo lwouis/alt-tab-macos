@@ -264,6 +264,9 @@
 "Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Reset preferences and restart…";
+
+/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rijen met miniaturen:";
 
 /*No comment provided by engineer.*/
@@ -409,6 +412,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Afkappen venstertitel:";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "You can’t undo this action.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Je hebt geen e-mail ingevoerd en kunt dus geen reactie ontvangen.";

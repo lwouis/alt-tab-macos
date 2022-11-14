@@ -261,7 +261,10 @@
 "Remember my choice" = "Se souvenir de mon choix";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Initialiser les Préférences et redémarrer ";
+"Reset preferences and restart" = "Réinitialiser les préférences et redémarrer";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Réinitialiser les préférences et redémarrer…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Lignes d’aperçus :";
@@ -312,13 +315,13 @@
 "Shortcut 2" = "Raccourci 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Raccourci 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Raccourci 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Raccourci 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Raccourci déjà affecté à une autre action : %@";
@@ -409,6 +412,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Troncature du titre des fenêtres :";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "Vous ne pourrez pas annuler cette action.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Vous n’avez pas saisi votre email, et ne pourrez donc pas recevoir de réponse.";

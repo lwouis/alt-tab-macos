@@ -264,6 +264,9 @@
 "Reset preferences and restart" = "설정 초기화 후 다시 시작";
 
 /*No comment provided by engineer.*/
+"Reset preferences and restart…" = "설정 초기화 후 다시 시작...";
+
+/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "썸네일의 줄 개수:";
 
 /*No comment provided by engineer.*/
@@ -312,13 +315,13 @@
 "Shortcut 2" = "단축키 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "단축키 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "단축키 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "단축키 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "단축키가 이미 다른 동작에 할당되어 있습니다: %@";
@@ -354,7 +357,7 @@
 "Then release:" = "그리고 놓으면:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "이 권한은 단축키를 사용했을 때 원하는 윈도우로 이동할 수 있게 해줍니다";
+"This permission is needed to focus windows after you release the shortcut" = "단축키 사용 후 창에 포커스 하기 위해서는 이 권한이 필요합니다";
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "이 권한은 윈도우의 이미지와 제목을 띄울 수 있게 해줍니다";
@@ -409,6 +412,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "윈도우 제목 생략 위치:";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "이 작업은 되돌릴 수 없습니다.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "이메일을 적지 않으면 답변을 받을 수 없습니다.";

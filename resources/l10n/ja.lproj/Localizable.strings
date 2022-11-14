@@ -48,7 +48,7 @@
 "AltTab needs some permissions" = "AltTabが許可を求めています。";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "常に";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "常にクラッシュレポートを送信する";
@@ -57,13 +57,13 @@
 "and press:" = "押しながら、次のキーを押す：";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "アプリ（次のバンドルIDで始まる）";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "アプリが隠されています";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "アプリは実行中ですが、開いているウィンドウがありません";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "表示を遅延：";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "クラッシュレポートポリシー：";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "カーソルがフォーカスに従う";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "何もしない";
@@ -141,7 +141,7 @@
 "Focus selected window" = "選択されたウィンドウを表示";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "ウィンドウを全画面表示に切り替える";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "フルスクリーンウィンドウ：";
@@ -165,7 +165,7 @@
 "Hide colored circles on mouse hover:" = "マウスホバーした際、ウィンドウ設定を表示しない：";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "%@から隠す";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "デスクトップ番号ラベルを表示しない：";
@@ -186,7 +186,7 @@
 "I think the app could be improved with…" = "アプリの◯◯を改善したい…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "アクティブの間はショートカットを無効にする";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "これらのアプリのウィンドウがアクティブの間はショートカットを無効にする";
@@ -210,13 +210,13 @@
 "Middle" = "文中";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "ウィンドウをしまう / 開く";
+"Minimize/Deminimize window" = "ウィンドウを最小化/最小化解除";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "しまわれたウィンドウ：";
+"Minimized windows:" = "最小化されたウィンドウ：";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "その他：";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "マウスホバー";
@@ -261,7 +261,10 @@
 "Remember my choice" = "設定を記憶する";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "設定をリセットして再起動";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart…" = "設定をリセットして再起動…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "サムネイルの列：";
@@ -312,13 +315,13 @@
 "Shortcut 2" = "ショートカット２";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "ショートカット３";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "ショートカット４";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "ショートカット５";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "既に：%@に割り当てられたショートカット";
@@ -375,10 +378,10 @@
 "Visible Spaces" = "現在のスペース";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "フルスクリーンの場合";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "開いているウィンドウがない場合";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "ウィンドウが表示中、次のボタンを押す：";
@@ -387,16 +390,16 @@
 "Window app icon size:" = "ウィンドウに表示されるアイコンサイズ：";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "ウィンドウが全画面表示中です";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "ウィンドウが最小化されています";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "ウィンドウが全てのデスクトップにあります";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "ウィンドウが %dデスクトップにあります";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "列に表示される最大ウィンドウ幅：";
@@ -409,6 +412,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "ウィンドウタイトル短縮：";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "この操作は元に戻すことができません。";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "ご自身のEmailを入力しなかったため、回答を受信できません。";

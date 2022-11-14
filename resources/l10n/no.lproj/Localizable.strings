@@ -264,6 +264,9 @@
 "Reset preferences and restart" = "Tilbakestill innstillinger og restart";
 
 /*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Reset preferences and restart…";
+
+/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rader med miniatyrbilder:";
 
 /*No comment provided by engineer.*/
@@ -409,6 +412,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Forkortelse av vindustittel:";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "You can’t undo this action.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Du la ikke inn din epost, derfor kan du ikke få tilbakemelding.";

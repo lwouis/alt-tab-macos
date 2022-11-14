@@ -264,6 +264,9 @@
 "Reset preferences and restart" = "সেটিং রিসেট করুন এবং পুনরায় চালু করুন";
 
 /*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Reset preferences and restart…";
+
+/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "থাম্বনেইলের সারি:";
 
 /*No comment provided by engineer.*/
@@ -409,6 +412,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "উইন্ডো শিরোনাম ছেদন:";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "You can’t undo this action.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "আপনি আপনার ইমেল লেখেননি, তাই কোনো রিপ্লেও পাবেন না।";

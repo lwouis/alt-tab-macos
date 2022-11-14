@@ -269,6 +269,9 @@
 "Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Reset preferences and restart…";
+
+/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Počet řádků náhledů:";
 
 /*No comment provided by engineer.*/
@@ -414,6 +417,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Zkrácení titulku okna";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "You can’t undo this action.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Nenapsali jste váš e-mail, takže nemůžete dostat odpověď.";

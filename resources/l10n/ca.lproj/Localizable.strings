@@ -42,7 +42,7 @@
 "Also select windows using:" = "També seleccionar:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab es va tancar a causa d'un problema. Enviar un informe d'error ajudarà a resoldre'l";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab s'ha tancat a causa d'un problema. Enviar un informe d'error ajudarà a resoldre'l";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "L'AltTab necessita alguns permisos";
@@ -81,7 +81,7 @@
 "Ask whether to send crash reports" = "Preguntar cada vegada";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Instal·lar actualitzacions automàticament";
+"Auto-install updates periodically" = "Comprovar i instal·lar periòdicament";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Excepcions";
@@ -99,7 +99,7 @@
 "Check for updates now…" = "Cercar actualitzacions...";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Comprovar actualitzacions periòdicament";
+"Check for updates periodically" = "Comprovar periòdicament";
 
 /*No comment provided by engineer.*/
 "Check for updates…" = "Buscar actualitzacions...";
@@ -123,7 +123,7 @@
 "Do nothing" = "No fer res";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "No comprovar actualitzacions";
+"Don’t check for updates periodically" = "No comprovar";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "No enviar";
@@ -156,13 +156,13 @@
 "Hide" = "Amagar";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Amagar insígnies de l'aplicació:";
+"Hide app badges:" = "Amagar indicadors de notificacions:";
 
 /*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Amagar aplicacions sense finestres obertes:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Amagar cercles de colors en passar el cursor:";
+"Hide colored circles on mouse hover:" = "Amagar controls en passar el cursor:";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Amaga a %@";
@@ -264,6 +264,9 @@
 "Reset preferences and restart" = "Restablir preferències i reiniciar";
 
 /*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Restaurar preferències i iniciar...";
+
+/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Files de miniatures:";
 
 /*No comment provided by engineer.*/
@@ -312,13 +315,13 @@
 "Shortcut 2" = "Drecera 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Drecera 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Drecera 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Drecera 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Drecera assignada a una altra acció: %@";
@@ -409,6 +412,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Escurçament dels títols:";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "Aquesta opció no es pot desfer.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "No has indicat adreça de correu, no rebràs cap resposta.";
