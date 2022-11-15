@@ -69,10 +69,11 @@ class Spaces {
         return idsAndIndexes.filter { $0.0 != currentSpaceId }.map { $0.0 }
     }
 
-    static func windowsInSpaces(_ spaceIds: [CGSSpaceID], _ options: CGSCopyWindowsOptions) -> [CGWindowID] {
+    static func windowsInSpaces(_ spaceIds: [CGSSpaceID]) -> [CGWindowID] {
         var set_tags = ([] as CGSCopyWindowsTags).rawValue
         var clear_tags = ([] as CGSCopyWindowsTags).rawValue
-        return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, options.rawValue, &set_tags, &clear_tags) as! [CGWindowID]
+        let options = ([.minimizedAndTabbed, .screenSaverLevel1000] as CGSCopyWindowsOptions).rawValue
+        return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, options, &set_tags, &clear_tags) as! [CGWindowID]
     }
 
     static func isSingleSpace() -> Bool {

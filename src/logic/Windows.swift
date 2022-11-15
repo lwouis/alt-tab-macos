@@ -161,7 +161,7 @@ class Windows {
     /// tabs detection is a flaky work-around the lack of public API to observe OS tabs
     /// see: https://github.com/lwouis/alt-tab-macos/issues/1540
     static func detectTabbedWindows() {
-        let cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 }, [.minimizedAndTabbed])
+        let cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 })
         list.forEach {
             if let cgWindowId = $0.cgWindowId {
                 $0.isTabbed = !cgsWindowIds.contains(cgWindowId)
@@ -171,7 +171,7 @@ class Windows {
 
     static func sortByLevel() {
         var windowLevelMap = [CGWindowID: Int]()
-        for (index, cgWindowId) in Spaces.windowsInSpaces([Spaces.currentSpaceId], [.minimizedAndTabbed]).enumerated() {
+        for (index, cgWindowId) in Spaces.windowsInSpaces([Spaces.currentSpaceId]).enumerated() {
             windowLevelMap[cgWindowId] = index
         }
         var sortedTuples = Windows.list

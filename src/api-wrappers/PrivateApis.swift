@@ -113,6 +113,7 @@ func CGSCopyManagedDisplaySpaces(_ cid: CGSConnectionID) -> CFArray
 struct CGSCopyWindowsOptions: OptionSet {
     let rawValue: Int
     static let minimizedAndTabbed = CGSCopyWindowsOptions(rawValue: 1 << 0)
+    // retrieves windows when their app is assigned to All Spaces, and windows at ScreenSaver level 1000
     static let screenSaverLevel1000 = CGSCopyWindowsOptions(rawValue: 1 << 1)
     static let minimized2 = CGSCopyWindowsOptions(rawValue: 1 << 2)
     static let unknown1 = CGSCopyWindowsOptions(rawValue: 1 << 3)
