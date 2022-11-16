@@ -264,7 +264,7 @@
 "Reset preferences and restart" = "重置所有设置并重启";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "重置所有设置并重启...";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "缩略图行数：";
@@ -414,7 +414,7 @@
 "Window title truncation:" = "窗口标题删节：";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "您无法撤消此操作";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "您未填写电子邮箱地址，将无法收到回复。";

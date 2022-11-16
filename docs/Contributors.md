@@ -68,6 +68,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Eric WANTZ
 * Ersagun Kuruca
 * Eukarya
+* Eyelly wu
 * fabifabulousity
 * Filipe
 * Frangarciasalomon
