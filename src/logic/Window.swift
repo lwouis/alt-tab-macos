@@ -146,7 +146,7 @@ class Window {
     }
 
     func toggleFullscreen() {
-        if canBeMinDeminOrFullscreened() {
+        if !canBeMinDeminOrFullscreened() {
             NSSound.beep()
             return
         }
