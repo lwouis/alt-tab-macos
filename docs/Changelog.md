@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.51.0](https://github.com/lwouis/alt-tab-macos/compare/v6.50.0...v6.51.0) (2022-11-16)
+
+
+### Bug Fixes
+
+* fullscreening windows stopped working (closes [#2129](https://github.com/lwouis/alt-tab-macos/issues/2129)) ([a09dbbf](https://github.com/lwouis/alt-tab-macos/commit/a09dbbf))
+* windows assigned to all spaces were not shown (closes [#2123](https://github.com/lwouis/alt-tab-macos/issues/2123)) ([82cfb62](https://github.com/lwouis/alt-tab-macos/commit/82cfb62))
+
+
+### Features
+
+* improve localizations ([d2d5016](https://github.com/lwouis/alt-tab-macos/commit/d2d5016))
+
 # [6.50.0](https://github.com/lwouis/alt-tab-macos/compare/v6.49.0...v6.50.0) (2022-11-14)
 
 
