@@ -229,10 +229,21 @@ class Windows {
     /// tabs detection is a flaky work-around the lack of public API to observe OS tabs
     /// see: https://github.com/lwouis/alt-tab-macos/issues/1540
     static func detectTabbedWindows() {
-        let cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 })
+        lazy var cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 })
+        lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 }, false)
         list.forEach {
             if let cgWindowId = $0.cgWindowId {
-                $0.isTabbed = !cgsWindowIds.contains(cgWindowId)
+                if $0.isMinimized || $0.isHidden {
+                    if #available(macOS 13, *) {
+                        // not exact after window merging
+                        $0.isTabbed = !cgsWindowIds.contains(cgWindowId)
+                    } else {
+                        // not known
+                        $0.isTabbed = false
+                    }
+                } else {
+                    $0.isTabbed = !visibleCgsWindowIds.contains(cgWindowId)
+                }
             }
         }
     }
