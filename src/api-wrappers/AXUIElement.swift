@@ -84,7 +84,7 @@ extension AXUIElement {
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0 && size != nil &&
-            (books(runningApp) || keynote(runningApp) || iina(runningApp) || (
+            (books(runningApp) || keynote(runningApp) || iina(runningApp) || openFlStudio(runningApp, title) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
                 level == CGWindow.normalLevel &&
                     ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
@@ -126,6 +126,11 @@ extension AXUIElement {
         // apple Keynote has a fake fullscreen window when in presentation mode
         // it covers the screen with a AXUnknown window instead of using standard fullscreen mode
         return runningApp.bundleIdentifier == "com.apple.iWork.Keynote"
+    }
+
+    private static func openFlStudio(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
+        // OpenBoard is a ported app which doesn't use standard macOS windows
+        return runningApp.bundleIdentifier == "com.image-line.flstudio" && (title != nil && title != "")
     }
 
     private static func openBoard(_ runningApp: NSRunningApplication) -> Bool {
