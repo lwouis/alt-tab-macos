@@ -113,6 +113,15 @@ class App: AppCenterApplication, NSApplicationDelegate {
         isFirstSummon = true
         MouseEvents.toggle(false)
         hideThumbnailPanelWithoutChangingKeyWindow()
+        hideAllTooltips()
+    }
+
+    /// some tooltips may not be hidden when the main window is hidden; we force it through a private API
+    private func hideAllTooltips() {
+        let selector = NSSelectorFromString("abortAllToolTips")
+        if NSApp.responds(to: selector) {
+            NSApp.perform(selector)
+        }
     }
 
     /// we don't want another window to become key when the thumbnailPanel is hidden
