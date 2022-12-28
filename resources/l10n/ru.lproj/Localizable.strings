@@ -264,7 +264,7 @@
 "Reset preferences and restart" = "Сброс настроек и перезапуск";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Сброс настроек и перезапуск…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Ряды с эскизами окон:";
@@ -315,13 +315,13 @@
 "Shortcut 2" = "Комбинация 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Комбинация 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Комбинация 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Комбинация 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Комбинация уже назначена к другом действие: %@";
@@ -414,7 +414,7 @@
 "Window title truncation:" = "Обрезка заголовка окна:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Вы не можете отменить это действие";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Вы не написали свою электронную почту, поэтому не можете получить ответ.";

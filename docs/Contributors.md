@@ -48,6 +48,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Anders Brandén
 * Anurag Roy
 * anushree b
+* Arman
 * Arthur
 * Ash
 * blanorama
@@ -96,6 +97,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jisan
 * john doe
 * Jord Nijhuis
+* Jules Beckers
 * Julian Nowaczyk
 * Jungwan Woo
 * Kagurazaka Tsuki
@@ -109,6 +111,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lcwhhh
 * Lester
 * LostInCompilation
+* Loïc 
 * Lumaxis
 * lwouis
 * Maplevantablack
@@ -119,6 +122,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Martin. mitka
 * Martinjnilsen
 * Max
+* Maximilian Falk
 * MaximilianFreitag
 * Michael
 * Milos M
@@ -164,8 +168,11 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Vlad
 * Webmaster
 * Whatsmine-HaoshuaiXu
+* Wowpapa3232
 * Yamada Keisuke
+* Yash
 * Yossi Zahn
 * ysaito
 * Yukai
 * yumechan
+* Yusuf Caliskan
