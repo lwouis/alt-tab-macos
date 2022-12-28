@@ -1,5 +1,7 @@
 # Release notes
 
+## [6.52.1](https://github.com/lwouis/alt-tab-macos/compare/v6.52.0...v6.52.1) (2022-12-28)
+
 # [6.52.0](https://github.com/lwouis/alt-tab-macos/compare/v6.51.0...v6.52.0) (2022-12-28)
 
 
