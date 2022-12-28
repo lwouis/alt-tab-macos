@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.52.0](https://github.com/lwouis/alt-tab-macos/compare/v6.51.0...v6.52.0) (2022-12-28)
+
+
+### Bug Fixes
+
+* scale app red badge with app icon size (closes [#559](https://github.com/lwouis/alt-tab-macos/issues/559)) ([4b2f134](https://github.com/lwouis/alt-tab-macos/commit/4b2f134))
+* some tooltips would remain on screen (closes [#2190](https://github.com/lwouis/alt-tab-macos/issues/2190)) ([6526caa](https://github.com/lwouis/alt-tab-macos/commit/6526caa))
+
+
+### Features
+
+* add kurdish localization and improve russian/romanian ([8217ad8](https://github.com/lwouis/alt-tab-macos/commit/8217ad8))
+* help support broken fl studio app (closes [#2174](https://github.com/lwouis/alt-tab-macos/issues/2174)) ([4f26bc2](https://github.com/lwouis/alt-tab-macos/commit/4f26bc2))
+
 # [6.51.0](https://github.com/lwouis/alt-tab-macos/compare/v6.50.0...v6.51.0) (2022-11-16)
 
 
