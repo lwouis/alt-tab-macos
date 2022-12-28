@@ -11,7 +11,7 @@ class ThumbnailView: NSStackView {
     var minimizedIcon = ThumbnailFontIconView(.circledMinusSign, NSLocalizedString("Window is minimized", comment: ""))
     var hiddenIcon = ThumbnailFontIconView(.circledSlashSign, NSLocalizedString("App is hidden", comment: ""))
     var spaceIcon = ThumbnailFontIconView(.circledNumber0, nil)
-    var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, nil, 14, NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white)
+    var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, nil, dockLabelLabelSize(), NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white, dockLabelLabelSize())
     var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""), windowsControlSize)
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
@@ -206,7 +206,9 @@ class ThumbnailView: NSStackView {
             } else {
                 view.setNumber(dockLabel, true)
             }
-            dockLabelIcon.setFrameOrigin(NSPoint(x: appIcon.frame.maxX - dockLabelIcon.fittingSize.width - 1, y: appIcon.frame.maxY - dockLabelIcon.fittingSize.height + 4))
+            dockLabelIcon.setFrameOrigin(NSPoint(
+                x: appIcon.frame.maxX - (dockLabelIcon.fittingSize.width / 2) - (appIcon.frame.width / 7),
+                y: appIcon.frame.maxY - (dockLabelIcon.fittingSize.height / 2)  - (appIcon.frame.height / 5)))
             view.setAccessibilityLabel(getAccessibilityTextForBadge(dockLabel))
             return true
         }
@@ -275,6 +277,10 @@ class ThumbnailView: NSStackView {
         if event.buttonNumber == 2 {
             window_?.close()
         }
+    }
+
+    static func dockLabelLabelSize() -> CGFloat {
+        return (max(Double(Preferences.defaultValues["iconSize"]!)!, Preferences.iconSize) * 0.43).rounded()
     }
 
     static func makeShadow(_ color: NSColor) -> NSShadow {
