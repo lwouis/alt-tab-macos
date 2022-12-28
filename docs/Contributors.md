@@ -110,8 +110,8 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Kushnee5
 * Lcwhhh
 * Lester
-* LostInCompilation
 * Loïc 
+* LostInCompilation
 * Lumaxis
 * lwouis
 * Maplevantablack

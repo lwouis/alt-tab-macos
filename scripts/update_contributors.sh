@@ -16,7 +16,7 @@ projectId="316051"
     -H "Authorization: token $GITHUB_TOKEN" |
     jq -r '.[]|("[" + .login + "](" + .html_url + ")")' |
     sed -e '/semantic-release-bot/d' |
-    sort -f |
+    LC_ALL=en_US.UTF-8 sort -f |
     sed -e 's/^/* /'
 
   echo -e "\nThey helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):\n"
@@ -28,6 +28,6 @@ projectId="316051"
       -d id="$projectId" |
       jq -r '.result.contributors[].name'
   ) |
-    sort -f |
+    LC_ALL=en_US.UTF-8 sort -f |
     sed -e 's/^/* /'
 ) >docs/Contributors.md
