@@ -92,7 +92,7 @@ class KeyboardEvents {
             userInfo: nil)
         if let eventTap = eventTap {
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-            CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
+            CFRunLoopAddSource(BackgroundWork.keyboardEventsThread.runLoop, runLoopSource, .commonModes)
         } else {
             App.app.restart()
         }
@@ -134,10 +134,12 @@ class KeyboardEvents {
 @discardableResult
 fileprivate func handleEvent(_ id: EventHotKeyID?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: UInt32?, _ isARepeat: Bool) -> Bool {
     var someShortcutTriggered = false
-    for shortcut in ControlsTab.shortcuts.values {
-        if shortcut.matches(id, shortcutState, keyCode, modifiers, isARepeat) && shortcut.shouldTrigger() {
-            shortcut.executeAction(isARepeat)
-            someShortcutTriggered = true
+    ControlsTab.shortcutsLock.withLock {
+        for shortcut in ControlsTab.shortcuts.values {
+            if shortcut.matches(id, shortcutState, keyCode, modifiers, isARepeat) && shortcut.shouldTrigger() {
+                shortcut.executeAction(isARepeat)
+                someShortcutTriggered = true
+            }
         }
     }
     return someShortcutTriggered

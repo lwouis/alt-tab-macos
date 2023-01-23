@@ -3,6 +3,7 @@ import ShortcutRecorder
 
 class ControlsTab {
     static var shortcuts = [String: ATShortcut]()
+    static var shortcutsLock = NSLock()
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
     static var shortcutsActions = [
         "holdShortcut": { App.app.focusTarget() },
@@ -129,7 +130,9 @@ class ControlsTab {
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {
         let atShortcut = ATShortcut(shortcut, controlId, scope, triggerPhase, index)
         removeShortcutIfExists(controlId) // remove the previous shortcut
-        shortcuts[controlId] = atShortcut
+        shortcutsLock.withLock {
+            shortcuts[controlId] = atShortcut
+        }
         if scope == .global {
             KeyboardEvents.addGlobalShortcut(controlId, atShortcut.shortcut)
         }
@@ -220,7 +223,9 @@ class ControlsTab {
             if atShortcut.scope == .global {
                 KeyboardEvents.removeGlobalShortcut(controlId, atShortcut.shortcut)
             }
-            shortcuts.removeValue(forKey: controlId)
+            shortcutsLock.withLock {
+                shortcuts.removeValue(forKey: controlId)
+            }
         }
     }
 }
