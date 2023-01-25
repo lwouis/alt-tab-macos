@@ -1,6 +1,8 @@
 import Cocoa
 
 class GeneralTab {
+    private static var menubarIsVisibleObserver: NSKeyValueObservation?
+
     static func initTab() -> NSView {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
         let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
@@ -26,8 +28,20 @@ class GeneralTab {
         grid.fit()
 
         startAtLoginCallback(startAtLogin[1] as! NSControl)
+        enableDraggingOffMenubarIcon(menubarIconDropdown)
 
         return StackView([grid, resetPreferences], .vertical, bottom: GridView.padding)
+    }
+
+    private static func enableDraggingOffMenubarIcon(_ menubarIconDropdown: NSPopUpButton) {
+        Menubar.statusItem.behavior = .removalAllowed
+        menubarIsVisibleObserver = Menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
+            if change.oldValue == true && change.newValue == false {
+                let hiddenIndex = Int(MenubarIconPreference.hidden.rawValue)!
+                menubarIconDropdown.selectItem(at: hiddenIndex)
+                LabelAndControl.controlWasChanged(menubarIconDropdown, "menubarIcon")
+            }
+        }
     }
 
     static func resetPreferences() {
