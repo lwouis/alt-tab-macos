@@ -2,6 +2,7 @@ import Cocoa
 
 class Menubar {
     static var statusItem: NSStatusItem!
+    private static var isVisibleObserver: NSKeyValueObservation?
 
     static func initialize() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -33,6 +34,14 @@ class Menubar {
             withTitle: String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name),
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
+        statusItem.behavior = .removalAllowed
+        isVisibleObserver = statusItem.observe(\.isVisible, options: [.old, .new]) { statusItem, change in
+            if change.oldValue == true && change.newValue == false {
+                let hiddenIndex = Int(MenubarIconPreference.hidden.rawValue)!
+                GeneralTab.menubarIconDropdown?.selectItem(at: hiddenIndex)
+                Preferences.set("menubarIcon", hiddenIndex)
+            }
+        }
         menubarIconCallback(nil)
     }
 
