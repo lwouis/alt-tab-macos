@@ -16,7 +16,9 @@ class ControlsTab {
         "nextWindowShortcut3": { App.app.showUiOrCycleSelection(2) },
         "nextWindowShortcut4": { App.app.showUiOrCycleSelection(3) },
         "nextWindowShortcut5": { App.app.showUiOrCycleSelection(4) },
+        "openNextWindowShortcut": { App.app.nextWindowShortcutWithRepeatingKey() },
         "previousWindowShortcut": { App.app.previousWindowShortcutWithRepeatingKey() },
+        "previousWindowShortcut2": { App.app.previousWindowShortcutWithRepeatingKey() },
         "→": { App.app.cycleSelection(.right) },
         "←": { App.app.cycleSelection(.left) },
         "↑": { App.app.cycleSelection(.up) },
@@ -31,7 +33,9 @@ class ControlsTab {
 
     static func initTab() -> NSView {
         let focusWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Focus selected window", comment: ""), "focusWindowShortcut", Preferences.focusWindowShortcut, labelPosition: .right)
+        let openNextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), "openNextWindowShortcut", Preferences.openNextWindowShortcut, labelPosition: .right)
         let previousWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select previous window", comment: ""), "previousWindowShortcut", Preferences.previousWindowShortcut, labelPosition: .right)
+        let previousWindowShortcut2 = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select previous window", comment: ""), "previousWindowShortcut2", Preferences.previousWindowShortcut2, labelPosition: .right)
         let cancelShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Cancel and hide", comment: ""), "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)
         let closeWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Close window", comment: ""), "closeWindowShortcut", Preferences.closeWindowShortcut, labelPosition: .right)
         let minDeminWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Minimize/Deminimize window", comment: ""), "minDeminWindowShortcut", Preferences.minDeminWindowShortcut, labelPosition: .right)
@@ -45,7 +49,7 @@ class ControlsTab {
         let selectWindowCheckboxes = StackView([StackView(enableArrows), StackView(enableMouse)], .vertical)
         let miscCheckboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Miscellaneous:", comment: ""))
         let miscCheckboxes = StackView([StackView(enableCursorFollowFocus)], .vertical)
-        let shortcuts = StackView([focusWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
+        let shortcuts = StackView([focusWindowShortcut, openNextWindowShortcut, previousWindowShortcut, previousWindowShortcut2, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
         let orPress = LabelAndControl.makeLabel(NSLocalizedString("While open, press:", comment: ""), shouldFit: false)
         let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection(0)
         let (holdShortcut2, nextWindowShortcut2, tab2View) = toShowSection(1)

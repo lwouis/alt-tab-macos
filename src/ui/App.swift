@@ -192,6 +192,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
         }
     }
 
+    func nextWindowShortcutWithRepeatingKey() {
+        cycleSelection(.leading)
+        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+    }
+
     func previousWindowShortcutWithRepeatingKey() {
         cycleSelection(.trailing)
         KeyRepeatTimer.toggleRepeatingKeyPreviousWindow()
