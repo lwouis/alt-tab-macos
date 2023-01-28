@@ -148,11 +148,7 @@ class ThumbnailsView: NSVisualEffectView {
         frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
 
         searchField.frame.size = NSSize(width: min(maxX, widthMax), height: 40)
-        searchField.becomeFirstResponder()
         searchField.frame.origin = CGPoint(x: Preferences.windowPadding, y: min(maxY, heightMax) - Preferences.windowPadding)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.searchField.becomeFirstResponder()
-        }
 
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax) - 40)
         scrollView.frame.origin = CGPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)
