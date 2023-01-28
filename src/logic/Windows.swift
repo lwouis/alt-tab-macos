@@ -220,6 +220,7 @@ class Windows {
     }
 
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
+        let searchText = App.app.thumbnailsPanel.thumbnailsView.searchField.stringValue
         window.shouldShowTheUser =
             !(window.application.runningApplication.bundleIdentifier.flatMap { id in
                 Preferences.blacklist.contains {
@@ -229,6 +230,7 @@ class Windows {
             } ?? false) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication.processIdentifier != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
+            (searchText.isEmpty || (window.title?.contains(searchText) ?? true)) &&
             ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
                 !window.isWindowlessApp &&
                 !(!(Preferences.showFullscreenWindows[App.app.shortcutIndex] != .hide) && window.isFullscreen) &&

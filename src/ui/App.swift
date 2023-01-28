@@ -269,6 +269,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Windows.updateSpaces()
             let screen = NSScreen.preferred()
             self.shortcutIndex = shortcutIndex
+            thumbnailsPanel.thumbnailsView.searchField.stringValue = ""
             Windows.refreshWhichWindowsToShowTheUser(screen)
             Windows.reorderList()
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
