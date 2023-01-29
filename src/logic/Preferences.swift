@@ -22,7 +22,9 @@ class Preferences {
         "nextWindowShortcut4": "",
         "nextWindowShortcut5": "",
         "focusWindowShortcut": "Space",
+        "openNextWindowShortcut": "",
         "previousWindowShortcut": "⇧",
+        "previousWindowShortcut2": "",
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
         "minDeminWindowShortcut": "M",
@@ -111,7 +113,9 @@ class Preferences {
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { defaults.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { defaults.string($0) } }
     static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
+    static var openNextWindowShortcut: String { defaults.string("openNextWindowShortcut") }
     static var previousWindowShortcut: String { defaults.string("previousWindowShortcut") }
+    static var previousWindowShortcut2: String { defaults.string("previousWindowShortcut2") }
     static var cancelShortcut: String { defaults.string("cancelShortcut") }
     static var closeWindowShortcut: String { defaults.string("closeWindowShortcut") }
     static var minDeminWindowShortcut: String { defaults.string("minDeminWindowShortcut") }

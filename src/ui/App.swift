@@ -192,6 +192,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
         }
     }
 
+    func nextWindowShortcutWithRepeatingKey() {
+        cycleSelection(.leading)
+        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+    }
+
     func previousWindowShortcutWithRepeatingKey() {
         cycleSelection(.trailing)
         KeyRepeatTimer.toggleRepeatingKeyPreviousWindow()
@@ -238,7 +243,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
         currentScreen.repositionPanel(thumbnailsPanel, .appleCentered)
-        Windows.voiceOverFocusedWindow() // at this point ThumbnailViews are assigned to the window, and ready
+        // Windows.voiceOverFocusedWindow() // at this point ThumbnailViews are assigned to the window, and ready
     }
 
     private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
@@ -269,6 +274,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Windows.updateSpaces()
             let screen = NSScreen.preferred()
             self.shortcutIndex = shortcutIndex
+            thumbnailsPanel.thumbnailsView.searchField.stringValue = ""
             Windows.refreshWhichWindowsToShowTheUser(screen)
             Windows.reorderList()
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }

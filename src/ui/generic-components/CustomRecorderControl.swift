@@ -94,6 +94,10 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
                    || ((id.starts(with: "holdShortcut") || id.starts(with: "nextWindowShortcut")) && id2 == comboShortcutName) {
                 return false
             }
+            if comboShortcutName?.starts(with: "holdShortcut") ?? false {
+                // you can have command tab open and close the flow for example
+                return false
+            }
             if shortcut2.keyCode != (id.starts(with: "holdShortcut") ? comboShortcut?.keyCode : shortcut.keyCode) {
                 return false
             }
@@ -111,7 +115,6 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
                 return false
             }
             return true
-        })?
-                .value
+        })?.value
     }
 }
