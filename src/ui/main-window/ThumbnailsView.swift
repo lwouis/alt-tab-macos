@@ -69,9 +69,17 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
+    var lastOpenMaxX: CGFloat = 0
+    var lastOpenMaxY: CGFloat = 0
     func updateItemsAndLayout(_ screen: NSScreen) {
         let widthMax = ThumbnailsPanel.widthMax(screen).rounded()
-        if let (maxX, maxY) = layoutThumbnailViews(screen, widthMax) {
+        if let (maxXThumbnails, maxYThumbnails) = layoutThumbnailViews(screen, widthMax) {
+            if !searchField.isTextChangeCallback {
+                lastOpenMaxX = maxXThumbnails
+                lastOpenMaxY = maxYThumbnails
+            }
+            let maxX = searchField.isTextChangeCallback ? lastOpenMaxX : maxXThumbnails
+            let maxY = searchField.isTextChangeCallback ? lastOpenMaxY : maxYThumbnails
             layoutParentViews(screen, maxX, widthMax, maxY)
             if Preferences.alignThumbnails == .center {
                 centerRows(maxX)
@@ -145,12 +153,12 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
         let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
-        frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
+        frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY + 40, heightMax) + Preferences.windowPadding * 2)
 
         searchField.frame.size = NSSize(width: min(maxX, widthMax), height: 40)
-        searchField.frame.origin = CGPoint(x: Preferences.windowPadding, y: min(maxY, heightMax) - Preferences.windowPadding)
+        searchField.frame.origin = CGPoint(x: Preferences.windowPadding, y: min(maxY + 40, heightMax) - Preferences.windowPadding)
 
-        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax) - 40)
+        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax - 40))
         scrollView.frame.origin = CGPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)
         scrollView.contentView.frame.size = scrollView.frame.size
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
@@ -325,6 +333,9 @@ class SearchField: NSTextField {
     override func textDidChange(_ notification: Notification) {
         let screen = NSScreen.preferred()
         Windows.refreshWhichWindowsToShowTheUser(screen)
+        isTextChangeCallback = true
         App.app.refreshOpenUi()
+        isTextChangeCallback = false
     }
+    var isTextChangeCallback = false
 }
