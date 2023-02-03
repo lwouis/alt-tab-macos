@@ -28,6 +28,7 @@ class Preferences {
         "minDeminWindowShortcut": "M",
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
+        "minimizeOtherWindowsShortcut": "1",
         "arrowKeysEnabled": "true",
         "mouseHoverEnabled": "true",
         "cursorFollowFocusEnabled": "false",
@@ -117,6 +118,7 @@ class Preferences {
     static var minDeminWindowShortcut: String { defaults.string("minDeminWindowShortcut") }
     static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
+    static var minimizeOtherWindowsShortcut: String { defaults.string("minimizeOtherWindowsShortcut") }
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
     static var cursorFollowFocusEnabled: Bool { defaults.bool("cursorFollowFocusEnabled") }
@@ -458,11 +460,13 @@ enum MenubarIconPreference: String, CaseIterable, MacroPreference {
 enum ShortcutStylePreference: String, CaseIterable, MacroPreference {
     case focusOnRelease = "0"
     case doNothingOnRelease = "1"
+    case minimizeOthersOnRelease = "2"
 
     var localizedString: LocalizedString {
         switch self {
             case .focusOnRelease: return NSLocalizedString("Focus selected window", comment: "")
             case .doNothingOnRelease: return NSLocalizedString("Do nothing", comment: "")
+            case .minimizeOthersOnRelease: return NSLocalizedString("Minimize other windows", comment: "")
         }
     }
 }

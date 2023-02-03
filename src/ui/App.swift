@@ -149,9 +149,24 @@ class App: AppCenterApplication, NSApplicationDelegate {
         Windows.focusedWindow()?.application.hideOrShow()
     }
 
+    func minimizeOtherWindows() {
+        debugPrint("minimizeOtherWindows")
+        Windows.minimizeOtherWindows()
+    }
+
     func focusTarget() {
         debugPrint("focusTarget")
         focusSelectedWindow(Windows.focusedWindow())
+    }
+    
+    func handleHold(_ shortcutIndex: Int) {
+        let shortcutStyle = Preferences.shortcutStyle[shortcutIndex]
+        if shortcutStyle == .focusOnRelease {
+            focusTarget()
+        } else if shortcutStyle == .minimizeOthersOnRelease {
+            minimizeOtherWindows()
+            focusTarget()
+        }
     }
 
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
