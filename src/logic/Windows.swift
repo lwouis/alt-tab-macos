@@ -3,6 +3,7 @@ import Cocoa
 class Windows {
     static var list = [Window]()
     static var focusedWindowIndex = Int(0)
+    static var hoveredWindowIndex: Int?
     // the first few thumbnails are the most commonly looked at; we pay special attention to them
     static let criticalFirstThumbnails = 3
 
@@ -24,14 +25,23 @@ class Windows {
         }
     }
 
-    static func setInitialFocusedWindowIndex() {
+    static func setInitialFocusedAndHoveredWindowIndex() {
+        let oldIndex = focusedWindowIndex
+        focusedWindowIndex = 0
+        ThumbnailsView.highlight(oldIndex)
+        if let oldIndex = hoveredWindowIndex {
+            hoveredWindowIndex = nil
+            ThumbnailsView.highlight(oldIndex)
+        }
         if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
            app.focusedWindow == nil,
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
             updateFocusedWindowIndex(lastFocusedWindowIndex)
         } else {
-            updateFocusedWindowIndex(0)
             cycleFocusedWindowIndex(1)
+            if focusedWindowIndex == 0 {
+                updateFocusedWindowIndex(0)
+            }
         }
     }
 
@@ -89,21 +99,34 @@ class Windows {
         return nil
     }
 
-    static func updateFocusedWindowIndex(_ newIndex: Int) {
-        ThumbnailsView.recycledViews[focusedWindowIndex].highlight(false)
-        focusedWindowIndex = newIndex
-        let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
-        focusedView.highlight(true)
+    static func updateFocusedWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
+        if (fromMouse && newIndex == hoveredWindowIndex) || (!fromMouse && newIndex == focusedWindowIndex) {
+            return
+        }
+        if fromMouse {
+            let oldIndex = hoveredWindowIndex
+            hoveredWindowIndex = newIndex
+            if let oldIndex = oldIndex {
+                ThumbnailsView.highlight(oldIndex)
+            }
+        } else {
+            let oldIndex = focusedWindowIndex
+            focusedWindowIndex = newIndex
+            ThumbnailsView.highlight(oldIndex)
+        }
+        let index = fromMouse ? hoveredWindowIndex! : focusedWindowIndex
+        ThumbnailsView.highlight(index)
+        let focusedView = ThumbnailsView.recycledViews[index]
         App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
-        voiceOverFocusedWindow()
+        voiceOverWindow(index)
     }
 
-    static func voiceOverFocusedWindow() {
+    static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {
         guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
         // it seems that sometimes makeFirstResponder is called before the view is visible
         // and it creates a delay in showing the main window; calling it with some delay seems to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-            let window = ThumbnailsView.recycledViews[focusedWindowIndex]
+            let window = ThumbnailsView.recycledViews[windowIndex]
             if window.window_ != nil && window.window != nil {
                 App.app.thumbnailsPanel.makeFirstResponder(window)
             }
