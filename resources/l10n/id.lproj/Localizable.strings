@@ -3,7 +3,7 @@
 "About" = "Tentang";
 
 /*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+"About %@" = "Tentang %@";
 
 /*No comment provided by engineer.*/
 "Accessibility" = "Aksesibilitas";
@@ -48,7 +48,7 @@
 "AltTab needs some permissions" = "AltTab membutuhkan beberapa izin";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Selalu";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Selalu kirim laporan kerusakan";
@@ -57,13 +57,13 @@
 "and press:" = "lalu tekan:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Aplikasi (BundleID dimulai dengan)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "Aplikasi disembunyikan";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Aplikasi sedang berjalan tetapi tidak memiliki jendela yang terbuka";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Penundaan penampakan:";
@@ -108,7 +108,7 @@
 "Close window" = "Tutup jendela";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Pintasan konflik";
 
 /*No comment provided by engineer.*/
 "Controls" = "Kontrol";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "Kebijakan laporan kerusakan:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Kursor mengikuti fokus";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Tidak melakukan apapun";
@@ -141,31 +141,31 @@
 "Focus selected window" = "Fokus ke jendela yang dipilih";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Jendela layar penuh";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+"Fullscreen windows:" = "Jendela layar penuh:";
 
 /*No comment provided by engineer.*/
 "General" = "Umum";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+"Hidden windows:" = "Jendela tersembunyi:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Hide";
+"Hide" = "Sembunyikan";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Sembunyikan lencana app:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window:" = "Sembunyikan aplikasi tanpa jendela terbuka:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Sembunyikan lingkaran berwarna pada mouse hover:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Bersembunyi didalam %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Sembunyikan label nomor ruang:";
@@ -174,7 +174,7 @@
 "Hide status icons:" = "Sembunyikan status ikon:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails:" = "Sembunyikan thumbnail jendela:";
 
 /*No comment provided by engineer.*/
 "Hide/Show app" = "Tampilkan/Sembunyikan app";
@@ -186,7 +186,7 @@
 "I think the app could be improved with…" = "Saya pikir aplikasi dapat ditingkatkan dengan…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Abaikan pintasan saat aktif";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Abaikan pintasan saat jendela dari aplikasi ini aktif";
@@ -198,10 +198,10 @@
 "Left" = "Kiri";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen:" = "Tinggi maks di layar:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen:" = "Lebar maks di layar:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Ikon menubar:";
@@ -213,10 +213,10 @@
 "Minimize/Deminimize window" = "Minimalkan / Deminimalkan jendela";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows:" = "Jendela yang diperkecil:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Aneka ragam:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Arahkan mouse";
@@ -261,13 +261,13 @@
 "Remember my choice" = "Ingat pilihan saya";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Setel ulang preferensi dan mulai ulang";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Setel ulang preferensi dan mulai ulang…";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails:" = "Deretan thumbnail:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Layar termasuk bilah menu";
@@ -315,22 +315,22 @@
 "Shortcut 2" = "Pintasan 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Pintasan 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Pintasan 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Pintasan 5";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Pintasan sudah ditetapkan ke tindakan lain: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Tampilkan";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+"Show at the end" = "Tampilkan di akhir";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Tunjukkan:";
@@ -339,7 +339,7 @@
 "Show standard tabs as windows:" = "Tampilkan tab standar sebagai jendela:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+"Show windows from:" = "Tampilkan jendela dari:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Repositori kode sumber";
@@ -363,7 +363,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Izin ini diperlukan untuk menampilkan tangkapan layar dan judul jendela yang terbuka";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Batalkan pintasan yang ada dan lanjutkan";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Kebijakan pembaruan:";
@@ -375,13 +375,13 @@
 "View existing discussions" = "Lihat diskusi yang ada";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Ruang Terlihat";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Saat layar penuh";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Saat tidak ada jendela yang terbuka";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Ketika terbuka, tekan:";
@@ -390,22 +390,22 @@
 "Window app icon size:" = "Ukuran ikon aplikasi jendela:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Jendela adalah layar penuh";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Jendela diminimalkan";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Jendela ada di setiap Ruang";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Jendela ada di Ruang %d";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row:" = "Lebar maks jendela dalam baris:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row:" = "Lebar minimal jendela dalam baris:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Ukuran font judul jendela:";
@@ -414,7 +414,7 @@
 "Window title truncation:" = "Pemotongan judul jendela:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Anda tidak dapat membatalkan tindakan ini.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Anda tidak menulis email Anda, sehingga tidak dapat menerima tanggapan apa pun.";

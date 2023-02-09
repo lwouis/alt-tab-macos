@@ -92,13 +92,14 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Isthereanybody
 * Jaeyong Sung
 * Jakob
+* Jakob Licina
 * Jakub Bartušek
 * jiho4
 * Jisan
-* john doe
 * Jord Nijhuis
 * Jules Beckers
 * Julian Nowaczyk
+* Julio
 * Jungwan Woo
 * Kagurazaka Tsuki
 * kal
@@ -121,6 +122,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Martin Mitka
 * Martin. mitka
 * Martinjnilsen
+* Masih
 * Max
 * Maximilian Falk
 * MaximilianFreitag
@@ -167,6 +169,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Vincent Orback
 * Vlad
 * Webmaster
+* Wesley Matos
 * Whatsmine-HaoshuaiXu
 * Wowpapa3232
 * Yamada Keisuke

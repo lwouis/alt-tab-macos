@@ -66,7 +66,7 @@
 "App is running but has no open window" = "App is running but has no open window";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "Apparition delay:";
+"Apparition delay:" = "تاخیر در ظاهر شدن";
 
 /*No comment provided by engineer.*/
 "Appearance" = "ظاهر";
@@ -351,7 +351,7 @@
 "Start at login:" = "Start at login:";
 
 /*No comment provided by engineer.*/
-"Theme:" = "Theme:";
+"Theme:" = "تم";
 
 /*No comment provided by engineer.*/
 "Then release:" = "Then release:";
@@ -369,7 +369,7 @@
 "Updates policy:" = "Updates policy:";
 
 /*No comment provided by engineer.*/
-"Version" = "Version";
+"Version" = "نسخه";
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "View existing discussions";

@@ -48,7 +48,7 @@
 "AltTab needs some permissions" = "AltTab precisa de algumas permissões";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Sempre";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Sempre enviar relatórios de falha";
@@ -57,13 +57,13 @@
 "and press:" = "e pressionar:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Aplicativo (BundleID começando com)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "Aplicativo está escondido";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Aplicativo em execução, mas sem janela aberta";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Atraso para exibição:";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "Política de relatórios de falha:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Cursor segue o foco";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Não fazer nada";
@@ -141,7 +141,7 @@
 "Focus selected window" = "Foca a janela selecionada";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Tela cheia";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Janelas em tela cheia:";
@@ -165,7 +165,7 @@
 "Hide colored circles on mouse hover:" = "Não exibir os círculos coloridos ao passar o mouse:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Escondido em %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Não exibir o número do desktop:";
@@ -186,7 +186,7 @@
 "I think the app could be improved with…" = "Eu acho que a aplicação poderia ser melhorada com…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignorar atalhos quando ativo";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorar atalhos enquanto uma janela destes aplicativos estiver ativa";
@@ -261,10 +261,10 @@
 "Remember my choice" = "Lembrar minha escolha";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Redefinir preferências e reiniciar";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Redefinir preferências e reiniciar…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Linhas de miniaturas:";
@@ -315,13 +315,13 @@
 "Shortcut 2" = "Atalho 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Atalho 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Atalho 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Atalho 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Atalho já atribuído para outra ação: %@";
@@ -378,10 +378,10 @@
 "Visible Spaces" = "Desktops visíveis";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Quando em tela cheia";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Quando sem janela aberta";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Enquanto aberto, pressionar:";
@@ -390,16 +390,16 @@
 "Window app icon size:" = "Tamanho do ícone da aplicação:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Em tela cheia";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Minimizado";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Janela em todos os desktops";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Janela está no desktop %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Largura máxima da janela na linha:";
@@ -414,7 +414,7 @@
 "Window title truncation:" = "Truncar título da janela:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Você não pode desfazer essa ação.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Você não informou seu e-mail, portanto não poderá receber uma resposta.";
