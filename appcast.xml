@@ -5,6 +5,20 @@
     <language>en</language>
 
     <item>
+      <title>Version 6.53.0</title>
+      <pubDate>Thu, 09 Feb 2023 20:59:05 +0000</pubDate>
+      <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://alt-tab-macos.netlify.app/changelog-bare</sparkle:releaseNotesLink>
+      <enclosure
+        url="https://github.com/lwouis/alt-tab-macos/releases/download/v6.53.0/AltTab-6.53.0.zip"
+        sparkle:version="6.53.0"
+        sparkle:shortVersionString="6.53.0"
+        sparkle:edSignature="1ZckXVT2Ad+h32VEfrWw0Jz4UEkPQ8Y5X6fIS2H8saAzszRj4xntGwUM3dtCPZ9JkSHIJ8HMa2RrbhxAVsL5Cw==" length="8788321"
+        type="application/octet-stream"/>
+    </item>
+
+
+    <item>
       <title>Version 6.52.1</title>
       <pubDate>Wed, 28 Dec 2022 23:57:18 +0000</pubDate>
       <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>

@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.53.0](https://github.com/lwouis/alt-tab-macos/compare/v6.52.1...v6.53.0) (2023-02-09)
+
+
+### Bug Fixes
+
+* don't focus window when dropping a file on it ([c386a0c](https://github.com/lwouis/alt-tab-macos/commit/c386a0c))
+
+
+### Features
+
+* allow status item removal by dragging ([216c5d8](https://github.com/lwouis/alt-tab-macos/commit/216c5d8))
+* improve localizations ([7a30b18](https://github.com/lwouis/alt-tab-macos/commit/7a30b18))
+* separate mouse hover from keyboard selection ([3fb9a19](https://github.com/lwouis/alt-tab-macos/commit/3fb9a19)), closes [#2078](https://github.com/lwouis/alt-tab-macos/issues/2078) [#1617](https://github.com/lwouis/alt-tab-macos/issues/1617)
+
 ## [6.52.1](https://github.com/lwouis/alt-tab-macos/compare/v6.52.0...v6.52.1) (2022-12-28)
 
 # [6.52.0](https://github.com/lwouis/alt-tab-macos/compare/v6.51.0...v6.52.0) (2022-12-28)
