@@ -16,6 +16,14 @@ class ThumbnailsView: NSVisualEffectView {
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
     }
 
+    static func highlight(_ indexInRecycledViews: Int) {
+        let v = recycledViews[indexInRecycledViews]
+        v.indexInRecycledViews = indexInRecycledViews
+        if v.frame != NSRect.zero {
+            v.drawHighlight(indexInRecycledViews)
+        }
+    }
+
     /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners
     /// see https://stackoverflow.com/a/29386935/2249756
     func updateRoundedCorners(_ cornerRadius: CGFloat) {
@@ -179,13 +187,7 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     private func highlightStartView() {
-        _ = Windows.list.enumerated().contains { (index, _) in
-            let view = ThumbnailsView.recycledViews[index]
-            if view.isHighlighted {
-                view.highlightOrNot()
-            }
-            return view.isHighlighted
-        }
+        ThumbnailsView.highlight(Windows.focusedWindowIndex)
     }
 
     private func shiftRow(_ maxX: CGFloat, _ rowWidth: CGFloat, _ rowStartIndex: Int, _ index: Int) {
@@ -251,11 +253,15 @@ class ScrollView: NSScrollView {
     }
 
     override func mouseExited(with event: NSEvent) {
-        previousTarget?.showOrHideWindowControls(false)
+        if let oldIndex = Windows.hoveredWindowIndex {
+            Windows.hoveredWindowIndex = nil
+            ThumbnailsView.highlight(oldIndex)
+            ThumbnailsView.recycledViews[oldIndex].showOrHideWindowControls(false)
+        }
     }
 
-    // holding shift and using the scrolling wheel will generate a horizontal movement
-    // shift can be part of shortcuts so we force shift scrolls to be vertical
+    /// holding shift and using the scrolling wheel will generate a horizontal movement
+    /// shift can be part of shortcuts so we force shift scrolls to be vertical
     override func scrollWheel(with event: NSEvent) {
         if event.modifierFlags.contains(.shift) && event.scrollingDeltaY == 0 {
             let cgEvent = event.cgEvent!
@@ -267,7 +273,7 @@ class ScrollView: NSScrollView {
         }
     }
 
-    // force overlay style after a change in System Preference > General > Show scroll bars
+    /// force overlay style after a change in System Preference > General > Show scroll bars
     private func forceOverlayStyle() {
         NotificationCenter.default.addObserver(forName: NSScroller.preferredScrollerStyleDidChangeNotification, object: nil, queue: nil) { [weak self] _ in
             self?.scrollerStyle = .overlay

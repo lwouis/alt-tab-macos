@@ -3,6 +3,7 @@ import Cocoa
 class ThumbnailView: NSStackView {
     static let windowsControlSize = CGFloat(16)
     static let windowsControlSpacing = CGFloat(8)
+    static let highlightBackgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 0.4)
     var window_: Window?
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
@@ -20,10 +21,11 @@ class ThumbnailView: NSStackView {
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
-    var isHighlighted = false
+    var indexInRecycledViews: Int!
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
     var windowlessIcon = FontIcon(.newWindow, NSLocalizedString("App is running but has no open window", comment: ""))
+    var frameInset = Preferences.intraCellPadding
 
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
@@ -42,7 +44,7 @@ class ThumbnailView: NSStackView {
         layer!.backgroundColor = .clear
         layer!.borderColor = .clear
         layer!.cornerRadius = Preferences.cellCornerRadius
-        layer!.borderWidth = Preferences.cellBorderWidth
+        layer!.borderWidth = CGFloat(2)
         edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
         orientation = .vertical
         let shadow = ThumbnailView.makeShadow(.gray)
@@ -95,22 +97,19 @@ class ThumbnailView: NSStackView {
         }
     }
 
-    func highlight(_ highlight: Bool) {
-        if isHighlighted != highlight {
-            isHighlighted = highlight
-            if frame != NSRect.zero {
-                highlightOrNot()
-            }
+    func drawHighlight(_ i: Int) {
+        let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
+        let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
+        layer!.backgroundColor = (Preferences.theme == .macOs && isFocused) || (Preferences.theme == .windows10 && isHovered)
+            ? ThumbnailView.highlightBackgroundColor.cgColor : .clear
+        layer!.borderColor = (Preferences.theme == .macOs && isHovered) || (Preferences.theme == .windows10 && isFocused)
+            ? NSColor.controlColor.cgColor : .clear
+        let newFrameInset = (isFocused) ? -Preferences.intraCellPadding : Preferences.intraCellPadding
+        if newFrameInset != frameInset {
+            frameInset = newFrameInset
+            frame = frame.insetBy(dx: frameInset, dy: frameInset)
         }
-        showOrHideWindowControls(false)
-    }
-
-    func highlightOrNot() {
-        layer!.backgroundColor = isHighlighted ? Preferences.highlightBackgroundColor.cgColor : .clear
-        layer!.borderColor = isHighlighted ? Preferences.highlightBorderColor.cgColor : .clear
-        let frameInset: CGFloat = Preferences.intraCellPadding * (isHighlighted ? -1 : 1)
-        frame = frame.insetBy(dx: frameInset, dy: frameInset)
-        let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isHighlighted ? 2 : 1)
+        let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isFocused ? 2 : 1)
         edgeInsets.top = edgeInsets_
         edgeInsets.right = edgeInsets_
         edgeInsets.bottom = edgeInsets_
@@ -119,6 +118,7 @@ class ThumbnailView: NSStackView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
+        frameInset = Preferences.intraCellPadding
         assignIfDifferent(&thumbnail.isHidden, Preferences.hideThumbnails || element.isWindowlessApp)
         if !thumbnail.isHidden {
             thumbnail.image = element.thumbnail
@@ -186,7 +186,7 @@ class ThumbnailView: NSStackView {
             windowlessIcon.needsDisplay = true
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
-        self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index) }
+        self.mouseMovedCallback = { () -> Void in Windows.updateFocusedWindowIndex(index, true) }
         [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.window_ = element }
         showOrHideWindowControls(false)
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
@@ -208,7 +208,7 @@ class ThumbnailView: NSStackView {
             }
             dockLabelIcon.setFrameOrigin(NSPoint(
                 x: appIcon.frame.maxX - (dockLabelIcon.fittingSize.width / 2) - (appIcon.frame.width / 7),
-                y: appIcon.frame.maxY - (dockLabelIcon.fittingSize.height / 2)  - (appIcon.frame.height / 5)))
+                y: appIcon.frame.maxY - (dockLabelIcon.fittingSize.height / 2) - (appIcon.frame.height / 5)))
             view.setAccessibilityLabel(getAccessibilityTextForBadge(dockLabel))
             return true
         }
@@ -263,7 +263,7 @@ class ThumbnailView: NSStackView {
 
     func mouseMoved() {
         showOrHideWindowControls(true)
-        if Preferences.mouseHoverEnabled && !isHighlighted {
+        if Preferences.mouseHoverEnabled {
             mouseMovedCallback()
         }
     }
