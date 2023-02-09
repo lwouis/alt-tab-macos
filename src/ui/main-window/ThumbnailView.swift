@@ -252,6 +252,8 @@ class ThumbnailView: NSStackView {
     }
 
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        dragAndDropTimer?.invalidate()
+        dragAndDropTimer = nil
         let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as! [URL]
         let appUrl = window_!.application.runningApplication.bundleURL!
         let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
