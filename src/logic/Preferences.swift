@@ -23,6 +23,10 @@ class Preferences {
         "nextWindowShortcut5": "",
         "focusWindowShortcut": "Space",
         "previousWindowShortcut": "⇧",
+        "previousWindowShortcut2": "⇧",
+        "previousWindowShortcut3": "⇧",
+        "previousWindowShortcut4": "⇧",
+        "previousWindowShortcut5": "⇧",
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
         "minDeminWindowShortcut": "M",
@@ -111,7 +115,7 @@ class Preferences {
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { defaults.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { defaults.string($0) } }
     static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
-    static var previousWindowShortcut: String { defaults.string("previousWindowShortcut") }
+    static var previousWindowShortcut: [String] { ["previousWindowShortcut", "previousWindowShortcut2", "previousWindowShortcut3", "previousWindowShortcut4", "previousWindowShortcut5"].map { defaults.string($0) } }
     static var cancelShortcut: String { defaults.string("cancelShortcut") }
     static var closeWindowShortcut: String { defaults.string("closeWindowShortcut") }
     static var minDeminWindowShortcut: String { defaults.string("minDeminWindowShortcut") }
@@ -201,27 +205,30 @@ class Preferences {
     }
 
     private static func updateToNewPreferences(_ currentVersion: String) {
-        if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
-            migrateBlacklists()
-            if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
-                migrateMinMaxWindowsWidthInRow()
-                if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
-                    // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                    (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
-                    if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
-                        // "Show windows from:" got the "Active Space" option removed
-                        migrateShowWindowsFrom()
-                        if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
-                            // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                            migrateNextWindowShortcuts()
-                            // dropdowns preferences used to store English text; now they store indexes
-                            migrateDropdownsFromTextToIndexes()
-                            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                            migrateMenubarIconFromCheckboxToDropdown()
-                            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                            migrateShowWindowsCheckboxToDropdown()
-                            // "Max size on screen" was split into max width and max height
-                            migrateMaxSizeOnScreenToWidthAndHeight()
+        if currentVersion.compare("6.52.1", options: .numeric) != .orderedDescending {
+            migratePreviousWindowShortcuts()
+            if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
+                migrateBlacklists()
+                if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
+                    migrateMinMaxWindowsWidthInRow()
+                    if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
+                        // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                        (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
+                        if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
+                            // "Show windows from:" got the "Active Space" option removed
+                            migrateShowWindowsFrom()
+                            if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
+                                // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                                migrateNextWindowShortcuts()
+                                // dropdowns preferences used to store English text; now they store indexes
+                                migrateDropdownsFromTextToIndexes()
+                                // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                                migrateMenubarIconFromCheckboxToDropdown()
+                                // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                                migrateShowWindowsCheckboxToDropdown()
+                                // "Max size on screen" was split into max width and max height
+                                migrateMaxSizeOnScreenToWidthAndHeight()
+                            }
                         }
                     }
                 }
@@ -311,6 +318,14 @@ class Preferences {
                 if oldNextWindowShortcut != nextWindowShortcutCleanedUp {
                     defaults.set(nextWindowShortcutCleanedUp, forKey: "nextWindowShortcut" + suffix)
                 }
+            }
+        }
+    }
+
+    private static func migratePreviousWindowShortcuts() {
+        if let old = defaults.string(forKey: "previousWindowShortcut") {
+            for suffix in 2...5 {
+                defaults.set(old, forKey: "previousWindowShortcut\(suffix)")
             }
         }
     }

@@ -5,12 +5,12 @@ class KeyRepeatTimer {
     static var timer: Timer?
     static var isARepeat = false
 
-    static func toggleRepeatingKeyPreviousWindow() {
-        if let shortcut = ControlsTab.shortcuts["previousWindowShortcut"],
+    static func toggleRepeatingKeyPreviousWindow(_ shortcutIndex: Int) {
+        if let shortcut = ControlsTab.shortcuts[Preferences.indexToName("previousWindowShortcut", shortcutIndex)],
            // events already repeat when using a shortcut with a keycode; no need for artificial repeat
            shortcut.shortcut.keyCode == .none {
             toggleRepeatingKey(shortcut) {
-                App.app.previousWindowShortcutWithRepeatingKey()
+                ControlsTab.shortcutsActions[Preferences.indexToName("previousWindowShortcut", shortcutIndex)]!()
             }
         }
     }

@@ -192,9 +192,14 @@ class App: AppCenterApplication, NSApplicationDelegate {
         }
     }
 
-    func previousWindowShortcutWithRepeatingKey() {
+    func previousWindowShortcutWithRepeatingKey(_ shortcutIndex: Int) {
+        // Prevent another group's previousWindowShortcut key binding from invoking
+        if (shortcutIndex != App.app.shortcutIndex) {
+            return
+        }
+
         cycleSelection(.trailing)
-        KeyRepeatTimer.toggleRepeatingKeyPreviousWindow()
+        KeyRepeatTimer.toggleRepeatingKeyPreviousWindow(shortcutIndex)
     }
 
     func focusSelectedWindow(_ selectedWindow: Window?) {
