@@ -48,6 +48,7 @@ class Preferences {
         "showFullscreenWindows5": ShowHowPreference.show.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
+        "hideMouseHoverEffect": "false",
         "windowDisplayDelay": "0",
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
@@ -122,6 +123,7 @@ class Preferences {
     static var cursorFollowFocusEnabled: Bool { defaults.bool("cursorFollowFocusEnabled") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { defaults.bool("hideColoredCircles") }
+    static var hideMouseHoverEffect: Bool { defaults.bool("hideMouseHoverEffect") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
     static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
