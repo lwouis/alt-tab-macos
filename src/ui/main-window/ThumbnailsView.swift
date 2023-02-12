@@ -71,7 +71,7 @@ class ThumbnailsView: NSVisualEffectView {
                 return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
             } ?? iterable.last!
             let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
-            Windows.updateFocusedWindowIndex(targetIndex)
+            Windows.updateHoveredAndFocusedWindowIndexes(targetIndex)
         }
     }
 
@@ -228,6 +228,14 @@ class ScrollView: NSScrollView {
             self?.isCurrentlyScrolling = true
         }
     }
+    
+    private func resetHoveredWindow() {
+        if let oldIndex = Windows.hoveredWindowIndex {
+            Windows.hoveredWindowIndex = nil
+            ThumbnailsView.highlight(oldIndex)
+            ThumbnailsView.recycledViews[oldIndex].showOrHideWindowControls(false)
+        }
+    }
 
     override func mouseMoved(with event: NSEvent) {
         // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
@@ -245,19 +253,15 @@ class ScrollView: NSScrollView {
                 let target = target as! ThumbnailView
                 target.mouseMoved()
             } else {
-                previousTarget?.showOrHideWindowControls(false)
+                resetHoveredWindow()
             }
         } else {
-            previousTarget?.showOrHideWindowControls(false)
+            resetHoveredWindow()
         }
     }
 
     override func mouseExited(with event: NSEvent) {
-        if let oldIndex = Windows.hoveredWindowIndex {
-            Windows.hoveredWindowIndex = nil
-            ThumbnailsView.highlight(oldIndex)
-            ThumbnailsView.recycledViews[oldIndex].showOrHideWindowControls(false)
-        }
+        resetHoveredWindow()
     }
 
     /// holding shift and using the scrolling wheel will generate a horizontal movement

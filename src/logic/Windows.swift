@@ -36,11 +36,11 @@ class Windows {
         if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
            app.focusedWindow == nil,
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
-            updateFocusedWindowIndex(lastFocusedWindowIndex)
+            updateHoveredAndFocusedWindowIndexes(lastFocusedWindowIndex)
         } else {
             cycleFocusedWindowIndex(1)
             if focusedWindowIndex == 0 {
-                updateFocusedWindowIndex(0)
+                updateHoveredAndFocusedWindowIndexes(0)
             }
         }
     }
@@ -99,22 +99,23 @@ class Windows {
         return nil
     }
 
-    static func updateFocusedWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
-        if (fromMouse && newIndex == hoveredWindowIndex) || (!fromMouse && newIndex == focusedWindowIndex) {
-            return
-        }
-        if fromMouse {
+    static func updateHoveredAndFocusedWindowIndexes(_ newIndex: Int, _ fromMouse: Bool = false) {
+        var index: Int?
+        if fromMouse && newIndex != hoveredWindowIndex {
             let oldIndex = hoveredWindowIndex
             hoveredWindowIndex = newIndex
             if let oldIndex = oldIndex {
                 ThumbnailsView.highlight(oldIndex)
             }
-        } else {
+            index = hoveredWindowIndex
+        }
+        if (!fromMouse || Preferences.mouseHoverEnabled) && newIndex != focusedWindowIndex {
             let oldIndex = focusedWindowIndex
             focusedWindowIndex = newIndex
             ThumbnailsView.highlight(oldIndex)
+            index = focusedWindowIndex
         }
-        let index = fromMouse ? hoveredWindowIndex! : focusedWindowIndex
+        guard let index = index else { return }
         ThumbnailsView.highlight(index)
         let focusedView = ThumbnailsView.recycledViews[index]
         App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
@@ -143,7 +144,7 @@ class Windows {
                (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
             return
         }
-        updateFocusedWindowIndex(nextIndex)
+        updateHoveredAndFocusedWindowIndexes(nextIndex)
     }
 
     static func windowIndexAfterCycling(_ step: Int) -> Int {
