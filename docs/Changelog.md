@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.53.1](https://github.com/lwouis/alt-tab-macos/compare/v6.53.0...v6.53.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* bring back mouse hover selection (closes [#2317](https://github.com/lwouis/alt-tab-macos/issues/2317)) ([abe2e0b](https://github.com/lwouis/alt-tab-macos/commit/abe2e0b))
+
 # [6.53.0](https://github.com/lwouis/alt-tab-macos/compare/v6.52.1...v6.53.0) (2023-02-09)
 
 
