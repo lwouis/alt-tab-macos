@@ -3,7 +3,8 @@ import Cocoa
 class ThumbnailView: NSStackView {
     static let windowsControlSize = CGFloat(16)
     static let windowsControlSpacing = CGFloat(8)
-    static let highlightBackgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 0.4)
+    static let highlightBackgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+    static let highlightBorderColor = NSColor.white
     var window_: Window?
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
@@ -103,7 +104,7 @@ class ThumbnailView: NSStackView {
         layer!.backgroundColor = (Preferences.theme == .macOs && isFocused) || (Preferences.theme == .windows10 && isHovered)
             ? ThumbnailView.highlightBackgroundColor.cgColor : .clear
         layer!.borderColor = (Preferences.theme == .macOs && isHovered) || (Preferences.theme == .windows10 && isFocused)
-            ? NSColor.controlColor.cgColor : .clear
+            ? ThumbnailView.highlightBorderColor.cgColor : .clear
         let newFrameInset = (isFocused) ? -Preferences.intraCellPadding : Preferences.intraCellPadding
         if newFrameInset != frameInset {
             frameInset = newFrameInset

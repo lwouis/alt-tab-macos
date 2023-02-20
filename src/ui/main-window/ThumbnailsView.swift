@@ -7,7 +7,7 @@ class ThumbnailsView: NSVisualEffectView {
 
     convenience init() {
         self.init(frame: .zero)
-        material = Preferences.windowMaterial
+        material = .dark
         state = .active
         wantsLayer = true
         updateRoundedCorners(Preferences.windowCornerRadius)
@@ -228,7 +228,7 @@ class ScrollView: NSScrollView {
             self?.isCurrentlyScrolling = true
         }
     }
-    
+
     private func resetHoveredWindow() {
         if let oldIndex = Windows.hoveredWindowIndex {
             Windows.hoveredWindowIndex = nil

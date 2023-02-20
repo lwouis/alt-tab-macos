@@ -94,7 +94,6 @@ class Preferences {
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
-    static var windowMaterial: NSVisualEffectView.Material { .dark }
     static var fontColor: NSColor { .white }
     static var windowPadding: CGFloat { 18 }
     static var interCellPadding: CGFloat { 5 }
