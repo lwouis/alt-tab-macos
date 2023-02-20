@@ -1,5 +1,12 @@
 # Release notes
 
+# [6.54.0](https://github.com/lwouis/alt-tab-macos/compare/v6.53.1...v6.54.0) (2023-02-20)
+
+
+### Features
+
+* improve selection background/border color contrast ([cea0cff](https://github.com/lwouis/alt-tab-macos/commit/cea0cff)), closes [#2352](https://github.com/lwouis/alt-tab-macos/issues/2352)
+
 ## [6.53.1](https://github.com/lwouis/alt-tab-macos/compare/v6.53.0...v6.53.1) (2023-02-12)
 
 
