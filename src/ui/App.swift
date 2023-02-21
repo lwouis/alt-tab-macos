@@ -61,6 +61,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
+            //TODO: we need to remove swipe listener somewhere
+            TrackpadEvents.addSwipeListener()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
