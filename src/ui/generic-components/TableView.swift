@@ -24,6 +24,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         intercellSpacing = NSSize(width: 10, height: 5)
         allowsColumnReordering = false
         allowsEmptySelection = false
+        allowsMultipleSelection = true
         rowSizeStyle = .medium
         addHeaders([
             NSLocalizedString("App (BundleID starting with)", comment: ""),
@@ -99,10 +100,12 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         savePreferences()
     }
 
-    func removeSelectedRow() {
-        if selectedRow != -1 {
-            items.remove(at: selectedRow)
-            removeRows(at: [selectedRow])
+    func removeSelectedRows() {
+        if numberOfSelectedRows > 0 {
+            for selectedRowIndex in selectedRowIndexes.reversed() {
+                items.remove(at: selectedRowIndex)
+            }
+            removeRows(at: selectedRowIndexes)
             savePreferences()
         }
     }
