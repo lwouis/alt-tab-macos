@@ -18,7 +18,7 @@ class BlacklistsTab {
                     }
                 }
             } else {
-                tableView.removeSelectedRow()
+                tableView.removeSelectedRows()
             }
         }
 
