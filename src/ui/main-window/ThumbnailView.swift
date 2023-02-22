@@ -198,14 +198,15 @@ class ThumbnailView: NSStackView {
     }
 
     @discardableResult
-    func updateDockLabelIcon(_ dockLabel: Int?) -> Bool {
+    func updateDockLabelIcon(_ dockLabel: String?) -> Bool {
         assignIfDifferent(&dockLabelIcon.isHidden, dockLabel == nil || Preferences.hideAppBadges || Preferences.iconSize == 0)
         if !dockLabelIcon.isHidden, let dockLabel = dockLabel {
             let view = dockLabelIcon.subviews[1] as! ThumbnailFontIconView
-            if dockLabel > 30 {
+            let dockLabelInt = Int(dockLabel)
+            if dockLabelInt == nil || dockLabelInt! > 30 {
                 view.setFilledStar()
             } else {
-                view.setNumber(dockLabel, true)
+                view.setNumber(dockLabelInt!, true)
             }
             dockLabelIcon.setFrameOrigin(NSPoint(
                 x: appIcon.frame.maxX - (dockLabelIcon.fittingSize.width / 2) - (appIcon.frame.width / 7),
@@ -216,14 +217,17 @@ class ThumbnailView: NSStackView {
         return false
     }
 
-    func getAccessibilityHelp(_ appName: String?, _ dockLabel: Int?) -> String {
+    func getAccessibilityHelp(_ appName: String?, _ dockLabel: String?) -> String {
         [appName, dockLabel.map { getAccessibilityTextForBadge($0) }]
                 .compactMap { $0 }
                 .joined(separator: " - ")
     }
 
-    func getAccessibilityTextForBadge(_ dockLabel: Int) -> String {
-        "Red badge with number \(dockLabel)"
+    func getAccessibilityTextForBadge(_ dockLabel: String) -> String {
+        if let dockLabelInt = Int(dockLabel) {
+            return "Red badge with number \(dockLabelInt)"
+        }
+        return "Red badge"
     }
 
     private func observeDragAndDrop() {

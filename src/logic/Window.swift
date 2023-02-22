@@ -10,7 +10,7 @@ class Window {
     var shouldShowTheUser = true
     var isTabbed: Bool = false
     var isHidden: Bool { get { application.isHidden } }
-    var dockLabel: Int? { get { application.dockLabel.flatMap { Int($0) } } }
+    var dockLabel: String? { get { application.dockLabel } }
     var isFullscreen = false
     var isMinimized = false
     var isOnAllSpaces = false

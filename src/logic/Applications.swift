@@ -95,10 +95,9 @@ class Applications {
                    let bundleId = app.runningApplication.bundleIdentifier,
                    let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId),
                    let matchingItem = (items.first { $0.0 == url }),
-                   let label = matchingItem.1,
-                   let labelInt = Int(label) {
+                   let label = matchingItem.1 {
                     app.dockLabel = label
-                    view.updateDockLabelIcon(labelInt)
+                    view.updateDockLabelIcon(label)
                 } else {
                     app.dockLabel = nil
                     assignIfDifferent(&view.dockLabelIcon.isHidden, true)
