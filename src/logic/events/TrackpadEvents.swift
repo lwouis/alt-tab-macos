@@ -70,7 +70,7 @@ class TrackpadEvents {
         }
     }
 
-    private static func swipeVelocity(touches: [M5MultitouchTouch]) -> SwipeVelocity? {
+    private static func swipeVelocity(touches: [M5MultitouchTouch]) -> (x: Float, y: Float)? {
         var allRight = true
         var allLeft = true
         var allUp = true
@@ -92,22 +92,12 @@ class TrackpadEvents {
 
         let velX = sumVelX / Float(touches.count)
         let velY = sumVelY / Float(touches.count)
-        return SwipeVelocity(x: velX, y: velY)
+        return (velX, velY)
     }
 
     static func removeSwipeListener() {
         if listener != nil {
             M5MultitouchManager.shared().remove(listener)
-        }
-    }
-    
-    private class SwipeVelocity {
-        let x: Float
-        let y: Float
-        
-        init(x: Float, y: Float) {
-            self.x = x
-            self.y = y
         }
     }
 }
