@@ -178,8 +178,7 @@ class ControlsTab {
                 removeShortcutIfExists(controlId)
                 restrictModifiersOfHoldShortcut(controlId, [])
             } else {
-                let i = controlId.hasPrefix("nextWindowShortcut") ? Preferences.nameToIndex(controlId) : nil
-                addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, Shortcut(keyEquivalent: newValue)!, controlId, i)
+                addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, Shortcut(keyEquivalent: newValue)!, controlId, nil)
                 restrictModifiersOfHoldShortcut(controlId, [(sender as! CustomRecorderControl).objectValue!.modifierFlags])
             }
         }

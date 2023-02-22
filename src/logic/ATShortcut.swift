@@ -60,7 +60,7 @@ class ATShortcut {
 
     func shouldTrigger() -> Bool {
         if scope == .global {
-            if triggerPhase == .down && (!App.app.appIsBeingUsed || index == App.app.shortcutIndex) {
+            if triggerPhase == .down && (!App.app.appIsBeingUsed || index == nil || index == App.app.shortcutIndex) {
                 App.app.appIsBeingUsed = true
                 return true
             }
