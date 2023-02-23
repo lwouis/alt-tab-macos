@@ -336,7 +336,7 @@
 "Show on:" = "Anzeigen auf:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Zeige Tabs als Fenster an:";
+"Show standard tabs as windows:" = "Tabs als Fenster anzeigen:";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Fenster anzeigen von:";
@@ -417,4 +417,4 @@
 "You can’t undo this action." = "Diese Aktion kann nicht rückgängig gemacht werden.";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "Du hast keine Mail-Adresse angegeben, sodass man dir nicht antworten kann.";
+"You didn’t write your email, thus can’t receive any response." = "Du hast keine E-Mail-Adresse angegeben, sodass man dir nicht antworten kann.";
