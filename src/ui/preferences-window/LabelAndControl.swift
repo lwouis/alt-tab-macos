@@ -66,7 +66,9 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "", extraAction: ActionClosure? = nil) -> [NSView] {
         let value = defaults.double(rawName)
-        let suffixText = MeasurementFormatter().string(from: Measurement(value: value, unit: Unit(symbol: unitText)))
+        let formatter = MeasurementFormatter()
+        formatter.numberFormatter = NumberFormatter()
+        let suffixText = formatter.string(from: Measurement(value: value, unit: Unit(symbol: unitText)))
         let slider = NSSlider()
         slider.minValue = minValue
         slider.maxValue = maxValue
