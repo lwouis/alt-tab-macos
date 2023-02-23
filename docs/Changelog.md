@@ -1,5 +1,20 @@
 # Release notes
 
+# [6.55.0](https://github.com/lwouis/alt-tab-macos/compare/v6.54.0...v6.55.0) (2023-02-23)
+
+
+### Bug Fixes
+
+* use plain number formatter for initial slider label ([7cab722](https://github.com/lwouis/alt-tab-macos/commit/7cab722))
+
+
+### Features
+
+* allow batch removal from the blacklist ([f53c070](https://github.com/lwouis/alt-tab-macos/commit/f53c070))
+* allow to switch shortcuts while the ui is already open ([b99c988](https://github.com/lwouis/alt-tab-macos/commit/b99c988))
+* improved german localization ([5d27a19](https://github.com/lwouis/alt-tab-macos/commit/5d27a19))
+* show dock badges when they don't show a number (closes [#2356](https://github.com/lwouis/alt-tab-macos/issues/2356)) ([84752e0](https://github.com/lwouis/alt-tab-macos/commit/84752e0))
+
 # [6.54.0](https://github.com/lwouis/alt-tab-macos/compare/v6.53.1...v6.54.0) (2023-02-20)
 
 
