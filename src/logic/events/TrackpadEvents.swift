@@ -18,7 +18,7 @@ class TrackpadEvents {
 
         var accVelX: Float = 0
         var accVelY: Float = 0
-        // We need to track an UI activation via gesture to not to hide UI on trackpad events for other activations.
+        //TODO: We need to track an UI activation via gesture to not to hide UI on trackpad events for other activations.
         var activated: Bool = false
 
         listener = M5MultitouchManager.shared().addListener {event in
