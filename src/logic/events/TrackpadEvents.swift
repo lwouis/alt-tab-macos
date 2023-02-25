@@ -2,15 +2,20 @@ import M5MultitouchSupport
 
 //TODO: patch M5MultitouchSupport pod to make it not to crash after sleep. See https://github.com/mhuusko5/M5MultitouchSupport/issues/1
 //TODO: App Expose activates if swipe down with 3-fingers right after AltTab activation. There is no issue if wait for some time.
-//TODO: enable/disable trackpad usage in settings
 class TrackpadEvents {
     //TODO: Should we add a sensetivity setting instead of these magic numbers?
     private static let accVelXThreshold: Float = 10
     private static let accVelYThreshold: Float = 15
-    
+
     private static var listener: M5MultitouchListener?
 
     static func addSwipeListener() {
+        debugPrint("Add swipe listener")
+        if listener != nil {
+            debugPrint("Remove unexpected swipe listener")
+            M5MultitouchManager.shared().remove(listener)
+        }
+
         var accVelX: Float = 0
         var accVelY: Float = 0
         // We need to track an UI activation via gesture to not to hide UI on trackpad events for other activations.
@@ -30,7 +35,6 @@ class TrackpadEvents {
                     if App.app.appIsBeingUsed {
                         DispatchQueue.main.async {
                             App.app.focusTarget()
-                            App.app.hideUi()
                         }
                     }
                     accVelX = 0
@@ -61,7 +65,10 @@ class TrackpadEvents {
                 DispatchQueue.main.async { App.app.cycleSelection(direction) }
             } else {
                 if isHorizontal {
-                    DispatchQueue.main.async { App.app.showUi() }
+                    DispatchQueue.main.async {
+                        App.app.appIsBeingUsed = true
+                        App.app.showUiOrCycleSelection(5)
+                    }
                     activated = true
                 }
             }
@@ -96,6 +103,7 @@ class TrackpadEvents {
     }
 
     static func removeSwipeListener() {
+        debugPrint("Remove swipe listener")
         if listener != nil {
             M5MultitouchManager.shared().remove(listener)
         }

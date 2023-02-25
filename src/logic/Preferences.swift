@@ -36,16 +36,19 @@ class Preferences {
         "showMinimizedWindows3": ShowHowPreference.show.rawValue,
         "showMinimizedWindows4": ShowHowPreference.show.rawValue,
         "showMinimizedWindows5": ShowHowPreference.show.rawValue,
+        "showMinimizedWindows6": ShowHowPreference.show.rawValue,
         "showHiddenWindows": ShowHowPreference.show.rawValue,
         "showHiddenWindows2": ShowHowPreference.show.rawValue,
         "showHiddenWindows3": ShowHowPreference.show.rawValue,
         "showHiddenWindows4": ShowHowPreference.show.rawValue,
         "showHiddenWindows5": ShowHowPreference.show.rawValue,
+        "showHiddenWindows6": ShowHowPreference.show.rawValue,
         "showFullscreenWindows": ShowHowPreference.show.rawValue,
         "showFullscreenWindows2": ShowHowPreference.show.rawValue,
         "showFullscreenWindows3": ShowHowPreference.show.rawValue,
         "showFullscreenWindows4": ShowHowPreference.show.rawValue,
         "showFullscreenWindows5": ShowHowPreference.show.rawValue,
+        "showFullscreenWindows6": ShowHowPreference.show.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
@@ -58,16 +61,19 @@ class Preferences {
         "appsToShow3": AppsToShowPreference.all.rawValue,
         "appsToShow4": AppsToShowPreference.all.rawValue,
         "appsToShow5": AppsToShowPreference.all.rawValue,
+        "appsToShow6": AppsToShowPreference.all.rawValue,
         "spacesToShow": SpacesToShowPreference.all.rawValue,
         "spacesToShow2": SpacesToShowPreference.all.rawValue,
         "spacesToShow3": SpacesToShowPreference.all.rawValue,
         "spacesToShow4": SpacesToShowPreference.all.rawValue,
         "spacesToShow5": SpacesToShowPreference.all.rawValue,
+        "spacesToShow6": SpacesToShowPreference.all.rawValue,
         "screensToShow": ScreensToShowPreference.all.rawValue,
         "screensToShow2": ScreensToShowPreference.all.rawValue,
         "screensToShow3": ScreensToShowPreference.all.rawValue,
         "screensToShow4": ScreensToShowPreference.all.rawValue,
         "screensToShow5": ScreensToShowPreference.all.rawValue,
+        "screensToShow6": ScreensToShowPreference.all.rawValue,
         "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
         "hideStatusIcons": "false",
@@ -84,9 +90,11 @@ class Preferences {
         "shortcutStyle3": ShortcutStylePreference.focusOnRelease.rawValue,
         "shortcutStyle4": ShortcutStylePreference.focusOnRelease.rawValue,
         "shortcutStyle5": ShortcutStylePreference.focusOnRelease.rawValue,
+        "shortcutStyle6": ShortcutStylePreference.focusOnRelease.rawValue,
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
+        "swipe": SwipePreference.empty.rawValue,//TODO: use index? swipe6
     ]
 
     // system preferences
@@ -138,13 +146,13 @@ class Preferences {
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
-    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
-    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2", "spacesToShow3", "spacesToShow4", "spacesToShow5"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
-    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2", "screensToShow3", "screensToShow4", "screensToShow5"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
-    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4", "showMinimizedWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
+    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5", "appsToShow6"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
+    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2", "spacesToShow3", "spacesToShow4", "spacesToShow5", "spacesToShow6"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
+    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2", "screensToShow3", "screensToShow4", "screensToShow5", "screensToShow6"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
+    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4", "showMinimizedWindows5", "showMinimizedWindows6"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5", "showHiddenWindows6"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5", "showFullscreenWindows6"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5", "shortcutStyle6"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
     // derived values
@@ -444,6 +452,18 @@ enum MenubarIconPreference: String, CaseIterable, MacroPreference {
             case .filled: return " "
             case .colored: return " "
             case .hidden: return " "
+        }
+    }
+}
+
+enum SwipePreference: String, CaseIterable, MacroPreference {
+    case empty = "0"
+    case threeFingers = "1"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .empty: return ""
+            case .threeFingers: return NSLocalizedString("Three fingers", comment: "")
         }
     }
 }

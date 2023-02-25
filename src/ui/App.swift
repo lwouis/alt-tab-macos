@@ -61,8 +61,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
-            //TODO: we need to remove swipe listener somewhere
-            TrackpadEvents.addSwipeListener()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
@@ -80,6 +78,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func applicationWillTerminate(_ notification: Notification) {
         // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
         setNativeCommandTabEnabled(true)
+        TrackpadEvents.removeSwipeListener()
     }
 
     /// pre-load some windows so they are faster on first display
