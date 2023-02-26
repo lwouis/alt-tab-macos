@@ -32,7 +32,7 @@ class TrackpadEvents {
             if touches.count != 3 {
                 // Except when we already started a gesture, so we need to end it.
                 if activated {
-                    if App.app.appIsBeingUsed {
+                    if App.app.appIsBeingUsed && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
                         DispatchQueue.main.async {
                             App.app.focusTarget()
                         }

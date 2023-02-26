@@ -53,12 +53,14 @@ class ATShortcut {
             // contains at least
             return modifiers == (modifiers | shortcut.carbonModifierFlags)
         }
+        if modifiers == shortcut.carbonModifierFlags {
+            return true
+        }
         guard let atShortcut = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)] else {
             return false
         }
         let holdModifiers = atShortcut.shortcut.carbonModifierFlags
-        // contains exactly or exactly + holdShortcut modifiers
-        return modifiers == shortcut.carbonModifierFlags || modifiers == (shortcut.carbonModifierFlags | holdModifiers)
+        return  modifiers == (shortcut.carbonModifierFlags | holdModifiers)
     }
 
     func shouldTrigger() -> Bool {

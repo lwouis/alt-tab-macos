@@ -103,7 +103,6 @@ class ControlsTab {
     }
 
     //TODO: controls in Gesture tab aren't centered like in Shortcut tab
-    //TODO: 'On release do nothing' doesn't work. See ShortcutStylePreference.focusOnRelease usage and ATShortcut.shouldTrigger usage
     private static func gestureTab(_ index: Int) -> ([NSView], GridView) {
         let gesture = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Swipe:", comment: ""), "swipe", SwipePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
         let tab = controlTab(index, gesture)
