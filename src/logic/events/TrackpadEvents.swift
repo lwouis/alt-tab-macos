@@ -18,8 +18,6 @@ class TrackpadEvents {
 
         var accVelX: Float = 0
         var accVelY: Float = 0
-        //TODO: We need to track an UI activation via gesture to not to hide UI on trackpad events for other activations.
-        var activated: Bool = false
 
         listener = M5MultitouchManager.shared().addListener {event in
             if event == nil {
@@ -31,16 +29,13 @@ class TrackpadEvents {
             // We don't care about non-3-fingers swipes.
             if touches.count != 3 {
                 // Except when we already started a gesture, so we need to end it.
-                if activated {
-                    if App.app.appIsBeingUsed && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
-                        DispatchQueue.main.async {
-                            App.app.focusTarget()
-                        }
+                if App.app.appIsBeingUsed && App.app.shortcutIndex == 5 && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
+                    DispatchQueue.main.async {
+                        App.app.focusTarget()
                     }
-                    accVelX = 0
-                    accVelY = 0
-                    activated = false
                 }
+                accVelX = 0
+                accVelY = 0
                 return
             }
 
@@ -69,7 +64,6 @@ class TrackpadEvents {
                         App.app.appIsBeingUsed = true
                         App.app.showUiOrCycleSelection(5)
                     }
-                    activated = true
                 }
             }
             accVelX = 0
