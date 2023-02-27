@@ -223,6 +223,7 @@ class Window {
             if spaceIds.count == 1 {
                 spaceId = spaceIds.first!
                 spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
+                isOnAllSpaces = false
             } else if spaceIds.count > 1 {
                 spaceId = Spaces.currentSpaceId
                 spaceIndex = Spaces.currentSpaceIndex
