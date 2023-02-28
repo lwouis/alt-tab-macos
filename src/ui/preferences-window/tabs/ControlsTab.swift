@@ -240,15 +240,13 @@ class ControlsTab {
     }
 
     @objc static func gestureChangedCallback(_ sender: NSControl) {
-        guard let value = LabelAndControl.getControlValue(sender, nil) else {
-            return
-        }
-        guard let swipe = SwipePreference(rawValue: value) else {
+        guard let value = LabelAndControl.getControlValue(sender, nil),
+              let swipe = SwipePreference(rawValue: value) else {
             return
         }
         switch swipe {
-        case .empty: TrackpadEvents.removeSwipeListener()
-        case .threeFingers: TrackpadEvents.addSwipeListener()
+        case .empty: TrackpadEvents.toggle(false)
+        case .threeFingers: TrackpadEvents.toggle(true)
         }
     }
 }

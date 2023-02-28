@@ -57,6 +57,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.thumbnailsPanel = ThumbnailsPanel()
             Spaces.initialDiscovery()
             Applications.initialDiscovery()
+            TrackpadEvents.observe()
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()
@@ -78,7 +79,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func applicationWillTerminate(_ notification: Notification) {
         // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
         setNativeCommandTabEnabled(true)
-        TrackpadEvents.removeSwipeListener()
     }
 
     /// pre-load some windows so they are faster on first display
