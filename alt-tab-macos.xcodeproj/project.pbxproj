@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
+		5883F0A829A5182C0071DB65 /* TrackpadEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */; };
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
 		BF0C8052AE41B1B10E42BFCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C875C983226CB16DBD90F /* InfoPlist.strings */; };
 		BF0C807D26E465F467B066F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C849EBA5A547912BD8BB9 /* Localizable.strings */; };
@@ -171,6 +172,7 @@
 /* Begin PBXFileReference section */
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
 		481FE54624D2D387001032F1 /* alt-tab-macos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "alt-tab-macos-Bridging-Header.h"; sourceTree = "<group>"; };
+		5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadEvents.swift; sourceTree = "<group>"; };
 		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
 		BF0C80A05C11C8ADC366EC4A /* lb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = lb; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -1271,6 +1273,7 @@
 				D04BA76AEE37D6656EB80126 /* WorkspaceEvents.swift */,
 				D04BA5D9B4EBEB9E4333AE39 /* UserDefaultsEvents.swift */,
 				D04BAF320F4D43F0DDFE063E /* MouseEvents.swift */,
+				5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */,
 			);
 			path = events;
 			sourceTree = "<group>";
@@ -1643,6 +1646,7 @@
 				D04BA7B8D599E1A7A27FF5AE /* AcknowledgmentsTab.swift in Sources */,
 				D04BA8757C9F20F25EB50785 /* TextField.swift in Sources */,
 				D04BAE8B16A06A10E2FA94DE /* AccessibilityEvents.swift in Sources */,
+				5883F0A829A5182C0071DB65 /* TrackpadEvents.swift in Sources */,
 				D04BAAAF5CFA991D3B078DB8 /* KeyboardEvents.swift in Sources */,
 				D04BA1766FBCB2E941D081A5 /* WorkspaceEvents.swift in Sources */,
 				D04BA0AE9865276FF8EF5DEB /* UserDefaultsEvents.swift in Sources */,
