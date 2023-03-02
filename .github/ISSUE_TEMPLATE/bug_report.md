@@ -13,7 +13,7 @@ A clear and concise description of what the bug is. What happened, and what you 
 
 **Screenshots / video**
 
-Add screenshots to help explain your problem. You can also use Loom to easily record your screen to show the bug in action. That is *really* helpful!
+Add screenshots to help explain your problem. You can also record your screen to show the bug in action. That is *really* helpful!
 
 **Steps to reproduce the bug**
 

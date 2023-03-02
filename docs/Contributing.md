@@ -8,7 +8,7 @@ There are many ways to contribute:
 
 ## Technical overview
 
-This document gives an technical overview of the project, for newcomers who want to contribute.
+This document gives a technical overview of the project, for newcomers who want to contribute.
 
 ## Building the project locally
 
@@ -37,7 +37,7 @@ OS APIs are quite limited for the kind of low-level, system-wide app AltTab is. 
 
 To mitigate the issues listed above, we took some measures.
 
-We minimize reliance on XCode, InterfaceBuilder, Playground, and other GUI tools. You can’t cut the dependency completely though as only XCode can build macos apps. Currently the project has these files:
+We minimize reliance on XCode, InterfaceBuilder, Playground, and other GUI tools. You can’t cut the dependency completely though as only XCode can build macOS apps. Currently, the project has these files:
 
 * 1 xib (InterfaceBuilder UI file, describing the menubar items like “Edit” or “Format”)
 * `alt-tab-macos.xcodeproj` file describing AltTab itself. It contains some settings for the app
@@ -127,7 +127,7 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * A window is moved to another space by drag-and-dropping on the Spaces thumbnails at the top of the Mission Control UI
 * A window is moved to another space by dragging it on the side of the current Space, and waiting for a Space transition, then dropping it
 * A window is moved to another space by destroying the Space it is in
-* An app is assigned to a specific space or all spaces by clicking it’s Dock icon > Options > Assign to
+* An app is assigned to a specific space or all spaces by clicking its Dock icon > Options > Assign to
 
 ### Shortcuts
 
@@ -153,7 +153,7 @@ In an attempt to not have too many regressions, this documents will list OS inte
 * Right-to-left languages (e.g. arabic) have the whole layout reversed
   * For the main window, even navigation is reversed
   * For preferences and feedback windows, all layout is reversed
-* Text length can varies per languages which can create layout issues
+* Text length can vary per languages which can create layout issues
 
 ### Misc
 
