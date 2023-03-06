@@ -11,6 +11,7 @@ fileprivate var accVelY: Float = 0
 //TODO: Don't use string as key. Maybe we should use other data-sructure.
 fileprivate var prevTouchPositions: [String: NSPoint] = [:]
 
+//TODO: underlying content scrolls if Mission Control and App Expose use 4-finger swipes or are off in Trackpad settings. It doesn't scroll if any of them use 3-finger swipe though. See https://github.com/ris58h/Touch-Tab/issues/1
 class TrackpadEvents {
     static func observe() {
         observe_()
@@ -54,9 +55,14 @@ private func eventHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CG
 
 private func touchEventHandler(_ nsEvent: NSEvent) {
     let touches = nsEvent.allTouches()
-    
+
+    // Sometimes there are empty touch events that we have to skip. There are no empty touch events if Mission Control or App Expose use 3-finger swipes though.
+    if touches.isEmpty {
+        return
+    }
+
     // We don't care about non-3-fingers swipes.
-    if touches.count != 3 {
+    if touches.count != 3 || touches.allSatisfy({ $0.phase == .ended }) {
         // Except when we already started a gesture, so we need to end it.
         if App.app.appIsBeingUsed && App.app.shortcutIndex == 5 && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
             DispatchQueue.main.async {
