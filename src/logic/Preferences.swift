@@ -87,6 +87,7 @@ class Preferences {
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
+        "previewFocusedWindow": "false",
     ]
 
     // system preferences
@@ -130,6 +131,7 @@ class Preferences {
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
+    static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }

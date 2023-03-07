@@ -93,12 +93,24 @@ class Window {
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
+    
+    private func screenshot(_ bestResolution: Bool = false) -> NSImage? {
+        guard !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != -1, let cgImage = cgWindowId.screenshot(bestResolution) else {
+            return nil
+        }
+        return NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
+    }
 
     func refreshThumbnail() {
-        if !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != -1, let cgImage = cgWindowId.screenshot() {
-            thumbnail = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
-            thumbnailFullSize = thumbnail!.size
+        guard let screenshot = screenshot() else {
+            return
         }
+        thumbnail = screenshot
+        thumbnailFullSize = thumbnail!.size
+    }
+    
+    func getPreview() -> NSImage? {
+        return screenshot(true)
     }
 
     func canBeClosed() -> Bool {

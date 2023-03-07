@@ -10,6 +10,7 @@
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
+		AA974BA929B7D84C0099A29E /* PreviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA974BA829B7D84C0099A29E /* PreviewPanel.swift */; };
 		BF0C8052AE41B1B10E42BFCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C875C983226CB16DBD90F /* InfoPlist.strings */; };
 		BF0C807D26E465F467B066F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C849EBA5A547912BD8BB9 /* Localizable.strings */; };
 		BF0C812C068CD751CE9BFB67 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8D5993267A74D4875C1A /* Localizable.strings */; };
@@ -173,6 +174,7 @@
 		481FE54624D2D387001032F1 /* alt-tab-macos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "alt-tab-macos-Bridging-Header.h"; sourceTree = "<group>"; };
 		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
+		AA974BA829B7D84C0099A29E /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
 		BF0C80A05C11C8ADC366EC4A /* lb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = lb; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8113492C0FFCB4454BC9 /* sl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sl; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8118F91A00A04AD4DE26 /* bg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = bg; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -994,6 +996,7 @@
 				D04BA1DF8CAB2FAB7FE9244B /* ThumbnailFontIconView.swift */,
 				D04BA258B56193958D60978A /* ThumbnailView.swift */,
 				D04BAA998119CAA8B70A2B67 /* ThumbnailsView.swift */,
+				AA974BA829B7D84C0099A29E /* PreviewPanel.swift */,
 			);
 			path = "main-window";
 			sourceTree = "<group>";
@@ -1618,6 +1621,7 @@
 				D04BA6187A91A847844B6ABB /* Window.swift in Sources */,
 				D04BA737008AA2CD4E230A21 /* Application.swift in Sources */,
 				D04BA2A6FF9DDDC5A1A68E36 /* Applications.swift in Sources */,
+				AA974BA929B7D84C0099A29E /* PreviewPanel.swift in Sources */,
 				D04BA3CF766857381519B892 /* BackgroundWork.swift in Sources */,
 				D04BA48B00B4211A465C7337 /* DebugProfile.swift in Sources */,
 				D04BAB68B7B8D1B548BC3AD5 /* App.swift in Sources */,
