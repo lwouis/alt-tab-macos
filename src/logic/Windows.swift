@@ -36,11 +36,11 @@ class Windows {
         if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
            app.focusedWindow == nil,
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
-            updateHoveredAndFocusedWindowIndexes(lastFocusedWindowIndex)
+            updateFocusedAndHoveredWindowIndex(lastFocusedWindowIndex)
         } else {
             cycleFocusedWindowIndex(1)
             if focusedWindowIndex == 0 {
-                updateHoveredAndFocusedWindowIndexes(0)
+                updateFocusedAndHoveredWindowIndex(0)
             }
         }
     }
@@ -99,7 +99,7 @@ class Windows {
         return nil
     }
 
-    static func updateHoveredAndFocusedWindowIndexes(_ newIndex: Int, _ fromMouse: Bool = false) {
+    static func updateFocusedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
         var index: Int?
         if fromMouse && newIndex != hoveredWindowIndex {
             let oldIndex = hoveredWindowIndex
@@ -113,6 +113,7 @@ class Windows {
             let oldIndex = focusedWindowIndex
             focusedWindowIndex = newIndex
             ThumbnailsView.highlight(oldIndex)
+            previewFocusedWindowIfNeeded()
             index = focusedWindowIndex
         }
         guard let index = index else { return }
@@ -120,6 +121,25 @@ class Windows {
         let focusedView = ThumbnailsView.recycledViews[index]
         App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
         voiceOverWindow(index)
+    }
+    
+    static func previewFocusedWindowIfNeeded() {
+        guard
+            Preferences.previewFocusedWindow,
+            App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
+            let window = focusedWindow(),
+            let preview = window.getPreview(),
+            let position = window.position,
+            let size = window.size
+        else {
+            App.app.previewPanel.orderOut(nil)
+            return
+        }
+        App.app.previewPanel.setPreview(preview)
+        var frame = NSRect(origin: position, size: size)
+        frame.origin.y = NSScreen.screens[0].frame.maxY - frame.maxY
+        App.app.previewPanel.setFrame(frame, display: false)
+        App.app.previewPanel.order(.below, relativeTo: App.app.thumbnailsPanel.windowNumber)
     }
 
     static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {
@@ -144,7 +164,7 @@ class Windows {
                (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
             return
         }
-        updateHoveredAndFocusedWindowIndexes(nextIndex)
+        updateFocusedAndHoveredWindowIndex(nextIndex)
     }
 
     static func windowIndexAfterCycling(_ step: Int) -> Int {

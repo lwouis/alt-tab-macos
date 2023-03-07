@@ -17,6 +17,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static var app: App!
     var thumbnailsPanel: ThumbnailsPanel!
+    var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
     var feedbackWindow: FeedbackWindow!
     var isFirstSummon = true
@@ -55,6 +56,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Menubar.initialize()
             self.loadMainMenuXib()
             self.thumbnailsPanel = ThumbnailsPanel()
+            self.previewPanel = PreviewPanel()
             Spaces.initialDiscovery()
             Applications.initialDiscovery()
             self.preferencesWindow = PreferencesWindow()
@@ -113,6 +115,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         isFirstSummon = true
         MouseEvents.toggle(false)
         hideThumbnailPanelWithoutChangingKeyWindow()
+        previewPanel.orderOut(nil)
         hideAllTooltips()
     }
 
@@ -295,6 +298,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         refreshOpenUi()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
+        Windows.previewFocusedWindowIfNeeded()
         guard appIsBeingUsed else { return }
         Windows.refreshThumbnailsAsync(screen)
         guard appIsBeingUsed else { return }

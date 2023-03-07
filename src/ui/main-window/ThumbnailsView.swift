@@ -71,7 +71,7 @@ class ThumbnailsView: NSVisualEffectView {
                 return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
             } ?? iterable.last!
             let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
-            Windows.updateHoveredAndFocusedWindowIndexes(targetIndex)
+            Windows.updateFocusedAndHoveredWindowIndex(targetIndex)
         }
     }
 

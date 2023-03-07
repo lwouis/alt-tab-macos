@@ -187,7 +187,7 @@ class ThumbnailView: NSStackView {
             windowlessIcon.needsDisplay = true
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
-        self.mouseMovedCallback = { () -> Void in Windows.updateHoveredAndFocusedWindowIndexes(index, true) }
+        self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
         [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.window_ = element }
         showOrHideWindowControls(false)
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
