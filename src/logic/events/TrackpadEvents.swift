@@ -1,4 +1,4 @@
-import AppKit
+import Cocoa
 
 fileprivate var eventTap: CFMachPort!
 fileprivate var shouldBeEnabled: Bool!
@@ -59,9 +59,10 @@ private func touchEventHandler(_ nsEvent: NSEvent) {
     if touches.isEmpty {
         return
     }
+    let touchesCount = touches.allSatisfy({ $0.phase == .ended }) ? 0 : touches.count
 
     // We don't care about non-3-fingers swipes.
-    if touches.count != 3 || touches.allSatisfy({ $0.phase == .ended }) {
+    if touchesCount != 3 {
         // Except when we already started a gesture, so we need to end it.
         if App.app.appIsBeingUsed && App.app.shortcutIndex == 5 && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
             DispatchQueue.main.async {
