@@ -28,7 +28,7 @@ class TrackpadEvents {
 private func observe_() {
     // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
     eventTap = CGEvent.tapCreate(
-        tap: .cgSessionEventTap,
+        tap: .cghidEventTap,
         place: .headInsertEventTap,
         options: .listenOnly,
         eventsOfInterest: NSEvent.EventTypeMask.gesture.rawValue,
