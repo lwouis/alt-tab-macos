@@ -104,7 +104,7 @@ class ControlsTab {
 
     //TODO: controls in Gesture tab aren't centered like in Shortcut tab
     private static func gestureTab(_ index: Int) -> ([NSView], GridView) {
-        let gesture = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Swipe:", comment: ""), "swipe", SwipePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
+        let gesture = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Gesture:", comment: ""), "gesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
         let tab = controlTab(index, gesture)
         return (gesture, tab)
     }
@@ -241,12 +241,12 @@ class ControlsTab {
 
     @objc static func gestureChangedCallback(_ sender: NSControl) {
         guard let value = LabelAndControl.getControlValue(sender, nil),
-              let swipe = SwipePreference(rawValue: value) else {
+              let swipe = GesturePreference(rawValue: value) else {
             return
         }
         switch swipe {
-        case .empty: TrackpadEvents.toggle(false)
-        case .threeFingers: TrackpadEvents.toggle(true)
+        case .none: TrackpadEvents.toggle(false)
+        case .threeFingerSwipe: TrackpadEvents.toggle(true)
         }
     }
 }

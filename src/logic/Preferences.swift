@@ -21,6 +21,7 @@ class Preferences {
         "nextWindowShortcut3": "",
         "nextWindowShortcut4": "",
         "nextWindowShortcut5": "",
+        "gesture": GesturePreference.none.rawValue,
         "focusWindowShortcut": "Space",
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
@@ -94,7 +95,6 @@ class Preferences {
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
-        "swipe": SwipePreference.empty.rawValue,//TODO: use index? swipe6
     ]
 
     // system preferences
@@ -456,14 +456,14 @@ enum MenubarIconPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum SwipePreference: String, CaseIterable, MacroPreference {
-    case empty = "0"
-    case threeFingers = "1"
+enum GesturePreference: String, CaseIterable, MacroPreference {
+    case none = "0"
+    case threeFingerSwipe = "1"
 
     var localizedString: LocalizedString {
         switch self {
-            case .empty: return ""
-            case .threeFingers: return NSLocalizedString("Three fingers", comment: "")
+            case .none: return ""
+            case .threeFingerSwipe: return NSLocalizedString("Swipe with Three Fingers", comment: "")
         }
     }
 }
