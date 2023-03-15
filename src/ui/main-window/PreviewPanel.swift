@@ -2,6 +2,7 @@ import Cocoa
 
 class PreviewPanel: NSPanel {
     private let previewView = NSImageView()
+    private let borderView = BorderView()
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.nonactivatingPanel, .titled, .fullSizeContentView], backing: .buffered, defer: false)
@@ -12,6 +13,8 @@ class PreviewPanel: NSPanel {
         titlebarAppearsTransparent = true
         backgroundColor = .clear
         contentView = previewView
+        borderView.autoresizingMask = [.width, .height]
+        previewView.addSubview(borderView)
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
         // 2nd highest level possible; this allows the app to go on top of context menus
@@ -23,5 +26,14 @@ class PreviewPanel: NSPanel {
     
     func setPreview(_ preview: NSImage) {
         previewView.image = preview
+    }
+}
+
+private class BorderView: NSView {
+    override func draw(_ dirtyRect: NSRect) {
+        let path = NSBezierPath(rect: bounds)
+        path.append(NSBezierPath(roundedRect: bounds.insetBy(dx: 5, dy: 5), xRadius: 5, yRadius: 5).reversed)
+        NSColor.red.withAlphaComponent(0.5).setFill()
+        path.fill()
     }
 }
