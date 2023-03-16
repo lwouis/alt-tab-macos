@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.56.0](https://github.com/lwouis/alt-tab-macos/compare/v6.55.0...v6.56.0) (2023-03-16)
+
+
+### Bug Fixes
+
+* correctly show when an app is no longer assigned to all desktops ([10bbaa9](https://github.com/lwouis/alt-tab-macos/commit/10bbaa9)), closes [#2372](https://github.com/lwouis/alt-tab-macos/issues/2372)
+
+
+### Features
+
+* add option to preview selected window (closes [#967](https://github.com/lwouis/alt-tab-macos/issues/967)) ([6534a2d](https://github.com/lwouis/alt-tab-macos/commit/6534a2d))
+
 # [6.55.0](https://github.com/lwouis/alt-tab-macos/compare/v6.54.0...v6.55.0) (2023-02-23)
 
 
