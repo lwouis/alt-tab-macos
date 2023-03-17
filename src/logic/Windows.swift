@@ -189,6 +189,8 @@ class Windows {
         if let focusedWindow = focusedWindow() {
             if !focusedWindow.shouldShowTheUser {
                 cycleFocusedWindowIndex(windowIndexAfterCycling(1) > focusedWindowIndex ? 1 : -1)
+            } else {
+                previewFocusedWindowIfNeeded()
             }
         } else {
             cycleFocusedWindowIndex(-1)
