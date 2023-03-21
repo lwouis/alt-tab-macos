@@ -64,7 +64,7 @@ class ATShortcut {
                 App.app.appIsBeingUsed = true
                 return true
             }
-            if triggerPhase == .up && App.app.appIsBeingUsed && (index == nil || index == App.app.shortcutIndex) && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
+            if triggerPhase == .up && App.app.appIsBeingUsed && (index == nil || index == App.app.shortcutIndex) && Preferences.shortcutStyle[App.app.shortcutIndex] != .doNothingOnRelease {
                 return true
             }
         }

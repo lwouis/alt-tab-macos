@@ -158,6 +158,14 @@ class Windows {
         return list.count > focusedWindowIndex ? list[focusedWindowIndex] : nil
     }
 
+    static func minimizeOtherWindows() {
+        Windows.list.enumerated().forEach {
+            if $0.offset != focusedWindowIndex && !$0.element.isMinimized && !$0.element.isWindowlessApp && $0.element.shouldShowTheUser {
+                $0.element.minDemin()
+            }
+        }
+    }
+
     static func cycleFocusedWindowIndex(_ step: Int) {
         let nextIndex = windowIndexAfterCycling(step)
         if ((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
