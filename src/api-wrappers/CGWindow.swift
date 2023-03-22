@@ -9,15 +9,6 @@ extension CGWindow {
         return CGWindowListCopyWindowInfo([.excludeDesktopElements, option], kCGNullWindowID) as! [CGWindow]
     }
 
-    static func isMissionControlActive() -> Bool {
-        // when Mission Control is active, the Dock process spawns some windows. We observe this side-effect and infer
-        for window in windows(.optionOnScreenOnly) {
-            guard window.ownerName() == "Dock", window.title() == nil else { continue }
-            return true
-        }
-        return false
-    }
-
     // workaround: filtering this criteria seems to remove non-windows UI elements
     func isNotMenubarOrOthers() -> Bool {
         return layer() == 0

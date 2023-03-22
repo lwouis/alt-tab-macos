@@ -22,6 +22,7 @@
 		BF0C823630E3DEAC576FAFE6 /* menubar-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0C88BF67CF4D71002A60EB /* menubar-1@2x.png */; };
 		BF0C828D53D429C2B8B22391 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C883EBA8FDA9CB61C91FD /* Localizable.strings */; };
 		BF0C829583ED47E458528F3A /* accessibility@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0C889529FF19620EDAC295 /* accessibility@2x.png */; };
+		BF0C832C5BF4C8E9C95F7767 /* MissionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C82E4DE5A28800F1DA6E6 /* MissionControl.swift */; };
 		BF0C8382435C0087E131BD83 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8A900DA32A7F62457CC2 /* InfoPlist.strings */; };
 		BF0C83AB0186CC48FADF66A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C847B2D68EACFAC1B06D1 /* Localizable.strings */; };
 		BF0C83E902F75A97E8FD374A /* menubar-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8D3333653ACAEF730DD8 /* menubar-2@2x.png */; };
@@ -184,6 +185,7 @@
 		BF0C828AF7BCC4F47E70B28F /* menubar-2.svg */ = {isa = PBXFileReference; lastKnownFileType = file.svg; path = "menubar-2.svg"; sourceTree = "<group>"; };
 		BF0C82C381FCBCF8109735AC /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C82D44C2DFAA5D8F60394 /* sq */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sq; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C82E4DE5A28800F1DA6E6 /* MissionControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionControl.swift; sourceTree = "<group>"; };
 		BF0C831AA76CF82EAC7B60B3 /* gl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = gl; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C83258B2873D9CDC74EA5 /* preferences-controls.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-controls.jpg"; sourceTree = "<group>"; };
 		BF0C833D471343CEA3DEFE56 /* icon_512x512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_512x512@2x.png"; sourceTree = "<group>"; };
@@ -946,6 +948,7 @@
 				D04BA03200F5A8FC0CD03607 /* CGWindowID.swift */,
 				D04BA8DB8AA7E5570DAC568A /* Sysctl.swift */,
 				D04BA514F1C4B475B3CA6EB6 /* Bash.swift */,
+				BF0C82E4DE5A28800F1DA6E6 /* MissionControl.swift */,
 			);
 			path = "api-wrappers";
 			sourceTree = "<group>";
@@ -1665,6 +1668,7 @@
 				BF0C8C7E96DB48120462DA00 /* TrafficLightButton.swift in Sources */,
 				BF0C898511686611E4D7D81E /* Button.swift in Sources */,
 				BF0C8E16F38203AEC71E062B /* TableView.swift in Sources */,
+				BF0C832C5BF4C8E9C95F7767 /* MissionControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
