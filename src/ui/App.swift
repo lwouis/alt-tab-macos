@@ -109,13 +109,15 @@ class App: AppCenterApplication, NSApplicationDelegate {
         App.shared.terminate(self)
     }
 
-    func hideUi() {
+    func hideUi(_ keepPreview: Bool = false) {
         debugPrint("hideUi")
         appIsBeingUsed = false
         isFirstSummon = true
         MouseEvents.toggle(false)
         hideThumbnailPanelWithoutChangingKeyWindow()
-        previewPanel.orderOut(nil)
+        if !keepPreview {
+            previewPanel.orderOut(nil)
+        }
         hideAllTooltips()
     }
 
@@ -201,8 +203,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func focusSelectedWindow(_ selectedWindow: Window?) {
-        hideUi()
-        guard let window = selectedWindow, !CGWindow.isMissionControlActive() else { return }
+        hideUi(true)
+        guard let window = selectedWindow, !CGWindow.isMissionControlActive() else {
+            previewPanel.orderOut(nil)
+            return
+        }
         window.focus()
         if Preferences.cursorFollowFocusEnabled {
             moveCursorToSelectedWindow(window)

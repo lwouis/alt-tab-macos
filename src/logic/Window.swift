@@ -178,6 +178,7 @@ class Window {
         } else if let bundleID = application.runningApplication.bundleIdentifier, bundleID == App.id {
             App.shared.activate(ignoringOtherApps: true)
             App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
+            Windows.previewFocusedWindowIfNeeded()
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
@@ -189,6 +190,9 @@ class Window {
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(psn)
                 self.axUiElement.focusWindow()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                    Windows.previewFocusedWindowIfNeeded()
+                }
             }
         }
     }
