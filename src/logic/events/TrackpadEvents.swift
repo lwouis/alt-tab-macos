@@ -11,7 +11,7 @@ fileprivate var accVelY: Float = 0
 //TODO: Don't use string as key. Maybe we should use other data-sructure.
 fileprivate var prevTouchPositions: [String: NSPoint] = [:]
 
-//TODO: underlying content scrolls if Mission Control and App Expose use 4-finger swipes or are off in Trackpad settings. It doesn't scroll if any of them use 3-finger swipe though. See https://github.com/ris58h/Touch-Tab/issues/1
+//TODO: underlying content scrolls if both Mission Control and App Expose use 4-finger swipes or are off in Trackpad settings. It doesn't scroll if any of them use 3-finger swipe though.
 class TrackpadEvents {
     static func observe() {
         observe_()
