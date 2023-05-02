@@ -44,8 +44,8 @@ AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, E
 
 ## Privacy and respecting the user
 
-* AltTab doesn’t send or receive any data without explicit user consent. It may ask the user to send a crash report after a crash for example, but it will never spy on the user.
-* AltTab tries to use as few resources as it can: CPU, memory, disk, etc. All images are compressed, AltTab is optimized to be as light as possible on the user resources.
+* AltTab doesn’t upload or download any data without the user explicitly asking for it (e.g. asking to update the app, sending a crash report, etc)
+* AltTab uses as few resources as possible: CPU, memory, disk, etc. The app footprint is small (e.g. small disk size, minimal CPU use in the background, etc)
 
 ## Configuration
 
