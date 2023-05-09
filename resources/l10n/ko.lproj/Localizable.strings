@@ -138,13 +138,16 @@
 "Fade out animation:" = "페이드 아웃 애니메이션:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "선택된 윈도우로 이동";
+"Focus selected window" = "선택한 윈도우로 이동";
 
 /*No comment provided by engineer.*/
 "Fullscreen window" = "윈도우를 전체 화면으로 전환";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "전체 화면 윈도우:";
+
+/*No comment provided by engineer.*/
+"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
 
 /*No comment provided by engineer.*/
 "General" = "일반";
@@ -249,7 +252,7 @@
 "Preferences…" = "설정…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "선택한 윈도우 미리보기:";
 
 /*No comment provided by engineer.*/
 "Quit" = "종료";

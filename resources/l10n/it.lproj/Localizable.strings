@@ -1,6 +1,6 @@
 
 /*No comment provided by engineer.*/
-"About" = "Info programma";
+"About" = "Info";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "Info su %@";
@@ -24,10 +24,10 @@
 "Align windows:" = "Allinea finestre:";
 
 /*No comment provided by engineer.*/
-"All apps" = "Tutte le applicazioni";
+"All apps" = "Tutte le app";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "Tutti i dati di questo modulo saranno resi pubblici, come ticket su github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Tutti i dati di questo modulo saranno resi pubblici come ticket su github.com";
 
 /*No comment provided by engineer.*/
 "All screens" = "Tutti gli schermi";
@@ -39,115 +39,118 @@
 "Allowed" = "Consentito";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Seleziona finestra anche usando:";
+"Also select windows using:" = "Seleziona finestre usando anche:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab l'ultima volta che l'hai usato si è bloccato. \nL'invio di un rapporto sui crash potrebbe aiutare a risolvere il problema";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab si è arrestato in modo anomalo l'ultima volta. L'invio di una segnalazione potrebbe aiutare a risolvere il problema.";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab richiede alcuni permessi";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Sempre";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Invia sempre rapporto crash";
+"Always send crash reports" = "Invia sempre resoconti di arresti anomali";
 
 /*No comment provided by engineer.*/
 "and press:" = "e premi:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "App (BundleID inizia con)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "L'app è nascosta";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "L'app è attiva ma senza finestre aperte";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "Ritardo apparizione:";
+"Apparition delay:" = "Ritardo comparsa:";
 
 /*No comment provided by engineer.*/
-"Appearance" = "Apparenza";
+"Appearance" = "Aspetto";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Sei sicuro di non volere una risposta?";
+"Are you sure you don’t want a response?" = "Confermi di non volere una risposta?";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Tasti freccia";
 
 /*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Chiedi se inviare rapporto crash";
+"Ask whether to send crash reports" = "Chiedi se inviare resconti di arresti anomali";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Installa automaticamente aggiornamenti periodicamente";
+"Auto-install updates periodically" = "Installa aggiornamenti in automatico periodicamente";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Elenco non autorizzati";
+"Blacklists" = "Esclusioni";
 
 /*Cancel button*/
-"Cancel" = "Annula";
+"Cancel" = "Annulla";
 
 /*No comment provided by engineer.*/
 "Cancel and hide" = "Annulla e nascondi";
 
 /*No comment provided by engineer.*/
-"Center" = "In centro";
+"Center" = "Al centro";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Controlla aggiornamenti ora…";
+"Check for updates now…" = "Verifica aggiornamenti ora...";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Controlla aggiornamenti periodicamente";
+"Check for updates periodically" = "Verifica periodicamente la presenza di aggiornamenti";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "Controllo aggiornamenti…";
+"Check for updates…" = "Verifica aggiornamenti...";
 
 /*No comment provided by engineer.*/
 "Close window" = "Chiudi finestra";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Combinazione tasti in conflitto";
+"Conflicting shortcut" = "Comandi rapidi in conflitto";
 
 /*No comment provided by engineer.*/
-"Controls" = "Controlli";
+"Controls" = "Comandi";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Policy rapporto crash:";
+"Crash reports policy:" = "Arresti anomali:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Centra il puntatore del mouse dopo la selezione";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Non fare nulla";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Non controllare gli aggiornamenti periodicamente";
+"Don’t check for updates periodically" = "Non verificare aggiornamenti periodicamente";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Non inviare";
 
 /*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Non visualizzare le finestre di queste app";
+"Don’t show windows from these apps" = "Non mostrare finestre di queste app";
 
 /*No comment provided by engineer.*/
-"End" = "Fine";
+"End" = "Alla fine";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Animazione dissolvenza:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Focus finestra selezionata";
+"Focus selected window" = "Attiva la finestra selezionata";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Finestra a schermo intero";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Finestra a schermo pieno:";
+"Fullscreen windows:" = "Finestre a schermo intero:";
 
 /*No comment provided by engineer.*/
-"General" = "Generale";
+"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+
+/*No comment provided by engineer.*/
+"General" = "Generali";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Finestre nascoste:";
@@ -156,7 +159,7 @@
 "Hide" = "Nascondi";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Nascodi badge app:";
+"Hide app badges:" = "Nascodi badge delle app:";
 
 /*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Nascondi app senza finestre aperte:";
@@ -165,64 +168,64 @@
 "Hide colored circles on mouse hover:" = "Nascondi cerchi colorati al passaggio del mouse:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Nascondi in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Nascondi etichette numero spazi:";
+"Hide Space number labels:" = "Non mostrare numeri per gli spazi:";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Nascondi icone stato:";
+"Hide status icons:" = "Nascondi icone di stato:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Nascondi anteprime finestra:";
+"Hide window thumbnails:" = "Nascondi anteprime finestre:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Nascondi/Visualizza app";
+"Hide/Show app" = "Nascondi/mostra app";
 
 /*No comment provided by engineer.*/
-"Hold" = "Mantieni";
+"Hold" = "Tieni premuto";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Credo che l’applicazione possa essere migliorata con…";
+"I think the app could be improved with…" = "Penso che la app possa essere migliorata con...";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignora comandi rapidi quando attiva";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignora combinazioni tasti mentre è attiva una finestra di queste app";
+"Ignore shortcuts while a window from these apps is active" = "Ignora i comandi rapidi quando una finestra di queste app è attiva";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Ultime versioni";
 
 /*No comment provided by engineer.*/
-"Left" = "Sinistra";
+"Left" = "A sinistra";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "Altezza max schermo:";
+"Max height on screen:" = "Altezza massima:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "Larghezza max schermo:";
+"Max width on screen:" = "Larghezza massima:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Icona barra menu:";
+"Menubar icon:" = "Icona della barra dei menu:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Nel mezzo";
+"Middle" = "A metà";
 
 /*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimizza/massimizza finestra";
+"Minimize/Deminimize window" = "Contrai/espandi finestra";
 
 /*No comment provided by engineer.*/
-"Minimized windows:" = "Finestre minimizzate:";
+"Minimized windows:" = "Finestre contratte:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Varie:";
 
 /*No comment provided by engineer.*/
-"Mouse hover" = "Passa il mouse";
+"Mouse hover" = "Passaggio del mouse";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Non inviare mai rapporto crash";
+"Never send crash reports" = "Non inviare resoconti";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Non consentito";
@@ -231,31 +234,31 @@
 "NSHumanReadableCopyright" = "Licenza GPL-3.0";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Solo se la finestra è a schermo pieno";
+"Only if the window is fullscreen" = "Solo se la finestra è a schermo intero";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Apri preferenze Accessibilità...";
+"Open Accessibility Preferences…" = "Apri impostazioni Accessibilità…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Apri preferenze Cattura schermo...";
+"Open Screen Recording Preferences…" = "Apri impostazioni Registrazione schermo…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Email opzionale (se desideri una risposta)";
+"Optional: email (if you want a reply)" = "Facoltativa: email (se vuoi una risposta)";
 
 /*No comment provided by engineer.*/
-"Policies" = "Policy";
+"Policies" = "Politiche";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Preferenze…";
+"Preferences…" = "Impostazioni…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Mostra la finestra reale al passaggio:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Esci";
 
 /*No comment provided by engineer.*/
-"Quit %@" = "Chiudi %@";
+"Quit %@" = "Esci da %@";
 
 /*No comment provided by engineer.*/
 "Quit app" = "Esci dall'app";
@@ -264,25 +267,25 @@
 "Remember my choice" = "Ricorda la mia scelta";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Resetta le impostazioni e riavvia";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Inizializza impostazioni e riavvia…";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Numero righe anteprime:";
+"Rows of thumbnails:" = "Righe di anteprime:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Schermata con barra menu";
+"Screen including menu bar" = "Schermo con la barra dei menu";
 
 /*No comment provided by engineer.*/
-"Screen including mouse" = "Schermata incluso il mouse";
+"Screen including mouse" = "Schermo con il mouse";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Cattura schermo";
+"Screen Recording" = "Registrazione schermo";
 
 /*No comment provided by engineer.*/
-"Screen showing AltTab" = "Schermata che visualizza AltTab";
+"Screen showing AltTab" = "Schermo con AltTab";
 
 /*No comment provided by engineer.*/
 "Select next window" = "Seleziona finestra successiva";
@@ -294,82 +297,82 @@
 "Send" = "Invia";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Vuoi inviare un rapporto sul crash?";
+"Send a crash report?" = "Inviare un resoconto?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Invia comunque";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Invia info debug (CPU, memoria, ecc)";
+"Send debug profile (CPU, memory, etc)" = "Invia profilo debug (CPU, memoria, ecc.)";
 
 /*No comment provided by engineer.*/
-"Send feedback" = "Invia commenti";
+"Send feedback" = "Invia feedback";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "Invia commenti…";
+"Send feedback…" = "Invia feedback…";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Condividi idee per miglioramenti oppure riporta problemi";
+"Share improvement ideas, or report bugs" = "Condividi idee per migliorare l'app o segnala dei problemi";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Combinazione tasti 1";
+"Shortcut 1" = "Comando 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Combinazione tasti 2";
+"Shortcut 2" = "Comando 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Comando 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Comando 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Comando 5";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Combinazione tasti già assegnata a un'altra azione: %@";
+"Shortcut already assigned to another action: %@" = "Comando già assegnato a: %@";
 
 /*No comment provided by engineer.*/
-"Show" = "Visualizza";
+"Show" = "Mostra";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Visualizza alla fine";
+"Show at the end" = "Mostra alla fine";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Visualizza in:";
+"Show on:" = "Mostra su:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Visualizza schede standard come finestre:";
+"Show standard tabs as windows:" = "Visualizza schede normali come finestre:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "Visualizza finestre da:";
+"Show windows from:" = "Mostra finestre da:";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "Repository codice sorgente";
+"Source code repository" = "Repository del codice sorgente";
 
 /*No comment provided by engineer.*/
-"Start" = "Avvia";
+"Start" = "All'inizio";
 
 /*No comment provided by engineer.*/
-"Start at login:" = "Avvia all'accesso:";
+"Start at login:" = "Avvia al login:";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
-"Then release:" = "Quindi rilascia:";
+"Then release:" = "Poi rilascia:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "Per mettere a fuoco le finestre dopo aver rilasciato la combinazione tasti è necessaria questa autorizzazione";
+"This permission is needed to focus windows after you release the shortcut" = "Questo permesso è necessario per rendere attiva la finestra al rilascio del comando rapido";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "Per visualizzare le schermate delle finestre aperte è necessaria questa autorizzazione ";
+"This permission is needed to show screenshots and titles of open windows" = "Questo permesso è necessario per mostrare le anteprime e i titoli delle finestre.";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Rimuovi assegnazione combinazione tasti e continua";
+"Unassign existing shortcut and continue" = "Rimuovi comando esistente e continua";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "Politicy aggiornamenti:";
+"Updates policy:" = "Politica aggiornamenti:";
 
 /*No comment provided by engineer.*/
 "Version" = "Versione";
@@ -381,43 +384,43 @@
 "Visible Spaces" = "Spazi visibili";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Se a schermo intero";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Se non ci sono finestre aperte";
 
 /*No comment provided by engineer.*/
-"While open, press:" = "Mentre apri, premi:";
+"While open, press:" = "Mentre aperto, premi:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Dimensione icona finestra applicazione:";
+"Window app icon size:" = "Dimensione icona app finestra:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "La finestra è a schermo intero";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "La finestra è contratta";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "La finestra è in ogni spazio";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "La finestra è nello spazio %d";
 
 /*No comment provided by engineer.*/
-"Window max width in row:" = "Righe larghezza max finestra:";
+"Window max width in row:" = "Larghezza massima finestra in riga:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "Righe larghezza min. finestra:";
+"Window min width in row:" = "Larghezza minima finestra in riga:";
 
 /*No comment provided by engineer.*/
-"Window title font size:" = "Dimensione font titolo finestra:";
+"Window title font size:" = "Dimensione testo titolo finestra:";
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Troncamento titolo finestra:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Non puoi annullare questa operazione.";
 
 /*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "Non hai indicato una email, quindi non potrai ricevere alcuna risposta.";
+"You didn’t write your email, thus can’t receive any response." = "Non hai fornito un indirizzo email: non potrai ricevere risposta.";

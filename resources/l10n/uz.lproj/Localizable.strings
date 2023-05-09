@@ -1,6 +1,6 @@
 
 /*No comment provided by engineer.*/
-"About" = "Iwwer";
+"About" = "Haqida";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "About %@";
@@ -12,28 +12,28 @@
 "Acknowledgments" = "Acknowledgments";
 
 /*No comment provided by engineer.*/
-"Active app" = "Aktif Applikatioun";
+"Active app" = "Active app";
 
 /*No comment provided by engineer.*/
-"Active screen" = "Aktive Schierm";
+"Active screen" = "Active screen";
 
 /*No comment provided by engineer.*/
-"Active Space" = "Aktiven Espace";
+"Active Space" = "Active Space";
 
 /*No comment provided by engineer.*/
-"Align windows:" = "Fënster ausriichten:";
+"Align windows:" = "Align windows:";
 
 /*No comment provided by engineer.*/
-"All apps" = "All Applikatioun";
+"All apps" = "All apps";
 
 /*No comment provided by engineer.*/
 "All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
 
 /*No comment provided by engineer.*/
-"All screens" = "All Schierm";
+"All screens" = "All screens";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "All Espace";
+"All Spaces" = "All Spaces";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Allowed";
@@ -69,40 +69,40 @@
 "Apparition delay:" = "Apparition delay:";
 
 /*No comment provided by engineer.*/
-"Appearance" = "Ausgesinn";
+"Appearance" = "Ko`rinish";
 
 /*No comment provided by engineer.*/
 "Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
 
 /*No comment provided by engineer.*/
-"Arrow keys" = "Feiltasten";
+"Arrow keys" = "Arrow keys";
 
 /*No comment provided by engineer.*/
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Automatesch reegelméisseg Updates installéiren";
+"Auto-install updates periodically" = "Vaqti-vaqti bilan yangilanishlarni avtomatik o'rnatish";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Blacklists";
 
 /*Cancel button*/
-"Cancel" = "Ofbriechen";
+"Cancel" = "Bekor";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "Ofbriechen a verstoppen";
+"Cancel and hide" = "Cancel and hide";
 
 /*No comment provided by engineer.*/
 "Center" = "Center";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Elo no Updates sichen…";
+"Check for updates now…" = "Yangilanishlarni hozir tekshiring…";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Reegelméisseg no Updates sichen";
+"Check for updates periodically" = "Vaqti-vaqti bilan yangilanishlarni tekshirish";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "No Updates sichen…";
+"Check for updates…" = "yangilanishlarni tekshir";
 
 /*No comment provided by engineer.*/
 "Close window" = "Close window";
@@ -123,7 +123,7 @@
 "Do nothing" = "Do nothing";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Net reegelméisseg no Updates sichen";
+"Don’t check for updates periodically" = "Vaqti-vaqti bilan yangilanishlarni tekshirishma";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Don’t send";
@@ -150,7 +150,7 @@
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
 
 /*No comment provided by engineer.*/
-"General" = "Allgemeng";
+"General" = "General";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Hidden windows:";
@@ -171,7 +171,7 @@
 "Hide in %@" = "Hide in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Hide Space number labels:";
+"Hide Space number labels:" = "Bo'shliq raqami teglarini yashirish:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";
@@ -183,7 +183,7 @@
 "Hide/Show app" = "Hide/Show app";
 
 /*No comment provided by engineer.*/
-"Hold" = "Bäihalen";
+"Hold" = "Hold";
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "I think the app could be improved with…";
@@ -198,7 +198,7 @@
 "Latest releases" = "Latest releases";
 
 /*No comment provided by engineer.*/
-"Left" = "Lénks";
+"Left" = "Left";
 
 /*No comment provided by engineer.*/
 "Max height on screen:" = "Max height on screen:";
@@ -231,10 +231,10 @@
 "Not allowed" = "Not allowed";
 
 /*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 Lizenz";
+"NSHumanReadableCopyright" = "GPL-3.0 litsenziyasi";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Nëmme wann d’Fënster am Vollbild ass";
+"Only if the window is fullscreen" = "Only if the window is fullscreen";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";
@@ -243,13 +243,13 @@
 "Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Fakultativ: Email (wann Dir eng Änwert wënscht)";
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
 /*No comment provided by engineer.*/
 "Policies" = "Policies";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Astellung…";
+"Preferences…" = "Preferences…";
 
 /*No comment provided by engineer.*/
 "Preview selected window:" = "Preview selected window:";
@@ -294,7 +294,7 @@
 "Select previous window" = "Select previous window";
 
 /*No comment provided by engineer.*/
-"Send" = "Fortschécken";
+"Send" = "Send";
 
 /*No comment provided by engineer.*/
 "Send a crash report?" = "Send a crash report?";
@@ -333,13 +333,13 @@
 "Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
 /*No comment provided by engineer.*/
-"Show" = "Opbréngen";
+"Show" = "Show";
 
 /*No comment provided by engineer.*/
 "Show at the end" = "Show at the end";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Opbréngen op:";
+"Show on:" = "Show on:";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Show standard tabs as windows:";
@@ -375,7 +375,7 @@
 "Updates policy:" = "Updates policy:";
 
 /*No comment provided by engineer.*/
-"Version" = "Versioun";
+"Version" = "Version";
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "View existing discussions";
