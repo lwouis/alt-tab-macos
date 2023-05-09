@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.57.0](https://github.com/lwouis/alt-tab-macos/compare/v6.56.0...v6.57.0) (2023-05-09)
+
+
+### Bug Fixes
+
+* drag-and-drop from a folder on the dock (closes [#706](https://github.com/lwouis/alt-tab-macos/issues/706)) ([ee6785f](https://github.com/lwouis/alt-tab-macos/commit/ee6785f))
+* preview window wouldn't update in some cases ([537ba26](https://github.com/lwouis/alt-tab-macos/commit/537ba26))
+
+
+### Features
+
+* add shortcut to toggle fullscreen selected window (closes [#2521](https://github.com/lwouis/alt-tab-macos/issues/2521)) ([7327917](https://github.com/lwouis/alt-tab-macos/commit/7327917))
+* add uzbek localization ([0e106e2](https://github.com/lwouis/alt-tab-macos/commit/0e106e2))
+
 # [6.56.0](https://github.com/lwouis/alt-tab-macos/compare/v6.55.0...v6.56.0) (2023-03-16)
 
 
