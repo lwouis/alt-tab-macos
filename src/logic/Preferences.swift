@@ -26,6 +26,7 @@ class Preferences {
         "cancelShortcut": "⎋",
         "closeWindowShortcut": "W",
         "minDeminWindowShortcut": "M",
+        "toggleFullscreenWindowShortcut": "F",
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
@@ -115,6 +116,7 @@ class Preferences {
     static var cancelShortcut: String { defaults.string("cancelShortcut") }
     static var closeWindowShortcut: String { defaults.string("closeWindowShortcut") }
     static var minDeminWindowShortcut: String { defaults.string("minDeminWindowShortcut") }
+    static var toggleFullscreenWindowShortcut: String { defaults.string("toggleFullscreenWindowShortcut") }
     static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
