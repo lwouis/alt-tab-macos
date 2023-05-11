@@ -48,7 +48,7 @@
 "AltTab needs some permissions" = "AltTab heeft wat permissies nodig";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Altijd";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Verstuur altijd crashrapportages";
@@ -60,10 +60,10 @@
 "App (BundleID starting with)" = "App (BundleID starting with)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "App is verborgen";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "App is open maar heeft geen tabbladen open";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Tonen met vertraging:";
@@ -84,7 +84,7 @@
 "Auto-install updates periodically" = "Installeer regelmatig automatisch updates";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+"Blacklists" = "Zwarte lijst";
 
 /*Cancel button*/
 "Cancel" = "Annuleer";
@@ -117,7 +117,7 @@
 "Crash reports policy:" = "Beleid crashrapportages:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Cursor volgt focus";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Doe niets";
@@ -141,13 +141,13 @@
 "Focus selected window" = "Focus geselecteerde venster";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Schermvullende venster";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Schermvullende vensters:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Volledig/Onvolledig venster";
 
 /*No comment provided by engineer.*/
 "General" = "Algemeen";
@@ -168,7 +168,7 @@
 "Hide colored circles on mouse hover:" = "Verberg gekleurde cirkels wanneer de muis erover zweeft:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Verberg in %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Verberg space-nummer labels:";
@@ -189,7 +189,7 @@
 "I think the app could be improved with…" = "Ik denk dat het programma verbeterd kan worden door…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Negeer snelkoppeling wanneer actief";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Negeer snelkoppeling als één van deze vensters actief is";
@@ -267,10 +267,10 @@
 "Remember my choice" = "Onthoud mijn keuze";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Verwijder voorkeuren en start opnieuw op";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Verwijder voorkeuren en start opnieuw op…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rijen met miniaturen:";
@@ -321,13 +321,13 @@
 "Shortcut 2" = "Snelkoppeling 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Snelkoppeling 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Snelkoppeling 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Snelkoppeling 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Toetscombinatie is al toegewezen aan een andere actie: %@";
@@ -384,10 +384,10 @@
 "Visible Spaces" = "Zichtbare spaces";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Wanneer in volledig scherm";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Waneeer geen open venster";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Druk terwijl het geopend is:";
@@ -396,16 +396,16 @@
 "Window app icon size:" = "Icoongrootte vensterapplicatie:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Venster is volledig scherm";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Venster is geminimaliseerd";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Venster is op elke ruimte";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Venster is op elke ruimte %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Maximale vensterbreedte in rij:";
@@ -420,7 +420,7 @@
 "Window title truncation:" = "Afkappen venstertitel:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Je kan deze actie niet ongedaan maken.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Je hebt geen e-mail ingevoerd en kunt dus geen reactie ontvangen.";
