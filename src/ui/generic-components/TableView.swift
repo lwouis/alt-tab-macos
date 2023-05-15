@@ -52,10 +52,10 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let item = items[row]
-        return tableColumn!.identifier.rawValue == "col1" ? text(row, item) : dropdown(row, item, tableColumn!.identifier.rawValue)
+        return tableColumn!.identifier.rawValue == "col1" ? text(item) : dropdown(item, tableColumn!.identifier.rawValue)
     }
 
-    func text(_ row: Int, _ item: BlacklistEntry) -> NSView {
+    func text(_ item: BlacklistEntry) -> NSView {
         let text = TextField(item.bundleIdentifier)
         text.isEditable = true
         text.allowsExpansionToolTips = true
@@ -64,7 +64,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         text.lineBreakMode = .byTruncatingTail
         text.usesSingleLineMode = true
         text.cell!.sendsActionOnEndEditing = true
-        text.onAction = { self.wasUpdated(row, "col1", $0) }
+        text.onAction = { self.wasUpdated("col1", $0) }
         let parent = NSView()
         parent.addSubview(text)
         text.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
@@ -72,7 +72,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         return parent
     }
 
-    func dropdown(_ row: Int, _ item: BlacklistEntry, _ colId: String) -> NSView {
+    func dropdown(_ item: BlacklistEntry, _ colId: String) -> NSView {
         let isHidePref = colId == "col2"
         let button = NSPopUpButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +81,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         let cases: [MacroPreference] = isHidePref ? BlacklistHidePreference.allCases : BlacklistIgnorePreference.allCases
         button.addItems(withTitles: cases.map { $0.localizedString })
         button.selectItem(at: Int(isHidePref ? item.hide.rawValue : item.ignore.rawValue)!)
-        button.onAction = { self.wasUpdated(row, colId, $0) }
+        button.onAction = { self.wasUpdated(colId, $0) }
         let parent = NSView()
         parent.addSubview(button)
         button.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
@@ -89,7 +89,8 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         return parent
     }
 
-    func wasUpdated(_ row: Int, _ colId: String, _ control: NSControl) {
+    func wasUpdated(_ colId: String, _ control: NSControl) {
+        let row = row(for: control)
         if colId == "col1" {
             items[row].bundleIdentifier = LabelAndControl.getControlValue(control, nil)!
         } else if colId == "col2" {
