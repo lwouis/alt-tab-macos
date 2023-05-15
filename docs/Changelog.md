@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.58.0](https://github.com/lwouis/alt-tab-macos/compare/v6.57.0...v6.58.0) (2023-05-15)
+
+
+### Bug Fixes
+
+* editing the blacklist could sometimes bug (closes [#2528](https://github.com/lwouis/alt-tab-macos/issues/2528)) ([f7f4430](https://github.com/lwouis/alt-tab-macos/commit/f7f4430))
+
+
+### Features
+
+* update dutch localization ([04948a2](https://github.com/lwouis/alt-tab-macos/commit/04948a2))
+
 # [6.57.0](https://github.com/lwouis/alt-tab-macos/compare/v6.56.0...v6.57.0) (2023-05-09)
 
 
