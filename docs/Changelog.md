@@ -1,5 +1,13 @@
 # Release notes
 
+# [6.59.0](https://github.com/lwouis/alt-tab-macos/compare/v6.58.0...v6.59.0) (2023-06-04)
+
+
+### Features
+
+* show app icon for app with no open window (closes [#2561](https://github.com/lwouis/alt-tab-macos/issues/2561)) ([44a5630](https://github.com/lwouis/alt-tab-macos/commit/44a5630))
+* update vietnamese localization ([7229b8a](https://github.com/lwouis/alt-tab-macos/commit/7229b8a))
+
 # [6.58.0](https://github.com/lwouis/alt-tab-macos/compare/v6.57.0...v6.58.0) (2023-05-15)
 
 
