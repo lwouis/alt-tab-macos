@@ -25,7 +25,7 @@ class ThumbnailView: NSStackView {
     var indexInRecycledViews: Int!
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
-    var windowlessIcon = FontIcon(.newWindow, NSLocalizedString("App is running but has no open window", comment: ""))
+    var windowlessIcon = NSImageView()
     var frameInset = Preferences.intraCellPadding
 
     // for VoiceOver cursor
@@ -50,6 +50,7 @@ class ThumbnailView: NSStackView {
         orientation = .vertical
         let shadow = ThumbnailView.makeShadow(.gray)
         thumbnail.shadow = shadow
+        windowlessIcon.toolTip = NSLocalizedString("App is running but has no open window", comment: "")
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
         hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
@@ -176,14 +177,12 @@ class ThumbnailView: NSStackView {
         label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
-            let maxWidth = (frame.size.width - Preferences.intraCellPadding * 2).rounded()
-            let maxHeight = (frame.size.height - hStackView.fittingSize.height - Preferences.intraCellPadding * 2).rounded()
-            // heuristic to determine font size based on bounding box
-            let fontSize = (min(maxWidth - Preferences.intraCellPadding * 2, maxHeight - Preferences.intraCellPadding * 2) * 0.6).rounded()
-            // heuristic to fit the SF Symbol into the bounding box
-            let labelViewHeight = (fontSize * 1.4).rounded()
-            windowlessIcon.labelView.frame = NSRect(x: Preferences.intraCellPadding, y: ((maxHeight - labelViewHeight) / 2).rounded(), width: maxWidth - Preferences.intraCellPadding * 2, height: labelViewHeight - Preferences.intraCellPadding * 2)
-            windowlessIcon.labelView.font = NSFont(name: windowlessIcon.labelView.font!.fontName, size: fontSize)
+            windowlessIcon.image = appIcon.image!.copy() as! NSImage
+            windowlessIcon.image?.size = NSSize(width: 1024, height: 1024)
+            let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(windowlessIcon.image, screen)
+            let windowlessIconSize = NSSize(width: thumbnailWidth, height: thumbnailHeight)
+            windowlessIcon.image!.size = windowlessIconSize
+            windowlessIcon.frame.size = windowlessIconSize
             windowlessIcon.needsDisplay = true
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
