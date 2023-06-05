@@ -59,6 +59,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.previewPanel = PreviewPanel()
             Spaces.initialDiscovery()
             Applications.initialDiscovery()
+            TrackpadEvents.observe()
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()
