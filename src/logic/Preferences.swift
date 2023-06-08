@@ -47,6 +47,11 @@ class Preferences {
         "showFullscreenWindows3": ShowHowPreference.show.rawValue,
         "showFullscreenWindows4": ShowHowPreference.show.rawValue,
         "showFullscreenWindows5": ShowHowPreference.show.rawValue,
+        "windowOrder": WindowOrderPreference.lastUsed.rawValue,
+        "windowOrder2": WindowOrderPreference.lastUsed.rawValue,
+        "windowOrder3": WindowOrderPreference.lastUsed.rawValue,
+        "windowOrder4": WindowOrderPreference.lastUsed.rawValue,
+        "windowOrder5": WindowOrderPreference.lastUsed.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
@@ -148,6 +153,8 @@ class Preferences {
     static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4", "showMinimizedWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3",
+         "windowOrder4", "windowOrder5"].map { defaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
@@ -474,6 +481,24 @@ enum ShowHowPreference: String, CaseIterable, MacroPreference {
             case .show: return NSLocalizedString("Show", comment: "")
             case .showAtTheEnd: return NSLocalizedString("Show at the end", comment: "")
             case .hide: return NSLocalizedString("Hide", comment: "")
+        }
+    }
+}
+
+enum WindowOrderPreference: String, CaseIterable, MacroPreference {
+    case lastUsed = "0"
+    case lastOpened = "1"
+    case mostFrequently = "2"
+    case alphabetical = "3"
+    case alphabeticalBySpace = "4"
+    
+    var localizedString: LocalizedString{
+        switch self{
+            case .lastUsed: return NSLocalizedString("Last Used", comment: "")
+            case .lastOpened: return NSLocalizedString("Last Opened", comment: "")
+            case .mostFrequently: return NSLocalizedString("Most Frequently", comment: "")
+            case .alphabetical: return NSLocalizedString("Name", comment: "")
+            case .alphabeticalBySpace: return NSLocalizedString("Space", comment: "")
         }
     }
 }

@@ -21,7 +21,32 @@ class Windows {
                let bool = sortByBooleanAttribute($0.isMinimized, $1.isMinimized) {
                 return bool
             }
-            return $0.lastFocusOrder < $1.lastFocusOrder
+            
+            let sortType = Preferences.windowOrder[App.app.shortcutIndex]
+            var order: ComparisonResult = .orderedSame
+            
+            if sortType == .lastOpened {
+                order = sortByIntAttribute($1.openedOrder, $0.openedOrder)
+            }
+            if sortType == .mostFrequently{
+                order = sortByIntAttribute($1.focusCount, $0.focusCount)
+            }
+            if sortType == .alphabetical {
+                order = sortByWindowStringAttribute($0, $1)
+            }
+            if sortType == .alphabeticalBySpace {
+                order = sortByIntAttribute($0.spaceIndex, $1.spaceIndex)
+                if order == .orderedSame {
+                    order = sortByWindowStringAttribute($0, $1)
+                }
+            }
+        
+            // fallback
+            if order == .orderedSame || sortType == .lastUsed {
+                order = sortByIntAttribute($0.lastFocusOrder, $1.lastFocusOrder)
+            }
+            
+            return order == .orderedAscending
         }
     }
 
@@ -83,6 +108,7 @@ class Windows {
     static func updateLastFocus(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID) -> [Window]? {
         if let focusedWindow = (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) }) {
             let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
+            focusedWindow.focusCount += 1
             var windowsToRefresh = [focusedWindow]
             list.forEach {
                 if $0.lastFocusOrder == focusedWindowOldFocusOrder {
@@ -295,3 +321,24 @@ func sortByBooleanAttribute(_ b1: Bool, _ b2: Bool) -> Bool? {
     return nil
 }
 
+func sortByIntAttribute(_ i1: Int, _ i2: Int) -> ComparisonResult {
+    if i1<i2 {
+        return .orderedAscending
+    } else if i1>i2{
+        return .orderedDescending
+    } else {
+        return .orderedSame
+    }
+}
+
+func sortByStringAttribute(_ s1: String?, _ s2: String?) -> ComparisonResult {
+    return (s1 ?? "").localizedStandardCompare(s2 ?? "")
+}
+
+func sortByWindowStringAttribute(_ w1:Window, _ w2:Window) -> ComparisonResult {
+    var order = sortByStringAttribute(w1.application.runningApplication.localizedName, w2.application.runningApplication.localizedName)
+    if order == .orderedSame{
+        order = sortByStringAttribute(w1.title, w2.title)
+    }
+    return order
+}
