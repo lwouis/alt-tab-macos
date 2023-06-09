@@ -47,11 +47,11 @@ class Preferences {
         "showFullscreenWindows3": ShowHowPreference.show.rawValue,
         "showFullscreenWindows4": ShowHowPreference.show.rawValue,
         "showFullscreenWindows5": ShowHowPreference.show.rawValue,
-        "windowOrder": WindowOrderPreference.lastUsed.rawValue,
-        "windowOrder2": WindowOrderPreference.lastUsed.rawValue,
-        "windowOrder3": WindowOrderPreference.lastUsed.rawValue,
-        "windowOrder4": WindowOrderPreference.lastUsed.rawValue,
-        "windowOrder5": WindowOrderPreference.lastUsed.rawValue,
+        "windowOrder": WindowOrderPreference.lastFocused.rawValue,
+        "windowOrder2": WindowOrderPreference.lastFocused.rawValue,
+        "windowOrder3": WindowOrderPreference.lastFocused.rawValue,
+        "windowOrder4": WindowOrderPreference.lastFocused.rawValue,
+        "windowOrder5": WindowOrderPreference.lastFocused.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
@@ -486,16 +486,16 @@ enum ShowHowPreference: String, CaseIterable, MacroPreference {
 }
 
 enum WindowOrderPreference: String, CaseIterable, MacroPreference {
-    case lastUsed = "0"
+    case lastFocused = "0"
     case lastCreated = "1"
     case alphabetical = "2"
     case alphabeticalBySpace = "3"
     
     var localizedString: LocalizedString{
         switch self{
-            case .lastUsed: return NSLocalizedString("Last Used", comment: "")
-            case .lastCreated: return NSLocalizedString("Last Opened", comment: "")
-            case .alphabetical: return NSLocalizedString("Name", comment: "")
+            case .lastFocused: return NSLocalizedString("Last Focused", comment: "")
+            case .lastCreated: return NSLocalizedString("Last Created", comment: "")
+            case .alphabetical: return NSLocalizedString("Alphabetical", comment: "")
             case .alphabeticalBySpace: return NSLocalizedString("Space", comment: "")
         }
     }

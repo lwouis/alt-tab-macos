@@ -25,6 +25,7 @@ class Windows {
             let sortType = Preferences.windowOrder[App.app.shortcutIndex]
             var order: ComparisonResult = .orderedSame
             
+            // The earlier window is created, the smaller creationOrder is.
             if sortType == .lastCreated {
                 order = sortByIntAttribute($1.creationOrder, $0.creationOrder)
             }
@@ -39,7 +40,7 @@ class Windows {
             }
         
             // fallback
-            if order == .orderedSame || sortType == .lastUsed {
+            if order == .orderedSame || sortType == .lastFocused {
                 order = sortByIntAttribute($0.lastFocusOrder, $1.lastFocusOrder)
             }
             
@@ -55,8 +56,10 @@ class Windows {
             hoveredWindowIndex = nil
             ThumbnailsView.highlight(oldIndex)
         }
+        let sortType = Preferences.windowOrder[App.app.shortcutIndex]
+        
         if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
-           app.focusedWindow == nil,
+           (app.focusedWindow == nil || sortType != .lastFocused),
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
             updateFocusedAndHoveredWindowIndex(lastFocusedWindowIndex)
         } else {
