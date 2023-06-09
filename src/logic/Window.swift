@@ -1,11 +1,10 @@
 import Cocoa
 
 class Window {
-    static var globalOpenedOrder = Int.zero
+    static var globalCreationCounter = Int.zero
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
-    var openedOrder = Int.zero
-    var focusCount = Int.zero
+    var creationOrder = Int.zero
     var title: String!
     var thumbnail: NSImage?
     var thumbnailFullSize: NSSize?
@@ -48,8 +47,8 @@ class Window {
         self.position = position
         self.size = size
         self.title = bestEffortTitle(axTitle)
-        self.openedOrder = Window.globalOpenedOrder
-        Window.globalOpenedOrder += 1
+        Window.globalCreationCounter += 1
+        self.creationOrder = Window.globalCreationCounter
         if !Preferences.hideThumbnails {
             refreshThumbnail()
         }
@@ -63,8 +62,6 @@ class Window {
         isWindowlessApp = true
         self.application = application
         self.title = application.runningApplication.localizedName
-        self.openedOrder = Window.globalOpenedOrder
-        Window.globalOpenedOrder += 1
         debugPrint("Adding app-window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 

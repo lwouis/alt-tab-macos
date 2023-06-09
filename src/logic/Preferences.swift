@@ -487,16 +487,14 @@ enum ShowHowPreference: String, CaseIterable, MacroPreference {
 
 enum WindowOrderPreference: String, CaseIterable, MacroPreference {
     case lastUsed = "0"
-    case lastOpened = "1"
-    case mostFrequently = "2"
-    case alphabetical = "3"
-    case alphabeticalBySpace = "4"
+    case lastCreated = "1"
+    case alphabetical = "2"
+    case alphabeticalBySpace = "3"
     
     var localizedString: LocalizedString{
         switch self{
             case .lastUsed: return NSLocalizedString("Last Used", comment: "")
-            case .lastOpened: return NSLocalizedString("Last Opened", comment: "")
-            case .mostFrequently: return NSLocalizedString("Most Frequently", comment: "")
+            case .lastCreated: return NSLocalizedString("Last Opened", comment: "")
             case .alphabetical: return NSLocalizedString("Name", comment: "")
             case .alphabeticalBySpace: return NSLocalizedString("Space", comment: "")
         }

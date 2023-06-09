@@ -25,11 +25,8 @@ class Windows {
             let sortType = Preferences.windowOrder[App.app.shortcutIndex]
             var order: ComparisonResult = .orderedSame
             
-            if sortType == .lastOpened {
-                order = sortByIntAttribute($1.openedOrder, $0.openedOrder)
-            }
-            if sortType == .mostFrequently{
-                order = sortByIntAttribute($1.focusCount, $0.focusCount)
+            if sortType == .lastCreated {
+                order = sortByIntAttribute($1.creationOrder, $0.creationOrder)
             }
             if sortType == .alphabetical {
                 order = sortByWindowStringAttribute($0, $1)
@@ -108,7 +105,6 @@ class Windows {
     static func updateLastFocus(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID) -> [Window]? {
         if let focusedWindow = (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) }) {
             let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
-            focusedWindow.focusCount += 1
             var windowsToRefresh = [focusedWindow]
             list.forEach {
                 if $0.lastFocusOrder == focusedWindowOldFocusOrder {
