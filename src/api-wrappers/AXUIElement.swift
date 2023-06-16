@@ -84,27 +84,31 @@ extension AXUIElement {
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0 && size != nil &&
-            (books(runningApp) || keynote(runningApp) || iina(runningApp) || openFlStudio(runningApp, title) || (
-                // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
-                level == CGWindow.normalLevel &&
-                    ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
-                        openBoard(runningApp) ||
-                        adobeAudition(runningApp, subrole) ||
-                        adobeAfterEffects(runningApp, subrole) ||
-                        steam(runningApp, title, role) ||
-                        worldOfWarcraft(runningApp, role) ||
-                        battleNetBootstrapper(runningApp, role) ||
-                        firefox(runningApp, role, size) ||
-                        vlcFullscreenVideo(runningApp, role) ||
-                        sanGuoShaAirWD(runningApp) ||
-                        dvdFab(runningApp) ||
-                        drBetotte(runningApp) ||
-                        androidEmulator(runningApp, title) ||
-                        colorSlurp(runningApp)
-                    ) &&
-                    mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
-                    mustHaveIfSteam(runningApp, title, role)
-            ))
+                (books(runningApp) ||
+                        keynote(runningApp) ||
+                        iina(runningApp) ||
+                        openFlStudio(runningApp, title) ||
+                        crossoverWindow(runningApp, role, subrole, level) ||
+                        // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
+                        (level == CGWindow.normalLevel &&
+                                ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
+                                        openBoard(runningApp) ||
+                                        adobeAudition(runningApp, subrole) ||
+                                        adobeAfterEffects(runningApp, subrole) ||
+                                        steam(runningApp, title, role) ||
+                                        worldOfWarcraft(runningApp, role) ||
+                                        battleNetBootstrapper(runningApp, role) ||
+                                        firefox(runningApp, role, size) ||
+                                        vlcFullscreenVideo(runningApp, role) ||
+                                        sanGuoShaAirWD(runningApp) ||
+                                        dvdFab(runningApp) ||
+                                        drBetotte(runningApp) ||
+                                        androidEmulator(runningApp, title) ||
+                                        colorSlurp(runningApp)
+                                ) &&
+                                mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
+                                mustHaveIfSteam(runningApp, title, role)
+                        ))
     }
 
     private static func mustHaveIfJetbrainApp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?, _ size: NSSize) -> Bool {
@@ -204,6 +208,11 @@ extension AXUIElement {
     private static func colorSlurp(_ runningApp: NSRunningApplication) -> Bool {
         // ColorSlurp presents its dialog as a kAXSystemDialogSubrole, so we need a special check
         return runningApp.bundleIdentifier == "com.IdeaPunch.ColorSlurp"
+    }
+
+    private static func crossoverWindow(_ runningApp: NSRunningApplication, _ role: String?, _ subrole: String?, _ level: CGWindowLevel) -> Bool {
+        runningApp.bundleIdentifier == nil && role == kAXWindowRole && subrole == kAXUnknownSubrole &&
+                level == 0 && runningApp.localizedName == "wine64-preloader"
     }
 
     func position() throws -> CGPoint? {
