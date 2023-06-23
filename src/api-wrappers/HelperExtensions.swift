@@ -177,3 +177,15 @@ extension String {
         self = NSFileTypeForHFSTypeCode(fourCharCode).trimmingCharacters(in: CharacterSet(charactersIn: "'"))
     }
 }
+
+extension Int {
+    func compare(_ otherNumber: Int) -> ComparisonResult {
+        return (self as NSNumber).compare(otherNumber as NSNumber)
+    }
+}
+
+extension Optional where Wrapped == String {
+    func localizedStandardCompare(_ string: String?) -> ComparisonResult {
+        return (self ?? "").localizedStandardCompare(string ?? "")
+    }
+}

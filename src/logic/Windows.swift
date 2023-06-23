@@ -10,18 +10,18 @@ class Windows {
     /// reordered list based on preferences, keeping the original index
     static func reorderList() {
         list.sort {
-            if let bool = sortByBooleanAttribute($0.isWindowlessApp, $1.isWindowlessApp) {
-                return bool
+            // separate buckets for these types of windows
+            if $0.isWindowlessApp != $1.isWindowlessApp {
+                return $1.isWindowlessApp
             }
-            if Preferences.showHiddenWindows[App.app.shortcutIndex] == .showAtTheEnd,
-               let bool = sortByBooleanAttribute($0.isHidden, $1.isHidden) {
-                return bool
+            if Preferences.showHiddenWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isHidden != $1.isHidden {
+               return $1.isHidden
             }
-            if Preferences.showMinimizedWindows[App.app.shortcutIndex] == .showAtTheEnd,
-               let bool = sortByBooleanAttribute($0.isMinimized, $1.isMinimized) {
-                return bool
+            if Preferences.showMinimizedWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isMinimized != $1.isMinimized {
+                return $1.isMinimized
             }
 
+            // sort within each buckets
             let sortType = Preferences.windowOrder[App.app.shortcutIndex]
             if sortType == .recentlyFocused {
                 return $0.lastFocusOrder < $1.lastFocusOrder
@@ -29,19 +29,18 @@ class Windows {
             if sortType == .recentlyCreated {
                 return $1.creationOrder < $0.creationOrder
             }
-
             var order = ComparisonResult.orderedSame
             if sortType == .alphabetical {
                 order = sortByAppNameThenWindowTitle($0, $1)
             }
             if sortType == .space {
-                order = sortByIntAttribute($0.spaceIndex, $1.spaceIndex)
+                order = $0.spaceIndex.compare($1.spaceIndex)
                 if order == .orderedSame {
                     order = sortByAppNameThenWindowTitle($0, $1)
                 }
             }
             if order == .orderedSame {
-                order = sortByIntAttribute($0.lastFocusOrder, $1.lastFocusOrder)
+                order = $0.lastFocusOrder.compare($1.lastFocusOrder)
             }
             return order == .orderedAscending
         }
@@ -307,28 +306,10 @@ class Windows {
     }
 }
 
-func sortByBooleanAttribute(_ b1: Bool, _ b2: Bool) -> Bool? {
-    if b1 && !b2 {
-        return false
-    }
-    if !b1 && b2 {
-        return true
-    }
-    return nil
-}
-
-func sortByIntAttribute(_ i1: Int, _ i2: Int) -> ComparisonResult {
-    return (i1 as NSNumber).compare(i2 as NSNumber)
-}
-
-func sortByStringAttribute(_ s1: String?, _ s2: String?) -> ComparisonResult {
-    return (s1 ?? "").localizedStandardCompare(s2 ?? "")
-}
-
 func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
-    var order = sortByStringAttribute(w1.application.runningApplication.localizedName, w2.application.runningApplication.localizedName)
+    var order = w1.application.runningApplication.localizedName.localizedStandardCompare(w2.application.runningApplication.localizedName)
     if order == .orderedSame {
-        return sortByStringAttribute(w1.title, w2.title)
+        return w1.title.localizedStandardCompare(w2.title)
     }
     return order
 }
