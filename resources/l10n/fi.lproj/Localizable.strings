@@ -39,6 +39,9 @@
 "Allowed" = "Sallittu";
 
 /*No comment provided by engineer.*/
+"Alphabetical" = "Alphabetical";
+
+/*No comment provided by engineer.*/
 "Also select windows using:" = "Valitse ikkunoita myös:";
 
 /*No comment provided by engineer.*/
@@ -264,6 +267,12 @@
 "Quit app" = "Sulje ohjelma";
 
 /*No comment provided by engineer.*/
+"Recently Created" = "Recently Created";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
 "Remember my choice" = "Muista valintani";
 
 /*No comment provided by engineer.*/
@@ -351,6 +360,9 @@
 "Source code repository" = "Lähdekoodi";
 
 /*No comment provided by engineer.*/
+"Space" = "Space";
+
+/*No comment provided by engineer.*/
 "Start" = "Alku";
 
 /*No comment provided by engineer.*/
@@ -412,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Window min width in row:" = "Window min width in row:";
+
+/*No comment provided by engineer.*/
+"Window order:" = "Window order:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Otsikkotekstin koko:";

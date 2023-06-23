@@ -39,6 +39,9 @@
 "Allowed" = "Dibolehkan";
 
 /*No comment provided by engineer.*/
+"Alphabetical" = "Alphabetical";
+
+/*No comment provided by engineer.*/
 "Also select windows using:" = "Juga pilih jendela menggunakan:";
 
 /*No comment provided by engineer.*/
@@ -264,6 +267,12 @@
 "Quit app" = "Keluar app";
 
 /*No comment provided by engineer.*/
+"Recently Created" = "Recently Created";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
 "Remember my choice" = "Ingat pilihan saya";
 
 /*No comment provided by engineer.*/
@@ -351,6 +360,9 @@
 "Source code repository" = "Repositori kode sumber";
 
 /*No comment provided by engineer.*/
+"Space" = "Space";
+
+/*No comment provided by engineer.*/
 "Start" = "Mulai";
 
 /*No comment provided by engineer.*/
@@ -412,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Window min width in row:" = "Lebar minimal jendela dalam baris:";
+
+/*No comment provided by engineer.*/
+"Window order:" = "Window order:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Ukuran font judul jendela:";

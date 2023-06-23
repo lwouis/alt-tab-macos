@@ -39,6 +39,9 @@
 "Allowed" = "অনুমোদিত";
 
 /*No comment provided by engineer.*/
+"Alphabetical" = "Alphabetical";
+
+/*No comment provided by engineer.*/
 "Also select windows using:" = "এটা ব্যবহার করেও উইন্ডো নির্বাচন করুন:";
 
 /*No comment provided by engineer.*/
@@ -264,6 +267,12 @@
 "Quit app" = "অ্যাপ বন্ধ করুন";
 
 /*No comment provided by engineer.*/
+"Recently Created" = "Recently Created";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
 "Remember my choice" = "আমার পছন্দ মনে রেখো";
 
 /*No comment provided by engineer.*/
@@ -351,6 +360,9 @@
 "Source code repository" = "সোর্স কোড সংগ্রহস্থল";
 
 /*No comment provided by engineer.*/
+"Space" = "Space";
+
+/*No comment provided by engineer.*/
 "Start" = "শুরু করুন";
 
 /*No comment provided by engineer.*/
@@ -412,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Window min width in row:" = "সারিতে উইন্ডোর মিনিমাম প্রস্থ:";
+
+/*No comment provided by engineer.*/
+"Window order:" = "Window order:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "উইন্ডো শিরোনামের ফন্ট সাইজ:";

@@ -39,6 +39,9 @@
 "Allowed" = "E lejuar";
 
 /*No comment provided by engineer.*/
+"Alphabetical" = "Alphabetical";
+
+/*No comment provided by engineer.*/
 "Also select windows using:" = "Gjithashtu zgjedh dritaret duke përdorur:";
 
 /*No comment provided by engineer.*/
@@ -264,6 +267,12 @@
 "Quit app" = "Mbyll aplikacionin";
 
 /*No comment provided by engineer.*/
+"Recently Created" = "Recently Created";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
 "Remember my choice" = "Mbaj mend zgjedhjen time";
 
 /*No comment provided by engineer.*/
@@ -351,6 +360,9 @@
 "Source code repository" = "Depo e kodit burimor";
 
 /*No comment provided by engineer.*/
+"Space" = "Space";
+
+/*No comment provided by engineer.*/
 "Start" = "Fillim";
 
 /*No comment provided by engineer.*/
@@ -412,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Window min width in row:" = "Gjerësia minimale e dritares në rresht";
+
+/*No comment provided by engineer.*/
+"Window order:" = "Window order:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Madhësia e fontit të titullit të dritares:";

@@ -144,6 +144,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Philippe Ménendès
 * Piotr Budny
 * ponchik
+* Quentin. douarre
 * Raphaël
 * Rasmus
 * Raymonf

@@ -39,6 +39,9 @@
 "Allowed" = "Дозволено";
 
 /*No comment provided by engineer.*/
+"Alphabetical" = "Alphabetical";
+
+/*No comment provided by engineer.*/
 "Also select windows using:" = "Також обрати вікна, що використовують:";
 
 /*No comment provided by engineer.*/
@@ -264,6 +267,12 @@
 "Quit app" = "Вийти з програми";
 
 /*No comment provided by engineer.*/
+"Recently Created" = "Recently Created";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
 "Remember my choice" = "Запамʼятати мій вибір";
 
 /*No comment provided by engineer.*/
@@ -351,6 +360,9 @@
 "Source code repository" = "Репозиторій початкового коду";
 
 /*No comment provided by engineer.*/
+"Space" = "Space";
+
+/*No comment provided by engineer.*/
 "Start" = "Почати";
 
 /*No comment provided by engineer.*/
@@ -412,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Window min width in row:" = "Мінімальна ширина вікна в рядку:";
+
+/*No comment provided by engineer.*/
+"Window order:" = "Window order:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Розмір шрифту заголовку вікна:";

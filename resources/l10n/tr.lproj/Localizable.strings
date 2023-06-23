@@ -39,6 +39,9 @@
 "Allowed" = "İzin verildi";
 
 /*No comment provided by engineer.*/
+"Alphabetical" = "Alphabetical";
+
+/*No comment provided by engineer.*/
 "Also select windows using:" = "Bunları kullanan pencereleri de seç:";
 
 /*No comment provided by engineer.*/
@@ -252,7 +255,7 @@
 "Preferences…" = "Tercihler…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Seçili pencereyi önizle:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Çıkış";
@@ -264,13 +267,19 @@
 "Quit app" = "Uygulamayı kapat";
 
 /*No comment provided by engineer.*/
+"Recently Created" = "Recently Created";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
 "Remember my choice" = "Tercihimi hatırla";
 
 /*No comment provided by engineer.*/
 "Reset preferences and restart" = "Tercihleri ​​sıfırlayın ve yeniden başlatın";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Ayarları sıfırla ve yeniden başlat...";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Önizleme satırları:";
@@ -351,6 +360,9 @@
 "Source code repository" = "Kaynak kodu deposu";
 
 /*No comment provided by engineer.*/
+"Space" = "Space";
+
+/*No comment provided by engineer.*/
 "Start" = "Baş";
 
 /*No comment provided by engineer.*/
@@ -414,13 +426,16 @@
 "Window min width in row:" = "Asgari pencere genişliği:";
 
 /*No comment provided by engineer.*/
+"Window order:" = "Window order:";
+
+/*No comment provided by engineer.*/
 "Window title font size:" = "Pencere başlığı yazı tipi boyutu:";
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Pencere başlığını kesme:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Bu işlemi geri alamazsınız.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "E-posta adresinizi yazmadığınız için yanıt alamayacaksınız.";

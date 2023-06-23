@@ -39,6 +39,9 @@
 "Allowed" = "Povoleno";
 
 /*No comment provided by engineer.*/
+"Alphabetical" = "Alphabetical";
+
+/*No comment provided by engineer.*/
 "Also select windows using:" = "Také okna vybírat pomocí:";
 
 /*No comment provided by engineer.*/
@@ -269,6 +272,12 @@
 "Quit app" = "Zavřít aplikaci";
 
 /*No comment provided by engineer.*/
+"Recently Created" = "Recently Created";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
 "Remember my choice" = "Pamatovat si mou volbu";
 
 /*No comment provided by engineer.*/
@@ -356,6 +365,9 @@
 "Source code repository" = "Repozitář zdrojového kódu";
 
 /*No comment provided by engineer.*/
+"Space" = "Space";
+
+/*No comment provided by engineer.*/
 "Start" = "Na začátku";
 
 /*No comment provided by engineer.*/
@@ -417,6 +429,9 @@
 
 /*No comment provided by engineer.*/
 "Window min width in row:" = "Minimální šířka okna v řádku:";
+
+/*No comment provided by engineer.*/
+"Window order:" = "Window order:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Velikost nadpisu okna:";

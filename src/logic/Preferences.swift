@@ -47,6 +47,11 @@ class Preferences {
         "showFullscreenWindows3": ShowHowPreference.show.rawValue,
         "showFullscreenWindows4": ShowHowPreference.show.rawValue,
         "showFullscreenWindows5": ShowHowPreference.show.rawValue,
+        "windowOrder": WindowOrderPreference.recentlyFocused.rawValue,
+        "windowOrder2": WindowOrderPreference.recentlyFocused.rawValue,
+        "windowOrder3": WindowOrderPreference.recentlyFocused.rawValue,
+        "windowOrder4": WindowOrderPreference.recentlyFocused.rawValue,
+        "windowOrder5": WindowOrderPreference.recentlyFocused.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
@@ -148,6 +153,7 @@ class Preferences {
     static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4", "showMinimizedWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { defaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
@@ -401,11 +407,11 @@ class Preferences {
     static func jsonEncode<T>(_ value: T) -> String where T: Encodable {
         return String(data: try! JSONEncoder().encode(value), encoding: .utf8)!
     }
-    
+
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))
     }
-    
+
     static func nameToIndex(_ name: String) -> Int {
         guard let number = name.last?.wholeNumberValue else { return 0 }
         return number - 1
@@ -474,6 +480,22 @@ enum ShowHowPreference: String, CaseIterable, MacroPreference {
             case .show: return NSLocalizedString("Show", comment: "")
             case .showAtTheEnd: return NSLocalizedString("Show at the end", comment: "")
             case .hide: return NSLocalizedString("Hide", comment: "")
+        }
+    }
+}
+
+enum WindowOrderPreference: String, CaseIterable, MacroPreference {
+    case recentlyFocused = "0"
+    case recentlyCreated = "1"
+    case alphabetical = "2"
+    case space = "3"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .recentlyFocused: return NSLocalizedString("Recently Focused", comment: "")
+            case .recentlyCreated: return NSLocalizedString("Recently Created", comment: "")
+            case .alphabetical: return NSLocalizedString("Alphabetical", comment: "")
+            case .space: return NSLocalizedString("Space", comment: "")
         }
     }
 }

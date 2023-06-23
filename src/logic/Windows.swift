@@ -21,7 +21,29 @@ class Windows {
                let bool = sortByBooleanAttribute($0.isMinimized, $1.isMinimized) {
                 return bool
             }
-            return $0.lastFocusOrder < $1.lastFocusOrder
+
+            let sortType = Preferences.windowOrder[App.app.shortcutIndex]
+            if sortType == .recentlyFocused {
+                return $0.lastFocusOrder < $1.lastFocusOrder
+            }
+            if sortType == .recentlyCreated {
+                return $1.creationOrder < $0.creationOrder
+            }
+
+            var order = ComparisonResult.orderedSame
+            if sortType == .alphabetical {
+                order = sortByAppNameThenWindowTitle($0, $1)
+            }
+            if sortType == .space {
+                order = sortByIntAttribute($0.spaceIndex, $1.spaceIndex)
+                if order == .orderedSame {
+                    order = sortByAppNameThenWindowTitle($0, $1)
+                }
+            }
+            if order == .orderedSame {
+                order = sortByIntAttribute($0.lastFocusOrder, $1.lastFocusOrder)
+            }
+            return order == .orderedAscending
         }
     }
 
@@ -34,7 +56,7 @@ class Windows {
             ThumbnailsView.highlight(oldIndex)
         }
         if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
-           app.focusedWindow == nil,
+           (app.focusedWindow == nil || Preferences.windowOrder[App.app.shortcutIndex] != .recentlyFocused),
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
             updateFocusedAndHoveredWindowIndex(lastFocusedWindowIndex)
         } else {
@@ -122,7 +144,7 @@ class Windows {
         App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
         voiceOverWindow(index)
     }
-    
+
     static func previewFocusedWindowIfNeeded() {
         guard
             Preferences.previewFocusedWindow,
@@ -295,3 +317,18 @@ func sortByBooleanAttribute(_ b1: Bool, _ b2: Bool) -> Bool? {
     return nil
 }
 
+func sortByIntAttribute(_ i1: Int, _ i2: Int) -> ComparisonResult {
+    return (i1 as NSNumber).compare(i2 as NSNumber)
+}
+
+func sortByStringAttribute(_ s1: String?, _ s2: String?) -> ComparisonResult {
+    return (s1 ?? "").localizedStandardCompare(s2 ?? "")
+}
+
+func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
+    var order = sortByStringAttribute(w1.application.runningApplication.localizedName, w2.application.runningApplication.localizedName)
+    if order == .orderedSame {
+        return sortByStringAttribute(w1.title, w2.title)
+    }
+    return order
+}
