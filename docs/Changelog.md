@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.60.0](https://github.com/lwouis/alt-tab-macos/compare/v6.59.0...v6.60.0) (2023-06-23)
+
+
+### Bug Fixes
+
+* prevent flickering when switching to a previewed window ([b69f5f4](https://github.com/lwouis/alt-tab-macos/commit/b69f5f4)), closes [#2432](https://github.com/lwouis/alt-tab-macos/issues/2432)
+
+
+### Features
+
+* improve support for color-slurp windows ([8605b23](https://github.com/lwouis/alt-tab-macos/commit/8605b23))
+* user can change window order in preferences (closes [#515](https://github.com/lwouis/alt-tab-macos/issues/515)) ([a67d123](https://github.com/lwouis/alt-tab-macos/commit/a67d123))
+
 # [6.59.0](https://github.com/lwouis/alt-tab-macos/compare/v6.58.0...v6.59.0) (2023-06-04)
 
 
