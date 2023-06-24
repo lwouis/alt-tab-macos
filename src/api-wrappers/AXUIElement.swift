@@ -99,11 +99,11 @@ extension AXUIElement {
                         sanGuoShaAirWD(runningApp) ||
                         dvdFab(runningApp) ||
                         drBetotte(runningApp) ||
-                        androidEmulator(runningApp, title) ||
-                        colorSlurp(runningApp)
+                        androidEmulator(runningApp, title)
                     ) &&
                     mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
-                    mustHaveIfSteam(runningApp, title, role)
+                    mustHaveIfSteam(runningApp, title, role) &&
+                    mustHaveIfColorSlurp(runningApp, title, subrole)
             ))
     }
 
@@ -115,6 +115,10 @@ extension AXUIElement {
             (subrole == kAXStandardWindowSubrole || (title != nil && title != "")) &&
                 size.width > 100 && size.height > 100
         )
+    }
+
+    private static func mustHaveIfColorSlurp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?) -> Bool {
+        return runningApp.bundleIdentifier != "com.IdeaPunch.ColorSlurp" || subrole == kAXStandardWindowSubrole
     }
 
     private static func iina(_ runningApp: NSRunningApplication) -> Bool {
@@ -199,11 +203,6 @@ extension AXUIElement {
     private static func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
         // android emulator small vertical menu is a "window" with empty title; we exclude it
         return title != "" && Applications.isAndroidEmulator(runningApp)
-    }
-
-    private static func colorSlurp(_ runningApp: NSRunningApplication) -> Bool {
-        // ColorSlurp presents its dialog as a kAXSystemDialogSubrole, so we need a special check
-        return runningApp.bundleIdentifier == "com.IdeaPunch.ColorSlurp"
     }
 
     func position() throws -> CGPoint? {
