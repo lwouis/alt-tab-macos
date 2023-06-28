@@ -178,7 +178,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func showSecondaryWindow(_ window: NSWindow?) {
         if let window = window {
             NSScreen.preferred().repositionPanel(window, .appleCentered)
-            App.shared.activate(ignoringOtherApps: true)
+            activateCompat()
             window.makeKeyAndOrderFront(nil)
         }
     }
@@ -327,6 +327,14 @@ class App: AppCenterApplication, NSApplicationDelegate {
         KeyboardEvents.toggleGlobalShortcuts(shortcutsShouldBeDisabled)
         if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
             App.app.hideUi()
+        }
+    }
+
+    func activateCompat() {
+        if #available(macOS 14.0, *) {
+            App.shared.activate()
+        } else {
+            App.shared.activate(ignoringOtherApps: true)
         }
     }
 }

@@ -46,6 +46,11 @@ func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: inout CGWindow
 @_silgen_name("CGSGetWindowOwner") @discardableResult
 func CGSGetWindowOwner(_ cid: CGSConnectionID, _ wid: CGWindowID, _ windowCid: inout CGSConnectionID) -> CGError
 
+// forces the given wid to be active.
+// * maxOS 10.10+
+@_silgen_name("CGSSetWindowActive") @discardableResult
+func CGSSetWindowActive(_ cid: CGSConnectionID, _ wid: CGWindowID, _ isActive: Bool) -> CGError
+
 // returns the PSN for the provided connection ID
 // * macOS 10.10+
 @_silgen_name("CGSGetConnectionPSN") @discardableResult

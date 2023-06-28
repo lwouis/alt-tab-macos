@@ -40,7 +40,7 @@ class AppCenterCrash: NSObject, CrashesDelegate {
 
     func checkIfShouldSend() -> Bool {
         if Preferences.crashPolicy == .ask {
-            App.app.activate(ignoringOtherApps: true)
+            App.app.activateCompat()
             let alert = NSAlert()
             alert.alertStyle = .warning
             alert.messageText = NSLocalizedString("Send a crash report?", comment: "")

@@ -179,11 +179,11 @@ class Window {
             if let bundleID = application.runningApplication.bundleIdentifier {
                 NSWorkspace.shared.launchApplication(withBundleIdentifier: bundleID, additionalEventParamDescriptor: nil, launchIdentifier: nil)
             } else {
-                application.runningApplication.activate(options: .activateIgnoringOtherApps)
+                getOwner().setActive(true)
             }
         } else if let bundleID = application.runningApplication.bundleIdentifier, bundleID == App.id {
-            App.shared.activate(ignoringOtherApps: true)
-            App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
+            let appWindow = App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
+            getOwner().setActive(true)
             Windows.previewFocusedWindowIfNeeded()
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
@@ -277,6 +277,14 @@ class Window {
         // TODO: handle the case where the app has multiple window-groups. In that case, we need to find the right
         //       window-group, instead of picking the focused one
         return isTabbed ? application.focusedWindow : self
+    }
+
+    func getOwner() -> WindowOwner {
+        var connection = CGSConnectionID()
+
+        CGSGetWindowOwner(cgsMainConnectionId, cgWindowId!, &connection)
+
+        return WindowOwner(self, connection)
     }
 }
 

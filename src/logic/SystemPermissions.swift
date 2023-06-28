@@ -94,7 +94,7 @@ class SystemPermissions {
         } else {
             permissionsWindow = PermissionsWindow()
             permissionsWindow.center()
-            App.shared.activate(ignoringOtherApps: true)
+            App.app.activateCompat()
             permissionsWindow.makeKeyAndOrderFront(nil)
             observePermissionsPreStartup(startupBlock)
         }
