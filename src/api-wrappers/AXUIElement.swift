@@ -84,7 +84,7 @@ extension AXUIElement {
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0 && size != nil &&
-            (books(runningApp) || keynote(runningApp) || iina(runningApp) || openFlStudio(runningApp, title) || (
+            (books(runningApp) || keynote(runningApp) || iina(runningApp) || openFlStudio(runningApp, title) || isAlwaysOnTopScrcpy(runningApp, level, role, subrole) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
                 level == CGWindow.normalLevel &&
                     ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
@@ -204,6 +204,12 @@ extension AXUIElement {
     private static func colorSlurp(_ runningApp: NSRunningApplication) -> Bool {
         // ColorSlurp presents its dialog as a kAXSystemDialogSubrole, so we need a special check
         return runningApp.bundleIdentifier == "com.IdeaPunch.ColorSlurp"
+    }
+
+    private static func isAlwaysOnTopScrcpy(_ runningApp: NSRunningApplication, _ level: CGWindowLevel, _ role: String?, _ subrole: String?) -> Bool {
+        // scrcpy presents as a floating window when "Always on top" is enabled, so it doesn't get picked up normally.
+        // It also doesn't have a bundle ID, so we need to match using the localized name, which should always be the same.
+        return runningApp.localizedName == "scrcpy" && level == CGWindow.floatingWindow && role == kAXWindowRole && subrole == kAXStandardWindowSubrole
     }
 
     func position() throws -> CGPoint? {
