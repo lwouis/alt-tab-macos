@@ -89,7 +89,8 @@ extension AXUIElement {
                     keynote(runningApp) ||
                     iina(runningApp) ||
                     openFlStudio(runningApp, title) ||
-                    crossoverWindow(runningApp, role, subrole, level)
+                    crossoverWindow(runningApp, role, subrole, level) ||
+                    isAlwaysOnTopScrcpy(runningApp, level, role, subrole)
             ) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
                 level == CGWindow.normalLevel && (
@@ -216,6 +217,12 @@ extension AXUIElement {
     private static func crossoverWindow(_ runningApp: NSRunningApplication, _ role: String?, _ subrole: String?, _ level: CGWindowLevel) -> Bool {
         return runningApp.bundleIdentifier == nil && role == kAXWindowRole && subrole == kAXUnknownSubrole && level == CGWindow.baseLevel
             && (runningApp.localizedName == "wine64-preloader" || runningApp.executableURL?.absoluteString.contains("/winetemp-") ?? false)
+    }
+
+    private static func isAlwaysOnTopScrcpy(_ runningApp: NSRunningApplication, _ level: CGWindowLevel, _ role: String?, _ subrole: String?) -> Bool {
+        // scrcpy presents as a floating window when "Always on top" is enabled, so it doesn't get picked up normally.
+        // It also doesn't have a bundle ID, so we need to match using the localized name, which should always be the same.
+        return runningApp.localizedName == "scrcpy" && level == CGWindow.floatingWindow && role == kAXWindowRole && subrole == kAXStandardWindowSubrole
     }
 
     func position() throws -> CGPoint? {
