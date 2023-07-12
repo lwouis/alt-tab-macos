@@ -60,7 +60,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Dan84
 * Darko
 * David R
-* Davide
 * Didier Deschrijver
 * EDUARDO
 * edu_sombra
@@ -96,6 +95,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jakub Bartušek
 * jiho4
 * Jisan
+* Joao Vitor Casarin
 * Jord Nijhuis
 * Jules Beckers
 * Julian Nowaczyk
@@ -160,11 +160,13 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Shivam Bansal
 * shlomo
 * Stan Smits
+* stas
 * Stefan
 * Svetoslav Stefanov
 * test
 * Thomas Wölk
 * Thomas Zander
+* Thorsten
 * Tomoa Nozawa
 * Umutakkaya1996
 * Vadym

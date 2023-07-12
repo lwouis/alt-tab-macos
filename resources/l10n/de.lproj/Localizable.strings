@@ -39,7 +39,7 @@
 "Allowed" = "Erlaubt";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alphabetisch";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Fenster auch auswählen mit:";
@@ -150,7 +150,7 @@
 "Fullscreen windows:" = "Vollbildfenster:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Vollbild/Fenster Auswahl";
 
 /*No comment provided by engineer.*/
 "General" = "Allgemein";
@@ -255,7 +255,7 @@
 "Preferences…" = "Einstellungen…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Vorschau ausgewähltes Fenster:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Beenden";
@@ -267,10 +267,10 @@
 "Quit app" = "App beenden";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Kürzlich  erstellt";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Kürzlich ausgewählt";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Auswahl merken";
@@ -360,7 +360,7 @@
 "Source code repository" = "Quellcode Repository";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Leertaste";
 
 /*No comment provided by engineer.*/
 "Start" = "Anfang";
@@ -426,7 +426,7 @@
 "Window min width in row:" = "Minimale Vorschaubreite in Reihe:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Fenster Anordnung:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Größe des Fenstertitels:";
