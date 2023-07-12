@@ -1,5 +1,21 @@
 # Release notes
 
+# [6.61.0](https://github.com/lwouis/alt-tab-macos/compare/v6.60.0...v6.61.0) (2023-07-12)
+
+
+### Bug Fixes
+
+* better identify tabs on macos versions older than 13 ([3147a69](https://github.com/lwouis/alt-tab-macos/commit/3147a69)), closes [#2017](https://github.com/lwouis/alt-tab-macos/issues/2017)
+* don't show empty color-slurp windows ([01b3a42](https://github.com/lwouis/alt-tab-macos/commit/01b3a42))
+
+
+### Features
+
+* improve german localization ([1084d87](https://github.com/lwouis/alt-tab-macos/commit/1084d87))
+* improve support for crossover windows ([f9f1c19](https://github.com/lwouis/alt-tab-macos/commit/f9f1c19))
+* improve support for scrcpy always-on-top windows ([0673381](https://github.com/lwouis/alt-tab-macos/commit/0673381))
+* show the ui by right-clicking the menubar icon (closes [#2647](https://github.com/lwouis/alt-tab-macos/issues/2647)) ([63502d5](https://github.com/lwouis/alt-tab-macos/commit/63502d5))
+
 # [6.60.0](https://github.com/lwouis/alt-tab-macos/compare/v6.59.0...v6.60.0) (2023-06-23)
 
 
