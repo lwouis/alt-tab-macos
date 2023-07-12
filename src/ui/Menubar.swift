@@ -1,42 +1,54 @@
 import Cocoa
 
 class Menubar {
-    static var statusItem: NSStatusItem!
+    var statusItem: NSStatusItem!
+    var menu: NSMenu!
 
-    static func initialize() {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        statusItem.menu = NSMenu()
-        statusItem.menu!.title = App.name // perf: prevent going through expensive code-path within appkit
-        statusItem.menu!.addItem(
+    init() {
+        menu = NSMenu()
+        menu.title = App.name // perf: prevent going through expensive code-path within appkit
+        menu.addItem(
             withTitle: String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name),
             action: #selector(App.app.showAboutTab),
             keyEquivalent: "")
-        statusItem.menu!.addItem(NSMenuItem.separator())
-        statusItem.menu!.addItem(
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(
             withTitle: NSLocalizedString("Show", comment: "Menubar option"),
             action: #selector(App.app.showUi),
             keyEquivalent: "")
-        statusItem.menu!.addItem(
+        menu.addItem(
             withTitle: NSLocalizedString("Preferences…", comment: "Menubar option"),
             action: #selector(App.app.showPreferencesWindow),
             keyEquivalent: ",")
-        statusItem.menu!.addItem(
+        menu.addItem(
             withTitle: NSLocalizedString("Check for updates…", comment: "Menubar option"),
             action: #selector(App.app.checkForUpdatesNow),
             keyEquivalent: "")
-        statusItem.menu!.addItem(
+        menu.addItem(
             withTitle: NSLocalizedString("Send feedback…", comment: "Menubar option"),
             action: #selector(App.app.showFeedbackPanel),
             keyEquivalent: "")
-        statusItem.menu!.addItem(NSMenuItem.separator())
-        statusItem.menu!.addItem(
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(
             withTitle: String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name),
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        statusItem.target = self
+        statusItem.button!.action = #selector(statusItemOnClick)
+        statusItem.button!.sendAction(on: [.leftMouseDown, .rightMouseDown])
         menubarIconCallback(nil)
     }
 
-    static func menubarIconCallback(_ sender: NSControl?) {
+    @objc func statusItemOnClick() {
+        if NSApp.currentEvent!.type == .leftMouseDown {
+            statusItem.popUpMenu(App.app.menubar.menu)
+        } else {
+            App.app.showUi()
+        }
+    }
+
+    func menubarIconCallback(_ sender: NSControl?) {
         if Preferences.menubarIcon == .hidden {
             statusItem.isVisible = false
         } else {
@@ -44,7 +56,7 @@ class Menubar {
         }
     }
 
-    static private func loadPreferredIcon() {
+    private func loadPreferredIcon() {
         let i = imageIndexFromPreference()
         let image = NSImage(named: "menubar-" + i)!
         image.isTemplate = i == "3" ? false : true
@@ -53,7 +65,7 @@ class Menubar {
         statusItem.button!.imageScaling = .scaleProportionallyUpOrDown
     }
 
-    static private func imageIndexFromPreference() -> String {
+    private func imageIndexFromPreference() -> String {
         switch Preferences.menubarIcon {
             case .outlined: return "1"
             case .filled: return "2"

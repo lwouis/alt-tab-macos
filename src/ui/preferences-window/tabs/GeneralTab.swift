@@ -5,7 +5,7 @@ class GeneralTab {
 
     static func initTab() -> NSView {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
-        let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
+        let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)
         let resetPreferences = Button(NSLocalizedString("Reset preferences and restart…", comment: "")) { _ in GeneralTab.resetPreferences() }
         if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }
         let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
@@ -34,8 +34,8 @@ class GeneralTab {
     }
 
     private static func enableDraggingOffMenubarIcon(_ menubarIconDropdown: NSPopUpButton) {
-        Menubar.statusItem.behavior = .removalAllowed
-        menubarIsVisibleObserver = Menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
+        App.app.menubar.statusItem.behavior = .removalAllowed
+        menubarIsVisibleObserver = App.app.menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
             if change.oldValue == true && change.newValue == false {
                 let hiddenIndex = Int(MenubarIconPreference.hidden.rawValue)!
                 menubarIconDropdown.selectItem(at: hiddenIndex)
