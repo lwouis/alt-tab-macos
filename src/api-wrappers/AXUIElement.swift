@@ -215,7 +215,7 @@ extension AXUIElement {
     }
 
     private static func crossoverWindow(_ runningApp: NSRunningApplication, _ role: String?, _ subrole: String?, _ level: CGWindowLevel) -> Bool {
-        return runningApp.bundleIdentifier == nil && role == kAXWindowRole && subrole == kAXUnknownSubrole && level == CGWindow.baseLevel
+        return runningApp.bundleIdentifier == nil && role == kAXWindowRole && subrole == kAXUnknownSubrole && level == CGWindow.normalLevel
             && (runningApp.localizedName == "wine64-preloader" || runningApp.executableURL?.absoluteString.contains("/winetemp-") ?? false)
     }
 
