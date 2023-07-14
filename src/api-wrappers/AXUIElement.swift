@@ -106,7 +106,8 @@ extension AXUIElement {
                         sanGuoShaAirWD(runningApp) ||
                         dvdFab(runningApp) ||
                         drBetotte(runningApp) ||
-                        androidEmulator(runningApp, title)
+                        androidEmulator(runningApp, title) ||
+                        xcodeSplash(runningApp, level, role, subrole)
                 ) && (
                     mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
                         mustHaveIfSteam(runningApp, title, role) &&
@@ -223,6 +224,10 @@ extension AXUIElement {
         // scrcpy presents as a floating window when "Always on top" is enabled, so it doesn't get picked up normally.
         // It also doesn't have a bundle ID, so we need to match using the localized name, which should always be the same.
         return runningApp.localizedName == "scrcpy" && level == CGWindow.floatingWindow && role == kAXWindowRole && subrole == kAXStandardWindowSubrole
+    }
+
+    private static func xcodeSplash(_ runningApp: NSRunningApplication, _ level: CGWindowLevel, _ role: String?, _ subrole: String?) -> Bool {
+        return runningApp.bundleIdentifier == "com.apple.dt.Xcode" && level == CGWindow.normalLevel && role == kAXWindowRole && subrole == kAXUnknownSubrole
     }
 
     func position() throws -> CGPoint? {
