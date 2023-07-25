@@ -11,7 +11,8 @@ import Foundation
 extension NSAppearance {
     var isDarkMode: Bool {
         if #available(macOS 10.14, *) {
-            let isDarkMode = bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+            let type = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Unspecified"
+            let isDarkMode = type == "Dark"
             return isDarkMode
         } else {
             return false

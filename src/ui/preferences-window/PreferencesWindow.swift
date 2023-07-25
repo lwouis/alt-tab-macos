@@ -49,6 +49,12 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
             $0.2.fit(largestTabWidth, $0.2.subviews[0].fittingSize.height)
         }
         selectTab("general")
+        let screenSize = NSScreen.main!.frame
+        let sidePanelWidth: CGFloat = 200
+        let sidePanelHeight: CGFloat = screenSize.height
+//        let sidePanel = SidePanelWindow(contentRect: NSRect(x: preferencesWindow.width - sidePanelWidth, y: 0, width: sidePanelWidth, height: sidePanelHeight), styleMask: .borderless, backing: .buffered, defer: false)
+
+//        sidePanel.orderFrontRegardless()
     }
 
     func selectTab(_ id: String) {
@@ -91,5 +97,17 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
 
     func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return Array(toolbarItems.keys)
+    }
+}
+
+
+class SidePanelWindow: NSWindow {
+    override init(contentRect: NSRect, styleMask style: NSWindow.StyleMask, backing backingStoreType: NSWindow.BackingStoreType, defer flag: Bool) {
+        super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
+        self.backgroundColor = NSColor.gray
+        self.level = NSWindow.Level.floating // Change this to make the window sit above/below other windows
+        self.isOpaque = false
+        self.hasShadow = true
+        self.isMovableByWindowBackground = true
     }
 }

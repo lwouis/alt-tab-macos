@@ -12,7 +12,8 @@ class ThumbnailTitleView: BaseLabel {
         self.init(NSRect.zero, textContainer)
         font = Preferences.font
         textColor = Preferences.fontColor
-        self.shadow = shadow
+        // TODO: Do not show shadow in MacOS theme
+//        self.shadow = shadow
         defaultParagraphStyle = makeParagraphStyle(size)
         heightAnchor.constraint(equalToConstant: size).isActive = true
     }

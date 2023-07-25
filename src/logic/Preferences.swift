@@ -101,7 +101,7 @@ class Preferences {
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
-    static var fontColor: NSColor { .white }
+    static var fontColor: NSColor { NSColor.fontColor }
     static var windowPadding: CGFloat { 18 }
     static var interCellPadding: CGFloat { 5 }
     static var intraCellPadding: CGFloat { 5 }
@@ -705,3 +705,4 @@ extension UserDefaults {
         return getThenConvertOrReset(key, { s in Int(s).flatMap { macroPreferences[safe: $0] } })
     }
 }
+
