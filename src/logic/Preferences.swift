@@ -54,7 +54,7 @@ class Preferences {
         "windowOrder5": WindowOrderPreference.recentlyFocused.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
-        "windowDisplayDelay": "0",
+        "windowDisplayDelay": "100",
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
