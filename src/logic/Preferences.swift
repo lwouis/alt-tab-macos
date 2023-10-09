@@ -30,6 +30,7 @@ class Preferences {
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
+        "vimKeysEnabled": "false",
         "mouseHoverEnabled": "false",
         "cursorFollowFocusEnabled": "false",
         "showMinimizedWindows": ShowHowPreference.show.rawValue,
@@ -125,6 +126,7 @@ class Preferences {
     static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
+    static var vimKeysEnabled: Bool { defaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
     static var cursorFollowFocusEnabled: Bool { defaults.bool("cursorFollowFocusEnabled") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
@@ -191,6 +193,11 @@ class Preferences {
 
     static func set<T>(_ key: String, _ value: T) where T: Encodable {
         defaults.set(key == "blacklist" ? jsonEncode(value) : value, forKey: key)
+        UserDefaults.cache.removeValue(forKey: key)
+    }
+
+    static func remove(_ key: String) {
+        defaults.removeObject(forKey: key)
         UserDefaults.cache.removeValue(forKey: key)
     }
 
