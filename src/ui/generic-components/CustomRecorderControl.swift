@@ -50,11 +50,20 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
 
     func alertIfSameShortcutAlreadyAssigned(_ shortcut: Shortcut, _ shortcutAlreadyAssigned: ATShortcut) {
         let isArrowKeys = ["←", "→", "↑", "↓"].contains(shortcutAlreadyAssigned.id)
+        let isVimKeys = shortcutAlreadyAssigned.id.contains("vimCycle")
         let existing = ControlsTab.shortcutControls[shortcutAlreadyAssigned.id]
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""), (isArrowKeys ? "Arrow keys" : existing!.1).replacingOccurrences(of: " ", with: "\u{00A0}"))
+        let informativeText: String
+        if isArrowKeys {
+            informativeText = "Arrow keys"
+        } else if isVimKeys {
+            informativeText = "Vim keys"
+        } else {
+            informativeText = existing!.1
+        }
+        alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""), informativeText.replacingOccurrences(of: " ", with: "\u{00A0}"))
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         }
@@ -69,6 +78,10 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
                 ControlsTab.arrowKeysCheckbox.state = .off
                 ControlsTab.arrowKeysEnabledCallback(ControlsTab.arrowKeysCheckbox)
                 LabelAndControl.controlWasChanged(ControlsTab.arrowKeysCheckbox, nil)
+            } else if isVimKeys {
+                ControlsTab.vimKeysCheckbox.state = .off
+                ControlsTab.vimKeysEnabledCallback(ControlsTab.vimKeysCheckbox)
+                LabelAndControl.controlWasChanged(ControlsTab.vimKeysCheckbox, nil)
             } else {
                 existing!.0.objectValue = nil
                 ControlsTab.shortcutChangedCallback(existing!.0)
