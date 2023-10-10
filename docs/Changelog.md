@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.62.0](https://github.com/lwouis/alt-tab-macos/compare/v6.61.0...v6.62.0) (2023-10-10)
+
+
+### Bug Fixes
+
+* better crossover windows detection ([3f64463](https://github.com/lwouis/alt-tab-macos/commit/3f64463))
+
+
+### Features
+
+* add tamil and croatian localizations ([e542da8](https://github.com/lwouis/alt-tab-macos/commit/e542da8))
+* add vim key window navigation (closes [#1229](https://github.com/lwouis/alt-tab-macos/issues/1229)) ([5cf7f99](https://github.com/lwouis/alt-tab-macos/commit/5cf7f99))
+* improve bg,es,he,hi,ko,uk,cn localizations ([31fb795](https://github.com/lwouis/alt-tab-macos/commit/31fb795))
+
 # [6.61.0](https://github.com/lwouis/alt-tab-macos/compare/v6.60.0...v6.61.0) (2023-07-12)
 
 
