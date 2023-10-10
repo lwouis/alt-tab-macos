@@ -393,6 +393,12 @@
 "View existing discussions" = "既存のディスカッションを見る";
 
 /*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
 "Visible Spaces" = "現在のスペース";
 
 /*No comment provided by engineer.*/

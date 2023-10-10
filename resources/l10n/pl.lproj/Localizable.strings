@@ -394,6 +394,12 @@
 "View existing discussions" = "Wyświetl istniejące dyskusje";
 
 /*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
 "Visible Spaces" = "Widocznych przestrzeni";
 
 /*No comment provided by engineer.*/

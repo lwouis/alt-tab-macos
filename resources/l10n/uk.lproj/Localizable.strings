@@ -39,7 +39,7 @@
 "Allowed" = "Дозволено";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "За алфавітом";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Також обрати вікна, що використовують:";
@@ -51,7 +51,7 @@
 "AltTab needs some permissions" = "AltTab потребує деяких дозволів";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Завжди";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Завжди надсилати звіти про збій";
@@ -60,13 +60,13 @@
 "and press:" = "та натисніть:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "App (BundleID починається з)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "Прогама схована";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Програма запущена, але без активного вікна";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Затримка вiдображення:";
@@ -120,7 +120,7 @@
 "Crash reports policy:" = "Політика звітування про збої:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Курсор слідує за фокусом";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Нічого не робити";
@@ -144,13 +144,13 @@
 "Focus selected window" = "Фокусуватись на обраному вікні";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "На весь екран";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Повноекранні вікна:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "На весь екран / вікно";
 
 /*No comment provided by engineer.*/
 "General" = "Загальні";
@@ -171,7 +171,7 @@
 "Hide colored circles on mouse hover:" = "Сховати кольорові круги при наведені миші:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Сховати в %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Сховати заголовки з номерами простору";
@@ -192,7 +192,7 @@
 "I think the app could be improved with…" = "Я думаю додаток може бути покращено з...";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ігнорувати хоткей допоки активне";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ігнорувати ярлики поки вікна цих програм активні";
@@ -255,7 +255,7 @@
 "Preferences…" = "Налаштування...";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Показувати превью вибраного вікна:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Вийти";
@@ -267,19 +267,19 @@
 "Quit app" = "Вийти з програми";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Недавно створені";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Недавно фокусовані";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Запамʼятати мій вибір";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Скинути конфіг + перезапуск";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Скинути налаштування + перезапустити";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Рядки мініатюр:";
@@ -330,13 +330,13 @@
 "Shortcut 2" = "Ярлик 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Хоткей 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Хоткей 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Хоткей 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Ярлик уже призначено для іншої дії: %@";
@@ -360,7 +360,7 @@
 "Source code repository" = "Репозиторій початкового коду";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Стільниця";
 
 /*No comment provided by engineer.*/
 "Start" = "Почати";
@@ -393,13 +393,19 @@
 "View existing discussions" = "Переглянути наявні обговорення";
 
 /*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
 "Visible Spaces" = "Видимі Простори";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Коли на весь екран";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Коли жодного вікна не відкрито";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Доки відкрито, натисніть:";
@@ -408,16 +414,16 @@
 "Window app icon size:" = "Розмір іконки вікна програми:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Вікно займає весь екран";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Вікно мінімізоване";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Вікно на всіх стільницях";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Вікно на стільниці %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Максимальна ширина вікна в рядку:";
@@ -426,7 +432,7 @@
 "Window min width in row:" = "Мінімальна ширина вікна в рядку:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Порядок вікон:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Розмір шрифту заголовку вікна:";
@@ -435,7 +441,7 @@
 "Window title truncation:" = "Скорочення заголовку вікна:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Ви не можете відмінити цю дію.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Ви не вказали свою електронну пошту, тому не можете отримати жодної відповіді.";

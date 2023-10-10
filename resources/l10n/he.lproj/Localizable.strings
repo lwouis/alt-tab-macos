@@ -39,7 +39,7 @@
 "Allowed" = "מאופשר";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "אלף ביתי";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "בחר חלון גם באמצעות:";
@@ -144,13 +144,13 @@
 "Focus selected window" = "התמקד בחלון שנבחר";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "חלון במסך מלא";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "חלונות במסך מלא:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "מעבר למסך מלא\\חלון";
 
 /*No comment provided by engineer.*/
 "General" = "כללי";
@@ -255,7 +255,7 @@
 "Preferences…" = "העדפות";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "הצגה מוקדמת של החלון:";
 
 /*No comment provided by engineer.*/
 "Quit" = "צא";
@@ -267,10 +267,10 @@
 "Quit app" = "צא מהתוכנה";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "נוצר לאחרונה";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "בפוקוס לאחרונה";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "זכור את בחירתי";
@@ -279,7 +279,7 @@
 "Reset preferences and restart" = "אפס העדפות והפעל מחדש";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "אפס העדפות והתחל מחדש";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "מס׳ שורות של תמונות ממוזערות:";
@@ -330,13 +330,13 @@
 "Shortcut 2" = "קיצור דרך 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "קיצור 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "קיצור 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "קיצור 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "הקיצור שנבחר כבר משוייך לפעולה אחרת: %@";
@@ -360,7 +360,7 @@
 "Source code repository" = "קוד מקור";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "איזור";
 
 /*No comment provided by engineer.*/
 "Start" = "התחלה";
@@ -393,6 +393,12 @@
 "View existing discussions" = "הראה דיונים קיימים";
 
 /*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
 "Visible Spaces" = "איזורים גלויים";
 
 /*No comment provided by engineer.*/
@@ -414,10 +420,10 @@
 "Window is minimized" = "החלון ממוזער";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "החלון נמצא בכל איזור";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "החלון נמצא באיזור %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "רוחב מקסימלי של חלון בטור:";
@@ -426,7 +432,7 @@
 "Window min width in row:" = "רוחב מינימלי של חלון בטור:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "סדר חלונות:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "גודל כותרת חלון:";
@@ -435,7 +441,7 @@
 "Window title truncation:" = "כותרת חלון מקוצרת:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "לא ניתן לבטל פעולה זו.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "לא רשמת את כתובת המייל שלך, ולא תוכל לקבל מענה.";

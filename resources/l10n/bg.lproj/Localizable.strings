@@ -39,7 +39,7 @@
 "Allowed" = "Разрешен";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Азбучен ред";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Избирай прозорец";
@@ -51,7 +51,7 @@
 "AltTab needs some permissions" = "AltTab има нужда от разрешения";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Винаги";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Винаги пращай отчет";
@@ -60,13 +60,13 @@
 "and press:" = "и натискане на";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Приложение (BundleID стартиращ с)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "Приложението е скрито";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Приложението работи, но няма отворени прозорци";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Изчакване преди появяване:";
@@ -120,7 +120,7 @@
 "Crash reports policy:" = "Пращане на отчет при забиване";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Курсора следва фокус";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "не прави нищо";
@@ -144,13 +144,13 @@
 "Focus selected window" = "Покажи избрания прозорец";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Прозорец на цял екран";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Приложения на цял екран:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Цял екран/възстанови прозореца";
 
 /*No comment provided by engineer.*/
 "General" = "Общи";
@@ -171,7 +171,7 @@
 "Hide colored circles on mouse hover:" = "Не показвай контроли на прозореца при преминаване с мишка";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Скрий в %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Скрий номера на пространството:";
@@ -192,7 +192,7 @@
 "I think the app could be improved with…" = "Предлагам подобрение на приложението...";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Игнорирай клавишни комбинации, когато е активно";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Игнорирай шорткъта в следните приложения:";
@@ -222,7 +222,7 @@
 "Minimized windows:" = "Минимизирани прозорци:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Разни:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "с мишката";
@@ -255,7 +255,7 @@
 "Preferences…" = "Настройки...";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Преглед на избрания прозорец:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Излез";
@@ -267,19 +267,19 @@
 "Quit app" = "Излез от приложението";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Наскоро Създадени";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Наскоро Фокусирани";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Запомни избора ми";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Възстанови фабрични настройки и рестартирай";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Възстанови фабрични настройки и рестартирай...";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Брой редове:";
@@ -330,13 +330,13 @@
 "Shortcut 2" = "Шорткът 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Клавишна комбинация 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Клавишна комбинация 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Клавишна комбинация 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Този шорткът вече се използва за %@";
@@ -360,7 +360,7 @@
 "Source code repository" = "Сорс код";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Пространство";
 
 /*No comment provided by engineer.*/
 "Start" = "в началото";
@@ -393,13 +393,19 @@
 "View existing discussions" = "Виж дискусиите";
 
 /*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
 "Visible Spaces" = "видимите пространства";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Когато е на цял екран";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Когато няма отворени прозорци";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "С бутон";
@@ -408,16 +414,16 @@
 "Window app icon size:" = "Размер на иконата:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Прозорецът е на цял екран";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Прозорецът е минимизиран";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Прозорецът е на всяко работно пространство";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Прозорецът е на работно пространство %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Максимална част от реда за един прозорец:";
@@ -426,7 +432,7 @@
 "Window min width in row:" = "Минимална част от реда за един прозорец:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Подредба на прозорци:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Размер на шрифта на заглавието:";
@@ -435,7 +441,7 @@
 "Window title truncation:" = "Съкрати заглавието на прозореца";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Връщането на това действие не е възможно";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Няма да получиш отговор, защото не си написал събщение.";

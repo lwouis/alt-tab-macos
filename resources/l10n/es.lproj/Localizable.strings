@@ -39,7 +39,7 @@
 "Allowed" = "Permitido";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alfabética";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "También seleccionar ventanas usando:";
@@ -150,7 +150,7 @@
 "Fullscreen windows:" = "Ventanas a pantalla completa:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Pantalla completa/Desactivar pantalla completa";
 
 /*No comment provided by engineer.*/
 "General" = "General";
@@ -255,7 +255,7 @@
 "Preferences…" = "Preferencias…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Previsualizar ventana seleccionada:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Salir";
@@ -267,10 +267,10 @@
 "Quit app" = "Cerrar aplicación";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Recientemente creado";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Recientemente enfocado";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Recordar mi elección";
@@ -360,7 +360,7 @@
 "Source code repository" = "Repositorio de código fuente";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Espacio";
 
 /*No comment provided by engineer.*/
 "Start" = "Comienzo";
@@ -391,6 +391,12 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "Ver discusiones existentes";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Spaces visible";
@@ -426,7 +432,7 @@
 "Window min width in row:" = "Ancho mínimo de ventana en fila";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Orden de la ventana:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tamaño de fuente del título de la ventana:";

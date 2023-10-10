@@ -393,6 +393,12 @@
 "View existing discussions" = "Vidi postojeće diskusije";
 
 /*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
 "Visible Spaces" = "Vidljivi Prostori";
 
 /*No comment provided by engineer.*/

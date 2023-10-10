@@ -297,7 +297,7 @@
 "Screen showing AltTab" = "स्क्रीन जिसमे ऑल्टटैब हो";
 
 /*No comment provided by engineer.*/
-"Select next window" = "अगली विंडो चुनो";
+"Select next window" = "अगली विंडो चुन";
 
 /*No comment provided by engineer.*/
 "Select previous window" = "पिछली विंडो चुनो";
@@ -391,6 +391,12 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "मौजूदा वाद-विवाद दिखाओ";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "दृश्यत स्पेस";

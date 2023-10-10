@@ -255,7 +255,7 @@
 "Preferences…" = "偏好设置…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "预览选中的窗口：";
 
 /*No comment provided by engineer.*/
 "Quit" = "退出";
@@ -267,10 +267,10 @@
 "Quit app" = "退出应用";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "最后创建的";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "最后聚焦的";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "记住我的选择";
@@ -360,7 +360,7 @@
 "Source code repository" = "源代码仓库";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "空格";
 
 /*No comment provided by engineer.*/
 "Start" = "开头";
@@ -391,6 +391,12 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "查看现有讨论";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "可见桌面";
@@ -426,7 +432,7 @@
 "Window min width in row:" = "每行窗口最小宽度：";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "窗口顺序：";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "窗口标题字号：";

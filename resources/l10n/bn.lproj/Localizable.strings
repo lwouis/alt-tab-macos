@@ -393,6 +393,12 @@
 "View existing discussions" = "বিদ্যমান আলোচনা দেখুন";
 
 /*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
 "Visible Spaces" = "দৃশ্যমান স্থান";
 
 /*No comment provided by engineer.*/

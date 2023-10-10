@@ -39,7 +39,7 @@
 "Allowed" = "허용됨";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "알파벳순";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "또한 다음을 이용해 윈도우를 선택하기:";
@@ -150,7 +150,7 @@
 "Fullscreen windows:" = "전체 화면 윈도우:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "윈도우 최대화/최소화";
 
 /*No comment provided by engineer.*/
 "General" = "일반";
@@ -267,10 +267,10 @@
 "Quit app" = "앱 종료";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "최근 생성순";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "최근 포커스순";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "내 선택 기억하기";
@@ -393,6 +393,12 @@
 "View existing discussions" = "진행중인 논의 보기";
 
 /*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
 "Visible Spaces" = "보이는 Space";
 
 /*No comment provided by engineer.*/
@@ -426,7 +432,7 @@
 "Window min width in row:" = "한 줄 내의 윈도우 최대 너비:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "윈도우 정렬방식:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "윈도우 제목 글꼴 크기:";
