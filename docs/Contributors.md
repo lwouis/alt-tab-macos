@@ -28,6 +28,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [s4na](https://github.com/s4na)
 * [samdenty](https://github.com/samdenty)
 * [shaqed](https://github.com/shaqed)
+* [skolj](https://github.com/skolj)
 * [xanathar](https://github.com/xanathar)
 * [zacharee](https://github.com/zacharee)
 
