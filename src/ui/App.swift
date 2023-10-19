@@ -257,7 +257,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
         windowsToUpdate?.forEach { (window: Window) in
             guard appIsBeingUsed else { return }
-            window.refreshThumbnail()
+            if !Preferences.hideThumbnails { window.refreshThumbnail() }
             Windows.refreshIfWindowShouldBeShownToTheUser(window, currentScreen)
             window.updatesWindowSpace()
         }
