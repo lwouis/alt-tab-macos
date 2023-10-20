@@ -52,10 +52,10 @@ class TrafficLightButton: NSButton {
     private func drawDimming(_ disk: NSBezierPath) {
         disk.lineWidth = 1
         if (isHighlighted) {
-            NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 0.5).setFill()
+            NSColor.black.withAlphaComponent(0.5).setFill()
             disk.fill()
         } else if (isMouseOver) {
-            NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 0.25).setFill()
+            NSColor.black.withAlphaComponent(0.25).setFill()
             disk.fill()
         }
     }
