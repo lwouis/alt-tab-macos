@@ -84,7 +84,7 @@
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Nûjenan periyodîk bixweber saz bike";
+"Auto-install updates periodically" = "Nûjenan otomatîk saz bike";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Blacklists";
@@ -291,7 +291,7 @@
 "Screen including mouse" = "Ekrana mişk nîşandî";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Qeyda Ekranê";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Ekrana AltTab nîşandî";
@@ -375,7 +375,7 @@
 "Then release:" = "Pişre berde:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Ev destûr ji bo gerûbûna paceyê pêwiste.";
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";

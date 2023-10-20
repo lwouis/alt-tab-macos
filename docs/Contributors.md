@@ -27,9 +27,9 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [ryenus](https://github.com/ryenus)
 * [s4na](https://github.com/s4na)
 * [samdenty](https://github.com/samdenty)
-* [shaqed](https://github.com/shaqed)
 * [skolj](https://github.com/skolj)
 * [xanathar](https://github.com/xanathar)
+* [xconverge](https://github.com/xconverge)
 * [zacharee](https://github.com/zacharee)
 
 They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
@@ -185,7 +185,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Whatsmine-HaoshuaiXu
 * Wilhelm Wolfgang Gärtner
 * Wowpapa3232
-* Yamada Keisuke
 * Yash
 * Yossi Zahn
 * ysaito

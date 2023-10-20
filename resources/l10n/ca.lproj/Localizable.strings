@@ -39,7 +39,7 @@
 "Allowed" = "Permès";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alfabètic";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "També seleccionar:";
@@ -60,7 +60,7 @@
 "and press:" = "i prémer:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "Aplicació";
+"App (BundleID starting with)" = "Aplicació (BundleID comença per)";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "L'aplicació està oculta";
@@ -99,13 +99,13 @@
 "Center" = "Centre";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "Cercar actualitzacions...";
+"Check for updates now…" = "Cercar actualitzacions…";
 
 /*No comment provided by engineer.*/
 "Check for updates periodically" = "Comprovar periòdicament";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "Buscar actualitzacions...";
+"Check for updates…" = "Buscar actualitzacions…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Tancar finestra";
@@ -150,7 +150,7 @@
 "Fullscreen windows:" = "Finestres a pantalla completa:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Passar a/Sortir de pantalla completa";
 
 /*No comment provided by engineer.*/
 "General" = "General";
@@ -189,7 +189,7 @@
 "Hold" = "Mantenir";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Crec que l'aplicació milloraria si...";
+"I think the app could be improved with…" = "Crec que l'aplicació milloraria si…";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts when active" = "Ignorar dreceres quan està activa";
@@ -240,10 +240,10 @@
 "Only if the window is fullscreen" = "Només si la finestra està a pantalla completa";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Obrir preferències d'accessibilitat...";
+"Open Accessibility Preferences…" = "Obrir preferències d'accessibilitat…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Obrir preferències de gravació de pantalla...";
+"Open Screen Recording Preferences…" = "Obrir preferències de gravació de pantalla…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Opcional: adreça de correu (si esperes resposta)";
@@ -252,10 +252,10 @@
 "Policies" = "Polítiques";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Preferències...";
+"Preferences…" = "Preferències…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Previsualitzar finestra seleccionada:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Sortir";
@@ -267,10 +267,10 @@
 "Quit app" = "Sortir de l'aplicació";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Oberta més recentment";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Activa més recentment";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Recordar la meva selecció";
@@ -279,7 +279,7 @@
 "Reset preferences and restart" = "Restablir preferències i reiniciar";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Restaurar preferències i iniciar...";
+"Reset preferences and restart…" = "Restaurar preferències i iniciar…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Files de miniatures:";
@@ -360,7 +360,7 @@
 "Source code repository" = "Repositori del codi font";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Espai";
 
 /*No comment provided by engineer.*/
 "Start" = "Inici";
@@ -393,10 +393,10 @@
 "View existing discussions" = "Veure discussions en curs";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Tecles de Vim";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Tecles de Vim ja en ús:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Espais visibles";
@@ -432,7 +432,7 @@
 "Window min width in row:" = "Amplada mínima de finestra dins d'una fila:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Mostrar en ordre:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Mida dels títols:";

@@ -393,10 +393,10 @@
 "View existing discussions" = "진행중인 논의 보기";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Vim 키";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim 키들은 다음과 같이 배정되어 있습니다:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "보이는 Space";
