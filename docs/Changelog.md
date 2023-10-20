@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.63.0](https://github.com/lwouis/alt-tab-macos/compare/v6.62.0...v6.63.0) (2023-10-20)
+
+
+### Bug Fixes
+
+* never screenshot windows if thumbnails are hidden ([5e7f44b](https://github.com/lwouis/alt-tab-macos/commit/5e7f44b))
+
+
+### Features
+
+* improve ca/ko/ku localizations ([865570f](https://github.com/lwouis/alt-tab-macos/commit/865570f))
+
 # [6.62.0](https://github.com/lwouis/alt-tab-macos/compare/v6.61.0...v6.62.0) (2023-10-10)
 
 
