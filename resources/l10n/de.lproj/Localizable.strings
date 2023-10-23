@@ -66,7 +66,7 @@
 "App is hidden" = "App ist ausgeblendet";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App wird ausgeführt, aber hat keine offenen Fenster";
+"App is running but has no open window" = "App wird ausgeführt, hat aber keine offenen Fenster";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Einblenden verzögern:";
@@ -75,7 +75,7 @@
 "Appearance" = "Erscheinungsbild";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Willst du wirklich keine Antwort?";
+"Are you sure you don’t want a response?" = "Willst du wirklich keine Antwort erhalten?";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "Pfeiltasten";
@@ -87,7 +87,7 @@
 "Auto-install updates periodically" = "Regelmäßig nach Updates suchen und automatisch installieren";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Schwarze Listen";
+"Blacklists" = "Sperrlisten";
 
 /*Cancel button*/
 "Cancel" = "Abbrechen";
@@ -120,7 +120,7 @@
 "Crash reports policy:" = "Richtlinie für Absturzberichte:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor folgt Fokus";
+"Cursor follows focus" = "Cursor folgt dem Fokus";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Nichts machen";
@@ -144,13 +144,13 @@
 "Focus selected window" = "Ausgewähltes Fenster aktivieren";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Vollbildfenster";
+"Fullscreen window" = "Vollbild-Fenster";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "Vollbildfenster:";
+"Fullscreen windows:" = "Vollbild-Fenster:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Vollbild/Fenster Auswahl";
+"Fullscreen/Defullscreen window" = "Vollbild-/Fenster-Auswahl";
 
 /*No comment provided by engineer.*/
 "General" = "Allgemein";
@@ -162,7 +162,7 @@
 "Hide" = "Verbergen";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "App-Symbol Kennzeichen verbergen:";
+"Hide app badges:" = "App-Badges ausblenden:";
 
 /*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Apps ohne offene Fenster verbergen:";
@@ -228,7 +228,7 @@
 "Mouse hover" = "Mauszeiger";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Nie senden";
+"Never send crash reports" = "Niemals Absturzberichte senden";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Nicht erlaubt";
@@ -237,7 +237,7 @@
 "NSHumanReadableCopyright" = "GPL-3.0 Lizenz";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Nur bei Vollbild";
+"Only if the window is fullscreen" = "Nur falls das Fenster im Vollbildmodus ist";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Einstellungen zu Bedienungshilfen öffnen…";
@@ -255,7 +255,7 @@
 "Preferences…" = "Einstellungen…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Vorschau ausgewähltes Fenster:";
+"Preview selected window:" = "Vorschau des ausgewählten Fensters:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Beenden";
@@ -276,7 +276,7 @@
 "Remember my choice" = "Auswahl merken";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Einstellungen zurücksetzen und neustarten";
+"Reset preferences and restart" = "Einstellungen zurücksetzen und neu starten";
 
 /*No comment provided by engineer.*/
 "Reset preferences and restart…" = "Einstellungen zurücksetzen und neu starten...";
@@ -312,7 +312,7 @@
 "Send anyway" = "Trotzdem senden";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Debug-Profil senden (CPU, Speicher, etc.)";
+"Send debug profile (CPU, memory, etc)" = "Debug-Profil senden (CPU, RAM-Speicher, etc.)";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "Feedback senden";
@@ -357,7 +357,7 @@
 "Show windows from:" = "Fenster anzeigen von:";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "Quellcode Repository";
+"Source code repository" = "Quellcode-Repository";
 
 /*No comment provided by engineer.*/
 "Space" = "Leertaste";
@@ -369,7 +369,7 @@
 "Start at login:" = "Beim Anmelden starten:";
 
 /*No comment provided by engineer.*/
-"Theme:" = "Thema:";
+"Theme:" = "Theme:";
 
 /*No comment provided by engineer.*/
 "Then release:" = "Dann loslassen:";
@@ -384,19 +384,19 @@
 "Unassign existing shortcut and continue" = "Bestehenden Kurzbefehl löschen und weiter";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "Update Richtlinie:";
+"Updates policy:" = "Aktualisierung der Richtlinie:";
 
 /*No comment provided by engineer.*/
 "Version" = "Version";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "Bestehende Vorschläge anzeigen";
+"View existing discussions" = "Bestehende Diskussionen anzeigen";
 
 /*No comment provided by engineer.*/
 "Vim keys" = "Vim keys";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim-Befehle, die bereits anderen Aktionen zugewiesen sind:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Sichtbare Spaces";
