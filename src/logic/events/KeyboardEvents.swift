@@ -146,9 +146,7 @@ fileprivate func handleEvent(_ id: EventHotKeyID?, _ shortcutState: ShortcutStat
 fileprivate func cgEventFlagsChangedHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     if type == .flagsChanged {
         let modifiers = cocoaToCarbonFlags(NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue)))
-        if handleEvent(nil, nil, nil, modifiers, false) {
-            return nil // focused app won't receive the event
-        }
+        handleEvent(nil, nil, nil, modifiers, false)
     } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
