@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.64.0](https://github.com/lwouis/alt-tab-macos/compare/v6.63.0...v6.64.0) (2023-10-24)
+
+
+### Bug Fixes
+
+* don't absorb key up events after summon (closes [#2914](https://github.com/lwouis/alt-tab-macos/issues/2914)) ([3b0194d](https://github.com/lwouis/alt-tab-macos/commit/3b0194d))
+* stop vim keys preference disabling on launch (closes [#2919](https://github.com/lwouis/alt-tab-macos/issues/2919)) ([53692ff](https://github.com/lwouis/alt-tab-macos/commit/53692ff))
+
+
+### Features
+
+* improve fr,de localizations ([c4ae549](https://github.com/lwouis/alt-tab-macos/commit/c4ae549))
+
 # [6.63.0](https://github.com/lwouis/alt-tab-macos/compare/v6.62.0...v6.63.0) (2023-10-20)
 
 
