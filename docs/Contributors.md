@@ -52,6 +52,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Arthur
 * Ash
 * blanorama
+* bluefirex
 * bovirus
 * caduellery
 * Caner İlhan

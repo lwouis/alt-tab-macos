@@ -39,7 +39,7 @@
 "Allowed" = "Autorisé";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alphabétique";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Sélectionner aussi les fenêtres en utilisant :";
@@ -174,7 +174,7 @@
 "Hide in %@" = "Caché dans %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Cacher les numéros des Bureaux :";
+"Hide Space number labels:" = "Cacher les numéros des Bureaux:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Masquer les icônes de statut :";
@@ -246,13 +246,13 @@
 "Open Screen Recording Preferences…" = "Ouvrir les Préférences d’Enregistrement de l’écran…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Optionnel : email (si vous voulez une réponse)";
+"Optional: email (if you want a reply)" = "Optionnel  : email (si vous voulez une réponse)";
 
 /*No comment provided by engineer.*/
 "Policies" = "Politiques";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Préférences…";
+"Preferences…" = "Préférences …";
 
 /*No comment provided by engineer.*/
 "Preview selected window:" = "Prévisualisation de la fenêtre";
@@ -267,10 +267,10 @@
 "Quit app" = "Quitter l’App";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "des Créations";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "des Sélections";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Se souvenir de mon choix";
@@ -348,7 +348,7 @@
 "Show at the end" = "Mettre à la fin";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Afficher sur :";
+"Show on:" = "Afficher sur:";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Afficher les onglets standards comme fenêtres :";
@@ -360,7 +360,7 @@
 "Source code repository" = "Archive du code source";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "des Espaces";
 
 /*No comment provided by engineer.*/
 "Start" = "Début";
@@ -369,7 +369,7 @@
 "Start at login:" = "Lancer au démarrage :";
 
 /*No comment provided by engineer.*/
-"Theme:" = "Thème :";
+"Theme:" = "Thème  :";
 
 /*No comment provided by engineer.*/
 "Then release:" = "Puis relâcher :";
@@ -393,10 +393,10 @@
 "View existing discussions" = "Voir les discussions existantes";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Commandes Vim";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Commande Vim déjà affectée à\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Bureaux visibles";
@@ -432,7 +432,7 @@
 "Window min width in row:" = "Largeur minimum des aperçus :";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Affichage des fenêtres par ordre:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Taille du titres des fenêtres :";
