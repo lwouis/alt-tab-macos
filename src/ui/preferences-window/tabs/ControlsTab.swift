@@ -235,7 +235,7 @@ class ControlsTab {
             "j": "vimCycleDown"
         ]
         if (sender as! NSButton).state == .on {
-            if App.app.preferencesWindow != nil && isClearVimKeysSuccessful() {
+            if isClearVimKeysSuccessful() {
                 keyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
             } else {
                 (sender as! NSButton).state = .off
@@ -257,7 +257,9 @@ class ControlsTab {
             }
         }
         if !conflicts.isEmpty {
-            if !shouldClearConflictingShortcuts(conflicts.map { $0.value }) {
+            // if the app is still launching (App.app.preferencesWindow == nil) and we have a conflict
+            // then we don't show the user a dialog, and simply disable vim keys
+            if App.app.preferencesWindow == nil || !shouldClearConflictingShortcuts(conflicts.map { $0.value }) {
                 return false
             }
             conflicts.forEach {
