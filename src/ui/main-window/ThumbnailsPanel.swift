@@ -10,7 +10,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
-        hasShadow = false
+        hasShadow = true
         titleVisibility = .hidden
         backgroundColor = .clear
         contentView! = thumbnailsView
