@@ -87,7 +87,7 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
         }
     }
 
-    private func isShortcutAlreadyAssigned(_ shortcut: Shortcut) -> ATShortcut? {
+    func isShortcutAlreadyAssigned(_ shortcut: Shortcut, shortcutModifierSide: ShortcutModifierSidePreference? = nil) -> ATShortcut? {
         let comboShortcutName = id.starts(with: "holdShortcut") ?
             Preferences.indexToName("nextWindowShortcut", Preferences.nameToIndex(id)) :
             (id.starts(with: "nextWindowShortcut") ?
@@ -116,6 +116,22 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
                 }
             } else if !ControlsTab.combinedModifiersMatch(shortcut2.carbonModifierFlags, shortcut.carbonModifierFlags) {
                 return false
+            }
+            if (id.starts(with: "holdShortcut") || id.starts(with: "nextWindowShortcut")) && id2.starts(with: "nextWindowShortcut") {
+                let shortcutIndex = Preferences.nameToIndex(id)
+                let shortcutIndex2 = Preferences.nameToIndex(id2)
+                let shortcutModifierSide = shortcutModifierSide ?? Preferences.shortcutModifierSide[shortcutIndex]
+                let shortcutModifierSide2 = Preferences.shortcutModifierSide[shortcutIndex2]
+                if
+                    shortcutModifierSide != .any,
+                    shortcutModifierSide2 != .any,
+                    shortcutModifierSide != shortcutModifierSide2,
+                    let holdShortcut = id.starts(with: "holdShortcut") ? shortcut : comboShortcut,
+                    let holdShortcut2 = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", shortcutIndex2)]?.shortcut,
+                    holdShortcut.carbonModifierFlags & holdShortcut2.carbonModifierFlags > 0
+                {
+                    return false
+                }
             }
             return true
         })?
