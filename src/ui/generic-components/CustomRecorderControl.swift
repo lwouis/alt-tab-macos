@@ -51,12 +51,13 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
     func alertIfSameShortcutAlreadyAssigned(_ shortcut: Shortcut, _ shortcutAlreadyAssigned: ATShortcut) {
         let isArrowKeys = ["←", "→", "↑", "↓"].contains(shortcutAlreadyAssigned.id)
         let isVimKeys = shortcutAlreadyAssigned.id.starts(with: "vimCycle")
+        let isShortcutKeys = shortcutAlreadyAssigned.id.starts(with: "nextWindowShortcut")
         let existingShortcutLabel = ControlsTab.shortcutControls[shortcutAlreadyAssigned.id]
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
         alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""),
-            (isArrowKeys ? "Arrow keys" : (isVimKeys ? "Vim keys" : existingShortcutLabel!.1)).replacingOccurrences(of: " ", with: "\u{00A0}"))
+            (isArrowKeys ? "Arrow keys" : (isVimKeys ? "Vim keys" : (isShortcutKeys ? "Shortcut \(Preferences.nameToIndex(shortcutAlreadyAssigned.id) + 1) keys" : existingShortcutLabel!.1))).replacingOccurrences(of: " ", with: "\u{00A0}"))
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         }
