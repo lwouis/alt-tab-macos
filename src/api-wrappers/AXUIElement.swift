@@ -111,9 +111,13 @@ extension AXUIElement {
                     mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
                         mustHaveIfSteam(runningApp, title, role) &&
                         mustHaveIfColorSlurp(runningApp, title, subrole)
-                )
+                ) && skipSnagitFloatyWindows(runningApp, title)
             )
         )
+    }
+    
+    private static func skipSnagitFloatyWindows(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
+            return !(runningApp.bundleIdentifier?.hasPrefix("com.TechSmith.Snagit") ?? false && title == "Floaty")
     }
 
     private static func mustHaveIfJetbrainApp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?, _ size: NSSize) -> Bool {
