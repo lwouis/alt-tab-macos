@@ -4,7 +4,6 @@ import Cocoa
 class SystemPermissions {
     static var changeCallback: (() -> Void)!
     static var timer: Timer!
-    static var permissionsWindow: PermissionsWindow!
 
     static func accessibilityIsGranted() -> Bool {
         if #available(OSX 10.9, *) {
@@ -68,14 +67,14 @@ class SystemPermissions {
             DispatchQueue.main.async {
                 if accessibility && screenRecording {
                     timer.invalidate()
-                    permissionsWindow?.close()
+                    App.app.permissionsWindow?.close()
                     startupBlock()
                 } else {
-                    if accessibility != permissionsWindow.accessibilityView.isPermissionGranted {
-                        permissionsWindow.accessibilityView.updatePermissionStatus(accessibility)
+                    if accessibility != App.app.permissionsWindow.accessibilityView.isPermissionGranted {
+                        App.app.permissionsWindow.accessibilityView.updatePermissionStatus(accessibility)
                     }
-                    if #available(OSX 10.15, *), screenRecording != permissionsWindow.screenRecordingView.isPermissionGranted {
-                        permissionsWindow.screenRecordingView.updatePermissionStatus(screenRecording)
+                    if #available(OSX 10.15, *), screenRecording != App.app.permissionsWindow.screenRecordingView.isPermissionGranted {
+                        App.app.permissionsWindow.screenRecordingView.updatePermissionStatus(screenRecording)
                     }
                 }
             }
@@ -92,10 +91,7 @@ class SystemPermissions {
         if accessibilityIsGranted() && screenRecordingIsGranted() {
             startupBlock()
         } else {
-            permissionsWindow = PermissionsWindow()
-            permissionsWindow.center()
-            App.shared.activate(ignoringOtherApps: true)
-            permissionsWindow.makeKeyAndOrderFront(nil)
+            App.app.permissionsWindow.show()
             observePermissionsPreStartup(startupBlock)
         }
     }

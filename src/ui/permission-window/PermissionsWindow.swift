@@ -11,18 +11,29 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
         setupView()
     }
 
+    func show() {
+        accessibilityView.updatePermissionStatus(SystemPermissions.accessibilityIsGranted())
+        screenRecordingView.updatePermissionStatus(SystemPermissions.screenRecordingIsGranted())
+        center()
+        App.shared.activate(ignoringOtherApps: true)
+        makeKeyAndOrderFront(nil)
+    }
+
     func windowShouldClose(_ sender: NSWindow) -> Bool {
-        debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
-            "Please authorize and re-launch.",
-            "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
-            separator: "\n")
-        App.shared.terminate(self)
+        if !SystemPermissions.accessibilityIsGranted() || !SystemPermissions.screenRecordingIsGranted() {
+            debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
+                "Please authorize and re-launch.",
+                "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
+                separator: "\n")
+            App.shared.terminate(self)
+        }
         return true
     }
 
     private func setupWindow() {
         title = NSLocalizedString("AltTab needs some permissions", comment: "")
         hidesOnDeactivate = false
+        isReleasedWhenClosed = false
         styleMask.insert([.miniaturizable, .closable])
     }
 

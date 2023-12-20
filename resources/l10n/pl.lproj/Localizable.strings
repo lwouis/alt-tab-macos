@@ -39,7 +39,7 @@
 "Allowed" = "Dozwolone";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alfabetycznie";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Wybierz okna także za pomocą:";
@@ -107,11 +107,14 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "Sprawdź aktualizacje…";
 
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
 /*No comment provided by engineer.*/
 "Close window" = "Zamknij okno";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Konfliktujący skrót";
+"Conflicting shortcut" = "Konflikt skrótu";
 
 /*No comment provided by engineer.*/
 "Controls" = "Klawisze";
@@ -150,7 +153,7 @@
 "Fullscreen windows:" = "Okna pełnoekranowe:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Przełącz pełny ekran dla okna";
 
 /*No comment provided by engineer.*/
 "General" = "Ogólne";
@@ -267,10 +270,10 @@
 "Quit app" = "Wyjdź z aplikacji";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Ostatnio utworzone";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Ostatnio aktywne";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Pamiętaj mój wybór";
@@ -360,13 +363,12 @@
 "Source code repository" = "Repozytorium kodu źródłowego";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Przestrzeń";
 
 /*No comment provided by engineer.*/
 "Start" = "Na początku";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
 "Start at login:" = "Uruchom przy zalogowaniu:";
 
 /*No comment provided by engineer.*/
@@ -394,10 +396,10 @@
 "View existing discussions" = "Wyświetl istniejące dyskusje";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Klawisze Vim";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Klawisze Vim są już przyporządkowane to innych akcji: %@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Widocznych przestrzeni";
@@ -433,7 +435,7 @@
 "Window min width in row:" = "Minimalna szerokość okna w rzędzie:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Porządek okien:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Rozmiar czcionki tytułu okna:";

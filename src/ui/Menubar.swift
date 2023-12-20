@@ -25,6 +25,10 @@ class Menubar {
             action: #selector(App.app.checkForUpdatesNow),
             keyEquivalent: "")
         menu.addItem(
+            withTitle: NSLocalizedString("Check permissions…", comment: "Menubar option"),
+            action: #selector(App.app.checkPermissions),
+            keyEquivalent: "")
+        menu.addItem(
             withTitle: NSLocalizedString("Send feedback…", comment: "Menubar option"),
             action: #selector(App.app.showFeedbackPanel),
             keyEquivalent: "")

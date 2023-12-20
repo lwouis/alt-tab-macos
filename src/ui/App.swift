@@ -21,6 +21,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
     var feedbackWindow: FeedbackWindow!
+    var permissionsWindow: PermissionsWindow!
     var isFirstSummon = true
     var appIsBeingUsed = false
     var globalShortcutsAreDisabled = false
@@ -50,6 +51,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         #endif
         AXUIElement.setGlobalTimeout()
         BackgroundWork.startSystemPermissionThread()
+        permissionsWindow = PermissionsWindow()
         SystemPermissions.ensurePermissionsAreGranted { [weak self] in
             guard let self = self else { return }
             BackgroundWork.start()
@@ -166,6 +168,10 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
         PoliciesTab.checkForUpdatesNow(sender)
+    }
+
+    @objc func checkPermissions(_ sender: NSMenuItem) {
+        permissionsWindow.show()
     }
 
     @objc func showFeedbackPanel() {

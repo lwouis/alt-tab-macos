@@ -44,13 +44,11 @@ class PermissionView: StackView {
         self.isPermissionGranted = isPermissionGranted
         if isPermissionGranted {
             let color = PermissionView.greenColor
-            button.isEnabled = false
             status.stringValue = "● " + NSLocalizedString("Allowed", comment: "")
             status.textColor = color.withAlphaComponent(1)
             layer!.backgroundColor = color.cgColor
         } else {
             let color = PermissionView.redColor
-            button.isEnabled = true
             status.stringValue = "● " + NSLocalizedString("Not allowed", comment: "")
             status.textColor = color.withAlphaComponent(1)
             layer!.backgroundColor = color.cgColor

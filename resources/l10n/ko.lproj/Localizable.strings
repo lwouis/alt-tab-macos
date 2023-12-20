@@ -107,6 +107,9 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "업데이트 확인…";
 
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
 /*No comment provided by engineer.*/
 "Close window" = "윈도우 닫기";
 

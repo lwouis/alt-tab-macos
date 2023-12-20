@@ -107,6 +107,9 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "Перевiрити оновлення...";
 
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
 /*No comment provided by engineer.*/
 "Close window" = "Закрити вікно";
 
@@ -393,10 +396,10 @@
 "View existing discussions" = "Переглянути наявні обговорення";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Клавіші Vim";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Клавіші Vim уже призначені для інших дій:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Видимі Простори";

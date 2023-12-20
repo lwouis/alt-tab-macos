@@ -107,6 +107,9 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "Chercher une mise-à-jour…";
 
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
 /*No comment provided by engineer.*/
 "Close window" = "Fermer la fenêtre";
 

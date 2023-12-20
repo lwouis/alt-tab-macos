@@ -39,7 +39,7 @@
 "Allowed" = "Разрешено";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "По алфавиту";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Также выбирать окна, используя:";
@@ -107,6 +107,9 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "Проверить обновления…";
 
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
 /*No comment provided by engineer.*/
 "Close window" = "Закрыть окно";
 
@@ -150,7 +153,7 @@
 "Fullscreen windows:" = "Развернутые окна:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Переключить полноэкранный режим окна";
 
 /*No comment provided by engineer.*/
 "General" = "Основное";
@@ -255,7 +258,7 @@
 "Preferences…" = "Настройки…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Превью выбранного окна:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Выход";
@@ -267,10 +270,10 @@
 "Quit app" = "Выйти из приложения";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Недавно созданное";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Недавно активное";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Запомнить мой выбор";
@@ -360,7 +363,7 @@
 "Source code repository" = "Репозиторий исходного кода";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Пространство";
 
 /*No comment provided by engineer.*/
 "Start" = "Начало";
@@ -393,10 +396,10 @@
 "View existing discussions" = "Посмотреть обсуждения";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Vim клавиши";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim клавиши уже назначены на другие действия:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Видимые пространства";
@@ -432,7 +435,7 @@
 "Window min width in row:" = "Минимальная ширина эскиза в ряду:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Порядок окон:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Размер заголовка:";
