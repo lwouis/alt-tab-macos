@@ -177,7 +177,7 @@
 "Hide in %@" = "Hide in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Hide Space number labels:";
+"Hide Space number labels:" = "Skjul Mellemrum etiket:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";
@@ -192,7 +192,7 @@
 "Hold" = "Hold";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "I think the app could be improved with…";
+"I think the app could be improved with…" = "Jeg synes appen kunne forbedres med...";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
@@ -201,7 +201,7 @@
 "Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "Latest releases";
+"Latest releases" = "Seneste udgivelser";
 
 /*No comment provided by engineer.*/
 "Left" = "Left";
@@ -249,13 +249,13 @@
 "Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Valgfri: e-mail (hvis du vil have svar)";
 
 /*No comment provided by engineer.*/
 "Policies" = "Policies";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Preferences…";
+"Preferences…" = "Indstillinger";
 
 /*No comment provided by engineer.*/
 "Preview selected window:" = "Preview selected window:";
@@ -264,7 +264,7 @@
 "Quit" = "Quit";
 
 /*No comment provided by engineer.*/
-"Quit %@" = "Quit %@";
+"Quit %@" = "Afslut %@";
 
 /*No comment provided by engineer.*/
 "Quit app" = "Quit app";
@@ -315,13 +315,13 @@
 "Send anyway" = "Send anyway";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+"Send debug profile (CPU, memory, etc)" = "Send debug profil (CPU, hukommelse, osv.)";
 
 /*No comment provided by engineer.*/
-"Send feedback" = "Send feedback";
+"Send feedback" = "Send evaluering";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "Send feedback…";
+"Send feedback…" = "Send evaluering... ";
 
 /*No comment provided by engineer.*/
 "Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
@@ -345,13 +345,13 @@
 "Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
 /*No comment provided by engineer.*/
-"Show" = "Show";
+"Show" = "Vis";
 
 /*No comment provided by engineer.*/
 "Show at the end" = "Show at the end";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Show on:";
+"Show on:" = "Vis på:";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Show standard tabs as windows:";
@@ -360,7 +360,7 @@
 "Show windows from:" = "Show windows from:";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "Source code repository";
+"Source code repository" = "Kildekode sted";
 
 /*No comment provided by engineer.*/
 "Space" = "Space";
@@ -372,7 +372,7 @@
 "Start at login:" = "Start at login:";
 
 /*No comment provided by engineer.*/
-"Theme:" = "Theme:";
+"Theme:" = "Tema:";
 
 /*No comment provided by engineer.*/
 "Then release:" = "Then release:";

@@ -42,6 +42,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Admin
 * Albert Abdilim
 * Alex
+* Alexander Kilian
 * Ali Gokmen
 * Ali. tas103
 * Allen Guan
@@ -93,6 +94,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Hokuto Kato
 * Huandngoc
 * Ialiendeg
+* Ida Bomholt Dyrholm Jacobsen
 * Igor Aradski
 * Indexerrowaty
 * isametry
