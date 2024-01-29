@@ -41,6 +41,7 @@
 		BF0C8603F7BA6D1ED7B9E624 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8DC4F163F11248C637CE /* Localizable.strings */; };
 		BF0C8658CC748011E57691B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C84F4B25A7C26A88ADE92 /* Localizable.strings */; };
 		BF0C865E3C3F3B353A7A7CBC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C86FFF1C801761B7CE363 /* Localizable.strings */; };
+		BF0C86BA26EFA59DEE24C70B /* Support.md in Sources */ = {isa = PBXBuildFile; fileRef = BF0C815B4782DEEEDB2C76C5 /* Support.md */; };
 		BF0C87732A6E660899D13BFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C886B1D6E707E9E6BE46C /* InfoPlist.strings */; };
 		BF0C884D88B74F05B8BBF956 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C88A25E1ED37E5F80AC91 /* Localizable.strings */; };
 		BF0C8879F979414A87AB2958 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C89348E07FC05870FEE62 /* InfoPlist.strings */; };
@@ -185,6 +186,7 @@
 		BF0C80A05C11C8ADC366EC4A /* lb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = lb; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8113492C0FFCB4454BC9 /* sl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sl; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8118F91A00A04AD4DE26 /* bg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = bg; path = InfoPlist.strings; sourceTree = "<group>"; };
+		BF0C815B4782DEEEDB2C76C5 /* Support.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Support.md; sourceTree = "<group>"; };
 		BF0C816D6B12CC13F741E61F /* hi */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hi; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C816F38751995E4F49BB0 /* he */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = he; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C817E063D1405392D6C5B /* he */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = he; path = Localizable.strings; sourceTree = "<group>"; };
@@ -1358,6 +1360,7 @@
 				D04BA765138B5E1C512245BE /* Thanks.md */,
 				D04BA177B11330ED7E08E6C2 /* _includes */,
 				D04BADB5AA570748C717D31A /* Changelog-bare.md */,
+				BF0C815B4782DEEEDB2C76C5 /* Support.md */,
 			);
 			path = docs;
 			sourceTree = "<group>";
@@ -1724,6 +1727,7 @@
 				BF0C898511686611E4D7D81E /* Button.swift in Sources */,
 				BF0C8E16F38203AEC71E062B /* TableView.swift in Sources */,
 				BF0C832C5BF4C8E9C95F7767 /* MissionControl.swift in Sources */,
+				BF0C86BA26EFA59DEE24C70B /* Support.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

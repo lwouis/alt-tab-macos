@@ -18,13 +18,17 @@ class AboutTab {
         appInfo.spacing = GridView.interPadding
         appInfo.alignment = .centerY
         let sendFeedback = NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: nil, action: #selector(App.app.showFeedbackPanel))
+        let supportProject = NSButton(title: NSLocalizedString("Support this project ❤️", comment: ""), target: nil, action: #selector(App.app.supportProject))
         let grid = GridView([
             [appInfo],
             [sendFeedback],
+            [supportProject],
         ])
         let sendFeedbackCell = grid.cell(atColumnIndex: 0, rowIndex: 1)
         sendFeedbackCell.xPlacement = .center
         sendFeedbackCell.row!.topPadding = GridView.interPadding
+        let supportProjectCell = grid.cell(atColumnIndex: 0, rowIndex: 2)
+        supportProjectCell.xPlacement = .center
         grid.fit()
 
         return grid

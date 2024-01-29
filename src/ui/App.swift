@@ -15,6 +15,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
+    static let website = "https://alt-tab-macos.netlify.app"
     static var app: App!
     var menubar: Menubar!
     var thumbnailsPanel: ThumbnailsPanel!
@@ -176,6 +177,10 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     @objc func showFeedbackPanel() {
         showSecondaryWindow(feedbackWindow)
+    }
+
+    @objc func supportProject() {
+        NSWorkspace.shared.open(URL(string: App.website + "/support")!)
     }
 
     @objc func showPreferencesWindow() {

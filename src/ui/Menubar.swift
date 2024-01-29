@@ -32,6 +32,10 @@ class Menubar {
             withTitle: NSLocalizedString("Send feedback…", comment: "Menubar option"),
             action: #selector(App.app.showFeedbackPanel),
             keyEquivalent: "")
+        menu.addItem(
+            withTitle: NSLocalizedString("Support this project ❤️", comment: "Menubar option"),
+            action: #selector(App.app.supportProject),
+            keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(
             withTitle: String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name),
