@@ -1,5 +1,13 @@
 # Release notes
 
+# [6.65.0](https://github.com/lwouis/alt-tab-macos/compare/v6.64.0...v6.65.0) (2024-01-29)
+
+
+### Features
+
+* update da/de/es/sv localizations ([c88426e](https://github.com/lwouis/alt-tab-macos/commit/c88426e))
+* users can check status of required system permissions ([70ee681](https://github.com/lwouis/alt-tab-macos/commit/70ee681))
+
 # [6.64.0](https://github.com/lwouis/alt-tab-macos/compare/v6.63.0...v6.64.0) (2023-10-24)
 
 
