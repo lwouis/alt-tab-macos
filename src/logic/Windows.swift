@@ -318,7 +318,7 @@ class Windows {
 }
 
 func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
-    var order = w1.application.runningApplication.localizedName.localizedStandardCompare(w2.application.runningApplication.localizedName)
+    let order = w1.application.runningApplication.localizedName.localizedStandardCompare(w2.application.runningApplication.localizedName)
     if order == .orderedSame {
         return w1.title.localizedStandardCompare(w2.title)
     }
