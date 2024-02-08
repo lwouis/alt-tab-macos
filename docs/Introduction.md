@@ -4,7 +4,7 @@ permalink: /
 
 # Introduction
 
-[![Screenshot](public/demo/frontpage.jpg)](public/demo/frontpage.jpg)
+[<img src="public/demo/frontpage.jpg" alt="Screenshot" width="1440" height="900" style="width:100%; height:auto;" />](public/demo/frontpage.jpg)
 
 **AltTab** brings the power of Windows’s "alt-tab" window switcher to macOS.
 
@@ -51,9 +51,9 @@ AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, E
 
 Change the shortcut keys, switch to a Windows theme and more, using the Preferences window:
 
-| [![Screenshot1](public/demo/preferences-appearance.jpg)](public/demo/preferences-appearance.jpg) | [![Screenshot 2](public/demo/preferences-controls.jpg)](public/demo/preferences-controls.jpg) |
-| [![Screenshot3](public/demo/preferences-blacklist.jpg)](public/demo/preferences-blacklist.jpg) | [![Screenshot 4](public/demo/preferences-policies.jpg)](public/demo/preferences-policies.jpg) |
-| [![Screenshot5](public/demo/preferences-general.jpg)](public/demo/preferences-general.jpg) | |
+| [<img loading="lazy" src="public/demo/preferences-appearance.jpg" alt="Screenshot1" width="1064" height="1280" style="width:100%; height:auto;" />](public/demo/preferences-appearance.jpg) | [<img loading="lazy" src="public/demo/preferences-controls.jpg" alt="Screenshot 2" width="1081" height="1280" style="width:100%; height:auto;" />](public/demo/preferences-controls.jpg) |
+| [<img loading="lazy" src="public/demo/preferences-blacklist.jpg" alt="Screenshot3" width="1280" height="1161" style="width:100%; height:auto;" />](public/demo/preferences-blacklist.jpg) | [<img loading="lazy" src="public/demo/preferences-policies.jpg" alt="Screenshot 4" width="1280" height="786" style="width:100%; height:auto;" />](public/demo/preferences-policies.jpg) |
+| [<img loading="lazy" src="public/demo/preferences-general.jpg" alt="Screenshot5" width="1280" height="640" style="width:100%; height:auto;" />](public/demo/preferences-general.jpg) | |
 
 ## Alternatives
 
@@ -76,7 +76,7 @@ There are also related apps which don’t really overlap in functionality, but t
 
 | 1 row | 2 rows | Windows theme |
 |-------|---------|-------|
-| [![Screenshot](public/demo/1-row.jpg)](public/demo/1-row.jpg) | [![Screenshot](public/demo/2-rows.jpg)](public/demo/2-rows.jpg) | [![Screenshot](public/demo/windows-theme.jpg)](public/demo/windows-theme.jpg) |
+| [<img loading="lazy" src="public/demo/1-row.jpg" alt="Screenshot" width="1440" height="900" style="width:100%; height:auto;" />](public/demo/1-row.jpg) | [<img loading="lazy" src="public/demo/2-rows.jpg" alt="Screenshot" width="1440" height="900" style="width:100%; height:auto;" />](public/demo/2-rows.jpg) | [<img loading="lazy" src="public/demo/windows-theme.jpg" alt="Screenshot" width="1440" height="900" style="width:100%; height:auto;" />](public/demo/windows-theme.jpg) |
 
 ## License
 
