@@ -15,7 +15,7 @@ function convert() {
   #    -resize 24x24 \
   #    "resources/icons/window-controls/$1.svg" \
   #    "resources/icons/window-controls/$1-magik.png"
-  /Applications/Inkscape.app/Contents/Resources/bin/inkscape \
+  /Applications/Inkscape.app/Contents/MacOS/inkscape \
     -z \
     -w "$((size * 2))" -h "$((size * 2))" \
     "$currentDir/resources/icons/window-controls/$1.svg" \
