@@ -95,6 +95,7 @@ class Preferences {
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
+        "showMacosAccentColor": "false",
     ]
 
     // system preferences
@@ -141,6 +142,7 @@ class Preferences {
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
+    static var showMacosAccentColor: Bool { defaults.bool("showMacosAccentColor") }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }

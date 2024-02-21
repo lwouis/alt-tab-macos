@@ -32,6 +32,7 @@ class AppearanceTab {
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide app badges:", comment: ""), "hideAppBadges"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide apps with no open window:", comment: ""), "hideWindowlessApps"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Preview selected window:", comment: ""), "previewFocusedWindow"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Show macOS accent color:", comment: ""), "showMacosAccentColor"),
         ])
         grid.column(at: 0).xPlacement = .trailing
         grid.fit()

@@ -103,7 +103,7 @@ class ThumbnailView: NSStackView {
         let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         layer!.backgroundColor = (Preferences.theme == .macOs && isFocused) || (Preferences.theme == .windows10 && isHovered)
-            ? ThumbnailView.highlightBackgroundColor.cgColor : .clear
+            ? getEffectiveHighlightBackgroundColor().cgColor : .clear
         layer!.borderColor = (Preferences.theme == .macOs && isHovered) || (Preferences.theme == .windows10 && isFocused)
             ? ThumbnailView.highlightBorderColor.cgColor : .clear
         let newFrameInset = (isFocused) ? -Preferences.intraCellPadding : Preferences.intraCellPadding
@@ -227,6 +227,18 @@ class ThumbnailView: NSStackView {
             return "Red badge with number \(dockLabelInt)"
         }
         return "Red badge"
+    }
+  
+    // Returns macOS's accent color when enabled with Preferences.showMacosAccentColor,
+    // else defaults to ThumbnailView.highlightBackgroundColor.
+    private func getEffectiveHighlightBackgroundColor() -> NSColor {
+        if #available(macOS 10.14, *) {
+            return Preferences.theme == .macOs && Preferences.showMacosAccentColor
+                ? NSColor.controlAccentColor
+                : ThumbnailView.highlightBackgroundColor
+        } else {
+            return ThumbnailView.highlightBackgroundColor
+        }
     }
 
     private func observeDragAndDrop() {
