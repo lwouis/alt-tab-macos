@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.66.0](https://github.com/lwouis/alt-tab-macos/compare/v6.65.0...v6.66.0) (2024-03-03)
+
+
+### Bug Fixes
+
+* alttab would crash after menubar icon was actioned with voiceover ([f7fdf3f](https://github.com/lwouis/alt-tab-macos/commit/f7fdf3f)), closes [#3211](https://github.com/lwouis/alt-tab-macos/issues/3211)
+
+
+### Features
+
+* improved ca/de/es/ko/nl/sv/vi/zh localizations ([f4ad2ea](https://github.com/lwouis/alt-tab-macos/commit/f4ad2ea))
+
 # [6.65.0](https://github.com/lwouis/alt-tab-macos/compare/v6.64.0...v6.65.0) (2024-01-29)
 
 
