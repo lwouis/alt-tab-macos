@@ -49,10 +49,11 @@ class Menubar {
     }
 
     @objc func statusItemOnClick() {
-        if NSApp.currentEvent!.type == .leftMouseDown {
-            statusItem.popUpMenu(App.app.menubar.menu)
-        } else {
+        // NSApp.currentEvent == nil if the icon is "clicked" through VoiceOver
+        if let type = NSApp.currentEvent?.type, type != .leftMouseDown {
             App.app.showUi()
+        } else {
+            statusItem.popUpMenu(App.app.menubar.menu)
         }
     }
 
