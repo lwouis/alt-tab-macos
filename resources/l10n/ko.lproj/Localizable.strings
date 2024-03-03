@@ -108,7 +108,7 @@
 "Check for updates…" = "업데이트 확인…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "권한 확인하기…";
 
 /*No comment provided by engineer.*/
 "Close window" = "윈도우 닫기";
@@ -372,7 +372,7 @@
 "Start at login:" = "로그인 시 자동 실행:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "이 프로젝트 후원하기❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "테마:";

@@ -61,9 +61,11 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Caner İlhan
 * Christian Keilmann
 * Chun Fei Lung
+* codecantata
 * Cong Tri
 * Dan
 * Dan84
+* Darius Rosendahl
 * Darko
 * David R
 * David Süle
@@ -77,7 +79,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Ersagun Kuruca
 * Eukarya
 * Eyelly wu
-* fabifabulousity
 * Filipe
 * Frangarciasalomon
 * Frank
@@ -93,6 +94,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Hjörtur Hjartarson
 * Hokuto Kato
 * Huandngoc
+* Huynh Sang
 * Ialiendeg
 * Ida Bomholt Dyrholm Jacobsen
 * Igor Aradski
@@ -117,7 +119,9 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Kevinsevinche
 * Kinyagulovrr
 * Klara
+* Kristófer Fannar Björnsson
 * Kushnee5
+* Kuuchi
 * Lakshman Kolappan
 * Lcwhhh
 * Lester

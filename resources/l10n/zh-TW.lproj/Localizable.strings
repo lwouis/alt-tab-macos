@@ -39,7 +39,7 @@
 "Allowed" = "允許";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "按字母排序";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "選擇視窗方式：";
@@ -108,7 +108,7 @@
 "Check for updates…" = "檢查更新…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "檢查權限……";
 
 /*No comment provided by engineer.*/
 "Close window" = "關閉視窗";
@@ -153,7 +153,7 @@
 "Fullscreen windows:" = "全螢幕視窗：";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "全螢幕 / 取消全螢幕視窗";
 
 /*No comment provided by engineer.*/
 "General" = "一般";
@@ -258,7 +258,7 @@
 "Preferences…" = "偏好設定…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "預覽選中的視窗：";
 
 /*No comment provided by engineer.*/
 "Quit" = "離開";
@@ -270,10 +270,10 @@
 "Quit app" = "離開程式";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "最近打開的視窗";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "最近聚焦的視窗";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "記住我的選擇";
@@ -282,7 +282,7 @@
 "Reset preferences and restart" = "重設偏好設定並重新啟動";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "重置所有選項並重新啟動……";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "縮圖列數：";
@@ -363,7 +363,7 @@
 "Source code repository" = "原始碼儲存庫";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "空間";
 
 /*No comment provided by engineer.*/
 "Start" = "開頭";
@@ -372,7 +372,7 @@
 "Start at login:" = "在登入時啟動：";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "支持這個專案 ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "主題：";
@@ -399,10 +399,10 @@
 "View existing discussions" = "觀看目前的討論";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Vim 快捷鍵";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim keys 已經被其它操作佔用：\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "可見空間";
@@ -438,7 +438,7 @@
 "Window min width in row:" = "每列視窗最小寬度：";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "視窗排序方式：";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "視窗標題的字體大小：";
@@ -447,7 +447,7 @@
 "Window title truncation:" = "視窗標題截斷：";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "您無法復原此操作。";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "若沒有填寫電子信箱，您將無法收到回覆";

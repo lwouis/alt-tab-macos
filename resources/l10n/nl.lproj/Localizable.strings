@@ -39,7 +39,7 @@
 "Allowed" = "Toegestaan";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alfabetisch";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Selecteer ook vensters met:";
@@ -108,7 +108,7 @@
 "Check for updates…" = "Controleer op updates…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Controleer rechten…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Sluit venster";
@@ -258,7 +258,7 @@
 "Preferences…" = "Voorkeuren…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Preview geselecteerd venster:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Stop";
@@ -270,10 +270,10 @@
 "Quit app" = "Sluit programma";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Recent Gecreëerd";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Recent Gefocust";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Onthoud mijn keuze";
@@ -363,7 +363,7 @@
 "Source code repository" = "Broncode-repository";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Spatie";
 
 /*No comment provided by engineer.*/
 "Start" = "Start";
@@ -372,7 +372,7 @@
 "Start at login:" = "Start bij inloggen:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Steun dit project ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Thema:";
@@ -399,10 +399,10 @@
 "View existing discussions" = "Bekijk bestaande discussies";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Vim toetsen";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim toetsen al toegewezen aan andere acties:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Zichtbare spaces";
@@ -438,7 +438,7 @@
 "Window min width in row:" = "Minimale vensterbreedte in rij:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Scherm volgorde:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tekstgrootte venstertitel:";
