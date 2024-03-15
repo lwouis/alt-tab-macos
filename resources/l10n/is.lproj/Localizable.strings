@@ -1,0 +1,453 @@
+
+/*No comment provided by engineer.*/
+"About" = "Um";
+
+/*Menubar option. %@ is AltTab*/
+"About %@" = "Um %@";
+
+/*No comment provided by engineer.*/
+"Accessibility" = "Aðgengi";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "Viðurkenningar";
+
+/*No comment provided by engineer.*/
+"Active app" = "Virkt forrit";
+
+/*No comment provided by engineer.*/
+"Active screen" = "Virkur skjár";
+
+/*No comment provided by engineer.*/
+"Active Space" = "Virkt umhverfi";
+
+/*No comment provided by engineer.*/
+"Align windows:" = "Stilla glugga:";
+
+/*No comment provided by engineer.*/
+"All apps" = "Öll forrit";
+
+/*No comment provided by engineer.*/
+"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+
+/*No comment provided by engineer.*/
+"All screens" = "Allir skjáir";
+
+/*No comment provided by engineer.*/
+"All Spaces" = "Öll umhverfi";
+
+/*No comment provided by engineer.*/
+"Allowed" = "Leyft";
+
+/*No comment provided by engineer.*/
+"Alphabetical" = "Stafrófsröð";
+
+/*No comment provided by engineer.*/
+"Also select windows using:" = "Also select windows using:";
+
+/*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab krassaði seinast þegar það var notað vegna villu. Að senda krass-skýrslu hjálpar við að laga villunni";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "AltTab þarfnast nokkura réttinda";
+
+/*No comment provided by engineer.*/
+"Always" = "Alltaf";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "Always send crash reports";
+
+/*No comment provided by engineer.*/
+"and press:" = "og smella:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "Forrit er falið";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "Forrit keyrir en hefur engan opin glugga";
+
+/*No comment provided by engineer.*/
+"Apparition delay:" = "Birtingar töf:";
+
+/*No comment provided by engineer.*/
+"Appearance" = "Útlit";
+
+/*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "Áttarlyklar";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "Niðurhala uppfærslur sjálfvirkt";
+
+/*No comment provided by engineer.*/
+"Blacklists" = "Svartur listi";
+
+/*Cancel button*/
+"Cancel" = "Hætta við";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "Hætta við og fela";
+
+/*No comment provided by engineer.*/
+"Center" = "Miðja";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "Leita að uppfærslum núna";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "Leita að uppfærslum reglulega";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "Leita að uppfærslum";
+
+/*Menubar option*/
+"Check permissions…" = "Skoða heimildir";
+
+/*No comment provided by engineer.*/
+"Close window" = "Loka glugga";
+
+/*No comment provided by engineer.*/
+"Conflicting shortcut" = "Conflicting shortcut";
+
+/*No comment provided by engineer.*/
+"Controls" = "Controls";
+
+/*No comment provided by engineer.*/
+"Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
+"Cursor follows focus" = "Mús eltir fókus";
+
+/*No comment provided by engineer.*/
+"Do nothing" = "Gera ekkert";
+
+/*No comment provided by engineer.*/
+"Don’t check for updates periodically" = "Ekki leita að uppfærslum reglulega";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "Ekki senda";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "Don’t show windows from these apps";
+
+/*No comment provided by engineer.*/
+"End" = "Endir";
+
+/*No comment provided by engineer.*/
+"Fade out animation:" = "Fade out animation:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
+
+/*No comment provided by engineer.*/
+"Fullscreen windows:" = "Fullscreen windows:";
+
+/*No comment provided by engineer.*/
+"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+
+/*No comment provided by engineer.*/
+"General" = "Almennt";
+
+/*No comment provided by engineer.*/
+"Hidden windows:" = "Fela glugga:";
+
+/*No comment provided by engineer.*/
+"Hide" = "Fela";
+
+/*No comment provided by engineer.*/
+"Hide app badges:" = "Hide app badges:";
+
+/*No comment provided by engineer.*/
+"Hide apps with no open window:" = "Hide apps with no open window:";
+
+/*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+
+/*%@ is AltTab*/
+"Hide in %@" = "Fela í %@";
+
+/*No comment provided by engineer.*/
+"Hide Space number labels:" = "Hide Space number labels:";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Hide status icons:";
+
+/*No comment provided by engineer.*/
+"Hide window thumbnails:" = "Hide window thumbnails:";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "Fela / Sýna forrit";
+
+/*No comment provided by engineer.*/
+"Hold" = "Halda inni";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "Ég tel að forritið gæti orðið betra með";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Hunsa flýtileiðir þegar forrit keyrir";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "nýjustu útgáfur";
+
+/*No comment provided by engineer.*/
+"Left" = "Vinstri";
+
+/*No comment provided by engineer.*/
+"Max height on screen:" = "Max height on screen:";
+
+/*No comment provided by engineer.*/
+"Max width on screen:" = "Max width on screen:";
+
+/*No comment provided by engineer.*/
+"Menubar icon:" = "Menubar icon:";
+
+/*No comment provided by engineer.*/
+"Middle" = "Miðja";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "Minnka / stækka glugga";
+
+/*No comment provided by engineer.*/
+"Minimized windows:" = "Minimized windows:";
+
+/*No comment provided by engineer.*/
+"Miscellaneous:" = "Ýmislegt:";
+
+/*No comment provided by engineer.*/
+"Mouse hover" = "Músar svif";
+
+/*No comment provided by engineer.*/
+"Never send crash reports" = "Never send crash reports";
+
+/*No comment provided by engineer.*/
+"Not allowed" = "Ekki leyft";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0 leyfi";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "Only if the window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Opna Aðgengis stillingar";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Opna Skjáupptöku stillingar";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "Valkvætt: netfang (ef þú vilt svar)";
+
+/*No comment provided by engineer.*/
+"Policies" = "Stefnur";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "Stillingar";
+
+/*No comment provided by engineer.*/
+"Preview selected window:" = "Preview selected window:";
+
+/*No comment provided by engineer.*/
+"Quit" = "Loka";
+
+/*No comment provided by engineer.*/
+"Quit %@" = "Loka %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "Loka forriti";
+
+/*No comment provided by engineer.*/
+"Recently Created" = "Nýlega búið til";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Muna valkost";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "núllsetja stillingar og endurræsa";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Endurstilla stillingar og endurræsa";
+
+/*No comment provided by engineer.*/
+"Rows of thumbnails:" = "Rows of thumbnails:";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "Screen including menu bar";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "Skjár inniheldur mús";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Skjáupptaka";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "Skjár sýnir AltTab";
+
+/*No comment provided by engineer.*/
+"Select next window" = "Velja næsta glugga";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "Velja fyrri glugga";
+
+/*No comment provided by engineer.*/
+"Send" = "Senda";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Senda krass-skýrslu?";
+
+/*No comment provided by engineer.*/
+"Send anyway" = "Senda samt";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "Senda ítarupplýsingar (CPU, minni, etc)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "Senda tillögur";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "Senda tillögur";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "Deila hugmyndum um viðbætur, eða tilkynna villu";
+
+/*No comment provided by engineer.*/
+"Shortcut 1" = "Flýtileið 1";
+
+/*No comment provided by engineer.*/
+"Shortcut 2" = "Flýtileið 2";
+
+/*No comment provided by engineer.*/
+"Shortcut 3" = "Flýtileið 3";
+
+/*No comment provided by engineer.*/
+"Shortcut 4" = "Flýtileið 4";
+
+/*No comment provided by engineer.*/
+"Shortcut 5" = "Flýtileið 5";
+
+/*No comment provided by engineer.*/
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+
+/*No comment provided by engineer.*/
+"Show" = "Sýna";
+
+/*No comment provided by engineer.*/
+"Show at the end" = "Show at the end";
+
+/*No comment provided by engineer.*/
+"Show on:" = "Sýna þegar:";
+
+/*No comment provided by engineer.*/
+"Show standard tabs as windows:" = "Show standard tabs as windows:";
+
+/*No comment provided by engineer.*/
+"Show windows from:" = "Show windows from:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "Kóðasafn";
+
+/*No comment provided by engineer.*/
+"Space" = "Pláss";
+
+/*No comment provided by engineer.*/
+"Start" = "Upphaf";
+
+/*No comment provided by engineer.*/
+"Start at login:" = "Keyra við innskráningu:";
+
+/*Menubar option*/
+"Support this project ❤️" = "Styrkja verkefnið ❤️";
+
+/*No comment provided by engineer.*/
+"Theme:" = "Þema:";
+
+/*No comment provided by engineer.*/
+"Then release:" = "Then release:";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+
+/*No comment provided by engineer.*/
+"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "Uppfærslustefna:";
+
+/*No comment provided by engineer.*/
+"Version" = "Útgáfa";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "Sjá umræður";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim lyklar";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim lyklar nú þegar skráðir á aðrar virknir";
+
+/*No comment provided by engineer.*/
+"Visible Spaces" = "Visible Spaces";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "Í fullri stærð";
+
+/*No comment provided by engineer.*/
+"When no open window" = "Þegar engin gluggi er opinn";
+
+/*No comment provided by engineer.*/
+"While open, press:" = "While open, press:";
+
+/*No comment provided by engineer.*/
+"Window app icon size:" = "Window app icon size:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
+
+/*No comment provided by engineer.*/
+"Window max width in row:" = "Window max width in row:";
+
+/*No comment provided by engineer.*/
+"Window min width in row:" = "Window min width in row:";
+
+/*No comment provided by engineer.*/
+"Window order:" = "Gluggaröð:";
+
+/*No comment provided by engineer.*/
+"Window title font size:" = "Window title font size:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "Window title truncation:";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "Þú getur ekki afturkallað þessa aðgerð.";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "Þú gafst ekki upp netfang, því færðu ekki svar.";

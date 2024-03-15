@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
+		5F706EC02BA448B1004D542D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F706EBE2BA448B1004D542D /* Localizable.strings */; };
+		5F706EC32BA448D8004D542D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F706EC12BA448D8004D542D /* InfoPlist.strings */; };
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
 		AA974BA929B7D84C0099A29E /* PreviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA974BA829B7D84C0099A29E /* PreviewPanel.swift */; };
 		BF0C8052AE41B1B10E42BFCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C875C983226CB16DBD90F /* InfoPlist.strings */; };
@@ -181,6 +183,8 @@
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
 		481FE54624D2D387001032F1 /* alt-tab-macos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "alt-tab-macos-Bridging-Header.h"; sourceTree = "<group>"; };
 		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
+		5F706EBD2BA448B1004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localizable.strings; sourceTree = "<group>"; };
+		5F706EC22BA448D8004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = InfoPlist.strings; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
 		AA974BA829B7D84C0099A29E /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
 		BF0C80A05C11C8ADC366EC4A /* lb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = lb; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -471,6 +475,15 @@
 				C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5F706EBF2BA448B1004D542D /* is.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				5F706EC12BA448D8004D542D /* InfoPlist.strings */,
+				5F706EBE2BA448B1004D542D /* Localizable.strings */,
+			);
+			path = is.lproj;
 			sourceTree = "<group>";
 		};
 		A638921971E99EC1D9EC383D /* Pods */ = {
@@ -1268,6 +1281,7 @@
 		D04BAC2B70BC798C57B0B492 /* l10n */ = {
 			isa = PBXGroup;
 			children = (
+				5F706EBF2BA448B1004D542D /* is.lproj */,
 				D04BA2641C1A385861945B7C /* en.lproj */,
 				D04BA61DD16A622D398FED3E /* fr.lproj */,
 				D04BA85F16881B290C4A33CD /* de.lproj */,
@@ -1447,6 +1461,7 @@
 				uz,
 				hr,
 				ta,
+				is,
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
@@ -1480,6 +1495,7 @@
 				D04BA40CC1415DA69CCE5D89 /* InfoPlist.strings in Resources */,
 				D04BAAF7ACC3B361FBBF52AA /* Localizable.strings in Resources */,
 				D04BA2D8099594E1593EC8EF /* InfoPlist.strings in Resources */,
+				5F706EC02BA448B1004D542D /* Localizable.strings in Resources */,
 				D04BA0DD6819010987B578D1 /* Localizable.strings in Resources */,
 				D04BA867733CC32975EEDA7B /* InfoPlist.strings in Resources */,
 				D04BA5863E8AD08C36B52F80 /* Localizable.strings in Resources */,
@@ -1542,6 +1558,7 @@
 				BF0C8592CCF5B552C47162AB /* Localizable.strings in Resources */,
 				BF0C8A95AAD9DADC95887A2D /* Localizable.strings in Resources */,
 				BF0C812C068CD751CE9BFB67 /* Localizable.strings in Resources */,
+				5F706EC32BA448D8004D542D /* InfoPlist.strings in Resources */,
 				BF0C8D1C57D74106018D073C /* InfoPlist.strings in Resources */,
 				BF0C8A739A74695E60F16369 /* InfoPlist.strings in Resources */,
 				BF0C89C49CFBAAB4646BB8CB /* InfoPlist.strings in Resources */,
@@ -1734,6 +1751,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		5F706EBE2BA448B1004D542D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F706EBD2BA448B1004D542D /* is */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5F706EC12BA448D8004D542D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F706EC22BA448D8004D542D /* is */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		BF0C803A0202BA8D9397E0CA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
