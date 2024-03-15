@@ -204,6 +204,9 @@ func SLSRequestScreenCaptureAccess() -> UInt8
 let kAXFullscreenAttribute = "AXFullScreen"
 let kAXStatusLabelAttribute = "AXStatusLabel"
 
+// for some reason, these attributes are missing from AXRoleConstants
+let kAXDocumentWindowSubrole = "AXDocumentWindow"
+
 enum CGSSymbolicHotKey: Int, CaseIterable {
     case commandTab = 1
     case commandShiftTab = 2
