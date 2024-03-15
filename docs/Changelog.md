@@ -1,5 +1,14 @@
 # Release notes
 
+# [6.67.0](https://github.com/lwouis/alt-tab-macos/compare/v6.66.0...v6.67.0) (2024-03-15)
+
+
+### Features
+
+* add icelandic localization ([7df1432](https://github.com/lwouis/alt-tab-macos/commit/7df1432))
+* improve ru/cn localizations ([c9fe54e](https://github.com/lwouis/alt-tab-macos/commit/c9fe54e))
+* support autocad non-native windows ([#3219](https://github.com/lwouis/alt-tab-macos/issues/3219)) ([bbaef6c](https://github.com/lwouis/alt-tab-macos/commit/bbaef6c))
+
 # [6.66.0](https://github.com/lwouis/alt-tab-macos/compare/v6.65.0...v6.66.0) (2024-03-03)
 
 
