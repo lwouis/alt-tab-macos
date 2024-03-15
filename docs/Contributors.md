@@ -59,6 +59,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * bovirus
 * caduellery
 * Caner İlhan
+* catcore
 * Christian Keilmann
 * Chun Fei Lung
 * codecantata
@@ -194,6 +195,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Whatsmine-HaoshuaiXu
 * Wilhelm Wolfgang Gärtner
 * Wowpapa3232
+* wtwt0119!!
 * Yossi Zahn
 * ysaito
 * Yukai

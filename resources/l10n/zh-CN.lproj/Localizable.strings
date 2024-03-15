@@ -39,7 +39,7 @@
 "Allowed" = "允许";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "按字母排序";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "窗口选择方式：";
@@ -108,7 +108,7 @@
 "Check for updates…" = "检查更新…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "查看许可";
 
 /*No comment provided by engineer.*/
 "Close window" = "关闭窗口";
@@ -153,7 +153,7 @@
 "Fullscreen windows:" = "全屏窗口：";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "应用/取消全屏";
 
 /*No comment provided by engineer.*/
 "General" = "通用";
@@ -372,7 +372,7 @@
 "Start at login:" = "开机启动：";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "支持该项目 ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "主题：";
@@ -399,10 +399,11 @@
 "View existing discussions" = "查看现有讨论";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Vim 快捷键";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+/*Fuzzy*/
+"Vim keys already assigned to other actions:\n%@" = "Vim按键已绑定为：%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "可见桌面";

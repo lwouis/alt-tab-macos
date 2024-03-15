@@ -108,7 +108,7 @@
 "Check for updates…" = "Проверить обновления…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Проверить разрешения…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Закрыть окно";
@@ -372,7 +372,7 @@
 "Start at login:" = "Запускать при входе в систему:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Поддержать этот проект ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Тема:";
