@@ -42,6 +42,15 @@ class ThumbnailsView: NSVisualEffectView {
             maskImage = mask
         }
     }
+    
+    override func viewDidChangeEffectiveAppearance() {        
+        if #available(macOS 11.0, *) {
+            self.material = NSAppearance.currentDrawing().isDarkMode ? .dark : .light
+        } else {
+            self.material = NSAppearance.current.isDarkMode ? .dark : .light
+        }
+    }
+
 
     func nextRow(_ direction: Direction) -> [ThumbnailView]? {
         let step = direction == .down ? 1 : -1
