@@ -189,3 +189,17 @@ extension Optional where Wrapped == String {
         return (self ?? "").localizedStandardCompare(string ?? "")
     }
 }
+
+extension NSEvent.ModifierFlags {
+    static let leftShift = Self(rawValue: UInt(NX_DEVICELSHIFTKEYMASK))
+    static let rightShift = Self(rawValue: UInt(NX_DEVICERSHIFTKEYMASK))
+    
+    static let leftControl = Self(rawValue: UInt(NX_DEVICELCTLKEYMASK))
+    static let rightControl = Self(rawValue: UInt(NX_DEVICERCTLKEYMASK))
+    
+    static let leftOption = Self(rawValue: UInt(NX_DEVICELALTKEYMASK))
+    static let rightOption = Self(rawValue: UInt(NX_DEVICERALTKEYMASK))
+    
+    static let leftCommand = Self(rawValue: UInt(NX_DEVICELCMDKEYMASK))
+    static let rightCommand = Self(rawValue: UInt(NX_DEVICERCMDKEYMASK))
+}
