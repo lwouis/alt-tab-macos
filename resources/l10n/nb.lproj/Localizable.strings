@@ -39,7 +39,7 @@
 "Allowed" = "Tillatt";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alfabetisk";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Velg også vinduer som bruker:";
@@ -108,7 +108,7 @@
 "Check for updates…" = "Se etter oppdateringer…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Sjekk tillatelsene…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Lukk vindu";
@@ -153,7 +153,7 @@
 "Fullscreen windows:" = "Vinduer i fullskjerm:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Gjør vinduet fullskjerms/standard";
 
 /*No comment provided by engineer.*/
 "General" = "Generelt";
@@ -258,7 +258,7 @@
 "Preferences…" = "Valg…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Forhåndsvis valgt vindu:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Avslutt";
@@ -270,10 +270,10 @@
 "Quit app" = "Avslutt app";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Nylig opprettet";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Nylig fokusert";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Husk valget mitt";
@@ -282,7 +282,7 @@
 "Reset preferences and restart" = "Tilbakestill innstillinger og restart";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Nullstill innstillingene og start på nytt…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rader med miniatyrbilder:";
@@ -333,13 +333,13 @@
 "Shortcut 2" = "Hurtigtast 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Hurtigtast 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Hurtigtast 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Hurtigtast 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Snarvei allerede tildelt en annen handling: %@";
@@ -363,7 +363,7 @@
 "Source code repository" = "Kildekodearkiv";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Space/Område";
 
 /*No comment provided by engineer.*/
 "Start" = "Start";
@@ -372,7 +372,7 @@
 "Start at login:" = "Start ved innlogging:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Støtt dette prosjektet ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Tema:";
@@ -399,10 +399,10 @@
 "View existing discussions" = "Se eksisterende diskusjoner";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Vim-taster";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim-taster er allerede gitt til andre handlinger:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Synlige mellomrom";
@@ -438,7 +438,7 @@
 "Window min width in row:" = "Minimum vindusbredde på rad:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Vindusrekkefølge:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Skriftstørrelse på vindutittel:";
@@ -447,7 +447,7 @@
 "Window title truncation:" = "Forkortelse av vindustittel:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Du kan ikke angre denne handlingen.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Du la ikke inn din epost, derfor kan du ikke få tilbakemelding.";
