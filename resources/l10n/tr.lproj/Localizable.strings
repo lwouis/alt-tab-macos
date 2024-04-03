@@ -12,13 +12,13 @@
 "Acknowledgments" = "Teşekkür bölümü";
 
 /*No comment provided by engineer.*/
-"Active app" = "Aktif uygulama";
+"Active app" = "Etkin uygulama";
 
 /*No comment provided by engineer.*/
-"Active screen" = "Aktif ekran";
+"Active screen" = "Etkin ekran";
 
 /*No comment provided by engineer.*/
-"Active Space" = "Aktif masaüstü";
+"Active Space" = "Etkin Alan";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Pencereleri hizala:";
@@ -27,19 +27,19 @@
 "All apps" = "Tüm uygulamalar";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "Form bilgileri ticket olarak github.com üzerinde kamuya açılacaktır";
+"All data from this form will be made public, as a ticket on github.com" = "Bu formdan giden bütün veriler, bilet olarak github.com üzerinde kamuya açılacaktır";
 
 /*No comment provided by engineer.*/
-"All screens" = "Tüm monitörler";
+"All screens" = "Tüm ekranlar";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "Tüm masaüstü";
+"All Spaces" = "Tüm Alanlar";
 
 /*No comment provided by engineer.*/
 "Allowed" = "İzin verildi";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alfabetik";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Bunları kullanan pencereleri de seç:";
@@ -48,7 +48,7 @@
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Son sefer AltTab çöktü. Çökme raporlarını göndermek, hataların düzeltilmesine yardımcı olur";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab'ın bir kaç izine ihtiyacı var";
+"AltTab needs some permissions" = "AltTab'ın bir kaç izne ihtiyacı var";
 
 /*No comment provided by engineer.*/
 "Always" = "Her zaman";
@@ -87,7 +87,7 @@
 "Auto-install updates periodically" = "Periyodik olarak güncellemeleri otomatik yükle";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Karaliste";
+"Blacklists" = "Karalisteler";
 
 /*Cancel button*/
 "Cancel" = "İptal";
@@ -96,7 +96,7 @@
 "Cancel and hide" = "İptal et ve gizle";
 
 /*No comment provided by engineer.*/
-"Center" = "Merkez";
+"Center" = "Ortala";
 
 /*No comment provided by engineer.*/
 "Check for updates now…" = "Güncellemeleri kontrol et…";
@@ -108,13 +108,13 @@
 "Check for updates…" = "Güncellemeleri kontrol et…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "İzinleri kontrol et…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Pencereyi kapat";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Çakışan kısayol";
+"Conflicting shortcut" = "Çakışan kestirme";
 
 /*No comment provided by engineer.*/
 "Controls" = "Kontroller";
@@ -153,7 +153,7 @@
 "Fullscreen windows:" = "Tam ekran pencereler:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Pencere için tam ekranı aç/kapa";
 
 /*No comment provided by engineer.*/
 "General" = "Genel";
@@ -177,7 +177,7 @@
 "Hide in %@" = "%@ Gizle";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Masaüstü alan numaralarını gizle:";
+"Hide Space number labels:" = "Masaüstü Alan numaralarını gizle:";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Durum ikonlarını gizle:";
@@ -192,16 +192,16 @@
 "Hold" = "Tut";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "Bence uygulama şu şekilde iyileştirilebilir";
+"I think the app could be improved with…" = "Bence uygulama şu şekilde iyileştirilebilir…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Etkinken kısayolları yoksay";
+"Ignore shortcuts when active" = "Etkinken kestirmeleri yoksay";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Bu uygulama aktifken kısayolları devredışı bırak";
+"Ignore shortcuts while a window from these apps is active" = "Bu uygulamalardan bir pencere etkinken kestirmeleri devre dışı bırak";
 
 /*No comment provided by engineer.*/
-"Latest releases" = "Son sürüm hakkında";
+"Latest releases" = "Son sürümler";
 
 /*No comment provided by engineer.*/
 "Left" = "Sol";
@@ -243,10 +243,10 @@
 "Only if the window is fullscreen" = "Eğer pencere tam ekransa";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Erişilebilirlik ayarlarını açın";
+"Open Accessibility Preferences…" = "Erişilebilirlik Tercihlerini Aç…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Ekran Kaydı ayarlarını açın";
+"Open Screen Recording Preferences…" = "Ekran Kaydı Tercihlerini Aç…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "İsteğe bağlı: e-posta (bir yanıt istiyorsanız)";
@@ -270,19 +270,19 @@
 "Quit app" = "Uygulamayı kapat";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Yakında Oluşturulan";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Yakında Odaklanılan";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Tercihimi hatırla";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Tercihleri ​​sıfırlayın ve yeniden başlatın";
+"Reset preferences and restart" = "Tercihleri sıfırla ve yeniden başlat";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Ayarları sıfırla ve yeniden başlat...";
+"Reset preferences and restart…" = "Tercihleri sıfırla ve yeniden başlat…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Önizleme satırları:";
@@ -327,22 +327,22 @@
 "Share improvement ideas, or report bugs" = "Geliştirme önerisi veya hata bilgisi paylaşın";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Kısayol 1";
+"Shortcut 1" = "Kestirme 1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Kısayol 2";
+"Shortcut 2" = "Kestirme 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Kısayol 3";
+"Shortcut 3" = "Kestirme 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Kısayol 4";
+"Shortcut 4" = "Kestirme 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Kısayol 5";
+"Shortcut 5" = "Kestirme 5";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Kısayol başka bir eylem için atanmış: %@";
+"Shortcut already assigned to another action: %@" = "Kestirme hâlihazırda başka bir eylem için atanmış: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Göster";
@@ -363,7 +363,7 @@
 "Source code repository" = "Kaynak kodu deposu";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Alan";
 
 /*No comment provided by engineer.*/
 "Start" = "Baş";
@@ -372,7 +372,7 @@
 "Start at login:" = "Sistem açılışında çalıştır:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Projeyi destekle ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Tema:";
@@ -381,13 +381,13 @@
 "Then release:" = "Sonra bırak:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "Bu izin, tuşu bıraktıktan sonra ilgili pencereyi açabilmeniz için gerekiyor";
+"This permission is needed to focus windows after you release the shortcut" = "Bu izin, kestirmeye basmayı bıraktıktan sonra ilgili pencereyi açabilmeniz için gerekiyor";
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Bu izin, açık pencerelerin başlıklarını ve önizlemeleri görebilmeniz için gerekiyor";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Atanmış kısayolu kaldır ve devam et";
+"Unassign existing shortcut and continue" = "Atanmış kestirmeyi kaldır ve devam et";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Güncelleme politikası:";
@@ -399,13 +399,13 @@
 "View existing discussions" = "Mevcut tartışmaları görüntüle";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Vim tuşları";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Diğer eylemlere hâlihazırda atanmış Vim tuşları:\n%@";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Görünen Boşluklar";
+"Visible Spaces" = "Görünen Alanlar";
 
 /*No comment provided by engineer.*/
 "When fullscreen" = "Tam ekran olduğunda";
@@ -417,7 +417,7 @@
 "While open, press:" = "Açıkken basın:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Uygulamanın simge boyutu:";
+"Window app icon size:" = "Pencere uygulama simge boyutu:";
 
 /*No comment provided by engineer.*/
 "Window is fullscreen" = "Pencere tam ekran";
@@ -426,10 +426,10 @@
 "Window is minimized" = "Pencere simge durumuna küçültüldü";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Pencere bütün alanlarda";
+"Window is on every Space" = "Pencere bütün Alanlarda";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Pencere %d bu alanda";
+"Window is on Space %d" = "Pencerenin olduğu Alan: %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Azami pencere genişliği:";
@@ -438,7 +438,7 @@
 "Window min width in row:" = "Asgari pencere genişliği:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Pencere sırası:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Pencere başlığı yazı tipi boyutu:";
@@ -447,7 +447,7 @@
 "Window title truncation:" = "Pencere başlığını kesme:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "Bu işlemi geri alamazsınız.";
+"You can’t undo this action." = "Bu eylemi geri alamazsınız.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "E-posta adresinizi yazmadığınız için yanıt alamayacaksınız.";

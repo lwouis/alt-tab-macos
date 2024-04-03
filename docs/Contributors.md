@@ -19,13 +19,13 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [lwouis](https://github.com/lwouis)
 * [metacodes](https://github.com/metacodes)
 * [mnin](https://github.com/mnin)
+* [MrPaschenko](https://github.com/MrPaschenko)
 * [nella17](https://github.com/nella17)
 * [notlmn](https://github.com/notlmn)
 * [phungtuanhoang1996](https://github.com/phungtuanhoang1996)
 * [rbnis](https://github.com/rbnis)
 * [Rjevski](https://github.com/Rjevski)
 * [ryenus](https://github.com/ryenus)
-* [s4na](https://github.com/s4na)
 * [samdenty](https://github.com/samdenty)
 * [skolj](https://github.com/skolj)
 * [xanathar](https://github.com/xanathar)
@@ -38,6 +38,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Aamirsuleman
 * Aarni Koskela
 * Abdulelah
+* Abdur-Rahman Bilal
 * Aden Aziz
 * Admin
 * Albert Abdilim
@@ -71,6 +72,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * David R
 * David Süle
 * Didier Deschrijver
+* Dmytro
 * Dzhuneyt
 * EDUARDO
 * edu_sombra
@@ -137,11 +139,12 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Marko McLion
 * Martin Mitka
 * Martin. mitka
-* Martinjnilsen
+* Masayoshi Motojima
 * Masih
 * Max
 * Maximilian Falk
 * MaximilianFreitag
+* Meriç Bağlayan
 * Michael
 * Milos M
 * Mohammad Al Zouabi
@@ -177,6 +180,8 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * SheNeVmerla
 * Shivam Bansal
 * shlomo
+* Sippawit Thammawiset
+* Sjur Moshagen
 * Stan Smits
 * stas
 * Stefan
@@ -186,7 +191,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Tomoa Nozawa
 * Umutakkaya1996
 * Vadym
-* Vegard
 * Vijayant Saini
 * Vincent Orback
 * Vlad

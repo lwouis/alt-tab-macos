@@ -21,7 +21,7 @@
 "Active Space" = "Aktivt område";
 
 /*No comment provided by engineer.*/
-"Align windows:" = "Sammenstill vinduer:";
+"Align windows:" = "Juster vindusplassering:";
 
 /*No comment provided by engineer.*/
 "All apps" = "Alle apper";
@@ -96,7 +96,7 @@
 "Cancel and hide" = "Avbryd og skjul";
 
 /*No comment provided by engineer.*/
-"Center" = "Sentrum";
+"Center" = "Midtstilt";
 
 /*No comment provided by engineer.*/
 "Check for updates now…" = "Se etter oppdateringer nå…";
@@ -147,7 +147,7 @@
 "Focus selected window" = "Fokuser på valgt vindu";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullskjerm vindu";
+"Fullscreen window" = "Fullskjermsvindu";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Vinduer i fullskjerm:";
@@ -279,7 +279,7 @@
 "Remember my choice" = "Husk valget mitt";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Tilbakestill innstillinger og restart";
+"Reset preferences and restart" = "Nullstill innstillingene og start på nytt";
 
 /*No comment provided by engineer.*/
 "Reset preferences and restart…" = "Nullstill innstillingene og start på nytt…";
@@ -405,7 +405,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim-taster er allerede gitt til andre handlinger:\n%@";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Synlige mellomrom";
+"Visible Spaces" = "Synlige områder";
 
 /*No comment provided by engineer.*/
 "When fullscreen" = "Når i fullskjerm";

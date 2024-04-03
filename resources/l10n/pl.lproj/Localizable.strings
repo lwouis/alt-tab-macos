@@ -108,7 +108,7 @@
 "Check for updates…" = "Sprawdź aktualizacje…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Sprawdź uprawnienia...";
 
 /*No comment provided by engineer.*/
 "Close window" = "Zamknij okno";
@@ -372,7 +372,7 @@
 "Start at login:" = "Uruchom przy zalogowaniu:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Wesprzyj ten projekt ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Motyw:";

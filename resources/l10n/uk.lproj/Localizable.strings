@@ -108,7 +108,7 @@
 "Check for updates…" = "Перевiрити оновлення...";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Перевірити дозволи...";
 
 /*No comment provided by engineer.*/
 "Close window" = "Закрити вікно";
@@ -258,7 +258,7 @@
 "Preferences…" = "Налаштування...";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Показувати превью вибраного вікна:";
+"Preview selected window:" = "Показувати превʼю вибраного вікна:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Вийти";
@@ -372,7 +372,7 @@
 "Start at login:" = "Запускати під час входу:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Підтримати цей проєкт ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Тема:";
@@ -384,7 +384,7 @@
 "This permission is needed to focus windows after you release the shortcut" = "Цей дозвіл потрібен для фокусування вікон після того, як ви відпустите ярлик";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "Цей дозвіл потрібен для показу скріншотів і заголовків відкритих вікон";
+"This permission is needed to show screenshots and titles of open windows" = "Цей дозвіл потрібен для показу скриншотів і заголовків відкритих вікон";
 
 /*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "Скасувати призначення наявного ярлика та продовжити";

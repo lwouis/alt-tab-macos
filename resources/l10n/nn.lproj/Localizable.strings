@@ -21,13 +21,13 @@
 "Active Space" = "Aktivt område";
 
 /*No comment provided by engineer.*/
-"Align windows:" = "Juster vindauga:";
+"Align windows:" = "Juster vindaugsplasseringa:";
 
 /*No comment provided by engineer.*/
 "All apps" = "Alle appar";
 
 /*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "Alle data fra dette skjemaet vil verta offentlege, som ei sak på github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Alle data frå dette skjemaet vil verta offentlege, som ei sak på github.com";
 
 /*No comment provided by engineer.*/
 "All screens" = "Alle skjermar";
@@ -42,7 +42,7 @@
 "Alphabetical" = "Alfabetisk";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "Vel òg vindauge som nyttar:";
+"Also select windows using:" = "Vel òg vindauge med:";
 
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kræsja sist du brukte han. Å senda ein kræsjrapport vil hjelpa til med å løysa problemet";
@@ -93,7 +93,7 @@
 "Cancel" = "Avbryt";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "Avbryd og gøym";
+"Cancel and hide" = "Avbryt og gøym";
 
 /*No comment provided by engineer.*/
 "Center" = "Midtstilt";
@@ -390,13 +390,13 @@
 "Unassign existing shortcut and continue" = "Fjern eksisterande snarveg og hald fram";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "Oppdateringspolicy:";
+"Updates policy:" = "Oppdateringsinnstillingar:";
 
 /*No comment provided by engineer.*/
 "Version" = "Versjon";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "Sjå eksisterande diskusjonar";
+"View existing discussions" = "Sjå pågåande diskusjonar";
 
 /*No comment provided by engineer.*/
 "Vim keys" = "Vim-tastar";
@@ -405,7 +405,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Vim-tastar er allereie gjevne til andre handlingar:\n%@";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Synlege mellomrom";
+"Visible Spaces" = "Synlege område";
 
 /*No comment provided by engineer.*/
 "When fullscreen" = "Når i fullskjerm";
