@@ -87,6 +87,7 @@ extension AXUIElement {
             (
                 books(runningApp) ||
                     keynote(runningApp) ||
+                    preview(runningApp) ||
                     iina(runningApp) ||
                     openFlStudio(runningApp, title) ||
                     crossoverWindow(runningApp, role, subrole, level) ||
@@ -141,6 +142,12 @@ extension AXUIElement {
         // apple Keynote has a fake fullscreen window when in presentation mode
         // it covers the screen with a AXUnknown window instead of using standard fullscreen mode
         return runningApp.bundleIdentifier == "com.apple.iWork.Keynote"
+    }
+
+    private static func preview(_ runningApp: NSRunningApplication) -> Bool {
+        // when opening multiple documents at once with apple Preview,
+        // one of the window will have level == 1 for some reason
+        return runningApp.bundleIdentifier == "com.apple.Preview"
     }
 
     private static func openFlStudio(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {

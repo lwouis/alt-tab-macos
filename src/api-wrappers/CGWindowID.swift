@@ -8,10 +8,6 @@ extension CGWindowID {
     func level() throws -> CGWindowLevel {
         var level = CGWindowLevel(0)
         CGSGetWindowLevel(cgsMainConnectionId, self, &level)
-        // in some weird cases, a window can spawn with level == 1, which is not even a publicly listed level
-        if level == 1 {
-            throw AxError.runtimeError
-        }
         return level
     }
 
