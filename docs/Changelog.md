@@ -1,5 +1,19 @@
 # Release notes
 
+# [6.68.0](https://github.com/lwouis/alt-tab-macos/compare/v6.67.0...v6.68.0) (2024-04-03)
+
+
+### Bug Fixes
+
+* preview.app window may not show when opening many docs ([31b5a3d](https://github.com/lwouis/alt-tab-macos/commit/31b5a3d)), closes [#3276](https://github.com/lwouis/alt-tab-macos/issues/3276)
+* preview.app windows would sometimes not show (closes [#3275](https://github.com/lwouis/alt-tab-macos/issues/3275)) ([785cf9c](https://github.com/lwouis/alt-tab-macos/commit/785cf9c))
+
+
+### Features
+
+* improve ar/nb/nn/pl/tr/uk localizations ([67a6d81](https://github.com/lwouis/alt-tab-macos/commit/67a6d81))
+* new thai and norwegian localizations (closes [#3260](https://github.com/lwouis/alt-tab-macos/issues/3260)) ([d9aa319](https://github.com/lwouis/alt-tab-macos/commit/d9aa319))
+
 # [6.67.0](https://github.com/lwouis/alt-tab-macos/compare/v6.66.0...v6.67.0) (2024-03-15)
 
 
