@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.69.0](https://github.com/lwouis/alt-tab-macos/compare/v6.68.0...v6.69.0) (2024-05-12)
+
+
+### Bug Fixes
+
+* only show standard windows of preview.app (closes [#3351](https://github.com/lwouis/alt-tab-macos/issues/3351)) ([6231977](https://github.com/lwouis/alt-tab-macos/commit/6231977))
+
+
+### Features
+
+* update fi, ja, ko, pt-br, th localizations ([14d287a](https://github.com/lwouis/alt-tab-macos/commit/14d287a))
+
 # [6.68.0](https://github.com/lwouis/alt-tab-macos/compare/v6.67.0...v6.68.0) (2024-04-03)
 
 
