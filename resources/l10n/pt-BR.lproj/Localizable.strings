@@ -39,7 +39,7 @@
 "Allowed" = "Permitido";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alfabética";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Também selecionar janelas usando:";
@@ -87,7 +87,7 @@
 "Auto-install updates periodically" = "Instalar automaticamente atualizações periodicamente";
 
 /*No comment provided by engineer.*/
-"Blacklists" = "Negações";
+"Blacklists" = "Restrições";
 
 /*Cancel button*/
 "Cancel" = "Cancelar";
@@ -108,7 +108,7 @@
 "Check for updates…" = "Verificar por atualizações…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Verificar permissões…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Fecha a janela";
@@ -153,7 +153,7 @@
 "Fullscreen windows:" = "Janelas em tela cheia:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Colocar/tirar janela de tela cheia";
 
 /*No comment provided by engineer.*/
 "General" = "Geral";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferências…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Visualizar janela selecionada:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Encerrar";
@@ -270,10 +270,10 @@
 "Quit app" = "Encerra a aplicação";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Criada recentemente";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Focada recentemente";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Lembrar minha escolha";
@@ -363,7 +363,7 @@
 "Source code repository" = "Repositório do Código Fonte";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Espaço";
 
 /*No comment provided by engineer.*/
 "Start" = "No início";
@@ -372,7 +372,7 @@
 "Start at login:" = "Iniciar ao efetuar login:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Apoie este projeto ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Tema:";
@@ -399,10 +399,10 @@
 "View existing discussions" = "Ver discussões existentes";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Teclas Vim";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Teclas Vim já atribuídas a outras ações:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Desktops visíveis";
@@ -438,7 +438,7 @@
 "Window min width in row:" = "Largura mínima da janela na linha:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Ordem das janelas:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tamanho da fonte do título da aplicação:";

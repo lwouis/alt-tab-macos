@@ -258,7 +258,7 @@
 "Preferences…" = "環境設定…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "選択した画面をプレビューする：";
 
 /*No comment provided by engineer.*/
 "Quit" = "終了";
@@ -285,7 +285,7 @@
 "Reset preferences and restart…" = "設定をリセットして再起動…";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "サムネイルの列：";
+"Rows of thumbnails:" = "サムネイルの行：";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "メニューバーのあるスクリーン";

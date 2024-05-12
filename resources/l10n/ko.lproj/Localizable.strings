@@ -432,10 +432,12 @@
 "Window is on Space %d" = "윈도우가 Space %d에 있습니다";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Window max width in row:" = "한 줄 내의 윈도우 최대 너비:";
 
 /*No comment provided by engineer.*/
-"Window min width in row:" = "한 줄 내의 윈도우 최대 너비:";
+/*Fuzzy*/
+"Window min width in row:" = "한 줄 내의 윈도우 최소 너비:";
 
 /*No comment provided by engineer.*/
 "Window order:" = "윈도우 정렬방식:";

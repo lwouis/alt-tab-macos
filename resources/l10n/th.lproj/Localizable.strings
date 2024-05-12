@@ -30,7 +30,7 @@
 "All data from this form will be made public, as a ticket on github.com" = "ข้อมูลทั้งหมดจากแบบฟอร์มนี้จะถูกเปิดเผยต่อสาธารณะเป็น ticket บน github.com";
 
 /*No comment provided by engineer.*/
-"All screens" = "ทุกจอ";
+"All screens" = "ทุกหน้าจอ";
 
 /*No comment provided by engineer.*/
 "All Spaces" = "All Spaces";
@@ -147,10 +147,10 @@
 "Focus selected window" = "โฟกัสหน้าต่างที่เลือก";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "หน้าต่างเต็มหน้าจอ";
+"Fullscreen window" = "หน้าต่างโหมดเต็มหน้าจอ";
 
 /*No comment provided by engineer.*/
-"Fullscreen windows:" = "หน้าต่างเต็มหน้าจอ:";
+"Fullscreen windows:" = "หน้าต่างโหมดเต็มหน้าจอ:";
 
 /*No comment provided by engineer.*/
 "Fullscreen/Defullscreen window" = "เข้าสู่/ออกจากโหมดเต็มหน้าจอ";
@@ -171,7 +171,7 @@
 "Hide apps with no open window:" = "ซ่อนแอปที่ไม่มีหน้าต่างเปิด:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "ซ่อนวงกลมสีตอนวางเมาส์:";
+"Hide colored circles on mouse hover:" = "ซ่อนปุ่มสีตอนวางเมาส์:";
 
 /*%@ is AltTab*/
 "Hide in %@" = "ซ่อนใน %@";
@@ -207,10 +207,10 @@
 "Left" = "ซ้าย";
 
 /*No comment provided by engineer.*/
-"Max height on screen:" = "ความสูงสูงสุดบนหน้าจอ:";
+"Max height on screen:" = "ความสูงสูงสุด:";
 
 /*No comment provided by engineer.*/
-"Max width on screen:" = "ความกว้างสูงสุดบนหน้าจอ:";
+"Max width on screen:" = "ความกว้างสูงสุด:";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "ไอคอนแถบเมนู:";
@@ -240,7 +240,7 @@
 "NSHumanReadableCopyright" = "GPL-3.0 license";
 
 /*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "เฉพาะหน้าต่างเต็มหน้าจอ";
+"Only if the window is fullscreen" = "เฉพาะหน้าต่างโหมดเต็มหน้าจอ";
 
 /*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "เปิดการตั้งค่าการช่วยการเข้าถึง...";
@@ -270,7 +270,7 @@
 "Quit app" = "ออกจากแอป";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "สร้างล่าสุด";
+"Recently Created" = "เปิดล่าสุด";
 
 /*No comment provided by engineer.*/
 "Recently Focused" = "โฟกัสล่าสุด";
@@ -285,7 +285,7 @@
 "Reset preferences and restart…" = "รีเซ็ตการตั้งค่าและเริ่มใหม่...";
 
 /*No comment provided by engineer.*/
-"Rows of thumbnails:" = "แถวภาพขนาดย่อ:";
+"Rows of thumbnails:" = "จำนวนแถวภาพขนาดย่อ:";
 
 /*No comment provided by engineer.*/
 "Screen including menu bar" = "Screen including menu bar";
@@ -324,7 +324,7 @@
 "Send feedback…" = "ส่งความคิดเห็น...";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "แบ่งปันแนวคิดการปรับปรุงหรือรายงานข้อบกพร่อง";
+"Share improvement ideas, or report bugs" = "แบ่งปันข้อเสนอแนะหรือรายงานข้อบกพร่อง";
 
 /*No comment provided by engineer.*/
 "Shortcut 1" = "คำสั่งลัด 1";
@@ -348,7 +348,7 @@
 "Show" = "แสดง";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "แสดงในตอนท้าย";
+"Show at the end" = "แสดงท้ายสุด";
 
 /*No comment provided by engineer.*/
 "Show on:" = "แสดงบน:";
@@ -378,7 +378,7 @@
 "Theme:" = "ธีม:";
 
 /*No comment provided by engineer.*/
-"Then release:" = "ปล่อย";
+"Then release:" = "เมื่อปล่อย";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
@@ -390,13 +390,13 @@
 "Unassign existing shortcut and continue" = "ยกเลิกกําหนดคำสั่งลัดที่มีอยู่และดําเนินการต่อ";
 
 /*No comment provided by engineer.*/
-"Updates policy:" = "อัพเดทนโยบาย:";
+"Updates policy:" = "นโยบายอัพเดท:";
 
 /*No comment provided by engineer.*/
 "Version" = "หมายเลขรุ่น";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "View existing discussions";
+"View existing discussions" = "ดูการพูดคุย";
 
 /*No comment provided by engineer.*/
 "Vim keys" = "ปุ่ม Vim";
