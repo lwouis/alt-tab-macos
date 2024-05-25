@@ -401,7 +401,8 @@ class Preferences {
             "com.citrix.receiver.icaviewer.mac",
             "com.nicesoftware.dcvviewer",
             "com.vmware.fusion",
-            "com.apple.ScreenSharing"
+            "com.apple.ScreenSharing",
+            "com.utmapp.UTM",
         ].map {
             BlacklistEntry(bundleIdentifier: $0, hide: .none, ignore: .whenFullscreen)
         })
