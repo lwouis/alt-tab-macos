@@ -23,8 +23,8 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
             case kAXWindowMiniaturizedNotification,
                  kAXWindowDeminiaturizedNotification: try windowMiniaturizedOrDeminiaturized(element, type)
             case kAXTitleChangedNotification: try windowTitleChanged(element, pid)
-            case kAXWindowResizedNotification: try windowResized(element)
-            case kAXWindowMovedNotification: try windowMoved(element)
+            case kAXWindowResizedNotification,
+                 kAXWindowMovedNotification: try windowResizedOrMoved(element)
             default: return
         }
     }
@@ -174,7 +174,7 @@ fileprivate func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws
     }
 }
 
-fileprivate func windowResized(_ element: AXUIElement) throws {
+fileprivate func windowResizedOrMoved(_ element: AXUIElement) throws {
     // TODO: only trigger this at the end of the resize, not on every tick
     // currently resizing a window will lag AltTab as it triggers too much UI work
     if let wid = try element.cgWindowId() {
@@ -189,18 +189,6 @@ fileprivate func windowResized(_ element: AXUIElement) throws {
                     window.isFullscreen = isFullscreen
                     App.app.checkIfShortcutsShouldBeDisabled(window, nil)
                 }
-                App.app.refreshOpenUi([window])
-            }
-        }
-    }
-}
-
-fileprivate func windowMoved(_ element: AXUIElement) throws {
-    if let wid = try element.cgWindowId() {
-        let position = try element.position()
-        DispatchQueue.main.async {
-            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
-                window.position = position
                 App.app.refreshOpenUi([window])
             }
         }

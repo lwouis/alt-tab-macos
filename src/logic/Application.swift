@@ -78,10 +78,15 @@ class Application: NSObject {
                             let position = try axWindow.position()
                             DispatchQueue.main.async { [weak self] in
                                 guard let self = self else { return }
-                                if let window = self.addWindow(axWindow, wid, title, isFullscreen, isMinimized, position, size) {
+                                if let window = (Windows.list.first { $0.isEqualRobust(axWindow, wid) }) {
+                                    window.title = title
+                                    window.size = size
+                                    window.isFullscreen = isFullscreen
+                                    window.isMinimized = isMinimized
+                                    window.position = position
+                                } else {
+                                    let window = self.addWindow(axWindow, wid, title, isFullscreen, isMinimized, position, size)
                                     App.app.refreshOpenUi([window])
-                                } else if let window = self.addWindowslessAppsIfNeeded() {
-                                    App.app.refreshOpenUi(window)
                                 }
                             }
                         }
@@ -143,16 +148,13 @@ class Application: NSObject {
         }
     }
 
-    private func addWindow(_ axUiElement: AXUIElement, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) -> Window? {
-        if (Windows.list.firstIndex { $0.isEqualRobust(axUiElement, wid) }) == nil {
-            let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position, size)
-            Windows.appendAndUpdateFocus(window)
-            if App.app.appIsBeingUsed {
-                Windows.cycleFocusedWindowIndex(1)
-            }
-            return window
+    private func addWindow(_ axUiElement: AXUIElement, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) -> Window {
+        let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position, size)
+        Windows.appendAndUpdateFocus(window)
+        if App.app.appIsBeingUsed {
+            Windows.cycleFocusedWindowIndex(1)
         }
-        return nil
+        return window
     }
 
     private func observeEvents() {
