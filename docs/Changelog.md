@@ -1,5 +1,17 @@
 # Release notes
 
+# [6.70.0](https://github.com/lwouis/alt-tab-macos/compare/v6.69.0...v6.70.0) (2024-05-29)
+
+
+### Bug Fixes
+
+* detect safari fullscreen windows better (closes [#3384](https://github.com/lwouis/alt-tab-macos/issues/3384)) ([c3006c6](https://github.com/lwouis/alt-tab-macos/commit/c3006c6))
+
+
+### Features
+
+* add utm-app to default blacklist ([523bcbb](https://github.com/lwouis/alt-tab-macos/commit/523bcbb))
+
 # [6.69.0](https://github.com/lwouis/alt-tab-macos/compare/v6.68.0...v6.69.0) (2024-05-12)
 
 
