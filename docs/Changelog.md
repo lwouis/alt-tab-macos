@@ -1,5 +1,12 @@
 # Release notes
 
+## [6.70.1](https://github.com/lwouis/alt-tab-macos/compare/v6.70.0...v6.70.1) (2024-06-01)
+
+
+### Bug Fixes
+
+* prevent crash introduced in v6.70.0 (closes [#3392](https://github.com/lwouis/alt-tab-macos/issues/3392)) ([e16a3d4](https://github.com/lwouis/alt-tab-macos/commit/e16a3d4))
+
 # [6.70.0](https://github.com/lwouis/alt-tab-macos/compare/v6.69.0...v6.70.0) (2024-05-29)
 
 
