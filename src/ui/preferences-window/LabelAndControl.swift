@@ -15,6 +15,14 @@ class LabelAndControl: NSObject {
         ControlsTab.shortcutControls[rawName] = (input, labelText)
         return views
     }
+    
+    static func makeRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true) -> CustomRecorderControl {
+        let input = CustomRecorderControl(shortcutString, clearable, rawName)
+        _ = setupControl(input, rawName, extraAction: { _ in ControlsTab.shortcutChangedCallback(input) })
+        ControlsTab.shortcutChangedCallback(input)
+        ControlsTab.shortcutControls[rawName] = (input, labelText)
+        return input
+    }
 
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : " ", target: nil, action: nil)

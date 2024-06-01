@@ -17,7 +17,10 @@ class ATShortcut {
         self.index = index
     }
 
-    func matches(_ id: EventHotKeyID?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: UInt32?, _ isARepeat: Bool) -> Bool {
+    func matches(_ id: EventHotKeyID?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: UInt32?, _ isARepeat: Bool, _ shortcutScope: ShortcutScope) -> Bool {
+        guard shortcutScope == scope else {
+            return false
+        }
         if let id = id, let shortcutState = shortcutState {
             let shortcutIndex = Int(id.id)
             let shortcutId = Array(KeyboardEvents.globalShortcutsIds).first { $0.value == shortcutIndex }!.key
