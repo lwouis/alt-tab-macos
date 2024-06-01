@@ -3,7 +3,7 @@ import Cocoa
 class ThumbnailView: NSStackView {
     static let windowsControlSize = CGFloat(16)
     static let windowsControlSpacing = CGFloat(8)
-    static let highlightBackgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+    static var highlightBackgroundColor = NSColor.highlightBackgroundColor
     static let highlightBorderColor = NSColor.white
     var window_: Window?
     var thumbnail = NSImageView()
@@ -53,8 +53,8 @@ class ThumbnailView: NSStackView {
         windowlessIcon.toolTip = NSLocalizedString("App is running but has no open window", comment: "")
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
-        hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
-        setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
+        hStackView = NSStackView(views: [appIcon, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
+        setViews([hStackView, thumbnail, windowlessIcon, label], in: .trailing)
         addWindowControls()
         addDockLabelIcon()
         setAccessibilityChildren([])
@@ -173,8 +173,8 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, widthMin).rounded())
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
-        assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
-        label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
+//        assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
+//        label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
             windowlessIcon.image = appIcon.image!.copy() as! NSImage
@@ -185,6 +185,8 @@ class ThumbnailView: NSStackView {
             windowlessIcon.frame.size = windowlessIconSize
             windowlessIcon.needsDisplay = true
         }
+        self.label.textColor  =  Preferences.fontColor
+        ThumbnailView.highlightBackgroundColor = NSColor.highlightBackgroundColor
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
         [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.window_ = element }
