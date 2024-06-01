@@ -165,9 +165,8 @@ fileprivate func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws
     if let wid = try element.cgWindowId() {
         let newTitle = try element.title()
         DispatchQueue.main.async {
-            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }),
-               newTitle != nil && newTitle != window.title {
-                window.title = newTitle!
+            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), newTitle != window.title {
+                window.title = window.bestEffortTitle(newTitle)
                 App.app.refreshOpenUi([window])
             }
         }

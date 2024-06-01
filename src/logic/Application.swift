@@ -79,7 +79,7 @@ class Application: NSObject {
                             DispatchQueue.main.async { [weak self] in
                                 guard let self = self else { return }
                                 if let window = (Windows.list.first { $0.isEqualRobust(axWindow, wid) }) {
-                                    window.title = title
+                                    window.title = window.bestEffortTitle(title)
                                     window.size = size
                                     window.isFullscreen = isFullscreen
                                     window.isMinimized = isMinimized
