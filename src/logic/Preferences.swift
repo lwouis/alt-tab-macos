@@ -445,6 +445,7 @@ struct ThemeParameters {
     let label: String
     let cellCornerRadius: CGFloat
     let windowCornerRadius: CGFloat
+    let verticalAlignment: VerticalAlignment
 }
 
 typealias LocalizedString = String
@@ -586,19 +587,25 @@ enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
 
 enum ThemePreference: String, CaseIterable, MacroPreference {
     case macOs = "0"
-    case windows10 = "1"
+    case macOsCentered = "1"
+    case windows10 = "2"
+    case windows10Centered = "3"
 
     var localizedString: LocalizedString {
         switch self {
             case .macOs: return " macOS"
+            case .macOsCentered: return " macOS (Centered)"
             case .windows10: return "❖ Windows 10"
+            case .windows10Centered: return "❖ Windows 10 (Centered)"
         }
     }
 
     var themeParameters: ThemeParameters {
         switch self {
-            case .macOs: return ThemeParameters(label: localizedString, cellCornerRadius: 10, windowCornerRadius: 23)
-            case .windows10: return ThemeParameters(label: localizedString, cellCornerRadius: 0, windowCornerRadius: 0)
+        case .macOs: return ThemeParameters(label: localizedString, cellCornerRadius: 10, windowCornerRadius: 23, verticalAlignment: .appleCentered)
+        case .macOsCentered: return ThemeParameters(label: localizedString, cellCornerRadius: 10, windowCornerRadius: 23, verticalAlignment: .centered)
+        case .windows10: return ThemeParameters(label: localizedString, cellCornerRadius: 0, windowCornerRadius: 0, verticalAlignment: .appleCentered)
+        case .windows10Centered: return ThemeParameters(label: localizedString, cellCornerRadius: 0, windowCornerRadius: 0, verticalAlignment: .centered)
         }
     }
 }
