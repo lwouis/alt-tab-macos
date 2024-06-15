@@ -14,7 +14,12 @@ class TrafficLightButtonGroupView: NSView {
     let minimizeIcon: TrafficLightButton
     let maximizeIcon: TrafficLightButton
 
+    let controlSize: CGFloat
+    let controlSpacing: CGFloat
+
     init(window: Window?, controlSize: CGFloat, controlSpacing: CGFloat) {
+        self.controlSize = controlSize
+        self.controlSpacing = controlSpacing
         let size = controlSize
         let backgroundSize = size * 0.95  // Adjust the background size to be slightly smaller
 
@@ -92,7 +97,7 @@ class TrafficLightButtonGroupView: NSView {
     // Show or hide window controls and set frame size and position
     func updateWindowControlsVisibility(window: Window?, shouldShow: Bool, target: NSView) {
         var xOffset = CGFloat(3)
-        var yOffset = CGFloat(2 + ThumbnailView.windowsControlSize)
+        var yOffset = CGFloat(2 + controlSize)
 
         let iconsAndViews = [
             (icon: quitIcon, view: quitIconView),
@@ -113,10 +118,10 @@ class TrafficLightButtonGroupView: NSView {
         self.isHidden = !shouldShow
         if shouldShow {
             self.frame.size = NSSize(
-                    width: 4 * ThumbnailView.windowsControlSize + 3 * ThumbnailView.windowsControlSpacing + 6,
-                    height: ThumbnailView.windowsControlSize + 4
+                    width: 4 * controlSize + 3 * controlSpacing + 6,
+                    height: controlSize + 4
             )
-            self.frame.origin = NSPoint(x: 3, y: target.frame.height - ThumbnailView.windowsControlSize - 6)
+            self.frame.origin = NSPoint(x: 3, y: target.frame.height - controlSize - 6)
         }
     }
 }
