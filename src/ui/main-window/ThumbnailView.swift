@@ -14,7 +14,7 @@ class ThumbnailView: NSStackView {
     var hiddenIcon = ThumbnailFontIconView(.circledSlashSign, NSLocalizedString("App is hidden", comment: ""))
     var spaceIcon = ThumbnailFontIconView(.circledNumber0, nil)
     var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, nil, dockLabelLabelSize(), NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white, dockLabelLabelSize())
-    var buttonGroupView: TrafficLightButtonGroupView?
+    var trafficLightButtonGroup: TrafficLightButtonGroupView?
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -62,11 +62,12 @@ class ThumbnailView: NSStackView {
     }
 
     private func addWindowControls() {
-        buttonGroupView = TrafficLightButtonGroupView(window: window_, controlSize: ThumbnailView.windowsControlSize,
+        trafficLightButtonGroup = TrafficLightButtonGroupView(window: window_,
+                controlSize: ThumbnailView.windowsControlSize,
                 controlSpacing: ThumbnailView.windowsControlSpacing)
-        if let buttonGroupView = buttonGroupView {
-            thumbnail.addSubview(buttonGroupView, positioned: .above, relativeTo: nil)
-            buttonGroupView.isHidden = true
+        if let trafficLightButtonGroup = trafficLightButtonGroup {
+            thumbnail.addSubview(trafficLightButtonGroup, positioned: .above, relativeTo: nil)
+            trafficLightButtonGroup.isHidden = true
         }
     }
 
@@ -75,12 +76,12 @@ class ThumbnailView: NSStackView {
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
             let target = (window_?.isWindowlessApp ?? true) ? windowlessIcon : thumbnail
-            if let buttonGroupView = buttonGroupView {
+            if let trafficLightButtonGroup = trafficLightButtonGroup {
                 if window_?.isWindowlessApp ?? true {
-                    windowlessIcon.addSubview(buttonGroupView, positioned: .above, relativeTo: nil)
+                    windowlessIcon.addSubview(trafficLightButtonGroup, positioned: .above, relativeTo: nil)
                 }
             }
-            buttonGroupView?.updateWindowControlsVisibility(window: window_, shouldShow: shouldShow, target: target)
+            trafficLightButtonGroup?.updateWindowControlsVisibility(window: window_, shouldShow: shouldShow, target: target)
         }
     }
 
@@ -172,7 +173,7 @@ class ThumbnailView: NSStackView {
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
-        buttonGroupView?.setWindow(window: element)
+        trafficLightButtonGroup?.setWindow(window: element)
         showOrHideWindowControls(false)
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
