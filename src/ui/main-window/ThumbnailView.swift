@@ -17,7 +17,7 @@ class ThumbnailView: NSStackView {
     var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""), windowsControlSize)
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
-    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen window", comment: ""), windowsControlSize)
+    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""), windowsControlSize)
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
