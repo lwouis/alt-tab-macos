@@ -14,7 +14,10 @@ class ThumbnailView: NSStackView {
     var hiddenIcon = ThumbnailFontIconView(.circledSlashSign, NSLocalizedString("App is hidden", comment: ""))
     var spaceIcon = ThumbnailFontIconView(.circledNumber0, nil)
     var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(.filledCircledNumber0, nil, dockLabelLabelSize(), NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), nil), NSColor.white, dockLabelLabelSize())
-    var trafficLightButtonGroup: TrafficLightButtonGroupView?
+    var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""), windowsControlSize)
+    var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
+    var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
+    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen window", comment: ""), windowsControlSize)
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -62,13 +65,11 @@ class ThumbnailView: NSStackView {
     }
 
     private func addWindowControls() {
-        trafficLightButtonGroup = TrafficLightButtonGroupView(window: window_,
-                controlSize: ThumbnailView.windowsControlSize,
-                controlSpacing: ThumbnailView.windowsControlSpacing)
-        if let trafficLightButtonGroup = trafficLightButtonGroup {
-            thumbnail.addSubview(trafficLightButtonGroup, positioned: .above, relativeTo: nil)
-            trafficLightButtonGroup.isHidden = true
-        }
+        thumbnail.addSubview(quitIcon, positioned: .above, relativeTo: nil)
+        thumbnail.addSubview(closeIcon, positioned: .above, relativeTo: nil)
+        thumbnail.addSubview(minimizeIcon, positioned: .above, relativeTo: nil)
+        thumbnail.addSubview(maximizeIcon, positioned: .above, relativeTo: nil)
+        [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = true }
     }
 
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
@@ -76,12 +77,25 @@ class ThumbnailView: NSStackView {
         if isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
             let target = (window_?.isWindowlessApp ?? true) ? windowlessIcon : thumbnail
-            if let trafficLightButtonGroup = trafficLightButtonGroup {
-                if window_?.isWindowlessApp ?? true {
-                    windowlessIcon.addSubview(trafficLightButtonGroup, positioned: .above, relativeTo: nil)
+            target.addSubview(quitIcon, positioned: .above, relativeTo: nil)
+            var xOffset = CGFloat(3)
+            var yOffset = CGFloat(2 + ThumbnailView.windowsControlSize)
+            [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { icon in
+                icon.isHidden = !shouldShow ||
+                    (icon.type == .quit && !(window_?.application.canBeQuit() ?? true)) ||
+                    (icon.type == .close && !(window_?.canBeClosed() ?? true)) ||
+                    ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
+                if !icon.isHidden {
+                    icon.setFrameOrigin(NSPoint(
+                        x: xOffset,
+                        y: target.frame.height - yOffset))
+                    xOffset += ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing
+                    if xOffset + ThumbnailView.windowsControlSize > target.frame.width {
+                        xOffset = 3
+                        yOffset += ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing
+                    }
                 }
             }
-            trafficLightButtonGroup?.updateWindowControlsVisibility(window: window_, shouldShow: shouldShow, target: target)
         }
     }
 
@@ -173,7 +187,7 @@ class ThumbnailView: NSStackView {
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
-        trafficLightButtonGroup?.setWindow(window: element)
+        [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.targetWindow = element }
         showOrHideWindowControls(false)
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
@@ -204,8 +218,8 @@ class ThumbnailView: NSStackView {
 
     func getAccessibilityHelp(_ appName: String?, _ dockLabel: String?) -> String {
         [appName, dockLabel.map { getAccessibilityTextForBadge($0) }]
-                .compactMap { $0 }
-                .joined(separator: " - ")
+            .compactMap { $0 }
+            .joined(separator: " - ")
     }
 
     func getAccessibilityTextForBadge(_ dockLabel: String) -> String {
