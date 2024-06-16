@@ -241,7 +241,8 @@ class TrafficLightButton: NSView {
         symbol.close()
         lineColor.setFill()
         symbol.fill()
-// TODO: fix the defullscreen UI
+// TODO: This code can draw the defullscreen symbol correctly, but it can't work after repainting.
+//
 //        if targetWindow?.isFullscreen ?? true {
 //            // Draw "Defullscreen" symbol (two triangles with points facing away from each other)
 //            // Center of the triangle
