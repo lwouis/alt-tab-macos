@@ -95,6 +95,8 @@ class ThumbnailView: NSStackView {
                         yOffset += ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing
                     }
                 }
+                // Force the icon to repaint
+                icon.display()
             }
         }
     }
