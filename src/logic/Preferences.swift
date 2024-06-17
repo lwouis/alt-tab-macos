@@ -587,9 +587,9 @@ enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
 
 enum ThemePreference: String, CaseIterable, MacroPreference {
     case macOs = "0"
-    case macOsCentered = "1"
-    case windows10 = "2"
-    case windows10Centered = "3"
+    case macOsCentered = "0 Centered"
+    case windows10 = "1"
+    case windows10Centered = "1 Centered"
 
     var localizedString: LocalizedString {
         switch self {
