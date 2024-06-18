@@ -9,7 +9,7 @@ enum TrafficLightButtonType {
     case fullscreen
 }
 
-/// A custom button class representing traffic light buttons in a macOS window
+/// A custom button class representing traffic light buttons in a macOS window.
 class TrafficLightButton: NSView {
     // Tracks whether the mouse is hovering over the button
     var isMouseOver = false
@@ -36,24 +36,24 @@ class TrafficLightButton: NSView {
         wantsLayer = true
     }
 
-    /// Required initializer for decoding the button (not used here)
+    /// Required initializer for decoding the button (not used here).
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    /// Mouse entered event handler
+    /// Mouse entered event handler.
     override func mouseEntered(with event: NSEvent) {
         isMouseOver = true
         setNeedsDisplay(bounds)
     }
 
-    /// Mouse exited event handler
+    /// Mouse exited event handler.
     override func mouseExited(with event: NSEvent) {
         isMouseOver = false
         setNeedsDisplay(bounds)
     }
 
-    /// Mouse up event handler
+    /// Mouse up event handler.
     override func mouseUp(with event: NSEvent) {
         if event.clickCount >= 1 {
             performClick()
@@ -225,7 +225,7 @@ class TrafficLightButton: NSView {
         let pointF = NSMakePoint(bounds.width * 1 / 3, bounds.height * 0.25)
 
         if targetWindow?.isFullscreen ?? true {
-            // Draw "Defullscreen" symbol (two triangles with points facing away from each other)
+            // Draw defullscreen symbol (two triangles with points facing away from each other)
             // Center of the triangle
             let centerX = (pointA.x + pointB.x + pointC.x) / 3
             let centerY = (pointA.y + pointB.y + pointC.y) / 3
