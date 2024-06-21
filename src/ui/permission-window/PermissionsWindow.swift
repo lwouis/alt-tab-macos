@@ -13,7 +13,9 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
 
     func show() {
         accessibilityView.updatePermissionStatus(SystemPermissions.accessibilityIsGranted())
-        screenRecordingView.updatePermissionStatus(SystemPermissions.screenRecordingIsGranted())
+        if #available(OSX 10.15, *) {
+            screenRecordingView.updatePermissionStatus(SystemPermissions.screenRecordingIsGranted())
+        }
         center()
         App.shared.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
