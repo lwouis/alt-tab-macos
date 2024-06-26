@@ -14,6 +14,7 @@ class TrafficLightButton: NSButton {
         fit(size, size)
         addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil))
         toolTip = tooltip
+        appearance = .init(named: .aqua)
     }
 
     required init?(coder: NSCoder) {
