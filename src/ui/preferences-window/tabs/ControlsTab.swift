@@ -81,9 +81,17 @@ class ControlsTab {
             [selectWindowcheckboxesExplanations, selectWindowCheckboxes],
             [miscCheckboxesExplanations, miscCheckboxes]
         ])
+        // Sets the horizontal alignment (xPlacement) of the first column (at index 0) in the grid to .trailing,
+        // meaning the content in this column will align to the right.
         grid.column(at: 0).xPlacement = .trailing
+        // Merges cells in the grid from column 0 to column 1 (2 columns total) and from row 0 to row 0 (1 row total).
+        // This creates a single cell that spans these columns and rows.
         grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
+        // Sets the horizontal alignment (xPlacement) of the cell at column index 0, row index 0 to .leading,
+        // meaning the content in this cell will align to the left.
         grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .leading
+        // Creates an Auto Layout constraint that aligns the right edge of the tabView with the right edge of the grid,
+        // with a specified padding (negative value of GridView.padding). The constraint is then activated.
         tabView.rightAnchor.constraint(equalTo: grid.rightAnchor, constant: -GridView.padding).isActive = true
 
         // TODO: better layout logic. Maybe freeze the width of the preference window and have labels wrap on multiple lines
