@@ -17,7 +17,7 @@ class ThumbnailView: NSStackView {
     var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""), windowsControlSize)
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
-    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""), windowsControlSize)
+    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen window", comment: ""), windowsControlSize)
     var hStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -95,8 +95,6 @@ class ThumbnailView: NSStackView {
                         yOffset += ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing
                     }
                 }
-                // Force the icon to repaint
-                icon.display()
             }
         }
     }
@@ -189,7 +187,7 @@ class ThumbnailView: NSStackView {
         }
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
-        [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.targetWindow = element }
+        [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.window_ = element }
         showOrHideWindowControls(false)
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
