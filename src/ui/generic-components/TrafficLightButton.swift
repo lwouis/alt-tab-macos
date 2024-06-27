@@ -41,20 +41,17 @@ class TrafficLightButton: NSView {
         super.init(coder: coder)
     }
 
-    /// Mouse entered event handler.
     override func mouseEntered(with event: NSEvent) {
         isMouseOver = true
         setNeedsDisplay(bounds)
     }
 
-    /// Mouse exited event handler.
     override func mouseExited(with event: NSEvent) {
         isMouseOver = false
         setNeedsDisplay(bounds)
     }
 
-    /// Mouse up event handler.
-    override func mouseUp(with event: NSEvent) {
+    override func mouseDown(with event: NSEvent) {
         if event.clickCount >= 1 {
             performClick()
         }
