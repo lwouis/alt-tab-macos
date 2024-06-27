@@ -218,8 +218,8 @@ class ThumbnailView: NSStackView {
 
     func getAccessibilityHelp(_ appName: String?, _ dockLabel: String?) -> String {
         [appName, dockLabel.map { getAccessibilityTextForBadge($0) }]
-            .compactMap { $0 }
-            .joined(separator: " - ")
+                .compactMap { $0 }
+                .joined(separator: " - ")
     }
 
     func getAccessibilityTextForBadge(_ dockLabel: String) -> String {
