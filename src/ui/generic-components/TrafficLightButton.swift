@@ -308,6 +308,7 @@ class TrafficLightButton: NSView {
 
     /// Draws the close symbol (a cross) with the specified line color.
     ///
+    /// - Parameters:
     ///   - symbol: The NSBezierPath object used to draw the symbols.
     ///   - lineColor: The color to use for the symbols.
     private func drawCloseSymbol(_ symbol: NSBezierPath, _ lineColor: NSColor) {

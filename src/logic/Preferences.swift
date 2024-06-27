@@ -104,8 +104,8 @@ class Preferences {
     // not exposed as preferences now but may be in the future, probably through macro preferences
     static var fontColor: NSColor { .white }
     static var windowPadding: CGFloat { 18 }
-    static var interCellPadding: CGFloat { 15 }
-    static var intraCellPadding: CGFloat { 8 }
+    static var interCellPadding: CGFloat { 12 }
+    static var intraCellPadding: CGFloat { 7 }
 
     // persisted values
     static var maxWidthOnScreen: CGFloat { defaults.cgfloat("maxWidthOnScreen") / CGFloat(100) }
