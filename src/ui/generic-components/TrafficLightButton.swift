@@ -117,32 +117,93 @@ class TrafficLightButton: NSButton {
     }
 
     private func drawSymbol(_ lineColor: NSColor) {
+        let symbol = NSBezierPath()
         if (type == .fullscreen) {
-            let symbol = NSBezierPath()
-            symbol.move(to: NSMakePoint(bounds.width * 0.25, bounds.height * 0.75))
-            symbol.line(to: NSMakePoint(bounds.width * 0.25, bounds.height * 1 / 3))
-            symbol.line(to: NSMakePoint(bounds.width * 2 / 3, bounds.height * 0.75))
-            symbol.close()
-            lineColor.setFill()
-            symbol.fill()
-            symbol.move(to: NSMakePoint(bounds.width * 0.75, bounds.height * 0.25))
-            symbol.line(to: NSMakePoint(bounds.width * 0.75, bounds.height * 2 / 3))
-            symbol.line(to: NSMakePoint(bounds.width * 1 / 3, bounds.height * 0.25))
-            symbol.close()
-            lineColor.setFill()
-            symbol.fill()
-            // maximize cross
-            // NSGraphicsContext.current?.shouldAntialias = false
-            // var symbol = NSBezierPath()
-            // symbol.move(to: NSMakePoint(bounds.width / 2, bounds.height * 0.20))
-            // symbol.line(to: NSMakePoint(bounds.width / 2, bounds.height * 0.80))
-            // symbol.move(to: NSMakePoint(bounds.width * 0.80, bounds.height / 2))
-            // symbol.line(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
-            // symbol.lineWidth = 0.75
-            // NSGraphicsContext.current?.shouldAntialias = true
+            // First original triangle vertices
+            let pointA = NSMakePoint(bounds.width * 0.25, bounds.height * 0.75)
+            let pointB = NSMakePoint(bounds.width * 0.25, bounds.height * 1 / 3)
+            let pointC = NSMakePoint(bounds.width * 2 / 3, bounds.height * 0.75)
+
+            // Second original triangle vertices
+            let pointD = NSMakePoint(bounds.width * 0.75, bounds.height * 0.25)
+            let pointE = NSMakePoint(bounds.width * 0.75, bounds.height * 2 / 3)
+            let pointF = NSMakePoint(bounds.width * 1 / 3, bounds.height * 0.25)
+
+            // Rotated 90 degrees counterclockwise around the center
+            var transform = NSAffineTransform()
+            // Set the rotation center point to the center of the view
+            transform.translateX(by: bounds.midX, yBy: bounds.midY)
+            // Rotate counterclockwise by 90 degrees
+            transform.rotate(byDegrees: -90)
+            // Translate back to the original coordinate system
+            transform.translateX(by: -bounds.midX, yBy: -bounds.midY)
+            // Apply the transformation
+            transform.concat()
+
+            if window_?.isFullscreen ?? true {
+                // Draw defullscreen symbol (two triangles with points facing away from each other)
+                // Center of the triangle
+                let centerX = (pointA.x + pointB.x + pointC.x) / 3
+                let centerY = (pointA.y + pointB.y + pointC.y) / 3
+
+                // Rotated vertices
+                let rotatedA = NSMakePoint(2 * centerX - pointA.x, 2 * centerY - pointA.y)
+                let rotatedB = NSMakePoint(2 * centerX - pointB.x, 2 * centerY - pointB.y)
+                let rotatedC = NSMakePoint(2 * centerX - pointC.x, 2 * centerY - pointC.y)
+
+                // Offset to separate the triangles
+                let offset: CGFloat = 0.5
+
+                // Draw the first rotated triangle with offset applied
+                symbol.move(to: NSMakePoint(rotatedA.x - offset, rotatedA.y + offset))
+                symbol.line(to: rotatedB)
+                symbol.line(to: rotatedC)
+                symbol.close()
+                lineColor.setFill()
+                symbol.fill()
+
+                // Clear path for the next triangle
+                symbol.removeAllPoints()
+
+                // Center of the second triangle
+                let centerX2 = (pointD.x + pointE.x + pointF.x) / 3
+                let centerY2 = (pointD.y + pointE.y + pointF.y) / 3
+
+                // Rotated vertices for the second triangle
+                let rotatedD = NSMakePoint(2 * centerX2 - pointD.x, 2 * centerY2 - pointD.y)
+                let rotatedE = NSMakePoint(2 * centerX2 - pointE.x, 2 * centerY2 - pointE.y)
+                let rotatedF = NSMakePoint(2 * centerX2 - pointF.x, 2 * centerY2 - pointF.y)
+
+                // Draw the second rotated triangle with offset applied
+                symbol.move(to: NSMakePoint(rotatedD.x + offset, rotatedD.y - offset))
+                symbol.line(to: rotatedE)
+                symbol.line(to: rotatedF)
+                symbol.close()
+                lineColor.setFill()
+                symbol.fill()
+            } else {
+                // Draw fullscreen symbol (two triangles)
+                // Draw first triangle
+                symbol.move(to: pointA)
+                symbol.line(to: pointB)
+                symbol.line(to: pointC)
+                symbol.close()
+                lineColor.setFill()
+                symbol.fill()
+
+                // Clear path for the next triangle
+                symbol.removeAllPoints()
+
+                // Draw second triangle
+                symbol.move(to: pointD)
+                symbol.line(to: pointE)
+                symbol.line(to: pointF)
+                symbol.close()
+                lineColor.setFill()
+                symbol.fill()
+            }
         } else if (type == .miniaturize) {
             NSGraphicsContext.current?.shouldAntialias = false
-            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
             symbol.line(to: NSMakePoint(bounds.width * 0.80, bounds.height / 2))
             symbol.lineWidth = 0.75
@@ -150,7 +211,6 @@ class TrafficLightButton: NSButton {
             symbol.stroke()
             NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == .close) {
-            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.30, bounds.height * 0.30))
             symbol.line(to: NSMakePoint(bounds.width * 0.70, bounds.height * 0.70))
             symbol.move(to: NSMakePoint(bounds.width * 0.70, bounds.height * 0.30))
@@ -160,7 +220,6 @@ class TrafficLightButton: NSButton {
             symbol.stroke()
         } else if (type == .quit) {
             let mouthAngle = CGFloat(80) / 2
-            let symbol = NSBezierPath()
             symbol.appendArc(
                 withCenter: NSMakePoint(bounds.width / 2, bounds.height / 2),
                 radius: bounds.width * 0.27,
