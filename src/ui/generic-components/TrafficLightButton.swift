@@ -119,30 +119,30 @@ class TrafficLightButton: NSButton {
     private func drawSymbol(_ lineColor: NSColor) {
         let symbol = NSBezierPath()
         if (type == .fullscreen) {
-            var pointA, pointB, pointC, pointD, pointE, pointF: NSPoint!
+            var firstPointA, firstPointB, firstPointC, secondPointA, secondPointB, secondPointC: NSPoint!
             if window_?.isFullscreen ?? true {
                 // Defullscreen symbol that the angles of the two triangles are face-to-face
-                pointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
-                pointB = NSMakePoint(bounds.width * 0.12, bounds.height * 0.5)
-                pointC = NSMakePoint(bounds.width * 0.5, bounds.height * 0.12)
+                firstPointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
+                firstPointB = NSMakePoint(bounds.width * 0.12, bounds.height * 0.5)
+                firstPointC = NSMakePoint(bounds.width * 0.5, bounds.height * 0.12)
 
-                pointD = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
-                pointE = NSMakePoint(bounds.width * 0.5, bounds.height * 0.88)
-                pointF = NSMakePoint(bounds.width * 0.88, bounds.height * 0.5)
+                secondPointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
+                secondPointB = NSMakePoint(bounds.width * 0.5, bounds.height * 0.88)
+                secondPointC = NSMakePoint(bounds.width * 0.88, bounds.height * 0.5)
             } else {
                 // Fullscreen symbol that the angles of the two triangles are back-to-back
-                pointA = NSMakePoint(bounds.width * 0.25, bounds.height * 0.25)
-                pointB = NSMakePoint(bounds.width * 0.25, bounds.height * 0.65)
-                pointC = NSMakePoint(bounds.width * 0.65, bounds.height * 0.25)
+                firstPointA = NSMakePoint(bounds.width * 0.25, bounds.height * 0.25)
+                firstPointB = NSMakePoint(bounds.width * 0.25, bounds.height * 0.65)
+                firstPointC = NSMakePoint(bounds.width * 0.65, bounds.height * 0.25)
 
-                pointD = NSMakePoint(bounds.width * 0.75, bounds.height * 0.75)
-                pointE = NSMakePoint(bounds.width * 0.35, bounds.height * 0.75)
-                pointF = NSMakePoint(bounds.width * 0.75, bounds.height * 0.35)
+                secondPointA = NSMakePoint(bounds.width * 0.75, bounds.height * 0.75)
+                secondPointB = NSMakePoint(bounds.width * 0.35, bounds.height * 0.75)
+                secondPointC = NSMakePoint(bounds.width * 0.75, bounds.height * 0.35)
             }
             // Draw first triangle
-            symbol.move(to: pointA)
-            symbol.line(to: pointB)
-            symbol.line(to: pointC)
+            symbol.move(to: firstPointA)
+            symbol.line(to: firstPointB)
+            symbol.line(to: firstPointC)
             symbol.close()
             lineColor.setFill()
             symbol.fill()
@@ -151,9 +151,9 @@ class TrafficLightButton: NSButton {
             symbol.removeAllPoints()
 
             // Draw second triangle
-            symbol.move(to: pointD)
-            symbol.line(to: pointE)
-            symbol.line(to: pointF)
+            symbol.move(to: secondPointA)
+            symbol.line(to: secondPointB)
+            symbol.line(to: secondPointC)
             symbol.close()
             lineColor.setFill()
             symbol.fill()
