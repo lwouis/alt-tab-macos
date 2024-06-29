@@ -119,89 +119,44 @@ class TrafficLightButton: NSButton {
     private func drawSymbol(_ lineColor: NSColor) {
         let symbol = NSBezierPath()
         if (type == .fullscreen) {
-            // First original triangle vertices
-            let pointA = NSMakePoint(bounds.width * 0.25, bounds.height * 0.75)
-            let pointB = NSMakePoint(bounds.width * 0.25, bounds.height * 1 / 3)
-            let pointC = NSMakePoint(bounds.width * 2 / 3, bounds.height * 0.75)
-
-            // Second original triangle vertices
-            let pointD = NSMakePoint(bounds.width * 0.75, bounds.height * 0.25)
-            let pointE = NSMakePoint(bounds.width * 0.75, bounds.height * 2 / 3)
-            let pointF = NSMakePoint(bounds.width * 1 / 3, bounds.height * 0.25)
-
-            // Rotated 90 degrees counterclockwise around the center
-            var transform = NSAffineTransform()
-            // Set the rotation center point to the center of the view
-            transform.translateX(by: bounds.midX, yBy: bounds.midY)
-            // Rotate counterclockwise by 90 degrees
-            transform.rotate(byDegrees: -90)
-            // Translate back to the original coordinate system
-            transform.translateX(by: -bounds.midX, yBy: -bounds.midY)
-            // Apply the transformation
-            transform.concat()
-
+            var pointA, pointB, pointC, pointD, pointE, pointF: NSPoint!
             if window_?.isFullscreen ?? true {
-                // Draw defullscreen symbol (two triangles with points facing away from each other)
-                // Center of the triangle
-                let centerX = (pointA.x + pointB.x + pointC.x) / 3
-                let centerY = (pointA.y + pointB.y + pointC.y) / 3
+                // Defullscreen symbol that the angles of the two triangles are face-to-face
+                pointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
+                pointB = NSMakePoint(bounds.width * 0.12, bounds.height * 0.5)
+                pointC = NSMakePoint(bounds.width * 0.5, bounds.height * 0.12)
 
-                // Rotated vertices
-                let rotatedA = NSMakePoint(2 * centerX - pointA.x, 2 * centerY - pointA.y)
-                let rotatedB = NSMakePoint(2 * centerX - pointB.x, 2 * centerY - pointB.y)
-                let rotatedC = NSMakePoint(2 * centerX - pointC.x, 2 * centerY - pointC.y)
-
-                // Offset to separate the triangles
-                let offset: CGFloat = 0.5
-
-                // Draw the first rotated triangle with offset applied
-                symbol.move(to: NSMakePoint(rotatedA.x - offset, rotatedA.y + offset))
-                symbol.line(to: rotatedB)
-                symbol.line(to: rotatedC)
-                symbol.close()
-                lineColor.setFill()
-                symbol.fill()
-
-                // Clear path for the next triangle
-                symbol.removeAllPoints()
-
-                // Center of the second triangle
-                let centerX2 = (pointD.x + pointE.x + pointF.x) / 3
-                let centerY2 = (pointD.y + pointE.y + pointF.y) / 3
-
-                // Rotated vertices for the second triangle
-                let rotatedD = NSMakePoint(2 * centerX2 - pointD.x, 2 * centerY2 - pointD.y)
-                let rotatedE = NSMakePoint(2 * centerX2 - pointE.x, 2 * centerY2 - pointE.y)
-                let rotatedF = NSMakePoint(2 * centerX2 - pointF.x, 2 * centerY2 - pointF.y)
-
-                // Draw the second rotated triangle with offset applied
-                symbol.move(to: NSMakePoint(rotatedD.x + offset, rotatedD.y - offset))
-                symbol.line(to: rotatedE)
-                symbol.line(to: rotatedF)
-                symbol.close()
-                lineColor.setFill()
-                symbol.fill()
+                pointD = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
+                pointE = NSMakePoint(bounds.width * 0.5, bounds.height * 0.88)
+                pointF = NSMakePoint(bounds.width * 0.88, bounds.height * 0.5)
             } else {
-                // Draw fullscreen symbol (two triangles)
-                // Draw first triangle
-                symbol.move(to: pointA)
-                symbol.line(to: pointB)
-                symbol.line(to: pointC)
-                symbol.close()
-                lineColor.setFill()
-                symbol.fill()
+                // Fullscreen symbol that the angles of the two triangles are back-to-back
+                pointA = NSMakePoint(bounds.width * 0.25, bounds.height * 0.25)
+                pointB = NSMakePoint(bounds.width * 0.25, bounds.height * 0.65)
+                pointC = NSMakePoint(bounds.width * 0.65, bounds.height * 0.25)
 
-                // Clear path for the next triangle
-                symbol.removeAllPoints()
-
-                // Draw second triangle
-                symbol.move(to: pointD)
-                symbol.line(to: pointE)
-                symbol.line(to: pointF)
-                symbol.close()
-                lineColor.setFill()
-                symbol.fill()
+                pointD = NSMakePoint(bounds.width * 0.75, bounds.height * 0.75)
+                pointE = NSMakePoint(bounds.width * 0.35, bounds.height * 0.75)
+                pointF = NSMakePoint(bounds.width * 0.75, bounds.height * 0.35)
             }
+            // Draw first triangle
+            symbol.move(to: pointA)
+            symbol.line(to: pointB)
+            symbol.line(to: pointC)
+            symbol.close()
+            lineColor.setFill()
+            symbol.fill()
+
+            // Clear path for the next triangle
+            symbol.removeAllPoints()
+
+            // Draw second triangle
+            symbol.move(to: pointD)
+            symbol.line(to: pointE)
+            symbol.line(to: pointF)
+            symbol.close()
+            lineColor.setFill()
+            symbol.fill()
         } else if (type == .miniaturize) {
             NSGraphicsContext.current?.shouldAntialias = false
             symbol.move(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
