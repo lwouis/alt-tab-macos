@@ -56,6 +56,8 @@ class Preferences {
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
+        "appearanceModel": AppearanceModelPreference.thumbnails.rawValue,
+        "appearanceSize": AppearanceSizePreference.middle.rawValue,
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
@@ -98,7 +100,9 @@ class Preferences {
     ]
 
     // system preferences
-    static var finderShowsQuitMenuItem: Bool { UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false }
+    static var finderShowsQuitMenuItem: Bool {
+        UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false
+    }
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
@@ -143,6 +147,8 @@ class Preferences {
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
 
     // macro values
+    static var appearanceModel: AppearanceModelPreference { defaults.macroPref("appearanceModel", AppearanceModelPreference.allCases) }
+    static var appearanceSize: AppearanceModelPreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
@@ -337,16 +343,18 @@ class Preferences {
 
     private static func migrateShowWindowsCheckboxToDropdown() {
         ["showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows"]
-                .flatMap { [$0, $0 + "2"] }
-                .forEach {
-                    if let old = defaults.string(forKey: $0) {
-                        if old == "true" {
-                            defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
-                        } else if old == "false" {
-                            defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
-                        }
+            .flatMap {
+                [$0, $0 + "2"]
+            }
+            .forEach {
+                if let old = defaults.string(forKey: $0) {
+                    if old == "true" {
+                        defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
+                    } else if old == "false" {
+                        defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
                     }
                 }
+            }
     }
 
     private static func migrateDropdownsFromTextToIndexes() {
@@ -439,6 +447,22 @@ extension Preferences: AvoidDeprecationWarnings {
 // we don't want to store every value in UserDefaults as the user could change them and contradict the macro
 protocol MacroPreference {
     var localizedString: LocalizedString { get }
+}
+
+struct AppearanceModelParameters {
+    let label: String
+    let hideThumbnails: Bool
+}
+
+struct AppearanceSizeParameters {
+    let label: String
+    let rowsCount: Bool
+    let windowMinWidthInRow: CGFloat
+    let windowMaxWidthInRow: CGFloat
+    let iconSize: CGFloat
+    let fontHeight: CGFloat
+    let maxWidthOnScreen: CGFloat
+    let maxHeightOnScreen: CGFloat
 }
 
 struct ThemeParameters {
@@ -580,6 +604,34 @@ enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
         switch self {
             case .left: return NSLocalizedString("Left", comment: "")
             case .center: return NSLocalizedString("Center", comment: "")
+        }
+    }
+}
+
+enum AppearanceModelPreference: String, CaseIterable, MacroPreference {
+    case thumbnails = "0"
+    case appIcons = "1"
+    case titles = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+        case .thumbnails: return NSLocalizedString("Thumbnails", comment: "")
+        case .appIcons: return NSLocalizedString("App Icons", comment: "")
+        case .titles: return NSLocalizedString("Titles", comment: "")
+        }
+    }
+}
+
+enum AppearanceSizePreference: String, CaseIterable, MacroPreference {
+    case small = "0"
+    case middle = "1"
+    case large = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .small: return NSLocalizedString("Small", comment: "")
+            case .middle: return NSLocalizedString("Middle", comment: "")
+            case .large: return NSLocalizedString("Large", comment: "")
         }
     }
 }

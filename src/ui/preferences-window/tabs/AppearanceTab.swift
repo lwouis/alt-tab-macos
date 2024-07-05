@@ -11,10 +11,13 @@ class AppearanceTab {
         maxWidthInRow = LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window max width in row:", comment: ""), "windowMaxWidthInRow", 1, 100, 10, true, "%", extraAction: { _ in capMinMaxWidthInRow() }) ?? []
 
         let generalSettings: [[NSView]] = [
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Appearance model:", comment: ""), "appearanceModel", AppearanceModelPreference.allCases),
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""), "titleTruncation", TitleTruncationPreference.allCases),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide window thumbnails:", comment: ""), "hideThumbnails", extraAction: { _ in toggleRowsCount() }),
             rowsCount,
             minWidthInRow,
             maxWidthInRow,
@@ -77,18 +80,18 @@ class AppearanceTab {
         view.addSubview(tabView)
 
         let fixedWidth = CGFloat(600)
-        let fixedHeight = CGFloat(450)
+        let fixedHeight = CGFloat(500)
 
         NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: fixedWidth),
-            view.heightAnchor.constraint(equalToConstant: fixedHeight),
+//            view.widthAnchor.constraint(equalToConstant: fixedWidth),
+//            view.heightAnchor.constraint(equalToConstant: fixedHeight),
 
             tabView.topAnchor.constraint(equalTo: view.topAnchor, constant: TabView.padding),
             tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: TabView.padding),
             tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -TabView.padding),
             tabView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -TabView.padding),
-//            tabView.widthAnchor.constraint(equalToConstant: fixedWidth),
-//            tabView.heightAnchor.constraint(equalToConstant: fixedHeight),
+            tabView.widthAnchor.constraint(equalToConstant: fixedWidth),
+            tabView.heightAnchor.constraint(equalToConstant: fixedHeight),
 
             generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor, constant: -TabView.padding),
             generalGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor),
