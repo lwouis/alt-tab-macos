@@ -13,54 +13,94 @@ class AppearanceTab {
         let generalSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases),
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max width on screen:", comment: ""), "maxWidthOnScreen", 10, 100, 10, true, "%"),
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max height on screen:", comment: ""), "maxHeightOnScreen", 10, 100, 10, true, "%"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide Space number labels:", comment: ""), "hideSpaceNumberLabels"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide status icons:", comment: ""), "hideStatusIcons"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide colored circles on mouse hover:", comment: ""), "hideColoredCircles"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide app badges:", comment: ""), "hideAppBadges"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide apps with no open window:", comment: ""), "hideWindowlessApps"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Preview selected window:", comment: ""), "previewFocusedWindow"),
-        ]
-
-        let windowSettings: [[NSView]] = [
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""), "titleTruncation", TitleTruncationPreference.allCases),
             rowsCount,
             minWidthInRow,
             maxWidthInRow,
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window app icon size:", comment: ""), "iconSize", 0, 128, 11, false, "px"),
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Window title font size:", comment: ""), "fontHeight", 0, 64, 11, false, "px"),
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""), "titleTruncation", TitleTruncationPreference.allCases),
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Show standard tabs as windows:", comment: ""), "showTabsAsWindows"),
+            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max width on screen:", comment: ""), "maxWidthOnScreen", 10, 100, 10, true, "%"),
+            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max height on screen:", comment: ""), "maxHeightOnScreen", 10, 100, 10, true, "%"),
         ]
 
-        let animationSettings: [[NSView]] = [
+        let showHideSettings: [[NSView]] = [
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide app badges:", comment: ""), "hideAppBadges"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide status icons:", comment: ""), "hideStatusIcons"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide Space number labels:", comment: ""), "hideSpaceNumberLabels"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide colored circles on mouse hover:", comment: ""), "hideColoredCircles"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide apps with no open window:", comment: ""), "hideWindowlessApps"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Show standard tabs as windows:", comment: ""), "showTabsAsWindows"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Preview selected window:", comment: ""), "previewFocusedWindow"),
+        ]
+
+//        let positionSettings: [[NSView]] = [
+//            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max width on screen:", comment: ""), "maxWidthOnScreen", 10, 100, 10, true, "%"),
+//            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Max height on screen:", comment: ""), "maxHeightOnScreen", 10, 100, 10, true, "%"),
+//        ]
+
+        let effectsSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Apparition delay:", comment: ""), "windowDisplayDelay", 0, 2000, 11, false, "ms"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fade out animation:", comment: ""), "fadeOutAnimation"),
         ]
 
         let generalGrid = GridView(generalSettings)
         generalGrid.column(at: 0).xPlacement = .trailing
+//        generalGrid.column(at: 0).width = 250
+        generalGrid.column(at: 1).width = 200
+//        generalGrid.column(at: 2).width = 50
         generalGrid.fit()
 
-        let windowsGrid = GridView(windowSettings)
-        windowsGrid.column(at: 0).xPlacement = .trailing
-        windowsGrid.fit()
+        let showHideGrid = GridView(showHideSettings)
+        showHideGrid.column(at: 0).xPlacement = .trailing
+//        showHideGrid.column(at: 0).width = 250
+        showHideGrid.column(at: 1).width = 200
+//        showHideGrid.column(at: 2).width = 50
+        showHideGrid.fit()
 
-        let animationGrid = GridView(animationSettings)
-        animationGrid.column(at: 0).xPlacement = .trailing
-        animationGrid.fit()
+        let effectsGrid = GridView(effectsSettings)
+        effectsGrid.column(at: 0).xPlacement = .trailing
+//        effectsGrid.column(at: 0).width = 250
+        effectsGrid.column(at: 1).width = 200
+//        effectsGrid.column(at: 2).width = 50
+        effectsGrid.fit()
 
-        toggleRowsCount()
-        capMinMaxWidthInRow()
-
+        // Create the tab view with fixed width and height
         let tabView = TabView([
             (NSLocalizedString("General", comment: ""), generalGrid),
-            (NSLocalizedString("Windows", comment: ""), windowsGrid),
-            (NSLocalizedString("Animation", comment: ""), animationGrid),
+            (NSLocalizedString("Show & Hide", comment: ""), showHideGrid),
+            (NSLocalizedString("Effects", comment: ""), effectsGrid),
+        ])
+        let view = NSView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        tabView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tabView)
+
+        let fixedWidth = CGFloat(600)
+        let fixedHeight = CGFloat(450)
+
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: fixedWidth),
+            view.heightAnchor.constraint(equalToConstant: fixedHeight),
+
+            tabView.topAnchor.constraint(equalTo: view.topAnchor, constant: TabView.padding),
+            tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: TabView.padding),
+            tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -TabView.padding),
+            tabView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -TabView.padding),
+//            tabView.widthAnchor.constraint(equalToConstant: fixedWidth),
+//            tabView.heightAnchor.constraint(equalToConstant: fixedHeight),
+
+            generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor, constant: -TabView.padding),
+            generalGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor),
+
+            showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor, constant: -TabView.padding),
+            showHideGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor),
+
+            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor, constant: -TabView.padding),
+            effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
         ])
 
-        return tabView
+        return view
     }
 
     static func capMinMaxWidthInRow() {
