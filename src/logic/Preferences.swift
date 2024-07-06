@@ -100,9 +100,7 @@ class Preferences {
     ]
 
     // system preferences
-    static var finderShowsQuitMenuItem: Bool {
-        UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false
-    }
+    static var finderShowsQuitMenuItem: Bool { UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false }
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
@@ -431,9 +429,7 @@ class Preferences {
 
     private static func migrateShowWindowsCheckboxToDropdown() {
         ["showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows"]
-            .flatMap {
-                [$0, $0 + "2"]
-            }
+            .flatMap { [$0, $0 + "2"] }
             .forEach {
                 if let old = defaults.string(forKey: $0) {
                     if old == "true" {
