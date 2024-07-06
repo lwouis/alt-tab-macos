@@ -148,7 +148,7 @@ class Preferences {
 
     // macro values
     static var appearanceModel: AppearanceModelPreference { defaults.macroPref("appearanceModel", AppearanceModelPreference.allCases) }
-    static var appearanceSize: AppearanceModelPreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
+    static var appearanceSize: AppearanceSizePreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
@@ -208,6 +208,93 @@ class Preferences {
     }
 
     static var all: [String: Any] { defaults.persistentDomain(forName: App.id)! }
+
+    static func appearanceParameters(model: AppearanceModelPreference, size: AppearanceSizePreference) -> AppearanceParameters {
+        var parameters = AppearanceParameters()
+        if model == AppearanceModelPreference.thumbnails {
+            parameters.hideThumbnails = true
+            if size == AppearanceSizePreference.small {
+                parameters.rowsCount = 6
+                parameters.windowMinWidthInRow = 8
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 25
+                parameters.fontHeight = 15
+                parameters.maxWidthOnScreen = 85
+                parameters.maxHeightOnScreen = 80
+            } else if size == AppearanceSizePreference.middle {
+                parameters.rowsCount = 5
+                parameters.windowMinWidthInRow = 8
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 30
+                parameters.fontHeight = 15
+                parameters.maxWidthOnScreen = 90
+                parameters.maxHeightOnScreen = 90
+            } else if size == AppearanceSizePreference.large {
+                parameters.rowsCount = 4
+                parameters.windowMinWidthInRow = 8
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 30
+                parameters.fontHeight = 15
+                parameters.maxWidthOnScreen = 95
+                parameters.maxHeightOnScreen = 90
+            }
+        } else if model == AppearanceModelPreference.appIcons {
+            parameters.hideThumbnails = false
+            if size == AppearanceSizePreference.small {
+                parameters.rowsCount = 0
+                parameters.windowMinWidthInRow = 4
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 60
+                parameters.fontHeight = 0
+                parameters.maxWidthOnScreen = 80
+                parameters.maxHeightOnScreen = 80
+            } else if size == AppearanceSizePreference.middle {
+                parameters.rowsCount = 0
+                parameters.windowMinWidthInRow = 5
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 75
+                parameters.fontHeight = 0
+                parameters.maxWidthOnScreen = 90
+                parameters.maxHeightOnScreen = 90
+            } else if size == AppearanceSizePreference.large {
+                parameters.rowsCount = 0
+                parameters.windowMinWidthInRow = 6
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 90
+                parameters.fontHeight = 0
+                parameters.maxWidthOnScreen = 95
+                parameters.maxHeightOnScreen = 90
+            }
+        } else if model == AppearanceModelPreference.titles {
+            parameters.hideThumbnails = false
+            if size == AppearanceSizePreference.small {
+                parameters.rowsCount = 0
+                parameters.windowMinWidthInRow = 70
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 30
+                parameters.fontHeight = 15
+                parameters.maxWidthOnScreen = 50
+                parameters.maxHeightOnScreen = 90
+            } else if size == AppearanceSizePreference.middle {
+                parameters.rowsCount = 0
+                parameters.windowMinWidthInRow = 50
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 30
+                parameters.fontHeight = 15
+                parameters.maxWidthOnScreen = 70
+                parameters.maxHeightOnScreen = 90
+            } else if size == AppearanceSizePreference.large {
+                parameters.rowsCount = 0
+                parameters.windowMinWidthInRow = 30
+                parameters.windowMaxWidthInRow = 90
+                parameters.iconSize = 30
+                parameters.fontHeight = 15
+                parameters.maxWidthOnScreen = 90
+                parameters.maxHeightOnScreen = 90
+            }
+        }
+        return parameters
+    }
 
     static func migratePreferences() {
         let preferencesKey = "preferencesVersion"
@@ -449,20 +536,33 @@ protocol MacroPreference {
     var localizedString: LocalizedString { get }
 }
 
-struct AppearanceModelParameters {
-    let label: String
-    let hideThumbnails: Bool
-}
+struct AppearanceParameters {
+    var hideThumbnails: Bool
+    var rowsCount: CGFloat
+    var windowMinWidthInRow: CGFloat
+    var windowMaxWidthInRow: CGFloat
+    var iconSize: CGFloat
+    var fontHeight: CGFloat
+    var maxWidthOnScreen: CGFloat
+    var maxHeightOnScreen: CGFloat
 
-struct AppearanceSizeParameters {
-    let label: String
-    let rowsCount: Bool
-    let windowMinWidthInRow: CGFloat
-    let windowMaxWidthInRow: CGFloat
-    let iconSize: CGFloat
-    let fontHeight: CGFloat
-    let maxWidthOnScreen: CGFloat
-    let maxHeightOnScreen: CGFloat
+    init(hideThumbnails: Bool = true,
+            rowsCount: CGFloat = 0,
+            windowMinWidthInRow: CGFloat = 0,
+            windowMaxWidthInRow: CGFloat = 0,
+            iconSize: CGFloat = 0,
+            fontHeight: CGFloat = 0,
+            maxWidthOnScreen: CGFloat = 0,
+            maxHeightOnScreen: CGFloat = 0) {
+        self.hideThumbnails = hideThumbnails
+        self.rowsCount = rowsCount
+        self.windowMinWidthInRow = windowMinWidthInRow
+        self.windowMaxWidthInRow = windowMaxWidthInRow
+        self.iconSize = iconSize
+        self.fontHeight = fontHeight
+        self.maxWidthOnScreen = maxWidthOnScreen
+        self.maxHeightOnScreen = maxHeightOnScreen
+    }
 }
 
 struct ThemeParameters {
