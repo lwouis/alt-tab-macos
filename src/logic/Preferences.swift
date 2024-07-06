@@ -112,13 +112,13 @@ class Preferences {
     static var intraCellPadding: CGFloat { 5 }
 
     // persisted values
-    static var maxWidthOnScreen: CGFloat { defaults.cgfloat("maxWidthOnScreen") / CGFloat(100) }
-    static var maxHeightOnScreen: CGFloat { defaults.cgfloat("maxHeightOnScreen") / CGFloat(100) }
-    static var windowMaxWidthInRow: CGFloat { defaults.cgfloat("windowMaxWidthInRow") / CGFloat(100) }
-    static var windowMinWidthInRow: CGFloat { defaults.cgfloat("windowMinWidthInRow") / CGFloat(100) }
-    static var rowsCount: CGFloat { defaults.cgfloat("rowsCount") }
-    static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
-    static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
+    static var maxWidthOnScreen: CGFloat { getAppearanceParameters(appearanceModel, appearanceSize).maxWidthOnScreen / CGFloat(100) }
+    static var maxHeightOnScreen: CGFloat { getAppearanceParameters(appearanceModel, appearanceSize).maxHeightOnScreen / CGFloat(100) }
+    static var windowMaxWidthInRow: CGFloat { getAppearanceParameters(appearanceModel, appearanceSize).windowMaxWidthInRow / CGFloat(100) }
+    static var windowMinWidthInRow: CGFloat { getAppearanceParameters(appearanceModel, appearanceSize).windowMinWidthInRow / CGFloat(100) }
+    static var rowsCount: CGFloat { getAppearanceParameters(appearanceModel, appearanceSize).rowsCount }
+    static var iconSize: CGFloat { getAppearanceParameters(appearanceModel, appearanceSize).iconSize }
+    static var fontHeight: CGFloat { getAppearanceParameters(appearanceModel, appearanceSize).fontHeight }
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { defaults.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { defaults.string($0) } }
     static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
@@ -141,7 +141,7 @@ class Preferences {
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
-    static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
+    static var hideThumbnails: Bool { getAppearanceParameters(appearanceModel, appearanceSize).hideThumbnails }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
@@ -209,10 +209,10 @@ class Preferences {
 
     static var all: [String: Any] { defaults.persistentDomain(forName: App.id)! }
 
-    static func appearanceParameters(model: AppearanceModelPreference, size: AppearanceSizePreference) -> AppearanceParameters {
+    static func getAppearanceParameters(_ model: AppearanceModelPreference, _ size: AppearanceSizePreference) -> AppearanceParameters {
         var parameters = AppearanceParameters()
         if model == AppearanceModelPreference.thumbnails {
-            parameters.hideThumbnails = true
+            parameters.hideThumbnails = false
             if size == AppearanceSizePreference.small {
                 parameters.rowsCount = 6
                 parameters.windowMinWidthInRow = 8
@@ -239,7 +239,7 @@ class Preferences {
                 parameters.maxHeightOnScreen = 90
             }
         } else if model == AppearanceModelPreference.appIcons {
-            parameters.hideThumbnails = false
+            parameters.hideThumbnails = true
             if size == AppearanceSizePreference.small {
                 parameters.rowsCount = 0
                 parameters.windowMinWidthInRow = 4
@@ -258,7 +258,7 @@ class Preferences {
                 parameters.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
                 parameters.rowsCount = 0
-                parameters.windowMinWidthInRow = 6
+                parameters.windowMinWidthInRow = 5
                 parameters.windowMaxWidthInRow = 90
                 parameters.iconSize = 90
                 parameters.fontHeight = 0
@@ -266,7 +266,7 @@ class Preferences {
                 parameters.maxHeightOnScreen = 90
             }
         } else if model == AppearanceModelPreference.titles {
-            parameters.hideThumbnails = false
+            parameters.hideThumbnails = true
             if size == AppearanceSizePreference.small {
                 parameters.rowsCount = 0
                 parameters.windowMinWidthInRow = 70
@@ -293,6 +293,7 @@ class Preferences {
                 parameters.maxHeightOnScreen = 90
             }
         }
+        debugPrint("parameters", parameters)
         return parameters
     }
 
@@ -546,7 +547,7 @@ struct AppearanceParameters {
     var maxWidthOnScreen: CGFloat
     var maxHeightOnScreen: CGFloat
 
-    init(hideThumbnails: Bool = true,
+    init(hideThumbnails: Bool = false,
             rowsCount: CGFloat = 0,
             windowMinWidthInRow: CGFloat = 0,
             windowMaxWidthInRow: CGFloat = 0,
