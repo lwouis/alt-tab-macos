@@ -31,7 +31,7 @@ class Preferences {
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
-        "mouseHoverEnabled": "false",
+        "mouseHoverEnabled": "true",
         "cursorFollowFocusEnabled": "false",
         "showMinimizedWindows": ShowHowPreference.show.rawValue,
         "showMinimizedWindows2": ShowHowPreference.show.rawValue,
@@ -61,7 +61,7 @@ class Preferences {
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
-        "alignThumbnails": AlignThumbnailsPreference.left.rawValue,
+        "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
         "appsToShow2": AppsToShowPreference.active.rawValue,
         "appsToShow3": AppsToShowPreference.all.rawValue,
@@ -222,7 +222,7 @@ class Preferences {
                 parameters.maxHeightOnScreen = 80
             } else if size == AppearanceSizePreference.middle {
                 parameters.rowsCount = 5
-                parameters.windowMinWidthInRow = 8
+                parameters.windowMinWidthInRow = 10
                 parameters.windowMaxWidthInRow = 90
                 parameters.iconSize = 30
                 parameters.fontHeight = 15
@@ -230,7 +230,7 @@ class Preferences {
                 parameters.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
                 parameters.rowsCount = 4
-                parameters.windowMinWidthInRow = 8
+                parameters.windowMinWidthInRow = 15
                 parameters.windowMaxWidthInRow = 90
                 parameters.iconSize = 30
                 parameters.fontHeight = 15
