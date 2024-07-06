@@ -156,17 +156,17 @@ class Preferences {
     // derived values
     static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
     static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
-    static var appearanceParameters: ModelSizeAppearance { getModelSizeAppearance(appearanceModel, appearanceSize) }
-    static var interCellPadding: CGFloat { appearanceParameters.interCellPadding }
-    static var intraCellPadding: CGFloat { appearanceParameters.intraCellPadding }
-    static var hideThumbnails: Bool { appearanceParameters.hideThumbnails }
-    static var maxWidthOnScreen: CGFloat { appearanceParameters.maxWidthOnScreen / CGFloat(100) }
-    static var maxHeightOnScreen: CGFloat { appearanceParameters.maxHeightOnScreen / CGFloat(100) }
-    static var windowMaxWidthInRow: CGFloat { appearanceParameters.windowMaxWidthInRow / CGFloat(100) }
-    static var windowMinWidthInRow: CGFloat { appearanceParameters.windowMinWidthInRow / CGFloat(100) }
-    static var rowsCount: CGFloat { appearanceParameters.rowsCount }
-    static var iconSize: CGFloat { appearanceParameters.iconSize }
-    static var fontHeight: CGFloat { appearanceParameters.fontHeight }
+    static var modelSizeAppearanceParameters: ModelSizeAppearanceParameters { getModelSizeAppearanceParameters(appearanceModel, appearanceSize) }
+    static var interCellPadding: CGFloat { modelSizeAppearanceParameters.interCellPadding }
+    static var intraCellPadding: CGFloat { modelSizeAppearanceParameters.intraCellPadding }
+    static var hideThumbnails: Bool { modelSizeAppearanceParameters.hideThumbnails }
+    static var maxWidthOnScreen: CGFloat { modelSizeAppearanceParameters.maxWidthOnScreen / CGFloat(100) }
+    static var maxHeightOnScreen: CGFloat { modelSizeAppearanceParameters.maxHeightOnScreen / CGFloat(100) }
+    static var windowMaxWidthInRow: CGFloat { modelSizeAppearanceParameters.windowMaxWidthInRow / CGFloat(100) }
+    static var windowMinWidthInRow: CGFloat { modelSizeAppearanceParameters.windowMinWidthInRow / CGFloat(100) }
+    static var rowsCount: CGFloat { modelSizeAppearanceParameters.rowsCount }
+    static var iconSize: CGFloat { modelSizeAppearanceParameters.iconSize }
+    static var fontHeight: CGFloat { modelSizeAppearanceParameters.fontHeight }
     static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
 
     static func initialize() {
@@ -208,8 +208,9 @@ class Preferences {
 
     static var all: [String: Any] { defaults.persistentDomain(forName: App.id)! }
 
-    static func getModelSizeAppearance(_ model: AppearanceModelPreference, _ size: AppearanceSizePreference) -> ModelSizeAppearance {
-        var appearance = ModelSizeAppearance()
+    static func getModelSizeAppearanceParameters(_ model: AppearanceModelPreference,
+                                                 _ size: AppearanceSizePreference) -> ModelSizeAppearanceParameters {
+        var appearance = ModelSizeAppearanceParameters()
         if model == AppearanceModelPreference.thumbnails {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 7
@@ -259,7 +260,7 @@ class Preferences {
                 appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
                 appearance.rowsCount = 0
-                appearance.windowMinWidthInRow = 5
+                appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 90
                 appearance.fontHeight = 0
@@ -535,7 +536,7 @@ protocol MacroPreference {
     var localizedString: LocalizedString { get }
 }
 
-struct ModelSizeAppearance {
+struct ModelSizeAppearanceParameters {
     var interCellPadding: CGFloat
     var intraCellPadding: CGFloat
     var hideThumbnails: Bool = false
