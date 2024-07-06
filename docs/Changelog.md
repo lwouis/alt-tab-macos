@@ -1,5 +1,20 @@
 # Release notes
 
+# [6.71.0](https://github.com/lwouis/alt-tab-macos/compare/v6.70.1...v6.71.0) (2024-07-06)
+
+
+### Bug Fixes
+
+* restore default cmd+tab shortcut when alt-tab crashes ([2c47b4e](https://github.com/lwouis/alt-tab-macos/commit/2c47b4e))
+* showing permissions window would crash on macos < 10.15 ([bb5215c](https://github.com/lwouis/alt-tab-macos/commit/bb5215c)), closes [#3437](https://github.com/lwouis/alt-tab-macos/issues/3437)
+* traffic light icons could appear half-transparent (closes [#2892](https://github.com/lwouis/alt-tab-macos/issues/2892)) ([1eef1e0](https://github.com/lwouis/alt-tab-macos/commit/1eef1e0))
+
+
+### Features
+
+* improve fr/he/it/ja/pt/sv localizations ([35521a5](https://github.com/lwouis/alt-tab-macos/commit/35521a5))
+* show de-fullscreen button on fullscreen windows ([ad1e8d0](https://github.com/lwouis/alt-tab-macos/commit/ad1e8d0))
+
 ## [6.70.1](https://github.com/lwouis/alt-tab-macos/compare/v6.70.0...v6.70.1) (2024-06-01)
 
 
