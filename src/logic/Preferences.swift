@@ -106,8 +106,6 @@ class Preferences {
     // not exposed as preferences now but may be in the future, probably through macro preferences
     static var fontColor: NSColor { .white }
     static var windowPadding: CGFloat { 18 }
-    static var interCellPadding: CGFloat { 5 }
-    static var intraCellPadding: CGFloat { 5 }
 
     // persisted values
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { defaults.string($0) } }
@@ -158,7 +156,9 @@ class Preferences {
     // derived values
     static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
     static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
-    static var appearanceParameters: AppearanceParameters { getAppearanceParameters(appearanceModel, appearanceSize) }
+    static var appearanceParameters: ModelSizeAppearance { getModelSizeAppearance(appearanceModel, appearanceSize) }
+    static var interCellPadding: CGFloat { appearanceParameters.interCellPadding }
+    static var intraCellPadding: CGFloat { appearanceParameters.intraCellPadding }
     static var hideThumbnails: Bool { appearanceParameters.hideThumbnails }
     static var maxWidthOnScreen: CGFloat { appearanceParameters.maxWidthOnScreen / CGFloat(100) }
     static var maxHeightOnScreen: CGFloat { appearanceParameters.maxHeightOnScreen / CGFloat(100) }
@@ -208,91 +208,93 @@ class Preferences {
 
     static var all: [String: Any] { defaults.persistentDomain(forName: App.id)! }
 
-    static func getAppearanceParameters(_ model: AppearanceModelPreference, _ size: AppearanceSizePreference) -> AppearanceParameters {
-        var parameters = AppearanceParameters()
+    static func getModelSizeAppearance(_ model: AppearanceModelPreference, _ size: AppearanceSizePreference) -> ModelSizeAppearance {
+        var appearance = ModelSizeAppearance()
         if model == AppearanceModelPreference.thumbnails {
-            parameters.hideThumbnails = false
+            appearance.hideThumbnails = false
+            appearance.intraCellPadding = 7
+            appearance.interCellPadding = 7
             if size == AppearanceSizePreference.small {
-                parameters.rowsCount = 6
-                parameters.windowMinWidthInRow = 8
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 25
-                parameters.fontHeight = 15
-                parameters.maxWidthOnScreen = 85
-                parameters.maxHeightOnScreen = 80
+                appearance.rowsCount = 6
+                appearance.windowMinWidthInRow = 8
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 25
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 85
+                appearance.maxHeightOnScreen = 80
             } else if size == AppearanceSizePreference.middle {
-                parameters.rowsCount = 5
-                parameters.windowMinWidthInRow = 10
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 30
-                parameters.fontHeight = 15
-                parameters.maxWidthOnScreen = 90
-                parameters.maxHeightOnScreen = 90
+                appearance.rowsCount = 5
+                appearance.windowMinWidthInRow = 10
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 30
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 90
+                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
-                parameters.rowsCount = 4
-                parameters.windowMinWidthInRow = 15
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 30
-                parameters.fontHeight = 15
-                parameters.maxWidthOnScreen = 95
-                parameters.maxHeightOnScreen = 90
+                appearance.rowsCount = 4
+                appearance.windowMinWidthInRow = 15
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 30
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 95
+                appearance.maxHeightOnScreen = 90
             }
         } else if model == AppearanceModelPreference.appIcons {
-            parameters.hideThumbnails = true
+            appearance.hideThumbnails = true
             if size == AppearanceSizePreference.small {
-                parameters.rowsCount = 0
-                parameters.windowMinWidthInRow = 4
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 60
-                parameters.fontHeight = 0
-                parameters.maxWidthOnScreen = 80
-                parameters.maxHeightOnScreen = 80
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 4
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 60
+                appearance.fontHeight = 0
+                appearance.maxWidthOnScreen = 80
+                appearance.maxHeightOnScreen = 80
             } else if size == AppearanceSizePreference.middle {
-                parameters.rowsCount = 0
-                parameters.windowMinWidthInRow = 4
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 75
-                parameters.fontHeight = 0
-                parameters.maxWidthOnScreen = 90
-                parameters.maxHeightOnScreen = 90
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 4
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 75
+                appearance.fontHeight = 0
+                appearance.maxWidthOnScreen = 90
+                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
-                parameters.rowsCount = 0
-                parameters.windowMinWidthInRow = 5
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 90
-                parameters.fontHeight = 0
-                parameters.maxWidthOnScreen = 95
-                parameters.maxHeightOnScreen = 90
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 5
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 90
+                appearance.fontHeight = 0
+                appearance.maxWidthOnScreen = 95
+                appearance.maxHeightOnScreen = 90
             }
         } else if model == AppearanceModelPreference.titles {
-            parameters.hideThumbnails = true
+            appearance.hideThumbnails = true
             if size == AppearanceSizePreference.small {
-                parameters.rowsCount = 0
-                parameters.windowMinWidthInRow = 70
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 30
-                parameters.fontHeight = 15
-                parameters.maxWidthOnScreen = 50
-                parameters.maxHeightOnScreen = 90
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 70
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 30
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 50
+                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.middle {
-                parameters.rowsCount = 0
-                parameters.windowMinWidthInRow = 50
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 30
-                parameters.fontHeight = 15
-                parameters.maxWidthOnScreen = 70
-                parameters.maxHeightOnScreen = 90
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 50
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 30
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 70
+                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
-                parameters.rowsCount = 0
-                parameters.windowMinWidthInRow = 30
-                parameters.windowMaxWidthInRow = 90
-                parameters.iconSize = 30
-                parameters.fontHeight = 15
-                parameters.maxWidthOnScreen = 90
-                parameters.maxHeightOnScreen = 90
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 30
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 30
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 90
+                appearance.maxHeightOnScreen = 90
             }
         }
-        return parameters
+        return appearance
     }
 
     static func migratePreferences() {
@@ -533,8 +535,10 @@ protocol MacroPreference {
     var localizedString: LocalizedString { get }
 }
 
-struct AppearanceParameters {
-    var hideThumbnails: Bool
+struct ModelSizeAppearance {
+    var interCellPadding: CGFloat
+    var intraCellPadding: CGFloat
+    var hideThumbnails: Bool = false
     var rowsCount: CGFloat
     var windowMinWidthInRow: CGFloat
     var windowMaxWidthInRow: CGFloat
@@ -543,7 +547,9 @@ struct AppearanceParameters {
     var maxWidthOnScreen: CGFloat
     var maxHeightOnScreen: CGFloat
 
-    init(hideThumbnails: Bool = false,
+    init(interCellPadding: CGFloat = 5,
+            intraCellPadding: CGFloat = 5,
+            hideThumbnails: Bool = false,
             rowsCount: CGFloat = 0,
             windowMinWidthInRow: CGFloat = 0,
             windowMaxWidthInRow: CGFloat = 0,
@@ -551,6 +557,8 @@ struct AppearanceParameters {
             fontHeight: CGFloat = 0,
             maxWidthOnScreen: CGFloat = 0,
             maxHeightOnScreen: CGFloat = 0) {
+        self.interCellPadding = interCellPadding
+        self.intraCellPadding = intraCellPadding
         self.hideThumbnails = hideThumbnails
         self.rowsCount = rowsCount
         self.windowMinWidthInRow = windowMinWidthInRow
