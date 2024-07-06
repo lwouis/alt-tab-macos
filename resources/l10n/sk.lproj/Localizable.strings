@@ -165,22 +165,22 @@
 "Hide" = "Nezobrazovať";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Skryť odznaky aplikácie:";
+"Hide app badges" = "Skryť odznaky aplikácie";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Skryť aplikácie bez otvoreného okna:";
+"Hide apps with no open window" = "Skryť aplikácie bez otvoreného okna";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Skryť farebné kruhy pri umiestnení kurzora myši:";
+"Hide colored circles on mouse hover" = "Skryť farebné kruhy pri umiestnení kurzora myši";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Skryť číslo plochy:";
+"Hide Space number labels" = "Skryť číslo plochy";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Skryť ikonu statusu:";
+"Hide status icons" = "Skryť ikonu statusu";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Skryť náhľady okien:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Nastavenia…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "Ukončiť";
@@ -354,7 +354,7 @@
 "Show on:" = "Zobraziť na:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Zobraziť štandardné karty ako okná:";
+"Show standard tabs as windows" = "Zobraziť štandardné karty ako okná";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Zobraziť okná:";

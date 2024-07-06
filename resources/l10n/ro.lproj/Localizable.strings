@@ -165,22 +165,22 @@
 "Hide" = "Ascunde";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Ascunde eticheta aplicațiilor:";
+"Hide app badges" = "Ascunde eticheta aplicațiilor";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Ascunde aplicații când nu este nici-o fereastră:";
+"Hide apps with no open window" = "Ascunde aplicații când nu este nici-o fereastră";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Ascunde cercurile colorate deasupra mouse-ului:";
+"Hide colored circles on mouse hover" = "Ascunde cercurile colorate deasupra mouse-ului";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Ascunde în %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Ascunde etichetele cu numărul Spațiului:";
+"Hide Space number labels" = "Ascunde etichetele cu numărul Spațiului";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Ascunde iconurile de status:";
+"Hide status icons" = "Ascunde iconurile de status";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Ascunde miniatura fereastră:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferințe…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "Ieșire";
@@ -354,7 +354,7 @@
 "Show on:" = "Arată pe:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Arată taburi standard ca ferestre:";
+"Show standard tabs as windows" = "Arată taburi standard ca ferestre";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Arată ferestre de la:";

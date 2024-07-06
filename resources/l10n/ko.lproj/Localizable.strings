@@ -165,22 +165,22 @@
 "Hide" = "숨기기";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "앱 뱃지 숨기기:";
+"Hide app badges" = "앱 뱃지 숨기기";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "열려있는 윈도우가 없는 앱 숨기기:";
+"Hide apps with no open window" = "열려있는 윈도우가 없는 앱 숨기기";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "마우스를 올릴 때 색칠된 원들 숨기기:";
+"Hide colored circles on mouse hover" = "마우스를 올릴 때 색칠된 원들 숨기기";
 
 /*%@ is AltTab*/
 "Hide in %@" = "%@에서 숨기기";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Space 번호 숨기기:";
+"Hide Space number labels" = "Space 번호 숨기기";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "상태 아이콘 숨기기:";
+"Hide status icons" = "상태 아이콘 숨기기";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "윈도우 썸네일 숨기기:";
@@ -258,7 +258,7 @@
 "Preferences…" = "설정…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "선택한 윈도우 미리보기:";
+"Preview selected window" = "선택한 윈도우 미리보기";
 
 /*No comment provided by engineer.*/
 "Quit" = "종료";
@@ -354,7 +354,7 @@
 "Show on:" = "보여질 곳:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "기본 탭을 윈도우로 보여주기:";
+"Show standard tabs as windows" = "기본 탭을 윈도우로 보여주기";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "윈도우가 보일 곳:";

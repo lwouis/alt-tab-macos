@@ -165,22 +165,22 @@
 "Hide" = "Ẩn";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Ẩn biểu tượng ứng dụng:";
+"Hide app badges" = "Ẩn biểu tượng ứng dụng";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Ẩn ứng dụng không mở cửa sổ:";
+"Hide apps with no open window" = "Ẩn ứng dụng không mở cửa sổ";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Ẩn các nút cửa sổ khi di chuyển chuột lên:";
+"Hide colored circles on mouse hover" = "Ẩn các nút cửa sổ khi di chuyển chuột lên";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Ẩn ở %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Ẩn nhãn không gian số:";
+"Hide Space number labels" = "Ẩn nhãn không gian số";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Ẩn biểu tượng ở thanh trạng thái:";
+"Hide status icons" = "Ẩn biểu tượng ở thanh trạng thái";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Ẩn ảnh chụp cửa sổ:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Tuỳ chỉnh";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Xem trước cửa sổ đang chọn:";
+"Preview selected window" = "Xem trước cửa sổ đang chọn";
 
 /*No comment provided by engineer.*/
 "Quit" = "Thoát";
@@ -354,7 +354,7 @@
 "Show on:" = "Hiện về:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Hiện thanh tab tiêu chuẩn như cửa sổ:";
+"Show standard tabs as windows" = "Hiện thanh tab tiêu chuẩn như cửa sổ";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Hiện cửa sổ từ:";

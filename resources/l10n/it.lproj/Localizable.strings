@@ -165,22 +165,22 @@
 "Hide" = "Nascondi";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Nascodi badge delle app:";
+"Hide app badges" = "Nascodi badge delle app";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Nascondi app senza finestre aperte:";
+"Hide apps with no open window" = "Nascondi app senza finestre aperte";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Nascondi cerchi colorati al passaggio del mouse:";
+"Hide colored circles on mouse hover" = "Nascondi cerchi colorati al passaggio del mouse";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Nascondi in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Non mostrare numeri per gli spazi:";
+"Hide Space number labels" = "Non mostrare numeri per gli spazi";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Nascondi icone di stato:";
+"Hide status icons" = "Nascondi icone di stato";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Nascondi anteprime finestre:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Impostazioni…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Mostra la finestra reale al passaggio:";
+"Preview selected window" = "Mostra la finestra reale al passaggio";
 
 /*No comment provided by engineer.*/
 "Quit" = "Esci";
@@ -354,7 +354,7 @@
 "Show on:" = "Mostra su:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Visualizza schede normali come finestre:";
+"Show standard tabs as windows" = "Visualizza schede normali come finestre";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Mostra finestre da:";

@@ -165,22 +165,22 @@
 "Hide" = "Gizle";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Uygulama bildirimlerini gizle:";
+"Hide app badges" = "Uygulama bildirimlerini gizle";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Penceresi açık olmayan uygulamaları gizle:";
+"Hide apps with no open window" = "Penceresi açık olmayan uygulamaları gizle";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Fare üzerindeyken renkli pencere düğmelerini gizle:";
+"Hide colored circles on mouse hover" = "Fare üzerindeyken renkli pencere düğmelerini gizle";
 
 /*%@ is AltTab*/
 "Hide in %@" = "%@ Gizle";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Masaüstü Alan numaralarını gizle:";
+"Hide Space number labels" = "Masaüstü Alan numaralarını gizle";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Durum ikonlarını gizle:";
+"Hide status icons" = "Durum ikonlarını gizle";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Pencere önizlemelerini gizle:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Tercihler…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Seçili pencereyi önizle:";
+"Preview selected window" = "Seçili pencereyi önizle";
 
 /*No comment provided by engineer.*/
 "Quit" = "Çıkış";
@@ -354,7 +354,7 @@
 "Show on:" = "Göster:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Pencere içi tabları ayrı olarak göster:";
+"Show standard tabs as windows" = "Pencere içi tabları ayrı olarak göster";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Pencereleri göster:";

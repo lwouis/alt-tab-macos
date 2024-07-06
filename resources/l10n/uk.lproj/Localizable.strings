@@ -165,22 +165,22 @@
 "Hide" = "Сховати";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Сховати значки програми:";
+"Hide app badges" = "Сховати значки програми";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Сховати програми, що не мають відкритих вікон:";
+"Hide apps with no open window" = "Сховати програми, що не мають відкритих вікон";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Сховати кольорові круги при наведені миші:";
+"Hide colored circles on mouse hover" = "Сховати кольорові круги при наведені миші";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Сховати в %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Сховати заголовки з номерами простору";
+"Hide Space number labels" = "Сховати заголовки з номерами простору";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Сховати іконки статусу:";
+"Hide status icons" = "Сховати іконки статусу";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Сховати мініатюри вікон:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Налаштування...";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Показувати превʼю вибраного вікна:";
+"Preview selected window" = "Показувати превʼю вибраного вікна";
 
 /*No comment provided by engineer.*/
 "Quit" = "Вийти";
@@ -354,7 +354,7 @@
 "Show on:" = "Показати на:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Відображати стандартні таби як вікна:";
+"Show standard tabs as windows" = "Відображати стандартні таби як вікна";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Відобразити вікна від:";

@@ -165,22 +165,22 @@
 "Hide" = "Amagar";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Amagar indicadors de notificacions:";
+"Hide app badges" = "Amagar indicadors de notificacions";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Amagar aplicacions sense finestres obertes:";
+"Hide apps with no open window" = "Amagar aplicacions sense finestres obertes";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Amagar controls en passar el cursor:";
+"Hide colored circles on mouse hover" = "Amagar controls en passar el cursor";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Amaga a %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "No mostrar número de l'espai:";
+"Hide Space number labels" = "No mostrar número de l'espai";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Amagar icones d'estat:";
+"Hide status icons" = "Amagar icones d'estat";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Amagar miniatures de les finestres:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferències…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Previsualitzar finestra seleccionada:";
+"Preview selected window" = "Previsualitzar finestra seleccionada";
 
 /*No comment provided by engineer.*/
 "Quit" = "Sortir";
@@ -354,7 +354,7 @@
 "Show on:" = "Mostrar a:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Mostrar pestanyes com a finestres:";
+"Show standard tabs as windows" = "Mostrar pestanyes com a finestres";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Mostrar finestres de:";

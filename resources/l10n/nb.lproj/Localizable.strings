@@ -165,22 +165,22 @@
 "Hide" = "Skjul";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Skjul app-badges:";
+"Hide app badges" = "Skjul app-badges";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Skjul apper uten åpne vinduer:";
+"Hide apps with no open window" = "Skjul apper uten åpne vinduer";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Skjul fargede sirkler når musa er over:";
+"Hide colored circles on mouse hover" = "Skjul fargede sirkler når musa er over";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Skjul i %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Skjul merking av områdenummer:";
+"Hide Space number labels" = "Skjul merking av områdenummer";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Skjul statusikoner:";
+"Hide status icons" = "Skjul statusikoner";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Skjul miniatyrbilder:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Valg…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Forhåndsvis valgt vindu:";
+"Preview selected window" = "Forhåndsvis valgt vindu";
 
 /*No comment provided by engineer.*/
 "Quit" = "Avslutt";
@@ -354,7 +354,7 @@
 "Show on:" = "Vis på:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Vis standardtaber som vindu:";
+"Show standard tabs as windows" = "Vis standardtaber som vindu";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Vis vinduer fra:";

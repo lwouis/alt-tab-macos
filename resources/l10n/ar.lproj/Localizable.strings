@@ -165,22 +165,22 @@
 "Hide" = "إخفاء";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "إخفاء أيقونات التطبيقات:";
+"Hide app badges" = "إخفاء أيقونات التطبيقات";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "إخفاء التطبيقات بدون نوافذ مفتوحة:";
+"Hide apps with no open window" = "إخفاء التطبيقات بدون نوافذ مفتوحة";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "أخفاء الدوائر الملونة عند تحويم الفأرة:";
+"Hide colored circles on mouse hover" = "أخفاء الدوائر الملونة عند تحويم الفأرة";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "إخفاء مساحة الأرقام:";
+"Hide Space number labels" = "إخفاء مساحة الأرقام";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "أخفاء أيقونة الحالة:";
+"Hide status icons" = "أخفاء أيقونة الحالة";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "إخفاء الصورة المصغرة للنافذة:";
@@ -260,7 +260,7 @@
 "Preferences…" = "التفضيلات…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "إغلاق";
@@ -357,7 +357,7 @@
 "Show on:" = "أظهر على:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "إظهر التابات كشاشات:";
+"Show standard tabs as windows" = "إظهر التابات كشاشات";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "أظهر النوافذ من:";

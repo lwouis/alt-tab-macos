@@ -165,22 +165,22 @@
 "Hide" = "Masquer";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Masquer les badges des Apps :";
+"Hide app badges" = "Masquer les badges des Apps ";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Cacher les Apps sans fenêtre :";
+"Hide apps with no open window" = "Cacher les Apps sans fenêtre ";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Masquer les cercles colorés au survol de la souris :";
+"Hide colored circles on mouse hover" = "Masquer les cercles colorés au survol de la souris ";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Caché dans %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Cacher les numéros des Bureaux:";
+"Hide Space number labels" = "Cacher les numéros des Bureaux";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Masquer les icônes de statut :";
+"Hide status icons" = "Masquer les icônes de statut ";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Cacher les aperçus des fenêtres :";
@@ -258,7 +258,7 @@
 "Preferences…" = "Préférences …";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Prévisualisation de la fenêtre";
+"Preview selected window" = "Prévisualisation de la fenêtre";
 
 /*No comment provided by engineer.*/
 "Quit" = "Quitter";
@@ -354,7 +354,7 @@
 "Show on:" = "Afficher sur:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Afficher les onglets standards comme fenêtres :";
+"Show standard tabs as windows" = "Afficher les onglets standards comme fenêtres ";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Fenêtres montrées :";

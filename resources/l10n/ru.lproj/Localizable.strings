@@ -165,22 +165,22 @@
 "Hide" = "Скрыть";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Скрыть значки приложений:";
+"Hide app badges" = "Скрыть значки приложений";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Скрыть приложения без открытых окон:";
+"Hide apps with no open window" = "Скрыть приложения без открытых окон";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Скрыть цветные круги при наведении мышью:";
+"Hide colored circles on mouse hover" = "Скрыть цветные круги при наведении мышью";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Скрыть в %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Скрыть номера рабочих столов:";
+"Hide Space number labels" = "Скрыть номера рабочих столов";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Скрыть иконки состояния:";
+"Hide status icons" = "Скрыть иконки состояния";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Скрыть эскизы окон:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Настройки…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Превью выбранного окна:";
+"Preview selected window" = "Превью выбранного окна";
 
 /*No comment provided by engineer.*/
 "Quit" = "Выход";
@@ -354,7 +354,7 @@
 "Show on:" = "Показать на:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Показывать вкладки стандартных приложений как окна:";
+"Show standard tabs as windows" = "Показывать вкладки стандартных приложений как окна";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Показывать окна:";

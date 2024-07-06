@@ -165,22 +165,22 @@
 "Hide" = "Ocultar";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Ocultar emblemas de aplicación:";
+"Hide app badges" = "Ocultar emblemas de aplicación";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Ocultar aplicaciones sin ventanas abiertas:";
+"Hide apps with no open window" = "Ocultar aplicaciones sin ventanas abiertas";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Ocultar círculos con color al pasar el ratón:";
+"Hide colored circles on mouse hover" = "Ocultar círculos con color al pasar el ratón";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Ocultar en %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Ocultar etiquetas de número de espacio:";
+"Hide Space number labels" = "Ocultar etiquetas de número de espacio";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Ocultar iconos de estado:";
+"Hide status icons" = "Ocultar iconos de estado";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Ocultar miniaturas de ventanas:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferencias…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Previsualizar ventana seleccionada:";
+"Preview selected window" = "Previsualizar ventana seleccionada";
 
 /*No comment provided by engineer.*/
 "Quit" = "Salir";
@@ -354,7 +354,7 @@
 "Show on:" = "Mostrar en:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Mostrar pestañas como ventanas:";
+"Show standard tabs as windows" = "Mostrar pestañas como ventanas";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Mostrar ventanas desde:";

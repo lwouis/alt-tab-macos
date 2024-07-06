@@ -165,22 +165,22 @@
 "Hide" = "скрий";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Скрий баджовете на приложенията:";
+"Hide app badges" = "Скрий баджовете на приложенията";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Скрой проложение без прозорци:";
+"Hide apps with no open window" = "Скрой проложение без прозорци";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Не показвай контроли на прозореца при преминаване с мишка";
+"Hide colored circles on mouse hover" = "Не показвай контроли на прозореца при преминаване с мишка";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Скрий в %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Скрий номера на пространството:";
+"Hide Space number labels" = "Скрий номера на пространството";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Скрой иконите за статус";
+"Hide status icons" = "Скрой иконите за статус";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Не показвай съдържанието на прозорците:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Настройки...";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Преглед на избрания прозорец:";
+"Preview selected window" = "Преглед на избрания прозорец";
 
 /*No comment provided by engineer.*/
 "Quit" = "Излез";
@@ -354,7 +354,7 @@
 "Show on:" = "Покажи на";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Покажи табовете като прозорци";
+"Show standard tabs as windows" = "Покажи табовете като прозорци";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Покажи прозорците на:";

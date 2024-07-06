@@ -165,22 +165,22 @@
 "Hide" = "Fshih";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Fshih etiketat e aplikacioneve:";
+"Hide app badges" = "Fshih etiketat e aplikacioneve";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Fshih aplikacionet pa dritare të hapura:";
+"Hide apps with no open window" = "Fshih aplikacionet pa dritare të hapura";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Fshih rrathët e ngjyrosur përmbi kursor:";
+"Hide colored circles on mouse hover" = "Fshih rrathët e ngjyrosur përmbi kursor";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Fshih etiketat e numrit:";
+"Hide Space number labels" = "Fshih etiketat e numrit";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Fshih ikonat e statusit:";
+"Hide status icons" = "Fshih ikonat e statusit";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Fshihni minaturat e dritareve";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferencat";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "Dil";
@@ -354,7 +354,7 @@
 "Show on:" = "Shfaq në:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Shfaq skedat standarde si dritare:";
+"Show standard tabs as windows" = "Shfaq skedat standarde si dritare";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Shfaq dritaret nga:";

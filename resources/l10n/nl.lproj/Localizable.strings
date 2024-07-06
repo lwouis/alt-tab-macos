@@ -165,22 +165,22 @@
 "Hide" = "Verberg";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Verberg app-badges:";
+"Hide app badges" = "Verberg app-badges";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Verberg programma’s zonder open venster:";
+"Hide apps with no open window" = "Verberg programma’s zonder open venster";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Verberg gekleurde cirkels wanneer de muis erover zweeft:";
+"Hide colored circles on mouse hover" = "Verberg gekleurde cirkels wanneer de muis erover zweeft";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Verberg in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Verberg space-nummer labels:";
+"Hide Space number labels" = "Verberg space-nummer labels";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Verberg statusiconen:";
+"Hide status icons" = "Verberg statusiconen";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Verberg vensterminiaturen:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Voorkeuren…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview geselecteerd venster:";
+"Preview selected window" = "Preview geselecteerd venster";
 
 /*No comment provided by engineer.*/
 "Quit" = "Stop";
@@ -354,7 +354,7 @@
 "Show on:" = "Toon op:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Laat standaardtabbladen zien als vensters:";
+"Show standard tabs as windows" = "Laat standaardtabbladen zien als vensters";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Vensters weergeven van:";

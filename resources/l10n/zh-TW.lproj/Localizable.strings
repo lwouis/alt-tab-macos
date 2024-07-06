@@ -165,22 +165,22 @@
 "Hide" = "隱藏";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "隱藏程式的通知標記：";
+"Hide app badges" = "隱藏程式的通知標記：";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "隱藏沒有視窗的程式";
+"Hide apps with no open window" = "隱藏沒有視窗的程式";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "隱藏滑鼠懸停時顯示的視窗控制鈕：";
+"Hide colored circles on mouse hover" = "隱藏滑鼠懸停時顯示的視窗控制鈕：";
 
 /*%@ is AltTab*/
 "Hide in %@" = "在 %@ 隱藏";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "隱藏空間編號的標籤：";
+"Hide Space number labels" = "隱藏空間編號的標籤：";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "隱藏狀態圖示：";
+"Hide status icons" = "隱藏狀態圖示：";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "隱藏視窗的縮圖：";
@@ -258,7 +258,7 @@
 "Preferences…" = "偏好設定…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "預覽選中的視窗：";
+"Preview selected window" = "預覽選中的視窗：";
 
 /*No comment provided by engineer.*/
 "Quit" = "離開";
@@ -354,7 +354,7 @@
 "Show on:" = "顯示在：";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "將分頁顯示為視窗：";
+"Show standard tabs as windows" = "將分頁顯示為視窗：";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "顯示以下視窗：";

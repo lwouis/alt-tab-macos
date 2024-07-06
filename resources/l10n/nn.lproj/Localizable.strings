@@ -165,22 +165,22 @@
 "Hide" = "Gøym";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Gøym app-merkelapp:";
+"Hide app badges" = "Gøym app-merkelapp";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Gøym appar utan opne vindauge:";
+"Hide apps with no open window" = "Gøym appar utan opne vindauge";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Gøym farga sirklar når musa er over:";
+"Hide colored circles on mouse hover" = "Gøym farga sirklar når musa er over";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Gøym i %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Gøym merking av områdenummer:";
+"Hide Space number labels" = "Gøym merking av områdenummer";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Gøym statusikon:";
+"Hide status icons" = "Gøym statusikon";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Gøym miniatyrbilete:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Val…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Førehandsvis valt vindauge:";
+"Preview selected window" = "Førehandsvis valt vindauge";
 
 /*No comment provided by engineer.*/
 "Quit" = "Avslutt";
@@ -354,7 +354,7 @@
 "Show on:" = "Vis på:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Vis standardflikar som vindauge:";
+"Show standard tabs as windows" = "Vis standardflikar som vindauge";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Vis vindauge frå:";

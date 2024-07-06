@@ -165,22 +165,22 @@
 "Hide" = "Piilota";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Piilota lätkät:";
+"Hide app badges" = "Piilota lätkät";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Piilota sovellukset, joilla ei ole avoimia ikkunoita:";
+"Hide apps with no open window" = "Piilota sovellukset, joilla ei ole avoimia ikkunoita";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Piilota väriympyrät hiirellä liikuttaessa:";
+"Hide colored circles on mouse hover" = "Piilota väriympyrät hiirellä liikuttaessa";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Piilota %@ssa";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Piilota tilojen numerot:";
+"Hide Space number labels" = "Piilota tilojen numerot";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Piilota statusikonit:";
+"Hide status icons" = "Piilota statusikonit";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Piilota pikkukuvat:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Asetukset…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Esikatsele valittua ikkunaa:";
+"Preview selected window" = "Esikatsele valittua ikkunaa";
 
 /*No comment provided by engineer.*/
 "Quit" = "Lopeta";
@@ -354,7 +354,7 @@
 "Show on:" = "Näytä:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Näytä standarditabit ikkunoina:";
+"Show standard tabs as windows" = "Näytä standarditabit ikkunoina";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Näytä ikkunat:";

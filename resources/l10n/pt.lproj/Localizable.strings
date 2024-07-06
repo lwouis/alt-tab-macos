@@ -165,22 +165,22 @@
 "Hide" = "Esconder";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Esconder emblemas:";
+"Hide app badges" = "Esconder emblemas";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Esconder aplicações sem janelas abertas:";
+"Hide apps with no open window" = "Esconder aplicações sem janelas abertas";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Esconder círculos coloridos onde o rato passar:";
+"Hide colored circles on mouse hover" = "Esconder círculos coloridos onde o rato passar";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Não exibir número do space:";
+"Hide Space number labels" = "Não exibir número do space";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Esconder ícones de estado:";
+"Hide status icons" = "Esconder ícones de estado";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Esconder miniaturas das janelas:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferências…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "Sair";
@@ -354,7 +354,7 @@
 "Show on:" = "Mostrar em:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Mostrar separadores como janelas:";
+"Show standard tabs as windows" = "Mostrar separadores como janelas";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Mostrar janelas de:";

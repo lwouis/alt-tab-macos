@@ -165,22 +165,22 @@
 "Hide" = "Dölj";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Dölj appsymbolbrickor:";
+"Hide app badges" = "Dölj appsymbolbrickor";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Dölj appar utan öppna fönster:";
+"Hide apps with no open window" = "Dölj appar utan öppna fönster";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Dölj fönsterradsknappar när musen hålls över:";
+"Hide colored circles on mouse hover" = "Dölj fönsterradsknappar när musen hålls över";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Dölj i %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Dölj numrering för skrivbord:";
+"Hide Space number labels" = "Dölj numrering för skrivbord";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Dölj statusikoner:";
+"Hide status icons" = "Dölj statusikoner";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Dölj fönstertumnaglar:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Inställningar…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Förhandsvisa valt fönster:";
+"Preview selected window" = "Förhandsvisa valt fönster";
 
 /*No comment provided by engineer.*/
 "Quit" = "Avsluta";
@@ -354,7 +354,7 @@
 "Show on:" = "Visa på:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Visa standardflikar som fönster:";
+"Show standard tabs as windows" = "Visa standardflikar som fönster";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Visa fönster från:";

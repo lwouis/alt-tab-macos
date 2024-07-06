@@ -165,22 +165,22 @@
 "Hide" = "Sembunyikan";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Sembunyikan lencana app:";
+"Hide app badges" = "Sembunyikan lencana app";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Sembunyikan aplikasi tanpa jendela terbuka:";
+"Hide apps with no open window" = "Sembunyikan aplikasi tanpa jendela terbuka";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Sembunyikan lingkaran berwarna pada mouse hover:";
+"Hide colored circles on mouse hover" = "Sembunyikan lingkaran berwarna pada mouse hover";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Bersembunyi didalam %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Sembunyikan label nomor ruang:";
+"Hide Space number labels" = "Sembunyikan label nomor ruang";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Sembunyikan status ikon:";
+"Hide status icons" = "Sembunyikan status ikon";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Sembunyikan thumbnail jendela:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferensi…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "Keluar";
@@ -354,7 +354,7 @@
 "Show on:" = "Tunjukkan:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Tampilkan tab standar sebagai jendela:";
+"Show standard tabs as windows" = "Tampilkan tab standar sebagai jendela";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Tampilkan jendela dari:";

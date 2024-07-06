@@ -165,22 +165,22 @@
 "Hide" = "Elrejt";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Alkalmazás jelek eltüntetése:";
+"Hide app badges" = "Alkalmazás jelek eltüntetése";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Nyitott ablak nélküli alkalmazások elrejtése:";
+"Hide apps with no open window" = "Nyitott ablak nélküli alkalmazások elrejtése";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "A színes körök elrejtése amikor az egeret fölé viszi:";
+"Hide colored circles on mouse hover" = "A színes körök elrejtése amikor az egeret fölé viszi";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Számok elrejtése a terület cimkékben:";
+"Hide Space number labels" = "Számok elrejtése a terület cimkékben";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Státusz ikonok elrejtése:";
+"Hide status icons" = "Státusz ikonok elrejtése";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Hide window thumbnails:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Beállítások…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "Kilépés";
@@ -354,7 +354,7 @@
 "Show on:" = "Megjelenítés:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Szabványos lapok megjelenítése ablakokként:";
+"Show standard tabs as windows" = "Szabványos lapok megjelenítése ablakokként";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Show windows from:";

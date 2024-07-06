@@ -165,22 +165,22 @@
 "Hide" = "লুকান";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "অ্যাপ ব্যাজ লুকান:";
+"Hide app badges" = "অ্যাপ ব্যাজ লুকান";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "কোন খোলা উইন্ডো ছাড়া অ্যাপ লুকান:";
+"Hide apps with no open window" = "কোন খোলা উইন্ডো ছাড়া অ্যাপ লুকান";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "মাউস হোভারে রঙিন বৃত্ত লুকান:";
+"Hide colored circles on mouse hover" = "মাউস হোভারে রঙিন বৃত্ত লুকান";
 
 /*%@ is AltTab*/
 "Hide in %@" = "%@ এ লুকান";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "স্পেস নম্বর লেবেল লুকান:";
+"Hide Space number labels" = "স্পেস নম্বর লেবেল লুকান";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "স্ট্যাটাস আইকন লুকান:";
+"Hide status icons" = "স্ট্যাটাস আইকন লুকান";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "উইন্ডো থাম্বনেল লুকান:";
@@ -258,7 +258,7 @@
 "Preferences…" = "পছন্দ…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "প্রস্থান করুন";
@@ -354,7 +354,7 @@
 "Show on:" = "প্রদর্শন:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "উইন্ডো হিসাবে স্ট্যান্ডার্ড ট্যাব দেখান:";
+"Show standard tabs as windows" = "উইন্ডো হিসাবে স্ট্যান্ডার্ড ট্যাব দেখান";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "এর থেকে উইন্ডো দেখান:";

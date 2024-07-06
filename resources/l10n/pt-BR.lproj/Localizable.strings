@@ -165,22 +165,22 @@
 "Hide" = "Ocultar";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Ocultar emblemas de aplicativos:";
+"Hide app badges" = "Ocultar emblemas de aplicativos";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Ocultar aplicações sem janelas abertas:";
+"Hide apps with no open window" = "Ocultar aplicações sem janelas abertas";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Não exibir os círculos coloridos ao passar o mouse:";
+"Hide colored circles on mouse hover" = "Não exibir os círculos coloridos ao passar o mouse";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Escondido em %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Não exibir o número do desktop:";
+"Hide Space number labels" = "Não exibir o número do desktop";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Ocultar ícone de status:";
+"Hide status icons" = "Ocultar ícone de status";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Ocultar miniaturas das janelas:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferências…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Visualizar janela selecionada:";
+"Preview selected window" = "Visualizar janela selecionada";
 
 /*No comment provided by engineer.*/
 "Quit" = "Encerrar";
@@ -354,7 +354,7 @@
 "Show on:" = "Exibir:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Exibir abas padrão como janelas:";
+"Show standard tabs as windows" = "Exibir abas padrão como janelas";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Exibir janelas de:";

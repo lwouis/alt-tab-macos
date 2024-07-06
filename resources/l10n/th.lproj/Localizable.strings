@@ -165,22 +165,22 @@
 "Hide" = "ซ่อน";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "ซ่อนป้ายประกาศแอป:";
+"Hide app badges" = "ซ่อนป้ายประกาศแอป";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "ซ่อนแอปที่ไม่มีหน้าต่างเปิด:";
+"Hide apps with no open window" = "ซ่อนแอปที่ไม่มีหน้าต่างเปิด";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "ซ่อนปุ่มสีตอนวางเมาส์:";
+"Hide colored circles on mouse hover" = "ซ่อนปุ่มสีตอนวางเมาส์";
 
 /*%@ is AltTab*/
 "Hide in %@" = "ซ่อนใน %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Hide Space number labels:";
+"Hide Space number labels" = "Hide Space number labels";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "ซ่อนไอคอนสถานะ:";
+"Hide status icons" = "ซ่อนไอคอนสถานะ";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "ซ่อนภาพขนาดย่อของหน้าต่าง:";
@@ -258,7 +258,7 @@
 "Preferences…" = "การตั้งค่า...";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "ดูตัวอย่างหน้าต่างที่เลือก:";
+"Preview selected window" = "ดูตัวอย่างหน้าต่างที่เลือก";
 
 /*No comment provided by engineer.*/
 "Quit" = "ออก";
@@ -354,7 +354,7 @@
 "Show on:" = "แสดงบน:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "แสดงแท็บมาตรฐานเป็นหน้าต่าง:";
+"Show standard tabs as windows" = "แสดงแท็บมาตรฐานเป็นหน้าต่าง";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "แสดงหน้าต่าง:";
@@ -451,3 +451,11 @@
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "คุณไม่ได้ระบุอีเมลของคุณ ดังนั้นจึงไม่สามารถรับการตอบกลับใด ๆ ได้";
+
+"Appearance model:" = "Appearance model:";
+
+"Appearance size:" = "Appearance size:";
+
+"Show & Hide" = "Show & Hide";
+
+"Effects" = "Effects";

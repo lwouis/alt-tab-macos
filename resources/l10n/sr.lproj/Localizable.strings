@@ -165,22 +165,22 @@
 "Hide" = "Sakrij";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Sakrij bedževe aplikacija:";
+"Hide app badges" = "Sakrij bedževe aplikacija";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Sakrij aplikacije bez otvorenog prozora:";
+"Hide apps with no open window" = "Sakrij aplikacije bez otvorenog prozora";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Sakrij obojene krugove na prelaz mišem:";
+"Hide colored circles on mouse hover" = "Sakrij obojene krugove na prelaz mišem";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Sakrij u %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Sakrij brojne oznake Prostora:";
+"Hide Space number labels" = "Sakrij brojne oznake Prostora";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Sakrij statusne ikonice:";
+"Hide status icons" = "Sakrij statusne ikonice";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Sakrij prikaz prozora:";
@@ -258,7 +258,7 @@
 "Preferences…" = "Podešavanja…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "Zatvori";
@@ -354,7 +354,7 @@
 "Show on:" = "Prikaži na:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Prikaži standardne tabove kao prozore:";
+"Show standard tabs as windows" = "Prikaži standardne tabove kao prozore";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Prikaži prozore od:";

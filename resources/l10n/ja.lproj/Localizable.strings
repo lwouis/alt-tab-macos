@@ -165,22 +165,22 @@
 "Hide" = "隠す";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "アプリのバッジを隠す：";
+"Hide app badges" = "アプリのバッジを隠す：";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "開いているウィンドウがないアプリを隠す：";
+"Hide apps with no open window" = "開いているウィンドウがないアプリを隠す：";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "マウスホバーした際、ウィンドウ設定を表示しない：";
+"Hide colored circles on mouse hover" = "マウスホバーした際、ウィンドウ設定を表示しない：";
 
 /*%@ is AltTab*/
 "Hide in %@" = "%@から隠す";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "デスクトップ番号ラベルを表示しない：";
+"Hide Space number labels" = "デスクトップ番号ラベルを表示しない：";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "ステータスアイコンを表示しない：";
+"Hide status icons" = "ステータスアイコンを表示しない：";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "ウィンドウサムネイルを隠す：";
@@ -258,7 +258,7 @@
 "Preferences…" = "環境設定…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "選択した画面をプレビューする：";
+"Preview selected window" = "選択した画面をプレビューする：";
 
 /*No comment provided by engineer.*/
 "Quit" = "終了";
@@ -354,7 +354,7 @@
 "Show on:" = "表示場所：";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "標準タブをウィンドウとして表示：";
+"Show standard tabs as windows" = "標準タブをウィンドウとして表示：";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "次からウィンドウを表示：";

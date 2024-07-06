@@ -165,22 +165,22 @@
 "Hide" = "छुपाएं";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "एप बैज छुपाएं:";
+"Hide app badges" = "एप बैज छुपाएं";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "बिना खुली खिड़की वाले ऐप्स छिपाएं:";
+"Hide apps with no open window" = "बिना खुली खिड़की वाले ऐप्स छिपाएं";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "माउस मँडराने पर पर रंगीन वृत्त छिपाएँ:";
+"Hide colored circles on mouse hover" = "माउस मँडराने पर पर रंगीन वृत्त छिपाएँ";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "स्पेस नंबर लेबल छुपाओ:";
+"Hide Space number labels" = "स्पेस नंबर लेबल छुपाओ";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "स्थिति चिह्न छुपाएं:";
+"Hide status icons" = "स्थिति चिह्न छुपाएं";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "खिड़की का थंबनेल छुपाएं:";
@@ -258,7 +258,7 @@
 "Preferences…" = "पसंद";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /*No comment provided by engineer.*/
 "Quit" = "बंद करो";
@@ -354,7 +354,7 @@
 "Show on:" = "इस्पे दिखाओ:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "खिड़कियाँ के रूप में मानक टैब दिखाएं:";
+"Show standard tabs as windows" = "खिड़कियाँ के रूप में मानक टैब दिखाएं";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "यहां से खिड़कियाँ दिखाएं:";
