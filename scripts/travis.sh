@@ -23,5 +23,4 @@ if [ $IS_RELEASE ]; then
   scripts/upload_symbols_to_appcenter.sh
   scripts/update_appcast.sh
   npx semantic-release
-  scripts/update_website.sh
 fi
