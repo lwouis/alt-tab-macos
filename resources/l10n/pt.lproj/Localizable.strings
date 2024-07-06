@@ -39,7 +39,7 @@
 "Allowed" = "Permitido";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Ordem alfabética";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Também escolher janelas utilizando:";
@@ -51,7 +51,7 @@
 "AltTab needs some permissions" = "AltTab necessita de algumas permissões";
 
 /*No comment provided by engineer.*/
-"Always" = "Always";
+"Always" = "Sempre";
 
 /*No comment provided by engineer.*/
 "Always send crash reports" = "Enviar sempre relatórios de falha";
@@ -60,13 +60,13 @@
 "and press:" = "e carregar:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "App (BundleID começando com)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+"App is hidden" = "App está escondida";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "App está a correr sem janelas abertas";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Intervalo para exibição:";
@@ -108,7 +108,7 @@
 "Check for updates…" = "Procurar actualizações…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Verificar permissões...";
 
 /*No comment provided by engineer.*/
 "Close window" = "Fechar janela";
@@ -123,7 +123,7 @@
 "Crash reports policy:" = "Política de relatórios de falha:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "Cursor segue o foco";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Não fazer nada";
@@ -147,13 +147,13 @@
 "Focus selected window" = "Foco na janela activa";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "Ecrã inteiro";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Janelas fullscreen:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Alternar ecrã inteiro da janela";
 
 /*No comment provided by engineer.*/
 "General" = "Geral";
@@ -174,7 +174,7 @@
 "Hide colored circles on mouse hover:" = "Esconder círculos coloridos onde o rato passar:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+"Hide in %@" = "Esconder em %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Não exibir número do space:";
@@ -195,7 +195,7 @@
 "I think the app could be improved with…" = "Eu acho que a aplicação poderia ser melhorada se…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignorar atalhos quando activa";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorar atalhos sempre que uma destas janelas esteja activa";
@@ -258,7 +258,7 @@
 "Preferences…" = "Preferências…";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "Pré-visualizar janela seleccionada:";
 
 /*No comment provided by engineer.*/
 "Quit" = "Sair";
@@ -270,19 +270,19 @@
 "Quit app" = "Fechar aplicação";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Recentemente Criada";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "Recentemente Activa";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Lembrar a minha escolha";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Redefinir preferências e reiniciar";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Redefinir preferências e reiniciar";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Linhas de miniaturas:";
@@ -333,13 +333,13 @@
 "Shortcut 2" = "Atalho 2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Atalho 3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Atalho 4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Atalho 5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Atalho já atribuído a outra acção: %@";
@@ -372,7 +372,7 @@
 "Start at login:" = "Iniciar ao efectuar login:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Apoie este projecto ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Tema:";
@@ -399,19 +399,19 @@
 "View existing discussions" = "Ver discussões existentes";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Teclas Vim";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Teclas Vim já se encontram associadas a outras acções:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Spaces Visíveis";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Quando em ecrã inteiro";
 
 /*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+"When no open window" = "Quando não tem janelas abertas";
 
 /*No comment provided by engineer.*/
 "While open, press:" = "Enquanto activa, carregar:";
@@ -420,16 +420,16 @@
 "Window app icon size:" = "Tamanho do ícone da aplicação:";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Janela está em ecrã inteiro";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Janela está minimizada";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Janela está em todos os Spaces";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Janela está no Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Largura max. da janela na linha:";
@@ -438,7 +438,7 @@
 "Window min width in row:" = "Largura min. da janela na linha:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Ordem das janelas:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Tamanho da fonte do título da aplicação:";
@@ -447,7 +447,7 @@
 "Window title truncation:" = "Truncar título:";
 
 /*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Não pode desfazer esta acção.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Não escreveu o seu endereço de email, logo não é possível enviar resposta";

@@ -39,7 +39,7 @@
 "Allowed" = "Consentito";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "Alfabetico";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Seleziona finestre usando anche:";
@@ -108,7 +108,7 @@
 "Check for updates…" = "Verifica aggiornamenti...";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Controlla i permessi";
 
 /*No comment provided by engineer.*/
 "Close window" = "Chiudi finestra";
@@ -270,7 +270,7 @@
 "Quit app" = "Esci dall'app";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "Creati recentemente";
 
 /*No comment provided by engineer.*/
 "Recently Focused" = "Recently Focused";
@@ -363,7 +363,7 @@
 "Source code repository" = "Repository del codice sorgente";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "Spazi";
 
 /*No comment provided by engineer.*/
 "Start" = "All'inizio";
@@ -372,7 +372,7 @@
 "Start at login:" = "Avvia al login:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Supporta questo progetto";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Tema:";
@@ -399,10 +399,10 @@
 "View existing discussions" = "Visualizza discussioni esistenti";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "Tasti Vim";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "I tasti Vim sono già assegnati ad altre azioni:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Spazi visibili";
@@ -438,7 +438,7 @@
 "Window min width in row:" = "Larghezza minima finestra in riga:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "Ordine delle finestre:";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Dimensione testo titolo finestra:";

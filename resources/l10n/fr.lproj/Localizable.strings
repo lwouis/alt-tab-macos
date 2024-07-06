@@ -108,7 +108,7 @@
 "Check for updates…" = "Chercher une mise-à-jour…";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "Permissions…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Fermer la fenêtre";
@@ -177,7 +177,7 @@
 "Hide in %@" = "Caché dans %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Cacher les numéros des Bureaux:";
+"Hide Space number labels:" = "Cacher les numéros des Bureaux :";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Masquer les icônes de statut :";
@@ -225,7 +225,7 @@
 "Minimized windows:" = "Fenêtres réduites :";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Divers :";
+"Miscellaneous:" = "Divers :";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Survol de la souris";
@@ -249,13 +249,13 @@
 "Open Screen Recording Preferences…" = "Ouvrir les Préférences d’Enregistrement de l’écran…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Optionnel  : email (si vous voulez une réponse)";
+"Optional: email (if you want a reply)" = "Optionnel : email (si vous voulez une réponse)";
 
 /*No comment provided by engineer.*/
 "Policies" = "Politiques";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "Préférences …";
+"Preferences…" = "Préférences…";
 
 /*No comment provided by engineer.*/
 "Preview selected window:" = "Prévisualisation de la fenêtre";
@@ -270,10 +270,10 @@
 "Quit app" = "Quitter l’App";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "des Créations";
+"Recently Created" = "De création";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "des Sélections";
+"Recently Focused" = "de sélection";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Se souvenir de mon choix";
@@ -342,7 +342,7 @@
 "Shortcut 5" = "Raccourci 5";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Raccourci déjà affecté à une autre action : %@";
+"Shortcut already assigned to another action: %@" = "Raccourci déjà affecté à une autre action : %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Afficher";
@@ -351,7 +351,7 @@
 "Show at the end" = "Mettre à la fin";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Afficher sur:";
+"Show on:" = "Afficher sur :";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Afficher les onglets standards comme fenêtres :";
@@ -372,10 +372,10 @@
 "Start at login:" = "Lancer au démarrage :";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "Soutenir ce projet ❤️";
 
 /*No comment provided by engineer.*/
-"Theme:" = "Thème  :";
+"Theme:" = "Thème :";
 
 /*No comment provided by engineer.*/
 "Then release:" = "Puis relâcher :";
@@ -438,7 +438,7 @@
 "Window min width in row:" = "Largeur minimum des aperçus :";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Affichage des fenêtres par ordre:";
+"Window order:" = "Affichage des fenêtres par ordre :";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Taille du titres des fenêtres :";

@@ -327,19 +327,19 @@
 "Share improvement ideas, or report bugs" = "Dela förbättringsförslag eller rapportera fel";
 
 /*No comment provided by engineer.*/
-"Shortcut 1" = "Kommando 1";
+"Shortcut 1" = "1";
 
 /*No comment provided by engineer.*/
-"Shortcut 2" = "Kommando 2";
+"Shortcut 2" = "2";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "Kommando 3";
+"Shortcut 3" = "3";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "Kommando 4";
+"Shortcut 4" = "4";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "Kommando 5";
+"Shortcut 5" = "5";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Kommandot är redan kopplat till en annan funktion: %@";

@@ -12,7 +12,7 @@
 "Acknowledgments" = "תודות";
 
 /*No comment provided by engineer.*/
-"Active app" = "תוכנה פעילה";
+"Active app" = "יישום פעיל";
 
 /*No comment provided by engineer.*/
 "Active screen" = "מסך פעיל";
@@ -24,7 +24,7 @@
 "Align windows:" = "יישר חלונות:";
 
 /*No comment provided by engineer.*/
-"All apps" = "כל התוכנות";
+"All apps" = "כל היישומים";
 
 /*No comment provided by engineer.*/
 "All data from this form will be made public, as a ticket on github.com" = "כל המידע מטופס זה יהפך לציבורי, ככרטיס בgithub.com";
@@ -39,7 +39,7 @@
 "Allowed" = "מאופשר";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "אלף ביתי";
+"Alphabetical" = "אלפאביתי";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "בחר חלון גם באמצעות:";
@@ -48,7 +48,7 @@
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab קרס בפעם האחרונה שהשתמשת בו. שליחה של דיווח קריסה יעזור לתקן את הבעיה";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "התוכנה AltTab צריכה כמה הרשאות";
+"AltTab needs some permissions" = "‫AltTab צריכה הרשאות מסוימות";
 
 /*No comment provided by engineer.*/
 "Always" = "תמיד";
@@ -60,13 +60,13 @@
 "and press:" = "ולחץ:";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "אפליקציה (BundlelD מתחיל ב)";
+"App (BundleID starting with)" = "ישום (BundlelD מתחיל ב-)";
 
 /*No comment provided by engineer.*/
-"App is hidden" = "האפליקציה מוסתרת";
+"App is hidden" = "היישום מוסתר";
 
 /*No comment provided by engineer.*/
-"App is running but has no open window" = "האפליקציה פועלת אך אין לה חלון פתוח";
+"App is running but has no open window" = "היישום פועל אך אין לו חלון פתוח";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "עיכוב הופעה:";
@@ -108,7 +108,7 @@
 "Check for updates…" = "בדוק עדכונים";
 
 /*Menubar option*/
-"Check permissions…" = "Check permissions…";
+"Check permissions…" = "בדוק הרשאות…";
 
 /*No comment provided by engineer.*/
 "Close window" = "סגור חלון";
@@ -123,7 +123,7 @@
 "Crash reports policy:" = "מדיניות דיווחי קריסה:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "הפוקוס עוקב אחר הסמן";
+"Cursor follows focus" = "הסמן עוקב אחר המיקוד";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "לא לעשות כלום";
@@ -153,7 +153,7 @@
 "Fullscreen windows:" = "חלונות במסך מלא:";
 
 /*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "מעבר למסך מלא\\חלון";
+"Fullscreen/Defullscreen window" = "הכנסת/הוצאת חלון ממסך מלא";
 
 /*No comment provided by engineer.*/
 "General" = "כללי";
@@ -168,7 +168,7 @@
 "Hide app badges:" = "הסתר תג התראות:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "הסתר תוכנות ללא חלון פתוח:";
+"Hide apps with no open window:" = "הסתר יישומים ללא חלון פתוח:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "הסתר עיגולים צבועים בריחוף עכבר:";
@@ -192,13 +192,13 @@
 "Hold" = "החזק";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "אני חושב שניתן לשפר את האפליקציה באמצעות...";
+"I think the app could be improved with…" = "אני חושב שניתן לשפר את היישום באמצעות…";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts when active" = "התעלם מהקיצורים כאשר פועל";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "התעלם מקיצורי דרך כאשר חלון מתוכנה זו פעיל";
+"Ignore shortcuts while a window from these apps is active" = "התעלם מקיצורי דרך כאשר חלון מיישום זו פעיל";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "מהדורה אחרונה";
@@ -243,10 +243,10 @@
 "Only if the window is fullscreen" = "רק אם החלון במסך מלא";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "פתח הגדרות נגישות";
+"Open Accessibility Preferences…" = "פתח הגדרות נגישות…";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "פתח הרשאות הקלטת מסך";
+"Open Screen Recording Preferences…" = "פתח הגדרות הקלטת מסך…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "אופציונלי: אימייל (אם תרצה תגובה חזרה)";
@@ -258,16 +258,16 @@
 "Preferences…" = "העדפות";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "הצגה מוקדמת של החלון:";
+"Preview selected window:" = "תצוגה מקדימה של החלון שנבחר:";
 
 /*No comment provided by engineer.*/
-"Quit" = "צא";
+"Quit" = "יציאה";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "צא מ%@";
 
 /*No comment provided by engineer.*/
-"Quit app" = "צא מהתוכנה";
+"Quit app" = "צא מהיישום";
 
 /*No comment provided by engineer.*/
 "Recently Created" = "נוצר לאחרונה";
@@ -279,10 +279,10 @@
 "Remember my choice" = "זכור את בחירתי";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart" = "אפס העדפות והפעל מחדש";
+"Reset preferences and restart" = "אפס את ההעדפות והפעל מחדש";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "אפס העדפות והתחל מחדש";
+"Reset preferences and restart…" = "אפס העדפות והפעל מחדש…";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "מס׳ שורות של תמונות ממוזערות:";
@@ -363,7 +363,7 @@
 "Source code repository" = "קוד מקור";
 
 /*No comment provided by engineer.*/
-"Space" = "איזור";
+"Space" = "חלל";
 
 /*No comment provided by engineer.*/
 "Start" = "התחלה";
@@ -372,7 +372,7 @@
 "Start at login:" = "התחל בהפעלת המחשב:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project ❤️" = "תמיכה בפרויקט ❤️";
 
 /*No comment provided by engineer.*/
 "Theme:" = "סגנון:";
@@ -381,10 +381,10 @@
 "Then release:" = "ואז עזוב:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "הרשאה זו דרושה בשביל להתפקס על החלון אחרי שהמקש נעזב";
+"This permission is needed to focus windows after you release the shortcut" = "הרשאה זו דרושה כדי להתמקד על החלון הנכון לאחר שחרור קיצור המקשים";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "הרשאה זו דרושה כדי להראות תמונות ממוזערות וכותרות של חלונות פתוחים";
+"This permission is needed to show screenshots and titles of open windows" = "הרשאה זו דרושה כדי להציג תמונות ממוזערות וכותרות של החלונות הפתוחים";
 
 /*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "בטל הקצאת קיצור קיים והמשך";
