@@ -2,14 +2,18 @@ import Cocoa
 
 class AppearanceTab {
     static var width = CGFloat(600)
-    static var height = CGFloat(280)
+    static var height = CGFloat(300)
 
     static func initTab() -> NSView {
         let generalSettings: [[NSView]] = [
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Appearance model:", comment: ""), "appearanceModel", AppearanceModelPreference.allCases),
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""), "appearanceModel", AppearanceModelPreference.allCases),
+            makeSeparator(),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
+            makeSeparator(),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases, buttonSpacing: 50),
+            makeSeparator(),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Align windows:", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases),
+            makeSeparator(),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""), "titleTruncation", TitleTruncationPreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
         ]
@@ -31,7 +35,12 @@ class AppearanceTab {
 
         let generalGrid = GridView(generalSettings)
         generalGrid.column(at: 0).xPlacement = .trailing
-        generalGrid.column(at: 1).width = 200
+        generalGrid.column(at: 1).width = 300
+        // merge cells for separator
+        generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 1, length: 1))
+        generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 3, length: 1))
+        generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 5, length: 1))
+        generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 7, length: 1))
         generalGrid.fit()
 
         let showHideGrid = GridView(showHideSettings)
@@ -60,19 +69,46 @@ class AppearanceTab {
             tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: TabView.padding),
             tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -TabView.padding),
             tabView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -TabView.padding),
-            tabView.widthAnchor.constraint(equalToConstant: width),
-            tabView.heightAnchor.constraint(equalToConstant: height),
+            tabView.widthAnchor.constraint(equalToConstant: tabView.fittingSize.width + 60),
+            tabView.heightAnchor.constraint(equalToConstant: tabView.fittingSize.height + 20),
 
-            generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor, constant: -TabView.padding),
-            generalGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor),
-
-            showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor, constant: -TabView.padding),
-            showHideGrid.leadingAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.leadingAnchor, constant: 150),
-
-            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor, constant: -TabView.padding),
-            effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
+            generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor, constant: TabView.padding),
+//            generalGrid.leadingAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.leadingAnchor, constant: TabView.padding),
+//            generalGrid.trailingAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.trailingAnchor, constant: -TabView.padding),
+//            generalGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.bottomAnchor, constant: -TabView.padding),
+//
+            showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor, constant: TabView.padding),
+//            showHideGrid.leadingAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.leadingAnchor, constant: TabView.padding),
+//            showHideGrid.trailingAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.trailingAnchor, constant: -TabView.padding),
+//            showHideGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.bottomAnchor, constant: -TabView.padding),
+//
+            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor, constant: TabView.padding),
+//            effectsGrid.leadingAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.leadingAnchor, constant: TabView.padding),
+//            effectsGrid.trailingAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.trailingAnchor, constant: -TabView.padding),
+//            effectsGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.bottomAnchor, constant: -TabView.padding),
         ])
 
         return view
+    }
+
+    private static func makeSeparator() -> [NSView] {
+        let separator = NSBox()
+        separator.boxType = .separator
+        separator.translatesAutoresizingMaskIntoConstraints = false
+
+        // Create a container view to hold the separator and apply padding
+        let containerView = NSView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(separator)
+
+        // Set constraints for the separator within the container view
+        NSLayoutConstraint.activate([
+            separator.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            separator.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+            separator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        ])
+
+        return [containerView]
     }
 }

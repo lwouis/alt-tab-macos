@@ -536,6 +536,17 @@ protocol MacroPreference {
     var localizedString: LocalizedString { get }
 }
 
+struct WidthHeightImage {
+    var width: CGFloat
+    var height: CGFloat
+    var name: String
+}
+
+protocol ImageMacroPreference: MacroPreference {
+    var localizedString: LocalizedString { get }
+    var image: WidthHeightImage { get }
+}
+
 struct ModelSizeAppearanceParameters {
     var interCellPadding: CGFloat
     var intraCellPadding: CGFloat
@@ -702,7 +713,7 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
+enum AlignThumbnailsPreference: String, CaseIterable, ImageMacroPreference {
     case left = "0"
     case center = "1"
 
@@ -712,9 +723,18 @@ enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
             case .center: return NSLocalizedString("Center", comment: "")
         }
     }
+
+    var image: WidthHeightImage {
+        let width: CGFloat = 75
+        let height: CGFloat = 50
+        switch self {
+            case .left: return WidthHeightImage(width: width, height: height, name: "thumbnails")
+            case .center: return WidthHeightImage(width: width, height: height, name: "app_icons")
+        }
+    }
 }
 
-enum AppearanceModelPreference: String, CaseIterable, MacroPreference {
+enum AppearanceModelPreference: String, CaseIterable, ImageMacroPreference {
     case thumbnails = "0"
     case appIcons = "1"
     case titles = "2"
@@ -726,9 +746,19 @@ enum AppearanceModelPreference: String, CaseIterable, MacroPreference {
         case .titles: return NSLocalizedString("Titles", comment: "")
         }
     }
+
+    var image: WidthHeightImage {
+        let width: CGFloat = 75
+        let height: CGFloat = 50
+        switch self {
+            case .thumbnails: return WidthHeightImage(width: width, height: height, name: "thumbnails")
+            case .appIcons: return WidthHeightImage(width: width, height: height, name: "app_icons")
+            case .titles: return WidthHeightImage(width: width, height: height, name: "titles")
+        }
+    }
 }
 
-enum AppearanceSizePreference: String, CaseIterable, MacroPreference {
+enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
     case small = "0"
     case middle = "1"
     case large = "2"
@@ -740,9 +770,19 @@ enum AppearanceSizePreference: String, CaseIterable, MacroPreference {
             case .large: return NSLocalizedString("Large", comment: "")
         }
     }
+
+    var image: WidthHeightImage {
+        let width: CGFloat = 75
+        let height: CGFloat = 50
+        switch self {
+            case .small: return WidthHeightImage(width: width, height: height, name: "thumbnails")
+            case .middle: return WidthHeightImage(width: width, height: height, name: "app_icons")
+            case .large: return WidthHeightImage(width: width, height: height, name: "titles")
+        }
+    }
 }
 
-enum ThemePreference: String, CaseIterable, MacroPreference {
+enum ThemePreference: String, CaseIterable, ImageMacroPreference {
     case macOs = "0"
     case windows10 = "1"
 
@@ -750,6 +790,15 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
         switch self {
             case .macOs: return " macOS"
             case .windows10: return "❖ Windows 10"
+        }
+    }
+
+    var image: WidthHeightImage {
+        let width: CGFloat = 75
+        let height: CGFloat = 50
+        switch self {
+            case .macOs: return WidthHeightImage(width: width, height: height, name: "thumbnails")
+            case .windows10: return WidthHeightImage(width: width, height: height, name: "app_icons")
         }
     }
 
