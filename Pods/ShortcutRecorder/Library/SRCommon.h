@@ -10,18 +10,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static const UInt32 fakeFunctionKey = 1 << 16;
+
+
 /*!
  Mask representing subset of Cocoa modifier flags suitable for shortcuts.
  */
 NS_SWIFT_NAME(CocoaModifierFlagsMask)
-static const NSEventModifierFlags SRCocoaModifierFlagsMask = NSEventModifierFlagCommand | NSEventModifierFlagOption | NSEventModifierFlagShift | NSEventModifierFlagControl;
+static const NSEventModifierFlags SRCocoaModifierFlagsMask = NSEventModifierFlagCommand | NSEventModifierFlagOption | NSEventModifierFlagShift | NSEventModifierFlagControl | NSEventModifierFlagFunction;
 
 
 /*!
  Mask representing subset of Carbon modifier flags suitable for shortcuts.
  */
 NS_SWIFT_NAME(CarbonModifierFlagsMask)
-static const UInt32 SRCarbonModifierFlagsMask = cmdKey | optionKey | shiftKey | controlKey;
+static const UInt32 SRCarbonModifierFlagsMask = cmdKey | optionKey | shiftKey | controlKey | fakeFunctionKey;
 
 
 /*!
@@ -107,7 +110,9 @@ typedef NS_ENUM(unichar, SRModifierFlagGlyph)
     SRModifierFlagGlyphCommand = kCommandUnicode, // ⌘
     SRModifierFlagGlyphOption = kOptionUnicode,  // ⌥
     SRModifierFlagGlyphShift = kShiftUnicode, // ⇧
-    SRModifierFlagGlyphControl = kControlUnicode // ⌃
+    SRModifierFlagGlyphControl = kControlUnicode, // ⌃
+    SRModifierFlagGlyphFunction1 = 0x0066, // f
+    SRModifierFlagGlyphFunction2 = 0x006E // n
 } NS_SWIFT_NAME(ModifierFlagGlyph);
 
 
@@ -243,6 +248,8 @@ extern SRModifierFlagString const SRModifierFlagStringCommand;
 extern SRModifierFlagString const SRModifierFlagStringOption;
 extern SRModifierFlagString const SRModifierFlagStringShift;
 extern SRModifierFlagString const SRModifierFlagStringControl;
+extern SRModifierFlagString const SRModifierFlagStringFunction1;
+extern SRModifierFlagString const SRModifierFlagStringFunction2;
 
 
 /*!
@@ -274,6 +281,9 @@ NS_INLINE NSEventModifierFlags SRCarbonToCocoaFlags(UInt32 aCarbonFlags)
 
     if (aCarbonFlags & shiftKey)
         cocoaFlags |= NSEventModifierFlagShift;
+    
+    if (aCarbonFlags & fakeFunctionKey)
+        cocoaFlags |= NSEventModifierFlagFunction;
 
     return cocoaFlags;
 }
@@ -297,6 +307,9 @@ NS_INLINE UInt32 SRCocoaToCarbonFlags(NSEventModifierFlags aCocoaFlags)
 
     if (aCocoaFlags & NSEventModifierFlagShift)
         carbonFlags |= shiftKey;
+    
+    if (aCocoaFlags & NSEventModifierFlagFunction)
+        carbonFlags |= fakeFunctionKey;
 
     return carbonFlags;
 }
@@ -366,5 +379,26 @@ NSImage * _Nullable SRImage(NSString * _Nullable anImageName);
 - (BOOL)SR_isEqual:(nullable NSObject *)anObject usingSelector:(SEL)aSelector ofCommonAncestor:(Class)anAncestor;
 
 @end
+
+
+extern CGError CGSSetHotKeyWithExclusion(int cid, void* uid, UInt16 keyEquivalent, UInt16 keyCode, UInt64 keyModifiers, int exclusion);
+
+
+extern OSStatus interposed_RegisterEventHotKey(
+    UInt32 inHotKeyCode,
+    UInt32 inHotKeyModifiers,
+    EventHotKeyID inHotKeyID,
+    EventTargetRef inTarget,
+    OptionBits inOptions,
+    EventHotKeyRef * outRef
+);
+
+
+extern CGError interposed_CGSSetHotKeyWithExclusion(int cid, void* uid, UInt16 keyEquivalent, UInt16 keyCode, UInt64 keyModifiers, int exclusion);
+
+
+#define DYLD_INTERPOSE(_replacement,_replacee) \
+   __attribute__((used)) static struct{ const void* replacement; const void* replacee; } _interpose_##_replacee \
+            __attribute__ ((section ("__DATA,__interpose"))) = { (const void*)(unsigned long)&_replacement, (const void*)(unsigned long)&_replacee };
 
 NS_ASSUME_NONNULL_END
