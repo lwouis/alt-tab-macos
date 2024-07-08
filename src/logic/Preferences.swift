@@ -540,6 +540,12 @@ struct WidthHeightImage {
     var width: CGFloat
     var height: CGFloat
     var name: String
+
+    init(width: CGFloat = 75, height: CGFloat = 50, name: String) {
+        self.width = width
+        self.height = height
+        self.name = name
+    }
 }
 
 protocol ImageMacroPreference: MacroPreference {
@@ -725,11 +731,9 @@ enum AlignThumbnailsPreference: String, CaseIterable, ImageMacroPreference {
     }
 
     var image: WidthHeightImage {
-        let width: CGFloat = 75
-        let height: CGFloat = 50
         switch self {
-            case .left: return WidthHeightImage(width: width, height: height, name: "thumbnails")
-            case .center: return WidthHeightImage(width: width, height: height, name: "app_icons")
+            case .left: return WidthHeightImage(name: "align_left")
+            case .center: return WidthHeightImage(name: "align_center")
         }
     }
 }
@@ -741,19 +745,17 @@ enum AppearanceModelPreference: String, CaseIterable, ImageMacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-        case .thumbnails: return NSLocalizedString("Thumbnails", comment: "")
-        case .appIcons: return NSLocalizedString("App Icons", comment: "")
-        case .titles: return NSLocalizedString("Titles", comment: "")
+            case .thumbnails: return NSLocalizedString("Thumbnails", comment: "")
+            case .appIcons: return NSLocalizedString("App Icons", comment: "")
+            case .titles: return NSLocalizedString("Titles", comment: "")
         }
     }
 
     var image: WidthHeightImage {
-        let width: CGFloat = 75
-        let height: CGFloat = 50
         switch self {
-            case .thumbnails: return WidthHeightImage(width: width, height: height, name: "thumbnails")
-            case .appIcons: return WidthHeightImage(width: width, height: height, name: "app_icons")
-            case .titles: return WidthHeightImage(width: width, height: height, name: "titles")
+            case .thumbnails: return WidthHeightImage(name: "thumbnails")
+            case .appIcons: return WidthHeightImage(name: "app_icons")
+            case .titles: return WidthHeightImage(name: "titles")
         }
     }
 }
@@ -772,12 +774,10 @@ enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
     }
 
     var image: WidthHeightImage {
-        let width: CGFloat = 75
-        let height: CGFloat = 50
         switch self {
-            case .small: return WidthHeightImage(width: width, height: height, name: "thumbnails")
-            case .middle: return WidthHeightImage(width: width, height: height, name: "app_icons")
-            case .large: return WidthHeightImage(width: width, height: height, name: "titles")
+            case .small: return WidthHeightImage(name: "small")
+            case .middle: return WidthHeightImage(name: "middle")
+            case .large: return WidthHeightImage(name: "large")
         }
     }
 }
@@ -794,11 +794,9 @@ enum ThemePreference: String, CaseIterable, ImageMacroPreference {
     }
 
     var image: WidthHeightImage {
-        let width: CGFloat = 75
-        let height: CGFloat = 50
         switch self {
-            case .macOs: return WidthHeightImage(width: width, height: height, name: "thumbnails")
-            case .windows10: return WidthHeightImage(width: width, height: height, name: "app_icons")
+            case .macOs: return WidthHeightImage(name: "macos")
+            case .windows10: return WidthHeightImage(name: "windows10")
         }
     }
 

@@ -57,7 +57,7 @@ class LabelAndControl: NSObject {
                 imageContainer.centerXAnchor.constraint(equalTo: button.centerXAnchor),
                 imageContainer.centerYAnchor.constraint(equalTo: button.centerYAnchor),
                 // Adjust width for border and padding
-                imageContainer.widthAnchor.constraint(equalTo: button.widthAnchor, constant: -5),
+                imageContainer.widthAnchor.constraint(equalTo: button.widthAnchor, constant: -4),
                 // Adjust height for border and padding
                 imageContainer.heightAnchor.constraint(equalTo: button.heightAnchor, constant: -4)
             ])
