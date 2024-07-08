@@ -155,6 +155,10 @@ class AppearanceTab {
 
     private static func addHoverEffect(_ grid: GridView) {
         // Ignore the first row that stores the image
+        guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
+              let initialImageView = imageContainer.subviews.first as? NSImageView else { return }
+        let images = ["thumbnails", "app_badges", "status_icons", "space_number", "colored_circle",
+                      "no_open_window", "standard_tabs_window", "preview_window"]
         for rowIndex in 1..<grid.numberOfRows {
             for columnIndex in 0..<grid.numberOfColumns {
                 if let originalView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
@@ -164,6 +168,10 @@ class AppearanceTab {
                         hoverImageView.wantsLayer = true
                         hoverImageView.layer?.backgroundColor = NSColor.gray.withAlphaComponent(0.2).cgColor
                         hoverImageView.layer?.cornerRadius = 5.0
+
+                        // Replace the image
+                        let newImage = NSImage(named: images[rowIndex])
+                        initialImageView.image = newImage
                     }
                     hoverImageView.onMouseExited = {
                         hoverImageView.layer?.backgroundColor = NSColor.clear.cgColor
@@ -183,15 +191,15 @@ class AppearanceTab {
         }
     }
 
-    private static func createImageView() -> NSView {
+    private static func createImageView(_ name: String = "thumbnails") -> NSView {
         let imageContainer = NSView()
         imageContainer.translatesAutoresizingMaskIntoConstraints = false
         imageContainer.wantsLayer = true
-        imageContainer.layer?.cornerRadius = 5.0
+        imageContainer.layer?.cornerRadius = 7.0
         imageContainer.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
         imageContainer.layer?.borderWidth = 2.0
 
-        let imageView = NSImageView(image: NSImage(named: "thumbnails")!)
+        let imageView = NSImageView(image: NSImage(named: name)!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
         imageContainer.addSubview(imageView)
@@ -207,7 +215,8 @@ class AppearanceTab {
 
         imageView.wantsLayer = true
         imageView.layer?.masksToBounds = true
-        imageView.layer?.cornerRadius = 5.0
+        imageView.layer?.cornerRadius = 7.0
+        imageContainer.identifier = NSUserInterfaceItemIdentifier("imageContainer")
         return imageContainer
     }
 }
