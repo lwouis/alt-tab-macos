@@ -19,8 +19,8 @@ class LabelAndControl: NSObject {
         func setButtonBorderStyle(_ button: NSButton, isSelected: Bool) {
             button.wantsLayer = true
             button.layer?.cornerRadius = 7.0  // Set corner radius
-            button.layer?.borderColor = isSelected ? NSColor.systemBlue.cgColor : NSColor.lightGray.cgColor
-            button.layer?.borderWidth = 3.0
+            button.layer?.borderColor = isSelected ? NSColor.systemBlue.cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
+            button.layer?.borderWidth = isSelected ? 3.0 : 2.0
         }
 
         let buttonViews = values.enumerated().map { (index, preference) -> NSView in

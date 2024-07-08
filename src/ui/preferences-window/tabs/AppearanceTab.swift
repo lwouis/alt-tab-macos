@@ -1,8 +1,30 @@
 import Cocoa
 
+class HoverImageView: NSView {
+    var onMouseEntered: (() -> Void)?
+    var onMouseExited: (() -> Void)?
+    var imageView: NSImageView?
+
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        for trackingArea in trackingAreas {
+            removeTrackingArea(trackingArea)
+        }
+        let newTrackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
+        addTrackingArea(newTrackingArea)
+    }
+
+    override func mouseEntered(with event: NSEvent) {
+        onMouseEntered?()
+    }
+
+    override func mouseExited(with event: NSEvent) {
+        onMouseExited?()
+    }
+}
+
 class AppearanceTab {
-    static var width = CGFloat(600)
-    static var height = CGFloat(300)
+    static var showHideCellWidth = CGFloat(400)
 
     static func initTab() -> NSView {
         let generalSettings: [[NSView]] = [
@@ -19,6 +41,7 @@ class AppearanceTab {
         ]
 
         let showHideSettings: [[NSView]] = [
+            [createImageView()],
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide app badges", comment: ""), "hideAppBadges", labelPosition: .right),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide status icons", comment: ""), "hideStatusIcons", labelPosition: .right),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide Space number labels", comment: ""), "hideSpaceNumberLabels", labelPosition: .right),
@@ -46,8 +69,19 @@ class AppearanceTab {
         generalGrid.fit()
 
         let showHideGrid = GridView(showHideSettings)
-        showHideGrid.column(at: 0).xPlacement = .leading
-//        showHideGrid.column(at: 0).width = 200
+        for rowIndex in 0..<showHideGrid.numberOfRows {
+            for columnIndex in 0..<showHideGrid.numberOfColumns {
+                let cell = showHideGrid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex)
+                if rowIndex == 0 {
+                    cell.xPlacement = .center
+                } else {
+                    cell.xPlacement = .leading
+                }
+            }
+        }
+//        showHideGrid.column(at: 1).xPlacement = .leading
+        showHideGrid.column(at: 0).width = showHideCellWidth
+        addHoverEffect(showHideGrid)
         showHideGrid.fit()
 
         let effectsGrid = GridView(effectsSettings)
@@ -98,7 +132,7 @@ class AppearanceTab {
         return view
     }
 
-    private static func makeSeparator() -> NSView {
+    private static func makeSeparator(_ padding: CGFloat = 10) -> NSView {
         let separator = NSBox()
         separator.boxType = .separator
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -110,12 +144,70 @@ class AppearanceTab {
 
         // Set constraints for the separator within the container view
         NSLayoutConstraint.activate([
-            separator.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
-            separator.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+            separator.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding),
+            separator.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding),
             separator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             separator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         ])
 
         return containerView
+    }
+
+    private static func addHoverEffect(_ grid: GridView) {
+        // Ignore the first row that stores the image
+        for rowIndex in 1..<grid.numberOfRows {
+            for columnIndex in 0..<grid.numberOfColumns {
+                if let originalView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
+                    let hoverImageView = HoverImageView(frame: originalView.bounds)
+                    hoverImageView.translatesAutoresizingMaskIntoConstraints = false
+                    hoverImageView.onMouseEntered = {
+                        hoverImageView.wantsLayer = true
+                        hoverImageView.layer?.backgroundColor = NSColor.gray.withAlphaComponent(0.2).cgColor
+                        hoverImageView.layer?.cornerRadius = 5.0
+                    }
+                    hoverImageView.onMouseExited = {
+                        hoverImageView.layer?.backgroundColor = NSColor.clear.cgColor
+                    }
+                    hoverImageView.addSubview(originalView)
+                    originalView.translatesAutoresizingMaskIntoConstraints = false
+                    NSLayoutConstraint.activate([
+                        hoverImageView.widthAnchor.constraint(equalToConstant: grid.column(at: 0).width),
+                        originalView.topAnchor.constraint(equalTo: hoverImageView.topAnchor, constant: 5),
+                        originalView.bottomAnchor.constraint(equalTo: hoverImageView.bottomAnchor, constant: -5),
+                        originalView.leadingAnchor.constraint(equalTo: hoverImageView.leadingAnchor, constant: 10),
+                        originalView.trailingAnchor.constraint(equalTo: hoverImageView.trailingAnchor, constant: -10),
+                    ])
+                    grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView = hoverImageView
+                }
+            }
+        }
+    }
+
+    private static func createImageView() -> NSView {
+        let imageContainer = NSView()
+        imageContainer.translatesAutoresizingMaskIntoConstraints = false
+        imageContainer.wantsLayer = true
+        imageContainer.layer?.cornerRadius = 5.0
+        imageContainer.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
+        imageContainer.layer?.borderWidth = 2.0
+
+        let imageView = NSImageView(image: NSImage(named: "thumbnails")!)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.imageScaling = .scaleProportionallyUpOrDown
+        imageContainer.addSubview(imageView)
+
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: showHideCellWidth - 100),
+            imageView.heightAnchor.constraint(equalToConstant: (showHideCellWidth - 100) / 1.6),
+            imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor, constant: 4),
+            imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor, constant: -4),
+            imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: 4),
+            imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -4),
+        ])
+
+        imageView.wantsLayer = true
+        imageView.layer?.masksToBounds = true
+        imageView.layer?.cornerRadius = 5.0
+        return imageContainer
     }
 }
