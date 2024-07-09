@@ -1,9 +1,8 @@
 import Cocoa
 
-class HoverImageView: NSView {
+class HoverView: NSView {
     var onMouseEntered: (() -> Void)?
     var onMouseExited: (() -> Void)?
-    var imageView: NSImageView?
 
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
@@ -58,9 +57,6 @@ class AppearanceTab {
 
         let generalGrid = GridView(generalSettings)
         generalGrid.column(at: 0).xPlacement = .trailing
-//        generalGrid.column(at: 0).width = 150
-//        generalGrid.column(at: 1).width = 300
-//        generalGrid.column(at: 2).width = 150
         // merge cells for separator
         generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: 1, length: 1))
         generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: 3, length: 1))
@@ -69,18 +65,12 @@ class AppearanceTab {
         generalGrid.fit()
 
         let showHideGrid = GridView(showHideSettings)
-        for rowIndex in 0..<showHideGrid.numberOfRows {
-            for columnIndex in 0..<showHideGrid.numberOfColumns {
-                let cell = showHideGrid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex)
-                if rowIndex == 0 {
-                    cell.xPlacement = .center
-                } else {
-                    cell.xPlacement = .leading
-                }
-            }
-        }
-//        showHideGrid.column(at: 1).xPlacement = .leading
+        // Set alignment
+        setAlignment(showHideGrid)
         showHideGrid.column(at: 0).width = showHideCellWidth
+        showHideGrid.rowSpacing = 0
+        showHideGrid.row(at: 0).bottomPadding = GridView.padding
+
         addHoverEffect(showHideGrid)
         showHideGrid.fit()
 
@@ -102,32 +92,20 @@ class AppearanceTab {
 
         NSLayoutConstraint.activate([
             tabView.topAnchor.constraint(equalTo: view.topAnchor, constant: TabView.padding),
+            tabView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -TabView.padding),
             tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: TabView.padding),
             tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -TabView.padding),
-            tabView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -TabView.padding),
             tabView.widthAnchor.constraint(equalToConstant: tabView.fittingSize.width + 60),
             tabView.heightAnchor.constraint(equalToConstant: tabView.fittingSize.height + 20),
 
-            generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor, constant: TabView.padding),
+            generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor),
             generalGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor),
-//            generalGrid.centerYAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerYAnchor, constant: -TabView.padding),
-//            generalGrid.leadingAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.leadingAnchor, constant: TabView.padding),
-//            generalGrid.trailingAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.trailingAnchor, constant: -TabView.padding),
-//            generalGrid.leadingAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.leadingAnchor, constant: TabView.padding),
-//            generalGrid.trailingAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.trailingAnchor, constant: -TabView.padding),
-//            generalGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.bottomAnchor, constant: -TabView.padding),
-//
-            showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor, constant: TabView.padding),
+
+            showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor),
             showHideGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor),
-//            showHideGrid.leadingAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.leadingAnchor, constant: TabView.padding),
-//            showHideGrid.trailingAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.trailingAnchor, constant: -TabView.padding),
-//            showHideGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.bottomAnchor, constant: -TabView.padding),
-//
-            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor, constant: TabView.padding),
+
+            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor),
             effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
-//            effectsGrid.leadingAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.leadingAnchor, constant: TabView.padding),
-//            effectsGrid.trailingAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.trailingAnchor, constant: -TabView.padding),
-//            effectsGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.bottomAnchor, constant: -TabView.padding),
         ])
         return view
     }
@@ -156,36 +134,36 @@ class AppearanceTab {
     private static func addHoverEffect(_ grid: GridView) {
         // Ignore the first row that stores the image
         guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
-              let initialImageView = imageContainer.subviews.first as? NSImageView else { return }
+              let imageView = imageContainer.subviews.first as? NSImageView else { return }
         let images = ["thumbnails", "app_badges", "status_icons", "space_number", "colored_circle",
                       "no_open_window", "standard_tabs_window", "preview_window"]
         for rowIndex in 1..<grid.numberOfRows {
             for columnIndex in 0..<grid.numberOfColumns {
-                if let originalView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
-                    let hoverImageView = HoverImageView(frame: originalView.bounds)
-                    hoverImageView.translatesAutoresizingMaskIntoConstraints = false
-                    hoverImageView.onMouseEntered = {
-                        hoverImageView.wantsLayer = true
-                        hoverImageView.layer?.backgroundColor = NSColor.gray.withAlphaComponent(0.2).cgColor
-                        hoverImageView.layer?.cornerRadius = 5.0
+                if let contentView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
+                    let hoverView = HoverView(frame: contentView.bounds)
+                    hoverView.translatesAutoresizingMaskIntoConstraints = false
+                    hoverView.onMouseEntered = {
+                        hoverView.wantsLayer = true
+                        hoverView.layer?.backgroundColor = NSColor.gray.withAlphaComponent(0.2).cgColor
+                        hoverView.layer?.cornerRadius = 5.0
 
                         // Replace the image
                         let newImage = NSImage(named: images[rowIndex])
-                        initialImageView.image = newImage
+                        imageView.image = newImage
                     }
-                    hoverImageView.onMouseExited = {
-                        hoverImageView.layer?.backgroundColor = NSColor.clear.cgColor
+                    hoverView.onMouseExited = {
+                        hoverView.layer?.backgroundColor = NSColor.clear.cgColor
                     }
-                    hoverImageView.addSubview(originalView)
-                    originalView.translatesAutoresizingMaskIntoConstraints = false
+                    hoverView.addSubview(contentView)
+                    contentView.translatesAutoresizingMaskIntoConstraints = false
                     NSLayoutConstraint.activate([
-                        hoverImageView.widthAnchor.constraint(equalToConstant: grid.column(at: 0).width),
-                        originalView.topAnchor.constraint(equalTo: hoverImageView.topAnchor, constant: 5),
-                        originalView.bottomAnchor.constraint(equalTo: hoverImageView.bottomAnchor, constant: -5),
-                        originalView.leadingAnchor.constraint(equalTo: hoverImageView.leadingAnchor, constant: 10),
-                        originalView.trailingAnchor.constraint(equalTo: hoverImageView.trailingAnchor, constant: -10),
+                        hoverView.widthAnchor.constraint(equalToConstant: grid.column(at: 0).width),
+                        contentView.topAnchor.constraint(equalTo: hoverView.topAnchor, constant: 10),
+                        contentView.bottomAnchor.constraint(equalTo: hoverView.bottomAnchor, constant: -10),
+                        contentView.leadingAnchor.constraint(equalTo: hoverView.leadingAnchor, constant: 10),
+                        contentView.trailingAnchor.constraint(equalTo: hoverView.trailingAnchor, constant: -10),
                     ])
-                    grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView = hoverImageView
+                    grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView = hoverView
                 }
             }
         }
@@ -204,9 +182,11 @@ class AppearanceTab {
         imageView.imageScaling = .scaleProportionallyUpOrDown
         imageContainer.addSubview(imageView)
 
+        let imageWidth = showHideCellWidth - 100
+        let imageHeight = imageWidth / 1.6
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: showHideCellWidth - 100),
-            imageView.heightAnchor.constraint(equalToConstant: (showHideCellWidth - 100) / 1.6),
+            imageView.widthAnchor.constraint(equalToConstant: imageWidth),
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight),
             imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor, constant: 4),
             imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor, constant: -4),
             imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: 4),
@@ -218,5 +198,18 @@ class AppearanceTab {
         imageView.layer?.cornerRadius = 7.0
         imageContainer.identifier = NSUserInterfaceItemIdentifier("imageContainer")
         return imageContainer
+    }
+
+    private static func setAlignment(_ grid: GridView) {
+        for rowIndex in 0..<grid.numberOfRows {
+            for columnIndex in 0..<grid.numberOfColumns {
+                let cell = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex)
+                if rowIndex == 0 {
+                    cell.xPlacement = .center
+                } else {
+                    cell.xPlacement = .leading
+                }
+            }
+        }
     }
 }

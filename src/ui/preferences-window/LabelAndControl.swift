@@ -18,7 +18,7 @@ class LabelAndControl: NSObject {
         // Helper function to set button border style
         func setButtonBorderStyle(_ button: NSButton, isSelected: Bool) {
             button.wantsLayer = true
-            button.layer?.cornerRadius = 7.0  // Set corner radius
+            button.layer?.cornerRadius = 7.0
             button.layer?.borderColor = isSelected ? NSColor.systemBlue.cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
             button.layer?.borderWidth = isSelected ? 3.0 : 2.0
         }
@@ -32,8 +32,6 @@ class LabelAndControl: NSObject {
             // Create an NSView to contain the image and provide padding
             let imageContainer = NSView()
             imageContainer.translatesAutoresizingMaskIntoConstraints = false
-            imageContainer.wantsLayer = true
-//            imageContainer.layer?.backgroundColor = NSColor.white.cgColor
 
             let imageView = NSImageView(image: NSImage(named: preference.image.name)!)
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,24 +40,23 @@ class LabelAndControl: NSObject {
             imageView.layer?.cornerRadius = 5.0
             imageContainer.addSubview(imageView)
 
-            // Set constraints to add 1 pixel padding around the image
+            // Set constraints to add equal padding around the image
             NSLayoutConstraint.activate([
-                button.widthAnchor.constraint(equalToConstant: preference.image.width),
-                button.heightAnchor.constraint(equalToConstant: preference.image.height),
-                imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor),
-                imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor),
-                imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor),
-                imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor)
+                imageView.widthAnchor.constraint(equalToConstant: preference.image.width),
+                imageView.heightAnchor.constraint(equalToConstant: preference.image.height),
+                imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor, constant: 2),
+                imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor, constant: -2),
+                imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: 2),
+                imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -2),
             ])
 
             button.addSubview(imageContainer)
             NSLayoutConstraint.activate([
                 imageContainer.centerXAnchor.constraint(equalTo: button.centerXAnchor),
                 imageContainer.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-                // Adjust width for border and padding
-                imageContainer.widthAnchor.constraint(equalTo: button.widthAnchor, constant: -4),
-                // Adjust height for border and padding
-                imageContainer.heightAnchor.constraint(equalTo: button.heightAnchor, constant: -4)
+                // Set width and height to account for border and padding
+                imageContainer.widthAnchor.constraint(equalTo: button.widthAnchor),
+                imageContainer.heightAnchor.constraint(equalTo: button.heightAnchor)
             ])
 
             // Set initial button border style

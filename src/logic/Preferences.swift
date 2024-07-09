@@ -541,7 +541,7 @@ struct WidthHeightImage {
     var height: CGFloat
     var name: String
 
-    init(width: CGFloat = 75, height: CGFloat = 50, name: String) {
+    init(width: CGFloat = 80, height: CGFloat = 50, name: String) {
         self.width = width
         self.height = height
         self.name = name
