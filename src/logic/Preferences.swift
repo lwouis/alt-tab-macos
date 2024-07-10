@@ -137,6 +137,8 @@ class Preferences {
     // macro values
     static var appearanceModel: AppearanceModelPreference { defaults.macroPref("appearanceModel", AppearanceModelPreference.allCases) }
     static var appearanceSize: AppearanceSizePreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
+    // TODO: The appearance theme functionality has not been implemented yet. We will implement it later; for now, use the light theme.
+    static var appearanceTheme: AppearanceThemePreference { AppearanceThemePreference.light }
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
@@ -778,6 +780,29 @@ enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
             case .small: return WidthHeightImage(name: "small")
             case .middle: return WidthHeightImage(name: "middle")
             case .large: return WidthHeightImage(name: "large")
+        }
+    }
+}
+
+
+enum AppearanceThemePreference: String, CaseIterable, ImageMacroPreference {
+    case auto = "0"
+    case light = "1"
+    case dark = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .auto: return "auto"
+            case .light: return "light"
+            case .dark: return "dark"
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .auto: return WidthHeightImage(name: "auto")
+            case .light: return WidthHeightImage(name: "light")
+            case .dark: return WidthHeightImage(name: "dark")
         }
     }
 }

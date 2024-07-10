@@ -33,7 +33,7 @@ class LabelAndControl: NSObject {
             let imageContainer = NSView()
             imageContainer.translatesAutoresizingMaskIntoConstraints = false
 
-            let imageView = NSImageView(image: NSImage(named: preference.image.name)!)
+            let imageView = NSImageView(image: NSImage(named: preference.image.name + "_" + Preferences.appearanceTheme.localizedString)!)
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.imageScaling = .scaleProportionallyUpOrDown
             imageView.wantsLayer = true
