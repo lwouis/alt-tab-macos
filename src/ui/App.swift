@@ -251,10 +251,13 @@ class App: AppCenterApplication, NSApplicationDelegate {
         Spaces.refreshAllIdsAndIndexes()
         guard appIsBeingUsed else { return }
         refreshSpecificWindows(windowsToUpdate, currentScreen)
-        if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
+        if (!Windows.list.contains { $0.shouldReallyShowTheUser }) { hideUi(); return }
         guard appIsBeingUsed else { return }
         Windows.reorderList()
         Windows.updateFocusedWindowIndex()
+        guard appIsBeingUsed else { return }
+        Windows.refreshWhichWindowsToHideTheUser()
+        if (!Windows.list.contains { $0.shouldReallyShowTheUser }) { hideUi(); return }
         guard appIsBeingUsed else { return }
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout(currentScreen)
         guard appIsBeingUsed else { return }
@@ -295,7 +298,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.shortcutIndex = shortcutIndex
             Windows.refreshWhichWindowsToShowTheUser(screen)
             Windows.reorderList()
-            if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
+            Windows.refreshWhichWindowsToHideTheUser()
+            if (!Windows.list.contains { $0.shouldReallyShowTheUser }) { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             delayedDisplayScheduled += 1
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in

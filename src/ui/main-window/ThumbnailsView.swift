@@ -106,7 +106,7 @@ class ThumbnailsView: NSVisualEffectView {
         rows.append([ThumbnailView]())
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return nil }
-            guard window.shouldShowTheUser else { continue }
+            guard window.shouldReallyShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             view.updateRecycledCellWithNewContent(window, index, height, screen)
             let width = view.frame.size.width
@@ -172,7 +172,7 @@ class ThumbnailsView: NSVisualEffectView {
         var rowY = Preferences.interCellPadding
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return }
-            guard window.shouldShowTheUser else { continue }
+            guard window.shouldReallyShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             if view.frame.origin.y == rowY {
                 rowWidth += view.frame.size.width + Preferences.interCellPadding

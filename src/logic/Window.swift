@@ -10,6 +10,8 @@ class Window {
     var thumbnailFullSize: NSSize?
     var icon: NSImage? { get { application.icon } }
     var shouldShowTheUser = true
+    var shouldHideTheUser = false
+    var shouldReallyShowTheUser: Bool { shouldShowTheUser && !shouldHideTheUser }
     var isTabbed: Bool = false
     var isHidden: Bool { get { application.isHidden } }
     var dockLabel: String? { get { application.dockLabel } }

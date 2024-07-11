@@ -85,6 +85,7 @@ class DebugProfile {
             ("isTabbed", String(window.isTabbed)),
             ("isOnAllSpaces", String(window.isOnAllSpaces)),
             ("shouldShowTheUser", String(window.shouldShowTheUser)),
+            ("shouldHideTheUser", String(window.shouldHideTheUser)),
             ("spaceId", String(window.spaceId)),
             ("spaceIndex", String(window.spaceIndex)),
         ])
