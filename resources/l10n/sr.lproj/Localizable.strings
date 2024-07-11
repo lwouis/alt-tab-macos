@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "O ovome";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Email adresa nije data, i zato neće biti odgovora.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Модел изгледа:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Величина изгледа:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Показати и сакрити се";
+
+/* No comment provided by engineer. */
+"Effects" = "Ефекти";
+
+/* No comment provided by engineer. */
+"Small" = "Мали";
+
+/* No comment provided by engineer. */
+"Large" = "Велики";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Сличице";
+
+/* No comment provided by engineer. */
+"App Icons" = "Иконе апликација";
+
+/* No comment provided by engineer. */
+"Titles" = "Наслови";
+

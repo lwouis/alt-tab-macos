@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Az App-ról";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Ha nem ad meg e-mail címet, nem tudunk választ küldeni";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Megjelenési modell:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Megjelenés mérete:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Mutat elrejt";
+
+/* No comment provided by engineer. */
+"Effects" = "Hatások";
+
+/* No comment provided by engineer. */
+"Small" = "Kicsi";
+
+/* No comment provided by engineer. */
+"Large" = "Nagy";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniatűrök";
+
+/* No comment provided by engineer. */
+"App Icons" = "Alkalmazásikonok";
+
+/* No comment provided by engineer. */
+"Titles" = "Címek";
+

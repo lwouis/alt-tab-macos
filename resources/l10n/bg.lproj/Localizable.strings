@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Относно";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Няма да получиш отговор, защото не си написал събщение.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Външен модел:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Размер на външния вид:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Покажи скрий";
+
+/* No comment provided by engineer. */
+"Effects" = "Ефекти";
+
+/* No comment provided by engineer. */
+"Small" = "Малък";
+
+/* No comment provided by engineer. */
+"Large" = "Голям";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Миниатюри";
+
+/* No comment provided by engineer. */
+"App Icons" = "Икони на приложението";
+
+/* No comment provided by engineer. */
+"Titles" = "Заглавия";
+

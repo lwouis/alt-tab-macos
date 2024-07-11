@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Despre";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Nu ai scris adresa ta de email, nu poți primi nici-un răspuns.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Model de aspect:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Mărimea aspectului:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Arată ascunde";
+
+/* No comment provided by engineer. */
+"Effects" = "Efecte";
+
+/* No comment provided by engineer. */
+"Small" = "Mic";
+
+/* No comment provided by engineer. */
+"Large" = "Mare";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniaturi";
+
+/* No comment provided by engineer. */
+"App Icons" = "Pictograme de aplicație";
+
+/* No comment provided by engineer. */
+"Titles" = "Titluri";
+

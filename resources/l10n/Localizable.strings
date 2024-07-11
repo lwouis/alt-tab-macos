@@ -17,6 +17,9 @@
 "Active screen" = "Active screen";
 
 /* No comment provided by engineer. */
+"Active Space" = "Active Space";
+
+/* No comment provided by engineer. */
 "Align windows:" = "Align windows:";
 
 /* No comment provided by engineer. */
@@ -85,7 +88,7 @@
 /* No comment provided by engineer. */
 "Blacklists" = "Blacklists";
 
-/* No comment provided by engineer. */
+/*Cancel button*/
 "Cancel" = "Cancel";
 
 /* No comment provided by engineer. */
@@ -100,10 +103,10 @@
 /* No comment provided by engineer. */
 "Check for updates periodically" = "Check for updates periodically";
 
-/* Menubar option */
+/* No comment provided by engineer. */
 "Check for updates…" = "Check for updates…";
 
-/* Menubar option */
+/*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
 /* No comment provided by engineer. */
@@ -129,6 +132,9 @@
 
 /* No comment provided by engineer. */
 "Don’t send" = "Don’t send";
+
+/* No comment provided by engineer. */
+"Don’t show windows from these apps" = "Don’t show windows from these apps";
 
 /* No comment provided by engineer. */
 "End" = "End";
@@ -191,6 +197,9 @@
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /* No comment provided by engineer. */
+"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+
+/* No comment provided by engineer. */
 "Latest releases" = "Latest releases";
 
 /* No comment provided by engineer. */
@@ -226,6 +235,12 @@
 /* No comment provided by engineer. */
 "Not allowed" = "Not allowed";
 
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0 license";
+
+/* No comment provided by engineer. */
+"Only if the window is fullscreen" = "Only if the window is fullscreen";
+
 /* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";
 
@@ -238,7 +253,7 @@
 /* No comment provided by engineer. */
 "Policies" = "Policies";
 
-/* Menubar option */
+/* No comment provided by engineer. */
 "Preferences…" = "Preferences…";
 
 /* No comment provided by engineer. */
@@ -247,7 +262,7 @@
 /* No comment provided by engineer. */
 "Quit" = "Quit";
 
-/* Menubar option. %@ is AltTab */
+/* No comment provided by engineer. */
 "Quit %@" = "Quit %@";
 
 /* No comment provided by engineer. */
@@ -304,7 +319,7 @@
 /* No comment provided by engineer. */
 "Send feedback" = "Send feedback";
 
-/* Menubar option */
+/* No comment provided by engineer. */
 "Send feedback…" = "Send feedback…";
 
 /* No comment provided by engineer. */
@@ -328,7 +343,7 @@
 /* No comment provided by engineer. */
 "Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/* Menubar option */
+/* No comment provided by engineer. */
 "Show" = "Show";
 
 /* No comment provided by engineer. */
@@ -355,7 +370,7 @@
 /* No comment provided by engineer. */
 "Start at login:" = "Start at login:";
 
-/* Menubar option */
+/*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */

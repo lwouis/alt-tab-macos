@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Sobre l'AltTab";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "No has indicat adreça de correu, no rebràs cap resposta.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Model d'aparença:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Mida de l'aspecte:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Mostra i amaga";
+
+/* No comment provided by engineer. */
+"Effects" = "Efectes";
+
+/* No comment provided by engineer. */
+"Small" = "Petit";
+
+/* No comment provided by engineer. */
+"Large" = "Gran";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniatures";
+
+/* No comment provided by engineer. */
+"App Icons" = "Icones de l'aplicació";
+
+/* No comment provided by engineer. */
+"Titles" = "Títols";
+

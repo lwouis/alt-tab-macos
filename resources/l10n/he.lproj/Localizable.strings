@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "אודות";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "לא רשמת את כתובת המייל שלך, ולא תוכל לקבל מענה.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "מודל מראה:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "גודל המראה:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "הצג הסתר";
+
+/* No comment provided by engineer. */
+"Effects" = "השפעות";
+
+/* No comment provided by engineer. */
+"Small" = "קָטָן";
+
+/* No comment provided by engineer. */
+"Large" = "גָדוֹל";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "תמונות ממוזערות";
+
+/* No comment provided by engineer. */
+"App Icons" = "סמלי אפליקציה";
+
+/* No comment provided by engineer. */
+"Titles" = "כותרות";
+

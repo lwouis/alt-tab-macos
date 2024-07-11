@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "O AltTab";
 
@@ -456,3 +455,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Nenapsali jste váš e-mail, takže nemůžete dostat odpověď.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Model vzhledu:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Velikost vzhledu:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Zobrazit a skrýt";
+
+/* No comment provided by engineer. */
+"Effects" = "Účinky";
+
+/* No comment provided by engineer. */
+"Small" = "Malý";
+
+/* No comment provided by engineer. */
+"Large" = "Velký";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniatury";
+
+/* No comment provided by engineer. */
+"App Icons" = "Ikony aplikace";
+
+/* No comment provided by engineer. */
+"Titles" = "Tituly";
+

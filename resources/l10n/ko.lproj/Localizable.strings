@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "정보";
 
@@ -453,3 +452,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "이메일을 적지 않으면 답변을 받을 수 없습니다.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "외관 모델 :";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "외관 크기 :";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "표시 및 숨기십시오";
+
+/* No comment provided by engineer. */
+"Effects" = "효과";
+
+/* No comment provided by engineer. */
+"Small" = "작은";
+
+/* No comment provided by engineer. */
+"Large" = "크기가 큰";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "썸네일";
+
+/* No comment provided by engineer. */
+"App Icons" = "앱 아이콘";
+
+/* No comment provided by engineer. */
+"Titles" = "제목";
+

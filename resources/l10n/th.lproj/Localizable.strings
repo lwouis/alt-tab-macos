@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "เกี่ยวกับ";
 
@@ -452,10 +451,30 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "คุณไม่ได้ระบุอีเมลของคุณ ดังนั้นจึงไม่สามารถรับการตอบกลับใด ๆ ได้";
 
+/* No comment provided by engineer. */
 "Appearance model:" = "Appearance model:";
 
+/* No comment provided by engineer. */
 "Appearance size:" = "Appearance size:";
 
+/* No comment provided by engineer. */
 "Show & Hide" = "Show & Hide";
 
+/* No comment provided by engineer. */
 "Effects" = "Effects";
+
+/* No comment provided by engineer. */
+"Small" = "เล็ก";
+
+/* No comment provided by engineer. */
+"Large" = "ใหญ่";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "รูปขนาดย่อ";
+
+/* No comment provided by engineer. */
+"App Icons" = "ไอคอนแอพ";
+
+/* No comment provided by engineer. */
+"Titles" = "ชื่อเรื่อง";
+

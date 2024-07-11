@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Hakkında";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "E-posta adresinizi yazmadığınız için yanıt alamayacaksınız.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Görünüm Modeli:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Görünüm Boyutu:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Gösteri ve Sakla";
+
+/* No comment provided by engineer. */
+"Effects" = "Etkileri";
+
+/* No comment provided by engineer. */
+"Small" = "Küçük";
+
+/* No comment provided by engineer. */
+"Large" = "Büyük";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Küçük resimler";
+
+/* No comment provided by engineer. */
+"App Icons" = "Uygulama simgeleri";
+
+/* No comment provided by engineer. */
+"Titles" = "Başlıklar";
+

@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Thông tin";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Bạn không điền email nên sẽ không nhận được phản hồi.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Mô hình xuất hiện:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Kích thước ngoại hình:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Hiện an";
+
+/* No comment provided by engineer. */
+"Effects" = "Các hiệu ứng";
+
+/* No comment provided by engineer. */
+"Small" = "Bé nhỏ";
+
+/* No comment provided by engineer. */
+"Large" = "Lớn";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Hình thu nhỏ";
+
+/* No comment provided by engineer. */
+"App Icons" = "Biểu tượng ứng dụng";
+
+/* No comment provided by engineer. */
+"Titles" = "Tiêu đề";
+

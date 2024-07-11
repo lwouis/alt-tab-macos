@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "பற்றி";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "தோற்ற மாதிரி:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "தோற்ற அளவு:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "காட்டு மற்றும் மறை";
+
+/* No comment provided by engineer. */
+"Effects" = "விளைவுகள்";
+
+/* No comment provided by engineer. */
+"Small" = "சிறிய";
+
+/* No comment provided by engineer. */
+"Large" = "பெரிய";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "சிறு உருவங்கள்";
+
+/* No comment provided by engineer. */
+"App Icons" = "பயன்பாட்டு சின்னங்கள்";
+
+/* No comment provided by engineer. */
+"Titles" = "தலைப்புகள்";
+

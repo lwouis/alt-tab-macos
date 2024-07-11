@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Info";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Non hai fornito un indirizzo email: non potrai ricevere risposta.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Modello di aspetto:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Dimensione dell'aspetto:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Mostra nascondi";
+
+/* No comment provided by engineer. */
+"Effects" = "Effetti";
+
+/* No comment provided by engineer. */
+"Small" = "Small";
+
+/* No comment provided by engineer. */
+"Large" = "Grande";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniature";
+
+/* No comment provided by engineer. */
+"App Icons" = "Icone di app";
+
+/* No comment provided by engineer. */
+"Titles" = "Titoli";
+

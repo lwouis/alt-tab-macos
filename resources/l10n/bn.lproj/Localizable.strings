@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "পরিচিতি";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "আপনি আপনার ইমেল লেখেননি, তাই কোনো রিপ্লেও পাবেন না।";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "উপস্থিতি মডেল:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "চেহারা আকার:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "দেখান এবং লুকান";
+
+/* No comment provided by engineer. */
+"Effects" = "প্রভাব";
+
+/* No comment provided by engineer. */
+"Small" = "ছোট";
+
+/* No comment provided by engineer. */
+"Large" = "বড়";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "থাম্বনেইলস";
+
+/* No comment provided by engineer. */
+"App Icons" = "অ্যাপ্লিকেশন আইকন";
+
+/* No comment provided by engineer. */
+"Titles" = "শিরোনাম";
+

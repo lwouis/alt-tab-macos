@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Про нас";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Ви не вказали свою електронну пошту, тому не можете отримати жодної відповіді.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Модель зовнішності:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Розмір зовнішнього вигляду:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Показати сховати";
+
+/* No comment provided by engineer. */
+"Effects" = "Ефект";
+
+/* No comment provided by engineer. */
+"Small" = "Невеликий";
+
+/* No comment provided by engineer. */
+"Large" = "Великий";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Мініатюри";
+
+/* No comment provided by engineer. */
+"App Icons" = "Піктограми додатків";
+
+/* No comment provided by engineer. */
+"Titles" = "Титули";
+

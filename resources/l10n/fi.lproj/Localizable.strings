@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Tietoja";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Et antanut sähköpostiosoitettasi, joten emme voi lähettää sinulle vastausta.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Ulkonäkömalli:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Ulkonäön koko:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Näytä piilota";
+
+/* No comment provided by engineer. */
+"Effects" = "Vaikutukset";
+
+/* No comment provided by engineer. */
+"Small" = "Pieni";
+
+/* No comment provided by engineer. */
+"Large" = "Suuri";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Pikkukuvat";
+
+/* No comment provided by engineer. */
+"App Icons" = "Sovelluskuvakkeet";
+
+/* No comment provided by engineer. */
+"Titles" = "Nimikkeet";
+

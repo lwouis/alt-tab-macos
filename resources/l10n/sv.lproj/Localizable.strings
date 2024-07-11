@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Om";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Du uppgav ingen e-post och kan därför inte få svar.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Utseende -modell:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Utseendestorlek:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Visa gömma";
+
+/* No comment provided by engineer. */
+"Effects" = "Effekter";
+
+/* No comment provided by engineer. */
+"Small" = "Små";
+
+/* No comment provided by engineer. */
+"Large" = "Stor";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniatyrer";
+
+/* No comment provided by engineer. */
+"App Icons" = "Appikoner";
+
+/* No comment provided by engineer. */
+"Titles" = "Titlar";
+

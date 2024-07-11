@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Haqida";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Tashqi ko'rinishi modeli:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Tashqi ko'rinish hajmi:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Ko'rsatish va yashirish";
+
+/* No comment provided by engineer. */
+"Effects" = "Effektlar";
+
+/* No comment provided by engineer. */
+"Small" = "Kichik";
+
+/* No comment provided by engineer. */
+"Large" = "Katta";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Eskiz";
+
+/* No comment provided by engineer. */
+"App Icons" = "Ilova piktogrammasi";
+
+/* No comment provided by engineer. */
+"Titles" = "Unvon";
+

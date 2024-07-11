@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "О программе";
 
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Вы не написали свою электронную почту, поэтому не можете получить ответ.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Модель внешнего вида:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Размер появления:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Показать спрятать";
+
+/* No comment provided by engineer. */
+"Effects" = "Последствия";
+
+/* No comment provided by engineer. */
+"Small" = "Маленький";
+
+/* No comment provided by engineer. */
+"Large" = "Большой";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Миниатюры";
+
+/* No comment provided by engineer. */
+"App Icons" = "Значки приложения";
+
+/* No comment provided by engineer. */
+"Titles" = "Названия";
+
