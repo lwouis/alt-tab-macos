@@ -110,7 +110,7 @@ class Window: CustomStringConvertible {
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
         // the window can be deallocated by the OS, in which case its `CGWindowID` will be `-1`
         // we check for equality both on the AXUIElement, and the CGWindowID, in order to catch all scenarios
-        return otherWindowAxUiElement == axUiElement || (cgWindowId != nil && Int(cgWindowId!) != -1 && otherWindowWid == cgWindowId)
+        return otherWindowAxUiElement == axUiElement || (cgWindowId != nil && cgWindowId != CGWindowID(bitPattern: -1) && otherWindowWid == cgWindowId)
     }
 
     private func observeEvents() {
@@ -126,7 +126,7 @@ class Window: CustomStringConvertible {
     }
 
     private func screenshot(_ bestResolution: Bool = false) -> NSImage? {
-        guard !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != -1, let cgImage = cgWindowId.screenshot(bestResolution) else {
+        guard !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != CGWindowID(bitPattern: -1), let cgImage = cgWindowId.screenshot(bestResolution) else {
             return nil
         }
         return NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
