@@ -14,6 +14,7 @@ class TrafficLightButton: NSButton {
         fit(size, size)
         addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil))
         toolTip = tooltip
+        appearance = .init(named: .aqua)
     }
 
     required init?(coder: NSCoder) {
@@ -117,32 +118,48 @@ class TrafficLightButton: NSButton {
     }
 
     private func drawSymbol(_ lineColor: NSColor) {
+        let symbol = NSBezierPath()
         if (type == .fullscreen) {
-            let symbol = NSBezierPath()
-            symbol.move(to: NSMakePoint(bounds.width * 0.25, bounds.height * 0.75))
-            symbol.line(to: NSMakePoint(bounds.width * 0.25, bounds.height * 1 / 3))
-            symbol.line(to: NSMakePoint(bounds.width * 2 / 3, bounds.height * 0.75))
+            var firstPointA, firstPointB, firstPointC, secondPointA, secondPointB, secondPointC: NSPoint!
+            if window_?.isFullscreen ?? false {
+                // Defullscreen symbol that the angles of the two triangles are face-to-face
+                firstPointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
+                firstPointB = NSMakePoint(bounds.width * 0.12, bounds.height * 0.5)
+                firstPointC = NSMakePoint(bounds.width * 0.5, bounds.height * 0.12)
+
+                secondPointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
+                secondPointB = NSMakePoint(bounds.width * 0.5, bounds.height * 0.88)
+                secondPointC = NSMakePoint(bounds.width * 0.88, bounds.height * 0.5)
+            } else {
+                // Fullscreen symbol that the angles of the two triangles are back-to-back
+                firstPointA = NSMakePoint(bounds.width * 0.25, bounds.height * 0.25)
+                firstPointB = NSMakePoint(bounds.width * 0.25, bounds.height * 0.65)
+                firstPointC = NSMakePoint(bounds.width * 0.65, bounds.height * 0.25)
+
+                secondPointA = NSMakePoint(bounds.width * 0.75, bounds.height * 0.75)
+                secondPointB = NSMakePoint(bounds.width * 0.35, bounds.height * 0.75)
+                secondPointC = NSMakePoint(bounds.width * 0.75, bounds.height * 0.35)
+            }
+            // Draw first triangle
+            symbol.move(to: firstPointA)
+            symbol.line(to: firstPointB)
+            symbol.line(to: firstPointC)
             symbol.close()
             lineColor.setFill()
             symbol.fill()
-            symbol.move(to: NSMakePoint(bounds.width * 0.75, bounds.height * 0.25))
-            symbol.line(to: NSMakePoint(bounds.width * 0.75, bounds.height * 2 / 3))
-            symbol.line(to: NSMakePoint(bounds.width * 1 / 3, bounds.height * 0.25))
+
+            // Clear path for the next triangle
+            symbol.removeAllPoints()
+
+            // Draw second triangle
+            symbol.move(to: secondPointA)
+            symbol.line(to: secondPointB)
+            symbol.line(to: secondPointC)
             symbol.close()
             lineColor.setFill()
             symbol.fill()
-            // maximize cross
-            // NSGraphicsContext.current?.shouldAntialias = false
-            // var symbol = NSBezierPath()
-            // symbol.move(to: NSMakePoint(bounds.width / 2, bounds.height * 0.20))
-            // symbol.line(to: NSMakePoint(bounds.width / 2, bounds.height * 0.80))
-            // symbol.move(to: NSMakePoint(bounds.width * 0.80, bounds.height / 2))
-            // symbol.line(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
-            // symbol.lineWidth = 0.75
-            // NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == .miniaturize) {
             NSGraphicsContext.current?.shouldAntialias = false
-            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
             symbol.line(to: NSMakePoint(bounds.width * 0.80, bounds.height / 2))
             symbol.lineWidth = 0.75
@@ -150,7 +167,6 @@ class TrafficLightButton: NSButton {
             symbol.stroke()
             NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == .close) {
-            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.30, bounds.height * 0.30))
             symbol.line(to: NSMakePoint(bounds.width * 0.70, bounds.height * 0.70))
             symbol.move(to: NSMakePoint(bounds.width * 0.70, bounds.height * 0.30))
@@ -160,7 +176,6 @@ class TrafficLightButton: NSButton {
             symbol.stroke()
         } else if (type == .quit) {
             let mouthAngle = CGFloat(80) / 2
-            let symbol = NSBezierPath()
             symbol.appendArc(
                 withCenter: NSMakePoint(bounds.width / 2, bounds.height / 2),
                 radius: bounds.width * 0.27,

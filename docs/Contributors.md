@@ -71,7 +71,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Darko
 * David R
 * Didier Deschrijver
-* Dmytro
 * Dzhuneyt
 * EDUARDO
 * edu_sombra
@@ -87,6 +86,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Friendship1
 * Fukuda
 * Gezimos
+* Giacomo Volpi
 * Giang
 * Github
 * Gkostov
@@ -120,6 +120,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Kagurazaka Tsuki
 * kal
 * kant
+* kazuki sakamoto
 * Kevinsevinche
 * Kinyagulovrr
 * Klara
@@ -162,6 +163,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Nmolham
 * Nuriddin Islamov
 * Ori
+* Paulius
 * Pehovorka
 * Peterkim0620
 * Petr Kolář
