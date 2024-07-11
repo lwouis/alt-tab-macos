@@ -1,6 +1,6 @@
 import Cocoa
 
-class HoverView: NSView {
+class MouseHoverView: NSView {
     var onMouseEntered: (() -> Void)?
     var onMouseExited: (() -> Void)?
 
@@ -22,24 +22,67 @@ class HoverView: NSView {
     }
 }
 
+struct ShowHideItem {
+    let uncheckedImageLight: String  // Light mode image when the item is unchecked
+    let checkedImageLight: String    // Light mode image when the item is checked
+    let uncheckedImageDark: String   // Dark mode image when the item is unchecked
+    let checkedImageDark: String     // Dark mode image when the item is checked
+    let components: [NSView]!        // UI components associated with this item
+}
+
 class AppearanceTab {
     static var showHideCellWidth = CGFloat(400)
 
-    static var showHideItems = [
-        ["show_app_badges_light", "hide_app_badges_light", "show_app_badges_dark", "hide_app_badges_dark",
-         LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide app badges", comment: ""), "hideAppBadges", labelPosition: .right)],
-        ["show_status_icons_light", "hide_status_icons_light", "show_status_icons_dark", "hide_status_icons_dark",
-         LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide status icons", comment: ""), "hideStatusIcons", labelPosition: .right)],
-        ["show_space_number_labels_light", "hide_space_number_labels_light", "show_space_number_labels_dark", "hide_space_number_labels_dark",
-         LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide Space number labels", comment: ""), "hideSpaceNumberLabels", labelPosition: .right)],
-        ["show_colored_circles_light", "hide_colored_circles_light", "show_colored_circles_dark", "hide_colored_circles_dark",
-         LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide colored circles on mouse hover", comment: ""), "hideColoredCircles", labelPosition: .right)],
-        ["show_windowless_apps_light", "hide_windowless_apps_light", "show_windowless_apps_dark", "hide_windowless_apps_dark",
-         LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide apps with no open window", comment: ""), "hideWindowlessApps", labelPosition: .right)],
-        ["hide_tabs_as_windows_light", "show_tabs_as_windows_light", "hide_tabs_as_windows_dark", "show_tabs_as_windows_dark",
-         LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Show standard tabs as windows", comment: ""), "showTabsAsWindows", labelPosition: .right)],
-        ["hide_preview_focused_window_light", "show_preview_focused_window_light", "hide_preview_focused_window_dark", "show_preview_focused_window_dark", LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Preview selected window", comment: ""), "previewFocusedWindow", labelPosition: .right)],
-
+    static var showHideItems: [ShowHideItem] = [
+        ShowHideItem(uncheckedImageLight: "show_app_badges_light",
+                checkedImageLight: "hide_app_badges_light",
+                uncheckedImageDark: "show_app_badges_dark",
+                checkedImageDark: "hide_app_badges_dark",
+                components: LabelAndControl.makeLabelWithCheckbox(
+                        NSLocalizedString("Hide app badges", comment: ""),
+                        "hideAppBadges", labelPosition: .right)),
+        ShowHideItem(uncheckedImageLight: "show_status_icons_light",
+                checkedImageLight: "hide_status_icons_light",
+                uncheckedImageDark: "show_status_icons_dark",
+                checkedImageDark: "hide_status_icons_dark",
+                components: LabelAndControl.makeLabelWithCheckbox(
+                        NSLocalizedString("Hide app badges", comment: ""),
+                        "hideAppBadges", labelPosition: .right)),
+        ShowHideItem(uncheckedImageLight: "show_space_number_labels_light",
+                checkedImageLight: "hide_space_number_labels_light",
+                uncheckedImageDark: "show_space_number_labels_dark",
+                checkedImageDark: "hide_space_number_labels_dark",
+                components: LabelAndControl.makeLabelWithCheckbox(
+                        NSLocalizedString("Hide Space number labels", comment: ""),
+                        "hideSpaceNumberLabels", labelPosition: .right)),
+        ShowHideItem(uncheckedImageLight: "show_colored_circles_light",
+                checkedImageLight: "hide_colored_circles_light",
+                uncheckedImageDark: "show_colored_circles_dark",
+                checkedImageDark: "hide_colored_circles_dark",
+                components: LabelAndControl.makeLabelWithCheckbox(
+                        NSLocalizedString("Hide colored circles on mouse hover", comment: ""),
+                        "hideColoredCircles", labelPosition: .right)),
+        ShowHideItem(uncheckedImageLight: "show_windowless_apps_light",
+                checkedImageLight: "hide_windowless_apps_light",
+                uncheckedImageDark: "show_windowless_apps_dark",
+                checkedImageDark: "hide_windowless_apps_dark",
+                components: LabelAndControl.makeLabelWithCheckbox(
+                        NSLocalizedString("Hide apps with no open window", comment: ""),
+                        "hideWindowlessApps", labelPosition: .right)),
+        ShowHideItem(uncheckedImageLight: "hide_tabs_as_windows_light",
+                checkedImageLight: "show_tabs_as_windows_light",
+                uncheckedImageDark: "hide_tabs_as_windows_dark",
+                checkedImageDark: "show_tabs_as_windows_dark",
+                components: LabelAndControl.makeLabelWithCheckbox(
+                        NSLocalizedString("Show standard tabs as windows", comment: ""),
+                        "showTabsAsWindows", labelPosition: .right)),
+        ShowHideItem(uncheckedImageLight: "hide_preview_focused_window_light",
+                checkedImageLight: "show_preview_focused_window_light",
+                uncheckedImageDark: "hide_preview_focused_window_dark",
+                checkedImageDark: "show_preview_focused_window_dark",
+                components: LabelAndControl.makeLabelWithCheckbox(
+                        NSLocalizedString("Preview selected window", comment: ""),
+                        "previewFocusedWindow", labelPosition: .right))
     ]
 
     static func initTab() -> NSView {
@@ -57,12 +100,10 @@ class AppearanceTab {
         ]
 
         var showHideSettings: [[NSView]] = [
-            [createImageView()],
+            [createIllustratedImageView()],
         ]
         for item in showHideItems {
-            if item.count >= 5, let view = item[4] as? [NSView] {
-                showHideSettings.append(view)
-            }
+            showHideSettings.append(item.components)
         }
 
         let effectsSettings: [[NSView]] = [
@@ -85,8 +126,7 @@ class AppearanceTab {
         showHideGrid.column(at: 0).width = showHideCellWidth
         showHideGrid.rowSpacing = 0
         showHideGrid.row(at: 0).bottomPadding = GridView.padding
-
-        addHoverEffect(showHideGrid)
+        addMouseHoverEffects(showHideGrid)
         addCheckboxObserver(showHideGrid)
         showHideGrid.fit()
 
@@ -147,14 +187,14 @@ class AppearanceTab {
         return containerView
     }
 
-    private static func addHoverEffect(_ grid: GridView) {
+    private static func addMouseHoverEffects(_ grid: GridView) {
         // Ignore the first row that stores the image
         guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
               let imageView = imageContainer.subviews.first as? NSImageView else { return }
         for rowIndex in 1..<grid.numberOfRows {
             for columnIndex in 0..<grid.numberOfColumns {
                 if let contentView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
-                    let hoverView = HoverView(frame: contentView.bounds)
+                    let hoverView = MouseHoverView(frame: contentView.bounds)
                     hoverView.translatesAutoresizingMaskIntoConstraints = false
                     hoverView.onMouseEntered = {
                         hoverView.wantsLayer = true
@@ -183,7 +223,7 @@ class AppearanceTab {
         }
     }
 
-    private static func createImageView(_ name: String = "thumbnails_light") -> NSView {
+    private static func createIllustratedImageView(_ name: String = "thumbnails_light") -> NSView {
         let imageContainer = NSView()
         imageContainer.translatesAutoresizingMaskIntoConstraints = false
         imageContainer.wantsLayer = true
@@ -230,14 +270,14 @@ class AppearanceTab {
     private static func addCheckboxObserver(_ grid: GridView) {
         guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
               let imageView = imageContainer.subviews.first as? NSImageView else { return }
-
+        // The first row is preview picture, so the index should start from 1
         for rowIndex in 1..<grid.numberOfRows {
             for columnIndex in 0..<grid.numberOfColumns {
-                if let contentView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView as? HoverView {
+                if let contentView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView as? MouseHoverView {
                     for subview in contentView.subviews {
                         if let checkbox = subview as? NSButton {
                             checkbox.target = self
-                            checkbox.action = #selector(checkboxClicked(_:))
+                            checkbox.action = #selector(onCheckboxClicked(_:))
                             checkbox.tag = rowIndex
                         }
                     }
@@ -246,7 +286,7 @@ class AppearanceTab {
         }
     }
 
-    @objc private static func checkboxClicked(_ sender: NSButton) {
+    @objc private static func onCheckboxClicked(_ sender: NSButton) {
         guard let grid = sender.superview?.superview as? GridView,
               let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
               let imageView = imageContainer.subviews.first as? NSImageView else { return }
@@ -259,13 +299,11 @@ class AppearanceTab {
     private static func updateImageView(for rowIndex: Int, isChecked: Bool, imageView: NSImageView) {
         debugPrint("updateImageView", "rowIndex:", rowIndex, "isChecked:", isChecked)
         // The first row is preview picture, so the index should minus 1
-        // The light images are stored at index 0/1, dark images are stored at index 2/3
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
-        let imageName = isChecked ? showHideItems[rowIndex - 1][1] : showHideItems[rowIndex - 1][0]
-        if let imageName = imageName as? String {
-            imageView.image = NSImage(named: imageName)
-        }
+        let imageName = isChecked ?
+                showHideItems[rowIndex - 1].checkedImageLight : showHideItems[rowIndex - 1].uncheckedImageLight
+        imageView.image = NSImage(named: imageName)
     }
 
     private static func findCheckboxState(in view: NSView) -> Bool {
