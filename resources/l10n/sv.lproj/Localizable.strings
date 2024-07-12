@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Om";
 
@@ -147,10 +146,10 @@
 "Focus selected window" = "Byt till valt fönster";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "Visa fönstret i helskärm";
+"Fullscreen window" = "Helskärmsfönster";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Fönster i helskärm:";
+"Fullscreen windows:" = "Fullskärmsfönster:";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Växla helskärmsläge";
@@ -165,22 +164,22 @@
 "Hide" = "Dölj";
 
 /* No comment provided by engineer. */
-"Hide app badges:" = "Dölj appsymbolbrickor:";
+"Hide app badges" = "Dölj appmärken";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window:" = "Dölj appar utan öppna fönster:";
+"Hide apps with no open window" = "Dölj appar utan öppet fönster";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover:" = "Dölj fönsterradsknappar när musen hålls över:";
+"Hide colored circles on mouse hover" = "Dölj färgade cirklar på mushover";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Dölj i %@";
 
 /* No comment provided by engineer. */
-"Hide Space number labels:" = "Dölj numrering för skrivbord:";
+"Hide Space number labels" = "Dölj rymdnummeretiketter";
 
 /* No comment provided by engineer. */
-"Hide status icons:" = "Dölj statusikoner:";
+"Hide status icons" = "Dölj statusikoner";
 
 /* No comment provided by engineer. */
 "Hide window thumbnails:" = "Dölj fönstertumnaglar:";
@@ -258,7 +257,7 @@
 "Preferences…" = "Inställningar…";
 
 /* No comment provided by engineer. */
-"Preview selected window:" = "Förhandsvisa valt fönster:";
+"Preview selected window" = "Förhandsgranska vald fönster";
 
 /* No comment provided by engineer. */
 "Quit" = "Avsluta";
@@ -354,7 +353,7 @@
 "Show on:" = "Visa på:";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows:" = "Visa standardflikar som fönster:";
+"Show standard tabs as windows" = "Visa standardflikar som Windows";
 
 /* No comment provided by engineer. */
 "Show windows from:" = "Visa fönster från:";
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Du uppgav ingen e-post och kan därför inte få svar.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Utseende -modell:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Utseendestorlek:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Visa gömma";
+
+/* No comment provided by engineer. */
+"Effects" = "Effekter";
+
+/* No comment provided by engineer. */
+"Small" = "Små";
+
+/* No comment provided by engineer. */
+"Large" = "Stor";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniatyrer";
+
+/* No comment provided by engineer. */
+"App Icons" = "Appikoner";
+
+/* No comment provided by engineer. */
+"Titles" = "Titlar";
+

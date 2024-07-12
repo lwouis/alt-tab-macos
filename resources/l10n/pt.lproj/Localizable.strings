@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Informações";
 
@@ -147,10 +146,10 @@
 "Focus selected window" = "Foco na janela activa";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "Ecrã inteiro";
+"Fullscreen window" = "Janela de tela cheia";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Janelas fullscreen:";
+"Fullscreen windows:" = "Janelas de tela cheia:";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Alternar ecrã inteiro da janela";
@@ -165,22 +164,22 @@
 "Hide" = "Esconder";
 
 /* No comment provided by engineer. */
-"Hide app badges:" = "Esconder emblemas:";
+"Hide app badges" = "Ocultar crachás de aplicativos";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window:" = "Esconder aplicações sem janelas abertas:";
+"Hide apps with no open window" = "Ocultar aplicativos sem janela aberta";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover:" = "Esconder círculos coloridos onde o rato passar:";
+"Hide colored circles on mouse hover" = "Ocultar círculos coloridos no mouse pairar";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Esconder em %@";
 
 /* No comment provided by engineer. */
-"Hide Space number labels:" = "Não exibir número do space:";
+"Hide Space number labels" = "Ocultar rótulos de número de espaço";
 
 /* No comment provided by engineer. */
-"Hide status icons:" = "Esconder ícones de estado:";
+"Hide status icons" = "Ocultar ícones de status";
 
 /* No comment provided by engineer. */
 "Hide window thumbnails:" = "Esconder miniaturas das janelas:";
@@ -258,7 +257,7 @@
 "Preferences…" = "Preferências…";
 
 /* No comment provided by engineer. */
-"Preview selected window:" = "Pré-visualizar janela seleccionada:";
+"Preview selected window" = "Visualizar janela selecionada";
 
 /* No comment provided by engineer. */
 "Quit" = "Sair";
@@ -354,7 +353,7 @@
 "Show on:" = "Mostrar em:";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows:" = "Mostrar separadores como janelas:";
+"Show standard tabs as windows" = "Mostre guias padrão como Windows";
 
 /* No comment provided by engineer. */
 "Show windows from:" = "Mostrar janelas de:";
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Não escreveu o seu endereço de email, logo não é possível enviar resposta";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Modelo de aparência:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Tamanho da aparência:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Aparecer esconder";
+
+/* No comment provided by engineer. */
+"Effects" = "Efeitos";
+
+/* No comment provided by engineer. */
+"Small" = "Small";
+
+/* No comment provided by engineer. */
+"Large" = "Grande";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniaturas";
+
+/* No comment provided by engineer. */
+"App Icons" = "Ícones de aplicativos";
+
+/* No comment provided by engineer. */
+"Titles" = "Títulos";
+

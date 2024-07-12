@@ -146,10 +146,10 @@
 "Focus selected window" = "聚焦選擇的視窗";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "將視窗進入全螢幕";
+"Fullscreen window" = "全屏窗口";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "全螢幕視窗：";
+"Fullscreen windows:" = "全屏窗口：";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "全螢幕 / 取消全螢幕視窗";

@@ -1,7 +1,7 @@
 /* No comment provided by engineer. */
 "About" = "About";
 
-/* Menubar option. %@ is AltTab */
+/*Menubar option. %@ is AltTab*/
 "About %@" = "About %@";
 
 /* No comment provided by engineer. */
@@ -146,6 +146,9 @@
 "Focus selected window" = "Focus selected window";
 
 /* No comment provided by engineer. */
+"Fullscreen window" = "Fullscreen window";
+
+/* No comment provided by engineer. */
 "Fullscreen windows:" = "Fullscreen windows:";
 
 /* No comment provided by engineer. */
@@ -169,7 +172,7 @@
 /* No comment provided by engineer. */
 "Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
 
-/* %@ is AltTab */
+/*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
 /* No comment provided by engineer. */

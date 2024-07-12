@@ -146,10 +146,10 @@
 "Focus selected window" = "선택한 윈도우로 이동";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "윈도우를 전체 화면으로 전환";
+"Fullscreen window" = "전체 화면 창";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "전체 화면 윈도우:";
+"Fullscreen windows:" = "전체 화면 창 :";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "윈도우 최대화/최소화";

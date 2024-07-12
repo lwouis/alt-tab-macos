@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "情報";
 
@@ -147,7 +146,7 @@
 "Focus selected window" = "選択されたウィンドウを表示";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "ウィンドウを全画面表示に切り替える";
+"Fullscreen window" = "フルスクリーンウィンドウ";
 
 /* No comment provided by engineer. */
 "Fullscreen windows:" = "フルスクリーンウィンドウ：";
@@ -165,22 +164,22 @@
 "Hide" = "隠す";
 
 /* No comment provided by engineer. */
-"Hide app badges:" = "アプリのバッジを隠す：";
+"Hide app badges" = "アプリバッジを非表示にします";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window:" = "開いているウィンドウがないアプリを隠す：";
+"Hide apps with no open window" = "開いたウィンドウのないアプリを非表示にします";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover:" = "マウスホバーした際、ウィンドウ設定を表示しない：";
+"Hide colored circles on mouse hover" = "マウスホバーに色のついた円を非表示にします";
 
 /*%@ is AltTab*/
 "Hide in %@" = "%@から隠す";
 
 /* No comment provided by engineer. */
-"Hide Space number labels:" = "デスクトップ番号ラベルを表示しない：";
+"Hide Space number labels" = "スペース番号ラベルを非表示にします";
 
 /* No comment provided by engineer. */
-"Hide status icons:" = "ステータスアイコンを表示しない：";
+"Hide status icons" = "ステータスアイコンを非表示にします";
 
 /* No comment provided by engineer. */
 "Hide window thumbnails:" = "ウィンドウサムネイルを隠す：";
@@ -258,7 +257,7 @@
 "Preferences…" = "環境設定…";
 
 /* No comment provided by engineer. */
-"Preview selected window:" = "選択した画面をプレビューする：";
+"Preview selected window" = "選択したウィンドウをプレビューします";
 
 /* No comment provided by engineer. */
 "Quit" = "終了";
@@ -354,7 +353,7 @@
 "Show on:" = "表示場所：";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows:" = "標準タブをウィンドウとして表示：";
+"Show standard tabs as windows" = "標準タブをWindowsとして表示します";
 
 /* No comment provided by engineer. */
 "Show windows from:" = "次からウィンドウを表示：";
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "ご自身のEmailを入力しなかったため、回答を受信できません。";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "外観モデル：";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "外観サイズ：";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "表示して非表示にします";
+
+/* No comment provided by engineer. */
+"Effects" = "効果";
+
+/* No comment provided by engineer. */
+"Small" = "小さい";
+
+/* No comment provided by engineer. */
+"Large" = "大きい";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "サムネイル";
+
+/* No comment provided by engineer. */
+"App Icons" = "アプリアイコン";
+
+/* No comment provided by engineer. */
+"Titles" = "タイトル";
+

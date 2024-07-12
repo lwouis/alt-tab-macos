@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "À propos";
 
@@ -147,10 +146,10 @@
 "Focus selected window" = "Aller à la fenêtre sélectionnée";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "Fenêtre plein écran";
+"Fullscreen window" = "Fenêtre pleine écran";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Fenêtres plein écran :";
+"Fullscreen windows:" = "Fenêtres à écran plein:";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Pleine écran / fenêtré";
@@ -165,22 +164,22 @@
 "Hide" = "Masquer";
 
 /* No comment provided by engineer. */
-"Hide app badges:" = "Masquer les badges des Apps :";
+"Hide app badges" = "Masquer les badges d'application";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window:" = "Cacher les Apps sans fenêtre :";
+"Hide apps with no open window" = "Masquer les applications sans fenêtre ouverte";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover:" = "Masquer les cercles colorés au survol de la souris :";
+"Hide colored circles on mouse hover" = "Masquer les cercles colorés sur la souris survole";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Caché dans %@";
 
 /* No comment provided by engineer. */
-"Hide Space number labels:" = "Cacher les numéros des Bureaux :";
+"Hide Space number labels" = "Masquer les étiquettes du numéro d'espace";
 
 /* No comment provided by engineer. */
-"Hide status icons:" = "Masquer les icônes de statut :";
+"Hide status icons" = "Masquer les icônes d'état";
 
 /* No comment provided by engineer. */
 "Hide window thumbnails:" = "Cacher les aperçus des fenêtres :";
@@ -258,7 +257,7 @@
 "Preferences…" = "Préférences…";
 
 /* No comment provided by engineer. */
-"Preview selected window:" = "Prévisualisation de la fenêtre";
+"Preview selected window" = "Aperçu de la fenêtre sélectionnée";
 
 /* No comment provided by engineer. */
 "Quit" = "Quitter";
@@ -354,7 +353,7 @@
 "Show on:" = "Afficher sur :";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows:" = "Afficher les onglets standards comme fenêtres :";
+"Show standard tabs as windows" = "Afficher les onglets standard sous forme de fenêtres";
 
 /* No comment provided by engineer. */
 "Show windows from:" = "Fenêtres montrées :";
@@ -451,3 +450,31 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Vous n’avez pas saisi votre email, et ne pourrez donc pas recevoir de réponse.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Modèle d'apparence:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Taille d'apparence:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Afficher et se cacher";
+
+/* No comment provided by engineer. */
+"Effects" = "Effets";
+
+/* No comment provided by engineer. */
+"Small" = "Small";
+
+/* No comment provided by engineer. */
+"Large" = "Large";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Vignettes";
+
+/* No comment provided by engineer. */
+"App Icons" = "Icônes d'application";
+
+/* No comment provided by engineer. */
+"Titles" = "Titres";
+

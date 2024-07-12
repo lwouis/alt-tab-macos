@@ -146,10 +146,10 @@
 "Focus selected window" = "โฟกัสหน้าต่างที่เลือก";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "หน้าต่างโหมดเต็มหน้าจอ";
+"Fullscreen window" = "หน้าต่างเต็มหน้าจอ";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "หน้าต่างโหมดเต็มหน้าจอ:";
+"Fullscreen windows:" = "หน้าต่างเต็มหน้าจอ:";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "เข้าสู่/ออกจากโหมดเต็มหน้าจอ";
