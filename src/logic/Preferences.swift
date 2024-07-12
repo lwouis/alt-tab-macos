@@ -57,7 +57,7 @@ class Preferences {
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
         "appearanceModel": AppearanceModelPreference.thumbnails.rawValue,
-        "appearanceSize": AppearanceSizePreference.middle.rawValue,
+        "appearanceSize": AppearanceSizePreference.medium.rawValue,
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
@@ -225,7 +225,7 @@ class Preferences {
                 appearance.fontHeight = 15
                 appearance.maxWidthOnScreen = 85
                 appearance.maxHeightOnScreen = 80
-            } else if size == AppearanceSizePreference.middle {
+            } else if size == AppearanceSizePreference.medium {
                 appearance.rowsCount = 5
                 appearance.windowMinWidthInRow = 10
                 appearance.windowMaxWidthInRow = 90
@@ -252,7 +252,7 @@ class Preferences {
                 appearance.fontHeight = 0
                 appearance.maxWidthOnScreen = 80
                 appearance.maxHeightOnScreen = 80
-            } else if size == AppearanceSizePreference.middle {
+            } else if size == AppearanceSizePreference.medium {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 90
@@ -279,7 +279,7 @@ class Preferences {
                 appearance.fontHeight = 15
                 appearance.maxWidthOnScreen = 50
                 appearance.maxHeightOnScreen = 90
-            } else if size == AppearanceSizePreference.middle {
+            } else if size == AppearanceSizePreference.medium {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 50
                 appearance.windowMaxWidthInRow = 90
@@ -764,13 +764,13 @@ enum AppearanceModelPreference: String, CaseIterable, ImageMacroPreference {
 
 enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
     case small = "0"
-    case middle = "1"
+    case medium = "1"
     case large = "2"
 
     var localizedString: LocalizedString {
         switch self {
             case .small: return NSLocalizedString("Small", comment: "")
-            case .middle: return NSLocalizedString("Middle", comment: "")
+            case .medium: return NSLocalizedString("Medium", comment: "")
             case .large: return NSLocalizedString("Large", comment: "")
         }
     }
@@ -778,7 +778,7 @@ enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
     var image: WidthHeightImage {
         switch self {
             case .small: return WidthHeightImage(name: "small")
-            case .middle: return WidthHeightImage(name: "middle")
+            case .medium: return WidthHeightImage(name: "medium")
             case .large: return WidthHeightImage(name: "large")
         }
     }
