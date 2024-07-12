@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+"""
+This script depends on the following modules:
+
+pip install googletrans==4.0.0-rc1
+"""
 import os
 import argparse
 from googletrans import Translator
