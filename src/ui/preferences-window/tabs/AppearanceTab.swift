@@ -308,7 +308,7 @@ class AppearanceTab {
         }
     }
 
-    @objc private static func onCheckboxClicked(sender: NSButton, rowIndex: Int) {
+    private static func onCheckboxClicked(sender: NSButton, rowIndex: Int) {
         guard let imageContainer = showHideGrid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
               let imageView = imageContainer.subviews.first as? NSImageView else { return }
 
