@@ -117,7 +117,7 @@ class AppearanceTab {
         let generalSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""), "appearanceModel", AppearanceModelPreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
+            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
             LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases, buttonSpacing: 50),
             [makeSeparator(), makeSeparator(), makeSeparator()],
@@ -313,7 +313,6 @@ class AppearanceTab {
               let imageView = imageContainer.subviews.first as? NSImageView else { return }
 
         let isChecked = sender.state == .on
-        debugPrint("onCheckboxClicked rowIndex", rowIndex)
         updateImageView(for: rowIndex, isChecked: isChecked, imageView: imageView)
     }
 

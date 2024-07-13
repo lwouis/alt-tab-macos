@@ -33,21 +33,6 @@ class ClickableImageView: NSView {
     }
 }
 
-//extension NSImageView {
-//    private struct AssociatedKeys {
-//        static var onAction = "onAction"
-//    }
-//
-//    var onAction: (() -> Void)? {
-//        get {
-//            return objc_getAssociatedObject(self, &AssociatedKeys.onAction) as? (() -> Void)
-//        }
-//        set {
-//            objc_setAssociatedObject(self, &AssociatedKeys.onAction, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-//        }
-//    }
-//}
-
 class LabelAndControl: NSObject {
     static func makeLabelWithImageRadioButtons(_ labelText: String,
                                                _ rawName: String,
@@ -231,6 +216,23 @@ class LabelAndControl: NSObject {
     static func makeDropdown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSControl {
         let dropdown = dropdown_(rawName, macroPreferences)
         return setupControl(dropdown, rawName)
+    }
+
+    static func makeLabelWithRadioButtons(_ labelText: String,
+                                          _ rawName: String,
+                                          _ values: [MacroPreference],
+                                          extraAction: ActionClosure? = nil,
+                                          buttonSpacing: CGFloat = 30) -> [NSView] {
+        let buttons = makeRadioButtons(values, rawName, extraAction: extraAction)
+
+        let horizontalStackView = NSStackView(views: buttons)
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.orientation = .horizontal
+        horizontalStackView.spacing = buttonSpacing
+        horizontalStackView.alignment = .centerY
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+
+        return [makeLabel(labelText), horizontalStackView]
     }
 
     static func makeRadioButtons(_ macroPreferences: [MacroPreference], _ rawName: String, extraAction: ActionClosure? = nil) -> [NSButton] {
