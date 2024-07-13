@@ -62,6 +62,8 @@ class Preferences {
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "appVerticalAlignment": AppVerticalAlignmentPreference.centered.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
+        "radioIconSize": IconSizePreference.medium.rawValue,
+        "radioTitleFontSize": TitleFontSizePreference.medium.rawValue,
         "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
         "appsToShow2": AppsToShowPreference.active.rawValue,
@@ -785,6 +787,50 @@ enum AppearanceModelPreference: String, CaseIterable, ImageMacroPreference {
 }
 
 enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
+    case small = "0"
+    case medium = "1"
+    case large = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .small: return NSLocalizedString("Small", comment: "")
+            case .medium: return NSLocalizedString("Medium", comment: "")
+            case .large: return NSLocalizedString("Large", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .small: return WidthHeightImage(name: "small")
+            case .medium: return WidthHeightImage(name: "medium")
+            case .large: return WidthHeightImage(name: "large")
+        }
+    }
+}
+
+enum TitleFontSizePreference: String, CaseIterable, ImageMacroPreference {
+    case small = "0"
+    case medium = "1"
+    case large = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .small: return NSLocalizedString("Small", comment: "")
+            case .medium: return NSLocalizedString("Medium", comment: "")
+            case .large: return NSLocalizedString("Large", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .small: return WidthHeightImage(name: "small")
+            case .medium: return WidthHeightImage(name: "medium")
+            case .large: return WidthHeightImage(name: "large")
+        }
+    }
+}
+
+enum IconSizePreference: String, CaseIterable, ImageMacroPreference {
     case small = "0"
     case medium = "1"
     case large = "2"

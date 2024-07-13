@@ -36,6 +36,8 @@ class AppearanceTab {
     static var showHideGrid: GridView!
     static var infoPopover: NSPopover!
 
+    static var titleTruncation: [NSView]!
+
     static var showHideItems: [ShowHideItem] = [
         ShowHideItem(uncheckedImageLight: "show_app_badges_light",
                 checkedImageLight: "hide_app_badges_light",
@@ -114,16 +116,32 @@ class AppearanceTab {
     ]
 
     static func initTab() -> NSView {
+        titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
+                "titleTruncation", TitleTruncationPreference.allCases)
+
         let generalSettings: [[NSView]] = [
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""), "appearanceModel", AppearanceModelPreference.allCases),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
+                    "appearanceModel", AppearanceModelPreference.allCases, extraAction: { sender in
+                let button = sender as! NSButton
+                toggleTitleTruncation(button: button)
+            }),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""),
+                    "theme", ThemePreference.allCases, buttonSpacing: 50),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases, buttonSpacing: 50),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Align windows:", comment: ""),
+                    "alignThumbnails", AlignThumbnailsPreference.allCases, buttonSpacing: 55),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Align windows:", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases, buttonSpacing: 55),
+            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""),
+                    "appearanceSize", AppearanceSizePreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""), "titleTruncation", TitleTruncationPreference.allCases),
+            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Icon size:", comment: ""),
+                    "radioIconSize", IconSizePreference.allCases),
+            [makeSeparator(), makeSeparator(), makeSeparator()],
+            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Title font size:", comment: ""),
+                    "radioTitleFontSize", TitleFontSizePreference.allCases),
+            [makeSeparator(), makeSeparator(), makeSeparator()],
+            titleTruncation,
         ]
 
         var showHideSettings: [[NSView]] = [
@@ -146,10 +164,9 @@ class AppearanceTab {
         let generalGrid = GridView(generalSettings)
         generalGrid.column(at: 0).xPlacement = .trailing
         // merge cells for separator
-        generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: 1, length: 1))
-        generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: 3, length: 1))
-        generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: 5, length: 1))
-        generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: 7, length: 1))
+        [1, 3, 5, 7, 9, 11].forEach { row in
+            generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: row, length: 1))
+        }
         generalGrid.fit()
 
         showHideGrid = GridView(showHideSettings)
@@ -401,5 +418,10 @@ class AppearanceTab {
         popover.show(relativeTo: correctRect, of: window.contentView!, preferredEdge: .minY)
 
         infoPopover = popover
+    }
+
+    private static func toggleTitleTruncation(button: NSButton) {
+        (titleTruncation[1] as! NSPopUpButton).isEnabled = (Preferences.appearanceModel == .thumbnails
+                || Preferences.appearanceModel == .titles)
     }
 }
