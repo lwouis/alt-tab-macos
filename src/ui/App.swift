@@ -189,7 +189,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func showSecondaryWindow(_ window: NSWindow?) {
         if let window = window {
-            NSScreen.preferred().repositionPanel(window, Preferences.verticalAlignment)
+            NSScreen.preferred().repositionPanel(window, VerticalAlignment.appleCentered)
             App.shared.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
         }
