@@ -440,7 +440,7 @@ class AppearanceTab {
         (titleTruncation[1] as! NSPopUpButton).isEnabled = (Preferences.appearanceModel == .thumbnails
                 || Preferences.appearanceModel == .titles)
         (titleTruncation[0] as! TextField).textColor = (Preferences.appearanceModel == .thumbnails
-                || Preferences.appearanceModel == .titles) ? .black : .gray
+                || Preferences.appearanceModel == .titles) ? .labelColor : .gray
 
         [radioIconSize[1], radioTitleFontSize[1]].forEach { view in
             var buttons = findButtons(in: view as! NSStackView)
@@ -453,7 +453,7 @@ class AppearanceTab {
             if Preferences.appearanceModel != .titles {
                 field?.textColor = NSColor.gray
             } else {
-                field?.textColor = NSColor.black
+                field?.textColor = NSColor.labelColor
             }
         }
     }
