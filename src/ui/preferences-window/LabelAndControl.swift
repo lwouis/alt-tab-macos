@@ -7,6 +7,47 @@ enum LabelPosition {
     case right
 }
 
+class ClickableImageView: NSView {
+    var imageView: NSImageView!
+    var clickAction: ((NSRect, NSView) -> Void)?
+
+    init(imageView: NSImageView, action: @escaping (NSRect, NSView) -> Void) {
+        super.init(frame: .zero)
+        self.clickAction = action
+        addSubview(imageView)
+
+        let clickGesture = NSClickGestureRecognizer(target: self, action: #selector(handleClick))
+        addGestureRecognizer(clickGesture)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc private func handleClick() {
+        clickAction?(frame, self)
+    }
+
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
+        return true
+    }
+}
+
+//extension NSImageView {
+//    private struct AssociatedKeys {
+//        static var onAction = "onAction"
+//    }
+//
+//    var onAction: (() -> Void)? {
+//        get {
+//            return objc_getAssociatedObject(self, &AssociatedKeys.onAction) as? (() -> Void)
+//        }
+//        set {
+//            objc_setAssociatedObject(self, &AssociatedKeys.onAction, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+//        }
+//    }
+//}
+
 class LabelAndControl: NSObject {
     static func makeLabelWithImageRadioButtons(_ labelText: String,
                                                _ rawName: String,
@@ -114,6 +155,53 @@ class LabelAndControl: NSObject {
         checkbox.state = defaults.bool(rawName) ? .on : .off
         let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
+    }
+
+    static func makeInfoButton(_ action: @escaping (NSRect, NSView) -> Void) -> NSView {
+        let imageView = NSImageView(image: NSImage(named: "info_button")!)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.imageScaling = .scaleProportionallyUpOrDown
+
+        // Enable layer-backed view to improve rendering quality
+        imageView.wantsLayer = true
+        imageView.layer?.contentsGravity = .resizeAspect
+        imageView.layer?.shouldRasterize = true
+        imageView.layer?.rasterizationScale = NSScreen.main?.backingScaleFactor ?? 1.0
+
+        let view = ClickableImageView(imageView: imageView, action: action)
+
+        // Set constraints to add equal padding around the image
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 15),
+            imageView.heightAnchor.constraint(equalToConstant: 15),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 2),
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -2),
+        ])
+
+        return view
+    }
+
+    static func makeLabelWithCheckboxAndInfoButton(_ labelText: String,
+                                                   _ rawName: String,
+                                                   labelPosition: LabelPosition = .leftWithSeparator,
+                                                   infoAction: @escaping (NSRect, NSView) -> Void) -> [NSView] {
+        let labelCheckboxViews = makeLabelWithCheckbox(labelText, rawName, labelPosition: labelPosition)
+        let infoButtonView = makeInfoButton(infoAction)
+
+        var views: [NSView] = []
+        labelCheckboxViews.forEach { view in
+            views.append(view)
+        }
+        views.append(infoButtonView)
+        let hStack = NSStackView(views: views)
+        hStack.orientation = .horizontal
+        hStack.spacing = 8
+        hStack.alignment = .centerY
+        hStack.translatesAutoresizingMaskIntoConstraints = false
+
+        return [hStack]
     }
 
     static func makeTextArea(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {

@@ -33,6 +33,8 @@ struct ShowHideItem {
 class AppearanceTab {
     static var showHideCellWidth = CGFloat(400)
 
+    static var infoPopover: NSPopover?
+
     static var showHideItems: [ShowHideItem] = [
         ShowHideItem(uncheckedImageLight: "show_app_badges_light",
                 checkedImageLight: "hide_app_badges_light",
@@ -45,9 +47,11 @@ class AppearanceTab {
                 checkedImageLight: "hide_status_icons_light",
                 uncheckedImageDark: "show_status_icons_dark",
                 checkedImageDark: "hide_status_icons_dark",
-                components: LabelAndControl.makeLabelWithCheckbox(
-                        NSLocalizedString("Hide app badges", comment: ""),
-                        "hideAppBadges", labelPosition: .right)),
+                components: LabelAndControl.makeLabelWithCheckboxAndInfoButton(
+                        NSLocalizedString("Hide status icons", comment: ""),
+                        "hideStatusIcons", labelPosition: .right, infoAction: { rect, view in
+                    showInfo(relativeTo: rect, of: view, relativeWidth: -44, relativeHeight: -67, message: "AltTab will show if the window is currently minimized or fullscreen with a status icon.")
+                })),
         ShowHideItem(uncheckedImageLight: "show_space_number_labels_light",
                 checkedImageLight: "hide_space_number_labels_light",
                 uncheckedImageDark: "show_space_number_labels_dark",
@@ -73,9 +77,11 @@ class AppearanceTab {
                 checkedImageLight: "show_tabs_as_windows_light",
                 uncheckedImageDark: "hide_tabs_as_windows_dark",
                 checkedImageDark: "show_tabs_as_windows_dark",
-                components: LabelAndControl.makeLabelWithCheckbox(
+                components: LabelAndControl.makeLabelWithCheckboxAndInfoButton(
                         NSLocalizedString("Show standard tabs as windows", comment: ""),
-                        "showTabsAsWindows", labelPosition: .right)),
+                        "showTabsAsWindows", labelPosition: .right, infoAction: { rect, view in
+                    showInfo(relativeTo: rect, of: view, relativeWidth: 45, relativeHeight: -217, message: "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.")
+                })),
         ShowHideItem(uncheckedImageLight: "hide_preview_focused_window_light",
                 checkedImageLight: "show_preview_focused_window_light",
                 uncheckedImageDark: "hide_preview_focused_window_dark",
@@ -269,7 +275,7 @@ class AppearanceTab {
 
     private static func addCheckboxObserver(_ grid: GridView) {
         guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
-              let imageView = imageContainer.subviews.first as? NSImageView else { return }
+              let _ = imageContainer.subviews.first as? NSImageView else { return }
         // The first row is preview picture, so the index should start from 1
         for rowIndex in 1..<grid.numberOfRows {
             for columnIndex in 0..<grid.numberOfColumns {
@@ -297,7 +303,6 @@ class AppearanceTab {
     }
 
     private static func updateImageView(for rowIndex: Int, isChecked: Bool, imageView: NSImageView) {
-        debugPrint("updateImageView", "rowIndex:", rowIndex, "isChecked:", isChecked)
         // The first row is preview picture, so the index should minus 1
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
@@ -316,5 +321,69 @@ class AppearanceTab {
             }
         }
         return false
+    }
+
+    private static func showInfo(relativeTo rect: NSRect, of view: NSView,
+                                 relativeWidth: CGFloat, relativeHeight: CGFloat, message: String) {
+        guard let window = view.window else {
+            return
+        }
+
+        // Close the existing Popover if it's already open
+        if let existingPopover = infoPopover {
+            existingPopover.performClose(nil)
+        }
+
+        // Create a new Popover
+        let popover = NSPopover()
+        popover.behavior = .semitransient
+
+        // Create the content view controller
+        let viewController = NSViewController()
+        viewController.view = NSView()
+
+        // Add the text label
+        let label = NSTextField(labelWithString: NSLocalizedString(message, comment: ""))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.lineBreakMode = .byWordWrapping
+        label.maximumNumberOfLines = 0
+        label.isEditable = false
+        label.isSelectable = true
+        label.textColor = NSColor.gray
+        label.font = NSFont.systemFont(ofSize: 12)
+        viewController.view.addSubview(label)
+
+        let button = NSButton(title: NSLocalizedString("done", comment: ""), target: popover, action: #selector(NSPopover.performClose(_:)))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isBordered = false
+        button.focusRingType = .none
+        button.bezelStyle = .shadowlessSquare
+        button.wantsLayer = true
+        button.layer?.cornerRadius = 5.0
+        button.layer?.backgroundColor = NSColor.lightGray.cgColor
+        button.layer?.masksToBounds = true
+        button.alignment = .center
+
+        viewController.view.addSubview(button)
+
+        // Set constraints
+        NSLayoutConstraint.activate([
+            viewController.view.widthAnchor.constraint(equalToConstant: 400),
+            label.topAnchor.constraint(equalTo: viewController.view.topAnchor, constant: 10),
+            label.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 10),
+            label.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -10),
+
+            button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 15),
+            button.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            button.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -10)
+        ])
+
+        popover.contentViewController = viewController
+
+        // It's not a good idea to use relativeWidth and relativeHeight to show popover at the right position
+        let correctRect = NSRect(x: window.frame.width / 2 + relativeWidth, y: window.frame.height / 2 + relativeHeight, width: 1, height: 1)
+        popover.show(relativeTo: correctRect, of: window.contentView!, preferredEdge: .minY)
+
+        infoPopover = popover
     }
 }
