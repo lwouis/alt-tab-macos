@@ -102,7 +102,6 @@ class AppearanceTab {
             LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Align windows:", comment: ""), "alignThumbnails", AlignThumbnailsPreference.allCases, buttonSpacing: 55),
             [makeSeparator(), makeSeparator(), makeSeparator()],
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""), "titleTruncation", TitleTruncationPreference.allCases),
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
         ]
 
         var showHideSettings: [[NSView]] = [
@@ -111,6 +110,11 @@ class AppearanceTab {
         for item in showHideItems {
             showHideSettings.append(item.components)
         }
+
+        var positionSettings: [[NSView]] = [
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("App vertical alignment:", comment: ""), "appVerticalAlignment", AppVerticalAlignmentPreference.allCases),
+        ]
 
         let effectsSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Apparition delay:", comment: ""), "windowDisplayDelay", 0, 2000, 11, false, "ms"),
@@ -136,6 +140,10 @@ class AppearanceTab {
         addCheckboxObserver(showHideGrid)
         showHideGrid.fit()
 
+        let positionGrid = GridView(positionSettings)
+        positionGrid.column(at: 0).xPlacement = .trailing
+        positionGrid.fit()
+
         let effectsGrid = GridView(effectsSettings)
         effectsGrid.column(at: 0).xPlacement = .trailing
         effectsGrid.column(at: 1).width = 200
@@ -145,6 +153,7 @@ class AppearanceTab {
         let tabView = TabView([
             (NSLocalizedString("General", comment: ""), generalGrid),
             (NSLocalizedString("Show & Hide", comment: ""), showHideGrid),
+            (NSLocalizedString("Position", comment: ""), positionGrid),
             (NSLocalizedString("Effects", comment: ""), effectsGrid),
         ])
         let view = NSView()
@@ -166,8 +175,11 @@ class AppearanceTab {
             showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor),
             showHideGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor),
 
-            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor),
-            effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
+            positionGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor),
+            positionGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
+
+            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 3).view!.topAnchor),
+            effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 3).view!.centerXAnchor),
         ])
         return view
     }

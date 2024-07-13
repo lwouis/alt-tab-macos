@@ -60,6 +60,7 @@ class Preferences {
         "appearanceSize": AppearanceSizePreference.medium.rawValue,
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
+        "appVerticalAlignment": AppVerticalAlignmentPreference.centered.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
         "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
@@ -154,6 +155,7 @@ class Preferences {
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { defaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
+    static var appVerticalAlignment: AppVerticalAlignmentPreference { defaults.macroPref("appVerticalAlignment", AppVerticalAlignmentPreference.allCases) }
 
     // derived values
     static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
@@ -170,6 +172,7 @@ class Preferences {
     static var iconSize: CGFloat { modelSizeAppearanceParameters.iconSize }
     static var fontHeight: CGFloat { modelSizeAppearanceParameters.fontHeight }
     static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
+    static var verticalAlignment: VerticalAlignment { appVerticalAlignment.verticalAlignment }
 
     static func initialize() {
         removeCorruptedPreferences()
@@ -703,6 +706,25 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
             case .active: return NSLocalizedString("Active screen", comment: "")
             case .includingMouse: return NSLocalizedString("Screen including mouse", comment: "")
             case .includingMenubar: return NSLocalizedString("Screen including menu bar", comment: "")
+        }
+    }
+}
+
+enum AppVerticalAlignmentPreference: String, CaseIterable, MacroPreference {
+    case centered = "0"
+    case appleCentered = "1"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .centered: return NSLocalizedString("Centered", comment: "")
+            case .appleCentered: return NSLocalizedString("Apple Centered", comment: "")
+        }
+    }
+
+    var verticalAlignment: VerticalAlignment {
+        switch self {
+            case .centered: return VerticalAlignment.centered
+            case .appleCentered: return VerticalAlignment.appleCentered
         }
     }
 }
