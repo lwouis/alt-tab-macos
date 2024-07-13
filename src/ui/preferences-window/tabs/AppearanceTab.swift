@@ -142,10 +142,12 @@ class AppearanceTab {
 
         let positionGrid = GridView(positionSettings)
         positionGrid.column(at: 0).xPlacement = .trailing
+        positionGrid.row(at: 0).bottomPadding = TabView.padding
         positionGrid.fit()
 
         let effectsGrid = GridView(effectsSettings)
         effectsGrid.column(at: 0).xPlacement = .trailing
+        effectsGrid.row(at: 0).bottomPadding = TabView.padding
         effectsGrid.column(at: 1).width = 200
         effectsGrid.fit()
 
