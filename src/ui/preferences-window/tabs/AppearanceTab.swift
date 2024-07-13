@@ -375,7 +375,9 @@ class AppearanceTab {
 
             button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 15),
             button.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            button.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -10)
+            button.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -10),
+            button.widthAnchor.constraint(equalToConstant: 42),
+            button.heightAnchor.constraint(equalToConstant: 23),
         ])
 
         popover.contentViewController = viewController
