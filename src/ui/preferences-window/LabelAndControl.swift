@@ -185,9 +185,10 @@ class LabelAndControl: NSObject {
 
     static func makeLabelWithCheckboxAndInfoButton(_ labelText: String,
                                                    _ rawName: String,
+                                                   extraAction: ActionClosure? = nil,
                                                    labelPosition: LabelPosition = .leftWithSeparator,
                                                    infoAction: @escaping (NSRect, NSView) -> Void) -> [NSView] {
-        let labelCheckboxViews = makeLabelWithCheckbox(labelText, rawName, labelPosition: labelPosition)
+        let labelCheckboxViews = makeLabelWithCheckbox(labelText, rawName, extraAction: extraAction, labelPosition: labelPosition)
         let infoButtonView = makeInfoButton(infoAction)
 
         var views: [NSView] = []
