@@ -37,6 +37,8 @@ class AppearanceTab {
     static var infoPopover: NSPopover!
 
     static var titleTruncation: [NSView]!
+    static var radioIconSize: [NSView]!
+    static var radioTitleFontSize: [NSView]!
 
     static var showHideItems: [ShowHideItem] = [
         ShowHideItem(uncheckedImageLight: "show_app_badges_light",
@@ -58,7 +60,7 @@ class AppearanceTab {
                         "hideStatusIcons", extraAction: { sender in
                     let button = sender as! NSButton
                     onCheckboxClicked(sender: button, rowIndex: 2)
-                }, labelPosition: .right,  infoAction: { rect, view in
+                }, labelPosition: .right, infoAction: { rect, view in
                     showInfo(relativeTo: rect, of: view, relativeWidth: -44, relativeHeight: -67, message: "AltTab will show if the window is currently minimized or fullscreen with a status icon.")
                 })),
         ShowHideItem(uncheckedImageLight: "show_space_number_labels_light",
@@ -100,7 +102,7 @@ class AppearanceTab {
                         "showTabsAsWindows", extraAction: { sender in
                     let button = sender as! NSButton
                     onCheckboxClicked(sender: button, rowIndex: 6)
-                }, labelPosition: .right,  infoAction: { rect, view in
+                }, labelPosition: .right, infoAction: { rect, view in
                     showInfo(relativeTo: rect, of: view, relativeWidth: 45, relativeHeight: -217, message: "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.")
                 })),
         ShowHideItem(uncheckedImageLight: "hide_preview_focused_window_light",
@@ -118,12 +120,16 @@ class AppearanceTab {
     static func initTab() -> NSView {
         titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
                 "titleTruncation", TitleTruncationPreference.allCases)
+        radioIconSize = LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Icon size:", comment: ""),
+                "radioIconSize", IconSizePreference.allCases)
+        radioTitleFontSize = LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Title font size:", comment: ""),
+                "radioTitleFontSize", TitleFontSizePreference.allCases)
 
         let generalSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
                     "appearanceModel", AppearanceModelPreference.allCases, extraAction: { sender in
                 let button = sender as! NSButton
-                toggleTitleTruncation(button: button)
+                toggleOptionUnderModel(button: button)
             }),
             [makeSeparator(), makeSeparator(), makeSeparator()],
             LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""),
@@ -135,11 +141,9 @@ class AppearanceTab {
             LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""),
                     "appearanceSize", AppearanceSizePreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Icon size:", comment: ""),
-                    "radioIconSize", IconSizePreference.allCases),
+            radioIconSize,
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Title font size:", comment: ""),
-                    "radioTitleFontSize", TitleFontSizePreference.allCases),
+            radioTitleFontSize,
             [makeSeparator(), makeSeparator(), makeSeparator()],
             titleTruncation,
         ]
@@ -420,8 +424,37 @@ class AppearanceTab {
         infoPopover = popover
     }
 
-    private static func toggleTitleTruncation(button: NSButton) {
+    private static func findButtons(in stackView: NSStackView) -> [NSButton] {
+        var buttons: [NSButton] = []
+        for subview in stackView.subviews {
+            if let button = subview as? NSButton {
+                buttons.append(button)
+            } else if let nestedStackView = subview as? NSStackView {
+                buttons.append(contentsOf: findButtons(in: nestedStackView))
+            }
+        }
+        return buttons
+    }
+
+    private static func toggleOptionUnderModel(button: NSButton) {
         (titleTruncation[1] as! NSPopUpButton).isEnabled = (Preferences.appearanceModel == .thumbnails
                 || Preferences.appearanceModel == .titles)
+        (titleTruncation[0] as! TextField).textColor = (Preferences.appearanceModel == .thumbnails
+                || Preferences.appearanceModel == .titles) ? .black : .gray
+
+        [radioIconSize[1], radioTitleFontSize[1]].forEach { view in
+            var buttons = findButtons(in: view as! NSStackView)
+            buttons.forEach { button in
+                button.isEnabled = Preferences.appearanceModel == .titles
+            }
+        }
+        [radioIconSize[0], radioTitleFontSize[0]].forEach { view in
+            let field = view as? TextField
+            if Preferences.appearanceModel != .titles {
+                field?.textColor = NSColor.gray
+            } else {
+                field?.textColor = NSColor.black
+            }
+        }
     }
 }
