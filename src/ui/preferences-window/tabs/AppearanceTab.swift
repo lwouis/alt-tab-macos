@@ -384,7 +384,7 @@ class AppearanceTab {
         label.font = NSFont.systemFont(ofSize: 12)
         viewController.view.addSubview(label)
 
-        let button = NSButton(title: NSLocalizedString("done", comment: ""), target: popover, action: #selector(NSPopover.performClose(_:)))
+        let button = NSButton(title: NSLocalizedString("Done", comment: ""), target: popover, action: #selector(NSPopover.performClose(_:)))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isBordered = false
         button.focusRingType = .none
