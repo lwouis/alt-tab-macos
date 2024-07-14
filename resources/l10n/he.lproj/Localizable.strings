@@ -15,7 +15,7 @@
 "Active app" = "יישום פעיל";
 
 /*No comment provided by engineer.*/
-"Active screen" = "מסך פעיל";
+"Active screen" = "מסך הפעיל";
 
 /*No comment provided by engineer.*/
 "Active Space" = "איזור פעיל";
@@ -171,7 +171,7 @@
 "Hide apps with no open window:" = "הסתר יישומים ללא חלון פתוח:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "הסתר עיגולים צבועים בריחוף עכבר:";
+"Hide colored circles on mouse hover:" = "הסתר כפתורי רמזור גם בריחוף על חלון:";
 
 /*%@ is AltTab*/
 "Hide in %@" = "הסתר ב%@";
@@ -186,7 +186,7 @@
 "Hide window thumbnails:" = "הסתר תמונות ממוזערות של חלונות:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "הסתר\\הראה חלון";
+"Hide/Show app" = "הסתר/הצג חלון";
 
 /*No comment provided by engineer.*/
 "Hold" = "החזק";
@@ -261,7 +261,7 @@
 "Preview selected window:" = "תצוגה מקדימה של החלון שנבחר:";
 
 /*No comment provided by engineer.*/
-"Quit" = "יציאה";
+"Quit" = "צא מהיישום";
 
 /*No comment provided by engineer.*/
 "Quit %@" = "צא מ%@";
@@ -288,10 +288,10 @@
 "Rows of thumbnails:" = "מס׳ שורות של תמונות ממוזערות:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "מסך הכולל את התפריט העליון";
+"Screen including menu bar" = "מסך הכולל את שורת התפריטים";
 
 /*No comment provided by engineer.*/
-"Screen including mouse" = "מסך הכולל עכבר";
+"Screen including mouse" = "מסך שבו העכבר";
 
 /*No comment provided by engineer.*/
 "Screen Recording" = "הקלטת מסך";
@@ -348,16 +348,16 @@
 "Show" = "הצג";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "הראה בסוף";
+"Show at the end" = "הצג בסוף";
 
 /*No comment provided by engineer.*/
 "Show on:" = "הצג ב:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "הראה טאבים כחלונות:";
+"Show standard tabs as windows:" = "הצג טאבים כחלונות:";
 
 /*No comment provided by engineer.*/
-"Show windows from:" = "הראה חלונות מ:";
+"Show windows from:" = "הצג חלונות מ:";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "קוד מקור";
@@ -396,7 +396,7 @@
 "Version" = "גרסה";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "הראה דיונים קיימים";
+"View existing discussions" = "הצג דיונים קיימים";
 
 /*No comment provided by engineer.*/
 "Vim keys" = "Vim keys";
