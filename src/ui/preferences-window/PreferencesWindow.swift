@@ -23,7 +23,11 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         titleBarView.addSubview(quitButton)
         quitButton.translatesAutoresizingMaskIntoConstraints = false
         quitButton.topAnchor.constraint(equalTo: titleBarView.topAnchor, constant: 5).isActive = true
-        quitButton.rightAnchor.constraint(equalTo: titleBarView.rightAnchor, constant: -8).isActive = true
+        if windowTitlebarLayoutDirection == .rightToLeft {
+            quitButton.leftAnchor.constraint(equalTo: titleBarView.leftAnchor, constant: 8).isActive = true
+        } else {
+            quitButton.rightAnchor.constraint(equalTo: titleBarView.rightAnchor, constant: -8).isActive = true
+        }
     }
 
     private func setupView() {
