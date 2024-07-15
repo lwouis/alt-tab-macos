@@ -116,6 +116,8 @@ class ControlsTab {
         let showHiddenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showHiddenWindows", index), ShowHowPreference.allCases)
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
+        let limitWindowCountPerApp = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Limit windows per app:", comment: ""), Preferences.indexToName("limitWindowCountPerApp", index))
+        let windowCountPerApp = LabelAndControl.makeLabelWithSlider("", Preferences.indexToName("windowCountPerApp", index), 1, 10, 10, true)
         let separator = NSBox()
         separator.boxType = .separator
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
@@ -129,12 +131,13 @@ class ControlsTab {
             [toShowExplanations3, showHiddenWindows],
             [toShowExplanations4, showFullscreenWindows],
             [windowOrderExplanation, windowOrder],
+            [limitWindowCountPerApp[0], StackView([limitWindowCountPerApp[1], windowCountPerApp[1], windowCountPerApp[2]], .horizontal, false)],
             [separator],
             [holdAndPress, StackView(nextWindowShortcut)],
             shortcutStyle,
         ], TabView.padding)
         tab.column(at: 0).xPlacement = .trailing
-        tab.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 5, length: 1))
+        tab.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 6, length: 1))
         tab.fit()
         return (holdShortcut, nextWindowShortcut, tab)
     }

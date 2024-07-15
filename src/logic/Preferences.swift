@@ -95,6 +95,16 @@ class Preferences {
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
+        "limitWindowCountPerApp": "false",
+        "limitWindowCountPerApp2": "false",
+        "limitWindowCountPerApp3": "false",
+        "limitWindowCountPerApp4": "false",
+        "limitWindowCountPerApp5": "false",
+        "windowCountPerApp": "1",
+        "windowCountPerApp2": "1",
+        "windowCountPerApp3": "1",
+        "windowCountPerApp4": "1",
+        "windowCountPerApp5": "1",
     ]
 
     // system preferences
@@ -141,6 +151,8 @@ class Preferences {
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
+    static var limitWindowCountPerApp: [Bool] { ["limitWindowCountPerApp", "limitWindowCountPerApp2", "limitWindowCountPerApp3", "limitWindowCountPerApp4", "limitWindowCountPerApp5"].map { defaults.bool($0) } }
+    static var windowCountPerApp: [Int] { ["windowCountPerApp", "windowCountPerApp2", "windowCountPerApp3", "windowCountPerApp4", "windowCountPerApp5"].map { defaults.int($0) } }
 
     // macro values
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }

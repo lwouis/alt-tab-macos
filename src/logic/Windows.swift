@@ -196,7 +196,7 @@ class Windows {
             let next = (targetIndex + step) % list.count
             targetIndex = next < 0 ? list.count + next : next
             iterations += 1
-        } while !list[targetIndex].shouldShowTheUser && iterations <= list.count
+        } while !list[targetIndex].shouldReallyShowTheUser && iterations <= list.count
         return targetIndex
     }
 
@@ -208,7 +208,7 @@ class Windows {
 
     static func updateFocusedWindowIndex() {
         if let focusedWindow = focusedWindow() {
-            if !focusedWindow.shouldShowTheUser {
+            if !focusedWindow.shouldReallyShowTheUser {
                 cycleFocusedWindowIndex(windowIndexAfterCycling(1) > focusedWindowIndex ? 1 : -1)
             } else {
                 previewFocusedWindowIfNeeded()
@@ -269,7 +269,7 @@ class Windows {
 
     static func refreshFirstFewThumbnailsSync() {
         if Preferences.hideThumbnails { return }
-        list.filter { $0.shouldShowTheUser }
+        list.filter { $0.shouldReallyShowTheUser }
                 .prefix(criticalFirstThumbnails)
                 .forEachAsync { window in window.refreshThumbnail() }
     }
@@ -280,7 +280,7 @@ class Windows {
             BackgroundWork.mainQueueConcurrentWorkQueue.async {
                 if currentIndex < list.count {
                     let window = list[currentIndex]
-                    if window.shouldShowTheUser && !window.isWindowlessApp {
+                    if window.shouldReallyShowTheUser && !window.isWindowlessApp {
                         window.refreshThumbnail()
                     }
                     refreshThumbnailsAsync(screen, currentIndex + 1)
@@ -314,6 +314,18 @@ class Windows {
                 !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaces.contains(window.spaceId)) &&
                 !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(screen)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
+    }
+    
+    static func refreshWhichWindowsToHideTheUser() {
+        var appOrders = [pid_t: UInt]()
+        list.forEach {
+            guard $0.shouldShowTheUser else {
+                return
+            }
+            let appOrder = appOrders[$0.application.pid] ?? 0
+            $0.shouldHideTheUser = Preferences.limitWindowCountPerApp[App.app.shortcutIndex] && appOrder >= Preferences.windowCountPerApp[App.app.shortcutIndex]
+            appOrders[$0.application.pid] = appOrder + 1
+        }
     }
 }
 
