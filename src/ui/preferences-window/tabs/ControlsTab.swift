@@ -3,6 +3,7 @@ import ShortcutRecorder
 
 class ControlsTab {
     static var shortcuts = [String: ATShortcut]()
+    static var shortcutModifierSideControls = [NSPopUpButton]()
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
     static var shortcutsActions = [
         "holdShortcut": { App.app.focusTarget() },
@@ -72,7 +73,7 @@ class ControlsTab {
         ControlsTab.arrowKeysEnabledCallback(arrowKeysCheckbox)
         ControlsTab.vimKeysEnabledCallback(vimKeysCheckbox)
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
-        [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
+        [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[2] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3, nextWindowShortcut4, nextWindowShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
 
         let grid = GridView([
@@ -106,7 +107,11 @@ class ControlsTab {
         let toShowExplanations3 = LabelAndControl.makeLabel(NSLocalizedString("Hidden windows:", comment: ""))
         let toShowExplanations4 = LabelAndControl.makeLabel(NSLocalizedString("Fullscreen windows:", comment: ""))
         let windowOrderExplanation = LabelAndControl.makeLabel(NSLocalizedString("Window order:", comment: ""))
-        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), Preferences.indexToName("holdShortcut", index), Preferences.holdShortcut[index], false, labelPosition: .leftWithoutSeparator)
+        let holdShortcutLabelText = NSLocalizedString("Hold", comment: "")
+        let holdShortcutRecorder = LabelAndControl.makeRecorder(holdShortcutLabelText, Preferences.indexToName("holdShortcut", index), Preferences.holdShortcut[index], false)
+        var holdShortcut = LabelAndControl.makeLabelWithDropdown(holdShortcutLabelText, Preferences.indexToName("shortcutModifierSide", index), ShortcutModifierSidePreference.allCases, extraAction: { _ in shortcutChangedCallback(holdShortcutRecorder) })
+        shortcutModifierSideControls.append(holdShortcut[1] as! NSPopUpButton)
+        holdShortcut.append(holdShortcutRecorder)
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press:", comment: "")))
         let holdAndPress = StackView(holdShortcut)
         let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
@@ -144,7 +149,7 @@ class ControlsTab {
         removeShortcutIfExists(controlId) // remove the previous shortcut
         shortcuts[controlId] = atShortcut
         if scope == .global {
-            KeyboardEvents.addGlobalShortcut(controlId, atShortcut.shortcut)
+            KeyboardEvents.addGlobalShortcutIfNeeded(controlId, atShortcut.shortcut)
         }
         toggleNativeCommandTabIfNeeded()
     }
@@ -195,6 +200,7 @@ class ControlsTab {
                 restrictModifiersOfHoldShortcut(controlId, [(sender as! CustomRecorderControl).objectValue!.modifierFlags])
             }
         }
+        refreshShortcutModifierSideControls()
     }
 
     private static func restrictModifiersOfHoldShortcut(_ controlId: String, _ modifiers: NSEvent.ModifierFlags) {
@@ -291,9 +297,29 @@ class ControlsTab {
     private static func removeShortcutIfExists(_ controlId: String) {
         if let atShortcut = shortcuts[controlId] {
             if atShortcut.scope == .global {
-                KeyboardEvents.removeGlobalShortcut(controlId, atShortcut.shortcut)
+                KeyboardEvents.removeGlobalShortcutIfNeeded(controlId, atShortcut.shortcut)
             }
             shortcuts.removeValue(forKey: controlId)
+        }
+    }
+    
+    private static func refreshShortcutModifierSideControls() {
+        for index in 0...4 {
+            let holdShortcutId = Preferences.indexToName("holdShortcut", index)
+            guard
+                index < shortcutModifierSideControls.count,
+                let shortcutModifierSideControlMenu = shortcutModifierSideControls[index].menu,
+                let holdShortcutControl = shortcutControls[holdShortcutId]?.0,
+                let holdShortcut = holdShortcutControl.objectValue
+            else {
+                continue
+            }
+            shortcutModifierSideControlMenu.autoenablesItems = false
+            shortcutModifierSideControlMenu.items.indices.forEach {
+                let shortcutModifierSide = ShortcutModifierSidePreference(rawValue: String($0))
+                let enabled = holdShortcutControl.isShortcutAlreadyAssigned(holdShortcut, shortcutModifierSide: shortcutModifierSide) == nil
+                shortcutModifierSideControlMenu.items[$0].isEnabled = enabled
+            }
         }
     }
 }

@@ -86,6 +86,11 @@ class Preferences {
         "rowsCount": rowCountDependingOnScreenRatio(),
         "windowMinWidthInRow": "15",
         "windowMaxWidthInRow": "30",
+        "shortcutModifierSide": ShortcutModifierSidePreference.any.rawValue,
+        "shortcutModifierSide2": ShortcutModifierSidePreference.any.rawValue,
+        "shortcutModifierSide3": ShortcutModifierSidePreference.any.rawValue,
+        "shortcutModifierSide4": ShortcutModifierSidePreference.any.rawValue,
+        "shortcutModifierSide5": ShortcutModifierSidePreference.any.rawValue,
         "shortcutStyle": ShortcutStylePreference.focusOnRelease.rawValue,
         "shortcutStyle2": ShortcutStylePreference.focusOnRelease.rawValue,
         "shortcutStyle3": ShortcutStylePreference.focusOnRelease.rawValue,
@@ -156,6 +161,7 @@ class Preferences {
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { defaults.macroPref($0, WindowOrderPreference.allCases) } }
+    static var shortcutModifierSide: [ShortcutModifierSidePreference] { ["shortcutModifierSide", "shortcutModifierSide2", "shortcutModifierSide3", "shortcutModifierSide4", "shortcutModifierSide5"].map { defaults.macroPref($0, ShortcutModifierSidePreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
@@ -462,6 +468,20 @@ enum MenubarIconPreference: String, CaseIterable, MacroPreference {
             case .filled: return " "
             case .colored: return " "
             case .hidden: return " "
+        }
+    }
+}
+
+enum ShortcutModifierSidePreference: String, CaseIterable, MacroPreference {
+    case any = "0"
+    case left = "1"
+    case right = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .any: return NSLocalizedString("", comment: "")
+            case .left: return NSLocalizedString("L", comment: "")
+            case .right: return NSLocalizedString("R", comment: "")
         }
     }
 }
