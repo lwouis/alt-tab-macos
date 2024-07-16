@@ -62,8 +62,6 @@ class Preferences {
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "appVerticalAlignment": AppVerticalAlignmentPreference.centered.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
-        "radioIconSize": IconSizePreference.medium.rawValue,
-        "radioTitleFontSize": TitleFontSizePreference.medium.rawValue,
         "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
         "appsToShow2": AppsToShowPreference.active.rawValue,
@@ -223,7 +221,7 @@ class Preferences {
             appearance.intraCellPadding = 7
             appearance.interCellPadding = 7
             if size == AppearanceSizePreference.small {
-                appearance.rowsCount = 6
+                appearance.rowsCount = 5
                 appearance.windowMinWidthInRow = 8
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 25
@@ -231,7 +229,7 @@ class Preferences {
                 appearance.maxWidthOnScreen = 85
                 appearance.maxHeightOnScreen = 80
             } else if size == AppearanceSizePreference.medium {
-                appearance.rowsCount = 5
+                appearance.rowsCount = 4
                 appearance.windowMinWidthInRow = 10
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 30
@@ -239,7 +237,7 @@ class Preferences {
                 appearance.maxWidthOnScreen = 90
                 appearance.maxHeightOnScreen = 80
             } else if size == AppearanceSizePreference.large {
-                appearance.rowsCount = 4
+                appearance.rowsCount = 3
                 appearance.windowMinWidthInRow = 10
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 30
@@ -807,51 +805,6 @@ enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
         }
     }
 }
-
-enum TitleFontSizePreference: String, CaseIterable, ImageMacroPreference {
-    case small = "0"
-    case medium = "1"
-    case large = "2"
-
-    var localizedString: LocalizedString {
-        switch self {
-            case .small: return NSLocalizedString("Small", comment: "")
-            case .medium: return NSLocalizedString("Medium", comment: "")
-            case .large: return NSLocalizedString("Large", comment: "")
-        }
-    }
-
-    var image: WidthHeightImage {
-        switch self {
-            case .small: return WidthHeightImage(name: "small")
-            case .medium: return WidthHeightImage(name: "medium")
-            case .large: return WidthHeightImage(name: "large")
-        }
-    }
-}
-
-enum IconSizePreference: String, CaseIterable, ImageMacroPreference {
-    case small = "0"
-    case medium = "1"
-    case large = "2"
-
-    var localizedString: LocalizedString {
-        switch self {
-            case .small: return NSLocalizedString("Small", comment: "")
-            case .medium: return NSLocalizedString("Medium", comment: "")
-            case .large: return NSLocalizedString("Large", comment: "")
-        }
-    }
-
-    var image: WidthHeightImage {
-        switch self {
-            case .small: return WidthHeightImage(name: "small")
-            case .medium: return WidthHeightImage(name: "medium")
-            case .large: return WidthHeightImage(name: "large")
-        }
-    }
-}
-
 
 enum AppearanceThemePreference: String, CaseIterable, ImageMacroPreference {
     case auto = "0"

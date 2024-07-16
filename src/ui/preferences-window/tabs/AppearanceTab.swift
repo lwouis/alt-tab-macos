@@ -37,8 +37,6 @@ class AppearanceTab {
     static var infoPopover: NSPopover!
 
     static var titleTruncation: [NSView]!
-    static var radioIconSize: [NSView]!
-    static var radioTitleFontSize: [NSView]!
 
     static var showHideItems: [ShowHideItem] = [
         ShowHideItem(uncheckedImageLight: "show_app_badges_light",
@@ -120,16 +118,12 @@ class AppearanceTab {
     static func initTab() -> NSView {
         titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
                 "titleTruncation", TitleTruncationPreference.allCases)
-        radioIconSize = LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Icon size:", comment: ""),
-                "radioIconSize", IconSizePreference.allCases)
-        radioTitleFontSize = LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Title font size:", comment: ""),
-                "radioTitleFontSize", TitleFontSizePreference.allCases)
 
         let generalSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
                     "appearanceModel", AppearanceModelPreference.allCases, extraAction: { sender in
                 let button = sender as! NSButton
-                toggleOptionUnderModel(button: button)
+//                toggleOptionUnderModel(button: button)
             }),
             [makeSeparator(), makeSeparator(), makeSeparator()],
             LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""),
@@ -140,12 +134,12 @@ class AppearanceTab {
             [makeSeparator(), makeSeparator(), makeSeparator()],
             LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""),
                     "appearanceSize", AppearanceSizePreference.allCases),
-            [makeSeparator(), makeSeparator(), makeSeparator()],
-            radioIconSize,
-            [makeSeparator(), makeSeparator(), makeSeparator()],
-            radioTitleFontSize,
-            [makeSeparator(), makeSeparator(), makeSeparator()],
-            titleTruncation,
+//            [makeSeparator(), makeSeparator(), makeSeparator()],
+//            radioIconSize,
+//            [makeSeparator(), makeSeparator(), makeSeparator()],
+//            radioTitleFontSize,
+//            [makeSeparator(), makeSeparator(), makeSeparator()],
+//            titleTruncation,
         ]
 
         var showHideSettings: [[NSView]] = [
@@ -168,7 +162,7 @@ class AppearanceTab {
         let generalGrid = GridView(generalSettings)
         generalGrid.column(at: 0).xPlacement = .trailing
         // merge cells for separator
-        [1, 3, 5, 7, 9, 11].forEach { row in
+        [1, 3, 5].forEach { row in
             generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: row, length: 1))
         }
         generalGrid.fit()
@@ -437,24 +431,28 @@ class AppearanceTab {
     }
 
     private static func toggleOptionUnderModel(button: NSButton) {
-        (titleTruncation[1] as! NSPopUpButton).isEnabled = (Preferences.appearanceModel == .thumbnails
-                || Preferences.appearanceModel == .titles)
-        (titleTruncation[0] as! TextField).textColor = (Preferences.appearanceModel == .thumbnails
-                || Preferences.appearanceModel == .titles) ? .labelColor : .gray
+//        (titleTruncation[1] as! NSPopUpButton).isEnabled = (Preferences.appearanceModel == .thumbnails
+//                || Preferences.appearanceModel == .titles)
+//        (titleTruncation[0] as! TextField).textColor = (Preferences.appearanceModel == .thumbnails
+//                || Preferences.appearanceModel == .titles) ? .labelColor : .gray
+//
+//        [radioIconSize[1], radioTitleFontSize[1]].forEach { view in
+//            var buttons = findButtons(in: view as! NSStackView)
+//            buttons.forEach { button in
+//                button.isEnabled = Preferences.appearanceModel == .titles
+//            }
+//        }
+//        [radioIconSize[0], radioTitleFontSize[0]].forEach { view in
+//            let field = view as? TextField
+//            if Preferences.appearanceModel != .titles {
+//                field?.textColor = NSColor.gray
+//            } else {
+//                field?.textColor = NSColor.labelColor
+//            }
+//        }
+    }
 
-        [radioIconSize[1], radioTitleFontSize[1]].forEach { view in
-            var buttons = findButtons(in: view as! NSStackView)
-            buttons.forEach { button in
-                button.isEnabled = Preferences.appearanceModel == .titles
-            }
-        }
-        [radioIconSize[0], radioTitleFontSize[0]].forEach { view in
-            let field = view as? TextField
-            if Preferences.appearanceModel != .titles {
-                field?.textColor = NSColor.gray
-            } else {
-                field?.textColor = NSColor.labelColor
-            }
-        }
+    private static func openAdvancedSettings() {
+        debugPrint("openAdvancedSettings")
     }
 }
