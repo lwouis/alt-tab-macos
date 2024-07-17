@@ -61,6 +61,7 @@ class LabelAndControl: NSObject {
         let buttonViews = values.enumerated().map { (index, preference) -> NSView in
             let button = NSButton(radioButtonWithTitle: "", target: nil, action: nil)
             button.imagePosition = .imageOnly
+            button.focusRingType = .none
             button.translatesAutoresizingMaskIntoConstraints = false
             button.state = defaults.int(rawName) == index ? .on : .off
 

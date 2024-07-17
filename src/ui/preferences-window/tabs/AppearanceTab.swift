@@ -30,13 +30,116 @@ struct ShowHideItem {
     let components: [NSView]!        // UI components associated with this item
 }
 
+class AdvancedSettingsWindow: NSWindow {
+    var alignThumbnails: [NSView]!
+    var titleTruncation: [NSView]!
+    var doneButton: NSButton!
+
+    convenience init(model: AppearanceModelPreference) {
+        self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
+//        self.init(contentRect: NSRect(x: 0, y: 0, width: 400, height: 200), styleMask: [.titled, .closable], backing: .buffered, defer: false)
+        setupWindow()
+        setupView(model: model)
+    }
+
+    private func setupWindow() {
+        hidesOnDeactivate = false
+    }
+
+    private func setupView(model: AppearanceModelPreference) {
+        alignThumbnails = LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Align windows:", comment: ""),
+                "alignThumbnails", AlignThumbnailsPreference.allCases)
+        titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
+                "titleTruncation", TitleTruncationPreference.allCases)
+
+        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        doneButton.focusRingType = .none
+        if #available(macOS 10.14, *) {
+            doneButton.bezelColor = NSColor.controlAccentColor
+        }
+
+        var view: NSView!
+        if model == .thumbnails {
+            view = setupThumbnailsView()
+        } else if model == .appIcons {
+            view = setupAppIconsView()
+        } else if model == .titles {
+            view = setupTitlesView()
+        }
+        setContentSize(view.fittingSize)
+        contentView = view
+    }
+
+    private func setupThumbnailsView() -> NSView {
+        let view = GridView([
+            alignThumbnails,
+            titleTruncation,
+            [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
+            [doneButton],
+        ])
+        // Merge separator row
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
+        // Merge button row
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 3, length: 1))
+        view.cell(atColumnIndex: 0, rowIndex: 3).xPlacement = .trailing
+        return view
+    }
+
+    private func setupAppIconsView() -> NSView {
+        let view = GridView([
+            alignThumbnails,
+            [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
+            [doneButton],
+        ])
+        // Merge separator row
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 1, length: 1))
+        // Merge button row
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
+        view.cell(atColumnIndex: 0, rowIndex: 2).xPlacement = .trailing
+        return view
+    }
+
+    private func setupTitlesView() -> NSView {
+        let view = GridView([
+            titleTruncation,
+            [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
+            [doneButton],
+        ])
+        // Merge separator row
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 1, length: 1))
+        // Merge button row
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
+        view.cell(atColumnIndex: 0, rowIndex: 2).xPlacement = .trailing
+        return view
+    }
+
+    @objc func onClicked(_ sender: NSButton) {
+        if let sheetWindow = sender.window {
+            if let mainWindow = sheetWindow.sheetParent {
+                mainWindow.endSheet(sheetWindow)
+            }
+        }
+    }
+
+    // allow to close with the escape key
+    @objc func cancel(_ sender: Any?) {
+        close()
+    }
+}
+
 class AppearanceTab {
+    static var thumbnailAdvancedWindow: AdvancedSettingsWindow!
+    static var appIconsAdvancedWindow: AdvancedSettingsWindow!
+    static var titlesAdvancedWindow: AdvancedSettingsWindow!
+
     static var showHideCellWidth = CGFloat(400)
 
     static var showHideGrid: GridView!
-    static var infoPopover: NSPopover!
+    static var popoverInfo: NSPopover!
 
-    static var titleTruncation: [NSView]!
+    static var appearanceModel: [NSView]!
+    static var advancedButton: NSButton!
 
     static var showHideItems: [ShowHideItem] = [
         ShowHideItem(uncheckedImageLight: "show_app_badges_light",
@@ -59,7 +162,7 @@ class AppearanceTab {
                     let button = sender as! NSButton
                     onCheckboxClicked(sender: button, rowIndex: 2)
                 }, labelPosition: .right, infoAction: { rect, view in
-                    showInfo(relativeTo: rect, of: view, relativeWidth: -44, relativeHeight: -67, message: "AltTab will show if the window is currently minimized or fullscreen with a status icon.")
+                    showPopoverInfo(relativeTo: rect, of: view, relativeWidth: -44, relativeHeight: -67, message: "AltTab will show if the window is currently minimized or fullscreen with a status icon.")
                 })),
         ShowHideItem(uncheckedImageLight: "show_space_number_labels_light",
                 checkedImageLight: "hide_space_number_labels_light",
@@ -101,7 +204,7 @@ class AppearanceTab {
                     let button = sender as! NSButton
                     onCheckboxClicked(sender: button, rowIndex: 6)
                 }, labelPosition: .right, infoAction: { rect, view in
-                    showInfo(relativeTo: rect, of: view, relativeWidth: 45, relativeHeight: -217, message: "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.")
+                    showPopoverInfo(relativeTo: rect, of: view, relativeWidth: 45, relativeHeight: -217, message: "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.")
                 })),
         ShowHideItem(uncheckedImageLight: "hide_preview_focused_window_light",
                 checkedImageLight: "show_preview_focused_window_light",
@@ -116,31 +219,34 @@ class AppearanceTab {
     ]
 
     static func initTab() -> NSView {
-        titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
-                "titleTruncation", TitleTruncationPreference.allCases)
+        appearanceModel = LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
+                "appearanceModel", AppearanceModelPreference.allCases, extraAction: { sender in
+            let button = sender as! NSButton
+            toggleAdvancedButton()
+        })
+        createAdvancedButton()
+        thumbnailAdvancedWindow = AdvancedSettingsWindow(model: AppearanceModelPreference.thumbnails)
+        appIconsAdvancedWindow = AdvancedSettingsWindow(model: AppearanceModelPreference.appIcons)
+        titlesAdvancedWindow = AdvancedSettingsWindow(model: AppearanceModelPreference.titles)
 
         let generalSettings: [[NSView]] = [
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
-                    "appearanceModel", AppearanceModelPreference.allCases, extraAction: { sender in
-                let button = sender as! NSButton
-//                toggleOptionUnderModel(button: button)
-            }),
+            appearanceModel,
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""),
-                    "theme", ThemePreference.allCases, buttonSpacing: 50),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases, buttonSpacing: 50),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Align windows:", comment: ""),
-                    "alignThumbnails", AlignThumbnailsPreference.allCases, buttonSpacing: 55),
+            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""),
-                    "appearanceSize", AppearanceSizePreference.allCases),
-//            [makeSeparator(), makeSeparator(), makeSeparator()],
-//            radioIconSize,
-//            [makeSeparator(), makeSeparator(), makeSeparator()],
-//            radioTitleFontSize,
-//            [makeSeparator(), makeSeparator(), makeSeparator()],
-//            titleTruncation,
+            [advancedButton],
         ]
+        let generalGrid = GridView(generalSettings)
+        generalGrid.column(at: 0).xPlacement = .trailing
+        // Merge cells for separator/advanced button
+        [1, 3, 5, 6].forEach { row in
+            generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: row, length: 1))
+        }
+        // Advanced button
+        generalGrid.cell(atColumnIndex: 0, rowIndex: 6).xPlacement = .trailing
+        generalGrid.fit()
 
         var showHideSettings: [[NSView]] = [
             [createIllustratedImageView()],
@@ -148,25 +254,6 @@ class AppearanceTab {
         for item in showHideItems {
             showHideSettings.append(item.components)
         }
-
-        var positionSettings: [[NSView]] = [
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("App vertical alignment:", comment: ""), "appVerticalAlignment", AppVerticalAlignmentPreference.allCases),
-        ]
-
-        let effectsSettings: [[NSView]] = [
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Apparition delay:", comment: ""), "windowDisplayDelay", 0, 2000, 11, false, "ms"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fade out animation:", comment: ""), "fadeOutAnimation"),
-        ]
-
-        let generalGrid = GridView(generalSettings)
-        generalGrid.column(at: 0).xPlacement = .trailing
-        // merge cells for separator
-        [1, 3, 5].forEach { row in
-            generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: row, length: 1))
-        }
-        generalGrid.fit()
-
         showHideGrid = GridView(showHideSettings)
         // Set alignment
         setAlignment(showHideGrid)
@@ -176,10 +263,19 @@ class AppearanceTab {
         addMouseHoverEffects(showHideGrid)
         showHideGrid.fit()
 
+        var positionSettings: [[NSView]] = [
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
+            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("App vertical alignment:", comment: ""), "appVerticalAlignment", AppVerticalAlignmentPreference.allCases),
+        ]
         let positionGrid = GridView(positionSettings)
         positionGrid.column(at: 0).xPlacement = .trailing
         positionGrid.row(at: 0).bottomPadding = TabView.padding
         positionGrid.fit()
+
+        let effectsSettings: [[NSView]] = [
+            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Apparition delay:", comment: ""), "windowDisplayDelay", 0, 2000, 11, false, "ms"),
+            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fade out animation:", comment: ""), "fadeOutAnimation"),
+        ]
 
         let effectsGrid = GridView(effectsSettings)
         effectsGrid.column(at: 0).xPlacement = .trailing
@@ -222,7 +318,7 @@ class AppearanceTab {
         return view
     }
 
-    private static func makeSeparator(_ padding: CGFloat = 10) -> NSView {
+    public static func makeSeparator(_ padding: CGFloat = 10) -> NSView {
         let separator = NSBox()
         separator.boxType = .separator
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -352,14 +448,14 @@ class AppearanceTab {
         return false
     }
 
-    private static func showInfo(relativeTo rect: NSRect, of view: NSView,
-                                 relativeWidth: CGFloat, relativeHeight: CGFloat, message: String) {
+    private static func showPopoverInfo(relativeTo rect: NSRect, of view: NSView,
+                                        relativeWidth: CGFloat, relativeHeight: CGFloat, message: String) {
         guard let window = view.window else {
             return
         }
 
         // Close the existing Popover if it's already open
-        if let existingPopover = infoPopover {
+        if let existingPopover = popoverInfo {
             existingPopover.performClose(nil)
         }
 
@@ -415,7 +511,7 @@ class AppearanceTab {
         let correctRect = NSRect(x: window.frame.width / 2 + relativeWidth, y: window.frame.height / 2 + relativeHeight, width: 1, height: 1)
         popover.show(relativeTo: correctRect, of: window.contentView!, preferredEdge: .minY)
 
-        infoPopover = popover
+        popoverInfo = popover
     }
 
     private static func findButtons(in stackView: NSStackView) -> [NSButton] {
@@ -430,29 +526,36 @@ class AppearanceTab {
         return buttons
     }
 
-    private static func toggleOptionUnderModel(button: NSButton) {
-//        (titleTruncation[1] as! NSPopUpButton).isEnabled = (Preferences.appearanceModel == .thumbnails
-//                || Preferences.appearanceModel == .titles)
-//        (titleTruncation[0] as! TextField).textColor = (Preferences.appearanceModel == .thumbnails
-//                || Preferences.appearanceModel == .titles) ? .labelColor : .gray
-//
-//        [radioIconSize[1], radioTitleFontSize[1]].forEach { view in
-//            var buttons = findButtons(in: view as! NSStackView)
-//            buttons.forEach { button in
-//                button.isEnabled = Preferences.appearanceModel == .titles
-//            }
-//        }
-//        [radioIconSize[0], radioTitleFontSize[0]].forEach { view in
-//            let field = view as? TextField
-//            if Preferences.appearanceModel != .titles {
-//                field?.textColor = NSColor.gray
-//            } else {
-//                field?.textColor = NSColor.labelColor
-//            }
-//        }
+    private static func createAdvancedButton() {
+        advancedButton = NSButton(title: getAdvancedButtonTitle(), target: self, action: #selector(showAdvancedSettings))
+        advancedButton.widthAnchor.constraint(equalToConstant: 160).isActive = true
     }
 
-    private static func openAdvancedSettings() {
-        debugPrint("openAdvancedSettings")
+    private static func getAdvancedButtonTitle() -> String {
+        if Preferences.appearanceModel == .thumbnails {
+            return NSLocalizedString("Thumbnails Advanced…", comment: "")
+        } else if Preferences.appearanceModel == .appIcons {
+            return NSLocalizedString("App Icons Advanced…", comment: "")
+        } else if Preferences.appearanceModel == .titles {
+            return NSLocalizedString("Titles Advanced…", comment: "")
+        }
+        return NSLocalizedString("Advanced…", comment: "")
+    }
+
+    private static func toggleAdvancedButton() {
+        advancedButton.animator().title = getAdvancedButtonTitle()
+    }
+
+    @objc static func showAdvancedSettings() {
+        guard let mainWindow = App.shared.mainWindow else { return }
+        var sheetWindow: AdvancedSettingsWindow!
+        if Preferences.appearanceModel == .thumbnails {
+            sheetWindow = thumbnailAdvancedWindow
+        } else if Preferences.appearanceModel == .appIcons {
+            sheetWindow = appIconsAdvancedWindow
+        } else if Preferences.appearanceModel == .titles {
+            sheetWindow = titlesAdvancedWindow
+        }
+        mainWindow.beginSheet(sheetWindow, completionHandler: nil)
     }
 }
