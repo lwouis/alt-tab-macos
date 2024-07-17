@@ -35,7 +35,7 @@ class AdvancedSettingsWindow: NSWindow {
     var titleTruncation: [NSView]!
     var doneButton: NSButton!
 
-    convenience init(model: AppearanceModelPreference) {
+    convenience init(_ model: AppearanceModelPreference) {
         self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
 //        self.init(contentRect: NSRect(x: 0, y: 0, width: 400, height: 200), styleMask: [.titled, .closable], backing: .buffered, defer: false)
         setupWindow()
@@ -121,14 +121,11 @@ class AdvancedSettingsWindow: NSWindow {
             }
         }
     }
-
-    // allow to close with the escape key
-    @objc func cancel(_ sender: Any?) {
-        close()
-    }
 }
 
-class AppearanceTab {
+class AppearanceTab: NSObject, NSTabViewDelegate {
+    static var shared = AppearanceTab()
+
     static var thumbnailAdvancedWindow: AdvancedSettingsWindow!
     static var appIconsAdvancedWindow: AdvancedSettingsWindow!
     static var titlesAdvancedWindow: AdvancedSettingsWindow!
@@ -225,10 +222,51 @@ class AppearanceTab {
             toggleAdvancedButton()
         })
         createAdvancedButton()
-        thumbnailAdvancedWindow = AdvancedSettingsWindow(model: AppearanceModelPreference.thumbnails)
-        appIconsAdvancedWindow = AdvancedSettingsWindow(model: AppearanceModelPreference.appIcons)
-        titlesAdvancedWindow = AdvancedSettingsWindow(model: AppearanceModelPreference.titles)
+        thumbnailAdvancedWindow = AdvancedSettingsWindow(AppearanceModelPreference.thumbnails)
+        appIconsAdvancedWindow = AdvancedSettingsWindow(AppearanceModelPreference.appIcons)
+        titlesAdvancedWindow = AdvancedSettingsWindow(AppearanceModelPreference.titles)
 
+        let generalGrid = setupGeneralTabView()
+        let showHideGrid = setupShowHideTabView()
+        let positionGrid = setupPositionTabView()
+        let effectsGrid = setupEffectsTabView()
+
+        let tabView = TabView([
+            (NSLocalizedString("General", comment: ""), generalGrid),
+            (NSLocalizedString("Show & Hide", comment: ""), showHideGrid),
+            (NSLocalizedString("Position", comment: ""), positionGrid),
+            (NSLocalizedString("Effects", comment: ""), effectsGrid),
+        ])
+        tabView.delegate = shared
+        tabView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor),
+            generalGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor),
+
+            showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor),
+            showHideGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor),
+
+            positionGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor),
+            positionGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
+
+            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 3).view!.topAnchor),
+            effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 3).view!.centerXAnchor),
+        ])
+        return tabView
+    }
+
+    // Delegate method for tab view, it will be called when new tab is selected.
+    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
+        if let preferencesWindow = tabView.window as? PreferencesWindow {
+            let id = NSToolbarItem.Identifier(rawValue: "appearance")
+            preferencesWindow.toolbarItems[id]!.2 = tabView
+            preferencesWindow.setContentSize(NSSize(width: preferencesWindow.largestTabWidth, height: tabView.fittingSize.height))
+            preferencesWindow.contentView = tabView
+        }
+    }
+
+    private static func setupGeneralTabView() -> NSView {
         let generalSettings: [[NSView]] = [
             appearanceModel,
             [makeSeparator(), makeSeparator(), makeSeparator()],
@@ -247,7 +285,10 @@ class AppearanceTab {
         // Advanced button
         generalGrid.cell(atColumnIndex: 0, rowIndex: 6).xPlacement = .trailing
         generalGrid.fit()
+        return generalGrid
+    }
 
+    private static func setupShowHideTabView() -> NSView {
         var showHideSettings: [[NSView]] = [
             [createIllustratedImageView()],
         ]
@@ -262,7 +303,10 @@ class AppearanceTab {
         showHideGrid.row(at: 0).bottomPadding = GridView.padding
         addMouseHoverEffects(showHideGrid)
         showHideGrid.fit()
+        return showHideGrid
+    }
 
+    private static func setupPositionTabView() -> NSView {
         var positionSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("App vertical alignment:", comment: ""), "appVerticalAlignment", AppVerticalAlignmentPreference.allCases),
@@ -271,7 +315,10 @@ class AppearanceTab {
         positionGrid.column(at: 0).xPlacement = .trailing
         positionGrid.row(at: 0).bottomPadding = TabView.padding
         positionGrid.fit()
+        return positionGrid
+    }
 
+    private static func setupEffectsTabView() -> NSView {
         let effectsSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Apparition delay:", comment: ""), "windowDisplayDelay", 0, 2000, 11, false, "ms"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fade out animation:", comment: ""), "fadeOutAnimation"),
@@ -282,40 +329,7 @@ class AppearanceTab {
         effectsGrid.row(at: 0).bottomPadding = TabView.padding
         effectsGrid.column(at: 1).width = 200
         effectsGrid.fit()
-
-        // Create the tab view with fixed width and height
-        let tabView = TabView([
-            (NSLocalizedString("General", comment: ""), generalGrid),
-            (NSLocalizedString("Show & Hide", comment: ""), showHideGrid),
-            (NSLocalizedString("Position", comment: ""), positionGrid),
-            (NSLocalizedString("Effects", comment: ""), effectsGrid),
-        ])
-        let view = NSView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        tabView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tabView)
-
-        NSLayoutConstraint.activate([
-            tabView.topAnchor.constraint(equalTo: view.topAnchor, constant: TabView.padding),
-            tabView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -TabView.padding),
-            tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: TabView.padding),
-            tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -TabView.padding),
-            tabView.widthAnchor.constraint(equalToConstant: tabView.fittingSize.width + 60),
-            tabView.heightAnchor.constraint(equalToConstant: tabView.fittingSize.height + 20),
-
-            generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor),
-            generalGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor),
-
-            showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor),
-            showHideGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor),
-
-            positionGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor),
-            positionGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
-
-            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 3).view!.topAnchor),
-            effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 3).view!.centerXAnchor),
-        ])
-        return view
+        return effectsGrid
     }
 
     public static func makeSeparator(_ padding: CGFloat = 10) -> NSView {
@@ -324,19 +338,19 @@ class AppearanceTab {
         separator.translatesAutoresizingMaskIntoConstraints = false
 
         // Create a container view to hold the separator and apply padding
-        let containerView = NSView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(separator)
+        let wrapView = NSView()
+        wrapView.translatesAutoresizingMaskIntoConstraints = false
+        wrapView.addSubview(separator)
 
         // Set constraints for the separator within the container view
         NSLayoutConstraint.activate([
-            separator.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding),
-            separator.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding),
-            separator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+            separator.topAnchor.constraint(equalTo: wrapView.topAnchor, constant: padding),
+            separator.bottomAnchor.constraint(equalTo: wrapView.bottomAnchor, constant: -padding),
+            separator.leadingAnchor.constraint(equalTo: wrapView.leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor)
         ])
 
-        return containerView
+        return wrapView
     }
 
     private static func addMouseHoverEffects(_ grid: GridView) {
@@ -376,34 +390,34 @@ class AppearanceTab {
     }
 
     private static func createIllustratedImageView(_ name: String = "thumbnails_light") -> NSView {
-        let imageContainer = NSView()
-        imageContainer.translatesAutoresizingMaskIntoConstraints = false
-        imageContainer.wantsLayer = true
-        imageContainer.layer?.cornerRadius = 7.0
-        imageContainer.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
-        imageContainer.layer?.borderWidth = 2.0
+        let wrapView = NSView()
+        wrapView.translatesAutoresizingMaskIntoConstraints = false
+        wrapView.wantsLayer = true
+        wrapView.layer?.cornerRadius = 7.0
+        wrapView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
+        wrapView.layer?.borderWidth = 2.0
 
         let imageView = NSImageView(image: NSImage(named: name)!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
-        imageContainer.addSubview(imageView)
+        wrapView.addSubview(imageView)
 
         let imageWidth = showHideCellWidth - 100
         let imageHeight = imageWidth / 1.6
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: imageWidth),
             imageView.heightAnchor.constraint(equalToConstant: imageHeight),
-            imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor, constant: 4),
-            imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor, constant: -4),
-            imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: 4),
-            imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -4),
+            imageView.topAnchor.constraint(equalTo: wrapView.topAnchor, constant: 4),
+            imageView.bottomAnchor.constraint(equalTo: wrapView.bottomAnchor, constant: -4),
+            imageView.leadingAnchor.constraint(equalTo: wrapView.leadingAnchor, constant: 4),
+            imageView.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor, constant: -4),
         ])
 
         imageView.wantsLayer = true
         imageView.layer?.masksToBounds = true
         imageView.layer?.cornerRadius = 7.0
-        imageContainer.identifier = NSUserInterfaceItemIdentifier("imageContainer")
-        return imageContainer
+        wrapView.identifier = NSUserInterfaceItemIdentifier("imageContainer")
+        return wrapView
     }
 
     private static func setAlignment(_ grid: GridView) {
