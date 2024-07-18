@@ -65,7 +65,7 @@ class AdvancedSettingsWindow: NSWindow {
             [doneButton],
         ])
         // Merge separator/button row
-        [2, 3].forEach{ row in
+        [2, 3].forEach { row in
             view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
         }
         view.column(at: 0).xPlacement = .trailing
@@ -84,7 +84,7 @@ class AdvancedSettingsWindow: NSWindow {
             [doneButton],
         ])
         // Merge separator/button row
-        [1, 4, 5].forEach{ row in
+        [1, 4, 5].forEach { row in
             view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
         }
         view.column(at: 0).xPlacement = .trailing
@@ -103,7 +103,7 @@ class AdvancedSettingsWindow: NSWindow {
             [doneButton],
         ])
         // Merge separator/button row
-        [1, 4, 5].forEach{ row in
+        [1, 4, 5].forEach { row in
             view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
         }
         view.column(at: 0).xPlacement = .trailing
@@ -413,7 +413,10 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
     private static func addMouseHoverEffects(_ grid: GridView) {
         // Ignore the first row that stores the image
         guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
-              let imageView = imageContainer.subviews.first as? NSImageView else { return }
+              let imageView = imageContainer.subviews.first as? NSImageView
+        else {
+            return
+        }
         for rowIndex in 1..<grid.numberOfRows {
             for columnIndex in 0..<grid.numberOfColumns {
                 if let contentView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
@@ -492,7 +495,10 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
 
     private static func onCheckboxClicked(sender: NSButton, rowIndex: Int) {
         guard let imageContainer = showHideGrid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
-              let imageView = imageContainer.subviews.first as? NSImageView else { return }
+              let imageView = imageContainer.subviews.first as? NSImageView
+        else {
+            return
+        }
 
         let isChecked = sender.state == .on
         updateImageView(for: rowIndex, isChecked: isChecked, imageView: imageView)
@@ -552,7 +558,9 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
     }
 
     @objc static func showAdvancedSettings() {
-        guard let mainWindow = App.shared.mainWindow else { return }
+        guard let mainWindow = App.shared.mainWindow else {
+            return
+        }
         var sheetWindow: AdvancedSettingsWindow!
         if Preferences.appearanceModel == .thumbnails {
             sheetWindow = thumbnailAdvancedWindow
