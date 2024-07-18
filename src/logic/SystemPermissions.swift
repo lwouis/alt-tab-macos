@@ -14,25 +14,11 @@ class SystemPermissions {
 
     static func screenRecordingIsGranted() -> Bool {
         if #available(OSX 10.15, *) {
-            return screenRecordingIsGranted_()
+            return CGPreflightScreenCaptureAccess()
         }
         return true
     }
 
-    // workaround: public API CGPreflightScreenCaptureAccess and private API SLSRequestScreenCaptureAccess exist, but
-    // their return value is not updated during the app lifetime
-    // note: shows the system prompt if there's no permission
-    private static func screenRecordingIsGranted_() -> Bool {
-        return CGDisplayStream(
-            dispatchQueueDisplay: CGMainDisplayID(),
-            outputWidth: 1,
-            outputHeight: 1,
-            pixelFormat: Int32(kCVPixelFormatType_32BGRA),
-            properties: nil,
-            queue: .global(),
-            handler: { _, _, _, _ in }
-        ) != nil
-    }
 
     static func observePermissionsPostStartup() {
         var counter = 0
@@ -58,8 +44,7 @@ class SystemPermissions {
 
     static func observePermissionsPreStartup(_ startupBlock: @escaping () -> Void) {
         if #available(OSX 10.15, *) {
-            // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
-            SLSRequestScreenCaptureAccess()
+            CGRequestScreenCaptureAccess()
         }
         timer = Timer(timeInterval: 0.1, repeats: true) { _ in
             let accessibility = accessibilityIsGranted()
