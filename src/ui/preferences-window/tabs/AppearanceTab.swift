@@ -68,6 +68,8 @@ class AdvancedSettingsWindow: NSWindow {
         [2, 3].forEach { row in
             view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
         }
+        view.column(at: 0).width = 150
+        view.column(at: 1).width = 150
         view.column(at: 0).xPlacement = .trailing
         view.column(at: 1).xPlacement = .leading
         view.cell(atColumnIndex: 0, rowIndex: 3).xPlacement = .trailing
@@ -87,6 +89,8 @@ class AdvancedSettingsWindow: NSWindow {
         [1, 4, 5].forEach { row in
             view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
         }
+        view.column(at: 0).width = 150
+        view.column(at: 1).width = 150
         view.column(at: 0).xPlacement = .trailing
         view.column(at: 1).xPlacement = .leading
         view.cell(atColumnIndex: 0, rowIndex: 5).xPlacement = .trailing
@@ -106,6 +110,8 @@ class AdvancedSettingsWindow: NSWindow {
         [1, 4, 5].forEach { row in
             view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
         }
+        view.column(at: 0).width = 150
+        view.column(at: 1).width = 150
         view.column(at: 0).xPlacement = .trailing
         view.column(at: 1).xPlacement = .leading
         view.cell(atColumnIndex: 0, rowIndex: 5).xPlacement = .trailing
