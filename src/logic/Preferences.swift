@@ -221,7 +221,6 @@ class Preferences {
                                                  _ size: AppearanceSizePreference) -> ModelSizeAppearanceParameters {
         var appearance = ModelSizeAppearanceParameters()
         let isVerticalScreen = NSScreen.preferred().ratio() < 1
-        debugPrint("isVerticalScreen", isVerticalScreen)
         if model == AppearanceModelPreference.thumbnails {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 7
