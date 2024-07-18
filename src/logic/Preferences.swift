@@ -220,6 +220,8 @@ class Preferences {
     static func getModelSizeAppearanceParameters(_ model: AppearanceModelPreference,
                                                  _ size: AppearanceSizePreference) -> ModelSizeAppearanceParameters {
         var appearance = ModelSizeAppearanceParameters()
+        let isVerticalScreen = NSScreen.preferred().ratio() < 1
+        debugPrint("isVerticalScreen", isVerticalScreen)
         if model == AppearanceModelPreference.thumbnails {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 7
@@ -232,6 +234,9 @@ class Preferences {
                 appearance.fontHeight = 15
                 appearance.maxWidthOnScreen = 85
                 appearance.maxHeightOnScreen = 80
+                if isVerticalScreen {
+                    appearance.rowsCount = 8
+                }
             } else if size == AppearanceSizePreference.medium {
                 appearance.rowsCount = 4
                 appearance.windowMinWidthInRow = 10
@@ -240,6 +245,9 @@ class Preferences {
                 appearance.fontHeight = 15
                 appearance.maxWidthOnScreen = 90
                 appearance.maxHeightOnScreen = 80
+                if isVerticalScreen {
+                    appearance.rowsCount = 7
+                }
             } else if size == AppearanceSizePreference.large {
                 appearance.rowsCount = 3
                 appearance.windowMinWidthInRow = 10
@@ -248,6 +256,9 @@ class Preferences {
                 appearance.fontHeight = 15
                 appearance.maxWidthOnScreen = 95
                 appearance.maxHeightOnScreen = 80
+                if isVerticalScreen {
+                    appearance.rowsCount = 6
+                }
             }
         } else if model == AppearanceModelPreference.appIcons {
             appearance.hideThumbnails = true
@@ -257,8 +268,8 @@ class Preferences {
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 68
                 appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 80
-                appearance.maxHeightOnScreen = 80
+                appearance.maxWidthOnScreen = 90
+                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.medium {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 6
@@ -278,30 +289,23 @@ class Preferences {
             }
         } else if model == AppearanceModelPreference.titles {
             appearance.hideThumbnails = true
+            appearance.rowsCount = 0
+            appearance.windowMinWidthInRow = 70
+            appearance.windowMaxWidthInRow = 90
+            appearance.maxWidthOnScreen = 60
+            appearance.maxHeightOnScreen = 80
+            if isVerticalScreen {
+                appearance.maxWidthOnScreen = 85
+            }
             if size == AppearanceSizePreference.small {
-                appearance.rowsCount = 0
-                appearance.windowMinWidthInRow = 70
-                appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 25
                 appearance.fontHeight = 13
-                appearance.maxWidthOnScreen = 40
-                appearance.maxHeightOnScreen = 80
             } else if size == AppearanceSizePreference.medium {
-                appearance.rowsCount = 0
-                appearance.windowMinWidthInRow = 70
-                appearance.windowMaxWidthInRow = 79
                 appearance.iconSize = 30
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 50
-                appearance.maxHeightOnScreen = 80
             } else if size == AppearanceSizePreference.large {
-                appearance.rowsCount = 0
-                appearance.windowMinWidthInRow = 70
-                appearance.windowMaxWidthInRow = 79
                 appearance.iconSize = 40
                 appearance.fontHeight = 20
-                appearance.maxWidthOnScreen = 60
-                appearance.maxHeightOnScreen = 80
             }
         }
         return appearance
