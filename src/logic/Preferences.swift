@@ -63,6 +63,8 @@ class Preferences {
         "appVerticalAlignment": AppVerticalAlignmentPreference.centered.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
         "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
+        "showAppsWindows": ShowAppsWindowsPreference.windows.rawValue,
+        "showAppNamesWindowTitles": ShowAppNamesWindowTitlesPreference.windowTitles.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
         "appsToShow2": AppsToShowPreference.active.rawValue,
         "appsToShow3": AppsToShowPreference.all.rawValue,
@@ -144,6 +146,8 @@ class Preferences {
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
+    static var showAppsWindows: ShowAppsWindowsPreference { defaults.macroPref("showAppsWindows", ShowAppsWindowsPreference.allCases) }
+    static var showAppNamesWindowTitles: ShowAppNamesWindowTitlesPreference { defaults.macroPref("showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
@@ -739,6 +743,30 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
             case .end: return NSLocalizedString("End", comment: "")
             case .middle: return NSLocalizedString("Middle", comment: "")
             case .start: return NSLocalizedString("Start", comment: "")
+        }
+    }
+}
+
+enum ShowAppsWindowsPreference: String, CaseIterable, MacroPreference {
+    case apps = "0"
+    case windows = "1"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .apps: return NSLocalizedString("Apps", comment: "")
+            case .windows: return NSLocalizedString("Windows", comment: "")
+        }
+    }
+}
+
+enum ShowAppNamesWindowTitlesPreference: String, CaseIterable, MacroPreference {
+    case appNames = "0"
+    case windowTitles = "1"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .appNames: return NSLocalizedString("App Names", comment: "")
+            case .windowTitles: return NSLocalizedString("Window Titles", comment: "")
         }
     }
 }

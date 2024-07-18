@@ -11,24 +11,32 @@ struct ShowHideItem {
 class AdvancedSettingsWindow: NSWindow {
     var alignThumbnails: [NSView]!
     var titleTruncation: [NSView]!
+    var showAppsWindows: [NSView]!
+    var showAppNamesWindowTitles: [NSView]!
     var doneButton: NSButton!
 
     convenience init(_ model: AppearanceModelPreference) {
         self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
-//        self.init(contentRect: NSRect(x: 0, y: 0, width: 400, height: 200), styleMask: [.titled, .closable], backing: .buffered, defer: false)
+        setupView(model)
         setupWindow()
-        setupView(model: model)
     }
 
     private func setupWindow() {
         hidesOnDeactivate = false
+        makeFirstResponder(nil)
     }
 
-    private func setupView(model: AppearanceModelPreference) {
-        alignThumbnails = LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Align windows:", comment: ""),
+    private func setupView(_ model: AppearanceModelPreference) {
+        alignThumbnails = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""),
                 "alignThumbnails", AlignThumbnailsPreference.allCases)
         titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
                 "titleTruncation", TitleTruncationPreference.allCases)
+        showAppsWindows = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show:", comment: ""),
+                "showAppsWindows", ShowAppsWindowsPreference.allCases, extraAction: { _ in
+            self.toggleAppNamesWindowTitles()
+        })
+        showAppNamesWindowTitles = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show:", comment: ""),
+                "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases)
 
         doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
         doneButton.translatesAutoresizingMaskIntoConstraints = false
@@ -56,10 +64,12 @@ class AdvancedSettingsWindow: NSWindow {
             [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
             [doneButton],
         ])
-        // Merge separator row
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
-        // Merge button row
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 3, length: 1))
+        // Merge separator/button row
+        [2, 3].forEach{ row in
+            view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
+        }
+        view.column(at: 0).xPlacement = .trailing
+        view.column(at: 1).xPlacement = .leading
         view.cell(atColumnIndex: 0, rowIndex: 3).xPlacement = .trailing
         return view
     }
@@ -68,13 +78,18 @@ class AdvancedSettingsWindow: NSWindow {
         let view = GridView([
             alignThumbnails,
             [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
+            showAppsWindows,
+            showAppNamesWindowTitles,
+            [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
             [doneButton],
         ])
-        // Merge separator row
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 1, length: 1))
-        // Merge button row
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
-        view.cell(atColumnIndex: 0, rowIndex: 2).xPlacement = .trailing
+        // Merge separator/button row
+        [1, 4, 5].forEach{ row in
+            view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
+        }
+        view.column(at: 0).xPlacement = .trailing
+        view.column(at: 1).xPlacement = .leading
+        view.cell(atColumnIndex: 0, rowIndex: 5).xPlacement = .trailing
         return view
     }
 
@@ -82,14 +97,31 @@ class AdvancedSettingsWindow: NSWindow {
         let view = GridView([
             titleTruncation,
             [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
+            showAppsWindows,
+            showAppNamesWindowTitles,
+            [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
             [doneButton],
         ])
-        // Merge separator row
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 1, length: 1))
-        // Merge button row
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
-        view.cell(atColumnIndex: 0, rowIndex: 2).xPlacement = .trailing
+        // Merge separator/button row
+        [1, 4, 5].forEach{ row in
+            view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: row, length: 1))
+        }
+        view.column(at: 0).xPlacement = .trailing
+        view.column(at: 1).xPlacement = .leading
+        view.cell(atColumnIndex: 0, rowIndex: 5).xPlacement = .trailing
         return view
+    }
+
+    private func toggleAppNamesWindowTitles() {
+        let label = showAppNamesWindowTitles[0] as? TextField
+        let button = showAppNamesWindowTitles[1] as? NSControl
+        if Preferences.showAppsWindows == .windows {
+            label?.textColor = NSColor.textColor
+            button?.isEnabled = true
+        } else {
+            label?.textColor = NSColor.gray
+            button?.isEnabled = false
+        }
     }
 
     @objc func onClicked(_ sender: NSButton) {
@@ -140,7 +172,6 @@ class Popover: NSPopover {
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
         contentViewController?.view = view
-        guard let contentView = positioningView.window?.contentView else { return }
 
         // Convert the mouse location to the positioning view's coordinate system
         let locationInWindow = event.locationInWindow
@@ -159,10 +190,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
     static var titlesAdvancedWindow: AdvancedSettingsWindow!
 
     static var showHideCellWidth = CGFloat(400)
-
     static var showHideGrid: GridView!
-
-    static var appearanceModel: [NSView]!
     static var advancedButton: NSButton!
 
     static var showHideItems: [ShowHideItem] = [
@@ -247,11 +275,6 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
     ]
 
     static func initTab() -> NSView {
-        appearanceModel = LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
-                "appearanceModel", AppearanceModelPreference.allCases, extraAction: { sender in
-            let button = sender as! NSButton
-            toggleAdvancedButton()
-        })
         createAdvancedButton()
         thumbnailAdvancedWindow = AdvancedSettingsWindow(AppearanceModelPreference.thumbnails)
         appIconsAdvancedWindow = AdvancedSettingsWindow(AppearanceModelPreference.appIcons)
@@ -268,7 +291,6 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
             (NSLocalizedString("Position", comment: ""), positionGrid),
             (NSLocalizedString("Effects", comment: ""), effectsGrid),
         ])
-        tabView.setAccessibilityFocused(false)
         tabView.delegate = shared
         tabView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -300,9 +322,12 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
 
     private static func setupGeneralTabView() -> NSView {
         let generalSettings: [[NSView]] = [
-            appearanceModel,
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
+                    "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
+                toggleAdvancedButton()
+            }, buttonSpacing: 33),
             [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases, buttonSpacing: 50),
+            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
             LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
