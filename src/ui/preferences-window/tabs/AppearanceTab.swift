@@ -1,27 +1,5 @@
 import Cocoa
 
-class MouseHoverView: NSView {
-    var onMouseEntered: (() -> Void)?
-    var onMouseExited: (() -> Void)?
-
-    override func updateTrackingAreas() {
-        super.updateTrackingAreas()
-        for trackingArea in trackingAreas {
-            removeTrackingArea(trackingArea)
-        }
-        let newTrackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
-        addTrackingArea(newTrackingArea)
-    }
-
-    override func mouseEntered(with event: NSEvent) {
-        onMouseEntered?()
-    }
-
-    override func mouseExited(with event: NSEvent) {
-        onMouseExited?()
-    }
-}
-
 struct ShowHideItem {
     let uncheckedImageLight: String  // Light mode image when the item is unchecked
     let checkedImageLight: String    // Light mode image when the item is checked
@@ -123,6 +101,56 @@ class AdvancedSettingsWindow: NSWindow {
     }
 }
 
+class Popover: NSPopover {
+    static let shared = Popover()
+
+    override init() {
+        super.init()
+        contentViewController = NSViewController()
+        behavior = .semitransient
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func hide() {
+        performClose(nil)
+    }
+
+    func show(event: NSEvent, positioningView: NSView, message: String) {
+        hide()
+        let view = NSView()
+
+        let label = NSTextField(labelWithString: NSLocalizedString(message, comment: ""))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.lineBreakMode = .byWordWrapping
+        label.maximumNumberOfLines = 0
+        label.isEditable = false
+        label.isSelectable = true
+        label.textColor = NSColor.gray
+        label.font = NSFont.systemFont(ofSize: 12)
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: 400),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+        ])
+        contentViewController?.view = view
+        guard let contentView = positioningView.window?.contentView else { return }
+
+        // Convert the mouse location to the positioning view's coordinate system
+        let locationInWindow = event.locationInWindow
+        let locationInPositioningView = positioningView.convert(locationInWindow, from: nil)
+        let rect = CGRect(origin: locationInPositioningView, size: .zero)
+
+        show(relativeTo: rect, of: positioningView, preferredEdge: .minY)
+    }
+}
+
 class AppearanceTab: NSObject, NSTabViewDelegate {
     static var shared = AppearanceTab()
 
@@ -133,7 +161,6 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
     static var showHideCellWidth = CGFloat(400)
 
     static var showHideGrid: GridView!
-    static var popoverInfo: NSPopover!
 
     static var appearanceModel: [NSView]!
     static var advancedButton: NSButton!
@@ -158,8 +185,10 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
                         "hideStatusIcons", extraAction: { sender in
                     let button = sender as! NSButton
                     onCheckboxClicked(sender: button, rowIndex: 2)
-                }, labelPosition: .right, infoAction: { rect, view in
-                    showPopoverInfo(relativeTo: rect, of: view, relativeWidth: -44, relativeHeight: -67, message: "AltTab will show if the window is currently minimized or fullscreen with a status icon.")
+                }, labelPosition: .right, onMouseEntered: { event, view in
+                    Popover.shared.show(event: event, positioningView: view, message: "AltTab will show if the window is currently minimized or fullscreen with a status icon.")
+                }, onMouseExited: { event, view in
+                    Popover.shared.hide()
                 })),
         ShowHideItem(uncheckedImageLight: "show_space_number_labels_light",
                 checkedImageLight: "hide_space_number_labels_light",
@@ -200,8 +229,10 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
                         "showTabsAsWindows", extraAction: { sender in
                     let button = sender as! NSButton
                     onCheckboxClicked(sender: button, rowIndex: 6)
-                }, labelPosition: .right, infoAction: { rect, view in
-                    showPopoverInfo(relativeTo: rect, of: view, relativeWidth: 45, relativeHeight: -217, message: "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.")
+                }, labelPosition: .right, onMouseEntered: { event, view in
+                    Popover.shared.show(event: event, positioningView: view, message: "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.")
+                }, onMouseExited: { event, view in
+                    Popover.shared.hide()
                 })),
         ShowHideItem(uncheckedImageLight: "hide_preview_focused_window_light",
                 checkedImageLight: "show_preview_focused_window_light",
@@ -237,6 +268,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
             (NSLocalizedString("Position", comment: ""), positionGrid),
             (NSLocalizedString("Effects", comment: ""), effectsGrid),
         ])
+        tabView.setAccessibilityFocused(false)
         tabView.delegate = shared
         tabView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -362,7 +394,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
                 if let contentView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
                     let hoverView = MouseHoverView(frame: contentView.bounds)
                     hoverView.translatesAutoresizingMaskIntoConstraints = false
-                    hoverView.onMouseEntered = {
+                    hoverView.onMouseEntered = { event, view in
                         hoverView.wantsLayer = true
                         hoverView.layer?.backgroundColor = NSColor.gray.withAlphaComponent(0.2).cgColor
                         hoverView.layer?.cornerRadius = 5.0
@@ -371,7 +403,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
                         let isChecked = findCheckboxState(in: contentView)
                         updateImageView(for: rowIndex, isChecked: isChecked, imageView: imageView)
                     }
-                    hoverView.onMouseExited = {
+                    hoverView.onMouseExited = { event, view in
                         hoverView.layer?.backgroundColor = NSColor.clear.cgColor
                     }
                     hoverView.addSubview(contentView)
@@ -460,72 +492,6 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
             }
         }
         return false
-    }
-
-    private static func showPopoverInfo(relativeTo rect: NSRect, of view: NSView,
-                                        relativeWidth: CGFloat, relativeHeight: CGFloat, message: String) {
-        guard let window = view.window else {
-            return
-        }
-
-        // Close the existing Popover if it's already open
-        if let existingPopover = popoverInfo {
-            existingPopover.performClose(nil)
-        }
-
-        // Create a new Popover
-        let popover = NSPopover()
-        popover.behavior = .semitransient
-
-        // Create the content view controller
-        let viewController = NSViewController()
-        viewController.view = NSView()
-
-        // Add the text label
-        let label = NSTextField(labelWithString: NSLocalizedString(message, comment: ""))
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.lineBreakMode = .byWordWrapping
-        label.maximumNumberOfLines = 0
-        label.isEditable = false
-        label.isSelectable = true
-        label.textColor = NSColor.gray
-        label.font = NSFont.systemFont(ofSize: 12)
-        viewController.view.addSubview(label)
-
-        let button = NSButton(title: NSLocalizedString("Done", comment: ""), target: popover, action: #selector(NSPopover.performClose(_:)))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.isBordered = false
-        button.focusRingType = .none
-        button.bezelStyle = .shadowlessSquare
-        button.wantsLayer = true
-        button.layer?.cornerRadius = 5.0
-        button.layer?.backgroundColor = NSColor.lightGray.cgColor
-        button.layer?.masksToBounds = true
-        button.alignment = .center
-
-        viewController.view.addSubview(button)
-
-        // Set constraints
-        NSLayoutConstraint.activate([
-            viewController.view.widthAnchor.constraint(equalToConstant: 400),
-            label.topAnchor.constraint(equalTo: viewController.view.topAnchor, constant: 10),
-            label.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 10),
-            label.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -10),
-
-            button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 15),
-            button.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            button.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -10),
-            button.widthAnchor.constraint(equalToConstant: 42),
-            button.heightAnchor.constraint(equalToConstant: 23),
-        ])
-
-        popover.contentViewController = viewController
-
-        // It's not a good idea to use relativeWidth and relativeHeight to show popover at the right position
-        let correctRect = NSRect(x: window.frame.width / 2 + relativeWidth, y: window.frame.height / 2 + relativeHeight, width: 1, height: 1)
-        popover.show(relativeTo: correctRect, of: window.contentView!, preferredEdge: .minY)
-
-        popoverInfo = popover
     }
 
     private static func findButtons(in stackView: NSStackView) -> [NSButton] {

@@ -7,16 +7,40 @@ enum LabelPosition {
     case right
 }
 
-class ClickableImageView: NSView {
-    var imageView: NSImageView!
-    var clickAction: ((NSRect, NSView) -> Void)?
+typealias EventClosure = (NSEvent, NSView) -> Void
 
-    init(imageView: NSImageView, action: @escaping (NSRect, NSView) -> Void) {
+class MouseHoverView: NSView {
+    var onMouseEntered: EventClosure?
+    var onMouseExited: EventClosure?
+
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        for trackingArea in trackingAreas {
+            removeTrackingArea(trackingArea)
+        }
+        let newTrackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
+        addTrackingArea(newTrackingArea)
+    }
+
+    override func mouseEntered(with event: NSEvent) {
+        onMouseEntered?(event, self)
+    }
+
+    override func mouseExited(with event: NSEvent) {
+        onMouseExited?(event, self)
+    }
+}
+
+class ClickHoverImageView: MouseHoverView {
+    var imageView: NSImageView!
+    var onClick: EventClosure?
+
+    init(imageView: NSImageView) {
         super.init(frame: .zero)
-        self.clickAction = action
+        self.imageView = imageView
         addSubview(imageView)
 
-        let clickGesture = NSClickGestureRecognizer(target: self, action: #selector(handleClick))
+        let clickGesture = NSClickGestureRecognizer(target: self, action: #selector(handleClick(_:)))
         addGestureRecognizer(clickGesture)
     }
 
@@ -24,8 +48,10 @@ class ClickableImageView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func handleClick() {
-        clickAction?(frame, self)
+    @objc private func handleClick(_ sender: NSClickGestureRecognizer) {
+        if let event = sender.view?.window?.currentEvent {
+            onClick?(event, self)
+        }
     }
 
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
@@ -152,7 +178,7 @@ class LabelAndControl: NSObject {
         return views
     }
 
-    static func makeInfoButton(_ action: @escaping (NSRect, NSView) -> Void) -> NSView {
+    static func makeInfoButton(width: CGFloat, height: CGFloat) -> ClickHoverImageView {
         let imageView = NSImageView(image: NSImage(named: "info_button")!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
@@ -163,12 +189,12 @@ class LabelAndControl: NSObject {
         imageView.layer?.shouldRasterize = true
         imageView.layer?.rasterizationScale = NSScreen.main?.backingScaleFactor ?? 1.0
 
-        let view = ClickableImageView(imageView: imageView, action: action)
+        let view = ClickHoverImageView(imageView: imageView)
 
         // Set constraints to add equal padding around the image
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 15),
-            imageView.heightAnchor.constraint(equalToConstant: 15),
+            imageView.widthAnchor.constraint(equalToConstant: width),
+            imageView.heightAnchor.constraint(equalToConstant: height),
             imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 2),
             imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2),
@@ -182,9 +208,16 @@ class LabelAndControl: NSObject {
                                                    _ rawName: String,
                                                    extraAction: ActionClosure? = nil,
                                                    labelPosition: LabelPosition = .leftWithSeparator,
-                                                   infoAction: @escaping (NSRect, NSView) -> Void) -> [NSView] {
+                                                   onClick: EventClosure? = nil,
+                                                   onMouseEntered: EventClosure? = nil,
+                                                   onMouseExited: EventClosure? = nil,
+                                                   width: CGFloat = 15,
+                                                   height: CGFloat = 15) -> [NSView] {
         let labelCheckboxViews = makeLabelWithCheckbox(labelText, rawName, extraAction: extraAction, labelPosition: labelPosition)
-        let infoButtonView = makeInfoButton(infoAction)
+        let infoButtonView = makeInfoButton(width: width, height: height)
+        infoButtonView.onClick = onClick
+        infoButtonView.onMouseEntered = onMouseEntered
+        infoButtonView.onMouseExited = onMouseExited
 
         var views: [NSView] = []
         labelCheckboxViews.forEach { view in
