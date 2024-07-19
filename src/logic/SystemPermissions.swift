@@ -23,15 +23,14 @@ class SystemPermissions {
     // their return value is not updated during the app lifetime
     // note: shows the system prompt if there's no permission
     private static func screenRecordingIsGranted_() -> Bool {
-        return CGDisplayStream(
-            dispatchQueueDisplay: CGMainDisplayID(),
-            outputWidth: 1,
-            outputHeight: 1,
-            pixelFormat: Int32(kCVPixelFormatType_32BGRA),
-            properties: nil,
-            queue: .global(),
-            handler: { _, _, _, _ in }
-        ) != nil
+      guard
+        let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID)
+          as? [[String: AnyObject]]
+      else { return false }
+      return windows.allSatisfy({ window in
+        let windowName = window[kCGWindowName as String] as? String
+        return windowName != nil
+      })
     }
 
     static func observePermissionsPostStartup() {
