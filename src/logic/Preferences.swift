@@ -231,7 +231,7 @@ class Preferences {
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 25
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 85
+                appearance.maxWidthOnScreen = 90
                 appearance.maxHeightOnScreen = 80
                 if isVerticalScreen {
                     appearance.rowsCount = 8
@@ -253,7 +253,7 @@ class Preferences {
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 30
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 95
+                appearance.maxWidthOnScreen = 90
                 appearance.maxHeightOnScreen = 80
                 if isVerticalScreen {
                     appearance.rowsCount = 6
