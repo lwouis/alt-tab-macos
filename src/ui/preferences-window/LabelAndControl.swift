@@ -432,4 +432,20 @@ class TabView: NSTabView, NSTabViewDelegate {
             tuple.1.fit()
         }
     }
+
+    func maxIntrinsicContentSize() -> NSSize {
+        var maxWidth: CGFloat = 0
+        var maxHeight: CGFloat = 0
+
+        for tabViewItem in tabViewItems {
+            if let view = tabViewItem.view {
+                let width = view.fittingSize.width + TabView.padding * 2
+                let height = view.fittingSize.height + TabView.padding * 2 + subviews[0].frame.height
+                maxWidth = max(maxWidth, width)
+                maxHeight = max(maxHeight, height)
+            }
+        }
+
+        return NSSize(width: maxWidth, height: maxHeight)
+    }
 }
