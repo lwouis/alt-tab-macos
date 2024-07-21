@@ -358,17 +358,19 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
         let imageName = model.image.name + "_light"
-        let wrapView = NSView()
+        let imageView = NSImageView(image: NSImage(named: imageName)!)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.imageScaling = .scaleProportionallyUpOrDown
+        imageView.wantsLayer = true
+        imageView.layer?.masksToBounds = true
+        imageView.layer?.cornerRadius = 7.0
+
+        let wrapView = ClickHoverImageView(imageView: imageView)
         wrapView.translatesAutoresizingMaskIntoConstraints = false
         wrapView.wantsLayer = true
         wrapView.layer?.cornerRadius = 7.0
         wrapView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
         wrapView.layer?.borderWidth = 2.0
-
-        let imageView = NSImageView(image: NSImage(named: imageName)!)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.imageScaling = .scaleProportionallyUpOrDown
-        wrapView.addSubview(imageView)
 
         let imageWidth = showHideCellWidth - 100
         let imageHeight = imageWidth / 1.6
@@ -380,11 +382,9 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
             imageView.leadingAnchor.constraint(equalTo: wrapView.leadingAnchor, constant: 4),
             imageView.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor, constant: -4),
         ])
-
-        imageView.wantsLayer = true
-        imageView.layer?.masksToBounds = true
-        imageView.layer?.cornerRadius = 7.0
-        wrapView.identifier = NSUserInterfaceItemIdentifier("imageContainer")
+        wrapView.onClick = { event, view in
+            wrapView.imageView.image = NSImage(named: imageName)
+        }
         return wrapView
     }
 
@@ -627,7 +627,11 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
     }
 
     private static func toggleAdvancedButton() {
-        advancedButton.animator().title = getAdvancedButtonTitle()
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.1
+            advancedButton.animator().title = getAdvancedButtonTitle()
+            advancedButton.displayIfNeeded()
+        })
     }
 
     @objc static func showAdvancedSettings() {

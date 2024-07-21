@@ -807,10 +807,12 @@ enum AppearanceModelPreference: String, CaseIterable, ImageMacroPreference {
     }
 
     var image: WidthHeightImage {
+        let width = CGFloat(100)
+        let height = width / 1.6
         switch self {
-            case .thumbnails: return WidthHeightImage(name: "thumbnails")
-            case .appIcons: return WidthHeightImage(name: "app_icons")
-            case .titles: return WidthHeightImage(name: "titles")
+            case .thumbnails: return WidthHeightImage(width: width, height: height, name: "thumbnails")
+            case .appIcons: return WidthHeightImage(width: width, height: height, name: "app_icons")
+            case .titles: return WidthHeightImage(width: width, height: height, name: "titles")
         }
     }
 }
