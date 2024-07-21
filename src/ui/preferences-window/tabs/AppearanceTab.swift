@@ -15,6 +15,7 @@ struct ShowHideRowInfo {
 }
 
 class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
+    var model: AppearanceModelPreference = .thumbnails
     var alignThumbnails: [NSView]!
     var titleTruncation: [NSView]!
     var showAppsWindows: [NSView]!
@@ -28,15 +29,16 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
 
     convenience init(_ model: AppearanceModelPreference) {
         self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
+        self.model = model
         setupWindow()
-        setupView(model)
+        setupView()
     }
 
     private func setupWindow() {
         hidesOnDeactivate = false
     }
 
-    private func setupView(_ model: AppearanceModelPreference) {
+    private func setupView() {
         alignThumbnails = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""),
                 "alignThumbnails", AlignThumbnailsPreference.allCases)
         titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
@@ -118,7 +120,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
     private func setupShowHideTabView(_ model: AppearanceModelPreference) -> NSView {
         makeShowHideItems()
         var showHideSettings: [[NSView]] = [
-            [createIllustratedImageView()],
+            [createIllustratedImageView(model)],
         ]
         var modelShowHideRows = [Int: ShowHideRowInfo]()
         var index = 1
@@ -137,7 +139,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
         showHideGrid.column(at: 0).width = showHideCellWidth
         showHideGrid.rowSpacing = 0
         showHideGrid.row(at: 0).bottomPadding = GridView.padding
-        addMouseHoverEffects(showHideGrid, modelShowHideRows)
+        addMouseHoverEffects(grid: showHideGrid, modelShowHideRows: modelShowHideRows)
         showHideGrid.fit()
         return showHideGrid
     }
@@ -313,7 +315,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
         showHideRows.append(previewFocusedWindow)
     }
 
-    private func addMouseHoverEffects(_ grid: GridView, _ modelShowHideRows: [Int: ShowHideRowInfo]) {
+    private func addMouseHoverEffects(grid: GridView, modelShowHideRows: [Int: ShowHideRowInfo]) {
         // Ignore the first row that stores the image
         guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
               let imageView = imageContainer.subviews.first as? NSImageView
@@ -332,7 +334,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
 
                         // Check the state of the checkbox using recursive search
                         let isChecked = self.findCheckboxState(in: contentView)
-                        self.updateImageView(for: modelShowHideRows[rowIndex]!.rowId, isChecked: isChecked, imageView: imageView)
+                        self.updateImageView(rowId: modelShowHideRows[rowIndex]!.rowId, isChecked: isChecked, imageView: imageView)
                     }
                     hoverView.onMouseExited = { event, view in
                         hoverView.layer?.backgroundColor = NSColor.clear.cgColor
@@ -352,7 +354,10 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
         }
     }
 
-    private func createIllustratedImageView(_ name: String = "thumbnails_light") -> NSView {
+    private func createIllustratedImageView(_ model: AppearanceModelPreference) -> NSView {
+        // TODO: The appearance theme functionality has not been implemented yet.
+        // We will implement it later; for now, use the light theme.
+        let imageName = model.image.name + "_light"
         let wrapView = NSView()
         wrapView.translatesAutoresizingMaskIntoConstraints = false
         wrapView.wantsLayer = true
@@ -360,7 +365,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
         wrapView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
         wrapView.layer?.borderWidth = 2.0
 
-        let imageView = NSImageView(image: NSImage(named: name)!)
+        let imageView = NSImageView(image: NSImage(named: imageName)!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
         wrapView.addSubview(imageView)
@@ -404,15 +409,15 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
         }
 
         let isChecked = sender.state == .on
-        updateImageView(for: rowId, isChecked: isChecked, imageView: imageView)
+        updateImageView(rowId: rowId, isChecked: isChecked, imageView: imageView)
     }
 
-    private func updateImageView(for rowId: String, isChecked: Bool, imageView: NSImageView) {
-        // The first row is preview picture, so the index should minus 1
+    private func updateImageView(rowId: String, isChecked: Bool, imageView: NSImageView) {
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
         let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
-        let imageName = isChecked ? row?.checkedImageLight : row?.uncheckedImageLight
+        var imageName = isChecked ? row?.checkedImageLight : row?.uncheckedImageLight
+        imageName = model.image.name + "_" + imageName!
         imageView.image = NSImage(named: imageName!)
     }
 
@@ -539,8 +544,8 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
                     "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
                 toggleAdvancedButton()
             }, buttonSpacing: 33),
-            [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
+//            [makeSeparator(), makeSeparator(), makeSeparator()],
+//            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
             LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
             [makeSeparator(), makeSeparator(), makeSeparator()],
@@ -549,11 +554,11 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
         let generalGrid = GridView(generalSettings)
         generalGrid.column(at: 0).xPlacement = .trailing
         // Merge cells for separator/advanced button
-        [1, 3, 5, 6].forEach { row in
+        [1, 3, 4].forEach { row in
             generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: row, length: 1))
         }
         // Advanced button
-        generalGrid.cell(atColumnIndex: 0, rowIndex: 6).xPlacement = .trailing
+        generalGrid.cell(atColumnIndex: 0, rowIndex: 4).xPlacement = .trailing
         generalGrid.fit()
         return generalGrid
     }
