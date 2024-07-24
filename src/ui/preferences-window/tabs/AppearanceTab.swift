@@ -530,6 +530,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
         let positionGrid = setupPositionTabView()
         let effectsGrid = setupEffectsTabView()
 
+        let view = NSView()
         let tabView = TabView([
             (NSLocalizedString("General", comment: ""), generalGrid),
             (NSLocalizedString("Position", comment: ""), positionGrid),
@@ -537,28 +538,42 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
         ])
         tabView.delegate = shared
         tabView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(tabView)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        tabView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        view.heightAnchor.constraint(equalToConstant: tabView.fittingSize.height + GridView.padding).isActive = true
 
         NSLayoutConstraint.activate([
             generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor),
+            generalGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.bottomAnchor),
             generalGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor),
 
             positionGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor),
+            positionGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.bottomAnchor),
             positionGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor),
 
             effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor),
+            effectsGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.bottomAnchor),
             effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
         ])
-        return tabView
+        
+        return view
     }
 
     // Delegate method for tab view, it will be called when new tab is selected.
     func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
-        if let preferencesWindow = tabView.window as? PreferencesWindow {
-            let id = NSToolbarItem.Identifier(rawValue: "appearance")
-            preferencesWindow.toolbarItems[id]!.2 = tabView
-            preferencesWindow.setContentSize(NSSize(width: preferencesWindow.largestTabWidth, height: tabView.fittingSize.height))
-            preferencesWindow.contentView = tabView
-        }
+//        tabView.topAnchor.constraint(equalTo: tabView.superview!.topAnchor).isActive = true
+//        tabView.superview?.heightAnchor.constraint(equalToConstant: tabView.intrinsicContentSize.height).isActive = true
+//
+//        if let preferencesWindow = tabView.window as? PreferencesWindow {
+//            let id = NSToolbarItem.Identifier(rawValue: "appearance")
+//            preferencesWindow.toolbarItems[id]!.2 = tabView
+//            preferencesWindow.setContentSize(NSSize(width: preferencesWindow.largestTabWidth, height: tabView.fittingSize.height))
+//            preferencesWindow.contentView = tabView
+//        }
     }
 
     private static func setupGeneralTabView() -> NSView {

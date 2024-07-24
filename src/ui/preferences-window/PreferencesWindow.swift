@@ -74,14 +74,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
 
     @objc func tabItemClicked(_ item: NSToolbarItem) {
         let item = toolbarItems[item.itemIdentifier]!
-        var newContent = item.2
-        // Handle tab view
-        if !newContent.subviews.isEmpty, let tabView = newContent.subviews[0] as? TabView {
-            setContentSize(NSSize(width: largestTabWidth, height: tabView.fittingSize.height))
-            newContent = tabView
-        }
-        setContentSize(NSSize(width: largestTabWidth, height: newContent.fittingSize.height))
-        contentView = newContent
+        contentView = item.2
         title = item.1.label
     }
 
