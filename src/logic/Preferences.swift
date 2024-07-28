@@ -751,24 +751,24 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
 }
 
 enum ShowAppsWindowsPreference: String, CaseIterable, MacroPreference {
-    case apps = "0"
+    case applications = "0"
     case windows = "1"
 
     var localizedString: LocalizedString {
         switch self {
-            case .apps: return NSLocalizedString("Apps", comment: "")
+            case .applications: return NSLocalizedString("Applications", comment: "")
             case .windows: return NSLocalizedString("Windows", comment: "")
         }
     }
 }
 
 enum ShowAppNamesWindowTitlesPreference: String, CaseIterable, MacroPreference {
-    case appNames = "0"
+    case applicationNames = "0"
     case windowTitles = "1"
 
     var localizedString: LocalizedString {
         switch self {
-            case .appNames: return NSLocalizedString("App Names", comment: "")
+            case .applicationNames: return NSLocalizedString("Application Names", comment: "")
             case .windowTitles: return NSLocalizedString("Window Titles", comment: "")
         }
     }

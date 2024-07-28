@@ -330,11 +330,11 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
                 "alignThumbnails", AlignThumbnailsPreference.allCases)
         titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
                 "titleTruncation", TitleTruncationPreference.allCases)
-        showAppsWindows = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show:", comment: ""),
+        showAppsWindows = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show running:", comment: ""),
                 "showAppsWindows", ShowAppsWindowsPreference.allCases, extraAction: { _ in
             self.toggleAppNamesWindowTitles()
         })
-        showAppNamesWindowTitles = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show:", comment: ""),
+        showAppNamesWindowTitles = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show titles:", comment: ""),
                 "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases)
 
         doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
@@ -429,6 +429,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
 //        view.column(at: 1).width = 150
         view.column(at: 0).xPlacement = .trailing
         view.column(at: 1).xPlacement = .leading
+        toggleAppNamesWindowTitles()
         return view
     }
 
@@ -444,6 +445,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
 //        view.column(at: 1).width = 200
         view.column(at: 0).xPlacement = .trailing
         view.column(at: 1).xPlacement = .leading
+        toggleAppNamesWindowTitles()
         return view
     }
 

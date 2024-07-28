@@ -295,6 +295,20 @@ class Windows {
         Windows.list.forEach { (window: Window) in
             refreshIfWindowShouldBeShownToTheUser(window, screen)
         }
+
+        if (Preferences.showAppsWindows == .applications && Preferences.appearanceModel != .thumbnails) {
+            // Group windows by application and select the optimal main window
+            let windowsGroupedByApp = Dictionary(grouping: Windows.list) { $0.application.pid }
+            windowsGroupedByApp.forEach { (app, windows) in
+                if windows.count > 1, let mainWindow = selectMainWindow(from: windows) {
+                    windows.forEach { window in
+                        if window.cgWindowId != mainWindow.cgWindowId {
+                            window.shouldShowTheUser = false
+                        }
+                    }
+                }
+            }
+        }
     }
 
     static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
@@ -314,6 +328,35 @@ class Windows {
                 !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaces.contains(window.spaceId)) &&
                 !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(screen)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
+    }
+
+    /// Selects the most appropriate main window from a given list of windows.
+    ///
+    /// The selection criteria are as follows:
+    /// 1. Prefer the focused window if it exists.
+    /// 2. Prefer the main window of the application if the focused window is not found.
+    ///
+    /// - Parameter windows: An array of `Window` objects to select from.
+    /// - Returns: The most appropriate `Window` object based on the selection criteria, or `nil` if the array is empty.
+    static func selectMainWindow(from windows: [Window]) -> Window? {
+        let sortedWindows = windows.sorted { (window1, window2) -> Bool in
+            // Prefer the focus window
+            if window1.application.focusedWindow?.cgWindowId == window1.cgWindowId {
+                return true
+            } else if window2.application.focusedWindow?.cgWindowId == window2.cgWindowId {
+                return false
+            }
+
+            // Prefer the main window
+            if window1.isAppMainWindow() && !window2.isAppMainWindow() {
+                return true
+            } else if !window1.isAppMainWindow() && window2.isAppMainWindow() {
+                return false
+            }
+            return true
+        }
+
+        return sortedWindows.first
     }
 }
 

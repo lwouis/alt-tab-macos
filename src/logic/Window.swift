@@ -1,6 +1,6 @@
 import Cocoa
 
-class Window {
+class Window: CustomStringConvertible {
     static var globalCreationCounter = Int.zero
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
@@ -69,6 +69,31 @@ class Window {
 
     deinit {
         debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+    }
+
+    var description: String {
+        let s = """
+                Window(cgWindowId: \(cgWindowId)
+                , title: \(title)
+                , thumbnailFullSize: \(thumbnailFullSize)
+                , shouldShowTheUser: \(shouldShowTheUser)
+                , isTabbed: \(isTabbed)
+                , isFullscreen: \(isFullscreen)
+                , isMinimized: \(isMinimized)
+                , isOnAllSpaces: \(isOnAllSpaces)
+                , isWindowlessApp: \(isWindowlessApp)
+                , position: \(position)
+                , size: \(size)
+                , spaceId: \(spaceId)
+                , spaceIndex: \(spaceIndex)
+                , axUiElement: \(axUiElement)
+                , application: \(application)
+                , axObserver: \(axObserver)
+                , row: \(row)
+                , lastFocusOrder: \(lastFocusOrder)
+                , creationOrder: \(creationOrder))
+                """
+        return s.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "  ", with: " ")
     }
 
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
@@ -278,5 +303,25 @@ class Window {
         //       window-group, instead of picking the focused one
         return isTabbed ? application.focusedWindow : self
     }
-}
 
+    // Determines if this window is the main application window
+    func isAppMainWindow() -> Bool {
+        if let element = application.axUiElement {
+            var mainWindow: AnyObject?
+            if AXUIElementCopyAttributeValue(element, kAXMainWindowAttribute as CFString, &mainWindow) == .success {
+                if let mainWin = mainWindow as! AXUIElement? {
+                    do {
+                        let w1 = try mainWin.cgWindowId()
+                        let w2 = try self.axUiElement.cgWindowId()
+                        if w1 == w2 {
+                            return true
+                        }
+                    } catch {
+                        return false
+                    }
+                }
+            }
+        }
+        return false
+    }
+}
