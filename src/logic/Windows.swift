@@ -296,11 +296,11 @@ class Windows {
             refreshIfWindowShouldBeShownToTheUser(window, screen)
         }
 
-        if (Preferences.showAppsWindows == .applications && Preferences.appearanceModel != .thumbnails) {
+        if Preferences.onlyShowApplications() {
             // Group windows by application and select the optimal main window
             let windowsGroupedByApp = Dictionary(grouping: Windows.list) { $0.application.pid }
             windowsGroupedByApp.forEach { (app, windows) in
-                if windows.count > 1, let mainWindow = selectMainWindow(from: windows) {
+                if windows.count > 1, let mainWindow = selectMainWindow(windows) {
                     windows.forEach { window in
                         if window.cgWindowId != mainWindow.cgWindowId {
                             window.shouldShowTheUser = false
@@ -338,7 +338,7 @@ class Windows {
     ///
     /// - Parameter windows: An array of `Window` objects to select from.
     /// - Returns: The most appropriate `Window` object based on the selection criteria, or `nil` if the array is empty.
-    static func selectMainWindow(from windows: [Window]) -> Window? {
+    static func selectMainWindow(_ windows: [Window]) -> Window? {
         let sortedWindows = windows.sorted { (window1, window2) -> Bool in
             // Prefer the focus window
             if window1.application.focusedWindow?.cgWindowId == window1.cgWindowId {
@@ -358,6 +358,12 @@ class Windows {
 
         return sortedWindows.first
     }
+
+    static func findWindowGroup(_ window: Window) -> [Window] {
+        let windowsGroupedByApp = Dictionary(grouping: Windows.list) { $0.application.pid }
+        return windowsGroupedByApp[window.application.pid]!
+    }
+
 }
 
 func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {

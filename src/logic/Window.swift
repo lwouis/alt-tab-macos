@@ -216,11 +216,19 @@ class Window: CustomStringConvertible {
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
                 guard let self = self else { return }
+
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
-                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
-                self.makeKeyWindow(psn)
-                self.axUiElement.focusWindow()
+                var windows: [Window] = [self]
+                if Preferences.onlyShowApplications() {
+                    windows = Windows.findWindowGroup(self).sorted { $0.lastFocusOrder > $1.lastFocusOrder }
+                }
+                for window in windows {
+                    _SLPSSetFrontProcessWithOptions(&psn, window.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                    window.makeKeyWindow(psn)
+                    window.axUiElement.setAttribute(kAXMinimizedAttribute, false)
+                }
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }

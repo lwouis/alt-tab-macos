@@ -490,6 +490,10 @@ class Preferences {
         return "6"
     }
 
+    static func onlyShowApplications() -> Bool {
+        return Preferences.showAppsWindows == .applications && Preferences.appearanceModel != .thumbnails
+    }
+
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards
     static func keyAboveTabDependingOnInputSource() -> String {
         return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_ANSI_Grave)) ?? "`"
