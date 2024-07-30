@@ -267,7 +267,7 @@ class Preferences {
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 68
                 appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 90
+                appearance.maxWidthOnScreen = 95
                 appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.medium {
                 appearance.rowsCount = 0
@@ -275,7 +275,7 @@ class Preferences {
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 98
                 appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 90
+                appearance.maxWidthOnScreen = 95
                 appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
                 appearance.rowsCount = 0
@@ -283,7 +283,7 @@ class Preferences {
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 128
                 appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 90
+                appearance.maxWidthOnScreen = 95
                 appearance.maxHeightOnScreen = 90
             }
         } else if model == AppearanceModelPreference.titles {

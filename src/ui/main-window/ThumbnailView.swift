@@ -140,7 +140,7 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
         let title = getWindowOrAppTitle()
-        let appIconChanged = appIcon.image != element.icon
+        let appIconChanged = appIcon.image != element.icon || appIcon.toolTip != title
         if appIconChanged {
             appIcon.image = element.icon
             let appIconSize = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
