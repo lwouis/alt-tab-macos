@@ -181,6 +181,7 @@ class Window {
             } else {
                 application.runningApplication.activate(options: .activateIgnoringOtherApps)
             }
+            Windows.previewFocusedWindowIfNeeded()
         } else if let bundleID = application.runningApplication.bundleIdentifier, bundleID == App.id {
             App.shared.activate(ignoringOtherApps: true)
             App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
