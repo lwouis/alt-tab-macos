@@ -139,6 +139,7 @@ class ThumbnailView: NSStackView {
         }
         assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
+        let title = getWindowOrAppTitle()
         let appIconChanged = appIcon.image != element.icon
         if appIconChanged {
             appIcon.image = element.icon
@@ -146,14 +147,14 @@ class ThumbnailView: NSStackView {
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
             appIcon.setAccessibilityLabel(element.application.runningApplication.localizedName)
-            appIcon.toolTip = element.application.runningApplication.localizedName
+            appIcon.toolTip = title
         }
-        let labelChanged = label.string != element.title
+        let labelChanged = label.string != title
         if labelChanged {
-            label.string = element.title
+            label.string = title
             // workaround: setting string on NSTextView changes the font (most likely a Cocoa bug)
             label.font = Preferences.font
-            setAccessibilityLabel(element.title)
+            setAccessibilityLabel(title)
         }
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden || Preferences.hideStatusIcons)
         assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
@@ -197,6 +198,13 @@ class ThumbnailView: NSStackView {
         if labelChanged {
             label.display()
         }
+    }
+
+    func getWindowOrAppTitle() -> String {
+        if Preferences.onlyShowApplications() || Preferences.showAppNamesWindowTitles == .applicationNames {
+            return window_?.application.runningApplication.localizedName ?? "Unknown Application"
+        }
+        return window_?.title ?? "Untitled Window"
     }
 
     @discardableResult
