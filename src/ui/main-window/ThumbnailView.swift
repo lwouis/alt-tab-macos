@@ -202,13 +202,14 @@ class ThumbnailView: NSStackView {
 
     func getAppOrAndWindowTitle() -> String {
         let appName = window_?.application.runningApplication.localizedName ?? "Unknown Application"
-        if Preferences.onlyShowApplications() || Preferences.showAppNamesWindowTitles == .applicationNames {
-            return appName
-        }
-
         let windowTitle = window_?.title ?? "Untitled Window"
-        if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
-            return appName + " - " + windowTitle
+
+        if Preferences.appearanceModel != .thumbnails {
+            if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .applicationNames {
+                return appName
+            } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
+                return appName + " - " + windowTitle
+            }
         }
         return windowTitle
     }

@@ -17,7 +17,7 @@ struct ShowHideRowInfo {
 class ShowHideIllustratedView {
     private let model: AppearanceModelPreference
 
-    private let showHideCellWidth = CGFloat(600)
+    private let showHideCellWidth = CGFloat(500)
     private var showHideRows = [ShowHideRowInfo]()
     private var grid: GridView!
 
@@ -276,7 +276,6 @@ class ShowHideIllustratedView {
         imageName = model.image.name + "_" + imageName!
         imageView.image = NSImage(named: imageName!)
     }
-
 
     private func findCheckboxState(in view: NSView) -> Bool {
         if let checkbox = view as? NSButton {
