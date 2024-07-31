@@ -54,6 +54,7 @@ class ThumbnailView: NSStackView {
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
         hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
+        hStackView.orientation = .horizontal
         setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
         addWindowControls()
         addDockLabelIcon()
@@ -215,7 +216,8 @@ class ThumbnailView: NSStackView {
     func setFrameWidth(_ element: Window, _ screen: NSScreen) {
         // Retrieves the minimum width for the screen.
         let widthMin = ThumbnailView.widthMin(screen)
-        let fittingWidth = (Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width)
+        // `max(hStackView.fittingSize.width, Preferences.iconSize)` is used to fix the problem that sometimes the fitting width of hStackView is wrong. make be it is a system bug.
+        let fittingWidth = (Preferences.hideThumbnails || element.isWindowlessApp ? max(hStackView.fittingSize.width, Preferences.iconSize) : thumbnail.frame.size.width)
         let leftRightPadding = Preferences.intraCellPadding * 2
         let fittingWidthMin = fittingWidth + leftRightPadding
         let width = max(fittingWidthMin, widthMin).rounded()
