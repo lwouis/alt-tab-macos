@@ -35,10 +35,16 @@ class App: AppCenterApplication, NSApplicationDelegate {
         super.init()
         delegate = self
         App.app = self
+        // Fix the incorrect display of the ThumbnailView when the screen resolution changes.
+        NotificationCenter.default.addObserver(self, selector: #selector(screenParametersDidChange), name: NSApplication.didChangeScreenParametersNotification, object: nil)
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSApplication.didChangeScreenParametersNotification, object: nil)
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -340,5 +346,15 @@ class App: AppCenterApplication, NSApplicationDelegate {
         if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
             App.app.hideUi()
         }
+    }
+
+
+    @objc func screenParametersDidChange(notification: Notification) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(handleScreenChange), object: nil)
+        self.perform(#selector(handleScreenChange), with: nil, afterDelay: 0.2)
+    }
+
+    @objc func handleScreenChange() {
+        App.app.resetPreferencesDependentComponents()
     }
 }

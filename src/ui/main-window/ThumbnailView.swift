@@ -143,10 +143,10 @@ class ThumbnailView: NSStackView {
         let appIconChanged = appIcon.image != element.icon || appIcon.toolTip != title
         if appIconChanged {
             appIcon.image = element.icon
-            let appIconSize = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
+            let appIconSize = ThumbnailView.iconSize(screen)
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
-            appIcon.setAccessibilityLabel(element.application.runningApplication.localizedName)
+            appIcon.setAccessibilityLabel(title)
             appIcon.toolTip = title
         }
         let labelChanged = label.string != title
@@ -173,8 +173,7 @@ class ThumbnailView: NSStackView {
         if appIconChanged || dockLabelChanged {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
-        let widthMin = ThumbnailView.widthMin(screen)
-        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, widthMin).rounded())
+        setFrameWidth(element, screen)
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
@@ -205,6 +204,16 @@ class ThumbnailView: NSStackView {
             return window_?.application.runningApplication.localizedName ?? "Unknown Application"
         }
         return window_?.title ?? "Untitled Window"
+    }
+
+    func setFrameWidth(_ element: Window, _ screen: NSScreen) {
+        // Retrieves the minimum width for the screen.
+        let widthMin = ThumbnailView.widthMin(screen)
+        let fittingWidth = (Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width)
+        let leftRightPadding = Preferences.intraCellPadding * 2
+        let fittingWidthMin = fittingWidth + leftRightPadding
+        let width = max(fittingWidthMin, widthMin).rounded()
+        assignIfDifferent(&frame.size.width, width)
     }
 
     @discardableResult
@@ -330,5 +339,20 @@ class ThumbnailView: NSStackView {
             return (image.size.width * thumbnailHeight / image.size.height, thumbnailHeight)
         }
         return (thumbnailWidth, image.size.height * thumbnailWidth / image.size.width)
+    }
+
+    static func iconSize(_ screen: NSScreen) -> NSSize {
+        if Preferences.appearanceModel == .appIcons {
+            let widthMin = ThumbnailView.widthMin(screen)
+            let fittingWidth = Preferences.iconSize
+            let leftRightPadding = Preferences.intraCellPadding * 2
+            let fittingWidthMin = fittingWidth + leftRightPadding
+            let width = max(fittingWidthMin, widthMin).rounded()
+            if widthMin > fittingWidthMin {
+                let iconSize = width - leftRightPadding
+                return NSSize(width: iconSize, height: iconSize)
+            }
+        }
+        return NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
     }
 }

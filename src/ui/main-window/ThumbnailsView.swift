@@ -88,7 +88,7 @@ class ThumbnailsView: NSVisualEffectView {
 
     func rowHeight(_ screen: NSScreen) -> CGFloat {
         if Preferences.hideThumbnails {
-            return max(Preferences.iconSize, Preferences.fontHeight + 3) + Preferences.intraCellPadding * 2
+            return max(ThumbnailView.iconSize(screen).height, Preferences.fontHeight + 3) + Preferences.intraCellPadding * 2
         }
         return ThumbnailView.height(screen).rounded(.down)
     }
