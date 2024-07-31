@@ -17,7 +17,7 @@ struct ShowHideRowInfo {
 class ShowHideIllustratedView {
     private let model: AppearanceModelPreference
 
-    private let showHideCellWidth = CGFloat(400)
+    private let showHideCellWidth = CGFloat(600)
     private var showHideRows = [ShowHideRowInfo]()
     private var grid: GridView!
 
@@ -28,8 +28,9 @@ class ShowHideIllustratedView {
 
     func setupView() -> GridView {
         // Add the illustrated image first
+        let shrinkWidth: CGFloat = 50
         var settings: [[NSView]] = [
-            [makeIllustratedImageView(model)],
+            [makeIllustratedImageView(model, showHideCellWidth - shrinkWidth)],
         ]
         var modelToRows = [Int: ShowHideRowInfo]()
         var index = 1
@@ -187,7 +188,7 @@ class ShowHideIllustratedView {
                     hoverView.addSubview(contentView)
                     contentView.translatesAutoresizingMaskIntoConstraints = false
                     NSLayoutConstraint.activate([
-                        hoverView.widthAnchor.constraint(equalToConstant: grid.column(at: 0).width - GridView.padding),
+                        hoverView.widthAnchor.constraint(equalToConstant: grid.column(at: 0).width),
                         contentView.topAnchor.constraint(equalTo: hoverView.topAnchor, constant: 10),
                         contentView.bottomAnchor.constraint(equalTo: hoverView.bottomAnchor, constant: -10),
                         contentView.leadingAnchor.constraint(equalTo: hoverView.leadingAnchor, constant: 10),
@@ -199,7 +200,7 @@ class ShowHideIllustratedView {
         }
     }
 
-    private func makeIllustratedImageView(_ model: AppearanceModelPreference) -> NSView {
+    private func makeIllustratedImageView(_ model: AppearanceModelPreference, _ imageWidth: CGFloat) -> NSView {
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
         let imageName = model.image.name + "_light"
@@ -217,7 +218,7 @@ class ShowHideIllustratedView {
         wrapView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
         wrapView.layer?.borderWidth = 2.0
 
-        let imageWidth = showHideCellWidth - 100
+        let imageWidth = imageWidth
         let imageHeight = imageWidth / 1.6
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: imageWidth),
@@ -384,24 +385,24 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
 
     // Delegate method for tab view, it will be called when new tab is selected.
     func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
-        if let grid = tabView.superview as? GridView, let tabView = tabView as? TabView {
-            if let window = tabView.window as? ModelAdvancedSettingsWindow {
-                // Adjust the size of the tabView to fit its content
-                tabView.widthAnchor.constraint(equalToConstant: tabView.maxIntrinsicContentSize().width + GridView.padding).isActive = true
-                let newSize = grid.fittingSize
-
-                if let parentWindow = window.sheetParent {
-                    // Get parent window frame
-                    let parentFrame = parentWindow.frame
-                    var frame = window.frame
-                    frame.size.height = newSize.height
-                    frame.origin.y = parentFrame.origin.y + parentFrame.height - newSize.height
-
-                    window.setFrame(frame, display: true, animate: true)
-                    window.layoutIfNeeded()
-                }
-            }
-        }
+//        if let grid = tabView.superview as? GridView, let tabView = tabView as? TabView {
+//            if let window = tabView.window as? ModelAdvancedSettingsWindow {
+//                // Adjust the size of the tabView to fit its content
+//                tabView.widthAnchor.constraint(equalToConstant: tabView.maxIntrinsicContentSize().width + GridView.padding).isActive = true
+//                let newSize = grid.fittingSize
+//
+//                if let parentWindow = window.sheetParent {
+//                    // Get parent window frame
+//                    let parentFrame = parentWindow.frame
+//                    var frame = window.frame
+//                    frame.size.height = newSize.height
+//                    frame.origin.y = parentFrame.origin.y + parentFrame.height - newSize.height
+//
+//                    window.setFrame(frame, display: true, animate: true)
+//                    window.layoutIfNeeded()
+//                }
+//            }
+//        }
     }
 
     private func setupThumbnailsView() -> NSView {
