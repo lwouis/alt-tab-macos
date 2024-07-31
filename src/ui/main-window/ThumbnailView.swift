@@ -139,7 +139,7 @@ class ThumbnailView: NSStackView {
         }
         assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
-        let title = getAppOrWindowTitle()
+        let title = getAppOrAndWindowTitle()
         let appIconChanged = appIcon.image != element.icon || appIcon.toolTip != title
         if appIconChanged {
             appIcon.image = element.icon
@@ -199,7 +199,7 @@ class ThumbnailView: NSStackView {
         }
     }
 
-    func getAppOrWindowTitle() -> String {
+    func getAppOrAndWindowTitle() -> String {
         let appName = window_?.application.runningApplication.localizedName ?? "Unknown Application"
         if Preferences.onlyShowApplications() || Preferences.showAppNamesWindowTitles == .applicationNames {
             return appName
