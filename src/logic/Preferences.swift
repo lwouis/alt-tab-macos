@@ -225,14 +225,14 @@ class Preferences {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 7
             appearance.interCellPadding = 7
+            appearance.maxWidthOnScreen = 95
+            appearance.maxHeightOnScreen = 85
             if size == AppearanceSizePreference.small {
                 appearance.rowsCount = 5
                 appearance.windowMinWidthInRow = 8
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 25
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 90
-                appearance.maxHeightOnScreen = 80
                 if isVerticalScreen {
                     appearance.rowsCount = 8
                 }
@@ -242,8 +242,6 @@ class Preferences {
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 30
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 90
-                appearance.maxHeightOnScreen = 80
                 if isVerticalScreen {
                     appearance.rowsCount = 7
                 }
@@ -253,38 +251,30 @@ class Preferences {
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 30
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 90
-                appearance.maxHeightOnScreen = 80
                 if isVerticalScreen {
                     appearance.rowsCount = 6
                 }
             }
         } else if model == AppearanceModelPreference.appIcons {
             appearance.hideThumbnails = true
+            appearance.fontHeight = 0
+            appearance.maxWidthOnScreen = 95
+            appearance.maxHeightOnScreen = 85
             if size == AppearanceSizePreference.small {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 5
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 68
-                appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 95
-                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.medium {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 6
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 98
-                appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 95
-                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 8
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 128
-                appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 95
-                appearance.maxHeightOnScreen = 90
             }
         } else if model == AppearanceModelPreference.titles {
             appearance.hideThumbnails = true
@@ -292,7 +282,7 @@ class Preferences {
             appearance.windowMinWidthInRow = 70
             appearance.windowMaxWidthInRow = 90
             appearance.maxWidthOnScreen = 60
-            appearance.maxHeightOnScreen = 80
+            appearance.maxHeightOnScreen = 85
             if isVerticalScreen {
                 appearance.maxWidthOnScreen = 85
             }
