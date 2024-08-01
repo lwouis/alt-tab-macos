@@ -223,8 +223,8 @@ class Preferences {
         let isVerticalScreen = NSScreen.preferred().ratio() < 1
         if model == AppearanceModelPreference.thumbnails {
             appearance.hideThumbnails = false
-            appearance.intraCellPadding = 7
-            appearance.interCellPadding = 7
+            appearance.intraCellPadding = 6
+            appearance.interCellPadding = 10
             if size == AppearanceSizePreference.small {
                 appearance.rowsCount = 5
                 appearance.windowMinWidthInRow = 8
