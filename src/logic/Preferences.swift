@@ -31,7 +31,7 @@ class Preferences {
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
-        "mouseHoverEnabled": "true",
+        "mouseHoverEnabled": "false",
         "cursorFollowFocusEnabled": "false",
         "showMinimizedWindows": ShowHowPreference.show.rawValue,
         "showMinimizedWindows2": ShowHowPreference.show.rawValue,
