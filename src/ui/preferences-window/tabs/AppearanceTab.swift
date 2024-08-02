@@ -666,12 +666,13 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
         return NSLocalizedString("Advanced…", comment: "")
     }
 
-    private static func toggleAdvancedButton() {
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.1
-            advancedButton.animator().title = getAdvancedButtonTitle()
-            advancedButton.displayIfNeeded()
-        })
+    @objc static func toggleAdvancedButton() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(handleToggleAdvancedButton), object: nil)
+        self.perform(#selector(handleToggleAdvancedButton), with: nil, afterDelay: 0.1)
+    }
+
+    @objc static func handleToggleAdvancedButton() {
+        advancedButton.animator().title = getAdvancedButtonTitle()
     }
 
     @objc static func showAdvancedSettings() {
