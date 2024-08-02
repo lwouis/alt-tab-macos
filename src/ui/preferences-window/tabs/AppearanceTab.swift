@@ -14,23 +14,72 @@ struct ShowHideRowInfo {
     }
 }
 
+class IllustratedImageView: ClickHoverImageView {
+
+    var model: AppearanceModelPreference = .thumbnails
+
+    init(_ model: AppearanceModelPreference, _ imageWidth: CGFloat) {
+        // TODO: The appearance theme functionality has not been implemented yet.
+        // We will implement it later; for now, use the light theme.
+        let imageName = model.image.name + "_light"
+        let imageView = NSImageView(image: NSImage(named: imageName)!)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.imageScaling = .scaleProportionallyUpOrDown
+        imageView.wantsLayer = true
+        imageView.layer?.masksToBounds = true
+        imageView.layer?.cornerRadius = 7.0
+
+        super.init(imageView: imageView)
+        self.model = model
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.wantsLayer = true
+        self.layer?.cornerRadius = 7.0
+        self.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
+        self.layer?.borderWidth = 2.0
+
+        let imageWidth = imageWidth
+        let imageHeight = imageWidth / 1.6
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: imageWidth),
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4),
+        ])
+        onClick = { event, view in
+            imageView.image = NSImage(named: imageName)
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func updateImage(_ imageName: String) {
+        // e.g. thumbnails_show_app_badges_light/app_icons_show_app_badges_light
+        let imageName = self.model.image.name + "_" + imageName
+        imageView.image = NSImage(named: imageName)
+    }
+
+}
+
 class ShowHideIllustratedView {
     private let model: AppearanceModelPreference
-
-    private let showHideCellWidth = CGFloat(500)
+    private var illustratedImageView: IllustratedImageView!
     private var showHideRows = [ShowHideRowInfo]()
     private var grid: GridView!
 
     init(_ model: AppearanceModelPreference) {
         self.model = model
         setupItems()
+        illustratedImageView = IllustratedImageView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
     }
 
     func setupView() -> GridView {
         // Add the illustrated image first
-        let shrinkWidth: CGFloat = 50
         var settings: [[NSView]] = [
-            [makeIllustratedImageView(model, showHideCellWidth - shrinkWidth)],
+            [illustratedImageView],
         ]
         var modelToRows = [Int: ShowHideRowInfo]()
         var index = 1
@@ -44,7 +93,7 @@ class ShowHideIllustratedView {
         }
         grid = GridView(settings)
         setAlignment()
-        grid.column(at: 0).width = showHideCellWidth
+        grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth
         grid.rowSpacing = 0
         grid.row(at: 0).bottomPadding = GridView.padding
         addMouseHoverEffects(modelToRows: modelToRows)
@@ -163,11 +212,6 @@ class ShowHideIllustratedView {
 
     private func addMouseHoverEffects(modelToRows: [Int: ShowHideRowInfo]) {
         // Ignore the first row that stores the image
-        guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
-              let imageView = imageContainer.subviews.first as? NSImageView
-        else {
-            return
-        }
         for rowIndex in 1..<grid.numberOfRows {
             for columnIndex in 0..<grid.numberOfColumns {
                 if let contentView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
@@ -180,7 +224,7 @@ class ShowHideIllustratedView {
 
                         // Check the state of the checkbox using recursive search
                         let isChecked = self.findCheckboxState(in: contentView)
-                        self.updateImageView(rowId: modelToRows[rowIndex]!.rowId, isChecked: isChecked, imageView: imageView)
+                        self.updateImageView(rowId: modelToRows[rowIndex]!.rowId, isChecked: isChecked)
                     }
                     hoverView.onMouseExited = { event, view in
                         hoverView.layer?.backgroundColor = NSColor.clear.cgColor
@@ -198,40 +242,6 @@ class ShowHideIllustratedView {
                 }
             }
         }
-    }
-
-    private func makeIllustratedImageView(_ model: AppearanceModelPreference, _ imageWidth: CGFloat) -> NSView {
-        // TODO: The appearance theme functionality has not been implemented yet.
-        // We will implement it later; for now, use the light theme.
-        let imageName = model.image.name + "_light"
-        let imageView = NSImageView(image: NSImage(named: imageName)!)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.imageScaling = .scaleProportionallyUpOrDown
-        imageView.wantsLayer = true
-        imageView.layer?.masksToBounds = true
-        imageView.layer?.cornerRadius = 7.0
-
-        let wrapView = ClickHoverImageView(imageView: imageView)
-        wrapView.translatesAutoresizingMaskIntoConstraints = false
-        wrapView.wantsLayer = true
-        wrapView.layer?.cornerRadius = 7.0
-        wrapView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
-        wrapView.layer?.borderWidth = 2.0
-
-        let imageWidth = imageWidth
-        let imageHeight = imageWidth / 1.6
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: imageWidth),
-            imageView.heightAnchor.constraint(equalToConstant: imageHeight),
-            imageView.topAnchor.constraint(equalTo: wrapView.topAnchor, constant: 4),
-            imageView.bottomAnchor.constraint(equalTo: wrapView.bottomAnchor, constant: -4),
-            imageView.leadingAnchor.constraint(equalTo: wrapView.leadingAnchor, constant: 4),
-            imageView.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor, constant: -4),
-        ])
-        wrapView.onClick = { event, view in
-            wrapView.imageView.image = NSImage(named: imageName)
-        }
-        return wrapView
     }
 
     /// Sets the alignment for cells in a grid.
@@ -257,24 +267,16 @@ class ShowHideIllustratedView {
     ///   - sender: The checkbox button that was clicked.
     ///   - rowId: The identifier for the row associated with the checkbox.
     private func onCheckboxClicked(sender: NSButton, rowId: String) {
-        guard let imageContainer = grid.cell(atColumnIndex: 0, rowIndex: 0).contentView,
-              let imageView = imageContainer.subviews.first as? NSImageView
-        else {
-            return
-        }
-
         let isChecked = sender.state == .on
-        updateImageView(rowId: rowId, isChecked: isChecked, imageView: imageView)
+        updateImageView(rowId: rowId, isChecked: isChecked)
     }
 
-    private func updateImageView(rowId: String, isChecked: Bool, imageView: NSImageView) {
+    private func updateImageView(rowId: String, isChecked: Bool) {
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
         let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
-        var imageName = isChecked ? row?.checkedImageLight : row?.uncheckedImageLight
-        // e.g. thumbnails_show_app_badges_light/app_icons_show_app_badges_light
-        imageName = model.image.name + "_" + imageName!
-        imageView.image = NSImage(named: imageName!)
+        let imageName = isChecked ? row?.checkedImageLight : row?.uncheckedImageLight
+        illustratedImageView.updateImage(imageName!)
     }
 
     private func findCheckboxState(in view: NSView) -> Bool {
@@ -307,7 +309,11 @@ class ShowHideIllustratedView {
 }
 
 class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
+    static let columnWidth = CGFloat(450)
+    static let illustratedImageWidth = columnWidth - CGFloat(50)
+
     var model: AppearanceModelPreference = .thumbnails
+    var illustratedImageView: IllustratedImageView!
     var alignThumbnails: [NSView]!
     var titleTruncation: [NSView]!
     var showAppsWindows: [NSView]!
@@ -326,13 +332,15 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
     }
 
     private func setupView() {
+        illustratedImageView = IllustratedImageView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
         alignThumbnails = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""),
                 "alignThumbnails", AlignThumbnailsPreference.allCases)
         titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
                 "titleTruncation", TitleTruncationPreference.allCases)
-        showAppsWindows = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show running:", comment: ""),
+        showAppsWindows = LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Show running:", comment: ""),
                 "showAppsWindows", ShowAppsWindowsPreference.allCases, extraAction: { _ in
             self.toggleAppNamesWindowTitles()
+            self.showAppsOrWindowsIllustratedImage()
         })
         showAppNamesWindowTitles = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show titles:", comment: ""),
                 "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases)
@@ -348,11 +356,11 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
 
         var advancedView: NSView!
         if model == .thumbnails {
-            advancedView = setupThumbnailsView()
+            advancedView = makeThumbnailsView()
         } else if model == .appIcons {
-            advancedView = setupAppIconsView()
+            advancedView = makeAppIconsView()
         } else if model == .titles {
-            advancedView = setupTitlesView()
+            advancedView = makeTitlesView()
         }
         let tabView = TabView([
             (NSLocalizedString("Show & Hide", comment: ""), showHideGrid),
@@ -404,47 +412,57 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
 //        }
     }
 
-    private func setupThumbnailsView() -> NSView {
+    private func makeThumbnailsView() -> NSView {
         let view = GridView([
+            [illustratedImageView],
             alignThumbnails,
             titleTruncation,
         ])
 
-//        view.column(at: 0).width = 150
-//        view.column(at: 1).width = 150
+        view.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
         view.column(at: 0).xPlacement = .trailing
         view.column(at: 1).xPlacement = .leading
+        view.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.5
         return view
     }
 
-    private func setupAppIconsView() -> NSView {
+    private func makeAppIconsView() -> NSView {
+        let separator = AppearanceTab.makeSeparator()
         let view = GridView([
+            [illustratedImageView],
             alignThumbnails,
-            [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
+            [separator],
             showAppsWindows,
             showAppNamesWindowTitles,
         ])
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 1, length: 1))
-//        view.column(at: 0).width = 150
-//        view.column(at: 1).width = 150
+        view.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
         view.column(at: 0).xPlacement = .trailing
         view.column(at: 1).xPlacement = .leading
+        view.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.3
+        separator.widthAnchor.constraint(equalTo: illustratedImageView.widthAnchor).isActive = true
         toggleAppNamesWindowTitles()
         return view
     }
 
-    private func setupTitlesView() -> NSView {
+    private func makeTitlesView() -> NSView {
+        let separator = AppearanceTab.makeSeparator()
         let view = GridView([
+            [illustratedImageView],
             titleTruncation,
-            [AppearanceTab.makeSeparator(), AppearanceTab.makeSeparator()],
+            [separator],
             showAppsWindows,
             showAppNamesWindowTitles,
         ])
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 1, length: 1))
-//        view.column(at: 0).width = 200
-//        view.column(at: 1).width = 200
+        view.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
+        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
         view.column(at: 0).xPlacement = .trailing
         view.column(at: 1).xPlacement = .leading
+        view.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.35
+        separator.widthAnchor.constraint(equalTo: illustratedImageView.widthAnchor).isActive = true
         toggleAppNamesWindowTitles()
         return view
     }
@@ -458,6 +476,14 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
         } else {
             label?.textColor = NSColor.gray
             button?.isEnabled = false
+        }
+    }
+
+    private func showAppsOrWindowsIllustratedImage() {
+        if Preferences.showAppsWindows == .applications {
+            self.illustratedImageView.updateImage("show_running_applications_light")
+        } else if Preferences.showAppsWindows == .windows {
+            self.illustratedImageView.updateImage("show_running_windows_light")
         }
     }
 
@@ -644,7 +670,8 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
             separator.topAnchor.constraint(equalTo: wrapView.topAnchor, constant: topPadding),
             separator.bottomAnchor.constraint(equalTo: wrapView.bottomAnchor, constant: bottomPadding),
             separator.leadingAnchor.constraint(equalTo: wrapView.leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor)
+            separator.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor),
+            separator.widthAnchor.constraint(equalTo: wrapView.widthAnchor),
         ])
 
         return wrapView
