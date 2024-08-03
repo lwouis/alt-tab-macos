@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""
-This script depends on the following modules:
-
-pip install googletrans==4.0.0-rc1
-"""
 import os
 import argparse
 from googletrans import Translator
@@ -183,7 +178,7 @@ def translate_files(i18n_dir, original_language=None, specific_content=None, rep
 def main():
     usage = """
     Usage:
-    python script.py <i18n_dir> [--original_language <language_code>] [--specific_content <content>] [--replace] [--retry_translate]
+    python translate_i18n_tools.py <i18n_dir> [--original_language <language_code>] [--specific_content <content>] [--replace] [--retry_translate]
 
     Arguments:
     <i18n_dir>                  Required. Path to the i18n directory.
@@ -193,11 +188,11 @@ def main():
     --retry_translate           Optional. If specified, retry translation for target language if translated value is in English.
 
     Examples:
-    python script.py path_to_your_i18n_directory
-    python script.py path_to_your_i18n_directory --original_language en
-    python script.py path_to_your_i18n_directory --specific_content "This is a specific content to be translated."
-    python script.py path_to_your_i18n_directory --original_language en --replace
-    python script.py path_to_your_i18n_directory --original_language en --retry_translate
+    python translate_i18n_tools.py path_to_your_i18n_directory
+    python translate_i18n_tools.py path_to_your_i18n_directory --original_language en
+    python translate_i18n_tools.py path_to_your_i18n_directory --specific_content "This is a specific content to be translated."
+    python translate_i18n_tools.py path_to_your_i18n_directory --original_language en --replace
+    python translate_i18n_tools.py path_to_your_i18n_directory --original_language en --retry_translate
     """
 
     parser = argparse.ArgumentParser(description='Translate i18n files or specific content.', usage=usage)
