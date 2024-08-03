@@ -1,5 +1,18 @@
 # Release notes
 
+# [6.72.0](https://github.com/lwouis/alt-tab-macos/compare/v6.71.0...v6.72.0) (2024-07-14)
+
+
+### Bug Fixes
+
+* preferences window quit button supports right-to-left languages ([d3dfd54](https://github.com/lwouis/alt-tab-macos/commit/d3dfd54)), closes [#3487](https://github.com/lwouis/alt-tab-macos/issues/3487)
+
+
+### Features
+
+* don't show caps-lock indicator as a window (closes [#3171](https://github.com/lwouis/alt-tab-macos/issues/3171)) ([2e15732](https://github.com/lwouis/alt-tab-macos/commit/2e15732))
+* improve da/he localizations ([3d98b64](https://github.com/lwouis/alt-tab-macos/commit/3d98b64))
+
 # [6.71.0](https://github.com/lwouis/alt-tab-macos/compare/v6.70.1...v6.71.0) (2024-07-06)
 
 
