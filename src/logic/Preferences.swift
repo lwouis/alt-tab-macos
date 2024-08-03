@@ -778,23 +778,31 @@ enum ShowAppNamesWindowTitlesPreference: String, CaseIterable, MacroPreference {
             case .applicationNamesAndWindowTitles: return NSLocalizedString("Application Names - Window Titles", comment: "")
         }
     }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .applicationNames: return WidthHeightImage(name: "show_running_applications")
+            case .windowTitles: return WidthHeightImage(name: "show_running_windows")
+            case .applicationNamesAndWindowTitles: return WidthHeightImage(name: "show_running_applications_windows")
+        }
+    }
 }
 
 enum AlignThumbnailsPreference: String, CaseIterable, ImageMacroPreference {
-    case left = "0"
+    case leading = "0"
     case center = "1"
 
     var localizedString: LocalizedString {
         switch self {
-            case .left: return NSLocalizedString("Left", comment: "")
+            case .leading: return NSLocalizedString("Leading", comment: "")
             case .center: return NSLocalizedString("Center", comment: "")
         }
     }
 
     var image: WidthHeightImage {
         switch self {
-            case .left: return WidthHeightImage(name: "align_left")
-            case .center: return WidthHeightImage(name: "align_center")
+            case .leading: return WidthHeightImage(name: "align_thumbnails_leading")
+            case .center: return WidthHeightImage(name: "align_thumbnails_center")
         }
     }
 }

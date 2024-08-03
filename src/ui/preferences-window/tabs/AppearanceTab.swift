@@ -330,7 +330,9 @@ class ModelAdvancedSettingsWindow: NSWindow {
     private func setupView() {
         illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
         alignThumbnails = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""),
-                "alignThumbnails", AlignThumbnailsPreference.allCases)
+                "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
+            self.showAlignThumbnailsIllustratedImage()
+        })
         titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
                 "titleTruncation", TitleTruncationPreference.allCases)
         showAppsWindows = LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Show running:", comment: ""),
@@ -406,15 +408,15 @@ class ModelAdvancedSettingsWindow: NSWindow {
         let separator = AppearanceTab.makeSeparator()
         let grid = GridView([
             [illustratedImageView],
-            alignThumbnails,
-            [separator],
             showAppsWindows,
             showAppNamesWindowTitles,
+            [separator],
+            alignThumbnails,
         ])
         grid.row(at: 0).bottomPadding = TabView.padding
         grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
         grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 3, length: 1))
         grid.column(at: 0).xPlacement = .trailing
         grid.column(at: 1).xPlacement = .leading
         grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.3
@@ -427,15 +429,15 @@ class ModelAdvancedSettingsWindow: NSWindow {
         let separator = AppearanceTab.makeSeparator()
         let grid = GridView([
             [illustratedImageView],
-            titleTruncation,
-            [separator],
             showAppsWindows,
             showAppNamesWindowTitles,
+            [separator],
+            titleTruncation,
         ])
         grid.row(at: 0).bottomPadding = TabView.padding
         grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
         grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 3, length: 1))
         grid.column(at: 0).xPlacement = .trailing
         grid.column(at: 1).xPlacement = .leading
         grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.35
@@ -456,12 +458,16 @@ class ModelAdvancedSettingsWindow: NSWindow {
         }
     }
 
+    private func showAlignThumbnailsIllustratedImage() {
+        self.illustratedImageView.updateImage(Preferences.alignThumbnails.image.name)
+    }
+
     private func showAppsOrWindowsIllustratedImage() {
-        var imageName = "show_running_windows"
+        var imageName = ShowAppNamesWindowTitlesPreference.windowTitles.image.name
         if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .applicationNames {
-            imageName = "show_running_applications"
+            imageName = ShowAppNamesWindowTitlesPreference.applicationNames.image.name
         } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
-            imageName = "show_running_applications_windows"
+            imageName = ShowAppNamesWindowTitlesPreference.applicationNamesAndWindowTitles.image.name
         }
         self.illustratedImageView.updateImage(imageName)
     }
