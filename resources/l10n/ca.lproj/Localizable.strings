@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Títols";
 
+/* No comment provided by engineer. */
+"Centered" = "Centrada";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Poma centrada";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplicacions";
+
+/* No comment provided by engineer. */
+"Windows" = "Finestres";
+
+/* No comment provided by engineer. */
+"Application Names" = "Noms d'aplicacions";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Títols de finestres";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Noms de l'aplicació: títols de finestres";
+
+/* No comment provided by engineer. */
+"Leading" = "Líder";
+
+/* No comment provided by engineer. */
+"Show running:" = "Mostra en funcionament:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Títols d'espectacles:";
+
+/* No comment provided by engineer. */
+"Done" = "Fer";
+
+/* No comment provided by engineer. */
+"Advanced" = "Avançada";
+
+/* No comment provided by engineer. */
+"Position" = "Posició";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Alineació vertical de l'aplicació:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniatures avançades ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Les icones de l'aplicació avançades ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Títols avançats ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Avançat ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab mostrarà si actualment es minimitza la finestra o la pantalla completa amb una icona d'estat.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Algunes aplicacions com el cercador o la vista prèvia utilitzen pestanyes estàndard que actuen com a finestres independents.Algunes altres aplicacions com els navegadors web utilitzen pestanyes personalitzades que actuen de maneres úniques i no són finestres reals.AltTab no pot enumerar -los per separat.";
+

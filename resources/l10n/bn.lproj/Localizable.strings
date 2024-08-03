@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "শিরোনাম";
 
+/* No comment provided by engineer. */
+"Centered" = "কেন্দ্রিক";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "আপেল কেন্দ্রিক";
+
+/* No comment provided by engineer. */
+"Applications" = "অ্যাপ্লিকেশন";
+
+/* No comment provided by engineer. */
+"Windows" = "উইন্ডোজ";
+
+/* No comment provided by engineer. */
+"Application Names" = "অ্যাপ্লিকেশন নাম";
+
+/* No comment provided by engineer. */
+"Window Titles" = "উইন্ডো শিরোনাম";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "অ্যাপ্লিকেশন নাম - উইন্ডো শিরোনাম";
+
+/* No comment provided by engineer. */
+"Leading" = "নেতৃত্ব";
+
+/* No comment provided by engineer. */
+"Show running:" = "চলমান দেখান:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "শিরোনামগুলি দেখান:";
+
+/* No comment provided by engineer. */
+"Done" = "সম্পন্ন";
+
+/* No comment provided by engineer. */
+"Advanced" = "উন্নত";
+
+/* No comment provided by engineer. */
+"Position" = "অবস্থান";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "অ্যাপ্লিকেশন উল্লম্ব প্রান্তিককরণ:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "থাম্বনেইলগুলি উন্নত…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "অ্যাপ্লিকেশন আইকন উন্নত…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "শিরোনাম উন্নত…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "উন্নত…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "উইন্ডোটি বর্তমানে ন্যূনতম করা হয়েছে বা স্ট্যাটাস আইকন সহ ফুলস্ক্রিন রয়েছে কিনা তা দেখাবে।";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "ফাইন্ডার বা পূর্বরূপের মতো কিছু অ্যাপ্লিকেশন স্ট্যান্ডার্ড ট্যাব ব্যবহার করে যা স্বাধীন উইন্ডোর মতো কাজ করে।ওয়েব ব্রাউজারগুলির মতো আরও কিছু অ্যাপ্লিকেশন কাস্টম ট্যাব ব্যবহার করে যা অনন্য উপায়ে কাজ করে এবং প্রকৃত উইন্ডো নয়।আলটাব পৃথকভাবে তালিকাভুক্ত করতে পারে না।";
+

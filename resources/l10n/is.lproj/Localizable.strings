@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titlar";
 
+/* No comment provided by engineer. */
+"Centered" = "Miðju";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple miðju";
+
+/* No comment provided by engineer. */
+"Applications" = "Forrit";
+
+/* No comment provided by engineer. */
+"Windows" = "Gluggar";
+
+/* No comment provided by engineer. */
+"Application Names" = "Nöfn umsóknar";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Gluggatitlar";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Forritanöfn - gluggatitlar";
+
+/* No comment provided by engineer. */
+"Leading" = "Leiðandi";
+
+/* No comment provided by engineer. */
+"Show running:" = "Sýna hlaup:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Sýna titla:";
+
+/* No comment provided by engineer. */
+"Done" = "Gert";
+
+/* No comment provided by engineer. */
+"Advanced" = "Langt gengið";
+
+/* No comment provided by engineer. */
+"Position" = "Staða";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "APP Lóðrétt röðun:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Smámyndir lengra komnar ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "App táknin Advanced…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titlar Advanced…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Advanced ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab mun sýna hvort glugginn er nú lágmarkaður eða fullskjár með stöðutákn.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Sum forrit eins og Finder eða forsýning nota staðlaða flipa sem virka eins og óháðir Windows.Sum önnur forrit eins og vafrar nota sérsniðna flipa sem starfa á einstaka vegu og eru ekki raunverulegir gluggar.Alttab getur ekki skráð þau sérstaklega.";
+

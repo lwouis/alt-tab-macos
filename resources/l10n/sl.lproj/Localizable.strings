@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Naslovi";
 
+/* No comment provided by engineer. */
+"Centered" = "Osredotočeno";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Jabolko osredotočeno";
+
+/* No comment provided by engineer. */
+"Applications" = "Prijave";
+
+/* No comment provided by engineer. */
+"Windows" = "Okna";
+
+/* No comment provided by engineer. */
+"Application Names" = "Imena aplikacij";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Okenski naslovi";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Imena aplikacij - naslovi oken";
+
+/* No comment provided by engineer. */
+"Leading" = "Vodilno";
+
+/* No comment provided by engineer. */
+"Show running:" = "Razstavni tek:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Pokaži naslove:";
+
+/* No comment provided by engineer. */
+"Done" = "Končano";
+
+/* No comment provided by engineer. */
+"Advanced" = "Napredno";
+
+/* No comment provided by engineer. */
+"Position" = "Položaj";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "APP Vertical poravnava:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Sličice napredne ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Ikone aplikacij Advanced…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Naslovi napredni ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Napredno ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab bo pokazal, ali je okno trenutno minimalizirano ali na celotnem zaslonu z ikono statusa.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Nekatere aplikacije, kot sta Finder ali Preview, uporabljajo standardne zavihke, ki delujejo kot neodvisna Windows.Nekatere druge aplikacije, kot so spletni brskalniki, uporabljajo zavihke po meri, ki delujejo na edinstven način in niso dejanska okna.Alttab jih ne more navesti ločeno.";
+

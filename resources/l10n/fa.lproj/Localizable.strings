@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "عناوین";
 
+/* No comment provided by engineer. */
+"Centered" = "محور";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "سیب محور";
+
+/* No comment provided by engineer. */
+"Applications" = "برنامه های کاربردی";
+
+/* No comment provided by engineer. */
+"Windows" = "پنجره ها";
+
+/* No comment provided by engineer. */
+"Application Names" = "نام کاربرد";
+
+/* No comment provided by engineer. */
+"Window Titles" = "عناوین پنجره";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "نام برنامه ها - عناوین پنجره";
+
+/* No comment provided by engineer. */
+"Leading" = "منتهی شدن";
+
+/* No comment provided by engineer. */
+"Show running:" = "نمایش در حال اجرا:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "عناوین نمایش:";
+
+/* No comment provided by engineer. */
+"Done" = "انجام شده";
+
+/* No comment provided by engineer. */
+"Advanced" = "پیشرفته";
+
+/* No comment provided by engineer. */
+"Position" = "موقعیت";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "تراز عمودی برنامه:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "ریز عکسها پیشرفته ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "آیکون های برنامه پیشرفته ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "عناوین پیشرفته ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "پیشرفته ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab نشان می دهد که آیا پنجره در حال حاضر به حداقل رسیده یا تمام صفحه با یک نماد وضعیت است.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "برخی از برنامه ها مانند Finder یا Preview از زبانه های استاندارد استفاده می کنند که مانند ویندوزهای مستقل عمل می کنند.برخی از برنامه های دیگر مانند مرورگرهای وب از زبانه های سفارشی استفاده می کنند که به روش های منحصر به فرد عمل می کنند و ویندوز واقعی نیستند.Alttab نمی تواند موارد جداگانه را لیست کند.";
+

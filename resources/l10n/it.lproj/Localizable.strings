@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titoli";
 
+/* No comment provided by engineer. */
+"Centered" = "Centered";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple centrato";
+
+/* No comment provided by engineer. */
+"Applications" = "Applicazioni";
+
+/* No comment provided by engineer. */
+"Windows" = "finestre";
+
+/* No comment provided by engineer. */
+"Application Names" = "Nomi delle applicazioni";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Titoli delle finestre";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Nomi delle applicazioni - Titoli delle finestre";
+
+/* No comment provided by engineer. */
+"Leading" = "Leading";
+
+/* No comment provided by engineer. */
+"Show running:" = "Mostra in esecuzione:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Mostra titoli:";
+
+/* No comment provided by engineer. */
+"Done" = "Fatto";
+
+/* No comment provided by engineer. */
+"Advanced" = "Avanzate";
+
+/* No comment provided by engineer. */
+"Position" = "Posizione";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "APP ALLINGMENTO VERTICALE:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniature avanzate ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Icone delle app avanzate ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titoli avanzati ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Avanzate…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab mostrerà se la finestra è attualmente minimizzata o a schermo intero con un'icona di stato.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Alcune app come Finder o Anteprima utilizzano schede standard che agiscono come Windows Independent.Alcune altre app come i browser Web utilizzano schede personalizzate che agiscono in modi unici e non sono Windows reali.Alttab non può elencarli separatamente.";
+

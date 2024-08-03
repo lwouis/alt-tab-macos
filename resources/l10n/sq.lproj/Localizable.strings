@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Tituj";
 
+/* No comment provided by engineer. */
+"Centered" = "I përqendruar";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Me qendër molle";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplikime";
+
+/* No comment provided by engineer. */
+"Windows" = "Dritare";
+
+/* No comment provided by engineer. */
+"Application Names" = "Emrat e aplikimit";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Titujt e dritareve";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Emrat e Aplikimit - Titujt e dritareve";
+
+/* No comment provided by engineer. */
+"Leading" = "Drejtues";
+
+/* No comment provided by engineer. */
+"Show running:" = "Shfaq vrapimin:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Shfaq titujt:";
+
+/* No comment provided by engineer. */
+"Done" = "I mbaruar";
+
+/* No comment provided by engineer. */
+"Advanced" = "I avancuar";
+
+/* No comment provided by engineer. */
+"Position" = "Pozicion";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Rreshtimi vertikal i aplikacionit:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Thumbnails përparuar…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Ikonat e aplikacionit të përparuara";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titujt e përparuar";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Avancuar";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab do të tregojë nëse dritarja aktualisht është minimizuar ose në ekran të plotë me një ikonë të statusit.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Disa aplikacione si Finder ose Preview përdorin skedat standarde të cilat veprojnë si dritare të pavarura.Disa aplikacione të tjera si shfletuesit e uebit përdorin skedat me porosi që veprojnë në mënyra unike dhe nuk janë dritare aktuale.Alttab nuk mund t'i rendisë ato veç e veç.";
+

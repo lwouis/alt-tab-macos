@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "தலைப்புகள்";
 
+/* No comment provided by engineer. */
+"Centered" = "மையப்படுத்தப்பட்ட";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "ஆப்பிள் மையமாக";
+
+/* No comment provided by engineer. */
+"Applications" = "பயன்பாடுகள்";
+
+/* No comment provided by engineer. */
+"Windows" = "விண்டோஸ்";
+
+/* No comment provided by engineer. */
+"Application Names" = "பயன்பாட்டு பெயர்கள்";
+
+/* No comment provided by engineer. */
+"Window Titles" = "சாளர தலைப்புகள்";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "பயன்பாட்டு பெயர்கள் - சாளர தலைப்புகள்";
+
+/* No comment provided by engineer. */
+"Leading" = "முன்னணி";
+
+/* No comment provided by engineer. */
+"Show running:" = "ஓடுவதைக் காட்டு:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "தலைப்புகளைக் காட்டு:";
+
+/* No comment provided by engineer. */
+"Done" = "முடிந்தது";
+
+/* No comment provided by engineer. */
+"Advanced" = "மேம்படுத்தபட்ட";
+
+/* No comment provided by engineer. */
+"Position" = "நிலை";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "பயன்பாட்டு செங்குத்து சீரமைப்பு:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "சிறு உருவங்கள் முன்னேறின…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "பயன்பாட்டு சின்னங்கள் மேம்பட்டவை…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "தலைப்புகள் மேம்பட்டவை…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "மேம்படுத்தபட்ட…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "சாளரம் தற்போது குறைக்கப்பட்டுள்ளதா அல்லது நிலை ஐகானுடன் முழுத்திர்காலமாக இருந்தால் ஆல்டாப் காண்பிக்கும்.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "கண்டுபிடிப்பாளர் அல்லது முன்னோட்டம் போன்ற சில பயன்பாடுகள் சுயாதீன சாளரங்களைப் போல செயல்படும் நிலையான தாவல்களைப் பயன்படுத்துகின்றன.வலை உலாவிகள் போன்ற வேறு சில பயன்பாடுகள் தனிப்பயன் தாவல்களைப் பயன்படுத்துகின்றன, அவை தனித்துவமான வழிகளில் செயல்படும் மற்றும் உண்மையான சாளரங்கள் அல்ல.ஆல்டாப் அவற்றை தனித்தனியாக பட்டியலிட முடியாது.";
+

@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Tiêu đề";
 
+/* No comment provided by engineer. */
+"Centered" = "Tập trung";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple tập trung";
+
+/* No comment provided by engineer. */
+"Applications" = "Các ứng dụng";
+
+/* No comment provided by engineer. */
+"Windows" = "các cửa sổ";
+
+/* No comment provided by engineer. */
+"Application Names" = "Tên ứng dụng";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Tiêu đề cửa sổ";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Tên ứng dụng - Tiêu đề cửa sổ";
+
+/* No comment provided by engineer. */
+"Leading" = "Dẫn đầu";
+
+/* No comment provided by engineer. */
+"Show running:" = "Hiển thị chạy:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Hiển thị tiêu đề:";
+
+/* No comment provided by engineer. */
+"Done" = "Xong";
+
+/* No comment provided by engineer. */
+"Advanced" = "Trình độ cao";
+
+/* No comment provided by engineer. */
+"Position" = "Chức vụ";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Ứng dụng căn chỉnh dọc:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Hình thu nhỏ nâng cao";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Biểu tượng ứng dụng nâng cao";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Tiêu đề nâng cao…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Trình độ cao…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab sẽ hiển thị nếu cửa sổ hiện đang được giảm thiểu hoặc toàn màn hình với biểu tượng trạng thái.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Một số ứng dụng như Finder hoặc Preview sử dụng các tab tiêu chuẩn hoạt động như Windows độc lập.Một số ứng dụng khác như trình duyệt web sử dụng các tab tùy chỉnh hoạt động theo những cách độc đáo và không phải là cửa sổ thực tế.Alttab không thể liệt kê những người riêng biệt.";
+

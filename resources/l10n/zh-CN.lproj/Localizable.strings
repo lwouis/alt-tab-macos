@@ -482,3 +482,62 @@
 /* No comment provided by engineer. */
 "Titles" = "标题";
 
+/* No comment provided by engineer. */
+"Centered" = "居中";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "居中以上";
+
+/* No comment provided by engineer. */
+"Applications" = "应用程序";
+
+/* No comment provided by engineer. */
+"Windows" = "窗口";
+
+/* No comment provided by engineer. */
+"Application Names" = "申请名称";
+
+/* No comment provided by engineer. */
+"Window Titles" = "窗口标题";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "应用程序名称 - 窗口标题";
+
+/* No comment provided by engineer. */
+"Leading" = "首位的";
+
+/* No comment provided by engineer. */
+"Show running:" = "显示运行：";
+
+/* No comment provided by engineer. */
+"Show titles:" = "展示标题：";
+
+/* No comment provided by engineer. */
+"Done" = "完成";
+
+/* No comment provided by engineer. */
+"Advanced" = "高级";
+
+/* No comment provided by engineer. */
+"Position" = "位置";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "应用垂直对齐：";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "缩略图高级…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "应用图标高级…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "标题高级…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "高级…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab将显示窗口当前使用状态图标的窗口是最小化的还是全屏的。";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "一些应用程序（例如Finder或Preview）使用的应用程序使用标准选项卡，其作用为独立窗口。Web浏览器（例如Web浏览器）的其他一些应用程序使用自定义标签，这些标签以独特的方式起作用，而不是实际的窗口。AltTab无法单独列出这些内容。";

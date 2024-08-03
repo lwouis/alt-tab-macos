@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Títulos";
 
+/* No comment provided by engineer. */
+"Centered" = "Centered";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Centrado en la manzana";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplicaciones";
+
+/* No comment provided by engineer. */
+"Windows" = "Windows";
+
+/* No comment provided by engineer. */
+"Application Names" = "Nombres de la aplicación";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Títulos de ventana";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Nombres de aplicaciones: títulos de ventanas";
+
+/* No comment provided by engineer. */
+"Leading" = "Principal";
+
+/* No comment provided by engineer. */
+"Show running:" = "Show Running:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Títulos de exhibición:";
+
+/* No comment provided by engineer. */
+"Done" = "Hecho";
+
+/* No comment provided by engineer. */
+"Advanced" = "Advanced";
+
+/* No comment provided by engineer. */
+"Position" = "Posición";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Aplicación Alineación vertical:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniaturas avanzadas ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Iconos de aplicaciones avanzados ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Títulos avanzados ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Advanced…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab mostrará si la ventana está actualmente minimizada o pantalla completa con un icono de estado.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Algunas aplicaciones como Finder o Preview usan pestañas estándar que actúan como ventanas independientes.Algunas otras aplicaciones como los navegadores web utilizan pestañas personalizadas que actúan de maneras únicas y no son ventanas reales.Alttab no puede enumerarlos por separado.";
+

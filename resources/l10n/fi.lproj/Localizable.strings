@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Nimikkeet";
 
+/* No comment provided by engineer. */
+"Centered" = "Keskittynyt";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Omenakeskeinen";
+
+/* No comment provided by engineer. */
+"Applications" = "Sovellukset";
+
+/* No comment provided by engineer. */
+"Windows" = "Ikkunat";
+
+/* No comment provided by engineer. */
+"Application Names" = "Sovellusnimet";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Ikkunanimikkeet";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Sovellusten nimet - ikkunanimikkeet";
+
+/* No comment provided by engineer. */
+"Leading" = "Johtava";
+
+/* No comment provided by engineer. */
+"Show running:" = "Näytä juoksu:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Näytä nimikkeet:";
+
+/* No comment provided by engineer. */
+"Done" = "Tehty";
+
+/* No comment provided by engineer. */
+"Advanced" = "Pitkälle kehittynyt";
+
+/* No comment provided by engineer. */
+"Position" = "Sijainti";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "APP -pystysuuntainen kohdistus:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Pikkukuvat eteni…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Sovelluskuvakkeet Advanced…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Otsikot edistyneet…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Pitkälle kehittynyt…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab näyttää, onko ikkuna tällä hetkellä minimoitu tai koko näytön statuskuvake.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Jotkut sovellukset, kuten Finder tai Preview, käyttävät vakio -välilehtiä, jotka toimivat kuin riippumattomat Windows.Jotkut muut sovellukset, kuten verkkoselaimet, käyttävät mukautettuja välilehtiä, jotka toimivat ainutlaatuisilla tavoilla eivätkä ole todellisia Windowsia.Alttab ei voi luetella niitä erikseen.";
+

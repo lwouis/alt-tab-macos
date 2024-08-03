@@ -480,3 +480,64 @@
 
 /* No comment provided by engineer. */
 "Titles" = "ชื่อเรื่อง";
+
+/* No comment provided by engineer. */
+"Centered" = "กึ่งกลาง";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "แอปเปิ้ลเป็นศูนย์กลาง";
+
+/* No comment provided by engineer. */
+"Applications" = "แอปพลิเคชัน";
+
+/* No comment provided by engineer. */
+"Windows" = "หน้าต่าง";
+
+/* No comment provided by engineer. */
+"Application Names" = "ชื่อแอปพลิเคชัน";
+
+/* No comment provided by engineer. */
+"Window Titles" = "ชื่อหน้าต่าง";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "ชื่อแอปพลิเคชัน - ชื่อหน้าต่าง";
+
+/* No comment provided by engineer. */
+"Leading" = "เป็นผู้นำ";
+
+/* No comment provided by engineer. */
+"Show running:" = "แสดงการวิ่ง:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "แสดงชื่อ:";
+
+/* No comment provided by engineer. */
+"Done" = "เสร็จแล้ว";
+
+/* No comment provided by engineer. */
+"Advanced" = "ขั้นสูง";
+
+/* No comment provided by engineer. */
+"Position" = "ตำแหน่ง";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "การจัดตำแหน่งแนวตั้งแอพ:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "รูปขนาดย่อขั้นสูง ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "ไอคอนแอพขั้นสูง ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "ชื่อขั้นสูง ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "ขั้นสูง…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab จะแสดงว่าหน้าต่างถูกย่อให้เล็กสุดหรือเต็มหน้าจอพร้อมไอคอนสถานะ";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "แอพบางตัวเช่น Finder หรือ Preview ใช้แท็บมาตรฐานซึ่งทำหน้าที่เหมือน Windows อิสระแอพอื่น ๆ เช่นเว็บเบราว์เซอร์ใช้แท็บที่กำหนดเองซึ่งทำหน้าที่ในรูปแบบที่ไม่ซ้ำกันและไม่ใช่หน้าต่างจริงAlttab ไม่สามารถแสดงรายการแยกต่างหาก";
+

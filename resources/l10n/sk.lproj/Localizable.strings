@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titul";
 
+/* No comment provided by engineer. */
+"Centered" = "Zameraný";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Jablko zameraný";
+
+/* No comment provided by engineer. */
+"Applications" = "Žiadosti";
+
+/* No comment provided by engineer. */
+"Windows" = "Okná";
+
+/* No comment provided by engineer. */
+"Application Names" = "Názvy aplikácií";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Názvy okien";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Názvy aplikácií - tituly okien";
+
+/* No comment provided by engineer. */
+"Leading" = "Hlavný";
+
+/* No comment provided by engineer. */
+"Show running:" = "Zobraziť beh:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Zobraziť tituly:";
+
+/* No comment provided by engineer. */
+"Done" = "hotový";
+
+/* No comment provided by engineer. */
+"Advanced" = "Pokročilé";
+
+/* No comment provided by engineer. */
+"Position" = "Pozícia";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Vertikálne zarovnanie aplikácie:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniatúry pokročilé ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Ikony aplikácií Advanced…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Tituly pokročilé ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Pokročilé…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab sa zobrazí, ak je okno v súčasnosti minimalizované alebo na celej obrazovke s ikonou stavu.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Niektoré aplikácie ako Finder alebo ukážka používajú štandardné karty, ktoré pôsobia ako nezávislé Windows.Niektoré ďalšie aplikácie, ako sú webové prehliadače, používajú vlastné karty, ktoré pôsobia jedinečným spôsobom a nie sú skutočnými oknami.Alttab ich nemôže uviesť osobitne.";
+

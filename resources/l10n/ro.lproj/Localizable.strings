@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titluri";
 
+/* No comment provided by engineer. */
+"Centered" = "Centrat";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple centrat";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplicații";
+
+/* No comment provided by engineer. */
+"Windows" = "Ferestre";
+
+/* No comment provided by engineer. */
+"Application Names" = "Numele aplicațiilor";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Titluri de ferestre";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Numele aplicațiilor - titluri de fereastră";
+
+/* No comment provided by engineer. */
+"Leading" = "Conducere";
+
+/* No comment provided by engineer. */
+"Show running:" = "Afișați rularea:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Afișează titluri:";
+
+/* No comment provided by engineer. */
+"Done" = "Terminat";
+
+/* No comment provided by engineer. */
+"Advanced" = "Avansat";
+
+/* No comment provided by engineer. */
+"Position" = "Poziţie";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Alinierea verticală a aplicației:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniaturi avansate ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Pictogramele aplicației avansate ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titluri avansate ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Avansat…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab va arăta dacă fereastra este minimizată în prezent sau cu ecran complet cu o pictogramă de stare.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Unele aplicații precum Finder sau Previzualizare folosesc file standard care acționează ca Windows Independent.Unele alte aplicații precum browserele web folosesc file personalizate care acționează în moduri unice și nu sunt Windows reale.AltTab nu le poate enumera separat.";
+

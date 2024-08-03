@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "टाइटल";
 
+/* No comment provided by engineer. */
+"Centered" = "केंद्रित";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "सेब केंद्रित";
+
+/* No comment provided by engineer. */
+"Applications" = "अनुप्रयोग";
+
+/* No comment provided by engineer. */
+"Windows" = "खिड़कियाँ";
+
+/* No comment provided by engineer. */
+"Application Names" = "अनुप्रयोग नाम";
+
+/* No comment provided by engineer. */
+"Window Titles" = "खिड़की के शीर्षक";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "आवेदन नाम - विंडो शीर्षक";
+
+/* No comment provided by engineer. */
+"Leading" = "अग्रणी";
+
+/* No comment provided by engineer. */
+"Show running:" = "शो चलाना:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "शीर्षक दिखाएँ:";
+
+/* No comment provided by engineer. */
+"Done" = "हो गया";
+
+/* No comment provided by engineer. */
+"Advanced" = "विकसित";
+
+/* No comment provided by engineer. */
+"Position" = "पद";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "ऐप वर्टिकल संरेखण:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "थंबनेल उन्नत ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "ऐप आइकन उन्नत…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "शीर्षक उन्नत…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "विकसित…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab दिखाएगा कि क्या विंडो वर्तमान में कम से कम है या एक स्थिति आइकन के साथ फुलस्क्रीन है।";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "फाइंडर या प्रीव्यू जैसे कुछ ऐप मानक टैब का उपयोग करते हैं जो स्वतंत्र विंडो की तरह काम करते हैं।वेब ब्राउज़र जैसे कुछ अन्य ऐप कस्टम टैब का उपयोग करते हैं जो अद्वितीय तरीकों से कार्य करते हैं और वास्तविक विंडो नहीं हैं।AltTab उन अलग -अलग सूचीबद्ध नहीं कर सकता है।";
+

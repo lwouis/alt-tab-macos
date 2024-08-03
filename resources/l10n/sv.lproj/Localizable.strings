@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titlar";
 
+/* No comment provided by engineer. */
+"Centered" = "Centrerad";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Äppelcentrerad";
+
+/* No comment provided by engineer. */
+"Applications" = "Ansökningar";
+
+/* No comment provided by engineer. */
+"Windows" = "Fönster";
+
+/* No comment provided by engineer. */
+"Application Names" = "Applikationsnamn";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Fönstertitlar";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Applikationsnamn - fönstertitlar";
+
+/* No comment provided by engineer. */
+"Leading" = "Ledande";
+
+/* No comment provided by engineer. */
+"Show running:" = "Visa körning:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Visa titlar:";
+
+/* No comment provided by engineer. */
+"Done" = "Gjort";
+
+/* No comment provided by engineer. */
+"Advanced" = "Avancerad";
+
+/* No comment provided by engineer. */
+"Position" = "Placera";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "App vertikal justering:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniatyrbilder avancerade ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Appikoner avancerade ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titlar avancerade ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Avancerad…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab kommer att visa om fönstret för närvarande är minimerat eller helskärm med en statusikon.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Vissa appar som Finder eller Preview använder standardflikar som fungerar som oberoende Windows.Vissa andra appar som webbläsare använder anpassade flikar som fungerar på unika sätt och inte är faktiska Windows.Alttab kan inte lista dem separat.";
+

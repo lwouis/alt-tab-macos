@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Названия";
 
+/* No comment provided by engineer. */
+"Centered" = "Центрированный";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Яблоко сосредоточено";
+
+/* No comment provided by engineer. */
+"Applications" = "Приложения";
+
+/* No comment provided by engineer. */
+"Windows" = "Окна";
+
+/* No comment provided by engineer. */
+"Application Names" = "Имена приложений";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Оконные названия";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Имена приложений - названия окон";
+
+/* No comment provided by engineer. */
+"Leading" = "Ведущий";
+
+/* No comment provided by engineer. */
+"Show running:" = "Показать бег:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Название показывать:";
+
+/* No comment provided by engineer. */
+"Done" = "Сделанный";
+
+/* No comment provided by engineer. */
+"Advanced" = "Передовой";
+
+/* No comment provided by engineer. */
+"Position" = "Позиция";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Приложение вертикальное выравнивание:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Миниатюры продвинулись ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Значки приложения продвинуты…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Названия продвинуты…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Передовой…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab покажет, будет ли окно в настоящее время минимизировано или полноэкранно со значком состояния.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Некоторые приложения, такие как Finder или Preview, используют стандартные вкладки, которые действуют как независимые Windows.Некоторые другие приложения, такие как веб -браузеры, используют пользовательские вкладки, которые действуют уникальными способами, а не являются фактическими окнами.Alttab не может перечислить их отдельно.";
+

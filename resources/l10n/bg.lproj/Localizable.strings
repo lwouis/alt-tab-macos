@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Заглавия";
 
+/* No comment provided by engineer. */
+"Centered" = "Центриран";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple съсредоточена";
+
+/* No comment provided by engineer. */
+"Applications" = "Приложения";
+
+/* No comment provided by engineer. */
+"Windows" = "Windows";
+
+/* No comment provided by engineer. */
+"Application Names" = "Имена на приложения";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Заглавия на прозореца";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Имена на приложения - заглавия на прозорци";
+
+/* No comment provided by engineer. */
+"Leading" = "Водещ";
+
+/* No comment provided by engineer. */
+"Show running:" = "Шоу бягане:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Покажи заглавия:";
+
+/* No comment provided by engineer. */
+"Done" = "Свършен";
+
+/* No comment provided by engineer. */
+"Advanced" = "Напреднал";
+
+/* No comment provided by engineer. */
+"Position" = "Позиция";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Вертикално подравняване на приложението:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Миниатюри напреднаха ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Иконите на приложението напреднали ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Заглавия напреднали ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Напреднал ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab ще покаже дали прозорецът в момента е сведен до минимум или пълен екран с икона на състоянието.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Някои приложения като Finder или Preview използват стандартни раздели, които действат като независими прозорци.Някои други приложения като уеб браузъри използват персонализирани раздели, които действат по уникални начини и не са действителни прозорци.Alttab не може да ги изброи отделно.";
+

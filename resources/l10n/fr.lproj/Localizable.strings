@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titres";
 
+/* No comment provided by engineer. */
+"Centered" = "Centered";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Pomme centrée sur la pomme";
+
+/* No comment provided by engineer. */
+"Applications" = "Applications";
+
+/* No comment provided by engineer. */
+"Windows" = "les fenêtres";
+
+/* No comment provided by engineer. */
+"Application Names" = "Noms de candidatures";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Titres de fenêtre";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Noms d'application - titres de fenêtre";
+
+/* No comment provided by engineer. */
+"Leading" = "Menant";
+
+/* No comment provided by engineer. */
+"Show running:" = "Show Running:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Titres de spectacle:";
+
+/* No comment provided by engineer. */
+"Done" = "Fait";
+
+/* No comment provided by engineer. */
+"Advanced" = "Advanced";
+
+/* No comment provided by engineer. */
+"Position" = "Position";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Alignement vertical de l'application:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Vignettes avancées…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Icônes d'application avancées…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titres avancés…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Advanced…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab affichera si la fenêtre est actuellement minimisée ou en plein écran avec une icône d'état.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Certaines applications comme Finder ou Aperçu utilisent des onglets standard qui agissent comme des fenêtres indépendantes.Certaines autres applications comme les navigateurs Web utilisent des onglets personnalisés qui agissent de manière unique et ne sont pas des fenêtres réelles.Alttab ne peut pas les énumérer séparément.";
+

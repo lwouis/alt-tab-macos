@@ -480,3 +480,44 @@
 
 /* No comment provided by engineer. */
 "Titles" = "Titles";
+
+
+"Centered" = "Centered";
+
+"Apple Centered" = "Apple Centered";
+
+"Applications" = "Applications";
+
+"Windows" = "Windows";
+
+"Application Names" = "Application Names";
+
+"Window Titles" = "Window Titles";
+
+"Application Names - Window Titles" = "Application Names - Window Titles";
+
+"Leading" = "Leading";
+
+"Show running:" = "Show running:";
+
+"Show titles:" = "Show titles:";
+
+"Done" = "Done";
+
+"Advanced" = "Advanced";
+
+"Position" = "Position";
+
+"App vertical alignment:" = "App vertical alignment:";
+
+"Thumbnails Advanced…" = "Thumbnails Advanced…";
+
+"App Icons Advanced…" = "App Icons Advanced…";
+
+"Titles Advanced…" = "Titles Advanced…";
+
+"Advanced…" = "Advanced…";
+
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab will show if the window is currently minimized or fullscreen with a status icon.";
+
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.";

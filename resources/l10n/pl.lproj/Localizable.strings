@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Tytuły";
 
+/* No comment provided by engineer. */
+"Centered" = "Wyśrodkowany";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple wyśrodkowane";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplikacje";
+
+/* No comment provided by engineer. */
+"Windows" = "Okna";
+
+/* No comment provided by engineer. */
+"Application Names" = "Nazwy aplikacji";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Tytuły okien";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Nazwy aplikacji - tytuły okienne";
+
+/* No comment provided by engineer. */
+"Leading" = "Prowadzący";
+
+/* No comment provided by engineer. */
+"Show running:" = "Pokaż bieganie:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Pokaż tytuły:";
+
+/* No comment provided by engineer. */
+"Done" = "Zrobione";
+
+/* No comment provided by engineer. */
+"Advanced" = "Zaawansowany";
+
+/* No comment provided by engineer. */
+"Position" = "Pozycja";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Ustawienie pionowe aplikacji:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniatury zaawansowane…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Ikony aplikacji zaawansowane…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Tytuły zaawansowane…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Zaawansowany…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab pokaże, czy okno jest obecnie zminimalizowane lub pełne ekran z ikoną statusu.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Niektóre aplikacje, takie jak Finder lub podgląd, używają standardowych kart, które działają jak niezależne Windows.Niektóre inne aplikacje, takie jak przeglądarki internetowe, używają niestandardowych kart, które działają w unikalne sposoby i nie są rzeczywistym systemem Windows.Alttab nie może ich wyświetlić osobno.";
+

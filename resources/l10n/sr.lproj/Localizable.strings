@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Наслови";
 
+/* No comment provided by engineer. */
+"Centered" = "Усредсређен";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Аппле је центриран";
+
+/* No comment provided by engineer. */
+"Applications" = "Апликације";
+
+/* No comment provided by engineer. */
+"Windows" = "Прозори";
+
+/* No comment provided by engineer. */
+"Application Names" = "Имена апликација";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Наслови прозора";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Имена наношења - Наслови прозора";
+
+/* No comment provided by engineer. */
+"Leading" = "Вођење";
+
+/* No comment provided by engineer. */
+"Show running:" = "Покажи трчање:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Прикажи наслове:";
+
+/* No comment provided by engineer. */
+"Done" = "Готово";
+
+/* No comment provided by engineer. */
+"Advanced" = "Напредан";
+
+/* No comment provided by engineer. */
+"Position" = "Положај";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "АПП вертикално поравнање:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Сличице напредни ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Иконе апликација напредне ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Наслови напредни ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Напредно ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Алттаб ће показати да ли је прозор тренутно минимизиран или пуни екран са статусом.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Неке апликације попут Финдер-а или прегледа користе стандардне картице који делују попут независних прозора.Неке друге апликације попут веб прегледача користе прилагођене картице које делују на јединствене начине и нису стварни прозори.Алттаб не може навести оне одвојено.";
+

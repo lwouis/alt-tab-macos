@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Unvon";
 
+/* No comment provided by engineer. */
+"Centered" = "Markazda joylashgan";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple markazida";
+
+/* No comment provided by engineer. */
+"Applications" = "Arizalar";
+
+/* No comment provided by engineer. */
+"Windows" = "Derazalar";
+
+/* No comment provided by engineer. */
+"Application Names" = "Ilova nomlari";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Oyna sarlavhalari";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Ilova nomlari - oyna sarlavhalari";
+
+/* No comment provided by engineer. */
+"Leading" = "Yetakchi";
+
+/* No comment provided by engineer. */
+"Show running:" = "Ishlayotganligini ko'rsatish:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Sarliqlarni ko'rsating:";
+
+/* No comment provided by engineer. */
+"Done" = "Bajarildi";
+
+/* No comment provided by engineer. */
+"Advanced" = "Rivojlangan";
+
+/* No comment provided by engineer. */
+"Position" = "Pozitsiya";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "App Vertikal hizalama:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Eskizlar rivojlandi ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "App Cicons Advanced ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Sarlavhalar ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Advanced ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Altabab oynaning status belgisi bilan minimallashtirilgan yoki to'liq ekranli bo'lsa, ko'rsatadi.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder yoki oldindan ko'rish kabi ba'zi ilovalar mustaqil Windows kabi ishlaydigan oddiy yorliqlardan foydalaning.Veb-brauzerlar kabi ba'zi boshqa ilovalar noyob yo'llar bilan shug'ullanadigan va haqiqiy derazalar emas.Altabab alohidalarni ro'yxatga olish mumkin emas.";
+

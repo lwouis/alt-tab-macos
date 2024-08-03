@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Judul";
 
+/* No comment provided by engineer. */
+"Centered" = "Terpusat";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple berpusat";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplikasi";
+
+/* No comment provided by engineer. */
+"Windows" = "Windows";
+
+/* No comment provided by engineer. */
+"Application Names" = "Nama Aplikasi";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Judul jendela";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Nama Aplikasi - Judul Jendela";
+
+/* No comment provided by engineer. */
+"Leading" = "Terkemuka";
+
+/* No comment provided by engineer. */
+"Show running:" = "Tampilkan Berlari:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Tampilkan judul:";
+
+/* No comment provided by engineer. */
+"Done" = "Selesai";
+
+/* No comment provided by engineer. */
+"Advanced" = "Canggih";
+
+/* No comment provided by engineer. */
+"Position" = "Posisi";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "APP Vertical Alignment:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Thumbnail Lanjutan…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Ikon Aplikasi Advanced…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Judul Lanjutan…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Canggih…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab akan menunjukkan jika jendela saat ini diminimalkan atau layar penuh dengan ikon status.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Beberapa aplikasi seperti Finder atau Preview menggunakan tab standar yang bertindak seperti jendela independen.Beberapa aplikasi lain seperti browser web menggunakan tab khusus yang bertindak dengan cara yang unik dan bukan jendela yang sebenarnya.Alttab tidak dapat mencantumkannya secara terpisah.";
+

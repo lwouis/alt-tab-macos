@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Címek";
 
+/* No comment provided by engineer. */
+"Centered" = "Központú";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple központú";
+
+/* No comment provided by engineer. */
+"Applications" = "Alkalmazások";
+
+/* No comment provided by engineer. */
+"Windows" = "ablakok";
+
+/* No comment provided by engineer. */
+"Application Names" = "Alkalmazásnevek";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Ablakcímek";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Alkalmazásnevek - ablakcímek";
+
+/* No comment provided by engineer. */
+"Leading" = "Vezető";
+
+/* No comment provided by engineer. */
+"Show running:" = "A futás show:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Címek show:";
+
+/* No comment provided by engineer. */
+"Done" = "Kész";
+
+/* No comment provided by engineer. */
+"Advanced" = "Fejlett";
+
+/* No comment provided by engineer. */
+"Position" = "Pozíció";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Alkalmazás függőleges igazítás:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "A miniatűrök fejlett…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "App ikonok fejlett…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "A címek fejlett…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Fejlett…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Az ALTTAB megmutatja, ha az ablakot jelenleg minimalizálják, vagy a teljes képernyős állapot ikonnal van.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Egyes alkalmazások, mint például a Finder vagy az előnézet, olyan standard füleket használnak, amelyek független ablakokként működnek.Néhány más alkalmazás, például a webböngészők egyedi füleket használnak, amelyek egyedi módon működnek, és nem tényleges ablakok.Az Altab nem tudja ezeket külön felsorolni.";
+

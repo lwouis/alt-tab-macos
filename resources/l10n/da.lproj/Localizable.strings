@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "Om";
 
@@ -165,22 +164,22 @@
 "Hide" = "Skjul";
 
 /* No comment provided by engineer. */
-"Hide app badges:" = "Skjul appbadges:";
+"Hide app badges" = "Skjul app -badges";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window:" = "Skjul apps med ingen åbne vinduer:";
+"Hide apps with no open window" = "Skjul apps uden åbent vindue";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover:" = "Skjul farvede cirkler når musen holdes over:";
+"Hide colored circles on mouse hover" = "Skjul farvede cirkler på musens svæver";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Skjul i %@";
 
 /* No comment provided by engineer. */
-"Hide Space number labels:" = "Skjul Område etiket:";
+"Hide Space number labels" = "Skjul pladsnummeretiketter";
 
 /* No comment provided by engineer. */
-"Hide status icons:" = "Skjul statusikoner:";
+"Hide status icons" = "Skjul statusikoner";
 
 /* No comment provided by engineer. */
 "Hide window thumbnails:" = "Skjul vindue miniaturer";
@@ -258,7 +257,7 @@
 "Preferences…" = "Indstillinger…";
 
 /* No comment provided by engineer. */
-"Preview selected window:" = "Forrige valgte vindue:";
+"Preview selected window" = "Eksempel på valgt vindue";
 
 /* No comment provided by engineer. */
 "Quit" = "Afslut";
@@ -354,7 +353,7 @@
 "Show on:" = "Vis på:";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows:" = "Vis standard faner som vinduer:";
+"Show standard tabs as windows" = "Vis standardfaner som Windows";
 
 /* No comment provided by engineer. */
 "Show windows from:" = "Vis vinduer fra:";
@@ -451,3 +450,94 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Du skrev ikke din e-mail og derfor kan du ikke få svar.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Udseende Model:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Udseende Størrelse:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Vis og skjul";
+
+/* No comment provided by engineer. */
+"Effects" = "Effekter";
+
+/* No comment provided by engineer. */
+"Small" = "Lille";
+
+/* No comment provided by engineer. */
+"Medium" = "Medium";
+
+/* No comment provided by engineer. */
+"Large" = "Stor";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniaturebilleder";
+
+/* No comment provided by engineer. */
+"App Icons" = "Appikoner";
+
+/* No comment provided by engineer. */
+"Titles" = "Titler";
+
+/* No comment provided by engineer. */
+"Centered" = "Centreret";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple centreret";
+
+/* No comment provided by engineer. */
+"Applications" = "Applikationer";
+
+/* No comment provided by engineer. */
+"Windows" = "Windows";
+
+/* No comment provided by engineer. */
+"Application Names" = "Applikationsnavne";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Vinduestitler";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Applikationsnavne - Vinduesitler";
+
+/* No comment provided by engineer. */
+"Leading" = "Førende";
+
+/* No comment provided by engineer. */
+"Show running:" = "Vis løb:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Vis titler:";
+
+/* No comment provided by engineer. */
+"Done" = "Færdig";
+
+/* No comment provided by engineer. */
+"Advanced" = "Fremskreden";
+
+/* No comment provided by engineer. */
+"Position" = "Position";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "App lodret justering:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniaturebilleder avancerede ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Appikoner avancerede ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titler avanceret ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Fremskreden…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab viser, om vinduet i øjeblikket er minimeret eller fuldskærm med et statusikon.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Nogle apps som Finder eller Preview bruger standardfaner, der fungerer som uafhængige vinduer.Nogle andre apps som webbrowsere bruger brugerdefinerede faner, der virker på unikke måder og ikke er faktiske vinduer.Alttab kan ikke liste dem separat.";
+

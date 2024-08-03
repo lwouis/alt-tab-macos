@@ -484,3 +484,63 @@
 /* No comment provided by engineer. */
 "Titles" = "الألقاب";
 
+/* No comment provided by engineer. */
+"Centered" = "تركزت";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "تركز التفاح";
+
+/* No comment provided by engineer. */
+"Applications" = "التطبيقات";
+
+/* No comment provided by engineer. */
+"Windows" = "شبابيك";
+
+/* No comment provided by engineer. */
+"Application Names" = "أسماء التطبيقات";
+
+/* No comment provided by engineer. */
+"Window Titles" = "عناوين النوافذ";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "أسماء التطبيق - عناوين النوافذ";
+
+/* No comment provided by engineer. */
+"Leading" = "قيادة";
+
+/* No comment provided by engineer. */
+"Show running:" = "عرض الجري:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "العناوين:";
+
+/* No comment provided by engineer. */
+"Done" = "منتهي";
+
+/* No comment provided by engineer. */
+"Advanced" = "متقدم";
+
+/* No comment provided by engineer. */
+"Position" = "موضع";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "تطبيق المحاذاة الرأسية:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "الصورة المصغرة المتقدمة ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "أيقونات التطبيق المتقدمة ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "ألقاب متقدمة ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "متقدم…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "سيظهر Alttab ما إذا كانت النافذة تقليلها حاليًا أو شاشة كاملة باستخدام أيقونة الحالة.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "تستخدم بعض التطبيقات مثل Finder أو Preview علامات تبويب قياسية تعمل مثل Windows المستقلة.تستخدم بعض التطبيقات الأخرى مثل متصفحات الويب علامات تبويب مخصصة تعمل بطرق فريدة وليست نوافذ فعلية.لا يمكن لـ Alttab سردها بشكل منفصل.";
+

@@ -483,3 +483,63 @@
 /* No comment provided by engineer. */
 "Titles" = "제목";
 
+/* No comment provided by engineer. */
+"Centered" = "중심";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "애플 중심";
+
+/* No comment provided by engineer. */
+"Applications" = "응용 프로그램";
+
+/* No comment provided by engineer. */
+"Windows" = "창";
+
+/* No comment provided by engineer. */
+"Application Names" = "응용 프로그램 이름";
+
+/* No comment provided by engineer. */
+"Window Titles" = "창 제목";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "응용 프로그램 이름 - 창 제목";
+
+/* No comment provided by engineer. */
+"Leading" = "주요한";
+
+/* No comment provided by engineer. */
+"Show running:" = "실행 표시 :";
+
+/* No comment provided by engineer. */
+"Show titles:" = "제목 표시 :";
+
+/* No comment provided by engineer. */
+"Done" = "완료";
+
+/* No comment provided by engineer. */
+"Advanced" = "고급의";
+
+/* No comment provided by engineer. */
+"Position" = "위치";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "앱 수직 정렬 :";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "썸네일 고급…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "앱 아이콘이 고급…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "제목 고급…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "고급의…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab은 현재 창이 현재 최소화되었는지 또는 상태 아이콘이있는 전체 화면인지 표시됩니다.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder 또는 Preview와 같은 일부 앱은 독립 창처럼 작동하는 표준 탭을 사용합니다.웹 브라우저와 같은 다른 앱은 고유 한 방식으로 작동하고 실제 Windows가 아닌 사용자 정의 탭을 사용합니다.Alttab은 별도로 나열 할 수 없습니다.";
+

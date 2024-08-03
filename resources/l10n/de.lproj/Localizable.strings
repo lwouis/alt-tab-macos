@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titel";
 
+/* No comment provided by engineer. */
+"Centered" = "Zentriert";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apfel zentriert";
+
+/* No comment provided by engineer. */
+"Applications" = "Anwendungen";
+
+/* No comment provided by engineer. */
+"Windows" = "Fenster";
+
+/* No comment provided by engineer. */
+"Application Names" = "Anwendungsnamen";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Fenstertitel";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Anwendungsnamen - Fenstertitel";
+
+/* No comment provided by engineer. */
+"Leading" = "Führend";
+
+/* No comment provided by engineer. */
+"Show running:" = "Show Running:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Titel zeigen:";
+
+/* No comment provided by engineer. */
+"Done" = "Erledigt";
+
+/* No comment provided by engineer. */
+"Advanced" = "Fortschrittlich";
+
+/* No comment provided by engineer. */
+"Position" = "Position";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "App vertikale Ausrichtung:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniaturansichten Fortgeschrittene…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "App -Symbole Fortgeschrittene…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titel fortgeschritten…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Fortschrittlich…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "ALTTAB wird angezeigt, ob das Fenster derzeit minimiert ist oder mit einem Statussymbol Vollbildmaterial.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Einige Apps wie Finder oder Vorschau verwenden Standard -Registerkarten, die sich wie unabhängige Windows verhalten.Einige andere Apps wie Webbrowser verwenden benutzerdefinierte Registerkarten, die auf eindeutige Weise wirken und keine tatsächlichen Windows sind.Alttab kann diese nicht separat auflisten.";
+

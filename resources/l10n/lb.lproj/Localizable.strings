@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titelen";
 
+/* No comment provided by engineer. */
+"Centered" = "Kontedent";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple zentréiert";
+
+/* No comment provided by engineer. */
+"Applications" = "Uwendungen";
+
+/* No comment provided by engineer. */
+"Windows" = "FënsterSenferenzen";
+
+/* No comment provided by engineer. */
+"Application Names" = "Applikatioun Nimm";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Fenster Titelen";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Applikatioun Nimm - Fenster Titelen";
+
+/* No comment provided by engineer. */
+"Leading" = "Iech féieren";
+
+/* No comment provided by engineer. */
+"Show running:" = "Show Lafen:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Show Titelen:";
+
+/* No comment provided by engineer. */
+"Done" = "Verdataktioun";
+
+/* No comment provided by engineer. */
+"Advanced" = "Fortdréier";
+
+/* No comment provided by engineer. */
+"Position" = "Positioun un";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "App vertikal Ausrichtung:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Thumbnails fortgeschratt ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "App Symbicher fortgeschratt ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titele fortgeschratt ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Fortgeschratt ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Den Alttab wäert weisen wann d'Fënster am Moment miniméiert oder vollstänneg mat enger Statuskondokon miniméiert.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "E puer Apps wéi Finder oder Virschau wéi Standard Tabs, déi wéi onofhängeg Fensteren handelen.E puer aner Apps wéi Web Browser benotze Benotzerdefinéiert Tabs déi op eenzegaarteg Weeër handelen an net tatsächlech Fensteren.Den Alttab kann dës separat net liwweren.";
+

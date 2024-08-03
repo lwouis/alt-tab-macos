@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Títulos";
 
+/* No comment provided by engineer. */
+"Centered" = "Centrado";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple centrado";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplicacións";
+
+/* No comment provided by engineer. */
+"Windows" = "Windows";
+
+/* No comment provided by engineer. */
+"Application Names" = "Nomes de aplicacións";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Títulos da xanela";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Nomes de aplicacións: títulos da xanela";
+
+/* No comment provided by engineer. */
+"Leading" = "Líder";
+
+/* No comment provided by engineer. */
+"Show running:" = "Mostrar correr:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Mostrar títulos:";
+
+/* No comment provided by engineer. */
+"Done" = "Feito";
+
+/* No comment provided by engineer. */
+"Advanced" = "Avanzado";
+
+/* No comment provided by engineer. */
+"Position" = "Posición";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Aplicación Aliñamento vertical:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Miniaturas avanzadas ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Iconas da aplicación avanzadas ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Títulos avanzados ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Avanzado ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab mostrará se a xanela está actualmente minimizada ou en pantalla completa cunha icona de estado.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Algunhas aplicacións como Finder ou Vista previa usan pestanas estándar que actúan como Windows independentes.Algunhas outras aplicacións como os navegadores web usan pestanas personalizadas que actúan de formas únicas e non son ventás reais.AltTab non pode listar estes por separado.";
+

@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Başlıklar";
 
+/* No comment provided by engineer. */
+"Centered" = "Merkezli";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Elma merkezli";
+
+/* No comment provided by engineer. */
+"Applications" = "Başvuru";
+
+/* No comment provided by engineer. */
+"Windows" = "pencereler";
+
+/* No comment provided by engineer. */
+"Application Names" = "Uygulama Adları";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Pencere başlıkları";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Uygulama Adları - Pencere Başlıkları";
+
+/* No comment provided by engineer. */
+"Leading" = "Önde gelen";
+
+/* No comment provided by engineer. */
+"Show running:" = "Koşu göster:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Başlıklar Göster:";
+
+/* No comment provided by engineer. */
+"Done" = "Tamamlamak";
+
+/* No comment provided by engineer. */
+"Advanced" = "Gelişmiş";
+
+/* No comment provided by engineer. */
+"Position" = "Konum";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Uygulama Dikey Hizalama:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Küçük resimler gelişti…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Uygulama simgeleri gelişti ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Gelişmiş başlıklar…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Gelişmiş…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab, pencerenin şu anda en aza indirilmiş mi yoksa bir durum simgesiyle tam ekran olup olmadığını gösterecektir.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder veya önizleme gibi bazı uygulamalar bağımsız pencereler gibi hareket eden standart sekmeler kullanır.Web tarayıcıları gibi diğer bazı uygulamalar, benzersiz yollarla hareket eden ve gerçek pencereler olmayan özel sekmeler kullanır.Alttab bunları ayrı olarak listeleyemez.";
+

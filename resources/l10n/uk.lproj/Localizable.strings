@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Титули";
 
+/* No comment provided by engineer. */
+"Centered" = "Центральний";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Яблук зосереджений";
+
+/* No comment provided by engineer. */
+"Applications" = "Заявки";
+
+/* No comment provided by engineer. */
+"Windows" = "Вікна";
+
+/* No comment provided by engineer. */
+"Application Names" = "Назви додатків";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Віконні назви";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Імена програми - заголовки вікна";
+
+/* No comment provided by engineer. */
+"Leading" = "Провідний";
+
+/* No comment provided by engineer. */
+"Show running:" = "Показати біг:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Заголовки шоу:";
+
+/* No comment provided by engineer. */
+"Done" = "Зроблений";
+
+/* No comment provided by engineer. */
+"Advanced" = "Просунутий";
+
+/* No comment provided by engineer. */
+"Position" = "Позиція";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Додаток Вертикальне вирівнювання:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Ескізи просунулися ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Піктограми додатків просунулися ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Назви просунулися ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Просунута…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab покаже, чи вікно наразі мінімізоване або повне екран із значком статусу.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Деякі програми, такі як Finder або Preview, використовують стандартні вкладки, які діють як незалежні Windows.Деякі інші програми, такі як веб -браузери, використовують власні вкладки, які діють унікальними способами і не є фактичними вікнами.Alttab не може перелічити їх окремо.";
+

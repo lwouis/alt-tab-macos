@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "About" = "אודות";
 
@@ -165,22 +164,22 @@
 "Hide" = "הסתר";
 
 /* No comment provided by engineer. */
-"Hide app badges:" = "הסתר תג התראות:";
+"Hide app badges" = "הסתר תגי אפליקציות";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window:" = "הסתר יישומים ללא חלון פתוח:";
+"Hide apps with no open window" = "הסתר אפליקציות ללא חלון פתוח";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover:" = "הסתר כפתורי רמזור גם בריחוף על חלון:";
+"Hide colored circles on mouse hover" = "הסתר עיגולים צבעוניים על רחף עכבר";
 
 /*%@ is AltTab*/
 "Hide in %@" = "הסתר ב%@";
 
 /* No comment provided by engineer. */
-"Hide Space number labels:" = "הסתר תגיות מספר של איזור:";
+"Hide Space number labels" = "הסתר תוויות מספר שטח";
 
 /* No comment provided by engineer. */
-"Hide status icons:" = "הסתר סמלי סטטוס:";
+"Hide status icons" = "הסתר סמלי סטטוס";
 
 /* No comment provided by engineer. */
 "Hide window thumbnails:" = "הסתר תמונות ממוזערות של חלונות:";
@@ -258,7 +257,7 @@
 "Preferences…" = "העדפות";
 
 /* No comment provided by engineer. */
-"Preview selected window:" = "תצוגה מקדימה של החלון שנבחר:";
+"Preview selected window" = "תצוגה מקדימה של חלון שנבחר";
 
 /* No comment provided by engineer. */
 "Quit" = "צא מהיישום";
@@ -354,7 +353,7 @@
 "Show on:" = "הצג ב:";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows:" = "הצג טאבים כחלונות:";
+"Show standard tabs as windows" = "הצג כרטיסיות סטנדרטיות כ- Windows";
 
 /* No comment provided by engineer. */
 "Show windows from:" = "הצג חלונות מ:";
@@ -451,3 +450,94 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "לא רשמת את כתובת המייל שלך, ולא תוכל לקבל מענה.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "מודל מראה:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "גודל המראה:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "הצג הסתר";
+
+/* No comment provided by engineer. */
+"Effects" = "השפעות";
+
+/* No comment provided by engineer. */
+"Small" = "קָטָן";
+
+/* No comment provided by engineer. */
+"Medium" = "בינוני";
+
+/* No comment provided by engineer. */
+"Large" = "גָדוֹל";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "תמונות ממוזערות";
+
+/* No comment provided by engineer. */
+"App Icons" = "סמלי אפליקציה";
+
+/* No comment provided by engineer. */
+"Titles" = "כותרות";
+
+/* No comment provided by engineer. */
+"Centered" = "מְרוּכָּז";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "אפל מרוכזת";
+
+/* No comment provided by engineer. */
+"Applications" = "יישומים";
+
+/* No comment provided by engineer. */
+"Windows" = "חלונות";
+
+/* No comment provided by engineer. */
+"Application Names" = "שמות יישומים";
+
+/* No comment provided by engineer. */
+"Window Titles" = "כותרות חלונות";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "שמות יישומים - כותרות חלונות";
+
+/* No comment provided by engineer. */
+"Leading" = "מוֹבִיל";
+
+/* No comment provided by engineer. */
+"Show running:" = "הצג ריצה:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "הצג כותרות:";
+
+/* No comment provided by engineer. */
+"Done" = "בוצע";
+
+/* No comment provided by engineer. */
+"Advanced" = "מִתקַדֵם";
+
+/* No comment provided by engineer. */
+"Position" = "עמדה";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "יישור אנכי של אפליקציה:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "תמונות ממוזערות מתקדמות ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "סמלי אפליקציה מתקדמים ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "כותרות מתקדמות ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "מִתקַדֵם…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab תראה אם ​​החלון ממזער כרגע או מסך מלא עם סמל סטטוס.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "יש אפליקציות כמו Finder או תצוגה מקדימה שמשתמשים בכרטיסיות סטנדרטיות הפועלות כמו חלונות עצמאיים.כמה אפליקציות אחרות כמו דפדפני אינטרנט משתמשים בכרטיסיות מותאמות אישית הפועלות בדרכים ייחודיות ואינן חלונות בפועל.Alttab לא יכול לרשום את אלה בנפרד.";
+

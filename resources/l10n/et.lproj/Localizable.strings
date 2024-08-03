@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Pealkirjad";
 
+/* No comment provided by engineer. */
+"Centered" = "Tsentreeritud";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Õunakeskne";
+
+/* No comment provided by engineer. */
+"Applications" = "Rakendused";
+
+/* No comment provided by engineer. */
+"Windows" = "Aknad";
+
+/* No comment provided by engineer. */
+"Application Names" = "Rakenduse nimed";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Akende pealkirjad";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Rakenduse nimed - akna pealkirjad";
+
+/* No comment provided by engineer. */
+"Leading" = "Juhtiv";
+
+/* No comment provided by engineer. */
+"Show running:" = "Näita jooksmist:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Kuva pealkirjad:";
+
+/* No comment provided by engineer. */
+"Done" = "Tehtud";
+
+/* No comment provided by engineer. */
+"Advanced" = "Arenenud";
+
+/* No comment provided by engineer. */
+"Position" = "Positsioon";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Rakenduse vertikaalne joondamine:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Pisipildid on edasi arenenud ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "Rakenduse ikoonid on arenenud ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Pealkirjad Advanced…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Edasi arenenud ...";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab näitab, kas aken on praegu minimeeritud või olekuikooniga täisekraanil.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Mõned rakendused, näiteks Finder või eelvaade, kasutavad standardseid vahekaarte, mis toimivad nagu sõltumatud aknad.Mõned muud rakendused, näiteks veebibrauserid, kasutavad kohandatud vahekaarte, mis toimivad ainulaadsel viisil ja pole tegelikud aknad.Alttab ei saa neid eraldi loetleda.";
+

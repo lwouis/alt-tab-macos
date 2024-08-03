@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "Titels";
 
+/* No comment provided by engineer. */
+"Centered" = "Gecentreerd";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple gecentreerd";
+
+/* No comment provided by engineer. */
+"Applications" = "Toepassingen";
+
+/* No comment provided by engineer. */
+"Windows" = "ramen";
+
+/* No comment provided by engineer. */
+"Application Names" = "Toepassingsnamen";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Raamtitels";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Applicatienamen - Windowitels";
+
+/* No comment provided by engineer. */
+"Leading" = "Leidend";
+
+/* No comment provided by engineer. */
+"Show running:" = "Show Running:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Toon titels:";
+
+/* No comment provided by engineer. */
+"Done" = "Klaar";
+
+/* No comment provided by engineer. */
+"Advanced" = "Geavanceerd";
+
+/* No comment provided by engineer. */
+"Position" = "Positie";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "Verticale uitlijning van apps:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Thumbnails Gevorderde ...";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "App -pictogrammen geavanceerd ...";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titels geavanceerd ...";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Geavanceerd…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTAB zal laten zien of het venster momenteel wordt geminimaliseerd of volledig is met een statuspictogram.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Sommige apps zoals Finder of Preview gebruiken standaard tabbladen die werken als onafhankelijke Windows.Sommige andere apps zoals webbrowsers gebruiken aangepaste tabbladen die op unieke manieren werken en geen echte Windows zijn.Alttab kan die niet afzonderlijk vermelden.";
+

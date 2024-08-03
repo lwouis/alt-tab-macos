@@ -481,3 +481,63 @@
 /* No comment provided by engineer. */
 "Titles" = "タイトル";
 
+/* No comment provided by engineer. */
+"Centered" = "中心";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Appleの中心";
+
+/* No comment provided by engineer. */
+"Applications" = "アプリケーション";
+
+/* No comment provided by engineer. */
+"Windows" = "ウィンドウズ";
+
+/* No comment provided by engineer. */
+"Application Names" = "アプリケーション名";
+
+/* No comment provided by engineer. */
+"Window Titles" = "ウィンドウタイトル";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "アプリケーション名 - ウィンドウタイトル";
+
+/* No comment provided by engineer. */
+"Leading" = "リーディング";
+
+/* No comment provided by engineer. */
+"Show running:" = "ランニングを表示：";
+
+/* No comment provided by engineer. */
+"Show titles:" = "タイトルを表示：";
+
+/* No comment provided by engineer. */
+"Done" = "終わり";
+
+/* No comment provided by engineer. */
+"Advanced" = "高度な";
+
+/* No comment provided by engineer. */
+"Position" = "位置";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "アプリの垂直アライメント：";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "サムネイルが進んだ…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "アプリのアイコンが進んだ…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "タイトルが進んだ…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "高度な…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTabは、現在、ウィンドウが最小化されているか、ステータスアイコンを備えたフルスクリーンであるかどうかを示します。";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "FinderやPreviewなどのアプリは、独立したウィンドウのように機能する標準タブを使用しています。Webブラウザのような他のアプリの一部は、独自の方法で機能し、実際のWindowsではないカスタムタブを使用します。AltTabはそれらを個別にリストすることはできません。";
+
