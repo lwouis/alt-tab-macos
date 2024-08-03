@@ -481,43 +481,62 @@
 /* No comment provided by engineer. */
 "Titles" = "Titles";
 
-
+/* No comment provided by engineer. */
 "Centered" = "Centered";
 
+/* No comment provided by engineer. */
 "Apple Centered" = "Apple Centered";
 
+/* No comment provided by engineer. */
 "Applications" = "Applications";
 
+/* No comment provided by engineer. */
 "Windows" = "Windows";
 
+/* No comment provided by engineer. */
 "Application Names" = "Application Names";
 
+/* No comment provided by engineer. */
 "Window Titles" = "Window Titles";
 
+/* No comment provided by engineer. */
 "Application Names - Window Titles" = "Application Names - Window Titles";
 
+/* No comment provided by engineer. */
 "Leading" = "Leading";
 
+/* No comment provided by engineer. */
 "Show running:" = "Show running:";
 
+/* No comment provided by engineer. */
 "Show titles:" = "Show titles:";
 
+/* No comment provided by engineer. */
 "Done" = "Done";
 
+/* No comment provided by engineer. */
 "Advanced" = "Advanced";
 
+/* No comment provided by engineer. */
 "Position" = "Position";
 
+/* No comment provided by engineer. */
 "App vertical alignment:" = "App vertical alignment:";
 
+/* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Thumbnails Advanced…";
 
+/* No comment provided by engineer. */
 "App Icons Advanced…" = "App Icons Advanced…";
 
+/* No comment provided by engineer. */
 "Titles Advanced…" = "Titles Advanced…";
 
+/* No comment provided by engineer. */
 "Advanced…" = "Advanced…";
 
+/* No comment provided by engineer. */
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab will show if the window is currently minimized or fullscreen with a status icon.";
 
+/* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.";
