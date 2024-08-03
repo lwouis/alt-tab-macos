@@ -76,7 +76,7 @@ class ShowHideIllustratedView {
         illustratedImageView = IllustratedImageView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
     }
 
-    func setupView() -> GridView {
+    func makeGridView() -> GridView {
         // Add the illustrated image first
         var settings: [[NSView]] = [
             [illustratedImageView],
@@ -95,7 +95,7 @@ class ShowHideIllustratedView {
         setAlignment()
         grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth
         grid.rowSpacing = 0
-        grid.row(at: 0).bottomPadding = GridView.padding
+        grid.row(at: 0).bottomPadding = TabView.padding
         addMouseHoverEffects(modelToRows: modelToRows)
         grid.fit()
         return grid
@@ -352,7 +352,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
             doneButton.bezelColor = NSColor.controlAccentColor
         }
 
-        let showHideGrid = ShowHideIllustratedView(model).setupView()
+        let showHideGrid = ShowHideIllustratedView(model).makeGridView()
 
         var advancedView: NSView!
         if model == .thumbnails {
@@ -413,58 +413,60 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
     }
 
     private func makeThumbnailsView() -> NSView {
-        let view = GridView([
+        let grid = GridView([
             [illustratedImageView],
             alignThumbnails,
             titleTruncation,
         ])
-
-        view.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        view.column(at: 0).xPlacement = .trailing
-        view.column(at: 1).xPlacement = .leading
-        view.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.5
-        return view
+        grid.row(at: 0).bottomPadding = TabView.padding
+        grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
+        grid.column(at: 0).xPlacement = .trailing
+        grid.column(at: 1).xPlacement = .leading
+        grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.5
+        return grid
     }
 
     private func makeAppIconsView() -> NSView {
         let separator = AppearanceTab.makeSeparator()
-        let view = GridView([
+        let grid = GridView([
             [illustratedImageView],
             alignThumbnails,
             [separator],
             showAppsWindows,
             showAppNamesWindowTitles,
         ])
-        view.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
-        view.column(at: 0).xPlacement = .trailing
-        view.column(at: 1).xPlacement = .leading
-        view.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.3
+        grid.row(at: 0).bottomPadding = TabView.padding
+        grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
+        grid.column(at: 0).xPlacement = .trailing
+        grid.column(at: 1).xPlacement = .leading
+        grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.3
         separator.widthAnchor.constraint(equalTo: illustratedImageView.widthAnchor).isActive = true
         toggleAppNamesWindowTitles()
-        return view
+        return grid
     }
 
     private func makeTitlesView() -> NSView {
         let separator = AppearanceTab.makeSeparator()
-        let view = GridView([
+        let grid = GridView([
             [illustratedImageView],
             titleTruncation,
             [separator],
             showAppsWindows,
             showAppNamesWindowTitles,
         ])
-        view.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        view.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
-        view.column(at: 0).xPlacement = .trailing
-        view.column(at: 1).xPlacement = .leading
-        view.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.35
+        grid.row(at: 0).bottomPadding = TabView.padding
+        grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 2, length: 1))
+        grid.column(at: 0).xPlacement = .trailing
+        grid.column(at: 1).xPlacement = .leading
+        grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.35
         separator.widthAnchor.constraint(equalTo: illustratedImageView.widthAnchor).isActive = true
         toggleAppNamesWindowTitles()
-        return view
+        return grid
     }
 
     private func toggleAppNamesWindowTitles() {
@@ -554,9 +556,9 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
     static func initTab() -> NSView {
         createAdvancedButton()
 
-        let generalGrid = setupGeneralTabView()
-        let positionGrid = setupPositionTabView()
-        let effectsGrid = setupEffectsTabView()
+        let generalGrid = makeGeneralTabView()
+        let positionGrid = makePositionTabView()
+        let effectsGrid = makeEffectsTabView()
 
         let view = NSView()
         let tabView = TabView([
@@ -604,7 +606,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
 //        }
     }
 
-    private static func setupGeneralTabView() -> NSView {
+    private static func makeGeneralTabView() -> NSView {
         let generalSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
                     "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
@@ -629,7 +631,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
         return generalGrid
     }
 
-    private static func setupPositionTabView() -> NSView {
+    private static func makePositionTabView() -> NSView {
         let positionSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
             LabelAndControl.makeLabelWithDropdown(NSLocalizedString("App vertical alignment:", comment: ""), "appVerticalAlignment", AppVerticalAlignmentPreference.allCases),
@@ -641,7 +643,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
         return positionGrid
     }
 
-    private static func setupEffectsTabView() -> NSView {
+    private static func makeEffectsTabView() -> NSView {
         let effectsSettings: [[NSView]] = [
             LabelAndControl.makeLabelWithSlider(NSLocalizedString("Apparition delay:", comment: ""), "windowDisplayDelay", 0, 2000, 11, false, "ms"),
             LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fade out animation:", comment: ""), "fadeOutAnimation"),
@@ -655,7 +657,7 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
         return effectsGrid
     }
 
-    public static func makeSeparator(_ topPadding: CGFloat = 10, _ bottomPadding: CGFloat = -10) -> NSView {
+    public static func makeSeparator(_ topPadding: CGFloat = 7, _ bottomPadding: CGFloat = -7) -> NSView {
         let separator = NSBox()
         separator.boxType = .separator
         separator.translatesAutoresizingMaskIntoConstraints = false
