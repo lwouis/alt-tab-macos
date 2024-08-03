@@ -2,10 +2,8 @@ import Cocoa
 
 struct ShowHideRowInfo {
     let rowId: String!
-    var uncheckedImageLight: String!  // Light mode image when the item is unchecked
-    var checkedImageLight: String!    // Light mode image when the item is checked
-    var uncheckedImageDark: String!   // Dark mode image when the item is unchecked
-    var checkedImageDark: String!     // Dark mode image when the item is checked
+    var uncheckedImage: String!
+    var checkedImage: String!
     var components: [NSView]!        // UI components associated with this item
     var supportedModels: [AppearanceModelPreference]!
 
@@ -14,14 +12,16 @@ struct ShowHideRowInfo {
     }
 }
 
-class IllustratedImageView: ClickHoverImageView {
+class IllustratedImageThemeView: ClickHoverImageView {
 
-    var model: AppearanceModelPreference = .thumbnails
+    var model: AppearanceModelPreference!
+    var theme: String!
 
     init(_ model: AppearanceModelPreference, _ imageWidth: CGFloat) {
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
-        let imageName = model.image.name + "_light"
+        let theme = "light"
+        let imageName = IllustratedImageThemeView.getConcatenatedImageName(model, theme)
         let imageView = NSImageView(image: NSImage(named: imageName)!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
@@ -31,6 +31,7 @@ class IllustratedImageView: ClickHoverImageView {
 
         super.init(imageView: imageView)
         self.model = model
+        self.theme = theme
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
         self.layer?.cornerRadius = 7.0
@@ -57,23 +58,36 @@ class IllustratedImageView: ClickHoverImageView {
     }
 
     func updateImage(_ imageName: String) {
-        // e.g. thumbnails_show_app_badges_light/app_icons_show_app_badges_light
-        let imageName = self.model.image.name + "_" + imageName
-        imageView.image = NSImage(named: imageName)
+        imageView.image = NSImage(named: self.getModelThemeImageName(imageName))
+    }
+
+    static func getConcatenatedImageName(_ model: AppearanceModelPreference,
+                                         _ theme: String ,
+                                         _ imageName: String = "") -> String {
+        if imageName.isEmpty {
+            // thumbnails_light/app_icons_dark
+            return model.image.name + "_" + theme
+        }
+        // thumbnails_show_app_badges_light/app_icons_show_app_badges_light
+        return model.image.name + "_" + imageName + "_" + theme
+    }
+
+    func getModelThemeImageName(_ imageName: String = "") -> String {
+        return IllustratedImageThemeView.getConcatenatedImageName(self.model, self.theme, imageName)
     }
 
 }
 
 class ShowHideIllustratedView {
     private let model: AppearanceModelPreference
-    private var illustratedImageView: IllustratedImageView!
+    private var illustratedImageView: IllustratedImageThemeView!
     private var showHideRows = [ShowHideRowInfo]()
     private var grid: GridView!
 
     init(_ model: AppearanceModelPreference) {
         self.model = model
         setupItems()
-        illustratedImageView = IllustratedImageView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
+        illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
     }
 
     func makeGridView() -> GridView {
@@ -103,10 +117,8 @@ class ShowHideIllustratedView {
 
     private func setupItems() {
         var hideAppBadges = ShowHideRowInfo()
-        hideAppBadges.uncheckedImageLight = "show_app_badges_light"
-        hideAppBadges.checkedImageLight = "hide_app_badges_light"
-        hideAppBadges.uncheckedImageDark = "show_app_badges_dark"
-        hideAppBadges.checkedImageDark = "hide_app_badges_dark"
+        hideAppBadges.uncheckedImage = "show_app_badges"
+        hideAppBadges.checkedImage = "hide_app_badges"
         hideAppBadges.supportedModels = [.thumbnails, .appIcons, .titles]
         hideAppBadges.components = LabelAndControl.makeLabelWithCheckbox(
                 NSLocalizedString("Hide app badges", comment: ""),
@@ -117,10 +129,8 @@ class ShowHideIllustratedView {
         showHideRows.append(hideAppBadges)
 
         var hideStatusIcons = ShowHideRowInfo()
-        hideStatusIcons.uncheckedImageLight = "show_status_icons_light"
-        hideStatusIcons.checkedImageLight = "hide_status_icons_light"
-        hideStatusIcons.uncheckedImageDark = "show_status_icons_dark"
-        hideStatusIcons.checkedImageDark = "hide_status_icons_dark"
+        hideStatusIcons.uncheckedImage = "show_status_icons"
+        hideStatusIcons.checkedImage = "hide_status_icons"
         hideStatusIcons.supportedModels = [.thumbnails, .titles]
         hideStatusIcons.components = LabelAndControl.makeLabelWithCheckboxAndInfoButton(
                 NSLocalizedString("Hide status icons", comment: ""),
@@ -135,10 +145,8 @@ class ShowHideIllustratedView {
         showHideRows.append(hideStatusIcons)
 
         var hideSpaceNumberLabels = ShowHideRowInfo()
-        hideSpaceNumberLabels.uncheckedImageLight = "show_space_number_labels_light"
-        hideSpaceNumberLabels.checkedImageLight = "hide_space_number_labels_light"
-        hideSpaceNumberLabels.uncheckedImageDark = "show_space_number_labels_dark"
-        hideSpaceNumberLabels.checkedImageDark = "hide_space_number_labels_dark"
+        hideSpaceNumberLabels.uncheckedImage = "show_space_number_labels"
+        hideSpaceNumberLabels.checkedImage = "hide_space_number_labels"
         hideSpaceNumberLabels.supportedModels = [.thumbnails, .titles]
         hideSpaceNumberLabels.components = LabelAndControl.makeLabelWithCheckbox(
                 NSLocalizedString("Hide Space number labels", comment: ""),
@@ -149,10 +157,8 @@ class ShowHideIllustratedView {
         showHideRows.append(hideSpaceNumberLabels)
 
         var hideColoredCircles = ShowHideRowInfo()
-        hideColoredCircles.uncheckedImageLight = "show_colored_circles_light"
-        hideColoredCircles.checkedImageLight = "hide_colored_circles_light"
-        hideColoredCircles.uncheckedImageDark = "show_colored_circles_dark"
-        hideColoredCircles.checkedImageDark = "hide_colored_circles_dark"
+        hideColoredCircles.uncheckedImage = "show_colored_circles"
+        hideColoredCircles.checkedImage = "hide_colored_circles"
         hideColoredCircles.supportedModels = [.thumbnails]
         hideColoredCircles.components = LabelAndControl.makeLabelWithCheckbox(
                 NSLocalizedString("Hide colored circles on mouse hover", comment: ""),
@@ -163,10 +169,8 @@ class ShowHideIllustratedView {
         showHideRows.append(hideColoredCircles)
 
         var hideWindowlessApps = ShowHideRowInfo()
-        hideWindowlessApps.uncheckedImageLight = "show_windowless_apps_light"
-        hideWindowlessApps.checkedImageLight = "hide_windowless_apps_light"
-        hideWindowlessApps.uncheckedImageDark = "show_windowless_apps_dark"
-        hideWindowlessApps.checkedImageDark = "hide_windowless_apps_dark"
+        hideWindowlessApps.uncheckedImage = "show_windowless_apps"
+        hideWindowlessApps.checkedImage = "hide_windowless_apps"
         hideWindowlessApps.supportedModels = [.thumbnails, .appIcons, .titles]
         hideWindowlessApps.components = LabelAndControl.makeLabelWithCheckbox(
                 NSLocalizedString("Hide apps with no open window", comment: ""),
@@ -177,10 +181,8 @@ class ShowHideIllustratedView {
         showHideRows.append(hideWindowlessApps)
 
         var showTabsAsWindows = ShowHideRowInfo()
-        showTabsAsWindows.uncheckedImageLight = "hide_tabs_as_windows_light"
-        showTabsAsWindows.checkedImageLight = "show_tabs_as_windows_light"
-        showTabsAsWindows.uncheckedImageDark = "hide_tabs_as_windows_dark"
-        showTabsAsWindows.checkedImageDark = "show_tabs_as_windows_dark"
+        showTabsAsWindows.uncheckedImage = "hide_tabs_as_windows"
+        showTabsAsWindows.checkedImage = "show_tabs_as_windows"
         showTabsAsWindows.supportedModels = [.thumbnails, .appIcons, .titles]
         showTabsAsWindows.components = LabelAndControl.makeLabelWithCheckboxAndInfoButton(
                 NSLocalizedString("Show standard tabs as windows", comment: ""),
@@ -195,10 +197,8 @@ class ShowHideIllustratedView {
         showHideRows.append(showTabsAsWindows)
 
         var previewFocusedWindow = ShowHideRowInfo()
-        previewFocusedWindow.uncheckedImageLight = "hide_preview_focused_window_light"
-        previewFocusedWindow.checkedImageLight = "show_preview_focused_window_light"
-        previewFocusedWindow.uncheckedImageDark = "hide_preview_focused_window_dark"
-        previewFocusedWindow.checkedImageDark = "show_preview_focused_window_dark"
+        previewFocusedWindow.uncheckedImage = "hide_preview_focused_window"
+        previewFocusedWindow.checkedImage = "show_preview_focused_window"
         previewFocusedWindow.supportedModels = [.thumbnails, .appIcons, .titles]
         previewFocusedWindow.components = LabelAndControl.makeLabelWithCheckbox(
                 NSLocalizedString("Preview selected window", comment: ""),
@@ -208,7 +208,6 @@ class ShowHideIllustratedView {
         }, labelPosition: .right)
         showHideRows.append(previewFocusedWindow)
     }
-
 
     private func addMouseHoverEffects(modelToRows: [Int: ShowHideRowInfo]) {
         // Ignore the first row that stores the image
@@ -272,10 +271,8 @@ class ShowHideIllustratedView {
     }
 
     private func updateImageView(rowId: String, isChecked: Bool) {
-        // TODO: The appearance theme functionality has not been implemented yet.
-        // We will implement it later; for now, use the light theme.
         let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
-        let imageName = isChecked ? row?.checkedImageLight : row?.uncheckedImageLight
+        let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
         illustratedImageView.updateImage(imageName!)
     }
 
@@ -313,7 +310,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
     static let illustratedImageWidth = columnWidth - CGFloat(50)
 
     var model: AppearanceModelPreference = .thumbnails
-    var illustratedImageView: IllustratedImageView!
+    var illustratedImageView: IllustratedImageThemeView!
     var alignThumbnails: [NSView]!
     var titleTruncation: [NSView]!
     var showAppsWindows: [NSView]!
@@ -332,7 +329,7 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
     }
 
     private func setupView() {
-        illustratedImageView = IllustratedImageView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
+        illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
         alignThumbnails = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""),
                 "alignThumbnails", AlignThumbnailsPreference.allCases)
         titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
@@ -343,7 +340,9 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
             self.showAppsOrWindowsIllustratedImage()
         })
         showAppNamesWindowTitles = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show titles:", comment: ""),
-                "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases)
+                "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
+            self.showAppsOrWindowsIllustratedImage()
+        })
 
         doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
         doneButton.translatesAutoresizingMaskIntoConstraints = false
@@ -482,11 +481,13 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
     }
 
     private func showAppsOrWindowsIllustratedImage() {
-        if Preferences.showAppsWindows == .applications {
-            self.illustratedImageView.updateImage("show_running_applications_light")
-        } else if Preferences.showAppsWindows == .windows {
-            self.illustratedImageView.updateImage("show_running_windows_light")
+        var imageName = "show_running_windows"
+        if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .applicationNames {
+            imageName = "show_running_applications"
+        } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
+            imageName = "show_running_applications_windows"
         }
+        self.illustratedImageView.updateImage(imageName)
     }
 
     @objc func onClicked(_ sender: NSButton) {
