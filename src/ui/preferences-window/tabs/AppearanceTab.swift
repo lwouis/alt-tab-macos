@@ -137,7 +137,7 @@ class ShowHideIllustratedView {
             let button = sender as! NSButton
             self.onCheckboxClicked(sender: button, rowId: hideStatusIcons.rowId)
         }, labelPosition: .right, onMouseEntered: { event, view in
-            Popover.shared.show(event: event, positioningView: view, message: "AltTab will show if the window is currently minimized or fullscreen with a status icon.")
+            Popover.shared.show(event: event, positioningView: view, message: NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: ""))
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         })
@@ -189,7 +189,7 @@ class ShowHideIllustratedView {
             let button = sender as! NSButton
             self.onCheckboxClicked(sender: button, rowId: showTabsAsWindows.rowId)
         }, labelPosition: .right, onMouseEntered: { event, view in
-            Popover.shared.show(event: event, positioningView: view, message: "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.")
+            Popover.shared.show(event: event, positioningView: view, message: NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: ""))
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         })
@@ -503,7 +503,7 @@ class Popover: NSPopover {
         hide()
         let view = NSView()
 
-        let label = NSTextField(labelWithString: NSLocalizedString(message, comment: ""))
+        let label = NSTextField(labelWithString: message)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byWordWrapping
         label.maximumNumberOfLines = 0
