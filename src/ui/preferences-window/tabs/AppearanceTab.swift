@@ -13,7 +13,6 @@ struct ShowHideRowInfo {
 }
 
 class IllustratedImageThemeView: ClickHoverImageView {
-
     var model: AppearanceModelPreference!
     var theme: String!
 
@@ -305,7 +304,7 @@ class ShowHideIllustratedView {
     }
 }
 
-class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
+class ModelAdvancedSettingsWindow: NSWindow {
     static let columnWidth = CGFloat(450)
     static let illustratedImageWidth = columnWidth - CGFloat(50)
 
@@ -365,7 +364,6 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
             (NSLocalizedString("Show & Hide", comment: ""), showHideGrid),
             (NSLocalizedString("Advanced", comment: ""), advancedView),
         ])
-        tabView.delegate = self
         tabView.translatesAutoresizingMaskIntoConstraints = false
         tabView.widthAnchor.constraint(equalToConstant: tabView.maxIntrinsicContentSize().width + GridView.padding).isActive = true
 
@@ -387,28 +385,6 @@ class ModelAdvancedSettingsWindow: NSWindow, NSTabViewDelegate {
 
         setContentSize(grid.fittingSize)
         contentView = grid
-    }
-
-    // Delegate method for tab view, it will be called when new tab is selected.
-    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
-//        if let grid = tabView.superview as? GridView, let tabView = tabView as? TabView {
-//            if let window = tabView.window as? ModelAdvancedSettingsWindow {
-//                // Adjust the size of the tabView to fit its content
-//                tabView.widthAnchor.constraint(equalToConstant: tabView.maxIntrinsicContentSize().width + GridView.padding).isActive = true
-//                let newSize = grid.fittingSize
-//
-//                if let parentWindow = window.sheetParent {
-//                    // Get parent window frame
-//                    let parentFrame = parentWindow.frame
-//                    var frame = window.frame
-//                    frame.size.height = newSize.height
-//                    frame.origin.y = parentFrame.origin.y + parentFrame.height - newSize.height
-//
-//                    window.setFrame(frame, display: true, animate: true)
-//                    window.layoutIfNeeded()
-//                }
-//            }
-//        }
     }
 
     private func makeThumbnailsView() -> NSView {
@@ -549,7 +525,7 @@ class Popover: NSPopover {
     }
 }
 
-class AppearanceTab: NSObject, NSTabViewDelegate {
+class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
 
     static var advancedButton: NSButton!
@@ -567,7 +543,6 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
             (NSLocalizedString("Position", comment: ""), positionGrid),
             (NSLocalizedString("Effects", comment: ""), effectsGrid),
         ])
-        tabView.delegate = shared
         tabView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tabView)
@@ -592,19 +567,6 @@ class AppearanceTab: NSObject, NSTabViewDelegate {
         ])
         
         return view
-    }
-
-    // Delegate method for tab view, it will be called when new tab is selected.
-    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
-//        tabView.topAnchor.constraint(equalTo: tabView.superview!.topAnchor).isActive = true
-//        tabView.superview?.heightAnchor.constraint(equalToConstant: tabView.intrinsicContentSize.height).isActive = true
-//
-//        if let preferencesWindow = tabView.window as? PreferencesWindow {
-//            let id = NSToolbarItem.Identifier(rawValue: "appearance")
-//            preferencesWindow.toolbarItems[id]!.2 = tabView
-//            preferencesWindow.setContentSize(NSSize(width: preferencesWindow.largestTabWidth, height: tabView.fittingSize.height))
-//            preferencesWindow.contentView = tabView
-//        }
     }
 
     private static func makeGeneralTabView() -> NSView {
