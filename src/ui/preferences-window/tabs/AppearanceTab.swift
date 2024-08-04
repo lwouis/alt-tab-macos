@@ -4,8 +4,10 @@ struct ShowHideRowInfo {
     let rowId: String!
     var uncheckedImage: String!
     var checkedImage: String!
-    var components: [NSView]!        // UI components associated with this item
     var supportedModels: [AppearanceModelPreference]!
+    var leftTitle: String!
+    var subTitle: String?
+    var rightViews = [NSView]()
 
     init() {
         self.rowId = UUID().uuidString
@@ -13,6 +15,7 @@ struct ShowHideRowInfo {
 }
 
 class IllustratedImageThemeView: ClickHoverImageView {
+    static let padding = CGFloat(4)
     var model: AppearanceModelPreference!
     var theme: String!
 
@@ -42,10 +45,10 @@ class IllustratedImageThemeView: ClickHoverImageView {
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: imageWidth),
             imageView.heightAnchor.constraint(equalToConstant: imageHeight),
-            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
-            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: IllustratedImageThemeView.padding),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -IllustratedImageThemeView.padding),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: IllustratedImageThemeView.padding),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -IllustratedImageThemeView.padding),
         ])
         onClick = { event, view in
             imageView.image = NSImage(named: imageName)
@@ -89,29 +92,22 @@ class ShowHideIllustratedView {
         illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
     }
 
-    func makeGridView() -> GridView {
-        // Add the illustrated image first
-        var settings: [[NSView]] = [
-            [illustratedImageView],
-        ]
-        var modelToRows = [Int: ShowHideRowInfo]()
-        var index = 1
+    func makeView() -> NSStackView {
+        let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         for row in showHideRows {
             if row.supportedModels.contains(model) {
-                settings.append(row.components)
-                // match the row index of the grid
-                modelToRows[index] = row
-                index += 1
+                table.addRow(row.leftTitle, row.rightViews, onMouseEntered: { event, view in
+                    self.updateImageView(rowId: row.rowId)
+                })
             }
         }
-        grid = GridView(settings)
-        setAlignment()
-        grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth
-        grid.rowSpacing = 0
-        grid.row(at: 0).bottomPadding = TabView.padding
-        addMouseHoverEffects(modelToRows: modelToRows)
-        grid.fit()
-        return grid
+        table.fit()
+
+        let view = NSStackView()
+        view.orientation = .vertical
+        view.spacing = 5
+        view.setViews([illustratedImageView, table], in: .leading)
+        return view
     }
 
     private func setupItems() {
@@ -119,143 +115,83 @@ class ShowHideIllustratedView {
         hideAppBadges.uncheckedImage = "show_app_badges"
         hideAppBadges.checkedImage = "hide_app_badges"
         hideAppBadges.supportedModels = [.thumbnails, .appIcons, .titles]
-        hideAppBadges.components = LabelAndControl.makeLabelWithCheckbox(
-                NSLocalizedString("Hide app badges", comment: ""),
-                "hideAppBadges", extraAction: { sender in
-            let button = sender as! NSButton
-            self.onCheckboxClicked(sender: button, rowId: hideAppBadges.rowId)
-        }, labelPosition: .right)
+        hideAppBadges.leftTitle = NSLocalizedString("Hide app badges", comment: "")
+        hideAppBadges.rightViews.append(LabelAndControl.makeCheckbox("hideAppBadges", extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: hideAppBadges.rowId)
+        }))
         showHideRows.append(hideAppBadges)
 
         var hideStatusIcons = ShowHideRowInfo()
         hideStatusIcons.uncheckedImage = "show_status_icons"
         hideStatusIcons.checkedImage = "hide_status_icons"
         hideStatusIcons.supportedModels = [.thumbnails, .titles]
-        hideStatusIcons.components = LabelAndControl.makeLabelWithCheckboxAndInfoButton(
-                NSLocalizedString("Hide status icons", comment: ""),
-                "hideStatusIcons", extraAction: { sender in
-            let button = sender as! NSButton
-            self.onCheckboxClicked(sender: button, rowId: hideStatusIcons.rowId)
-        }, labelPosition: .right, onMouseEntered: { event, view in
-            Popover.shared.show(event: event, positioningView: view, message: NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: ""))
+        hideStatusIcons.leftTitle = NSLocalizedString("Hide status icons", comment: "")
+        hideStatusIcons.subTitle = NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
+        hideStatusIcons.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
+            Popover.shared.show(event: event, positioningView: view, message: hideStatusIcons.subTitle!)
         }, onMouseExited: { event, view in
             Popover.shared.hide()
-        })
+        }))
+        hideStatusIcons.rightViews.append(LabelAndControl.makeCheckbox("hideStatusIcons", extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: hideStatusIcons.rowId)
+        }))
         showHideRows.append(hideStatusIcons)
 
         var hideSpaceNumberLabels = ShowHideRowInfo()
         hideSpaceNumberLabels.uncheckedImage = "show_space_number_labels"
         hideSpaceNumberLabels.checkedImage = "hide_space_number_labels"
         hideSpaceNumberLabels.supportedModels = [.thumbnails, .titles]
-        hideSpaceNumberLabels.components = LabelAndControl.makeLabelWithCheckbox(
-                NSLocalizedString("Hide Space number labels", comment: ""),
-                "hideSpaceNumberLabels", extraAction: { sender in
-            let button = sender as! NSButton
-            self.onCheckboxClicked(sender: button, rowId: hideSpaceNumberLabels.rowId)
-        }, labelPosition: .right)
+        hideSpaceNumberLabels.leftTitle = NSLocalizedString("Hide Space number labels", comment: "")
+        hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeCheckbox("hideSpaceNumberLabels", extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
+        }))
         showHideRows.append(hideSpaceNumberLabels)
 
         var hideColoredCircles = ShowHideRowInfo()
         hideColoredCircles.uncheckedImage = "show_colored_circles"
         hideColoredCircles.checkedImage = "hide_colored_circles"
         hideColoredCircles.supportedModels = [.thumbnails]
-        hideColoredCircles.components = LabelAndControl.makeLabelWithCheckbox(
-                NSLocalizedString("Hide colored circles on mouse hover", comment: ""),
-                "hideColoredCircles", extraAction: { sender in
-            let button = sender as! NSButton
-            self.onCheckboxClicked(sender: button, rowId: hideColoredCircles.rowId)
-        }, labelPosition: .right)
+        hideColoredCircles.leftTitle = NSLocalizedString("Hide colored circles on mouse hover", comment: "")
+        hideColoredCircles.rightViews.append(LabelAndControl.makeCheckbox("hideColoredCircles", extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
+        }))
         showHideRows.append(hideColoredCircles)
 
         var hideWindowlessApps = ShowHideRowInfo()
         hideWindowlessApps.uncheckedImage = "show_windowless_apps"
         hideWindowlessApps.checkedImage = "hide_windowless_apps"
         hideWindowlessApps.supportedModels = [.thumbnails, .appIcons, .titles]
-        hideWindowlessApps.components = LabelAndControl.makeLabelWithCheckbox(
-                NSLocalizedString("Hide apps with no open window", comment: ""),
-                "hideWindowlessApps", extraAction: { sender in
-            let button = sender as! NSButton
-            self.onCheckboxClicked(sender: button, rowId: hideWindowlessApps.rowId)
-        }, labelPosition: .right)
+        hideWindowlessApps.leftTitle = NSLocalizedString("Hide apps with no open window", comment: "")
+        hideWindowlessApps.rightViews.append(LabelAndControl.makeCheckbox("hideWindowlessApps", extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: hideWindowlessApps.rowId)
+        }))
         showHideRows.append(hideWindowlessApps)
 
         var showTabsAsWindows = ShowHideRowInfo()
         showTabsAsWindows.uncheckedImage = "hide_tabs_as_windows"
         showTabsAsWindows.checkedImage = "show_tabs_as_windows"
         showTabsAsWindows.supportedModels = [.thumbnails, .appIcons, .titles]
-        showTabsAsWindows.components = LabelAndControl.makeLabelWithCheckboxAndInfoButton(
-                NSLocalizedString("Show standard tabs as windows", comment: ""),
-                "showTabsAsWindows", extraAction: { sender in
-            let button = sender as! NSButton
-            self.onCheckboxClicked(sender: button, rowId: showTabsAsWindows.rowId)
-        }, labelPosition: .right, onMouseEntered: { event, view in
-            Popover.shared.show(event: event, positioningView: view, message: NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: ""))
+        showTabsAsWindows.leftTitle = NSLocalizedString("Show standard tabs as windows", comment: "")
+        showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: "")
+        showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
+            Popover.shared.show(event: event, positioningView: view, message: showTabsAsWindows.subTitle!)
         }, onMouseExited: { event, view in
             Popover.shared.hide()
-        })
+        }))
+        showTabsAsWindows.rightViews.append(LabelAndControl.makeCheckbox("showTabsAsWindows", extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: showTabsAsWindows.rowId)
+        }))
         showHideRows.append(showTabsAsWindows)
 
         var previewFocusedWindow = ShowHideRowInfo()
         previewFocusedWindow.uncheckedImage = "hide_preview_focused_window"
         previewFocusedWindow.checkedImage = "show_preview_focused_window"
         previewFocusedWindow.supportedModels = [.thumbnails, .appIcons, .titles]
-        previewFocusedWindow.components = LabelAndControl.makeLabelWithCheckbox(
-                NSLocalizedString("Preview selected window", comment: ""),
-                "previewFocusedWindow", extraAction: { sender in
-            let button = sender as! NSButton
-            self.onCheckboxClicked(sender: button, rowId: previewFocusedWindow.rowId)
-        }, labelPosition: .right)
+        previewFocusedWindow.leftTitle = NSLocalizedString("Preview selected window", comment: "")
+        previewFocusedWindow.rightViews.append(LabelAndControl.makeCheckbox("previewFocusedWindow", extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: previewFocusedWindow.rowId)
+        }))
         showHideRows.append(previewFocusedWindow)
-    }
-
-    private func addMouseHoverEffects(modelToRows: [Int: ShowHideRowInfo]) {
-        // Ignore the first row that stores the image
-        for rowIndex in 1..<grid.numberOfRows {
-            for columnIndex in 0..<grid.numberOfColumns {
-                if let contentView = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView {
-                    let hoverView = MouseHoverView(frame: contentView.bounds)
-                    hoverView.translatesAutoresizingMaskIntoConstraints = false
-                    hoverView.onMouseEntered = { event, view in
-                        hoverView.wantsLayer = true
-                        hoverView.layer?.backgroundColor = NSColor.gray.withAlphaComponent(0.2).cgColor
-                        hoverView.layer?.cornerRadius = 5.0
-
-                        // Check the state of the checkbox using recursive search
-                        let isChecked = self.findCheckboxState(in: contentView)
-                        self.updateImageView(rowId: modelToRows[rowIndex]!.rowId, isChecked: isChecked)
-                    }
-                    hoverView.onMouseExited = { event, view in
-                        hoverView.layer?.backgroundColor = NSColor.clear.cgColor
-                    }
-                    hoverView.addSubview(contentView)
-                    contentView.translatesAutoresizingMaskIntoConstraints = false
-                    NSLayoutConstraint.activate([
-                        hoverView.widthAnchor.constraint(equalToConstant: grid.column(at: 0).width),
-                        contentView.topAnchor.constraint(equalTo: hoverView.topAnchor, constant: 10),
-                        contentView.bottomAnchor.constraint(equalTo: hoverView.bottomAnchor, constant: -10),
-                        contentView.leadingAnchor.constraint(equalTo: hoverView.leadingAnchor, constant: 10),
-                        contentView.trailingAnchor.constraint(equalTo: hoverView.trailingAnchor, constant: -10),
-                    ])
-                    grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex).contentView = hoverView
-                }
-            }
-        }
-    }
-
-    /// Sets the alignment for cells in a grid.
-    /// The cells in the first row are centered horizontally,
-    /// while the cells in all other rows are aligned to the leading edge.
-    private func setAlignment() {
-        for rowIndex in 0..<grid.numberOfRows {
-            for columnIndex in 0..<grid.numberOfColumns {
-                let cell = grid.cell(atColumnIndex: columnIndex, rowIndex: rowIndex)
-                if rowIndex == 0 {
-                    cell.xPlacement = .center
-                } else {
-                    cell.xPlacement = .leading
-                }
-            }
-        }
     }
 
     /// Handles the event when a checkbox is clicked.
@@ -264,9 +200,11 @@ class ShowHideIllustratedView {
     /// - Parameters:
     ///   - sender: The checkbox button that was clicked.
     ///   - rowId: The identifier for the row associated with the checkbox.
-    private func onCheckboxClicked(sender: NSButton, rowId: String) {
-        let isChecked = sender.state == .on
-        updateImageView(rowId: rowId, isChecked: isChecked)
+    private func onCheckboxClicked(sender: NSControl, rowId: String) {
+        if let sender = sender as? NSButton {
+            let isChecked = sender.state == .on
+            updateImageView(rowId: rowId, isChecked: isChecked)
+        }
     }
 
     private func updateImageView(rowId: String, isChecked: Bool) {
@@ -275,45 +213,30 @@ class ShowHideIllustratedView {
         illustratedImageView.updateImage(imageName!)
     }
 
-    private func findCheckboxState(in view: NSView) -> Bool {
-        if let checkbox = view as? NSButton {
-            return checkbox.state == .on
-        }
-        for subview in view.subviews {
-            if findCheckboxState(in: subview) {
-                return true
+    private func updateImageView(rowId: String) {
+        let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
+        row?.rightViews.forEach { view in
+            if let checkbox = view as? NSButton {
+                let isChecked = checkbox.state == .on
+                let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
+                illustratedImageView.updateImage(imageName!)
             }
         }
-        return false
     }
 
-    /// Recursively finds all `NSButton` instances within a given `NSStackView` and its nested stack views.
-    ///
-    /// - Parameter stackView: The root `NSStackView` to search for buttons.
-    /// - Returns: An array of `NSButton` instances found within the stack view and its nested stack views.
-    private func findButtons(in stackView: NSStackView) -> [NSButton] {
-        var buttons: [NSButton] = []
-        for subview in stackView.subviews {
-            if let button = subview as? NSButton {
-                buttons.append(button)
-            } else if let nestedStackView = subview as? NSStackView {
-                buttons.append(contentsOf: findButtons(in: nestedStackView))
-            }
-        }
-        return buttons
-    }
 }
 
 class ModelAdvancedSettingsWindow: NSWindow {
-    static let columnWidth = CGFloat(450)
-    static let illustratedImageWidth = columnWidth - CGFloat(50)
+    static let width = CGFloat(512)
+    static let illustratedImageWidth = width - 50
+    static let spacing = CGFloat(5)
 
     var model: AppearanceModelPreference = .thumbnails
     var illustratedImageView: IllustratedImageThemeView!
-    var alignThumbnails: [NSView]!
-    var titleTruncation: [NSView]!
-    var showAppsWindows: [NSView]!
-    var showAppNamesWindowTitles: [NSView]!
+    var alignThumbnails: TableGroupView.Row!
+    var titleTruncation: TableGroupView.Row!
+    var showAppsWindows: TableGroupView.Row!
+    var showAppNamesWindowTitles: TableGroupView.Row!
     var doneButton: NSButton!
 
     convenience init(_ model: AppearanceModelPreference) {
@@ -329,21 +252,24 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func setupView() {
         illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
-        alignThumbnails = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Align windows:", comment: ""),
-                "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
+        alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows:", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown(
+                        "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
             self.showAlignThumbnailsIllustratedImage()
-        })
-        titleTruncation = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Window title truncation:", comment: ""),
-                "titleTruncation", TitleTruncationPreference.allCases)
-        showAppsWindows = LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Show running:", comment: ""),
-                "showAppsWindows", ShowAppsWindowsPreference.allCases, extraAction: { _ in
+        })])
+        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation:", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown("titleTruncation", TitleTruncationPreference.allCases)])
+        showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running:", comment: ""),
+                rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases,
+                        "showAppsWindows", extraAction: { _ in
             self.toggleAppNamesWindowTitles()
             self.showAppsOrWindowsIllustratedImage()
-        })
-        showAppNamesWindowTitles = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show titles:", comment: ""),
-                "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
+        }))
+        showAppNamesWindowTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles:", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown(
+                        "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
             self.showAppsOrWindowsIllustratedImage()
-        })
+        })])
 
         doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
         doneButton.translatesAutoresizingMaskIntoConstraints = false
@@ -352,7 +278,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
             doneButton.bezelColor = NSColor.controlAccentColor
         }
 
-        let showHideGrid = ShowHideIllustratedView(model).makeGridView()
+        let showHideView = ShowHideIllustratedView(model).makeView()
 
         var advancedView: NSView!
         if model == .thumbnails {
@@ -363,21 +289,23 @@ class ModelAdvancedSettingsWindow: NSWindow {
             advancedView = makeTitlesView()
         }
         let tabView = TabView([
-            (NSLocalizedString("Show & Hide", comment: ""), showHideGrid),
+            (NSLocalizedString("Show & Hide", comment: ""), showHideView),
             (NSLocalizedString("Advanced", comment: ""), advancedView),
         ])
         tabView.translatesAutoresizingMaskIntoConstraints = false
-        tabView.widthAnchor.constraint(equalToConstant: tabView.maxIntrinsicContentSize().width + GridView.padding).isActive = true
+        tabView.widthAnchor.constraint(equalToConstant: ModelAdvancedSettingsWindow.width + 50).isActive = true
 
-        showHideGrid.translatesAutoresizingMaskIntoConstraints = false
-        showHideGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor).isActive = true
-        showHideGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.bottomAnchor).isActive = true
-        showHideGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor).isActive = true
+        showHideView.translatesAutoresizingMaskIntoConstraints = false
+        showHideView.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor).isActive = true
+        showHideView.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.bottomAnchor).isActive = true
+        showHideView.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor).isActive = true
+        showHideView.centerYAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerYAnchor).isActive = true
 
         advancedView.translatesAutoresizingMaskIntoConstraints = false
         advancedView.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor).isActive = true
         advancedView.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.bottomAnchor).isActive = true
         advancedView.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor).isActive = true
+        advancedView.centerYAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerYAnchor).isActive = true
 
         let grid = GridView([
             [tabView],
@@ -389,71 +317,79 @@ class ModelAdvancedSettingsWindow: NSWindow {
         contentView = grid
     }
 
-    private func makeThumbnailsView() -> NSView {
-        let grid = GridView([
-            [illustratedImageView],
-            alignThumbnails,
-            titleTruncation,
-        ])
-        grid.row(at: 0).bottomPadding = TabView.padding
-        grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        grid.column(at: 0).xPlacement = .trailing
-        grid.column(at: 1).xPlacement = .leading
-        grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.5
-        return grid
+    private func makeThumbnailsView() -> NSStackView {
+        let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        table.addRow(alignThumbnails, onMouseEntered: { event, view in
+            self.showAlignThumbnailsIllustratedImage()
+        })
+        table.addRow(titleTruncation)
+        table.fit()
+
+        let view = NSStackView()
+        view.orientation = .vertical
+        view.spacing = ModelAdvancedSettingsWindow.spacing
+        view.setViews([illustratedImageView, table], in: .leading)
+        return view
     }
 
-    private func makeAppIconsView() -> NSView {
-        let separator = AppearanceTab.makeSeparator()
-        let grid = GridView([
-            [illustratedImageView],
-            showAppsWindows,
-            showAppNamesWindowTitles,
-            [separator],
-            alignThumbnails,
-        ])
-        grid.row(at: 0).bottomPadding = TabView.padding
-        grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 3, length: 1))
-        grid.column(at: 0).xPlacement = .trailing
-        grid.column(at: 1).xPlacement = .leading
-        grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.3
-        separator.widthAnchor.constraint(equalTo: illustratedImageView.widthAnchor).isActive = true
+    private func makeAppIconsView() -> NSStackView {
+        let table1 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        table1.addRow(showAppsWindows, onMouseEntered: { event, view in
+            self.showAppsOrWindowsIllustratedImage()
+        })
+        table1.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
+            self.showAppsOrWindowsIllustratedImage()
+        })
+        table1.fit()
+
+        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        table2.addRow(alignThumbnails, onMouseEntered: { event, view in
+            self.showAlignThumbnailsIllustratedImage()
+        })
+        table2.fit()
+
+        let view = NSStackView()
+        view.orientation = .vertical
+        view.spacing = ModelAdvancedSettingsWindow.spacing
+        view.setViews([illustratedImageView, table1, table2], in: .leading)
+
         toggleAppNamesWindowTitles()
-        return grid
+        return view
     }
 
-    private func makeTitlesView() -> NSView {
-        let separator = AppearanceTab.makeSeparator()
-        let grid = GridView([
-            [illustratedImageView],
-            showAppsWindows,
-            showAppNamesWindowTitles,
-            [separator],
-            titleTruncation,
-        ])
-        grid.row(at: 0).bottomPadding = TabView.padding
-        grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .center
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 3, length: 1))
-        grid.column(at: 0).xPlacement = .trailing
-        grid.column(at: 1).xPlacement = .leading
-        grid.column(at: 0).width = ModelAdvancedSettingsWindow.columnWidth * 0.35
-        separator.widthAnchor.constraint(equalTo: illustratedImageView.widthAnchor).isActive = true
+    private func makeTitlesView() -> NSStackView {
+        let table1 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        table1.addRow(showAppsWindows, onMouseEntered: { event, view in
+            self.showAppsOrWindowsIllustratedImage()
+        })
+        table1.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
+            self.showAppsOrWindowsIllustratedImage()
+        })
+        table1.fit()
+
+        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        table2.addRow(alignThumbnails, onMouseEntered: { event, view in
+            self.showAlignThumbnailsIllustratedImage()
+        })
+        table2.fit()
+
+        let view = NSStackView()
+        view.orientation = .vertical
+        view.spacing = ModelAdvancedSettingsWindow.spacing
+        view.setViews([illustratedImageView, table1, table2], in: .leading)
+
         toggleAppNamesWindowTitles()
-        return grid
+        return view
     }
 
     private func toggleAppNamesWindowTitles() {
-        let label = showAppNamesWindowTitles[0] as? TextField
-        let button = showAppNamesWindowTitles[1] as? NSControl
+//        let label = showAppNamesWindowTitles[0] as? TextField
+        let button = showAppNamesWindowTitles.rightViews[0] as? NSControl
         if Preferences.showAppsWindows == .windows {
-            label?.textColor = NSColor.textColor
+//            label?.textColor = NSColor.textColor
             button?.isEnabled = true
         } else {
-            label?.textColor = NSColor.gray
+//            label?.textColor = NSColor.gray
             button?.isEnabled = false
         }
     }
@@ -527,7 +463,7 @@ class Popover: NSPopover {
         let locationInPositioningView = positioningView.convert(locationInWindow, from: nil)
         let rect = CGRect(origin: locationInPositioningView, size: .zero)
 
-        show(relativeTo: rect, of: positioningView, preferredEdge: .minY)
+        show(relativeTo: rect, of: positioningView, preferredEdge: .minX)
     }
 }
 

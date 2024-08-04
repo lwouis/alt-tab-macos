@@ -178,7 +178,19 @@ class LabelAndControl: NSObject {
         return views
     }
 
-    static func makeInfoButton(width: CGFloat, height: CGFloat) -> ClickHoverImageView {
+    static func makeCheckbox(_ rawName: String, extraAction: ActionClosure? = nil) -> NSButton {
+        let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
+        checkbox.translatesAutoresizingMaskIntoConstraints = false
+        checkbox.state = defaults.bool(rawName) ? .on : .off
+        _ = setupControl(checkbox, rawName, extraAction: extraAction)
+        return checkbox
+    }
+
+    static func makeInfoButton(width: CGFloat = 15,
+                               height: CGFloat = 15,
+                               onClick: EventClosure? = nil,
+                               onMouseEntered: EventClosure? = nil,
+                               onMouseExited: EventClosure? = nil) -> ClickHoverImageView {
         let imageView = NSImageView(image: NSImage(named: "info_button")!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
@@ -190,6 +202,9 @@ class LabelAndControl: NSObject {
         imageView.layer?.rasterizationScale = NSScreen.main?.backingScaleFactor ?? 1.0
 
         let view = ClickHoverImageView(imageView: imageView)
+        view.onClick = onClick
+        view.onMouseEntered = onMouseEntered
+        view.onMouseExited = onMouseExited
 
         // Set constraints to add equal padding around the image
         NSLayoutConstraint.activate([
@@ -214,10 +229,7 @@ class LabelAndControl: NSObject {
                                                    width: CGFloat = 15,
                                                    height: CGFloat = 15) -> [NSView] {
         let labelCheckboxViews = makeLabelWithCheckbox(labelText, rawName, extraAction: extraAction, labelPosition: labelPosition)
-        let infoButtonView = makeInfoButton(width: width, height: height)
-        infoButtonView.onClick = onClick
-        infoButtonView.onMouseEntered = onMouseEntered
-        infoButtonView.onMouseExited = onMouseExited
+        let infoButtonView = makeInfoButton(width: width, height: height, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
 
         var views: [NSView] = []
         labelCheckboxViews.forEach { view in
@@ -256,9 +268,9 @@ class LabelAndControl: NSObject {
         return popUp
     }
 
-    static func makeDropdown(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSControl {
+    static func makeDropdown(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil) -> NSControl {
         let dropdown = dropdown_(rawName, macroPreferences)
-        return setupControl(dropdown, rawName)
+        return setupControl(dropdown, rawName, extraAction: extraAction)
     }
 
     static func makeLabelWithRadioButtons(_ labelText: String,
