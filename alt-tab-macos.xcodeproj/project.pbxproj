@@ -10,6 +10,7 @@
 		1C96100AB811F5B609665E18 /* thumbnails_align_thumbnails_leading_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C961DA334334AADE23D0EA0 /* thumbnails_align_thumbnails_leading_light@2x.png */; };
 		1C96105957A338BD378EB8ED /* thumbnails_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C96168A54CF5A06C9FC531A /* thumbnails_light@2x.png */; };
 		1C961061C742792DA066CD9C /* thumbnails_show_app_badges_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C9612D9F6705FC6F3BCF2AF /* thumbnails_show_app_badges_light@2x.png */; };
+		1C96108A0CB2565233FE100B /* TableGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */; };
 		1C9611118A612727AB632AE3 /* thumbnails_hide_space_number_labels_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C9610CDEC63D0F3C6ECEF36 /* thumbnails_hide_space_number_labels_light@2x.png */; };
 		1C961139F524D8AD16B6F15F /* titles_show_running_applications_windows_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C9613038DEBC3E307B1EA2A /* titles_show_running_applications_windows_light@2x.png */; };
 		1C961159D889F12DA46E2BDF /* titles_show_running_windows_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C96115E9B0224C2953C2E77 /* titles_show_running_windows_light@2x.png */; };
@@ -280,6 +281,7 @@
 		1C961F38491A7C4F825A15D4 /* info_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_button@2x.png"; sourceTree = "<group>"; };
 		1C961F8AE82B970F17398176 /* app_icons_show_preview_focused_window_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icons_show_preview_focused_window_light@2x.png"; sourceTree = "<group>"; };
 		1C961F8D20F307B01A0AC16D /* titles_hide_space_number_labels_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "titles_hide_space_number_labels_light@2x.png"; sourceTree = "<group>"; };
+		1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableGroupView.swift; sourceTree = "<group>"; };
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
 		481FE54624D2D387001032F1 /* alt-tab-macos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "alt-tab-macos-Bridging-Header.h"; sourceTree = "<group>"; };
 		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
@@ -1098,6 +1100,7 @@
 				BF0C8DF400A1AF64EB0CD0B3 /* TrafficLightButton.swift */,
 				BF0C8B2C057099EDABE46779 /* Button.swift */,
 				BF0C8343C1F6FCA82552DCB7 /* TableView.swift */,
+				1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */,
 			);
 			path = "generic-components";
 			sourceTree = "<group>";
@@ -1983,6 +1986,7 @@
 				BF0C8E16F38203AEC71E062B /* TableView.swift in Sources */,
 				BF0C832C5BF4C8E9C95F7767 /* MissionControl.swift in Sources */,
 				BF0C86BA26EFA59DEE24C70B /* Support.md in Sources */,
+				1C96108A0CB2565233FE100B /* TableGroupView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
