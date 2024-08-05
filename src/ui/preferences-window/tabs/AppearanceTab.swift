@@ -118,7 +118,7 @@ class ShowHideIllustratedView {
         }
         let view = NSStackView()
         view.orientation = .vertical
-        view.spacing = 5
+        view.spacing = ModelAdvancedSettingsWindow.spacing
         view.setViews([illustratedImageView, table], in: .leading)
         return view
     }
