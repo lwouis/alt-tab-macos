@@ -102,7 +102,7 @@ class ShowHideIllustratedView {
         let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         for row in showHideRows {
             if row.supportedModels.contains(model) {
-                _ = table.addRow(row.leftTitle, row.rightViews, onMouseEntered: { event, view in
+                _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onMouseEntered: { event, view in
                     self.updateImageView(rowId: row.rowId)
                 })
             }
@@ -239,7 +239,7 @@ class ShowHideIllustratedView {
 class ModelAdvancedSettingsWindow: NSWindow {
     static let width = CGFloat(512)
     static let illustratedImageWidth = width - 50
-    static let spacing = CGFloat(5)
+    static let spacing = CGFloat(10)
 
     var model: AppearanceModelPreference = .thumbnails
     var illustratedImageView: IllustratedImageThemeView!
@@ -498,119 +498,74 @@ class Popover: NSPopover {
 
 class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
+    static let width = CGFloat(650)
+    static let spacing = CGFloat(20)
 
     static var advancedButton: NSButton!
 
     static func initTab() -> NSView {
         createAdvancedButton()
 
-        let generalGrid = makeGeneralTabView()
-        let positionGrid = makePositionTabView()
-        let effectsGrid = makeEffectsTabView()
+        let appearanceView = makeAppearanceView()
+        let positionView = makePositionView()
+        let effectsView = makeEffectsView()
 
-        let view = NSView()
-        let tabView = TabView([
-            (NSLocalizedString("General", comment: ""), generalGrid),
-            (NSLocalizedString("Position", comment: ""), positionGrid),
-            (NSLocalizedString("Effects", comment: ""), effectsGrid),
-        ])
-        tabView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(tabView)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        tabView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        view.heightAnchor.constraint(equalToConstant: tabView.fittingSize.height + GridView.padding).isActive = true
+        let stackView = NSStackView()
+        stackView.orientation = .vertical
+        stackView.spacing = AppearanceTab.spacing
+        stackView.addArrangedSubview(appearanceView)
+        stackView.addArrangedSubview(positionView)
+        stackView.addArrangedSubview(effectsView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
 
+        // 设置stackView的边距约束
+        let padding = CGFloat(20)
         NSLayoutConstraint.activate([
-            generalGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor),
-            generalGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.bottomAnchor),
-            generalGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor),
-
-            positionGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor),
-            positionGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.bottomAnchor),
-            positionGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor),
-
-            effectsGrid.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.topAnchor),
-            effectsGrid.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.bottomAnchor),
-            effectsGrid.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 2).view!.centerXAnchor),
+            appearanceView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: padding),
+            appearanceView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding),
+            appearanceView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding),
         ])
-        
-        return view
-    }
 
-    private static func makeGeneralTabView() -> NSView {
-        let generalSettings: [[NSView]] = [
-            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Appearance model:", comment: ""),
-                    "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
-                toggleAdvancedButton()
-            }, buttonSpacing: 33),
-//            [makeSeparator(), makeSeparator(), makeSeparator()],
-//            LabelAndControl.makeLabelWithImageRadioButtons(NSLocalizedString("Theme:", comment: ""), "theme", ThemePreference.allCases),
-            [makeSeparator(), makeSeparator(), makeSeparator()],
-            LabelAndControl.makeLabelWithRadioButtons(NSLocalizedString("Appearance size:", comment: ""), "appearanceSize", AppearanceSizePreference.allCases),
-            [makeSeparator(), makeSeparator(), makeSeparator()],
-            [advancedButton],
-        ]
-        let generalGrid = GridView(generalSettings)
-        generalGrid.column(at: 0).xPlacement = .trailing
-        // Merge cells for separator/advanced button
-        [1, 3, 4].forEach { row in
-            generalGrid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 3), verticalRange: NSRange(location: row, length: 1))
-        }
-        // Advanced button
-        generalGrid.cell(atColumnIndex: 0, rowIndex: 4).xPlacement = .trailing
-        generalGrid.fit()
-        return generalGrid
-    }
-
-    private static func makePositionTabView() -> NSView {
-        let positionSettings: [[NSView]] = [
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Show on:", comment: ""), "showOnScreen", ShowOnScreenPreference.allCases),
-            LabelAndControl.makeLabelWithDropdown(NSLocalizedString("App vertical alignment:", comment: ""), "appVerticalAlignment", AppVerticalAlignmentPreference.allCases),
-        ]
-        let positionGrid = GridView(positionSettings)
-        positionGrid.column(at: 0).xPlacement = .trailing
-        positionGrid.row(at: 0).bottomPadding = TabView.padding
-        positionGrid.fit()
-        return positionGrid
-    }
-
-    private static func makeEffectsTabView() -> NSView {
-        let effectsSettings: [[NSView]] = [
-            LabelAndControl.makeLabelWithSlider(NSLocalizedString("Apparition delay:", comment: ""), "windowDisplayDelay", 0, 2000, 11, false, "ms"),
-            LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Fade out animation:", comment: ""), "fadeOutAnimation"),
-        ]
-
-        let effectsGrid = GridView(effectsSettings)
-        effectsGrid.column(at: 0).xPlacement = .trailing
-        effectsGrid.row(at: 0).bottomPadding = TabView.padding
-        effectsGrid.column(at: 1).width = 200
-        effectsGrid.fit()
-        return effectsGrid
-    }
-
-    public static func makeSeparator(_ topPadding: CGFloat = 7, _ bottomPadding: CGFloat = -7) -> NSView {
-        let separator = NSBox()
-        separator.boxType = .separator
-        separator.translatesAutoresizingMaskIntoConstraints = false
-
-        // Create a container view to hold the separator and apply padding
-        let wrapView = NSView()
-        wrapView.translatesAutoresizingMaskIntoConstraints = false
-        wrapView.addSubview(separator)
-
-        // Set constraints for the separator within the container view
+        // 设置stackView的大小约束
         NSLayoutConstraint.activate([
-            separator.topAnchor.constraint(equalTo: wrapView.topAnchor, constant: topPadding),
-            separator.bottomAnchor.constraint(equalTo: wrapView.bottomAnchor, constant: bottomPadding),
-            separator.leadingAnchor.constraint(equalTo: wrapView.leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor),
-            separator.widthAnchor.constraint(equalTo: wrapView.widthAnchor),
+            stackView.widthAnchor.constraint(equalToConstant: width + 2 * padding),
+            stackView.heightAnchor.constraint(equalToConstant: 450 + 2 * padding)
         ])
 
-        return wrapView
+        return stackView
+    }
+
+    private static func makeAppearanceView() -> NSStackView {
+        let table = TableGroupView(title: "Appearance", width: AppearanceTab.width)
+        _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""),
+                rightViews: LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
+            toggleAdvancedButton()
+        }, buttonSpacing: 20)[1])
+        _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),
+                rightViews: LabelAndControl.makeLabelWithRadioButtons("", "appearanceSize", AppearanceSizePreference.allCases)[1])
+        _ = table.addRow(rightViews: advancedButton)
+
+        table.fit()
+        return table
+    }
+
+    private static func makePositionView() -> NSStackView {
+        let table = TableGroupView(title: "Position", width: AppearanceTab.width)
+        _ = table.addRow(leftText: NSLocalizedString("Show on screen", comment: ""),
+                rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
+        table.fit()
+        return table
+    }
+
+    private static func makeEffectsView() -> NSStackView {
+        let table = TableGroupView(title: "Animation", width: AppearanceTab.width)
+        let delaySlider =
+        _ = table.addRow(leftText: NSLocalizedString("Apparition delay millisecond", comment: ""),
+                rightViews: Array(LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 2000, 11, true, "ms", width: 300)[1...2]))
+        _ = table.addRow(leftText: NSLocalizedString("Fade out animation", comment: ""),
+                rightViews: LabelAndControl.makeCheckbox("fadeOutAnimation"))
+        table.fit()
+        return table
     }
 
     private static func createAdvancedButton() {

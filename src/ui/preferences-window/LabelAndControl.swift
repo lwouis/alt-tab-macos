@@ -302,7 +302,7 @@ class LabelAndControl: NSObject {
         }
     }
 
-    static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int, _ allowsTickMarkValuesOnly: Bool, _ unitText: String = "", extraAction: ActionClosure? = nil) -> [NSView] {
+    static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int = 0, _ allowsTickMarkValuesOnly: Bool = false, _ unitText: String = "", width: CGFloat = 200, extraAction: ActionClosure? = nil) -> [NSView] {
         let value = defaults.double(rawName)
         let formatter = MeasurementFormatter()
         formatter.numberFormatter = NumberFormatter()
@@ -312,6 +312,12 @@ class LabelAndControl: NSObject {
         slider.maxValue = maxValue
         slider.stringValue = String(value)
         slider.isContinuous = true
+        if numberOfTickMarks > 0 {
+            slider.numberOfTickMarks = numberOfTickMarks
+        }
+        slider.allowsTickMarkValuesOnly = allowsTickMarkValuesOnly
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.widthAnchor.constraint(equalToConstant: width).isActive = true
         return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText, extraAction: extraAction)
     }
 

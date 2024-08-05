@@ -4,7 +4,7 @@ class TableGroupView: NSStackView {
     static let padding = CGFloat(10)
     static let backgroundColor = NSColor.lightGray.withAlphaComponent(0.1).cgColor
     static let borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
-    static let cornerRadius = CGFloat(10)
+    static let cornerRadius = CGFloat(5)
     static let borderWidth = CGFloat(1)
 
     private var lastMouseEnteredRowInfo: RowInfo?
@@ -122,16 +122,16 @@ class TableGroupView: NSStackView {
     }
 
     func addRow(_ row: Row, onMouseEntered: EventClosure? = nil, onMouseExited: EventClosure? = nil) -> RowInfo {
-        return addRow(row.leftTitle, row.rightViews, subText: row.subTitle, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        return addRow(leftText: row.leftTitle, rightViews: row.rightViews, subText: row.subTitle, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
-    func addRow(_ leftText: String, _ rightViews: NSView, subText: String? = nil,
+    func addRow(leftText: String? = nil, rightViews: NSView, subText: String? = nil,
                 onMouseEntered: EventClosure? = nil,
                 onMouseExited: EventClosure? = nil) -> RowInfo {
-        return addRow(leftText, [rightViews], subText: subText, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        return addRow(leftText: leftText, rightViews: [rightViews], subText: subText, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
-    func addRow(_ leftText: String, _ rightViews: [NSView], subText: String? = nil,
+    func addRow(leftText: String? = nil, rightViews: [NSView]? = nil, subText: String? = nil,
                 onMouseEntered: EventClosure? = nil,
                 onMouseExited: EventClosure? = nil) -> RowInfo {
         let rowView = MouseHoverStackView()
@@ -142,18 +142,21 @@ class TableGroupView: NSStackView {
         mainRow.orientation = .horizontal
         mainRow.spacing = 0
 
-//        rightViews.forEach { view in
-//            if let button = view as? NSButton {
-//                button.isBordered = false
-//            }
-//        }
-
         let rightStackView = NSStackView()
         rightStackView.orientation = .horizontal
         rightStackView.spacing = 2
-        rightStackView.setViews(rightViews, in: .leading)
 
-        let leftLabel = NSTextField(labelWithString: leftText)
+        if let rightViews = rightViews {
+//            rightViews.forEach { view in
+//                if let button = view as? NSButton {
+//                    button.isBordered = false
+//                }
+//            }
+
+            rightStackView.setViews(rightViews, in: .leading)
+        }
+
+        let leftLabel = NSTextField(labelWithString: leftText ?? "")
         leftLabel.alignment = .left
         leftLabel.lineBreakMode = .byWordWrapping
         leftLabel.maximumNumberOfLines = 0
