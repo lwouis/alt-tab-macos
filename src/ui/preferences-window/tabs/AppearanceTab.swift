@@ -556,7 +556,7 @@ class AppearanceTab: NSObject {
     }
 
     private static func makePositionView() -> NSStackView {
-        let table = TableGroupView(title: "Position", subTitle: "When we have multiple monitors, the position feature allows us to decide on which monitor the switcher is displayed, enabling a seamless window moving experience.", width: AppearanceTab.width)
+        let table = TableGroupView(title: "Position", width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on screen", comment: ""),
                 rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
         table.fit()
