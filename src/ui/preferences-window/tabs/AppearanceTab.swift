@@ -275,12 +275,12 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func setupView() {
         illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
-        alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows:", comment: ""),
+        alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown(
                         "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
             self.showAlignThumbnailsIllustratedImage()
         })])
-        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation:", comment: ""),
+        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("titleTruncation", TitleTruncationPreference.allCases)])
         showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running:", comment: ""),
                 rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases,
@@ -288,7 +288,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
             self.toggleAppNamesWindowTitles()
             self.showAppsOrWindowsIllustratedImage()
         }))
-        showAppNamesWindowTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles:", comment: ""),
+        showAppNamesWindowTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown(
                         "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
             self.showAppsOrWindowsIllustratedImage()
