@@ -511,7 +511,7 @@ class Popover: NSPopover {
 class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
     static let width = CGFloat(650)
-    static let spacing = CGFloat(20)
+    static let spacing = CGFloat(30)
 
     static var advancedButton: NSButton!
 
@@ -530,25 +530,19 @@ class AppearanceTab: NSObject {
         stackView.addArrangedSubview(effectsView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
-        // 设置stackView的边距约束
         let padding = CGFloat(20)
-        NSLayoutConstraint.activate([
-            appearanceView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: padding),
-            appearanceView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding),
-            appearanceView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding),
-        ])
+        appearanceView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: padding).isActive = true
+        appearanceView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding).isActive = true
+        appearanceView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
 
-        // 设置stackView的大小约束
-        NSLayoutConstraint.activate([
-            stackView.widthAnchor.constraint(equalToConstant: width + 2 * padding),
-            stackView.heightAnchor.constraint(equalToConstant: 450 + 2 * padding)
-        ])
+        stackView.widthAnchor.constraint(equalToConstant: width + 2 * padding).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: 550 + 2 * padding).isActive = true
 
         return stackView
     }
 
     private static func makeAppearanceView() -> NSStackView {
-        let table = TableGroupView(title: "Appearance", width: AppearanceTab.width)
+        let table = TableGroupView(title: "Appearance", subTitle: "The appearance feature allows for switching between multiple modes of the switcher, with the ability to adjust various display aspects such as size, color, and layout. Each appearance mode has its own unique settings.", width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleAdvancedButton()
@@ -562,7 +556,7 @@ class AppearanceTab: NSObject {
     }
 
     private static func makePositionView() -> NSStackView {
-        let table = TableGroupView(title: "Position", width: AppearanceTab.width)
+        let table = TableGroupView(title: "Position", subTitle: "When we have multiple monitors, the position feature allows us to decide on which monitor the switcher is displayed, enabling a seamless window moving experience.", width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on screen", comment: ""),
                 rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
         table.fit()

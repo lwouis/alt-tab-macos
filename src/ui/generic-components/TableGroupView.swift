@@ -59,10 +59,16 @@ class TableGroupView: NSStackView {
     }
 
     private func setupView() {
-        translatesAutoresizingMaskIntoConstraints = false
         orientation = .vertical
         spacing = 10
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalToConstant: self.width).isActive = true
 
+        setupTitleView()
+        setupTableView()
+    }
+
+    private func setupTitleView() {
         titleStackView.orientation = .vertical
         titleStackView.alignment = .left
         titleStackView.spacing = 2
@@ -113,7 +119,9 @@ class TableGroupView: NSStackView {
         titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         titleStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         titleStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    }
 
+    private func setupTableView() {
         tableStackView.orientation = .vertical
         tableStackView.spacing = 0
         tableStackView.wantsLayer = true
@@ -123,12 +131,10 @@ class TableGroupView: NSStackView {
         tableStackView.layer?.borderWidth = TableGroupView.borderWidth
         addArrangedSubview(tableStackView)
 
-        // Add constraints to ensure tableView takes up the full width
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         tableStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         tableStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         tableStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        widthAnchor.constraint(equalToConstant: self.width).isActive = true
     }
 
     func addRow(_ row: Row, onClick: EventClosure? = nil, onMouseEntered: EventClosure? = nil, onMouseExited: EventClosure? = nil) -> RowInfo {
