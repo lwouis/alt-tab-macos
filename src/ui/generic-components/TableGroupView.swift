@@ -162,7 +162,7 @@ class TableGroupView: NSStackView {
 
         let rightStackView = NSStackView()
         rightStackView.orientation = .horizontal
-        rightStackView.spacing = 2
+        rightStackView.spacing = 10
 
         if let rightViews = rightViews {
 //            rightViews.forEach { view in
