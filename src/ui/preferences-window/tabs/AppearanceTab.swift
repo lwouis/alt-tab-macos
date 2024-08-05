@@ -104,6 +104,7 @@ class ShowHideIllustratedView {
             if row.supportedModels.contains(model) {
                 _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
                     self.clickCheckbox(rowId: row.rowId)
+                    self.updateImageView(rowId: row.rowId)
                 }, onMouseEntered: { event, view in
                     self.updateImageView(rowId: row.rowId)
                 })
