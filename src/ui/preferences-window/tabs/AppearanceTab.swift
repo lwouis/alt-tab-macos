@@ -425,13 +425,10 @@ class ModelAdvancedSettingsWindow: NSWindow {
     }
 
     private func toggleAppNamesWindowTitles() {
-//        let label = showAppNamesWindowTitles[0] as? TextField
         let button = showAppNamesWindowTitles.rightViews[0] as? NSControl
         if Preferences.showAppsWindows == .windows {
-//            label?.textColor = NSColor.textColor
             button?.isEnabled = true
         } else {
-//            label?.textColor = NSColor.gray
             button?.isEnabled = false
         }
     }
@@ -457,7 +454,73 @@ class ModelAdvancedSettingsWindow: NSWindow {
             }
         }
     }
+}
 
+class AdvancedSettingsWindow: NSWindow {
+    static let width = AppearanceTab.width - 50
+
+    var doneButton: NSButton!
+
+    convenience init() {
+        self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
+        setupWindow()
+        setupView()
+    }
+
+    private func setupWindow() {
+        hidesOnDeactivate = false
+    }
+
+    private func setupView() {
+        makeDoneButton()
+
+        let animationView = makeAnimationView()
+
+        let stackView = NSStackView()
+        stackView.orientation = .vertical
+        stackView.spacing = AppearanceTab.spacing
+        stackView.addArrangedSubview(animationView)
+        stackView.addArrangedSubview(doneButton)
+
+        let padding = AppearanceTab.padding
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: padding).isActive = true
+        animationView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding).isActive = true
+        animationView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
+
+        doneButton.centerXAnchor.constraint(equalTo: stackView.centerXAnchor).isActive = true
+        doneButton.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -padding).isActive = true
+
+        stackView.widthAnchor.constraint(equalToConstant: AdvancedSettingsWindow.width + 2 * padding).isActive = true
+        contentView = stackView
+    }
+
+    private func makeAnimationView() -> NSStackView {
+        let table = TableGroupView(title: "Animation", width: AdvancedSettingsWindow.width)
+        _ = table.addRow(leftText: NSLocalizedString("Apparition delay millisecond", comment: ""),
+                rightViews: Array(LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 2000, 11, true, "ms", width: 300)[1...2]))
+        _ = table.addRow(leftText: NSLocalizedString("Fade out animation", comment: ""),
+                rightViews: LabelAndControl.makeCheckbox("fadeOutAnimation"))
+        table.fit()
+        return table
+    }
+
+    private func makeDoneButton() {
+        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        doneButton.focusRingType = .none
+        if #available(macOS 10.14, *) {
+            doneButton.bezelColor = NSColor.controlAccentColor
+        }
+    }
+
+    @objc func onClicked(_ sender: NSButton) {
+        if let sheetWindow = sender.window {
+            if let mainWindow = sheetWindow.sheetParent {
+                mainWindow.endSheet(sheetWindow)
+            }
+        }
+    }
 }
 
 class Popover: NSPopover {
@@ -513,22 +576,27 @@ class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
     static let width = CGFloat(650)
     static let spacing = CGFloat(30)
+    static let padding = CGFloat(20)
 
+    static var modelAdvancedButton: NSButton!
     static var advancedButton: NSButton!
 
     static func initTab() -> NSView {
-        createAdvancedButton()
+        makeModelAdvancedButton()
+        makeAdvancedButton()
+        return makeView()
+    }
 
+    private static func makeView() -> NSStackView {
         let appearanceView = makeAppearanceView()
         let positionView = makePositionView()
-        let effectsView = makeEffectsView()
 
         let stackView = NSStackView()
         stackView.orientation = .vertical
         stackView.spacing = AppearanceTab.spacing
         stackView.addArrangedSubview(appearanceView)
         stackView.addArrangedSubview(positionView)
-        stackView.addArrangedSubview(effectsView)
+        stackView.addArrangedSubview(advancedButton)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         let padding = CGFloat(20)
@@ -536,21 +604,22 @@ class AppearanceTab: NSObject {
         appearanceView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding).isActive = true
         appearanceView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
 
-        stackView.widthAnchor.constraint(equalToConstant: width + 2 * padding).isActive = true
-        stackView.heightAnchor.constraint(equalToConstant: 550 + 2 * padding).isActive = true
+        advancedButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
+        advancedButton.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -padding).isActive = true
 
+        stackView.widthAnchor.constraint(equalToConstant: width + 2 * padding).isActive = true
         return stackView
     }
 
     private static func makeAppearanceView() -> NSStackView {
-        let table = TableGroupView(title: "Appearance", width: AppearanceTab.width)
+        let table = TableGroupView(width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
-            toggleAdvancedButton()
+            toggleModelAdvancedButton()
         }, buttonSpacing: 20)[1])
         _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithRadioButtons("", "appearanceSize", AppearanceSizePreference.allCases)[1])
-        _ = table.addRow(rightViews: advancedButton)
+        _ = table.addRow(rightViews: modelAdvancedButton)
 
         table.fit()
         return table
@@ -564,23 +633,17 @@ class AppearanceTab: NSObject {
         return table
     }
 
-    private static func makeEffectsView() -> NSStackView {
-        let table = TableGroupView(title: "Animation", width: AppearanceTab.width)
-        let delaySlider =
-        _ = table.addRow(leftText: NSLocalizedString("Apparition delay millisecond", comment: ""),
-                rightViews: Array(LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 2000, 11, true, "ms", width: 300)[1...2]))
-        _ = table.addRow(leftText: NSLocalizedString("Fade out animation", comment: ""),
-                rightViews: LabelAndControl.makeCheckbox("fadeOutAnimation"))
-        table.fit()
-        return table
+    private static func makeAdvancedButton() {
+        advancedButton = NSButton(title: NSLocalizedString("Advanced…", comment: ""), target: self, action: #selector(AppearanceTab.showAdvancedSettings))
+        advancedButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
 
-    private static func createAdvancedButton() {
-        advancedButton = NSButton(title: getAdvancedButtonTitle(), target: self, action: #selector(showAdvancedSettings))
-        advancedButton.widthAnchor.constraint(equalToConstant: 160).isActive = true
+    private static func makeModelAdvancedButton() {
+        modelAdvancedButton = NSButton(title: getModelAdvancedButtonTitle(), target: self, action: #selector(showModelAdvancedSettings))
+        modelAdvancedButton.widthAnchor.constraint(equalToConstant: 160).isActive = true
     }
 
-    private static func getAdvancedButtonTitle() -> String {
+    private static func getModelAdvancedButtonTitle() -> String {
         if Preferences.appearanceModel == .thumbnails {
             return NSLocalizedString("Thumbnails Advanced…", comment: "")
         } else if Preferences.appearanceModel == .appIcons {
@@ -591,17 +654,21 @@ class AppearanceTab: NSObject {
         return NSLocalizedString("Advanced…", comment: "")
     }
 
-    @objc static func toggleAdvancedButton() {
+    @objc static func toggleModelAdvancedButton() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(handleToggleAdvancedButton), object: nil)
         self.perform(#selector(handleToggleAdvancedButton), with: nil, afterDelay: 0.1)
     }
 
     @objc static func handleToggleAdvancedButton() {
-        advancedButton.animator().title = getAdvancedButtonTitle()
+        modelAdvancedButton.animator().title = getModelAdvancedButtonTitle()
+    }
+
+    @objc static func showModelAdvancedSettings() {
+        let advancedSettingsSheetWindow = ModelAdvancedSettingsWindow(Preferences.appearanceModel)
+        App.app.preferencesWindow.beginSheet(advancedSettingsSheetWindow)
     }
 
     @objc static func showAdvancedSettings() {
-        let advancedSettingsSheetWindow = ModelAdvancedSettingsWindow(Preferences.appearanceModel)
-        App.app.preferencesWindow.beginSheet(advancedSettingsSheetWindow)
+        App.app.preferencesWindow.beginSheet(AdvancedSettingsWindow())
     }
 }
