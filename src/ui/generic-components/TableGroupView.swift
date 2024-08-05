@@ -7,6 +7,8 @@ class TableGroupView: NSStackView {
     static let cornerRadius = CGFloat(10)
     static let borderWidth = CGFloat(1)
 
+    private var lastMouseEnteredRowInfo: RowInfo?
+
     var title: String?
     var subTitle: String?
 
@@ -228,25 +230,42 @@ class TableGroupView: NSStackView {
 
         rowView.onMouseEntered = { (event, view) in
             if let onMouseEntered = onMouseEntered {
-                if let rowInfo = self.rows.first(where: { $0.view === view }) {
-                    rowView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
-                    self.adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: true)
-                    self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: true)
+                if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
+                    self.removeLastMouseEnteredEffects()
+                    self.lastMouseEnteredRowInfo = rowInfo
+                    self.addMouseEnteredEffects(rowInfo)
                     onMouseEntered(event, view)
                 }
             }
         }
 
         rowView.onMouseExited = { (event, view) in
-            if let rowInfo = self.rows.first(where: { $0.view === view }) {
-                rowView.layer?.backgroundColor = NSColor.clear.cgColor
-                self.adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: false)
-                self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: false)
-                onMouseExited?(event, view)
+            if let onMouseExited = onMouseExited {
+                if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
+                    self.addMouseExitedEffects(rowInfo)
+                    onMouseExited(event, view)
+                }
             }
         }
-
         return rowInfo
+    }
+
+    func removeLastMouseEnteredEffects() {
+        if let lastMouseEnteredRowInfo = lastMouseEnteredRowInfo {
+            self.addMouseExitedEffects(lastMouseEnteredRowInfo)
+        }
+    }
+
+    private func addMouseEnteredEffects(_ rowInfo: RowInfo) {
+        rowInfo.view.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
+        self.adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: true)
+        self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: true)
+    }
+
+    private func addMouseExitedEffects(_ rowInfo: RowInfo) {
+        rowInfo.view.layer?.backgroundColor = NSColor.clear.cgColor
+        self.adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: false)
+        self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: false)
     }
 
     private func adjustSeparatorWidth(separator: NSBox?, isMouseInside: Bool) {

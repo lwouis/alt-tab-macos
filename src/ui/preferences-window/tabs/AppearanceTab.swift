@@ -18,6 +18,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     static let padding = CGFloat(4)
     var model: AppearanceModelPreference!
     var theme: String!
+    var imageName: String!
 
     init(_ model: AppearanceModelPreference, _ imageWidth: CGFloat) {
         // TODO: The appearance theme functionality has not been implemented yet.
@@ -34,6 +35,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
         super.init(imageView: imageView)
         self.model = model
         self.theme = theme
+        self.imageName = imageName
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
         self.layer?.cornerRadius = 7.0
@@ -50,13 +52,17 @@ class IllustratedImageThemeView: ClickHoverImageView {
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: IllustratedImageThemeView.padding),
             imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -IllustratedImageThemeView.padding),
         ])
-        onClick = { event, view in
-            imageView.image = NSImage(named: imageName)
+        onClick = { (event, view) in
+            self.resetImage()
         }
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func resetImage() {
+        imageView.image = NSImage(named: imageName)
     }
 
     func updateImage(_ imageName: String) {
@@ -96,13 +102,17 @@ class ShowHideIllustratedView {
         let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         for row in showHideRows {
             if row.supportedModels.contains(model) {
-                table.addRow(row.leftTitle, row.rightViews, onMouseEntered: { event, view in
+                _ = table.addRow(row.leftTitle, row.rightViews, onMouseEntered: { event, view in
                     self.updateImageView(rowId: row.rowId)
                 })
             }
         }
         table.fit()
 
+        illustratedImageView.onClick = { event, view in
+            self.illustratedImageView.resetImage()
+            table.removeLastMouseEnteredEffects()
+        }
         let view = NSStackView()
         view.orientation = .vertical
         view.spacing = 5
@@ -319,11 +329,16 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func makeThumbnailsView() -> NSStackView {
         let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
-        table.addRow(alignThumbnails, onMouseEntered: { event, view in
+        _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         })
-        table.addRow(titleTruncation)
+        _ = table.addRow(titleTruncation)
         table.fit()
+
+        illustratedImageView.onClick = { event, view in
+            self.illustratedImageView.resetImage()
+            table.removeLastMouseEnteredEffects()
+        }
 
         let view = NSStackView()
         view.orientation = .vertical
@@ -334,19 +349,29 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func makeAppIconsView() -> NSStackView {
         let table1 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
-        table1.addRow(showAppsWindows, onMouseEntered: { event, view in
+        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+
+        _ = table1.addRow(showAppsWindows, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
+            table2.removeLastMouseEnteredEffects()
         })
-        table1.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
+        _ = table1.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
+            table2.removeLastMouseEnteredEffects()
         })
         table1.fit()
 
-        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
-        table2.addRow(alignThumbnails, onMouseEntered: { event, view in
+        _ = table2.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
+            table1.removeLastMouseEnteredEffects()
         })
         table2.fit()
+
+        illustratedImageView.onClick = { event, view in
+            self.illustratedImageView.resetImage()
+            table1.removeLastMouseEnteredEffects()
+            table2.removeLastMouseEnteredEffects()
+        }
 
         let view = NSStackView()
         view.orientation = .vertical
@@ -359,19 +384,23 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func makeTitlesView() -> NSStackView {
         let table1 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
-        table1.addRow(showAppsWindows, onMouseEntered: { event, view in
+        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+
+        _ = table1.addRow(showAppsWindows, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
-        table1.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
+        _ = table1.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
         table1.fit()
 
-        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
-        table2.addRow(alignThumbnails, onMouseEntered: { event, view in
-            self.showAlignThumbnailsIllustratedImage()
-        })
+        _ = table2.addRow(titleTruncation)
         table2.fit()
+
+        illustratedImageView.onClick = { event, view in
+            self.illustratedImageView.resetImage()
+            table1.removeLastMouseEnteredEffects()
+        }
 
         let view = NSStackView()
         view.orientation = .vertical
