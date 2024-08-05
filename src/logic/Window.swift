@@ -220,13 +220,13 @@ class Window: CustomStringConvertible {
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
                 var windows: [Window] = [self]
-//                if Preferences.onlyShowApplications() {
-//                    windows = Windows.findWindowGroup(self).sorted { $0.lastFocusOrder > $1.lastFocusOrder }
-//                    // Ensure current window is always at the end
-//                    if let index = windows.firstIndex(where: { $0.cgWindowId == self.cgWindowId }) {
-//                        windows.append(windows.remove(at: index))
-//                    }
-//                }
+                if Preferences.onlyShowApplications() {
+                    windows = Windows.findWindowGroup(self).sorted { $0.lastFocusOrder > $1.lastFocusOrder }
+                    // Ensure current window is always at the end
+                    if let index = windows.firstIndex(where: { $0.cgWindowId == self.cgWindowId }) {
+                        windows.append(windows.remove(at: index))
+                    }
+                }
                 for window in windows {
                     _SLPSSetFrontProcessWithOptions(&psn, window.cgWindowId!, SLPSMode.userGenerated.rawValue)
                     window.makeKeyWindow(psn)
