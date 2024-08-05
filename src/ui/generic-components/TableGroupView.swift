@@ -15,7 +15,8 @@ class TableGroupView: NSStackView {
     var width: CGFloat = 500
     private let titleLabel = NSTextField(labelWithString: "")
     private let subTitleLabel = NSTextField(labelWithString: "")
-    private let tableView = NSStackView()
+    private let titleStackView = NSStackView()
+    private let tableStackView = NSStackView()
     private var rows = [RowInfo]()
 
     struct Row {
@@ -60,7 +61,11 @@ class TableGroupView: NSStackView {
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         orientation = .vertical
-        spacing = 3
+        spacing = 10
+
+        titleStackView.orientation = .vertical
+        titleStackView.alignment = .left
+        titleStackView.spacing = 2
 
         if let title = title {
             titleLabel.stringValue = title
@@ -69,10 +74,10 @@ class TableGroupView: NSStackView {
             titleLabel.lineBreakMode = .byWordWrapping
             titleLabel.maximumNumberOfLines = 0
 
-            addArrangedSubview(titleLabel)
+            titleStackView.addArrangedSubview(titleLabel)
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: TableGroupView.padding).isActive = true
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -TableGroupView.padding).isActive = true
+            titleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.padding).isActive = true
+            titleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
 
             // Ensure height adjusts to content by setting priorities
             titleLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -89,10 +94,10 @@ class TableGroupView: NSStackView {
             subTitleLabel.lineBreakMode = .byWordWrapping
             subTitleLabel.maximumNumberOfLines = 0
 
-            addArrangedSubview(subTitleLabel)
+            titleStackView.addArrangedSubview(subTitleLabel)
             subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-            subTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: TableGroupView.padding).isActive = true
-            subTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -TableGroupView.padding).isActive = true
+            subTitleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.padding).isActive = true
+            subTitleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
 
             // Ensure height adjusts to content by setting priorities
             subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -103,21 +108,26 @@ class TableGroupView: NSStackView {
         } else {
             subTitleLabel.isHidden = true
         }
+        addArrangedSubview(titleStackView)
+        titleStackView.translatesAutoresizingMaskIntoConstraints = false
+        titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        titleStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        titleStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
 
-        tableView.orientation = .vertical
-        tableView.spacing = 0
-        tableView.wantsLayer = true
-        tableView.layer?.backgroundColor = TableGroupView.backgroundColor
-        tableView.layer?.cornerRadius = TableGroupView.cornerRadius
-        tableView.layer?.borderColor = TableGroupView.borderColor
-        tableView.layer?.borderWidth = TableGroupView.borderWidth
-        addArrangedSubview(tableView)
+        tableStackView.orientation = .vertical
+        tableStackView.spacing = 0
+        tableStackView.wantsLayer = true
+        tableStackView.layer?.backgroundColor = TableGroupView.backgroundColor
+        tableStackView.layer?.cornerRadius = TableGroupView.cornerRadius
+        tableStackView.layer?.borderColor = TableGroupView.borderColor
+        tableStackView.layer?.borderWidth = TableGroupView.borderWidth
+        addArrangedSubview(tableStackView)
 
         // Add constraints to ensure tableView takes up the full width
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        tableStackView.translatesAutoresizingMaskIntoConstraints = false
+        tableStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        tableStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        tableStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         widthAnchor.constraint(equalToConstant: self.width).isActive = true
     }
 
@@ -215,9 +225,9 @@ class TableGroupView: NSStackView {
             previousSeparator?.translatesAutoresizingMaskIntoConstraints = false
             previousSeparator?.boxType = .separator
             // Add separator only if there are already rows present
-            tableView.addArrangedSubview(previousSeparator!)
+            tableStackView.addArrangedSubview(previousSeparator!)
             previousSeparator?.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth).isActive = true
-            previousSeparator?.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
+            previousSeparator?.centerXAnchor.constraint(equalTo: tableStackView.centerXAnchor).isActive = true
             self.adjustSeparatorWidth(separator: previousSeparator, isMouseInside: false)
         } else {
             previousSeparator = nil
@@ -231,7 +241,7 @@ class TableGroupView: NSStackView {
         }
 
         rows.append(rowInfo)
-        tableView.addArrangedSubview(rowView)
+        tableStackView.addArrangedSubview(rowView)
 
         rowView.onClick = { event, view in
             onClick?(event, view)
