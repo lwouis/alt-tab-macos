@@ -542,7 +542,7 @@ class AppearanceTab: NSObject {
     }
 
     private static func makeAppearanceView() -> NSStackView {
-        let table = TableGroupView(title: "Appearance", subTitle: "The appearance feature allows for switching between multiple modes of the switcher, with the ability to adjust various display aspects such as size, color, and layout. Each appearance mode has its own unique settings.", width: AppearanceTab.width)
+        let table = TableGroupView(title: "Appearance", width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleAdvancedButton()
@@ -556,7 +556,7 @@ class AppearanceTab: NSObject {
     }
 
     private static func makePositionView() -> NSStackView {
-        let table = TableGroupView(title: "Position", width: AppearanceTab.width)
+        let table = TableGroupView(title: "Position", subTitle: "When we have multiple monitors, the position feature allows us to decide on which monitor the switcher is displayed, enabling a seamless window moving experience.", width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on screen", comment: ""),
                 rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
         table.fit()
