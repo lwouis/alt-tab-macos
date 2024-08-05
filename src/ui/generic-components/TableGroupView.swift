@@ -121,20 +121,22 @@ class TableGroupView: NSStackView {
         widthAnchor.constraint(equalToConstant: self.width).isActive = true
     }
 
-    func addRow(_ row: Row, onMouseEntered: EventClosure? = nil, onMouseExited: EventClosure? = nil) -> RowInfo {
-        return addRow(leftText: row.leftTitle, rightViews: row.rightViews, subText: row.subTitle, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+    func addRow(_ row: Row, onClick: EventClosure? = nil, onMouseEntered: EventClosure? = nil, onMouseExited: EventClosure? = nil) -> RowInfo {
+        return addRow(leftText: row.leftTitle, rightViews: row.rightViews, subText: row.subTitle, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
     func addRow(leftText: String? = nil, rightViews: NSView, subText: String? = nil,
+                onClick: EventClosure? = nil,
                 onMouseEntered: EventClosure? = nil,
                 onMouseExited: EventClosure? = nil) -> RowInfo {
-        return addRow(leftText: leftText, rightViews: [rightViews], subText: subText, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        return addRow(leftText: leftText, rightViews: [rightViews], subText: subText, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
     func addRow(leftText: String? = nil, rightViews: [NSView]? = nil, subText: String? = nil,
+                onClick: EventClosure? = nil,
                 onMouseEntered: EventClosure? = nil,
                 onMouseExited: EventClosure? = nil) -> RowInfo {
-        let rowView = MouseHoverStackView()
+        let rowView = ClickHoverStackView()
         rowView.orientation = .vertical
         rowView.spacing = 2
 
@@ -231,6 +233,10 @@ class TableGroupView: NSStackView {
         rows.append(rowInfo)
         tableView.addArrangedSubview(rowView)
 
+        rowView.onClick = { event, view in
+            onClick?(event, view)
+        }
+
         rowView.onMouseEntered = { (event, view) in
             if let onMouseEntered = onMouseEntered {
                 if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
@@ -295,22 +301,10 @@ class TableGroupView: NSStackView {
         return ceil(boundingRect.height)
     }
 
-    // Helper function to get system default border color
-    func systemDefaultBorderColor() -> CGColor {
-        if #available(macOS 10.14, *) {
-            if NSApp.effectiveAppearance.name == .darkAqua {
-                return NSColor(calibratedWhite: 0.6, alpha: 1.0).cgColor // Dark mode color
-            } else {
-                return NSColor(calibratedWhite: 0.8, alpha: 1.0).cgColor // Light mode color
-            }
-        } else {
-            // Fallback color for older macOS versions
-            return NSColor(calibratedWhite: 0.8, alpha: 1.0).cgColor
-        }
-    }
 }
 
-class MouseHoverStackView: NSStackView {
+class ClickHoverStackView: NSStackView {
+    var onClick: EventClosure?
     var onMouseEntered: EventClosure?
     var onMouseExited: EventClosure?
 
@@ -321,6 +315,10 @@ class MouseHoverStackView: NSStackView {
         }
         let newTrackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
         addTrackingArea(newTrackingArea)
+
+        let clickGesture = NSClickGestureRecognizer(target: self, action: #selector(handleClick(_:)))
+        clickGesture.delaysPrimaryMouseButtonEvents = false
+        addGestureRecognizer(clickGesture)
     }
 
     override func mouseEntered(with event: NSEvent) {
@@ -329,5 +327,11 @@ class MouseHoverStackView: NSStackView {
 
     override func mouseExited(with event: NSEvent) {
         onMouseExited?(event, self)
+    }
+
+    @objc private func handleClick(_ sender: NSClickGestureRecognizer) {
+        if let event = sender.view?.window?.currentEvent {
+            onClick?(event, self)
+        }
     }
 }

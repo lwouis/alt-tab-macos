@@ -102,7 +102,9 @@ class ShowHideIllustratedView {
         let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         for row in showHideRows {
             if row.supportedModels.contains(model) {
-                _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onMouseEntered: { event, view in
+                _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
+                    self.clickCheckbox(rowId: row.rowId)
+                }, onMouseEntered: { event, view in
                     self.updateImageView(rowId: row.rowId)
                 })
             }
@@ -230,6 +232,16 @@ class ShowHideIllustratedView {
                 let isChecked = checkbox.state == .on
                 let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
                 illustratedImageView.updateImage(imageName!)
+            }
+        }
+    }
+
+    private func clickCheckbox(rowId: String) {
+        let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
+        row?.rightViews.forEach { view in
+            if let checkbox = view as? NSButton {
+                // Toggle the checkbox state
+                checkbox.state = (checkbox.state == .on) ? .off : .on
             }
         }
     }
