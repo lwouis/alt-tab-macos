@@ -15,12 +15,12 @@ struct ShowHideRowInfo {
 }
 
 class IllustratedImageThemeView: ClickHoverImageView {
-    static let padding = CGFloat(4)
+    static let padding = CGFloat(2)
     var model: AppearanceModelPreference!
     var theme: String!
     var imageName: String!
 
-    init(_ model: AppearanceModelPreference, _ imageWidth: CGFloat) {
+    init(_ model: AppearanceModelPreference, _ width: CGFloat) {
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
         let theme = "light"
@@ -30,7 +30,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
         imageView.imageScaling = .scaleProportionallyUpOrDown
         imageView.wantsLayer = true
         imageView.layer?.masksToBounds = true
-        imageView.layer?.cornerRadius = 7.0
+        imageView.layer?.cornerRadius = TableGroupView.cornerRadius
 
         super.init(imageView: imageView)
         self.model = model
@@ -38,11 +38,11 @@ class IllustratedImageThemeView: ClickHoverImageView {
         self.imageName = imageName
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
-        self.layer?.cornerRadius = 7.0
-        self.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
-        self.layer?.borderWidth = 2.0
+        self.layer?.cornerRadius = TableGroupView.cornerRadius
+        self.layer?.borderColor = TableGroupView.borderColor
+        self.layer?.borderWidth = TableGroupView.borderWidth
 
-        let imageWidth = imageWidth
+        let imageWidth = width - IllustratedImageThemeView.padding
         let imageHeight = imageWidth / 1.6
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: imageWidth),
@@ -247,7 +247,7 @@ class ShowHideIllustratedView {
 
 class ModelAdvancedSettingsWindow: NSWindow {
     static let width = CGFloat(512)
-    static let illustratedImageWidth = width - 50
+    static let illustratedImageWidth = width
 
     var model: AppearanceModelPreference = .thumbnails
     var illustratedImageView: IllustratedImageThemeView!
