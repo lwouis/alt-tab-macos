@@ -116,10 +116,7 @@ class ShowHideIllustratedView {
             self.illustratedImageView.resetImage()
             table.removeLastMouseEnteredEffects()
         }
-        let view = NSStackView()
-        view.orientation = .vertical
-        view.spacing = ModelAdvancedSettingsWindow.spacing
-        view.setViews([illustratedImageView, table], in: .leading)
+        let view = TableGroupSetView(originalViews: [illustratedImageView, table])
         return view
     }
 
@@ -246,13 +243,11 @@ class ShowHideIllustratedView {
             }
         }
     }
-
 }
 
 class ModelAdvancedSettingsWindow: NSWindow {
     static let width = CGFloat(512)
     static let illustratedImageWidth = width - 50
-    static let spacing = CGFloat(10)
 
     var model: AppearanceModelPreference = .thumbnails
     var illustratedImageView: IllustratedImageThemeView!
@@ -271,36 +266,11 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func setupWindow() {
         hidesOnDeactivate = false
+        makeKeyAndOrderFront(nil)
     }
 
     private func setupView() {
-        illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
-        alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown(
-                        "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
-            self.showAlignThumbnailsIllustratedImage()
-        })])
-        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown("titleTruncation", TitleTruncationPreference.allCases)])
-        showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running:", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases,
-                        "showAppsWindows", extraAction: { _ in
-            self.toggleAppNamesWindowTitles()
-            self.showAppsOrWindowsIllustratedImage()
-        }))
-        showAppNamesWindowTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown(
-                        "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
-            self.showAppsOrWindowsIllustratedImage()
-        })])
-
-        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        doneButton.focusRingType = .none
-        if #available(macOS 10.14, *) {
-            doneButton.bezelColor = NSColor.controlAccentColor
-        }
-
+        makeComponents()
         let showHideView = ShowHideIllustratedView(model).makeView()
 
         var advancedView: NSView!
@@ -316,7 +286,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
             (NSLocalizedString("Advanced", comment: ""), advancedView),
         ])
         tabView.translatesAutoresizingMaskIntoConstraints = false
-        tabView.widthAnchor.constraint(equalToConstant: ModelAdvancedSettingsWindow.width + 50).isActive = true
+        tabView.widthAnchor.constraint(equalToConstant: advancedView.fittingSize.width + TableGroupSetView.padding).isActive = true
 
         showHideView.translatesAutoresizingMaskIntoConstraints = false
         showHideView.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor).isActive = true
@@ -340,6 +310,34 @@ class ModelAdvancedSettingsWindow: NSWindow {
         contentView = grid
     }
 
+    private func makeComponents() {
+        illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
+        alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown(
+                        "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
+                    self.showAlignThumbnailsIllustratedImage()
+                })])
+        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown("titleTruncation", TitleTruncationPreference.allCases)])
+        showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running:", comment: ""),
+                rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases,
+                        "showAppsWindows", extraAction: { _ in
+                    self.toggleAppNamesWindowTitles()
+                    self.showAppsOrWindowsIllustratedImage()
+                }))
+        showAppNamesWindowTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown(
+                        "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
+                    self.showAppsOrWindowsIllustratedImage()
+                })])
+
+        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        if #available(macOS 10.14, *) {
+            doneButton.bezelColor = NSColor.controlAccentColor
+        }
+    }
+
     private func makeThumbnailsView() -> NSStackView {
         let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
@@ -353,10 +351,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
             table.removeLastMouseEnteredEffects()
         }
 
-        let view = NSStackView()
-        view.orientation = .vertical
-        view.spacing = ModelAdvancedSettingsWindow.spacing
-        view.setViews([illustratedImageView, table], in: .leading)
+        let view = TableGroupSetView(originalViews: [illustratedImageView, table])
         return view
     }
 
@@ -386,11 +381,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
             table2.removeLastMouseEnteredEffects()
         }
 
-        let view = NSStackView()
-        view.orientation = .vertical
-        view.spacing = ModelAdvancedSettingsWindow.spacing
-        view.setViews([illustratedImageView, table1, table2], in: .leading)
-
+        let view = TableGroupSetView(originalViews: [illustratedImageView, table1, table2])
         toggleAppNamesWindowTitles()
         return view
     }
@@ -415,11 +406,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
             table1.removeLastMouseEnteredEffects()
         }
 
-        let view = NSStackView()
-        view.orientation = .vertical
-        view.spacing = ModelAdvancedSettingsWindow.spacing
-        view.setViews([illustratedImageView, table1, table2], in: .leading)
-
+        let view = TableGroupSetView(originalViews: [illustratedImageView, table1, table2])
         toggleAppNamesWindowTitles()
         return view
     }
@@ -469,30 +456,16 @@ class AdvancedSettingsWindow: NSWindow {
 
     private func setupWindow() {
         hidesOnDeactivate = false
+        makeKeyAndOrderFront(nil)
     }
 
     private func setupView() {
         makeDoneButton()
-
         let animationView = makeAnimationView()
 
-        let stackView = NSStackView()
-        stackView.orientation = .vertical
-        stackView.spacing = AppearanceTab.spacing
-        stackView.addArrangedSubview(animationView)
-        stackView.addArrangedSubview(doneButton)
-
-        let padding = AppearanceTab.padding
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        animationView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: padding).isActive = true
-        animationView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding).isActive = true
-        animationView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
-
-        doneButton.centerXAnchor.constraint(equalTo: stackView.centerXAnchor).isActive = true
-        doneButton.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -padding).isActive = true
-
-        stackView.widthAnchor.constraint(equalToConstant: AdvancedSettingsWindow.width + 2 * padding).isActive = true
-        contentView = stackView
+        let view = TableGroupSetView(originalViews: [animationView], toolsViews: [doneButton])
+        view.widthAnchor.constraint(equalToConstant: AdvancedSettingsWindow.width + TableGroupSetView.leftRightPadding).isActive = true
+        contentView = view
     }
 
     private func makeAnimationView() -> NSStackView {
@@ -508,7 +481,6 @@ class AdvancedSettingsWindow: NSWindow {
     private func makeDoneButton() {
         doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
         doneButton.translatesAutoresizingMaskIntoConstraints = false
-        doneButton.focusRingType = .none
         if #available(macOS 10.14, *) {
             doneButton.bezelColor = NSColor.controlAccentColor
         }
@@ -591,27 +563,13 @@ class AppearanceTab: NSObject {
         let appearanceView = makeAppearanceView()
         let positionView = makePositionView()
 
-        let stackView = NSStackView()
-        stackView.orientation = .vertical
-        stackView.spacing = AppearanceTab.spacing
-        stackView.addArrangedSubview(appearanceView)
-        stackView.addArrangedSubview(positionView)
-        stackView.addArrangedSubview(advancedButton)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-
-        let padding = CGFloat(20)
-        appearanceView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: padding).isActive = true
-        appearanceView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding).isActive = true
-        appearanceView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
-
-        advancedButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
-        advancedButton.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -padding).isActive = true
-
-        stackView.widthAnchor.constraint(equalToConstant: width + 2 * padding).isActive = true
-        return stackView
+        let view = TableGroupSetView(originalViews: [appearanceView, positionView, advancedButton])
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
+        return view
     }
 
-    private static func makeAppearanceView() -> NSStackView {
+    private static func makeAppearanceView() -> NSView {
         let table = TableGroupView(width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
@@ -625,7 +583,7 @@ class AppearanceTab: NSObject {
         return table
     }
 
-    private static func makePositionView() -> NSStackView {
+    private static func makePositionView() -> NSView {
         let table = TableGroupView(title: "Position", subTitle: "When we have multiple monitors, the position feature allows us to decide on which monitor the switcher is displayed, enabling a seamless window moving experience.", width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on screen", comment: ""),
                 rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
@@ -635,7 +593,6 @@ class AppearanceTab: NSObject {
 
     private static func makeAdvancedButton() {
         advancedButton = NSButton(title: NSLocalizedString("Advanced…", comment: ""), target: self, action: #selector(AppearanceTab.showAdvancedSettings))
-        advancedButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
 
     private static func makeModelAdvancedButton() {
