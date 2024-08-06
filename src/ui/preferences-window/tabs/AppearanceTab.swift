@@ -338,7 +338,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
         }
     }
 
-    private func makeThumbnailsView() -> NSStackView {
+    private func makeThumbnailsView() -> NSView {
         let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
@@ -355,8 +355,8 @@ class ModelAdvancedSettingsWindow: NSWindow {
         return view
     }
 
-    private func makeAppIconsView() -> NSStackView {
-        let table1 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+    private func makeAppIconsView() -> NSView {
+        let table1 = makeAppWindowTableGroupView()
         let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
 
         _ = table1.addRow(showAppsWindows, onMouseEntered: { event, view in
@@ -386,8 +386,8 @@ class ModelAdvancedSettingsWindow: NSWindow {
         return view
     }
 
-    private func makeTitlesView() -> NSStackView {
-        let table1 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+    private func makeTitlesView() -> NSView {
+        let table1 = makeAppWindowTableGroupView()
         let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
 
         _ = table1.addRow(showAppsWindows, onMouseEntered: { event, view in
@@ -409,6 +409,11 @@ class ModelAdvancedSettingsWindow: NSWindow {
         let view = TableGroupSetView(originalViews: [illustratedImageView, table1, table2])
         toggleAppNamesWindowTitles()
         return view
+    }
+
+    private func makeAppWindowTableGroupView() -> TableGroupView {
+        return TableGroupView(title: NSLocalizedString("Applications & Windows", comment: ""),
+                subTitle: NSLocalizedString("Provide the ability to switch between displaying applications in a windowed form (allowing an application to contain multiple windows) or in an application form (where each application can only have one window).", comment: ""), width: ModelAdvancedSettingsWindow.width)
     }
 
     private func toggleAppNamesWindowTitles() {
