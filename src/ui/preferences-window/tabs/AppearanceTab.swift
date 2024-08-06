@@ -319,7 +319,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
                 })])
         titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("titleTruncation", TitleTruncationPreference.allCases)])
-        showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running:", comment: ""),
+        showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running", comment: ""),
                 rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases,
                         "showAppsWindows", extraAction: { _ in
                     self.toggleAppNamesWindowTitles()
