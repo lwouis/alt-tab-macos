@@ -43,6 +43,25 @@ class Application: NSObject {
         debugPrint("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
     }
 
+    override var description: String {
+        let s = """
+                Application(kvObservers: \(kvObservers)
+                , runningApplication.bundleIdentifier: \(runningApplication.bundleIdentifier)
+                , runningApplication.title: \(runningApplication.localizedName)
+                , runningApplication.isActive: \(runningApplication.isActive)
+                , axUiElement: \(axUiElement)
+                , axObserver: \(axObserver)
+                , isReallyFinishedLaunching: \(isReallyFinishedLaunching)
+                , isHidden: \(isHidden)
+                , hasBeenActiveOnce: \(hasBeenActiveOnce)
+                , dockLabel: \(dockLabel)
+                , pid: \(pid)
+                , focusedWindow.cgWindowId: \(focusedWindow?.cgWindowId)
+                , alreadyRequestedToQuit: \(alreadyRequestedToQuit))
+                """
+        return s.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "  ", with: " ")
+    }
+
     func removeWindowslessAppWindow() {
         if let windowlessAppWindow = (Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid }) {
             Windows.list.remove(at: windowlessAppWindow)

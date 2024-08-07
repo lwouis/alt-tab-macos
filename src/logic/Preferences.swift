@@ -56,10 +56,15 @@ class Preferences {
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
+        "appearanceModel": AppearanceModelPreference.thumbnails.rawValue,
+        "appearanceSize": AppearanceSizePreference.medium.rawValue,
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
+        "appVerticalAlignment": AppVerticalAlignmentPreference.centered.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
-        "alignThumbnails": AlignThumbnailsPreference.left.rawValue,
+        "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
+        "showAppsWindows": ShowAppsWindowsPreference.windows.rawValue,
+        "showAppNamesWindowTitles": ShowAppNamesWindowTitlesPreference.windowTitles.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
         "appsToShow2": AppsToShowPreference.active.rawValue,
         "appsToShow3": AppsToShowPreference.all.rawValue,
@@ -104,17 +109,8 @@ class Preferences {
     // not exposed as preferences now but may be in the future, probably through macro preferences
     static var fontColor: NSColor { .white }
     static var windowPadding: CGFloat { 18 }
-    static var interCellPadding: CGFloat { 5 }
-    static var intraCellPadding: CGFloat { 5 }
 
     // persisted values
-    static var maxWidthOnScreen: CGFloat { defaults.cgfloat("maxWidthOnScreen") / CGFloat(100) }
-    static var maxHeightOnScreen: CGFloat { defaults.cgfloat("maxHeightOnScreen") / CGFloat(100) }
-    static var windowMaxWidthInRow: CGFloat { defaults.cgfloat("windowMaxWidthInRow") / CGFloat(100) }
-    static var windowMinWidthInRow: CGFloat { defaults.cgfloat("windowMinWidthInRow") / CGFloat(100) }
-    static var rowsCount: CGFloat { defaults.cgfloat("rowsCount") }
-    static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
-    static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { defaults.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { defaults.string($0) } }
     static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
@@ -137,16 +133,21 @@ class Preferences {
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
-    static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
 
     // macro values
+    static var appearanceModel: AppearanceModelPreference { defaults.macroPref("appearanceModel", AppearanceModelPreference.allCases) }
+    static var appearanceSize: AppearanceSizePreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
+    // TODO: The appearance theme functionality has not been implemented yet. We will implement it later; for now, use the light theme.
+    static var appearanceTheme: AppearanceThemePreference { AppearanceThemePreference.light }
     static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
+    static var showAppsWindows: ShowAppsWindowsPreference { defaults.macroPref("showAppsWindows", ShowAppsWindowsPreference.allCases) }
+    static var showAppNamesWindowTitles: ShowAppNamesWindowTitlesPreference { defaults.macroPref("showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
@@ -158,11 +159,24 @@ class Preferences {
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { defaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
+    static var appVerticalAlignment: AppVerticalAlignmentPreference { defaults.macroPref("appVerticalAlignment", AppVerticalAlignmentPreference.allCases) }
 
     // derived values
     static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
     static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
+    static var modelSizeAppearanceParameters: ModelSizeAppearanceParameters { getModelSizeAppearanceParameters(appearanceModel, appearanceSize) }
+    static var interCellPadding: CGFloat { modelSizeAppearanceParameters.interCellPadding }
+    static var intraCellPadding: CGFloat { modelSizeAppearanceParameters.intraCellPadding }
+    static var hideThumbnails: Bool { modelSizeAppearanceParameters.hideThumbnails }
+    static var maxWidthOnScreen: CGFloat { modelSizeAppearanceParameters.maxWidthOnScreen / CGFloat(100) }
+    static var maxHeightOnScreen: CGFloat { modelSizeAppearanceParameters.maxHeightOnScreen / CGFloat(100) }
+    static var windowMaxWidthInRow: CGFloat { modelSizeAppearanceParameters.windowMaxWidthInRow / CGFloat(100) }
+    static var windowMinWidthInRow: CGFloat { modelSizeAppearanceParameters.windowMinWidthInRow / CGFloat(100) }
+    static var rowsCount: CGFloat { modelSizeAppearanceParameters.rowsCount }
+    static var iconSize: CGFloat { modelSizeAppearanceParameters.iconSize }
+    static var fontHeight: CGFloat { modelSizeAppearanceParameters.fontHeight }
     static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
+    static var verticalAlignment: VerticalAlignment { appVerticalAlignment.verticalAlignment }
 
     static func initialize() {
         removeCorruptedPreferences()
@@ -202,6 +216,99 @@ class Preferences {
     }
 
     static var all: [String: Any] { defaults.persistentDomain(forName: App.id)! }
+
+    static func getModelSizeAppearanceParameters(_ model: AppearanceModelPreference,
+                                                 _ size: AppearanceSizePreference) -> ModelSizeAppearanceParameters {
+        var appearance = ModelSizeAppearanceParameters()
+        let isVerticalScreen = NSScreen.preferred().ratio() < 1
+        if model == AppearanceModelPreference.thumbnails {
+            appearance.hideThumbnails = false
+            appearance.intraCellPadding = 6
+            appearance.interCellPadding = 10
+            if size == AppearanceSizePreference.small {
+                appearance.rowsCount = 5
+                appearance.windowMinWidthInRow = 8
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 25
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 90
+                appearance.maxHeightOnScreen = 80
+                if isVerticalScreen {
+                    appearance.rowsCount = 8
+                }
+            } else if size == AppearanceSizePreference.medium {
+                appearance.rowsCount = 4
+                appearance.windowMinWidthInRow = 10
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 30
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 90
+                appearance.maxHeightOnScreen = 80
+                if isVerticalScreen {
+                    appearance.rowsCount = 7
+                }
+            } else if size == AppearanceSizePreference.large {
+                appearance.rowsCount = 3
+                appearance.windowMinWidthInRow = 10
+                appearance.windowMaxWidthInRow = 90
+                appearance.iconSize = 30
+                appearance.fontHeight = 15
+                appearance.maxWidthOnScreen = 90
+                appearance.maxHeightOnScreen = 80
+                if isVerticalScreen {
+                    appearance.rowsCount = 6
+                }
+            }
+        } else if model == AppearanceModelPreference.appIcons {
+            appearance.hideThumbnails = true
+            if size == AppearanceSizePreference.small {
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 5
+                appearance.windowMaxWidthInRow = 30
+                appearance.iconSize = 68
+                appearance.fontHeight = 0
+                appearance.maxWidthOnScreen = 95
+                appearance.maxHeightOnScreen = 90
+            } else if size == AppearanceSizePreference.medium {
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 6
+                appearance.windowMaxWidthInRow = 30
+                appearance.iconSize = 98
+                appearance.fontHeight = 0
+                appearance.maxWidthOnScreen = 95
+                appearance.maxHeightOnScreen = 90
+            } else if size == AppearanceSizePreference.large {
+                appearance.rowsCount = 0
+                appearance.windowMinWidthInRow = 8
+                appearance.windowMaxWidthInRow = 30
+                appearance.iconSize = 128
+                appearance.fontHeight = 0
+                appearance.maxWidthOnScreen = 95
+                appearance.maxHeightOnScreen = 90
+            }
+        } else if model == AppearanceModelPreference.titles {
+            appearance.hideThumbnails = true
+            appearance.rowsCount = 0
+            appearance.windowMinWidthInRow = 70
+            appearance.windowMaxWidthInRow = 90
+            appearance.maxWidthOnScreen = 60
+            appearance.maxHeightOnScreen = 80
+            if isVerticalScreen {
+                appearance.maxWidthOnScreen = 85
+            }
+            if size == AppearanceSizePreference.small {
+                appearance.iconSize = 25
+                appearance.fontHeight = 13
+            } else if size == AppearanceSizePreference.medium {
+                appearance.iconSize = 30
+                appearance.fontHeight = 15
+            } else if size == AppearanceSizePreference.large {
+                appearance.iconSize = 40
+                appearance.fontHeight = 20
+            }
+        }
+        return appearance
+    }
 
     static func migratePreferences() {
         let preferencesKey = "preferencesVersion"
@@ -337,16 +444,16 @@ class Preferences {
 
     private static func migrateShowWindowsCheckboxToDropdown() {
         ["showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows"]
-                .flatMap { [$0, $0 + "2"] }
-                .forEach {
-                    if let old = defaults.string(forKey: $0) {
-                        if old == "true" {
-                            defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
-                        } else if old == "false" {
-                            defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
-                        }
+            .flatMap { [$0, $0 + "2"] }
+            .forEach {
+                if let old = defaults.string(forKey: $0) {
+                    if old == "true" {
+                        defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
+                    } else if old == "false" {
+                        defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
                     }
                 }
+            }
     }
 
     private static func migrateDropdownsFromTextToIndexes() {
@@ -381,6 +488,10 @@ class Preferences {
         }
         // vertical; tested with 10/16
         return "6"
+    }
+
+    static func onlyShowApplications() -> Bool {
+        return Preferences.showAppsWindows == .applications && Preferences.appearanceModel != .thumbnails
     }
 
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards
@@ -439,6 +550,58 @@ extension Preferences: AvoidDeprecationWarnings {
 // we don't want to store every value in UserDefaults as the user could change them and contradict the macro
 protocol MacroPreference {
     var localizedString: LocalizedString { get }
+}
+
+struct WidthHeightImage {
+    var width: CGFloat
+    var height: CGFloat
+    var name: String
+
+    init(width: CGFloat = 80, height: CGFloat = 50, name: String) {
+        self.width = width
+        self.height = height
+        self.name = name
+    }
+}
+
+protocol ImageMacroPreference: MacroPreference {
+    var localizedString: LocalizedString { get }
+    var image: WidthHeightImage { get }
+}
+
+struct ModelSizeAppearanceParameters {
+    var interCellPadding: CGFloat
+    var intraCellPadding: CGFloat
+    var hideThumbnails: Bool = false
+    var rowsCount: CGFloat
+    var windowMinWidthInRow: CGFloat
+    var windowMaxWidthInRow: CGFloat
+    var iconSize: CGFloat
+    var fontHeight: CGFloat
+    var maxWidthOnScreen: CGFloat
+    var maxHeightOnScreen: CGFloat
+
+    init(interCellPadding: CGFloat = 5,
+            intraCellPadding: CGFloat = 5,
+            hideThumbnails: Bool = false,
+            rowsCount: CGFloat = 0,
+            windowMinWidthInRow: CGFloat = 0,
+            windowMaxWidthInRow: CGFloat = 0,
+            iconSize: CGFloat = 0,
+            fontHeight: CGFloat = 0,
+            maxWidthOnScreen: CGFloat = 0,
+            maxHeightOnScreen: CGFloat = 0) {
+        self.interCellPadding = interCellPadding
+        self.intraCellPadding = intraCellPadding
+        self.hideThumbnails = hideThumbnails
+        self.rowsCount = rowsCount
+        self.windowMinWidthInRow = windowMinWidthInRow
+        self.windowMaxWidthInRow = windowMaxWidthInRow
+        self.iconSize = iconSize
+        self.fontHeight = fontHeight
+        self.maxWidthOnScreen = maxWidthOnScreen
+        self.maxHeightOnScreen = maxHeightOnScreen
+    }
 }
 
 struct ThemeParameters {
@@ -558,6 +721,25 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
     }
 }
 
+enum AppVerticalAlignmentPreference: String, CaseIterable, MacroPreference {
+    case centered = "0"
+    case appleCentered = "1"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .centered: return NSLocalizedString("Centered", comment: "")
+            case .appleCentered: return NSLocalizedString("Apple Centered", comment: "")
+        }
+    }
+
+    var verticalAlignment: VerticalAlignment {
+        switch self {
+            case .centered: return VerticalAlignment.centered
+            case .appleCentered: return VerticalAlignment.appleCentered
+        }
+    }
+}
+
 enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
     case end = "0"
     case middle = "1"
@@ -572,19 +754,128 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
-    case left = "0"
-    case center = "1"
+enum ShowAppsWindowsPreference: String, CaseIterable, MacroPreference {
+    case applications = "0"
+    case windows = "1"
 
     var localizedString: LocalizedString {
         switch self {
-            case .left: return NSLocalizedString("Left", comment: "")
-            case .center: return NSLocalizedString("Center", comment: "")
+            case .applications: return NSLocalizedString("Applications", comment: "")
+            case .windows: return NSLocalizedString("Windows", comment: "")
         }
     }
 }
 
-enum ThemePreference: String, CaseIterable, MacroPreference {
+enum ShowAppNamesWindowTitlesPreference: String, CaseIterable, MacroPreference {
+    case applicationNames = "0"
+    case windowTitles = "1"
+    case applicationNamesAndWindowTitles = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .applicationNames: return NSLocalizedString("Application Names", comment: "")
+            case .windowTitles: return NSLocalizedString("Window Titles", comment: "")
+            case .applicationNamesAndWindowTitles: return NSLocalizedString("Application Names - Window Titles", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .applicationNames: return WidthHeightImage(name: "show_running_applications")
+            case .windowTitles: return WidthHeightImage(name: "show_running_windows")
+            case .applicationNamesAndWindowTitles: return WidthHeightImage(name: "show_running_applications_windows")
+        }
+    }
+}
+
+enum AlignThumbnailsPreference: String, CaseIterable, ImageMacroPreference {
+    case leading = "0"
+    case center = "1"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .leading: return NSLocalizedString("Leading", comment: "")
+            case .center: return NSLocalizedString("Center", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .leading: return WidthHeightImage(name: "align_thumbnails_leading")
+            case .center: return WidthHeightImage(name: "align_thumbnails_center")
+        }
+    }
+}
+
+enum AppearanceModelPreference: String, CaseIterable, ImageMacroPreference {
+    case thumbnails = "0"
+    case appIcons = "1"
+    case titles = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .thumbnails: return NSLocalizedString("Thumbnails", comment: "")
+            case .appIcons: return NSLocalizedString("App Icons", comment: "")
+            case .titles: return NSLocalizedString("Titles", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        let width = CGFloat(150)
+        let height = width / 1.6
+        switch self {
+            case .thumbnails: return WidthHeightImage(width: width, height: height, name: "thumbnails")
+            case .appIcons: return WidthHeightImage(width: width, height: height, name: "app_icons")
+            case .titles: return WidthHeightImage(width: width, height: height, name: "titles")
+        }
+    }
+}
+
+enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
+    case small = "0"
+    case medium = "1"
+    case large = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .small: return NSLocalizedString("Small", comment: "")
+            case .medium: return NSLocalizedString("Medium", comment: "")
+            case .large: return NSLocalizedString("Large", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .small: return WidthHeightImage(name: "small")
+            case .medium: return WidthHeightImage(name: "medium")
+            case .large: return WidthHeightImage(name: "large")
+        }
+    }
+}
+
+enum AppearanceThemePreference: String, CaseIterable, ImageMacroPreference {
+    case auto = "0"
+    case light = "1"
+    case dark = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .auto: return "auto"
+            case .light: return "light"
+            case .dark: return "dark"
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .auto: return WidthHeightImage(name: "auto")
+            case .light: return WidthHeightImage(name: "light")
+            case .dark: return WidthHeightImage(name: "dark")
+        }
+    }
+}
+
+enum ThemePreference: String, CaseIterable, ImageMacroPreference {
     case macOs = "0"
     case windows10 = "1"
 
@@ -592,6 +883,13 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
         switch self {
             case .macOs: return " macOS"
             case .windows10: return "❖ Windows 10"
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .macOs: return WidthHeightImage(name: "macos")
+            case .windows10: return WidthHeightImage(name: "windows10")
         }
     }
 

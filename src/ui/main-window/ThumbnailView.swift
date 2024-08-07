@@ -54,6 +54,7 @@ class ThumbnailView: NSStackView {
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
         hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
+        hStackView.orientation = .horizontal
         setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
         addWindowControls()
         addDockLabelIcon()
@@ -139,21 +140,22 @@ class ThumbnailView: NSStackView {
         }
         assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
-        let appIconChanged = appIcon.image != element.icon
+        let title = getAppOrAndWindowTitle()
+        let appIconChanged = appIcon.image != element.icon || appIcon.toolTip != title
         if appIconChanged {
             appIcon.image = element.icon
-            let appIconSize = NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
+            let appIconSize = ThumbnailView.iconSize(screen)
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
-            appIcon.setAccessibilityLabel(element.application.runningApplication.localizedName)
-            appIcon.toolTip = element.application.runningApplication.localizedName
+            appIcon.setAccessibilityLabel(title)
+            appIcon.toolTip = title
         }
-        let labelChanged = label.string != element.title
+        let labelChanged = label.string != title
         if labelChanged {
-            label.string = element.title
+            label.string = title
             // workaround: setting string on NSTextView changes the font (most likely a Cocoa bug)
             label.font = Preferences.font
-            setAccessibilityLabel(element.title)
+            setAccessibilityLabel(title)
         }
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden || Preferences.hideStatusIcons)
         assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
@@ -172,8 +174,7 @@ class ThumbnailView: NSStackView {
         if appIconChanged || dockLabelChanged {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
-        let widthMin = ThumbnailView.widthMin(screen)
-        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, widthMin).rounded())
+        setFrameWidth(element, screen)
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
         assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
@@ -197,6 +198,31 @@ class ThumbnailView: NSStackView {
         if labelChanged {
             label.display()
         }
+    }
+
+    func getAppOrAndWindowTitle() -> String {
+        let appName = window_?.application.runningApplication.localizedName ?? "Unknown Application"
+        let windowTitle = window_?.title ?? "Untitled Window"
+
+        if Preferences.appearanceModel != .thumbnails {
+            if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .applicationNames {
+                return appName
+            } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
+                return appName + " - " + windowTitle
+            }
+        }
+        return windowTitle
+    }
+
+    func setFrameWidth(_ element: Window, _ screen: NSScreen) {
+        // Retrieves the minimum width for the screen.
+        let widthMin = ThumbnailView.widthMin(screen)
+        // `max(hStackView.fittingSize.width, Preferences.iconSize)` is used to fix the problem that sometimes the fitting width of hStackView is wrong. make be it is a system bug.
+        let fittingWidth = (Preferences.hideThumbnails || element.isWindowlessApp ? max(hStackView.fittingSize.width, Preferences.iconSize) : thumbnail.frame.size.width)
+        let leftRightPadding = Preferences.intraCellPadding * 2
+        let fittingWidthMin = fittingWidth + leftRightPadding
+        let width = max(fittingWidthMin, widthMin).rounded()
+        assignIfDifferent(&frame.size.width, width)
     }
 
     @discardableResult
@@ -322,5 +348,20 @@ class ThumbnailView: NSStackView {
             return (image.size.width * thumbnailHeight / image.size.height, thumbnailHeight)
         }
         return (thumbnailWidth, image.size.height * thumbnailWidth / image.size.width)
+    }
+
+    static func iconSize(_ screen: NSScreen) -> NSSize {
+        if Preferences.appearanceModel == .appIcons {
+            let widthMin = ThumbnailView.widthMin(screen)
+            let fittingWidth = Preferences.iconSize
+            let leftRightPadding = Preferences.intraCellPadding * 2
+            let fittingWidthMin = fittingWidth + leftRightPadding
+            let width = max(fittingWidthMin, widthMin).rounded()
+            if widthMin > fittingWidthMin {
+                let iconSize = width - leftRightPadding
+                return NSSize(width: iconSize, height: iconSize)
+            }
+        }
+        return NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
     }
 }

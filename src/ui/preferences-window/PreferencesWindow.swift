@@ -4,6 +4,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
     var toolbarItems = [NSToolbarItem.Identifier: (Int, NSToolbarItem, NSView)]()
     var canBecomeKey_ = true
     override var canBecomeKey: Bool { canBecomeKey_ }
+    var largestTabWidth: CGFloat!
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
@@ -48,7 +49,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         ]
             .forEach { makeToolbarItem($0.0, $0.1, $0.2, $0.3) }
 
-        let largestTabWidth = Array(toolbarItems.values).reduce(CGFloat(0)) { max($0, $1.2.subviews[0].fittingSize.width) }
+        largestTabWidth = Array(toolbarItems.values).reduce(CGFloat(0)) { max($0, $1.2.subviews[0].fittingSize.width) }
         Array(toolbarItems.values).forEach {
             $0.2.fit(largestTabWidth, $0.2.subviews[0].fittingSize.height)
         }

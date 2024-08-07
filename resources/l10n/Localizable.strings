@@ -1,7 +1,7 @@
 /* No comment provided by engineer. */
 "About" = "About";
 
-/* Menubar option. %@ is AltTab */
+/*Menubar option. %@ is AltTab*/
 "About %@" = "About %@";
 
 /* No comment provided by engineer. */
@@ -15,6 +15,9 @@
 
 /* No comment provided by engineer. */
 "Active screen" = "Active screen";
+
+/* No comment provided by engineer. */
+"Active Space" = "Active Space";
 
 /* No comment provided by engineer. */
 "Align windows:" = "Align windows:";
@@ -85,7 +88,7 @@
 /* No comment provided by engineer. */
 "Blacklists" = "Blacklists";
 
-/* No comment provided by engineer. */
+/*Cancel button*/
 "Cancel" = "Cancel";
 
 /* No comment provided by engineer. */
@@ -100,10 +103,10 @@
 /* No comment provided by engineer. */
 "Check for updates periodically" = "Check for updates periodically";
 
-/* Menubar option */
+/* No comment provided by engineer. */
 "Check for updates…" = "Check for updates…";
 
-/* Menubar option */
+/*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
 /* No comment provided by engineer. */
@@ -131,6 +134,9 @@
 "Don’t send" = "Don’t send";
 
 /* No comment provided by engineer. */
+"Don’t show windows from these apps" = "Don’t show windows from these apps";
+
+/* No comment provided by engineer. */
 "End" = "End";
 
 /* No comment provided by engineer. */
@@ -138,6 +144,9 @@
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Focus selected window";
+
+/* No comment provided by engineer. */
+"Fullscreen window" = "Fullscreen window";
 
 /* No comment provided by engineer. */
 "Fullscreen windows:" = "Fullscreen windows:";
@@ -155,22 +164,22 @@
 "Hide" = "Hide";
 
 /* No comment provided by engineer. */
-"Hide app badges:" = "Hide app badges:";
+"Hide app badges" = "Hide app badges";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window:" = "Hide apps with no open window:";
+"Hide apps with no open window" = "Hide apps with no open window";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+"Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
 
-/* %@ is AltTab */
+/*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
 /* No comment provided by engineer. */
-"Hide Space number labels:" = "Hide Space number labels:";
+"Hide Space number labels" = "Hide Space number labels";
 
 /* No comment provided by engineer. */
-"Hide status icons:" = "Hide status icons:";
+"Hide status icons" = "Hide status icons";
 
 /* No comment provided by engineer. */
 "Hide window thumbnails:" = "Hide window thumbnails:";
@@ -186,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
+
+/* No comment provided by engineer. */
+"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
 
 /* No comment provided by engineer. */
 "Latest releases" = "Latest releases";
@@ -223,6 +235,12 @@
 /* No comment provided by engineer. */
 "Not allowed" = "Not allowed";
 
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "GPL-3.0 license";
+
+/* No comment provided by engineer. */
+"Only if the window is fullscreen" = "Only if the window is fullscreen";
+
 /* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";
 
@@ -235,16 +253,16 @@
 /* No comment provided by engineer. */
 "Policies" = "Policies";
 
-/* Menubar option */
+/* No comment provided by engineer. */
 "Preferences…" = "Preferences…";
 
 /* No comment provided by engineer. */
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window" = "Preview selected window";
 
 /* No comment provided by engineer. */
 "Quit" = "Quit";
 
-/* Menubar option. %@ is AltTab */
+/* No comment provided by engineer. */
 "Quit %@" = "Quit %@";
 
 /* No comment provided by engineer. */
@@ -301,7 +319,7 @@
 /* No comment provided by engineer. */
 "Send feedback" = "Send feedback";
 
-/* Menubar option */
+/* No comment provided by engineer. */
 "Send feedback…" = "Send feedback…";
 
 /* No comment provided by engineer. */
@@ -325,7 +343,7 @@
 /* No comment provided by engineer. */
 "Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/* Menubar option */
+/* No comment provided by engineer. */
 "Show" = "Show";
 
 /* No comment provided by engineer. */
@@ -335,7 +353,7 @@
 "Show on:" = "Show on:";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+"Show standard tabs as windows" = "Show standard tabs as windows";
 
 /* No comment provided by engineer. */
 "Show windows from:" = "Show windows from:";
@@ -352,7 +370,7 @@
 /* No comment provided by engineer. */
 "Start at login:" = "Start at login:";
 
-/* Menubar option */
+/*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
@@ -432,3 +450,93 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+
+/* No comment provided by engineer. */
+"Appearance model:" = "Appearance model:";
+
+/* No comment provided by engineer. */
+"Appearance size:" = "Appearance size:";
+
+/* No comment provided by engineer. */
+"Show & Hide" = "Show & Hide";
+
+/* No comment provided by engineer. */
+"Effects" = "Effects";
+
+/* No comment provided by engineer. */
+"Small" = "Small";
+
+/* No comment provided by engineer. */
+"Medium" = "Medium";
+
+/* No comment provided by engineer. */
+"Large" = "Large";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Thumbnails";
+
+/* No comment provided by engineer. */
+"App Icons" = "App Icons";
+
+/* No comment provided by engineer. */
+"Titles" = "Titles";
+
+/* No comment provided by engineer. */
+"Centered" = "Centered";
+
+/* No comment provided by engineer. */
+"Apple Centered" = "Apple Centered";
+
+/* No comment provided by engineer. */
+"Applications" = "Applications";
+
+/* No comment provided by engineer. */
+"Windows" = "Windows";
+
+/* No comment provided by engineer. */
+"Application Names" = "Application Names";
+
+/* No comment provided by engineer. */
+"Window Titles" = "Window Titles";
+
+/* No comment provided by engineer. */
+"Application Names - Window Titles" = "Application Names - Window Titles";
+
+/* No comment provided by engineer. */
+"Leading" = "Leading";
+
+/* No comment provided by engineer. */
+"Show running:" = "Show running:";
+
+/* No comment provided by engineer. */
+"Show titles:" = "Show titles:";
+
+/* No comment provided by engineer. */
+"Done" = "Done";
+
+/* No comment provided by engineer. */
+"Advanced" = "Advanced";
+
+/* No comment provided by engineer. */
+"Position" = "Position";
+
+/* No comment provided by engineer. */
+"App vertical alignment:" = "App vertical alignment:";
+
+/* No comment provided by engineer. */
+"Thumbnails Advanced…" = "Thumbnails Advanced…";
+
+/* No comment provided by engineer. */
+"App Icons Advanced…" = "App Icons Advanced…";
+
+/* No comment provided by engineer. */
+"Titles Advanced…" = "Titles Advanced…";
+
+/* No comment provided by engineer. */
+"Advanced…" = "Advanced…";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab will show if the window is currently minimized or fullscreen with a status icon.";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.";

@@ -1,6 +1,6 @@
 import Cocoa
 
-class Window {
+class Window: CustomStringConvertible {
     static var globalCreationCounter = Int.zero
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
@@ -69,6 +69,31 @@ class Window {
 
     deinit {
         debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+    }
+
+    var description: String {
+        let s = """
+                Window(cgWindowId: \(cgWindowId)
+                , title: \(title)
+                , thumbnailFullSize: \(thumbnailFullSize)
+                , shouldShowTheUser: \(shouldShowTheUser)
+                , isTabbed: \(isTabbed)
+                , isFullscreen: \(isFullscreen)
+                , isMinimized: \(isMinimized)
+                , isOnAllSpaces: \(isOnAllSpaces)
+                , isWindowlessApp: \(isWindowlessApp)
+                , position: \(position)
+                , size: \(size)
+                , spaceId: \(spaceId)
+                , spaceIndex: \(spaceIndex)
+                , axUiElement: \(axUiElement)
+                , application: \(application)
+                , axObserver: \(axObserver)
+                , row: \(row)
+                , lastFocusOrder: \(lastFocusOrder)
+                , creationOrder: \(creationOrder))
+                """
+        return s.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "  ", with: " ")
     }
 
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
@@ -191,11 +216,24 @@ class Window {
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
                 guard let self = self else { return }
+
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
-                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
-                self.makeKeyWindow(psn)
+                var windows: [Window] = [self]
+                if Preferences.onlyShowApplications() {
+                    windows = Windows.findWindowGroup(self).sorted { $0.lastFocusOrder > $1.lastFocusOrder }
+                    // Ensure current window is always at the end
+                    if let index = windows.firstIndex(where: { $0.cgWindowId == self.cgWindowId }) {
+                        windows.append(windows.remove(at: index))
+                    }
+                }
+                for window in windows {
+                    _SLPSSetFrontProcessWithOptions(&psn, window.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                    window.makeKeyWindow(psn)
+                    window.axUiElement.setAttribute(kAXMinimizedAttribute, false)
+                }
                 self.axUiElement.focusWindow()
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
@@ -278,5 +316,25 @@ class Window {
         //       window-group, instead of picking the focused one
         return isTabbed ? application.focusedWindow : self
     }
-}
 
+    // Determines if this window is the main application window
+    func isAppMainWindow() -> Bool {
+        if let element = application.axUiElement {
+            var mainWindow: AnyObject?
+            if AXUIElementCopyAttributeValue(element, kAXMainWindowAttribute as CFString, &mainWindow) == .success {
+                if let mainWin = mainWindow as! AXUIElement? {
+                    do {
+                        let w1 = try mainWin.cgWindowId()
+                        let w2 = try self.axUiElement.cgWindowId()
+                        if w1 == w2 {
+                            return true
+                        }
+                    } catch {
+                        return false
+                    }
+                }
+            }
+        }
+        return false
+    }
+}
