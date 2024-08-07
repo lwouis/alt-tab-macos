@@ -360,6 +360,7 @@ class TableGroupView: NSStackView {
 
         rows.append(rowInfo)
         tableStackView.addArrangedSubview(rowView)
+        updateRowCornerRadius()
 
         rowView.onClick = { event, view in
             onClick?(event, view)
@@ -420,6 +421,7 @@ class TableGroupView: NSStackView {
         if let index = rows.firstIndex(where: { $0.id == id }) {
             rows[index].view.removeFromSuperview()
             rows.remove(at: index)
+            updateRowCornerRadius()
         }
     }
 
@@ -429,6 +431,26 @@ class TableGroupView: NSStackView {
         return ceil(boundingRect.height)
     }
 
+    private func updateRowCornerRadius() {
+        guard !rows.isEmpty else { return }
+
+        for (index, rowInfo) in rows.enumerated() {
+            if #available(macOS 10.13, *) {
+                rowInfo.view.layer?.cornerRadius = 0
+                rowInfo.view.layer?.maskedCorners = []
+
+                if index == 0 {
+                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                }
+
+                if index == rows.count - 1 {
+                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                }
+            }
+        }
+    }
 }
 
 class ClickHoverStackView: NSStackView {
