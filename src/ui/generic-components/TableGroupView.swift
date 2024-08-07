@@ -4,7 +4,7 @@ import Cocoa
 /// with specific handling for `TableGroupView` and other view types.
 class TableGroupSetView: NSStackView {
     static let spacing = CGFloat(20)
-    static let tableGroupSpacing = CGFloat(20)
+    static let tableGroupSpacing = CGFloat(10)
     static let othersSpacing = CGFloat(10)
     static let padding = CGFloat(20)
     static let leftRightPadding = 2 * TableGroupSetView.padding
@@ -206,6 +206,7 @@ class TableGroupView: NSStackView {
 
             titleStackView.addArrangedSubview(titleLabel)
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel.topAnchor.constraint(equalTo: titleStackView.topAnchor, constant: TableGroupView.spacing).isActive = true
             titleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
             titleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
 
