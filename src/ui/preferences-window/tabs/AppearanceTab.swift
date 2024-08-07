@@ -40,7 +40,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
         self.wantsLayer = true
         self.layer?.cornerRadius = TableGroupView.cornerRadius
         self.layer?.borderColor = TableGroupView.borderColor
-        self.layer?.borderWidth = TableGroupView.borderWidth
+        self.layer?.borderWidth = 2
 
         let imageWidth = width - IllustratedImageThemeView.padding
         let imageHeight = imageWidth / 1.6
@@ -88,18 +88,18 @@ class IllustratedImageThemeView: ClickHoverImageView {
 
 class ShowHideIllustratedView {
     private let model: AppearanceModelPreference
-    private var illustratedImageView: IllustratedImageThemeView!
     private var showHideRows = [ShowHideRowInfo]()
-    private var grid: GridView!
+    var illustratedImageView: IllustratedImageThemeView!
+    var table: TableGroupView!
 
-    init(_ model: AppearanceModelPreference) {
+    init(_ model: AppearanceModelPreference, _ illustratedImageView: IllustratedImageThemeView) {
         self.model = model
+        self.illustratedImageView = illustratedImageView
         setupItems()
-        illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
     }
 
-    func makeView() -> NSStackView {
-        let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+    func makeView() -> TableGroupSetView {
+        table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         for row in showHideRows {
             if row.supportedModels.contains(model) {
                 _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
@@ -111,12 +111,7 @@ class ShowHideIllustratedView {
             }
         }
         table.fit()
-
-        illustratedImageView.onClick = { event, view in
-            self.illustratedImageView.resetImage()
-            table.removeLastMouseEnteredEffects()
-        }
-        let view = TableGroupSetView(originalViews: [illustratedImageView, table])
+        let view = TableGroupSetView(originalViews: [table], padding: 0)
         return view
     }
 
@@ -251,10 +246,14 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     var model: AppearanceModelPreference = .thumbnails
     var illustratedImageView: IllustratedImageThemeView!
+    var showHideIllustratedView: ShowHideIllustratedView!
     var alignThumbnails: TableGroupView.Row!
     var titleTruncation: TableGroupView.Row!
     var showAppsWindows: TableGroupView.Row!
     var showAppNamesWindowTitles: TableGroupView.Row!
+
+    var showHideView: TableGroupSetView!
+    var advancedView: TableGroupSetView!
     var doneButton: NSButton!
 
     convenience init(_ model: AppearanceModelPreference) {
@@ -271,9 +270,8 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func setupView() {
         makeComponents()
-        let showHideView = ShowHideIllustratedView(model).makeView()
+        showHideView = showHideIllustratedView.makeView()
 
-        var advancedView: NSView!
         if model == .thumbnails {
             advancedView = makeThumbnailsView()
         } else if model == .appIcons {
@@ -281,37 +279,24 @@ class ModelAdvancedSettingsWindow: NSWindow {
         } else if model == .titles {
             advancedView = makeTitlesView()
         }
-        let tabView = TabView([
-            (NSLocalizedString("Show & Hide", comment: ""), showHideView),
-            (NSLocalizedString("Advanced", comment: ""), advancedView),
-        ])
-        tabView.translatesAutoresizingMaskIntoConstraints = false
-        tabView.widthAnchor.constraint(equalToConstant: advancedView.fittingSize.width + TableGroupSetView.padding).isActive = true
+        let control = NSSegmentedControl(labels: [
+            NSLocalizedString("Show & Hide", comment: ""),
+            NSLocalizedString("Advanced", comment: "")
+        ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
+        control.selectedSegment = 0
+        control.segmentStyle = .automatic
+        control.widthAnchor.constraint(equalToConstant: ModelAdvancedSettingsWindow.width).isActive = true
 
-        showHideView.translatesAutoresizingMaskIntoConstraints = false
-        showHideView.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.topAnchor).isActive = true
-        showHideView.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.bottomAnchor).isActive = true
-        showHideView.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerXAnchor).isActive = true
-        showHideView.centerYAnchor.constraint(equalTo: tabView.tabViewItem(at: 0).view!.centerYAnchor).isActive = true
-
-        advancedView.translatesAutoresizingMaskIntoConstraints = false
-        advancedView.topAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.topAnchor).isActive = true
-        advancedView.bottomAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.bottomAnchor).isActive = true
-        advancedView.centerXAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerXAnchor).isActive = true
-        advancedView.centerYAnchor.constraint(equalTo: tabView.tabViewItem(at: 1).view!.centerYAnchor).isActive = true
-
-        let grid = GridView([
-            [tabView],
-            [doneButton],
-        ])
-        grid.cell(atColumnIndex: 0, rowIndex: 1).xPlacement = .center
-
-        setContentSize(grid.fittingSize)
-        contentView = grid
+        let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView],
+                toolsViews: [doneButton],
+                othersAlignment: NSLayoutConstraint.Attribute.centerX)
+        contentView = view
+        switchTab(control)
     }
 
     private func makeComponents() {
         illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
+        showHideIllustratedView = ShowHideIllustratedView(model, illustratedImageView)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown(
                         "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
@@ -331,14 +316,14 @@ class ModelAdvancedSettingsWindow: NSWindow {
                     self.showAppsOrWindowsIllustratedImage()
                 })])
 
-        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
+        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(closeWindow(_:)))
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         if #available(macOS 10.14, *) {
             doneButton.bezelColor = NSColor.controlAccentColor
         }
     }
 
-    private func makeThumbnailsView() -> NSView {
+    private func makeThumbnailsView() -> TableGroupSetView {
         let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
@@ -351,11 +336,11 @@ class ModelAdvancedSettingsWindow: NSWindow {
             table.removeLastMouseEnteredEffects()
         }
 
-        let view = TableGroupSetView(originalViews: [illustratedImageView, table])
+        let view = TableGroupSetView(originalViews: [table], padding: 0)
         return view
     }
 
-    private func makeAppIconsView() -> NSView {
+    private func makeAppIconsView() -> TableGroupSetView {
         let table1 = makeAppWindowTableGroupView()
         let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
 
@@ -375,18 +360,12 @@ class ModelAdvancedSettingsWindow: NSWindow {
         })
         table2.fit()
 
-        illustratedImageView.onClick = { event, view in
-            self.illustratedImageView.resetImage()
-            table1.removeLastMouseEnteredEffects()
-            table2.removeLastMouseEnteredEffects()
-        }
-
-        let view = TableGroupSetView(originalViews: [illustratedImageView, table1, table2])
+        let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)
         toggleAppNamesWindowTitles()
         return view
     }
 
-    private func makeTitlesView() -> NSView {
+    private func makeTitlesView() -> TableGroupSetView {
         let table1 = makeAppWindowTableGroupView()
         let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
 
@@ -401,19 +380,15 @@ class ModelAdvancedSettingsWindow: NSWindow {
         _ = table2.addRow(titleTruncation)
         table2.fit()
 
-        illustratedImageView.onClick = { event, view in
-            self.illustratedImageView.resetImage()
-            table1.removeLastMouseEnteredEffects()
-        }
-
-        let view = TableGroupSetView(originalViews: [illustratedImageView, table1, table2])
+        let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)
         toggleAppNamesWindowTitles()
         return view
     }
 
     private func makeAppWindowTableGroupView() -> TableGroupView {
         return TableGroupView(title: NSLocalizedString("Applications & Windows", comment: ""),
-                subTitle: NSLocalizedString("Provide the ability to switch between displaying applications in a windowed form (allowing an application to contain multiple windows) or in an application form (where each application can only have one window).", comment: ""), width: ModelAdvancedSettingsWindow.width)
+                subTitle: NSLocalizedString("Provide the ability to switch between displaying applications in a windowed form (allowing an application to contain multiple windows) or in an application form (where each application can only have one window).", comment: ""),
+                width: ModelAdvancedSettingsWindow.width)
     }
 
     private func toggleAppNamesWindowTitles() {
@@ -439,7 +414,37 @@ class ModelAdvancedSettingsWindow: NSWindow {
         self.illustratedImageView.updateImage(imageName)
     }
 
-    @objc func onClicked(_ sender: NSButton) {
+    func reset() {
+        illustratedImageView.resetImage()
+        [showHideView, advancedView].forEach { tableGroupSetView in
+            tableGroupSetView.originalViews.forEach { view in
+                if let view = view as? TableGroupView {
+                    view.removeLastMouseEnteredEffects()
+                }
+            }
+        }
+    }
+
+    @objc func switchTab(_ sender: NSSegmentedControl) {
+        if sender.selectedSegment == 0 {
+            showHideView.isHidden = false
+            advancedView.isHidden = true
+        } else if sender.selectedSegment == 1 {
+            advancedView.isHidden = false
+            showHideView.isHidden = true
+        }
+        reset()
+        adjustWindowHeight()
+    }
+
+    private func adjustWindowHeight() {
+        let newHeight = contentView?.intrinsicContentSize.height ?? 0
+        var windowFrame = frame
+        windowFrame.size.height = newHeight
+        setFrame(windowFrame, display: true, animate: false)
+    }
+
+    @objc func closeWindow(_ sender: NSButton) {
         if let sheetWindow = sender.window {
             if let mainWindow = sheetWindow.sheetParent {
                 mainWindow.endSheet(sheetWindow)
@@ -465,7 +470,7 @@ class AdvancedSettingsWindow: NSWindow {
     }
 
     private func setupView() {
-        makeDoneButton()
+        makeComponent()
         let animationView = makeAnimationView()
 
         let view = TableGroupSetView(originalViews: [animationView], toolsViews: [doneButton])
@@ -483,15 +488,15 @@ class AdvancedSettingsWindow: NSWindow {
         return table
     }
 
-    private func makeDoneButton() {
-        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(onClicked(_:)))
+    private func makeComponent() {
+        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(closeWindow(_:)))
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         if #available(macOS 10.14, *) {
             doneButton.bezelColor = NSColor.controlAccentColor
         }
     }
 
-    @objc func onClicked(_ sender: NSButton) {
+    @objc func closeWindow(_ sender: NSButton) {
         if let sheetWindow = sender.window {
             if let mainWindow = sheetWindow.sheetParent {
                 mainWindow.endSheet(sheetWindow)

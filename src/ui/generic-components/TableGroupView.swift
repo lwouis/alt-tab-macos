@@ -10,15 +10,19 @@ class TableGroupSetView: NSStackView {
     static let leftRightPadding = 2 * TableGroupSetView.padding
 
     var verticalViews = [NSView]()
+    var originalViews = [NSView]()
 
     convenience init(originalViews: [NSView],
                      toolsViews: [NSView]? = nil,
                      spacing: CGFloat = TableGroupSetView.spacing,
                      tableGroupSpacing: CGFloat = TableGroupSetView.tableGroupSpacing,
-                     padding: CGFloat = TableGroupSetView.padding) {
+                     padding: CGFloat = TableGroupSetView.padding,
+                     othersAlignment: NSLayoutConstraint.Attribute = .trailing,
+                     toolsAlignment: NSLayoutConstraint.Attribute = .centerX) {
         self.init(frame: .zero)
         self.spacing = spacing
         self.orientation = .vertical
+        self.originalViews = originalViews
 
         var continuousTableGroups = [NSView]()
         var continuousOthers = [NSView]()
@@ -29,19 +33,19 @@ class TableGroupSetView: NSStackView {
             if view is TableGroupView {
                 if !lastViewWasTableGroup {
                     // Only reset other views if we are switching from non-TableGroupView to TableGroupView
-                    addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding)
+                    addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding, alignment: othersAlignment)
                 }
                 continuousTableGroups.append(view)
                 lastViewWasTableGroup = true
             } else if view is IllustratedImageThemeView {
                 lastViewWasTableGroup = false
-                addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: spacing)
-                addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding)
-                addToolsViewToSetViews([view], views: &verticalViews, padding: spacing)
+                addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
+                addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding, alignment: othersAlignment)
+                addToolsViewToSetViews([view], views: &verticalViews, padding: padding, alignment: toolsAlignment)
             } else {
                 if lastViewWasTableGroup {
                     // Only reset table group views if we are switching from TableGroupView to non-TableGroupView
-                    addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: spacing)
+                    addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
                 }
                 continuousOthers.append(view)
                 lastViewWasTableGroup = false
@@ -49,11 +53,11 @@ class TableGroupSetView: NSStackView {
         }
 
         // Ensure any remaining views are added
-        addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: spacing)
-        addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding)
+        addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
+        addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding, alignment: othersAlignment)
 
         if let toolsView = toolsViews {
-            addToolsViewToSetViews(toolsView, views: &verticalViews, padding: spacing)
+            addToolsViewToSetViews(toolsView, views: &verticalViews, padding: padding, alignment: toolsAlignment)
         }
         if let lastStackView = verticalViews.last {
             lastStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding).isActive = true
@@ -78,12 +82,12 @@ class TableGroupSetView: NSStackView {
         }
     }
 
-    func addContinuousOthersToSetViews(_ continuousOthers: inout [NSView], views: inout [NSView], padding: CGFloat) {
+    func addContinuousOthersToSetViews(_ continuousOthers: inout [NSView], views: inout [NSView], padding: CGFloat, alignment: NSLayoutConstraint.Attribute) {
         if !continuousOthers.isEmpty {
             let stackView = NSStackView()
             stackView.orientation = .horizontal
             stackView.spacing = TableGroupSetView.othersSpacing
-            stackView.alignment = .trailing
+            stackView.alignment = alignment
             stackView.setViews(continuousOthers, in: .leading)
             continuousOthers.removeAll()
 
@@ -93,12 +97,12 @@ class TableGroupSetView: NSStackView {
         }
     }
 
-    func addToolsViewToSetViews(_ originalViews: [NSView], views: inout [NSView], padding: CGFloat) {
+    func addToolsViewToSetViews(_ originalViews: [NSView], views: inout [NSView], padding: CGFloat, alignment: NSLayoutConstraint.Attribute) {
         if !originalViews.isEmpty {
             let stackView = NSStackView()
             stackView.orientation = .horizontal
             stackView.spacing = TableGroupSetView.othersSpacing
-            stackView.alignment = .centerX
+            stackView.alignment = alignment
             stackView.setViews(originalViews, in: .leading)
 
             addArrangedSubview(stackView)
@@ -120,7 +124,7 @@ class TableGroupSetView: NSStackView {
 /// A custom component view that organizes titles and rows in a stack view format,
 /// likes system settings UI, with configurable styles and events.
 class TableGroupView: NSStackView {
-    static let padding = CGFloat(10)
+    static let spacing = CGFloat(10)
     static let rowIntraSpacing = CGFloat(2)
     static let backgroundColor = NSColor.lightGray.withAlphaComponent(0.1).cgColor
     static let borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
@@ -180,7 +184,7 @@ class TableGroupView: NSStackView {
 
     private func setupView() {
         orientation = .vertical
-        spacing = TableGroupView.padding
+        spacing = TableGroupView.spacing
         translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalToConstant: self.width).isActive = true
 
@@ -202,8 +206,8 @@ class TableGroupView: NSStackView {
 
             titleStackView.addArrangedSubview(titleLabel)
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.padding).isActive = true
-            titleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
+            titleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
+            titleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
 
             // Ensure height adjusts to content by setting priorities
             titleLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -222,14 +226,14 @@ class TableGroupView: NSStackView {
 
             titleStackView.addArrangedSubview(subTitleLabel)
             subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-            subTitleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.padding).isActive = true
-            subTitleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
+            subTitleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
+            subTitleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
 
             // Ensure height adjusts to content by setting priorities
             subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
             subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             // Calculate the fitting height for subLabel and activate the height constraint
-            let subLabelHeight = calculateHeightForLabel(subTitleLabel, width: self.width - 2 * TableGroupView.padding)
+            let subLabelHeight = calculateHeightForLabel(subTitleLabel, width: self.width - 2 * TableGroupView.spacing)
             subTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: subLabelHeight).isActive = true
         } else {
             subTitleLabel.isHidden = true
@@ -280,7 +284,7 @@ class TableGroupView: NSStackView {
             let subLabel = createSubLabel(with: subText, rightViewsWidth: mainRow.arrangedSubviews[2].fittingSize.width)
             setSecondaryRow([subLabel], in: rowView, below: mainRow)
         } else {
-            mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
+            mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
         }
 
         return finalizeRow(rowView: rowView, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
@@ -297,7 +301,7 @@ class TableGroupView: NSStackView {
         if let secondaryViews = secondaryViews {
             setSecondaryRow(secondaryViews, in: rowView, below: mainRow)
         } else {
-            mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
+            mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
         }
 
         return finalizeRow(rowView: rowView, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
@@ -341,14 +345,14 @@ class TableGroupView: NSStackView {
 
         let leftStackView = NSStackView()
         leftStackView.orientation = .horizontal
-        leftStackView.spacing = TableGroupView.padding
+        leftStackView.spacing = TableGroupView.spacing
         if let leftViews = leftViews {
             leftStackView.setViews(leftViews, in: .leading)
         }
 
         let rightStackView = NSStackView()
         rightStackView.orientation = .horizontal
-        rightStackView.spacing = TableGroupView.padding
+        rightStackView.spacing = TableGroupView.spacing
         if let rightViews = rightViews {
             rightStackView.setViews(rightViews, in: .leading)
         }
@@ -371,9 +375,9 @@ class TableGroupView: NSStackView {
     private func setMainRow(_ mainRow: NSStackView, in rowView: ClickHoverStackView) {
         rowView.addArrangedSubview(mainRow)
         mainRow.translatesAutoresizingMaskIntoConstraints = false
-        mainRow.topAnchor.constraint(equalTo: rowView.topAnchor, constant: TableGroupView.padding).isActive = true
-        mainRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
-        mainRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
+        mainRow.topAnchor.constraint(equalTo: rowView.topAnchor, constant: TableGroupView.spacing).isActive = true
+        mainRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
+        mainRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
         mainRow.heightAnchor.constraint(equalToConstant: mainRow.fittingSize.height).isActive = true
     }
 
@@ -388,7 +392,7 @@ class TableGroupView: NSStackView {
         subLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         subLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        let subLabelHeight = calculateHeightForLabel(subLabel, width: self.width - 2 * TableGroupView.padding)
+        let subLabelHeight = calculateHeightForLabel(subLabel, width: self.width - 2 * TableGroupView.spacing)
         subLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: subLabelHeight).isActive = true
 
         return subLabel
@@ -397,15 +401,15 @@ class TableGroupView: NSStackView {
     private func setSecondaryRow(_ secondaryRows: [NSView]?, in rowView: ClickHoverStackView, below mainRow: NSStackView) {
         let view = NSStackView()
         view.orientation = .horizontal
-        view.spacing = TableGroupView.padding
+        view.spacing = TableGroupView.spacing
         if let secondaryRows = secondaryRows {
             view.setViews(secondaryRows, in: .leading)
         }
         rowView.addArrangedSubview(view)
-        view.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
-        view.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
+        view.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
+        view.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
         view.topAnchor.constraint(equalTo: mainRow.bottomAnchor, constant: TableGroupView.rowIntraSpacing).isActive = true
-        view.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
+        view.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
     }
 
     private func addSeparatorIfNeeded(below rowView: NSView) -> NSBox? {
@@ -471,7 +475,7 @@ class TableGroupView: NSStackView {
     }
 
     private func adjustSeparatorWidth(separator: NSBox?, isMouseInside: Bool) {
-        let width = isMouseInside ? self.width : (self.width - 2 * TableGroupView.padding)
+        let width = isMouseInside ? self.width : (self.width - 2 * TableGroupView.spacing)
 
         if let separator = separator {
             if let existingWidthConstraint = separator.constraints.first(where: { $0.firstAttribute == .width }) {
