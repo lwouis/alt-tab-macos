@@ -191,6 +191,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     @objc func showPreferencesWindow() {
         showSecondaryWindow(preferencesWindow)
+        preferencesWindow.center()
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {
