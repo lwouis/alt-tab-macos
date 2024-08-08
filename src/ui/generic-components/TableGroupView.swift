@@ -123,7 +123,7 @@ class TableGroupSetView: NSStackView {
 
 /// A custom component view that organizes titles and rows in a stack view format,
 /// likes system settings UI, with configurable styles and events.
-class TableGroupView: NSStackView {
+class TableGroupView: ClickHoverStackView {
     static let spacing = CGFloat(10)
     static let rowIntraSpacing = CGFloat(2)
     static let backgroundColor = NSColor.lightGray.withAlphaComponent(0.1).cgColor
@@ -439,7 +439,6 @@ class TableGroupView: NSStackView {
         rowView.onMouseEntered = { event, view in
             if let onMouseEntered = onMouseEntered {
                 if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
-                    self.removeLastMouseEnteredEffects()
                     self.lastMouseEnteredRowInfo = rowInfo
                     self.addMouseEnteredEffects(rowInfo)
                     onMouseEntered(event, view)
@@ -448,11 +447,9 @@ class TableGroupView: NSStackView {
         }
 
         rowView.onMouseExited = { event, view in
-            if let onMouseExited = onMouseExited {
-                if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
-                    self.addMouseExitedEffects(rowInfo)
-                    onMouseExited(event, view)
-                }
+            if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
+                self.addMouseExitedEffects(rowInfo)
+                onMouseExited?(event, view)
             }
         }
     }

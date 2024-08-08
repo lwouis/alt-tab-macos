@@ -67,20 +67,11 @@ class LabelAndControl: NSObject {
                                                buttonSpacing: CGFloat = 30) -> [NSView] {
         var buttons: [NSButton] = []
 
-        func getCurrentAccentColor() -> NSColor {
-            if #available(macOS 10.14, *) {
-                if let accentColor = NSColor.controlAccentColor.usingColorSpace(.deviceRGB) {
-                    return accentColor
-                }
-            }
-            return NSColor.systemBlue
-        }
-
         // Helper function to set button border style
         func setButtonBorderStyle(_ button: NSButton, isSelected: Bool) {
             button.wantsLayer = true
             button.layer?.cornerRadius = 7.0
-            button.layer?.borderColor = isSelected ? getCurrentAccentColor().cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
+            button.layer?.borderColor = isSelected ? systemAccentColor().cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
             button.layer?.borderWidth = isSelected ? 3.0 : 2.0
         }
 

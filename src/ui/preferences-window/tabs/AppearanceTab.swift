@@ -15,10 +15,11 @@ struct ShowHideRowInfo {
 }
 
 class IllustratedImageThemeView: ClickHoverImageView {
-    static let padding = CGFloat(2)
+    static let padding = CGFloat(3)
     var model: AppearanceModelPreference!
     var theme: String!
     var imageName: String!
+    var isFocused: Bool = true
 
     init(_ model: AppearanceModelPreference, _ width: CGFloat) {
         // TODO: The appearance theme functionality has not been implemented yet.
@@ -38,9 +39,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
         self.imageName = imageName
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
-        self.layer?.cornerRadius = TableGroupView.cornerRadius
-        self.layer?.borderColor = TableGroupView.borderColor
-        self.layer?.borderWidth = 2
+
 
         let imageWidth = width - IllustratedImageThemeView.padding
         let imageHeight = imageWidth / 1.6
@@ -53,7 +52,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
             imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -IllustratedImageThemeView.padding),
         ])
         onClick = { (event, view) in
-            self.resetImage()
+            self.highlight()
         }
     }
 
@@ -61,11 +60,32 @@ class IllustratedImageThemeView: ClickHoverImageView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func resetImage() {
-        imageView.image = NSImage(named: imageName)
+    private func setBorder() {
+        self.layer?.cornerRadius = TableGroupView.cornerRadius
+        self.layer?.borderColor = self.isFocused ? systemAccentColor().cgColor : NSColor.gray.cgColor
+        self.layer?.borderWidth = 2
     }
 
-    func updateImage(_ imageName: String) {
+    private func setFocused(_ focused: Bool) {
+        self.isFocused = focused
+    }
+
+    func highlight(_ highlighted: Bool = true, _ imageName: String = "") {
+        if !highlighted && imageName.isEmpty  {
+            return
+        }
+
+        setFocused(highlighted)
+        if highlighted {
+            self.imageView.image = NSImage(named: self.imageName)
+            setBorder()
+        } else {
+            updateImage(imageName)
+            setBorder()
+        }
+    }
+
+    private func updateImage(_ imageName: String) {
         imageView.image = NSImage(named: self.getModelThemeImageName(imageName))
     }
 
@@ -109,6 +129,9 @@ class ShowHideIllustratedView {
                     self.updateImageView(rowId: row.rowId)
                 })
             }
+        }
+        table.onMouseExited = { event, view in
+            self.illustratedImageView.highlight()
         }
         table.fit()
         let view = TableGroupSetView(originalViews: [table], padding: 0)
@@ -215,7 +238,7 @@ class ShowHideIllustratedView {
     private func updateImageView(rowId: String, isChecked: Bool) {
         let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
         let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
-        illustratedImageView.updateImage(imageName!)
+        illustratedImageView.highlight(false, imageName!)
     }
 
     private func updateImageView(rowId: String) {
@@ -224,7 +247,7 @@ class ShowHideIllustratedView {
             if let checkbox = view as? NSButton {
                 let isChecked = checkbox.state == .on
                 let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
-                illustratedImageView.updateImage(imageName!)
+                illustratedImageView.highlight(false, imageName!)
             }
         }
     }
@@ -246,7 +269,6 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     var model: AppearanceModelPreference = .thumbnails
     var illustratedImageView: IllustratedImageThemeView!
-    var showHideIllustratedView: ShowHideIllustratedView!
     var alignThumbnails: TableGroupView.Row!
     var titleTruncation: TableGroupView.Row!
     var showAppsWindows: TableGroupView.Row!
@@ -270,7 +292,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func setupView() {
         makeComponents()
-        showHideView = showHideIllustratedView.makeView()
+        showHideView = ShowHideIllustratedView(model, illustratedImageView).makeView()
 
         if model == .thumbnails {
             advancedView = makeThumbnailsView()
@@ -296,7 +318,6 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func makeComponents() {
         illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
-        showHideIllustratedView = ShowHideIllustratedView(model, illustratedImageView)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown(
                         "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
@@ -327,14 +348,14 @@ class ModelAdvancedSettingsWindow: NSWindow {
         let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
+        }, onMouseExited: { event, view in
+            self.illustratedImageView.highlight()
         })
         _ = table.addRow(titleTruncation)
-        table.fit()
-
-        illustratedImageView.onClick = { event, view in
-            self.illustratedImageView.resetImage()
-            table.removeLastMouseEnteredEffects()
+        table.onMouseExited = { event, view in
+            self.illustratedImageView.highlight()
         }
+        table.fit()
 
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         return view
@@ -342,22 +363,15 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func makeAppIconsView() -> TableGroupSetView {
         let table1 = makeAppWindowTableGroupView()
-        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
-
-        _ = table1.addRow(showAppsWindows, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-            table2.removeLastMouseEnteredEffects()
-        })
-        _ = table1.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-            table2.removeLastMouseEnteredEffects()
-        })
         table1.fit()
 
+        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         _ = table2.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
-            table1.removeLastMouseEnteredEffects()
         })
+        table2.onMouseExited = { event, view in
+            self.illustratedImageView.highlight()
+        }
         table2.fit()
 
         let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)
@@ -367,16 +381,9 @@ class ModelAdvancedSettingsWindow: NSWindow {
 
     private func makeTitlesView() -> TableGroupSetView {
         let table1 = makeAppWindowTableGroupView()
-        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
-
-        _ = table1.addRow(showAppsWindows, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-        })
-        _ = table1.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-        })
         table1.fit()
 
+        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
         _ = table2.addRow(titleTruncation)
         table2.fit()
 
@@ -386,9 +393,19 @@ class ModelAdvancedSettingsWindow: NSWindow {
     }
 
     private func makeAppWindowTableGroupView() -> TableGroupView {
-        return TableGroupView(title: NSLocalizedString("Applications & Windows", comment: ""),
+        let view = TableGroupView(title: NSLocalizedString("Applications & Windows", comment: ""),
                 subTitle: NSLocalizedString("Provide the ability to switch between displaying applications in a windowed form (allowing an application to contain multiple windows) or in an application form (where each application can only have one window).", comment: ""),
                 width: ModelAdvancedSettingsWindow.width)
+        _ = view.addRow(showAppsWindows, onMouseEntered: { event, view in
+            self.showAppsOrWindowsIllustratedImage()
+        })
+        _ = view.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
+            self.showAppsOrWindowsIllustratedImage()
+        })
+        view.onMouseExited = { event, view in
+            self.illustratedImageView.highlight()
+        }
+        return view
     }
 
     private func toggleAppNamesWindowTitles() {
@@ -401,7 +418,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
     }
 
     private func showAlignThumbnailsIllustratedImage() {
-        self.illustratedImageView.updateImage(Preferences.alignThumbnails.image.name)
+        self.illustratedImageView.highlight(false, Preferences.alignThumbnails.image.name)
     }
 
     private func showAppsOrWindowsIllustratedImage() {
@@ -411,11 +428,11 @@ class ModelAdvancedSettingsWindow: NSWindow {
         } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
             imageName = ShowAppNamesWindowTitlesPreference.applicationNamesAndWindowTitles.image.name
         }
-        self.illustratedImageView.updateImage(imageName)
+        self.illustratedImageView.highlight(false, imageName)
     }
 
     func reset() {
-        illustratedImageView.resetImage()
+        illustratedImageView.highlight()
         [showHideView, advancedView].forEach { tableGroupSetView in
             tableGroupSetView.originalViews.forEach { view in
                 if let view = view as? TableGroupView {
