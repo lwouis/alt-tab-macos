@@ -597,7 +597,7 @@ class AppearanceTab: NSObject {
 
     private static func makeAppearanceView() -> NSView {
         let table = TableGroupView(title: "Appearance",
-                subTitle: "The appearance feature enables the switcher to switch among multiple modes, each with a different UI. It is capable of adjusting various display aspects such as size, color, and layout. Each appearance mode has its own unique settings.",
+                subTitle: "The appearance feature allows the switcher to switch between three different modes, each having a distinct UI to adapt to different workflows. Each appearance mode has its own unique settings.",
                 width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
