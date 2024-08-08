@@ -119,7 +119,7 @@ class ShowHideIllustratedView {
     }
 
     func makeView() -> TableGroupSetView {
-        table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        table = TableGroupView(width: CustomizeModelSettingsWindow.width)
         for row in showHideRows {
             if row.supportedModels.contains(model) {
                 _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
@@ -263,8 +263,8 @@ class ShowHideIllustratedView {
     }
 }
 
-class ModelAdvancedSettingsWindow: NSWindow {
-    static let width = CGFloat(512)
+class CustomizeModelSettingsWindow: NSWindow {
+    static let width = AppearanceTab.sheetWidth
     static let illustratedImageWidth = width
 
     var model: AppearanceModelPreference = .thumbnails
@@ -307,7 +307,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
         ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
         control.selectedSegment = 0
         control.segmentStyle = .automatic
-        control.widthAnchor.constraint(equalToConstant: ModelAdvancedSettingsWindow.width).isActive = true
+        control.widthAnchor.constraint(equalToConstant: CustomizeModelSettingsWindow.width).isActive = true
 
         let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView],
                 toolsViews: [doneButton],
@@ -317,7 +317,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
     }
 
     private func makeComponents() {
-        illustratedImageView = IllustratedImageThemeView(model, ModelAdvancedSettingsWindow.illustratedImageWidth)
+        illustratedImageView = IllustratedImageThemeView(model, CustomizeModelSettingsWindow.illustratedImageWidth)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown(
                         "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
@@ -345,7 +345,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
     }
 
     private func makeThumbnailsView() -> TableGroupSetView {
-        let table = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        let table = TableGroupView(width: CustomizeModelSettingsWindow.width)
         _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         }, onMouseExited: { event, view in
@@ -365,7 +365,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
         let table1 = makeAppWindowTableGroupView()
         table1.fit()
 
-        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        let table2 = TableGroupView(width: CustomizeModelSettingsWindow.width)
         _ = table2.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         })
@@ -383,7 +383,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
         let table1 = makeAppWindowTableGroupView()
         table1.fit()
 
-        let table2 = TableGroupView(width: ModelAdvancedSettingsWindow.width)
+        let table2 = TableGroupView(width: CustomizeModelSettingsWindow.width)
         _ = table2.addRow(titleTruncation)
         table2.fit()
 
@@ -395,7 +395,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
     private func makeAppWindowTableGroupView() -> TableGroupView {
         let view = TableGroupView(title: NSLocalizedString("Applications & Windows", comment: ""),
                 subTitle: NSLocalizedString("Provide the ability to switch between displaying applications in a windowed form (allowing an application to contain multiple windows) or in an application form (where each application can only have one window).", comment: ""),
-                width: ModelAdvancedSettingsWindow.width)
+                width: CustomizeModelSettingsWindow.width)
         _ = view.addRow(showAppsWindows, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
@@ -471,7 +471,7 @@ class ModelAdvancedSettingsWindow: NSWindow {
 }
 
 class AdvancedSettingsWindow: NSWindow {
-    static let width = AppearanceTab.width - 50
+    static let width = AppearanceTab.sheetWidth
 
     var doneButton: NSButton!
 
@@ -574,8 +574,7 @@ class Popover: NSPopover {
 class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
     static let width = CGFloat(650)
-    static let spacing = CGFloat(30)
-    static let padding = CGFloat(20)
+    static let sheetWidth = CGFloat(512)
 
     static var modelAdvancedButton: NSButton!
     static var advancedButton: NSButton!
@@ -597,7 +596,9 @@ class AppearanceTab: NSObject {
     }
 
     private static func makeAppearanceView() -> NSView {
-        let table = TableGroupView(width: AppearanceTab.width)
+        let table = TableGroupView(title: "Appearance",
+                subTitle: "The appearance feature enables the switcher to switch among multiple modes, each with a different UI. It is capable of adjusting various display aspects such as size, color, and layout. Each appearance mode has its own unique settings.",
+                width: AppearanceTab.width)
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleModelAdvancedButton()
@@ -648,7 +649,7 @@ class AppearanceTab: NSObject {
     }
 
     @objc static func showModelAdvancedSettings() {
-        let advancedSettingsSheetWindow = ModelAdvancedSettingsWindow(Preferences.appearanceModel)
+        let advancedSettingsSheetWindow = CustomizeModelSettingsWindow(Preferences.appearanceModel)
         App.app.preferencesWindow.beginSheet(advancedSettingsSheetWindow)
     }
 
