@@ -191,6 +191,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     @objc func showPreferencesWindow() {
         showSecondaryWindow(preferencesWindow)
+        // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
         preferencesWindow.center()
     }
 
