@@ -624,16 +624,16 @@ class AppearanceTab: NSObject {
 
     private static func makeModelAdvancedButton() {
         modelAdvancedButton = NSButton(title: getModelAdvancedButtonTitle(), target: self, action: #selector(showModelAdvancedSettings))
-        modelAdvancedButton.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        modelAdvancedButton.widthAnchor.constraint(equalToConstant: 170).isActive = true
     }
 
     private static func getModelAdvancedButtonTitle() -> String {
         if Preferences.appearanceModel == .thumbnails {
-            return NSLocalizedString("Thumbnails Advanced…", comment: "")
+            return NSLocalizedString("Customize Thumbnails…", comment: "")
         } else if Preferences.appearanceModel == .appIcons {
-            return NSLocalizedString("App Icons Advanced…", comment: "")
+            return NSLocalizedString("Customize App Icons…", comment: "")
         } else if Preferences.appearanceModel == .titles {
-            return NSLocalizedString("Titles Advanced…", comment: "")
+            return NSLocalizedString("Customize Titles…", comment: "")
         }
         return NSLocalizedString("Advanced…", comment: "")
     }
