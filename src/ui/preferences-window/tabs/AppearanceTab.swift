@@ -19,7 +19,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     var model: AppearanceModelPreference!
     var theme: String!
     var imageName: String!
-    var isFocused: Bool = true
+    var isFocused: Bool = false
 
     init(_ model: AppearanceModelPreference, _ width: CGFloat) {
         // TODO: The appearance theme functionality has not been implemented yet.
@@ -40,7 +40,6 @@ class IllustratedImageThemeView: ClickHoverImageView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
 
-
         let imageWidth = width - IllustratedImageThemeView.padding
         let imageHeight = imageWidth / 1.6
         NSLayoutConstraint.activate([
@@ -51,8 +50,9 @@ class IllustratedImageThemeView: ClickHoverImageView {
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: IllustratedImageThemeView.padding),
             imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -IllustratedImageThemeView.padding),
         ])
+        self.highlight(false)
         onClick = { (event, view) in
-            self.highlight()
+            self.highlight(false)
         }
     }
 
@@ -62,7 +62,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
 
     private func setBorder() {
         self.layer?.cornerRadius = TableGroupView.cornerRadius
-        self.layer?.borderColor = self.isFocused ? systemAccentColor().cgColor : NSColor.gray.cgColor
+        self.layer?.borderColor = self.isFocused ? systemAccentColor().cgColor : NSColor.lightGray.cgColor
         self.layer?.borderWidth = 2
     }
 
@@ -70,18 +70,17 @@ class IllustratedImageThemeView: ClickHoverImageView {
         self.isFocused = focused
     }
 
-    func highlight(_ highlighted: Bool = true, _ imageName: String = "") {
-        if !highlighted && imageName.isEmpty  {
+    func highlight(_ highlighted: Bool, _ imageName: String = "") {
+        if highlighted && imageName.isEmpty  {
             return
         }
 
         setFocused(highlighted)
+        setBorder()
         if highlighted {
-            self.imageView.image = NSImage(named: self.imageName)
-            setBorder()
-        } else {
             updateImage(imageName)
-            setBorder()
+        } else {
+            self.imageView.image = NSImage(named: self.imageName)
         }
     }
 
@@ -131,7 +130,7 @@ class ShowHideIllustratedView {
             }
         }
         table.onMouseExited = { event, view in
-            self.illustratedImageView.highlight()
+            self.illustratedImageView.highlight(false)
         }
         table.fit()
         let view = TableGroupSetView(originalViews: [table], padding: 0)
@@ -238,7 +237,7 @@ class ShowHideIllustratedView {
     private func updateImageView(rowId: String, isChecked: Bool) {
         let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
         let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
-        illustratedImageView.highlight(false, imageName!)
+        illustratedImageView.highlight(true, imageName!)
     }
 
     private func updateImageView(rowId: String) {
@@ -247,7 +246,7 @@ class ShowHideIllustratedView {
             if let checkbox = view as? NSButton {
                 let isChecked = checkbox.state == .on
                 let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
-                illustratedImageView.highlight(false, imageName!)
+                illustratedImageView.highlight(true, imageName!)
             }
         }
     }
@@ -349,11 +348,11 @@ class CustomizeModelSettingsWindow: NSWindow {
         _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         }, onMouseExited: { event, view in
-            self.illustratedImageView.highlight()
+            self.illustratedImageView.highlight(false)
         })
         _ = table.addRow(titleTruncation)
         table.onMouseExited = { event, view in
-            self.illustratedImageView.highlight()
+            self.illustratedImageView.highlight(false)
         }
         table.fit()
 
@@ -370,7 +369,7 @@ class CustomizeModelSettingsWindow: NSWindow {
             self.showAlignThumbnailsIllustratedImage()
         })
         table2.onMouseExited = { event, view in
-            self.illustratedImageView.highlight()
+            self.illustratedImageView.highlight(false)
         }
         table2.fit()
 
@@ -403,7 +402,7 @@ class CustomizeModelSettingsWindow: NSWindow {
             self.showAppsOrWindowsIllustratedImage()
         })
         view.onMouseExited = { event, view in
-            self.illustratedImageView.highlight()
+            self.illustratedImageView.highlight(false)
         }
         return view
     }
@@ -418,7 +417,7 @@ class CustomizeModelSettingsWindow: NSWindow {
     }
 
     private func showAlignThumbnailsIllustratedImage() {
-        self.illustratedImageView.highlight(false, Preferences.alignThumbnails.image.name)
+        self.illustratedImageView.highlight(true, Preferences.alignThumbnails.image.name)
     }
 
     private func showAppsOrWindowsIllustratedImage() {
@@ -428,18 +427,7 @@ class CustomizeModelSettingsWindow: NSWindow {
         } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
             imageName = ShowAppNamesWindowTitlesPreference.applicationNamesAndWindowTitles.image.name
         }
-        self.illustratedImageView.highlight(false, imageName)
-    }
-
-    func reset() {
-        illustratedImageView.highlight()
-        [showHideView, advancedView].forEach { tableGroupSetView in
-            tableGroupSetView.originalViews.forEach { view in
-                if let view = view as? TableGroupView {
-                    view.removeLastMouseEnteredEffects()
-                }
-            }
-        }
+        self.illustratedImageView.highlight(true, imageName)
     }
 
     @objc func switchTab(_ sender: NSSegmentedControl) {
@@ -450,7 +438,6 @@ class CustomizeModelSettingsWindow: NSWindow {
             advancedView.isHidden = false
             showHideView.isHidden = true
         }
-        reset()
         adjustWindowHeight()
     }
 
