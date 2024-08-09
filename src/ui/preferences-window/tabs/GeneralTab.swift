@@ -4,11 +4,13 @@ class GeneralTab {
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
 
     static func initTab() -> NSView {
-        let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
-        let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)
+        let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start AltTab switcher at login", comment: ""),
+                rightViews: [LabelAndControl.makeCheckbox("startAtLogin", extraAction: startAtLoginCallback)])
+        let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Show the style of menubar ico", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)])
         let resetPreferences = Button(NSLocalizedString("Reset preferences and restart…", comment: "")) { _ in GeneralTab.resetPreferences() }
         if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }
-        let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
+        let menubarIconDropdown = menubarIcon.rightViews[0] as! NSPopUpButton
         for i in 0...2 {
             let image = NSImage.initCopy("menubar-" + String(i + 1))
             image.isTemplate = i < 2
@@ -20,17 +22,18 @@ class GeneralTab {
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
 
-        let grid = GridView([
-            startAtLogin,
-            menubarIcon,
-        ])
-        grid.column(at: 0).xPlacement = .trailing
-        grid.fit()
-
-        startAtLoginCallback(startAtLogin[1] as! NSControl)
+        startAtLoginCallback(startAtLogin.rightViews[0] as! NSControl)
         enableDraggingOffMenubarIcon(menubarIconDropdown)
 
-        return StackView([grid, resetPreferences], .vertical, bottom: GridView.padding)
+        let table = TableGroupView(title: NSLocalizedString("General", comment: ""), width: AppearanceTab.width)
+        _ = table.addRow(startAtLogin)
+        _ = table.addRow(menubarIcon)
+        _ = table.addRow(rightViews: resetPreferences)
+        table.fit()
+        let view = TableGroupSetView(originalViews: [table])
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
+        return view
     }
 
     private static func enableDraggingOffMenubarIcon(_ menubarIconDropdown: NSPopUpButton) {
