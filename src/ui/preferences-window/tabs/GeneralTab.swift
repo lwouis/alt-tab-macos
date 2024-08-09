@@ -30,6 +30,7 @@ class GeneralTab {
         _ = table.addRow(menubarIcon)
         _ = table.addRow(rightViews: resetPreferences)
         table.fit()
+
         let view = TableGroupSetView(originalViews: [table])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
