@@ -431,12 +431,13 @@ class CustomizeModelSettingsWindow: NSWindow {
     }
 
     @objc func switchTab(_ sender: NSSegmentedControl) {
-        if sender.selectedSegment == 0 {
-            showHideView.isHidden = false
-            advancedView.isHidden = true
-        } else if sender.selectedSegment == 1 {
-            advancedView.isHidden = false
-            showHideView.isHidden = true
+        let selectedIndex = sender.selectedSegment
+        [showHideView, advancedView].enumerated().forEach { (index, view) in
+            if selectedIndex == index {
+                view.isHidden = false
+            } else {
+                view.isHidden = true
+            }
         }
         adjustWindowHeight()
     }
@@ -560,7 +561,7 @@ class Popover: NSPopover {
 
 class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
-    static let width = CGFloat(650)
+    static let width = CGFloat(550)
     static let sheetWidth = CGFloat(512)
 
     static var modelAdvancedButton: NSButton!
@@ -586,10 +587,10 @@ class AppearanceTab: NSObject {
         let table = TableGroupView(title: "Appearance",
                 subTitle: "The appearance feature allows the switcher to switch between three different modes, each having a distinct UI to adapt to different workflows. Each appearance mode has its own unique settings.",
                 width: AppearanceTab.width)
-        _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""),
-                rightViews: LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
+        _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""))
+        _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleModelAdvancedButton()
-        }, buttonSpacing: 20)[1])
+        }, buttonSpacing: 20)[1]])
         _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithRadioButtons("", "appearanceSize", AppearanceSizePreference.allCases)[1])
         _ = table.addRow(rightViews: modelAdvancedButton)

@@ -200,7 +200,7 @@ class ControlsTab {
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
 
         let table2 = TableGroupView(title: NSLocalizedString("Trigger Shortcuts", comment: ""), width: AppearanceTab.width)
-        _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("AltTab shortcuts", comment: ""), rightViews: holdShortcut + nextWindowShortcut))
+        _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("AltTab shortcuts", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
         _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release the shortcuts", comment: ""), rightViews: [shortcutStyle]))
 
         let view = TableGroupSetView(originalViews: [table2, table1], padding: 0)

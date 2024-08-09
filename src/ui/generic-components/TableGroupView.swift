@@ -125,7 +125,7 @@ class TableGroupSetView: NSStackView {
 /// likes system settings UI, with configurable styles and events.
 class TableGroupView: ClickHoverStackView {
     static let spacing = CGFloat(10)
-    static let rowIntraSpacing = CGFloat(2)
+    static let rowIntraSpacing = CGFloat(5)
     static let backgroundColor = NSColor.lightGray.withAlphaComponent(0.1).cgColor
     static let borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
     static let cornerRadius = CGFloat(5)
@@ -283,7 +283,7 @@ class TableGroupView: ClickHoverStackView {
 
         if let subText = subText {
             let subLabel = createSubLabel(with: subText, rightViewsWidth: mainRow.arrangedSubviews[2].fittingSize.width)
-            setSecondaryRow([subLabel], in: rowView, below: mainRow)
+            setSecondaryRow([subLabel], rowView: rowView, mainRow: mainRow)
         } else {
             mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
         }
@@ -292,6 +292,7 @@ class TableGroupView: ClickHoverStackView {
     }
 
     func addRow(leftViews: [NSView]? = nil, rightViews: [NSView]? = nil, secondaryViews: [NSView]? = nil,
+                secondaryViewsOrientation: NSUserInterfaceLayoutOrientation = .horizontal,
                 onClick: EventClosure? = nil,
                 onMouseEntered: EventClosure? = nil,
                 onMouseExited: EventClosure? = nil) -> RowInfo {
@@ -300,7 +301,7 @@ class TableGroupView: ClickHoverStackView {
         setMainRow(mainRow, in: rowView)
 
         if let secondaryViews = secondaryViews {
-            setSecondaryRow(secondaryViews, in: rowView, below: mainRow)
+            setSecondaryRow(secondaryViews, rowView: rowView, mainRow: mainRow, orientation: secondaryViewsOrientation)
         } else {
             mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
         }
@@ -328,12 +329,16 @@ class TableGroupView: ClickHoverStackView {
         return rowView
     }
 
-    private func createMainRow(leftText: String?, rightViews: [NSView]?) -> NSStackView {
+    static func makeText(_ leftText: String?) -> NSTextField {
         let leftLabel = NSTextField(labelWithString: leftText ?? "")
         leftLabel.alignment = .left
         leftLabel.lineBreakMode = .byWordWrapping
         leftLabel.maximumNumberOfLines = 0
+        return leftLabel
+    }
 
+    private func createMainRow(leftText: String?, rightViews: [NSView]?) -> NSStackView {
+        let leftLabel = TableGroupView.makeText(leftText)
         return createMainRow(leftViews: [leftLabel], rightViews: rightViews)
     }
 
@@ -399,9 +404,10 @@ class TableGroupView: ClickHoverStackView {
         return subLabel
     }
 
-    private func setSecondaryRow(_ secondaryRows: [NSView]?, in rowView: ClickHoverStackView, below mainRow: NSStackView) {
+    private func setSecondaryRow(_ secondaryRows: [NSView]?, rowView: ClickHoverStackView, mainRow: NSStackView,
+                                 orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
         let view = NSStackView()
-        view.orientation = .horizontal
+        view.orientation = orientation
         view.spacing = TableGroupView.spacing
         if let secondaryRows = secondaryRows {
             view.setViews(secondaryRows, in: .leading)
