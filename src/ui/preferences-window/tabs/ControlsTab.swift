@@ -1,7 +1,7 @@
 import Cocoa
 import ShortcutRecorder
 
-class ShortcutsWindow: NSWindow {
+class SheetWindow: NSWindow {
     static let width = AppearanceTab.sheetWidth
 
     var doneButton: NSButton!
@@ -9,22 +9,40 @@ class ShortcutsWindow: NSWindow {
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
         setupWindow()
+        makeComponent()
         setupView()
     }
 
-    private func setupWindow() {
+    func setupWindow() {
         hidesOnDeactivate = false
         makeKeyAndOrderFront(nil)
     }
 
-    private func setupView() {
-        makeComponent()
-        let shortcutsView = makeShortcutsView()
-        let selectWindowsView = makeSelectWindowsView()
-        let miscellaneousView = makeMiscellaneousView()
+    func setupView() { }
 
-        let view = TableGroupSetView(originalViews: [shortcutsView, selectWindowsView, miscellaneousView], toolsViews: [doneButton])
-        view.widthAnchor.constraint(equalToConstant: ShortcutsWindow.width + TableGroupSetView.leftRightPadding).isActive = true
+    func makeComponent() {
+        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(closeWindow(_:)))
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        if #available(macOS 10.14, *) {
+            doneButton.bezelColor = NSColor.controlAccentColor
+        }
+    }
+
+    @objc func closeWindow(_ sender: NSButton) {
+        if let sheetWindow = sender.window {
+            if let mainWindow = sheetWindow.sheetParent {
+                mainWindow.endSheet(sheetWindow)
+            }
+        }
+    }
+}
+
+class ControlsShortcutsWindow: SheetWindow {
+    override func setupView() {
+        let shortcutsView = makeShortcutsView()
+
+        let view = TableGroupSetView(originalViews: [shortcutsView], toolsViews: [doneButton])
+        view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
         contentView = view
     }
 
@@ -49,7 +67,7 @@ class ShortcutsWindow: NSWindow {
 
         let table = TableGroupView(title: NSLocalizedString("Shortcuts", comment: ""),
                 subTitle: NSLocalizedString("The shortcuts for opening AltTab to manage windows or applications ", comment: ""),
-                width: ShortcutsWindow.width)
+                width: SheetWindow.width)
         _ = table.addRow(focusWindowShortcut)
         _ = table.addRow(previousWindowShortcut)
         _ = table.addRow(cancelShortcut)
@@ -59,6 +77,18 @@ class ShortcutsWindow: NSWindow {
         _ = table.addRow(quitAppShortcut)
         _ = table.addRow(hideShowAppShortcut)
         return table
+    }
+}
+
+class ControlsAdvancedWindow: SheetWindow {
+
+    override func setupView() {
+        let selectWindowsView = makeSelectWindowsView()
+        let miscellaneousView = makeMiscellaneousView()
+
+        let view = TableGroupSetView(originalViews: [selectWindowsView, miscellaneousView], toolsViews: [doneButton])
+        view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
+        contentView = view
     }
 
     private func makeSelectWindowsView() -> NSStackView {
@@ -75,7 +105,7 @@ class ShortcutsWindow: NSWindow {
         ControlsTab.vimKeysEnabledCallback(ControlsTab.vimKeysCheckbox)
 
         let table = TableGroupView(title: NSLocalizedString("Select Windows", comment: ""),
-                width: ShortcutsWindow.width)
+                width: SheetWindow.width)
         _ = table.addRow(enableArrows)
         _ = table.addRow(enableVimKeys)
         _ = table.addRow(enableMouse)
@@ -86,25 +116,9 @@ class ShortcutsWindow: NSWindow {
         let enableCursorFollowFocus = TableGroupView.Row(leftTitle: NSLocalizedString("Cursor follows focus", comment: ""),
                 rightViews: [LabelAndControl.makeCheckbox("cursorFollowFocusEnabled")])
         let table = TableGroupView(title: NSLocalizedString("Miscellaneous", comment: ""),
-                width: ShortcutsWindow.width)
+                width: SheetWindow.width)
         _ = table.addRow(enableCursorFollowFocus)
         return table
-    }
-
-    private func makeComponent() {
-        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(closeWindow(_:)))
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        if #available(macOS 10.14, *) {
-            doneButton.bezelColor = NSColor.controlAccentColor
-        }
-    }
-
-    @objc func closeWindow(_ sender: NSButton) {
-        if let sheetWindow = sender.window {
-            if let mainWindow = sheetWindow.sheetParent {
-                mainWindow.endSheet(sheetWindow)
-            }
-        }
     }
 }
 
@@ -145,6 +159,7 @@ class ControlsTab {
     static var tabViews: [TableGroupSetView]!
 
     static func initTab() -> NSView {
+        let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
         let advancedButton = NSButton(title: NSLocalizedString("Advanced…", comment: ""), target: self, action: #selector(ControlsTab.showAdvancedSettings))
         let orPress = LabelAndControl.makeLabel(NSLocalizedString("While open, press:", comment: ""), shouldFit: false)
         let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection(0)
@@ -169,7 +184,7 @@ class ControlsTab {
         tab.segmentStyle = .automatic
         tab.widthAnchor.constraint(equalToConstant: AppearanceTab.width).isActive = true
 
-        let view = TableGroupSetView(originalViews: [tab, tab1View, tab2View, tab3View, tab4View, tab5View, advancedButton])
+        let view = TableGroupSetView(originalViews: [tab, tab1View, tab2View, tab3View, tab4View, tab5View, shortcutsButton, advancedButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         ControlsTab.switchTab(tab)
@@ -219,7 +234,11 @@ class ControlsTab {
     }
 
     @objc static func showAdvancedSettings() {
-        App.app.preferencesWindow.beginSheet(ShortcutsWindow())
+        App.app.preferencesWindow.beginSheet(ControlsAdvancedWindow())
+    }
+
+    @objc static func showShortcutsSettings() {
+        App.app.preferencesWindow.beginSheet(ControlsShortcutsWindow())
     }
 
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {

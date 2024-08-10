@@ -30,7 +30,7 @@ class TableGroupSetView: NSStackView {
         var lastViewWasTableGroup = false
 
         for view in originalViews {
-            if view is TableGroupView {
+            if view is TableGroupView || view is TableGroupSetView {
                 if !lastViewWasTableGroup {
                     // Only reset other views if we are switching from non-TableGroupView to TableGroupView
                     addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding, alignment: othersAlignment)
@@ -87,7 +87,7 @@ class TableGroupSetView: NSStackView {
             continuousTableGroups.removeAll()
 
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding, alignment: .leading)
             views.append(stackView)
         }
     }
@@ -102,7 +102,7 @@ class TableGroupSetView: NSStackView {
             continuousOthers.removeAll()
 
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding, alignment: alignment)
             views.append(stackView)
         }
     }
@@ -116,12 +116,12 @@ class TableGroupSetView: NSStackView {
             stackView.setViews(originalViews, in: .leading)
 
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding, alignment: alignment)
             views.append(stackView)
         }
     }
 
-    func setStackViewConstraints(_ stackView: NSStackView, isFirst: Bool, padding: CGFloat) {
+    func setStackViewConstraints(_ stackView: NSStackView, isFirst: Bool, padding: CGFloat, alignment: NSLayoutConstraint.Attribute) {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         if isFirst {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: padding).isActive = true
@@ -447,7 +447,6 @@ class TableGroupView: ClickHoverStackView {
 
             default: break
         }
-
     }
 
     private func addSeparatorIfNeeded(below rowView: NSView) -> NSBox? {
