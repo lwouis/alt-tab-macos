@@ -1,5 +1,41 @@
 import Cocoa
 
+class SheetWindow: NSWindow {
+    static let width = CGFloat(512)
+
+    var doneButton: NSButton!
+
+    convenience init() {
+        self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
+        setupWindow()
+        makeDoneButton()
+        setupView()
+    }
+
+    func setupWindow() {
+        hidesOnDeactivate = false
+        makeKeyAndOrderFront(nil)
+    }
+
+    func setupView() { }
+
+    func makeDoneButton() {
+        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(closeWindow(_:)))
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        if #available(macOS 10.14, *) {
+            doneButton.bezelColor = NSColor.controlAccentColor
+        }
+    }
+
+    @objc func closeWindow(_ sender: NSButton) {
+        if let sheetWindow = sender.window {
+            if let mainWindow = sheetWindow.sheetParent {
+                mainWindow.endSheet(sheetWindow)
+            }
+        }
+    }
+}
+
 class PreferencesWindow: NSWindow, NSToolbarDelegate {
     var toolbarItems = [NSToolbarItem.Identifier: (Int, NSToolbarItem, NSView)]()
     var canBecomeKey_ = true

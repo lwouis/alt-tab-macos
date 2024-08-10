@@ -262,8 +262,7 @@ class ShowHideIllustratedView {
     }
 }
 
-class CustomizeModelSettingsWindow: NSWindow {
-    static let width = AppearanceTab.sheetWidth
+class CustomizeModelSettingsWindow: SheetWindow {
     static let illustratedImageWidth = width
 
     var model: AppearanceModelPreference = .thumbnails
@@ -275,21 +274,16 @@ class CustomizeModelSettingsWindow: NSWindow {
 
     var showHideView: TableGroupSetView!
     var advancedView: TableGroupSetView!
-    var doneButton: NSButton!
 
     convenience init(_ model: AppearanceModelPreference) {
         self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
         self.model = model
         setupWindow()
+        makeDoneButton()
         setupView()
     }
 
-    private func setupWindow() {
-        hidesOnDeactivate = false
-        makeKeyAndOrderFront(nil)
-    }
-
-    private func setupView() {
+    override func setupView() {
         makeComponents()
         showHideView = ShowHideIllustratedView(model, illustratedImageView).makeView()
 
@@ -335,12 +329,6 @@ class CustomizeModelSettingsWindow: NSWindow {
                         "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
                     self.showAppsOrWindowsIllustratedImage()
                 })])
-
-        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(closeWindow(_:)))
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        if #available(macOS 10.14, *) {
-            doneButton.bezelColor = NSColor.controlAccentColor
-        }
     }
 
     private func makeThumbnailsView() -> TableGroupSetView {
@@ -448,43 +436,20 @@ class CustomizeModelSettingsWindow: NSWindow {
         windowFrame.size.height = newHeight
         setFrame(windowFrame, display: true, animate: false)
     }
-
-    @objc func closeWindow(_ sender: NSButton) {
-        if let sheetWindow = sender.window {
-            if let mainWindow = sheetWindow.sheetParent {
-                mainWindow.endSheet(sheetWindow)
-            }
-        }
-    }
 }
 
-class AdvancedSettingsWindow: NSWindow {
-    static let width = AppearanceTab.sheetWidth
+class AdvancedSettingsWindow: SheetWindow {
 
-    var doneButton: NSButton!
-
-    convenience init() {
-        self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
-        setupWindow()
-        setupView()
-    }
-
-    private func setupWindow() {
-        hidesOnDeactivate = false
-        makeKeyAndOrderFront(nil)
-    }
-
-    private func setupView() {
-        makeComponent()
+    override func setupView() {
         let animationView = makeAnimationView()
 
         let view = TableGroupSetView(originalViews: [animationView], toolsViews: [doneButton])
-        view.widthAnchor.constraint(equalToConstant: AdvancedSettingsWindow.width + TableGroupSetView.leftRightPadding).isActive = true
+        view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
         contentView = view
     }
 
     private func makeAnimationView() -> NSStackView {
-        let table = TableGroupView(title: "Animation", width: AdvancedSettingsWindow.width)
+        let table = TableGroupView(title: "Animation", width: SheetWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Apparition delay millisecond", comment: ""),
                 rightViews: Array(LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 2000, 11, true, "ms", width: 300)[1...2]))
         _ = table.addRow(leftText: NSLocalizedString("Fade out animation", comment: ""),
@@ -493,21 +458,6 @@ class AdvancedSettingsWindow: NSWindow {
         return table
     }
 
-    private func makeComponent() {
-        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(closeWindow(_:)))
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        if #available(macOS 10.14, *) {
-            doneButton.bezelColor = NSColor.controlAccentColor
-        }
-    }
-
-    @objc func closeWindow(_ sender: NSButton) {
-        if let sheetWindow = sender.window {
-            if let mainWindow = sheetWindow.sheetParent {
-                mainWindow.endSheet(sheetWindow)
-            }
-        }
-    }
 }
 
 class Popover: NSPopover {
@@ -562,7 +512,6 @@ class Popover: NSPopover {
 class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
     static let width = CGFloat(550)
-    static let sheetWidth = CGFloat(512)
 
     static var modelAdvancedButton: NSButton!
     static var advancedButton: NSButton!
