@@ -16,24 +16,42 @@ class PoliciesTab {
             SUUpdater.shared().automaticallyChecksForUpdates = policy == .autoInstall || policy == .autoCheck
             PoliciesTab.policyLock = false
         })
-        let updateOptions = StackView(PoliciesTab.updateButtons, .vertical)
+        PoliciesTab.updateButtons.forEach { $0.alignment = .left }
+//        let updateOptions = StackView(PoliciesTab.updateButtons, .vertical)
         let checkForUpdates = NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: nil, action: #selector(PoliciesTab.checkForUpdatesNow))
 
         let crashLabel = LabelAndControl.makeLabel(NSLocalizedString("Crash reports policy:", comment: ""))
         PoliciesTab.crashButtons = LabelAndControl.makeRadioButtons(CrashPolicyPreference.allCases, "crashPolicy")
-        let crashOptions = StackView(PoliciesTab.crashButtons, .vertical)
-        let grid = GridView([
-            [updateLabel, updateOptions],
-            [NSGridCell.emptyContentView, checkForUpdates],
-            [crashLabel, crashOptions],
-        ])
-        grid.column(at: 0).xPlacement = .trailing
-        grid.row(at: 2).topPadding = GridView.interPadding * 1.5
-        grid.fit()
+//        let crashOptions = StackView(PoliciesTab.crashButtons, .vertical)
+
+        let table = TableGroupView(title: NSLocalizedString("Policy", comment: ""), width: AppearanceTab.width)
+        _ = table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Updates policy", comment: ""))],
+                rightViews: [NSView()],
+                secondaryViews: PoliciesTab.updateButtons, secondaryViewsOrientation: .vertical)
+        _ = table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Crash reports policy", comment: ""))],
+                rightViews: [NSView()],
+                secondaryViews: PoliciesTab.crashButtons, secondaryViewsOrientation: .vertical)
+        table.fit()
 
         UserDefaultsEvents.observe()
 
-        return grid
+        let view = TableGroupSetView(originalViews: [table, checkForUpdates])
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
+        return view
+
+//        let grid = GridView([
+//            [updateLabel, updateOptions],
+//            [NSGridCell.emptyContentView, checkForUpdates],
+//            [crashLabel, crashOptions],
+//        ])
+//        grid.column(at: 0).xPlacement = .trailing
+//        grid.row(at: 2).topPadding = GridView.interPadding * 1.5
+//        grid.fit()
+
+
+
+//        return grid
     }
 
     @objc static func checkForUpdatesNow(_ sender: Any) {

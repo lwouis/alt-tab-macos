@@ -590,7 +590,7 @@ class AppearanceTab: NSObject {
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""))
         _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleModelAdvancedButton()
-        }, buttonSpacing: 20)[1]])
+        }, buttonSpacing: 20)[1]], secondaryViewsAlignment: .centerX)
         _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithRadioButtons("", "appearanceSize", AppearanceSizePreference.allCases)[1])
         _ = table.addRow(rightViews: modelAdvancedButton)

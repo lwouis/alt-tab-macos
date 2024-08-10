@@ -293,6 +293,7 @@ class TableGroupView: ClickHoverStackView {
 
     func addRow(leftViews: [NSView]? = nil, rightViews: [NSView]? = nil, secondaryViews: [NSView]? = nil,
                 secondaryViewsOrientation: NSUserInterfaceLayoutOrientation = .horizontal,
+                secondaryViewsAlignment: NSLayoutConstraint.Attribute = .leading,
                 onClick: EventClosure? = nil,
                 onMouseEntered: EventClosure? = nil,
                 onMouseExited: EventClosure? = nil) -> RowInfo {
@@ -301,7 +302,7 @@ class TableGroupView: ClickHoverStackView {
         setMainRow(mainRow, in: rowView)
 
         if let secondaryViews = secondaryViews {
-            setSecondaryRow(secondaryViews, rowView: rowView, mainRow: mainRow, orientation: secondaryViewsOrientation)
+            setSecondaryRow(secondaryViews, rowView: rowView, mainRow: mainRow, orientation: secondaryViewsOrientation, alignment: secondaryViewsAlignment)
         } else {
             mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
         }
@@ -325,7 +326,15 @@ class TableGroupView: ClickHoverStackView {
     private func createRowView() -> ClickHoverStackView {
         let rowView = ClickHoverStackView()
         rowView.orientation = .vertical
+        rowView.alignment = .leading
         rowView.spacing = TableGroupView.rowIntraSpacing
+
+//        rowView.translatesAutoresizingMaskIntoConstraints = false
+//        rowView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+//        rowView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+//        rowView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+//        rowView.heightAnchor.constraint(equalToConstant: mainRow.fittingSize.height).isActive = true
+
         return rowView
     }
 
@@ -345,12 +354,14 @@ class TableGroupView: ClickHoverStackView {
     private func createMainRow(leftViews: [NSView]?, rightViews: [NSView]?) -> NSStackView {
         let mainRow = NSStackView()
         mainRow.orientation = .horizontal
+//        mainRow.alignment = .leading
         mainRow.spacing = 0
 
         let spacer = NSView() // Spacer to fill the middle space
 
         let leftStackView = NSStackView()
         leftStackView.orientation = .horizontal
+        leftStackView.alignment = .leading
         leftStackView.spacing = TableGroupView.spacing
         if let leftViews = leftViews {
             leftStackView.setViews(leftViews, in: .leading)
@@ -358,6 +369,7 @@ class TableGroupView: ClickHoverStackView {
 
         let rightStackView = NSStackView()
         rightStackView.orientation = .horizontal
+//        rightStackView.alignment = .trailing
         rightStackView.spacing = TableGroupView.spacing
         if let rightViews = rightViews {
             rightStackView.setViews(rightViews, in: .leading)
@@ -405,18 +417,36 @@ class TableGroupView: ClickHoverStackView {
     }
 
     private func setSecondaryRow(_ secondaryRows: [NSView]?, rowView: ClickHoverStackView, mainRow: NSStackView,
-                                 orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
-        let view = NSStackView()
-        view.orientation = orientation
-        view.spacing = TableGroupView.spacing
+                                 orientation: NSUserInterfaceLayoutOrientation = .horizontal,
+                                 alignment: NSLayoutConstraint.Attribute = .leading) {
+        let secondaryRow = NSStackView()
+        secondaryRow.orientation = orientation
+        secondaryRow.alignment = alignment
+        secondaryRow.spacing = TableGroupView.rowIntraSpacing
         if let secondaryRows = secondaryRows {
-            view.setViews(secondaryRows, in: .leading)
+            secondaryRow.setViews(secondaryRows, in: .leading)
         }
-        rowView.addArrangedSubview(view)
-        view.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
-        view.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
-        view.topAnchor.constraint(equalTo: mainRow.bottomAnchor, constant: TableGroupView.rowIntraSpacing).isActive = true
-        view.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
+
+        rowView.addSubview(secondaryRow)
+        secondaryRow.translatesAutoresizingMaskIntoConstraints = false
+        secondaryRow.topAnchor.constraint(equalTo: mainRow.bottomAnchor, constant: TableGroupView.rowIntraSpacing).isActive = true
+        secondaryRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
+        switch alignment {
+            case .leading:
+                secondaryRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
+                secondaryRow.trailingAnchor.constraint(lessThanOrEqualTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+
+            case .centerX:
+                secondaryRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
+                secondaryRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+
+            case .right:
+                secondaryRow.leadingAnchor.constraint(lessThanOrEqualTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
+                secondaryRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+
+            default: break
+        }
+
     }
 
     private func addSeparatorIfNeeded(below rowView: NSView) -> NSBox? {
