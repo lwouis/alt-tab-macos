@@ -511,7 +511,6 @@ class Popover: NSPopover {
 
 class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
-    static let width = CGFloat(550)
 
     static var modelAdvancedButton: NSButton!
     static var advancedButton: NSButton!
@@ -535,7 +534,7 @@ class AppearanceTab: NSObject {
     private static func makeAppearanceView() -> NSView {
         let table = TableGroupView(title: "Appearance",
                 subTitle: "The appearance feature allows the switcher to switch between three different modes, each having a distinct UI to adapt to different workflows. Each appearance mode has its own unique settings.",
-                width: AppearanceTab.width)
+                width: PreferencesWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""))
         _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleModelAdvancedButton()
@@ -551,7 +550,7 @@ class AppearanceTab: NSObject {
     private static func makePositionView() -> NSView {
         let table = TableGroupView(title: "Position",
                 subTitle: "When we have multiple monitors, the position feature allows us to decide on which monitor the switcher is displayed, enabling a seamless window moving experience.",
-                width: AppearanceTab.width)
+                width: PreferencesWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on screen", comment: ""),
                 rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
         table.fit()

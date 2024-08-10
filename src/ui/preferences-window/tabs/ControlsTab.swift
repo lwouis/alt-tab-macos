@@ -84,7 +84,7 @@ class ControlsTab {
         ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
         tab.selectedSegment = 0
         tab.segmentStyle = .automatic
-        tab.widthAnchor.constraint(equalToConstant: AppearanceTab.width).isActive = true
+        tab.widthAnchor.constraint(equalToConstant: PreferencesWindow.width).isActive = true
 
         let buttons = StackView([shortcutsButton, advancedButton])
         let view = TableGroupSetView(originalViews: [tab, tab1View, tab2View, tab3View, tab4View, tab5View, buttons])
@@ -171,7 +171,7 @@ class ControlsTab {
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
 
-        let table1 = TableGroupView(title: NSLocalizedString("Show Windows", comment: ""), width: AppearanceTab.width)
+        let table1 = TableGroupView(title: NSLocalizedString("Show Windows", comment: ""), width: PreferencesWindow.width)
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from applications", comment: ""), rightViews: [appsToShow]))
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from spaces", comment: ""), rightViews: [spacesToShow]))
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from screens", comment: ""), rightViews: [screensToShow]))
@@ -185,7 +185,7 @@ class ControlsTab {
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
 
-        let table2 = TableGroupView(title: NSLocalizedString("Trigger Shortcuts", comment: ""), width: AppearanceTab.width)
+        let table2 = TableGroupView(title: NSLocalizedString("Trigger Shortcuts", comment: ""), width: PreferencesWindow.width)
         _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("AltTab shortcuts", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
         _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release the shortcuts", comment: ""), rightViews: [shortcutStyle]))
 

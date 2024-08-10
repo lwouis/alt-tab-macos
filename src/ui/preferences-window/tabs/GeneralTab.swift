@@ -25,7 +25,7 @@ class GeneralTab {
         startAtLoginCallback(startAtLogin.rightViews[0] as! NSControl)
         enableDraggingOffMenubarIcon(menubarIconDropdown)
 
-        let table = TableGroupView(title: NSLocalizedString("General", comment: ""), width: AppearanceTab.width)
+        let table = TableGroupView(title: NSLocalizedString("General", comment: ""), width: PreferencesWindow.width)
         _ = table.addRow(startAtLogin)
         _ = table.addRow(menubarIcon)
         _ = table.addRow(rightViews: resetPreferences)

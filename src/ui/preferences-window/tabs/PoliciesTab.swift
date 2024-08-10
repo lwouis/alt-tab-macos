@@ -24,7 +24,7 @@ class PoliciesTab {
         PoliciesTab.crashButtons = LabelAndControl.makeRadioButtons(CrashPolicyPreference.allCases, "crashPolicy")
 //        let crashOptions = StackView(PoliciesTab.crashButtons, .vertical)
 
-        let table = TableGroupView(title: NSLocalizedString("Policy", comment: ""), width: AppearanceTab.width)
+        let table = TableGroupView(title: NSLocalizedString("Policy", comment: ""), width: PreferencesWindow.width)
         _ = table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Updates policy", comment: ""))],
                 rightViews: [NSView()],
                 secondaryViews: PoliciesTab.updateButtons, secondaryViewsOrientation: .vertical)
