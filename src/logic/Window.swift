@@ -210,30 +210,19 @@ class Window: CustomStringConvertible {
             App.shared.activate(ignoringOtherApps: true)
             App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
             Windows.previewFocusedWindowIfNeeded()
+        } else if Preferences.onlyShowApplications() {
+            application.runningApplication.activate(options: .activateAllWindows)
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
                 guard let self = self else { return }
-
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
-                var windows: [Window] = [self]
-                if Preferences.onlyShowApplications() {
-                    windows = Windows.findWindowGroup(self).sorted { $0.lastFocusOrder > $1.lastFocusOrder }
-                    // Ensure current window is always at the end
-                    if let index = windows.firstIndex(where: { $0.cgWindowId == self.cgWindowId }) {
-                        windows.append(windows.remove(at: index))
-                    }
-                }
-                for window in windows {
-                    _SLPSSetFrontProcessWithOptions(&psn, window.cgWindowId!, SLPSMode.userGenerated.rawValue)
-                    window.makeKeyWindow(psn)
-                    window.axUiElement.setAttribute(kAXMinimizedAttribute, false)
-                }
+                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                self.makeKeyWindow(psn)
                 self.axUiElement.focusWindow()
-
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
