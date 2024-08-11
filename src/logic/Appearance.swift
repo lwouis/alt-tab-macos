@@ -18,7 +18,7 @@ enum AppearanceThemeName: String {
     case dark = "dark"
 }
 
-struct ModelSizeAppearanceParameters {
+struct AppearanceModelSizeParameters {
     var interCellPadding: CGFloat
     var intraCellPadding: CGFloat
     var hideThumbnails: Bool = false
@@ -63,8 +63,8 @@ class AppearanceModelSize {
         self.size = size
     }
 
-    func getModelSizeAppearanceParameters() -> ModelSizeAppearanceParameters {
-        var appearance = ModelSizeAppearanceParameters()
+    func getParameters() -> AppearanceModelSizeParameters {
+        var appearance = AppearanceModelSizeParameters()
         let isVerticalScreen = NSScreen.preferred().ratio() < 1
         if model == AppearanceModelPreference.thumbnails {
             appearance.hideThumbnails = false
@@ -106,30 +106,26 @@ class AppearanceModelSize {
             }
         } else if model == AppearanceModelPreference.appIcons {
             appearance.hideThumbnails = true
+            appearance.intraCellPadding = 5
+            appearance.interCellPadding = 3
+            appearance.fontHeight = 0
+            appearance.maxWidthOnScreen = 95
+            appearance.maxHeightOnScreen = 90
             if size == AppearanceSizePreference.small {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 5
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 68
-                appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 95
-                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.medium {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 6
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 98
-                appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 95
-                appearance.maxHeightOnScreen = 90
             } else if size == AppearanceSizePreference.large {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 8
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 128
-                appearance.fontHeight = 0
-                appearance.maxWidthOnScreen = 95
-                appearance.maxHeightOnScreen = 90
             }
         } else if model == AppearanceModelPreference.titles {
             appearance.hideThumbnails = true
@@ -188,7 +184,7 @@ class AppearanceTheme {
         }
     }
 
-    func getAppearanceThemeParameters() -> AppearanceThemeParameters {
+    func getParameters() -> AppearanceThemeParameters {
         var appearance = AppearanceThemeParameters()
         if self.themeName == .light {
             appearance.material = .light

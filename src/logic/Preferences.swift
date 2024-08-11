@@ -163,18 +163,18 @@ class Preferences {
     // derived values
     static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
     static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
-    static var modelSizeAppearanceParameters: ModelSizeAppearanceParameters { AppearanceModelSize(appearanceModel, appearanceSize).getModelSizeAppearanceParameters() }
-    static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceTheme).getAppearanceThemeParameters() }
-    static var interCellPadding: CGFloat { modelSizeAppearanceParameters.interCellPadding }
-    static var intraCellPadding: CGFloat { modelSizeAppearanceParameters.intraCellPadding }
-    static var hideThumbnails: Bool { modelSizeAppearanceParameters.hideThumbnails }
-    static var maxWidthOnScreen: CGFloat { modelSizeAppearanceParameters.maxWidthOnScreen / CGFloat(100) }
-    static var maxHeightOnScreen: CGFloat { modelSizeAppearanceParameters.maxHeightOnScreen / CGFloat(100) }
-    static var windowMaxWidthInRow: CGFloat { modelSizeAppearanceParameters.windowMaxWidthInRow / CGFloat(100) }
-    static var windowMinWidthInRow: CGFloat { modelSizeAppearanceParameters.windowMinWidthInRow / CGFloat(100) }
-    static var rowsCount: CGFloat { modelSizeAppearanceParameters.rowsCount }
-    static var iconSize: CGFloat { modelSizeAppearanceParameters.iconSize }
-    static var fontHeight: CGFloat { modelSizeAppearanceParameters.fontHeight }
+    static var appearanceModelSizeParameters: AppearanceModelSizeParameters { AppearanceModelSize(appearanceModel, appearanceSize).getParameters() }
+    static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceTheme).getParameters() }
+    static var interCellPadding: CGFloat { appearanceModelSizeParameters.interCellPadding }
+    static var intraCellPadding: CGFloat { appearanceModelSizeParameters.intraCellPadding }
+    static var hideThumbnails: Bool { appearanceModelSizeParameters.hideThumbnails }
+    static var maxWidthOnScreen: CGFloat { appearanceModelSizeParameters.maxWidthOnScreen / CGFloat(100) }
+    static var maxHeightOnScreen: CGFloat { appearanceModelSizeParameters.maxHeightOnScreen / CGFloat(100) }
+    static var windowMaxWidthInRow: CGFloat { appearanceModelSizeParameters.windowMaxWidthInRow / CGFloat(100) }
+    static var windowMinWidthInRow: CGFloat { appearanceModelSizeParameters.windowMinWidthInRow / CGFloat(100) }
+    static var rowsCount: CGFloat { appearanceModelSizeParameters.rowsCount }
+    static var iconSize: CGFloat { appearanceModelSizeParameters.iconSize }
+    static var fontHeight: CGFloat { appearanceModelSizeParameters.fontHeight }
     static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
     static var verticalAlignment: VerticalAlignment { appVerticalAlignment.verticalAlignment }
 
