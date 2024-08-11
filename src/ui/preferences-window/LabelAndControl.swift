@@ -300,7 +300,9 @@ class LabelAndControl: NSObject {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.segmentStyle = .automatic
         macroPreferences.enumerated().forEach { (i, preference) in
-            button.selectedSegment = defaults.int(rawName) == i ? i : 0
+            if defaults.int(rawName) == i {
+                button.selectedSegment = i
+            }
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
         }
         return button
