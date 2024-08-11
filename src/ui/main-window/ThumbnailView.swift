@@ -120,16 +120,6 @@ class ThumbnailView: NSStackView {
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
         layer!.borderColor = getBorderColor(isFocused: isFocused, isHovered: isHovered).cgColor
-//        let newFrameInset = (isFocused || isHovered) ? -Preferences.intraCellPadding : Preferences.intraCellPadding
-//        if newFrameInset != frameInset {
-//            frameInset = newFrameInset
-//            frame = frame.insetBy(dx: frameInset, dy: frameInset)
-//        }
-//        let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isFocused || isHovered ? 2 : 1)
-//        edgeInsets.top = edgeInsets_
-//        edgeInsets.right = edgeInsets_
-//        edgeInsets.bottom = edgeInsets_
-//        edgeInsets.left = edgeInsets_
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {

@@ -175,7 +175,6 @@ class AppearanceTheme {
 
     init(_ theme: AppearanceThemePreference) {
         self.themeName = AppearanceTheme.transform(theme)
-
     }
 
     static func transform(_ theme: AppearanceThemePreference) -> AppearanceThemeName {
