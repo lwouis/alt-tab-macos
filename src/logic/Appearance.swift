@@ -188,18 +188,18 @@ class AppearanceTheme {
             appearance.indicatedIconShadowColor = nil
             appearance.titleShadowColor = nil
             appearance.imageShadowColor = NSColor.lightGray.withAlphaComponent(0.8)
-            appearance.highlightFocusedBackgroundColor = NSColor.lightGray.withAlphaComponent(0.6)
+            appearance.highlightFocusedBackgroundColor = NSColor.lightGray.withAlphaComponent(0.5)
             appearance.highlightHoveredBackgroundColor = NSColor.lightGray.withAlphaComponent(0.2)
             appearance.highlightBorderColor = NSColor.black.withAlphaComponent(0.8)
         } else {
             appearance.material = .dark
-            appearance.fontColor = NSColor.white
+            appearance.fontColor = NSColor.white.withAlphaComponent(0.9)
             appearance.indicatedIconShadowColor = NSColor.darkGray
             appearance.titleShadowColor = NSColor.darkGray
-            appearance.imageShadowColor = NSColor.gray
+            appearance.imageShadowColor = NSColor.gray.withAlphaComponent(0.8)
             appearance.highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
             appearance.highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.2)
-            appearance.highlightBorderColor = NSColor.white
+            appearance.highlightBorderColor = NSColor.white.withAlphaComponent(0.8)
         }
         return appearance
     }
