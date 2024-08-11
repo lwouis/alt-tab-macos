@@ -70,14 +70,14 @@ class AppearanceModelSize {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 12
             appearance.interCellPadding = 3
+            appearance.maxWidthOnScreen = 90
+            appearance.maxHeightOnScreen = 80
             if size == AppearanceSizePreference.small {
                 appearance.rowsCount = 5
                 appearance.windowMinWidthInRow = 8
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 25
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 90
-                appearance.maxHeightOnScreen = 80
                 if isVerticalScreen {
                     appearance.rowsCount = 8
                 }
@@ -87,8 +87,6 @@ class AppearanceModelSize {
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 30
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 90
-                appearance.maxHeightOnScreen = 80
                 if isVerticalScreen {
                     appearance.rowsCount = 7
                 }
@@ -98,8 +96,6 @@ class AppearanceModelSize {
                 appearance.windowMaxWidthInRow = 90
                 appearance.iconSize = 30
                 appearance.fontHeight = 15
-                appearance.maxWidthOnScreen = 90
-                appearance.maxHeightOnScreen = 80
                 if isVerticalScreen {
                     appearance.rowsCount = 6
                 }
