@@ -295,6 +295,17 @@ class LabelAndControl: NSObject {
         }
     }
 
+    static func makeSegmentedControl(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil) -> NSSegmentedControl {
+        let button = NSSegmentedControl(labels: macroPreferences.map { $0.localizedString }, trackingMode: .selectOne, target: nil, action: nil)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.segmentStyle = .automatic
+        macroPreferences.enumerated().forEach { (i, preference) in
+            button.selectedSegment = defaults.int(rawName) == i ? i : 0
+            _ = setupControl(button, rawName, String(i), extraAction: extraAction)
+        }
+        return button
+    }
+
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int = 0, _ allowsTickMarkValuesOnly: Bool = false, _ unitText: String = "", width: CGFloat = 200, extraAction: ActionClosure? = nil) -> [NSView] {
         let value = defaults.double(rawName)
         let formatter = MeasurementFormatter()
@@ -392,6 +403,8 @@ class LabelAndControl: NSObject {
             } else {
                 return String((control as! NSButton).state == NSButton.StateValue.on)
             }
+        } else if control is NSSegmentedControl {
+            return String((control as! NSSegmentedControl).selectedSegment)
         } else {
             return control.stringValue
         }

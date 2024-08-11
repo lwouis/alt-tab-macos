@@ -539,10 +539,15 @@ class AppearanceTab: NSObject {
         _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleModelAdvancedButton()
         }, buttonSpacing: 20)[1]], secondaryViewsAlignment: .centerX)
+
+        let appearanceSize = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases)
+        appearanceSize.widthAnchor.constraint(equalToConstant: 300).isActive = true
         _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),
-                rightViews: LabelAndControl.makeLabelWithRadioButtons("", "appearanceSize", AppearanceSizePreference.allCases)[1])
+                rightViews: [appearanceSize])
+        let appearanceTheme = LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases)
+        appearanceTheme.widthAnchor.constraint(equalToConstant: 300).isActive = true
         _ = table.addRow(leftText: NSLocalizedString("Appearance theme", comment: ""),
-                rightViews: LabelAndControl.makeLabelWithRadioButtons("", "appearanceTheme", AppearanceThemePreference.allCases)[1])
+                rightViews: [appearanceTheme])
         _ = table.addRow(rightViews: modelAdvancedButton)
 
         table.fit()

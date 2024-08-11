@@ -6,7 +6,7 @@ class GeneralTab {
     static func initTab() -> NSView {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start AltTab switcher at login", comment: ""),
                 rightViews: [LabelAndControl.makeCheckbox("startAtLogin", extraAction: startAtLoginCallback)])
-        let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Show the style of menubar ico", comment: ""),
+        let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Show the style of menubar icon", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)])
         let resetPreferences = Button(NSLocalizedString("Reset preferences and restart…", comment: "")) { _ in GeneralTab.resetPreferences() }
         if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }
