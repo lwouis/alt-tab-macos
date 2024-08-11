@@ -197,8 +197,8 @@ class AppearanceTheme {
             appearance.indicatedIconShadowColor = nil
             appearance.titleShadowColor = nil
             appearance.imageShadowColor = NSColor.lightGray.withAlphaComponent(0.8)
-            appearance.highlightFocusedBackgroundColor = NSColor.gray.withAlphaComponent(0.6)
-            appearance.highlightHoveredBackgroundColor = NSColor.gray.withAlphaComponent(0.2)
+            appearance.highlightFocusedBackgroundColor = NSColor.lightGray.withAlphaComponent(0.6)
+            appearance.highlightHoveredBackgroundColor = NSColor.lightGray.withAlphaComponent(0.2)
             appearance.highlightBorderColor = NSColor.black.withAlphaComponent(0.8)
         } else {
             appearance.material = .dark
