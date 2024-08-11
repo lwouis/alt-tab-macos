@@ -541,6 +541,8 @@ class AppearanceTab: NSObject {
         }, buttonSpacing: 20)[1]], secondaryViewsAlignment: .centerX)
         _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),
                 rightViews: LabelAndControl.makeLabelWithRadioButtons("", "appearanceSize", AppearanceSizePreference.allCases)[1])
+        _ = table.addRow(leftText: NSLocalizedString("Appearance theme", comment: ""),
+                rightViews: LabelAndControl.makeLabelWithRadioButtons("", "appearanceTheme", AppearanceThemePreference.allCases)[1])
         _ = table.addRow(rightViews: modelAdvancedButton)
 
         table.fit()

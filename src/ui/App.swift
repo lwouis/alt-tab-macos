@@ -36,7 +36,10 @@ class App: AppCenterApplication, NSApplicationDelegate {
         delegate = self
         App.app = self
         // Fix the incorrect display of the ThumbnailView when the screen resolution changes.
-        NotificationCenter.default.addObserver(self, selector: #selector(screenParametersDidChange), name: NSApplication.didChangeScreenParametersNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeCallback), name: NSApplication.didChangeScreenParametersNotification, object: nil)
+        if #available(macOS 10.14, *) {
+            DistributedNotificationCenter.default.addObserver(self, selector: #selector(didChangeCallback), name: NSNotification.Name("AppleInterfaceThemeChangedNotification"), object: nil)
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -45,6 +48,9 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSApplication.didChangeScreenParametersNotification, object: nil)
+        if #available(macOS 10.14, *) {
+            DistributedNotificationCenter.default.removeObserver(self, name: NSNotification.Name("AppleInterfaceThemeChangedNotification"), object: nil)
+        }
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -108,8 +114,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
-        ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
-        thumbnailsPanel.thumbnailsView.updateRoundedCorners(Preferences.windowCornerRadius)
+        thumbnailsPanel.thumbnailsView.reset()
     }
 
     func restart() {
@@ -351,12 +356,12 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
 
-    @objc func screenParametersDidChange(notification: Notification) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(handleScreenChange), object: nil)
-        self.perform(#selector(handleScreenChange), with: nil, afterDelay: 0.2)
+    @objc func didChangeCallback(notification: Notification) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(handleChange), object: nil)
+        self.perform(#selector(handleChange), with: nil, afterDelay: 0.2)
     }
 
-    @objc func handleScreenChange() {
+    @objc func handleChange() {
         App.app.resetPreferencesDependentComponents()
     }
 }

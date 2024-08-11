@@ -3,8 +3,6 @@ import Cocoa
 class ThumbnailView: NSStackView {
     static let windowsControlSize = CGFloat(16)
     static let windowsControlSpacing = CGFloat(8)
-    static let highlightBackgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-    static let highlightBorderColor = NSColor.white
     var window_: Window?
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
@@ -48,7 +46,7 @@ class ThumbnailView: NSStackView {
         layer!.borderWidth = CGFloat(2)
         edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
         orientation = .vertical
-        let shadow = ThumbnailView.makeShadow(.gray)
+        let shadow = ThumbnailView.makeShadow(Preferences.appearanceThemeParameters.imageShadowColor)
         thumbnail.shadow = shadow
         windowlessIcon.toolTip = NSLocalizedString("App is running but has no open window", comment: "")
         windowlessIcon.shadow = shadow
@@ -103,23 +101,35 @@ class ThumbnailView: NSStackView {
         }
     }
 
+    private func getBackgroundColor(isFocused: Bool, isHovered: Bool) -> NSColor {
+        if isFocused {
+            return Preferences.appearanceThemeParameters.highlightFocusedBackgroundColor
+        }
+        if isHovered {
+            return Preferences.appearanceThemeParameters.highlightHoveredBackgroundColor
+        }
+        return NSColor.clear
+    }
+
+    private func getBorderColor(isFocused: Bool, isHovered: Bool) -> NSColor {
+        return NSColor.clear
+    }
+
     func drawHighlight(_ i: Int) {
         let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
-        layer!.backgroundColor = (Preferences.theme == .macOs && isFocused) || (Preferences.theme == .windows10 && isHovered)
-            ? ThumbnailView.highlightBackgroundColor.cgColor : .clear
-        layer!.borderColor = (Preferences.theme == .macOs && isHovered) || (Preferences.theme == .windows10 && isFocused)
-            ? ThumbnailView.highlightBorderColor.cgColor : .clear
-        let newFrameInset = (isFocused) ? -Preferences.intraCellPadding : Preferences.intraCellPadding
-        if newFrameInset != frameInset {
-            frameInset = newFrameInset
-            frame = frame.insetBy(dx: frameInset, dy: frameInset)
-        }
-        let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isFocused ? 2 : 1)
-        edgeInsets.top = edgeInsets_
-        edgeInsets.right = edgeInsets_
-        edgeInsets.bottom = edgeInsets_
-        edgeInsets.left = edgeInsets_
+        layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        layer!.borderColor = getBorderColor(isFocused: isFocused, isHovered: isHovered).cgColor
+//        let newFrameInset = (isFocused || isHovered) ? -Preferences.intraCellPadding : Preferences.intraCellPadding
+//        if newFrameInset != frameInset {
+//            frameInset = newFrameInset
+//            frame = frame.insetBy(dx: frameInset, dy: frameInset)
+//        }
+//        let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isFocused || isHovered ? 2 : 1)
+//        edgeInsets.top = edgeInsets_
+//        edgeInsets.right = edgeInsets_
+//        edgeInsets.bottom = edgeInsets_
+//        edgeInsets.left = edgeInsets_
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
@@ -316,7 +326,10 @@ class ThumbnailView: NSStackView {
         return (max(Double(Preferences.defaultValues["iconSize"]!)!, Preferences.iconSize) * 0.43).rounded()
     }
 
-    static func makeShadow(_ color: NSColor) -> NSShadow {
+    static func makeShadow(_ color: NSColor?) -> NSShadow? {
+        if color == nil {
+            return nil
+        }
         let shadow = NSShadow()
         shadow.shadowColor = color
         shadow.shadowOffset = .zero

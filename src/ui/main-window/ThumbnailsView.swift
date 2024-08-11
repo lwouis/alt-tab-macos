@@ -7,13 +7,19 @@ class ThumbnailsView: NSVisualEffectView {
 
     convenience init() {
         self.init(frame: .zero)
-        material = .dark
+        material = Preferences.appearanceThemeParameters.material
         state = .active
         wantsLayer = true
         updateRoundedCorners(Preferences.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+    }
+
+    func reset() {
+        self.material = Preferences.appearanceThemeParameters.material
+        ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
+        updateRoundedCorners(Preferences.windowCornerRadius)
     }
 
     static func highlight(_ indexInRecycledViews: Int) {

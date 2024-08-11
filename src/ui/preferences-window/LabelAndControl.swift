@@ -86,7 +86,9 @@ class LabelAndControl: NSObject {
             let imageContainer = NSView()
             imageContainer.translatesAutoresizingMaskIntoConstraints = false
 
-            let imageView = NSImageView(image: NSImage(named: preference.image.name + "_" + Preferences.appearanceTheme.localizedString)!)
+            // TODO: The appearance theme functionality has not been implemented yet.
+            // We will implement it later; for now, use the light theme.
+            let imageView = NSImageView(image: NSImage(named: preference.image.name + "_" + "light")!)
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.imageScaling = .scaleProportionallyUpOrDown
             imageView.wantsLayer = true
@@ -348,7 +350,7 @@ class LabelAndControl: NSObject {
         }
         // some preferences require re-creating some components
         if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-               (["appearanceModel", "appearanceSize", "iconSize", "fontHeight", "theme", "titleTruncation"].contains { (pref: String) -> Bool in
+               (["appearanceModel", "appearanceSize", "appearanceTheme", "iconSize", "fontHeight", "theme", "titleTruncation"].contains { (pref: String) -> Bool in
                    pref == senderControl.identifier!.rawValue
                }) {
             (App.shared as! App).resetPreferencesDependentComponents()
