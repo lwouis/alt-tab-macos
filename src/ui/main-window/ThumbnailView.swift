@@ -16,7 +16,10 @@ class ThumbnailView: NSStackView {
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
     var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""), windowsControlSize)
+
     var hStackView: NSStackView!
+    var vStackView: NSStackView!
+    var labelStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
@@ -39,24 +42,40 @@ class ThumbnailView: NSStackView {
     }
 
     private func setupView() {
-        wantsLayer = true
-        layer!.backgroundColor = .clear
-        layer!.borderColor = .clear
-        layer!.cornerRadius = Preferences.cellCornerRadius
-        layer!.borderWidth = CGFloat(2)
-        edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
         orientation = .vertical
         let shadow = ThumbnailView.makeShadow(Preferences.appearanceThemeParameters.imageShadowColor)
         thumbnail.shadow = shadow
         windowlessIcon.toolTip = NSLocalizedString("App is running but has no open window", comment: "")
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
-        hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
-        hStackView.orientation = .horizontal
-        setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
+
+        addViews()
         addWindowControls()
         addDockLabelIcon()
         setAccessibilityChildren([])
+    }
+
+    private func addViews() {
+        vStackView = NSStackView()
+        vStackView.orientation = .vertical
+        vStackView.wantsLayer = true
+        vStackView.layer!.backgroundColor = .clear
+        vStackView.layer!.borderColor = .clear
+        vStackView.layer!.cornerRadius = Preferences.cellCornerRadius
+        vStackView.layer!.borderWidth = CGFloat(2)
+        vStackView.edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
+        if Preferences.appearanceModel == .appIcons {
+            // The label is outside and below the selected icon in app icons model
+            hStackView = NSStackView(views: [appIcon])
+            vStackView.setViews([hStackView], in: .leading)
+            label.alignment = .center
+            label.isHidden = true
+            setViews([vStackView, label], in: .leading)
+        } else {
+            hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
+            vStackView.setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
+            setViews([vStackView], in: .leading)
+        }
     }
 
     private func addDockLabelIcon() {
@@ -118,8 +137,11 @@ class ThumbnailView: NSStackView {
     func drawHighlight(_ i: Int) {
         let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
-        layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
-        layer!.borderColor = getBorderColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        vStackView?.layer!.borderColor = getBorderColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        if Preferences.appearanceModel == .appIcons {
+            label.isHidden = !isFocused
+        }
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
@@ -138,7 +160,8 @@ class ThumbnailView: NSStackView {
             // for Accessibility > "speak items under the pointer"
             thumbnail.setAccessibilityLabel(element.title)
         }
-        assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
+        assignIfDifferent(&vStackView.spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
+        assignIfDifferent(&spacing, Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
         let title = getAppOrAndWindowTitle()
         let appIconChanged = appIcon.image != element.icon || appIcon.toolTip != title
@@ -176,8 +199,7 @@ class ThumbnailView: NSStackView {
         }
         setFrameWidth(element, screen)
         assignIfDifferent(&frame.size.height, newHeight)
-        let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
-        assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
+        setLabelWidth()
         label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
@@ -223,6 +245,15 @@ class ThumbnailView: NSStackView {
         let fittingWidthMin = fittingWidth + leftRightPadding
         let width = max(fittingWidthMin, widthMin).rounded()
         assignIfDifferent(&frame.size.width, width)
+    }
+
+    func setLabelWidth() {
+        if Preferences.appearanceModel == .appIcons {
+            assignIfDifferent(&label.textContainer!.size.width, frame.width)
+        } else {
+            let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
+            assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
+        }
     }
 
     @discardableResult

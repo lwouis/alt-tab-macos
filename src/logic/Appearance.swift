@@ -104,7 +104,7 @@ class AppearanceModelSize {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 5
             appearance.interCellPadding = 3
-            appearance.fontHeight = 0
+            appearance.fontHeight = 15
             appearance.maxWidthOnScreen = 95
             appearance.maxHeightOnScreen = 90
             if size == AppearanceSizePreference.small {
