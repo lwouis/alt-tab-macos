@@ -449,7 +449,7 @@ class AdvancedSettingsWindow: SheetWindow {
     }
 
     private func makeAnimationView() -> NSStackView {
-        let table = TableGroupView(title: "Animation", width: SheetWindow.width)
+        let table = TableGroupView(title: NSLocalizedString("Animation", comment: ""), width: SheetWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Apparition delay millisecond", comment: ""),
                 rightViews: Array(LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 2000, 11, true, "ms", width: 300)[1...2]))
         _ = table.addRow(leftText: NSLocalizedString("Fade out animation", comment: ""),
@@ -532,20 +532,18 @@ class AppearanceTab: NSObject {
     }
 
     private static func makeAppearanceView() -> NSView {
-        let table = TableGroupView(title: "Appearance",
-                subTitle: "The appearance feature allows the switcher to switch between three different modes, each having a distinct UI to adapt to different workflows. Each appearance mode has its own unique settings.",
+        let table = TableGroupView(title: NSLocalizedString("Appearance", comment: ""),
+                subTitle: NSLocalizedString("The appearance feature allows the switcher to switch between three different modes, each having a distinct UI to adapt to different workflows. Each appearance mode has its own unique settings.", comment: ""),
                 width: PreferencesWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""))
         _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleModelAdvancedButton()
         }, buttonSpacing: 20)[1]], secondaryViewsAlignment: .centerX)
 
-        let appearanceSize = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases)
-        appearanceSize.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        let appearanceSize = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)
         _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),
                 rightViews: [appearanceSize])
-        let appearanceTheme = LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases)
-        appearanceTheme.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        let appearanceTheme = LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)
         _ = table.addRow(leftText: NSLocalizedString("Appearance theme", comment: ""),
                 rightViews: [appearanceTheme])
         _ = table.addRow(rightViews: modelAdvancedButton)
@@ -555,8 +553,8 @@ class AppearanceTab: NSObject {
     }
 
     private static func makePositionView() -> NSView {
-        let table = TableGroupView(title: "Position",
-                subTitle: "When we have multiple monitors, the position feature allows us to decide on which monitor the switcher is displayed, enabling a seamless window moving experience.",
+        let table = TableGroupView(title: NSLocalizedString("Position", comment: ""),
+                subTitle: NSLocalizedString("When we have multiple monitors, the position feature allows us to decide on which monitor the switcher is displayed, enabling a seamless window moving experience.", comment: ""),
                 width: PreferencesWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on screen", comment: ""),
                 rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))

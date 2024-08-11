@@ -295,15 +295,19 @@ class LabelAndControl: NSObject {
         }
     }
 
-    static func makeSegmentedControl(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil) -> NSSegmentedControl {
+    static func makeSegmentedControl(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil, segmentWidth: CGFloat = -1) -> NSSegmentedControl {
         let button = NSSegmentedControl(labels: macroPreferences.map { $0.localizedString }, trackingMode: .selectOne, target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.segmentStyle = .automatic
-        macroPreferences.enumerated().forEach { (i, preference) in
-            if defaults.int(rawName) == i {
-                button.selectedSegment = i
+        macroPreferences.enumerated().forEach { (index, preference) in
+            if segmentWidth > 0 {
+                button.setWidth(segmentWidth, forSegment: index)
             }
-            _ = setupControl(button, rawName, String(i), extraAction: extraAction)
+
+            if defaults.int(rawName) == index {
+                button.selectedSegment = index
+            }
+            _ = setupControl(button, rawName, String(index), extraAction: extraAction)
         }
         return button
     }
