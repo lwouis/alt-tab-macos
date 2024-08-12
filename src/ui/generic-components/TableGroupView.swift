@@ -4,9 +4,9 @@ import Cocoa
 /// with specific handling for `TableGroupView` and other view types.
 class TableGroupSetView: NSStackView {
     static let spacing = CGFloat(20)
-    static let tableGroupSpacing = CGFloat(20)
+    static let tableGroupSpacing = CGFloat(5)
     static let othersSpacing = CGFloat(10)
-    static let titleTableGroupSpacing = CGFloat(10)
+    static let titleTableGroupSpacing = CGFloat(30)
     static let padding = CGFloat(20)
     static let leftRightPadding = 2 * TableGroupSetView.padding
 
@@ -76,14 +76,23 @@ class TableGroupSetView: NSStackView {
             stackView.alignment = .leading
 
             continuousTableGroups.enumerated().forEach { (index, view) in
-                if let tableGroupView = view as? TableGroupView, tableGroupView.title != nil, (index > 0 || !views.isEmpty) {
-                    tableGroupView.titleS.
+                if let tableGroupView = view as? TableGroupView, tableGroupView.title != nil {
+                    var spacerHeight = CGFloat(0)
+                    if index == 0 && !views.isEmpty {
+                        // at first, height: spacing + padding
+                        spacerHeight = TableGroupSetView.titleTableGroupSpacing - spacing
+                    } else if index > 0 {
+                        // inner, height: tableGroupSpacing + padding
+                        spacerHeight = TableGroupSetView.titleTableGroupSpacing
+                    }
                     let spacerView = NSView()
                     spacerView.translatesAutoresizingMaskIntoConstraints = false
-                    spacerView.heightAnchor.constraint(equalToConstant: TableGroupSetView.titleTableGroupSpacing).isActive = true
+                    spacerView.heightAnchor.constraint(equalToConstant: spacerHeight).isActive = true
                     stackView.addArrangedSubview(spacerView)
+                    stackView.setCustomSpacing(0, after: spacerView)
                 }
                 stackView.addArrangedSubview(view)
+                stackView.setCustomSpacing(0, after: view)
             }
 
             continuousTableGroups.removeAll()
