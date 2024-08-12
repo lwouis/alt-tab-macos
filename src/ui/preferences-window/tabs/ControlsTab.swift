@@ -13,7 +13,7 @@ class ControlsShortcutsWindow: SheetWindow {
 class ControlsAdvancedWindow: SheetWindow {
 
     override func setupView() {
-        let view = TableGroupSetView(originalViews: [ControlsTab.selectWindowsView, ControlsTab.miscellaneousView], toolsViews: [doneButton])
+        let view = TableGroupSetView(originalViews: [ControlsTab.miscellaneousView], toolsViews: [doneButton])
         view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
         contentView = view
     }
@@ -74,7 +74,6 @@ class ControlsTab {
         [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3, nextWindowShortcut4, nextWindowShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
 
-
         let tab = NSSegmentedControl(labels: [
             NSLocalizedString("Shortcut 1", comment: ""),
             NSLocalizedString("Shortcut 2", comment: ""),
@@ -86,8 +85,8 @@ class ControlsTab {
         tab.segmentStyle = .automatic
         tab.widthAnchor.constraint(equalToConstant: PreferencesWindow.width).isActive = true
 
-//        let buttons = StackView([shortcutsButton, advancedButton])
-        let view = TableGroupSetView(originalViews: [tab, tab1View, tab2View, tab3View, tab4View, tab5View, ControlsTab.selectWindowsView, ControlsTab.miscellaneousView, shortcutsButton])
+        let buttons = StackView([shortcutsButton, advancedButton])
+        let view = TableGroupSetView(originalViews: [ControlsTab.selectWindowsView, tab, tab1View, tab2View, tab3View, tab4View, tab5View, buttons])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         ControlsTab.switchTab(tab)
@@ -125,7 +124,7 @@ class ControlsTab {
         let enableCursorFollowFocus = TableGroupView.Row(leftTitle: NSLocalizedString("Cursor follows focus", comment: ""),
                 rightViews: [LabelAndControl.makeCheckbox("cursorFollowFocusEnabled")])
         let table = TableGroupView(title: NSLocalizedString("Miscellaneous", comment: ""),
-                width: PreferencesWindow.width)
+                width: SheetWindow.width)
         _ = table.addRow(enableCursorFollowFocus)
         return table
     }
@@ -149,7 +148,7 @@ class ControlsTab {
                 rightViews: [LabelAndControl.makeLabelWithRecorder("", "hideShowAppShortcut", Preferences.hideShowAppShortcut, labelPosition: .right)[0]])
 
         let table = TableGroupView(title: NSLocalizedString("Shortcuts When Active", comment: ""),
-                subTitle: NSLocalizedString("The shortcuts for opening AltTab switcher to manage windows or applications ", comment: ""),
+                subTitle: NSLocalizedString("The shortcuts for activating AltTab switcher to manage windows or applications.", comment: ""),
                 width: SheetWindow.width)
         _ = table.addRow(focusWindowShortcut)
         _ = table.addRow(previousWindowShortcut)
@@ -171,6 +170,11 @@ class ControlsTab {
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
 
+        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), Preferences.indexToName("holdShortcut", index), Preferences.holdShortcut[index], false, labelPosition: .leftWithoutSeparator)
+        holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press", comment: "")))
+        let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
+        let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
+
         let table1 = TableGroupView(width: PreferencesWindow.width)
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from applications", comment: ""), rightViews: [appsToShow]))
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from spaces", comment: ""), rightViews: [spacesToShow]))
@@ -179,11 +183,6 @@ class ControlsTab {
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show hidden windows", comment: ""), rightViews: [showHiddenWindows]))
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show window order", comment: ""), rightViews: [windowOrder]))
-
-        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), Preferences.indexToName("holdShortcut", index), Preferences.holdShortcut[index], false, labelPosition: .leftWithoutSeparator)
-        holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press", comment: "")))
-        let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
-        let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
 
         let table2 = TableGroupView(width: PreferencesWindow.width)
         _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("AltTab shortcuts", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
@@ -195,6 +194,10 @@ class ControlsTab {
 
     @objc static func switchTab(_ sender: NSSegmentedControl) {
         let selectedIndex = sender.selectedSegment
+        switchIndexTab(selectedIndex)
+    }
+
+    static func switchIndexTab(_ selectedIndex: Int) {
         ControlsTab.tabViews.enumerated().forEach { (index, view) in
             if selectedIndex == index {
                 view.isHidden = false

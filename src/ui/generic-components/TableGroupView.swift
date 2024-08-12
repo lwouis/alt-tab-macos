@@ -146,6 +146,7 @@ class TableGroupSetView: NSStackView {
 /// likes system settings UI, with configurable styles and events.
 class TableGroupView: ClickHoverStackView {
     static let spacing = CGFloat(10)
+    static let padding = CGFloat(10)
     static let rowIntraSpacing = CGFloat(5)
     static let backgroundColor = NSColor.lightGray.withAlphaComponent(0.1).cgColor
     static let borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
@@ -227,8 +228,8 @@ class TableGroupView: ClickHoverStackView {
 
             titleStackView.addArrangedSubview(titleLabel)
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
-            titleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+            titleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.padding).isActive = true
+            titleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
 
             // Ensure height adjusts to content by setting priorities
             titleLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -247,14 +248,14 @@ class TableGroupView: ClickHoverStackView {
 
             titleStackView.addArrangedSubview(subTitleLabel)
             subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-            subTitleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
-            subTitleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+            subTitleLabel.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor, constant: TableGroupView.padding).isActive = true
+            subTitleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
 
             // Ensure height adjusts to content by setting priorities
             subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
             subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             // Calculate the fitting height for subLabel and activate the height constraint
-            let subLabelHeight = calculateHeightForLabel(subTitleLabel, width: self.width - 2 * TableGroupView.spacing)
+            let subLabelHeight = calculateHeightForLabel(subTitleLabel, width: self.width - 2 * TableGroupView.padding)
             subTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: subLabelHeight).isActive = true
         } else {
             subTitleLabel.isHidden = true
@@ -305,7 +306,7 @@ class TableGroupView: ClickHoverStackView {
             let subLabel = createSubLabel(with: subText, rightViewsWidth: mainRow.arrangedSubviews[2].fittingSize.width)
             setSecondaryRow([subLabel], rowView: rowView, mainRow: mainRow)
         } else {
-            mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
+            mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
         }
 
         return finalizeRow(rowView: rowView, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
@@ -324,7 +325,7 @@ class TableGroupView: ClickHoverStackView {
         if let secondaryViews = secondaryViews {
             setSecondaryRow(secondaryViews, rowView: rowView, mainRow: mainRow, orientation: secondaryViewsOrientation, alignment: secondaryViewsAlignment)
         } else {
-            mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
+            mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
         }
 
         return finalizeRow(rowView: rowView, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
@@ -405,9 +406,9 @@ class TableGroupView: ClickHoverStackView {
     private func setMainRow(_ mainRow: NSStackView, in rowView: ClickHoverStackView) {
         rowView.addArrangedSubview(mainRow)
         mainRow.translatesAutoresizingMaskIntoConstraints = false
-        mainRow.topAnchor.constraint(equalTo: rowView.topAnchor, constant: TableGroupView.spacing).isActive = true
-        mainRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
-        mainRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+        mainRow.topAnchor.constraint(equalTo: rowView.topAnchor, constant: TableGroupView.padding).isActive = true
+        mainRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
+        mainRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
         mainRow.heightAnchor.constraint(equalToConstant: mainRow.fittingSize.height).isActive = true
     }
 
@@ -422,7 +423,7 @@ class TableGroupView: ClickHoverStackView {
         subLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         subLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        let subLabelHeight = calculateHeightForLabel(subLabel, width: self.width - 2 * TableGroupView.spacing)
+        let subLabelHeight = calculateHeightForLabel(subLabel, width: self.width - 2 * TableGroupView.padding)
         subLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: subLabelHeight).isActive = true
 
         return subLabel
@@ -442,19 +443,19 @@ class TableGroupView: ClickHoverStackView {
         rowView.addSubview(secondaryRow)
         secondaryRow.translatesAutoresizingMaskIntoConstraints = false
         secondaryRow.topAnchor.constraint(equalTo: mainRow.bottomAnchor, constant: TableGroupView.rowIntraSpacing).isActive = true
-        secondaryRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.spacing).isActive = true
+        secondaryRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
         switch alignment {
             case .leading:
-                secondaryRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
-                secondaryRow.trailingAnchor.constraint(lessThanOrEqualTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+                secondaryRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
+                secondaryRow.trailingAnchor.constraint(lessThanOrEqualTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
 
             case .centerX:
-                secondaryRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
-                secondaryRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+                secondaryRow.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
+                secondaryRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
 
             case .right:
-                secondaryRow.leadingAnchor.constraint(lessThanOrEqualTo: rowView.leadingAnchor, constant: TableGroupView.spacing).isActive = true
-                secondaryRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.spacing).isActive = true
+                secondaryRow.leadingAnchor.constraint(lessThanOrEqualTo: rowView.leadingAnchor, constant: TableGroupView.padding).isActive = true
+                secondaryRow.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -TableGroupView.padding).isActive = true
 
             default: break
         }
@@ -520,7 +521,7 @@ class TableGroupView: ClickHoverStackView {
     }
 
     private func adjustSeparatorWidth(separator: NSBox?, isMouseInside: Bool) {
-        let width = isMouseInside ? self.width : (self.width - 2 * TableGroupView.spacing)
+        let width = isMouseInside ? self.width : (self.width - 2 * TableGroupView.padding)
 
         if let separator = separator {
             if let existingWidthConstraint = separator.constraints.first(where: { $0.firstAttribute == .width }) {
