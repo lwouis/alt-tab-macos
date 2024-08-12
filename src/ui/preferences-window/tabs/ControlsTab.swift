@@ -85,8 +85,12 @@ class ControlsTab {
         tab.segmentStyle = .automatic
         tab.widthAnchor.constraint(equalToConstant: PreferencesWindow.width).isActive = true
 
+        let shortcutsTabs = TableGroupSetView(originalViews: [tab, tab1View, tab2View, tab3View, tab4View, tab5View], othersSpacing: 0, padding: 0)
+        shortcutsTabs.translatesAutoresizingMaskIntoConstraints = false
+        shortcutsTabs.widthAnchor.constraint(equalToConstant: shortcutsTabs.fittingSize.width).isActive = true
+
         let buttons = StackView([shortcutsButton, advancedButton])
-        let view = TableGroupSetView(originalViews: [ControlsTab.selectWindowsView, tab, tab1View, tab2View, tab3View, tab4View, tab5View, buttons])
+        let view = TableGroupSetView(originalViews: [ControlsTab.selectWindowsView, shortcutsTabs, buttons], othersSpacing: 20)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         ControlsTab.switchTab(tab)

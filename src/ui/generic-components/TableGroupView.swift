@@ -17,6 +17,7 @@ class TableGroupSetView: NSStackView {
                      toolsViews: [NSView]? = nil,
                      spacing: CGFloat = TableGroupSetView.spacing,
                      tableGroupSpacing: CGFloat = TableGroupSetView.tableGroupSpacing,
+                     othersSpacing: CGFloat = TableGroupSetView.othersSpacing,
                      padding: CGFloat = TableGroupSetView.padding,
                      othersAlignment: NSLayoutConstraint.Attribute = .trailing,
                      toolsAlignment: NSLayoutConstraint.Attribute = .centerX) {
@@ -34,14 +35,14 @@ class TableGroupSetView: NSStackView {
             if view is TableGroupView {
                 if !lastViewWasTableGroup {
                     // Only reset other views if we are switching from non-TableGroupView to TableGroupView
-                    addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding, alignment: othersAlignment)
+                    addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, othersSpacing: othersSpacing, padding: padding, alignment: othersAlignment)
                 }
                 continuousTableGroups.append(view)
                 lastViewWasTableGroup = true
             } else if view is IllustratedImageThemeView {
                 lastViewWasTableGroup = false
                 addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
-                addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding, alignment: othersAlignment)
+                addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, othersSpacing: othersSpacing, padding: padding, alignment: othersAlignment)
                 addToolsViewToSetViews([view], views: &verticalViews, padding: padding, alignment: toolsAlignment)
             } else {
                 if lastViewWasTableGroup {
@@ -55,7 +56,7 @@ class TableGroupSetView: NSStackView {
 
         // Ensure any remaining views are added
         addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
-        addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, padding: padding, alignment: othersAlignment)
+        addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, othersSpacing: othersSpacing, padding: padding, alignment: othersAlignment)
 
         if let toolsView = toolsViews {
             addToolsViewToSetViews(toolsView, views: &verticalViews, padding: padding, alignment: toolsAlignment)
@@ -103,11 +104,11 @@ class TableGroupSetView: NSStackView {
         }
     }
 
-    func addContinuousOthersToSetViews(_ continuousOthers: inout [NSView], views: inout [NSView], padding: CGFloat, alignment: NSLayoutConstraint.Attribute) {
+    func addContinuousOthersToSetViews(_ continuousOthers: inout [NSView], views: inout [NSView], othersSpacing: CGFloat, padding: CGFloat, alignment: NSLayoutConstraint.Attribute) {
         if !continuousOthers.isEmpty {
             let stackView = NSStackView()
             stackView.orientation = .horizontal
-            stackView.spacing = TableGroupSetView.othersSpacing
+            stackView.spacing = othersSpacing
             stackView.alignment = alignment
             stackView.setViews(continuousOthers, in: .leading)
             continuousOthers.removeAll()
