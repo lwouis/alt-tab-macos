@@ -148,8 +148,8 @@ class TableGroupView: ClickHoverStackView {
     static let spacing = CGFloat(10)
     static let padding = CGFloat(10)
     static let rowIntraSpacing = CGFloat(5)
-    static let backgroundColor = NSColor.lightGray.withAlphaComponent(0.1).cgColor
-    static let borderColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
+    static let backgroundColor = NSColor.lightGray.withAlphaComponent(0.1)
+    static let borderColor = NSColor.lightGray.withAlphaComponent(0.2)
     static let cornerRadius = CGFloat(5)
     static let borderWidth = CGFloat(1)
 
@@ -180,10 +180,10 @@ class TableGroupView: ClickHoverStackView {
     struct RowInfo {
         let id: Int
         let view: NSView
-        var previousSeparator: NSBox?
-        var nextSeparator: NSBox?
+        var previousSeparator: NSView?
+        var nextSeparator: NSView?
 
-        init(id: Int, view: NSView, previousSeparator: NSBox? = nil, nextSeparator: NSBox? = nil) {
+        init(id: Int, view: NSView, previousSeparator: NSView? = nil, nextSeparator: NSView? = nil) {
             self.id = id
             self.view = view
             self.previousSeparator = previousSeparator
@@ -271,9 +271,9 @@ class TableGroupView: ClickHoverStackView {
         tableStackView.orientation = .vertical
         tableStackView.spacing = 0
         tableStackView.wantsLayer = true
-        tableStackView.layer?.backgroundColor = TableGroupView.backgroundColor
+        tableStackView.layer?.backgroundColor = TableGroupView.backgroundColor.cgColor
         tableStackView.layer?.cornerRadius = TableGroupView.cornerRadius
-        tableStackView.layer?.borderColor = TableGroupView.borderColor
+        tableStackView.layer?.borderColor = TableGroupView.borderColor.cgColor
         tableStackView.layer?.borderWidth = TableGroupView.borderWidth
         addArrangedSubview(tableStackView)
 
@@ -461,13 +461,15 @@ class TableGroupView: ClickHoverStackView {
         }
     }
 
-    private func addSeparatorIfNeeded(below rowView: NSView) -> NSBox? {
+    private func addSeparatorIfNeeded(below rowView: NSView) -> NSView? {
         guard !rows.isEmpty else { return nil }
 
-        let separator = NSBox()
+        let separator = NSView()
         separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.boxType = .separator
+        separator.wantsLayer = true
+        separator.layer?.backgroundColor = TableGroupView.borderColor.cgColor
         tableStackView.addArrangedSubview(separator)
+
         separator.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth).isActive = true
         separator.centerXAnchor.constraint(equalTo: tableStackView.centerXAnchor).isActive = true
         adjustSeparatorWidth(separator: separator, isMouseInside: false)
@@ -520,7 +522,7 @@ class TableGroupView: ClickHoverStackView {
         self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: false)
     }
 
-    private func adjustSeparatorWidth(separator: NSBox?, isMouseInside: Bool) {
+    private func adjustSeparatorWidth(separator: NSView?, isMouseInside: Bool) {
         let width = isMouseInside ? self.width : (self.width - 2 * TableGroupView.padding)
 
         if let separator = separator {
