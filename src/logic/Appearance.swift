@@ -69,7 +69,7 @@ class AppearanceModelSize {
         if model == AppearanceModelPreference.thumbnails {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 12
-            appearance.interCellPadding = 3
+            appearance.interCellPadding = 1
             appearance.maxWidthOnScreen = 90
             appearance.maxHeightOnScreen = 80
             if size == AppearanceSizePreference.small {
@@ -103,7 +103,7 @@ class AppearanceModelSize {
         } else if model == AppearanceModelPreference.appIcons {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 5
-            appearance.interCellPadding = 3
+            appearance.interCellPadding = 1
             appearance.fontHeight = 15
             appearance.maxWidthOnScreen = 95
             appearance.maxHeightOnScreen = 90
@@ -126,7 +126,7 @@ class AppearanceModelSize {
         } else if model == AppearanceModelPreference.titles {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 8
-            appearance.interCellPadding = 3
+            appearance.interCellPadding = 1
             appearance.rowsCount = 0
             appearance.windowMinWidthInRow = 70
             appearance.windowMaxWidthInRow = 90
@@ -188,8 +188,8 @@ class AppearanceTheme {
             appearance.indicatedIconShadowColor = nil
             appearance.titleShadowColor = nil
             appearance.imageShadowColor = NSColor.lightGray.withAlphaComponent(0.8)
-            appearance.highlightFocusedBackgroundColor = NSColor.lightGray.withAlphaComponent(0.5)
-            appearance.highlightHoveredBackgroundColor = NSColor.lightGray.withAlphaComponent(0.2)
+            appearance.highlightFocusedBackgroundColor = NSColor.lightGray.withAlphaComponent(0.7)
+            appearance.highlightHoveredBackgroundColor = NSColor.lightGray.withAlphaComponent(0.4)
             appearance.highlightBorderColor = NSColor.black.withAlphaComponent(0.8)
         } else {
             appearance.material = .dark
