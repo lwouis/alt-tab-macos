@@ -72,7 +72,7 @@ class LabelAndControl: NSObject {
             button.wantsLayer = true
             button.layer?.cornerRadius = 7.0
             button.layer?.borderColor = isSelected ? systemAccentColor().cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
-            button.layer?.borderWidth = isSelected ? 3.0 : 2.0
+            button.layer?.borderWidth = isSelected ? 2 : 2
         }
 
         let buttonViews = values.enumerated().map { (index, preference) -> NSView in
@@ -95,14 +95,14 @@ class LabelAndControl: NSObject {
             imageView.layer?.cornerRadius = 5.0
             imageContainer.addSubview(imageView)
 
-            // Set constraints to add equal padding around the image
+            let padding = CGFloat(1)
             NSLayoutConstraint.activate([
                 imageView.widthAnchor.constraint(equalToConstant: preference.image.width),
                 imageView.heightAnchor.constraint(equalToConstant: preference.image.height),
-                imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor, constant: 2),
-                imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor, constant: -2),
-                imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: 2),
-                imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -2),
+                imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor, constant: padding),
+                imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor, constant: -padding),
+                imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: padding),
+                imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -padding),
             ])
 
             button.addSubview(imageContainer)

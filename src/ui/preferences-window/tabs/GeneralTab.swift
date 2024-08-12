@@ -4,9 +4,9 @@ class GeneralTab {
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
 
     static func initTab() -> NSView {
-        let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start AltTab switcher at login", comment: ""),
+        let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
                 rightViews: [LabelAndControl.makeCheckbox("startAtLogin", extraAction: startAtLoginCallback)])
-        let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Show the style of menubar icon", comment: ""),
+        let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)])
         let resetPreferences = Button(NSLocalizedString("Reset preferences and restart…", comment: "")) { _ in GeneralTab.resetPreferences() }
         if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }

@@ -535,10 +535,9 @@ class AppearanceTab: NSObject {
         let table = TableGroupView(title: NSLocalizedString("Appearance", comment: ""),
                 subTitle: NSLocalizedString("The appearance feature allows the switcher to switch between three different modes, each having a distinct UI to adapt to different workflows. Each appearance mode has its own unique settings.", comment: ""),
                 width: PreferencesWindow.width)
-        _ = table.addRow(leftText: NSLocalizedString("Appearance model", comment: ""))
         _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleModelAdvancedButton()
-        }, buttonSpacing: 20)[1]], secondaryViewsAlignment: .centerX)
+        }, buttonSpacing: 15)[1]], secondaryViewsAlignment: .centerX)
 
         let appearanceSize = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)
         _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),

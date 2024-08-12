@@ -37,7 +37,7 @@ class SheetWindow: NSWindow {
 }
 
 class PreferencesWindow: NSWindow, NSToolbarDelegate {
-    static let width = CGFloat(550)
+    static let width = CGFloat(520)
 
     var toolbarItems = [NSToolbarItem.Identifier: (Int, NSToolbarItem, NSView)]()
     var canBecomeKey_ = true

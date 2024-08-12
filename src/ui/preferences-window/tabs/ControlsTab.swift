@@ -55,13 +55,13 @@ class ControlsTab {
     static var vimKeysCheckbox: NSButton!
 
     static var tabViews: [TableGroupSetView]!
-    static var selectWindowsView: TableGroupView!
     static var shortcutsView: TableGroupView!
+    static var selectWindowsView: TableGroupView!
     static var miscellaneousView: TableGroupView!
 
     static func initTab() -> NSView {
         makeComponents()
-        let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
+        let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts When Active…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
         let advancedButton = NSButton(title: NSLocalizedString("Advanced…", comment: ""), target: self, action: #selector(ControlsTab.showAdvancedSettings))
         let orPress = LabelAndControl.makeLabel(NSLocalizedString("While open, press:", comment: ""), shouldFit: false)
         let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection(0)
@@ -86,8 +86,8 @@ class ControlsTab {
         tab.segmentStyle = .automatic
         tab.widthAnchor.constraint(equalToConstant: PreferencesWindow.width).isActive = true
 
-        let buttons = StackView([shortcutsButton, advancedButton])
-        let view = TableGroupSetView(originalViews: [tab, tab1View, tab2View, tab3View, tab4View, tab5View, buttons])
+//        let buttons = StackView([shortcutsButton, advancedButton])
+        let view = TableGroupSetView(originalViews: [tab, tab1View, tab2View, tab3View, tab4View, tab5View, ControlsTab.selectWindowsView, ControlsTab.miscellaneousView, shortcutsButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         ControlsTab.switchTab(tab)
@@ -114,7 +114,7 @@ class ControlsTab {
         ControlsTab.vimKeysEnabledCallback(ControlsTab.vimKeysCheckbox)
 
         let table = TableGroupView(title: NSLocalizedString("Select Windows", comment: ""),
-                width: SheetWindow.width)
+                width: PreferencesWindow.width)
         _ = table.addRow(enableArrows)
         _ = table.addRow(enableVimKeys)
         _ = table.addRow(enableMouse)
@@ -125,7 +125,7 @@ class ControlsTab {
         let enableCursorFollowFocus = TableGroupView.Row(leftTitle: NSLocalizedString("Cursor follows focus", comment: ""),
                 rightViews: [LabelAndControl.makeCheckbox("cursorFollowFocusEnabled")])
         let table = TableGroupView(title: NSLocalizedString("Miscellaneous", comment: ""),
-                width: SheetWindow.width)
+                width: PreferencesWindow.width)
         _ = table.addRow(enableCursorFollowFocus)
         return table
     }
@@ -148,8 +148,8 @@ class ControlsTab {
         let hideShowAppShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Hide/Show app", comment: ""),
                 rightViews: [LabelAndControl.makeLabelWithRecorder("", "hideShowAppShortcut", Preferences.hideShowAppShortcut, labelPosition: .right)[0]])
 
-        let table = TableGroupView(title: NSLocalizedString("Shortcuts", comment: ""),
-                subTitle: NSLocalizedString("The shortcuts for opening AltTab to manage windows or applications ", comment: ""),
+        let table = TableGroupView(title: NSLocalizedString("Shortcuts When Active", comment: ""),
+                subTitle: NSLocalizedString("The shortcuts for opening AltTab switcher to manage windows or applications ", comment: ""),
                 width: SheetWindow.width)
         _ = table.addRow(focusWindowShortcut)
         _ = table.addRow(previousWindowShortcut)
@@ -171,7 +171,7 @@ class ControlsTab {
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
 
-        let table1 = TableGroupView(title: NSLocalizedString("Show Windows", comment: ""), width: PreferencesWindow.width)
+        let table1 = TableGroupView(width: PreferencesWindow.width)
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from applications", comment: ""), rightViews: [appsToShow]))
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from spaces", comment: ""), rightViews: [spacesToShow]))
         _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from screens", comment: ""), rightViews: [screensToShow]))
@@ -185,7 +185,7 @@ class ControlsTab {
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
 
-        let table2 = TableGroupView(title: NSLocalizedString("Trigger Shortcuts", comment: ""), width: PreferencesWindow.width)
+        let table2 = TableGroupView(width: PreferencesWindow.width)
         _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("AltTab shortcuts", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
         _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release the shortcuts", comment: ""), rightViews: [shortcutStyle]))
 
