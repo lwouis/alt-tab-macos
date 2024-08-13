@@ -28,7 +28,9 @@ class SheetWindow: NSWindow {
     }
 
     override func keyDown(with event: NSEvent) {
-        if event.keyCode == 53 { // 53 is the key code for the Esc key
+        // 53 is the key code for the Esc key
+        // 36 is the key code for the Enter key
+        if event.keyCode == 53 || event.keyCode == 36 {
             closeWindow(doneButton)
         } else {
             super.keyDown(with: event)
