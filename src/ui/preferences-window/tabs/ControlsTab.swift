@@ -54,10 +54,11 @@ class ControlsTab {
     static var arrowKeysCheckbox: NSButton!
     static var vimKeysCheckbox: NSButton!
 
-    static var tabViews: [TableGroupSetView]!
+    static var tabViews: [TableGroupView]!
     static var shortcutsView: TableGroupView!
     static var selectWindowsView: TableGroupView!
     static var miscellaneousView: TableGroupView!
+    static var view: TableGroupSetView!
 
     static func initTab() -> NSView {
         makeComponents()
@@ -74,6 +75,14 @@ class ControlsTab {
         [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3, nextWindowShortcut4, nextWindowShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
 
+        let buttons = StackView([shortcutsButton, advancedButton])
+        let tabs = StackView(tabViews, .vertical)
+        tabs.translatesAutoresizingMaskIntoConstraints = false
+        tabs.fit()
+
+        let table = TableGroupView(title: NSLocalizedString("Trigger Shortcuts", comment: ""),
+                hasHeader: true, hasTable: false,
+                width: PreferencesWindow.width)
         let tab = NSSegmentedControl(labels: [
             NSLocalizedString("Shortcut 1", comment: ""),
             NSLocalizedString("Shortcut 2", comment: ""),
@@ -84,16 +93,17 @@ class ControlsTab {
         tab.selectedSegment = 0
         tab.segmentStyle = .automatic
         tab.widthAnchor.constraint(equalToConstant: PreferencesWindow.width).isActive = true
+        table.addHeader(views: [tab])
 
-        let shortcutsTabs = TableGroupSetView(originalViews: [tab, tab1View, tab2View, tab3View, tab4View, tab5View], othersSpacing: 0, padding: 0)
-        shortcutsTabs.translatesAutoresizingMaskIntoConstraints = false
-        shortcutsTabs.widthAnchor.constraint(equalToConstant: shortcutsTabs.fittingSize.width).isActive = true
-
-        let buttons = StackView([shortcutsButton, advancedButton])
-        let view = TableGroupSetView(originalViews: [ControlsTab.selectWindowsView, shortcutsTabs, buttons], othersSpacing: 20)
+//        let tabs = NSStackView(tabViews, spacing: 0, tableGroupSpacing: 0, othersSpacing: 0, padding: 0)
+//        tabs.translatesAutoresizingMaskIntoConstraints = false
+//        tabs.fit()
+        let view = TableGroupSetView(originalViews: [ControlsTab.selectWindowsView, table, tab1View, tab2View, tab3View, tab4View, tab5View, buttons], othersSpacing: 20)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
-        ControlsTab.switchTab(tab)
+        ControlsTab.view = view
+
+        ControlsTab.switchIndexTab(0)
+        view.fit()
         return view
     }
 
@@ -165,7 +175,7 @@ class ControlsTab {
         return table
     }
 
-    private static func toShowSection(_ index: Int) -> ([NSView], [NSView], TableGroupSetView) {
+    private static func toShowSection(_ index: Int) -> ([NSView], [NSView], TableGroupView) {
         let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
         let spacesToShow = LabelAndControl.makeDropdown(Preferences.indexToName("spacesToShow", index), SpacesToShowPreference.allCases)
         let screensToShow = LabelAndControl.makeDropdown(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
@@ -179,21 +189,20 @@ class ControlsTab {
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
 
-        let table1 = TableGroupView(width: PreferencesWindow.width)
-        _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from applications", comment: ""), rightViews: [appsToShow]))
-        _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from spaces", comment: ""), rightViews: [spacesToShow]))
-        _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from screens", comment: ""), rightViews: [screensToShow]))
-        _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show minimized windows", comment: ""), rightViews: [showMinimizedWindows]))
-        _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show hidden windows", comment: ""), rightViews: [showHiddenWindows]))
-        _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
-        _ = table1.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show window order", comment: ""), rightViews: [windowOrder]))
+        let table = TableGroupView(width: PreferencesWindow.width)
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("AltTab shortcuts", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release the shortcuts", comment: ""), rightViews: [shortcutStyle]))
 
-        let table2 = TableGroupView(width: PreferencesWindow.width)
-        _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("AltTab shortcuts", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
-        _ = table2.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release the shortcuts", comment: ""), rightViews: [shortcutStyle]))
-
-        let view = TableGroupSetView(originalViews: [table2, table1], padding: 0)
-        return (holdShortcut, nextWindowShortcut, view)
+        table.addNewTable()
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from applications", comment: ""), rightViews: [appsToShow]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from spaces", comment: ""), rightViews: [spacesToShow]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show windows from screens", comment: ""), rightViews: [screensToShow]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show minimized windows", comment: ""), rightViews: [showMinimizedWindows]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show hidden windows", comment: ""), rightViews: [showHiddenWindows]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show window order", comment: ""), rightViews: [windowOrder]))
+        table.fit()
+        return (holdShortcut, nextWindowShortcut, table)
     }
 
     @objc static func switchTab(_ sender: NSSegmentedControl) {
