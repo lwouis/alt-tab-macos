@@ -27,6 +27,14 @@ class SheetWindow: NSWindow {
         }
     }
 
+    override func keyDown(with event: NSEvent) {
+        if event.keyCode == 53 { // 53 is the key code for the Esc key
+            closeWindow(doneButton)
+        } else {
+            super.keyDown(with: event)
+        }
+    }
+
     @objc func closeWindow(_ sender: NSButton) {
         if let sheetWindow = sender.window {
             if let mainWindow = sheetWindow.sheetParent {
