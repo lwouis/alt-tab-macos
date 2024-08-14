@@ -4,10 +4,9 @@ class PopupButtonLikeSystemSettings: NSPopUpButton {
     convenience init() {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        showsBorderOnlyWhileMouseInside = true
+//        showsBorderOnlyWhileMouseInside = true
 //        isBordered = false
 //        setButtonType(.switch)
-//        alignment = .right
 //        let cell = cell! as! NSPopUpButtonCell
 //        onAction = { _ in self.sizeToFit() }
 //        cell.bezelStyle = .regularSquare
@@ -24,7 +23,7 @@ class PopupButtonLikeSystemSettings: NSPopUpButton {
         fakeCell.bezelStyle = currentCell.bezelStyle
         fakeCell.arrowPosition = currentCell.arrowPosition
         fakeCell.imagePosition = currentCell.imagePosition
-//        fakePopUpButton.showsBorderOnlyWhileMouseInside = true
+        fakePopUpButton.showsBorderOnlyWhileMouseInside = showsBorderOnlyWhileMouseInside
         fakePopUpButton.sizeToFit()
         return fakePopUpButton.intrinsicContentSize
     }
