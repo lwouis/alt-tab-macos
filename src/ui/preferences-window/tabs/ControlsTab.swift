@@ -1,23 +1,20 @@
 import Cocoa
 import ShortcutRecorder
 
-class ControlsShortcutsWindow: SheetWindow {
-
+fileprivate class ShortcutsSheet: SheetWindow {
     override func setupView() {
-        let view = TableGroupSetView(originalViews: [ControlsTab.shortcutsView], toolsViews: [doneButton])
+        let view = TableGroupSetView(originalViews: [ControlsTab.shortcutsView], toolsViews: [doneButton], toolsAlignment: .trailing)
         view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
         contentView = view
     }
 }
 
-class ControlsAdvancedWindow: SheetWindow {
-
+fileprivate class AdvancedSheet: SheetWindow {
     override func setupView() {
-        let view = TableGroupSetView(originalViews: [ControlsTab.miscellaneousView], toolsViews: [doneButton])
+        let view = TableGroupSetView(originalViews: [ControlsTab.miscellaneousView], toolsViews: [doneButton], toolsAlignment: .trailing)
         view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
         contentView = view
     }
-
 }
 
 class ControlsTab {
@@ -221,11 +218,11 @@ class ControlsTab {
     }
 
     @objc static func showAdvancedSettings() {
-        App.app.preferencesWindow.beginSheet(ControlsAdvancedWindow())
+        App.app.preferencesWindow.beginSheet(AdvancedSheet())
     }
 
     @objc static func showShortcutsSettings() {
-        App.app.preferencesWindow.beginSheet(ControlsShortcutsWindow())
+        App.app.preferencesWindow.beginSheet(ShortcutsSheet())
     }
 
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {

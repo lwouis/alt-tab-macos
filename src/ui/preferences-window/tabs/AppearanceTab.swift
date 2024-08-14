@@ -118,7 +118,7 @@ class ShowHideIllustratedView {
     }
 
     func makeView() -> TableGroupSetView {
-        table = TableGroupView(width: CustomizeModelSettingsWindow.width)
+        table = TableGroupView(width: CustomizeSheet.width)
         for row in showHideRows {
             if row.supportedModels.contains(model) {
                 _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
@@ -262,10 +262,10 @@ class ShowHideIllustratedView {
     }
 }
 
-class CustomizeModelSettingsWindow: SheetWindow {
+fileprivate class CustomizeSheet: SheetWindow {
     static let illustratedImageWidth = width
 
-    var model: AppearanceModelPreference = .thumbnails
+    let model = Preferences.appearanceModel
     var illustratedImageView: IllustratedImageThemeView!
     var alignThumbnails: TableGroupView.Row!
     var titleTruncation: TableGroupView.Row!
@@ -274,14 +274,6 @@ class CustomizeModelSettingsWindow: SheetWindow {
 
     var showHideView: TableGroupSetView!
     var advancedView: TableGroupSetView!
-
-    convenience init(_ model: AppearanceModelPreference) {
-        self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
-        self.model = model
-        setupWindow()
-        makeDoneButton()
-        setupView()
-    }
 
     override func setupView() {
         makeComponents()
@@ -300,17 +292,18 @@ class CustomizeModelSettingsWindow: SheetWindow {
         ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
         control.selectedSegment = 0
         control.segmentStyle = .automatic
-        control.widthAnchor.constraint(equalToConstant: CustomizeModelSettingsWindow.width).isActive = true
+        control.widthAnchor.constraint(equalToConstant: CustomizeSheet.width).isActive = true
 
         let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView],
                 toolsViews: [doneButton],
-                othersAlignment: NSLayoutConstraint.Attribute.centerX)
+                othersAlignment: NSLayoutConstraint.Attribute.centerX,
+                toolsAlignment: .trailing)
         contentView = view
         switchTab(control)
     }
 
     private func makeComponents() {
-        illustratedImageView = IllustratedImageThemeView(model, CustomizeModelSettingsWindow.illustratedImageWidth)
+        illustratedImageView = IllustratedImageThemeView(model, CustomizeSheet.illustratedImageWidth)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown(
                         "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
@@ -332,7 +325,7 @@ class CustomizeModelSettingsWindow: SheetWindow {
     }
 
     private func makeThumbnailsView() -> TableGroupSetView {
-        let table = TableGroupView(width: CustomizeModelSettingsWindow.width)
+        let table = TableGroupView(width: CustomizeSheet.width)
         _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         }, onMouseExited: { event, view in
@@ -352,7 +345,7 @@ class CustomizeModelSettingsWindow: SheetWindow {
         let table1 = makeAppWindowTableGroupView()
         table1.fit()
 
-        let table2 = TableGroupView(width: CustomizeModelSettingsWindow.width)
+        let table2 = TableGroupView(width: CustomizeSheet.width)
         _ = table2.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         })
@@ -370,7 +363,7 @@ class CustomizeModelSettingsWindow: SheetWindow {
         let table1 = makeAppWindowTableGroupView()
         table1.fit()
 
-        let table2 = TableGroupView(width: CustomizeModelSettingsWindow.width)
+        let table2 = TableGroupView(width: CustomizeSheet.width)
         _ = table2.addRow(titleTruncation)
         table2.fit()
 
@@ -382,7 +375,7 @@ class CustomizeModelSettingsWindow: SheetWindow {
     private func makeAppWindowTableGroupView() -> TableGroupView {
         let view = TableGroupView(title: NSLocalizedString("Applications & Windows", comment: ""),
                 subTitle: NSLocalizedString("Provide the ability to switch between displaying applications in a windowed form (allowing an application to contain multiple windows) or in an application form (where each application can only have one window).", comment: ""),
-                width: CustomizeModelSettingsWindow.width)
+                width: CustomizeSheet.width)
         _ = view.addRow(showAppsWindows, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
@@ -438,12 +431,10 @@ class CustomizeModelSettingsWindow: SheetWindow {
     }
 }
 
-class AdvancedSettingsWindow: SheetWindow {
-
+fileprivate class AdvancedSheet: SheetWindow {
     override func setupView() {
         let animationView = makeAnimationView()
-
-        let view = TableGroupSetView(originalViews: [animationView], toolsViews: [doneButton])
+        let view = TableGroupSetView(originalViews: [animationView], toolsViews: [doneButton], toolsAlignment: .trailing)
         view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
         contentView = view
     }
@@ -457,7 +448,6 @@ class AdvancedSettingsWindow: SheetWindow {
         table.fit()
         return table
     }
-
 }
 
 class Popover: NSPopover {
@@ -591,11 +581,10 @@ class AppearanceTab: NSObject {
     }
 
     @objc static func showModelAdvancedSettings() {
-        let advancedSettingsSheetWindow = CustomizeModelSettingsWindow(Preferences.appearanceModel)
-        App.app.preferencesWindow.beginSheet(advancedSettingsSheetWindow)
+        App.app.preferencesWindow.beginSheet(CustomizeSheet())
     }
 
     @objc static func showAdvancedSettings() {
-        App.app.preferencesWindow.beginSheet(AdvancedSettingsWindow())
+        App.app.preferencesWindow.beginSheet(AdvancedSheet())
     }
 }

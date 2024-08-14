@@ -2,45 +2,28 @@ import Cocoa
 
 class SheetWindow: NSWindow {
     static let width = CGFloat(512)
-
     var doneButton: NSButton!
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
-        setupWindow()
         makeDoneButton()
         setupView()
     }
 
-    func setupWindow() {
-        hidesOnDeactivate = false
-        makeKeyAndOrderFront(nil)
-    }
-
     func setupView() { }
 
-    func makeDoneButton() {
-        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(closeWindow(_:)))
+    private func makeDoneButton() {
+        doneButton = NSButton(title: NSLocalizedString("Done", comment: ""), target: self, action: #selector(cancel))
+        doneButton.keyEquivalent = "\r"
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         if #available(macOS 10.14, *) {
             doneButton.bezelColor = NSColor.controlAccentColor
         }
     }
 
-    override func keyDown(with event: NSEvent) {
-        if event.keyCode == 53 { // 53 is the key code for the Esc key
-            closeWindow(doneButton)
-        } else {
-            super.keyDown(with: event)
-        }
-    }
-
-    @objc func closeWindow(_ sender: NSButton) {
-        if let sheetWindow = sender.window {
-            if let mainWindow = sheetWindow.sheetParent {
-                mainWindow.endSheet(sheetWindow)
-            }
-        }
+    // allow to close with the escape key
+    @objc func cancel(_ sender: Any?) {
+        close()
     }
 }
 
