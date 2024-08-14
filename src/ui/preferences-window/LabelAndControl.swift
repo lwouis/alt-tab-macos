@@ -254,8 +254,7 @@ class LabelAndControl: NSObject {
     }
 
     static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
-        let popUp = NSPopUpButton()
-        popUp.translatesAutoresizingMaskIntoConstraints = false
+        let popUp = PopupButtonLikeSystemSettings()
         popUp.addItems(withTitles: macroPreferences.map { $0.localizedString })
         popUp.selectItem(at: defaults.int(rawName))
         return popUp

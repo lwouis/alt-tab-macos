@@ -1,0 +1,31 @@
+import Cocoa
+
+class PopupButtonLikeSystemSettings: NSPopUpButton {
+    convenience init() {
+        self.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        showsBorderOnlyWhileMouseInside = true
+//        isBordered = false
+//        setButtonType(.switch)
+//        alignment = .right
+//        let cell = cell! as! NSPopUpButtonCell
+//        onAction = { _ in self.sizeToFit() }
+//        cell.bezelStyle = .regularSquare
+//        cell.arrowPosition = .arrowAtBottom
+//        cell.imagePosition = .imageOverlaps
+    }
+
+    override var intrinsicContentSize: NSSize {
+        let fakePopUpButton = NSPopUpButton()
+        fakePopUpButton.addItem(withTitle: title)
+        fakePopUpButton.selectedItem!.image = selectedItem!.image
+        let fakeCell = fakePopUpButton.cell! as! NSPopUpButtonCell
+        let currentCell = cell! as! NSPopUpButtonCell
+        fakeCell.bezelStyle = currentCell.bezelStyle
+        fakeCell.arrowPosition = currentCell.arrowPosition
+        fakeCell.imagePosition = currentCell.imagePosition
+//        fakePopUpButton.showsBorderOnlyWhileMouseInside = true
+        fakePopUpButton.sizeToFit()
+        return fakePopUpButton.intrinsicContentSize
+    }
+}

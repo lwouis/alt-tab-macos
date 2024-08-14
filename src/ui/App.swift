@@ -84,6 +84,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.preloadWindows()
             #if DEBUG
             self.showPreferencesWindow()
+            self.preferencesWindow.selectTab("controls")
             #endif
         }
     }
