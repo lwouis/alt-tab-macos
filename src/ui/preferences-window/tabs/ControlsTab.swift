@@ -10,15 +10,6 @@ fileprivate class ShortcutsSheet: SheetWindow {
     }
 }
 
-fileprivate class AdvancedSheet: SheetWindow {
-    override func makeContentView() -> NSView {
-        return ControlsTab.miscellaneousView
-//        let view = TableGroupSetView(originalViews: [ControlsTab.miscellaneousView], padding: 0)
-//        view.widthAnchor.constraint(equalToConstant: SheetWindow.width).isActive = true
-//        return view
-    }
-}
-
 class ControlsTab {
     static var shortcuts = [String: ATShortcut]()
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
@@ -56,13 +47,11 @@ class ControlsTab {
     static var tabViews: [TableGroupView]!
     static var shortcutsView: TableGroupView!
     static var selectWindowsView: TableGroupView!
-    static var miscellaneousView: TableGroupView!
     static var view: TableGroupSetView!
 
     static func initTab() -> NSView {
         makeComponents()
         let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts When Active…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
-        let advancedButton = NSButton(title: NSLocalizedString("Advanced…", comment: ""), target: self, action: #selector(ControlsTab.showAdvancedSettings))
         let orPress = LabelAndControl.makeLabel(NSLocalizedString("While open, press:", comment: ""), shouldFit: false)
         let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection(0)
         let (holdShortcut2, nextWindowShortcut2, tab2View) = toShowSection(1)
@@ -74,7 +63,6 @@ class ControlsTab {
         [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3, nextWindowShortcut4, nextWindowShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
 
-        let buttons = StackView([shortcutsButton, advancedButton])
         let tabs = StackView(tabViews, .vertical)
         tabs.translatesAutoresizingMaskIntoConstraints = false
         tabs.fit()
@@ -97,7 +85,7 @@ class ControlsTab {
 //        let tabs = NSStackView(tabViews, spacing: 0, tableGroupSpacing: 0, othersSpacing: 0, padding: 0)
 //        tabs.translatesAutoresizingMaskIntoConstraints = false
 //        tabs.fit()
-        let view = TableGroupSetView(originalViews: [ControlsTab.selectWindowsView, table, tab1View, tab2View, tab3View, tab4View, tab5View, buttons], othersSpacing: 20)
+        let view = TableGroupSetView(originalViews: [ControlsTab.selectWindowsView, table, tab1View, tab2View, tab3View, tab4View, tab5View, shortcutsButton], othersSpacing: 20)
         view.translatesAutoresizingMaskIntoConstraints = false
         ControlsTab.view = view
 
@@ -109,7 +97,6 @@ class ControlsTab {
     static func makeComponents() {
         selectWindowsView = makeSelectWindowsView()
         shortcutsView = makeShortcutsView()
-        miscellaneousView = makeMiscellaneousView()
     }
 
     static func makeSelectWindowsView() -> TableGroupView {
@@ -130,15 +117,6 @@ class ControlsTab {
         _ = table.addRow(enableArrows)
         _ = table.addRow(enableVimKeys)
         _ = table.addRow(enableMouse)
-        return table
-    }
-
-    static func makeMiscellaneousView() -> TableGroupView {
-        let enableCursorFollowFocus = TableGroupView.Row(leftTitle: NSLocalizedString("Cursor follows focus", comment: ""),
-                rightViews: [LabelAndControl.makeCheckbox("cursorFollowFocusEnabled")])
-        let table = TableGroupView(title: NSLocalizedString("Miscellaneous", comment: ""),
-                width: SheetWindow.width)
-        _ = table.addRow(enableCursorFollowFocus)
         return table
     }
 
@@ -217,10 +195,6 @@ class ControlsTab {
                 view.isHidden = true
             }
         }
-    }
-
-    @objc static func showAdvancedSettings() {
-        App.app.preferencesWindow.beginSheet(AdvancedSheet())
     }
 
     @objc static func showShortcutsSettings() {

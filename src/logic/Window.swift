@@ -300,7 +300,7 @@ class Window: CustomStringConvertible {
 
     func referenceWindowForTabbedWindow() -> Window? {
         // if the window is tabbed, we can't know its position/size before it's focused, so we use the currently
-        // visible window-tab to decide where to put the cursor, as these are known and will match the other tab
+        // visible window-tab. Its data will match the tabbed window's
         // TODO: handle the case where the app has multiple window-groups. In that case, we need to find the right
         //       window-group, instead of picking the focused one
         return isTabbed ? application.focusedWindow : self
