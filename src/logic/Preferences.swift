@@ -536,10 +536,10 @@ enum WindowOrderPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .recentlyFocused: return NSLocalizedString("Recently Focused", comment: "")
-            case .recentlyCreated: return NSLocalizedString("Recently Created", comment: "")
-            case .alphabetical: return NSLocalizedString("Alphabetical", comment: "")
-            case .space: return NSLocalizedString("Space", comment: "")
+            case .recentlyFocused: return NSLocalizedString("Recently Focused First", comment: "")
+            case .recentlyCreated: return NSLocalizedString("Recently Created First", comment: "")
+            case .alphabetical: return NSLocalizedString("Alphabetical Order", comment: "")
+            case .space: return NSLocalizedString("Space Order", comment: "")
         }
     }
 }

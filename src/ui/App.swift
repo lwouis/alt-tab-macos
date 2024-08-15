@@ -318,7 +318,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         guard appIsBeingUsed else { return }
         Windows.refreshFirstFewThumbnailsSync()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 monitors make thumbnailPanel invisible
+        thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 screens make thumbnailPanel invisible
         guard appIsBeingUsed else { return }
         refreshOpenUi()
         guard appIsBeingUsed else { return }

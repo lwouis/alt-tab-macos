@@ -8,7 +8,7 @@ class GeneralTab {
                 rightViews: [LabelAndControl.makeCheckbox("startAtLogin", extraAction: startAtLoginCallback)])
         let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)])
-        let resetPreferences = Button(NSLocalizedString("Reset preferences and restart…", comment: "")) { _ in GeneralTab.resetPreferences() }
+        let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
         if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }
         let menubarIconDropdown = menubarIcon.rightViews[0] as! NSPopUpButton
         for i in 0...2 {
@@ -28,10 +28,9 @@ class GeneralTab {
         let table = TableGroupView(title: NSLocalizedString("General", comment: ""), width: PreferencesWindow.width)
         _ = table.addRow(startAtLogin)
         _ = table.addRow(menubarIcon)
-        _ = table.addRow(rightViews: resetPreferences)
         table.fit()
 
-        let view = TableGroupSetView(originalViews: [table])
+        let view = TableGroupSetView(originalViews: [table], toolsViews: [resetPreferences], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
@@ -48,7 +47,7 @@ class GeneralTab {
         }
     }
 
-    static func resetPreferences() {
+    @objc static func resetPreferences() {
         let alert = NSAlert()
         alert.alertStyle = .critical
         alert.messageText = ""

@@ -24,18 +24,19 @@ class PoliciesTab {
         PoliciesTab.crashButtons = LabelAndControl.makeRadioButtons(CrashPolicyPreference.allCases, "crashPolicy")
 //        let crashOptions = StackView(PoliciesTab.crashButtons, .vertical)
 
-        let table = TableGroupView(title: NSLocalizedString("Policy", comment: ""), width: PreferencesWindow.width)
-        _ = table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Updates policy", comment: ""))],
+        let table = TableGroupView(title: NSLocalizedString("Updates policy", comment: ""), width: PreferencesWindow.width)
+        _ = table.addRow(leftViews: [NSView()],
                 rightViews: [NSView()],
                 secondaryViews: PoliciesTab.updateButtons, secondaryViewsOrientation: .vertical)
-        _ = table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Crash reports policy", comment: ""))],
+        let table2 = TableGroupView(title: NSLocalizedString("Crash reports policy", comment: ""), width: PreferencesWindow.width)
+        _ = table2.addRow(leftViews: [NSView()],
                 rightViews: [NSView()],
                 secondaryViews: PoliciesTab.crashButtons, secondaryViewsOrientation: .vertical)
-        table.fit()
+        table2.fit()
 
         UserDefaultsEvents.observe()
 
-        let view = TableGroupSetView(originalViews: [table, checkForUpdates])
+        let view = TableGroupSetView(originalViews: [table, table2, checkForUpdates])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view

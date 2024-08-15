@@ -22,12 +22,14 @@ class BlacklistsTab {
             }
         }
 
-        let grid = GridView([
-            [blacklist],
-            [add]
-        ])
-        grid.fit()
+        let table = TableGroupView(title: NSLocalizedString("Blacklists", comment: ""), width: PreferencesWindow.width)
+        _ = table.addRow(leftViews: [NSView()],
+                rightViews: [NSView()],
+                secondaryViews: [blacklist, add], secondaryViewsOrientation: .vertical)
 
-        return grid
+        let view = TableGroupSetView(originalViews: [table])
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
+        return view
     }
 }

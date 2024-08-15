@@ -60,6 +60,11 @@
 		1C961F6A9C36075677E869A1 /* app_icons_show_preview_focused_window_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C961F8AE82B970F17398176 /* app_icons_show_preview_focused_window_light@2x.png */; };
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
+		5F21C9E02C6E94240091F72F /* ShortcutsWhenActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F21C9DF2C6E94240091F72F /* ShortcutsWhenActiveSheet.swift */; };
+		5F21C9E22C6E94410091F72F /* AdditionalControlsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F21C9E12C6E94410091F72F /* AdditionalControlsSheet.swift */; };
+		5F21C9E42C6E94700091F72F /* CustomizeStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F21C9E32C6E94700091F72F /* CustomizeStyleSheet.swift */; };
+		5F21C9E62C6E94920091F72F /* AnimationsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F21C9E52C6E94920091F72F /* AnimationsSheet.swift */; };
+		5F21C9E82C6E96A00091F72F /* SheetWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F21C9E72C6E96A00091F72F /* SheetWindow.swift */; };
 		5F706EC02BA448B1004D542D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F706EBE2BA448B1004D542D /* Localizable.strings */; };
 		5F706EC32BA448D8004D542D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F706EC12BA448D8004D542D /* InfoPlist.strings */; };
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
@@ -288,6 +293,11 @@
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
 		481FE54624D2D387001032F1 /* alt-tab-macos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "alt-tab-macos-Bridging-Header.h"; sourceTree = "<group>"; };
 		59DD4BE63D42EEFF1182BA7F /* Pods-alt-tab-macos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.release.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.release.xcconfig"; sourceTree = "<group>"; };
+		5F21C9DF2C6E94240091F72F /* ShortcutsWhenActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsWhenActiveSheet.swift; sourceTree = "<group>"; };
+		5F21C9E12C6E94410091F72F /* AdditionalControlsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalControlsSheet.swift; sourceTree = "<group>"; };
+		5F21C9E32C6E94700091F72F /* CustomizeStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeStyleSheet.swift; sourceTree = "<group>"; };
+		5F21C9E52C6E94920091F72F /* AnimationsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationsSheet.swift; sourceTree = "<group>"; };
+		5F21C9E72C6E96A00091F72F /* SheetWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetWindow.swift; sourceTree = "<group>"; };
 		5F706EBD2BA448B1004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localizable.strings; sourceTree = "<group>"; };
 		5F706EC22BA448D8004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = InfoPlist.strings; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
@@ -646,6 +656,26 @@
 				C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5F21C9DD2C6E93E60091F72F /* ControlsTab */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA1B438BF3E65044D1138 /* ControlsTab.swift */,
+				5F21C9DF2C6E94240091F72F /* ShortcutsWhenActiveSheet.swift */,
+				5F21C9E12C6E94410091F72F /* AdditionalControlsSheet.swift */,
+			);
+			path = ControlsTab;
+			sourceTree = "<group>";
+		};
+		5F21C9DE2C6E93F10091F72F /* AppearanceTab */ = {
+			isa = PBXGroup;
+			children = (
+				D04BA64F1F344007EA13BA05 /* AppearanceTab.swift */,
+				5F21C9E32C6E94700091F72F /* CustomizeStyleSheet.swift */,
+				5F21C9E52C6E94920091F72F /* AnimationsSheet.swift */,
+			);
+			path = AppearanceTab;
 			sourceTree = "<group>";
 		};
 		5F706EBF2BA448B1004D542D /* is.lproj */ = {
@@ -1107,6 +1137,7 @@
 				BF0C8343C1F6FCA82552DCB7 /* TableView.swift */,
 				1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */,
 				BF0C8A479D2B7FB80531F037 /* PopupButtonLikeSystemSettings.swift */,
+				5F21C9E72C6E96A00091F72F /* SheetWindow.swift */,
 			);
 			path = "generic-components";
 			sourceTree = "<group>";
@@ -1130,13 +1161,13 @@
 		D04BA3FA52AA40B827A72F10 /* tabs */ = {
 			isa = PBXGroup;
 			children = (
-				D04BA64F1F344007EA13BA05 /* AppearanceTab.swift */,
+				5F21C9DE2C6E93F10091F72F /* AppearanceTab */,
+				5F21C9DD2C6E93E60091F72F /* ControlsTab */,
 				D04BA4A26987F67DD94C827F /* AboutTab.swift */,
 				D04BACE22DC907F03D193075 /* GeneralTab.swift */,
 				D04BAD60C97E609A759E721E /* PoliciesTab.swift */,
 				D04BA788228BA86D9EFBD1ED /* AcknowledgmentsTab.swift */,
 				D04BA27695D9A5824720BD7B /* BlacklistsTab.swift */,
-				D04BA1B438BF3E65044D1138 /* ControlsTab.swift */,
 			);
 			path = tabs;
 			sourceTree = "<group>";
@@ -1937,6 +1968,7 @@
 				D04BAADED6FE28D42924AEBF /* PrivateApis.swift in Sources */,
 				D04BABED81800E18732912CC /* CGWindowID.swift in Sources */,
 				D04BA26A691D56031FCCF00C /* Sysctl.swift in Sources */,
+				5F21C9E22C6E94410091F72F /* AdditionalControlsSheet.swift in Sources */,
 				D04BA8480A8FF466CA89DA5B /* main.swift in Sources */,
 				D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */,
 				D04BAC011A71E0418154F8CD /* Preferences.swift in Sources */,
@@ -1944,6 +1976,7 @@
 				D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */,
 				D04BABEECBC6D922298BC93A /* Spaces.swift in Sources */,
 				D04BA6187A91A847844B6ABB /* Window.swift in Sources */,
+				5F21C9E82C6E96A00091F72F /* SheetWindow.swift in Sources */,
 				D04BA737008AA2CD4E230A21 /* Application.swift in Sources */,
 				D04BA2A6FF9DDDC5A1A68E36 /* Applications.swift in Sources */,
 				AA974BA929B7D84C0099A29E /* PreviewPanel.swift in Sources */,
@@ -1967,15 +2000,18 @@
 				D04BAD2A7F2E8BF64EE982E9 /* TextArea.swift in Sources */,
 				D04BA7F86F1926FBE31F44BF /* BaseLabel.swift in Sources */,
 				D04BA11E56383D082D7BE5A5 /* ThumbnailsView.swift in Sources */,
+				5F21C9E42C6E94700091F72F /* CustomizeStyleSheet.swift in Sources */,
 				D04BA1621718FF26F8D5E75D /* CustomRecorderControl.swift in Sources */,
 				D04BA1637E125D38546C26E2 /* StackView.swift in Sources */,
 				D04BA7B8D599E1A7A27FF5AE /* AcknowledgmentsTab.swift in Sources */,
 				D04BA8757C9F20F25EB50785 /* TextField.swift in Sources */,
+				5F21C9E02C6E94240091F72F /* ShortcutsWhenActiveSheet.swift in Sources */,
 				D04BAE8B16A06A10E2FA94DE /* AccessibilityEvents.swift in Sources */,
 				D04BAAAF5CFA991D3B078DB8 /* KeyboardEvents.swift in Sources */,
 				D04BA1766FBCB2E941D081A5 /* WorkspaceEvents.swift in Sources */,
 				D04BA0AE9865276FF8EF5DEB /* UserDefaultsEvents.swift in Sources */,
 				D04BA4A11F821548EE3C5E95 /* Bash.swift in Sources */,
+				5F21C9E62C6E94920091F72F /* AnimationsSheet.swift in Sources */,
 				D04BAFB90E00AA5D662EAF24 /* PermissionsWindow.swift in Sources */,
 				D04BA7E39FA539DD8316447A /* PermissionView.swift in Sources */,
 				D04BA446D702C5E252AF2319 /* TitleLabel.swift in Sources */,

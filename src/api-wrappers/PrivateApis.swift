@@ -54,7 +54,7 @@ func CGSGetConnectionPSN(_ cid: CGSConnectionID, _ psn: inout ProcessSerialNumbe
 // returns an array of displays (as NSDictionary) -> each having an array of spaces (as NSDictionary) at the "Spaces" key; each having a space ID (as UInt64) at the "id64" key
 // * macOS 10.10+
 // /!\ only returns correct values if the user has checked the checkbox in Preferences > Mission Control > "Displays have separate Spaces"
-// See this example with 2 monitors (1 laptop internal + 1 external):
+// See this example with 2 screens (1 laptop internal + 1 external):
 // * Output with "Displays have separate Spaces" checked:
 //   [{
 //       "Current Space" =     {

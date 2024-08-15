@@ -305,7 +305,7 @@ class LabelAndControl: NSObject {
             }
             if #available(macOS 11.0, *) {
                 if let preference = preference as? SfSymbolMacroPreference {
-                    button.setImage(NSImage.init(systemSymbolName: preference.symbolName, accessibilityDescription: nil)!, forSegment: i)
+                    button.setImage(NSImage(systemSymbolName: preference.symbolName, accessibilityDescription: nil)!, forSegment: i)
                 }
             }
             if defaults.int(rawName) == i {

@@ -118,7 +118,7 @@ class ShowHideIllustratedView {
     }
 
     func makeView() -> TableGroupSetView {
-        table = TableGroupView(width: CustomizeSheet.width)
+        table = TableGroupView(width: CustomizeStyleSheet.width)
         for row in showHideRows {
             if row.supportedModels.contains(model) {
                 _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
@@ -262,199 +262,6 @@ class ShowHideIllustratedView {
     }
 }
 
-fileprivate class CustomizeSheet: SheetWindow {
-    static let illustratedImageWidth = width
-
-    let model = Preferences.appearanceModel
-    var illustratedImageView: IllustratedImageThemeView!
-    var alignThumbnails: TableGroupView.Row!
-    var titleTruncation: TableGroupView.Row!
-    var showAppsWindows: TableGroupView.Row!
-    var showAppNamesWindowTitles: TableGroupView.Row!
-
-    var showHideView: TableGroupSetView!
-    var advancedView: TableGroupSetView!
-    var control: NSSegmentedControl!
-
-    override func makeContentView() -> NSView {
-        makeComponents()
-        showHideView = ShowHideIllustratedView(model, illustratedImageView).makeView()
-
-        if model == .thumbnails {
-            advancedView = makeThumbnailsView()
-        } else if model == .appIcons {
-            advancedView = makeAppIconsView()
-        } else if model == .titles {
-            advancedView = makeTitlesView()
-        }
-        control = NSSegmentedControl(labels: [
-            NSLocalizedString("Show & Hide", comment: ""),
-            NSLocalizedString("Advanced", comment: "")
-        ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
-        control.selectedSegment = 0
-        control.segmentStyle = .automatic
-        control.widthAnchor.constraint(equalToConstant: CustomizeSheet.width).isActive = true
-
-        let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView], padding: 0)
-        return view
-    }
-
-    override func setupView() {
-        super.setupView()
-        switchTab(control)
-    }
-
-    private func makeComponents() {
-        illustratedImageView = IllustratedImageThemeView(model, CustomizeSheet.illustratedImageWidth)
-        alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown(
-                        "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
-                    self.showAlignThumbnailsIllustratedImage()
-                })])
-        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown("titleTruncation", TitleTruncationPreference.allCases)])
-        showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases,
-                        "showAppsWindows", extraAction: { _ in
-                    self.toggleAppNamesWindowTitles()
-                    self.showAppsOrWindowsIllustratedImage()
-                }))
-        showAppNamesWindowTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown(
-                        "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
-                    self.showAppsOrWindowsIllustratedImage()
-                })])
-    }
-
-    private func makeThumbnailsView() -> TableGroupSetView {
-        let table = TableGroupView(width: CustomizeSheet.width)
-        _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
-            self.showAlignThumbnailsIllustratedImage()
-        }, onMouseExited: { event, view in
-            self.illustratedImageView.highlight(false)
-        })
-        _ = table.addRow(titleTruncation)
-        table.onMouseExited = { event, view in
-            self.illustratedImageView.highlight(false)
-        }
-        table.fit()
-
-        let view = TableGroupSetView(originalViews: [table], padding: 0)
-        return view
-    }
-
-    private func makeAppIconsView() -> TableGroupSetView {
-        let table1 = makeAppWindowTableGroupView()
-        table1.fit()
-
-        let table2 = TableGroupView(width: CustomizeSheet.width)
-        _ = table2.addRow(alignThumbnails, onMouseEntered: { event, view in
-            self.showAlignThumbnailsIllustratedImage()
-        })
-        table2.onMouseExited = { event, view in
-            self.illustratedImageView.highlight(false)
-        }
-        table2.fit()
-
-        let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)
-        toggleAppNamesWindowTitles()
-        return view
-    }
-
-    private func makeTitlesView() -> TableGroupSetView {
-        let table1 = makeAppWindowTableGroupView()
-        table1.fit()
-
-        let table2 = TableGroupView(width: CustomizeSheet.width)
-        _ = table2.addRow(titleTruncation)
-        table2.fit()
-
-        let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)
-        toggleAppNamesWindowTitles()
-        return view
-    }
-
-    private func makeAppWindowTableGroupView() -> TableGroupView {
-        let view = TableGroupView(title: NSLocalizedString("Applications & Windows", comment: ""),
-                subTitle: NSLocalizedString("Provide the ability to switch between displaying applications in a windowed form (allowing an application to contain multiple windows) or in an application form (where each application can only have one window).", comment: ""),
-                width: CustomizeSheet.width)
-        _ = view.addRow(showAppsWindows, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-        })
-        _ = view.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-        })
-        view.onMouseExited = { event, view in
-            self.illustratedImageView.highlight(false)
-        }
-        return view
-    }
-
-    private func toggleAppNamesWindowTitles() {
-        let button = showAppNamesWindowTitles.rightViews[0] as? NSControl
-        if Preferences.showAppsWindows == .windows {
-            button?.isEnabled = true
-        } else {
-            button?.isEnabled = false
-        }
-    }
-
-    private func showAlignThumbnailsIllustratedImage() {
-        self.illustratedImageView.highlight(true, Preferences.alignThumbnails.image.name)
-    }
-
-    private func showAppsOrWindowsIllustratedImage() {
-        var imageName = ShowAppNamesWindowTitlesPreference.windowTitles.image.name
-        if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .applicationNames {
-            imageName = ShowAppNamesWindowTitlesPreference.applicationNames.image.name
-        } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
-            imageName = ShowAppNamesWindowTitlesPreference.applicationNamesAndWindowTitles.image.name
-        }
-        self.illustratedImageView.highlight(true, imageName)
-    }
-
-    @objc func switchTab(_ sender: NSSegmentedControl) {
-        let selectedIndex = sender.selectedSegment
-        [showHideView, advancedView].enumerated().forEach { (index, view) in
-            if selectedIndex == index {
-                view.isHidden = false
-            } else {
-                view.isHidden = true
-            }
-        }
-        adjustWindowHeight()
-    }
-
-    private func adjustWindowHeight() {
-        guard let contentView = self.contentView else { return }
-
-        // Calculate the fitting height of the content view
-        let fittingSize = contentView.fittingSize
-        var windowFrame = frame
-        windowFrame.size.height = fittingSize.height
-        setFrame(windowFrame, display: true, animate: false)
-    }
-}
-
-fileprivate class AdvancedSheet: SheetWindow {
-    override func makeContentView() -> NSView {
-        return makeAnimationView()
-//        let view = TableGroupSetView(originalViews: [animationView], toolsViews: [doneButton], toolsAlignment: .trailing)
-//        view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
-//        return view
-    }
-
-    private func makeAnimationView() -> NSStackView {
-        let table = TableGroupView(title: NSLocalizedString("Animation", comment: ""), width: SheetWindow.width)
-        _ = table.addRow(leftText: NSLocalizedString("Apparition delay millisecond", comment: ""),
-                rightViews: Array(LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 2000, 11, true, "ms", width: 300)[1...2]))
-        _ = table.addRow(leftText: NSLocalizedString("Fade out animation", comment: ""),
-                rightViews: LabelAndControl.makeCheckbox("fadeOutAnimation"))
-        table.fit()
-        return table
-    }
-}
-
 class Popover: NSPopover {
     static let shared = Popover()
 
@@ -511,16 +318,16 @@ class AppearanceTab: NSObject {
     static var advancedButton: NSButton!
 
     static func initTab() -> NSView {
-        makeModelAdvancedButton()
-        makeAdvancedButton()
+        makeCustomizeStylebutton()
+        makeAnimationsButton()
         return makeView()
     }
 
     private static func makeView() -> NSStackView {
         let appearanceView = makeAppearanceView()
-        let positionView = makePositionView()
+        let multipleScreensView = makeMultipleScreensView()
 
-        let view = TableGroupSetView(originalViews: [appearanceView, positionView, advancedButton])
+        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, advancedButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
@@ -528,50 +335,45 @@ class AppearanceTab: NSObject {
 
     private static func makeAppearanceView() -> NSView {
         let table = TableGroupView(title: NSLocalizedString("Appearance", comment: ""),
-                subTitle: NSLocalizedString("The appearance feature allows the switcher to switch between three different modes, each having a distinct UI to adapt to different workflows. Each appearance mode has its own unique settings.", comment: ""),
+                subTitle: NSLocalizedString("Switch between 3 different styles. You can customize them.", comment: ""),
                 width: PreferencesWindow.width)
         _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
             toggleModelAdvancedButton()
         }, buttonSpacing: 15)[1]], secondaryViewsAlignment: .centerX)
 
         let appearanceSize = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)
-        _ = table.addRow(leftText: NSLocalizedString("Appearance size", comment: ""),
-                rightViews: [appearanceSize])
+        _ = table.addRow(leftText: NSLocalizedString("Size", comment: ""), rightViews: [appearanceSize])
         let appearanceTheme = LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)
-        _ = table.addRow(leftText: NSLocalizedString("Appearance theme", comment: ""),
-                rightViews: [appearanceTheme])
+        _ = table.addRow(leftText: NSLocalizedString("Theme", comment: ""), rightViews: [appearanceTheme])
         _ = table.addRow(rightViews: modelAdvancedButton)
 
         table.fit()
         return table
     }
 
-    private static func makePositionView() -> NSView {
-        let table = TableGroupView(title: NSLocalizedString("Position", comment: ""),
-                subTitle: NSLocalizedString("When we have multiple monitors, the position feature allows us to decide on which monitor the switcher is displayed, enabling a seamless window moving experience.", comment: ""),
-                width: PreferencesWindow.width)
-        _ = table.addRow(leftText: NSLocalizedString("Show on screen", comment: ""),
+    private static func makeMultipleScreensView() -> NSView {
+        let table = TableGroupView(title: NSLocalizedString("Multiple screens", comment: ""), width: PreferencesWindow.width)
+        _ = table.addRow(leftText: NSLocalizedString("Show on", comment: ""),
                 rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
         table.fit()
         return table
     }
 
-    private static func makeAdvancedButton() {
-        advancedButton = NSButton(title: NSLocalizedString("Advanced…", comment: ""), target: self, action: #selector(AppearanceTab.showAdvancedSettings))
+    private static func makeAnimationsButton() {
+        advancedButton = NSButton(title: NSLocalizedString("Animations…", comment: ""), target: self, action: #selector(AppearanceTab.showAnimationsSheet))
     }
 
-    private static func makeModelAdvancedButton() {
-        modelAdvancedButton = NSButton(title: getModelAdvancedButtonTitle(), target: self, action: #selector(showModelAdvancedSettings))
-        modelAdvancedButton.widthAnchor.constraint(equalToConstant: 170).isActive = true
+    private static func makeCustomizeStylebutton() {
+        modelAdvancedButton = NSButton(title: getModelAdvancedButtonTitle(), target: self, action: #selector(showCustomizeStyleSheet))
     }
 
     private static func getModelAdvancedButtonTitle() -> String {
         if Preferences.appearanceModel == .thumbnails {
-            return NSLocalizedString("Customize Thumbnails…", comment: "")
+            return NSLocalizedString("Customize Thumbnails Style…", comment: "")
         } else if Preferences.appearanceModel == .appIcons {
-            return NSLocalizedString("Customize App Icons…", comment: "")
+            return NSLocalizedString("Customize App Icons Style…", comment: "")
         } else if Preferences.appearanceModel == .titles {
-            return NSLocalizedString("Customize Titles…", comment: "")
+            return NSLocalizedString("Customize Titles Style…", comment: "")
         }
         return NSLocalizedString("Advanced…", comment: "")
     }
@@ -585,11 +387,11 @@ class AppearanceTab: NSObject {
         modelAdvancedButton.animator().title = getModelAdvancedButtonTitle()
     }
 
-    @objc static func showModelAdvancedSettings() {
-        App.app.preferencesWindow.beginSheet(CustomizeSheet())
+    @objc static func showCustomizeStyleSheet() {
+        App.app.preferencesWindow.beginSheet(CustomizeStyleSheet())
     }
 
-    @objc static func showAdvancedSettings() {
-        App.app.preferencesWindow.beginSheet(AdvancedSheet())
+    @objc static func showAnimationsSheet() {
+        App.app.preferencesWindow.beginSheet(AnimationsSheet())
     }
 }
