@@ -457,6 +457,10 @@ protocol MacroPreference {
     var localizedString: LocalizedString { get }
 }
 
+protocol SfSymbolMacroPreference: MacroPreference {
+    var symbolName: String { get }
+}
+
 struct WidthHeightImage {
     var width: CGFloat
     var height: CGFloat
@@ -470,7 +474,6 @@ struct WidthHeightImage {
 }
 
 protocol ImageMacroPreference: MacroPreference {
-    var localizedString: LocalizedString { get }
     var image: WidthHeightImage { get }
 }
 
@@ -749,7 +752,7 @@ enum ThemePreference: String, CaseIterable, ImageMacroPreference {
     }
 }
 
-enum AppearanceThemePreference: String, CaseIterable, ImageMacroPreference {
+enum AppearanceThemePreference: String, CaseIterable, SfSymbolMacroPreference {
     case light = "0"
     case dark = "1"
     case system = "2"
@@ -762,11 +765,11 @@ enum AppearanceThemePreference: String, CaseIterable, ImageMacroPreference {
         }
     }
 
-    var image: WidthHeightImage {
+    var symbolName: String {
         switch self {
-            case .light: return WidthHeightImage(name: "light")
-            case .dark: return WidthHeightImage(name: "dark")
-            case .system: return WidthHeightImage(name: "system")
+            case .light: return "sun.max"
+            case .dark: return "moon.fill"
+            case .system: return "laptopcomputer"
         }
     }
 }

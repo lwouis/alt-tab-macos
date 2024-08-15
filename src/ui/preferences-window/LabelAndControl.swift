@@ -298,15 +298,20 @@ class LabelAndControl: NSObject {
         let button = NSSegmentedControl(labels: macroPreferences.map { $0.localizedString }, trackingMode: .selectOne, target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.segmentStyle = .automatic
-        macroPreferences.enumerated().forEach { (index, preference) in
-            if segmentWidth > 0 {
-                button.setWidth(segmentWidth, forSegment: index)
-            }
 
-            if defaults.int(rawName) == index {
-                button.selectedSegment = index
+        for (i, preference) in macroPreferences.enumerated() {
+            if segmentWidth > 0 {
+                button.setWidth(segmentWidth, forSegment: i)
             }
-            _ = setupControl(button, rawName, String(index), extraAction: extraAction)
+            if #available(macOS 11.0, *) {
+                if let preference = preference as? SfSymbolMacroPreference {
+                    button.setImage(NSImage.init(systemSymbolName: preference.symbolName, accessibilityDescription: nil)!, forSegment: i)
+                }
+            }
+            if defaults.int(rawName) == i {
+                button.selectedSegment = i
+            }
+            _ = setupControl(button, rawName, String(i), extraAction: extraAction)
         }
         return button
     }
