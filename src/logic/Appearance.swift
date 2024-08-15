@@ -175,7 +175,7 @@ class AppearanceTheme {
                 return AppearanceThemeName.light
             case .dark:
                 return AppearanceThemeName.dark
-            case .automatic:
+            case .system:
                 return NSAppearance.current.getThemeName()
         }
     }

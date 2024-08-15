@@ -58,7 +58,7 @@ class Preferences {
         "windowDisplayDelay": "0",
         "appearanceModel": AppearanceModelPreference.thumbnails.rawValue,
         "appearanceSize": AppearanceSizePreference.medium.rawValue,
-        "appearanceTheme": AppearanceThemePreference.automatic.rawValue,
+        "appearanceTheme": AppearanceThemePreference.system.rawValue,
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "appVerticalAlignment": AppVerticalAlignmentPreference.centered.rawValue,
@@ -754,13 +754,13 @@ enum ThemePreference: String, CaseIterable, ImageMacroPreference {
 enum AppearanceThemePreference: String, CaseIterable, ImageMacroPreference {
     case light = "0"
     case dark = "1"
-    case automatic = "2"
+    case system = "2"
 
     var localizedString: LocalizedString {
         switch self {
-            case .light: return "Light"
-            case .dark: return "Dark"
-            case .automatic: return "Automatic"
+            case .light: return NSLocalizedString("Light", comment: "")
+            case .dark: return NSLocalizedString("Dark", comment: "")
+            case .system: return NSLocalizedString("System", comment: "")
         }
     }
 
@@ -768,7 +768,7 @@ enum AppearanceThemePreference: String, CaseIterable, ImageMacroPreference {
         switch self {
             case .light: return WidthHeightImage(name: "light")
             case .dark: return WidthHeightImage(name: "dark")
-            case .automatic: return WidthHeightImage(name: "automatic")
+            case .system: return WidthHeightImage(name: "system")
         }
     }
 }
