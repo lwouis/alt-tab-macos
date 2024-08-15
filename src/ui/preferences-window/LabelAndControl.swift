@@ -359,6 +359,9 @@ class LabelAndControl: NSObject {
 
     static func controlWasChanged(_ senderControl: NSControl, _ controlId: String?) {
         if let newValue = LabelAndControl.getControlValue(senderControl, controlId) {
+            if let oldValue = Preferences.getString(senderControl.identifier!.rawValue), newValue == oldValue {
+                return
+            }
             if senderControl is NSSlider {
                 updateSuffixWithValue(senderControl as! NSSlider, newValue)
             }
