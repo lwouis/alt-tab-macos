@@ -98,7 +98,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         toolbar = NSToolbar(identifier: "1")
         toolbar!.delegate = self
         // toolbar breaks with the new default style on macOS 11; we force the classic style (see #914)
-        if #available(OSX 11, *) { toolbarStyle = .expanded }
+        if #available(OSX 11, *) { toolbarStyle = .preference }
         toolbar!.displayMode = .iconAndLabel
         toolbar!.showsBaselineSeparator = true
         [
@@ -129,6 +129,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         let item = NSToolbarItem(itemIdentifier: id)
         item.label = label
         item.image = NSImage.initTemplateCopy(image)
+        item.maxSize = .init(width: 22, height: 22)
         item.target = self
         item.action = #selector(tabItemClicked)
         let wrapView = NSView(frame: .zero)
