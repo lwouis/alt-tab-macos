@@ -22,10 +22,8 @@ class BlacklistsTab {
             }
         }
 
-        let table = TableGroupView(title: NSLocalizedString("Blacklists", comment: ""), width: PreferencesWindow.width)
-        _ = table.addRow(leftViews: [NSView()],
-                rightViews: [NSView()],
-                secondaryViews: [blacklist, add], secondaryViewsOrientation: .vertical)
+        let table = TableGroupView(width: PreferencesWindow.width)
+        _ = table.addRow(leftViews: [blacklist], secondaryViews: [add])
 
         let view = TableGroupSetView(originalViews: [table])
         view.translatesAutoresizingMaskIntoConstraints = false

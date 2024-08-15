@@ -53,9 +53,7 @@ class ControlsTab {
         tabs.translatesAutoresizingMaskIntoConstraints = false
         tabs.fit()
 
-        let table = TableGroupView(title: NSLocalizedString("Keyboard Shortcuts", comment: ""),
-                hasHeader: true, hasTable: false,
-                width: PreferencesWindow.width)
+        let table = TableGroupView(hasHeader: true, width: PreferencesWindow.width)
         let tab = NSSegmentedControl(labels: [
             NSLocalizedString("Shortcut 1", comment: ""),
             NSLocalizedString("Shortcut 2", comment: ""),

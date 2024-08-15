@@ -194,19 +194,19 @@ class TableGroupView: ClickHoverStackView {
         }
     }
 
-    init(title: String? = nil, subTitle: String? = nil, hasHeader: Bool = false, hasTable: Bool = true, width: CGFloat = 500) {
+    init(title: String? = nil, subTitle: String? = nil, hasHeader: Bool = false, width: CGFloat = 500) {
         self.width = width
         self.title = title
         self.subTitle = subTitle
         super.init(frame: .zero)
-        setupView(hasHeader: hasHeader, hasTable: hasTable)
+        setupView(hasHeader: hasHeader)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupView(hasHeader: Bool, hasTable: Bool) {
+    private func setupView(hasHeader: Bool) {
         orientation = .vertical
         spacing = TableGroupView.spacing
         translatesAutoresizingMaskIntoConstraints = false
@@ -216,12 +216,11 @@ class TableGroupView: ClickHoverStackView {
         if hasHeader {
             setupHeaderView()
         }
-        if hasTable {
-            setupTableView()
-        }
+        setupTableView()
     }
 
     private func setupTitleView() {
+        if title == nil && subTitle == nil { return }
         titleStackView.orientation = .vertical
         titleStackView.alignment = .left
         titleStackView.spacing = TableGroupView.rowIntraSpacing
