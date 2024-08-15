@@ -274,8 +274,9 @@ fileprivate class CustomizeSheet: SheetWindow {
 
     var showHideView: TableGroupSetView!
     var advancedView: TableGroupSetView!
+    var control: NSSegmentedControl!
 
-    override func setupView() {
+    override func makeContentView() -> NSView {
         makeComponents()
         showHideView = ShowHideIllustratedView(model, illustratedImageView).makeView()
 
@@ -286,7 +287,7 @@ fileprivate class CustomizeSheet: SheetWindow {
         } else if model == .titles {
             advancedView = makeTitlesView()
         }
-        let control = NSSegmentedControl(labels: [
+        control = NSSegmentedControl(labels: [
             NSLocalizedString("Show & Hide", comment: ""),
             NSLocalizedString("Advanced", comment: "")
         ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
@@ -294,11 +295,12 @@ fileprivate class CustomizeSheet: SheetWindow {
         control.segmentStyle = .automatic
         control.widthAnchor.constraint(equalToConstant: CustomizeSheet.width).isActive = true
 
-        let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView],
-                toolsViews: [doneButton],
-                othersAlignment: NSLayoutConstraint.Attribute.centerX,
-                toolsAlignment: .trailing)
-        contentView = view
+        let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView], padding: 0)
+        return view
+    }
+
+    override func setupView() {
+        super.setupView()
         switchTab(control)
     }
 
@@ -424,19 +426,22 @@ fileprivate class CustomizeSheet: SheetWindow {
     }
 
     private func adjustWindowHeight() {
-        let newHeight = contentView?.intrinsicContentSize.height ?? 0
+        guard let contentView = self.contentView else { return }
+
+        // Calculate the fitting height of the content view
+        let fittingSize = contentView.fittingSize
         var windowFrame = frame
-        windowFrame.size.height = newHeight
+        windowFrame.size.height = fittingSize.height
         setFrame(windowFrame, display: true, animate: false)
     }
 }
 
 fileprivate class AdvancedSheet: SheetWindow {
-    override func setupView() {
-        let animationView = makeAnimationView()
-        let view = TableGroupSetView(originalViews: [animationView], toolsViews: [doneButton], toolsAlignment: .trailing)
-        view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
-        contentView = view
+    override func makeContentView() -> NSView {
+        return makeAnimationView()
+//        let view = TableGroupSetView(originalViews: [animationView], toolsViews: [doneButton], toolsAlignment: .trailing)
+//        view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
+//        return view
     }
 
     private func makeAnimationView() -> NSStackView {

@@ -2,18 +2,20 @@ import Cocoa
 import ShortcutRecorder
 
 fileprivate class ShortcutsSheet: SheetWindow {
-    override func setupView() {
-        let view = TableGroupSetView(originalViews: [ControlsTab.shortcutsView], toolsViews: [doneButton], toolsAlignment: .trailing)
-        view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
-        contentView = view
+    override func makeContentView() -> NSView {
+        return ControlsTab.shortcutsView
+//        let view = TableGroupSetView(originalViews: [ControlsTab.shortcutsView], padding: 0)
+//        view.widthAnchor.constraint(equalToConstant: SheetWindow.width).isActive = true
+//        return view
     }
 }
 
 fileprivate class AdvancedSheet: SheetWindow {
-    override func setupView() {
-        let view = TableGroupSetView(originalViews: [ControlsTab.miscellaneousView], toolsViews: [doneButton], toolsAlignment: .trailing)
-        view.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
-        contentView = view
+    override func makeContentView() -> NSView {
+        return ControlsTab.miscellaneousView
+//        let view = TableGroupSetView(originalViews: [ControlsTab.miscellaneousView], padding: 0)
+//        view.widthAnchor.constraint(equalToConstant: SheetWindow.width).isActive = true
+//        return view
     }
 }
 
