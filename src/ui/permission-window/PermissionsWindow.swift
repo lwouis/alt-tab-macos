@@ -13,7 +13,7 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
 
     func show() {
         accessibilityView.updatePermissionStatus(SystemPermissions.accessibilityIsGranted())
-        if #available(OSX 10.15, *) {
+        if #available(macOS 10.15, *) {
             screenRecordingView.updatePermissionStatus(SystemPermissions.screenRecordingIsGranted())
         }
         center()
@@ -59,7 +59,7 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
             [header],
             [accessibilityView],
         ]
-        if #available(OSX 10.15, *) {
+        if #available(macOS 10.15, *) {
             screenRecordingView = PermissionView(
                 "screen-recording",
                 NSLocalizedString("Screen Recording", comment: ""),

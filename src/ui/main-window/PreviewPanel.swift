@@ -39,7 +39,7 @@ private class BorderView: NSView {
 }
 
 func systemAccentColor() -> NSColor {
-    if #available(OSX 10.14, *) {
+    if #available(macOS 10.14, *) {
         // dynamically adapts to changes in System Default; no need to listen to notifications
         return NSColor.controlAccentColor
     }

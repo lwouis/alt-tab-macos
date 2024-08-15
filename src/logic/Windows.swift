@@ -233,7 +233,7 @@ class Windows {
         list.forEach {
             if let cgWindowId = $0.cgWindowId {
                 if $0.isMinimized || $0.isHidden {
-                    if #available(macOS 13, *) {
+                    if #available(macOS 13.0, *) {
                         // not exact after window merging
                         $0.isTabbed = !cgsWindowIds.contains(cgWindowId)
                     } else {

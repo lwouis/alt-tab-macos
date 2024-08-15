@@ -9,7 +9,7 @@ class GeneralTab {
         let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)])
         let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
-        if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }
+        if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
         let menubarIconDropdown = menubarIcon.rightViews[0] as! NSPopUpButton
         for i in 0...2 {
             let image = NSImage.initCopy("menubar-" + String(i + 1))
@@ -54,7 +54,7 @@ class GeneralTab {
         alert.informativeText = NSLocalizedString("You can’t undo this action.", comment: "")
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         let resetButton = alert.addButton(withTitle: NSLocalizedString("Reset preferences and restart", comment: ""))
-        if #available(OSX 11, *) { resetButton.hasDestructiveAction = true }
+        if #available(macOS 11.0, *) { resetButton.hasDestructiveAction = true }
         if alert.runModal() == .alertSecondButtonReturn {
             Preferences.resetAll()
             App.app.restart()
