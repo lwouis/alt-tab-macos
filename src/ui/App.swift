@@ -203,7 +203,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func showSecondaryWindow(_ window: NSWindow?) {
         if let window = window {
-            NSScreen.preferred().repositionPanel(window, VerticalAlignment.appleCentered)
+            NSScreen.preferred().repositionPanel(window)
             App.shared.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
         }
@@ -265,7 +265,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
-        currentScreen.repositionPanel(thumbnailsPanel, Preferences.verticalAlignment)
+        currentScreen.repositionPanel(thumbnailsPanel)
         Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
     }
 
