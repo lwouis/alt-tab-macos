@@ -109,7 +109,7 @@ class Applications {
     private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
         // an app can start with .activationPolicy == .prohibited, then transition to != .prohibited later
         // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
-        return (isNotXpc(app) || isAndroidEmulator(app)) && !app.processIdentifier.isZombie()
+        return (isNotXpc(app) || isPasswords(app) || isAndroidEmulator(app)) && !app.processIdentifier.isZombie()
     }
 
     private static func isNotXpc(_ app: NSRunningApplication) -> Bool {
@@ -125,6 +125,10 @@ class Applications {
     // e.g. hiding the thumbnails panel gives focus to the preferences panel if open, thus changing its order in the list
     private static func notAltTab(_ app: NSRunningApplication) -> Bool {
         return app.processIdentifier != ProcessInfo.processInfo.processIdentifier
+    }
+    
+    private static func isPasswords(_ app: NSRunningApplication) -> Bool {
+        return app.bundleIdentifier == "com.apple.Passwords"
     }
 
     static func isAndroidEmulator(_ app: NSRunningApplication) -> Bool {
