@@ -62,8 +62,8 @@ class Preferences {
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
         "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
-        "showAppsWindows": ShowAppsWindowsPreference.windows.rawValue,
-        "showAppNamesWindowTitles": ShowAppNamesWindowTitlesPreference.windowTitles.rawValue,
+        "showAppsWindows": ShowAppsOrWindowsPreference.windows.rawValue,
+        "showAppNamesWindowTitles": ShowAppNameWindowTitlePreference.windowTitle.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
         "appsToShow2": AppsToShowPreference.active.rawValue,
         "appsToShow3": AppsToShowPreference.all.rawValue,
@@ -142,8 +142,8 @@ class Preferences {
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
-    static var showAppsWindows: ShowAppsWindowsPreference { defaults.macroPref("showAppsWindows", ShowAppsWindowsPreference.allCases) }
-    static var showAppNamesWindowTitles: ShowAppNamesWindowTitlesPreference { defaults.macroPref("showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases) }
+    static var showAppsWindows: ShowAppsOrWindowsPreference { defaults.macroPref("showAppsWindows", ShowAppsOrWindowsPreference.allCases) }
+    static var showAppNamesWindowTitles: ShowAppNameWindowTitlePreference { defaults.macroPref("showAppNamesWindowTitles", ShowAppNameWindowTitlePreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
@@ -605,7 +605,7 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShowAppsWindowsPreference: String, CaseIterable, MacroPreference {
+enum ShowAppsOrWindowsPreference: String, CaseIterable, MacroPreference {
     case applications = "0"
     case windows = "1"
 
@@ -617,24 +617,24 @@ enum ShowAppsWindowsPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShowAppNamesWindowTitlesPreference: String, CaseIterable, MacroPreference {
-    case appNames = "0"
-    case windowTitles = "1"
-    case appNamesAndWindowTitles = "2"
+enum ShowAppNameWindowTitlePreference: String, CaseIterable, MacroPreference {
+    case windowTitle = "0"
+    case appName = "1"
+    case appNameAndWindowTitle = "2"
 
     var localizedString: LocalizedString {
         switch self {
-            case .appNames: return NSLocalizedString("Application Names", comment: "")
-            case .windowTitles: return NSLocalizedString("Window Titles", comment: "")
-            case .appNamesAndWindowTitles: return NSLocalizedString("Application Names - Window Titles", comment: "")
+            case .windowTitle: return NSLocalizedString("Window Titles", comment: "")
+            case .appName: return NSLocalizedString("Application Names", comment: "")
+            case .appNameAndWindowTitle: return NSLocalizedString("Application Names - Window Titles", comment: "")
         }
     }
 
     var image: WidthHeightImage {
         switch self {
-            case .appNames: return WidthHeightImage(name: "show_running_applications")
-            case .windowTitles: return WidthHeightImage(name: "show_running_windows")
-            case .appNamesAndWindowTitles: return WidthHeightImage(name: "show_running_applications_windows")
+            case .windowTitle: return WidthHeightImage(name: "show_running_windows")
+            case .appName: return WidthHeightImage(name: "show_running_applications")
+            case .appNameAndWindowTitle: return WidthHeightImage(name: "show_running_applications_windows")
         }
     }
 }

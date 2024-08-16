@@ -51,14 +51,14 @@ class CustomizeStyleSheet: SheetWindow {
                 })])
         titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation", comment: ""),
                 rightViews: LabelAndControl.makeRadioButtons(TitleTruncationPreference.allCases, "titleTruncation"))
-        showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases, "showAppsWindows", extraAction: { _ in
+        showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
+                rightViews: LabelAndControl.makeRadioButtons(ShowAppsOrWindowsPreference.allCases, "showAppsWindows", extraAction: { _ in
                     self.toggleAppNamesWindowTitles()
                     self.showAppsOrWindowsIllustratedImage()
                 }))
         showAppNamesWindowTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown(
-                        "showAppNamesWindowTitles", ShowAppNamesWindowTitlesPreference.allCases, extraAction: { _ in
+                        "showAppNamesWindowTitles", ShowAppNameWindowTitlePreference.allCases, extraAction: { _ in
                     self.showAppsOrWindowsIllustratedImage()
                 })])
     }
@@ -141,11 +141,11 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func showAppsOrWindowsIllustratedImage() {
-        var imageName = ShowAppNamesWindowTitlesPreference.windowTitles.image.name
-        if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .appNames {
-            imageName = ShowAppNamesWindowTitlesPreference.appNames.image.name
-        } else if Preferences.showAppNamesWindowTitles == .appNamesAndWindowTitles {
-            imageName = ShowAppNamesWindowTitlesPreference.appNamesAndWindowTitles.image.name
+        var imageName = ShowAppNameWindowTitlePreference.windowTitle.image.name
+        if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .appName {
+            imageName = ShowAppNameWindowTitlePreference.appName.image.name
+        } else if Preferences.showAppNamesWindowTitles == .appNameAndWindowTitle {
+            imageName = ShowAppNameWindowTitlePreference.appNameAndWindowTitle.image.name
         }
         self.illustratedImageView.highlight(true, imageName)
     }
