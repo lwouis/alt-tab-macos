@@ -62,8 +62,8 @@ class Preferences {
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
         "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
-        "showAppsWindows": ShowAppsOrWindowsPreference.windows.rawValue,
-        "showAppNamesWindowTitles": ShowAppNameWindowTitlePreference.windowTitle.rawValue,
+        "showAppsOrWindows": ShowAppsOrWindowsPreference.windows.rawValue,
+        "showTitles": ShowTitlesPreference.windowTitle.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
         "appsToShow2": AppsToShowPreference.active.rawValue,
         "appsToShow3": AppsToShowPreference.all.rawValue,
@@ -142,8 +142,8 @@ class Preferences {
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
-    static var showAppsWindows: ShowAppsOrWindowsPreference { defaults.macroPref("showAppsWindows", ShowAppsOrWindowsPreference.allCases) }
-    static var showAppNamesWindowTitles: ShowAppNameWindowTitlePreference { defaults.macroPref("showAppNamesWindowTitles", ShowAppNameWindowTitlePreference.allCases) }
+    static var showAppsOrWindows: ShowAppsOrWindowsPreference { defaults.macroPref("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases) }
+    static var showTitles: ShowTitlesPreference { defaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
@@ -393,7 +393,7 @@ class Preferences {
     }
 
     static func onlyShowApplications() -> Bool {
-        return Preferences.showAppsWindows == .applications && Preferences.appearanceStyle != .thumbnails
+        return Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails
     }
 
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards
@@ -617,7 +617,7 @@ enum ShowAppsOrWindowsPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShowAppNameWindowTitlePreference: String, CaseIterable, MacroPreference {
+enum ShowTitlesPreference: String, CaseIterable, MacroPreference {
     case windowTitle = "0"
     case appName = "1"
     case appNameAndWindowTitle = "2"
