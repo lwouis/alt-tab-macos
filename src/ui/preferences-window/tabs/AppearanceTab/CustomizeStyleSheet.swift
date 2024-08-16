@@ -50,10 +50,9 @@ class CustomizeStyleSheet: SheetWindow {
                     self.showAlignThumbnailsIllustratedImage()
                 })])
         titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown("titleTruncation", TitleTruncationPreference.allCases)])
+                rightViews: LabelAndControl.makeRadioButtons(TitleTruncationPreference.allCases, "titleTruncation"))
         showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show running", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases,
-                        "showAppsWindows", extraAction: { _ in
+                rightViews: LabelAndControl.makeRadioButtons(ShowAppsWindowsPreference.allCases, "showAppsWindows", extraAction: { _ in
                     self.toggleAppNamesWindowTitles()
                     self.showAppsOrWindowsIllustratedImage()
                 }))
@@ -143,10 +142,10 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func showAppsOrWindowsIllustratedImage() {
         var imageName = ShowAppNamesWindowTitlesPreference.windowTitles.image.name
-        if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .applicationNames {
-            imageName = ShowAppNamesWindowTitlesPreference.applicationNames.image.name
-        } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
-            imageName = ShowAppNamesWindowTitlesPreference.applicationNamesAndWindowTitles.image.name
+        if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .appNames {
+            imageName = ShowAppNamesWindowTitlesPreference.appNames.image.name
+        } else if Preferences.showAppNamesWindowTitles == .appNamesAndWindowTitles {
+            imageName = ShowAppNamesWindowTitlesPreference.appNamesAndWindowTitles.image.name
         }
         self.illustratedImageView.highlight(true, imageName)
     }

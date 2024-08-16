@@ -592,15 +592,15 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
 }
 
 enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
-    case end = "0"
-    case middle = "1"
     case start = "2"
+    case middle = "1"
+    case end = "0"
 
     var localizedString: LocalizedString {
         switch self {
-            case .end: return NSLocalizedString("End", comment: "")
-            case .middle: return NSLocalizedString("Middle", comment: "")
             case .start: return NSLocalizedString("Start", comment: "")
+            case .middle: return NSLocalizedString("Middle", comment: "")
+            case .end: return NSLocalizedString("End", comment: "")
         }
     }
 }
@@ -618,23 +618,23 @@ enum ShowAppsWindowsPreference: String, CaseIterable, MacroPreference {
 }
 
 enum ShowAppNamesWindowTitlesPreference: String, CaseIterable, MacroPreference {
-    case applicationNames = "0"
+    case appNames = "0"
     case windowTitles = "1"
-    case applicationNamesAndWindowTitles = "2"
+    case appNamesAndWindowTitles = "2"
 
     var localizedString: LocalizedString {
         switch self {
-            case .applicationNames: return NSLocalizedString("Application Names", comment: "")
+            case .appNames: return NSLocalizedString("Application Names", comment: "")
             case .windowTitles: return NSLocalizedString("Window Titles", comment: "")
-            case .applicationNamesAndWindowTitles: return NSLocalizedString("Application Names - Window Titles", comment: "")
+            case .appNamesAndWindowTitles: return NSLocalizedString("Application Names - Window Titles", comment: "")
         }
     }
 
     var image: WidthHeightImage {
         switch self {
-            case .applicationNames: return WidthHeightImage(name: "show_running_applications")
+            case .appNames: return WidthHeightImage(name: "show_running_applications")
             case .windowTitles: return WidthHeightImage(name: "show_running_windows")
-            case .applicationNamesAndWindowTitles: return WidthHeightImage(name: "show_running_applications_windows")
+            case .appNamesAndWindowTitles: return WidthHeightImage(name: "show_running_applications_windows")
         }
     }
 }

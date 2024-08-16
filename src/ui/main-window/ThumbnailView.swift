@@ -231,9 +231,9 @@ class ThumbnailView: NSStackView {
         let windowTitle = window_?.title ?? "Untitled Window"
 
         if Preferences.appearanceModel != .thumbnails {
-            if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .applicationNames {
+            if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .appNames {
                 return appName
-            } else if Preferences.showAppNamesWindowTitles == .applicationNamesAndWindowTitles {
+            } else if Preferences.showAppNamesWindowTitles == .appNamesAndWindowTitles {
                 return appName + " - " + windowTitle
             }
         }
