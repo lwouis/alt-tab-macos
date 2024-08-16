@@ -63,7 +63,7 @@ class ThumbnailView: NSStackView {
         vStackView.layer!.backgroundColor = .clear
         vStackView.layer!.borderColor = .clear
         vStackView.layer!.cornerRadius = Preferences.cellCornerRadius
-        vStackView.layer!.borderWidth = CGFloat(2)
+        vStackView.layer!.borderWidth = CGFloat(1)
         vStackView.edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
         if Preferences.appearanceModel == .appIcons {
             // The label is outside and below the selected icon in app icons model
@@ -132,6 +132,9 @@ class ThumbnailView: NSStackView {
     }
 
     private func getBorderColor(isFocused: Bool, isHovered: Bool) -> NSColor {
+        if isFocused {
+            return Preferences.appearanceThemeParameters.highlightBorderColor
+        }
         return NSColor.clear
     }
 

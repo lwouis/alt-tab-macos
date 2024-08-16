@@ -190,7 +190,7 @@ class AppearanceTheme {
             appearance.imageShadowColor = NSColor.lightGray.withAlphaComponent(0.8)
             appearance.highlightFocusedBackgroundColor = NSColor.lightGray.withAlphaComponent(0.7)
             appearance.highlightHoveredBackgroundColor = NSColor.lightGray.withAlphaComponent(0.4)
-            appearance.highlightBorderColor = NSColor.black.withAlphaComponent(0.8)
+            appearance.highlightBorderColor = .clear/*NSColor.lightGray.withAlphaComponent(0.8)*/
         } else {
             appearance.material = .dark
             appearance.fontColor = NSColor.white.withAlphaComponent(0.9)
@@ -198,8 +198,8 @@ class AppearanceTheme {
             appearance.titleShadowColor = NSColor.darkGray
             appearance.imageShadowColor = NSColor.gray.withAlphaComponent(0.8)
             appearance.highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
-            appearance.highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.2)
-            appearance.highlightBorderColor = NSColor.white.withAlphaComponent(0.8)
+            appearance.highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
+            appearance.highlightBorderColor = .clear/*NSColor.black.withAlphaComponent(0.6)*/
         }
         return appearance
     }
