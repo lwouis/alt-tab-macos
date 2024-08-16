@@ -2,55 +2,33 @@ import Cocoa
 import Sparkle
 
 class PoliciesTab {
-    static var updateButtons: [NSButton]!
-    static var crashButtons: [NSButton]!
+    static var updatesPolicyDropdown: NSPopUpButton!
+    static var crashPolicyDropdown: NSPopUpButton!
     // this helps prevent double-dipping (i.e. user updates the UI > changes the preference > updates the UI)
     static var policyLock = false
 
     static func initTab() -> NSView {
-        let updateLabel = LabelAndControl.makeLabel(NSLocalizedString("Updates policy:", comment: ""))
-        PoliciesTab.updateButtons = LabelAndControl.makeRadioButtons("updatePolicy", UpdatePolicyPreference.allCases, extraAction: { _ in
+        PoliciesTab.updatesPolicyDropdown = LabelAndControl.makeDropdown("updatePolicy", UpdatePolicyPreference.allCases, extraAction: { _ in
             PoliciesTab.policyLock = true
             let policy = Preferences.updatePolicy
             SUUpdater.shared().automaticallyDownloadsUpdates = policy == .autoInstall
             SUUpdater.shared().automaticallyChecksForUpdates = policy == .autoInstall || policy == .autoCheck
             PoliciesTab.policyLock = false
         })
-        PoliciesTab.updateButtons.forEach { $0.alignment = .left }
+        PoliciesTab.crashPolicyDropdown = LabelAndControl.makeDropdown("crashPolicy", CrashPolicyPreference.allCases)
+
+        let table = TableGroupView(width: PreferencesWindow.width)
+        table.addRow(leftText: NSLocalizedString("Updates policy", comment: ""), rightViews: [PoliciesTab.updatesPolicyDropdown])
+        table.addRow(leftText: NSLocalizedString("Crash reports policy", comment: ""), rightViews: [PoliciesTab.crashPolicyDropdown])
+        table.fit()
         let checkForUpdates = NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: nil, action: #selector(PoliciesTab.checkForUpdatesNow))
-
-        let crashLabel = LabelAndControl.makeLabel(NSLocalizedString("Crash reports policy:", comment: ""))
-        PoliciesTab.crashButtons = LabelAndControl.makeRadioButtons("crashPolicy", CrashPolicyPreference.allCases)
-
-        let table = TableGroupView(title: NSLocalizedString("Updates policy", comment: ""), width: PreferencesWindow.width)
-        _ = table.addRow(leftViews: [NSView()],
-                rightViews: [NSView()],
-                secondaryViews: PoliciesTab.updateButtons, secondaryViewsOrientation: .vertical)
-        let table2 = TableGroupView(title: NSLocalizedString("Crash reports policy", comment: ""), width: PreferencesWindow.width)
-        _ = table2.addRow(leftViews: [NSView()],
-                rightViews: [NSView()],
-                secondaryViews: PoliciesTab.crashButtons, secondaryViewsOrientation: .vertical)
-        table2.fit()
 
         UserDefaultsEvents.observe()
 
-        let view = TableGroupSetView(originalViews: [table, table2, checkForUpdates])
+        let view = TableGroupSetView(originalViews: [table, checkForUpdates])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
-
-//        let grid = GridView([
-//            [updateLabel, updateOptions],
-//            [NSGridCell.emptyContentView, checkForUpdates],
-//            [crashLabel, crashOptions],
-//        ])
-//        grid.column(at: 0).xPlacement = .trailing
-//        grid.row(at: 2).topPadding = GridView.interPadding * 1.5
-//        grid.fit()
-
-
-
-//        return grid
     }
 
     @objc static func checkForUpdatesNow(_ sender: Any) {
