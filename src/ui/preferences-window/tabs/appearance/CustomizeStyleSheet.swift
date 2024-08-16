@@ -3,7 +3,7 @@ import Cocoa
 class CustomizeStyleSheet: SheetWindow {
     static let illustratedImageWidth = width
 
-    let model = Preferences.appearanceModel
+    let style = Preferences.appearanceStyle
     var illustratedImageView: IllustratedImageThemeView!
     var alignThumbnails: TableGroupView.Row!
     var titleTruncation: TableGroupView.Row!
@@ -16,13 +16,13 @@ class CustomizeStyleSheet: SheetWindow {
 
     override func makeContentView() -> NSView {
         makeComponents()
-        showHideView = ShowHideIllustratedView(model, illustratedImageView).makeView()
+        showHideView = ShowHideIllustratedView(style, illustratedImageView).makeView()
 
-        if model == .thumbnails {
+        if style == .thumbnails {
             advancedView = makeThumbnailsView()
-        } else if model == .appIcons {
+        } else if style == .appIcons {
             advancedView = makeAppIconsView()
-        } else if model == .titles {
+        } else if style == .titles {
             advancedView = makeTitlesView()
         }
         control = NSSegmentedControl(labels: [
@@ -43,7 +43,7 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func makeComponents() {
-        illustratedImageView = IllustratedImageThemeView(model, CustomizeStyleSheet.illustratedImageWidth)
+        illustratedImageView = IllustratedImageThemeView(style, CustomizeStyleSheet.illustratedImageWidth)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
                 rightViews: LabelAndControl.makeRadioButtons(
                         "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in

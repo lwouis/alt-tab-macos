@@ -4,7 +4,7 @@ struct ShowHideRowInfo {
     let rowId: String!
     var uncheckedImage: String!
     var checkedImage: String!
-    var supportedModels: [AppearanceModelPreference]!
+    var supportedStyles: [AppearanceStylePreference]!
     var leftTitle: String!
     var subTitle: String?
     var rightViews = [NSView]()
@@ -16,16 +16,16 @@ struct ShowHideRowInfo {
 
 class IllustratedImageThemeView: ClickHoverImageView {
     static let padding = CGFloat(3)
-    var model: AppearanceModelPreference!
+    var style: AppearanceStylePreference!
     var theme: String!
     var imageName: String!
     var isFocused: Bool = false
 
-    init(_ model: AppearanceModelPreference, _ width: CGFloat) {
+    init(_ style: AppearanceStylePreference, _ width: CGFloat) {
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
         let theme = "light"
-        let imageName = IllustratedImageThemeView.getConcatenatedImageName(model, theme)
+        let imageName = IllustratedImageThemeView.getConcatenatedImageName(style, theme)
         let imageView = NSImageView(image: NSImage(named: imageName)!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
@@ -34,7 +34,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
         imageView.layer?.cornerRadius = TableGroupView.cornerRadius
 
         super.init(imageView: imageView)
-        self.model = model
+        self.style = style
         self.theme = theme
         self.imageName = imageName
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -85,34 +85,34 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     private func updateImage(_ imageName: String) {
-        imageView.image = NSImage(named: self.getModelThemeImageName(imageName))
+        imageView.image = NSImage(named: self.getStyleThemeImageName(imageName))
     }
 
-    static func getConcatenatedImageName(_ model: AppearanceModelPreference,
+    static func getConcatenatedImageName(_ style: AppearanceStylePreference,
                                          _ theme: String ,
                                          _ imageName: String = "") -> String {
         if imageName.isEmpty {
             // thumbnails_light/app_icons_dark
-            return model.image.name + "_" + theme
+            return style.image.name + "_" + theme
         }
         // thumbnails_show_app_badges_light/app_icons_show_app_badges_light
-        return model.image.name + "_" + imageName + "_" + theme
+        return style.image.name + "_" + imageName + "_" + theme
     }
 
-    func getModelThemeImageName(_ imageName: String = "") -> String {
-        return IllustratedImageThemeView.getConcatenatedImageName(self.model, self.theme, imageName)
+    func getStyleThemeImageName(_ imageName: String = "") -> String {
+        return IllustratedImageThemeView.getConcatenatedImageName(self.style, self.theme, imageName)
     }
 
 }
 
 class ShowHideIllustratedView {
-    private let model: AppearanceModelPreference
+    private let style: AppearanceStylePreference
     private var showHideRows = [ShowHideRowInfo]()
     var illustratedImageView: IllustratedImageThemeView!
     var table: TableGroupView!
 
-    init(_ model: AppearanceModelPreference, _ illustratedImageView: IllustratedImageThemeView) {
-        self.model = model
+    init(_ style: AppearanceStylePreference, _ illustratedImageView: IllustratedImageThemeView) {
+        self.style = style
         self.illustratedImageView = illustratedImageView
         setupItems()
     }
@@ -120,7 +120,7 @@ class ShowHideIllustratedView {
     func makeView() -> TableGroupSetView {
         table = TableGroupView(width: CustomizeStyleSheet.width)
         for row in showHideRows {
-            if row.supportedModels.contains(model) {
+            if row.supportedStyles.contains(style) {
                 _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
                     self.clickCheckbox(rowId: row.rowId)
                     self.updateImageView(rowId: row.rowId)
@@ -141,7 +141,7 @@ class ShowHideIllustratedView {
         var hideAppBadges = ShowHideRowInfo()
         hideAppBadges.uncheckedImage = "show_app_badges"
         hideAppBadges.checkedImage = "hide_app_badges"
-        hideAppBadges.supportedModels = [.thumbnails, .appIcons, .titles]
+        hideAppBadges.supportedStyles = [.thumbnails, .appIcons, .titles]
         hideAppBadges.leftTitle = NSLocalizedString("Hide app badges", comment: "")
         hideAppBadges.rightViews.append(LabelAndControl.makeCheckbox("hideAppBadges", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideAppBadges.rowId)
@@ -151,7 +151,7 @@ class ShowHideIllustratedView {
         var hideStatusIcons = ShowHideRowInfo()
         hideStatusIcons.uncheckedImage = "show_status_icons"
         hideStatusIcons.checkedImage = "hide_status_icons"
-        hideStatusIcons.supportedModels = [.thumbnails, .titles]
+        hideStatusIcons.supportedStyles = [.thumbnails, .titles]
         hideStatusIcons.leftTitle = NSLocalizedString("Hide status icons", comment: "")
         hideStatusIcons.subTitle = NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
         hideStatusIcons.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
@@ -167,7 +167,7 @@ class ShowHideIllustratedView {
         var hideSpaceNumberLabels = ShowHideRowInfo()
         hideSpaceNumberLabels.uncheckedImage = "show_space_number_labels"
         hideSpaceNumberLabels.checkedImage = "hide_space_number_labels"
-        hideSpaceNumberLabels.supportedModels = [.thumbnails, .titles]
+        hideSpaceNumberLabels.supportedStyles = [.thumbnails, .titles]
         hideSpaceNumberLabels.leftTitle = NSLocalizedString("Hide Space number labels", comment: "")
         hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeCheckbox("hideSpaceNumberLabels", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
@@ -177,7 +177,7 @@ class ShowHideIllustratedView {
         var hideColoredCircles = ShowHideRowInfo()
         hideColoredCircles.uncheckedImage = "show_colored_circles"
         hideColoredCircles.checkedImage = "hide_colored_circles"
-        hideColoredCircles.supportedModels = [.thumbnails]
+        hideColoredCircles.supportedStyles = [.thumbnails]
         hideColoredCircles.leftTitle = NSLocalizedString("Hide colored circles on mouse hover", comment: "")
         hideColoredCircles.rightViews.append(LabelAndControl.makeCheckbox("hideColoredCircles", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
@@ -187,7 +187,7 @@ class ShowHideIllustratedView {
         var hideWindowlessApps = ShowHideRowInfo()
         hideWindowlessApps.uncheckedImage = "show_windowless_apps"
         hideWindowlessApps.checkedImage = "hide_windowless_apps"
-        hideWindowlessApps.supportedModels = [.thumbnails, .appIcons, .titles]
+        hideWindowlessApps.supportedStyles = [.thumbnails, .appIcons, .titles]
         hideWindowlessApps.leftTitle = NSLocalizedString("Hide apps with no open window", comment: "")
         hideWindowlessApps.rightViews.append(LabelAndControl.makeCheckbox("hideWindowlessApps", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideWindowlessApps.rowId)
@@ -197,7 +197,7 @@ class ShowHideIllustratedView {
         var showTabsAsWindows = ShowHideRowInfo()
         showTabsAsWindows.uncheckedImage = "hide_tabs_as_windows"
         showTabsAsWindows.checkedImage = "show_tabs_as_windows"
-        showTabsAsWindows.supportedModels = [.thumbnails, .appIcons, .titles]
+        showTabsAsWindows.supportedStyles = [.thumbnails, .appIcons, .titles]
         showTabsAsWindows.leftTitle = NSLocalizedString("Show standard tabs as windows", comment: "")
         showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: "")
         showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
@@ -213,7 +213,7 @@ class ShowHideIllustratedView {
         var previewFocusedWindow = ShowHideRowInfo()
         previewFocusedWindow.uncheckedImage = "hide_preview_focused_window"
         previewFocusedWindow.checkedImage = "show_preview_focused_window"
-        previewFocusedWindow.supportedModels = [.thumbnails, .appIcons, .titles]
+        previewFocusedWindow.supportedStyles = [.thumbnails, .appIcons, .titles]
         previewFocusedWindow.leftTitle = NSLocalizedString("Preview selected window", comment: "")
         previewFocusedWindow.rightViews.append(LabelAndControl.makeCheckbox("previewFocusedWindow", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: previewFocusedWindow.rowId)
@@ -314,14 +314,14 @@ class Popover: NSPopover {
 class AppearanceTab: NSObject {
     static var shared = AppearanceTab()
 
-    static var modelAdvancedButton: NSButton!
-    static var advancedButton: NSButton!
+    static var customizeStyleButton: NSButton!
+    static var animationsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!
     static var animationsSheet: AnimationsSheet!
 
     static func initTab() -> NSView {
-        modelAdvancedButton = NSButton(title: AppearanceTab.getModelAdvancedButtonTitle(), target: self, action: #selector(AppearanceTab.showCustomizeStyleSheet))
-        advancedButton = NSButton(title: NSLocalizedString("Animations…", comment: ""), target: self, action: #selector(AppearanceTab.showAnimationsSheet))
+        customizeStyleButton = NSButton(title: getCustomizeStyleButtonTitle(), target: self, action: #selector(showCustomizeStyleSheet))
+        animationsButton = NSButton(title: NSLocalizedString("Animations…", comment: ""), target: self, action: #selector(showAnimationsSheet))
         customizeStyleSheet = CustomizeStyleSheet()
         animationsSheet = AnimationsSheet()
         return makeView()
@@ -331,7 +331,7 @@ class AppearanceTab: NSObject {
         let appearanceView = makeAppearanceView()
         let multipleScreensView = makeMultipleScreensView()
 
-        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, advancedButton])
+        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, animationsButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
@@ -341,15 +341,15 @@ class AppearanceTab: NSObject {
         let table = TableGroupView(title: NSLocalizedString("Appearance", comment: ""),
                 subTitle: NSLocalizedString("Switch between 3 different styles. You can customize them.", comment: ""),
                 width: PreferencesWindow.width)
-        _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceModel", AppearanceModelPreference.allCases, extraAction: { _ in
-            toggleModelAdvancedButton()
+        _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
+            toggleCustomizeStyleButton()
         }, buttonSpacing: 15)[1]], secondaryViewsAlignment: .centerX)
 
         let appearanceSize = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)
         _ = table.addRow(leftText: NSLocalizedString("Size", comment: ""), rightViews: [appearanceSize])
         let appearanceTheme = LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)
         _ = table.addRow(leftText: NSLocalizedString("Theme", comment: ""), rightViews: [appearanceTheme])
-        _ = table.addRow(rightViews: modelAdvancedButton)
+        _ = table.addRow(rightViews: customizeStyleButton)
 
         table.fit()
         return table
@@ -363,24 +363,24 @@ class AppearanceTab: NSObject {
         return table
     }
 
-    private static func getModelAdvancedButtonTitle() -> String {
-        if Preferences.appearanceModel == .thumbnails {
+    private static func getCustomizeStyleButtonTitle() -> String {
+        if Preferences.appearanceStyle == .thumbnails {
             return NSLocalizedString("Customize Thumbnails Style…", comment: "")
-        } else if Preferences.appearanceModel == .appIcons {
+        } else if Preferences.appearanceStyle == .appIcons {
             return NSLocalizedString("Customize App Icons Style…", comment: "")
-        } else if Preferences.appearanceModel == .titles {
+        } else if Preferences.appearanceStyle == .titles {
             return NSLocalizedString("Customize Titles Style…", comment: "")
         }
         return NSLocalizedString("Advanced…", comment: "")
     }
 
-    @objc static func toggleModelAdvancedButton() {
+    @objc static func toggleCustomizeStyleButton() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(handleToggleAdvancedButton), object: nil)
         self.perform(#selector(handleToggleAdvancedButton), with: nil, afterDelay: 0.1)
     }
 
     @objc static func handleToggleAdvancedButton() {
-        modelAdvancedButton.animator().title = getModelAdvancedButtonTitle()
+        customizeStyleButton.animator().title = getCustomizeStyleButtonTitle()
         customizeStyleSheet = CustomizeStyleSheet()
     }
 

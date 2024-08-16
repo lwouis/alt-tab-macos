@@ -55,7 +55,7 @@ class Preferences {
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "0",
-        "appearanceModel": AppearanceModelPreference.thumbnails.rawValue,
+        "appearanceStyle": AppearanceStylePreference.thumbnails.rawValue,
         "appearanceSize": AppearanceSizePreference.medium.rawValue,
         "appearanceTheme": AppearanceThemePreference.system.rawValue,
         "theme": ThemePreference.macOs.rawValue,
@@ -135,7 +135,7 @@ class Preferences {
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
 
     // macro values
-    static var appearanceModel: AppearanceModelPreference { defaults.macroPref("appearanceModel", AppearanceModelPreference.allCases) }
+    static var appearanceStyle: AppearanceStylePreference { defaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
     static var appearanceSize: AppearanceSizePreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
     static var appearanceTheme: AppearanceThemePreference { defaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
     static var theme: ThemePreference { ThemePreference.macOs/*defaults.macroPref("theme", ThemePreference.allCases)*/ }
@@ -159,18 +159,18 @@ class Preferences {
     // derived values
     static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
     static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
-    static var appearanceModelSizeParameters: AppearanceModelSizeParameters { AppearanceModelSize(appearanceModel, appearanceSize).getParameters() }
+    static var appearanceSizeParameters: AppearanceSizeParameters { AppearanceSize(appearanceStyle, appearanceSize).getParameters() }
     static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceTheme).getParameters() }
-    static var interCellPadding: CGFloat { appearanceModelSizeParameters.interCellPadding }
-    static var intraCellPadding: CGFloat { appearanceModelSizeParameters.intraCellPadding }
-    static var hideThumbnails: Bool { appearanceModelSizeParameters.hideThumbnails }
-    static var maxWidthOnScreen: CGFloat { appearanceModelSizeParameters.maxWidthOnScreen / CGFloat(100) }
-    static var maxHeightOnScreen: CGFloat { appearanceModelSizeParameters.maxHeightOnScreen / CGFloat(100) }
-    static var windowMaxWidthInRow: CGFloat { appearanceModelSizeParameters.windowMaxWidthInRow / CGFloat(100) }
-    static var windowMinWidthInRow: CGFloat { appearanceModelSizeParameters.windowMinWidthInRow / CGFloat(100) }
-    static var rowsCount: CGFloat { appearanceModelSizeParameters.rowsCount }
-    static var iconSize: CGFloat { appearanceModelSizeParameters.iconSize }
-    static var fontHeight: CGFloat { appearanceModelSizeParameters.fontHeight }
+    static var interCellPadding: CGFloat { appearanceSizeParameters.interCellPadding }
+    static var intraCellPadding: CGFloat { appearanceSizeParameters.intraCellPadding }
+    static var hideThumbnails: Bool { appearanceSizeParameters.hideThumbnails }
+    static var maxWidthOnScreen: CGFloat { appearanceSizeParameters.maxWidthOnScreen / CGFloat(100) }
+    static var maxHeightOnScreen: CGFloat { appearanceSizeParameters.maxHeightOnScreen / CGFloat(100) }
+    static var windowMaxWidthInRow: CGFloat { appearanceSizeParameters.windowMaxWidthInRow / CGFloat(100) }
+    static var windowMinWidthInRow: CGFloat { appearanceSizeParameters.windowMinWidthInRow / CGFloat(100) }
+    static var rowsCount: CGFloat { appearanceSizeParameters.rowsCount }
+    static var iconSize: CGFloat { appearanceSizeParameters.iconSize }
+    static var fontHeight: CGFloat { appearanceSizeParameters.fontHeight }
     static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
 
     static func initialize() {
@@ -393,7 +393,7 @@ class Preferences {
     }
 
     static func onlyShowApplications() -> Bool {
-        return Preferences.showAppsWindows == .applications && Preferences.appearanceModel != .thumbnails
+        return Preferences.showAppsWindows == .applications && Preferences.appearanceStyle != .thumbnails
     }
 
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards
@@ -658,7 +658,7 @@ enum AlignThumbnailsPreference: String, CaseIterable, ImageMacroPreference {
     }
 }
 
-enum AppearanceModelPreference: String, CaseIterable, ImageMacroPreference {
+enum AppearanceStylePreference: String, CaseIterable, ImageMacroPreference {
     case thumbnails = "0"
     case appIcons = "1"
     case titles = "2"

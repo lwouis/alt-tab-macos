@@ -65,8 +65,8 @@ class ThumbnailView: NSStackView {
         vStackView.layer!.cornerRadius = Preferences.cellCornerRadius
         vStackView.layer!.borderWidth = CGFloat(1)
         vStackView.edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
-        if Preferences.appearanceModel == .appIcons {
-            // The label is outside and below the selected icon in app icons model
+        if Preferences.appearanceStyle == .appIcons {
+            // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
             vStackView.setViews([hStackView], in: .leading)
             label.alignment = .center
@@ -143,7 +143,7 @@ class ThumbnailView: NSStackView {
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
         vStackView?.layer!.borderColor = getBorderColor(isFocused: isFocused, isHovered: isHovered).cgColor
-        if Preferences.appearanceModel == .appIcons {
+        if Preferences.appearanceStyle == .appIcons {
             label.isHidden = !isFocused
         }
     }
@@ -230,7 +230,7 @@ class ThumbnailView: NSStackView {
         let appName = window_?.application.runningApplication.localizedName ?? "Unknown Application"
         let windowTitle = window_?.title ?? "Untitled Window"
 
-        if Preferences.appearanceModel != .thumbnails {
+        if Preferences.appearanceStyle != .thumbnails {
             if Preferences.showAppsWindows == .applications || Preferences.showAppNamesWindowTitles == .appName {
                 return appName
             } else if Preferences.showAppNamesWindowTitles == .appNameAndWindowTitle {
@@ -252,7 +252,7 @@ class ThumbnailView: NSStackView {
     }
 
     func setLabelWidth() {
-        if Preferences.appearanceModel == .appIcons {
+        if Preferences.appearanceStyle == .appIcons {
             assignIfDifferent(&label.textContainer!.size.width, frame.width)
         } else {
             let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
@@ -389,7 +389,7 @@ class ThumbnailView: NSStackView {
     }
 
     static func iconSize(_ screen: NSScreen) -> NSSize {
-        if Preferences.appearanceModel == .appIcons {
+        if Preferences.appearanceStyle == .appIcons {
             let widthMin = ThumbnailView.widthMin(screen)
             let fittingWidth = Preferences.iconSize
             let leftRightPadding = Preferences.intraCellPadding * 2

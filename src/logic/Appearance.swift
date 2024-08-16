@@ -18,7 +18,7 @@ enum AppearanceThemeName: String {
     case dark = "dark"
 }
 
-struct AppearanceModelSizeParameters {
+struct AppearanceSizeParameters {
     var interCellPadding: CGFloat
     var intraCellPadding: CGFloat
     var hideThumbnails: Bool = false
@@ -53,20 +53,20 @@ struct AppearanceModelSizeParameters {
     }
 }
 
-class AppearanceModelSize {
-    var model: AppearanceModelPreference
+class AppearanceSize {
+    var style: AppearanceStylePreference
     var size: AppearanceSizePreference
 
-    init(_ model: AppearanceModelPreference,
+    init(_ style: AppearanceStylePreference,
          _ size: AppearanceSizePreference) {
-        self.model = model
+        self.style = style
         self.size = size
     }
 
-    func getParameters() -> AppearanceModelSizeParameters {
-        var appearance = AppearanceModelSizeParameters()
+    func getParameters() -> AppearanceSizeParameters {
+        var appearance = AppearanceSizeParameters()
         let isVerticalScreen = NSScreen.preferred().ratio() < 1
-        if model == AppearanceModelPreference.thumbnails {
+        if style == AppearanceStylePreference.thumbnails {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 12
             appearance.interCellPadding = 1
@@ -100,7 +100,7 @@ class AppearanceModelSize {
                     appearance.rowsCount = 6
                 }
             }
-        } else if model == AppearanceModelPreference.appIcons {
+        } else if style == AppearanceStylePreference.appIcons {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 5
             appearance.interCellPadding = 1
@@ -123,7 +123,7 @@ class AppearanceModelSize {
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 128
             }
-        } else if model == AppearanceModelPreference.titles {
+        } else if style == AppearanceStylePreference.titles {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 8
             appearance.interCellPadding = 1
