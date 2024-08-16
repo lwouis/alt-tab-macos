@@ -11,13 +11,13 @@ class UserDefaultsEvents: NSObject {
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         guard !PoliciesTab.policyLock else { return }
-        let buttons = PoliciesTab.updateButtons!
+        let buttons = PoliciesTab.updatesPolicyDropdown!
         let id = buttonIdToUpdate()
         if id == 2 {
             // Sparkle UI "Automatically download and install updates in the future" doesn't activate periodical checks; we do it manually
             SUUpdater.shared().automaticallyChecksForUpdates = true
         }
-        buttons[id].state = .on
+        buttons.selectItem(at: id)
         Preferences.set("updatePolicy", String(id))
     }
 

@@ -223,29 +223,56 @@ class Preferences {
     }
 
     private static func updateToNewPreferences(_ currentVersion: String) {
-        if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
-            migrateBlacklists()
-            if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
-                migrateMinMaxWindowsWidthInRow()
-                if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
-                    // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                    (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
-                    if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
-                        // "Show windows from:" got the "Active Space" option removed
-                        migrateShowWindowsFrom()
-                        if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
-                            // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                            migrateNextWindowShortcuts()
-                            // dropdowns preferences used to store English text; now they store indexes
-                            migrateDropdownsFromTextToIndexes()
-                            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                            migrateMenubarIconFromCheckboxToDropdown()
-                            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                            migrateShowWindowsCheckboxToDropdown()
-                            // "Max size on screen" was split into max width and max height
-                            migrateMaxSizeOnScreenToWidthAndHeight()
+        if currentVersion.compare("6.72.0", options: .numeric) != .orderedDescending {
+            migratePreferencesIndexes()
+            if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
+                migrateBlacklists()
+                if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
+                    migrateMinMaxWindowsWidthInRow()
+                    if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
+                        // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                        (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
+                        if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
+                            // "Show windows from:" got the "Active Space" option removed
+                            migrateShowWindowsFrom()
+                            if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
+                                // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                                migrateNextWindowShortcuts()
+                                // dropdowns preferences used to store English text; now they store indexes
+                                migrateDropdownsFromTextToIndexes()
+                                // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                                migrateMenubarIconFromCheckboxToDropdown()
+                                // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                                migrateShowWindowsCheckboxToDropdown()
+                                // "Max size on screen" was split into max width and max height
+                                migrateMaxSizeOnScreenToWidthAndHeight()
+                            }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    // we want to rely on preferences numbers to match the enum indexes. This migration realigns existing desyncs
+    private static func migratePreferencesIndexes() {
+        // migrate spacesToShow from 1 to 2. 1 was removed a while ago. 1=active => 2=>visible
+        ["", "2", "3", "4", "5"].forEach { suffix in
+            if let spacesToShow = defaults.string(forKey: "spacesToShow" + suffix) {
+                if spacesToShow == "1" {
+                    defaults.set("2", forKey: "spacesToShow" + suffix)
+                }
+            }
+        }
+
+        // migrate spacesToShow from 0 to 2 and 2 to 0. 0 used to be end, 2 used to be start; they got switch for the UI order
+        ["", "2", "3", "4", "5"].forEach { suffix in
+            if let spacesToShow = defaults.string(forKey: "titleTruncation" + suffix) {
+                if spacesToShow == "0" {
+                    defaults.set("2", forKey: "titleTruncation" + suffix)
+                }
+                if spacesToShow == "2" {
+                    defaults.set("0", forKey: "titleTruncation" + suffix)
                 }
             }
         }
@@ -592,9 +619,9 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
 }
 
 enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
-    case start = "2"
+    case start = "0"
     case middle = "1"
-    case end = "0"
+    case end = "2"
 
     var localizedString: LocalizedString {
         switch self {

@@ -260,9 +260,9 @@ class LabelAndControl: NSObject {
         return popUp
     }
 
-    static func makeDropdown(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil) -> NSControl {
+    static func makeDropdown(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil) -> NSPopUpButton {
         let dropdown = dropdown_(rawName, macroPreferences)
-        return setupControl(dropdown, rawName, extraAction: extraAction)
+        return setupControl(dropdown, rawName, extraAction: extraAction) as! NSPopUpButton
     }
 
     static func makeLabelWithRadioButtons(_ labelText: String,
