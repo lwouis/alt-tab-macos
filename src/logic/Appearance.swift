@@ -159,11 +159,13 @@ struct AppearanceThemeParameters {
     var highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
     var highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
     var highlightBorderColor = NSColor.white
+    var panelHasShadow = false
 }
 
 class AppearanceTheme {
 
     let themeName: AppearanceThemeName
+    let appearanceHighVisibility = Preferences.appearanceHighVisibility
 
     init(_ theme: AppearanceThemePreference) {
         self.themeName = AppearanceTheme.transform(theme)
@@ -190,7 +192,14 @@ class AppearanceTheme {
             appearance.imageShadowColor = NSColor.lightGray.withAlphaComponent(0.8)
             appearance.highlightFocusedBackgroundColor = NSColor.lightGray.withAlphaComponent(0.7)
             appearance.highlightHoveredBackgroundColor = NSColor.lightGray.withAlphaComponent(0.4)
-            appearance.highlightBorderColor = .clear/*NSColor.lightGray.withAlphaComponent(0.8)*/
+            appearance.highlightBorderColor = .clear
+            appearance.panelHasShadow = false
+
+            if appearanceHighVisibility {
+                appearance.material = .mediumLight
+                appearance.highlightBorderColor = NSColor.lightGray.withAlphaComponent(0.8)
+                appearance.panelHasShadow = true
+            }
         } else {
             appearance.material = .dark
             appearance.fontColor = NSColor.white.withAlphaComponent(0.9)
@@ -199,7 +208,14 @@ class AppearanceTheme {
             appearance.imageShadowColor = NSColor.gray.withAlphaComponent(0.8)
             appearance.highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
             appearance.highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
-            appearance.highlightBorderColor = .clear/*NSColor.black.withAlphaComponent(0.6)*/
+            appearance.highlightBorderColor = .clear
+            appearance.panelHasShadow = false
+
+            if appearanceHighVisibility {
+                appearance.material = .ultraDark
+                appearance.highlightBorderColor = NSColor.black.withAlphaComponent(0.6)
+                appearance.panelHasShadow = true
+            }
         }
         return appearance
     }

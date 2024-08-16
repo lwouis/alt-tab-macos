@@ -115,7 +115,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
-        thumbnailsPanel.thumbnailsView.reset()
+        thumbnailsPanel.reset()
     }
 
     func restart() {

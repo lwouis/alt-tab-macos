@@ -341,15 +341,17 @@ class AppearanceTab: NSObject {
         let table = TableGroupView(title: NSLocalizedString("Appearance", comment: ""),
                 subTitle: NSLocalizedString("Switch between 3 different styles. You can customize them.", comment: ""),
                 width: PreferencesWindow.width)
-        _ = table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
+        table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
             toggleCustomizeStyleButton()
         }, buttonSpacing: 15)[1]], secondaryViewsAlignment: .centerX)
 
-        let appearanceSize = LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)
-        _ = table.addRow(leftText: NSLocalizedString("Size", comment: ""), rightViews: [appearanceSize])
-        let appearanceTheme = LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)
-        _ = table.addRow(leftText: NSLocalizedString("Theme", comment: ""), rightViews: [appearanceTheme])
-        _ = table.addRow(rightViews: customizeStyleButton)
+        table.addRow(leftText: NSLocalizedString("Size", comment: ""),
+                rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])
+        table.addRow(leftText: NSLocalizedString("Theme", comment: ""),
+                rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
+        table.addRow(leftText: NSLocalizedString("High visibility", comment: ""),
+                rightViews: [LabelAndControl.makeCheckbox("appearanceHighVisibility")])
+        table.addRow(rightViews: customizeStyleButton)
 
         table.fit()
         return table

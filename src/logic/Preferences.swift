@@ -58,6 +58,7 @@ class Preferences {
         "appearanceStyle": AppearanceStylePreference.thumbnails.rawValue,
         "appearanceSize": AppearanceSizePreference.medium.rawValue,
         "appearanceTheme": AppearanceThemePreference.system.rawValue,
+        "appearanceHighVisibility": "false",
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
@@ -133,6 +134,7 @@ class Preferences {
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
+    static var appearanceHighVisibility: Bool { defaults.bool("appearanceHighVisibility") }
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { defaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }

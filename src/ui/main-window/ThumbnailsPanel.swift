@@ -10,7 +10,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
-        hasShadow = false
+        hasShadow = Preferences.appearanceThemeParameters.panelHasShadow
         titleVisibility = .hidden
         backgroundColor = .clear
         contentView! = thumbnailsView
@@ -23,6 +23,11 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         setAccessibilitySubrole(.unknown)
         // for VoiceOver
         setAccessibilityLabel(App.name)
+    }
+
+    func reset() {
+        hasShadow = Preferences.appearanceThemeParameters.panelHasShadow
+        thumbnailsView.reset()
     }
 
     func windowDidResignKey(_ notification: Notification) {
