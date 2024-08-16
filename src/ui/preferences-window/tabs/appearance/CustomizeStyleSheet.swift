@@ -86,7 +86,6 @@ class CustomizeStyleSheet: SheetWindow {
     private func makeAppIconsView() -> TableGroupSetView {
         let table = makeAppWindowTableGroupView()
 
-        table.addNewTable()
         table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         })
@@ -103,7 +102,6 @@ class CustomizeStyleSheet: SheetWindow {
     private func makeTitlesView() -> TableGroupSetView {
         let table = makeAppWindowTableGroupView()
 
-        table.addNewTable()
         table.addRow(titleTruncation)
         table.fit()
 
@@ -113,12 +111,13 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func makeAppWindowTableGroupView() -> TableGroupView {
-        let view = TableGroupView(title: NSLocalizedString("Applications & Windows", comment: ""),
-                subTitle: NSLocalizedString("Provide the ability to switch between displaying applications in a windowed form (allowing an application to contain multiple windows) or in an application form (where each application can only have one window).", comment: ""),
+        let view = TableGroupView(title: NSLocalizedString("Windows or Applications", comment: ""),
+                subTitle: NSLocalizedString("Show an item in the switcher for each window, or for each application. windows will be focused, whereas applications will be activated.", comment: ""),
                 width: CustomizeStyleSheet.width)
         _ = view.addRow(showAppsOrWindows, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
+        view.addNewTable()
         _ = view.addRow(showTitles, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
