@@ -7,12 +7,7 @@ class SheetWindow: NSWindow {
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
         makeDoneButton()
-        setupWindow()
         setupView()
-    }
-
-    func setupWindow() {
-        makeKeyAndOrderFront(nil)
     }
 
     func setupView() {
@@ -57,6 +52,6 @@ class SheetWindow: NSWindow {
 
     // allow to close with the escape key
     @objc func cancel(_ sender: Any?) {
-        close()
+        sheetParent!.endSheet(self)
     }
 }

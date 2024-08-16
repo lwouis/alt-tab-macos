@@ -38,6 +38,9 @@ class ControlsTab {
     static var tabViews: [TableGroupView]!
     static var view: TableGroupSetView!
 
+    static var shortcutsWhenActiveSheet: ShortcutsWhenActiveSheet!
+    static var additionalControlsSheet: AdditionalControlsSheet!
+
     static func initTab() -> NSView {
         let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection(0)
         let (holdShortcut2, nextWindowShortcut2, tab2View) = toShowSection(1)
@@ -75,6 +78,9 @@ class ControlsTab {
         let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab4View, tab5View], toolsViews: [tools], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
         ControlsTab.view = view
+
+        shortcutsWhenActiveSheet = ShortcutsWhenActiveSheet()
+        additionalControlsSheet = AdditionalControlsSheet()
 
         ControlsTab.switchIndexTab(0)
         view.fit()
@@ -129,11 +135,11 @@ class ControlsTab {
     }
 
     @objc static func showShortcutsSettings() {
-        App.app.preferencesWindow.beginSheet(ShortcutsWhenActiveSheet())
+        App.app.preferencesWindow.beginSheet(shortcutsWhenActiveSheet)
     }
 
     @objc static func showAdditionalControlsSettings() {
-        App.app.preferencesWindow.beginSheet(AdditionalControlsSheet())
+        App.app.preferencesWindow.beginSheet(additionalControlsSheet)
     }
 
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {

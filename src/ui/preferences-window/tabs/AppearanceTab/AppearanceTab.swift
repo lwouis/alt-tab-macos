@@ -316,10 +316,14 @@ class AppearanceTab: NSObject {
 
     static var modelAdvancedButton: NSButton!
     static var advancedButton: NSButton!
+    static var customizeStyleSheet: CustomizeStyleSheet!
+    static var animationsSheet: AnimationsSheet!
 
     static func initTab() -> NSView {
-        makeCustomizeStylebutton()
-        makeAnimationsButton()
+        modelAdvancedButton = NSButton(title: AppearanceTab.getModelAdvancedButtonTitle(), target: self, action: #selector(AppearanceTab.showCustomizeStyleSheet))
+        advancedButton = NSButton(title: NSLocalizedString("Animations…", comment: ""), target: self, action: #selector(AppearanceTab.showAnimationsSheet))
+        customizeStyleSheet = CustomizeStyleSheet()
+        animationsSheet = AnimationsSheet()
         return makeView()
     }
 
@@ -359,14 +363,6 @@ class AppearanceTab: NSObject {
         return table
     }
 
-    private static func makeAnimationsButton() {
-        advancedButton = NSButton(title: NSLocalizedString("Animations…", comment: ""), target: self, action: #selector(AppearanceTab.showAnimationsSheet))
-    }
-
-    private static func makeCustomizeStylebutton() {
-        modelAdvancedButton = NSButton(title: getModelAdvancedButtonTitle(), target: self, action: #selector(showCustomizeStyleSheet))
-    }
-
     private static func getModelAdvancedButtonTitle() -> String {
         if Preferences.appearanceModel == .thumbnails {
             return NSLocalizedString("Customize Thumbnails Style…", comment: "")
@@ -388,10 +384,10 @@ class AppearanceTab: NSObject {
     }
 
     @objc static func showCustomizeStyleSheet() {
-        App.app.preferencesWindow.beginSheet(CustomizeStyleSheet())
+        App.app.preferencesWindow.beginSheet(customizeStyleSheet)
     }
 
     @objc static func showAnimationsSheet() {
-        App.app.preferencesWindow.beginSheet(AnimationsSheet())
+        App.app.preferencesWindow.beginSheet(animationsSheet)
     }
 }
