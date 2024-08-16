@@ -65,6 +65,9 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeThumbnailsView() -> TableGroupSetView {
         let table = TableGroupView(width: CustomizeStyleSheet.width)
+        table.addRow(showAppNamesWindowTitles, onMouseEntered: { event, view in
+            self.showAppsOrWindowsIllustratedImage()
+        })
         table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         }, onMouseExited: { event, view in

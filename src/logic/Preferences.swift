@@ -624,9 +624,9 @@ enum ShowAppNameWindowTitlePreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .windowTitle: return NSLocalizedString("Window Titles", comment: "")
-            case .appName: return NSLocalizedString("Application Names", comment: "")
-            case .appNameAndWindowTitle: return NSLocalizedString("Application Names - Window Titles", comment: "")
+            case .windowTitle: return NSLocalizedString("Window Title", comment: "")
+            case .appName: return NSLocalizedString("Application Name", comment: "")
+            case .appNameAndWindowTitle: return NSLocalizedString("Application Name - Window Title", comment: "")
         }
     }
 
