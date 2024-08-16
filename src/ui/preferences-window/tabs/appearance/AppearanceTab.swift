@@ -381,6 +381,7 @@ class AppearanceTab: NSObject {
 
     @objc static func handleToggleAdvancedButton() {
         modelAdvancedButton.animator().title = getModelAdvancedButtonTitle()
+        customizeStyleSheet = CustomizeStyleSheet()
     }
 
     @objc static func showCustomizeStyleSheet() {
