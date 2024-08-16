@@ -658,24 +658,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5F21C9DD2C6E93E60091F72F /* ControlsTab */ = {
+		5F21C9DD2C6E93E60091F72F /* controls */ = {
 			isa = PBXGroup;
 			children = (
 				D04BA1B438BF3E65044D1138 /* ControlsTab.swift */,
 				5F21C9DF2C6E94240091F72F /* ShortcutsWhenActiveSheet.swift */,
 				5F21C9E12C6E94410091F72F /* AdditionalControlsSheet.swift */,
 			);
-			path = ControlsTab;
+			path = controls;
 			sourceTree = "<group>";
 		};
-		5F21C9DE2C6E93F10091F72F /* AppearanceTab */ = {
+		5F21C9DE2C6E93F10091F72F /* appearance */ = {
 			isa = PBXGroup;
 			children = (
 				D04BA64F1F344007EA13BA05 /* AppearanceTab.swift */,
 				5F21C9E32C6E94700091F72F /* CustomizeStyleSheet.swift */,
 				5F21C9E52C6E94920091F72F /* AnimationsSheet.swift */,
 			);
-			path = AppearanceTab;
+			path = appearance;
 			sourceTree = "<group>";
 		};
 		5F706EBF2BA448B1004D542D /* is.lproj */ = {
@@ -1161,8 +1161,8 @@
 		D04BA3FA52AA40B827A72F10 /* tabs */ = {
 			isa = PBXGroup;
 			children = (
-				5F21C9DE2C6E93F10091F72F /* AppearanceTab */,
-				5F21C9DD2C6E93E60091F72F /* ControlsTab */,
+				5F21C9DE2C6E93F10091F72F /* appearance */,
+				5F21C9DD2C6E93E60091F72F /* controls */,
 				D04BA4A26987F67DD94C827F /* AboutTab.swift */,
 				D04BACE22DC907F03D193075 /* GeneralTab.swift */,
 				D04BAD60C97E609A759E721E /* PoliciesTab.swift */,
