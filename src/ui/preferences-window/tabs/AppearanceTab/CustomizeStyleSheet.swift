@@ -45,14 +45,14 @@ class CustomizeStyleSheet: SheetWindow {
     private func makeComponents() {
         illustratedImageView = IllustratedImageThemeView(model, CustomizeStyleSheet.illustratedImageWidth)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown(
+                rightViews: LabelAndControl.makeRadioButtons(
                         "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
                     self.showAlignThumbnailsIllustratedImage()
-                })])
-        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Window title truncation", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons(TitleTruncationPreference.allCases, "titleTruncation"))
+                }))
+        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Title truncation", comment: ""),
+                rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
         showAppsWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons(ShowAppsOrWindowsPreference.allCases, "showAppsWindows", extraAction: { _ in
+                rightViews: LabelAndControl.makeRadioButtons("showAppsWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { _ in
                     self.toggleAppNamesWindowTitles()
                     self.showAppsOrWindowsIllustratedImage()
                 }))
@@ -65,12 +65,12 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeThumbnailsView() -> TableGroupSetView {
         let table = TableGroupView(width: CustomizeStyleSheet.width)
-        _ = table.addRow(alignThumbnails, onMouseEntered: { event, view in
+        table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         }, onMouseExited: { event, view in
             self.illustratedImageView.highlight(false)
         })
-        _ = table.addRow(titleTruncation)
+        table.addRow(titleTruncation)
         table.onMouseExited = { event, view in
             self.illustratedImageView.highlight(false)
         }
@@ -81,32 +81,30 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func makeAppIconsView() -> TableGroupSetView {
-        let table1 = makeAppWindowTableGroupView()
-        table1.fit()
+        let table = makeAppWindowTableGroupView()
 
-        let table2 = TableGroupView(width: CustomizeStyleSheet.width)
-        _ = table2.addRow(alignThumbnails, onMouseEntered: { event, view in
+        table.addNewTable()
+        table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         })
-        table2.onMouseExited = { event, view in
+        table.onMouseExited = { event, view in
             self.illustratedImageView.highlight(false)
         }
-        table2.fit()
+        table.fit()
 
-        let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)
+        let view = TableGroupSetView(originalViews: [table], padding: 0)
         toggleAppNamesWindowTitles()
         return view
     }
 
     private func makeTitlesView() -> TableGroupSetView {
-        let table1 = makeAppWindowTableGroupView()
-        table1.fit()
+        let table = makeAppWindowTableGroupView()
 
-        let table2 = TableGroupView(width: CustomizeStyleSheet.width)
-        _ = table2.addRow(titleTruncation)
-        table2.fit()
+        table.addNewTable()
+        table.addRow(titleTruncation)
+        table.fit()
 
-        let view = TableGroupSetView(originalViews: [table1, table2], padding: 0)
+        let view = TableGroupSetView(originalViews: [table], padding: 0)
         toggleAppNamesWindowTitles()
         return view
     }

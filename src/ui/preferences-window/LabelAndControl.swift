@@ -270,7 +270,7 @@ class LabelAndControl: NSObject {
                                           _ values: [MacroPreference],
                                           extraAction: ActionClosure? = nil,
                                           buttonSpacing: CGFloat = 30) -> [NSView] {
-        let buttons = makeRadioButtons(values, rawName, extraAction: extraAction)
+        let buttons = makeRadioButtons(rawName, values, extraAction: extraAction)
 
         let horizontalStackView = NSStackView(views: buttons)
         horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -282,7 +282,7 @@ class LabelAndControl: NSObject {
         return [makeLabel(labelText), horizontalStackView]
     }
 
-    static func makeRadioButtons(_ macroPreferences: [MacroPreference], _ rawName: String, extraAction: ActionClosure? = nil) -> [NSButton] {
+    static func makeRadioButtons(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil) -> [NSButton] {
         var i = 0
         return macroPreferences.map {
             let button = NSButton(radioButtonWithTitle: $0.localizedString, target: nil, action: nil)

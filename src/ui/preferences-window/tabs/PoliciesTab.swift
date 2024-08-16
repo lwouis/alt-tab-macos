@@ -9,7 +9,7 @@ class PoliciesTab {
 
     static func initTab() -> NSView {
         let updateLabel = LabelAndControl.makeLabel(NSLocalizedString("Updates policy:", comment: ""))
-        PoliciesTab.updateButtons = LabelAndControl.makeRadioButtons(UpdatePolicyPreference.allCases, "updatePolicy", extraAction: { _ in
+        PoliciesTab.updateButtons = LabelAndControl.makeRadioButtons("updatePolicy", UpdatePolicyPreference.allCases, extraAction: { _ in
             PoliciesTab.policyLock = true
             let policy = Preferences.updatePolicy
             SUUpdater.shared().automaticallyDownloadsUpdates = policy == .autoInstall
@@ -17,12 +17,10 @@ class PoliciesTab {
             PoliciesTab.policyLock = false
         })
         PoliciesTab.updateButtons.forEach { $0.alignment = .left }
-//        let updateOptions = StackView(PoliciesTab.updateButtons, .vertical)
         let checkForUpdates = NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: nil, action: #selector(PoliciesTab.checkForUpdatesNow))
 
         let crashLabel = LabelAndControl.makeLabel(NSLocalizedString("Crash reports policy:", comment: ""))
-        PoliciesTab.crashButtons = LabelAndControl.makeRadioButtons(CrashPolicyPreference.allCases, "crashPolicy")
-//        let crashOptions = StackView(PoliciesTab.crashButtons, .vertical)
+        PoliciesTab.crashButtons = LabelAndControl.makeRadioButtons("crashPolicy", CrashPolicyPreference.allCases)
 
         let table = TableGroupView(title: NSLocalizedString("Updates policy", comment: ""), width: PreferencesWindow.width)
         _ = table.addRow(leftViews: [NSView()],
