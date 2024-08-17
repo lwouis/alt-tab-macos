@@ -71,7 +71,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     func highlight(_ highlighted: Bool, _ imageName: String = "") {
-        if highlighted && imageName.isEmpty  {
+        if highlighted && imageName.isEmpty {
             return
         }
 
@@ -89,7 +89,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     static func getConcatenatedImageName(_ style: AppearanceStylePreference,
-                                         _ theme: String ,
+                                         _ theme: String,
                                          _ imageName: String = "") -> String {
         if imageName.isEmpty {
             // thumbnails_light/app_icons_dark
@@ -235,13 +235,17 @@ class ShowHideIllustratedView {
     }
 
     private func updateImageView(rowId: String, isChecked: Bool) {
-        let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
+        let row = showHideRows.first {
+            $0.rowId.elementsEqual(rowId)
+        }
         let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
         illustratedImageView.highlight(true, imageName!)
     }
 
     private func updateImageView(rowId: String) {
-        let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
+        let row = showHideRows.first {
+            $0.rowId.elementsEqual(rowId)
+        }
         row?.rightViews.forEach { view in
             if let checkbox = view as? NSButton {
                 let isChecked = checkbox.state == .on
@@ -252,7 +256,9 @@ class ShowHideIllustratedView {
     }
 
     private func clickCheckbox(rowId: String) {
-        let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
+        let row = showHideRows.first {
+            $0.rowId.elementsEqual(rowId)
+        }
         row?.rightViews.forEach { view in
             if let checkbox = view as? NSButton {
                 // Toggle the checkbox state
@@ -365,13 +371,11 @@ class AppearanceTab: NSObject {
 
     private static func getCustomizeStyleButtonTitle() -> String {
         if Preferences.appearanceStyle == .thumbnails {
-            return NSLocalizedString("Customize Thumbnails Style…", comment: "")
+            return NSLocalizedString("Customize Thumbnails style…", comment: "")
         } else if Preferences.appearanceStyle == .appIcons {
-            return NSLocalizedString("Customize App Icons Style…", comment: "")
-        } else if Preferences.appearanceStyle == .titles {
-            return NSLocalizedString("Customize Titles Style…", comment: "")
+            return NSLocalizedString("Customize App Icons style…", comment: "")
         }
-        return NSLocalizedString("Advanced…", comment: "")
+        return NSLocalizedString("Customize Titles style…", comment: "")
     }
 
     @objc static func toggleCustomizeStyleButton() {
