@@ -197,7 +197,7 @@ class AppearanceTheme {
 
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
-                appearance.highlightBorderColor = NSColor.lightGray.withAlphaComponent(0.8)
+                appearance.highlightBorderColor = NSColor.lightGray.withAlphaComponent(0.9)
                 appearance.panelHasShadow = true
             }
         } else {
@@ -213,7 +213,7 @@ class AppearanceTheme {
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
-                appearance.highlightBorderColor = NSColor.black.withAlphaComponent(0.6)
+                appearance.highlightBorderColor = NSColor.black.withAlphaComponent(0.7)
                 appearance.panelHasShadow = true
             }
         }
