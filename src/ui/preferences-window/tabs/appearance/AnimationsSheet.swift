@@ -6,7 +6,7 @@ class AnimationsSheet: SheetWindow {
         _ = table.addRow(leftText: NSLocalizedString("Apparition delay", comment: ""),
                 rightViews: Array(LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 2000, 21, true, "ms", width: 300)[1...2]))
         _ = table.addRow(leftText: NSLocalizedString("Fade out animation", comment: ""),
-                rightViews: LabelAndControl.makeCheckbox("fadeOutAnimation"))
+                rightViews: LabelAndControl.makeSwitch("fadeOutAnimation"))
         table.fit()
         return table
     }

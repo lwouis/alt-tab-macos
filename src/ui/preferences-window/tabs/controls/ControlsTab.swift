@@ -32,8 +32,8 @@ class ControlsTab {
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
     ]
-    static var arrowKeysCheckbox: NSButton!
-    static var vimKeysCheckbox: NSButton!
+    static var arrowKeysCheckbox: Switch!
+    static var vimKeysCheckbox: Switch!
 
     static var tabViews: [TableGroupView]!
     static var view: TableGroupSetView!
@@ -223,7 +223,7 @@ class ControlsTab {
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
         let keys = ["←", "→", "↑", "↓"]
-        if (sender as! NSButton).state == .on {
+        if (sender as! Switch).state == .on {
             keys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
         } else {
             keys.forEach { removeShortcutIfExists($0) }
@@ -237,11 +237,11 @@ class ControlsTab {
             "k": "vimCycleUp",
             "j": "vimCycleDown"
         ]
-        if (sender as! NSButton).state == .on {
+        if (sender as! Switch).state == .on {
             if isClearVimKeysSuccessful() {
                 keyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
             } else {
-                (sender as! NSButton).state = .off
+                (sender as! Switch).state = .off
                 Preferences.remove("vimKeysEnabled")
             }
         } else {

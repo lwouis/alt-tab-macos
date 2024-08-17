@@ -171,12 +171,10 @@ class LabelAndControl: NSObject {
         return views
     }
 
-    static func makeCheckbox(_ rawName: String, extraAction: ActionClosure? = nil) -> NSButton {
-        let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
-        checkbox.translatesAutoresizingMaskIntoConstraints = false
-        checkbox.state = defaults.bool(rawName) ? .on : .off
-        _ = setupControl(checkbox, rawName, extraAction: extraAction)
-        return checkbox
+    static func makeSwitch(_ rawName: String, extraAction: ActionClosure? = nil) -> NSControl {
+        let button = Switch(defaults.bool(rawName))
+        _ = setupControl(button, rawName, extraAction: extraAction)
+        return button
     }
 
     static func makeInfoButton(width: CGFloat = 15,
@@ -410,11 +408,11 @@ class LabelAndControl: NSObject {
             return String((control as! NSPopUpButton).indexOfSelectedItem)
         } else if control is NSSlider {
             return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
-        } else if control is NSButton {
+        } else if control is Switch {
             if let controlId = controlId {
-                return ((control as! NSButton).state == NSButton.StateValue.on) ? controlId : nil
+                return ((control as! Switch).state == NSButton.StateValue.on) ? controlId : nil
             } else {
-                return String((control as! NSButton).state == NSButton.StateValue.on)
+                return String((control as! Switch).state == NSButton.StateValue.on)
             }
         } else if control is NSSegmentedControl {
             return String((control as! NSSegmentedControl).selectedSegment)

@@ -322,7 +322,8 @@ class TableGroupView: ClickHoverStackView {
 
     @discardableResult
     func addRow(_ row: Row, onClick: EventClosure? = nil, onMouseEntered: EventClosure? = nil, onMouseExited: EventClosure? = nil) -> RowInfo {
-        return addRow(leftText: row.leftTitle, rightViews: row.rightViews, subText: row.subTitle, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        return addRow(leftText: row.leftTitle, rightViews: row.rightViews, subText: row.subTitle,
+                onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
     @discardableResult
@@ -330,7 +331,8 @@ class TableGroupView: ClickHoverStackView {
                 onClick: EventClosure? = nil,
                 onMouseEntered: EventClosure? = nil,
                 onMouseExited: EventClosure? = nil) -> RowInfo {
-        return addRow(leftText: leftText, rightViews: [rightViews], subText: subText, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        return addRow(leftText: leftText, rightViews: [rightViews], subText: subText,
+                onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
     @discardableResult
@@ -351,7 +353,8 @@ class TableGroupView: ClickHoverStackView {
         }
 
         let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
-        return finalizeRow(tableStackView: tableStackView, rowView: rowView, isAddSeparator: isAddSeparator, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        return finalizeRow(tableStackView: tableStackView, rowView: rowView, isAddSeparator: isAddSeparator,
+                onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
     @discardableResult
@@ -373,10 +376,12 @@ class TableGroupView: ClickHoverStackView {
         }
 
         let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
-        return finalizeRow(tableStackView: tableStackView, rowView: rowView, isAddSeparator: isAddSeparator, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        return finalizeRow(tableStackView: tableStackView, rowView: rowView, isAddSeparator: isAddSeparator,
+                onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
-    private func finalizeRow(tableStackView: NSStackView, rowView: ClickHoverStackView, isAddSeparator: Bool, onClick: EventClosure?, onMouseEntered: EventClosure?, onMouseExited: EventClosure?) -> RowInfo {
+    private func finalizeRow(tableStackView: NSStackView, rowView: ClickHoverStackView, isAddSeparator: Bool,
+                             onClick: EventClosure?, onMouseEntered: EventClosure?, onMouseExited: EventClosure?) -> RowInfo {
         let previousSeparator = addSeparatorIfNeeded(tableStackView: tableStackView, below: rowView, isAddSeparator: isAddSeparator)
 
         let rowInfo = RowInfo(id: rows.count, view: rowView, previousSeparator: previousSeparator, nextSeparator: nil)
