@@ -71,7 +71,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     func highlight(_ highlighted: Bool, _ imageName: String = "") {
-        if highlighted && imageName.isEmpty  {
+        if highlighted && imageName.isEmpty {
             return
         }
 
@@ -89,7 +89,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     static func getConcatenatedImageName(_ style: AppearanceStylePreference,
-                                         _ theme: String ,
+                                         _ theme: String,
                                          _ imageName: String = "") -> String {
         if imageName.isEmpty {
             // thumbnails_light/app_icons_dark
@@ -143,7 +143,7 @@ class ShowHideIllustratedView {
         hideAppBadges.checkedImage = "hide_app_badges"
         hideAppBadges.supportedStyles = [.thumbnails, .appIcons, .titles]
         hideAppBadges.leftTitle = NSLocalizedString("Hide app badges", comment: "")
-        hideAppBadges.rightViews.append(LabelAndControl.makeSwitch("hideAppBadges", extraAction: { sender in
+        hideAppBadges.rightViews.append(LabelAndControl.makeCheckbox("hideAppBadges", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideAppBadges.rowId)
         }))
         showHideRows.append(hideAppBadges)
@@ -159,7 +159,7 @@ class ShowHideIllustratedView {
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         }))
-        hideStatusIcons.rightViews.append(LabelAndControl.makeSwitch("hideStatusIcons", extraAction: { sender in
+        hideStatusIcons.rightViews.append(LabelAndControl.makeCheckbox("hideStatusIcons", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideStatusIcons.rowId)
         }))
         showHideRows.append(hideStatusIcons)
@@ -169,7 +169,7 @@ class ShowHideIllustratedView {
         hideSpaceNumberLabels.checkedImage = "hide_space_number_labels"
         hideSpaceNumberLabels.supportedStyles = [.thumbnails, .titles]
         hideSpaceNumberLabels.leftTitle = NSLocalizedString("Hide Space number labels", comment: "")
-        hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeSwitch("hideSpaceNumberLabels", extraAction: { sender in
+        hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeCheckbox("hideSpaceNumberLabels", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
         }))
         showHideRows.append(hideSpaceNumberLabels)
@@ -179,7 +179,7 @@ class ShowHideIllustratedView {
         hideColoredCircles.checkedImage = "hide_colored_circles"
         hideColoredCircles.supportedStyles = [.thumbnails]
         hideColoredCircles.leftTitle = NSLocalizedString("Hide colored circles on mouse hover", comment: "")
-        hideColoredCircles.rightViews.append(LabelAndControl.makeSwitch("hideColoredCircles", extraAction: { sender in
+        hideColoredCircles.rightViews.append(LabelAndControl.makeCheckbox("hideColoredCircles", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
         }))
         showHideRows.append(hideColoredCircles)
@@ -189,7 +189,7 @@ class ShowHideIllustratedView {
         hideWindowlessApps.checkedImage = "hide_windowless_apps"
         hideWindowlessApps.supportedStyles = [.thumbnails, .appIcons, .titles]
         hideWindowlessApps.leftTitle = NSLocalizedString("Hide apps with no open window", comment: "")
-        hideWindowlessApps.rightViews.append(LabelAndControl.makeSwitch("hideWindowlessApps", extraAction: { sender in
+        hideWindowlessApps.rightViews.append(LabelAndControl.makeCheckbox("hideWindowlessApps", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideWindowlessApps.rowId)
         }))
         showHideRows.append(hideWindowlessApps)
@@ -205,7 +205,7 @@ class ShowHideIllustratedView {
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         }))
-        showTabsAsWindows.rightViews.append(LabelAndControl.makeSwitch("showTabsAsWindows", extraAction: { sender in
+        showTabsAsWindows.rightViews.append(LabelAndControl.makeCheckbox("showTabsAsWindows", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: showTabsAsWindows.rowId)
         }))
         showHideRows.append(showTabsAsWindows)
@@ -215,7 +215,7 @@ class ShowHideIllustratedView {
         previewFocusedWindow.checkedImage = "show_preview_focused_window"
         previewFocusedWindow.supportedStyles = [.thumbnails, .appIcons, .titles]
         previewFocusedWindow.leftTitle = NSLocalizedString("Preview selected window", comment: "")
-        previewFocusedWindow.rightViews.append(LabelAndControl.makeSwitch("previewFocusedWindow", extraAction: { sender in
+        previewFocusedWindow.rightViews.append(LabelAndControl.makeCheckbox("previewFocusedWindow", extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: previewFocusedWindow.rowId)
         }))
         showHideRows.append(previewFocusedWindow)
@@ -235,13 +235,17 @@ class ShowHideIllustratedView {
     }
 
     private func updateImageView(rowId: String, isChecked: Bool) {
-        let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
+        let row = showHideRows.first {
+            $0.rowId.elementsEqual(rowId)
+        }
         let imageName = isChecked ? row?.checkedImage : row?.uncheckedImage
         illustratedImageView.highlight(true, imageName!)
     }
 
     private func updateImageView(rowId: String) {
-        let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
+        let row = showHideRows.first {
+            $0.rowId.elementsEqual(rowId)
+        }
         row?.rightViews.forEach { view in
             if let checkbox = view as? NSButton {
                 let isChecked = checkbox.state == .on
@@ -252,7 +256,9 @@ class ShowHideIllustratedView {
     }
 
     private func clickCheckbox(rowId: String) {
-        let row = showHideRows.first { $0.rowId.elementsEqual(rowId) }
+        let row = showHideRows.first {
+            $0.rowId.elementsEqual(rowId)
+        }
         row?.rightViews.forEach { view in
             if let checkbox = view as? NSButton {
                 // Toggle the checkbox state
@@ -370,9 +376,8 @@ class AppearanceTab: NSObject {
             return NSLocalizedString("Customize Thumbnails style…", comment: "")
         } else if Preferences.appearanceStyle == .appIcons {
             return NSLocalizedString("Customize App Icons style…", comment: "")
-        } else if Preferences.appearanceStyle == .titles {
-            return NSLocalizedString("Customize Titles style…", comment: "")
         }
+        return NSLocalizedString("Customize Titles style…", comment: "")
     }
 
     @objc static func toggleCustomizeStyleButton() {
