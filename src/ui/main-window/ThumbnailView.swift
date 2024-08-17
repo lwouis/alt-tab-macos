@@ -132,8 +132,11 @@ class ThumbnailView: NSStackView {
     }
 
     private func getBorderColor(isFocused: Bool, isHovered: Bool) -> NSColor {
-        if isFocused || isHovered {
-            return Preferences.appearanceThemeParameters.highlightBorderColor
+        if isFocused {
+            return Preferences.appearanceThemeParameters.highlightFocusedBorderColor
+        }
+        if isHovered {
+            return Preferences.appearanceThemeParameters.highlightHoveredBorderColor
         }
         return NSColor.clear
     }

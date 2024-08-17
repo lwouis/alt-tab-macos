@@ -410,7 +410,7 @@ class LabelAndControl: NSObject {
             return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
         } else if control is NSButton {
             if let controlId = controlId {
-                return ((control as! NSButton).state == NSButton.StateValue.on) ? controlId : nil
+                return ((control as! NSButton).state == NSButton.StateValue.on) ? controlId : nil   
             } else {
                 return String((control as! NSButton).state == NSButton.StateValue.on)
             }
