@@ -365,13 +365,12 @@ class AppearanceTab: NSObject {
 
     private static func getCustomizeStyleButtonTitle() -> String {
         if Preferences.appearanceStyle == .thumbnails {
-            return NSLocalizedString("Customize Thumbnails Style…", comment: "")
+            return NSLocalizedString("Customize Thumbnails style…", comment: "")
         } else if Preferences.appearanceStyle == .appIcons {
-            return NSLocalizedString("Customize App Icons Style…", comment: "")
+            return NSLocalizedString("Customize App Icons style…", comment: "")
         } else if Preferences.appearanceStyle == .titles {
-            return NSLocalizedString("Customize Titles Style…", comment: "")
+            return NSLocalizedString("Customize Titles style…", comment: "")
         }
-        return NSLocalizedString("Advanced…", comment: "")
     }
 
     @objc static func toggleCustomizeStyleButton() {

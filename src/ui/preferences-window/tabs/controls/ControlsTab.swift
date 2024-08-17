@@ -73,7 +73,7 @@ class ControlsTab {
 //        tabs.translatesAutoresizingMaskIntoConstraints = false
 //        tabs.fit()
         let additionalControlsButton = NSButton(title: NSLocalizedString("Additional controls…", comment: ""), target: self, action: #selector(ControlsTab.showAdditionalControlsSettings))
-        let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts When Active…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
+        let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts when active…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
         let tools = StackView([additionalControlsButton, shortcutsButton], .horizontal)
         let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab4View, tab5View], toolsViews: [tools], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
