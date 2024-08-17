@@ -177,6 +177,14 @@ class LabelAndControl: NSObject {
         return button
     }
 
+    static func makeCheckbox(_ rawName: String, extraAction: ActionClosure? = nil) -> NSButton {
+        let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
+        checkbox.translatesAutoresizingMaskIntoConstraints = false
+        checkbox.state = defaults.bool(rawName) ? .on : .off
+        _ = setupControl(checkbox, rawName, extraAction: extraAction)
+        return checkbox
+    }
+
     static func makeInfoButton(width: CGFloat = 15,
                                height: CGFloat = 15,
                                onClick: EventClosure? = nil,
