@@ -53,7 +53,7 @@ class CustomizeStyleSheet: SheetWindow {
                 rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
         let showAppWindowsInfo = LabelAndControl.makeInfoButton(onMouseEntered: { (event, view) in
             Popover.shared.show(event: event, positioningView: view,
-                    message: NSLocalizedString("Show an item in the switcher for each window, or for each application. windows will be focused, whereas applications will be activated.", comment: ""))
+                    message: NSLocalizedString("Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.", comment: ""))
         }, onMouseExited: { (event, view) in
             Popover.shared.hide()
         })
