@@ -269,7 +269,8 @@ class ThumbnailView: NSStackView {
             assignIfDifferent(&label.textContainer!.size.width, frame.width)
         } else {
             let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
-            assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
+            let labelWidth = frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth
+            assignIfDifferent(&label.textContainer!.size.width, labelWidth)
         }
     }
 
