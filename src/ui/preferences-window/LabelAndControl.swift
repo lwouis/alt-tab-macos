@@ -187,6 +187,7 @@ class LabelAndControl: NSObject {
 
     static func makeInfoButton(width: CGFloat = 15,
                                height: CGFloat = 15,
+                               padding: CGFloat = 2,
                                onClick: EventClosure? = nil,
                                onMouseEntered: EventClosure? = nil,
                                onMouseExited: EventClosure? = nil) -> ClickHoverImageView {
@@ -209,10 +210,10 @@ class LabelAndControl: NSObject {
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: width),
             imageView.heightAnchor.constraint(equalToConstant: height),
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 2),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -2),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         ])
 
         return view

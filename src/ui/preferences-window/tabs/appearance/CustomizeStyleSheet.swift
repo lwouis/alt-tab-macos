@@ -51,11 +51,17 @@ class CustomizeStyleSheet: SheetWindow {
                 }))
         titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Title truncation", comment: ""),
                 rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
+        let showAppWindowsInfo = LabelAndControl.makeInfoButton(onMouseEntered: { (event, view) in
+            Popover.shared.show(event: event, positioningView: view,
+                    message: NSLocalizedString("Show an item in the switcher for each window, or for each application. windows will be focused, whereas applications will be activated.", comment: ""))
+        }, onMouseExited: { (event, view) in
+            Popover.shared.hide()
+        })
         showAppsOrWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
                 rightViews: LabelAndControl.makeRadioButtons("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { _ in
                     self.toggleAppNamesWindowTitles()
                     self.showAppsOrWindowsIllustratedImage()
-                }))
+                }) + [showAppWindowsInfo])
         showTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown(
                         "showTitles", ShowTitlesPreference.allCases, extraAction: { _ in
@@ -111,9 +117,7 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func makeAppWindowTableGroupView() -> TableGroupView {
-        let view = TableGroupView(title: NSLocalizedString("Windows or Applications", comment: ""),
-                subTitle: NSLocalizedString("Show an item in the switcher for each window, or for each application. windows will be focused, whereas applications will be activated.", comment: ""),
-                width: CustomizeStyleSheet.width)
+        let view = TableGroupView(width: CustomizeStyleSheet.width)
         _ = view.addRow(showAppsOrWindows, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
