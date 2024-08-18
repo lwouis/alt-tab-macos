@@ -565,7 +565,7 @@ class TableGroupView: ClickHoverStackView {
     }
 
     private func addMouseEnteredEffects(_ rowInfo: RowInfo) {
-        rowInfo.view.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.2).cgColor
+        rowInfo.view.layer?.backgroundColor = TableGroupView.backgroundColor.cgColor
         self.adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: true)
         self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: true)
     }
