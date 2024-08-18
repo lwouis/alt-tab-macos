@@ -88,9 +88,9 @@ class ControlsTab {
     }
 
     private static func toShowSection(_ index: Int) -> ([NSView], [NSView], TableGroupView) {
-        let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
-        let spacesToShow = LabelAndControl.makeDropdown(Preferences.indexToName("spacesToShow", index), SpacesToShowPreference.allCases)
-        let screensToShow = LabelAndControl.makeDropdown(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
+        let appsToShow = LabelAndControl.makeRadioButtons(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
+        let spacesToShow = LabelAndControl.makeRadioButtons(Preferences.indexToName("spacesToShow", index), SpacesToShowPreference.allCases)
+        let screensToShow = LabelAndControl.makeRadioButtons(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
         let showMinimizedWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showMinimizedWindows", index), ShowHowPreference.allCases)
         let showHiddenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showHiddenWindows", index), ShowHowPreference.allCases)
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
@@ -100,17 +100,15 @@ class ControlsTab {
         holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press", comment: "")))
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
-        let showWindowDropdowns = StackView([appsToShow, spacesToShow, screensToShow], .vertical)
-        showWindowDropdowns.alignment = .trailing
 
         let table = TableGroupView(width: PreferencesWindow.width)
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger shortcut", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release", comment: ""), rightViews: [shortcutStyle]))
 
         table.addNewTable()
-        table.addRow(
-                leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from", comment: ""))],
-                rightViews: [showWindowDropdowns])
+        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: ""))], rightViews: appsToShow)
+        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from spaces", comment: ""))], rightViews: spacesToShow)
+        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from screens", comment: ""))], rightViews: screensToShow)
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show minimized windows", comment: ""), rightViews: [showMinimizedWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show hidden windows", comment: ""), rightViews: [showHiddenWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
