@@ -149,8 +149,6 @@ class TableGroupView: ClickHoverStackView {
     static let spacing = CGFloat(10)
     static let padding = CGFloat(10)
     static let rowIntraSpacing = CGFloat(5)
-    static let backgroundColor = NSColor.lightGray.withAlphaComponent(0.1)
-    static let borderColor = NSColor.lightGray.withAlphaComponent(0.2)
     static let cornerRadius = CGFloat(5)
     static let borderWidth = CGFloat(1)
 
@@ -204,6 +202,19 @@ class TableGroupView: ClickHoverStackView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        // Reset table colors
+        tableStackViews.forEach { table in
+            table.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
+            table.layer?.borderColor = NSColor.tableBorderColor.cgColor
+        }
+        rows.forEach { row in
+            row.view.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
+            row.nextSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
+        }
     }
 
     private func setupView(hasHeader: Bool) {
@@ -299,9 +310,9 @@ class TableGroupView: ClickHoverStackView {
         tableStackView.orientation = .vertical
         tableStackView.spacing = 0
         tableStackView.wantsLayer = true
-        tableStackView.layer?.backgroundColor = TableGroupView.backgroundColor.cgColor
+        tableStackView.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
         tableStackView.layer?.cornerRadius = TableGroupView.cornerRadius
-        tableStackView.layer?.borderColor = TableGroupView.borderColor.cgColor
+        tableStackView.layer?.borderColor = NSColor.tableBorderColor.cgColor
         tableStackView.layer?.borderWidth = TableGroupView.borderWidth
         addArrangedSubview(tableStackView)
         tableStackViews.append(tableStackView)
@@ -521,7 +532,7 @@ class TableGroupView: ClickHoverStackView {
         let separator = NSView()
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.wantsLayer = true
-        separator.layer?.backgroundColor = TableGroupView.borderColor.cgColor
+        separator.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
         tableStackView.addArrangedSubview(separator)
 
         separator.heightAnchor.constraint(equalToConstant: TableGroupView.borderWidth).isActive = true
@@ -565,7 +576,7 @@ class TableGroupView: ClickHoverStackView {
     }
 
     private func addMouseEnteredEffects(_ rowInfo: RowInfo) {
-        rowInfo.view.layer?.backgroundColor = TableGroupView.backgroundColor.cgColor
+        rowInfo.view.layer?.backgroundColor = NSColor.tableHoverColor.cgColor
         self.adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: true)
         self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: true)
     }

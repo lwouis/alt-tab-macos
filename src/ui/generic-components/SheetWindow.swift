@@ -1,7 +1,27 @@
 import Cocoa
 
 class SheetWindow: NSWindow {
-    static let width = CGFloat(512)
+
+    class WindowContentView: NSStackView {
+        var separator: NSView!
+
+        init(_ separator: NSView) {
+            super.init(frame: .zero)
+            self.separator = separator
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        override func draw(_ dirtyRect: NSRect) {
+            super.draw(dirtyRect)
+            separator.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
+        }
+    }
+
+    static let width = CGFloat(500)
+    let separator = NSView()
     var doneButton: NSButton!
 
     convenience init() {
@@ -12,7 +32,7 @@ class SheetWindow: NSWindow {
 
     func setupView() {
         let contentView = makeContentView()
-        let view = NSStackView()
+        let view = WindowContentView(separator)
         view.orientation = .vertical
         view.alignment = .centerX
         view.spacing = TableGroupSetView.spacing
@@ -21,10 +41,9 @@ class SheetWindow: NSWindow {
         contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -TableGroupSetView.padding).isActive = true
         contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: TableGroupSetView.padding).isActive = true
 
-        let separator = NSView()
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.wantsLayer = true
-        separator.layer?.backgroundColor = TableGroupView.borderColor.cgColor
+        separator.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
         view.addArrangedSubview(separator)
         separator.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
         separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
