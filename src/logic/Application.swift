@@ -45,21 +45,21 @@ class Application: NSObject {
 
     override var description: String {
         let s = """
-                Application(kvObservers: \(kvObservers)
-                , runningApplication.bundleIdentifier: \(runningApplication.bundleIdentifier)
-                , runningApplication.title: \(runningApplication.localizedName)
-                , runningApplication.isActive: \(runningApplication.isActive)
-                , axUiElement: \(axUiElement)
-                , axObserver: \(axObserver)
-                , isReallyFinishedLaunching: \(isReallyFinishedLaunching)
-                , isHidden: \(isHidden)
-                , hasBeenActiveOnce: \(hasBeenActiveOnce)
-                , dockLabel: \(dockLabel)
-                , pid: \(pid)
-                , focusedWindow.cgWindowId: \(focusedWindow?.cgWindowId)
-                , alreadyRequestedToQuit: \(alreadyRequestedToQuit))
+                Application(kvObservers: \(kvObservers)\
+                , runningApplication.bundleIdentifier: \(runningApplication.bundleIdentifier)\
+                , runningApplication.title: \(runningApplication.localizedName)\
+                , runningApplication.isActive: \(runningApplication.isActive)\
+                , axUiElement: \(axUiElement)\
+                , axObserver: \(axObserver)\
+                , isReallyFinishedLaunching: \(isReallyFinishedLaunching)\
+                , isHidden: \(isHidden)\
+                , hasBeenActiveOnce: \(hasBeenActiveOnce)\
+                , dockLabel: \(dockLabel)\
+                , pid: \(pid)\
+                , focusedWindow.cgWindowId: \(focusedWindow?.cgWindowId)\
+                , alreadyRequestedToQuit: \(alreadyRequestedToQuit)
                 """
-        return s.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "  ", with: " ")
+        return s
     }
 
     func removeWindowslessAppWindow() {
