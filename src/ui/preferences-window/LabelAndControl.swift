@@ -323,7 +323,9 @@ class LabelAndControl: NSObject {
         return button
     }
 
-    static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double, _ numberOfTickMarks: Int = 0, _ allowsTickMarkValuesOnly: Bool = false, _ unitText: String = "", width: CGFloat = 200, extraAction: ActionClosure? = nil) -> [NSView] {
+    static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,
+                                    _ numberOfTickMarks: Int = 0, _ allowsTickMarkValuesOnly: Bool = false,
+                                    _ unitText: String = "", width: CGFloat = 200, extraAction: ActionClosure? = nil) -> [NSView] {
         let value = defaults.double(rawName)
         let formatter = MeasurementFormatter()
         formatter.numberFormatter = NumberFormatter()
@@ -342,7 +344,10 @@ class LabelAndControl: NSObject {
         return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText, extraAction: extraAction)
     }
 
-    static func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl, _ suffixText: String? = nil, _ suffixUrl: String? = nil, labelPosition: LabelPosition = .leftWithSeparator, extraAction: ActionClosure? = nil) -> [NSView] {
+    static func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl,
+                                             _ suffixText: String? = nil, _ suffixUrl: String? = nil,
+                                             labelPosition: LabelPosition = .leftWithSeparator,
+                                             extraAction: ActionClosure? = nil) -> [NSView] {
         _ = setupControl(control, rawName, extraAction: extraAction)
         if labelPosition == .right && control is NSButton {
             return [control]
@@ -408,7 +413,6 @@ class LabelAndControl: NSObject {
         }
         suffix.textColor = .gray
         suffix.identifier = NSUserInterfaceItemIdentifier(controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
-        suffix.fit()
         return suffix
     }
 
