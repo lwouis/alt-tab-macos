@@ -62,7 +62,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
 
     private func setBorder() {
         self.layer?.cornerRadius = TableGroupView.cornerRadius
-        self.layer?.borderColor = self.isFocused ? systemAccentColor().cgColor : NSColor.lightGray.cgColor
+        self.layer?.borderColor = self.isFocused ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.cgColor
         self.layer?.borderWidth = 2
     }
 

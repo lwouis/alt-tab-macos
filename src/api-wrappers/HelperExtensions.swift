@@ -8,6 +8,17 @@ extension Collection {
     }
 }
 
+extension NSColor {
+
+    class var systemAccentColor: NSColor {
+        if #available(macOS 10.14, *) {
+            // dynamically adapts to changes in System Default; no need to listen to notifications
+            return NSColor.controlAccentColor
+        }
+        return NSColor(srgbRed: 0, green: 0.47843137254901963, blue: 1, alpha: 1)
+    }
+}
+
 extension NSView {
     // constrain size to fittingSize
     func fit() {

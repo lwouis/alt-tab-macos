@@ -52,7 +52,7 @@ class Switch: NSControl {
             let path = NSBezierPath(roundedRect: switchRect, xRadius: switchRect.height / 2, yRadius: switchRect.height / 2)
 
             // Background
-            (isOn ? systemAccentColor() : NSColor.systemGray).setFill()
+            (isOn ? NSColor.systemAccentColor : NSColor.systemGray).setFill()
             path.fill()
         }
 
@@ -61,14 +61,6 @@ class Switch: NSControl {
             if let control = superview as? Switch {
                 control.state = isOn ? .on : .off
                 control.sendAction(control.action, to: control.target)
-            }
-        }
-
-        private func systemAccentColor() -> NSColor {
-            if #available(macOS 10.14, *) {
-                return NSColor.controlAccentColor
-            } else {
-                return NSColor.systemBlue
             }
         }
 

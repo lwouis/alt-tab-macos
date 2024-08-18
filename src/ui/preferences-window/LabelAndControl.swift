@@ -71,7 +71,7 @@ class LabelAndControl: NSObject {
         func setButtonBorderStyle(_ button: NSButton, isSelected: Bool) {
             button.wantsLayer = true
             button.layer?.cornerRadius = 7.0
-            button.layer?.borderColor = isSelected ? systemAccentColor().cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
+            button.layer?.borderColor = isSelected ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
             button.layer?.borderWidth = isSelected ? 2 : 2
         }
 

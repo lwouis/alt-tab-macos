@@ -141,11 +141,21 @@ class ThumbnailView: NSStackView {
         return NSColor.clear
     }
 
+    private func setShadow(isFocused: Bool, isHovered: Bool) {
+//        if isFocused || isHovered {
+//            vStackView?.layer!.shadowColor = Preferences.appearanceThemeParameters.highlightBorderShadowColor.cgColor
+//            vStackView?.layer!.shadowOpacity = 0.4
+//            vStackView?.layer!.shadowOffset = .zero
+//            vStackView?.layer!.shadowRadius = 10
+//        }
+    }
+
     func drawHighlight(_ i: Int) {
         let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
         vStackView?.layer!.borderColor = getBorderColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        setShadow(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
             label.isHidden = !isFocused
         }

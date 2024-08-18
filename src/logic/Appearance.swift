@@ -69,7 +69,7 @@ class AppearanceSize {
         if style == AppearanceStylePreference.thumbnails {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 12
-            appearance.interCellPadding = 1
+            appearance.interCellPadding = 2
             appearance.maxWidthOnScreen = 90
             appearance.maxHeightOnScreen = 80
             if size == AppearanceSizePreference.small {
@@ -103,7 +103,7 @@ class AppearanceSize {
         } else if style == AppearanceStylePreference.appIcons {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 5
-            appearance.interCellPadding = 1
+            appearance.interCellPadding = 2
             appearance.fontHeight = 15
             appearance.maxWidthOnScreen = 95
             appearance.maxHeightOnScreen = 90
@@ -126,7 +126,7 @@ class AppearanceSize {
         } else if style == AppearanceStylePreference.titles {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 8
-            appearance.interCellPadding = 1
+            appearance.interCellPadding = 2
             appearance.rowsCount = 0
             appearance.windowMinWidthInRow = 70
             appearance.windowMaxWidthInRow = 90
@@ -160,6 +160,7 @@ struct AppearanceThemeParameters {
     var highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
     var highlightFocusedBorderColor = NSColor.clear
     var highlightHoveredBorderColor = NSColor.clear
+    var highlightBorderShadowColor = NSColor.clear
     var panelHasShadow = false
 }
 
@@ -199,8 +200,9 @@ class AppearanceTheme {
 
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
-                appearance.highlightFocusedBorderColor = NSColor.lightGray.withAlphaComponent(0.9)
-                appearance.highlightHoveredBorderColor = NSColor.lightGray.withAlphaComponent(0.5)
+                appearance.highlightFocusedBorderColor = NSColor.white.withAlphaComponent(0.7)
+                appearance.highlightHoveredBorderColor = NSColor.white.withAlphaComponent(0.6)
+                appearance.highlightBorderShadowColor = NSColor.black
 
                 appearance.panelHasShadow = true
             }
@@ -218,8 +220,9 @@ class AppearanceTheme {
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
-                appearance.highlightFocusedBorderColor = NSColor.black.withAlphaComponent(0.7)
-                appearance.highlightHoveredBorderColor = NSColor.black.withAlphaComponent(0.4)
+                appearance.highlightFocusedBorderColor = NSColor.black.withAlphaComponent(0.8)
+                appearance.highlightHoveredBorderColor = NSColor.black.withAlphaComponent(0.6)
+                appearance.highlightBorderShadowColor = NSColor.white
                 appearance.panelHasShadow = true
             }
         }
