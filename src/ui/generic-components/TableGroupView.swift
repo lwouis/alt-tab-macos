@@ -646,23 +646,27 @@ class ClickHoverStackView: NSStackView {
         }
         let newTrackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
         addTrackingArea(newTrackingArea)
-
-        let clickGesture = NSClickGestureRecognizer(target: self, action: #selector(handleClick(_:)))
-        clickGesture.delaysPrimaryMouseButtonEvents = false
-        addGestureRecognizer(clickGesture)
     }
 
     override func mouseEntered(with event: NSEvent) {
+        // let subviews handle the event first
+        super.mouseEntered(with: event)
         onMouseEntered?(event, self)
     }
 
     override func mouseExited(with event: NSEvent) {
+        // let subviews handle the event first
+        super.mouseExited(with: event)
         onMouseExited?(event, self)
     }
 
-    @objc private func handleClick(_ sender: NSClickGestureRecognizer) {
-        if let event = sender.view?.window?.currentEvent {
-            onClick?(event, self)
-        }
+    override func mouseDown(with event: NSEvent) {
+        // let subviews handle the event first
+        super.mouseDown(with: event)
+        handleClick(event)
+    }
+
+    private func handleClick(_ event: NSEvent) {
+        onClick?(event, self)
     }
 }

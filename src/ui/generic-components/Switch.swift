@@ -58,13 +58,18 @@ class Switch: NSButton {
 
     override func mouseDown(with event: NSEvent) {
         state = (state == .on) ? .off : .on
-        animateKnob()
-        needsDisplay = true
     }
 
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
         sendAction(action, to: target)
+    }
+
+    override var state: NSControl.StateValue {
+        didSet {
+            animateKnob()
+            needsDisplay = true
+        }
     }
 
     private func layoutKnob() {
