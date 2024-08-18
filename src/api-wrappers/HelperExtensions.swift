@@ -17,6 +17,36 @@ extension NSColor {
         }
         return NSColor(srgbRed: 0, green: 0.47843137254901963, blue: 1, alpha: 1)
     }
+
+    class var switchBorderColor: NSColor {
+        // #414141
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 75/255, green: 75/255, blue: 75/255, alpha: 1)
+
+        }
+        // #d2d2d2
+        return NSColor(srgbRed: 210/255, green: 210/255, blue: 210/255, alpha: 1)
+    }
+
+    class var switchOffBackgroundColor: NSColor {
+        // #414141
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 65/255, green: 65/255, blue: 65/255, alpha: 1)
+
+        }
+        // #d9d9d9
+        return NSColor(srgbRed: 217/255, green: 217/255, blue: 217/255, alpha: 1)
+    }
+
+    class var switchKnobColor: NSColor {
+        // #cacaca
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 202/255, green: 202/255, blue: 202/255, alpha: 1)
+
+        }
+        // #ffffff
+        return NSColor.white
+    }
 }
 
 extension NSView {
