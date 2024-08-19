@@ -46,13 +46,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
         super.init(coder: coder)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSApplication.didChangeScreenParametersNotification, object: nil)
-        if #available(macOS 10.14, *) {
-            DistributedNotificationCenter.default.removeObserver(self, name: NSNotification.Name("AppleInterfaceThemeChangedNotification"), object: nil)
-        }
-    }
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
