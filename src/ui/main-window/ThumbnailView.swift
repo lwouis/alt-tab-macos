@@ -240,17 +240,17 @@ class ThumbnailView: NSStackView {
     }
 
     func getAppOrAndWindowTitle() -> String {
-        let appName = window_?.application.runningApplication.localizedName ?? "Unknown Application"
-        let windowTitle = window_?.title ?? "Untitled Window"
+        let appName = window_?.application.runningApplication.localizedName
+        let windowTitle = window_?.title
 
         if Preferences.appearanceStyle != .thumbnails {
             if Preferences.showAppsOrWindows == .applications || Preferences.showTitles == .appName {
-                return appName
+                return appName ?? ""
             } else if Preferences.showTitles == .appNameAndWindowTitle {
-                return appName + " - " + windowTitle
+                return [appName, windowTitle].compactMap{ $0 }.joined(separator: " - ")
             }
         }
-        return windowTitle
+        return windowTitle ?? ""
     }
 
     func setFrameWidth(_ element: Window, _ screen: NSScreen) {
