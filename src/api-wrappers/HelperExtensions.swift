@@ -8,6 +8,18 @@ extension Collection {
     }
 }
 
+extension NSAppearance {
+    func getThemeName() -> AppearanceThemeName {
+        if #available(macOS 10.14, *) {
+            let appearance = NSApp.effectiveAppearance.name
+            if appearance == .darkAqua || appearance == .vibrantDark {
+                return .dark
+            }
+        }
+        return .light
+    }
+}
+
 extension NSColor {
 
     class var systemAccentColor: NSColor {
