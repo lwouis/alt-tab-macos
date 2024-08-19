@@ -286,9 +286,10 @@ class ThumbnailView: NSStackView {
             } else {
                 view.setNumber(dockLabelInt!, true)
             }
+            let badgeOffsetOnSmallSize = Preferences.appearanceSize == .small ? CGFloat(1) : CGFloat(0)
             dockLabelIcon.setFrameOrigin(NSPoint(
-                x: appIcon.frame.maxX - (dockLabelIcon.fittingSize.width / 2) - (appIcon.frame.width / 7),
-                y: appIcon.frame.maxY - (dockLabelIcon.fittingSize.height / 2) - (appIcon.frame.height / 5)))
+                x: appIcon.frame.maxX - (dockLabelIcon.fittingSize.width / 2) - (appIcon.frame.width / 7) - badgeOffsetOnSmallSize,
+                y: appIcon.frame.maxY - (dockLabelIcon.fittingSize.height / 2) - (appIcon.frame.height / 5) - badgeOffsetOnSmallSize))
             view.setAccessibilityLabel(getAccessibilityTextForBadge(dockLabel))
             return true
         }

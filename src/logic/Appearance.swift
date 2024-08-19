@@ -76,7 +76,7 @@ class AppearanceSize {
                 appearance.rowsCount = 5
                 appearance.windowMinWidthInRow = 8
                 appearance.windowMaxWidthInRow = 90
-                appearance.iconSize = 30
+                appearance.iconSize = 25
                 appearance.fontHeight = 14
                 if isVerticalScreen {
                     appearance.rowsCount = 8
