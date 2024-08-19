@@ -268,8 +268,9 @@ class ThumbnailView: NSStackView {
         if Preferences.appearanceStyle == .appIcons {
             assignIfDifferent(&label.textContainer!.size.width, frame.width)
         } else {
-            let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
-            let labelWidth = frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth
+            let visibleCount = [fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count
+            let fontIconWidth = CGFloat(visibleCount) * (Preferences.fontHeight + Preferences.intraCellPadding)
+            let labelWidth = vStackView.frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth
             assignIfDifferent(&label.textContainer!.size.width, labelWidth)
         }
     }
