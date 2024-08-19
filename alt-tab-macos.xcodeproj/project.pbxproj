@@ -47,7 +47,6 @@
 		1C961AC8FE611CA3D5724AB4 /* thumbnails_show_space_number_labels_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C961C359D1F55831DC926A8 /* thumbnails_show_space_number_labels_light@2x.png */; };
 		1C961AEEC91A12D309E6A0B7 /* titles_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C961276D785DEBE5F98E217 /* titles_light@2x.png */; };
 		1C961B849B680FF5D2642069 /* titles_hide_tabs_as_windows_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C96189645C645934D4E4B69 /* titles_hide_tabs_as_windows_light@2x.png */; };
-		1C961BB1C2C6865D4F42ED0B /* translate_i18n_tools.py in Resources */ = {isa = PBXBuildFile; fileRef = 1C96112432E87D36F90AFBED /* translate_i18n_tools.py */; };
 		1C961BB529FEC590013A2268 /* thumbnails_align_thumbnails_center_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C96127412B3F53D1E6ED958 /* thumbnails_align_thumbnails_center_light@2x.png */; };
 		1C961BE14782002EDCC297A9 /* thumbnails_show_running_windows_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C96152CEEEA8B3D61A86312 /* thumbnails_show_running_windows_light@2x.png */; };
 		1C961C14BAB492517C41AC51 /* thumbnails_hide_preview_focused_window_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C961ACB6D328ECD72A7F7B3 /* thumbnails_hide_preview_focused_window_light@2x.png */; };
@@ -101,12 +100,10 @@
 		BF0C8592CCF5B552C47162AB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C84A4227CB16617C26977 /* Localizable.strings */; };
 		BF0C8596DA6C64428F99AB08 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C89540808EE3680CB786D /* Localizable.strings */; };
 		BF0C85C128940DC95B88E78E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8EB96BA052944CCDC2A7 /* InfoPlist.strings */; };
-		BF0C85DEE33F7EE6C7828567 /* after_deploy.sh in Resources */ = {isa = PBXBuildFile; fileRef = BF0C84EA7859592209FDEB8C /* after_deploy.sh */; };
 		BF0C8603F7BA6D1ED7B9E624 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8DC4F163F11248C637CE /* Localizable.strings */; };
 		BF0C863526C260F4155F9D2C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C852BFEEFB55B6E4EF18D /* Localizable.strings */; };
 		BF0C8658CC748011E57691B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C84F4B25A7C26A88ADE92 /* Localizable.strings */; };
 		BF0C865E3C3F3B353A7A7CBC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C86FFF1C801761B7CE363 /* Localizable.strings */; };
-		BF0C86BA26EFA59DEE24C70B /* Support.md in Sources */ = {isa = PBXBuildFile; fileRef = BF0C815B4782DEEEDB2C76C5 /* Support.md */; };
 		BF0C87732A6E660899D13BFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C886B1D6E707E9E6BE46C /* InfoPlist.strings */; };
 		BF0C884D88B74F05B8BBF956 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C88A25E1ED37E5F80AC91 /* Localizable.strings */; };
 		BF0C8879F979414A87AB2958 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C89348E07FC05870FEE62 /* InfoPlist.strings */; };
@@ -1825,7 +1822,6 @@
 				BF0C816911CAD3F1B5865BFA /* Localizable.strings in Resources */,
 				BF0C863526C260F4155F9D2C /* Localizable.strings in Resources */,
 				BF0C8C0EDECEA32BBCE5B27D /* Localizable.strings in Resources */,
-				BF0C85DEE33F7EE6C7828567 /* after_deploy.sh in Resources */,
 				1C96169561265DE638E2B8E9 /* info_button@2x.png in Resources */,
 				1C961159D889F12DA46E2BDF /* titles_show_running_windows_light@2x.png in Resources */,
 				1C9618D7FF947FA19155B578 /* app_icons_show_running_windows_light@2x.png in Resources */,
@@ -1874,7 +1870,6 @@
 				1C961C597A84E07B3CB30EDB /* app_icons_align_thumbnails_leading_light@2x.png in Resources */,
 				1C961BB529FEC590013A2268 /* thumbnails_align_thumbnails_center_light@2x.png in Resources */,
 				1C96100AB811F5B609665E18 /* thumbnails_align_thumbnails_leading_light@2x.png in Resources */,
-				1C961BB1C2C6865D4F42ED0B /* translate_i18n_tools.py in Resources */,
 				1C96105A40582F0E54AD0F13 /* thumbnails_show_running_applications_light@2x.png in Resources */,
 				1C961DE911E4C5611E98308C /* thumbnails_show_running_applications_windows_light@2x.png in Resources */,
 				1C961BE14782002EDCC297A9 /* thumbnails_show_running_windows_light@2x.png in Resources */,
@@ -2042,7 +2037,6 @@
 				BF0C898511686611E4D7D81E /* Button.swift in Sources */,
 				BF0C8E16F38203AEC71E062B /* TableView.swift in Sources */,
 				BF0C832C5BF4C8E9C95F7767 /* MissionControl.swift in Sources */,
-				BF0C86BA26EFA59DEE24C70B /* Support.md in Sources */,
 				1C96108A0CB2565233FE100B /* TableGroupView.swift in Sources */,
 				1C9618872DD3863A8EFE8414 /* Appearance.swift in Sources */,
 				BF0C83578F7292F307E30751 /* PopupButtonLikeSystemSettings.swift in Sources */,
