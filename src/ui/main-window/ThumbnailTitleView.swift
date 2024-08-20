@@ -36,4 +36,8 @@ class ThumbnailTitleView: BaseLabel {
         }
         return .byTruncatingHead
     }
+
+    static func maxHeight() -> CGFloat {
+        return Preferences.fontHeight + 3
+    }
 }

@@ -28,7 +28,6 @@ class ThumbnailView: NSStackView {
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
     var windowlessIcon = NSImageView()
-    var frameInset = Preferences.intraCellPadding
 
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
@@ -64,7 +63,7 @@ class ThumbnailView: NSStackView {
         vStackView.layer!.borderColor = .clear
         vStackView.layer!.cornerRadius = Preferences.cellCornerRadius
         vStackView.layer!.borderWidth = CGFloat(1)
-        vStackView.edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
+        vStackView.edgeInsets = NSEdgeInsets(top: Preferences.edgeInsetsSize, left: Preferences.edgeInsetsSize, bottom: Preferences.edgeInsetsSize, right: Preferences.edgeInsetsSize)
         if Preferences.appearanceStyle == .appIcons {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
@@ -163,15 +162,13 @@ class ThumbnailView: NSStackView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
-        frameInset = Preferences.intraCellPadding
         assignIfDifferent(&thumbnail.isHidden, Preferences.hideThumbnails || element.isWindowlessApp)
         if !thumbnail.isHidden {
             thumbnail.image = element.thumbnail
             if let image = thumbnail.image {
                 image.size = element.thumbnailFullSize!
             }
-            let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(element.thumbnail, screen)
-            let thumbnailSize = NSSize(width: thumbnailWidth.rounded(), height: thumbnailHeight.rounded())
+            let thumbnailSize = ThumbnailView.thumbnailSize(element.thumbnail, screen)
             thumbnail.image?.size = thumbnailSize
             thumbnail.frame.size = thumbnailSize
             // for Accessibility > "speak items under the pointer"
@@ -222,8 +219,7 @@ class ThumbnailView: NSStackView {
         if element.isWindowlessApp {
             windowlessIcon.image = appIcon.image!.copy() as! NSImage
             windowlessIcon.image?.size = NSSize(width: 1024, height: 1024)
-            let (thumbnailWidth, thumbnailHeight) = ThumbnailView.thumbnailSize(windowlessIcon.image, screen)
-            let windowlessIconSize = NSSize(width: thumbnailWidth, height: thumbnailHeight)
+            let windowlessIconSize = ThumbnailView.thumbnailSize(windowlessIcon.image, screen)
             windowlessIcon.image!.size = windowlessIconSize
             windowlessIcon.frame.size = windowlessIconSize
             windowlessIcon.needsDisplay = true
@@ -255,11 +251,11 @@ class ThumbnailView: NSStackView {
 
     func setFrameWidth(_ element: Window, _ screen: NSScreen) {
         // Retrieves the minimum width for the screen.
-        let widthMin = ThumbnailView.widthMin(screen)
+        let widthMin = ThumbnailView.minThumbnailWidth(screen)
         // `max(hStackView.fittingSize.width, Preferences.iconSize)` is used to fix the problem that sometimes the fitting width of hStackView is wrong. make be it is a system bug.
         let fittingWidth = (Preferences.hideThumbnails || element.isWindowlessApp ? max(hStackView.fittingSize.width, Preferences.iconSize) : thumbnail.frame.size.width)
-        let leftRightPadding = Preferences.intraCellPadding * 2
-        let fittingWidthMin = fittingWidth + leftRightPadding
+        let leftRightEdgeInsetsSize = Preferences.edgeInsetsSize * 2
+        let fittingWidthMin = fittingWidth + leftRightEdgeInsetsSize
         let width = max(fittingWidthMin, widthMin).rounded()
         assignIfDifferent(&frame.size.width, width)
     }
@@ -270,7 +266,7 @@ class ThumbnailView: NSStackView {
         } else {
             let visibleCount = [fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count
             let fontIconWidth = CGFloat(visibleCount) * (Preferences.fontHeight + Preferences.intraCellPadding)
-            let labelWidth = vStackView.frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth
+            let labelWidth = vStackView.frame.width - Preferences.edgeInsetsSize * 2 - Preferences.iconSize - Preferences.intraCellPadding - fontIconWidth
             assignIfDifferent(&label.textContainer!.size.width, labelWidth)
         }
     }
@@ -378,44 +374,68 @@ class ThumbnailView: NSStackView {
         return shadow
     }
 
-    static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.widthMax(screen) * Preferences.windowMaxWidthInRow - Preferences.interCellPadding * 2
+    static func maxThumbnailWidth(_ screen: NSScreen) -> CGFloat {
+        return ThumbnailsPanel.maxThumbnailsWidth(screen) * Preferences.windowMaxWidthInRow - Preferences.interCellPadding * 2
     }
 
-    static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.widthMax(screen) * Preferences.windowMinWidthInRow - Preferences.interCellPadding * 2
+    static func minThumbnailWidth(_ screen: NSScreen) -> CGFloat {
+        return ThumbnailsPanel.maxThumbnailsWidth(screen) * Preferences.windowMinWidthInRow - Preferences.interCellPadding * 2
     }
 
-    static func height(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.heightMax(screen) - Preferences.interCellPadding) / Preferences.rowsCount - Preferences.interCellPadding
+    /// The maximum height that a thumbnail can be drawn
+    ///
+    /// maxThumbnailsHeight = maxThumbnailHeight * rowCount + interCellPadding * (rowCount - 1)
+    ///
+    /// maxThumbnailHeight = (maxThumbnailsHeight - interCellPadding * (rowCount - 1)) / rowCount
+    ///
+    /// - Parameter screen:
+    /// - Returns:
+    static func maxThumbnailHeight(_ screen: NSScreen) -> CGFloat {
+        return (ThumbnailsPanel.maxThumbnailsHeight(screen) - Preferences.interCellPadding) / Preferences.rowsCount - Preferences.interCellPadding
     }
 
-    static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
-        guard let image = image else { return (0, 0) }
-        let thumbnailHeightMax = ThumbnailView.height(screen) - Preferences.intraCellPadding * 3 - Preferences.iconSize
-        let thumbnailWidthMax = ThumbnailView.widthMax(screen) - Preferences.intraCellPadding * 2
+    static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> NSSize {
+        guard let image = image else { return NSSize(width: 0, height: 0) }
+        let thumbnailHeightMax = ThumbnailView.maxThumbnailHeight(screen) - Preferences.edgeInsetsSize * 2 - Preferences.intraCellPadding - Preferences.iconSize
+        let thumbnailWidthMax = ThumbnailView.maxThumbnailWidth(screen) - Preferences.edgeInsetsSize * 2
         let thumbnailHeight = min(image.size.height, thumbnailHeightMax)
         let thumbnailWidth = min(image.size.width, thumbnailWidthMax)
         let imageRatio = image.size.width / image.size.height
         let thumbnailRatio = thumbnailWidth / thumbnailHeight
+        var width: CGFloat
+        var height: CGFloat
         if thumbnailRatio > imageRatio {
-            return (image.size.width * thumbnailHeight / image.size.height, thumbnailHeight)
+            width = image.size.width * thumbnailHeight / image.size.height
+            height = thumbnailHeight
+        } else {
+            width = thumbnailWidth
+            height = image.size.height * thumbnailWidth / image.size.width
         }
-        return (thumbnailWidth, image.size.height * thumbnailWidth / image.size.width)
+        return NSSize(width: width.rounded(), height: height.rounded())
     }
 
     static func iconSize(_ screen: NSScreen) -> NSSize {
         if Preferences.appearanceStyle == .appIcons {
-            let widthMin = ThumbnailView.widthMin(screen)
+            let widthMin = ThumbnailView.minThumbnailWidth(screen)
             let fittingWidth = Preferences.iconSize
-            let leftRightPadding = Preferences.intraCellPadding * 2
-            let fittingWidthMin = fittingWidth + leftRightPadding
+            let leftRightEdgeInsetsSize = Preferences.edgeInsetsSize * 2
+            let fittingWidthMin = fittingWidth + leftRightEdgeInsetsSize
             let width = max(fittingWidthMin, widthMin).rounded()
             if widthMin > fittingWidthMin {
-                let iconSize = width - leftRightPadding
+                let iconSize = width - leftRightEdgeInsetsSize
                 return NSSize(width: iconSize, height: iconSize)
             }
         }
         return NSSize(width: Preferences.iconSize, height: Preferences.iconSize)
+    }
+
+    static func height(_ screen: NSScreen) -> CGFloat {
+        let topBottomEdgeInsetsSize = Preferences.edgeInsetsSize * 2
+        if Preferences.appearanceStyle == .titles {
+            return max(ThumbnailView.iconSize(screen).height, ThumbnailTitleView.maxHeight()) + topBottomEdgeInsetsSize
+        } else if Preferences.appearanceStyle == .appIcons {
+            return ThumbnailView.iconSize(screen).height + topBottomEdgeInsetsSize + Preferences.intraCellPadding + Preferences.fontHeight
+        }
+        return ThumbnailView.maxThumbnailHeight(screen).rounded(.down)
     }
 }

@@ -82,7 +82,7 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     func updateItemsAndLayout(_ screen: NSScreen) {
-        let widthMax = ThumbnailsPanel.widthMax(screen).rounded()
+        let widthMax = ThumbnailsPanel.maxThumbnailsWidth(screen).rounded()
         if let (maxX, maxY) = layoutThumbnailViews(screen, widthMax) {
             layoutParentViews(screen, maxX, widthMax, maxY)
             if Preferences.alignThumbnails == .center {
@@ -92,18 +92,8 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
-    func rowHeight(_ screen: NSScreen) -> CGFloat {
-        let topBottomPadding = Preferences.intraCellPadding * 2
-        if Preferences.appearanceStyle == .titles {
-            return max(ThumbnailView.iconSize(screen).height, Preferences.fontHeight + 3) + topBottomPadding
-        } else if Preferences.appearanceStyle == .appIcons {
-            return ThumbnailView.iconSize(screen).height + topBottomPadding + Preferences.intraCellPadding + Preferences.fontHeight
-        }
-        return ThumbnailView.height(screen).rounded(.down)
-    }
-
     private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
-        let height = rowHeight(screen)
+        let height = ThumbnailView.height(screen)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
         let startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
         var currentX = startingX
@@ -159,7 +149,7 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
-        let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
+        let heightMax = ThumbnailsPanel.maxThumbnailsHeight(screen).rounded()
         frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
         scrollView.frame.origin = CGPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)

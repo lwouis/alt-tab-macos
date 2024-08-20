@@ -2,7 +2,8 @@ import Cocoa
 
 struct AppearanceSizeParameters {
     var interCellPadding: CGFloat = 5
-    var intraCellPadding: CGFloat = 5
+    var intraCellPadding: CGFloat = 1
+    var edgeInsetsSize: CGFloat = 5
     var hideThumbnails: Bool = false
     var rowsCount: CGFloat = 0
     var windowMinWidthInRow: CGFloat = 0
@@ -27,8 +28,9 @@ class AppearanceSize {
         let isVerticalScreen = NSScreen.preferred().ratio() < 1
         if style == .thumbnails {
             appearance.hideThumbnails = false
-            appearance.intraCellPadding = 12
-            appearance.interCellPadding = 2
+            appearance.intraCellPadding = 5
+            appearance.interCellPadding = 1
+            appearance.edgeInsetsSize = 10
             appearance.maxWidthOnScreen = 90
             appearance.maxHeightOnScreen = 80
             if size == .small {
@@ -62,7 +64,8 @@ class AppearanceSize {
         } else if style == .appIcons {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 5
-            appearance.interCellPadding = 2
+            appearance.interCellPadding = 1
+            appearance.edgeInsetsSize = 5
             appearance.fontHeight = 15
             appearance.maxWidthOnScreen = 95
             appearance.maxHeightOnScreen = 90
@@ -84,8 +87,9 @@ class AppearanceSize {
             }
         } else if style == .titles {
             appearance.hideThumbnails = true
-            appearance.intraCellPadding = 8
-            appearance.interCellPadding = 2
+            appearance.intraCellPadding = 5
+            appearance.interCellPadding = 1
+            appearance.edgeInsetsSize = 5
             appearance.rowsCount = 0
             appearance.windowMinWidthInRow = 70
             appearance.windowMaxWidthInRow = 90

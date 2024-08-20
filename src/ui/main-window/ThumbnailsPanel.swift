@@ -58,11 +58,18 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         thumbnailsView.scrollView.flashScrollers()
     }
 
-    static func widthMax(_ screen: NSScreen) -> CGFloat {
+    /// The maximum height that thumbnails can be drawn.
+    /// - Parameter screen:
+    /// - Returns:
+    static func maxThumbnailsWidth(_ screen: NSScreen) -> CGFloat {
         return screen.frame.width * Preferences.maxWidthOnScreen - Preferences.windowPadding * 2
     }
 
-    static func heightMax(_ screen: NSScreen) -> CGFloat {
+    /// The maximum height that thumbnails can be drawn.
+    ///
+    /// - Parameter screen:
+    /// - Returns:
+    static func maxThumbnailsHeight(_ screen: NSScreen) -> CGFloat {
         return screen.frame.height * Preferences.maxHeightOnScreen - Preferences.windowPadding * 2
     }
 }

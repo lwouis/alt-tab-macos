@@ -165,6 +165,7 @@ class Preferences {
     static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceTheme).getParameters() }
     static var interCellPadding: CGFloat { appearanceSizeParameters.interCellPadding }
     static var intraCellPadding: CGFloat { appearanceSizeParameters.intraCellPadding }
+    static var edgeInsetsSize: CGFloat { appearanceSizeParameters.edgeInsetsSize }
     static var hideThumbnails: Bool { appearanceSizeParameters.hideThumbnails }
     static var maxWidthOnScreen: CGFloat { appearanceSizeParameters.maxWidthOnScreen / CGFloat(100) }
     static var maxHeightOnScreen: CGFloat { appearanceSizeParameters.maxHeightOnScreen / CGFloat(100) }
