@@ -211,8 +211,6 @@ class ThumbnailView: NSStackView {
         if appIconChanged || dockLabelChanged {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
-        setFrameWidth(element, screen)
-        assignIfDifferent(&frame.size.height, newHeight)
         setLabelWidth()
         label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
@@ -224,6 +222,8 @@ class ThumbnailView: NSStackView {
             windowlessIcon.frame.size = windowlessIconSize
             windowlessIcon.needsDisplay = true
         }
+        setFrameWidth(element, screen)
+        assignIfDifferent(&frame.size.height, newHeight)
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
         [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.window_ = element }
@@ -252,11 +252,17 @@ class ThumbnailView: NSStackView {
     func setFrameWidth(_ element: Window, _ screen: NSScreen) {
         // Retrieves the minimum width for the screen.
         let widthMin = ThumbnailView.minThumbnailWidth(screen)
-        // `max(hStackView.fittingSize.width, Preferences.iconSize)` is used to fix the problem that sometimes the fitting width of hStackView is wrong. make be it is a system bug.
-        let fittingWidth = (Preferences.hideThumbnails || element.isWindowlessApp ? max(hStackView.fittingSize.width, Preferences.iconSize) : thumbnail.frame.size.width)
+        var contentWidth = max(hStackView.frame.size.width, Preferences.iconSize)
+        if Preferences.appearanceStyle == .thumbnails {
+            if element.isWindowlessApp {
+                contentWidth = max(contentWidth, windowlessIcon.frame.size.width)
+            } else {
+                contentWidth = max(contentWidth, thumbnail.frame.size.width)
+            }
+        }
         let leftRightEdgeInsetsSize = Preferences.edgeInsetsSize * 2
-        let fittingWidthMin = fittingWidth + leftRightEdgeInsetsSize
-        let width = max(fittingWidthMin, widthMin).rounded()
+        let frameWidth = contentWidth + leftRightEdgeInsetsSize
+        let width = frameWidth.rounded()
         assignIfDifferent(&frame.size.width, width)
     }
 
@@ -411,17 +417,18 @@ class ThumbnailView: NSStackView {
             width = thumbnailWidth
             height = image.size.height * thumbnailWidth / image.size.width
         }
+        let minWidth = ThumbnailView.minThumbnailWidth(screen)
         return NSSize(width: width.rounded(), height: height.rounded())
     }
 
     static func iconSize(_ screen: NSScreen) -> NSSize {
         if Preferences.appearanceStyle == .appIcons {
             let widthMin = ThumbnailView.minThumbnailWidth(screen)
-            let fittingWidth = Preferences.iconSize
-            let leftRightEdgeInsetsSize = Preferences.edgeInsetsSize * 2
-            let fittingWidthMin = fittingWidth + leftRightEdgeInsetsSize
-            let width = max(fittingWidthMin, widthMin).rounded()
-            if widthMin > fittingWidthMin {
+            let contentWidth = Preferences.iconSize
+            let leftRightEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
+            let frameWidth = contentWidth + leftRightEdgeInsetsSize
+            let width = max(frameWidth, widthMin).rounded()
+            if widthMin > frameWidth {
                 let iconSize = width - leftRightEdgeInsetsSize
                 return NSSize(width: iconSize, height: iconSize)
             }
@@ -430,12 +437,20 @@ class ThumbnailView: NSStackView {
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        let topBottomEdgeInsetsSize = Preferences.edgeInsetsSize * 2
+        let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
         if Preferences.appearanceStyle == .titles {
             return max(ThumbnailView.iconSize(screen).height, ThumbnailTitleView.maxHeight()) + topBottomEdgeInsetsSize
         } else if Preferences.appearanceStyle == .appIcons {
             return ThumbnailView.iconSize(screen).height + topBottomEdgeInsetsSize + Preferences.intraCellPadding + Preferences.fontHeight
         }
         return ThumbnailView.maxThumbnailHeight(screen).rounded(.down)
+    }
+
+    static func getLeftRightEdgeInsetsSize() -> CGFloat {
+        return Preferences.edgeInsetsSize * 2
+    }
+
+    static func getTopBottomEdgeInsetsSize() -> CGFloat {
+        return Preferences.edgeInsetsSize * 2
     }
 }
