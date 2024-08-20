@@ -65,85 +65,21 @@ class LabelAndControl: NSObject {
                                                _ values: [ImageMacroPreference],
                                                extraAction: ActionClosure? = nil,
                                                buttonSpacing: CGFloat = 30) -> [NSView] {
-        var buttons: [NSButton] = []
-
-        // Helper function to set button border style
-        func setButtonBorderStyle(_ button: NSButton, isSelected: Bool) {
-            button.wantsLayer = true
-            button.layer?.cornerRadius = 7.0
-            button.layer?.borderColor = isSelected ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
-            button.layer?.borderWidth = isSelected ? 2 : 2
-        }
-
-        let buttonViews = values.enumerated().map { (index, preference) -> NSView in
-            let button = NSButton(radioButtonWithTitle: "", target: nil, action: nil)
-            button.imagePosition = .imageOnly
-            button.focusRingType = .none
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.state = defaults.int(rawName) == index ? .on : .off
-
-            // Create an NSView to contain the image and provide padding
-            let imageContainer = NSView()
-            imageContainer.translatesAutoresizingMaskIntoConstraints = false
-
-            // TODO: The appearance theme functionality has not been implemented yet.
-            // We will implement it later; for now, use the light theme.
-            let imageView = NSImageView(image: NSImage(named: preference.image.name + "_" + "light")!)
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.imageScaling = .scaleProportionallyUpOrDown
-            imageView.wantsLayer = true
-            imageView.layer?.cornerRadius = 5.0
-            imageContainer.addSubview(imageView)
-
-            let padding = CGFloat(1)
-            NSLayoutConstraint.activate([
-                imageView.widthAnchor.constraint(equalToConstant: preference.image.width),
-                imageView.heightAnchor.constraint(equalToConstant: preference.image.height),
-                imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor, constant: padding),
-                imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor, constant: -padding),
-                imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: padding),
-                imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -padding),
-            ])
-
-            button.addSubview(imageContainer)
-            NSLayoutConstraint.activate([
-                imageContainer.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-                imageContainer.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-                // Set width and height to account for border and padding
-                imageContainer.widthAnchor.constraint(equalTo: button.widthAnchor),
-                imageContainer.heightAnchor.constraint(equalTo: button.heightAnchor)
-            ])
-
-            // Set initial button border style
-            setButtonBorderStyle(button, isSelected: button.state == .on)
-
-            buttons.append(button)
-            button.identifier = NSUserInterfaceItemIdentifier(rawName)
-            button.onAction = { _ in
-                // Disable implicit animations for better performance
-                CATransaction.begin()
-                CATransaction.setDisableActions(true)
-                // Update border for all buttons
-                buttons.enumerated().forEach { (i, otherButton) in
-                    setButtonBorderStyle(otherButton, isSelected: i == index)
+        var buttons = [ImageTextButtonView]()
+        let buttonViews = values.enumerated().map { (index, preference) -> ImageTextButtonView in
+            let state: NSControl.StateValue = defaults.int(rawName) == index ? .on : .off
+            let buttonView = ImageTextButtonView(labelText: preference.localizedString, rawName: rawName, image: preference.image, state: state)
+            buttons.append(buttonView)
+            buttonView.onClick = { control in
+                buttons.enumerated().forEach { (i, otherButtonView) in
+                    if otherButtonView != buttonView {
+                        otherButtonView.state = i == index ? .on : .off
+                    }
                 }
-                CATransaction.commit()
-
-                controlWasChanged(button, String(index))
-                extraAction?(button)
+                controlWasChanged(buttonView.button, String(index))
+                extraAction?(buttonView.button)
             }
-
-            let label = NSTextField(labelWithString: preference.localizedString)
-            label.alignment = .center
-            label.translatesAutoresizingMaskIntoConstraints = false
-
-            let stackView = NSStackView(views: [button, label])
-            stackView.orientation = .vertical
-            stackView.alignment = .centerX
-            stackView.spacing = 5
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-
-            return stackView
+            return buttonView
         }
 
         let horizontalStackView = NSStackView(views: buttonViews)
