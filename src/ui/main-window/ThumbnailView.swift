@@ -252,18 +252,20 @@ class ThumbnailView: NSStackView {
     func setFrameWidth(_ element: Window, _ screen: NSScreen) {
         // Retrieves the minimum width for the screen.
         let widthMin = ThumbnailView.minThumbnailWidth(screen)
-        var contentWidth = max(hStackView.frame.size.width, Preferences.iconSize)
+        let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
+        var width = CGFloat(0)
         if Preferences.appearanceStyle == .thumbnails {
             if element.isWindowlessApp {
-                contentWidth = max(contentWidth, windowlessIcon.frame.size.width)
+                width = windowlessIcon.frame.size.width + leftRightEdgeInsetsSize
             } else {
-                contentWidth = max(contentWidth, thumbnail.frame.size.width)
+                width = thumbnail.frame.size.width + leftRightEdgeInsetsSize
             }
+        } else {
+            var contentWidth = max(hStackView.frame.size.width, Preferences.iconSize)
+            let frameWidth = contentWidth + leftRightEdgeInsetsSize
+            width = max(frameWidth, widthMin)
         }
-        let leftRightEdgeInsetsSize = Preferences.edgeInsetsSize * 2
-        let frameWidth = contentWidth + leftRightEdgeInsetsSize
-        let width = frameWidth.rounded()
-        assignIfDifferent(&frame.size.width, width)
+        assignIfDifferent(&frame.size.width, width.rounded())
     }
 
     func setLabelWidth() {
