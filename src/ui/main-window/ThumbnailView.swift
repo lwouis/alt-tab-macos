@@ -211,7 +211,6 @@ class ThumbnailView: NSStackView {
         if appIconChanged || dockLabelChanged {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
-        setLabelWidth()
         label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
@@ -224,6 +223,7 @@ class ThumbnailView: NSStackView {
         }
         setFrameWidth(element, screen)
         assignIfDifferent(&frame.size.height, newHeight)
+        setLabelWidth()
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
         [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.window_ = element }
@@ -255,6 +255,7 @@ class ThumbnailView: NSStackView {
         let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
         var width = CGFloat(0)
         if Preferences.appearanceStyle == .thumbnails {
+            // Preferred to the width of the image, and the minimum width may be set to be large.
             if element.isWindowlessApp {
                 width = windowlessIcon.frame.size.width + leftRightEdgeInsetsSize
             } else {
@@ -274,7 +275,8 @@ class ThumbnailView: NSStackView {
         } else {
             let visibleCount = [fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count
             let fontIconWidth = CGFloat(visibleCount) * (Preferences.fontHeight + Preferences.intraCellPadding)
-            let labelWidth = vStackView.frame.width - Preferences.edgeInsetsSize * 2 - Preferences.iconSize - Preferences.intraCellPadding - fontIconWidth
+            let labelWidth = max(vStackView.frame.width, frame.width) - Preferences.edgeInsetsSize * 2 - Preferences.iconSize - Preferences.intraCellPadding - fontIconWidth
+            debugPrint("LabelWidth", labelWidth)
             assignIfDifferent(&label.textContainer!.size.width, labelWidth)
         }
     }
