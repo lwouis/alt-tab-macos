@@ -419,7 +419,6 @@ class ThumbnailView: NSStackView {
             width = thumbnailWidth
             height = image.size.height * thumbnailWidth / image.size.width
         }
-        let minWidth = ThumbnailView.minThumbnailWidth(screen)
         return NSSize(width: width.rounded(), height: height.rounded())
     }
 
