@@ -77,11 +77,11 @@ class CustomizeStyleSheet: SheetWindow {
         table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         }, onMouseExited: { event, view in
-            self.illustratedImageView.highlight(false)
+            IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         })
         table.addRow(titleTruncation)
         table.onMouseExited = { event, view in
-            self.illustratedImageView.highlight(false)
+            IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         table.fit()
 
@@ -96,7 +96,7 @@ class CustomizeStyleSheet: SheetWindow {
             self.showAlignThumbnailsIllustratedImage()
         })
         table.onMouseExited = { event, view in
-            self.illustratedImageView.highlight(false)
+            IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         table.fit()
 
@@ -126,7 +126,7 @@ class CustomizeStyleSheet: SheetWindow {
             self.showAppsOrWindowsIllustratedImage()
         })
         view.onMouseExited = { event, view in
-            self.illustratedImageView.highlight(false)
+            IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         return view
     }

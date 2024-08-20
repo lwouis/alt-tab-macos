@@ -546,7 +546,10 @@ class TableGroupView: ClickHoverStackView {
         return separator
     }
 
-    private func setRowViewEvents(_ rowView: ClickHoverStackView, onClick: EventClosure?, onMouseEntered: EventClosure?, onMouseExited: EventClosure?) {
+    private func setRowViewEvents(_ rowView: ClickHoverStackView,
+                                  onClick: EventClosure?,
+                                  onMouseEntered: EventClosure?,
+                                  onMouseExited: EventClosure?) {
         rowView.onClick = { event, view in
             onClick?(event, view)
         }

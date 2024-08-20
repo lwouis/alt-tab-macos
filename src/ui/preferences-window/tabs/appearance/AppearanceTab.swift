@@ -103,6 +103,13 @@ class IllustratedImageThemeView: ClickHoverImageView {
         return IllustratedImageThemeView.getConcatenatedImageName(self.style, self.theme, imageName)
     }
 
+    static func resetImage(_ illustratedImageView: IllustratedImageThemeView, _ event: NSEvent, _ view: NSView) {
+        let locationInView = view.convert(event.locationInWindow, from: nil)
+        if !view.bounds.contains(locationInView) {
+            illustratedImageView.highlight(false)
+        }
+    }
+
 }
 
 class ShowHideIllustratedView {
@@ -130,7 +137,7 @@ class ShowHideIllustratedView {
             }
         }
         table.onMouseExited = { event, view in
-            self.illustratedImageView.highlight(false)
+            IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         table.fit()
         let view = TableGroupSetView(originalViews: [table], padding: 0)
