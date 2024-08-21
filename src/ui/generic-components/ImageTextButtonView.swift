@@ -4,6 +4,7 @@ class ImageTextButtonView: NSStackView {
     static let spacing = CGFloat(5)
     static let cornerRadius = CGFloat(5)
     static let borderWidth = CGFloat(2)
+    static let padding = CGFloat(1)
 
     var onClick: ActionClosure?
     var button: NSButton!
@@ -17,10 +18,11 @@ class ImageTextButtonView: NSStackView {
         }
     }
 
-    init(labelText: String, rawName: String, image: WidthHeightImage,
+    init(title: String, rawName: String, image: WidthHeightImage,
          state: NSControl.StateValue = .off,
          onClick: ActionClosure? = nil,
          spacing: CGFloat = ImageTextButtonView.spacing,
+         padding: CGFloat = ImageTextButtonView.padding,
          cornerRadius: CGFloat = ImageTextButtonView.cornerRadius) {
         super.init(frame: .zero)
 
@@ -30,7 +32,7 @@ class ImageTextButtonView: NSStackView {
         self.translatesAutoresizingMaskIntoConstraints = false
 
         makeButton(rawName, state, image, cornerRadius: cornerRadius)
-        makeLabel(labelText)
+        makeLabel(title)
         self.state = state
     }
 
@@ -39,6 +41,7 @@ class ImageTextButtonView: NSStackView {
     }
 
     private func makeButton(_ rawName: String, _ state: NSControl.StateValue, _ image: WidthHeightImage,
+                            padding: CGFloat = ImageTextButtonView.padding,
                             cornerRadius: CGFloat = ImageTextButtonView.cornerRadius) {
         button = NSButton(radioButtonWithTitle: "", target: nil, action: nil)
         button.imagePosition = .imageOnly
@@ -46,9 +49,9 @@ class ImageTextButtonView: NSStackView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.wantsLayer = true
         button.layer?.cornerRadius = 7.0
-        button.layer?.borderColor = .clear
         button.layer?.borderWidth = ImageTextButtonView.borderWidth
         button.state = state
+        addArrangedSubview(button)
 
         // Create an NSView to contain the image and provide padding
         let imageContainer = NSView()
@@ -63,7 +66,6 @@ class ImageTextButtonView: NSStackView {
         imageView.layer?.cornerRadius = cornerRadius
         imageContainer.addSubview(imageView)
 
-        let padding = CGFloat(1)
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: image.width),
             imageView.heightAnchor.constraint(equalToConstant: image.height),
@@ -78,7 +80,7 @@ class ImageTextButtonView: NSStackView {
             imageContainer.centerXAnchor.constraint(equalTo: button.centerXAnchor),
             imageContainer.centerYAnchor.constraint(equalTo: button.centerYAnchor),
             imageContainer.widthAnchor.constraint(equalTo: button.widthAnchor),
-            imageContainer.heightAnchor.constraint(equalTo: button.heightAnchor)
+            imageContainer.heightAnchor.constraint(equalTo: button.heightAnchor),
         ])
 
         button.identifier = NSUserInterfaceItemIdentifier(rawName)
@@ -86,7 +88,6 @@ class ImageTextButtonView: NSStackView {
             self.state = .on
             self.onClick?(control)
         }
-        addArrangedSubview(button)
     }
 
     private func makeLabel(_ labelText: String) {
@@ -106,6 +107,5 @@ class ImageTextButtonView: NSStackView {
         button.layer?.borderColor = isSelected ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
         button.layer?.borderWidth = isSelected ? ImageTextButtonView.borderWidth : ImageTextButtonView.borderWidth
         label.font = isSelected ? NSFont.boldSystemFont(ofSize: 12) : NSFont.systemFont(ofSize: 12)
-        debugPrint("updateStyle")
     }
 }

@@ -68,7 +68,7 @@ class LabelAndControl: NSObject {
         var buttons = [ImageTextButtonView]()
         let buttonViews = values.enumerated().map { (index, preference) -> ImageTextButtonView in
             let state: NSControl.StateValue = defaults.int(rawName) == index ? .on : .off
-            let buttonView = ImageTextButtonView(labelText: preference.localizedString, rawName: rawName, image: preference.image, state: state)
+            let buttonView = ImageTextButtonView(title: preference.localizedString, rawName: rawName, image: preference.image, state: state)
             buttons.append(buttonView)
             buttonView.onClick = { control in
                 buttons.enumerated().forEach { (i, otherButtonView) in
