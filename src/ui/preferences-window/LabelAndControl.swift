@@ -64,7 +64,15 @@ class LabelAndControl: NSObject {
                                                _ rawName: String,
                                                _ values: [ImageMacroPreference],
                                                extraAction: ActionClosure? = nil,
-                                               buttonSpacing: CGFloat = 30) -> [NSView] {
+                                               buttonSpacing: CGFloat = 15) -> [NSView] {
+        let view = makeImageRadioButtons(rawName, values, extraAction: extraAction, buttonSpacing: buttonSpacing)
+        return [makeLabel(labelText), view]
+    }
+
+    static func makeImageRadioButtons(_ rawName: String,
+                                      _ values: [ImageMacroPreference],
+                                      extraAction: ActionClosure? = nil,
+                                      buttonSpacing: CGFloat = 15) -> NSStackView {
         var buttons = [ImageTextButtonView]()
         let buttonViews = values.enumerated().map { (index, preference) -> ImageTextButtonView in
             let state: NSControl.StateValue = defaults.int(rawName) == index ? .on : .off
@@ -82,13 +90,12 @@ class LabelAndControl: NSObject {
             return buttonView
         }
 
-        let horizontalStackView = NSStackView(views: buttonViews)
-        horizontalStackView.orientation = .horizontal
-        horizontalStackView.spacing = buttonSpacing
-        horizontalStackView.alignment = .centerY
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        return [makeLabel(labelText), horizontalStackView]
+        let view = NSStackView(views: buttonViews)
+        view.orientation = .horizontal
+        view.spacing = buttonSpacing
+        view.alignment = .centerY
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }
 
     static func makeLabelWithRecorder(_ labelText: String, _ rawName: String, _ shortcutString: String, _ clearable: Bool = true, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
@@ -198,7 +205,9 @@ class LabelAndControl: NSObject {
 
     static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
         let popUp = PopupButtonLikeSystemSettings()
-        popUp.addItems(withTitles: macroPreferences.map { $0.localizedString })
+        popUp.addItems(withTitles: macroPreferences.map {
+            $0.localizedString
+        })
         popUp.selectItem(at: defaults.int(rawName))
         return popUp
     }
@@ -238,7 +247,9 @@ class LabelAndControl: NSObject {
     }
 
     static func makeSegmentedControl(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil, segmentWidth: CGFloat = -1) -> NSSegmentedControl {
-        let button = NSSegmentedControl(labels: macroPreferences.map { $0.localizedString }, trackingMode: .selectOne, target: nil, action: nil)
+        let button = NSSegmentedControl(labels: macroPreferences.map {
+            $0.localizedString
+        }, trackingMode: .selectOne, target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.segmentStyle = .automatic
 
@@ -322,9 +333,9 @@ class LabelAndControl: NSObject {
         }
         // some preferences require re-creating some components
         if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-               (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceHighVisibility", "iconSize", "fontHeight", "theme", "titleTruncation"].contains { (pref: String) -> Bool in
-                   pref == senderControl.identifier!.rawValue
-               }) {
+                   (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceHighVisibility", "iconSize", "fontHeight", "theme", "titleTruncation"].contains { (pref: String) -> Bool in
+                       pref == senderControl.identifier!.rawValue
+                   }) {
             (App.shared as! App).resetPreferencesDependentComponents()
         }
     }
@@ -359,7 +370,7 @@ class LabelAndControl: NSObject {
             return String(format: "%.0f", control.doubleValue) // we are only interested in decimals of the provided double
         } else if control is NSButton {
             if let controlId = controlId {
-                return ((control as! NSButton).state == NSButton.StateValue.on) ? controlId : nil   
+                return ((control as! NSButton).state == NSButton.StateValue.on) ? controlId : nil
             } else {
                 return String((control as! NSButton).state == NSButton.StateValue.on)
             }
@@ -395,13 +406,17 @@ enum ControlIdentifierDiscriminator: String {
 class TabView: NSTabView, NSTabViewDelegate {
     // removing insets fixes a bug where tab views shift to the right and bottom by 7px when switching to tab #2
     let insets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    override var alignmentRectInsets: NSEdgeInsets { get { insets } }
+    override var alignmentRectInsets: NSEdgeInsets {
+        get {
+            insets
+        }
+    }
 
     // workaround: this is the only I found to have NSTabView fittingSize be correct
     override var intrinsicContentSize: NSSize {
         get {
             NSSize(width: selectedTabViewItem!.view!.fittingSize.width + TabView.padding * 2,
-                height: selectedTabViewItem!.view!.fittingSize.height + TabView.padding * 2 + subviews[0].frame.height)
+                    height: selectedTabViewItem!.view!.fittingSize.height + TabView.padding * 2 + subviews[0].frame.height)
         }
     }
 

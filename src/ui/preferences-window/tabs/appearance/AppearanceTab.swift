@@ -354,9 +354,9 @@ class AppearanceTab: NSObject {
         let table = TableGroupView(title: NSLocalizedString("Appearance", comment: ""),
                 subTitle: NSLocalizedString("Switch between 3 different styles. You can customize them.", comment: ""),
                 width: PreferencesWindow.width)
-        table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
+        table.addRow(secondaryViews: [LabelAndControl.makeImageRadioButtons("appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
             toggleCustomizeStyleButton()
-        }, buttonSpacing: 12)[1]], secondaryViewsAlignment: .centerX)
+        }, buttonSpacing: 12)], secondaryViewsAlignment: .centerX)
 
         table.addRow(leftText: NSLocalizedString("Size", comment: ""),
                 rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])

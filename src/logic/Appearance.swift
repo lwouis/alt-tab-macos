@@ -89,7 +89,7 @@ class AppearanceSize {
             appearance.hideThumbnails = true
             appearance.intraCellPadding = 5
             appearance.interCellPadding = 1
-            appearance.edgeInsetsSize = 5
+            appearance.edgeInsetsSize = 7
             appearance.rowsCount = 0
             appearance.windowMinWidthInRow = 60
             appearance.windowMaxWidthInRow = 90
