@@ -158,7 +158,7 @@ class ThumbnailsView: NSVisualEffectView {
         if Preferences.appearanceStyle == .appIcons {
             // If there is title under the icon on the last line, the height of the title needs to be subtracted.
             frameHeight = frameHeight - Preferences.intraCellPadding - Preferences.fontHeight
-            originY = Preferences.windowPadding - Preferences.intraCellPadding - Preferences.fontHeight
+            originY = originY - Preferences.intraCellPadding - Preferences.fontHeight
         }
         frame.size = NSSize(width: frameWidth, height: frameHeight)
 
