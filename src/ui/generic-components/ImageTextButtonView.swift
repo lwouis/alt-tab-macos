@@ -14,7 +14,6 @@ class ImageTextButtonView: NSStackView {
         didSet {
             button.state = state
             updateStyle()
-            needsDisplay = true
         }
     }
 
@@ -81,6 +80,9 @@ class ImageTextButtonView: NSStackView {
             imageContainer.centerYAnchor.constraint(equalTo: button.centerYAnchor),
             imageContainer.widthAnchor.constraint(equalTo: button.widthAnchor),
             imageContainer.heightAnchor.constraint(equalTo: button.heightAnchor),
+            button.topAnchor.constraint(equalTo: topAnchor, constant: ImageTextButtonView.borderWidth),
+            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: ImageTextButtonView.borderWidth),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -ImageTextButtonView.borderWidth),
         ])
 
         button.identifier = NSUserInterfaceItemIdentifier(rawName)

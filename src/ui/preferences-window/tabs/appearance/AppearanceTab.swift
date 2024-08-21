@@ -356,7 +356,7 @@ class AppearanceTab: NSObject {
                 width: PreferencesWindow.width)
         table.addRow(secondaryViews: [LabelAndControl.makeLabelWithImageRadioButtons("", "appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
             toggleCustomizeStyleButton()
-        }, buttonSpacing: 15)[1]], secondaryViewsAlignment: .centerX)
+        }, buttonSpacing: 12)[1]], secondaryViewsAlignment: .centerX)
 
         table.addRow(leftText: NSLocalizedString("Size", comment: ""),
                 rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])
