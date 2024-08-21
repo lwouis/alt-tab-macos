@@ -107,7 +107,6 @@ class Preferences {
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
-    static var windowPadding: CGFloat { 18 }
 
     // persisted values
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { defaults.string($0) } }
@@ -163,6 +162,7 @@ class Preferences {
     static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
     static var appearanceSizeParameters: AppearanceSizeParameters { AppearanceSize(appearanceStyle, appearanceSize).getParameters() }
     static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceTheme).getParameters() }
+    static var windowPadding: CGFloat { appearanceSizeParameters.windowPadding }
     static var interCellPadding: CGFloat { appearanceSizeParameters.interCellPadding }
     static var intraCellPadding: CGFloat { appearanceSizeParameters.intraCellPadding }
     static var edgeInsetsSize: CGFloat { appearanceSizeParameters.edgeInsetsSize }

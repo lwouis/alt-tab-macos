@@ -1,6 +1,7 @@
 import Cocoa
 
 struct AppearanceSizeParameters {
+    var windowPadding: CGFloat = 18
     var interCellPadding: CGFloat = 5
     var intraCellPadding: CGFloat = 1
     var edgeInsetsSize: CGFloat = 5
@@ -63,6 +64,7 @@ class AppearanceSize {
             }
         } else if style == .appIcons {
             appearance.hideThumbnails = true
+            appearance.windowPadding = 22
             appearance.intraCellPadding = 5
             appearance.interCellPadding = 1
             appearance.edgeInsetsSize = 5

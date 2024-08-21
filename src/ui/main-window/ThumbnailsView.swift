@@ -150,9 +150,20 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
         let heightMax = ThumbnailsPanel.maxThumbnailsHeight(screen).rounded()
-        frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
+
+        var frameWidth = min(maxX, widthMax) + Preferences.windowPadding * 2
+        var frameHeight = min(maxY, heightMax) + Preferences.windowPadding * 2
+        var originX = Preferences.windowPadding
+        var originY = Preferences.windowPadding
+        if Preferences.appearanceStyle == .appIcons {
+            // If there is title under the icon on the last line, the height of the title needs to be subtracted.
+            frameHeight = frameHeight - Preferences.intraCellPadding - Preferences.fontHeight
+            originY = Preferences.windowPadding - Preferences.intraCellPadding - Preferences.fontHeight
+        }
+        frame.size = NSSize(width: frameWidth, height: frameHeight)
+
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
-        scrollView.frame.origin = CGPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)
+        scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
