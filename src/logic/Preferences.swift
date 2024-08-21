@@ -54,7 +54,7 @@ class Preferences {
         "windowOrder5": WindowOrderPreference.recentlyFocused.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
-        "windowDisplayDelay": "0",
+        "windowDisplayDelay": "100",
         "appearanceStyle": AppearanceStylePreference.thumbnails.rawValue,
         "appearanceSize": AppearanceSizePreference.medium.rawValue,
         "appearanceTheme": AppearanceThemePreference.system.rawValue,
