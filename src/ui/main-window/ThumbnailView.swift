@@ -156,7 +156,7 @@ class ThumbnailView: NSStackView {
         vStackView?.layer!.borderColor = getBorderColor(isFocused: isFocused, isHovered: isHovered).cgColor
         setShadow(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
-            label.isHidden = !isFocused
+            label.isHidden = !(isFocused || isHovered)
         }
     }
 
