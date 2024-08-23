@@ -185,8 +185,10 @@ class AppearanceTheme {
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
-                appearance.highlightFocusedBorderColor = .black.withAlphaComponent(0.8)
-                appearance.highlightHoveredBorderColor = .black.withAlphaComponent(0.6)
+                appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.4)
+                appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.2)
+                appearance.highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
+                appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.6)
                 appearance.highlightBorderShadowColor = .white
                 appearance.enablePanelShadow = true
             }
