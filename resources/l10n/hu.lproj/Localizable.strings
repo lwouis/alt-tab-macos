@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Egyes alkalmazások, mint például a Finder vagy az előnézet, olyan standard füleket használnak, amelyek független ablakokként működnek.Néhány más alkalmazás, például a webböngészők egyedi füleket használnak, amelyek egyedi módon működnek, és nem tényleges ablakok.Az Altab nem tudja ezeket külön felsorolni.";
 
+/* No comment provided by engineer. */
+"and press" = "és nyomja meg";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Indító parancsikon";
+
+/* No comment provided by engineer. */
+"After release" = "A szabadon bocsátás után";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Mutassa meg a Windows alkalmazásokat az alkalmazásokból";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Mutassa meg a Windows szóközöket";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "A Windows megjelenítése a képernyőkről";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "A minimalizált ablakok megjelenítése";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "A rejtett ablakok megjelenítése";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Mutasd meg a teljes képernyős ablakokat";
+
+/* No comment provided by engineer. */
+"Order windows by" = "A Windows megrendelése by By By";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Válassza a Windows lehetőséget a nyílgombokkal";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Válassza a Windows lehetőséget a VIM Keys használatával";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Válassza a Windows lehetőséget az egér lebegén";
+
+/* No comment provided by engineer. */
+"Additional controls" = "További kezelőszervek";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Parancsikonok aktív esetén";
+
+/* No comment provided by engineer. */
+"Start at login" = "Kezdje a bejelentkezésnél";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar ikon";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Frissítési házirend";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "A Crash Jelentésekről szóló politika";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animációk…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Váltás 3 különböző stílus között.Testreszabhatja őket.";
+
+/* No comment provided by engineer. */
+"Size" = "Méret";
+
+/* No comment provided by engineer. */
+"Theme" = "Téma";
+
+/* No comment provided by engineer. */
+"High visibility" = "Nagy láthatóság";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Több képernyő";
+
+/* No comment provided by engineer. */
+"Show on" = "Megmutat";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Testreszabhatja a miniatűrök stílusát…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Az alkalmazás ikonok stílusának testreszabása…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Testreszabhatja a címek stílusát ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Megjelenési késleltetés";
+
+/* No comment provided by engineer. */
+"Animations" = "Animációk";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade out animáció";
+
+/* No comment provided by engineer. */
+"Align windows" = "Igazítsa a Windows -t";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Címcsonkítás";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Mutasson egy elemet a kapcsolóban minden ablakhoz vagy minden alkalmazáshoz.A Windows koncentrált lesz, míg az alkalmazások aktiválódnak.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Mutasd meg a Switcher -ben";
+
+/* No comment provided by engineer. */
+"Show titles" = "A címek bemutatása";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "További kezelőszervek…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Parancsikonok aktív esetén ...";
+

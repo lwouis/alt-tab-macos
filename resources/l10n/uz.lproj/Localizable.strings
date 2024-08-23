@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder yoki oldindan ko'rish kabi ba'zi ilovalar mustaqil Windows kabi ishlaydigan oddiy yorliqlardan foydalaning.Veb-brauzerlar kabi ba'zi boshqa ilovalar noyob yo'llar bilan shug'ullanadigan va haqiqiy derazalar emas.Altabab alohidalarni ro'yxatga olish mumkin emas.";
 
+/* No comment provided by engineer. */
+"and press" = "va bosing";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Tragger yorliq";
+
+/* No comment provided by engineer. */
+"After release" = "Ozod qilingandan keyin";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Ilovalardan derazalarni ko'rsatish";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Derazalarni bo'sh joylardan ko'rsatish";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Derazalarni ekranlardan ko'rsating";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Minimallashtirilgan derazalarni ko'rsatish";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Yashirin derazalar ko'rsating";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "To'liq ekranli derazalarni ko'rsating";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Windows-ni buyurtma qiling";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "O'q tugmalaridan foydalangan holda Windows-ni tanlang";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Vim tugmachalari yordamida Windows-ni tanlang";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Sichqonchani sichqonchani tanlang";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Qo'shimcha boshqarish vositalari";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Faol bo'lganda yorliqlar";
+
+/* No comment provided by engineer. */
+"Start at login" = "Kirishdan boshlang";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar ikonkasi";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Siyosatni yangilash";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Avariya hisobotlari siyosati";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animatsiyalar ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3 xil uslubni almashtiring.Siz ularni sozlashingiz mumkin.";
+
+/* No comment provided by engineer. */
+"Size" = "O'lcham";
+
+/* No comment provided by engineer. */
+"Theme" = "Mavzuni";
+
+/* No comment provided by engineer. */
+"High visibility" = "Yuqori ko'rinishi";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Bir nechta ekranlar";
+
+/* No comment provided by engineer. */
+"Show on" = "Ko'rsatmoq";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Thumbnails uslubini sozlash ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Ilova ikonkalari uslubini sozlash ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Titmalar uslubini sozlash ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Ko'rish kechikishi";
+
+/* No comment provided by engineer. */
+"Animations" = "Animatsiyalar";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Yo'q animatsiya";
+
+/* No comment provided by engineer. */
+"Align windows" = "Derazalarni tekislang";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Sarlavha kemasi";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Har bir deraza uchun yoki har bir dastur uchun elementni ko'rsating.Windows yo'naltiriladi, ilovalar faollashtiriladi.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Usta-da ko'rsating";
+
+/* No comment provided by engineer. */
+"Show titles" = "Sarliqlarni ko'rsating";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Qo'shimcha boshqarish vositalari ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Faol bo'lganda yorliqlar ...";
+

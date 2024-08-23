@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Jotkut sovellukset, kuten Finder tai Preview, käyttävät vakio -välilehtiä, jotka toimivat kuin riippumattomat Windows.Jotkut muut sovellukset, kuten verkkoselaimet, käyttävät mukautettuja välilehtiä, jotka toimivat ainutlaatuisilla tavoilla eivätkä ole todellisia Windowsia.Alttab ei voi luetella niitä erikseen.";
 
+/* No comment provided by engineer. */
+"and press" = "ja paina";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Liipaisin pikakuvake";
+
+/* No comment provided by engineer. */
+"After release" = "Vapautuksen jälkeen";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Näytä Windows sovelluksista";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Näytä ikkunat tiloista";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Näytä ikkunat näytöiltä";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Näytä minimoidut ikkunat";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Näytä piilotetut ikkunat";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Näytä koko näytön ikkunat";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Tilata Windows";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Valitse Windows nuolinäppäimillä";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Valitse Windows VIM -näppäinten avulla";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Valitse Windows Hiiren hoverista";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Lisäohjaimet";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Pikakuvakkeet aktiivisena";
+
+/* No comment provided by engineer. */
+"Start at login" = "Aloita kirjautumista";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Valikoima -kuvake";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Päivityskäytäntö";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Crash Reports -käytäntö";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animaatiot…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Vaihda 3 eri tyyliä.Voit mukauttaa niitä.";
+
+/* No comment provided by engineer. */
+"Size" = "Koko";
+
+/* No comment provided by engineer. */
+"Theme" = "Teema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Suuri näkyvyys";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Useita näyttöjä";
+
+/* No comment provided by engineer. */
+"Show on" = "Näyttää";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Mukauta pikkukuvia…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Mukauta sovelluskuvakkeita tyyliä…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Mukauta otsikot tyyliä…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Ilmestysviive";
+
+/* No comment provided by engineer. */
+"Animations" = "Animaatiot";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Häipyä animaation";
+
+/* No comment provided by engineer. */
+"Align windows" = "Kohdistaa ikkunat";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Otsikon katkaisu";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Näytä kohde kytkimessä jokaiselle ikkunaan tai jokaiselle sovellukselle.Windows keskittyy, kun taas sovellukset aktivoidaan.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Näytä kytkentä";
+
+/* No comment provided by engineer. */
+"Show titles" = "Näytä otsikot";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Lisäohjaimet…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Pikakuvakkeet aktiivisena…";
+

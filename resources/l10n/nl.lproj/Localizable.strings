@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Sommige apps zoals Finder of Preview gebruiken standaard tabbladen die werken als onafhankelijke Windows.Sommige andere apps zoals webbrowsers gebruiken aangepaste tabbladen die op unieke manieren werken en geen echte Windows zijn.Alttab kan die niet afzonderlijk vermelden.";
 
+/* No comment provided by engineer. */
+"and press" = "en druk op";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Trigger snelkoppeling";
+
+/* No comment provided by engineer. */
+"After release" = "Na vrijlating";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Toon Windows van applicaties";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Toon ramen uit spaties";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Toon Windows van schermen";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Toon geminimaliseerde ramen";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Toon verborgen ramen";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Toon fullscreen ramen";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Bestel ramen bij";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Selecteer Windows met pijltoetsen";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Selecteer Windows met VIM -toetsen";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Selecteer Windows op muishrover";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Aanvullende bedieningselementen";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Snelkoppelingen wanneer actief";
+
+/* No comment provided by engineer. */
+"Start at login" = "Begin bij inloggen";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar -pictogram";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Updates beleid";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Crash Reports Policy";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animaties ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Schakel tussen 3 verschillende stijlen.U kunt ze aanpassen.";
+
+/* No comment provided by engineer. */
+"Size" = "Maat";
+
+/* No comment provided by engineer. */
+"Theme" = "Thema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Hoge zichtbaarheid";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Meerdere schermen";
+
+/* No comment provided by engineer. */
+"Show on" = "Laten zien";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Pas de stijl van de miniatuur aan ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Pas de stijl van app -pictogrammen aanpassen ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Titels stijl aanpassen ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Verschijningsvertraging";
+
+/* No comment provided by engineer. */
+"Animations" = "Animaties";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "FADE OUT -animatie";
+
+/* No comment provided by engineer. */
+"Align windows" = "Lijn Windows uit";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Titelintrekking";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Toon een item in de switcher voor elk venster of voor elke toepassing.Windows zal worden gefocust, terwijl applicaties worden geactiveerd.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Show in Switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "Toon titels";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Extra bedieningsels ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Snelkoppelingen wanneer actief ...";
+

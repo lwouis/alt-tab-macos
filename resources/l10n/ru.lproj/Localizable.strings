@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Некоторые приложения, такие как Finder или Preview, используют стандартные вкладки, которые действуют как независимые Windows.Некоторые другие приложения, такие как веб -браузеры, используют пользовательские вкладки, которые действуют уникальными способами, а не являются фактическими окнами.Alttab не может перечислить их отдельно.";
 
+/* No comment provided by engineer. */
+"and press" = "и пресс";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Триггерный ярлык";
+
+/* No comment provided by engineer. */
+"After release" = "После выпуска";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Показать Windows из приложений";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Показать окна из пространств";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Показать окна с экранов";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Показать минимизированные окна";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Показать скрытые окна";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Показать полноэкранные окна";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Заказывать окна";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Выберите Windows, используя клавиши со стрелками";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Выберите Windows, используя Vim Keys";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Выберите Windows на мыши";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Дополнительные элементы управления";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Ярлыки при активном";
+
+/* No comment provided by engineer. */
+"Start at login" = "Начните с входа в систему";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Менубар значок";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Политика обновлений";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Политика отчетов об аварии";
+
+/* No comment provided by engineer. */
+"Animations…" = "Анимации ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Переключитесь между 3 разными стилями.Вы можете настроить их.";
+
+/* No comment provided by engineer. */
+"Size" = "Размер";
+
+/* No comment provided by engineer. */
+"Theme" = "Тема";
+
+/* No comment provided by engineer. */
+"High visibility" = "Высокая видимость";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Несколько экранов";
+
+/* No comment provided by engineer. */
+"Show on" = "Показать на";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Настройте стиль миниатюрного стиля…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Настройте стиль значков приложений ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Настройте стиль названия ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Задержка явления";
+
+/* No comment provided by engineer. */
+"Animations" = "Анимация";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Исчезнуть анимация";
+
+/* No comment provided by engineer. */
+"Align windows" = "Выровняйте окна";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Усечение заголовка";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Покажите элемент в коммутаторе для каждого окна или для каждого приложения.Windows будет сфокусировано, тогда как приложения будут активированы.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Показать в переключателе";
+
+/* No comment provided by engineer. */
+"Show titles" = "Показать названия";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Дополнительные элементы управления…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Ярлыки при активном ...";
+

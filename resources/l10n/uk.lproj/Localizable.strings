@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Деякі програми, такі як Finder або Preview, використовують стандартні вкладки, які діють як незалежні Windows.Деякі інші програми, такі як веб -браузери, використовують власні вкладки, які діють унікальними способами і не є фактичними вікнами.Alttab не може перелічити їх окремо.";
 
+/* No comment provided by engineer. */
+"and press" = "і пресувати";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Тригерний ярлик";
+
+/* No comment provided by engineer. */
+"After release" = "Після випуску";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Показати Windows з програм";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Показати вікна з пробілів";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Показати вікна з екранів";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Показати мінімізовані вікна";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Показати приховані вікна";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Показати повноекранні вікна";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Замовте Windows";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Виберіть Windows за допомогою клавіш зі стрілками";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Виберіть Windows за допомогою клавіш VIM";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Виберіть Windows на нависанні миші";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Додаткові елементи управління";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Ярлики при активності";
+
+/* No comment provided by engineer. */
+"Start at login" = "Почніть з Login";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Менубар ікона";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Політика оновлень";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Політика звітів про аварії";
+
+/* No comment provided by engineer. */
+"Animations…" = "Анімації ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Перемикайте між 3 різними стилями.Ви можете їх налаштувати.";
+
+/* No comment provided by engineer. */
+"Size" = "Розмір";
+
+/* No comment provided by engineer. */
+"Theme" = "Тема";
+
+/* No comment provided by engineer. */
+"High visibility" = "Висока видимість";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Кілька екранів";
+
+/* No comment provided by engineer. */
+"Show on" = "Проявляти";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Налаштуйте мініатюри стиль ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Налаштуйте стиль ікон додатків…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Налаштуйте стиль назви ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Затримка притулку";
+
+/* No comment provided by engineer. */
+"Animations" = "Анімація";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "З'ятайте анімацію";
+
+/* No comment provided by engineer. */
+"Align windows" = "Вирівнюйте вікна";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Зловмисна обрізка";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Показати елемент у комутаторі для кожного вікна або для кожної програми.Windows буде зосереджена, тоді як програми будуть активовані.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Показати в комутаторі";
+
+/* No comment provided by engineer. */
+"Show titles" = "Показати назви";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Додаткові елементи управління ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Ярлики, коли активні…";
+

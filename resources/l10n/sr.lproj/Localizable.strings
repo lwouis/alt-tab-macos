@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Неке апликације попут Финдер-а или прегледа користе стандардне картице који делују попут независних прозора.Неке друге апликације попут веб прегледача користе прилагођене картице које делују на јединствене начине и нису стварни прозори.Алттаб не може навести оне одвојено.";
 
+/* No comment provided by engineer. */
+"and press" = "и притисните";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Пречица окидача";
+
+/* No comment provided by engineer. */
+"After release" = "Након пуштања";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Прикажи Виндовс из апликација";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Прикажи Виндовс из размака";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Прикажи Виндовс из екрана";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Прикажи минимизиране прозоре";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Прикажи скривене прозоре";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Прикажи прозоре на целом екрану";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Наручите Виндовс би";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Изаберите Виндовс помоћу стрелица";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Изаберите Виндовс користећи Вим Кеис";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Изаберите Виндовс на лебдећем миша";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Додатне контроле";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Пречице када су активни";
+
+/* No comment provided by engineer. */
+"Start at login" = "Почните при пријави";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Икона менубар";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Ажурира политику";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Политика извештаја о паду";
+
+/* No comment provided by engineer. */
+"Animations…" = "Анимације ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Прелазите између 3 различите стилове.Можете их прилагодити.";
+
+/* No comment provided by engineer. */
+"Size" = "Величина";
+
+/* No comment provided by engineer. */
+"Theme" = "Тема";
+
+/* No comment provided by engineer. */
+"High visibility" = "Висока видљивост";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Вишеструки екрани";
+
+/* No comment provided by engineer. */
+"Show on" = "Сховати на";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Прилагодите стил Сличица ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Прилагодите стил иконе апликација ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Прилагодите наслове стила ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Кашњење";
+
+/* No comment provided by engineer. */
+"Animations" = "Анимације";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Избледи анимацију";
+
+/* No comment provided by engineer. */
+"Align windows" = "Поравнајте Виндовс";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Насловна скраћеница";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Прикажите ставку у прекидачу за сваки прозор или за сваку апликацију.Виндовс ће бити фокусиран, док ће се апликације активирати.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Прикажи у Свитцхеру";
+
+/* No comment provided by engineer. */
+"Show titles" = "Покажи наслове";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Додатне контроле ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Пречице када активне ...";
+

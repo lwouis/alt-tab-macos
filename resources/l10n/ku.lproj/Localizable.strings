@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Hin serlêdanên mîna finder an pêşgotinê tabên standard bikar bînin ku mîna pencereyên serbixwe tevdigerin.Hin serlêdanên din mîna gerokên malperê tabên xwerû bikar tînin ku bi awayên yekta tevbigerin û pencereyên rastîn ne.Alttab nikare wan ji hev veqetîne.";
 
+/* No comment provided by engineer. */
+"and press" = "û çapemeniyê";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Kurteya zirav";
+
+/* No comment provided by engineer. */
+"After release" = "Piştî serbestberdanê";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Windows ji serlêdanan nîşan bide";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Windows ji Spaces nîşan bikin";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Windows ji ekranan nîşan bide";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Windows-ê kêm nîşan bide";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Windows veşartî nîşan bide";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Windows-ê ya tevahî nîşan bide";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Fermana Windows by";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Windows bi karanîna bişkojkên arşê hilbijêrin";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Windows bi karanîna keysên VIM bikar bînin";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Windows-ê li ser Hover Mouse hilbijêrin";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Kontrolên zêde";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Kurte dema çalak";
+
+/* No comment provided by engineer. */
+"Start at login" = "Li Têkeftinê dest pê bikin";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar icon";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Siyaseta nûvekirin";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Siyaseta Raportên Crash";
+
+/* No comment provided by engineer. */
+"Animations…" = "Anîmasyon ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Di navbera 3 şêwazên cûda de veguherînin.Hûn dikarin wan xweş bikin.";
+
+/* No comment provided by engineer. */
+"Size" = "Mezinayî";
+
+/* No comment provided by engineer. */
+"Theme" = "Mijad";
+
+/* No comment provided by engineer. */
+"High visibility" = "Dîtina bilind";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Dîwarên pirjimar";
+
+/* No comment provided by engineer. */
+"Show on" = "Nîşan bide";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Şêwaza thumbnails xweş bikin ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Şêwaza îkonên îkonên xweş ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Titles Sêwiranê xweş ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Derengiya diyarker";
+
+/* No comment provided by engineer. */
+"Animations" = "Animations";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Animation Out Out";
+
+/* No comment provided by engineer. */
+"Align windows" = "Windows align";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Sernav Truncation";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Ji bo her pencereyê, an ji bo her serîlêdanê tiştek nîşan bide.Windows dê balê bikişîne, li ku serlêdan dê were aktîfkirin.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Di şûna guhêrbar de nîşan bide";
+
+/* No comment provided by engineer. */
+"Show titles" = "Sernavan nîşan bide";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Kontrolên zêde ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Kurte dema çalak ...";
+

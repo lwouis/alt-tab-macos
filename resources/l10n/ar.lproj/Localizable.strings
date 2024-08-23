@@ -544,3 +544,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "تستخدم بعض التطبيقات مثل Finder أو Preview علامات تبويب قياسية تعمل مثل Windows المستقلة.تستخدم بعض التطبيقات الأخرى مثل متصفحات الويب علامات تبويب مخصصة تعمل بطرق فريدة وليست نوافذ فعلية.لا يمكن لـ Alttab سردها بشكل منفصل.";
 
+/* No comment provided by engineer. */
+"and press" = "واضغط";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "اختصار الزناد";
+
+/* No comment provided by engineer. */
+"After release" = "بعد الإصدار";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "عرض Windows من التطبيقات";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "إظهار النوافذ من المساحات";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "عرض Windows من الشاشات";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "إظهار Windows إلى أدنى حد";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "إظهار النوافذ المخفية";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "إظهار النوافذ ملء الشاشة";
+
+/* No comment provided by engineer. */
+"Order windows by" = "طلب Windows بواسطة";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "حدد Windows باستخدام مفاتيح الأسهم";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "حدد Windows باستخدام مفاتيح VIM";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "حدد Windows على تحوم الماوس";
+
+/* No comment provided by engineer. */
+"Additional controls" = "ضوابط إضافية";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "اختصارات عند نشطة";
+
+/* No comment provided by engineer. */
+"Start at login" = "ابدأ في تسجيل الدخول";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "أيقونة مينوبار";
+
+/* No comment provided by engineer. */
+"Updates policy" = "سياسة التحديثات";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "سياسة تقارير تحطم";
+
+/* No comment provided by engineer. */
+"Animations…" = "الرسوم المتحركة ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "التبديل بين 3 أنماط مختلفة.يمكنك تخصيصها.";
+
+/* No comment provided by engineer. */
+"Size" = "مقاس";
+
+/* No comment provided by engineer. */
+"Theme" = "سمة";
+
+/* No comment provided by engineer. */
+"High visibility" = "وضوح عالية";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "شاشات متعددة";
+
+/* No comment provided by engineer. */
+"Show on" = "عرض على";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "تخصيص نمط المصغرة ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "تخصيص نمط أيقونات التطبيق ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "تخصيص نمط العناوين ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "تأخير الظهور";
+
+/* No comment provided by engineer. */
+"Animations" = "الرسوم المتحركة";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "تلاشى الرسوم المتحركة";
+
+/* No comment provided by engineer. */
+"Align windows" = "محاذاة النوافذ";
+
+/* No comment provided by engineer. */
+"Title truncation" = "اقتطاع العنوان";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "اعرض عنصرًا في المحول لكل نافذة ، أو لكل تطبيق.سيتم تركيز Windows ، في حين سيتم تنشيط التطبيقات.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "عرض في Switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "إظهار العناوين";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "ضوابط إضافية ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "اختصارات عندما تنشط ...";
+

@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Nekatere aplikacije, kot sta Finder ali Preview, uporabljajo standardne zavihke, ki delujejo kot neodvisna Windows.Nekatere druge aplikacije, kot so spletni brskalniki, uporabljajo zavihke po meri, ki delujejo na edinstven način in niso dejanska okna.Alttab jih ne more navesti ločeno.";
 
+/* No comment provided by engineer. */
+"and press" = "in pritisnite";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Sprožilni bližnjica";
+
+/* No comment provided by engineer. */
+"After release" = "Po izdaji";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Pokažite Windows iz aplikacij";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Pokažite okna iz presledkov";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Pokažite okna z zaslonov";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Pokažite minimizirana okna";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Pokaži skritim oknom";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Pokažite okna na celozaslonskem zaslonu";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Naročite Windows";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Izberite Windows z uporabo puščic";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Izberite Windows z uporabo vim tipk";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Izberite Windows On Mouse Hover";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Dodatni nadzor";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Bližnjice, ko so aktivne";
+
+/* No comment provided by engineer. */
+"Start at login" = "Začnite pri prijavi";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubarjeva ikona";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Politika posodobitev";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Politika poročil o nesreči";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animacije ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Preklopite med 3 različnimi slogi.Jih lahko prilagodite.";
+
+/* No comment provided by engineer. */
+"Size" = "Velikost";
+
+/* No comment provided by engineer. */
+"Theme" = "Tema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Visoka vidljivost";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Več zaslonov";
+
+/* No comment provided by engineer. */
+"Show on" = "Pokaži naprej";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Prilagodite slog sličic ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Prilagodite slog ikon aplikacij…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Prilagodite slog naslovov ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Zamuda prikazovanja";
+
+/* No comment provided by engineer. */
+"Animations" = "Animacije";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade Out Animacija";
+
+/* No comment provided by engineer. */
+"Align windows" = "Poravnati okna";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Nadzorna okvara";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Prikažite element v stikalu za vsako okno ali za vsako aplikacijo.Windows bo osredotočen, medtem ko bodo aplikacije aktivirane.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Pokaži v Switcherju";
+
+/* No comment provided by engineer. */
+"Show titles" = "Pokaži naslove";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Dodatni nadzor ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Bližnjice, ko so aktivne ...";
+

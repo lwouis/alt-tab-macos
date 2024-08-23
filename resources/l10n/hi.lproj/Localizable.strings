@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "फाइंडर या प्रीव्यू जैसे कुछ ऐप मानक टैब का उपयोग करते हैं जो स्वतंत्र विंडो की तरह काम करते हैं।वेब ब्राउज़र जैसे कुछ अन्य ऐप कस्टम टैब का उपयोग करते हैं जो अद्वितीय तरीकों से कार्य करते हैं और वास्तविक विंडो नहीं हैं।AltTab उन अलग -अलग सूचीबद्ध नहीं कर सकता है।";
 
+/* No comment provided by engineer. */
+"and press" = "और दबाएं";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "ट्रिगर शॉर्टकट";
+
+/* No comment provided by engineer. */
+"After release" = "रिलीज़ के बाद";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "अनुप्रयोगों से खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "रिक्त स्थान से खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "स्क्रीन से खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "कम से कम खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "छिपी हुई खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "फुलस्क्रीन विंडोज दिखाएं";
+
+/* No comment provided by engineer. */
+"Order windows by" = "द्वारा विंडोज ऑर्डर करें";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "तीर कुंजियों का उपयोग करके विंडोज का चयन करें";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "VIM कुंजी का उपयोग करके विंडोज का चयन करें";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "माउस होवर पर विंडोज का चयन करें";
+
+/* No comment provided by engineer. */
+"Additional controls" = "अतिरिक्त नियंत्रण";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "सक्रिय होने पर शॉर्टकट";
+
+/* No comment provided by engineer. */
+"Start at login" = "लॉगिन पर शुरू करें";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "मीनुबर आइकन";
+
+/* No comment provided by engineer. */
+"Updates policy" = "अद्यतन नीति";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "दुर्घटना रिपोर्ट नीति";
+
+/* No comment provided by engineer. */
+"Animations…" = "एनिमेशन…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3 अलग -अलग शैलियों के बीच स्विच करें।आप उन्हें अनुकूलित कर सकते हैं।";
+
+/* No comment provided by engineer. */
+"Size" = "आकार";
+
+/* No comment provided by engineer. */
+"Theme" = "विषय";
+
+/* No comment provided by engineer. */
+"High visibility" = "उच्च दृश्यता";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "बहु -स्क्रीन";
+
+/* No comment provided by engineer. */
+"Show on" = "इस समय दिखाएं";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "थंबनेल शैली को अनुकूलित करें ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "कस्टमाइज़ ऐप आइकन स्टाइल ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "टाइटल स्टाइल को कस्टमाइज़ करें ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "स्पष्टता विलंब";
+
+/* No comment provided by engineer. */
+"Animations" = "एनिमेशन";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "एनीमेशन को फीका";
+
+/* No comment provided by engineer. */
+"Align windows" = "विंडोज संरेखित करें";
+
+/* No comment provided by engineer. */
+"Title truncation" = "हक";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "प्रत्येक विंडो के लिए, या प्रत्येक एप्लिकेशन के लिए स्विचर में एक आइटम दिखाएं।विंडोज पर ध्यान केंद्रित किया जाएगा, जबकि अनुप्रयोग सक्रिय हो जाएंगे।";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "स्विचर में दिखाएँ";
+
+/* No comment provided by engineer. */
+"Show titles" = "शीर्षक दिखाओ";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "अतिरिक्त नियंत्रण…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "शॉर्टकट जब सक्रिय…";
+

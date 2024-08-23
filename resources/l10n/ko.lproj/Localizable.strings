@@ -543,3 +543,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder 또는 Preview와 같은 일부 앱은 독립 창처럼 작동하는 표준 탭을 사용합니다.웹 브라우저와 같은 다른 앱은 고유 한 방식으로 작동하고 실제 Windows가 아닌 사용자 정의 탭을 사용합니다.Alttab은 별도로 나열 할 수 없습니다.";
 
+/* No comment provided by engineer. */
+"and press" = "그리고 누르십시오";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "트리거 바로 가기";
+
+/* No comment provided by engineer. */
+"After release" = "출시 후";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "응용 프로그램에서 Windows를 표시합니다";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "공간에서 창문을 보여줍니다";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "화면에서 창을 표시합니다";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "최소화 된 창을 보여줍니다";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "숨겨진 창문을 보여주십시오";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "전체 화면 창을 보여줍니다";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Windows를 주문하십시오";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "화살표 키를 사용하여 Windows를 선택하십시오";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Vim 키를 사용하여 Windows를 선택하십시오";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "마우스 호버에서 창을 선택하십시오";
+
+/* No comment provided by engineer. */
+"Additional controls" = "추가 컨트롤";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "활성화 될 때 바로 가기";
+
+/* No comment provided by engineer. */
+"Start at login" = "로그인에서 시작하십시오";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "메뉴 바 아이콘";
+
+/* No comment provided by engineer. */
+"Updates policy" = "정책을 업데이트합니다";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "충돌 보고서 정책";
+
+/* No comment provided by engineer. */
+"Animations…" = "애니메이션…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "세 가지 다른 스타일 사이에서 전환하십시오.당신은 그들을 사용자 정의 할 수 있습니다.";
+
+/* No comment provided by engineer. */
+"Size" = "크기";
+
+/* No comment provided by engineer. */
+"Theme" = "주제";
+
+/* No comment provided by engineer. */
+"High visibility" = "높은 가시성";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "여러 화면";
+
+/* No comment provided by engineer. */
+"Show on" = "보여주십시오";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "썸네일 스타일 사용자 정의…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "앱 아이콘 스타일 사용자 정의…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "타이틀 스타일 사용자 정의…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "유령 지연";
+
+/* No comment provided by engineer. */
+"Animations" = "애니메이션";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "애니메이션을 사라집니다";
+
+/* No comment provided by engineer. */
+"Align windows" = "Windows를 정렬합니다";
+
+/* No comment provided by engineer. */
+"Title truncation" = "제목 자리";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "각 창 또는 각 응용 프로그램에 대한 스위처에 항목을 표시하십시오.응용 프로그램은 활성화되는 반면 Windows는 집중됩니다.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "스위처에 표시하십시오";
+
+/* No comment provided by engineer. */
+"Show titles" = "제목을 보여주십시오";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "추가 제어…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "활성화 될 때 바로 가기…";
+

@@ -540,3 +540,82 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.";
+
+
+"and press" = "and press";
+
+"Trigger shortcut" = "Trigger shortcut";
+
+"After release" = "After release";
+
+"Show windows from applications" = "Show windows from applications";
+
+"Show windows from spaces" = "Show windows from spaces";
+
+"Show windows from screens" = "Show windows from screens";
+
+"Show minimized windows" = "Show minimized windows";
+
+"Show hidden windows" = "Show hidden windows";
+
+"Show fullscreen windows" = "Show fullscreen windows";
+
+"Order windows by" = "Order windows by";
+
+"Select windows using arrow keys" = "Select windows using arrow keys";
+
+"Select windows using vim keys" = "Select windows using vim keys";
+
+"Select windows on mouse hover" = "Select windows on mouse hover";
+
+"Additional controls" = "Additional controls";
+
+"Shortcuts When Active" = "Shortcuts When Active";
+
+"Start at login" = "Start at login";
+
+"Menubar icon" = "Menubar icon";
+
+"Updates policy" = "Updates policy";
+
+"Crash reports policy" = "Crash reports policy";
+
+"Animations…" = "Animations…";
+
+"Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
+
+"Size" = "Size";
+
+"Theme" = "Theme";
+
+"High visibility" = "High visibility";
+
+"Multiple screens" = "Multiple screens";
+
+"Show on" = "Show on";
+
+"Customize Thumbnails style…" = "Customize Thumbnails style…";
+
+"Customize App Icons style…" = "Customize App Icons style…";
+
+"Customize Titles style…" = "Customize Titles style…";
+
+"Apparition delay" = "Apparition delay";
+
+"Animations" = "Animations";
+
+"Fade out animation" = "Fade out animation";
+
+"Align windows" = "Align windows";
+
+"Title truncation" = "Title truncation";
+
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.";
+
+"Show in switcher" = "Show in switcher";
+
+"Show titles" = "Show titles";
+
+"Additional controls…" = "Additional controls…";
+
+"Shortcuts when active…" = "Shortcuts when active…";

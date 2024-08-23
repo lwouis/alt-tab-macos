@@ -546,3 +546,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Některé aplikace, jako je Finder nebo Preview, používají standardní karty, které fungují jako nezávislá Windows.Některé další aplikace, jako jsou webové prohlížeče, používají vlastní karty, které působí jedinečnými způsoby a nejsou skutečnými okny.Alttab je nemůže vyjmenovat samostatně.";
 
+/* No comment provided by engineer. */
+"and press" = "a stiskněte";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Spouštěcí zkratka";
+
+/* No comment provided by engineer. */
+"After release" = "Po vydání";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Zobrazit Windows z aplikací";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Zobrazit okna z mezer";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Zobrazit okna z obrazovek";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Zobrazit minimalizovaná okna";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Zobrazit skrytá okna";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Zobrazit okna na celé obrazovce";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Objednat Windows od";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Vyberte Windows pomocí kláves se šipkami";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Vyberte Windows pomocí kláves Vim";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Vyberte Windows na vznášení myši";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Další ovládací prvky";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Zkratky, když jsou aktivní";
+
+/* No comment provided by engineer. */
+"Start at login" = "Začněte při přihlášení";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Ikona Menubar";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Aktualizace zásad";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Zásady zpráv o havárii";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animace ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Přepněte mezi 3 různými styly.Můžete je přizpůsobit.";
+
+/* No comment provided by engineer. */
+"Size" = "Velikost";
+
+/* No comment provided by engineer. */
+"Theme" = "Téma";
+
+/* No comment provided by engineer. */
+"High visibility" = "Vysoká viditelnost";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Více obrazovek";
+
+/* No comment provided by engineer. */
+"Show on" = "Zobrazit na";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Přizpůsobte si miniatury styl ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Přizpůsobte styl ikon aplikací…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Přizpůsobit styl titulů ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Zpoždění zjevení";
+
+/* No comment provided by engineer. */
+"Animations" = "Animace";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade out animace";
+
+/* No comment provided by engineer. */
+"Align windows" = "Zarovnejte okna";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Zkrácení titulu";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Zobrazit položku v přepínači pro každé okno nebo pro každou aplikaci.Windows bude zaostřena, zatímco aplikace budou aktivovány.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Zobrazit v přepínači";
+
+/* No comment provided by engineer. */
+"Show titles" = "Zobrazit tituly";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Další ovládací prvky ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Zkratky, když jsou aktivní ...";
+

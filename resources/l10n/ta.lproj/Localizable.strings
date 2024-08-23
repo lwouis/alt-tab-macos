@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "கண்டுபிடிப்பாளர் அல்லது முன்னோட்டம் போன்ற சில பயன்பாடுகள் சுயாதீன சாளரங்களைப் போல செயல்படும் நிலையான தாவல்களைப் பயன்படுத்துகின்றன.வலை உலாவிகள் போன்ற வேறு சில பயன்பாடுகள் தனிப்பயன் தாவல்களைப் பயன்படுத்துகின்றன, அவை தனித்துவமான வழிகளில் செயல்படும் மற்றும் உண்மையான சாளரங்கள் அல்ல.ஆல்டாப் அவற்றை தனித்தனியாக பட்டியலிட முடியாது.";
 
+/* No comment provided by engineer. */
+"and press" = "மற்றும் அழுத்தவும்";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "குறுக்குவழியைத் தூண்டவும்";
+
+/* No comment provided by engineer. */
+"After release" = "வெளியான பிறகு";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "பயன்பாடுகளிலிருந்து விண்டோஸைக் காட்டு";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "இடைவெளிகளிலிருந்து விண்டோஸைக் காட்டு";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "திரைகளிலிருந்து விண்டோஸைக் காட்டு";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "குறைக்கப்பட்ட ஜன்னல்களைக் காட்டு";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "மறைக்கப்பட்ட ஜன்னல்களைக் காட்டு";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "முழுத்திரை சாளரங்களைக் காட்டு";
+
+/* No comment provided by engineer. */
+"Order windows by" = "விண்டோஸை ஆர்டர் செய்யுங்கள்";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "அம்பு விசைகளைப் பயன்படுத்தி விண்டோஸைத் தேர்ந்தெடுக்கவும்";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "விம் விசைகளைப் பயன்படுத்தி விண்டோஸைத் தேர்ந்தெடுக்கவும்";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "சுட்டி வட்டத்தில் விண்டோஸைத் தேர்ந்தெடுக்கவும்";
+
+/* No comment provided by engineer. */
+"Additional controls" = "கூடுதல் கட்டுப்பாடுகள்";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "செயலில் இருக்கும்போது குறுக்குவழிகள்";
+
+/* No comment provided by engineer. */
+"Start at login" = "உள்நுழைவில் தொடங்கவும்";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "மெனுபார் ஐகான்";
+
+/* No comment provided by engineer. */
+"Updates policy" = "கொள்கை புதுப்பிக்கிறது";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "க்ராஷ் அறிக்கைகள் கொள்கை";
+
+/* No comment provided by engineer. */
+"Animations…" = "அனிமேஷன்…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3 வெவ்வேறு பாணிகளுக்கு இடையில் மாறவும்.நீங்கள் அவற்றைத் தனிப்பயனாக்கலாம்.";
+
+/* No comment provided by engineer. */
+"Size" = "அளவு";
+
+/* No comment provided by engineer. */
+"Theme" = "தீம்";
+
+/* No comment provided by engineer. */
+"High visibility" = "அதிக தெரிவுநிலை";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "பல திரைகள்";
+
+/* No comment provided by engineer. */
+"Show on" = "காண்பி";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "சிறுபட பாணியைத் தனிப்பயனாக்குங்கள்…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "பயன்பாட்டு சின்னங்கள் பாணியைத் தனிப்பயனாக்குங்கள்…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "தலைப்புகள் பாணியைத் தனிப்பயனாக்குங்கள்…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "தோற்றம் தாமதம்";
+
+/* No comment provided by engineer. */
+"Animations" = "அனிமேஷன்கள்";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "அனிமேஷனை மங்கச் செய்யுங்கள்";
+
+/* No comment provided by engineer. */
+"Align windows" = "விண்டோஸை சீரமைக்கவும்";
+
+/* No comment provided by engineer. */
+"Title truncation" = "தலைப்பு துண்டிப்பு";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "ஒவ்வொரு சாளரத்திற்கும் அல்லது ஒவ்வொரு பயன்பாட்டிற்கும் ஸ்விட்சரில் ஒரு உருப்படியைக் காட்டுங்கள்.விண்டோஸ் கவனம் செலுத்தப்படும், அதேசமயம் பயன்பாடுகள் செயல்படுத்தப்படும்.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "ஸ்விட்சரில் காட்டு";
+
+/* No comment provided by engineer. */
+"Show titles" = "தலைப்புகளைக் காட்டு";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "கூடுதல் கட்டுப்பாடுகள்…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "செயலில் இருக்கும்போது குறுக்குவழிகள்…";
+

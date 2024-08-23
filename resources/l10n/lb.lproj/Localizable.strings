@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "E puer Apps wéi Finder oder Virschau wéi Standard Tabs, déi wéi onofhängeg Fensteren handelen.E puer aner Apps wéi Web Browser benotze Benotzerdefinéiert Tabs déi op eenzegaarteg Weeër handelen an net tatsächlech Fensteren.Den Alttab kann dës separat net liwweren.";
 
+/* No comment provided by engineer. */
+"and press" = "an dréckt";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Ausléiser Ofkiirzung";
+
+/* No comment provided by engineer. */
+"After release" = "No der Verëffentlechung";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Show Windows aus Uwendungen";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Weisen Windows aus Plazen";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Weisen Windows aus Schiirme";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Weisen miniméiert Fensteren";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Weisen verstoppte Fensteren";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Weise vollen Fensteren";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Bestellen Windows vum";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Wielt Windows mat Pfeil Schlësselen";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Wielt Windows mat Vim Schlësselen";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Wielt Windows op Maus Hover";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Zousätzlech Kontrollrolle";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Ofkiirzungen wann aktiv";
+
+/* No comment provided by engineer. */
+"Start at login" = "Start um Login";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar Ikon";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Updates Politik";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Crash Bericht Politik";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animiounen ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Schalt tëscht 3 verschidde Stiler.Dir kënnt se personaliséieren.";
+
+/* No comment provided by engineer. */
+"Size" = "Gréisst";
+
+/* No comment provided by engineer. */
+"Theme" = "Thema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Héich visausch";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Multiple Schiirme";
+
+/* No comment provided by engineer. */
+"Show on" = "Weisen op";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Personaliséiert Miniaturenstil ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Personaliséiere App Iconenstil ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Personaliséiere Titelenstil ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Bewäertung Retard";
+
+/* No comment provided by engineer. */
+"Animations" = "Animungen";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Verschwannen Animatioun";
+
+/* No comment provided by engineer. */
+"Align windows" = "Aligned Windows";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Titel Truncation";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Weist en Element am Duchel fir all Fënster, oder fir all Applikatioun.Windows ginn fokusséiert, wou d'Uwendungen ageschalt ginn.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Show an Schwindegkeet";
+
+/* No comment provided by engineer. */
+"Show titles" = "Gafen Titelen";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Zousätzlech Kontrollen ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Ofkiirzungen wann aktiv ...";
+

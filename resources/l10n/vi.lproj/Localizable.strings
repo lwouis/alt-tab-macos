@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Một số ứng dụng như Finder hoặc Preview sử dụng các tab tiêu chuẩn hoạt động như Windows độc lập.Một số ứng dụng khác như trình duyệt web sử dụng các tab tùy chỉnh hoạt động theo những cách độc đáo và không phải là cửa sổ thực tế.Alttab không thể liệt kê những người riêng biệt.";
 
+/* No comment provided by engineer. */
+"and press" = "và nhấn";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Phím tắt kích hoạt";
+
+/* No comment provided by engineer. */
+"After release" = "Sau khi phát hành";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Hiển thị Windows từ các ứng dụng";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Hiển thị cửa sổ từ không gian";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Hiển thị Windows từ màn hình";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Hiển thị các cửa sổ giảm thiểu";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Hiển thị các cửa sổ ẩn";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Hiển thị các cửa sổ toàn màn hình";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Đặt hàng Windows By";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Chọn Windows bằng các phím mũi tên";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Chọn Windows bằng khóa VIM";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Chọn Windows trên chuột di chuột";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Điều khiển bổ sung";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Phím tắt khi hoạt động";
+
+/* No comment provided by engineer. */
+"Start at login" = "Bắt đầu tại Đăng nhập";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Biểu tượng Menubar";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Cập nhật chính sách";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Chính sách báo cáo sự cố";
+
+/* No comment provided by engineer. */
+"Animations…" = "Hình ảnh động…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Chuyển đổi giữa 3 kiểu khác nhau.Bạn có thể tùy chỉnh chúng.";
+
+/* No comment provided by engineer. */
+"Size" = "Kích cỡ";
+
+/* No comment provided by engineer. */
+"Theme" = "Chủ đề";
+
+/* No comment provided by engineer. */
+"High visibility" = "Khả năng hiển thị cao";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Nhiều màn hình";
+
+/* No comment provided by engineer. */
+"Show on" = "Hiển thị trên";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Tùy chỉnh phong cách hình thu nhỏ";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Tùy chỉnh các biểu tượng ứng dụng kiểu";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Tùy chỉnh phong cách tiêu đề…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Sự chậm trễ xuất hiện";
+
+/* No comment provided by engineer. */
+"Animations" = "Hình ảnh động";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade out hoạt hình";
+
+/* No comment provided by engineer. */
+"Align windows" = "Căn chỉnh cửa sổ";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Tiêu đề cắt ngắn";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Hiển thị một mục trong bộ chuyển đổi cho mỗi cửa sổ hoặc cho mỗi ứng dụng.Windows sẽ được tập trung, trong khi các ứng dụng sẽ được kích hoạt.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Hiển thị trong bộ chuyển đổi";
+
+/* No comment provided by engineer. */
+"Show titles" = "Hiển thị tiêu đề";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Kiểm soát bổ sung…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Các phím tắt khi hoạt động…";
+

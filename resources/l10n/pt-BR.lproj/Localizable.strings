@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.";
 
+/* No comment provided by engineer. */
+"and press" = "and press";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Trigger shortcut";
+
+/* No comment provided by engineer. */
+"After release" = "After release";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Show windows from applications";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Show windows from spaces";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Show windows from screens";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Show minimized windows";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Show hidden windows";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Show fullscreen windows";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Order windows by";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Select windows using arrow keys";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Select windows using vim keys";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Select windows on mouse hover";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Additional controls";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Shortcuts When Active";
+
+/* No comment provided by engineer. */
+"Start at login" = "Start at login";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar icon";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Updates policy";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Crash reports policy";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animations…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
+
+/* No comment provided by engineer. */
+"Size" = "Size";
+
+/* No comment provided by engineer. */
+"Theme" = "Theme";
+
+/* No comment provided by engineer. */
+"High visibility" = "High visibility";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Multiple screens";
+
+/* No comment provided by engineer. */
+"Show on" = "Show on";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Customize Thumbnails style…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Customize App Icons style…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Customize Titles style…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Apparition delay";
+
+/* No comment provided by engineer. */
+"Animations" = "Animations";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade out animation";
+
+/* No comment provided by engineer. */
+"Align windows" = "Align windows";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Title truncation";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Show in switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "Show titles";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Additional controls…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Shortcuts when active…";
+

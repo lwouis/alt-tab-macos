@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Nogle apps som Finder eller Preview bruger standardfaner, der fungerer som uafhængige vinduer.Nogle andre apps som webbrowsere bruger brugerdefinerede faner, der virker på unikke måder og ikke er faktiske vinduer.Alttab kan ikke liste dem separat.";
 
+/* No comment provided by engineer. */
+"and press" = "og tryk";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Trigger genvej";
+
+/* No comment provided by engineer. */
+"After release" = "Efter frigivelse";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Vis vinduer fra applikationer";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Vis vinduer fra rum";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Vis vinduer fra skærme";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Vis minimerede vinduer";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Vis skjulte vinduer";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Vis fuldskærmsvinduer";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Bestil vinduer efter";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Vælg Windows ved hjælp af piletaster";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Vælg Windows ved hjælp af VIM -taster";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Vælg Windows på musens svæver";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Yderligere kontroller";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Genveje, når de er aktive";
+
+/* No comment provided by engineer. */
+"Start at login" = "Start ved login";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar Icon";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Opdaterer politik";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Crash rapporterer politik";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animationer ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Skift mellem 3 forskellige stilarter.Du kan tilpasse dem.";
+
+/* No comment provided by engineer. */
+"Size" = "Størrelse";
+
+/* No comment provided by engineer. */
+"Theme" = "Tema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Høj synlighed";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Flere skærme";
+
+/* No comment provided by engineer. */
+"Show on" = "Vis på";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Tilpas miniaturebilledstil ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Tilpas appikoner stil ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Tilpas titler stil ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Tilsyneladende forsinkelse";
+
+/* No comment provided by engineer. */
+"Animations" = "Animationer";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade Out Animation";
+
+/* No comment provided by engineer. */
+"Align windows" = "Juster vinduer";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Titel afkortning";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Vis en vare i switcher for hvert vindue eller for hver applikation.Windows vil være fokuseret, mens applikationer vil blive aktiveret.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Vis i switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "Vis titler";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Yderligere kontrol ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Genveje, når de er aktive ...";
+

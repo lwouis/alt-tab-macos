@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "יש אפליקציות כמו Finder או תצוגה מקדימה שמשתמשים בכרטיסיות סטנדרטיות הפועלות כמו חלונות עצמאיים.כמה אפליקציות אחרות כמו דפדפני אינטרנט משתמשים בכרטיסיות מותאמות אישית הפועלות בדרכים ייחודיות ואינן חלונות בפועל.Alttab לא יכול לרשום את אלה בנפרד.";
 
+/* No comment provided by engineer. */
+"and press" = "ולחץ";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "קיצור דרך טריגר";
+
+/* No comment provided by engineer. */
+"After release" = "לאחר השחרור";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "הצג חלונות מיישומים";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "הצג חלונות מחללים";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "הצג חלונות מהמסכים";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "הצג חלונות ממוזערים";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "הצג חלונות מוסתרים";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "הצג חלונות מסך מלא";
+
+/* No comment provided by engineer. */
+"Order windows by" = "להזמין חלונות על ידי";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "בחר Windows באמצעות מפתחות חצים";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "בחר Windows באמצעות מקשי Vim";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "בחר Windows on Hops";
+
+/* No comment provided by engineer. */
+"Additional controls" = "בקרות נוספות";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "קיצורי דרך כאשר הם פעילים";
+
+/* No comment provided by engineer. */
+"Start at login" = "התחל בכניסה";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "אייקון Menubar";
+
+/* No comment provided by engineer. */
+"Updates policy" = "מעדכן מדיניות";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "מדיניות דוחות קריסה";
+
+/* No comment provided by engineer. */
+"Animations…" = "אנימציות ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "מעבר בין 3 סגנונות שונים.אתה יכול להתאים אותם.";
+
+/* No comment provided by engineer. */
+"Size" = "גוֹדֶל";
+
+/* No comment provided by engineer. */
+"Theme" = "נוֹשֵׂא";
+
+/* No comment provided by engineer. */
+"High visibility" = "ראות גבוהה";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "מספר מסכים";
+
+/* No comment provided by engineer. */
+"Show on" = "להראות על";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "התאמה אישית של תמונות ממוזערות ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "התאם אישית סגנון אייקוני אפליקציות ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "התאמה אישית של כותרות סגנון ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "עיכוב הופעה";
+
+/* No comment provided by engineer. */
+"Animations" = "אנימציות";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "דוהה אנימציה";
+
+/* No comment provided by engineer. */
+"Align windows" = "יישר חלונות";
+
+/* No comment provided by engineer. */
+"Title truncation" = "גיזום כותרות";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "הצג פריט במתג עבור כל חלון, או לכל יישום.Windows ימוקד, ואילו יישומים יופעלו.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "להראות ב- Switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "הצג כותרות";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "בקרות נוספות ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "קיצורי דרך כאשר הם פעילים ...";
+

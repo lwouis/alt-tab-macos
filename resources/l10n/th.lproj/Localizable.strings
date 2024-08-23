@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "แอพบางตัวเช่น Finder หรือ Preview ใช้แท็บมาตรฐานซึ่งทำหน้าที่เหมือน Windows อิสระแอพอื่น ๆ เช่นเว็บเบราว์เซอร์ใช้แท็บที่กำหนดเองซึ่งทำหน้าที่ในรูปแบบที่ไม่ซ้ำกันและไม่ใช่หน้าต่างจริงAlttab ไม่สามารถแสดงรายการแยกต่างหาก";
 
+/* No comment provided by engineer. */
+"and press" = "และกด";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "ทริกเกอร์ทางลัด";
+
+/* No comment provided by engineer. */
+"After release" = "หลังจากเปิดตัว";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "แสดงหน้าต่างจากแอปพลิเคชัน";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "แสดงหน้าต่างจากช่องว่าง";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "แสดงหน้าต่างจากหน้าจอ";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "แสดงหน้าต่างย่อเล็กสุด";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "แสดงหน้าต่างที่ซ่อนอยู่";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "แสดงหน้าต่างเต็มหน้าจอ";
+
+/* No comment provided by engineer. */
+"Order windows by" = "สั่งซื้อหน้าต่างโดย";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "เลือก windows โดยใช้ปุ่มลูกศร";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "เลือก Windows โดยใช้คีย์ VIM";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "เลือก Windows บนเมาส์โฮเวอร์";
+
+/* No comment provided by engineer. */
+"Additional controls" = "การควบคุมเพิ่มเติม";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "ทางลัดเมื่อใช้งาน";
+
+/* No comment provided by engineer. */
+"Start at login" = "เริ่มต้นที่เข้าสู่ระบบ";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "ไอคอน Menubar";
+
+/* No comment provided by engineer. */
+"Updates policy" = "อัปเดตนโยบาย";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "นโยบายรายงานความผิดพลาด";
+
+/* No comment provided by engineer. */
+"Animations…" = "ภาพเคลื่อนไหว ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "สลับระหว่าง 3 สไตล์ที่แตกต่างกันคุณสามารถปรับแต่งได้";
+
+/* No comment provided by engineer. */
+"Size" = "ขนาด";
+
+/* No comment provided by engineer. */
+"Theme" = "ธีม";
+
+/* No comment provided by engineer. */
+"High visibility" = "การมองเห็นสูง";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "หลายหน้าจอ";
+
+/* No comment provided by engineer. */
+"Show on" = "แสดง";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "ปรับแต่งรูปแบบรูปขนาดย่อ ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "ปรับแต่งไอคอนแอพสไตล์ ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "กำหนดสไตล์สไตล์ ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "ความล่าช้าในการปรากฏตัว";
+
+/* No comment provided by engineer. */
+"Animations" = "ภาพเคลื่อนไหว";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "อนิเมชั่นจางหายไป";
+
+/* No comment provided by engineer. */
+"Align windows" = "จัดตำแหน่งหน้าต่าง";
+
+/* No comment provided by engineer. */
+"Title truncation" = "การตัดชื่อ";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "แสดงรายการในสวิตช์สำหรับแต่ละหน้าต่างหรือสำหรับแต่ละแอปพลิเคชันWindows จะเน้นในขณะที่แอปพลิเคชันจะเปิดใช้งาน";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "แสดงใน Switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "แสดงชื่อ";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "การควบคุมเพิ่มเติม ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "ทางลัดเมื่อใช้งาน ...";
+

@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Certaines applications comme Finder ou Aperçu utilisent des onglets standard qui agissent comme des fenêtres indépendantes.Certaines autres applications comme les navigateurs Web utilisent des onglets personnalisés qui agissent de manière unique et ne sont pas des fenêtres réelles.Alttab ne peut pas les énumérer séparément.";
 
+/* No comment provided by engineer. */
+"and press" = "et presser";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Raccourci déclencheur";
+
+/* No comment provided by engineer. */
+"After release" = "Après la libération";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Afficher les fenêtres à partir des applications";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Afficher les fenêtres des espaces";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Afficher les fenêtres des écrans";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Afficher les fenêtres minimisées";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Afficher les fenêtres cachées";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Afficher les fenêtres à écran plein";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Commander des fenêtres par";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Sélectionnez Windows à l'aide de touches Arrow";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Sélectionnez Windows à l'aide des touches VIM";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Sélectionnez Windows sur la souris en survol";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Contrôles supplémentaires";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Raccourcis lorsqu'il est actif";
+
+/* No comment provided by engineer. */
+"Start at login" = "Commencer par la connexion";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Icône de menubar";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Mise à jour de la politique";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Politique des rapports sur les accidents";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animations…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Basculer entre 3 styles différents.Vous pouvez les personnaliser.";
+
+/* No comment provided by engineer. */
+"Size" = "Taille";
+
+/* No comment provided by engineer. */
+"Theme" = "Thème";
+
+/* No comment provided by engineer. */
+"High visibility" = "Haute visibilité";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Plusieurs écrans";
+
+/* No comment provided by engineer. */
+"Show on" = "Se présenter sur";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Personnalisez le style miniature…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Personnaliser le style des icônes d'application…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Personnaliser le style des titres…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Retard d'apparition";
+
+/* No comment provided by engineer. */
+"Animations" = "Animations";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Animation s'estompe";
+
+/* No comment provided by engineer. */
+"Align windows" = "Aligner les fenêtres";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Troncature du titre";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Afficher un élément dans le commutateur pour chaque fenêtre ou pour chaque application.Les fenêtres seront concentrées, tandis que les applications seront activées.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Show en switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "Titres de spectacle";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Contrôles supplémentaires…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Raccourcis lorsqu'il est actif…";
+

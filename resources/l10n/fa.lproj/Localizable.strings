@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "برخی از برنامه ها مانند Finder یا Preview از زبانه های استاندارد استفاده می کنند که مانند ویندوزهای مستقل عمل می کنند.برخی از برنامه های دیگر مانند مرورگرهای وب از زبانه های سفارشی استفاده می کنند که به روش های منحصر به فرد عمل می کنند و ویندوز واقعی نیستند.Alttab نمی تواند موارد جداگانه را لیست کند.";
 
+/* No comment provided by engineer. */
+"and press" = "و مطبوعات";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "میانبر ماشه";
+
+/* No comment provided by engineer. */
+"After release" = "پس از آزادی";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "ویندوز را از برنامه ها نشان دهید";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "ویندوز را از فضاها نشان دهید";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "ویندوز را از صفحه نمایش نشان دهید";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "ویندوز به حداقل رساندن";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "ویندوزهای پنهان را نشان دهید";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "ویندوزهای تمام صفحه را نشان دهید";
+
+/* No comment provided by engineer. */
+"Order windows by" = "سفارش پنجره ها توسط";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "ویندوز را با استفاده از کلیدهای فلش انتخاب کنید";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "ویندوز را با استفاده از کلیدهای VIM انتخاب کنید";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "ویندوز را در شناور ماوس انتخاب کنید";
+
+/* No comment provided by engineer. */
+"Additional controls" = "کنترل های اضافی";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "میانبرها هنگام فعال بودن";
+
+/* No comment provided by engineer. */
+"Start at login" = "از ورود به سیستم شروع کنید";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "نماد منوبر";
+
+/* No comment provided by engineer. */
+"Updates policy" = "خط مشی به روزرسانی";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "سیاست گزارش های تصادف";
+
+/* No comment provided by engineer. */
+"Animations…" = "انیمیشن ها";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "بین 3 سبک مختلف تغییر کنید.می توانید آنها را سفارشی کنید.";
+
+/* No comment provided by engineer. */
+"Size" = "اندازه";
+
+/* No comment provided by engineer. */
+"Theme" = "موضوع";
+
+/* No comment provided by engineer. */
+"High visibility" = "دید بالا";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "چندین صفحه";
+
+/* No comment provided by engineer. */
+"Show on" = "نشان دادن";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "سبک های کوچک را سفارشی کنید ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "سفارشی کردن سبک آیکون های برنامه ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "عناوین را سفارشی کنید ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "تأخیر در ظاهر";
+
+/* No comment provided by engineer. */
+"Animations" = "انیمیشن";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "محو شدن انیمیشن";
+
+/* No comment provided by engineer. */
+"Align windows" = "ویندوز را تراز کنید";
+
+/* No comment provided by engineer. */
+"Title truncation" = "کوتاه شدن عنوان";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "برای هر پنجره یا برای هر برنامه یک مورد را در سوئیچ نشان دهید.ویندوز متمرکز خواهد شد ، در حالی که برنامه ها فعال می شوند.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "نمایش در تعویض";
+
+/* No comment provided by engineer. */
+"Show titles" = "عناوین نمایش";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "کنترل های اضافی ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "میانبرها در هنگام فعال ...";
+

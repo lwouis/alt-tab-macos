@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Algunes aplicacions com el cercador o la vista prèvia utilitzen pestanyes estàndard que actuen com a finestres independents.Algunes altres aplicacions com els navegadors web utilitzen pestanyes personalitzades que actuen de maneres úniques i no són finestres reals.AltTab no pot enumerar -los per separat.";
 
+/* No comment provided by engineer. */
+"and press" = "i premsa";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Drecera de disparador";
+
+/* No comment provided by engineer. */
+"After release" = "Després del llançament";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Mostra les finestres des de les aplicacions";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Mostra les finestres des d’espais";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Mostra les finestres des de les pantalles";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Mostra finestres minimitzades";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Mostra les finestres amagades";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Mostra finestres de pantalla completa";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Ordeneu les finestres per";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Seleccioneu Windows mitjançant les tecles de fletxa";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Seleccioneu Windows mitjançant les tecles VIM";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Seleccioneu Windows a Mouse Hover";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Controls addicionals";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Dreceres quan estan actives";
+
+/* No comment provided by engineer. */
+"Start at login" = "Comença a la sessió";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Icona Menubar";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Política d'actualització";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Política d’informes de xoc";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animacions ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Canvieu entre 3 estils diferents.Podeu personalitzar -los.";
+
+/* No comment provided by engineer. */
+"Size" = "Tamany";
+
+/* No comment provided by engineer. */
+"Theme" = "Tema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Alta visibilitat";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Múltiples pantalles";
+
+/* No comment provided by engineer. */
+"Show on" = "Mostrar on";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Personalitzeu les miniatures estil ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Personalitzar les icones de les aplicacions Estil ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Personalitzeu l'estil de títols ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Retard de l'aparició";
+
+/* No comment provided by engineer. */
+"Animations" = "Animacions";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Esvair l'animació";
+
+/* No comment provided by engineer. */
+"Align windows" = "Alineeu les finestres";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Títol Truncation";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Mostra un element al commutador per a cada finestra o per a cada aplicació.Windows estarà centrat, mentre que les aplicacions s’activaran.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Mostra a Switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "Títols d’espectacles";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Controls addicionals ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Dreceres quan estan actius ...";
+

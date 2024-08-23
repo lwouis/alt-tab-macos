@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Alcune app come Finder o Anteprima utilizzano schede standard che agiscono come Windows Independent.Alcune altre app come i browser Web utilizzano schede personalizzate che agiscono in modi unici e non sono Windows reali.Alttab non può elencarli separatamente.";
 
+/* No comment provided by engineer. */
+"and press" = "e premere";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Grilletto";
+
+/* No comment provided by engineer. */
+"After release" = "Dopo il rilascio";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Mostra finestre da applicazioni";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Mostra finestre dagli spazi";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Mostra finestre dagli schermi";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Mostra finestre ridotte al minimo";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Mostra finestre nascoste";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Mostra finestre a schermo intero";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Ordina finestre di";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Seleziona Windows utilizzando i tasti freccia";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Seleziona Windows utilizzando i tasti VIM";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Seleziona Windows sul mouse Hover";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Controlli aggiuntivi";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Scorciatoie quando attivo";
+
+/* No comment provided by engineer. */
+"Start at login" = "Inizia con l'accesso";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Icona menubar";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Aggiorna la politica";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Politica sui rapporti sugli arresti crash";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animazioni ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Passa tra 3 stili diversi.Puoi personalizzarli.";
+
+/* No comment provided by engineer. */
+"Size" = "Misurare";
+
+/* No comment provided by engineer. */
+"Theme" = "Tema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Alta visibilità";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Più schermi";
+
+/* No comment provided by engineer. */
+"Show on" = "Mostrare";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Personalizza lo stile delle miniature ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Personalizza lo stile delle icone dell'app ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Personalizza lo stile dei titoli ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Ritardo dell'apparizione";
+
+/* No comment provided by engineer. */
+"Animations" = "Animazioni";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade Out Animation";
+
+/* No comment provided by engineer. */
+"Align windows" = "Allinea le finestre";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Titolo troncamento";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Mostra un elemento nello switcher per ogni finestra o per ogni applicazione.Windows sarà focalizzato, mentre le applicazioni saranno attivate.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Mostra in switcher";
+
+/* No comment provided by engineer. */
+"Show titles" = "Mostra titoli";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Controlli aggiuntivi ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Scorciatoie quando attivo ...";
+

@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder veya önizleme gibi bazı uygulamalar bağımsız pencereler gibi hareket eden standart sekmeler kullanır.Web tarayıcıları gibi diğer bazı uygulamalar, benzersiz yollarla hareket eden ve gerçek pencereler olmayan özel sekmeler kullanır.Alttab bunları ayrı olarak listeleyemez.";
 
+/* No comment provided by engineer. */
+"and press" = "ve basın";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Tetik kısayolu";
+
+/* No comment provided by engineer. */
+"After release" = "Serbest bırakıldıktan sonra";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Uygulamalardan pencereleri göster";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Mekanlardan pencereleri göster";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Ekranlardan pencereleri göster";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Minimize edilmiş pencereleri göster";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Gizli pencereleri göster";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Tam ekran pencereleri göster";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Windows sipariş";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Ok tuşlarını kullanarak Windows'u seçin";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "VIM Keys'i kullanarak Windows'u seçin";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Fare Hover'da Windows'u seçin";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Ek kontroller";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Aktif olduğunda kısayollar";
+
+/* No comment provided by engineer. */
+"Start at login" = "Girişten Başlayın";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar simgesi";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Politikayı günceller";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Kaza Raporları Politikası";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animasyonlar…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3 farklı stil arasında geçiş yapın.Onları özelleştirebilirsiniz.";
+
+/* No comment provided by engineer. */
+"Size" = "Boyut";
+
+/* No comment provided by engineer. */
+"Theme" = "Tema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Yüksek görünürlük";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Birden fazla ekran";
+
+/* No comment provided by engineer. */
+"Show on" = "Gösteriş yapmak";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Küçük resim stilini özelleştirin…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Uygulama simgeleri stilini özelleştirin…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Başlıkları Özelleştir Stili…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Görünüş Gecikmesi";
+
+/* No comment provided by engineer. */
+"Animations" = "Animasyonlar";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade Out Animation";
+
+/* No comment provided by engineer. */
+"Align windows" = "Pencereleri hizalayın";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Başlık kesilmesi";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Her pencere veya her uygulama için değiştiricide bir öğeyi gösterin.Windows odaklanırken, uygulamalar etkinleştirilecektir.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Switcher'da Gösteri";
+
+/* No comment provided by engineer. */
+"Show titles" = "Başlıkları Göster";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Ek kontroller…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Aktif olduğunda kısayollar…";
+

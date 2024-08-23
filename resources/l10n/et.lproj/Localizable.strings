@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Mõned rakendused, näiteks Finder või eelvaade, kasutavad standardseid vahekaarte, mis toimivad nagu sõltumatud aknad.Mõned muud rakendused, näiteks veebibrauserid, kasutavad kohandatud vahekaarte, mis toimivad ainulaadsel viisil ja pole tegelikud aknad.Alttab ei saa neid eraldi loetleda.";
 
+/* No comment provided by engineer. */
+"and press" = "ja vajutama";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Päästiku otsetee";
+
+/* No comment provided by engineer. */
+"After release" = "Pärast vabastamist";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Kuva rakenduste aknad";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Kuva aknad ruumidelt";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Kuva ekraanidelt aknaid";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Näita minimeeritud aknaid";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Kuva peidetud aknad";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Kuva täisekraaniga aknad";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Tellige aknad";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Valige Windows, kasutades nooleklahve";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Valige aknad VIM -klahvide abil";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Valige hiire hõljuk Windows";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Lisakontroll";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Otseteed aktiivselt";
+
+/* No comment provided by engineer. */
+"Start at login" = "Alustage sisselogimisest";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubari ikoon";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Värskendab poliitikat";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Krahhi aruannete poliitika";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animatsioonid ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Lülitage 3 erineva stiili vahel.Saate neid kohandada.";
+
+/* No comment provided by engineer. */
+"Size" = "Suurus";
+
+/* No comment provided by engineer. */
+"Theme" = "Teema";
+
+/* No comment provided by engineer. */
+"High visibility" = "Kõrge nähtavus";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Mitu ekraani";
+
+/* No comment provided by engineer. */
+"Show on" = "Näitama";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Kohandage pisipiltide stiili ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Kohandage rakenduse ikoonide stiil ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Kohandage pealkirjade stiil ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Ilmumisviivitus";
+
+/* No comment provided by engineer. */
+"Animations" = "Animatsioonid";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Tuhmuma animatsiooni";
+
+/* No comment provided by engineer. */
+"Align windows" = "Aknad joondage";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Pealkirja kärpimine";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Kuvage iga akna või iga rakenduse jaoks lüliti üksust.Aknad keskenduvad, rakendused aga aktiveeritakse.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Näita lüliti";
+
+/* No comment provided by engineer. */
+"Show titles" = "Näitama pealkirju";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Lisakontrollid ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Otseteed aktiivselt ...";
+

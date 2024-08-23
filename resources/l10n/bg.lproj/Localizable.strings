@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Някои приложения като Finder или Preview използват стандартни раздели, които действат като независими прозорци.Някои други приложения като уеб браузъри използват персонализирани раздели, които действат по уникални начини и не са действителни прозорци.Alttab не може да ги изброи отделно.";
 
+/* No comment provided by engineer. */
+"and press" = "и натиснете";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Задействайте пряк път";
+
+/* No comment provided by engineer. */
+"After release" = "След освобождаване";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Показване на прозорци от приложения";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "Показване на прозорци от пространства";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Показване на прозорци от екрани";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Покажете минимизирани прозорци";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Показване на скрити прозорци";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Покажете Windows на цял екран";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Поръчайте Windows от";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Изберете Windows с помощта на клавиши със стрелки";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Изберете Windows с помощта на VIM клавиши";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Изберете Windows on Hover на мишката";
+
+/* No comment provided by engineer. */
+"Additional controls" = "Допълнителни контроли";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Преки пътища, когато са активни";
+
+/* No comment provided by engineer. */
+"Start at login" = "Започнете от вход";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Икона на Menubar";
+
+/* No comment provided by engineer. */
+"Updates policy" = "Актуализира политиката";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "Политика за сривове от доклади";
+
+/* No comment provided by engineer. */
+"Animations…" = "Анимации ...";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Превключете между 3 различни стила.Можете да ги персонализирате.";
+
+/* No comment provided by engineer. */
+"Size" = "Размер";
+
+/* No comment provided by engineer. */
+"Theme" = "Тема";
+
+/* No comment provided by engineer. */
+"High visibility" = "Висока видимост";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "Множество екрани";
+
+/* No comment provided by engineer. */
+"Show on" = "Показване на";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Персонализирайте стила на миниатюри ...";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Персонализирайте иконите на приложението ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Персонализирайте стила на заглавия ...";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "Забавяне на привидения";
+
+/* No comment provided by engineer. */
+"Animations" = "Анимации";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "Избледнява анимация";
+
+/* No comment provided by engineer. */
+"Align windows" = "Подравнете прозорците";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Отрязване на заглавието";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Покажете елемент в превключвателя за всеки прозорец или за всяко приложение.Windows ще бъде фокусиран, докато приложенията ще бъдат активирани.";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Показване в превключвател";
+
+/* No comment provided by engineer. */
+"Show titles" = "Покажи заглавия";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Допълнителни контроли ...";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Преки пътища, когато са активни ...";
+

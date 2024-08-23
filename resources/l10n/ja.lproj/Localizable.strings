@@ -541,3 +541,120 @@
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "FinderやPreviewなどのアプリは、独立したウィンドウのように機能する標準タブを使用しています。Webブラウザのような他のアプリの一部は、独自の方法で機能し、実際のWindowsではないカスタムタブを使用します。AltTabはそれらを個別にリストすることはできません。";
 
+/* No comment provided by engineer. */
+"and press" = "そして押します";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "トリガーショートカット";
+
+/* No comment provided by engineer. */
+"After release" = "リリース後";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "アプリケーションからWindowsを表示します";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "スペースから窓を表示します";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "画面からWindowsを表示します";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "最小化されたウィンドウを表示します";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "隠された窓を表示します";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "フルスクリーンのウィンドウを表示します";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Windowsを注文します";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "矢印キーを使用してウィンドウを選択します";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "VIMキーを使用してWindowsを選択します";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "マウスホバーでウィンドウを選択します";
+
+/* No comment provided by engineer. */
+"Additional controls" = "追加のコントロール";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "アクティブな場合のショートカット";
+
+/* No comment provided by engineer. */
+"Start at login" = "ログインから始めます";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "メノバーアイコン";
+
+/* No comment provided by engineer. */
+"Updates policy" = "ポリシーを更新します";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "クラッシュはポリシーを報告します";
+
+/* No comment provided by engineer. */
+"Animations…" = "アニメーション…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3つの異なるスタイルを切り替えます。それらをカスタマイズできます。";
+
+/* No comment provided by engineer. */
+"Size" = "サイズ";
+
+/* No comment provided by engineer. */
+"Theme" = "テーマ";
+
+/* No comment provided by engineer. */
+"High visibility" = "高い視認性";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "複数の画面";
+
+/* No comment provided by engineer. */
+"Show on" = "表示します";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "サムネイルスタイルをカスタマイズする…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "アプリのアイコンスタイルをカスタマイズする…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "タイトルスタイルをカスタマイズする…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "幻影遅延";
+
+/* No comment provided by engineer. */
+"Animations" = "アニメーション";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "アニメーションをフェードアウトします";
+
+/* No comment provided by engineer. */
+"Align windows" = "ウィンドウを調整します";
+
+/* No comment provided by engineer. */
+"Title truncation" = "タイトルの切り捨て";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "各ウィンドウまたはアプリケーションごとにスイッチャーにアイテムを表示します。Windowsには焦点が当てられますが、アプリケーションはアクティブになります。";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "スイッチャーで表示します";
+
+/* No comment provided by engineer. */
+"Show titles" = "タイトルを表示します";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "追加のコントロール…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "アクティブなときのショートカット…";
+

@@ -541,3 +541,121 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "一些应用程序（例如Finder或Preview）使用的应用程序使用标准选项卡，其作用为独立窗口。Web浏览器（例如Web浏览器）的其他一些应用程序使用自定义标签，这些标签以独特的方式起作用，而不是实际的窗口。AltTab无法单独列出这些内容。";
+
+/* No comment provided by engineer. */
+"and press" = "然后按";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "触发快捷方式";
+
+/* No comment provided by engineer. */
+"After release" = "发布后";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "显示应用程序的窗口";
+
+/* No comment provided by engineer. */
+"Show windows from spaces" = "从空间显示窗户";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "从屏幕上显示窗户";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "显示最小的窗户";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "显示隐藏的窗户";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "显示全屏窗户";
+
+/* No comment provided by engineer. */
+"Order windows by" = "订购Windows";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "使用箭头键选择Windows";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "使用VIM键选择Windows";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "选择鼠标悬停在鼠标上的Windows";
+
+/* No comment provided by engineer. */
+"Additional controls" = "其他控件";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "捷径有效";
+
+/* No comment provided by engineer. */
+"Start at login" = "从登录开始";
+
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar图标";
+
+/* No comment provided by engineer. */
+"Updates policy" = "更新策略";
+
+/* No comment provided by engineer. */
+"Crash reports policy" = "崩溃报告策略";
+
+/* No comment provided by engineer. */
+"Animations…" = "动画…";
+
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "在3种不同样式之间切换。您可以自定义它们。";
+
+/* No comment provided by engineer. */
+"Size" = "尺寸";
+
+/* No comment provided by engineer. */
+"Theme" = "主题";
+
+/* No comment provided by engineer. */
+"High visibility" = "高见性";
+
+/* No comment provided by engineer. */
+"Multiple screens" = "多个屏幕";
+
+/* No comment provided by engineer. */
+"Show on" = "展示";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "自定义缩略图样式…";
+
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "自定义应用图标样式…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "自定义标题样式…";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "幻影延迟";
+
+/* No comment provided by engineer. */
+"Animations" = "动画";
+
+/* No comment provided by engineer. */
+"Fade out animation" = "淡出动画";
+
+/* No comment provided by engineer. */
+"Align windows" = "对齐窗口";
+
+/* No comment provided by engineer. */
+"Title truncation" = "标题截断";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "在每个窗口或每个应用程序的开关中显示一个项目。Windows将集中精力，而应用程序将被激活。";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "在切换器中显示";
+
+/* No comment provided by engineer. */
+"Show titles" = "展示标题";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "其他控件…";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "活跃的捷径…";
+
