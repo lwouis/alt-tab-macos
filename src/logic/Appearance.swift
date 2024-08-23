@@ -164,10 +164,6 @@ class AppearanceTheme {
             appearance.highlightHoveredBorderColor = .clear
             appearance.enablePanelShadow = false
 
-            if appearanceStyle == .thumbnails {
-                appearance.highlightBorderShadowColor = .black
-            }
-
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
                 appearance.highlightFocusedBorderColor = .white.withAlphaComponent(0.7)
@@ -186,10 +182,6 @@ class AppearanceTheme {
             appearance.highlightFocusedBorderColor = .clear
             appearance.highlightHoveredBorderColor = .clear
             appearance.enablePanelShadow = false
-
-            if appearanceStyle == .thumbnails {
-                appearance.highlightBorderShadowColor = .white
-            }
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
