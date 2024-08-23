@@ -10,7 +10,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
-        hasShadow = Preferences.appearanceThemeParameters.panelHasShadow
+        hasShadow = Preferences.appearanceThemeParameters.enablePanelShadow
         titleVisibility = .hidden
         backgroundColor = .clear
         contentView! = thumbnailsView
@@ -26,7 +26,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     }
 
     func reset() {
-        hasShadow = Preferences.appearanceThemeParameters.panelHasShadow
+        hasShadow = Preferences.appearanceThemeParameters.enablePanelShadow
         thumbnailsView.reset()
     }
 

@@ -141,12 +141,12 @@ class ThumbnailView: NSStackView {
     }
 
     private func setShadow(isFocused: Bool, isHovered: Bool) {
-//        if isFocused || isHovered {
-//            vStackView?.layer!.shadowColor = Preferences.appearanceThemeParameters.highlightBorderShadowColor.cgColor
-//            vStackView?.layer!.shadowOpacity = 0.4
-//            vStackView?.layer!.shadowOffset = .zero
-//            vStackView?.layer!.shadowRadius = 10
-//        }
+        if (isFocused || isHovered) && Preferences.appearanceThemeParameters.highlightBorderShadowColor != .clear {
+            vStackView?.layer!.shadowColor = Preferences.appearanceThemeParameters.highlightBorderShadowColor.cgColor
+            vStackView?.layer!.shadowOpacity = 0.25
+            vStackView?.layer!.shadowOffset = .zero
+            vStackView?.layer!.shadowRadius = 1
+        }
     }
 
     func drawHighlight(_ i: Int) {

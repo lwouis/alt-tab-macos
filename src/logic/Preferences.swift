@@ -161,7 +161,7 @@ class Preferences {
     static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
     static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
     static var appearanceSizeParameters: AppearanceSizeParameters { AppearanceSize(appearanceStyle, appearanceSize).getParameters() }
-    static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceTheme).getParameters() }
+    static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceStyle, appearanceTheme).getParameters() }
     static var windowPadding: CGFloat { appearanceSizeParameters.windowPadding }
     static var interCellPadding: CGFloat { appearanceSizeParameters.interCellPadding }
     static var intraCellPadding: CGFloat { appearanceSizeParameters.intraCellPadding }

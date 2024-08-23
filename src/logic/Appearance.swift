@@ -126,14 +126,16 @@ struct AppearanceThemeParameters {
     var highlightFocusedBorderColor = NSColor.clear
     var highlightHoveredBorderColor = NSColor.clear
     var highlightBorderShadowColor = NSColor.clear
-    var panelHasShadow = false
+    var enablePanelShadow = false
 }
 
 class AppearanceTheme {
     let themeName: AppearanceThemeName
+    let appearanceStyle: AppearanceStylePreference
     let appearanceHighVisibility = Preferences.appearanceHighVisibility
 
-    init(_ theme: AppearanceThemePreference) {
+    init(_ appearanceStyle: AppearanceStylePreference, _ theme: AppearanceThemePreference) {
+        self.appearanceStyle = appearanceStyle
         self.themeName = AppearanceTheme.transform(theme)
     }
 
@@ -160,15 +162,18 @@ class AppearanceTheme {
             appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.4)
             appearance.highlightFocusedBorderColor = .clear
             appearance.highlightHoveredBorderColor = .clear
-            appearance.panelHasShadow = false
+            appearance.enablePanelShadow = false
+
+            if appearanceStyle == .thumbnails {
+                appearance.highlightBorderShadowColor = .black
+            }
 
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
                 appearance.highlightFocusedBorderColor = .white.withAlphaComponent(0.7)
-                appearance.highlightHoveredBorderColor = .white.withAlphaComponent(0.6)
+                appearance.highlightHoveredBorderColor = .white.withAlphaComponent(0.5)
                 appearance.highlightBorderShadowColor = .black
-
-                appearance.panelHasShadow = true
+                appearance.enablePanelShadow = true
             }
         } else {
             appearance.material = .dark
@@ -180,14 +185,18 @@ class AppearanceTheme {
             appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.3)
             appearance.highlightFocusedBorderColor = .clear
             appearance.highlightHoveredBorderColor = .clear
-            appearance.panelHasShadow = false
+            appearance.enablePanelShadow = false
+
+            if appearanceStyle == .thumbnails {
+                appearance.highlightBorderShadowColor = .white
+            }
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
                 appearance.highlightFocusedBorderColor = .black.withAlphaComponent(0.8)
                 appearance.highlightHoveredBorderColor = .black.withAlphaComponent(0.6)
                 appearance.highlightBorderShadowColor = .white
-                appearance.panelHasShadow = true
+                appearance.enablePanelShadow = true
             }
         }
         return appearance
