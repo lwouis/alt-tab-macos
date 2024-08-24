@@ -45,7 +45,7 @@ class Spaces {
         currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
             spaceId == currentSpaceId
         }?.1 ?? SpaceIndex(1)
-        debugPrint("Current space", currentSpaceId)
+        debugPrint("Current Space", currentSpaceId)
     }
 
     static func refreshAllIdsAndIndexes() -> Void {
