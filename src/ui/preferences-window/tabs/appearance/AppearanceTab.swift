@@ -7,6 +7,7 @@ struct ShowHideRowInfo {
     var supportedStyles: [AppearanceStylePreference]!
     var leftTitle: String!
     var subTitle: String?
+    var leftViews = [NSView]()
     var rightViews = [NSView]()
 }
 
@@ -125,7 +126,7 @@ class ShowHideIllustratedView {
         for row in showHideRows {
             self.setStateOnApplications(row: row)
             if row.supportedStyles.contains(style) {
-                table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
+                table.addRow(leftViews: row.leftViews, rightViews: row.rightViews, onClick: { event, view in
                     if !ShowHideIllustratedView.isDisabledOnApplications(row) {
                         self.clickCheckbox(rowId: row.rowId)
                         self.updateImageView(rowId: row.rowId)
@@ -149,7 +150,7 @@ class ShowHideIllustratedView {
         hideAppBadges.uncheckedImage = "show_app_badges"
         hideAppBadges.checkedImage = "hide_app_badges"
         hideAppBadges.supportedStyles = [.thumbnails, .appIcons, .titles]
-        hideAppBadges.leftTitle = NSLocalizedString("Hide app badges", comment: "")
+        hideAppBadges.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide app badges", comment: ""))]
         hideAppBadges.rightViews.append(LabelAndControl.makeSwitch(hideAppBadges.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideAppBadges.rowId)
         }))
@@ -160,7 +161,7 @@ class ShowHideIllustratedView {
         hideStatusIcons.uncheckedImage = "show_status_icons"
         hideStatusIcons.checkedImage = "hide_status_icons"
         hideStatusIcons.supportedStyles = [.thumbnails, .titles]
-        hideStatusIcons.leftTitle = NSLocalizedString("Hide status icons", comment: "")
+        hideStatusIcons.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide status icons", comment: ""))]
         hideStatusIcons.subTitle = NSLocalizedString("AltTab will show if the window is currently minimized or fullscreen with a status icon.", comment: "")
         hideStatusIcons.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
             Popover.shared.show(event: event, positioningView: view, message: hideStatusIcons.subTitle!)
@@ -177,7 +178,7 @@ class ShowHideIllustratedView {
         hideSpaceNumberLabels.uncheckedImage = "show_space_number_labels"
         hideSpaceNumberLabels.checkedImage = "hide_space_number_labels"
         hideSpaceNumberLabels.supportedStyles = [.thumbnails, .titles]
-        hideSpaceNumberLabels.leftTitle = NSLocalizedString("Hide Space number labels", comment: "")
+        hideSpaceNumberLabels.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide Space number labels", comment: ""))]
         hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeSwitch(hideSpaceNumberLabels.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
         }))
@@ -188,7 +189,7 @@ class ShowHideIllustratedView {
         hideColoredCircles.uncheckedImage = "show_colored_circles"
         hideColoredCircles.checkedImage = "hide_colored_circles"
         hideColoredCircles.supportedStyles = [.thumbnails]
-        hideColoredCircles.leftTitle = NSLocalizedString("Hide colored circles on mouse hover", comment: "")
+        hideColoredCircles.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide colored circles on mouse hover", comment: ""))]
         hideColoredCircles.rightViews.append(LabelAndControl.makeSwitch(hideColoredCircles.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
         }))
@@ -199,7 +200,7 @@ class ShowHideIllustratedView {
         hideWindowlessApps.uncheckedImage = "show_windowless_apps"
         hideWindowlessApps.checkedImage = "hide_windowless_apps"
         hideWindowlessApps.supportedStyles = [.thumbnails, .appIcons, .titles]
-        hideWindowlessApps.leftTitle = NSLocalizedString("Hide apps with no open window", comment: "")
+        hideWindowlessApps.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide apps with no open window", comment: ""))]
         hideWindowlessApps.rightViews.append(LabelAndControl.makeSwitch(hideWindowlessApps.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideWindowlessApps.rowId)
         }))
@@ -210,7 +211,7 @@ class ShowHideIllustratedView {
         showTabsAsWindows.uncheckedImage = "hide_tabs_as_windows"
         showTabsAsWindows.checkedImage = "show_tabs_as_windows"
         showTabsAsWindows.supportedStyles = [.thumbnails, .appIcons, .titles]
-        showTabsAsWindows.leftTitle = NSLocalizedString("Show standard tabs as windows", comment: "")
+        showTabsAsWindows.leftViews = [TableGroupView.makeText(NSLocalizedString("Show standard tabs as windows", comment: ""))]
         showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: "")
         showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
@@ -234,7 +235,7 @@ class ShowHideIllustratedView {
         previewFocusedWindow.uncheckedImage = "hide_preview_focused_window"
         previewFocusedWindow.checkedImage = "show_preview_focused_window"
         previewFocusedWindow.supportedStyles = [.thumbnails, .appIcons, .titles]
-        previewFocusedWindow.leftTitle = NSLocalizedString("Preview selected window", comment: "")
+        previewFocusedWindow.leftViews = [TableGroupView.makeText(NSLocalizedString("Preview selected window", comment: ""))]
         previewFocusedWindow.subTitle = NSLocalizedString("Preview the selected window.", comment: "")
         previewFocusedWindow.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(previewFocusedWindow) {
@@ -261,9 +262,15 @@ class ShowHideIllustratedView {
 
     func setStateOnApplications(row: ShowHideRowInfo? = nil) {
         if let row = row {
-            row.rightViews.forEach { button in
-                if let button = button as? Switch {
-                    button.isEnabled = !ShowHideIllustratedView.isDisabledOnApplications(row)
+            let isEnabled = !ShowHideIllustratedView.isDisabledOnApplications(row)
+            row.rightViews.forEach { view in
+                if let view = view as? Switch {
+                    view.isEnabled = isEnabled
+                }
+            }
+            row.leftViews.forEach { view in
+                if let view = view as? NSTextField {
+                    view.textColor = isEnabled ? NSColor.textColor : NSColor.gray
                 }
             }
         } else {
@@ -409,10 +416,6 @@ class AppearanceTab: NSObject {
                 rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
         table.addRow(leftText: NSLocalizedString("High visibility", comment: ""),
                 rightViews: [LabelAndControl.makeSwitch("appearanceHighVisibility")])
-        let button = Switch()
-        button.isEnabled = false
-        table.addRow(leftText: NSLocalizedString("Test", comment: ""),
-                rightViews: [button])
         table.addRow(rightViews: customizeStyleButton)
 
         table.fit()
