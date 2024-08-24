@@ -11,6 +11,7 @@ class CustomizeStyleSheet: SheetWindow {
     var titleTruncation: TableGroupView.Row!
     var showAppsOrWindows: TableGroupView.Row!
     var showTitles: TableGroupView.Row!
+    var showTitlesRowInfo: TableGroupView.RowInfo!
 
     var showHideView: TableGroupSetView!
     var advancedView: TableGroupSetView!
@@ -75,7 +76,7 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeThumbnailsView() -> TableGroupSetView {
         let table = TableGroupView(width: CustomizeStyleSheet.width)
-        table.addRow(showTitles, onMouseEntered: { event, view in
+        showTitlesRowInfo = table.addRow(showTitles, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
         table.addRow(alignThumbnails, onMouseEntered: { event, view in
@@ -122,11 +123,11 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeAppWindowTableGroupView() -> TableGroupView {
         let view = TableGroupView(width: CustomizeStyleSheet.width)
-        _ = view.addRow(showAppsOrWindows, onMouseEntered: { event, view in
+        view.addRow(showAppsOrWindows, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
         view.addNewTable()
-        _ = view.addRow(showTitles, onMouseEntered: { event, view in
+        showTitlesRowInfo = view.addRow(showTitles, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
         view.onMouseExited = { event, view in
@@ -136,11 +137,19 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func toggleAppNamesWindowTitles() {
-        let button = showTitles.rightViews[0] as? NSControl
-        if Preferences.showAppsOrWindows == .windows {
-            button?.isEnabled = true
-        } else {
-            button?.isEnabled = false
+        var isEnabled = false
+        if Preferences.showAppsOrWindows == .windows || Preferences.appearanceStyle == .thumbnails {
+            isEnabled = true
+        }
+        showTitlesRowInfo.leftViews?.forEach { view in
+            if let view = view as? NSTextField {
+                view.textColor = isEnabled ? NSColor.textColor : NSColor.gray
+            }
+        }
+        showTitlesRowInfo.rightViews?.forEach { view in
+            if let view = view as? NSControl {
+                view.isEnabled = isEnabled
+            }
         }
     }
 
