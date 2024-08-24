@@ -24,18 +24,10 @@ class Switch: NSButton {
         }
     }
 
-    var isOn: Bool {
-        get {
-            return self.state == .on
-        }
-        set {
-            self.state = newValue ? .on : .off
-        }
-    }
-
     init(_ isOn: Bool = false) {
         super.init(frame: .zero)
         setupButton()
+        self.state = isOn ? .on : .off
     }
 
     required init?(coder: NSCoder) {
