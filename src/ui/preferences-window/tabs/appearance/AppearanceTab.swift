@@ -1,17 +1,13 @@
 import Cocoa
 
 struct ShowHideRowInfo {
-    let rowId: String!
+    var rowId: String!
     var uncheckedImage: String!
     var checkedImage: String!
     var supportedStyles: [AppearanceStylePreference]!
     var leftTitle: String!
     var subTitle: String?
     var rightViews = [NSView]()
-
-    init() {
-        self.rowId = UUID().uuidString
-    }
 }
 
 class IllustratedImageThemeView: ClickHoverImageView {
@@ -127,10 +123,13 @@ class ShowHideIllustratedView {
     func makeView() -> TableGroupSetView {
         table = TableGroupView(width: CustomizeStyleSheet.width)
         for row in showHideRows {
+            self.setStateOnApplications(row: row)
             if row.supportedStyles.contains(style) {
-                _ = table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
-                    self.clickCheckbox(rowId: row.rowId)
-                    self.updateImageView(rowId: row.rowId)
+                table.addRow(leftText: row.leftTitle, rightViews: row.rightViews, onClick: { event, view in
+                    if !ShowHideIllustratedView.isDisabledOnApplications(row) {
+                        self.clickCheckbox(rowId: row.rowId)
+                        self.updateImageView(rowId: row.rowId)
+                    }
                 }, onMouseEntered: { event, view in
                     self.updateImageView(rowId: row.rowId)
                 })
@@ -146,16 +145,18 @@ class ShowHideIllustratedView {
 
     private func setupItems() {
         var hideAppBadges = ShowHideRowInfo()
+        hideAppBadges.rowId = "hideAppBadges"
         hideAppBadges.uncheckedImage = "show_app_badges"
         hideAppBadges.checkedImage = "hide_app_badges"
         hideAppBadges.supportedStyles = [.thumbnails, .appIcons, .titles]
         hideAppBadges.leftTitle = NSLocalizedString("Hide app badges", comment: "")
-        hideAppBadges.rightViews.append(LabelAndControl.makeSwitch("hideAppBadges", extraAction: { sender in
+        hideAppBadges.rightViews.append(LabelAndControl.makeSwitch(hideAppBadges.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideAppBadges.rowId)
         }))
         showHideRows.append(hideAppBadges)
 
         var hideStatusIcons = ShowHideRowInfo()
+        hideStatusIcons.rowId = "hideStatusIcons"
         hideStatusIcons.uncheckedImage = "show_status_icons"
         hideStatusIcons.checkedImage = "hide_status_icons"
         hideStatusIcons.supportedStyles = [.thumbnails, .titles]
@@ -166,66 +167,110 @@ class ShowHideIllustratedView {
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         }))
-        hideStatusIcons.rightViews.append(LabelAndControl.makeSwitch("hideStatusIcons", extraAction: { sender in
+        hideStatusIcons.rightViews.append(LabelAndControl.makeSwitch(hideStatusIcons.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideStatusIcons.rowId)
         }))
         showHideRows.append(hideStatusIcons)
 
         var hideSpaceNumberLabels = ShowHideRowInfo()
+        hideSpaceNumberLabels.rowId = "hideSpaceNumberLabels"
         hideSpaceNumberLabels.uncheckedImage = "show_space_number_labels"
         hideSpaceNumberLabels.checkedImage = "hide_space_number_labels"
         hideSpaceNumberLabels.supportedStyles = [.thumbnails, .titles]
         hideSpaceNumberLabels.leftTitle = NSLocalizedString("Hide Space number labels", comment: "")
-        hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeSwitch("hideSpaceNumberLabels", extraAction: { sender in
+        hideSpaceNumberLabels.rightViews.append(LabelAndControl.makeSwitch(hideSpaceNumberLabels.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
         }))
         showHideRows.append(hideSpaceNumberLabels)
 
         var hideColoredCircles = ShowHideRowInfo()
+        hideColoredCircles.rowId = "hideColoredCircles"
         hideColoredCircles.uncheckedImage = "show_colored_circles"
         hideColoredCircles.checkedImage = "hide_colored_circles"
         hideColoredCircles.supportedStyles = [.thumbnails]
         hideColoredCircles.leftTitle = NSLocalizedString("Hide colored circles on mouse hover", comment: "")
-        hideColoredCircles.rightViews.append(LabelAndControl.makeSwitch("hideColoredCircles", extraAction: { sender in
+        hideColoredCircles.rightViews.append(LabelAndControl.makeSwitch(hideColoredCircles.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
         }))
         showHideRows.append(hideColoredCircles)
 
         var hideWindowlessApps = ShowHideRowInfo()
+        hideWindowlessApps.rowId = "hideWindowlessApps"
         hideWindowlessApps.uncheckedImage = "show_windowless_apps"
         hideWindowlessApps.checkedImage = "hide_windowless_apps"
         hideWindowlessApps.supportedStyles = [.thumbnails, .appIcons, .titles]
         hideWindowlessApps.leftTitle = NSLocalizedString("Hide apps with no open window", comment: "")
-        hideWindowlessApps.rightViews.append(LabelAndControl.makeSwitch("hideWindowlessApps", extraAction: { sender in
+        hideWindowlessApps.rightViews.append(LabelAndControl.makeSwitch(hideWindowlessApps.rowId, extraAction: { sender in
             self.onCheckboxClicked(sender: sender, rowId: hideWindowlessApps.rowId)
         }))
         showHideRows.append(hideWindowlessApps)
 
         var showTabsAsWindows = ShowHideRowInfo()
+        showTabsAsWindows.rowId = "showTabsAsWindows"
         showTabsAsWindows.uncheckedImage = "hide_tabs_as_windows"
         showTabsAsWindows.checkedImage = "show_tabs_as_windows"
         showTabsAsWindows.supportedStyles = [.thumbnails, .appIcons, .titles]
         showTabsAsWindows.leftTitle = NSLocalizedString("Show standard tabs as windows", comment: "")
         showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: "")
         showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
-            Popover.shared.show(event: event, positioningView: view, message: showTabsAsWindows.subTitle!)
+            if ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
+                Popover.shared.show(event: event, positioningView: view,
+                        message: NSLocalizedString("Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`", comment: ""))
+            } else {
+                Popover.shared.show(event: event, positioningView: view, message: showTabsAsWindows.subTitle!)
+            }
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         }))
-        showTabsAsWindows.rightViews.append(LabelAndControl.makeSwitch("showTabsAsWindows", extraAction: { sender in
-            self.onCheckboxClicked(sender: sender, rowId: showTabsAsWindows.rowId)
+        showTabsAsWindows.rightViews.append(LabelAndControl.makeSwitch(showTabsAsWindows.rowId, extraAction: { sender in
+            if !ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
+                self.onCheckboxClicked(sender: sender, rowId: showTabsAsWindows.rowId)
+            }
         }))
         showHideRows.append(showTabsAsWindows)
 
         var previewFocusedWindow = ShowHideRowInfo()
+        previewFocusedWindow.rowId = "previewFocusedWindow"
         previewFocusedWindow.uncheckedImage = "hide_preview_focused_window"
         previewFocusedWindow.checkedImage = "show_preview_focused_window"
         previewFocusedWindow.supportedStyles = [.thumbnails, .appIcons, .titles]
         previewFocusedWindow.leftTitle = NSLocalizedString("Preview selected window", comment: "")
-        previewFocusedWindow.rightViews.append(LabelAndControl.makeSwitch("previewFocusedWindow", extraAction: { sender in
-            self.onCheckboxClicked(sender: sender, rowId: previewFocusedWindow.rowId)
+        previewFocusedWindow.subTitle = NSLocalizedString("Preview the selected window.", comment: "")
+        previewFocusedWindow.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
+            if ShowHideIllustratedView.isDisabledOnApplications(previewFocusedWindow) {
+                Popover.shared.show(event: event, positioningView: view,
+                        message: NSLocalizedString("Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`", comment: ""))
+            } else {
+                Popover.shared.show(event: event, positioningView: view, message: previewFocusedWindow.subTitle!)
+            }
+        }, onMouseExited: { event, view in
+            Popover.shared.hide()
+        }))
+        previewFocusedWindow.rightViews.append(LabelAndControl.makeSwitch(previewFocusedWindow.rowId, extraAction: { sender in
+            if !ShowHideIllustratedView.isDisabledOnApplications(previewFocusedWindow) {
+                self.onCheckboxClicked(sender: sender, rowId: previewFocusedWindow.rowId)
+            }
         }))
         showHideRows.append(previewFocusedWindow)
+    }
+
+    static func isDisabledOnApplications(_ row: ShowHideRowInfo) -> Bool {
+        let contains = ["showTabsAsWindows", "previewFocusedWindow"].contains(where: { $0 == row.rowId })
+        return contains && Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails
+    }
+
+    func setStateOnApplications(row: ShowHideRowInfo? = nil) {
+        if let row = row {
+            row.rightViews.forEach { button in
+                if let button = button as? Switch {
+                    button.isEnabled = !ShowHideIllustratedView.isDisabledOnApplications(row)
+                }
+            }
+        } else {
+            showHideRows.forEach { row in
+                setStateOnApplications(row: row)
+            }
+        }
     }
 
     /// Handles the event when a checkbox is clicked.
@@ -307,7 +352,7 @@ class Popover: NSPopover {
         view.addSubview(label)
 
         NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: 400),
+            view.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -364,6 +409,10 @@ class AppearanceTab: NSObject {
                 rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
         table.addRow(leftText: NSLocalizedString("High visibility", comment: ""),
                 rightViews: [LabelAndControl.makeSwitch("appearanceHighVisibility")])
+        let button = Switch()
+        button.isEnabled = false
+        table.addRow(leftText: NSLocalizedString("Test", comment: ""),
+                rightViews: [button])
         table.addRow(rightViews: customizeStyleButton)
 
         table.fit()

@@ -5,6 +5,8 @@ class CustomizeStyleSheet: SheetWindow {
 
     let style = Preferences.appearanceStyle
     var illustratedImageView: IllustratedImageThemeView!
+    var showHideIllustratedView: ShowHideIllustratedView!
+
     var alignThumbnails: TableGroupView.Row!
     var titleTruncation: TableGroupView.Row!
     var showAppsOrWindows: TableGroupView.Row!
@@ -16,7 +18,7 @@ class CustomizeStyleSheet: SheetWindow {
 
     override func makeContentView() -> NSView {
         makeComponents()
-        showHideView = ShowHideIllustratedView(style, illustratedImageView).makeView()
+        showHideView = showHideIllustratedView.makeView()
 
         if style == .thumbnails {
             advancedView = makeThumbnailsView()
@@ -44,6 +46,7 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeComponents() {
         illustratedImageView = IllustratedImageThemeView(style, CustomizeStyleSheet.illustratedImageWidth)
+        showHideIllustratedView = ShowHideIllustratedView(style, illustratedImageView)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
                 rightViews: LabelAndControl.makeRadioButtons(
                         "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
@@ -59,6 +62,7 @@ class CustomizeStyleSheet: SheetWindow {
         })
         showAppsOrWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
                 rightViews: LabelAndControl.makeRadioButtons("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { _ in
+                    self.showHideIllustratedView.setStateOnApplications()
                     self.toggleAppNamesWindowTitles()
                     self.showAppsOrWindowsIllustratedImage()
                 }) + [showAppWindowsInfo])

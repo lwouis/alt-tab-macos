@@ -18,7 +18,7 @@ class Switch: NSButton {
         didSet {
             if #available(macOS 10.15, *) {
                 if let switchButton = switchButton as? NSSwitch {
-                    switchButton.isEnabled = isHidden
+                    switchButton.isEnabled = isEnabled
                 }
             }
         }
@@ -63,6 +63,13 @@ class Switch: NSButton {
         } else {
             self.setButtonType(.switch)
             self.title = ""
+        }
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        if let switchButton = switchButton {
+            switchButton.draw(dirtyRect)
         }
     }
 
