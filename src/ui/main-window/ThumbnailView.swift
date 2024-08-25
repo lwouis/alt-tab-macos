@@ -167,8 +167,11 @@ class ThumbnailView: NSStackView {
             thumbnail.image = element.thumbnail
             if let image = thumbnail.image {
                 image.size = element.thumbnailFullSize!
+            } else {
+                thumbnail.image = element.icon?.copy() as? NSImage
+                thumbnail.image?.size = NSSize(width: 1024, height: 1024)
             }
-            let thumbnailSize = ThumbnailView.thumbnailSize(element.thumbnail, screen)
+            let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail.image, screen)
             thumbnail.image?.size = thumbnailSize
             thumbnail.frame.size = thumbnailSize
             // for Accessibility > "speak items under the pointer"
@@ -221,8 +224,7 @@ class ThumbnailView: NSStackView {
             windowlessIcon.frame.size = windowlessIconSize
             windowlessIcon.needsDisplay = true
         }
-        setFrameWidth(element, screen)
-        assignIfDifferent(&frame.size.height, newHeight)
+        setFrameWidthHeight(element, screen, newHeight)
         setLabelWidth()
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
@@ -249,7 +251,7 @@ class ThumbnailView: NSStackView {
         return windowTitle ?? ""
     }
 
-    func setFrameWidth(_ element: Window, _ screen: NSScreen) {
+    func setFrameWidthHeight(_ element: Window, _ screen: NSScreen, _ newHeight: CGFloat) {
         // Retrieves the minimum width for the screen.
         let widthMin = ThumbnailView.minThumbnailWidth(screen)
         let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
@@ -257,16 +259,19 @@ class ThumbnailView: NSStackView {
         if Preferences.appearanceStyle == .thumbnails {
             // Preferred to the width of the image, and the minimum width may be set to be large.
             if element.isWindowlessApp {
-                width = windowlessIcon.frame.size.width + leftRightEdgeInsetsSize
+                width = (windowlessIcon.frame.size.width + leftRightEdgeInsetsSize).rounded()
             } else {
-                width = thumbnail.frame.size.width + leftRightEdgeInsetsSize
+                width = (thumbnail.frame.size.width + leftRightEdgeInsetsSize).rounded()
             }
+            assignIfDifferent(&vStackView.frame.size.width, width - leftRightEdgeInsetsSize)
+            assignIfDifferent(&vStackView.frame.size.height, newHeight - leftRightEdgeInsetsSize)
         } else {
             var contentWidth = max(hStackView.frame.size.width, Preferences.iconSize)
             let frameWidth = contentWidth + leftRightEdgeInsetsSize
-            width = max(frameWidth, widthMin)
+            width = max(frameWidth, widthMin).rounded()
         }
-        assignIfDifferent(&frame.size.width, width.rounded())
+        assignIfDifferent(&frame.size.width, width)
+        assignIfDifferent(&frame.size.height, newHeight)
     }
 
     func setLabelWidth() {
@@ -417,11 +422,17 @@ class ThumbnailView: NSStackView {
         var width: CGFloat
         var height: CGFloat
         if thumbnailRatio > imageRatio {
+            // Keep the height and reduce the width
             width = image.size.width * thumbnailHeight / image.size.height
             height = thumbnailHeight
-        } else {
+        } else if thumbnailRatio < imageRatio {
+            // Keep the width and reduce the height
             width = thumbnailWidth
             height = image.size.height * thumbnailWidth / image.size.width
+        } else {
+            // Enlarge the height to the maximum height and enlarge the width
+            width = thumbnailHeightMax / image.size.height * image.size.width
+            height = thumbnailHeightMax
         }
         return NSSize(width: width.rounded(), height: height.rounded())
     }
