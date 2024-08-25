@@ -226,6 +226,7 @@ class TableGroupView: ClickHoverStackView {
         spacing = TableGroupView.spacing
         translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalToConstant: self.width).isActive = true
+        wantsLayer = true
 
         setupTitleView()
         if hasHeader {
@@ -404,6 +405,7 @@ class TableGroupView: ClickHoverStackView {
         finalizeRow(tableStackView: tableStackView, rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
                 onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
         rows.append(rowInfo)
+        updateRowCornerRadius()
         return rowInfo
     }
 
@@ -412,7 +414,6 @@ class TableGroupView: ClickHoverStackView {
         rowInfo.previousSeparator = addSeparatorIfNeeded(tableStackView: tableStackView, below: rowView, isAddSeparator: isAddSeparator)
 
         tableStackViews.last?.addArrangedSubview(rowView)
-        updateRowCornerRadius()
         setRowViewEvents(rowView, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
     }
 
@@ -421,7 +422,7 @@ class TableGroupView: ClickHoverStackView {
         rowView.orientation = .vertical
         rowView.alignment = .leading
         rowView.spacing = TableGroupView.rowIntraSpacing
-
+        rowView.wantsLayer = true
         return rowView
     }
 
