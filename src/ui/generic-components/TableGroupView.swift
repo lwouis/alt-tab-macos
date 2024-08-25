@@ -325,14 +325,6 @@ class TableGroupView: ClickHoverStackView {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         tableStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         tableStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-//        tableStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-//
-//        if tableStackViews.count > 1 {
-//            let previous = tableStackViews[tableStackViews.count - 1]
-//            if let bottomConstraint = previous.constraints.first(where: { $0.firstAttribute == .bottom }) {
-//                previous.removeConstraint(bottomConstraint)
-//            }
-//        }
         return tableStackView
     }
 
