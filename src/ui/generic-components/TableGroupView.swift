@@ -400,10 +400,10 @@ class TableGroupView: ClickHoverStackView {
         rowInfo.leftViews = leftViews
         rowInfo.rightViews = rightViews
         rowInfo.secondaryViews = secondaryViews
-        rows.append(rowInfo)
         let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
         finalizeRow(tableStackView: tableStackView, rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
                 onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        rows.append(rowInfo)
         return rowInfo
     }
 
