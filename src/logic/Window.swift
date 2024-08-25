@@ -1,4 +1,5 @@
 import Cocoa
+import Vision
 
 class Window: CustomStringConvertible {
     static var globalCreationCounter = Int.zero
@@ -134,6 +135,10 @@ class Window: CustomStringConvertible {
 
     func refreshThumbnail() {
         guard let screenshot = screenshot() else {
+            return
+        }
+        // Disabled the screenshot in stage manager.
+        if screenshot.size.height < 200 {
             return
         }
         thumbnail = screenshot
