@@ -1,5 +1,4 @@
 import Cocoa
-import Vision
 
 class Window: CustomStringConvertible {
     static var globalCreationCounter = Int.zero
