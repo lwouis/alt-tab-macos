@@ -9,6 +9,7 @@ class Switch: NSButton {
             if #available(macOS 10.15, *) {
                 if let switchButton = switchButton as? NSSwitch {
                     switchButton.state = state
+                    sendAction(self.action, to: self.target)
                 }
             }
         }
@@ -67,6 +68,5 @@ class Switch: NSButton {
 
     @objc private func switchToggled(_ sender: NSButton) {
         self.state = sender.state
-        sendAction(self.action, to: self.target)
     }
 }
