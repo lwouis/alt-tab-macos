@@ -157,12 +157,16 @@ class AppearanceTheme {
             appearance.fontColor = .black.withAlphaComponent(0.8)
             appearance.indicatedIconShadowColor = nil
             appearance.titleShadowColor = nil
-            appearance.imageShadowColor = .lightGray.withAlphaComponent(0.8)
+            appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
             appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
             appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.4)
             appearance.highlightFocusedBorderColor = .clear
             appearance.highlightHoveredBorderColor = .clear
             appearance.enablePanelShadow = false
+
+            if appearanceStyle == .thumbnails {
+                appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
+            }
 
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
@@ -183,6 +187,10 @@ class AppearanceTheme {
             appearance.highlightFocusedBorderColor = .clear
             appearance.highlightHoveredBorderColor = .clear
             appearance.enablePanelShadow = false
+
+            if appearanceStyle == .thumbnails {
+                appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
+            }
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
