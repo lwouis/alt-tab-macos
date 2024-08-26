@@ -166,9 +166,10 @@ class AppearanceTheme {
 
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
+                appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
                 appearance.highlightFocusedBorderColor = .white.withAlphaComponent(0.7)
                 appearance.highlightHoveredBorderColor = .white.withAlphaComponent(0.5)
-                appearance.highlightBorderShadowColor = .black
+                appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
                 appearance.enablePanelShadow = true
             }
         } else {
@@ -185,11 +186,12 @@ class AppearanceTheme {
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
+                appearance.imageShadowColor = .gray.withAlphaComponent(0.4)
                 appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.4)
                 appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.2)
                 appearance.highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
                 appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.6)
-                appearance.highlightBorderShadowColor = .white
+                appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
                 appearance.enablePanelShadow = true
             }
         }
