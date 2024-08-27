@@ -75,12 +75,12 @@ class AppearanceSize {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 5
                 appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 68
+                appearance.iconSize = 48
             } else if size == .medium {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 6
                 appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 98
+                appearance.iconSize = 88
             } else if size == .large {
                 appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 8
