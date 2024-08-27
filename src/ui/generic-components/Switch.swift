@@ -1,5 +1,4 @@
 import Cocoa
-
 class Switch: NSButton {
 
     var switchButton: NSControl?
@@ -9,9 +8,9 @@ class Switch: NSButton {
             if #available(macOS 10.15, *) {
                 if let switchButton = switchButton as? NSSwitch {
                     switchButton.state = state
-                    sendAction(self.action, to: self.target)
                 }
             }
+            sendAction(self.action, to: self.target)
         }
     }
 
