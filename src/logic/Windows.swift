@@ -307,7 +307,7 @@ class Windows {
             } ?? false) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication.processIdentifier != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
-            ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
+                ((!Preferences.hideWindowlessApps[App.app.shortcutIndex] && window.isWindowlessApp) ||
                 !window.isWindowlessApp &&
                 !(!(Preferences.showFullscreenWindows[App.app.shortcutIndex] != .hide) && window.isFullscreen) &&
                 !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide) && window.isMinimized) &&

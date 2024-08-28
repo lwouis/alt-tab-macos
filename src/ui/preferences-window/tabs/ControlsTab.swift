@@ -121,6 +121,7 @@ class ControlsTab {
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
         let shortcutStyle = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Then release:", comment: ""), Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
         let toShowDropdowns = StackView([appsToShow, spacesToShow, screensToShow], .vertical, false)
+        let hideWindowlessApps = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Hide apps with no open window:", comment: ""), Preferences.indexToName("hideWindowlessApps", index))
         toShowDropdowns.spacing = TabView.padding
         toShowDropdowns.fit()
         let tab = GridView([
@@ -130,6 +131,7 @@ class ControlsTab {
             [toShowExplanations4, showFullscreenWindows],
             [windowOrderExplanation, windowOrder],
             [separator],
+            hideWindowlessApps,
             [holdAndPress, StackView(nextWindowShortcut)],
             shortcutStyle,
         ], TabView.padding)

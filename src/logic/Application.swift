@@ -111,8 +111,7 @@ class Application: NSObject {
     }
 
     func addWindowslessAppsIfNeeded() -> [Window]? {
-        if !Preferences.hideWindowlessApps &&
-               runningApplication.activationPolicy == .regular &&
+        if runningApplication.activationPolicy == .regular &&
                !runningApplication.isTerminated &&
                (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
             let window = Window(self)
