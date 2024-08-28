@@ -20,7 +20,7 @@
 "Active Space" = "Активно пространство";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Подравни прозорците:";
+"Align windows" = "Подравнете прозорците";
 
 /* No comment provided by engineer. */
 "All apps" = "Всички приложения";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Азбучен ред";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Избирай прозорец";
+"Also select windows using" = "Избирай прозорец";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab заби последния път. Изпращането на отчет ще помогне за отстраняване на проблема";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Винаги пращай отчет";
 
 /* No comment provided by engineer. */
-"and press:" = "и натискане на";
+"and press" = "и натиснете";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "Приложение (BundleID стартиращ с)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "Приложението работи, но няма отворени прозорци";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Изчакване преди появяване:";
+"Apparition delay" = "Забавяне на привидения";
 
 /* No comment provided by engineer. */
 "Appearance" = "Изглед";
@@ -119,7 +119,7 @@
 "Controls" = "Конторли";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Пращане на отчет при забиване";
+"Crash reports policy" = "Политика за сривове от доклади";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Курсора следва фокус";
@@ -134,13 +134,13 @@
 "Don’t send" = "Не изпращай";
 
 /* No comment provided by engineer. */
-"Don’t show windows from these apps" = "Не показвай прозорците на следните приложения:";
+"Don’t show windows from these apps" = "Не показвай прозорците на следните приложения";
 
 /* No comment provided by engineer. */
 "End" = "в края";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Избледняваща анимация";
+"Fade out animation" = "Избледнява анимация";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Покажи избрания прозорец";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Прозорец на цял екран";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Пълен екран:";
+"Fullscreen windows" = "Пълен екран";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Цял екран/възстанови прозореца";
@@ -158,7 +158,7 @@
 "General" = "Общи";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Скрити позорци:";
+"Hidden windows" = "Скрити позорци";
 
 /* No comment provided by engineer. */
 "Hide" = "скрий";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Скрой иконите за статус";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Не показвай съдържанието на прозорците:";
+"Hide window thumbnails" = "Не показвай съдържанието на прозорците";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Скрой/покажи проложението";
@@ -197,7 +197,7 @@
 "Ignore shortcuts when active" = "Игнорирай клавишни комбинации, когато е активно";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts while a window from these apps is active" = "Игнорирай шорткъта в следните приложения:";
+"Ignore shortcuts while a window from these apps is active" = "Игнорирай шорткъта в следните приложения";
 
 /* No comment provided by engineer. */
 "Latest releases" = "Последни версии";
@@ -206,13 +206,13 @@
 "Left" = "вляво";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Максимална височина от екрана:";
+"Max height on screen" = "Максимална височина от екрана";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Максимална ширина от екрана:";
+"Max width on screen" = "Максимална ширина от екрана";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Икона:";
+"Menubar icon" = "Икона на Menubar";
 
 /* No comment provided by engineer. */
 "Middle" = "в средата";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Минимизирай/възстанови прозореца";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Минимизирани прозорци:";
+"Minimized windows" = "Минимизирани прозорци";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Разни:";
+"Miscellaneous" = "Разни";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "с мишката";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Отвори настройките за запис на екрана...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Емейл на който да отговорим (опция)";
+"Optional email (if you want a reply)" = "Емейл на който да отговорим (опция)";
 
 /* No comment provided by engineer. */
 "Policies" = "Политики";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Възстанови фабрични настройки и рестартирай...";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Брой редове:";
+"Rows of thumbnails" = "Брой редове";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Екрана с менщто";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Клавишна комбинация 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Този шорткът вече се използва за %@";
+"Shortcut already assigned to another action %@" = "Този шорткът вече се използва за %@";
 
 /* No comment provided by engineer. */
 "Show" = "покажи";
@@ -350,13 +350,13 @@
 "Show at the end" = "покажи накрая";
 
 /* No comment provided by engineer. */
-"Show on:" = "Покажи на";
+"Show on" = "Показване на";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Покажи табовете като прозорци";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Покажи прозорците на:";
+"Show windows from" = "Покажи прозорците на";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Сорс код";
@@ -368,16 +368,16 @@
 "Start" = "в началото";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Пусни при стартиране";
+"Start at login" = "Започнете от вход";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Тема:";
+"Theme" = "Тема";
 
 /* No comment provided by engineer. */
-"Then release:" = "При пускане";
+"Then release" = "При пускане";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Това разрешение е необходимо, за да се отвори прозореца";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Премахни шорткът и продължи";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Политика за обновяване:";
+"Updates policy" = "Актуализира политиката";
 
 /* No comment provided by engineer. */
 "Version" = "Версия";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim keys";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "видимите пространства";
@@ -413,10 +413,10 @@
 "When no open window" = "Когато няма отворени прозорци";
 
 /* No comment provided by engineer. */
-"While open, press:" = "С бутон";
+"While open, press" = "С бутон";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Размер на иконата:";
+"Window app icon size" = "Размер на иконата";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Прозорецът е на цял екран";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Прозорецът е на работно пространство %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Максимална част от реда за един прозорец:";
+"Window max width in row" = "Максимална част от реда за един прозорец";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Минимална част от реда за един прозорец:";
+"Window min width in row" = "Минимална част от реда за един прозорец";
 
 /* No comment provided by engineer. */
-"Window order:" = "Подредба на прозорци:";
+"Window order" = "Подредба на прозорци";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Размер на шрифта на заглавието:";
+"Window title font size" = "Размер на шрифта на заглавието";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Съкрати заглавието на прозореца";
+"Window title truncation" = "Съкрати заглавието на прозореца";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Връщането на това действие не е възможно";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Няма да получиш отговор, защото не си написал събщение.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Външен модел:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Размер на външния вид:";
+"Appearance size" = "Размер на външния вид";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Покажи скрий";
@@ -494,34 +491,22 @@
 "Windows" = "Windows";
 
 /* No comment provided by engineer. */
-"Application Names" = "Имена на приложения";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Заглавия на прозореца";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Имена на приложения - заглавия на прозорци";
 
 /* No comment provided by engineer. */
 "Leading" = "Водещ";
 
 /* No comment provided by engineer. */
-"Show running:" = "Шоу бягане:";
+"Show running" = "Шоу бягане";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Покажи заглавия:";
+"Show titles" = "Покажи заглавия";
 
 /* No comment provided by engineer. */
 "Done" = "Свършен";
 
 /* No comment provided by engineer. */
 "Advanced" = "Напреднал";
-
-/* No comment provided by engineer. */
-"Position" = "Позиция";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Вертикално подравняване на приложението:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Миниатюри напреднаха ...";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Някои приложения като Finder или Preview използват стандартни раздели, които действат като независими прозорци.Някои други приложения като уеб браузъри използват персонализирани раздели, които действат по уникални начини и не са действителни прозорци.Alttab не може да ги изброи отделно.";
-
-/* No comment provided by engineer. */
-"and press" = "и натиснете";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Задействайте пряк път";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Преки пътища, когато са активни";
 
 /* No comment provided by engineer. */
-"Start at login" = "Започнете от вход";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Икона на Menubar";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Актуализира политиката";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Политика за сривове от доклади";
-
-/* No comment provided by engineer. */
 "Animations…" = "Анимации ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Размер";
 
 /* No comment provided by engineer. */
-"Theme" = "Тема";
-
-/* No comment provided by engineer. */
 "High visibility" = "Висока видимост";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Множество екрани";
-
-/* No comment provided by engineer. */
-"Show on" = "Показване на";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Персонализирайте стила на миниатюри ...";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Персонализирайте стила на заглавия ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Забавяне на привидения";
-
-/* No comment provided by engineer. */
 "Animations" = "Анимации";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Избледнява анимация";
-
-/* No comment provided by engineer. */
-"Align windows" = "Подравнете прозорците";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Отрязване на заглавието";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Показване в превключвател";
-
-/* No comment provided by engineer. */
-"Show titles" = "Покажи заглавия";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Допълнителни контроли ...";

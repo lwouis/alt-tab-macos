@@ -20,7 +20,7 @@
 "Active Space" = "Ruang aktif";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Luruskan jendela:";
+"Align windows" = "Align Windows";
 
 /* No comment provided by engineer. */
 "All apps" = "Semua aplikasi";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alphabetical";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Juga pilih jendela menggunakan:";
+"Also select windows using" = "Juga pilih jendela menggunakan";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab macet terakhir kali Anda menggunakannya. Mengirim laporan kerusakan akan membantu menyelesaikan masalah";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Selalu kirim laporan kerusakan";
 
 /* No comment provided by engineer. */
-"and press:" = "lalu tekan:";
+"and press" = "dan tekan";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "Aplikasi (BundleID dimulai dengan)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "Aplikasi sedang berjalan tetapi tidak memiliki jendela yang terbuka";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Penundaan penampakan:";
+"Apparition delay" = "Penundaan penampakan";
 
 /* No comment provided by engineer. */
 "Appearance" = "Penampilan";
@@ -119,7 +119,7 @@
 "Controls" = "Kontrol";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Kebijakan laporan kerusakan:";
+"Crash reports policy" = "Kebijakan Laporan Kecelakaan";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Kursor mengikuti fokus";
@@ -140,7 +140,7 @@
 "End" = "Akhiri";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Animasi fade out:";
+"Fade out animation" = "Fade Out Animasi";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Fokus ke jendela yang dipilih";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Jendela layar penuh";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Windows layar penuh:";
+"Fullscreen windows" = "Windows layar penuh";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
@@ -158,7 +158,7 @@
 "General" = "Umum";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Jendela tersembunyi:";
+"Hidden windows" = "Jendela tersembunyi";
 
 /* No comment provided by engineer. */
 "Hide" = "Sembunyikan";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Sembunyikan status ikon";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Sembunyikan thumbnail jendela:";
+"Hide window thumbnails" = "Sembunyikan thumbnail jendela";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Tampilkan/Sembunyikan app";
@@ -206,13 +206,13 @@
 "Left" = "Kiri";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Tinggi maks di layar:";
+"Max height on screen" = "Tinggi maks di layar";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Lebar maks di layar:";
+"Max width on screen" = "Lebar maks di layar";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Ikon menubar:";
+"Menubar icon" = "Ikon Menubar";
 
 /* No comment provided by engineer. */
 "Middle" = "Tengah";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Minimalkan / Deminimalkan jendela";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Jendela yang diperkecil:";
+"Minimized windows" = "Jendela yang diperkecil";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Aneka ragam:";
+"Miscellaneous" = "Aneka ragam";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Arahkan mouse";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Buka Preferensi Perekaman Layar…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Opsional: surel (jika kamu ingin dapatkan balasan)";
+"Optional email (if you want a reply)" = "Opsional surel (jika kamu ingin dapatkan balasan)";
 
 /* No comment provided by engineer. */
 "Policies" = "Kebijakan";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Setel ulang preferensi dan mulai ulang…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Deretan thumbnail:";
+"Rows of thumbnails" = "Deretan thumbnail";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Layar termasuk bilah menu";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Pintasan 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Pintasan sudah ditetapkan ke tindakan lain: %@";
+"Shortcut already assigned to another action %@" = "Pintasan sudah ditetapkan ke tindakan lain %@";
 
 /* No comment provided by engineer. */
 "Show" = "Tampilkan";
@@ -350,13 +350,13 @@
 "Show at the end" = "Tampilkan di akhir";
 
 /* No comment provided by engineer. */
-"Show on:" = "Tunjukkan:";
+"Show on" = "Tunjukkan";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Tampilkan tab standar sebagai jendela";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Tampilkan jendela dari:";
+"Show windows from" = "Tampilkan jendela dari";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Repositori kode sumber";
@@ -368,16 +368,16 @@
 "Start" = "Mulai";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Mulai saat masuk:";
+"Start at login" = "Mulai dari login";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Tema:";
+"Theme" = "Tema";
 
 /* No comment provided by engineer. */
-"Then release:" = "Lalu lepaskan:";
+"Then release" = "Lalu lepaskan";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Izin ini diperlukan untuk memfokuskan jendela setelah Anda melepaskan pintasan";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Batalkan pintasan yang ada dan lanjutkan";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Kebijakan pembaruan:";
+"Updates policy" = "Kebijakan Pembaruan";
 
 /* No comment provided by engineer. */
 "Version" = "Versi";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim keys";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Ruang Terlihat";
@@ -413,10 +413,10 @@
 "When no open window" = "Saat tidak ada jendela yang terbuka";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Ketika terbuka, tekan:";
+"While open, press" = "Ketika terbuka, tekan";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Ukuran ikon aplikasi jendela:";
+"Window app icon size" = "Ukuran ikon aplikasi jendela";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Jendela adalah layar penuh";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Jendela ada di Ruang %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Lebar maks jendela dalam baris:";
+"Window max width in row" = "Lebar maks jendela dalam baris";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Lebar minimal jendela dalam baris:";
+"Window min width in row" = "Lebar minimal jendela dalam baris";
 
 /* No comment provided by engineer. */
-"Window order:" = "Window order:";
+"Window order" = "Window order";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Ukuran font judul jendela:";
+"Window title font size" = "Ukuran font judul jendela";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Pemotongan judul jendela:";
+"Window title truncation" = "Pemotongan judul jendela";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Anda tidak dapat membatalkan tindakan ini.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Anda tidak menulis email Anda, sehingga tidak dapat menerima tanggapan apa pun.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Model Penampilan:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Ukuran Penampilan:";
+"Appearance size" = "Ukuran Penampilan";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Tunjukan Sembunyikan";
@@ -494,34 +491,22 @@
 "Windows" = "Windows";
 
 /* No comment provided by engineer. */
-"Application Names" = "Nama Aplikasi";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Judul jendela";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Nama Aplikasi - Judul Jendela";
 
 /* No comment provided by engineer. */
 "Leading" = "Terkemuka";
 
 /* No comment provided by engineer. */
-"Show running:" = "Tampilkan Berlari:";
+"Show running" = "Tampilkan Berlari";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Tampilkan judul:";
+"Show titles" = "Tampilkan judul";
 
 /* No comment provided by engineer. */
 "Done" = "Selesai";
 
 /* No comment provided by engineer. */
 "Advanced" = "Canggih";
-
-/* No comment provided by engineer. */
-"Position" = "Posisi";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "APP Vertical Alignment:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Thumbnail Lanjutan…";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Beberapa aplikasi seperti Finder atau Preview menggunakan tab standar yang bertindak seperti jendela independen.Beberapa aplikasi lain seperti browser web menggunakan tab khusus yang bertindak dengan cara yang unik dan bukan jendela yang sebenarnya.Alttab tidak dapat mencantumkannya secara terpisah.";
-
-/* No comment provided by engineer. */
-"and press" = "dan tekan";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Pintasan pemicu";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Pintasan saat aktif";
 
 /* No comment provided by engineer. */
-"Start at login" = "Mulai dari login";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Ikon Menubar";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Kebijakan Pembaruan";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Kebijakan Laporan Kecelakaan";
-
-/* No comment provided by engineer. */
 "Animations…" = "Animasi…";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Ukuran";
 
 /* No comment provided by engineer. */
-"Theme" = "Tema";
-
-/* No comment provided by engineer. */
 "High visibility" = "Visibilitas tinggi";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Beberapa layar";
-
-/* No comment provided by engineer. */
-"Show on" = "Tunjukkan";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Kustomisasi Gaya Thumbnail…";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Kustomisasi Gaya Judul…";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Penundaan penampakan";
-
-/* No comment provided by engineer. */
 "Animations" = "Animasi";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Fade Out Animasi";
-
-/* No comment provided by engineer. */
-"Align windows" = "Align Windows";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Pemotongan judul";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Tampilkan di Switcher";
-
-/* No comment provided by engineer. */
-"Show titles" = "Tampilkan judul";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Kontrol tambahan…";

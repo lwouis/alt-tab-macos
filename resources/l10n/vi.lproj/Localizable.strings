@@ -20,7 +20,7 @@
 "Active Space" = "Khoảng trống hoạt động";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Xếp hàng các cửa sổ:";
+"Align windows" = "Căn chỉnh cửa sổ";
 
 /* No comment provided by engineer. */
 "All apps" = "Tất cả ứng dụng";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Theo thứ tự alphabet";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Chọn cửa sổ thông qua:";
+"Also select windows using" = "Chọn cửa sổ thông qua";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab gặp sự cố ở lần sử dụng gần đây. Gửi báo cáo sự cố sẽ giúp giải quyết các vấn đề này";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Luôn gửi các báo cáo sự cố";
 
 /* No comment provided by engineer. */
-"and press:" = "và nhấn:";
+"and press" = "và nhấn";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "Ứng dụng (BundleID starting with)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "Ứng dụng đang chạy nhưng không có cửa sổ được hiển thị";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Trì hoãn xuất hiện:";
+"Apparition delay" = "Sự chậm trễ xuất hiện";
 
 /* No comment provided by engineer. */
 "Appearance" = "Giao diện";
@@ -119,7 +119,7 @@
 "Controls" = "Điều khiển";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Điều khoản về báo cáo sự cố:";
+"Crash reports policy" = "Chính sách báo cáo sự cố";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Con trỏ theo tiêu điểm";
@@ -140,7 +140,7 @@
 "End" = "Đuôi";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Hoạt ảnh mờ đần:";
+"Fade out animation" = "Fade out hoạt hình";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Tiêu điểm cửa sổ được chọn";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Cửa sổ toàn màn hình";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Windows toàn màn hình:";
+"Fullscreen windows" = "Windows toàn màn hình";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Toàn màn hình/Thoát toàn màn hình";
@@ -158,7 +158,7 @@
 "General" = "Tổng quát";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Cửa sổ ẩn:";
+"Hidden windows" = "Cửa sổ ẩn";
 
 /* No comment provided by engineer. */
 "Hide" = "Ẩn";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Ẩn biểu tượng ở thanh trạng thái";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Ẩn ảnh chụp cửa sổ:";
+"Hide window thumbnails" = "Ẩn ảnh chụp cửa sổ";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Ẩn/Hiện ứng dụng";
@@ -206,13 +206,13 @@
 "Left" = "Trái";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Độ cao tối đa trên màn hình:";
+"Max height on screen" = "Độ cao tối đa trên màn hình";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Độ rộng tối đa trên màn hình:";
+"Max width on screen" = "Độ rộng tối đa trên màn hình";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Biểu tượng menubar:";
+"Menubar icon" = "Biểu tượng Menubar";
 
 /* No comment provided by engineer. */
 "Middle" = "Giữa";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Thu nhỏ/Phóng to cửa sổ";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Cửa sổ đã thu nhỏ:";
+"Minimized windows" = "Cửa sổ đã thu nhỏ";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Khác";
+"Miscellaneous" = "Khác";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Di chuột lên";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Mở Screen Recording Preferences";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Tuỳ chọn: email (nếu bạn muốn nhận hồi âm)";
+"Optional email (if you want a reply)" = "Tuỳ chọn email (nếu bạn muốn nhận hồi âm)";
 
 /* No comment provided by engineer. */
 "Policies" = "Điều khoản";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Xoá cài đặt hiện tại và khởi động lại";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Số hàng ảnh chụp:";
+"Rows of thumbnails" = "Số hàng ảnh chụp";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Màn hình có thanh menu";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Phím tắt 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Phím tắt đã được gán cho hành động: %@";
+"Shortcut already assigned to another action %@" = "Phím tắt đã được gán cho hành động %@";
 
 /* No comment provided by engineer. */
 "Show" = "Hiện";
@@ -350,13 +350,13 @@
 "Show at the end" = "Hiện ở dưới cùng";
 
 /* No comment provided by engineer. */
-"Show on:" = "Hiện về:";
+"Show on" = "Hiển thị trên";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Hiện thanh tab tiêu chuẩn như cửa sổ";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Hiện cửa sổ từ:";
+"Show windows from" = "Hiện cửa sổ từ";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Kho quản lý mã nguồn";
@@ -368,16 +368,16 @@
 "Start" = "Đầu";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Khởi động khi đăng nhập:";
+"Start at login" = "Bắt đầu tại Đăng nhập";
 
 /*Menubar option*/
 "Support this project ❤️" = "Ủng hộ dự án này ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Chủ đề:";
+"Theme" = "Chủ đề";
 
 /* No comment provided by engineer. */
-"Then release:" = "Sau đó thả ra:";
+"Then release" = "Sau đó thả ra";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Quyền này được dùng để chuyển tập trung vào cửa sổ sau khi bạn dùng phím tắt";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Huỷ gán phím tắt và tiếp tục";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Các chính sách cập nhật:";
+"Updates policy" = "Cập nhật chính sách";
 
 /* No comment provided by engineer. */
 "Version" = "Phiên bản";
@@ -401,7 +401,7 @@
 "Vim keys" = "Tổ hợp phím Vim";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Tổ hợp phím Vim đã được đặt cho hành động khác: \n%@";
+"Vim keys already assigned to other actions\n%@" = "Tổ hợp phím Vim đã được đặt cho hành động khác \n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Khoảng trống thấy được";
@@ -413,10 +413,10 @@
 "When no open window" = "Khi đang không có cửa sổ mở";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Khi mở, nhấn:";
+"While open, press" = "Khi mở, nhấn";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Kích cỡ biểu tượng ứng dụng trên cửa sổ:";
+"Window app icon size" = "Kích cỡ biểu tượng ứng dụng trên cửa sổ";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Cửa sổ đang ở chế độ toàn màn hình";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Cửa sổ đang ở Không gian %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Độ rộng cửa sổ tối đa trong dòng:";
+"Window max width in row" = "Độ rộng cửa sổ tối đa trong dòng";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Độ rộng cửa sổ tối thiểu trong dòng:";
+"Window min width in row" = "Độ rộng cửa sổ tối thiểu trong dòng";
 
 /* No comment provided by engineer. */
-"Window order:" = "Thứ tự cửa sổ:";
+"Window order" = "Thứ tự cửa sổ";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Kích cỡ tiêu đề cửa sổ:";
+"Window title font size" = "Kích cỡ tiêu đề cửa sổ";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Ẩn bớt tiêu đề cửa sổ:";
+"Window title truncation" = "Ẩn bớt tiêu đề cửa sổ";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Bạn không thể hoàn tác hành động này.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Bạn không điền email nên sẽ không nhận được phản hồi.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Mô hình xuất hiện:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Kích thước ngoại hình:";
+"Appearance size" = "Kích thước ngoại hình";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Hiện an";
@@ -494,34 +491,22 @@
 "Windows" = "các cửa sổ";
 
 /* No comment provided by engineer. */
-"Application Names" = "Tên ứng dụng";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Tiêu đề cửa sổ";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Tên ứng dụng - Tiêu đề cửa sổ";
 
 /* No comment provided by engineer. */
 "Leading" = "Dẫn đầu";
 
 /* No comment provided by engineer. */
-"Show running:" = "Hiển thị chạy:";
+"Show running" = "Hiển thị chạy";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Hiển thị tiêu đề:";
+"Show titles" = "Hiển thị tiêu đề";
 
 /* No comment provided by engineer. */
 "Done" = "Xong";
 
 /* No comment provided by engineer. */
 "Advanced" = "Trình độ cao";
-
-/* No comment provided by engineer. */
-"Position" = "Chức vụ";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Ứng dụng căn chỉnh dọc:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Hình thu nhỏ nâng cao";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Một số ứng dụng như Finder hoặc Preview sử dụng các tab tiêu chuẩn hoạt động như Windows độc lập.Một số ứng dụng khác như trình duyệt web sử dụng các tab tùy chỉnh hoạt động theo những cách độc đáo và không phải là cửa sổ thực tế.Alttab không thể liệt kê những người riêng biệt.";
-
-/* No comment provided by engineer. */
-"and press" = "và nhấn";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Phím tắt kích hoạt";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Phím tắt khi hoạt động";
 
 /* No comment provided by engineer. */
-"Start at login" = "Bắt đầu tại Đăng nhập";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Biểu tượng Menubar";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Cập nhật chính sách";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Chính sách báo cáo sự cố";
-
-/* No comment provided by engineer. */
 "Animations…" = "Hình ảnh động…";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Kích cỡ";
 
 /* No comment provided by engineer. */
-"Theme" = "Chủ đề";
-
-/* No comment provided by engineer. */
 "High visibility" = "Khả năng hiển thị cao";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Nhiều màn hình";
-
-/* No comment provided by engineer. */
-"Show on" = "Hiển thị trên";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Tùy chỉnh phong cách hình thu nhỏ";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Tùy chỉnh phong cách tiêu đề…";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Sự chậm trễ xuất hiện";
-
-/* No comment provided by engineer. */
 "Animations" = "Hình ảnh động";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Fade out hoạt hình";
-
-/* No comment provided by engineer. */
-"Align windows" = "Căn chỉnh cửa sổ";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Tiêu đề cắt ngắn";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Hiển thị trong bộ chuyển đổi";
-
-/* No comment provided by engineer. */
-"Show titles" = "Hiển thị tiêu đề";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Kiểm soát bổ sung…";

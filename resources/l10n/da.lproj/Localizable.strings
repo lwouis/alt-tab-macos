@@ -20,7 +20,7 @@
 "Active Space" = "Aktivt Område";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Tilpas vinduer:";
+"Align windows" = "Juster vinduer";
 
 /* No comment provided by engineer. */
 "All apps" = "Alle apps";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alfabetisk";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Også vælg vinduer ved hjælp af:";
+"Also select windows using" = "Også vælg vinduer ved hjælp af";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltAb brød ned sidste gang du brugte den. Ved at sende en nedbrudsrapport kan det hjælpe med at få problemet løst";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Altid send nedbrudsrapporter";
 
 /* No comment provided by engineer. */
-"and press:" = "og tryk:";
+"and press" = "og tryk";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starter med)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "App kører men har ingen åbne vinduer";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Forsinkelse af forsvinding:";
+"Apparition delay" = "Tilsyneladende forsinkelse";
 
 /* No comment provided by engineer. */
 "Appearance" = "Udseende";
@@ -119,7 +119,7 @@
 "Controls" = "Kontroller";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Nedbrudsrapport politik:";
+"Crash reports policy" = "Crash rapporterer politik";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Musen følger fokus";
@@ -140,7 +140,7 @@
 "End" = "Slut";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Fade ud animation:";
+"Fade out animation" = "Fade Out Animation";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Fokuser valgte vindue";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Fuldkærm vindue";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Fuldskærm vinduer:";
+"Fullscreen windows" = "Fuldskærm vinduer";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fuldskærm/affuldskærm vindue";
@@ -158,7 +158,7 @@
 "General" = "Generelt";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Skjulte vinduer:";
+"Hidden windows" = "Skjulte vinduer";
 
 /* No comment provided by engineer. */
 "Hide" = "Skjul";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Skjul statusikoner";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Skjul vindue miniaturer";
+"Hide window thumbnails" = "Skjul vindue miniaturer";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Skjul/vis app";
@@ -206,13 +206,13 @@
 "Left" = "Venstre";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Maks. højde på skærm:";
+"Max height on screen" = "Maks. højde på skærm";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Maks. bredde på skærm:";
+"Max width on screen" = "Maks. bredde på skærm";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Menulinjeikon:";
+"Menubar icon" = "Menubar Icon";
 
 /* No comment provided by engineer. */
 "Middle" = "Midten";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Minimer/vis vindue";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Minimeret vinduer:";
+"Minimized windows" = "Minimeret vinduer";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Diverse:";
+"Miscellaneous" = "Diverse";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Hold musen over";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Åbn Skærmoptagelseindstillinger";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Valgfri: e-mail (hvis du vil have svar)";
+"Optional email (if you want a reply)" = "Valgfri e-mail (hvis du vil have svar)";
 
 /* No comment provided by engineer. */
 "Policies" = "Politiker";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Nulstil indstillinger og genstart...";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Rækker af miniaturer:";
+"Rows of thumbnails" = "Rækker af miniaturer";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Skærm inklusiv menu linje";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Genvej 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Genvej er allerede tildelt til anden funktion: %@";
+"Shortcut already assigned to another action %@" = "Genvej er allerede tildelt til anden funktion %@";
 
 /* No comment provided by engineer. */
 "Show" = "Vis";
@@ -350,13 +350,13 @@
 "Show at the end" = "Vis ved slutningen";
 
 /* No comment provided by engineer. */
-"Show on:" = "Vis på:";
+"Show on" = "Vis på";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Vis standardfaner som Windows";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Vis vinduer fra:";
+"Show windows from" = "Vis vinduer fra";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Kildekode sted";
@@ -368,16 +368,16 @@
 "Start" = "Start";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Start ved login:";
+"Start at login" = "Start ved login";
 
 /*Menubar option*/
 "Support this project ❤️" = "Støt dette projekt ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Tema:";
+"Theme" = "Tema";
 
 /* No comment provided by engineer. */
-"Then release:" = "Og så slip:";
+"Then release" = "Og så slip";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Denne tilladelse er nødvendig for at kunne fokuser vindue efter du slipper genvejen";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Fjern eksisterende genveje og fortsæt";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Opdaterer politik:";
+"Updates policy" = "Opdaterer politik";
 
 /* No comment provided by engineer. */
 "Version" = "Version";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim taster";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim taster allerede tildelt til andre funktioner: %@";
+"Vim keys already assigned to other actions\n%@" = "Vim taster allerede tildelt til andre funktioner %@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Synlige Områder";
@@ -413,10 +413,10 @@
 "When no open window" = "Når ingen åbne vinduer";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Imens åbn, tryk:";
+"While open, press" = "Imens åbn, tryk";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Vindue app ikonstørrelse:";
+"Window app icon size" = "Vindue app ikonstørrelse";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Vinduet er fuldskærm";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Vindue er i Område %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Vindue maks. bredde i række:";
+"Window max width in row" = "Vindue maks. bredde i række";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Vindue min. bredde i række:";
+"Window min width in row" = "Vindue min. bredde i række";
 
 /* No comment provided by engineer. */
-"Window order:" = "Vindue rækkefølge:";
+"Window order" = "Vindue rækkefølge";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Vindue titel fontstørrelse:";
+"Window title font size" = "Vindue titel fontstørrelse";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Afkortning af vinduestitel:";
+"Window title truncation" = "Afkortning af vinduestitel";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Du kan ikke fortryde denne handling.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Du skrev ikke din e-mail og derfor kan du ikke få svar.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Udseende Model:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Udseende Størrelse:";
+"Appearance size" = "Udseende Størrelse";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Vis og skjul";
@@ -494,34 +491,22 @@
 "Windows" = "Windows";
 
 /* No comment provided by engineer. */
-"Application Names" = "Applikationsnavne";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Vinduestitler";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Applikationsnavne - Vinduesitler";
 
 /* No comment provided by engineer. */
 "Leading" = "Førende";
 
 /* No comment provided by engineer. */
-"Show running:" = "Vis løb:";
+"Show running" = "Vis løb";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Vis titler:";
+"Show titles" = "Vis titler";
 
 /* No comment provided by engineer. */
 "Done" = "Færdig";
 
 /* No comment provided by engineer. */
 "Advanced" = "Fremskreden";
-
-/* No comment provided by engineer. */
-"Position" = "Position";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "App lodret justering:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Miniaturebilleder avancerede ...";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Nogle apps som Finder eller Preview bruger standardfaner, der fungerer som uafhængige vinduer.Nogle andre apps som webbrowsere bruger brugerdefinerede faner, der virker på unikke måder og ikke er faktiske vinduer.Alttab kan ikke liste dem separat.";
-
-/* No comment provided by engineer. */
-"and press" = "og tryk";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Trigger genvej";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Genveje, når de er aktive";
 
 /* No comment provided by engineer. */
-"Start at login" = "Start ved login";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Menubar Icon";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Opdaterer politik";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Crash rapporterer politik";
-
-/* No comment provided by engineer. */
 "Animations…" = "Animationer ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Størrelse";
 
 /* No comment provided by engineer. */
-"Theme" = "Tema";
-
-/* No comment provided by engineer. */
 "High visibility" = "Høj synlighed";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Flere skærme";
-
-/* No comment provided by engineer. */
-"Show on" = "Vis på";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Tilpas miniaturebilledstil ...";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Tilpas titler stil ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Tilsyneladende forsinkelse";
-
-/* No comment provided by engineer. */
 "Animations" = "Animationer";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Fade Out Animation";
-
-/* No comment provided by engineer. */
-"Align windows" = "Juster vinduer";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Titel afkortning";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Vis i switcher";
-
-/* No comment provided by engineer. */
-"Show titles" = "Vis titler";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Yderligere kontrol ...";

@@ -20,7 +20,7 @@
 "Active Space" = "Espai actiu";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Alinear finestres:";
+"Align windows" = "Alineeu les finestres";
 
 /* No comment provided by engineer. */
 "All apps" = "Totes les aplicacions";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alfabètic";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "També seleccionar:";
+"Also select windows using" = "També seleccionar";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab s'ha tancat a causa d'un problema. Enviar un informe d'error ajudarà a resoldre'l";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Enviar automàticament";
 
 /* No comment provided by engineer. */
-"and press:" = "i prémer:";
+"and press" = "i premsa";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "Aplicació (BundleID comença per)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "L'aplicació no té finestres obertes";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Retard en aparèixer:";
+"Apparition delay" = "Retard de l'aparició";
 
 /* No comment provided by engineer. */
 "Appearance" = "Aparença";
@@ -119,7 +119,7 @@
 "Controls" = "Controls";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Política d'informes d'errors:";
+"Crash reports policy" = "Política d’informes de xoc";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "El cursor segueix l'element actiu";
@@ -140,7 +140,7 @@
 "End" = "Final";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Animació en desaparèixer:";
+"Fade out animation" = "Esvair l'animació";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Activar finestra seleccionada";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Finestra de pantalla completa";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Windows de pantalla completa:";
+"Fullscreen windows" = "Windows de pantalla completa";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Passar a/Sortir de pantalla completa";
@@ -158,7 +158,7 @@
 "General" = "General";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Finestres amagades:";
+"Hidden windows" = "Finestres amagades";
 
 /* No comment provided by engineer. */
 "Hide" = "Amagar";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Amagar icones d'estat";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Amagar miniatures de les finestres:";
+"Hide window thumbnails" = "Amagar miniatures de les finestres";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Amagar/Mostrar aplicació";
@@ -206,13 +206,13 @@
 "Left" = "Esquerra";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Alçada màxima a la pantalla:";
+"Max height on screen" = "Alçada màxima a la pantalla";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Amplada màxima a la pantalla:";
+"Max width on screen" = "Amplada màxima a la pantalla";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Icona de la barra de menús:";
+"Menubar icon" = "Icona Menubar";
 
 /* No comment provided by engineer. */
 "Middle" = "Centre";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Minimitzar/Restaurar finestra";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Finestres minimitzades:";
+"Minimized windows" = "Finestres minimitzades";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Miscel·lània:";
+"Miscellaneous" = "Miscel·lània";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "En passar el cursor";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Obrir preferències de gravació de pantalla…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Opcional: adreça de correu (si esperes resposta)";
+"Optional email (if you want a reply)" = "Opcional adreça de correu (si esperes resposta)";
 
 /* No comment provided by engineer. */
 "Policies" = "Polítiques";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Restaurar preferències i iniciar…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Files de miniatures:";
+"Rows of thumbnails" = "Files de miniatures";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Pantalla on es mostra la barra de menús";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Drecera 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Drecera assignada a una altra acció: %@";
+"Shortcut already assigned to another action %@" = "Drecera assignada a una altra acció %@";
 
 /* No comment provided by engineer. */
 "Show" = "Mostrar";
@@ -350,13 +350,13 @@
 "Show at the end" = "Mostrar al final";
 
 /* No comment provided by engineer. */
-"Show on:" = "Mostrar a:";
+"Show on" = "Mostrar on";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Mostrar pestanyes com a finestres";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Mostrar finestres de:";
+"Show windows from" = "Mostrar finestres de";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Repositori del codi font";
@@ -368,16 +368,16 @@
 "Start" = "Inici";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Obrir en iniciar la sessió:";
+"Start at login" = "Comença a la sessió";
 
 /*Menubar option*/
 "Support this project ❤️" = "Recolza aquest projecte ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Tema:";
+"Theme" = "Tema";
 
 /* No comment provided by engineer. */
-"Then release:" = "En deixar anar:";
+"Then release" = "En deixar anar";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Aquest permís és necessari per activar una finestra amb una drecera";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Eliminar drecera ja existent i continuar";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Política d'actualitzacions:";
+"Updates policy" = "Política d'actualització";
 
 /* No comment provided by engineer. */
 "Version" = "Versió";
@@ -401,7 +401,7 @@
 "Vim keys" = "Tecles de Vim";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Tecles de Vim ja en ús:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Tecles de Vim ja en ús\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Espais visibles";
@@ -413,10 +413,10 @@
 "When no open window" = "Quan no hi ha finestres obertes";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Mentre es mostren les miniatures:";
+"While open, press" = "Mentre es mostren les miniatures";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Mida de les icones:";
+"Window app icon size" = "Mida de les icones";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "La finestra es veu a pantalla completa";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "La finestra és present a l'espai %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Amplada màxima de finestra dins d'una fila:";
+"Window max width in row" = "Amplada màxima de finestra dins d'una fila";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Amplada mínima de finestra dins d'una fila:";
+"Window min width in row" = "Amplada mínima de finestra dins d'una fila";
 
 /* No comment provided by engineer. */
-"Window order:" = "Mostrar en ordre:";
+"Window order" = "Mostrar en ordre";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Mida dels títols:";
+"Window title font size" = "Mida dels títols";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Escurçament dels títols:";
+"Window title truncation" = "Escurçament dels títols";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Aquesta opció no es pot desfer.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "No has indicat adreça de correu, no rebràs cap resposta.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Model d'aparença:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Mida de l'aspecte:";
+"Appearance size" = "Mida de l'aspecte";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Mostra i amaga";
@@ -494,34 +491,22 @@
 "Windows" = "Finestres";
 
 /* No comment provided by engineer. */
-"Application Names" = "Noms d'aplicacions";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Títols de finestres";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Noms de l'aplicació: títols de finestres";
 
 /* No comment provided by engineer. */
 "Leading" = "Líder";
 
 /* No comment provided by engineer. */
-"Show running:" = "Mostra en funcionament:";
+"Show running" = "Mostra en funcionament";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Títols d'espectacles:";
+"Show titles" = "Títols d’espectacles";
 
 /* No comment provided by engineer. */
 "Done" = "Fer";
 
 /* No comment provided by engineer. */
 "Advanced" = "Avançada";
-
-/* No comment provided by engineer. */
-"Position" = "Posició";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Alineació vertical de l'aplicació:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Miniatures avançades ...";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Algunes aplicacions com el cercador o la vista prèvia utilitzen pestanyes estàndard que actuen com a finestres independents.Algunes altres aplicacions com els navegadors web utilitzen pestanyes personalitzades que actuen de maneres úniques i no són finestres reals.AltTab no pot enumerar -los per separat.";
-
-/* No comment provided by engineer. */
-"and press" = "i premsa";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Drecera de disparador";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Dreceres quan estan actives";
 
 /* No comment provided by engineer. */
-"Start at login" = "Comença a la sessió";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Icona Menubar";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Política d'actualització";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Política d’informes de xoc";
-
-/* No comment provided by engineer. */
 "Animations…" = "Animacions ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Tamany";
 
 /* No comment provided by engineer. */
-"Theme" = "Tema";
-
-/* No comment provided by engineer. */
 "High visibility" = "Alta visibilitat";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Múltiples pantalles";
-
-/* No comment provided by engineer. */
-"Show on" = "Mostrar on";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Personalitzeu les miniatures estil ...";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Personalitzeu l'estil de títols ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Retard de l'aparició";
-
-/* No comment provided by engineer. */
 "Animations" = "Animacions";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Esvair l'animació";
-
-/* No comment provided by engineer. */
-"Align windows" = "Alineeu les finestres";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Títol Truncation";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Mostra a Switcher";
-
-/* No comment provided by engineer. */
-"Show titles" = "Títols d’espectacles";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Controls addicionals ...";

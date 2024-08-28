@@ -20,7 +20,7 @@
 "Active Space" = "Aktív terület";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Ablakok rendezése:";
+"Align windows" = "Igazítsa a Windows -t";
 
 /* No comment provided by engineer. */
 "All apps" = "Minden alkalmazás";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alphabetical";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Ablakok kiválasztása az következővel is:";
+"Also select windows using" = "Ablakok kiválasztása az következővel is";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Az AltTab összeomlott amikor utoljára használta. A hibajelentés küldése segíthet a probléma javításában";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Mindig küldjön hiba-jelentést";
 
 /* No comment provided by engineer. */
-"and press:" = "majd nyomjon:";
+"and press" = "és nyomja meg";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starting with)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "App is running but has no open window";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Megjelenítés késleltetése:";
+"Apparition delay" = "Megjelenési késleltetés";
 
 /* No comment provided by engineer. */
 "Appearance" = "Megjelenés";
@@ -119,7 +119,7 @@
 "Controls" = "Kezelőszervek";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Hiba-jelentés házirend:";
+"Crash reports policy" = "A Crash Jelentésekről szóló politika";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Cursor follows focus";
@@ -140,7 +140,7 @@
 "End" = "Befejezés";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Áttűnési animáció:";
+"Fade out animation" = "Fade out animáció";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "A kiválasztott ablak előtérbe hozása";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Teljes képernyős ablak";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Teljes képernyős ablakok:";
+"Fullscreen windows" = "Teljes képernyős ablakok";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
@@ -158,7 +158,7 @@
 "General" = "Általános";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Rejtett ablakok:";
+"Hidden windows" = "Rejtett ablakok";
 
 /* No comment provided by engineer. */
 "Hide" = "Elrejt";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Státusz ikonok elrejtése";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails" = "Hide window thumbnails";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Applikáció elrejtése/megjelenítése";
@@ -206,13 +206,13 @@
 "Left" = "Bal";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Maximális magasság a képernyőn:";
+"Max height on screen" = "Maximális magasság a képernyőn";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Maximális szélesség a képernyőn:";
+"Max width on screen" = "Maximális szélesség a képernyőn";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Menü-sor ikon:";
+"Menubar icon" = "Menubar ikon";
 
 /* No comment provided by engineer. */
 "Middle" = "Középre";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Ablak kicsinyítés/visszaállítása";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Kicsinyített ablakok:";
+"Minimized windows" = "Kicsinyített ablakok";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous" = "Miscellaneous";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Egér főlé vitele";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Képernyőfelvételi beállítások megnyitása…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Opcionális: email (ha választ szeretnél kapni)";
+"Optional email (if you want a reply)" = "Opcionális email (ha választ szeretnél kapni)";
 
 /* No comment provided by engineer. */
 "Policies" = "Házirendek";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails" = "Rows of thumbnails";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Képernyő a menü sávval";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Shortcut 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action %@" = "Shortcut already assigned to another action %@";
 
 /* No comment provided by engineer. */
 "Show" = "Mutat";
@@ -350,13 +350,13 @@
 "Show at the end" = "Show at the end";
 
 /* No comment provided by engineer. */
-"Show on:" = "Megjelenítés:";
+"Show on" = "Megmutat";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Szabványos lapok megjelenítése ablakokként";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Show windows from:";
+"Show windows from" = "Show windows from";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Forrás kód tárhely";
@@ -368,16 +368,16 @@
 "Start" = "Indítás";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Betöltés bejelentkezéskor:";
+"Start at login" = "Kezdje a bejelentkezésnél";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Téma:";
+"Theme" = "Téma";
 
 /* No comment provided by engineer. */
-"Then release:" = "Majd engedje fel:";
+"Then release" = "Majd engedje fel";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Ez a jogosultság ahhoz szükséges hogy az ablak fókuszba kerüljön miután a parancsikont elengedte";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Frissítési beállítások:";
+"Updates policy" = "Frissítési házirend";
 
 /* No comment provided by engineer. */
 "Version" = "Verzió";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim keys";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";
@@ -413,10 +413,10 @@
 "When no open window" = "When no open window";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Megnyitás közben nyomjon:";
+"While open, press" = "Megnyitás közben nyomjon";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Ablak alkalmazásikonméret:";
+"Window app icon size" = "Ablak alkalmazásikonméret";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Window is fullscreen";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Window is on Space %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Window max width in row:";
+"Window max width in row" = "Window max width in row";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Window min width in row:";
+"Window min width in row" = "Window min width in row";
 
 /* No comment provided by engineer. */
-"Window order:" = "Window order:";
+"Window order" = "Window order";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Ablak címsor font méret:";
+"Window title font size" = "Ablak címsor font méret";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Ablak címsor rövidítése:";
+"Window title truncation" = "Ablak címsor rövidítése";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Ha nem ad meg e-mail címet, nem tudunk választ küldeni";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Megjelenési modell:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Megjelenés mérete:";
+"Appearance size" = "Megjelenés mérete";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Mutat elrejt";
@@ -494,34 +491,22 @@
 "Windows" = "ablakok";
 
 /* No comment provided by engineer. */
-"Application Names" = "Alkalmazásnevek";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Ablakcímek";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Alkalmazásnevek - ablakcímek";
 
 /* No comment provided by engineer. */
 "Leading" = "Vezető";
 
 /* No comment provided by engineer. */
-"Show running:" = "A futás show:";
+"Show running" = "A futás show";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Címek show:";
+"Show titles" = "A címek bemutatása";
 
 /* No comment provided by engineer. */
 "Done" = "Kész";
 
 /* No comment provided by engineer. */
 "Advanced" = "Fejlett";
-
-/* No comment provided by engineer. */
-"Position" = "Pozíció";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Alkalmazás függőleges igazítás:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "A miniatűrök fejlett…";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Egyes alkalmazások, mint például a Finder vagy az előnézet, olyan standard füleket használnak, amelyek független ablakokként működnek.Néhány más alkalmazás, például a webböngészők egyedi füleket használnak, amelyek egyedi módon működnek, és nem tényleges ablakok.Az Altab nem tudja ezeket külön felsorolni.";
-
-/* No comment provided by engineer. */
-"and press" = "és nyomja meg";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Indító parancsikon";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Parancsikonok aktív esetén";
 
 /* No comment provided by engineer. */
-"Start at login" = "Kezdje a bejelentkezésnél";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Menubar ikon";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Frissítési házirend";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "A Crash Jelentésekről szóló politika";
-
-/* No comment provided by engineer. */
 "Animations…" = "Animációk…";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Méret";
 
 /* No comment provided by engineer. */
-"Theme" = "Téma";
-
-/* No comment provided by engineer. */
 "High visibility" = "Nagy láthatóság";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Több képernyő";
-
-/* No comment provided by engineer. */
-"Show on" = "Megmutat";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Testreszabhatja a miniatűrök stílusát…";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Testreszabhatja a címek stílusát ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Megjelenési késleltetés";
-
-/* No comment provided by engineer. */
 "Animations" = "Animációk";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Fade out animáció";
-
-/* No comment provided by engineer. */
-"Align windows" = "Igazítsa a Windows -t";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Címcsonkítás";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Mutasd meg a Switcher -ben";
-
-/* No comment provided by engineer. */
-"Show titles" = "A címek bemutatása";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "További kezelőszervek…";

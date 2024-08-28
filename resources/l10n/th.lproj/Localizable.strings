@@ -20,7 +20,7 @@
 "Active Space" = "Active Space";
 
 /* No comment provided by engineer. */
-"Align windows:" = "จัดวางหน้าต่าง:";
+"Align windows" = "จัดตำแหน่งหน้าต่าง";
 
 /* No comment provided by engineer. */
 "All apps" = "ทุกแอป";
@@ -41,7 +41,7 @@
 "Alphabetical" = "อักษร";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "เลือกหน้าต่างโดยใช้:";
+"Also select windows using" = "เลือกหน้าต่างโดยใช้";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ขัดข้องครั้งสุดท้ายที่คุณใช้ การส่งรายงานการขัดข้องจะช่วยแก้ไขปัญหาได้";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "ส่งรายงานการขัดข้องเสมอ";
 
 /* No comment provided by engineer. */
-"and press:" = "และกด";
+"and press" = "และกด";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "แอป (เริ่มต้นด้วย BundleID )";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "แอปกําลังใช้งานแต่ไม่มีหน้าต่างเปิดอยู่";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "หน่วงเวลา:";
+"Apparition delay" = "ความล่าช้าในการปรากฏตัว";
 
 /* No comment provided by engineer. */
 "Appearance" = "รูปแบบ";
@@ -119,7 +119,7 @@
 "Controls" = "การควบคุม";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "นโยบายรายงานการขัดข้อง:";
+"Crash reports policy" = "นโยบายรายงานความผิดพลาด";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Cursor follows focus";
@@ -140,7 +140,7 @@
 "End" = "ท้าย";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "แอนิเมชั่นจางหาย";
+"Fade out animation" = "อนิเมชั่นจางหายไป";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "โฟกัสหน้าต่างที่เลือก";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "หน้าต่างเต็มหน้าจอ";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "หน้าต่างเต็มหน้าจอ:";
+"Fullscreen windows" = "หน้าต่างเต็มหน้าจอ";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "เข้าสู่/ออกจากโหมดเต็มหน้าจอ";
@@ -158,7 +158,7 @@
 "General" = "ทั่วไป";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "หน้าต่างซ่อน:";
+"Hidden windows" = "หน้าต่างซ่อน";
 
 /* No comment provided by engineer. */
 "Hide" = "ซ่อน";
@@ -182,7 +182,7 @@
 "Hide status icons" = "ซ่อนไอคอนสถานะ";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "ซ่อนภาพขนาดย่อของหน้าต่าง:";
+"Hide window thumbnails" = "ซ่อนภาพขนาดย่อของหน้าต่าง";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "ซ่อน/แสดงแอป";
@@ -206,13 +206,13 @@
 "Left" = "ซ้าย";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "ความสูงสูงสุด:";
+"Max height on screen" = "ความสูงสูงสุด";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "ความกว้างสูงสุด:";
+"Max width on screen" = "ความกว้างสูงสุด";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "ไอคอนแถบเมนู:";
+"Menubar icon" = "ไอคอน Menubar";
 
 /* No comment provided by engineer. */
 "Middle" = "ตรงกลาง";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "ย่อ/ขยายหน้าต่าง";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "หน้าต่างย่อ:";
+"Minimized windows" = "หน้าต่างย่อ";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "เบ็ดเตล็ด:";
+"Miscellaneous" = "เบ็ดเตล็ด";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Mouse hover";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "เปิดการตั้งค่าการบันทึกหน้าจอ...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "ไม่บังคับ: อีเมล (หากต้องการการตอบกลับ)";
+"Optional email (if you want a reply)" = "ไม่บังคับ อีเมล (หากต้องการการตอบกลับ)";
 
 /* No comment provided by engineer. */
 "Policies" = "นโยบาย";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "รีเซ็ตการตั้งค่าและเริ่มใหม่...";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "จำนวนแถวภาพขนาดย่อ:";
+"Rows of thumbnails" = "จำนวนแถวภาพขนาดย่อ";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Screen including menu bar";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "คำสั่งลัด 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "คำสั่งลัดถูกกําหนดให้กับการดําเนินการอื่นแล้ว: %@";
+"Shortcut already assigned to another action %@" = "คำสั่งลัดถูกกําหนดให้กับการดําเนินการอื่นแล้ว %@";
 
 /* No comment provided by engineer. */
 "Show" = "แสดง";
@@ -350,13 +350,13 @@
 "Show at the end" = "แสดงท้ายสุด";
 
 /* No comment provided by engineer. */
-"Show on:" = "แสดงบน:";
+"Show on" = "แสดง";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "แสดงแท็บมาตรฐานเป็นหน้าต่าง";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "แสดงหน้าต่าง:";
+"Show windows from" = "แสดงหน้าต่าง";
 
 /* No comment provided by engineer. */
 "Source code repository" = "ซอร์สโค้ด";
@@ -368,16 +368,16 @@
 "Start" = "หน้า";
 
 /* No comment provided by engineer. */
-"Start at login:" = "เริ่มเมื่อล็อกอิน:";
+"Start at login" = "เริ่มต้นที่เข้าสู่ระบบ";
 
 /*Menubar option*/
 "Support this project ❤️" = "ให้การสนับสนุน❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "ธีม:";
+"Theme" = "ธีม";
 
 /* No comment provided by engineer. */
-"Then release:" = "เมื่อปล่อย";
+"Then release" = "เมื่อปล่อย";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "ยกเลิกกําหนดคำสั่งลัดที่มีอยู่และดําเนินการต่อ";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "นโยบายอัพเดท:";
+"Updates policy" = "อัปเดตนโยบาย";
 
 /* No comment provided by engineer. */
 "Version" = "หมายเลขรุ่น";
@@ -401,7 +401,7 @@
 "Vim keys" = "ปุ่ม Vim";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "ปุ่ม Vim ถูกกําหนดให้กับการดําเนินการอื่นแล้ว: \n%@";
+"Vim keys already assigned to other actions\n%@" = "ปุ่ม Vim ถูกกําหนดให้กับการดําเนินการอื่นแล้ว \n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";
@@ -413,10 +413,10 @@
 "When no open window" = "เมื่อไม่มีหน้าต่างเปิดอยู่";
 
 /* No comment provided by engineer. */
-"While open, press:" = "ขณะเปิดอยู่ กด:";
+"While open, press" = "ขณะเปิดอยู่ กด";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "ขนาดไอคอนของหน้าต่าง:";
+"Window app icon size" = "ขนาดไอคอนของหน้าต่าง";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "หน้าต่างอยู่ในโหมดเต็มหน้าจอ";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Window is on Space %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "ความกว้างสูงสุดของหน้าต่างในแถว:";
+"Window max width in row" = "ความกว้างสูงสุดของหน้าต่างในแถว";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "ความกว้างต่ำสุดของหน้าต่างในแถว:";
+"Window min width in row" = "ความกว้างต่ำสุดของหน้าต่างในแถว";
 
 /* No comment provided by engineer. */
-"Window order:" = "ลำดับหน้าต่าง:";
+"Window order" = "ลำดับหน้าต่าง";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "ขนาดชื่อของหน้าต่าง:";
+"Window title font size" = "ขนาดชื่อของหน้าต่าง";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "ตัดทอนชื่อหน้าต่าง:";
+"Window title truncation" = "ตัดทอนชื่อหน้าต่าง";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "คุณไม่สามารถยกเลิกการกระทํานี้ได้";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "คุณไม่ได้ระบุอีเมลของคุณ ดังนั้นจึงไม่สามารถรับการตอบกลับใด ๆ ได้";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Appearance model:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Appearance size:";
+"Appearance size" = "Appearance size";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Show & Hide";
@@ -494,34 +491,22 @@
 "Windows" = "หน้าต่าง";
 
 /* No comment provided by engineer. */
-"Application Names" = "ชื่อแอปพลิเคชัน";
-
-/* No comment provided by engineer. */
 "Window Titles" = "ชื่อหน้าต่าง";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "ชื่อแอปพลิเคชัน - ชื่อหน้าต่าง";
 
 /* No comment provided by engineer. */
 "Leading" = "เป็นผู้นำ";
 
 /* No comment provided by engineer. */
-"Show running:" = "แสดงการวิ่ง:";
+"Show running" = "แสดงการวิ่ง";
 
 /* No comment provided by engineer. */
-"Show titles:" = "แสดงชื่อ:";
+"Show titles" = "แสดงชื่อ";
 
 /* No comment provided by engineer. */
 "Done" = "เสร็จแล้ว";
 
 /* No comment provided by engineer. */
 "Advanced" = "ขั้นสูง";
-
-/* No comment provided by engineer. */
-"Position" = "ตำแหน่ง";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "การจัดตำแหน่งแนวตั้งแอพ:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "รูปขนาดย่อขั้นสูง ...";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "แอพบางตัวเช่น Finder หรือ Preview ใช้แท็บมาตรฐานซึ่งทำหน้าที่เหมือน Windows อิสระแอพอื่น ๆ เช่นเว็บเบราว์เซอร์ใช้แท็บที่กำหนดเองซึ่งทำหน้าที่ในรูปแบบที่ไม่ซ้ำกันและไม่ใช่หน้าต่างจริงAlttab ไม่สามารถแสดงรายการแยกต่างหาก";
-
-/* No comment provided by engineer. */
-"and press" = "และกด";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "ทริกเกอร์ทางลัด";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "ทางลัดเมื่อใช้งาน";
 
 /* No comment provided by engineer. */
-"Start at login" = "เริ่มต้นที่เข้าสู่ระบบ";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "ไอคอน Menubar";
-
-/* No comment provided by engineer. */
-"Updates policy" = "อัปเดตนโยบาย";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "นโยบายรายงานความผิดพลาด";
-
-/* No comment provided by engineer. */
 "Animations…" = "ภาพเคลื่อนไหว ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "ขนาด";
 
 /* No comment provided by engineer. */
-"Theme" = "ธีม";
-
-/* No comment provided by engineer. */
 "High visibility" = "การมองเห็นสูง";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "หลายหน้าจอ";
-
-/* No comment provided by engineer. */
-"Show on" = "แสดง";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "ปรับแต่งรูปแบบรูปขนาดย่อ ...";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "กำหนดสไตล์สไตล์ ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "ความล่าช้าในการปรากฏตัว";
-
-/* No comment provided by engineer. */
 "Animations" = "ภาพเคลื่อนไหว";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "อนิเมชั่นจางหายไป";
-
-/* No comment provided by engineer. */
-"Align windows" = "จัดตำแหน่งหน้าต่าง";
 
 /* No comment provided by engineer. */
 "Title truncation" = "การตัดชื่อ";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "แสดงใน Switcher";
-
-/* No comment provided by engineer. */
-"Show titles" = "แสดงชื่อ";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "การควบคุมเพิ่มเติม ...";

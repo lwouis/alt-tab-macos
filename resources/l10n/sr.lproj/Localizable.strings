@@ -20,7 +20,7 @@
 "Active Space" = "Aktivni Prostor";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Poravnaj prozore:";
+"Align windows" = "Поравнајте Виндовс";
 
 /* No comment provided by engineer. */
 "All apps" = "Sve aplikacije";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alphabetical";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Takođe odabiraj prozore koristeći:";
+"Also select windows using" = "Takođe odabiraj prozore koristeći";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab se prinudno zaustavio prilikom prošlog korišćenja. Slanje podataka o grešci će pomoći da se greška popravi";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Uvek pošalji podatke o greškama";
 
 /* No comment provided by engineer. */
-"and press:" = "i pritisni:";
+"and press" = "и притисните";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "Aplikacija (BundleID počinje sa)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "Aplikacija radi ali nema otvorenih prozora";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Odlaganje priviđenja:";
+"Apparition delay" = "Кашњење";
 
 /* No comment provided by engineer. */
 "Appearance" = "Izgled";
@@ -119,7 +119,7 @@
 "Controls" = "Kontrole";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Polisa slanja podataka o greškama:";
+"Crash reports policy" = "Политика извештаја о паду";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Pokazivač prati fokus";
@@ -140,7 +140,7 @@
 "End" = "Kraj";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Animacija gašenja:";
+"Fade out animation" = "Избледи анимацију";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Fokusiraj odabrani prozor";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Прозор са пуним екраном";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Прозори са пуним екраном:";
+"Fullscreen windows" = "Прозори са пуним екраном";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
@@ -158,7 +158,7 @@
 "General" = "Generalno";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Skriveni prozori:";
+"Hidden windows" = "Skriveni prozori";
 
 /* No comment provided by engineer. */
 "Hide" = "Sakrij";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Sakrij statusne ikonice";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Sakrij prikaz prozora:";
+"Hide window thumbnails" = "Sakrij prikaz prozora";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Sakrij/Prikaži aplikaciju";
@@ -206,13 +206,13 @@
 "Left" = "Levo";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Maksimalna visina na ekranu:";
+"Max height on screen" = "Maksimalna visina na ekranu";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Maksimalna širina na ekranu:";
+"Max width on screen" = "Maksimalna širina na ekranu";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Ikonica meni linije:";
+"Menubar icon" = "Икона менубар";
 
 /* No comment provided by engineer. */
 "Middle" = "Sredina";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Minimizuj/Deminimizuj prozor";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Minimizovani prozori:";
+"Minimized windows" = "Minimizovani prozori";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Negrupisano:";
+"Miscellaneous" = "Negrupisano";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Prelaz strelicom miša";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Otvori Podešavanja Snimanja Ekrana…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Opciono: email (ako želite odgovor)";
+"Optional email (if you want a reply)" = "Opciono email (ako želite odgovor)";
 
 /* No comment provided by engineer. */
 "Policies" = "Polise";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Broj redova prikaza:";
+"Rows of thumbnails" = "Broj redova prikaza";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Ekran sa meni linijom";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Shortcut 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Prečica već dodeljena drugoj akciji: %@";
+"Shortcut already assigned to another action %@" = "Prečica već dodeljena drugoj akciji %@";
 
 /* No comment provided by engineer. */
 "Show" = "Prikaži";
@@ -350,13 +350,13 @@
 "Show at the end" = "Prikaži na kraju";
 
 /* No comment provided by engineer. */
-"Show on:" = "Prikaži na:";
+"Show on" = "Сховати на";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Prikaži standardne tabove kao prozore";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Prikaži prozore od:";
+"Show windows from" = "Prikaži prozore od";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Repozitorijum s izvornim kodom";
@@ -368,16 +368,16 @@
 "Start" = "Početak";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Startuj nakon prijave:";
+"Start at login" = "Почните при пријави";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Tema:";
+"Theme" = "Тема";
 
 /* No comment provided by engineer. */
-"Then release:" = "Onda otpusti:";
+"Then release" = "Onda otpusti";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Ova dozvola je neophodna da se fokusiraju prozori nakon što otpustite prečicu";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Ukloni dodelu trenutne prečice i nastavi";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Polisa ažuriranja:";
+"Updates policy" = "Ажурира политику";
 
 /* No comment provided by engineer. */
 "Version" = "Verzija";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim keys";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Vidljivi Prostori";
@@ -413,10 +413,10 @@
 "When no open window" = "Kada nema otvorenih prozora";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Dok je otvoreno, pritisni:";
+"While open, press" = "Dok je otvoreno, pritisni";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Veličina ikonice u prozoru:";
+"Window app icon size" = "Veličina ikonice u prozoru";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Prozor je preko celog ekrana";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Prozor je na Prostoru %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Maksimalna širina prozora u redu:";
+"Window max width in row" = "Maksimalna širina prozora u redu";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Minimalna širina prozora u redu:";
+"Window min width in row" = "Minimalna širina prozora u redu";
 
 /* No comment provided by engineer. */
-"Window order:" = "Window order:";
+"Window order" = "Window order";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Veličina naslova u prozoru:";
+"Window title font size" = "Veličina naslova u prozoru";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Odsecanje naslova prozora:";
+"Window title truncation" = "Odsecanje naslova prozora";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Email adresa nije data, i zato neće biti odgovora.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Модел изгледа:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Величина изгледа:";
+"Appearance size" = "Величина изгледа";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Показати и сакрити се";
@@ -494,34 +491,22 @@
 "Windows" = "Прозори";
 
 /* No comment provided by engineer. */
-"Application Names" = "Имена апликација";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Наслови прозора";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Имена наношења - Наслови прозора";
 
 /* No comment provided by engineer. */
 "Leading" = "Вођење";
 
 /* No comment provided by engineer. */
-"Show running:" = "Покажи трчање:";
+"Show running" = "Покажи трчање";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Прикажи наслове:";
+"Show titles" = "Покажи наслове";
 
 /* No comment provided by engineer. */
 "Done" = "Готово";
 
 /* No comment provided by engineer. */
 "Advanced" = "Напредан";
-
-/* No comment provided by engineer. */
-"Position" = "Положај";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "АПП вертикално поравнање:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Сличице напредни ...";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Неке апликације попут Финдер-а или прегледа користе стандардне картице који делују попут независних прозора.Неке друге апликације попут веб прегледача користе прилагођене картице које делују на јединствене начине и нису стварни прозори.Алттаб не може навести оне одвојено.";
-
-/* No comment provided by engineer. */
-"and press" = "и притисните";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Пречица окидача";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Пречице када су активни";
 
 /* No comment provided by engineer. */
-"Start at login" = "Почните при пријави";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Икона менубар";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Ажурира политику";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Политика извештаја о паду";
-
-/* No comment provided by engineer. */
 "Animations…" = "Анимације ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Величина";
 
 /* No comment provided by engineer. */
-"Theme" = "Тема";
-
-/* No comment provided by engineer. */
 "High visibility" = "Висока видљивост";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Вишеструки екрани";
-
-/* No comment provided by engineer. */
-"Show on" = "Сховати на";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Прилагодите стил Сличица ...";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Прилагодите наслове стила ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Кашњење";
-
-/* No comment provided by engineer. */
 "Animations" = "Анимације";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Избледи анимацију";
-
-/* No comment provided by engineer. */
-"Align windows" = "Поравнајте Виндовс";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Насловна скраћеница";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Прикажи у Свитцхеру";
-
-/* No comment provided by engineer. */
-"Show titles" = "Покажи наслове";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Додатне контроле ...";

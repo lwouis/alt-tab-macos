@@ -20,7 +20,7 @@
 "Active Space" = "Активный рабочий стол";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Выравнивание окон:";
+"Align windows" = "Выровняйте окна";
 
 /* No comment provided by engineer. */
 "All apps" = "Все приложения";
@@ -41,7 +41,7 @@
 "Alphabetical" = "По алфавиту";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Также выбирать окна, используя:";
+"Also select windows using" = "Также выбирать окна, используя";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab аварийно завершился в последний раз, когда вы его использовали. Отправка отчета поможет исправить проблему";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Всегда отправлять отчеты о вылетах";
 
 /* No comment provided by engineer. */
-"and press:" = "и нажать:";
+"and press" = "и пресс";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "Приложение (BundleID начинается с)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "Приложение запущено, но нет открытого окна";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Задержка появления:";
+"Apparition delay" = "Задержка явления";
 
 /* No comment provided by engineer. */
 "Appearance" = "Внешний вид";
@@ -119,7 +119,7 @@
 "Controls" = "Управление";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Правило отчетов о вылетах:";
+"Crash reports policy" = "Политика отчетов об аварии";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Курсор следует за фокусом";
@@ -140,7 +140,7 @@
 "End" = "Конец";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Анимация затухания:";
+"Fade out animation" = "Исчезнуть анимация";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Фокус на выбранное окно";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Полноэкранное окно";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Полноэкранные окна:";
+"Fullscreen windows" = "Полноэкранные окна";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Переключить полноэкранный режим окна";
@@ -158,7 +158,7 @@
 "General" = "Основное";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Скрытые окна:";
+"Hidden windows" = "Скрытые окна";
 
 /* No comment provided by engineer. */
 "Hide" = "Скрыть";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Скрыть иконки состояния";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Скрыть эскизы окон:";
+"Hide window thumbnails" = "Скрыть эскизы окон";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Скрыть/Показать приложение";
@@ -206,13 +206,13 @@
 "Left" = "Слева";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Макс. высота на экране:";
+"Max height on screen" = "Макс. высота на экране";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Макс. ширина на экране:";
+"Max width on screen" = "Макс. ширина на экране";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Иконка в строке меню:";
+"Menubar icon" = "Менубар значок";
 
 /* No comment provided by engineer. */
 "Middle" = "Посередине";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Свернуть/Развернуть окно";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Свернутые окна:";
+"Minimized windows" = "Свернутые окна";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Разное:";
+"Miscellaneous" = "Разное";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Наведение мышью";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Открыть настройки Записи экрана…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Опционально: эл.почта (если вы хотите ответа)";
+"Optional email (if you want a reply)" = "Опционально эл.почта (если вы хотите ответа)";
 
 /* No comment provided by engineer. */
 "Policies" = "Правила";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Сброс настроек и перезапуск…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Ряды с эскизами окон:";
+"Rows of thumbnails" = "Ряды с эскизами окон";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Экран с панелью меню";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Комбинация 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Комбинация уже назначена к другом действие: %@";
+"Shortcut already assigned to another action %@" = "Комбинация уже назначена к другом действие %@";
 
 /* No comment provided by engineer. */
 "Show" = "Показать";
@@ -350,13 +350,13 @@
 "Show at the end" = "Показывать в конце";
 
 /* No comment provided by engineer. */
-"Show on:" = "Показать на:";
+"Show on" = "Показать на";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Показывать вкладки стандартных приложений как окна";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Показывать окна:";
+"Show windows from" = "Показывать окна";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Репозиторий исходного кода";
@@ -368,16 +368,16 @@
 "Start" = "Начало";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Запускать при входе в систему:";
+"Start at login" = "Начните с входа в систему";
 
 /*Menubar option*/
 "Support this project ❤️" = "Поддержать этот проект ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Тема:";
+"Theme" = "Тема";
 
 /* No comment provided by engineer. */
-"Then release:" = "Затем отпустить:";
+"Then release" = "Затем отпустить";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Это разрешение нужно для фокусировки окна после отпускания комбинации клавиш";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Назначение отменить и дальше";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Правило обновлений:";
+"Updates policy" = "Политика обновлений";
 
 /* No comment provided by engineer. */
 "Version" = "Версия";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim клавиши";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim клавиши уже назначены на другие действия:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim клавиши уже назначены на другие действия\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Видимые пространства";
@@ -413,10 +413,10 @@
 "When no open window" = "Когда нет открытых окон";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Когда открыто, нажать:";
+"While open, press" = "Когда открыто, нажать";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Размер иконки окна:";
+"Window app icon size" = "Размер иконки окна";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Окно полноэкранное";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Окно в пространстве %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Максимальная ширина эскиза в ряду:";
+"Window max width in row" = "Максимальная ширина эскиза в ряду";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Минимальная ширина эскиза в ряду:";
+"Window min width in row" = "Минимальная ширина эскиза в ряду";
 
 /* No comment provided by engineer. */
-"Window order:" = "Порядок окон:";
+"Window order" = "Порядок окон";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Размер заголовка:";
+"Window title font size" = "Размер заголовка";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Обрезка заголовка окна:";
+"Window title truncation" = "Обрезка заголовка окна";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Вы не можете отменить это действие";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Вы не написали свою электронную почту, поэтому не можете получить ответ.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Модель внешнего вида:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Размер появления:";
+"Appearance size" = "Размер появления";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Показать спрятать";
@@ -494,34 +491,22 @@
 "Windows" = "Окна";
 
 /* No comment provided by engineer. */
-"Application Names" = "Имена приложений";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Оконные названия";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Имена приложений - названия окон";
 
 /* No comment provided by engineer. */
 "Leading" = "Ведущий";
 
 /* No comment provided by engineer. */
-"Show running:" = "Показать бег:";
+"Show running" = "Показать бег";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Название показывать:";
+"Show titles" = "Показать названия";
 
 /* No comment provided by engineer. */
 "Done" = "Сделанный";
 
 /* No comment provided by engineer. */
 "Advanced" = "Передовой";
-
-/* No comment provided by engineer. */
-"Position" = "Позиция";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Приложение вертикальное выравнивание:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Миниатюры продвинулись ...";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Некоторые приложения, такие как Finder или Preview, используют стандартные вкладки, которые действуют как независимые Windows.Некоторые другие приложения, такие как веб -браузеры, используют пользовательские вкладки, которые действуют уникальными способами, а не являются фактическими окнами.Alttab не может перечислить их отдельно.";
-
-/* No comment provided by engineer. */
-"and press" = "и пресс";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Триггерный ярлык";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Ярлыки при активном";
 
 /* No comment provided by engineer. */
-"Start at login" = "Начните с входа в систему";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Менубар значок";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Политика обновлений";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Политика отчетов об аварии";
-
-/* No comment provided by engineer. */
 "Animations…" = "Анимации ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Размер";
 
 /* No comment provided by engineer. */
-"Theme" = "Тема";
-
-/* No comment provided by engineer. */
 "High visibility" = "Высокая видимость";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Несколько экранов";
-
-/* No comment provided by engineer. */
-"Show on" = "Показать на";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Настройте стиль миниатюрного стиля…";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Настройте стиль названия ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Задержка явления";
-
-/* No comment provided by engineer. */
 "Animations" = "Анимация";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Исчезнуть анимация";
-
-/* No comment provided by engineer. */
-"Align windows" = "Выровняйте окна";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Усечение заголовка";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Показать в переключателе";
-
-/* No comment provided by engineer. */
-"Show titles" = "Показать названия";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Дополнительные элементы управления…";

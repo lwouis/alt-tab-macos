@@ -20,7 +20,7 @@
 "Active Space" = "איזור פעיל";
 
 /* No comment provided by engineer. */
-"Align windows:" = "יישר חלונות:";
+"Align windows" = "יישר חלונות";
 
 /* No comment provided by engineer. */
 "All apps" = "כל היישומים";
@@ -41,7 +41,7 @@
 "Alphabetical" = "אלפאביתי";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "בחר חלון גם באמצעות:";
+"Also select windows using" = "בחר חלון גם באמצעות";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab קרס בפעם האחרונה שהשתמשת בו. שליחה של דיווח קריסה יעזור לתקן את הבעיה";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "תמיד שלח דיווחי קריסה";
 
 /* No comment provided by engineer. */
-"and press:" = "ולחץ:";
+"and press" = "ולחץ";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "ישום (BundlelD מתחיל ב-)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "היישום פועל אך אין לו חלון פתוח";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "עיכוב הופעה:";
+"Apparition delay" = "עיכוב הופעה";
 
 /* No comment provided by engineer. */
 "Appearance" = "מראה";
@@ -119,7 +119,7 @@
 "Controls" = "שליטה";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "מדיניות דיווחי קריסה:";
+"Crash reports policy" = "מדיניות דוחות קריסה";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "הסמן עוקב אחר המיקוד";
@@ -140,7 +140,7 @@
 "End" = "סוף";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "אנימציית היעלמות:";
+"Fade out animation" = "דוהה אנימציה";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "התמקד בחלון שנבחר";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "חלון במסך מלא";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "חלונות במסך מלא:";
+"Fullscreen windows" = "חלונות במסך מלא";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "הכנסת/הוצאת חלון ממסך מלא";
@@ -158,7 +158,7 @@
 "General" = "כללי";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "חלונות נסתרים:";
+"Hidden windows" = "חלונות נסתרים";
 
 /* No comment provided by engineer. */
 "Hide" = "הסתר";
@@ -182,7 +182,7 @@
 "Hide status icons" = "הסתר סמלי סטטוס";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "הסתר תמונות ממוזערות של חלונות:";
+"Hide window thumbnails" = "הסתר תמונות ממוזערות של חלונות";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "הסתר/הצג חלון";
@@ -206,13 +206,13 @@
 "Left" = "שמאלה";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "גובה מקסימלי במסך:";
+"Max height on screen" = "גובה מקסימלי במסך";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "רוחב מקסימלי במסך:";
+"Max width on screen" = "רוחב מקסימלי במסך";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "סמל תפריט עליון:";
+"Menubar icon" = "אייקון Menubar";
 
 /* No comment provided by engineer. */
 "Middle" = "אמצע";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "מזער\\בטל מזעור חלון";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "חלונות ממוזערים:";
+"Minimized windows" = "חלונות ממוזערים";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "אחר:";
+"Miscellaneous" = "אחר";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "רחף עם עכבר";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "פתח הגדרות הקלטת מסך…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "אופציונלי: אימייל (אם תרצה תגובה חזרה)";
+"Optional email (if you want a reply)" = "אופציונלי אימייל (אם תרצה תגובה חזרה)";
 
 /* No comment provided by engineer. */
 "Policies" = "מדיניות";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "אפס העדפות והפעל מחדש…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "מס׳ שורות של תמונות ממוזערות:";
+"Rows of thumbnails" = "מס׳ שורות של תמונות ממוזערות";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "מסך הכולל את שורת התפריטים";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "קיצור 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "הקיצור שנבחר כבר משוייך לפעולה אחרת: %@";
+"Shortcut already assigned to another action %@" = "הקיצור שנבחר כבר משוייך לפעולה אחרת %@";
 
 /* No comment provided by engineer. */
 "Show" = "הצג";
@@ -350,13 +350,13 @@
 "Show at the end" = "הצג בסוף";
 
 /* No comment provided by engineer. */
-"Show on:" = "הצג ב:";
+"Show on" = "להראות על";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "הצג כרטיסיות סטנדרטיות כ- Windows";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "הצג חלונות מ:";
+"Show windows from" = "הצג חלונות מ";
 
 /* No comment provided by engineer. */
 "Source code repository" = "קוד מקור";
@@ -368,16 +368,16 @@
 "Start" = "התחלה";
 
 /* No comment provided by engineer. */
-"Start at login:" = "התחל בהפעלת המחשב:";
+"Start at login" = "התחל בכניסה";
 
 /*Menubar option*/
 "Support this project ❤️" = "תמיכה בפרויקט ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "סגנון:";
+"Theme" = "נוֹשֵׂא";
 
 /* No comment provided by engineer. */
-"Then release:" = "ואז עזוב:";
+"Then release" = "ואז עזוב";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "הרשאה זו דרושה כדי להתמקד על החלון הנכון לאחר שחרור קיצור המקשים";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "בטל הקצאת קיצור קיים והמשך";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "מדיניות עדכונים:";
+"Updates policy" = "מעדכן מדיניות";
 
 /* No comment provided by engineer. */
 "Version" = "גרסה";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim keys";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "איזורים גלויים";
@@ -413,10 +413,10 @@
 "When no open window" = "כשאין חלון פתוח";
 
 /* No comment provided by engineer. */
-"While open, press:" = "כאשר פתוח, לחץ:";
+"While open, press" = "כאשר פתוח, לחץ";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "גודל סמל חלון:";
+"Window app icon size" = "גודל סמל חלון";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "החלון במסך מלא";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "החלון נמצא באיזור %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "רוחב מקסימלי של חלון בטור:";
+"Window max width in row" = "רוחב מקסימלי של חלון בטור";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "רוחב מינימלי של חלון בטור:";
+"Window min width in row" = "רוחב מינימלי של חלון בטור";
 
 /* No comment provided by engineer. */
-"Window order:" = "סדר חלונות:";
+"Window order" = "סדר חלונות";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "גודל כותרת חלון:";
+"Window title font size" = "גודל כותרת חלון";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "כותרת חלון מקוצרת:";
+"Window title truncation" = "כותרת חלון מקוצרת";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "לא ניתן לבטל פעולה זו.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "לא רשמת את כתובת המייל שלך, ולא תוכל לקבל מענה.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "מודל מראה:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "גודל המראה:";
+"Appearance size" = "גודל המראה";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "הצג הסתר";
@@ -494,34 +491,22 @@
 "Windows" = "חלונות";
 
 /* No comment provided by engineer. */
-"Application Names" = "שמות יישומים";
-
-/* No comment provided by engineer. */
 "Window Titles" = "כותרות חלונות";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "שמות יישומים - כותרות חלונות";
 
 /* No comment provided by engineer. */
 "Leading" = "מוֹבִיל";
 
 /* No comment provided by engineer. */
-"Show running:" = "הצג ריצה:";
+"Show running" = "הצג ריצה";
 
 /* No comment provided by engineer. */
-"Show titles:" = "הצג כותרות:";
+"Show titles" = "הצג כותרות";
 
 /* No comment provided by engineer. */
 "Done" = "בוצע";
 
 /* No comment provided by engineer. */
 "Advanced" = "מִתקַדֵם";
-
-/* No comment provided by engineer. */
-"Position" = "עמדה";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "יישור אנכי של אפליקציה:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "תמונות ממוזערות מתקדמות ...";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "יש אפליקציות כמו Finder או תצוגה מקדימה שמשתמשים בכרטיסיות סטנדרטיות הפועלות כמו חלונות עצמאיים.כמה אפליקציות אחרות כמו דפדפני אינטרנט משתמשים בכרטיסיות מותאמות אישית הפועלות בדרכים ייחודיות ואינן חלונות בפועל.Alttab לא יכול לרשום את אלה בנפרד.";
-
-/* No comment provided by engineer. */
-"and press" = "ולחץ";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "קיצור דרך טריגר";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "קיצורי דרך כאשר הם פעילים";
 
 /* No comment provided by engineer. */
-"Start at login" = "התחל בכניסה";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "אייקון Menubar";
-
-/* No comment provided by engineer. */
-"Updates policy" = "מעדכן מדיניות";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "מדיניות דוחות קריסה";
-
-/* No comment provided by engineer. */
 "Animations…" = "אנימציות ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "גוֹדֶל";
 
 /* No comment provided by engineer. */
-"Theme" = "נוֹשֵׂא";
-
-/* No comment provided by engineer. */
 "High visibility" = "ראות גבוהה";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "מספר מסכים";
-
-/* No comment provided by engineer. */
-"Show on" = "להראות על";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "התאמה אישית של תמונות ממוזערות ...";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "התאמה אישית של כותרות סגנון ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "עיכוב הופעה";
-
-/* No comment provided by engineer. */
 "Animations" = "אנימציות";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "דוהה אנימציה";
-
-/* No comment provided by engineer. */
-"Align windows" = "יישר חלונות";
 
 /* No comment provided by engineer. */
 "Title truncation" = "גיזום כותרות";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "להראות ב- Switcher";
-
-/* No comment provided by engineer. */
-"Show titles" = "הצג כותרות";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "בקרות נוספות ...";

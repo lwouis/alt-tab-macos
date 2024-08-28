@@ -20,7 +20,7 @@
 "Active Space" = "Actieve space";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Lijn vensters uit:";
+"Align windows" = "Lijn Windows uit";
 
 /* No comment provided by engineer. */
 "All apps" = "Alle programma’s";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alfabetisch";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Selecteer ook vensters met:";
+"Also select windows using" = "Selecteer ook vensters met";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab is de vorige keer gecrasht. Je kunt ons helpen door een crashrapportage te versturen";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Verstuur altijd crashrapportages";
 
 /* No comment provided by engineer. */
-"and press:" = "ingedrukt en druk:";
+"and press" = "en druk op";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starting with)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "App is open maar heeft geen tabbladen open";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Tonen met vertraging:";
+"Apparition delay" = "Verschijningsvertraging";
 
 /* No comment provided by engineer. */
 "Appearance" = "Weergave";
@@ -119,7 +119,7 @@
 "Controls" = "Besturing";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Beleid crashrapportages:";
+"Crash reports policy" = "Crash Reports Policy";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Cursor volgt focus";
@@ -140,7 +140,7 @@
 "End" = "Einde";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Fade-out animatie:";
+"Fade out animation" = "FADE OUT -animatie";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Focus geselecteerde venster";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Fullscreen venster";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Windows op volledig scherm:";
+"Fullscreen windows" = "Windows op volledig scherm";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Volledig/Onvolledig venster";
@@ -158,7 +158,7 @@
 "General" = "Algemeen";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Verborgen vensters:";
+"Hidden windows" = "Verborgen vensters";
 
 /* No comment provided by engineer. */
 "Hide" = "Verberg";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Verberg statusiconen";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Verberg vensterminiaturen:";
+"Hide window thumbnails" = "Verberg vensterminiaturen";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Verberg/Toon programma";
@@ -206,13 +206,13 @@
 "Left" = "Links";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Max hoogte op scherm:";
+"Max height on screen" = "Max hoogte op scherm";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Max breedte op scherm:";
+"Max width on screen" = "Max breedte op scherm";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Menubalk-icoon:";
+"Menubar icon" = "Menubar -pictogram";
 
 /* No comment provided by engineer. */
 "Middle" = "Midden";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Minimaliseer/Deminimaliseer venster";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Geminimaliseerde vensters:";
+"Minimized windows" = "Geminimaliseerde vensters";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous" = "Miscellaneous";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Muisbeweging";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Open schermopname-voorkeuren…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optioneel: e-mail (als je een reactie wilt ontvangen)";
+"Optional email (if you want a reply)" = "Optioneel e-mail (als je een reactie wilt ontvangen)";
 
 /* No comment provided by engineer. */
 "Policies" = "Beleid";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Verwijder voorkeuren en start opnieuw op…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Rijen met miniaturen:";
+"Rows of thumbnails" = "Rijen met miniaturen";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Beeldscherm met menubalk";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Snelkoppeling 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Toetscombinatie is al toegewezen aan een andere actie: %@";
+"Shortcut already assigned to another action %@" = "Toetscombinatie is al toegewezen aan een andere actie %@";
 
 /* No comment provided by engineer. */
 "Show" = "Toon";
@@ -350,13 +350,13 @@
 "Show at the end" = "Toon aan het einde";
 
 /* No comment provided by engineer. */
-"Show on:" = "Toon op:";
+"Show on" = "Laten zien";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Laat standaardtabbladen zien als vensters";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Vensters weergeven van:";
+"Show windows from" = "Vensters weergeven van";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Broncode-repository";
@@ -368,16 +368,16 @@
 "Start" = "Start";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Start bij inloggen:";
+"Start at login" = "Begin bij inloggen";
 
 /*Menubar option*/
 "Support this project ❤️" = "Steun dit project ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Thema:";
+"Theme" = "Thema";
 
 /* No comment provided by engineer. */
-"Then release:" = "Doe dan:";
+"Then release" = "Doe dan";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Deze permissie is nodig om vensters te focussen na het uitvoeren van de snelkoppeling";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Verwijder toetscombinatie en ga verder";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Updatebeleid:";
+"Updates policy" = "Updates beleid";
 
 /* No comment provided by engineer. */
 "Version" = "Versie";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim toetsen";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim toetsen al toegewezen aan andere acties:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim toetsen al toegewezen aan andere acties\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Zichtbare spaces";
@@ -413,10 +413,10 @@
 "When no open window" = "Waneeer geen open venster";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Druk terwijl het geopend is:";
+"While open, press" = "Druk terwijl het geopend is";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Icoongrootte vensterapplicatie:";
+"Window app icon size" = "Icoongrootte vensterapplicatie";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Venster is volledig scherm";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Venster is op elke ruimte %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Maximale vensterbreedte in rij:";
+"Window max width in row" = "Maximale vensterbreedte in rij";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Minimale vensterbreedte in rij:";
+"Window min width in row" = "Minimale vensterbreedte in rij";
 
 /* No comment provided by engineer. */
-"Window order:" = "Scherm volgorde:";
+"Window order" = "Scherm volgorde";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Tekstgrootte venstertitel:";
+"Window title font size" = "Tekstgrootte venstertitel";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Afkappen venstertitel:";
+"Window title truncation" = "Afkappen venstertitel";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Je kan deze actie niet ongedaan maken.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Je hebt geen e-mail ingevoerd en kunt dus geen reactie ontvangen.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Uiterlijk model:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Uiterlijk grootte:";
+"Appearance size" = "Uiterlijk grootte";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Laten zien verbergen";
@@ -494,34 +491,22 @@
 "Windows" = "ramen";
 
 /* No comment provided by engineer. */
-"Application Names" = "Toepassingsnamen";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Raamtitels";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Applicatienamen - Windowitels";
 
 /* No comment provided by engineer. */
 "Leading" = "Leidend";
 
 /* No comment provided by engineer. */
-"Show running:" = "Show Running:";
+"Show running" = "Show Running";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Toon titels:";
+"Show titles" = "Toon titels";
 
 /* No comment provided by engineer. */
 "Done" = "Klaar";
 
 /* No comment provided by engineer. */
 "Advanced" = "Geavanceerd";
-
-/* No comment provided by engineer. */
-"Position" = "Positie";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Verticale uitlijning van apps:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Thumbnails Gevorderde ...";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Sommige apps zoals Finder of Preview gebruiken standaard tabbladen die werken als onafhankelijke Windows.Sommige andere apps zoals webbrowsers gebruiken aangepaste tabbladen die op unieke manieren werken en geen echte Windows zijn.Alttab kan die niet afzonderlijk vermelden.";
-
-/* No comment provided by engineer. */
-"and press" = "en druk op";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Trigger snelkoppeling";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Snelkoppelingen wanneer actief";
 
 /* No comment provided by engineer. */
-"Start at login" = "Begin bij inloggen";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Menubar -pictogram";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Updates beleid";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Crash Reports Policy";
-
-/* No comment provided by engineer. */
 "Animations…" = "Animaties ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Maat";
 
 /* No comment provided by engineer. */
-"Theme" = "Thema";
-
-/* No comment provided by engineer. */
 "High visibility" = "Hoge zichtbaarheid";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Meerdere schermen";
-
-/* No comment provided by engineer. */
-"Show on" = "Laten zien";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Pas de stijl van de miniatuur aan ...";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Titels stijl aanpassen ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Verschijningsvertraging";
-
-/* No comment provided by engineer. */
 "Animations" = "Animaties";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "FADE OUT -animatie";
-
-/* No comment provided by engineer. */
-"Align windows" = "Lijn Windows uit";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Titelintrekking";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Show in Switcher";
-
-/* No comment provided by engineer. */
-"Show titles" = "Toon titels";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Extra bedieningsels ...";

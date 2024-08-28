@@ -20,7 +20,7 @@
 "Active Space" = "সক্রিয় স্পেস";
 
 /* No comment provided by engineer. */
-"Align windows:" = "উইন্ডো সারিবদ্ধ করুন:";
+"Align windows" = "উইন্ডোজ সারিবদ্ধ করুন";
 
 /* No comment provided by engineer. */
 "All apps" = "সব অ্যাপ্লিকেশান";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alphabetical";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "এটা ব্যবহার করেও উইন্ডো নির্বাচন করুন:";
+"Also select windows using" = "এটা ব্যবহার করেও উইন্ডো নির্বাচন করুন";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "আপনি শেষবার ব্যবহার করার সময় AltTab ক্র্যাশ হয়েছে। একটি ক্র্যাশ রিপোর্ট পাঠালে সেই সমস্যার সমাধান পেতে সাহায্য করবে";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "সর্বদা ক্র্যাশ রিপোর্ট পাঠান";
 
 /* No comment provided by engineer. */
-"and press:" = "এবং চাপুন:";
+"and press" = "এবং টিপুন";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "অ্যাপ (বান্ডেল আইডি দিয়ে শুরু)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "অ্যাপ চলছে কিন্তু কোন খোলা উইন্ডো নেই";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "আবির্ভাব বিলম্ব:";
+"Apparition delay" = "প্রয়োগ বিলম্ব";
 
 /* No comment provided by engineer. */
 "Appearance" = "অলংকরণ";
@@ -119,7 +119,7 @@
 "Controls" = "কন্ট্রোল";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "ক্র্যাশ রিপোর্ট নীতি:";
+"Crash reports policy" = "ক্র্যাশ রিপোর্ট নীতি";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "কার্সার ফোকাস অনুসরণ করে";
@@ -140,7 +140,7 @@
 "End" = "শেষ";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "ফেইড আউট অ্যানিমেশন:";
+"Fade out animation" = "অ্যানিমেশন বিবর্ণ";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "নির্বাচিত উইন্ডোতে ফোকাস করুন";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "ফুলস্ক্রিন উইন্ডো";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "ফুলস্ক্রিন উইন্ডোজ:";
+"Fullscreen windows" = "ফুলস্ক্রিন উইন্ডোজ";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
@@ -158,7 +158,7 @@
 "General" = "সাধারন";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "লুকানো উইন্ডোজ:";
+"Hidden windows" = "লুকানো উইন্ডোজ";
 
 /* No comment provided by engineer. */
 "Hide" = "লুকান";
@@ -182,7 +182,7 @@
 "Hide status icons" = "স্ট্যাটাস আইকন লুকান";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "উইন্ডো থাম্বনেল লুকান:";
+"Hide window thumbnails" = "উইন্ডো থাম্বনেল লুকান";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "অ্যাপ লুকান/দেখান";
@@ -206,13 +206,13 @@
 "Left" = "বাম";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "স্ক্রিনে সর্বোচ্চ উচ্চতা:";
+"Max height on screen" = "স্ক্রিনে সর্বোচ্চ উচ্চতা";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "স্ক্রিনে সর্বাধিক প্রস্থ:";
+"Max width on screen" = "স্ক্রিনে সর্বাধিক প্রস্থ";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "মেনুবার আইকন:";
+"Menubar icon" = "মেনুবার আইকন";
 
 /* No comment provided by engineer. */
 "Middle" = "মধ্য";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "উইন্ডো মিনিমাইজ/ডিমিনিমাইজ করুন";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "মিনিমাইজ করা উইন্ডোজ:";
+"Minimized windows" = "মিনিমাইজ করা উইন্ডোজ";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "বিবিধ:";
+"Miscellaneous" = "বিবিধ";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "মাউস হভার";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "স্ক্রীন রেকর্ডিং সেটিং খুলুন...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "ঐচ্ছিক: ইমেল (যদি আপনি একটি উত্তর চান)";
+"Optional email (if you want a reply)" = "ঐচ্ছিক ইমেল (যদি আপনি একটি উত্তর চান)";
 
 /* No comment provided by engineer. */
 "Policies" = "নীতিমালা";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "থাম্বনেইলের সারি:";
+"Rows of thumbnails" = "থাম্বনেইলের সারি";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "মেনু বার সহ স্ক্রীন";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Shortcut 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "শর্টকাট ইতিমধ্যেই অন্য অ্যাকশনে অ্যাসাইন করা হয়েছে: %@";
+"Shortcut already assigned to another action %@" = "শর্টকাট ইতিমধ্যেই অন্য অ্যাকশনে অ্যাসাইন করা হয়েছে %@";
 
 /* No comment provided by engineer. */
 "Show" = "দেখান";
@@ -350,13 +350,13 @@
 "Show at the end" = "শেষে দেখান";
 
 /* No comment provided by engineer. */
-"Show on:" = "প্রদর্শন:";
+"Show on" = "প্রদর্শন করুন";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "উইন্ডো হিসাবে স্ট্যান্ডার্ড ট্যাব দেখান";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "এর থেকে উইন্ডো দেখান:";
+"Show windows from" = "এর থেকে উইন্ডো দেখান";
 
 /* No comment provided by engineer. */
 "Source code repository" = "সোর্স কোড সংগ্রহস্থল";
@@ -368,16 +368,16 @@
 "Start" = "শুরু করুন";
 
 /* No comment provided by engineer. */
-"Start at login:" = "লগইন থেকে শুরু করুন:";
+"Start at login" = "লগইন শুরু করুন";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "থিম:";
+"Theme" = "থিম";
 
 /* No comment provided by engineer. */
-"Then release:" = "তারপর মুক্তি:";
+"Then release" = "তারপর মুক্তি";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "আপনি শর্টকাট রিলিজ করার পর উইন্ডোজ ফোকাস করার জন্য এই অনুমতি প্রয়োজন";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "বিদ্যমান শর্টকাট আনঅ্যাসাইন করুন এবং চালিয়ে যান";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "আপডেট নীতি:";
+"Updates policy" = "আপডেট নীতি";
 
 /* No comment provided by engineer. */
 "Version" = "সংস্করণ";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim keys";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "দৃশ্যমান স্থান";
@@ -413,10 +413,10 @@
 "When no open window" = "যখন খোলা জানালা নেই";
 
 /* No comment provided by engineer. */
-"While open, press:" = "খোলার সময়, চাপুন:";
+"While open, press" = "খোলার সময়, চাপুন";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "উইন্ডো অ্যাপ্লিকেশন আইকন আকার:";
+"Window app icon size" = "উইন্ডো অ্যাপ্লিকেশন আইকন আকার";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "উইন্ডো ফুলস্ক্রিন";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "উইন্ডো %d স্পেসে আছে";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "সারিতে উইন্ডো সর্বাধিক প্রস্থ:";
+"Window max width in row" = "সারিতে উইন্ডো সর্বাধিক প্রস্থ";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "সারিতে উইন্ডোর মিনিমাম প্রস্থ:";
+"Window min width in row" = "সারিতে উইন্ডোর মিনিমাম প্রস্থ";
 
 /* No comment provided by engineer. */
-"Window order:" = "Window order:";
+"Window order" = "Window order";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "উইন্ডো শিরোনামের ফন্ট সাইজ:";
+"Window title font size" = "উইন্ডো শিরোনামের ফন্ট সাইজ";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "উইন্ডো শিরোনাম ছেদন:";
+"Window title truncation" = "উইন্ডো শিরোনাম ছেদন";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "আপনি আপনার ইমেল লেখেননি, তাই কোনো রিপ্লেও পাবেন না।";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "উপস্থিতি মডেল:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "চেহারা আকার:";
+"Appearance size" = "চেহারা আকার";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "দেখান এবং লুকান";
@@ -494,34 +491,22 @@
 "Windows" = "উইন্ডোজ";
 
 /* No comment provided by engineer. */
-"Application Names" = "অ্যাপ্লিকেশন নাম";
-
-/* No comment provided by engineer. */
 "Window Titles" = "উইন্ডো শিরোনাম";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "অ্যাপ্লিকেশন নাম - উইন্ডো শিরোনাম";
 
 /* No comment provided by engineer. */
 "Leading" = "নেতৃত্ব";
 
 /* No comment provided by engineer. */
-"Show running:" = "চলমান দেখান:";
+"Show running" = "চলমান দেখান";
 
 /* No comment provided by engineer. */
-"Show titles:" = "শিরোনামগুলি দেখান:";
+"Show titles" = "শিরোনাম দেখান";
 
 /* No comment provided by engineer. */
 "Done" = "সম্পন্ন";
 
 /* No comment provided by engineer. */
 "Advanced" = "উন্নত";
-
-/* No comment provided by engineer. */
-"Position" = "অবস্থান";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "অ্যাপ্লিকেশন উল্লম্ব প্রান্তিককরণ:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "থাম্বনেইলগুলি উন্নত…";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "ফাইন্ডার বা পূর্বরূপের মতো কিছু অ্যাপ্লিকেশন স্ট্যান্ডার্ড ট্যাব ব্যবহার করে যা স্বাধীন উইন্ডোর মতো কাজ করে।ওয়েব ব্রাউজারগুলির মতো আরও কিছু অ্যাপ্লিকেশন কাস্টম ট্যাব ব্যবহার করে যা অনন্য উপায়ে কাজ করে এবং প্রকৃত উইন্ডো নয়।আলটাব পৃথকভাবে তালিকাভুক্ত করতে পারে না।";
-
-/* No comment provided by engineer. */
-"and press" = "এবং টিপুন";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "ট্রিগার শর্টকাট";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "সক্রিয় হলে শর্টকাট";
 
 /* No comment provided by engineer. */
-"Start at login" = "লগইন শুরু করুন";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "মেনুবার আইকন";
-
-/* No comment provided by engineer. */
-"Updates policy" = "আপডেট নীতি";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "ক্র্যাশ রিপোর্ট নীতি";
-
-/* No comment provided by engineer. */
 "Animations…" = "অ্যানিমেশন ...";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "আকার";
 
 /* No comment provided by engineer. */
-"Theme" = "থিম";
-
-/* No comment provided by engineer. */
 "High visibility" = "উচ্চ দৃশ্যমানতা";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "একাধিক স্ক্রিন";
-
-/* No comment provided by engineer. */
-"Show on" = "প্রদর্শন করুন";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "থাম্বনেইলস স্টাইল কাস্টমাইজ করুন ...";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "শিরোনাম শৈলী কাস্টমাইজ করুন ...";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "প্রয়োগ বিলম্ব";
-
-/* No comment provided by engineer. */
 "Animations" = "অ্যানিমেশন";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "অ্যানিমেশন বিবর্ণ";
-
-/* No comment provided by engineer. */
-"Align windows" = "উইন্ডোজ সারিবদ্ধ করুন";
 
 /* No comment provided by engineer. */
 "Title truncation" = "শিরোনাম কাটা";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "সুইচারে দেখান";
-
-/* No comment provided by engineer. */
-"Show titles" = "শিরোনাম দেখান";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "অতিরিক্ত নিয়ন্ত্রণ ...";

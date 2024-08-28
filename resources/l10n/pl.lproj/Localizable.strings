@@ -20,7 +20,7 @@
 "Active Space" = "Aktywnej przestrzeni";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Wyrównaj okna:";
+"Align windows" = "Wyrównać okna";
 
 /* No comment provided by engineer. */
 "All apps" = "Wszystkich aplikacji";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alfabetycznie";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Wybierz okna także za pomocą:";
+"Also select windows using" = "Wybierz okna także za pomocą";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab nieoczekiwanie zakończyło pracę. Wysłanie raportu pomoże naprawić problem";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Zawsze wysyłaj raporty crashów";
 
 /* No comment provided by engineer. */
-"and press:" = "i wciśnij:";
+"and press" = "i naciśnij";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "Aplikacja (początek jej BundleID)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "Aplikacja jest uruchomiona, ale nie ma otwartego okna";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Opóźnienie pojawiania się:";
+"Apparition delay" = "Opóźnienie objawienia";
 
 /* No comment provided by engineer. */
 "Appearance" = "Wygląd";
@@ -119,7 +119,7 @@
 "Controls" = "Klawisze";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Polityka raportów crashów:";
+"Crash reports policy" = "Polityka raportów katastrofalnych";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Podążanie kursora za wybranym oknem";
@@ -140,7 +140,7 @@
 "End" = "Na końcu";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Animacja zanikania:";
+"Fade out animation" = "Zniknąć animację";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Skup się na wybranym oknie";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Okno pełnoekranowe";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Windows na pełny ekran:";
+"Fullscreen windows" = "Windows na pełny ekran";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Przełącz pełny ekran dla okna";
@@ -158,7 +158,7 @@
 "General" = "Ogólne";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Ukryte okna:";
+"Hidden windows" = "Ukryte okna";
 
 /* No comment provided by engineer. */
 "Hide" = "Ukryj";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Ukryj ikony statusu";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Ukryj miniatury okien:";
+"Hide window thumbnails" = "Ukryj miniatury okien";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Pokaż/ukryj aplikacje";
@@ -206,13 +206,13 @@
 "Left" = "Lewo";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Maksymalna wysokość na ekranie";
+"Max height on screen" = "Maksymalna wysokość na ekranie";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Maksymalna szerokość na ekranie";
+"Max width on screen" = "Maksymalna szerokość na ekranie";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Ikona w pasku menu:";
+"Menubar icon" = "Ikona menu";
 
 /* No comment provided by engineer. */
 "Middle" = "Środek";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Minimalizuj/Deminimalizuj okno";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Zminimalizowane okna:";
+"Minimized windows" = "Zminimalizowane okna";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Różne:";
+"Miscellaneous" = "Różne";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Najechania myszką";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Otwórz ustawienia nagrywania ekranu…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Opcjonalne: email (jeśli chcesz odpowiedź)";
+"Optional email (if you want a reply)" = "Opcjonalne email (jeśli chcesz odpowiedź)";
 
 /* No comment provided by engineer. */
 "Policies" = "Polityki";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Usuń ustawienia i zrestartuj...";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Rzędy miniatur:";
+"Rows of thumbnails" = "Rzędy miniatur";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Ekranie na którym znajduje się pasek menu";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Skrót 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Skrót już przypisany do innej akcji: %@";
+"Shortcut already assigned to another action %@" = "Skrót już przypisany do innej akcji %@";
 
 /* No comment provided by engineer. */
 "Show" = "Pokaż";
@@ -350,13 +350,13 @@
 "Show at the end" = "Pokazuj na końcu";
 
 /* No comment provided by engineer. */
-"Show on:" = "Pokaż na:";
+"Show on" = "Pokaż na";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Pokazuj karty jako okna";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Pokazuj okna z:";
+"Show windows from" = "Pokazuj okna z";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Repozytorium kodu źródłowego";
@@ -368,16 +368,16 @@
 "Start" = "Na początku";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Uruchom przy zalogowaniu:";
+"Start at login" = "Zacznij od logowania";
 
 /*Menubar option*/
 "Support this project ❤️" = "Wesprzyj ten projekt ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Motyw:";
+"Theme" = "Temat";
 
 /* No comment provided by engineer. */
-"Then release:" = "Po puszczeniu:";
+"Then release" = "Po puszczeniu";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "To uprawnienie jest potrzebne, aby aktywować okna po zwolnieniu skrótu";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Anuluj przypisanie istniejącego skrótu i kontynuuj";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Zasady aktualizacji:";
+"Updates policy" = "Aktualizuje zasady";
 
 /* No comment provided by engineer. */
 "Version" = "Wersja";
@@ -401,7 +401,7 @@
 "Vim keys" = "Klawisze Vim";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Klawisze Vim są już przyporządkowane to innych akcji: %@";
+"Vim keys already assigned to other actions\n%@" = "Klawisze Vim są już przyporządkowane to innych akcji %@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Widocznych przestrzeni";
@@ -413,10 +413,10 @@
 "When no open window" = "Gdy brak otwartego okna";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Podczas gdy otwarty, wciśnij:";
+"While open, press" = "Podczas gdy otwarty, wciśnij";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Rozmiar ikony aplikacji okna:";
+"Window app icon size" = "Rozmiar ikony aplikacji okna";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Okno jest pełnoekranowe";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Okno jest na przestrzeni %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Maksymalna szerokość okna w rzędzie:";
+"Window max width in row" = "Maksymalna szerokość okna w rzędzie";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Minimalna szerokość okna w rzędzie:";
+"Window min width in row" = "Minimalna szerokość okna w rzędzie";
 
 /* No comment provided by engineer. */
-"Window order:" = "Porządek okien:";
+"Window order" = "Porządek okien";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Rozmiar czcionki tytułu okna:";
+"Window title font size" = "Rozmiar czcionki tytułu okna";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Obcięcie tytułu okna:";
+"Window title truncation" = "Obcięcie tytułu okna";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Nie będzie można cofnąć tej operacji.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "Nie napisałeś swojego adresu e-mail, \ndlatego nie możesz otrzymać odpowiedzi.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Model wyglądu:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Rozmiar wyglądu:";
+"Appearance size" = "Rozmiar wyglądu";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Pokaż ukryj";
@@ -494,34 +491,22 @@
 "Windows" = "Okna";
 
 /* No comment provided by engineer. */
-"Application Names" = "Nazwy aplikacji";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Tytuły okien";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Nazwy aplikacji - tytuły okienne";
 
 /* No comment provided by engineer. */
 "Leading" = "Prowadzący";
 
 /* No comment provided by engineer. */
-"Show running:" = "Pokaż bieganie:";
+"Show running" = "Pokaż bieganie";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Pokaż tytuły:";
+"Show titles" = "Pokaż tytuły";
 
 /* No comment provided by engineer. */
 "Done" = "Zrobione";
 
 /* No comment provided by engineer. */
 "Advanced" = "Zaawansowany";
-
-/* No comment provided by engineer. */
-"Position" = "Pozycja";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Ustawienie pionowe aplikacji:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Miniatury zaawansowane…";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Niektóre aplikacje, takie jak Finder lub podgląd, używają standardowych kart, które działają jak niezależne Windows.Niektóre inne aplikacje, takie jak przeglądarki internetowe, używają niestandardowych kart, które działają w unikalne sposoby i nie są rzeczywistym systemem Windows.Alttab nie może ich wyświetlić osobno.";
-
-/* No comment provided by engineer. */
-"and press" = "i naciśnij";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Skrót spust";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Skróty, gdy są aktywne";
 
 /* No comment provided by engineer. */
-"Start at login" = "Zacznij od logowania";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Ikona menu";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Aktualizuje zasady";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Polityka raportów katastrofalnych";
-
-/* No comment provided by engineer. */
 "Animations…" = "Animacje…";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Rozmiar";
 
 /* No comment provided by engineer. */
-"Theme" = "Temat";
-
-/* No comment provided by engineer. */
 "High visibility" = "Wysoka widoczność";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Wiele ekranów";
-
-/* No comment provided by engineer. */
-"Show on" = "Pokaż na";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Dostosuj styl miniatury…";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Dostosuj styl tytułów…";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Opóźnienie objawienia";
-
-/* No comment provided by engineer. */
 "Animations" = "Animacje";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Zniknąć animację";
-
-/* No comment provided by engineer. */
-"Align windows" = "Wyrównać okna";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Obcięcie tytułu";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Pokaż w przełączniku";
-
-/* No comment provided by engineer. */
-"Show titles" = "Pokaż tytuły";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Dodatkowe elementy sterujące…";

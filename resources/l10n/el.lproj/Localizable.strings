@@ -20,7 +20,7 @@
 "Active Space" = "Ενεργός Χώρος";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Στοίχιση παραθύρων:";
+"Align windows" = "Ευθυγραμμίστε τα παράθυρα";
 
 /* No comment provided by engineer. */
 "All apps" = "Όλες οι εφαρμογές";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alphabetical";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Also select windows using:";
+"Also select windows using" = "Also select windows using";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Always send crash reports";
 
 /* No comment provided by engineer. */
-"and press:" = "και πατήστε:";
+"and press" = "και πατήστε";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starting with)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "App is running but has no open window";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Καθυστέρηση εμφάνισης";
+"Apparition delay" = "Καθυστέρηση εμφάνισης";
 
 /* No comment provided by engineer. */
 "Appearance" = "Εμφάνιση";
@@ -119,7 +119,7 @@
 "Controls" = "Controls";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Crash reports policy:";
+"Crash reports policy" = "Πολιτική αναφορών συντριβής";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Cursor follows focus";
@@ -140,7 +140,7 @@
 "End" = "Τέλος";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Fade out animation:";
+"Fade out animation" = "Ξεθωριάζει κινούμενα σχέδια";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Focus selected window";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Παράθυρο πλήρους οθόνης";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Παράθυρα πλήρους οθόνης:";
+"Fullscreen windows" = "Παράθυρα πλήρους οθόνης";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
@@ -158,7 +158,7 @@
 "General" = "Γενικά";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Κρυμμένα παράθυρα:";
+"Hidden windows" = "Κρυμμένα παράθυρα";
 
 /* No comment provided by engineer. */
 "Hide" = "Απόκρυψη";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Hide status icons";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Hide window thumbnails:";
+"Hide window thumbnails" = "Hide window thumbnails";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Hide/Show app";
@@ -206,13 +206,13 @@
 "Left" = "Αριστερά";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Max height on screen:";
+"Max height on screen" = "Max height on screen";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Max width on screen:";
+"Max width on screen" = "Max width on screen";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon" = "Εικονίδιο μενούρ";
 
 /* No comment provided by engineer. */
 "Middle" = "Middle";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Minimize/Deminimize window";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Minimized windows:";
+"Minimized windows" = "Minimized windows";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Διάφορα:";
+"Miscellaneous" = "Διάφορα";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Mouse hover";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Άνοιγμα Επιλογών Καταγραφής Οθόνης...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Προαιρετικό: email (αν επιθυμείτε απάντηση)";
+"Optional email (if you want a reply)" = "Προαιρετικό email (αν επιθυμείτε απάντηση)";
 
 /* No comment provided by engineer. */
 "Policies" = "Policies";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Rows of thumbnails:";
+"Rows of thumbnails" = "Rows of thumbnails";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Screen including menu bar";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Shortcut 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action %@" = "Shortcut already assigned to another action %@";
 
 /* No comment provided by engineer. */
 "Show" = "Εμφάνιση";
@@ -350,13 +350,13 @@
 "Show at the end" = "Εμφάνιση στο τέλος";
 
 /* No comment provided by engineer. */
-"Show on:" = "Εμφάνιση σε:";
+"Show on" = "Προκύπτει";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Show standard tabs as windows";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Εμφάνιση παραθύρων από:";
+"Show windows from" = "Εμφάνιση παραθύρων από";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Source code repository";
@@ -368,16 +368,16 @@
 "Start" = "Έναρξη";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Start at login:";
+"Start at login" = "Ξεκινήστε από την σύνδεση";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Θέμα:";
+"Theme" = "Θέμα";
 
 /* No comment provided by engineer. */
-"Then release:" = "Then release:";
+"Then release" = "Then release";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Updates policy:";
+"Updates policy" = "Πολιτική ενημερώσεων";
 
 /* No comment provided by engineer. */
 "Version" = "Έκδοση";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim keys";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Ορατοί Χώροι";
@@ -413,10 +413,10 @@
 "When no open window" = "When no open window";
 
 /* No comment provided by engineer. */
-"While open, press:" = "While open, press:";
+"While open, press" = "While open, press";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Μέγεθος εικονιδίου παραθύρου εφαρμογής:";
+"Window app icon size" = "Μέγεθος εικονιδίου παραθύρου εφαρμογής";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Window is fullscreen";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Window is on Space %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Μέγιστο πλάτος παραθύρου στη σειρά:";
+"Window max width in row" = "Μέγιστο πλάτος παραθύρου στη σειρά";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Ελάχιστο πλάτος παραθύρου στη σειρά:";
+"Window min width in row" = "Ελάχιστο πλάτος παραθύρου στη σειρά";
 
 /* No comment provided by engineer. */
-"Window order:" = "Window order:";
+"Window order" = "Window order";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Μέγεθος γραμματοσειράς τίτλου παραθύρου";
+"Window title font size" = "Μέγεθος γραμματοσειράς τίτλου παραθύρου";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Window title truncation:";
+"Window title truncation" = "Window title truncation";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Μοντέλο εμφάνισης:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Μέγεθος εμφάνισης:";
+"Appearance size" = "Μέγεθος εμφάνισης";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Εμφάνιση απόκρυψη";
@@ -494,34 +491,22 @@
 "Windows" = "Παράθυρα";
 
 /* No comment provided by engineer. */
-"Application Names" = "Ονόματα εφαρμογών";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Τίτλοι παραθύρων";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Ονόματα εφαρμογών - τίτλοι παραθύρων";
 
 /* No comment provided by engineer. */
 "Leading" = "Κύριος";
 
 /* No comment provided by engineer. */
-"Show running:" = "Εμφάνιση λειτουργίας:";
+"Show running" = "Εμφάνιση λειτουργίας";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Εμφάνιση τίτλων:";
+"Show titles" = "Εμφάνιση τίτλων";
 
 /* No comment provided by engineer. */
 "Done" = "Εγινε";
 
 /* No comment provided by engineer. */
 "Advanced" = "Προχωρημένος";
-
-/* No comment provided by engineer. */
-"Position" = "Θέση";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Εφαρμογή κατακόρυφης ευθυγράμμισης:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Thumbnails Advanced…";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Ορισμένες εφαρμογές όπως ο Finder ή η προεπισκόπηση χρησιμοποιούν τυπικές καρτέλες που λειτουργούν σαν ανεξάρτητα παράθυρα.Ορισμένες άλλες εφαρμογές όπως τα προγράμματα περιήγησης ιστού χρησιμοποιούν προσαρμοσμένες καρτέλες που λειτουργούν με μοναδικούς τρόπους και δεν είναι πραγματικά παράθυρα.Η Alttab δεν μπορεί να τα καταγράψει χωριστά.";
-
-/* No comment provided by engineer. */
-"and press" = "και πατήστε";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Συντόμευση ενεργοποίησης";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Συντομεύσεις όταν είναι ενεργές";
 
 /* No comment provided by engineer. */
-"Start at login" = "Ξεκινήστε από την σύνδεση";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Εικονίδιο μενούρ";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Πολιτική ενημερώσεων";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Πολιτική αναφορών συντριβής";
-
-/* No comment provided by engineer. */
 "Animations…" = "Κινούμενα σχέδια…";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Μέγεθος";
 
 /* No comment provided by engineer. */
-"Theme" = "Θέμα";
-
-/* No comment provided by engineer. */
 "High visibility" = "Υψηλή ορατότητα";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Πολλαπλές οθόνες";
-
-/* No comment provided by engineer. */
-"Show on" = "Προκύπτει";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Προσαρμογή στυλ μικρογραφιών…";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Προσαρμόστε στυλ τίτλων…";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Καθυστέρηση εμφάνισης";
-
-/* No comment provided by engineer. */
 "Animations" = "Κινούμενα σχέδια";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Ξεθωριάζει κινούμενα σχέδια";
-
-/* No comment provided by engineer. */
-"Align windows" = "Ευθυγραμμίστε τα παράθυρα";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Περικοπή τίτλου";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Εμφάνιση στο Switcher";
-
-/* No comment provided by engineer. */
-"Show titles" = "Εμφάνιση τίτλων";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Πρόσθετοι έλεγχοι…";

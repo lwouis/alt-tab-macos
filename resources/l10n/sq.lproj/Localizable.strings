@@ -20,7 +20,7 @@
 "Active Space" = "Hapësira Aktive";
 
 /* No comment provided by engineer. */
-"Align windows:" = "Rradhit dritaret:";
+"Align windows" = "Rreshtoni dritaret";
 
 /* No comment provided by engineer. */
 "All apps" = "Të gjitha aplikacionet";
@@ -41,7 +41,7 @@
 "Alphabetical" = "Alphabetical";
 
 /* No comment provided by engineer. */
-"Also select windows using:" = "Gjithashtu zgjedh dritaret duke përdorur:";
+"Also select windows using" = "Gjithashtu zgjedh dritaret duke përdorur";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab dështoi kur e përdorët herën e fundit. Dërgimi i një raportimi të dështimit do të ndihmojë në zgjedhjen e problemit";
@@ -56,7 +56,7 @@
 "Always send crash reports" = "Gjithmonë dërgo raportime të dështimeve";
 
 /* No comment provided by engineer. */
-"and press:" = "dhe prekni:";
+"and press" = "dhe shtypni";
 
 /* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starting with)";
@@ -68,7 +68,7 @@
 "App is running but has no open window" = "App is running but has no open window";
 
 /* No comment provided by engineer. */
-"Apparition delay:" = "Vonesa e shfaqjes";
+"Apparition delay" = "Vonesë në pamje";
 
 /* No comment provided by engineer. */
 "Appearance" = "Pamja";
@@ -119,7 +119,7 @@
 "Controls" = "Kontrollet";
 
 /* No comment provided by engineer. */
-"Crash reports policy:" = "Politika e raportimit të dështimeve:";
+"Crash reports policy" = "Politika e raporteve të përplasjeve";
 
 /* No comment provided by engineer. */
 "Cursor follows focus" = "Cursor follows focus";
@@ -140,7 +140,7 @@
 "End" = "Fund";
 
 /* No comment provided by engineer. */
-"Fade out animation:" = "Animimi i zbehjes së jashtme:";
+"Fade out animation" = "Fade Out Animation";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Fokuso dritaret e zgjedhura";
@@ -149,7 +149,7 @@
 "Fullscreen window" = "Dritare e plotë";
 
 /* No comment provided by engineer. */
-"Fullscreen windows:" = "Windows me ekran të plotë:";
+"Fullscreen windows" = "Windows me ekran të plotë";
 
 /* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
@@ -158,7 +158,7 @@
 "General" = "E përgjithshme";
 
 /* No comment provided by engineer. */
-"Hidden windows:" = "Dritaret e fshehura:";
+"Hidden windows" = "Dritaret e fshehura";
 
 /* No comment provided by engineer. */
 "Hide" = "Fshih";
@@ -182,7 +182,7 @@
 "Hide status icons" = "Fshih ikonat e statusit";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails:" = "Fshihni minaturat e dritareve";
+"Hide window thumbnails" = "Fshihni minaturat e dritareve";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Fshih/Shfaq Aplikacionin";
@@ -206,13 +206,13 @@
 "Left" = "Majtas";
 
 /* No comment provided by engineer. */
-"Max height on screen:" = "Lartësia maksimale në ekran:";
+"Max height on screen" = "Lartësia maksimale në ekran";
 
 /* No comment provided by engineer. */
-"Max width on screen:" = "Gjerësia maksimale në ekran:";
+"Max width on screen" = "Gjerësia maksimale në ekran";
 
 /* No comment provided by engineer. */
-"Menubar icon:" = "Ikona e menusë:";
+"Menubar icon" = "Ikonë e menubarit";
 
 /* No comment provided by engineer. */
 "Middle" = "Mes";
@@ -221,10 +221,10 @@
 "Minimize/Deminimize window" = "Zvogëlo/Çzvogëlo dritaren";
 
 /* No comment provided by engineer. */
-"Minimized windows:" = "Dritare te zvogëluara:";
+"Minimized windows" = "Dritare te zvogëluara";
 
 /* No comment provided by engineer. */
-"Miscellaneous:" = "Të ndyshme:";
+"Miscellaneous" = "Të ndyshme";
 
 /* No comment provided by engineer. */
 "Mouse hover" = "Mbi kursor";
@@ -248,7 +248,7 @@
 "Open Screen Recording Preferences…" = "Hap preferencat e inqizimit të ekranit…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Jo-Obligative: E-mail (nëse doni përgjigje)";
+"Optional email (if you want a reply)" = "Jo-Obligative E-mail (nëse doni përgjigje)";
 
 /* No comment provided by engineer. */
 "Policies" = "Politikat";
@@ -284,7 +284,7 @@
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
 /* No comment provided by engineer. */
-"Rows of thumbnails:" = "Rreshta me minaturë:";
+"Rows of thumbnails" = "Rreshta me minaturë";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Ekrani përfshin shiritin e menysë";
@@ -341,7 +341,7 @@
 "Shortcut 5" = "Shortcut 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shkurtesa tashmë është caktuar tjetër veprimi: %@";
+"Shortcut already assigned to another action %@" = "Shkurtesa tashmë është caktuar tjetër veprimi %@";
 
 /* No comment provided by engineer. */
 "Show" = "Shfaq";
@@ -350,13 +350,13 @@
 "Show at the end" = "Shfaq në fund";
 
 /* No comment provided by engineer. */
-"Show on:" = "Shfaq në:";
+"Show on" = "Tregoj";
 
 /* No comment provided by engineer. */
 "Show standard tabs as windows" = "Shfaq skedat standarde si dritare";
 
 /* No comment provided by engineer. */
-"Show windows from:" = "Shfaq dritaret nga:";
+"Show windows from" = "Shfaq dritaret nga";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Depo e kodit burimor";
@@ -368,16 +368,16 @@
 "Start" = "Fillim";
 
 /* No comment provided by engineer. */
-"Start at login:" = "Starto gjatë identifikimit:";
+"Start at login" = "Filloni në hyrje";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Theme:" = "Motivi:";
+"Theme" = "Temë";
 
 /* No comment provided by engineer. */
-"Then release:" = "Pastaj lëshoni:";
+"Then release" = "Pastaj lëshoni";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Kjo leje është e nevojshme për të fokusuar dritaret pasi të lëshoni shkurtesën";
@@ -389,7 +389,7 @@
 "Unassign existing shortcut and continue" = "Largo shkurtesën aktuale dhe vazhdo";
 
 /* No comment provided by engineer. */
-"Updates policy:" = "Politika e përditësimit:";
+"Updates policy" = "Politika e azhurnimeve";
 
 /* No comment provided by engineer. */
 "Version" = "Verzioni";
@@ -401,7 +401,7 @@
 "Vim keys" = "Vim keys";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Hapësirat e dukshme";
@@ -413,10 +413,10 @@
 "When no open window" = "When no open window";
 
 /* No comment provided by engineer. */
-"While open, press:" = "Duke qenë hapur, prekni:";
+"While open, press" = "Duke qenë hapur, prekni";
 
 /* No comment provided by engineer. */
-"Window app icon size:" = "Madhësia e ikonës së dritarës së aplikacionit:";
+"Window app icon size" = "Madhësia e ikonës së dritarës së aplikacionit";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Window is fullscreen";
@@ -431,19 +431,19 @@
 "Window is on Space %d" = "Window is on Space %d";
 
 /* No comment provided by engineer. */
-"Window max width in row:" = "Gjerësia maksimale e dritares në rresht:";
+"Window max width in row" = "Gjerësia maksimale e dritares në rresht";
 
 /* No comment provided by engineer. */
-"Window min width in row:" = "Gjerësia minimale e dritares në rresht";
+"Window min width in row" = "Gjerësia minimale e dritares në rresht";
 
 /* No comment provided by engineer. */
-"Window order:" = "Window order:";
+"Window order" = "Window order";
 
 /* No comment provided by engineer. */
-"Window title font size:" = "Madhësia e fontit të titullit të dritares:";
+"Window title font size" = "Madhësia e fontit të titullit të dritares";
 
 /* No comment provided by engineer. */
-"Window title truncation:" = "Titulli i kthesës së dritares:";
+"Window title truncation" = "Titulli i kthesës së dritares";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
@@ -452,10 +452,7 @@
 "You didn’t write your email, thus can’t receive any response." = "JU nuk keni shkruar email, kështu që nuk mund të pranoni përgjigje";
 
 /* No comment provided by engineer. */
-"Appearance model:" = "Modeli i pamjes:";
-
-/* No comment provided by engineer. */
-"Appearance size:" = "Madhësia e pamjes:";
+"Appearance size" = "Madhësia e pamjes";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Shfaq Fshih";
@@ -494,34 +491,22 @@
 "Windows" = "Dritare";
 
 /* No comment provided by engineer. */
-"Application Names" = "Emrat e aplikimit";
-
-/* No comment provided by engineer. */
 "Window Titles" = "Titujt e dritareve";
-
-/* No comment provided by engineer. */
-"Application Names - Window Titles" = "Emrat e Aplikimit - Titujt e dritareve";
 
 /* No comment provided by engineer. */
 "Leading" = "Drejtues";
 
 /* No comment provided by engineer. */
-"Show running:" = "Shfaq vrapimin:";
+"Show running" = "Shfaq vrapimin";
 
 /* No comment provided by engineer. */
-"Show titles:" = "Shfaq titujt:";
+"Show titles" = "Tregojnë tituj";
 
 /* No comment provided by engineer. */
 "Done" = "I mbaruar";
 
 /* No comment provided by engineer. */
 "Advanced" = "I avancuar";
-
-/* No comment provided by engineer. */
-"Position" = "Pozicion";
-
-/* No comment provided by engineer. */
-"App vertical alignment:" = "Rreshtimi vertikal i aplikacionit:";
 
 /* No comment provided by engineer. */
 "Thumbnails Advanced…" = "Thumbnails përparuar…";
@@ -540,9 +525,6 @@
 
 /* No comment provided by engineer. */
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Disa aplikacione si Finder ose Preview përdorin skedat standarde të cilat veprojnë si dritare të pavarura.Disa aplikacione të tjera si shfletuesit e uebit përdorin skedat me porosi që veprojnë në mënyra unike dhe nuk janë dritare aktuale.Alttab nuk mund t'i rendisë ato veç e veç.";
-
-/* No comment provided by engineer. */
-"and press" = "dhe shtypni";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Shkurtore";
@@ -587,18 +569,6 @@
 "Shortcuts When Active" = "Shkurtore kur janë aktive";
 
 /* No comment provided by engineer. */
-"Start at login" = "Filloni në hyrje";
-
-/* No comment provided by engineer. */
-"Menubar icon" = "Ikonë e menubarit";
-
-/* No comment provided by engineer. */
-"Updates policy" = "Politika e azhurnimeve";
-
-/* No comment provided by engineer. */
-"Crash reports policy" = "Politika e raporteve të përplasjeve";
-
-/* No comment provided by engineer. */
 "Animations…" = "Animacione";
 
 /* No comment provided by engineer. */
@@ -608,16 +578,10 @@
 "Size" = "Madhësi";
 
 /* No comment provided by engineer. */
-"Theme" = "Temë";
-
-/* No comment provided by engineer. */
 "High visibility" = "Shikim i lartë";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Ekranet e shumta";
-
-/* No comment provided by engineer. */
-"Show on" = "Tregoj";
 
 /* No comment provided by engineer. */
 "Customize Thumbnails style…" = "Rregulloni stilin e tablove";
@@ -629,16 +593,7 @@
 "Customize Titles style…" = "Rregulloni stilin e titujve";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Vonesë në pamje";
-
-/* No comment provided by engineer. */
 "Animations" = "Animacione";
-
-/* No comment provided by engineer. */
-"Fade out animation" = "Fade Out Animation";
-
-/* No comment provided by engineer. */
-"Align windows" = "Rreshtoni dritaret";
 
 /* No comment provided by engineer. */
 "Title truncation" = "Titulli i Titullit";
@@ -648,9 +603,6 @@
 
 /* No comment provided by engineer. */
 "Show in switcher" = "Shfaq në Switcher";
-
-/* No comment provided by engineer. */
-"Show titles" = "Tregojnë tituj";
 
 /* No comment provided by engineer. */
 "Additional controls…" = "Kontrolle shtesë";
