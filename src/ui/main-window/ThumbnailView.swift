@@ -218,7 +218,7 @@ class ThumbnailView: NSStackView {
         label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
-            windowlessIcon.image = appIcon.image!.copy() as! NSImage
+            windowlessIcon.image = appIcon.image!.copy() as? NSImage
             windowlessIcon.image?.size = NSSize(width: 1024, height: 1024)
             let windowlessIconSize = ThumbnailView.thumbnailSize(windowlessIcon.image, screen)
             windowlessIcon.image!.size = windowlessIconSize
@@ -267,7 +267,7 @@ class ThumbnailView: NSStackView {
             assignIfDifferent(&vStackView.frame.size.width, width - leftRightEdgeInsetsSize)
             assignIfDifferent(&vStackView.frame.size.height, newHeight - leftRightEdgeInsetsSize)
         } else {
-            var contentWidth = max(hStackView.frame.size.width, Preferences.iconSize)
+            let contentWidth = max(hStackView.frame.size.width, Preferences.iconSize)
             let frameWidth = contentWidth + leftRightEdgeInsetsSize
             width = max(frameWidth, widthMin).rounded()
         }
