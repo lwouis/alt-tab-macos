@@ -216,7 +216,7 @@ class ShowHideIllustratedView {
         showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
                 Popover.shared.show(event: event, positioningView: view,
-                        message: NSLocalizedString("Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`.", comment: ""))
+                        message: NSLocalizedString("Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」.", comment: ""))
             } else {
                 Popover.shared.show(event: event, positioningView: view, message: showTabsAsWindows.subTitle!)
             }
