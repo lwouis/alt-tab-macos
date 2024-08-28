@@ -206,6 +206,7 @@ class ShowHideIllustratedView {
         }))
         showHideRows.append(hideWindowlessApps)
 
+        let featureUnavailable = NSLocalizedString("AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.", comment: "")
         var showTabsAsWindows = ShowHideRowInfo()
         showTabsAsWindows.rowId = "showTabsAsWindows"
         showTabsAsWindows.uncheckedImage = "hide_tabs_as_windows"
@@ -215,8 +216,7 @@ class ShowHideIllustratedView {
         showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: "")
         showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
-                Popover.shared.show(event: event, positioningView: view,
-                        message: NSLocalizedString("AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.", comment: ""))
+                Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)
             } else {
                 Popover.shared.show(event: event, positioningView: view, message: showTabsAsWindows.subTitle!)
             }
@@ -239,8 +239,7 @@ class ShowHideIllustratedView {
         previewFocusedWindow.subTitle = NSLocalizedString("Preview the selected window.", comment: "")
         previewFocusedWindow.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(previewFocusedWindow) {
-                Popover.shared.show(event: event, positioningView: view,
-                        message: NSLocalizedString("Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」.", comment: ""))
+                Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)
             } else {
                 Popover.shared.show(event: event, positioningView: view, message: previewFocusedWindow.subTitle!)
             }
