@@ -614,5 +614,5 @@
 "Preview the selected window." = "Προεπισκόπηση του επιλεγμένου παραθύρου.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Απενεργοποιήθηκε στο Switcher σε λειτουργία εφαρμογών.Μπορούμε να ορίσουμε την επιλογή σε αυτό το παράθυρο μέσω `Advanced` ->` show in switch`.";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Απενεργοποιήθηκε στο Switcher σε λειτουργία εφαρμογών.Μπορούμε να ορίσουμε την επιλογή σε αυτό το παράθυρο μέσω 「Advanced」 -> 「Εμφάνιση στο Switch」.";
 

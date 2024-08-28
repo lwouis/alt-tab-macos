@@ -614,5 +614,5 @@
 "Preview the selected window." = "Tekintse meg a kiválasztott ablakot.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Letiltva a kapcsoló be- és alkalmazás módban.Az opciót ezen az ablakon beállíthatjuk a „Advanced” -> `show in Switch” segítségével.";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Letiltva a kapcsoló be- és alkalmazás módban.Beállíthatjuk az opciót ezen az ablakon keresztül 「Advanced」 -> 「MEGHATÁROZÁSBAN」.";
 

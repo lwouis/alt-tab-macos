@@ -615,4 +615,4 @@
 "Preview the selected window." = "预览选定的窗口。";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "在切换器的应用程序模式下禁用。我们可以通过在此窗口上的 `高级` -> `在切换器中显示` 设置选项。";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "在切换器的应用程序模式下禁用。我们可以通过「高级」->「在切换器中显示」设置该选项。";

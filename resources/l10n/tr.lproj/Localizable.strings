@@ -614,5 +614,5 @@
 "Preview the selected window." = "Seçilen pencereyi önizleyin.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Uygulamalar modunda anahtarlayıcıda devre dışı bırakıldı.Bu pencerede seçeneği, Switch'te `` Advanced ' ->' Göster aracılığıyla ayarlayabiliriz.";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Uygulamalar modunda anahtarlayıcıda devre dışı bırakıldı.Bu pencerede seçeneği 「Gelişmiş」 -> 「Switch」 ile gösterebiliriz.";
 

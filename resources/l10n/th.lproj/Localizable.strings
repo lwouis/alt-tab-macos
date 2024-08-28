@@ -614,5 +614,5 @@
 "Preview the selected window." = "ดูตัวอย่างหน้าต่างที่เลือก";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "ปิดใช้งานในโหมดสวิตช์บนแอปพลิเคชันเราสามารถตั้งค่าตัวเลือกได้ที่หน้าต่างนี้ผ่าน `Advanced` ->` แสดงใน Switch`";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "ปิดใช้งานในโหมดสวิตช์บนแอปพลิเคชันเราสามารถตั้งค่าตัวเลือกที่หน้าต่างนี้ผ่าน「ขั้นสูง」 -> 「แสดงในสวิตช์」";
 

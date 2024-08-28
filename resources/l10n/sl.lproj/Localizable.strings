@@ -614,5 +614,5 @@
 "Preview the selected window." = "Predogled izbranega okna.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Onemogočeno v stikalu v načinu aplikacij.Možnost lahko nastavimo v tem oknu prek `Advanced` ->` Show in Switch`.";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Onemogočeno v stikalu v načinu aplikacij.Možnost lahko nastavimo v tem oknu prek 「Advanced」 -> 「Prikaži v stikalu」.";
 

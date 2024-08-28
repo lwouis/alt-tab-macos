@@ -614,5 +614,5 @@
 "Preview the selected window." = "Esikatsele valittu ikkuna.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Kytkimen käytöstä sovellustilassa.Voimme asettaa vaihtoehdon tähän ikkunaan "Advanced" -> `Näytä kytkin".";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Kytkimen käytöstä sovellustilassa.Voimme asettaa vaihtoehdon tähän ikkunaan 「Advanced」 -> 「Näytä kytkimessä」.";
 

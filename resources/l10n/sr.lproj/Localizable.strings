@@ -614,5 +614,5 @@
 "Preview the selected window." = "Прегледајте изабрани прозор.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Онемогућено у Свитцхеру у режиму апликација.Опцију можемо да подесимо на овом прозору кроз `Напредно` ->` Схов ин Свитцх`.";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Онемогућено у Свитцхеру у режиму апликација.Опцију можемо подесити на овом прозору путем 「напредне」 -> 「Прикажи у Свитцх」.";
 

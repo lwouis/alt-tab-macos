@@ -614,5 +614,5 @@
 "Preview the selected window." = "தேர்ந்தெடுக்கப்பட்ட சாளரத்தை முன்னோட்டமிடுங்கள்.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "பயன்பாடுகள் பயன்முறையில் ஸ்விட்சர் மீது முடக்கப்பட்டுள்ளது.இந்த சாளரத்தில் `மேம்பட்ட` ->` சுவிட்சில் காண்பி `மூலம் விருப்பத்தை அமைக்கலாம்.";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "பயன்பாடுகள் பயன்முறையில் ஸ்விட்சர் மீது முடக்கப்பட்டுள்ளது.இந்த சாளரத்தில் 「மேம்பட்ட」 -> the சுவிட்சில் காண்பிக்கலாம்.";
 

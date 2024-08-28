@@ -614,5 +614,5 @@
 "Preview the selected window." = "নির্বাচিত উইন্ডো পূর্বরূপ দেখুন।";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "অ্যাপ্লিকেশন মোডে স্যুইচারে অক্ষম।আমরা এই উইন্ডোতে `অ্যাডভান্সড` -> through স্যুইচ ইন শোয়ের মাধ্যমে বিকল্পটি সেট করতে পারি`";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "অ্যাপ্লিকেশন মোডে স্যুইচারে অক্ষম।আমরা এই উইন্ডোতে 「অ্যাডভান্সড」 -> 「স্যুইচ in শোতে শোয়ের মাধ্যমে বিকল্পটি সেট করতে পারি」";
 

@@ -614,5 +614,5 @@
 "Preview the selected window." = "選択したウィンドウをプレビューします。";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "スイッチャーオンアプリケーションモードで無効になっています。このウィンドウで「Advanced」 - > `Show in Switch」を介してオプションを設定できます。";
+"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "スイッチャーオンアプリケーションモードで無効になっています。このウィンドウでオプションを[高度]」 - >「switch」で表示することができます。";
 
