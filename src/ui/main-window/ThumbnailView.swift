@@ -63,7 +63,8 @@ class ThumbnailView: NSStackView {
         vStackView.layer!.borderColor = .clear
         vStackView.layer!.cornerRadius = Preferences.cellCornerRadius
         vStackView.layer!.borderWidth = CGFloat(1)
-        vStackView.edgeInsets = NSEdgeInsets(top: Preferences.edgeInsetsSize, left: Preferences.edgeInsetsSize, bottom: Preferences.edgeInsetsSize, right: Preferences.edgeInsetsSize)
+        vStackView.edgeInsets = NSEdgeInsets(top: Preferences.edgeInsetsSize, left: Preferences.edgeInsetsSize,
+                bottom: Preferences.edgeInsetsSize, right: Preferences.edgeInsetsSize)
         if Preferences.appearanceStyle == .appIcons {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])

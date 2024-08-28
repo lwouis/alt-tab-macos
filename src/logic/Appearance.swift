@@ -73,17 +73,17 @@ class AppearanceSize {
             appearance.maxHeightOnScreen = 90
             if size == .small {
                 appearance.rowsCount = 0
-                appearance.windowMinWidthInRow = 5
+                appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 48
+                appearance.iconSize = 68
             } else if size == .medium {
                 appearance.rowsCount = 0
-                appearance.windowMinWidthInRow = 6
+                appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 88
             } else if size == .large {
                 appearance.rowsCount = 0
-                appearance.windowMinWidthInRow = 8
+                appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 128
             }
