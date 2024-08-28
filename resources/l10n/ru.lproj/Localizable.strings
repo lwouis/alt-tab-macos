@@ -610,3 +610,9 @@
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "Ярлыки при активном ...";
 
+/* No comment provided by engineer. */
+"Preview the selected window." = "Предварительный просмотр выбранного окна.";
+
+/* No comment provided by engineer. */
+"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Отключено в режиме переключателя в приложениях.Мы можем установить опцию в этом окне через `Advanced` ->` Show In Switch`.";
+

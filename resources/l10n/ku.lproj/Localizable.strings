@@ -610,3 +610,9 @@
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "Kurte dema çalak ...";
 
+/* No comment provided by engineer. */
+"Preview the selected window." = "Pencereya hilbijartî pêşdîtin.";
+
+/* No comment provided by engineer. */
+"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Di guhêrbar de li ser moda serlêdanan astengdar e.Em dikarin vebijarka li vê pencereyê bi navgîniya `pêşkeftî - ->` show di guhêrbariyê de saz bikin.";
+

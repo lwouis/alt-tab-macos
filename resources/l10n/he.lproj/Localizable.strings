@@ -610,3 +610,9 @@
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "קיצורי דרך כאשר הם פעילים ...";
 
+/* No comment provided by engineer. */
+"Preview the selected window." = "תצוגה מקדימה של החלון שנבחר.";
+
+/* No comment provided by engineer. */
+"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "מושבת במצב המתג במצב יישומים.אנו יכולים להגדיר את האפשרות בחלון זה דרך 'Advanced' -> 'Show in Switch'.";
+

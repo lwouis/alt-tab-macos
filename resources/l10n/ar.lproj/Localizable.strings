@@ -613,3 +613,9 @@
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "اختصارات عندما تنشط ...";
 
+/* No comment provided by engineer. */
+"Preview the selected window." = "معاينة النافذة المحددة.";
+
+/* No comment provided by engineer. */
+"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "معطل في وضع التطبيق على التطبيقات.يمكننا تعيين الخيار في هذه النافذة من خلال "Advanced` ->" العرض في Switch ".";
+

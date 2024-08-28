@@ -612,3 +612,9 @@
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "활성화 될 때 바로 가기…";
 
+/* No comment provided by engineer. */
+"Preview the selected window." = "선택한 창을 미리 봅니다.";
+
+/* No comment provided by engineer. */
+"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "응용 프로그램 모드에서 스위처에서 비활성화되었습니다.`addanced` ->`switch '를 통해이 창에서 옵션을 설정할 수 있습니다.";
+

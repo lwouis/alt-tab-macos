@@ -610,3 +610,9 @@
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "Raccourcis lorsqu'il est actif…";
 
+/* No comment provided by engineer. */
+"Preview the selected window." = "Aperçu de la fenêtre sélectionnée.";
+
+/* No comment provided by engineer. */
+"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Désactivé en mode Switcher sur les applications.Nous pouvons définir l'option dans cette fenêtre via `Advanced` ->` Afficher dans Switch`.";
+

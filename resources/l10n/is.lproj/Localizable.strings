@@ -610,3 +610,9 @@
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "Flýtileiðir þegar þær eru virkar ...";
 
+/* No comment provided by engineer. */
+"Preview the selected window." = "Forskoða valinn glugga.";
+
+/* No comment provided by engineer. */
+"Disabled in the switcher on applications mode. We can set the option at this window through `Advanced` -> `Show in switch`." = "Óvirk í rofanum í forritastillingu.Við getum stillt valkostinn við þennan glugga í gegnum `Advanced` ->` Sýna í Switch`.";
+
