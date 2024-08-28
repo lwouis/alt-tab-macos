@@ -243,7 +243,7 @@ class ThumbnailView: NSStackView {
         let windowTitle = window_?.title
 
         if Preferences.appearanceStyle != .thumbnails {
-            if Preferences.showAppsOrWindows == .applications || Preferences.showTitles == .appName {
+            if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
                 return appName ?? ""
             } else if Preferences.showTitles == .appNameAndWindowTitle {
                 return [appName, windowTitle].compactMap{ $0 }.joined(separator: " - ")
