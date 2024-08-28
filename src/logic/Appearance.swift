@@ -68,21 +68,19 @@ class AppearanceSize {
             appearance.intraCellPadding = 5
             appearance.interCellPadding = 1
             appearance.edgeInsetsSize = 5
+            appearance.rowsCount = 1
             appearance.fontHeight = 15
             appearance.maxWidthOnScreen = 95
             appearance.maxHeightOnScreen = 90
             if size == .small {
-                appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 68
             } else if size == .medium {
-                appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 88
             } else if size == .large {
-                appearance.rowsCount = 0
                 appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 128
@@ -92,7 +90,7 @@ class AppearanceSize {
             appearance.intraCellPadding = 5
             appearance.interCellPadding = 1
             appearance.edgeInsetsSize = 7
-            appearance.rowsCount = 0
+            appearance.rowsCount = 1
             appearance.windowMinWidthInRow = 60
             appearance.windowMaxWidthInRow = 90
             appearance.maxWidthOnScreen = 60
