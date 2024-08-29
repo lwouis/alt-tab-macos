@@ -217,6 +217,7 @@ class TableGroupView: ClickHoverStackView {
         }
         rows.forEach { row in
             row.view.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
+            row.previousSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
             row.nextSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
         }
     }
