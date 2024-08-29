@@ -147,6 +147,7 @@ class Windows {
     static func previewFocusedWindowIfNeeded() {
         guard
             Preferences.previewFocusedWindow,
+            !Preferences.onlyShowApplications(),
             App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
             let window = focusedWindow(),
             let preview = window.getPreview(),

@@ -264,6 +264,9 @@ class ShowHideIllustratedView {
             let isEnabled = !ShowHideIllustratedView.isDisabledOnApplications(row)
             row.rightViews.forEach { view in
                 if let view = view as? Switch {
+                    if !isEnabled {
+                        view.state = .off
+                    }
                     view.isEnabled = isEnabled
                 }
             }
