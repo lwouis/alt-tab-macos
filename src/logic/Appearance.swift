@@ -75,15 +75,15 @@ class AppearanceSize {
             if size == .small {
                 appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 68
+                appearance.iconSize = 88
             } else if size == .medium {
                 appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 88
+                appearance.iconSize = 128
             } else if size == .large {
                 appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 128
+                appearance.iconSize = 168
             }
         } else if style == .titles {
             appearance.hideThumbnails = true
