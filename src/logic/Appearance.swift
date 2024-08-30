@@ -182,14 +182,15 @@ class AppearanceTheme {
             appearance.indicatedIconShadowColor = .darkGray
             appearance.titleShadowColor = .darkGray
             appearance.imageShadowColor = .gray.withAlphaComponent(0.8)
-            appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.5)
-            appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.3)
+            appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
+            appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.4)
             appearance.highlightFocusedBorderColor = .clear
             appearance.highlightHoveredBorderColor = .clear
             appearance.enablePanelShadow = false
 
             if appearanceStyle == .thumbnails {
-                appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
+                appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.7)
+                appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
             }
 
             if appearanceHighVisibility {
