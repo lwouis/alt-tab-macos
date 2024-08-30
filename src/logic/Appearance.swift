@@ -64,7 +64,7 @@ class AppearanceSize {
             }
         } else if style == .appIcons {
             appearance.hideThumbnails = true
-            appearance.windowPadding = 22
+            appearance.windowPadding = 25
             appearance.intraCellPadding = 5
             appearance.interCellPadding = 1
             appearance.edgeInsetsSize = 5
@@ -81,9 +81,11 @@ class AppearanceSize {
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 128
             } else if size == .large {
+                appearance.windowPadding = 28
                 appearance.windowMinWidthInRow = 4
                 appearance.windowMaxWidthInRow = 30
                 appearance.iconSize = 168
+                appearance.fontHeight = 20
             }
         } else if style == .titles {
             appearance.hideThumbnails = true
