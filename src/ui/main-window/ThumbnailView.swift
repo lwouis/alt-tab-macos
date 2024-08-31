@@ -131,14 +131,17 @@ class ThumbnailView: NSStackView {
         return NSColor.clear
     }
 
-    private func getBorderColor(isFocused: Bool, isHovered: Bool) -> NSColor {
+    private func setBorder(isFocused: Bool, isHovered: Bool) {
         if isFocused {
-            return Preferences.appearanceThemeParameters.highlightFocusedBorderColor
+            vStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightFocusedBorderColor.cgColor
+            vStackView?.layer!.borderWidth = Preferences.appearanceThemeParameters.highlightFocusedBorderWidth
+        } else if isHovered {
+            vStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightHoveredBorderColor.cgColor
+            vStackView?.layer!.borderWidth = Preferences.appearanceThemeParameters.highlightHoveredBorderWidth
+        } else {
+            vStackView?.layer!.borderColor = NSColor.clear.cgColor
+            vStackView?.layer!.borderWidth = 0
         }
-        if isHovered {
-            return Preferences.appearanceThemeParameters.highlightHoveredBorderColor
-        }
-        return NSColor.clear
     }
 
     private func setShadow(isFocused: Bool, isHovered: Bool) {
@@ -154,7 +157,7 @@ class ThumbnailView: NSStackView {
         let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
-        vStackView?.layer!.borderColor = getBorderColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        setBorder(isFocused: isFocused, isHovered: isHovered)
         setShadow(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
             label.isHidden = !(isFocused || isHovered)

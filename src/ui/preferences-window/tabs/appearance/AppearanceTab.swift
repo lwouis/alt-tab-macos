@@ -418,6 +418,8 @@ class AppearanceTab: NSObject {
                 rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
         table.addRow(leftText: NSLocalizedString("High visibility", comment: ""),
                 rightViews: [LabelAndControl.makeSwitch("appearanceHighVisibility")])
+        table.addRow(leftText: NSLocalizedString("Highlight Border", comment: ""),
+                rightViews: [LabelAndControl.makeSwitch("appearanceHighlightBorder")])
         table.addRow(rightViews: customizeStyleButton)
 
         table.fit()
