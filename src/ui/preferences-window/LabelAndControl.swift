@@ -333,7 +333,7 @@ class LabelAndControl: NSObject {
         }
         // some preferences require re-creating some components
         if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-                   (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceHighVisibility", "iconSize", "fontHeight", "theme", "titleTruncation"].contains { (pref: String) -> Bool in
+                   (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceHighVisibility", "appearanceHighlightBorder", "iconSize", "fontHeight", "theme", "titleTruncation"].contains { (pref: String) -> Bool in
                        pref == senderControl.identifier!.rawValue
                    }) {
             (App.shared as! App).resetPreferencesDependentComponents()

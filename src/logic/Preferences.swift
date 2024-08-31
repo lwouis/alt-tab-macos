@@ -160,14 +160,15 @@ class Preferences {
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
     // derived values
-    static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
-    static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
     static var appearanceSizeParameters: AppearanceSizeParameters { AppearanceSize(appearanceStyle, appearanceSize).getParameters() }
     static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceStyle, appearanceTheme).getParameters() }
     static var windowPadding: CGFloat { appearanceSizeParameters.windowPadding }
     static var interCellPadding: CGFloat { appearanceSizeParameters.interCellPadding }
     static var intraCellPadding: CGFloat { appearanceSizeParameters.intraCellPadding }
     static var edgeInsetsSize: CGFloat { appearanceSizeParameters.edgeInsetsSize }
+    static var cellCornerRadius: CGFloat { appearanceSizeParameters.cellCornerRadius }
+    static var cellBorderCornerRadius: CGFloat { appearanceSizeParameters.cellBorderCornerRadius }
+    static var windowCornerRadius: CGFloat { appearanceSizeParameters.windowCornerRadius }
     static var hideThumbnails: Bool { appearanceSizeParameters.hideThumbnails }
     static var maxWidthOnScreen: CGFloat { appearanceSizeParameters.maxWidthOnScreen / CGFloat(100) }
     static var maxHeightOnScreen: CGFloat { appearanceSizeParameters.maxHeightOnScreen / CGFloat(100) }

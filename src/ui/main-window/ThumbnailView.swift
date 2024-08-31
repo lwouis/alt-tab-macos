@@ -20,6 +20,7 @@ class ThumbnailView: NSStackView {
 
     var hStackView: NSStackView!
     var vStackView: NSStackView!
+    var vBorderStackView: NSStackView!
     var labelStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -56,6 +57,15 @@ class ThumbnailView: NSStackView {
     }
 
     private func addViews() {
+        vBorderStackView = NSStackView()
+        vBorderStackView.wantsLayer = true
+        vBorderStackView.layer!.backgroundColor = .clear
+        vBorderStackView.layer!.borderColor = .clear
+        vBorderStackView.layer!.cornerRadius = Preferences.cellBorderCornerRadius
+        vBorderStackView.layer!.borderWidth = CGFloat(1)
+        let borderWidth = Preferences.appearanceThemeParameters.highlightBorderWidth
+        vBorderStackView.edgeInsets = NSEdgeInsets(top: borderWidth, left: borderWidth, bottom: borderWidth, right: borderWidth)
+
         vStackView = NSStackView()
         vStackView.orientation = .vertical
         vStackView.wantsLayer = true
@@ -69,13 +79,15 @@ class ThumbnailView: NSStackView {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
             vStackView.setViews([hStackView], in: .leading)
+            vBorderStackView.setViews([vStackView], in: .leading)
             label.alignment = .center
             label.isHidden = true
-            setViews([vStackView, label], in: .leading)
+            setViews([vBorderStackView, label], in: .leading)
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
             vStackView.setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
-            setViews([vStackView], in: .leading)
+            vBorderStackView.setViews([vStackView], in: .leading)
+            setViews([vBorderStackView], in: .leading)
         }
     }
 
@@ -133,23 +145,28 @@ class ThumbnailView: NSStackView {
 
     private func setBorder(isFocused: Bool, isHovered: Bool) {
         if isFocused {
-            vStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightFocusedBorderColor.cgColor
-            vStackView?.layer!.borderWidth = Preferences.appearanceThemeParameters.highlightFocusedBorderWidth
+            vStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightInnerFocusedBorderColor.cgColor
+            vStackView?.layer!.borderWidth = Preferences.appearanceThemeParameters.highlightInnerBorderWidth
+            vBorderStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightFocusedBorderColor.cgColor
+            vBorderStackView?.layer!.borderWidth = Preferences.appearanceThemeParameters.highlightBorderWidth
         } else if isHovered {
-            vStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightHoveredBorderColor.cgColor
-            vStackView?.layer!.borderWidth = Preferences.appearanceThemeParameters.highlightHoveredBorderWidth
+            vStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightInnerHoveredBorderColor.cgColor
+            vStackView?.layer!.borderWidth = Preferences.appearanceThemeParameters.highlightInnerBorderWidth
+            vBorderStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightHoveredBorderColor.cgColor
+            vBorderStackView?.layer!.borderWidth = Preferences.appearanceThemeParameters.highlightBorderWidth
         } else {
             vStackView?.layer!.borderColor = NSColor.clear.cgColor
+            vBorderStackView?.layer!.borderColor = NSColor.clear.cgColor
             vStackView?.layer!.borderWidth = 0
         }
     }
 
     private func setShadow(isFocused: Bool, isHovered: Bool) {
         if (isFocused || isHovered) && Preferences.appearanceThemeParameters.highlightBorderShadowColor != .clear {
-            vStackView?.layer!.shadowColor = Preferences.appearanceThemeParameters.highlightBorderShadowColor.cgColor
-            vStackView?.layer!.shadowOpacity = 0.25
-            vStackView?.layer!.shadowOffset = .zero
-            vStackView?.layer!.shadowRadius = 1
+            vBorderStackView?.layer!.shadowColor = Preferences.appearanceThemeParameters.highlightBorderShadowColor.cgColor
+            vBorderStackView?.layer!.shadowOpacity = 0.25
+            vBorderStackView?.layer!.shadowOffset = .zero
+            vBorderStackView?.layer!.shadowRadius = 1
         }
     }
 
@@ -284,7 +301,8 @@ class ThumbnailView: NSStackView {
         } else {
             let visibleCount = [fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count
             let fontIconWidth = CGFloat(visibleCount) * (Preferences.fontHeight + Preferences.intraCellPadding)
-            let labelWidth = max(vStackView.frame.width, frame.width)
+            let labelWidth = max(vBorderStackView.frame.width, frame.width)
+                    - Preferences.appearanceThemeParameters.highlightBorderWidth * 2
                     - Preferences.edgeInsetsSize * 2
                     - Preferences.iconSize
                     - Preferences.intraCellPadding - fontIconWidth
@@ -417,8 +435,14 @@ class ThumbnailView: NSStackView {
 
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> NSSize {
         guard let image = image else { return NSSize(width: 0, height: 0) }
-        let thumbnailHeightMax = ThumbnailView.maxThumbnailHeight(screen) - Preferences.edgeInsetsSize * 2 - Preferences.intraCellPadding - Preferences.iconSize
-        let thumbnailWidthMax = ThumbnailView.maxThumbnailWidth(screen) - Preferences.edgeInsetsSize * 2
+        let thumbnailHeightMax = ThumbnailView.maxThumbnailHeight(screen)
+                - Preferences.appearanceThemeParameters.highlightBorderWidth * 2
+                - Preferences.edgeInsetsSize * 2
+                - Preferences.intraCellPadding
+                - Preferences.iconSize
+        let thumbnailWidthMax = ThumbnailView.maxThumbnailWidth(screen)
+                - Preferences.appearanceThemeParameters.highlightBorderWidth * 2
+                - Preferences.edgeInsetsSize * 2
         let thumbnailHeight = min(image.size.height, thumbnailHeightMax)
         let thumbnailWidth = min(image.size.width, thumbnailWidthMax)
         let imageRatio = image.size.width / image.size.height
@@ -467,10 +491,10 @@ class ThumbnailView: NSStackView {
     }
 
     static func getLeftRightEdgeInsetsSize() -> CGFloat {
-        return Preferences.edgeInsetsSize * 2
+        return Preferences.appearanceThemeParameters.highlightBorderWidth * 2 + Preferences.edgeInsetsSize * 2
     }
 
     static func getTopBottomEdgeInsetsSize() -> CGFloat {
-        return Preferences.edgeInsetsSize * 2
+        return Preferences.appearanceThemeParameters.highlightBorderWidth * 2 + Preferences.edgeInsetsSize * 2
     }
 }

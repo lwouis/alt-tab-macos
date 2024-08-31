@@ -5,6 +5,9 @@ struct AppearanceSizeParameters {
     var interCellPadding: CGFloat = 5
     var intraCellPadding: CGFloat = 1
     var edgeInsetsSize: CGFloat = 5
+    var cellCornerRadius: CGFloat = 10
+    var cellBorderCornerRadius: CGFloat = 10
+    var windowCornerRadius: CGFloat = 23
     var hideThumbnails: Bool = false
     var rowsCount: CGFloat = 0
     var windowMinWidthInRow: CGFloat = 0
@@ -18,6 +21,7 @@ struct AppearanceSizeParameters {
 class AppearanceSize {
     var style: AppearanceStylePreference
     var size: AppearanceSizePreference
+    let appearanceHighlightBorder = Preferences.appearanceHighlightBorder
 
     init(_ style: AppearanceStylePreference, _ size: AppearanceSizePreference) {
         self.style = style
@@ -111,6 +115,9 @@ class AppearanceSize {
                 appearance.fontHeight = 20
             }
         }
+        if appearanceHighlightBorder {
+            appearance.cellBorderCornerRadius = 14
+        }
         return appearance
     }
 }
@@ -123,11 +130,13 @@ struct AppearanceThemeParameters {
     var imageShadowColor: NSColor? = .gray       // for icon, thumbnail and windowless images
     var highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
     var highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
+    var highlightInnerFocusedBorderColor = NSColor.clear
+    var highlightInnerHoveredBorderColor = NSColor.clear
     var highlightFocusedBorderColor = NSColor.clear
     var highlightHoveredBorderColor = NSColor.clear
     var highlightBorderShadowColor = NSColor.clear
-    var highlightHoveredBorderWidth = CGFloat(0)
-    var highlightFocusedBorderWidth = CGFloat(0)
+    var highlightInnerBorderWidth = CGFloat(0)
+    var highlightBorderWidth = CGFloat(0)
     var enablePanelShadow = false
 }
 
@@ -174,8 +183,8 @@ class AppearanceTheme {
                 appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
                 appearance.highlightFocusedBorderColor = .white.withAlphaComponent(0.7)
                 appearance.highlightHoveredBorderColor = .white.withAlphaComponent(0.5)
-                appearance.highlightFocusedBorderWidth = 1
-                appearance.highlightHoveredBorderWidth = 1
+                appearance.highlightInnerBorderWidth = 0
+                appearance.highlightBorderWidth = 1
                 appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
                 appearance.enablePanelShadow = true
             }
@@ -183,11 +192,13 @@ class AppearanceTheme {
                 if !appearanceHighVisibility {
                     appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
                     appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
-                    appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
-                    appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.9)
+                    appearance.highlightInnerFocusedBorderColor = NSColor.black.withAlphaComponent(0.9)
+                    appearance.highlightInnerHoveredBorderColor = NSColor.clear
+                    appearance.highlightFocusedBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+                    appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
                 }
-                appearance.highlightFocusedBorderWidth = 4
-                appearance.highlightHoveredBorderWidth = 3
+                appearance.highlightInnerBorderWidth = 3
+                appearance.highlightBorderWidth = 4
             }
         } else {
             appearance.material = .dark
@@ -197,8 +208,8 @@ class AppearanceTheme {
             appearance.imageShadowColor = .gray.withAlphaComponent(0.8)
             appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.5)
             appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.4)
-            appearance.highlightFocusedBorderColor = .clear
-            appearance.highlightHoveredBorderColor = .clear
+            appearance.highlightInnerFocusedBorderColor = .clear
+            appearance.highlightInnerHoveredBorderColor = .clear
             appearance.enablePanelShadow = false
 
             if appearanceStyle == .thumbnails {
@@ -212,8 +223,8 @@ class AppearanceTheme {
                 appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.2)
                 appearance.highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
                 appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.6)
-                appearance.highlightFocusedBorderWidth = 1
-                appearance.highlightHoveredBorderWidth = 1
+                appearance.highlightInnerBorderWidth = 0
+                appearance.highlightBorderWidth = 1
                 appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
                 appearance.enablePanelShadow = true
             }
@@ -221,11 +232,13 @@ class AppearanceTheme {
                 if !appearanceHighVisibility {
                     appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
                     appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.3)
-                    appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
+                    appearance.highlightInnerFocusedBorderColor = NSColor.black.withAlphaComponent(0.9)
+                    appearance.highlightInnerHoveredBorderColor = NSColor.clear
+                    appearance.highlightFocusedBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
                     appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
                 }
-                appearance.highlightFocusedBorderWidth = 4
-                appearance.highlightHoveredBorderWidth = 3
+                appearance.highlightInnerBorderWidth = 3
+                appearance.highlightBorderWidth = 4
             }
         }
         return appearance
