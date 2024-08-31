@@ -35,7 +35,7 @@ class AppearanceSize {
             appearance.hideThumbnails = false
             appearance.intraCellPadding = 5
             appearance.interCellPadding = 1
-            appearance.edgeInsetsSize = 12
+            appearance.edgeInsetsSize = 8
             appearance.maxWidthOnScreen = 90
             appearance.maxHeightOnScreen = 80
             if size == .small {
