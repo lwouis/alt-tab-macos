@@ -3,6 +3,7 @@ import Cocoa
 /// A custom view that organizes an array of views into a vertical stack to show the system like UI,
 /// with specific handling for `TableGroupView` and other view types.
 class TableGroupSetView: NSStackView {
+    override var acceptsFirstResponder: Bool { true }
     static let spacing = CGFloat(20)
     static let tableGroupSpacing = CGFloat(5)
     static let othersSpacing = CGFloat(10)

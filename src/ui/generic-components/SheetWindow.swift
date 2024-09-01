@@ -1,8 +1,10 @@
 import Cocoa
 
 class SheetWindow: NSWindow {
+    override var canBecomeKey: Bool { true }
 
     class WindowContentView: NSStackView {
+        override var acceptsFirstResponder: Bool { true }
         var separator: NSView!
 
         init(_ separator: NSView) {
