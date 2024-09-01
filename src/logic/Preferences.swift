@@ -167,7 +167,6 @@ class Preferences {
     static var intraCellPadding: CGFloat { appearanceSizeParameters.intraCellPadding }
     static var edgeInsetsSize: CGFloat { appearanceSizeParameters.edgeInsetsSize }
     static var cellCornerRadius: CGFloat { appearanceSizeParameters.cellCornerRadius }
-    static var cellBorderCornerRadius: CGFloat { appearanceSizeParameters.cellBorderCornerRadius }
     static var windowCornerRadius: CGFloat { appearanceSizeParameters.windowCornerRadius }
     static var hideThumbnails: Bool { appearanceSizeParameters.hideThumbnails }
     static var maxWidthOnScreen: CGFloat { appearanceSizeParameters.maxWidthOnScreen / CGFloat(100) }
