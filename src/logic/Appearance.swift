@@ -66,10 +66,8 @@ class AppearanceSize {
                     appearance.rowsCount = 6
                 }
             }
-            if appearanceHighVisibility || appearanceHighlightBorder {
-                appearance.edgeInsetsSize = 10
-            }
             if appearanceHighlightBorder {
+                appearance.edgeInsetsSize = 10
                 appearance.cellCornerRadius = 12
             }
         } else if style == .appIcons {
@@ -136,7 +134,7 @@ struct AppearanceThemeParameters {
     var highlightFocusedBorderColor = NSColor.clear
     var highlightHoveredBorderColor = NSColor.clear
     var highlightBorderShadowColor = NSColor.clear
-    var highlightBorderWidth = CGFloat(4)
+    var highlightBorderWidth = CGFloat(0)
     var enablePanelShadow = false
 }
 
@@ -181,16 +179,18 @@ class AppearanceTheme {
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
                 appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
-                appearance.highlightFocusedBorderColor = .white.withAlphaComponent(0.7)
-                appearance.highlightHoveredBorderColor = .white.withAlphaComponent(0.5)
+                appearance.highlightFocusedBorderColor = .white.withAlphaComponent(0.8)
+                appearance.highlightHoveredBorderColor = .white.withAlphaComponent(0.6)
                 appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
+                appearance.highlightBorderWidth = 1
                 appearance.enablePanelShadow = true
             }
             if appearanceHighlightBorder {
                 appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
                 appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
-                appearance.highlightFocusedBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.9)
-                appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.7)
+                appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
+                appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+                appearance.highlightBorderWidth = appearanceStyle == .titles ? 2 : 4
             }
         } else {
             appearance.material = .dark
@@ -212,19 +212,18 @@ class AppearanceTheme {
                 appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.4)
                 appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.2)
                 appearance.highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
-                appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.6)
+                appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.7)
                 appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
+                appearance.highlightBorderWidth = 1
                 appearance.enablePanelShadow = true
             }
             if appearanceHighlightBorder {
                 appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
                 appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
-                appearance.highlightFocusedBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.9)
-                appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.7)
+                appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
+                appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+                appearance.highlightBorderWidth = appearanceStyle == .titles ? 2 : 4
             }
-        }
-        if appearanceStyle == .titles {
-            appearance.highlightBorderWidth = 2
         }
         return appearance
     }
