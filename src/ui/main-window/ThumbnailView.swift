@@ -303,10 +303,11 @@ class ThumbnailView: NSStackView {
             } else {
                 view.setNumber(dockLabelInt!, true)
             }
-            let badgeOffsetOnSmallSize = Preferences.appearanceSize == .small ? CGFloat(1) : CGFloat(0)
+            let badgeOffset = Preferences.appearanceSize == .small ? CGFloat(1) : CGFloat(0)
+            let iconSize = ThumbnailView.iconSize(NSScreen.preferred())
             dockLabelIcon.setFrameOrigin(NSPoint(
-                x: appIcon.frame.maxX - (dockLabelIcon.fittingSize.width / 2) - (appIcon.frame.width / 7) - badgeOffsetOnSmallSize,
-                y: appIcon.frame.maxY - (dockLabelIcon.fittingSize.height / 2) - (appIcon.frame.height / 5) - badgeOffsetOnSmallSize))
+                    x: iconSize.width - (dockLabelIcon.fittingSize.width / 2) - (iconSize.width / 7) - badgeOffset,
+                    y: iconSize.height - (dockLabelIcon.fittingSize.height / 2) - (iconSize.height / 5) - badgeOffset))
             view.setAccessibilityLabel(getAccessibilityTextForBadge(dockLabel))
             return true
         }
@@ -381,7 +382,7 @@ class ThumbnailView: NSStackView {
     }
 
     static func dockLabelLabelSize() -> CGFloat {
-        return (max(Double(Preferences.defaultValues["iconSize"]!)!, Preferences.iconSize) * 0.43).rounded()
+        return (ThumbnailView.iconSize(NSScreen.preferred()).width * 0.43).rounded()
     }
 
     static func makeShadow(_ color: NSColor?) -> NSShadow? {

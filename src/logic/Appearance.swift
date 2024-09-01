@@ -42,7 +42,7 @@ class AppearanceSize {
                 appearance.rowsCount = 5
                 appearance.windowMinWidthInRow = 8
                 appearance.windowMaxWidthInRow = 90
-                appearance.iconSize = 25
+                appearance.iconSize = 30
                 appearance.fontHeight = 14
                 if isVerticalScreen {
                     appearance.rowsCount = 8
@@ -60,8 +60,8 @@ class AppearanceSize {
                 appearance.rowsCount = 3
                 appearance.windowMinWidthInRow = 10
                 appearance.windowMaxWidthInRow = 90
-                appearance.iconSize = 30
-                appearance.fontHeight = 16
+                appearance.iconSize = 40
+                appearance.fontHeight = 18
                 if isVerticalScreen {
                     appearance.rowsCount = 6
                 }
@@ -116,7 +116,7 @@ class AppearanceSize {
                 appearance.fontHeight = 15
             } else if size == .large {
                 appearance.iconSize = 40
-                appearance.fontHeight = 20
+                appearance.fontHeight = 18
             }
         }
         return appearance
