@@ -93,6 +93,10 @@ class Preferences {
         "shortcutStyle5": ShortcutStylePreference.focusOnRelease.rawValue,
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
+        "hideWindowlessApps2": "false",
+        "hideWindowlessApps3": "false",
+        "hideWindowlessApps4": "false",
+        "hideWindowlessApps5": "false",
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
     ]
@@ -136,7 +140,7 @@ class Preferences {
     static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
-    static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
+    static var hideWindowlessApps: [Bool] { ["hideWindowlessApps", "hideWindowlessApps2", "hideWindowlessApps3", "hideWindowlessApps4", "hideWindowlessApps5"].map { defaults.bool($0) } }
     static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
@@ -214,27 +218,31 @@ class Preferences {
     }
 
     private static func updateToNewPreferences(_ currentVersion: String) {
-        if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
-            migrateBlacklists()
-            if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
-                migrateMinMaxWindowsWidthInRow()
-                if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
-                    // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                    (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
-                    if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
-                        // "Show windows from:" got the "Active Space" option removed
-                        migrateShowWindowsFrom()
-                        if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
-                            // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                            migrateNextWindowShortcuts()
-                            // dropdowns preferences used to store English text; now they store indexes
-                            migrateDropdownsFromTextToIndexes()
-                            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                            migrateMenubarIconFromCheckboxToDropdown()
-                            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                            migrateShowWindowsCheckboxToDropdown()
-                            // "Max size on screen" was split into max width and max height
-                            migrateMaxSizeOnScreenToWidthAndHeight()
+        if currentVersion.compare("6.72.0", options: .numeric) != .orderedDescending {
+            // hideWindowlessApps setting was moved from a global setting to a per control setting
+            migrateWindowlessAppsSetting()
+            if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
+                migrateBlacklists()
+                if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
+                    migrateMinMaxWindowsWidthInRow()
+                    if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
+                        // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                        (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
+                        if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
+                            // "Show windows from:" got the "Active Space" option removed
+                            migrateShowWindowsFrom()
+                            if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
+                                // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                                migrateNextWindowShortcuts()
+                                // dropdowns preferences used to store English text; now they store indexes
+                                migrateDropdownsFromTextToIndexes()
+                                // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                                migrateMenubarIconFromCheckboxToDropdown()
+                                // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                                migrateShowWindowsCheckboxToDropdown()
+                                // "Max size on screen" was split into max width and max height
+                                migrateMaxSizeOnScreenToWidthAndHeight()
+                            }
                         }
                     }
                 }
@@ -257,6 +265,15 @@ class Preferences {
                 defaults.removeObject(forKey: $0)
             }
         }
+    }
+    
+    private static func migrateWindowlessAppsSetting() {
+        // Copy previous global setting value hideWindowlessApps to all controls
+        let globalValue = defaults.string(forKey: "hideWindowlessApps")
+        defaults.set(globalValue, forKey: "hideWindowlessApps2")
+        defaults.set(globalValue, forKey: "hideWindowlessApps3")
+        defaults.set(globalValue, forKey: "hideWindowlessApps4")
+        defaults.set(globalValue, forKey: "hideWindowlessApps5")
     }
 
     private static func oldBlacklistEntriesToNewOnes(_ old: String, _ hide: BlacklistHidePreference, _ ignore: BlacklistIgnorePreference) -> [BlacklistEntry] {
