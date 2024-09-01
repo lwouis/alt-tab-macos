@@ -223,6 +223,9 @@ class AppearanceTheme {
                 appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.7)
             }
         }
+        if appearanceStyle == .titles {
+            appearance.highlightBorderWidth = 2
+        }
         return appearance
     }
 }
