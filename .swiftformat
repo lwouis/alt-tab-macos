@@ -1,0 +1,4 @@
+--swiftversion 5.5
+--exclude Pods,Generated
+
+--maxwidth 120
