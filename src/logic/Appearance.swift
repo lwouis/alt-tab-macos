@@ -130,7 +130,7 @@ struct AppearanceThemeParameters {
     var fontColor = NSColor.white
     var indicatedIconShadowColor: NSColor? = .darkGray
     var titleShadowColor: NSColor? = .darkGray
-    var imageShadowColor: NSColor? = .gray       // for icon, thumbnail and windowless images
+    var imageShadowColor: NSColor? = .gray // for icon, thumbnail and windowless images
     var highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
     var highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
     var highlightFocusedBorderColor = NSColor.clear
@@ -148,23 +148,23 @@ class AppearanceTheme {
 
     init(_ appearanceStyle: AppearanceStylePreference, _ theme: AppearanceThemePreference) {
         self.appearanceStyle = appearanceStyle
-        self.themeName = AppearanceTheme.transform(theme)
+        themeName = AppearanceTheme.transform(theme)
     }
 
     static func transform(_ theme: AppearanceThemePreference) -> AppearanceThemeName {
         switch theme {
-            case .light:
-                return AppearanceThemeName.light
-            case .dark:
-                return AppearanceThemeName.dark
-            case .system:
-                return NSAppearance.current.getThemeName()
+        case .light:
+            return AppearanceThemeName.light
+        case .dark:
+            return AppearanceThemeName.dark
+        case .system:
+            return NSAppearance.current.getThemeName()
         }
     }
 
     func getParameters() -> AppearanceThemeParameters {
         var appearance = AppearanceThemeParameters()
-        if self.themeName == .light {
+        if themeName == .light {
             appearance.material = .light
             appearance.fontColor = .black.withAlphaComponent(0.8)
             appearance.indicatedIconShadowColor = nil
@@ -231,6 +231,6 @@ class AppearanceTheme {
 }
 
 enum AppearanceThemeName: String {
-    case light = "light"
-    case dark = "dark"
+    case light
+    case dark
 }
