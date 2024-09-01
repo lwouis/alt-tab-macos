@@ -1,12 +1,16 @@
 const { exec } = require('child_process');
 
 // Function to execute shell commands
-function execCommand(command, callback) {
+function execCommand(command, callback, errorCallback) {
     exec(command, (error, stdout, stderr) => {
         if (error) {
-            console.error(`Error executing command: ${command}`);
-            console.error(`stderr: ${stderr}`);
-            process.exit(1);
+            if (errorCallback) {
+                errorCallback(stderr);
+            } else {
+                console.error(`Error executing command: ${command}`);
+                console.error(`stderr: ${stderr}`);
+                process.exit(1);
+            }
         } else {
             callback(stdout);
         }
@@ -21,28 +25,40 @@ function commandExists(command, callback) {
 }
 
 // Check if Homebrew is installed
-execCommand('brew --version', (stdout) => {
-    console.log(`Homebrew version: ${stdout}`);
+commandExists('brew', (brewExists) => {
+    if (brewExists) {
+        execCommand('brew --version', (stdout) => {
+            console.log(`Homebrew version: ${stdout}`);
+            checkSwiftFormat();
+        });
+    } else {
+        console.log('Homebrew is not installed. Installing...');
+        // Install Homebrew
+        const installBrewCommand = '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"';
+        execCommand(installBrewCommand, (stdout) => {
+            console.log('Homebrew installed successfully.');
+            checkSwiftFormat();
+        }, (stderr) => {
+            console.error('Failed to install Homebrew.');
+            console.error(`stderr: ${stderr}`);
+        });
+    }
+});
 
-    // Check if SwiftFormat is already installed
+// Function to check if SwiftFormat is installed
+function checkSwiftFormat() {
     commandExists('swiftformat', (exists) => {
         if (exists) {
             console.log('SwiftFormat is already installed.');
-            // Update SwiftFormat if it is already installed
-            // execCommand('brew upgrade swiftformat', (stdout) => {
-            //     console.log(`SwiftFormat updated: ${stdout}`);
-            //     handleAppleSiliconSymlink();
-            // });
         } else {
             console.log('SwiftFormat is not installed. Installing...');
-            // Install SwiftFormat if it is not installed
             execCommand('brew install swiftformat', (stdout) => {
                 console.log(`SwiftFormat installed: ${stdout}`);
                 handleAppleSiliconSymlink();
             });
         }
     });
-});
+}
 
 // Function to handle symbolic link for Apple Silicon
 function handleAppleSiliconSymlink() {

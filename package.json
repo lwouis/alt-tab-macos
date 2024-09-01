@@ -10,10 +10,15 @@
       "pre-commit": "lint-staged"
     }
   },
+  "lint-staged": {
+    "*.swift": [
+      "node scripts/swiftformat.js --lint"
+    ]
+  },
   "scripts": {
     "postinstall": "node scripts/install_swiftformat.js",
-    "format": "swiftformat .",
-    "format:check": "swiftformat --lint ."
+    "format": "node scripts/swiftformat.js",
+    "format:check": "node scripts/swiftformat.js --lint"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
@@ -25,6 +30,7 @@
     "husky": "^3.0.4",
     "lint-staged": "^13.0.0",
     "marked": "^0.8.0",
-    "semantic-release": "^15.13.24"
+    "semantic-release": "^15.13.24",
+    "glob": "^10.0.0"
   }
 }

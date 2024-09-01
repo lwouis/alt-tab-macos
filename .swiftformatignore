@@ -1,0 +1,11 @@
+# **/*.swift: Matches all .swift files in the current directory and all its subdirectories.
+# src/**/*.swift: Matches all .swift files in the src directory and all its subdirectories.
+# !node_modules/**: Excludes all files in the node_modules directory and all its subdirectories.
+
+Pods/**
+Generated/**
+
+**/PrivateApis.swift
+
+# We will open a new branch to deal with code format issues at the next release.
+**/*
