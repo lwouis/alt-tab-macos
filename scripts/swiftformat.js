@@ -16,7 +16,7 @@ if (files.length > 0) {
     try {
         execFileSync('swiftformat', commandArgs, { stdio: 'inherit' });
     } catch (error) {
-        console.warn('swiftformat encountered an error, but the script will continue.');
+        console.warn('swiftformat did not pass, but the script will continue.');
     }
 } else {
     console.log('No Swift files to format.');
