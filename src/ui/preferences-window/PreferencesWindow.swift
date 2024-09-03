@@ -54,7 +54,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         Array(toolbarItems.values).forEach {
             $0.2.fit(largestTabWidth, $0.2.subviews[0].fittingSize.height)
         }
-        selectTab("controls")
+        selectTab("general")
     }
 
     func selectTab(_ id: String) {
