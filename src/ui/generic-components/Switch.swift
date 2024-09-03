@@ -58,6 +58,10 @@ class Switch: NSButton {
         }
     }
 
+    override var acceptsFirstResponder: Bool {
+        switchButton == nil ? true : false
+    }
+
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         if let switchButton = switchButton {
