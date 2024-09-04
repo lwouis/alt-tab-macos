@@ -1,6 +1,29 @@
 import Cocoa
 
 class ImageTextButtonView: NSStackView {
+    class ImageButton: NSButton {
+        override var focusRingMaskBounds: NSRect {
+            return bounds
+        }
+
+        override func drawFocusRingMask() {
+            let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 1, dy: 1),
+                    xRadius: ImageTextButtonView.cornerRadius, yRadius: ImageTextButtonView.cornerRadius)
+            path.fill()
+        }
+
+        override func draw(_ dirtyRect: NSRect) {
+            super.draw(dirtyRect)
+
+            if self.window?.firstResponder == self && NSApp.isActive {
+                let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 1, dy: 1),
+                        xRadius: ImageTextButtonView.cornerRadius, yRadius: ImageTextButtonView.cornerRadius)
+                path.lineWidth = 2.0
+                path.stroke()
+            }
+        }
+    }
+
     static let spacing = CGFloat(5)
     static let cornerRadius = CGFloat(5)
     static let borderWidth = CGFloat(2)
@@ -42,9 +65,9 @@ class ImageTextButtonView: NSStackView {
     private func makeButton(_ rawName: String, _ state: NSControl.StateValue, _ image: WidthHeightImage,
                             padding: CGFloat = ImageTextButtonView.padding,
                             cornerRadius: CGFloat = ImageTextButtonView.cornerRadius) {
-        button = NSButton(radioButtonWithTitle: "", target: nil, action: nil)
+        button = ImageButton(radioButtonWithTitle: "", target: nil, action: nil)
         button.imagePosition = .imageOnly
-        button.focusRingType = .none
+        button.focusRingType = .default
         button.translatesAutoresizingMaskIntoConstraints = false
         button.wantsLayer = true
         button.layer?.cornerRadius = 7.0
