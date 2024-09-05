@@ -12,6 +12,7 @@ struct ShowHideRowInfo {
 }
 
 class IllustratedImageThemeView: ClickHoverImageView {
+    override var acceptsFirstResponder: Bool { false }
     static let padding = CGFloat(3)
     var style: AppearanceStylePreference!
     var theme: String!

@@ -86,6 +86,10 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         let item = toolbarItems[item.itemIdentifier]!
         contentView = item.2
         title = item.1.label
+
+        // Reset focused ring
+        makeFirstResponder(contentView?.subviews[0])
+        recalculateKeyViewLoop()
     }
 
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
