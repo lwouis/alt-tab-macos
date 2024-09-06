@@ -20,6 +20,7 @@ class ThumbnailView: NSStackView {
 
     var hStackView: NSStackView!
     var vStackView: NSStackView!
+    var highlightView: HighlightView!
     var labelStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -65,6 +66,10 @@ class ThumbnailView: NSStackView {
         vStackView.layer!.borderWidth = CGFloat(1)
         vStackView.edgeInsets = NSEdgeInsets(top: Preferences.edgeInsetsSize, left: Preferences.edgeInsetsSize,
                 bottom: Preferences.edgeInsetsSize, right: Preferences.edgeInsetsSize)
+
+        highlightView = HighlightView()
+        highlightView.isHidden = true
+        vStackView.addSubview(highlightView, positioned: .above, relativeTo: nil)
         if Preferences.appearanceStyle == .appIcons {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
@@ -131,6 +136,14 @@ class ThumbnailView: NSStackView {
         return NSColor.clear
     }
 
+    private func setBackground(isFocused: Bool, isHovered: Bool) {
+        if Preferences.appearanceHighVisibility {
+            vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        } else {
+            highlightView.drawHighlight(isFocused: isFocused, isHovered: isHovered)
+        }
+    }
+
     private func setBorder(isFocused: Bool, isHovered: Bool) {
         if isFocused {
             vStackView?.layer!.borderColor = Preferences.appearanceThemeParameters.highlightFocusedBorderColor.cgColor
@@ -156,7 +169,7 @@ class ThumbnailView: NSStackView {
     func drawHighlight(_ i: Int) {
         let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
-        vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        setBackground(isFocused: isFocused, isHovered: isHovered)
         setBorder(isFocused: isFocused, isHovered: isHovered)
         setShadow(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
@@ -274,6 +287,7 @@ class ThumbnailView: NSStackView {
             let frameWidth = contentWidth + leftRightEdgeInsetsSize
             width = max(frameWidth, widthMin).rounded()
         }
+        assignIfDifferent(&highlightView.frame, vStackView.bounds)
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
     }
@@ -477,5 +491,40 @@ class ThumbnailView: NSStackView {
 
     static func getTopBottomEdgeInsetsSize() -> CGFloat {
         return Preferences.edgeInsetsSize * 2
+    }
+}
+
+class HighlightView: NSVisualEffectView {
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    private func setup() {
+        material = Preferences.appearanceThemeParameters.highlightMaterial
+        blendingMode = .behindWindow
+        state = .active
+        alphaValue = 1
+        wantsLayer = true
+        layer!.cornerRadius = Preferences.cellCornerRadius
+        autoresizingMask = [.width, .height]
+    }
+
+    func drawHighlight(isFocused: Bool, isHovered: Bool) {
+        if isFocused {
+            isHidden = false
+            alphaValue = Preferences.appearanceThemeParameters.highlightFocusedAlphaValue
+        } else if isHovered {
+            isHidden = false
+            alphaValue = Preferences.appearanceThemeParameters.highlightHoveredAlphaValue
+        } else {
+            isHidden = true
+        }
     }
 }

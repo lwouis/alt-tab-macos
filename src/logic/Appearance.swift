@@ -129,6 +129,9 @@ struct AppearanceThemeParameters {
     var indicatedIconShadowColor: NSColor? = .darkGray
     var titleShadowColor: NSColor? = .darkGray
     var imageShadowColor: NSColor? = .gray // for icon, thumbnail and windowless images
+    var highlightMaterial = NSVisualEffectView.Material.selection
+    var highlightFocusedAlphaValue = 1.0
+    var highlightHoveredAlphaValue = 0.8
     var highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
     var highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
     var highlightFocusedBorderColor = NSColor.clear
@@ -168,13 +171,10 @@ class AppearanceTheme {
             appearance.indicatedIconShadowColor = nil
             appearance.titleShadowColor = nil
             appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
+            appearance.highlightMaterial = .mediumLight
             appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
             appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
             appearance.enablePanelShadow = false
-
-            if appearanceStyle == .thumbnails {
-                appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
-            }
 
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
@@ -186,6 +186,8 @@ class AppearanceTheme {
                 appearance.enablePanelShadow = true
             }
             if appearanceHighlightBorder {
+                appearance.highlightFocusedAlphaValue = 0.4
+                appearance.highlightHoveredAlphaValue = 0.2
                 appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
                 appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
                 appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
@@ -198,13 +200,10 @@ class AppearanceTheme {
             appearance.indicatedIconShadowColor = .darkGray
             appearance.titleShadowColor = .darkGray
             appearance.imageShadowColor = .gray.withAlphaComponent(0.8)
+            appearance.highlightMaterial = .ultraDark
             appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.5)
             appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.4)
             appearance.enablePanelShadow = false
-
-            if appearanceStyle == .thumbnails {
-                appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.7)
-            }
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
@@ -218,6 +217,8 @@ class AppearanceTheme {
                 appearance.enablePanelShadow = true
             }
             if appearanceHighlightBorder {
+                appearance.highlightFocusedAlphaValue = 0.4
+                appearance.highlightHoveredAlphaValue = 0.2
                 appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
                 appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
                 appearance.highlightFocusedBorderColor = NSColor.systemAccentColor

@@ -8,6 +8,7 @@ class ThumbnailsView: NSVisualEffectView {
     convenience init() {
         self.init(frame: .zero)
         material = Preferences.appearanceThemeParameters.material
+        blendingMode = .behindWindow
         state = .active
         wantsLayer = true
         updateRoundedCorners(Preferences.windowCornerRadius)
