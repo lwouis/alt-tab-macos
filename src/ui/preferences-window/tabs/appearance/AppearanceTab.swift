@@ -13,7 +13,7 @@ struct ShowHideRowInfo {
 
 class IllustratedImageThemeView: ClickHoverImageView {
     override var acceptsFirstResponder: Bool { false }
-    static let padding = CGFloat(3)
+    static let padding = CGFloat(4)
     var style: AppearanceStylePreference!
     var theme: String!
     var imageName: String!
@@ -59,9 +59,9 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     private func setBorder() {
-        self.layer?.cornerRadius = TableGroupView.cornerRadius
+        self.layer?.cornerRadius = TableGroupView.cornerRadius + 3
         self.layer?.borderColor = self.isFocused ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.cgColor
-        self.layer?.borderWidth = 2
+        self.layer?.borderWidth = 3
     }
 
     private func setFocused(_ focused: Bool) {
@@ -411,7 +411,7 @@ class AppearanceTab: NSObject {
                 width: PreferencesWindow.width)
         table.addRow(secondaryViews: [LabelAndControl.makeImageRadioButtons("appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
             toggleCustomizeStyleButton()
-        }, buttonSpacing: 12)], secondaryViewsAlignment: .centerX)
+        }, buttonSpacing: 10)], secondaryViewsAlignment: .centerX)
 
         table.addRow(leftText: NSLocalizedString("Size", comment: ""),
                 rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])

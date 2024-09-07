@@ -25,9 +25,9 @@ class ImageTextButtonView: NSStackView {
     }
 
     static let spacing = CGFloat(5)
-    static let cornerRadius = CGFloat(5)
-    static let borderWidth = CGFloat(2)
-    static let padding = CGFloat(1)
+    static let cornerRadius = CGFloat(7)
+    static let borderWidth = CGFloat(3)
+    static let padding = CGFloat(2)
 
     var onClick: ActionClosure?
     var button: NSButton!
@@ -70,7 +70,7 @@ class ImageTextButtonView: NSStackView {
         button.focusRingType = .default
         button.translatesAutoresizingMaskIntoConstraints = false
         button.wantsLayer = true
-        button.layer?.cornerRadius = 7.0
+        button.layer?.cornerRadius = cornerRadius
         button.layer?.borderWidth = ImageTextButtonView.borderWidth
         button.state = state
         addArrangedSubview(button)
@@ -85,7 +85,7 @@ class ImageTextButtonView: NSStackView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
         imageView.wantsLayer = true
-        imageView.layer?.cornerRadius = cornerRadius
+        imageView.layer?.cornerRadius = cornerRadius - 3
         imageContainer.addSubview(imageView)
 
         NSLayoutConstraint.activate([
@@ -129,7 +129,7 @@ class ImageTextButtonView: NSStackView {
 
     func updateStyle() {
         let isSelected = button.state == .on
-        button.layer?.borderColor = isSelected ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.withAlphaComponent(0.5).cgColor
+        button.layer?.borderColor = isSelected ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.withAlphaComponent(0.3).cgColor
         button.layer?.borderWidth = isSelected ? ImageTextButtonView.borderWidth : ImageTextButtonView.borderWidth
         label.font = isSelected ? NSFont.boldSystemFont(ofSize: 12) : NSFont.systemFont(ofSize: 12)
     }
