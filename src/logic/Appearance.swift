@@ -67,7 +67,7 @@ class AppearanceSize {
                 }
             }
             if appearanceHighlightBorder {
-                appearance.edgeInsetsSize = 10
+                appearance.edgeInsetsSize = 12
                 appearance.cellCornerRadius = 12
             }
         } else if style == .appIcons {
