@@ -137,11 +137,12 @@ class ThumbnailView: NSStackView {
     }
 
     private func setBackground(isFocused: Bool, isHovered: Bool) {
-        if Preferences.appearanceHighVisibility {
-            vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
-        } else {
-            highlightView.drawHighlight(isFocused: isFocused, isHovered: isHovered)
-        }
+        vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
+//        if Preferences.appearanceHighVisibility {
+//            vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
+//        } else {
+//            highlightView.drawHighlight(isFocused: isFocused, isHovered: isHovered)
+//        }
     }
 
     private func setBorder(isFocused: Bool, isHovered: Bool) {

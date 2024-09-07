@@ -179,8 +179,8 @@ class AppearanceTheme {
             if appearanceHighVisibility {
                 appearance.material = .mediumLight
                 appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
-                appearance.highlightFocusedBorderColor = .white.withAlphaComponent(0.8)
-                appearance.highlightHoveredBorderColor = .white.withAlphaComponent(0.6)
+                appearance.highlightFocusedBorderColor = .lightGray.withAlphaComponent(0.9)
+                appearance.highlightHoveredBorderColor = .lightGray.withAlphaComponent(0.8)
                 appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
                 appearance.highlightBorderWidth = 1
                 appearance.enablePanelShadow = true
@@ -201,15 +201,15 @@ class AppearanceTheme {
             appearance.titleShadowColor = .darkGray
             appearance.imageShadowColor = .gray.withAlphaComponent(0.8)
             appearance.highlightMaterial = .ultraDark
-            appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.5)
-            appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.4)
+            appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
+            appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
             appearance.enablePanelShadow = false
 
             if appearanceHighVisibility {
                 appearance.material = .ultraDark
                 appearance.imageShadowColor = .gray.withAlphaComponent(0.4)
-                appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.4)
-                appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.2)
+                appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
+                appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.4)
                 appearance.highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
                 appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.7)
                 appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
