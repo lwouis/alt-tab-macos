@@ -363,13 +363,14 @@ class TableGroupView: ClickHoverStackView {
             mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
         }
 
-        var rowInfo = RowInfo(id: rows.count, view: rowView)
+        let rowInfo = RowInfo(id: rows.count, view: rowView)
         rowInfo.leftViews = leftViews
         rowInfo.rightViews = rightViews
-        rows.append(rowInfo)
         let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
         finalizeRow(tableStackView: tableStackView, rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
                 onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        rows.append(rowInfo)
+        updateRowCornerRadius()
         return rowInfo
     }
 
@@ -391,7 +392,7 @@ class TableGroupView: ClickHoverStackView {
             mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
         }
 
-        var rowInfo = RowInfo(id: rows.count, view: rowView)
+        let rowInfo = RowInfo(id: rows.count, view: rowView)
         rowInfo.leftViews = leftViews
         rowInfo.rightViews = rightViews
         rowInfo.secondaryViews = secondaryViews
@@ -626,17 +627,25 @@ class TableGroupView: ClickHoverStackView {
 
         for (index, rowInfo) in rows.enumerated() {
             if #available(macOS 10.13, *) {
-                rowInfo.view.layer?.cornerRadius = 0
-                rowInfo.view.layer?.maskedCorners = []
-
                 if index == 0 {
                     rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                    rowInfo.view.layer?.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-                }
-
-                if index == rows.count - 1 {
-                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
                     rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                } else if index == rows.count - 1 {
+                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    rowInfo.view.layer?.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                } else {
+                    rowInfo.view.layer?.cornerRadius = 0
+                    rowInfo.view.layer?.maskedCorners = []
+                }
+            } else {
+                if index == 0 {
+                    // Degraded experience, rounded corners will appear in the lower left and lower right corners.
+                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                } else if index == rows.count - 1 {
+                    // Degraded experience, rounded corners will appear in the upper left and upper right corners.
+                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                } else {
+                    rowInfo.view.layer?.cornerRadius = 0
                 }
             }
         }
