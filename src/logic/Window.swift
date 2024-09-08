@@ -24,7 +24,7 @@ class Window: CustomStringConvertible {
     var axUiElement: AXUIElement!
     var application: Application
     var axObserver: AXObserver?
-    var row: Int?
+    var rowIndex: Int?
 
     static let notifications = [
         kAXUIElementDestroyedNotification,
@@ -89,7 +89,7 @@ class Window: CustomStringConvertible {
                 , axUiElement: \(axUiElement)\
                 , application: \(application)\
                 , axObserver: \(axObserver)\
-                , row: \(row)\
+                , rowIndex: \(rowIndex)\
                 , lastFocusOrder: \(lastFocusOrder)\
                 , creationOrder: \(creationOrder)
                 """

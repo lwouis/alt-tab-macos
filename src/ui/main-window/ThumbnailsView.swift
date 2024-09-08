@@ -4,6 +4,8 @@ class ThumbnailsView: NSVisualEffectView {
     let scrollView = ScrollView()
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
+    static var thumbnailsWith = CGFloat(0.0)
+    static var thumbnailsHeight = CGFloat(0.0)
 
     convenience init() {
         self.init(frame: .zero)
@@ -24,10 +26,10 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     static func highlight(_ indexInRecycledViews: Int) {
-        let v = recycledViews[indexInRecycledViews]
-        v.indexInRecycledViews = indexInRecycledViews
-        if v.frame != NSRect.zero {
-            v.drawHighlight(indexInRecycledViews)
+        let view = recycledViews[indexInRecycledViews]
+        view.indexInRecycledViews = indexInRecycledViews
+        if view.frame != NSRect.zero {
+            view.drawHighlight(indexInRecycledViews)
         }
     }
 
@@ -52,7 +54,7 @@ class ThumbnailsView: NSVisualEffectView {
 
     func nextRow(_ direction: Direction) -> [ThumbnailView]? {
         let step = direction == .down ? 1 : -1
-        if let currentRow = Windows.focusedWindow()?.row {
+        if let currentRow = Windows.focusedWindow()?.rowIndex {
             let nextRow = (currentRow + step) % rows.count
             let nextRow_ = nextRow < 0 ? rows.count + nextRow : nextRow
             if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow)) &&
@@ -89,6 +91,11 @@ class ThumbnailsView: NSVisualEffectView {
             if Preferences.alignThumbnails == .center {
                 centerRows(maxX)
             }
+            for (i, row) in rows.enumerated() {
+                for (j, view) in row.enumerated() {
+                    view.numberOfViewsInRow = row.count
+                }
+            }
             highlightStartView()
         }
     }
@@ -123,9 +130,17 @@ class ThumbnailsView: NSVisualEffectView {
                 currentX = projectedX
                 maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
             }
-            newViews.append(view)
             rows[rows.count - 1].append(view)
-            window.row = rows.count - 1
+            // for the first view in the row
+            view.isFirstInRow = (rows[rows.count - 1].count == 1)
+            // for the last view in the row (will be updated if a new view is added)
+            view.isLastInRow = true
+            if rows[rows.count - 1].count > 1 {
+                rows[rows.count - 1][rows[rows.count - 1].count - 2].isLastInRow = false
+            }
+            view.indexInRow = rows[rows.count - 1].count - 1
+            newViews.append(view)
+            window.rowIndex = rows.count - 1
         }
         scrollView.documentView!.subviews = newViews
         return (maxX, maxY)
@@ -152,8 +167,10 @@ class ThumbnailsView: NSVisualEffectView {
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
         let heightMax = ThumbnailsPanel.maxThumbnailsHeight(screen).rounded()
 
-        var frameWidth = min(maxX, widthMax) + Preferences.windowPadding * 2
-        var frameHeight = min(maxY, heightMax) + Preferences.windowPadding * 2
+        ThumbnailsView.thumbnailsWith = min(maxX, widthMax)
+        ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
+        var frameWidth = ThumbnailsView.thumbnailsWith + Preferences.windowPadding * 2
+        var frameHeight = ThumbnailsView.thumbnailsHeight + Preferences.windowPadding * 2
         var originX = Preferences.windowPadding
         var originY = Preferences.windowPadding
         if Preferences.appearanceStyle == .appIcons {

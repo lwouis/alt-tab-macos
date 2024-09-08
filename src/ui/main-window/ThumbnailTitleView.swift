@@ -37,6 +37,29 @@ class ThumbnailTitleView: BaseLabel {
         return .byTruncatingHead
     }
 
+    func getTitleWidth() -> CGFloat {
+        guard let font = self.font else {
+            return 0
+        }
+
+        let text = self.string
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .paragraphStyle: defaultParagraphStyle ?? NSParagraphStyle.default
+        ]
+
+        let attributedString = NSAttributedString(string: text, attributes: attributes)
+
+        // Use boundingRect to calculate the text size
+        let textSize = attributedString.boundingRect(
+                with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
+                options: [.usesLineFragmentOrigin, .usesFontLeading],
+                context: nil
+        ).size
+
+        return ceil(textSize.width)
+    }
+
     static func maxHeight() -> CGFloat {
         return Preferences.fontHeight + 3
     }

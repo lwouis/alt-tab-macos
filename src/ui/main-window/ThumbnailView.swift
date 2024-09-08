@@ -30,6 +30,17 @@ class ThumbnailView: NSStackView {
     var isShowingWindowControls = false
     var windowlessIcon = NSImageView()
 
+    var labelLeftConstraint: NSLayoutConstraint?
+    var labelRightConstraint: NSLayoutConstraint?
+    var labelLeftConstant = CGFloat(0)
+    var labelRightConstant = CGFloat(0)
+    var truncatedTitleWidth = CGFloat(0)
+
+    var isFirstInRow = false
+    var isLastInRow = false
+    var indexInRow = 0
+    var numberOfViewsInRow = 0
+
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
     override var acceptsFirstResponder: Bool { true }
@@ -76,7 +87,13 @@ class ThumbnailView: NSStackView {
             vStackView.setViews([hStackView], in: .leading)
             label.alignment = .center
             label.isHidden = true
-            setViews([vStackView, label], in: .leading)
+            setViews([vStackView], in: .leading)
+
+            // Allow label to overflow horizontally
+            label.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(label)
+            labelLeftConstraint = label.leadingAnchor.constraint(equalTo: vStackView.leadingAnchor, constant: 0)
+            labelRightConstraint = label.trailingAnchor.constraint(equalTo: vStackView.trailingAnchor, constant: 0)
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
             vStackView.setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
@@ -175,7 +192,104 @@ class ThumbnailView: NSStackView {
         setShadow(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
             label.isHidden = !(isFocused || isHovered)
+            updateAppIconLabel()
         }
+    }
+
+    private func updateAppIconLabel() {
+        let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
+        let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
+
+        let focusedView = ThumbnailsView.recycledViews[Windows.focusedWindowIndex]
+        calculateAndApplyConstants(focusedView)
+
+        var hoveredView: ThumbnailView? = nil
+
+        if Windows.hoveredWindowIndex != nil {
+            hoveredView = ThumbnailsView.recycledViews[Windows.hoveredWindowIndex!]
+        }
+
+        if let hoveredView = hoveredView {
+            calculateAndApplyConstants(hoveredView)
+        }
+
+        if isFocused {
+            hoveredView?.label.isHidden = true
+            focusedView.label.isHidden = false
+            ThumbnailView.setLabelConstraints(focusedView)
+        } else if isHovered {
+            hoveredView?.label.isHidden = false
+            focusedView.label.isHidden = true
+            if let hoveredView = hoveredView {
+                ThumbnailView.setLabelConstraints(hoveredView)
+            }
+        }
+    }
+
+    func getMaxTitleWidth(_ view: ThumbnailView) -> CGFloat {
+        let frameWidth = view.frame.width
+        let maxPossibleWidth = ThumbnailsView.thumbnailsWith
+
+        let leftMaxWidth = CGFloat(view.indexInRow) * frameWidth
+        let rightMaxWidth = CGFloat((view.numberOfViewsInRow - view.indexInRow)) * frameWidth
+        let width = leftMaxWidth + rightMaxWidth + frameWidth
+        let maxTitleWidth = min(width, maxPossibleWidth)
+        return maxTitleWidth
+    }
+
+    private func calculateAndApplyConstants(_ view: ThumbnailView) {
+        let frameWidth = view.frame.width
+        let titleWidth = view.label.getTitleWidth()
+        let maxTitleWidth = getMaxTitleWidth(view)
+        let truncatedTitleWidth = max(min(titleWidth, maxTitleWidth), frameWidth)
+
+        var leftConstant = CGFloat(0)
+        var rightConstant = CGFloat(0)
+
+        if view.isFirstInRow {
+            rightConstant = max(0, truncatedTitleWidth - frameWidth)
+        }
+        if view.isLastInRow {
+            leftConstant = max(0, truncatedTitleWidth - frameWidth)
+        }
+        if !view.isFirstInRow && !view.isLastInRow {
+            let needConstant = max(0, (truncatedTitleWidth - frameWidth) / 2)
+            let leftMaxWidth = CGFloat(view.indexInRow) * frameWidth
+            let rightMaxWidth = CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * frameWidth
+            if leftMaxWidth > needConstant && rightMaxWidth > needConstant {
+                leftConstant = needConstant
+                rightConstant = needConstant
+            } else if leftMaxWidth < needConstant && rightMaxWidth < needConstant {
+                leftConstant = leftMaxWidth
+                rightConstant = rightMaxWidth
+            } else if rightMaxWidth < needConstant {
+                rightConstant = rightMaxWidth
+                leftConstant = min(truncatedTitleWidth - frameWidth - rightConstant, leftMaxWidth)
+            } else if leftMaxWidth < needConstant {
+                leftConstant = leftMaxWidth
+                rightConstant = min(truncatedTitleWidth - frameWidth - leftConstant, rightMaxWidth)
+            }
+        }
+
+        view.labelLeftConstant = leftConstant
+        view.labelRightConstant = rightConstant
+        view.truncatedTitleWidth = max(min(titleWidth, leftConstant + rightConstant + frameWidth), frameWidth)
+    }
+
+    static func setLabelConstraints(_ view: ThumbnailView) {
+        if var labelLeftConstraint = view.labelLeftConstraint {
+            labelLeftConstraint.isActive = false
+            labelLeftConstraint = view.label.leadingAnchor.constraint(equalTo: view.vStackView.leadingAnchor, constant: -view.labelLeftConstant)
+            labelLeftConstraint.isActive = true
+            view.labelLeftConstraint = labelLeftConstraint
+        }
+        if var labelRightConstraint = view.labelRightConstraint {
+            labelRightConstraint.isActive = false
+            labelRightConstraint = view.label.trailingAnchor.constraint(equalTo: view.vStackView.trailingAnchor, constant: view.labelRightConstant)
+            labelRightConstraint.isActive = true
+            view.labelRightConstraint = labelRightConstraint
+        }
+        assignIfDifferent(&view.label.textContainer!.size.width, view.truncatedTitleWidth)
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
