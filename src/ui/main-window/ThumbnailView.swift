@@ -192,25 +192,20 @@ class ThumbnailView: NSStackView {
         setShadow(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
             label.isHidden = !(isFocused || isHovered)
-            updateAppIconLabel()
+            updateAppIconLabel(isFocused: isFocused, isHovered: isHovered)
         }
     }
 
-    private func updateAppIconLabel() {
-        let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
-        let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
-
+    private func updateAppIconLabel(isFocused: Bool, isHovered: Bool) {
         let focusedView = ThumbnailsView.recycledViews[Windows.focusedWindowIndex]
-        calculateAndApplyConstants(focusedView)
+        calculateLabelConstraints(focusedView)
 
         var hoveredView: ThumbnailView? = nil
-
         if Windows.hoveredWindowIndex != nil {
             hoveredView = ThumbnailsView.recycledViews[Windows.hoveredWindowIndex!]
         }
-
         if let hoveredView = hoveredView {
-            calculateAndApplyConstants(hoveredView)
+            calculateLabelConstraints(hoveredView)
         }
 
         if isFocused {
@@ -237,7 +232,7 @@ class ThumbnailView: NSStackView {
         return maxTitleWidth
     }
 
-    private func calculateAndApplyConstants(_ view: ThumbnailView) {
+    private func calculateLabelConstraints(_ view: ThumbnailView) {
         let frameWidth = view.frame.width
         let titleWidth = view.label.getTitleWidth()
         let maxTitleWidth = getMaxTitleWidth(view)
@@ -245,7 +240,6 @@ class ThumbnailView: NSStackView {
 
         var leftConstant = CGFloat(0)
         var rightConstant = CGFloat(0)
-
         if view.isFirstInRow {
             rightConstant = max(0, truncatedTitleWidth - frameWidth)
         }
@@ -270,7 +264,6 @@ class ThumbnailView: NSStackView {
                 rightConstant = min(truncatedTitleWidth - frameWidth - leftConstant, rightMaxWidth)
             }
         }
-
         view.labelLeftConstant = leftConstant
         view.labelRightConstant = rightConstant
         view.truncatedTitleWidth = max(min(titleWidth, leftConstant + rightConstant + frameWidth), frameWidth)
