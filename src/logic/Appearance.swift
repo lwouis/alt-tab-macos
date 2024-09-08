@@ -20,12 +20,14 @@ struct AppearanceSizeParameters {
 class AppearanceSize {
     var style: AppearanceStylePreference
     var size: AppearanceSizePreference
-    let appearanceHighVisibility = Preferences.appearanceHighVisibility
-    let appearanceHighlightBorder = Preferences.appearanceHighlightBorder
+    var visibility: AppearanceVisibilityPreference
 
-    init(_ style: AppearanceStylePreference, _ size: AppearanceSizePreference) {
+    init(_ style: AppearanceStylePreference,
+         _ size: AppearanceSizePreference,
+         _ visibility: AppearanceVisibilityPreference) {
         self.style = style
         self.size = size
+        self.visibility = visibility
     }
 
     func getParameters() -> AppearanceSizeParameters {
@@ -66,7 +68,7 @@ class AppearanceSize {
                     appearance.rowsCount = 6
                 }
             }
-            if appearanceHighlightBorder {
+            if visibility == .highest {
                 appearance.edgeInsetsSize = 12
                 appearance.cellCornerRadius = 12
             }
@@ -144,11 +146,13 @@ struct AppearanceThemeParameters {
 class AppearanceTheme {
     let themeName: AppearanceThemeName
     let appearanceStyle: AppearanceStylePreference
-    let appearanceHighVisibility = Preferences.appearanceHighVisibility
-    let appearanceHighlightBorder = Preferences.appearanceHighlightBorder
+    var visibility: AppearanceVisibilityPreference
 
-    init(_ appearanceStyle: AppearanceStylePreference, _ theme: AppearanceThemePreference) {
+    init(_ appearanceStyle: AppearanceStylePreference,
+         _ theme: AppearanceThemePreference,
+         _ visibility: AppearanceVisibilityPreference) {
         self.appearanceStyle = appearanceStyle
+        self.visibility = visibility
         themeName = AppearanceTheme.transform(theme)
     }
 
@@ -176,7 +180,7 @@ class AppearanceTheme {
             appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
             appearance.enablePanelShadow = false
 
-            if appearanceHighVisibility {
+            if visibility == .high || visibility == .highest {
                 appearance.material = .mediumLight
                 appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
                 appearance.highlightFocusedBorderColor = .lightGray.withAlphaComponent(0.9)
@@ -185,7 +189,7 @@ class AppearanceTheme {
                 appearance.highlightBorderWidth = 1
                 appearance.enablePanelShadow = true
             }
-            if appearanceHighlightBorder {
+            if visibility == .highest {
                 appearance.highlightFocusedAlphaValue = 0.4
                 appearance.highlightHoveredAlphaValue = 0.2
                 appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
@@ -205,7 +209,7 @@ class AppearanceTheme {
             appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
             appearance.enablePanelShadow = false
 
-            if appearanceHighVisibility {
+            if visibility == .high || visibility == .highest {
                 appearance.material = .ultraDark
                 appearance.imageShadowColor = .gray.withAlphaComponent(0.4)
                 appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
@@ -216,7 +220,7 @@ class AppearanceTheme {
                 appearance.highlightBorderWidth = 1
                 appearance.enablePanelShadow = true
             }
-            if appearanceHighlightBorder {
+            if visibility == .highest {
                 appearance.highlightFocusedAlphaValue = 0.4
                 appearance.highlightHoveredAlphaValue = 0.2
                 appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)

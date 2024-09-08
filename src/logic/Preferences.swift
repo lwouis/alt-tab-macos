@@ -58,8 +58,7 @@ class Preferences {
         "appearanceStyle": AppearanceStylePreference.thumbnails.rawValue,
         "appearanceSize": AppearanceSizePreference.medium.rawValue,
         "appearanceTheme": AppearanceThemePreference.system.rawValue,
-        "appearanceHighVisibility": "false",
-        "appearanceHighlightBorder": "false",
+        "appearanceVisibility": AppearanceVisibilityPreference.base.rawValue,
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
@@ -134,13 +133,12 @@ class Preferences {
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
-    static var appearanceHighVisibility: Bool { defaults.bool("appearanceHighVisibility") }
-    static var appearanceHighlightBorder: Bool { defaults.bool("appearanceHighlightBorder") }
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { defaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
     static var appearanceSize: AppearanceSizePreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
     static var appearanceTheme: AppearanceThemePreference { defaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
+    static var appearanceVisibility: AppearanceVisibilityPreference { defaults.macroPref("appearanceVisibility", AppearanceVisibilityPreference.allCases) }
     static var theme: ThemePreference { ThemePreference.macOs/*defaults.macroPref("theme", ThemePreference.allCases)*/ }
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
@@ -160,8 +158,12 @@ class Preferences {
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
     // derived values
-    static var appearanceSizeParameters: AppearanceSizeParameters { AppearanceSize(appearanceStyle, appearanceSize).getParameters() }
-    static var appearanceThemeParameters: AppearanceThemeParameters { AppearanceTheme(appearanceStyle, appearanceTheme).getParameters() }
+    static var appearanceSizeParameters: AppearanceSizeParameters {
+        AppearanceSize(appearanceStyle, appearanceSize, appearanceVisibility).getParameters()
+    }
+    static var appearanceThemeParameters: AppearanceThemeParameters {
+        AppearanceTheme(appearanceStyle, appearanceTheme, appearanceVisibility).getParameters()
+    }
     static var windowPadding: CGFloat { appearanceSizeParameters.windowPadding }
     static var interCellPadding: CGFloat { appearanceSizeParameters.interCellPadding }
     static var intraCellPadding: CGFloat { appearanceSizeParameters.intraCellPadding }
@@ -714,7 +716,7 @@ enum AppearanceStylePreference: String, CaseIterable, ImageMacroPreference {
     }
 }
 
-enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
+enum AppearanceSizePreference: String, CaseIterable, SfSymbolMacroPreference {
     case small = "0"
     case medium = "1"
     case large = "2"
@@ -727,11 +729,11 @@ enum AppearanceSizePreference: String, CaseIterable, ImageMacroPreference {
         }
     }
 
-    var image: WidthHeightImage {
+    var symbolName: String {
         switch self {
-            case .small: return WidthHeightImage(name: "small")
-            case .medium: return WidthHeightImage(name: "medium")
-            case .large: return WidthHeightImage(name: "large")
+            case .small: return "moonphase.waning.gibbous.inverse"
+            case .medium: return "moonphase.last.quarter.inverse"
+            case .large: return "moonphase.waning.crescent.inverse"
         }
     }
 }
@@ -780,6 +782,28 @@ enum AppearanceThemePreference: String, CaseIterable, SfSymbolMacroPreference {
             case .light: return "sun.max"
             case .dark: return "moon.fill"
             case .system: return "laptopcomputer"
+        }
+    }
+}
+
+enum AppearanceVisibilityPreference: String, CaseIterable, SfSymbolMacroPreference {
+    case base = "0"
+    case high = "1"
+    case highest = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .base: return NSLocalizedString("Base", comment: "")
+            case .high: return NSLocalizedString("High", comment: "")
+            case .highest: return NSLocalizedString("Highest", comment: "")
+        }
+    }
+
+    var symbolName: String {
+        switch self {
+            case .base: return "sun.haze"
+            case .high: return "sun.haze.fill"
+            case .highest: return "sun.haze.circle"
         }
     }
 }
