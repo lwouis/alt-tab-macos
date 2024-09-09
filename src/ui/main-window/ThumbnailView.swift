@@ -306,14 +306,13 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&spacing, Preferences.intraCellPadding)
         assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
         let title = getAppOrAndWindowTitle()
-        let appIconChanged = appIcon.image != element.icon || appIcon.toolTip != title
+        let appIconChanged = appIcon.image != element.icon
         if appIconChanged {
             appIcon.image = element.icon
             let appIconSize = ThumbnailView.iconSize(screen)
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
             appIcon.setAccessibilityLabel(title)
-            appIcon.toolTip = title
         }
         let labelChanged = label.string != title
         if labelChanged {
