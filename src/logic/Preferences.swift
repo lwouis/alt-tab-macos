@@ -58,7 +58,7 @@ class Preferences {
         "appearanceStyle": AppearanceStylePreference.thumbnails.rawValue,
         "appearanceSize": AppearanceSizePreference.medium.rawValue,
         "appearanceTheme": AppearanceThemePreference.system.rawValue,
-        "appearanceVisibility": AppearanceVisibilityPreference.base.rawValue,
+        "appearanceVisibility": AppearanceVisibilityPreference.normal.rawValue,
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
@@ -787,13 +787,13 @@ enum AppearanceThemePreference: String, CaseIterable, SfSymbolMacroPreference {
 }
 
 enum AppearanceVisibilityPreference: String, CaseIterable, SfSymbolMacroPreference {
-    case base = "0"
+    case normal = "0"
     case high = "1"
     case highest = "2"
 
     var localizedString: LocalizedString {
         switch self {
-            case .base: return NSLocalizedString("Base", comment: "")
+            case .normal: return NSLocalizedString("Normal", comment: "")
             case .high: return NSLocalizedString("High", comment: "")
             case .highest: return NSLocalizedString("Highest", comment: "")
         }
@@ -801,9 +801,9 @@ enum AppearanceVisibilityPreference: String, CaseIterable, SfSymbolMacroPreferen
 
     var symbolName: String {
         switch self {
-            case .base: return "eye"
+            case .normal: return "eye"
             case .high: return "eyeglasses"
-            case .highest: return "sunglasses.fill"
+            case .highest: return "binoculars.fill"
         }
     }
 }
