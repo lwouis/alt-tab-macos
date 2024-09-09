@@ -184,11 +184,11 @@ class ThumbnailView: NSStackView {
         setShadow(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
             label.isHidden = !(isFocused || isHovered)
-            updateAppIconLabel(isFocused: isFocused, isHovered: isHovered)
+            updateAppIconsLabel(isFocused: isFocused, isHovered: isHovered)
         }
     }
 
-    private func updateAppIconLabel(isFocused: Bool, isHovered: Bool) {
+    private func updateAppIconsLabel(isFocused: Bool, isHovered: Bool) {
         let focusedView = ThumbnailsView.recycledViews[Windows.focusedWindowIndex]
         var hoveredView: ThumbnailView? = nil
         if Windows.hoveredWindowIndex != nil {
@@ -198,28 +198,29 @@ class ThumbnailView: NSStackView {
         if isFocused {
             hoveredView?.label.isHidden = true
             focusedView.label.isHidden = false
-            updateLabelFrameForAppIconsStyle(focusedView)
+            updateAppIconsLabelFrame(focusedView)
         } else if isHovered {
             hoveredView?.label.isHidden = false
             focusedView.label.isHidden = true
             if let hoveredView = hoveredView {
-                updateLabelFrameForAppIconsStyle(hoveredView)
+                updateAppIconsLabelFrame(hoveredView)
             }
         }
     }
 
     func getMaxAllowedLabelWidth(_ view: ThumbnailView) -> CGFloat {
-        let frameWidth = view.frame.width
-        let maxPossibleWidth = ThumbnailsView.thumbnailsWith
+        let viewWidth = view.frame.width
+        let maxAllowedWidth = min(viewWidth * 3, ThumbnailsView.thumbnailsWith)
 
-        let leftMaxWidth = CGFloat(view.indexInRow) * frameWidth
-        let rightMaxWidth = CGFloat((view.numberOfViewsInRow - view.indexInRow)) * frameWidth
-        let width = leftMaxWidth + rightMaxWidth + frameWidth
-        let maxTitleWidth = min(width, maxPossibleWidth)
-        return maxTitleWidth
+        var availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
+        let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - view.indexInRow) * viewWidth
+        let totalWidth = availableLeftWidth + availableRightWidth + viewWidth
+        let maxLabelWidth = min(totalWidth, maxAllowedWidth)
+
+        return maxLabelWidth
     }
 
-    private func updateLabelFrameForAppIconsStyle(_ view: ThumbnailView) {
+    private func updateAppIconsLabelFrame(_ view: ThumbnailView) {
         let viewWidth = view.frame.width
         let labelWidth = view.label.getTitleWidth()
         let maxAllowedLabelWidth = getMaxAllowedLabelWidth(view)
@@ -228,27 +229,28 @@ class ThumbnailView: NSStackView {
         var leftOffset = CGFloat(0)
         var rightOffset = CGFloat(0)
 
-        if view.isFirstInRow {
+        if view.isFirstInRow && view.isLastInRow {
+            leftOffset = 0
+            rightOffset = 0
+        } else if view.isFirstInRow {
             rightOffset = max(0, effectiveLabelWidth - viewWidth)
-        }
-        if view.isLastInRow {
+        } else if view.isLastInRow {
             leftOffset = max(0, effectiveLabelWidth - viewWidth)
-        }
-        if !view.isFirstInRow && !view.isLastInRow {
+        } else if !view.isFirstInRow && !view.isLastInRow {
             let halfNeededOffset = max(0, (effectiveLabelWidth - viewWidth) / 2)
-            let availableLeftWidth = CGFloat(view.indexInRow) * viewWidth
-            let availableRightWidth = CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
+            var availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
+            let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - view.indexInRow) * viewWidth
 
-            if availableLeftWidth > halfNeededOffset && availableRightWidth > halfNeededOffset {
+            if availableLeftWidth >= halfNeededOffset && availableRightWidth >= halfNeededOffset {
                 leftOffset = halfNeededOffset
                 rightOffset = halfNeededOffset
-            } else if availableLeftWidth < halfNeededOffset && availableRightWidth < halfNeededOffset {
+            } else if availableLeftWidth <= halfNeededOffset && availableRightWidth <= halfNeededOffset {
                 leftOffset = availableLeftWidth
                 rightOffset = availableRightWidth
-            } else if availableRightWidth < halfNeededOffset {
+            } else if availableRightWidth <= halfNeededOffset {
                 rightOffset = availableRightWidth
                 leftOffset = min(effectiveLabelWidth - viewWidth - rightOffset, availableLeftWidth)
-            } else if availableLeftWidth < halfNeededOffset {
+            } else if availableLeftWidth <= halfNeededOffset {
                 leftOffset = availableLeftWidth
                 rightOffset = min(effectiveLabelWidth - viewWidth - leftOffset, availableRightWidth)
             }
