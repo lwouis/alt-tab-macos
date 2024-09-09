@@ -536,7 +536,7 @@
 "Show windows from applications" = "Kuva rakenduste aknad";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Kuva aknad ruumidelt";
+"Show windows from Spaces" = "Kuva aknad ruumidelt";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Kuva ekraanidelt aknaid";
@@ -578,7 +578,7 @@
 "Size" = "Suurus";
 
 /* No comment provided by engineer. */
-"High visibility" = "Kõrge nähtavus";
+"Visibility" = "Nähtavus";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Mitu ekraani";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Eelvaade valitud aken.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Keelatud režiimis Switcher On Applications.Saame selle akna jaoks valiku seada läbi Advanced 」 ->「 Kuvada lüliti 」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab on praegu seatud rakenduste kuvamiseks.See säte on saadaval ainult siis, kui Alttab on seatud Windowsi kuvamiseks.";
 

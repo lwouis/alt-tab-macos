@@ -538,7 +538,7 @@
 "Show windows from applications" = "응용 프로그램에서 Windows를 표시합니다";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "공간에서 창문을 보여줍니다";
+"Show windows from Spaces" = "공간에서 창문을 보여줍니다";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "화면에서 창을 표시합니다";
@@ -580,7 +580,7 @@
 "Size" = "크기";
 
 /* No comment provided by engineer. */
-"High visibility" = "높은 가시성";
+"Visibility" = "시계";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "여러 화면";
@@ -616,5 +616,5 @@
 "Preview the selected window." = "선택한 창을 미리 봅니다.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "응용 프로그램 모드에서 스위처에서 비활성화되었습니다.스위치」에서 「advanced 」-> 「쇼를 통해이 창에서 옵션을 설정할 수 있습니다.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab은 현재 응용 프로그램을 표시 할 예정입니다.이 설정은 AltTab이 Windows를 표시하도록 설정된 경우에만 사용할 수 있습니다.";
 

@@ -536,7 +536,7 @@
 "Show windows from applications" = "Показати Windows з програм";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Показати вікна з пробілів";
+"Show windows from Spaces" = "Показати вікна з пробілів";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Показати вікна з екранів";
@@ -578,7 +578,7 @@
 "Size" = "Розмір";
 
 /* No comment provided by engineer. */
-"High visibility" = "Висока видимість";
+"Visibility" = "Видимість";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Кілька екранів";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Попередній перегляд вибраного вікна.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Відключений у режимі перемикача в режимі програми.Ми можемо встановити параметр у цьому вікні за допомогою 「Додатково」 -> 「Показати в комутаторі」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Наразі Alttab налаштований на показ програми.Цей параметр доступний лише тоді, коли Alttab встановлений для показу Windows.";
 

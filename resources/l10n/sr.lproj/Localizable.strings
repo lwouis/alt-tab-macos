@@ -536,7 +536,7 @@
 "Show windows from applications" = "Прикажи Виндовс из апликација";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Прикажи Виндовс из размака";
+"Show windows from Spaces" = "Прикажи Виндовс из размака";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Прикажи Виндовс из екрана";
@@ -578,7 +578,7 @@
 "Size" = "Величина";
 
 /* No comment provided by engineer. */
-"High visibility" = "Висока видљивост";
+"Visibility" = "Видљивост";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Вишеструки екрани";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Прегледајте изабрани прозор.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Онемогућено у Свитцхеру у режиму апликација.Опцију можемо подесити на овом прозору путем 「напредне」 -> 「Прикажи у Свитцх」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Алттаб је тренутно постављен да би се приказала апликације.Ово подешавање је доступно само када је Алттаб постављен да би се приказала Виндовс.";
 

@@ -536,7 +536,7 @@
 "Show windows from applications" = "Toon Windows van applicaties";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Toon ramen uit spaties";
+"Show windows from Spaces" = "Toon ramen uit spaties";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Toon Windows van schermen";
@@ -578,7 +578,7 @@
 "Size" = "Maat";
 
 /* No comment provided by engineer. */
-"High visibility" = "Hoge zichtbaarheid";
+"Visibility" = "Zichtbaarheid";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Meerdere schermen";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Bekijk een voorbeeld van het geselecteerde venster.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Uitgeschakeld in de Switcher On Applications -modus.We kunnen de optie in dit venster instellen via 「geavanceerd」 -> 「tonen in schakelaar」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab is momenteel ingesteld om applicaties te tonen.Deze instelling is alleen beschikbaar wanneer Alttab is ingesteld om Windows te tonen.";
 

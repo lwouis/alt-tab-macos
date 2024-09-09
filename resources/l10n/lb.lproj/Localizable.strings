@@ -536,7 +536,7 @@
 "Show windows from applications" = "Show Windows aus Uwendungen";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Weisen Windows aus Plazen";
+"Show windows from Spaces" = "Weisen Windows aus Plazen";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Weisen Windows aus Schiirme";
@@ -578,7 +578,7 @@
 "Size" = "Gréisst";
 
 /* No comment provided by engineer. */
-"High visibility" = "Héich visausch";
+"Visibility" = "Visatierlechung";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Multiple Schiirme";
@@ -614,4 +614,5 @@
 "Preview the selected window." = "Preview déi ausgewielten Fënster.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Behënnert an der Deinder op Uwendungen Modus.Mir kënnen d'Optioun an dëser Fënster duerch 「fortgeschratt ginn」 -> 「Show am Schalter」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Den Alttab ass de Moment gesat fir d'Applikatiounen ze weisen.Dës Astellung ass nëmme verfügbar wann den Alettab gesat ass fir Windows ze weisen.";
+

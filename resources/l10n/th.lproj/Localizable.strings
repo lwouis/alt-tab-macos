@@ -536,7 +536,7 @@
 "Show windows from applications" = "แสดงหน้าต่างจากแอปพลิเคชัน";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "แสดงหน้าต่างจากช่องว่าง";
+"Show windows from Spaces" = "แสดงหน้าต่างจากช่องว่าง";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "แสดงหน้าต่างจากหน้าจอ";
@@ -578,7 +578,7 @@
 "Size" = "ขนาด";
 
 /* No comment provided by engineer. */
-"High visibility" = "การมองเห็นสูง";
+"Visibility" = "การมองเห็น";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "หลายหน้าจอ";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "ดูตัวอย่างหน้าต่างที่เลือก";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "ปิดใช้งานในโหมดสวิตช์บนแอปพลิเคชันเราสามารถตั้งค่าตัวเลือกที่หน้าต่างนี้ผ่าน「ขั้นสูง」 -> 「แสดงในสวิตช์」";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "ขณะนี้ Alttab ถูกตั้งค่าให้แสดงแอปพลิเคชันการตั้งค่านี้จะใช้ได้เฉพาะเมื่อมีการตั้งค่า Alttab เพื่อแสดง Windows";
 

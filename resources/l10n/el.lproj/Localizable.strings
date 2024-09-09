@@ -536,7 +536,7 @@
 "Show windows from applications" = "Εμφάνιση παραθύρων από εφαρμογές";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Εμφάνιση παραθύρων από χώρους";
+"Show windows from Spaces" = "Εμφάνιση παραθύρων από χώρους";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Εμφάνιση παραθύρων από οθόνες";
@@ -578,7 +578,7 @@
 "Size" = "Μέγεθος";
 
 /* No comment provided by engineer. */
-"High visibility" = "Υψηλή ορατότητα";
+"Visibility" = "Ορατότητα";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Πολλαπλές οθόνες";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Προεπισκόπηση του επιλεγμένου παραθύρου.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Απενεργοποιήθηκε στο Switcher σε λειτουργία εφαρμογών.Μπορούμε να ορίσουμε την επιλογή σε αυτό το παράθυρο μέσω 「Advanced」 -> 「Εμφάνιση στο Switch」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Το Alttab έχει οριστεί επί του παρόντος για να εμφανίζει εφαρμογές.Αυτή η ρύθμιση είναι διαθέσιμη μόνο όταν το alttab έχει ρυθμιστεί για να εμφανίζει τα Windows.";
 

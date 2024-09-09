@@ -536,7 +536,7 @@
 "Show windows from applications" = "Näytä Windows sovelluksista";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Näytä ikkunat tiloista";
+"Show windows from Spaces" = "Näytä ikkunat tiloista";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Näytä ikkunat näytöiltä";
@@ -578,7 +578,7 @@
 "Size" = "Koko";
 
 /* No comment provided by engineer. */
-"High visibility" = "Suuri näkyvyys";
+"Visibility" = "Näkyvyys";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Useita näyttöjä";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Esikatsele valittu ikkuna.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Kytkimen käytöstä sovellustilassa.Voimme asettaa vaihtoehdon tähän ikkunaan 「Advanced」 -> 「Näytä kytkimessä」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab on tällä hetkellä asetettu näyttämään sovelluksia.Tämä asetus on käytettävissä vain, kun Alttab on asetettu näyttämään Windows.";
 

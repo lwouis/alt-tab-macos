@@ -539,7 +539,7 @@
 "Show windows from applications" = "عرض Windows من التطبيقات";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "إظهار النوافذ من المساحات";
+"Show windows from Spaces" = "إظهار النوافذ من المساحات";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "عرض Windows من الشاشات";
@@ -581,7 +581,7 @@
 "Size" = "مقاس";
 
 /* No comment provided by engineer. */
-"High visibility" = "وضوح عالية";
+"Visibility" = "الرؤية";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "شاشات متعددة";
@@ -617,5 +617,5 @@
 "Preview the selected window." = "معاينة النافذة المحددة.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "معطل في وضع التطبيق على التطبيقات.يمكننا تعيين الخيار في هذه النافذة من خلال 「Advanced」 -> 「العرض في المفتاح」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "تم تعيين Alttab حاليًا لإظهار التطبيقات.هذا الإعداد متاح فقط عندما يتم تعيين Alttab لإظهار Windows.";
 

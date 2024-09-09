@@ -537,19 +537,19 @@
 "Show windows from applications" = "显示应用程序的窗口";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "从空间显示窗户";
+"Show windows from Spaces" = "从空间显示窗口";
 
 /* No comment provided by engineer. */
-"Show windows from screens" = "从屏幕上显示窗户";
+"Show windows from screens" = "从屏幕上显示窗口";
 
 /* No comment provided by engineer. */
-"Show minimized windows" = "显示最小的窗户";
+"Show minimized windows" = "显示最小的窗口";
 
 /* No comment provided by engineer. */
-"Show hidden windows" = "显示隐藏的窗户";
+"Show hidden windows" = "显示隐藏的窗口";
 
 /* No comment provided by engineer. */
-"Show fullscreen windows" = "显示全屏窗户";
+"Show fullscreen windows" = "显示全屏窗口";
 
 /* No comment provided by engineer. */
 "Order windows by" = "排序Windows";
@@ -579,7 +579,7 @@
 "Size" = "大小";
 
 /* No comment provided by engineer. */
-"High visibility" = "高可见";
+"Visibility" = "可见性";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "多个屏幕";
@@ -615,4 +615,4 @@
 "Preview the selected window." = "预览选定的窗口。";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "在切换器的应用程序模式下禁用。我们可以通过「高级」->「在切换器中显示」设置该选项。";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab目前设置为显示应用程序。仅当AltTab设置为显示Windows时，此设置才可用。";

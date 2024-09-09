@@ -536,7 +536,7 @@
 "Show windows from applications" = "Windows ji serlêdanan nîşan bide";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Windows ji Spaces nîşan bikin";
+"Show windows from Spaces" = "Windows ji Spaces nîşan bikin";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Windows ji ekranan nîşan bide";
@@ -578,7 +578,7 @@
 "Size" = "Mezinayî";
 
 /* No comment provided by engineer. */
-"High visibility" = "Dîtina bilind";
+"Visibility" = "Dîtinî";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Dîwarên pirjimar";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Pencereya hilbijartî pêşdîtin.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Di guhêrbar de li ser moda serlêdanan astengdar e.Em dikarin di vê pencereyê de vebijarkek bi navgîniya 」->「 Show in Switch.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab niha tête danîn ku serlêdanan nîşan bide.Ev mîhengê tenê heye dema ku Alttab tê danîn da ku Windows nîşan bide.";
 

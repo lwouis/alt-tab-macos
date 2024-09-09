@@ -536,7 +536,7 @@
 "Show windows from applications" = "Показване на прозорци от приложения";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Показване на прозорци от пространства";
+"Show windows from Spaces" = "Показване на прозорци от пространства";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Показване на прозорци от екрани";
@@ -578,7 +578,7 @@
 "Size" = "Размер";
 
 /* No comment provided by engineer. */
-"High visibility" = "Висока видимост";
+"Visibility" = "Видимост";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Множество екрани";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Преглед на избрания прозорец.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Деактивиран в режим Switcher on Applications.Можем да зададем опцията на този прозорец чрез 「advanced」 -> 「show в Switch」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "В момента Alttab е настроен да показва приложения.Тази настройка е достъпна само когато Alttab е настроен да показва Windows.";
 

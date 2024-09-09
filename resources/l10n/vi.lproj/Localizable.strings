@@ -536,7 +536,7 @@
 "Show windows from applications" = "Hiển thị Windows từ các ứng dụng";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Hiển thị cửa sổ từ không gian";
+"Show windows from Spaces" = "Hiển thị cửa sổ từ không gian";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Hiển thị Windows từ màn hình";
@@ -578,7 +578,7 @@
 "Size" = "Kích cỡ";
 
 /* No comment provided by engineer. */
-"High visibility" = "Khả năng hiển thị cao";
+"Visibility" = "Khả năng hiển thị";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Nhiều màn hình";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Xem trước cửa sổ đã chọn.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Bị vô hiệu hóa trong bộ chuyển đổi trên chế độ Ứng dụng.Chúng ta có thể đặt tùy chọn tại cửa sổ này thông qua 「nâng cao」 -> 「hiển thị trong công tắc.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab hiện đang được thiết lập để hiển thị các ứng dụng.Cài đặt này chỉ khả dụng khi AltTab được đặt để hiển thị Windows.";
 

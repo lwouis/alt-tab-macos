@@ -536,7 +536,7 @@
 "Show windows from applications" = "Uygulamalardan pencereleri göster";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Mekanlardan pencereleri göster";
+"Show windows from Spaces" = "Mekanlardan pencereleri göster";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Ekranlardan pencereleri göster";
@@ -578,7 +578,7 @@
 "Size" = "Boyut";
 
 /* No comment provided by engineer. */
-"High visibility" = "Yüksek görünürlük";
+"Visibility" = "Görünürlük";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Birden fazla ekran";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Seçilen pencereyi önizleyin.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Uygulamalar modunda anahtarlayıcıda devre dışı bırakıldı.Bu pencerede seçeneği 「Gelişmiş」 -> 「Switch」 ile gösterebiliriz.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab şu anda uygulamaları gösterecek şekilde ayarlanmıştır.Bu ayar yalnızca AltTab Windows'u gösterecek şekilde ayarlandığında kullanılabilir.";
 

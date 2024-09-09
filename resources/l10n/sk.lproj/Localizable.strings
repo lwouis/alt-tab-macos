@@ -536,7 +536,7 @@
 "Show windows from applications" = "Zobraziť okná z aplikácií";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Zobraziť okná z priestorov";
+"Show windows from Spaces" = "Zobraziť okná z priestorov";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Zobraziť okná z obrazoviek";
@@ -578,7 +578,7 @@
 "Size" = "Veľkosť";
 
 /* No comment provided by engineer. */
-"High visibility" = "Vysoká viditeľnosť";
+"Visibility" = "Viditeľnosť";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Viacnásobné obrazovky";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Ukážte si vybrané okno.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Deaktivované v prepínači v režime aplikácií.V tomto okne môžeme nastaviť v tomto okne cez 「Advanced」 -> 「Zobraziť v Switch」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab je momentálne nastavený na zobrazovanie aplikácií.Toto nastavenie je k dispozícii iba vtedy, keď je alttab nastavený na zobrazenie systému Windows.";
 

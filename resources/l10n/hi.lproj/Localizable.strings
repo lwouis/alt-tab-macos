@@ -536,7 +536,7 @@
 "Show windows from applications" = "अनुप्रयोगों से खिड़कियां दिखाएं";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "रिक्त स्थान से खिड़कियां दिखाएं";
+"Show windows from Spaces" = "रिक्त स्थान से खिड़कियां दिखाएं";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "स्क्रीन से खिड़कियां दिखाएं";
@@ -578,7 +578,7 @@
 "Size" = "आकार";
 
 /* No comment provided by engineer. */
-"High visibility" = "उच्च दृश्यता";
+"Visibility" = "दृश्यता";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "बहु -स्क्रीन";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "चयनित विंडो का पूर्वावलोकन करें।";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "एप्लिकेशन मोड पर स्विचर में अक्षम।हम इस विंडो पर 「एडवांस्ड」 -> 「शो में स्विच」 में विकल्प सेट कर सकते हैं।";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab वर्तमान में अनुप्रयोगों को दिखाने के लिए तैयार है।यह सेटिंग केवल तब उपलब्ध है जब AltTab विंडोज दिखाने के लिए तैयार है।";
 

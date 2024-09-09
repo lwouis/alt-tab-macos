@@ -536,7 +536,7 @@
 "Show windows from applications" = "Amosar Windows de aplicacións";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Mostrar fiestras desde espazos";
+"Show windows from Spaces" = "Mostrar fiestras desde espazos";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Mostrar fiestras de pantallas";
@@ -578,7 +578,7 @@
 "Size" = "Tamaño";
 
 /* No comment provided by engineer. */
-"High visibility" = "Alta visibilidade";
+"Visibility" = "Visibilidade";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Múltiples pantallas";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Vista previa da xanela seleccionada.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Desactivado no modo Switcher no modo de aplicacións.Podemos configurar a opción nesta xanela a través de 「avanzado」 -> 「Mostrar no conmutador」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Actualmente AltTab está previsto para mostrar aplicacións.Esta configuración só está dispoñible cando AltTab está configurado para mostrar Windows.";
 

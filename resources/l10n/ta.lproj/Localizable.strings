@@ -536,7 +536,7 @@
 "Show windows from applications" = "பயன்பாடுகளிலிருந்து விண்டோஸைக் காட்டு";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "இடைவெளிகளிலிருந்து விண்டோஸைக் காட்டு";
+"Show windows from Spaces" = "இடைவெளிகளிலிருந்து விண்டோஸைக் காட்டு";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "திரைகளிலிருந்து விண்டோஸைக் காட்டு";
@@ -578,7 +578,7 @@
 "Size" = "அளவு";
 
 /* No comment provided by engineer. */
-"High visibility" = "அதிக தெரிவுநிலை";
+"Visibility" = "பார்வை";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "பல திரைகள்";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "தேர்ந்தெடுக்கப்பட்ட சாளரத்தை முன்னோட்டமிடுங்கள்.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "பயன்பாடுகள் பயன்முறையில் ஸ்விட்சர் மீது முடக்கப்பட்டுள்ளது.இந்த சாளரத்தில் 「மேம்பட்ட」 -> the சுவிட்சில் காண்பிக்கலாம்.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "பயன்பாடுகளைக் காண்பிப்பதற்காக அல்தாப் தற்போது அமைக்கப்பட்டுள்ளது.சாளரங்களைக் காண்பிக்க ஆல்டாப் அமைக்கப்படும்போது மட்டுமே இந்த அமைப்பு கிடைக்கும்.";
 

@@ -536,7 +536,7 @@
 "Show windows from applications" = "Vis vinduer fra applikationer";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Vis vinduer fra rum";
+"Show windows from Spaces" = "Vis vinduer fra rum";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Vis vinduer fra skærme";
@@ -578,7 +578,7 @@
 "Size" = "Størrelse";
 
 /* No comment provided by engineer. */
-"High visibility" = "Høj synlighed";
+"Visibility" = "Sigtbarhed";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Flere skærme";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Forhåndsvis det valgte vindue.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Deaktiveret i switcher på applikationstilstand.Vi kan indstille muligheden i dette vindue gennem 「Avanceret」 -> 「Vis i switch」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab er i øjeblikket klar til at vise applikationer.Denne indstilling er kun tilgængelig, når Alttab er indstillet til at vise Windows.";
 

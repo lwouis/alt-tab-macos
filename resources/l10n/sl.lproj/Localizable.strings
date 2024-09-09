@@ -536,7 +536,7 @@
 "Show windows from applications" = "Pokažite Windows iz aplikacij";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Pokažite okna iz presledkov";
+"Show windows from Spaces" = "Pokažite okna iz presledkov";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Pokažite okna z zaslonov";
@@ -578,7 +578,7 @@
 "Size" = "Velikost";
 
 /* No comment provided by engineer. */
-"High visibility" = "Visoka vidljivost";
+"Visibility" = "Vidnost";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Več zaslonov";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Predogled izbranega okna.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Onemogočeno v stikalu v načinu aplikacij.Možnost lahko nastavimo v tem oknu prek 「Advanced」 -> 「Prikaži v stikalu」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab je trenutno nastavljen za prikaz aplikacij.Ta nastavitev je na voljo samo, ko je AltTab nastavljen na prikaz Windows.";
 

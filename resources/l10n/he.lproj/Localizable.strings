@@ -536,7 +536,7 @@
 "Show windows from applications" = "הצג חלונות מיישומים";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "הצג חלונות מחללים";
+"Show windows from Spaces" = "הצג חלונות מחללים";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "הצג חלונות מהמסכים";
@@ -578,7 +578,7 @@
 "Size" = "גוֹדֶל";
 
 /* No comment provided by engineer. */
-"High visibility" = "ראות גבוהה";
+"Visibility" = "רְאוּת";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "מספר מסכים";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "תצוגה מקדימה של החלון שנבחר.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "מושבת במצב המתג במצב יישומים.אנו יכולים להגדיר את האפשרות בחלון זה דרך 「מתקדם」 -> 「הצג במתג」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab מוגדר כעת להציג יישומים.הגדרה זו זמינה רק כאשר AltTab מוגדר להצגת Windows.";
 

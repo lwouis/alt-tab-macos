@@ -536,7 +536,7 @@
 "Show windows from applications" = "アプリケーションからWindowsを表示します";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "スペースから窓を表示します";
+"Show windows from Spaces" = "スペースから窓を表示します";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "画面からWindowsを表示します";
@@ -578,7 +578,7 @@
 "Size" = "サイズ";
 
 /* No comment provided by engineer. */
-"High visibility" = "高い視認性";
+"Visibility" = "可視性";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "複数の画面";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "選択したウィンドウをプレビューします。";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "スイッチャーオンアプリケーションモードで無効になっています。このウィンドウでオプションを[高度]」 - >「switch」で表示することができます。";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTabは現在、アプリケーションを表示するように設定されています。この設定は、AltTabがWindowsを表示するように設定されている場合にのみ使用できます。";
 

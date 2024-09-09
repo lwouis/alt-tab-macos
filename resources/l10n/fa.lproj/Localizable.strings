@@ -536,7 +536,7 @@
 "Show windows from applications" = "ویندوز را از برنامه ها نشان دهید";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "ویندوز را از فضاها نشان دهید";
+"Show windows from Spaces" = "ویندوز را از فضاها نشان دهید";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "ویندوز را از صفحه نمایش نشان دهید";
@@ -578,7 +578,7 @@
 "Size" = "اندازه";
 
 /* No comment provided by engineer. */
-"High visibility" = "دید بالا";
+"Visibility" = "دید";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "چندین صفحه";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "پیش نمایش پنجره انتخاب شده.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "غیرفعال در حالت سوئیچ در حالت برنامه ها.ما می توانیم گزینه را در این پنجره از طریق 「Advanced」 -> 「نمایش در سوئیچ تنظیم کنیم.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "ALTTAB در حال حاضر برای نمایش برنامه ها تنظیم شده است.این تنظیم فقط در صورت تنظیم AltTab برای نمایش ویندوز در دسترس است.";
 

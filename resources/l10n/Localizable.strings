@@ -536,7 +536,7 @@
 "Show windows from applications" = "Show windows from applications";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Show windows from spaces";
+"Show windows from Spaces" = "Show windows from Spaces";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Show windows from screens";
@@ -578,7 +578,7 @@
 "Size" = "Size";
 
 /* No comment provided by engineer. */
-"High visibility" = "High visibility";
+"Visibility" = "Visibility";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Multiple screens";
@@ -614,4 +614,4 @@
 "Preview the selected window." = "Preview the selected window.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.";

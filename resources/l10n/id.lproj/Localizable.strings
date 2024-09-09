@@ -536,7 +536,7 @@
 "Show windows from applications" = "Tampilkan Windows dari Aplikasi";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Tampilkan jendela dari spasi";
+"Show windows from Spaces" = "Tunjukkan jendela dari spasi";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Tampilkan jendela dari layar";
@@ -578,7 +578,7 @@
 "Size" = "Ukuran";
 
 /* No comment provided by engineer. */
-"High visibility" = "Visibilitas tinggi";
+"Visibility" = "Visibilitas";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Beberapa layar";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Pratinjau jendela yang dipilih.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Dinonaktifkan dalam mode aplikasi switcher.Kami dapat mengatur opsi di jendela ini melalui 「Advanced」 -> 「Tampilkan di Switch」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab saat ini diatur untuk menampilkan aplikasi.Pengaturan ini hanya tersedia saat Alttab diatur untuk menampilkan Windows.";
 

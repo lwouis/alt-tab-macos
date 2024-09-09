@@ -536,7 +536,7 @@
 "Show windows from applications" = "Sýna glugga úr forritum";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Sýna glugga úr rýmum";
+"Show windows from Spaces" = "Sýna glugga úr rýmum";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Sýna glugga frá skjám";
@@ -578,7 +578,7 @@
 "Size" = "Stærð";
 
 /* No comment provided by engineer. */
-"High visibility" = "Mikið skyggni";
+"Visibility" = "Skyggni";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Marga skjái";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Forskoða valinn glugga.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Óvirk í rofanum í forritastillingu.Við getum stillt valkostinn við þennan glugga í gegnum 「Advanced」 -> 「Sýna í rofi」.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab er nú stillt á að sýna forrit.Þessi stilling er aðeins tiltæk þegar AltTAB er stillt á að sýna Windows.";
 

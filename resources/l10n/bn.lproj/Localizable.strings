@@ -536,7 +536,7 @@
 "Show windows from applications" = "অ্যাপ্লিকেশন থেকে উইন্ডোজ দেখান";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "স্পেস থেকে উইন্ডোজ দেখান";
+"Show windows from Spaces" = "স্পেস থেকে উইন্ডোজ দেখান";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "পর্দা থেকে উইন্ডোজ দেখান";
@@ -578,7 +578,7 @@
 "Size" = "আকার";
 
 /* No comment provided by engineer. */
-"High visibility" = "উচ্চ দৃশ্যমানতা";
+"Visibility" = "দৃশ্যমানতা";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "একাধিক স্ক্রিন";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "নির্বাচিত উইন্ডো পূর্বরূপ দেখুন।";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "অ্যাপ্লিকেশন মোডে স্যুইচারে অক্ষম।আমরা এই উইন্ডোতে 「অ্যাডভান্সড」 -> 「স্যুইচ in শোতে শোয়ের মাধ্যমে বিকল্পটি সেট করতে পারি」";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "আল্টব বর্তমানে অ্যাপ্লিকেশনগুলি দেখানোর জন্য প্রস্তুত রয়েছে।এই সেটিংটি কেবল তখনই পাওয়া যায় যখন আল্টব উইন্ডো দেখানোর জন্য সেট করা থাকে।";
 

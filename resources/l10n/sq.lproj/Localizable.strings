@@ -536,7 +536,7 @@
 "Show windows from applications" = "Tregoni Windows nga aplikacionet";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Tregoni dritare nga hapësirat";
+"Show windows from Spaces" = "Tregoni dritare nga hapësirat";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Tregoni Windows nga Ekranet";
@@ -578,7 +578,7 @@
 "Size" = "Madhësi";
 
 /* No comment provided by engineer. */
-"High visibility" = "Shikim i lartë";
+"Visibility" = "Shikim";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Ekranet e shumta";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Paraprakisht dritaren e zgjedhur.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Me aftësi të kufizuara në modalitetin e aplikacioneve Switcher On.Ne mund ta vendosim opsionin në këtë dritare përmes 「」 -> 「Show në Switch.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab aktualisht është vendosur të tregojë aplikacione.Kjo cilësim është në dispozicion vetëm kur Alttab është vendosur të tregojë Windows.";
 

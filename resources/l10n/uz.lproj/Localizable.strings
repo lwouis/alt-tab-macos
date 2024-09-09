@@ -536,7 +536,7 @@
 "Show windows from applications" = "Ilovalardan derazalarni ko'rsatish";
 
 /* No comment provided by engineer. */
-"Show windows from spaces" = "Derazalarni bo'sh joylardan ko'rsatish";
+"Show windows from Spaces" = "Derazalarni bo'sh joylardan ko'rsatish";
 
 /* No comment provided by engineer. */
 "Show windows from screens" = "Derazalarni ekranlardan ko'rsating";
@@ -578,7 +578,7 @@
 "Size" = "O'lcham";
 
 /* No comment provided by engineer. */
-"High visibility" = "Yuqori ko'rinishi";
+"Visibility" = "Ko'rinishi";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Bir nechta ekranlar";
@@ -614,5 +614,5 @@
 "Preview the selected window." = "Tanlangan oynani oldindan ko'rib chiqing.";
 
 /* No comment provided by engineer. */
-"Disabled in the switcher on applications mode. We can set the option at this window through 「Advanced」 -> 「Show in switch」." = "Ilovalar rejimida kommutatorda o'chirilgan.Ushbu oynada ushbu oynada 「CRIDED」 -> 「tugmasini bosing.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Hozirda Altabtob dasturlarni namoyish etish uchun o'rnatiladi.Ushbu sozlama faqat "Altabab" derazalarni ko'rsatish uchun mavjud bo'lganda mavjud.";
 
