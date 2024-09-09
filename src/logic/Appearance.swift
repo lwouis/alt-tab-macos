@@ -69,7 +69,7 @@ class AppearanceSize {
                 }
             }
             if visibility == .highest {
-                appearance.edgeInsetsSize = 12
+                appearance.edgeInsetsSize = 10
                 appearance.cellCornerRadius = 12
             }
         } else if style == .appIcons {
