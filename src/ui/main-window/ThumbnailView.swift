@@ -216,8 +216,6 @@ class ThumbnailView: NSStackView {
         let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
         let totalWidth = availableLeftWidth + availableRightWidth + viewWidth
         let maxLabelWidth = min(totalWidth, maxAllowedWidth)
-debugPrint("availableLeftWidth", availableLeftWidth, "availableRightWidth", availableRightWidth, "totalWidth", totalWidth,
-        "view.indexInRow", view.indexInRow, "numberOfViewsInRow", view.numberOfViewsInRow, "indexInRow", view.indexInRow)
         return maxLabelWidth
     }
 
