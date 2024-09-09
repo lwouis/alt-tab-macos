@@ -198,17 +198,17 @@ class ThumbnailView: NSStackView {
         if isFocused {
             hoveredView?.label.isHidden = true
             focusedView.label.isHidden = false
-            setAppIconsLabelFrame(focusedView)
+            updateLabelFrameForAppIconsStyle(focusedView)
         } else if isHovered {
             hoveredView?.label.isHidden = false
             focusedView.label.isHidden = true
             if let hoveredView = hoveredView {
-                setAppIconsLabelFrame(hoveredView)
+                updateLabelFrameForAppIconsStyle(hoveredView)
             }
         }
     }
 
-    func getMaxTitleWidth(_ view: ThumbnailView) -> CGFloat {
+    func getMaxAllowedLabelWidth(_ view: ThumbnailView) -> CGFloat {
         let frameWidth = view.frame.width
         let maxPossibleWidth = ThumbnailsView.thumbnailsWith
 
@@ -219,44 +219,44 @@ class ThumbnailView: NSStackView {
         return maxTitleWidth
     }
 
-    private func setAppIconsLabelFrame(_ view: ThumbnailView) {
-        let frameWidth = view.frame.width
-        let titleWidth = view.label.getTitleWidth()
-        let maxTitleWidth = getMaxTitleWidth(view)
-        let truncatedTitleWidth = max(min(titleWidth, maxTitleWidth), frameWidth)
+    private func updateLabelFrameForAppIconsStyle(_ view: ThumbnailView) {
+        let viewWidth = view.frame.width
+        let labelWidth = view.label.getTitleWidth()
+        let maxAllowedLabelWidth = getMaxAllowedLabelWidth(view)
+        let effectiveLabelWidth = max(min(labelWidth, maxAllowedLabelWidth), viewWidth)
 
-        var leftConstant = CGFloat(0)
-        var rightConstant = CGFloat(0)
+        var leftOffset = CGFloat(0)
+        var rightOffset = CGFloat(0)
 
         if view.isFirstInRow {
-            rightConstant = max(0, truncatedTitleWidth - frameWidth)
+            rightOffset = max(0, effectiveLabelWidth - viewWidth)
         }
         if view.isLastInRow {
-            leftConstant = max(0, truncatedTitleWidth - frameWidth)
+            leftOffset = max(0, effectiveLabelWidth - viewWidth)
         }
         if !view.isFirstInRow && !view.isLastInRow {
-            let needConstant = max(0, (truncatedTitleWidth - frameWidth) / 2)
-            let leftMaxWidth = CGFloat(view.indexInRow) * frameWidth
-            let rightMaxWidth = CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * frameWidth
+            let halfNeededOffset = max(0, (effectiveLabelWidth - viewWidth) / 2)
+            let availableLeftWidth = CGFloat(view.indexInRow) * viewWidth
+            let availableRightWidth = CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
 
-            if leftMaxWidth > needConstant && rightMaxWidth > needConstant {
-                leftConstant = needConstant
-                rightConstant = needConstant
-            } else if leftMaxWidth < needConstant && rightMaxWidth < needConstant {
-                leftConstant = leftMaxWidth
-                rightConstant = rightMaxWidth
-            } else if rightMaxWidth < needConstant {
-                rightConstant = rightMaxWidth
-                leftConstant = min(truncatedTitleWidth - frameWidth - rightConstant, leftMaxWidth)
-            } else if leftMaxWidth < needConstant {
-                leftConstant = leftMaxWidth
-                rightConstant = min(truncatedTitleWidth - frameWidth - leftConstant, rightMaxWidth)
+            if availableLeftWidth > halfNeededOffset && availableRightWidth > halfNeededOffset {
+                leftOffset = halfNeededOffset
+                rightOffset = halfNeededOffset
+            } else if availableLeftWidth < halfNeededOffset && availableRightWidth < halfNeededOffset {
+                leftOffset = availableLeftWidth
+                rightOffset = availableRightWidth
+            } else if availableRightWidth < halfNeededOffset {
+                rightOffset = availableRightWidth
+                leftOffset = min(effectiveLabelWidth - viewWidth - rightOffset, availableLeftWidth)
+            } else if availableLeftWidth < halfNeededOffset {
+                leftOffset = availableLeftWidth
+                rightOffset = min(effectiveLabelWidth - viewWidth - leftOffset, availableRightWidth)
             }
         }
 
-        view.label.frame.origin.x = -leftConstant
-        view.label.frame.size.width = truncatedTitleWidth
-        assignIfDifferent(&view.label.textContainer!.size.width, truncatedTitleWidth)
+        view.label.frame.origin.x = -leftOffset
+        view.label.frame.size.width = effectiveLabelWidth
+        assignIfDifferent(&view.label.textContainer!.size.width, effectiveLabelWidth)
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
