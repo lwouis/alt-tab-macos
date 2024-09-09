@@ -198,24 +198,23 @@ class ThumbnailView: NSStackView {
 
     private func updateAppIconLabel(isFocused: Bool, isHovered: Bool) {
         let focusedView = ThumbnailsView.recycledViews[Windows.focusedWindowIndex]
-        calculateLabelConstraints(focusedView)
-
         var hoveredView: ThumbnailView? = nil
         if Windows.hoveredWindowIndex != nil {
             hoveredView = ThumbnailsView.recycledViews[Windows.hoveredWindowIndex!]
-        }
-        if let hoveredView = hoveredView {
-            calculateLabelConstraints(hoveredView)
         }
 
         if isFocused {
             hoveredView?.label.isHidden = true
             focusedView.label.isHidden = false
+
+            calculateLabelConstraints(focusedView)
             ThumbnailView.setLabelConstraints(focusedView)
         } else if isHovered {
             hoveredView?.label.isHidden = false
             focusedView.label.isHidden = true
+
             if let hoveredView = hoveredView {
+                calculateLabelConstraints(hoveredView)
                 ThumbnailView.setLabelConstraints(hoveredView)
             }
         }
