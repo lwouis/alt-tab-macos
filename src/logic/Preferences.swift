@@ -801,9 +801,9 @@ enum AppearanceVisibilityPreference: String, CaseIterable, SfSymbolMacroPreferen
 
     var symbolName: String {
         switch self {
-            case .base: return "sun.haze"
-            case .high: return "sun.haze.fill"
-            case .highest: return "sun.haze.circle"
+            case .base: return "eye"
+            case .high: return "eyeglasses"
+            case .highest: return "sunglasses.fill"
         }
     }
 }
