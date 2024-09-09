@@ -614,5 +614,4 @@
 "Preview the selected window." = "Tanlangan oynani oldindan ko'rib chiqing.";
 
 /* No comment provided by engineer. */
-"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Hozirda Altabtob dasturlarni namoyish etish uchun o'rnatiladi.Ushbu sozlama faqat "Altabab" derazalarni ko'rsatish uchun mavjud bo'lganda mavjud.";
-
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Hozirda Altabtob dasturlarni namoyish etish uchun o'rnatiladi.Ushbu sozlama faqat AltTab derazalarni ko'rsatish uchun mavjud bo'lganda mavjud.";
