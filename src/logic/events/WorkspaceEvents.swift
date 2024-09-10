@@ -14,10 +14,10 @@ class WorkspaceEvents {
         // TODO: symmetricDifference has bad performance
         let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
         if change.kind == .insertion {
-            debugPrint("OS event", "apps launched", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
+            logger.i("OS event", "apps launched", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
             Applications.addRunningApplications(diff)
         } else if change.kind == .removal {
-            debugPrint("OS event", "apps quit", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
+            logger.i("OS event", "apps quit", diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
             Applications.removeRunningApplications(diff)
         }
         previousValueOfRunningApps = workspaceApps

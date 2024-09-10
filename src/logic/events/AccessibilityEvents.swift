@@ -8,7 +8,7 @@ func axObserverCallback(observer: AXObserver, element: AXUIElement, notification
 }
 
 fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
-    debugPrint("Accessibility event", type, try element.title() ?? "nil")
+    logger.i("Accessibility event", type, try element.title() ?? "nil")
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid(),
        try pid != ProcessInfo.processInfo.processIdentifier || (element.subrole() != kAXUnknownSubrole) {

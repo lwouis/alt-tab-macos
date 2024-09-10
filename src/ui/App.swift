@@ -49,6 +49,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
+        _ = LogManager.shared
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -118,7 +119,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func hideUi(_ keepPreview: Bool = false) {
-        debugPrint("hideUi")
+        logger.i("hideUi")
         appIsBeingUsed = false
         isFirstSummon = true
         MouseEvents.toggle(false)
@@ -167,7 +168,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func focusTarget() {
-        debugPrint("focusTarget")
+        logger.i("focusTarget")
         focusSelectedWindow(Windows.focusedWindow())
     }
 
@@ -271,9 +272,9 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
-        debugPrint("showUiOrCycleSelection")
+        logger.i("showUiOrCycleSelection")
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
-            debugPrint("showUiOrCycleSelection: isFirstSummon")
+            logger.i("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
             if Windows.list.count == 0 || MissionControl.isActive() { hideUi(); return }
             // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?

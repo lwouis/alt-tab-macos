@@ -23,7 +23,7 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
 
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         if !SystemPermissions.accessibilityIsGranted() || !SystemPermissions.screenRecordingIsGranted() {
-            debugPrint("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
+            logger.e("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
                 "Please authorize and re-launch.",
                 "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
                 separator: "\n")

@@ -69,7 +69,7 @@ class GeneralTab {
             do {
                 try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
             } catch let error {
-                debugPrint("Failed to create LaunchAgent directory at '\(launchAgentsPath.path)'", error)
+                logger.e("Failed to create LaunchAgent directory at '\(launchAgentsPath.path)'", error)
             }
         }
         launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
@@ -96,7 +96,7 @@ class GeneralTab {
             do {
                 try FileManager.default.removeItem(at: launchAgentsPath)
             } catch let error {
-                debugPrint("Failed to remove LaunchAgent", error)
+                logger.e("Failed to remove LaunchAgent", error)
             }
         }
     }
