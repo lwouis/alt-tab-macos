@@ -14,7 +14,7 @@ class LogManager {
     }
 
     private func setupLogger() {
-        let format = "$DHH:mm:ss.SSS$d $C$L$c $N.swift:$l $F - $M"
+        let format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $C$L$c $N.swift:$l $F - $M"
         let console = ConsoleDestination()
         console.format = format
         let file = FileDestination()
@@ -55,7 +55,7 @@ class LogManager {
             let expirationDate = Calendar.current.date(byAdding: .day, value: -maxDays, to: Date())
             // If the log file is older than the specified retention period, delete it
             if creationDate < expirationDate ?? Date() {
-                try? fileManager.removeItem(at: logFileURL)
+                fileDestination.deleteLogFile()
             }
         }
     }
