@@ -210,7 +210,7 @@ class ThumbnailView: NSStackView {
 
     func getMaxAllowedLabelWidth(_ view: ThumbnailView) -> CGFloat {
         let viewWidth = view.frame.width
-        let maxAllowedWidth = min(viewWidth * 2.5, ThumbnailsView.thumbnailsWith)
+        let maxAllowedWidth = min(viewWidth * 2, ThumbnailsView.thumbnailsWith)
 
         var availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
         let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
