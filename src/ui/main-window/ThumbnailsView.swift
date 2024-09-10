@@ -175,8 +175,8 @@ class ThumbnailsView: NSVisualEffectView {
         var originY = Preferences.windowPadding
         if Preferences.appearanceStyle == .appIcons {
             // If there is title under the icon on the last line, the height of the title needs to be subtracted.
-            frameHeight = frameHeight - Preferences.intraCellPadding - Preferences.fontHeight
-            originY = originY - Preferences.intraCellPadding - Preferences.fontHeight
+            frameHeight = frameHeight - Preferences.intraCellPadding - ThumbnailTitleView.maxHeight()
+            originY = originY - Preferences.intraCellPadding - ThumbnailTitleView.maxHeight()
         }
         frame.size = NSSize(width: frameWidth, height: frameHeight)
 
@@ -191,7 +191,8 @@ class ThumbnailsView: NSVisualEffectView {
         if let existingTrackingArea = scrollView.trackingAreas.first {
             scrollView.documentView!.removeTrackingArea(existingTrackingArea)
         }
-        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
+        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds,
+                options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
     }
 
     func centerRows(_ maxX: CGFloat) {

@@ -82,9 +82,6 @@ class ThumbnailView: NSStackView {
             label.alignment = .center
             label.isHidden = true
             setViews([vStackView], in: .leading)
-
-            // Allow label to overflow horizontally
-            label.translatesAutoresizingMaskIntoConstraints = false
             addSubview(label)
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
@@ -212,7 +209,7 @@ class ThumbnailView: NSStackView {
         let viewWidth = view.frame.width
         let maxAllowedWidth = min(viewWidth * 2, ThumbnailsView.thumbnailsWith)
 
-        var availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
+        let availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
         let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
         let totalWidth = availableLeftWidth + availableRightWidth + viewWidth
         let maxLabelWidth = min(totalWidth, maxAllowedWidth)
@@ -237,7 +234,7 @@ class ThumbnailView: NSStackView {
             leftOffset = max(0, effectiveLabelWidth - viewWidth)
         } else if !view.isFirstInRow && !view.isLastInRow {
             let halfNeededOffset = max(0, (effectiveLabelWidth - viewWidth) / 2)
-            var availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
+            let availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
             let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
 
             if availableLeftWidth >= halfNeededOffset && availableRightWidth >= halfNeededOffset {
@@ -255,8 +252,11 @@ class ThumbnailView: NSStackView {
             }
         }
 
-        view.label.frame.origin.x = -leftOffset
-        view.label.frame.size.width = effectiveLabelWidth
+        // Bottom aligned with space
+        let xPosition = -leftOffset
+        let yPosition = Preferences.intraCellPadding
+        let height = ThumbnailTitleView.maxHeight()
+        view.label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
         assignIfDifferent(&view.label.textContainer!.size.width, effectiveLabelWidth)
     }
 
@@ -355,6 +355,8 @@ class ThumbnailView: NSStackView {
         let widthMin = ThumbnailView.minThumbnailWidth(screen)
         let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
         var width = CGFloat(0)
+        var vStackViewWidth = CGFloat(0)
+        var vStackViewHeight = CGFloat(0)
         if Preferences.appearanceStyle == .thumbnails {
             // Preferred to the width of the image, and the minimum width may be set to be large.
             if element.isWindowlessApp {
@@ -362,16 +364,29 @@ class ThumbnailView: NSStackView {
             } else {
                 width = (thumbnail.frame.size.width + leftRightEdgeInsetsSize).rounded()
             }
-            assignIfDifferent(&vStackView.frame.size.width, width - leftRightEdgeInsetsSize)
-            assignIfDifferent(&vStackView.frame.size.height, newHeight - leftRightEdgeInsetsSize)
         } else {
             let contentWidth = max(hStackView.frame.size.width, Preferences.iconSize)
             let frameWidth = contentWidth + leftRightEdgeInsetsSize
             width = max(frameWidth, widthMin).rounded()
         }
+        vStackViewWidth = width - leftRightEdgeInsetsSize
+        vStackViewHeight = newHeight - leftRightEdgeInsetsSize
+        let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
+        if Preferences.appearanceStyle == .appIcons {
+            vStackViewHeight = newHeight
+                    - topBottomEdgeInsetsSize
+                    - Preferences.intraCellPadding
+                    - ThumbnailTitleView.maxHeight()
+                    - Preferences.intraCellPadding
+        }
         assignIfDifferent(&highlightView.frame, vStackView.bounds)
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
+
+        assignIfDifferent(&vStackView.frame.size.width, vStackViewWidth)
+        assignIfDifferent(&vStackView.frame.size.height, vStackViewHeight)
+        // Align top
+        assignIfDifferent(&vStackView.frame.origin.y, frame.height - vStackView.fittingSize.height)
     }
 
     func setLabelWidth() {
@@ -562,7 +577,11 @@ class ThumbnailView: NSStackView {
         if Preferences.appearanceStyle == .titles {
             return max(ThumbnailView.iconSize(screen).height, ThumbnailTitleView.maxHeight()) + topBottomEdgeInsetsSize
         } else if Preferences.appearanceStyle == .appIcons {
-            return ThumbnailView.iconSize(screen).height + topBottomEdgeInsetsSize + Preferences.intraCellPadding + Preferences.fontHeight
+            return ThumbnailView.iconSize(screen).height
+                    + topBottomEdgeInsetsSize
+                    + Preferences.intraCellPadding
+                    + ThumbnailTitleView.maxHeight()
+                    + Preferences.intraCellPadding
         }
         return ThumbnailView.maxThumbnailHeight(screen).rounded(.down)
     }
