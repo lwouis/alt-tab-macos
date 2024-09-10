@@ -49,7 +49,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
-        _ = LogManager.shared
+        LogManager.setup()
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif

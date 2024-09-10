@@ -4,16 +4,17 @@ import Foundation
 let logger = SwiftyBeaver.self
 
 class LogManager {
-    static let shared = LogManager()
-    var maxDays: Int = 1  // Set maximum log retention days
-    private var timer: Timer?
+    private static let maxDays = 1  // Set maximum log retention days
+    private static var timer: Timer?
 
-    private init() {
+    static func setup() {
         setupLogger()
-        startLogFileCleanupTimer()
+        if ((logger.destinations.first { $0 is FileDestination } as? FileDestination)?.logFileURL != nil) {
+            startLogFileCleanupTimer()
+        }
     }
 
-    private func setupLogger() {
+    private static func setupLogger() {
         let format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $C$L$c $N.swift:$l $F - $M"
         let console = ConsoleDestination()
         console.format = format
@@ -36,14 +37,14 @@ class LogManager {
         }
     }
 
-    private func startLogFileCleanupTimer() {
+    private static func startLogFileCleanupTimer() {
         // Schedule a timer to run every 24 hours to clean up log files
         timer = Timer.scheduledTimer(timeInterval: 86400, target: self, selector: #selector(cleanupLogFiles), userInfo: nil, repeats: true)
         // Set tolerance to save battery
         timer?.tolerance = 3600
     }
 
-    @objc private func cleanupLogFiles() {
+    @objc private static func cleanupLogFiles() {
         guard let fileDestination = logger.destinations.first(where: { $0 is FileDestination }) as? FileDestination,
               let logFileURL = fileDestination.logFileURL else { return }
 
