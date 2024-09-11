@@ -49,7 +49,7 @@ class Window: CustomStringConvertible {
         self.title = bestEffortTitle(axTitle)
         Window.globalCreationCounter += 1
         self.creationOrder = Window.globalCreationCounter
-        if !Preferences.hideThumbnails {
+        if !Appearance.hideThumbnails {
             refreshThumbnail()
         }
         application.removeWindowslessAppWindow()

@@ -9,20 +9,23 @@ class ThumbnailsView: NSVisualEffectView {
 
     convenience init() {
         self.init(frame: .zero)
-        material = Preferences.appearanceThemeParameters.material
+        material = Appearance.material
         blendingMode = .behindWindow
         state = .active
         wantsLayer = true
-        updateRoundedCorners(Preferences.windowCornerRadius)
+        updateRoundedCorners(Appearance.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
     }
 
     func reset() {
-        self.material = Preferences.appearanceThemeParameters.material
+        // it would be nicer to remove this whole "reset" logic, and instead update each component to check Appearance properties before showing
+        // Maybe in some Appkit willDraw() function that triggers before drawing it
+        Appearance.update()
+        self.material = Appearance.material
         ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
-        updateRoundedCorners(Preferences.windowCornerRadius)
+        updateRoundedCorners(Appearance.windowCornerRadius)
     }
 
     static func highlight(_ indexInRecycledViews: Int) {
@@ -103,11 +106,11 @@ class ThumbnailsView: NSVisualEffectView {
     private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
         let height = ThumbnailView.height(screen)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
-        let startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
+        let startingX = isLeftToRight ? Appearance.interCellPadding : widthMax - Appearance.interCellPadding
         var currentX = startingX
-        var currentY = Preferences.interCellPadding
+        var currentY = Appearance.interCellPadding
         var maxX = CGFloat(0)
-        var maxY = currentY + height + Preferences.interCellPadding
+        var maxY = currentY + height + Appearance.interCellPadding
         var newViews = [ThumbnailView]()
         rows.removeAll()
         rows.append([ThumbnailView]())
@@ -120,10 +123,10 @@ class ThumbnailsView: NSVisualEffectView {
             let projectedX = projectedWidth(currentX, width).rounded(.down)
             if needNewLine(projectedX, widthMax) {
                 currentX = startingX
-                currentY = (currentY + height + Preferences.interCellPadding).rounded(.down)
+                currentY = (currentY + height + Appearance.interCellPadding).rounded(.down)
                 view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
                 currentX = projectedWidth(currentX, width).rounded(.down)
-                maxY = max(currentY + height + Preferences.interCellPadding, maxY)
+                maxY = max(currentY + height + Appearance.interCellPadding, maxY)
                 rows.append([ThumbnailView]())
             } else {
                 view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
@@ -155,9 +158,9 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func projectedWidth(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
         if App.shared.userInterfaceLayoutDirection == .leftToRight {
-            return currentX + width + Preferences.interCellPadding
+            return currentX + width + Appearance.interCellPadding
         }
-        return currentX - width - Preferences.interCellPadding
+        return currentX - width - Appearance.interCellPadding
     }
 
     private func localizedCurrentX(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
@@ -169,14 +172,14 @@ class ThumbnailsView: NSVisualEffectView {
 
         ThumbnailsView.thumbnailsWith = min(maxX, widthMax)
         ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
-        var frameWidth = ThumbnailsView.thumbnailsWith + Preferences.windowPadding * 2
-        var frameHeight = ThumbnailsView.thumbnailsHeight + Preferences.windowPadding * 2
-        var originX = Preferences.windowPadding
-        var originY = Preferences.windowPadding
+        var frameWidth = ThumbnailsView.thumbnailsWith + Appearance.windowPadding * 2
+        var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2
+        var originX = Appearance.windowPadding
+        var originY = Appearance.windowPadding
         if Preferences.appearanceStyle == .appIcons {
             // If there is title under the icon on the last line, the height of the title needs to be subtracted.
-            frameHeight = frameHeight - Preferences.intraCellPadding - ThumbnailTitleView.maxHeight()
-            originY = originY - Preferences.intraCellPadding - ThumbnailTitleView.maxHeight()
+            frameHeight = frameHeight - Appearance.intraCellPadding - ThumbnailTitleView.maxHeight()
+            originY = originY - Appearance.intraCellPadding - ThumbnailTitleView.maxHeight()
         }
         frame.size = NSSize(width: frameWidth, height: frameHeight)
 
@@ -197,18 +200,18 @@ class ThumbnailsView: NSVisualEffectView {
 
     func centerRows(_ maxX: CGFloat) {
         var rowStartIndex = 0
-        var rowWidth = Preferences.interCellPadding
-        var rowY = Preferences.interCellPadding
+        var rowWidth = Appearance.interCellPadding
+        var rowY = Appearance.interCellPadding
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return }
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             if view.frame.origin.y == rowY {
-                rowWidth += view.frame.size.width + Preferences.interCellPadding
+                rowWidth += view.frame.size.width + Appearance.interCellPadding
             } else {
                 shiftRow(maxX, rowWidth, rowStartIndex, index)
                 rowStartIndex = index
-                rowWidth = Preferences.interCellPadding + view.frame.size.width + Preferences.interCellPadding
+                rowWidth = Appearance.interCellPadding + view.frame.size.width + Appearance.interCellPadding
                 rowY = view.frame.origin.y
             }
         }

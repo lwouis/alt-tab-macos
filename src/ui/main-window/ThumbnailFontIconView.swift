@@ -16,9 +16,9 @@ enum Symbols: String {
 // Font icon using SF Symbols from the SF Pro font from Apple
 // see https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
 class ThumbnailFontIconView: ThumbnailTitleView {
-    convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Preferences.fontHeight,
-                     color: NSColor = Preferences.appearanceThemeParameters.fontColor,
-                     shadow: NSShadow? = ThumbnailView.makeShadow(Preferences.appearanceThemeParameters.indicatedIconShadowColor)) {
+    convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Appearance.fontHeight,
+                     color: NSColor = Appearance.fontColor,
+                     shadow: NSShadow? = ThumbnailView.makeShadow(Appearance.indicatedIconShadowColor)) {
         self.init(size, shadow)
         string = symbol.rawValue
         // This helps SF symbols display vertically centered and not clipped at the top

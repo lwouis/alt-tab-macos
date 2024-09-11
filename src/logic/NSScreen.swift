@@ -5,6 +5,10 @@ extension NSScreen {
         return frame.width / frame.height
     }
 
+    func isHorizontal() -> Bool {
+        return ratio() >= 1
+    }
+
     func refreshRate() -> Double? {
         if let screenNumber = deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID,
            let screenMode = CGDisplayCopyDisplayMode(screenNumber) {

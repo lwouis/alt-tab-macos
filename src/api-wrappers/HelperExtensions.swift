@@ -9,7 +9,7 @@ extension Collection {
 }
 
 extension NSAppearance {
-    func getThemeName() -> AppearanceThemeName {
+    func getThemeName() -> AppearanceThemePreference {
         if #available(macOS 10.14, *) {
             let appearance = NSApp.effectiveAppearance.name
             if appearance == .darkAqua || appearance == .vibrantDark {

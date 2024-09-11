@@ -63,6 +63,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             guard let self = self else { return }
             BackgroundWork.start()
             Preferences.initialize()
+            Appearance.update()
             self.menubar = Menubar()
             self.loadMainMenuXib()
             self.thumbnailsPanel = ThumbnailsPanel()
@@ -108,7 +109,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
-        thumbnailsPanel.reset()
+        thumbnailsPanel.thumbnailsView.reset()
     }
 
     func restart() {
@@ -265,7 +266,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
         windowsToUpdate?.forEach { (window: Window) in
             guard appIsBeingUsed else { return }
-            if !Preferences.hideThumbnails { window.refreshThumbnail() }
+            if !Appearance.hideThumbnails { window.refreshThumbnail() }
             Windows.refreshIfWindowShouldBeShownToTheUser(window, currentScreen)
             window.updatesWindowSpace()
         }
@@ -308,6 +309,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func rebuildUi(_ screen: NSScreen = NSScreen.preferred()) {
+        Appearance.update()
         guard appIsBeingUsed else { return }
         Windows.refreshFirstFewThumbnailsSync()
         guard appIsBeingUsed else { return }

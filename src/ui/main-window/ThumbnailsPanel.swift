@@ -10,7 +10,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
-        hasShadow = Preferences.appearanceThemeParameters.enablePanelShadow
+        hasShadow = Appearance.enablePanelShadow
         titleVisibility = .hidden
         backgroundColor = .clear
         contentView! = thumbnailsView
@@ -23,11 +23,6 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         setAccessibilitySubrole(.unknown)
         // for VoiceOver
         setAccessibilityLabel(App.name)
-    }
-
-    func reset() {
-        hasShadow = Preferences.appearanceThemeParameters.enablePanelShadow
-        thumbnailsView.reset()
     }
 
     func windowDidResignKey(_ notification: Notification) {
@@ -52,6 +47,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     }
 
     func show() {
+        hasShadow = Appearance.enablePanelShadow
         alphaValue = 1
         makeKeyAndOrderFront(nil)
         MouseEvents.toggle(true)
@@ -62,7 +58,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     /// - Parameter screen:
     /// - Returns:
     static func maxThumbnailsWidth(_ screen: NSScreen) -> CGFloat {
-        return screen.frame.width * Preferences.maxWidthOnScreen - Preferences.windowPadding * 2
+        return screen.frame.width * Appearance.maxWidthOnScreen - Appearance.windowPadding * 2
     }
 
     /// The maximum height that thumbnails can be drawn.
@@ -70,6 +66,6 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     /// - Parameter screen:
     /// - Returns:
     static func maxThumbnailsHeight(_ screen: NSScreen) -> CGFloat {
-        return screen.frame.height * Preferences.maxHeightOnScreen - Preferences.windowPadding * 2
+        return screen.frame.height * Appearance.maxHeightOnScreen - Appearance.windowPadding * 2
     }
 }

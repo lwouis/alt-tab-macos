@@ -157,29 +157,6 @@ class Preferences {
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
-    // derived values
-    static var appearanceSizeParameters: AppearanceSizeParameters {
-        AppearanceSize(appearanceStyle, appearanceSize).getParameters()
-    }
-    static var appearanceThemeParameters: AppearanceThemeParameters {
-        AppearanceTheme(appearanceStyle, appearanceTheme, appearanceVisibility).getParameters()
-    }
-    static var windowPadding: CGFloat { appearanceSizeParameters.windowPadding }
-    static var interCellPadding: CGFloat { appearanceSizeParameters.interCellPadding }
-    static var intraCellPadding: CGFloat { appearanceSizeParameters.intraCellPadding }
-    static var edgeInsetsSize: CGFloat { appearanceSizeParameters.edgeInsetsSize }
-    static var cellCornerRadius: CGFloat { appearanceSizeParameters.cellCornerRadius }
-    static var windowCornerRadius: CGFloat { appearanceSizeParameters.windowCornerRadius }
-    static var hideThumbnails: Bool { appearanceSizeParameters.hideThumbnails }
-    static var maxWidthOnScreen: CGFloat { appearanceSizeParameters.maxWidthOnScreen / CGFloat(100) }
-    static var maxHeightOnScreen: CGFloat { appearanceSizeParameters.maxHeightOnScreen / CGFloat(100) }
-    static var windowMaxWidthInRow: CGFloat { appearanceSizeParameters.windowMaxWidthInRow / CGFloat(100) }
-    static var windowMinWidthInRow: CGFloat { appearanceSizeParameters.windowMinWidthInRow / CGFloat(100) }
-    static var rowsCount: CGFloat { appearanceSizeParameters.rowsCount }
-    static var iconSize: CGFloat { appearanceSizeParameters.iconSize }
-    static var fontHeight: CGFloat { appearanceSizeParameters.fontHeight }
-    static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
-
     static func initialize() {
         removeCorruptedPreferences()
         migratePreferences()

@@ -1,264 +1,250 @@
 import Cocoa
 
-struct AppearanceSizeParameters {
-    var windowPadding = CGFloat(18)
-    var interCellPadding = CGFloat(5)
-    var intraCellPadding = CGFloat(1)
-    var edgeInsetsSize = CGFloat(5)
-    var cellCornerRadius = CGFloat(10)
-    var windowCornerRadius = CGFloat(23)
-    var hideThumbnails = Bool(false)
-    var rowsCount = CGFloat(0)
-    var windowMinWidthInRow = CGFloat(0)
-    var windowMaxWidthInRow = CGFloat(0)
-    var iconSize = CGFloat(0)
-    var fontHeight = CGFloat(0)
-    var maxWidthOnScreen = CGFloat(0)
-    var maxHeightOnScreen = CGFloat(0)
-}
+class Appearance {
+    // size
+    static var windowPadding = CGFloat(18)
+    static var interCellPadding = CGFloat(5)
+    static var intraCellPadding = CGFloat(1)
+    static var edgeInsetsSize = CGFloat(5)
+    static var cellCornerRadius = CGFloat(10)
+    static var windowCornerRadius = CGFloat(23)
+    static var hideThumbnails = Bool(false)
+    static var rowsCount = CGFloat(0)
+    static var windowMinWidthInRow = CGFloat(0)
+    static var windowMaxWidthInRow = CGFloat(0)
+    static var iconSize = CGFloat(0)
+    static var fontHeight = CGFloat(0)
+    static var maxWidthOnScreen = CGFloat(0)
+    static var maxHeightOnScreen = CGFloat(0)
+    
+    // theme
+    static var material = NSVisualEffectView.Material.dark
+    static var fontColor = NSColor.white
+    static var indicatedIconShadowColor: NSColor? = .darkGray
+    static var titleShadowColor: NSColor? = .darkGray
+    static var imageShadowColor: NSColor? = .gray // for icon, thumbnail and windowless images
+    static var highlightMaterial = NSVisualEffectView.Material.selection
+    static var highlightFocusedAlphaValue = 1.0
+    static var highlightHoveredAlphaValue = 0.8
+    static var highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
+    static var highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
+    static var highlightFocusedBorderColor = NSColor.clear
+    static var highlightHoveredBorderColor = NSColor.clear
+    static var highlightBorderShadowColor = NSColor.clear
+    static var highlightBorderWidth = CGFloat(0)
+    static var enablePanelShadow = false
 
-class AppearanceSize {
-    var style: AppearanceStylePreference
-    var size: AppearanceSizePreference
+    // derived
+    static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
 
-    init(_ style: AppearanceStylePreference,
-         _ size: AppearanceSizePreference) {
-        self.style = style
-        self.size = size
-    }
-
-    func getParameters() -> AppearanceSizeParameters {
-        if style == .thumbnails {
-            return AppearanceSize.getThumbnailsParameters(size: size)
-        } else if style == .appIcons {
-            return AppearanceSize.getAppIconsParameters(size: size)
-        } else if style == .titles {
-            return AppearanceSize.getTitlesParameters(size: size)
-        }
-        return AppearanceSize.getThumbnailsParameters(size: size)
-    }
-
-    static func getThumbnailsParameters(size: AppearanceSizePreference) -> AppearanceSizeParameters {
-        var appearance = AppearanceSizeParameters()
-        let isVerticalScreen = NSScreen.preferred().ratio() < 1
-        appearance.hideThumbnails = false
-        appearance.intraCellPadding = 5
-        appearance.interCellPadding = 1
-        appearance.edgeInsetsSize = 12
-        appearance.maxWidthOnScreen = 90
-        appearance.maxHeightOnScreen = 80
-        if size == .small {
-            appearance.rowsCount = 5
-            appearance.windowMinWidthInRow = 8
-            appearance.windowMaxWidthInRow = 90
-            appearance.iconSize = 30
-            appearance.fontHeight = 14
-            if isVerticalScreen {
-                appearance.rowsCount = 8
-            }
-        } else if size == .medium {
-            appearance.rowsCount = 4
-            appearance.windowMinWidthInRow = 10
-            appearance.windowMaxWidthInRow = 90
-            appearance.iconSize = 30
-            appearance.fontHeight = 15
-            if isVerticalScreen {
-                appearance.rowsCount = 7
-            }
-        } else if size == .large {
-            appearance.rowsCount = 3
-            appearance.windowMinWidthInRow = 10
-            appearance.windowMaxWidthInRow = 90
-            appearance.iconSize = 40
-            appearance.fontHeight = 18
-            if isVerticalScreen {
-                appearance.rowsCount = 6
-            }
-        }
-        if Preferences.appearanceVisibility == .highest {
-            appearance.edgeInsetsSize = 10
-            appearance.cellCornerRadius = 12
-        }
-        return appearance
-    }
-
-    static func getAppIconsParameters(size: AppearanceSizePreference) -> AppearanceSizeParameters {
-        var appearance = AppearanceSizeParameters()
-        appearance.hideThumbnails = true
-        appearance.windowPadding = 25
-        appearance.intraCellPadding = 5
-        appearance.interCellPadding = 1
-        appearance.edgeInsetsSize = 5
-        appearance.rowsCount = 1
-        appearance.fontHeight = 15
-        appearance.maxWidthOnScreen = 95
-        appearance.maxHeightOnScreen = 90
-        if size == .small {
-            appearance.windowMinWidthInRow = 4
-            appearance.windowMaxWidthInRow = 30
-            appearance.iconSize = 88
-        } else if size == .medium {
-            appearance.windowMinWidthInRow = 4
-            appearance.windowMaxWidthInRow = 30
-            appearance.iconSize = 128
-        } else if size == .large {
-            appearance.windowPadding = 28
-            appearance.windowMinWidthInRow = 4
-            appearance.windowMaxWidthInRow = 30
-            appearance.iconSize = 168
-            appearance.fontHeight = 20
-        }
-        return appearance
-    }
-
-    static func getTitlesParameters(size: AppearanceSizePreference) -> AppearanceSizeParameters {
-        var appearance = AppearanceSizeParameters()
-        let isVerticalScreen = NSScreen.preferred().ratio() < 1
-        appearance.hideThumbnails = true
-        appearance.intraCellPadding = 5
-        appearance.interCellPadding = 1
-        appearance.edgeInsetsSize = 7
-        appearance.rowsCount = 1
-        appearance.windowMinWidthInRow = 60
-        appearance.windowMaxWidthInRow = 90
-        appearance.maxWidthOnScreen = 60
-        appearance.maxHeightOnScreen = 80
-        if isVerticalScreen {
-            appearance.maxWidthOnScreen = 85
-        }
-        if size == .small {
-            appearance.iconSize = 25
-            appearance.fontHeight = 13
-        } else if size == .medium {
-            appearance.iconSize = 30
-            appearance.fontHeight = 15
-        } else if size == .large {
-            appearance.iconSize = 40
-            appearance.fontHeight = 18
-        }
-        return appearance
-    }
-}
-
-struct AppearanceThemeParameters {
-    var material = NSVisualEffectView.Material.dark
-    var fontColor = NSColor.white
-    var indicatedIconShadowColor: NSColor? = .darkGray
-    var titleShadowColor: NSColor? = .darkGray
-    var imageShadowColor: NSColor? = .gray // for icon, thumbnail and windowless images
-    var highlightMaterial = NSVisualEffectView.Material.selection
-    var highlightFocusedAlphaValue = 1.0
-    var highlightHoveredAlphaValue = 0.8
-    var highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
-    var highlightHoveredBackgroundColor = NSColor.black.withAlphaComponent(0.3)
-    var highlightFocusedBorderColor = NSColor.clear
-    var highlightHoveredBorderColor = NSColor.clear
-    var highlightBorderShadowColor = NSColor.clear
-    var highlightBorderWidth = CGFloat(0)
-    var enablePanelShadow = false
-}
-
-class AppearanceTheme {
-    let themeName: AppearanceThemeName
-    let appearanceStyle: AppearanceStylePreference
-    var visibility: AppearanceVisibilityPreference
-
-    init(_ appearanceStyle: AppearanceStylePreference,
-         _ theme: AppearanceThemePreference,
-         _ visibility: AppearanceVisibilityPreference) {
-        self.appearanceStyle = appearanceStyle
-        self.visibility = visibility
-        themeName = AppearanceTheme.transform(theme)
-    }
-
-    static func transform(_ theme: AppearanceThemePreference) -> AppearanceThemeName {
-        switch theme {
-        case .light:
-            return AppearanceThemeName.light
-        case .dark:
-            return AppearanceThemeName.dark
-        case .system:
+    private static var currentStyle: AppearanceStylePreference { Preferences.appearanceStyle }
+    private static var currentSize: AppearanceSizePreference { Preferences.appearanceSize }
+    private static var currentTheme: AppearanceThemePreference {
+        if Preferences.appearanceTheme == .system {
             return NSAppearance.current.getThemeName()
+        } else {
+            return Preferences.appearanceTheme
+        }
+    }
+    private static var currentVisibility: AppearanceVisibilityPreference { Preferences.appearanceVisibility }
+
+    static func update() {
+        updateSize()
+        updateTheme()
+    }
+
+    private static func updateSize() {
+        let isHorizontalScreen = NSScreen.preferred().isHorizontal()
+        if currentStyle == .appIcons {
+            appIconsSize()
+        } else if currentStyle == .titles {
+            titlesSize(isHorizontalScreen)
+        } else {
+            thumbnailsSize(isHorizontalScreen)
         }
     }
 
-    func getParameters() -> AppearanceThemeParameters {
-        if themeName == .light {
-            return getLightParameters()
+    private static func updateTheme() {
+        if currentTheme == .dark {
+            darkTheme()
+        } else {
+            lightTheme()
         }
-        return getDarkParameters()
     }
 
-    private func getLightParameters() -> AppearanceThemeParameters {
-        var appearance = AppearanceThemeParameters()
-        appearance.material = .light
-        appearance.fontColor = .black.withAlphaComponent(0.8)
-        appearance.indicatedIconShadowColor = nil
-        appearance.titleShadowColor = nil
-        appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
-        appearance.highlightMaterial = .mediumLight
-        appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
-        appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
-        appearance.enablePanelShadow = false
-
-        if visibility == .high || visibility == .highest {
-            appearance.material = .mediumLight
-            appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
-            appearance.highlightFocusedBorderColor = .lightGray.withAlphaComponent(0.9)
-            appearance.highlightHoveredBorderColor = .lightGray.withAlphaComponent(0.8)
-            appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
-            appearance.highlightBorderWidth = 1
-            appearance.enablePanelShadow = true
+    private static func thumbnailsSize(_ isHorizontalScreen: Bool) {
+        hideThumbnails = false
+        windowPadding = 18
+        cellCornerRadius = 10
+        windowCornerRadius = 23
+        intraCellPadding = 5
+        interCellPadding = 1
+        edgeInsetsSize = 12
+        maxWidthOnScreen = 0.9
+        maxHeightOnScreen = 0.8
+        windowMinWidthInRow = 0.1
+        windowMaxWidthInRow = 0.9
+        switch currentSize {
+        case .small:
+            rowsCount = isHorizontalScreen ? 5 : 8
+            windowMinWidthInRow = 0.08
+            windowMaxWidthInRow = 0.9
+            iconSize = 30
+            fontHeight = 14
+        case .medium:
+            rowsCount = isHorizontalScreen ? 4 : 7
+            iconSize = 30
+            fontHeight = 15
+        case .large:
+            rowsCount = isHorizontalScreen ? 3 : 6
+            iconSize = 40
+            fontHeight = 18
         }
-        if visibility == .highest {
-            appearance.highlightFocusedAlphaValue = 0.4
-            appearance.highlightHoveredAlphaValue = 0.2
-            appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
-            appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
-            appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
-            appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
-            appearance.highlightBorderWidth = appearanceStyle == .titles ? 2 : 4
+        if currentVisibility == .highest {
+            edgeInsetsSize = 10
+            cellCornerRadius = 12
         }
-        return appearance
     }
 
-    private func getDarkParameters() -> AppearanceThemeParameters {
-        var appearance = AppearanceThemeParameters()
-        appearance.material = .dark
-        appearance.fontColor = .white.withAlphaComponent(0.9)
-        appearance.indicatedIconShadowColor = .darkGray
-        appearance.titleShadowColor = .darkGray
-        appearance.imageShadowColor = .gray.withAlphaComponent(0.8)
-        appearance.highlightMaterial = .ultraDark
-        appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
-        appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
-        appearance.enablePanelShadow = false
-
-        if visibility == .high || visibility == .highest {
-            appearance.material = .ultraDark
-            appearance.imageShadowColor = .gray.withAlphaComponent(0.4)
-            appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
-            appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.4)
-            appearance.highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
-            appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.7)
-            appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
-            appearance.highlightBorderWidth = 1
-            appearance.enablePanelShadow = true
+    private static func appIconsSize() {
+        hideThumbnails = true
+        windowPadding = 25
+        cellCornerRadius = 10
+        windowCornerRadius = 23
+        intraCellPadding = 5
+        interCellPadding = 1
+        edgeInsetsSize = 5
+        maxWidthOnScreen = 0.95
+        maxHeightOnScreen = 0.9
+        windowMinWidthInRow = 0.04
+        windowMaxWidthInRow = 0.3
+        rowsCount = 1
+        switch currentSize {
+        case .small:
+            iconSize = 88
+            fontHeight = 15
+        case .medium:
+            iconSize = 128
+            fontHeight = 15
+        case .large:
+            windowPadding = 28
+            iconSize = 168
+            fontHeight = 20
         }
-        if visibility == .highest {
-            appearance.highlightFocusedAlphaValue = 0.4
-            appearance.highlightHoveredAlphaValue = 0.2
-            appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
-            appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
-            appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
-            appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
-            appearance.highlightBorderWidth = appearanceStyle == .titles ? 2 : 4
-        }
-        return appearance
     }
-}
 
-enum AppearanceThemeName: String {
-    case light
-    case dark
+    private static func titlesSize(_ isHorizontalScreen: Bool) {
+        hideThumbnails = true
+        windowPadding = 18
+        cellCornerRadius = 10
+        windowCornerRadius = 23
+        intraCellPadding = 5
+        interCellPadding = 1
+        edgeInsetsSize = 7
+        maxWidthOnScreen = isHorizontalScreen ? 0.6 : 0.85
+        maxHeightOnScreen = 0.8
+        windowMinWidthInRow = 0.6
+        windowMaxWidthInRow = 0.9
+        rowsCount = 1
+        switch currentSize {
+        case .small:
+            iconSize = 25
+            fontHeight = 13
+        case .medium:
+            iconSize = 30
+            fontHeight = 15
+        case .large:
+            iconSize = 40
+            fontHeight = 18
+        }
+    }
+
+    private static func lightTheme() {
+        fontColor = .black.withAlphaComponent(0.8)
+        titleShadowColor = nil
+        indicatedIconShadowColor = nil
+        imageShadowColor = .lightGray.withAlphaComponent(0.4)
+        highlightMaterial = .mediumLight
+        switch currentVisibility {
+        case .normal:
+            material = .light
+            highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
+            highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
+            enablePanelShadow = false
+            highlightFocusedAlphaValue = 1.0
+            highlightHoveredAlphaValue = 0.8
+            highlightFocusedBorderColor = NSColor.clear
+            highlightHoveredBorderColor = NSColor.clear
+            highlightBorderShadowColor = NSColor.clear
+            highlightBorderWidth = 0
+        case .high:
+            material = .mediumLight
+            highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
+            highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
+            enablePanelShadow = true
+            highlightFocusedAlphaValue = 1.0
+            highlightHoveredAlphaValue = 0.8
+            highlightFocusedBorderColor = .lightGray.withAlphaComponent(0.9)
+            highlightHoveredBorderColor = .lightGray.withAlphaComponent(0.8)
+            highlightBorderShadowColor = .black.withAlphaComponent(0.5)
+            highlightBorderWidth = 1
+
+        case .highest:
+            material = .mediumLight
+            highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
+            highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
+            enablePanelShadow = true
+            highlightFocusedAlphaValue = 0.4
+            highlightHoveredAlphaValue = 0.2
+            highlightFocusedBorderColor = NSColor.systemAccentColor
+            highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+            highlightBorderShadowColor = .black.withAlphaComponent(0.5)
+            highlightBorderWidth = currentStyle == .titles ? 2 : 4
+        }
+    }
+
+    private static func darkTheme() {
+        fontColor = .white.withAlphaComponent(0.9)
+        indicatedIconShadowColor = .darkGray
+        titleShadowColor = .darkGray
+        highlightMaterial = .ultraDark
+        switch currentVisibility {
+        case .normal:
+            material = .dark
+            imageShadowColor = .gray.withAlphaComponent(0.8)
+            highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
+            highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
+            enablePanelShadow = false
+            highlightFocusedAlphaValue = 1.0
+            highlightHoveredAlphaValue = 0.8
+            highlightFocusedBorderColor = NSColor.clear
+            highlightHoveredBorderColor = NSColor.clear
+            highlightBorderShadowColor = NSColor.clear
+            highlightBorderWidth = 0
+        case .high:
+            material = .ultraDark
+            imageShadowColor = .gray.withAlphaComponent(0.4)
+            highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
+            highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.4)
+            enablePanelShadow = true
+            highlightFocusedAlphaValue = 1.0
+            highlightHoveredAlphaValue = 0.8
+            highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
+            highlightHoveredBorderColor = .gray.withAlphaComponent(0.7)
+            highlightBorderShadowColor = .white.withAlphaComponent(0.5)
+            highlightBorderWidth = 1
+        case .highest:
+            material = .ultraDark
+            imageShadowColor = .gray.withAlphaComponent(0.4)
+            highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
+            highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
+            enablePanelShadow = true
+            highlightFocusedAlphaValue = 0.4
+            highlightHoveredAlphaValue = 0.2
+            highlightFocusedBorderColor = NSColor.systemAccentColor
+            highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+            highlightBorderShadowColor = .white.withAlphaComponent(0.5)
+            highlightBorderWidth = currentStyle == .titles ? 2 : 4
+        }
+    }
 }

@@ -2,7 +2,7 @@ import Cocoa
 
 class ThumbnailTitleView: BaseLabel {
     convenience init(_ height: CGFloat,
-                     _ shadow: NSShadow? = ThumbnailView.makeShadow(Preferences.appearanceThemeParameters.titleShadowColor)) {
+                     _ shadow: NSShadow? = ThumbnailView.makeShadow(Appearance.titleShadowColor)) {
         let textStorage = NSTextStorage()
         let layoutManager = NSLayoutManager()
         textStorage.addLayoutManager(layoutManager)
@@ -11,8 +11,8 @@ class ThumbnailTitleView: BaseLabel {
         textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
         self.init(NSRect.zero, textContainer)
-        font = Preferences.font
-        textColor = Preferences.appearanceThemeParameters.fontColor
+        font = Appearance.font
+        textColor = Appearance.fontColor
         self.shadow = shadow
         defaultParagraphStyle = makeParagraphStyle(height)
         heightAnchor.constraint(equalToConstant: height).isActive = true
@@ -61,6 +61,6 @@ class ThumbnailTitleView: BaseLabel {
     }
 
     static func maxHeight() -> CGFloat {
-        return Preferences.fontHeight + 3
+        return Appearance.fontHeight + 3
     }
 }
