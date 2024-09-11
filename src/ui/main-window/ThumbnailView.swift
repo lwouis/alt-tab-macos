@@ -20,7 +20,6 @@ class ThumbnailView: NSStackView {
 
     var hStackView: NSStackView!
     var vStackView: NSStackView!
-    var highlightView: HighlightView!
     var labelStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -72,9 +71,6 @@ class ThumbnailView: NSStackView {
         vStackView.edgeInsets = NSEdgeInsets(top: Preferences.edgeInsetsSize, left: Preferences.edgeInsetsSize,
                 bottom: Preferences.edgeInsetsSize, right: Preferences.edgeInsetsSize)
 
-        highlightView = HighlightView()
-        highlightView.isHidden = true
-        vStackView.addSubview(highlightView, positioned: .above, relativeTo: nil)
         if Preferences.appearanceStyle == .appIcons {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
@@ -144,11 +140,6 @@ class ThumbnailView: NSStackView {
 
     private func setBackground(isFocused: Bool, isHovered: Bool) {
         vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
-//        if Preferences.appearanceHighVisibility {
-//            vStackView?.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
-//        } else {
-//            highlightView.drawHighlight(isFocused: isFocused, isHovered: isHovered)
-//        }
     }
 
     private func setBorder(isFocused: Bool, isHovered: Bool) {
@@ -379,7 +370,6 @@ class ThumbnailView: NSStackView {
                     - ThumbnailTitleView.maxHeight()
                     - Preferences.intraCellPadding
         }
-        assignIfDifferent(&highlightView.frame, vStackView.bounds)
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
 
@@ -592,40 +582,5 @@ class ThumbnailView: NSStackView {
 
     static func getTopBottomEdgeInsetsSize() -> CGFloat {
         return Preferences.edgeInsetsSize * 2
-    }
-}
-
-class HighlightView: NSVisualEffectView {
-
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        setup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-
-    private func setup() {
-        material = Preferences.appearanceThemeParameters.highlightMaterial
-        blendingMode = .behindWindow
-        state = .active
-        alphaValue = 1
-        wantsLayer = true
-        layer!.cornerRadius = Preferences.cellCornerRadius
-        autoresizingMask = [.width, .height]
-    }
-
-    func drawHighlight(isFocused: Bool, isHovered: Bool) {
-        if isFocused {
-            isHidden = false
-            alphaValue = Preferences.appearanceThemeParameters.highlightFocusedAlphaValue
-        } else if isHovered {
-            isHidden = false
-            alphaValue = Preferences.appearanceThemeParameters.highlightHoveredAlphaValue
-        } else {
-            isHidden = true
-        }
     }
 }
