@@ -20,106 +20,121 @@ struct AppearanceSizeParameters {
 class AppearanceSize {
     var style: AppearanceStylePreference
     var size: AppearanceSizePreference
-    var visibility: AppearanceVisibilityPreference
 
     init(_ style: AppearanceStylePreference,
-         _ size: AppearanceSizePreference,
-         _ visibility: AppearanceVisibilityPreference) {
+         _ size: AppearanceSizePreference) {
         self.style = style
         self.size = size
-        self.visibility = visibility
     }
 
     func getParameters() -> AppearanceSizeParameters {
+        if style == .thumbnails {
+            return AppearanceSize.getThumbnailsParameters(size: size)
+        } else if style == .appIcons {
+            return AppearanceSize.getAppIconsParameters(size: size)
+        } else if style == .titles {
+            return AppearanceSize.getTitlesParameters(size: size)
+        }
+        return AppearanceSize.getThumbnailsParameters(size: size)
+    }
+
+    static func getThumbnailsParameters(size: AppearanceSizePreference) -> AppearanceSizeParameters {
         var appearance = AppearanceSizeParameters()
         let isVerticalScreen = NSScreen.preferred().ratio() < 1
-        if style == .thumbnails {
-            appearance.hideThumbnails = false
-            appearance.intraCellPadding = 5
-            appearance.interCellPadding = 1
-            appearance.edgeInsetsSize = 12
-            appearance.maxWidthOnScreen = 90
-            appearance.maxHeightOnScreen = 80
-            if size == .small {
-                appearance.rowsCount = 5
-                appearance.windowMinWidthInRow = 8
-                appearance.windowMaxWidthInRow = 90
-                appearance.iconSize = 30
-                appearance.fontHeight = 14
-                if isVerticalScreen {
-                    appearance.rowsCount = 8
-                }
-            } else if size == .medium {
-                appearance.rowsCount = 4
-                appearance.windowMinWidthInRow = 10
-                appearance.windowMaxWidthInRow = 90
-                appearance.iconSize = 30
-                appearance.fontHeight = 15
-                if isVerticalScreen {
-                    appearance.rowsCount = 7
-                }
-            } else if size == .large {
-                appearance.rowsCount = 3
-                appearance.windowMinWidthInRow = 10
-                appearance.windowMaxWidthInRow = 90
-                appearance.iconSize = 40
-                appearance.fontHeight = 18
-                if isVerticalScreen {
-                    appearance.rowsCount = 6
-                }
-            }
-            if visibility == .highest {
-                appearance.edgeInsetsSize = 10
-                appearance.cellCornerRadius = 12
-            }
-        } else if style == .appIcons {
-            appearance.hideThumbnails = true
-            appearance.windowPadding = 25
-            appearance.intraCellPadding = 5
-            appearance.interCellPadding = 1
-            appearance.edgeInsetsSize = 5
-            appearance.rowsCount = 1
-            appearance.fontHeight = 15
-            appearance.maxWidthOnScreen = 95
-            appearance.maxHeightOnScreen = 90
-            if size == .small {
-                appearance.windowMinWidthInRow = 4
-                appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 88
-            } else if size == .medium {
-                appearance.windowMinWidthInRow = 4
-                appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 128
-            } else if size == .large {
-                appearance.windowPadding = 28
-                appearance.windowMinWidthInRow = 4
-                appearance.windowMaxWidthInRow = 30
-                appearance.iconSize = 168
-                appearance.fontHeight = 20
-            }
-        } else if style == .titles {
-            appearance.hideThumbnails = true
-            appearance.intraCellPadding = 5
-            appearance.interCellPadding = 1
-            appearance.edgeInsetsSize = 7
-            appearance.rowsCount = 1
-            appearance.windowMinWidthInRow = 60
+        appearance.hideThumbnails = false
+        appearance.intraCellPadding = 5
+        appearance.interCellPadding = 1
+        appearance.edgeInsetsSize = 12
+        appearance.maxWidthOnScreen = 90
+        appearance.maxHeightOnScreen = 80
+        if size == .small {
+            appearance.rowsCount = 5
+            appearance.windowMinWidthInRow = 8
             appearance.windowMaxWidthInRow = 90
-            appearance.maxWidthOnScreen = 60
-            appearance.maxHeightOnScreen = 80
+            appearance.iconSize = 30
+            appearance.fontHeight = 14
             if isVerticalScreen {
-                appearance.maxWidthOnScreen = 85
+                appearance.rowsCount = 8
             }
-            if size == .small {
-                appearance.iconSize = 25
-                appearance.fontHeight = 13
-            } else if size == .medium {
-                appearance.iconSize = 30
-                appearance.fontHeight = 15
-            } else if size == .large {
-                appearance.iconSize = 40
-                appearance.fontHeight = 18
+        } else if size == .medium {
+            appearance.rowsCount = 4
+            appearance.windowMinWidthInRow = 10
+            appearance.windowMaxWidthInRow = 90
+            appearance.iconSize = 30
+            appearance.fontHeight = 15
+            if isVerticalScreen {
+                appearance.rowsCount = 7
             }
+        } else if size == .large {
+            appearance.rowsCount = 3
+            appearance.windowMinWidthInRow = 10
+            appearance.windowMaxWidthInRow = 90
+            appearance.iconSize = 40
+            appearance.fontHeight = 18
+            if isVerticalScreen {
+                appearance.rowsCount = 6
+            }
+        }
+        if Preferences.appearanceVisibility == .highest {
+            appearance.edgeInsetsSize = 10
+            appearance.cellCornerRadius = 12
+        }
+        return appearance
+    }
+
+    static func getAppIconsParameters(size: AppearanceSizePreference) -> AppearanceSizeParameters {
+        var appearance = AppearanceSizeParameters()
+        appearance.hideThumbnails = true
+        appearance.windowPadding = 25
+        appearance.intraCellPadding = 5
+        appearance.interCellPadding = 1
+        appearance.edgeInsetsSize = 5
+        appearance.rowsCount = 1
+        appearance.fontHeight = 15
+        appearance.maxWidthOnScreen = 95
+        appearance.maxHeightOnScreen = 90
+        if size == .small {
+            appearance.windowMinWidthInRow = 4
+            appearance.windowMaxWidthInRow = 30
+            appearance.iconSize = 88
+        } else if size == .medium {
+            appearance.windowMinWidthInRow = 4
+            appearance.windowMaxWidthInRow = 30
+            appearance.iconSize = 128
+        } else if size == .large {
+            appearance.windowPadding = 28
+            appearance.windowMinWidthInRow = 4
+            appearance.windowMaxWidthInRow = 30
+            appearance.iconSize = 168
+            appearance.fontHeight = 20
+        }
+        return appearance
+    }
+
+    static func getTitlesParameters(size: AppearanceSizePreference) -> AppearanceSizeParameters {
+        var appearance = AppearanceSizeParameters()
+        let isVerticalScreen = NSScreen.preferred().ratio() < 1
+        appearance.hideThumbnails = true
+        appearance.intraCellPadding = 5
+        appearance.interCellPadding = 1
+        appearance.edgeInsetsSize = 7
+        appearance.rowsCount = 1
+        appearance.windowMinWidthInRow = 60
+        appearance.windowMaxWidthInRow = 90
+        appearance.maxWidthOnScreen = 60
+        appearance.maxHeightOnScreen = 80
+        if isVerticalScreen {
+            appearance.maxWidthOnScreen = 85
+        }
+        if size == .small {
+            appearance.iconSize = 25
+            appearance.fontHeight = 13
+        } else if size == .medium {
+            appearance.iconSize = 30
+            appearance.fontHeight = 15
+        } else if size == .large {
+            appearance.iconSize = 40
+            appearance.fontHeight = 18
         }
         return appearance
     }
@@ -168,67 +183,76 @@ class AppearanceTheme {
     }
 
     func getParameters() -> AppearanceThemeParameters {
-        var appearance = AppearanceThemeParameters()
         if themeName == .light {
-            appearance.material = .light
-            appearance.fontColor = .black.withAlphaComponent(0.8)
-            appearance.indicatedIconShadowColor = nil
-            appearance.titleShadowColor = nil
+            return getLightParameters()
+        }
+        return getDarkParameters()
+    }
+
+    private func getLightParameters() -> AppearanceThemeParameters {
+        var appearance = AppearanceThemeParameters()
+        appearance.material = .light
+        appearance.fontColor = .black.withAlphaComponent(0.8)
+        appearance.indicatedIconShadowColor = nil
+        appearance.titleShadowColor = nil
+        appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
+        appearance.highlightMaterial = .mediumLight
+        appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
+        appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
+        appearance.enablePanelShadow = false
+
+        if visibility == .high || visibility == .highest {
+            appearance.material = .mediumLight
             appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
-            appearance.highlightMaterial = .mediumLight
-            appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
-            appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
-            appearance.enablePanelShadow = false
+            appearance.highlightFocusedBorderColor = .lightGray.withAlphaComponent(0.9)
+            appearance.highlightHoveredBorderColor = .lightGray.withAlphaComponent(0.8)
+            appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
+            appearance.highlightBorderWidth = 1
+            appearance.enablePanelShadow = true
+        }
+        if visibility == .highest {
+            appearance.highlightFocusedAlphaValue = 0.4
+            appearance.highlightHoveredAlphaValue = 0.2
+            appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
+            appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
+            appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
+            appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+            appearance.highlightBorderWidth = appearanceStyle == .titles ? 2 : 4
+        }
+        return appearance
+    }
 
-            if visibility == .high || visibility == .highest {
-                appearance.material = .mediumLight
-                appearance.imageShadowColor = .lightGray.withAlphaComponent(0.4)
-                appearance.highlightFocusedBorderColor = .lightGray.withAlphaComponent(0.9)
-                appearance.highlightHoveredBorderColor = .lightGray.withAlphaComponent(0.8)
-                appearance.highlightBorderShadowColor = .black.withAlphaComponent(0.5)
-                appearance.highlightBorderWidth = 1
-                appearance.enablePanelShadow = true
-            }
-            if visibility == .highest {
-                appearance.highlightFocusedAlphaValue = 0.4
-                appearance.highlightHoveredAlphaValue = 0.2
-                appearance.highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
-                appearance.highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
-                appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
-                appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
-                appearance.highlightBorderWidth = appearanceStyle == .titles ? 2 : 4
-            }
-        } else {
-            appearance.material = .dark
-            appearance.fontColor = .white.withAlphaComponent(0.9)
-            appearance.indicatedIconShadowColor = .darkGray
-            appearance.titleShadowColor = .darkGray
-            appearance.imageShadowColor = .gray.withAlphaComponent(0.8)
-            appearance.highlightMaterial = .ultraDark
-            appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
-            appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
-            appearance.enablePanelShadow = false
+    private func getDarkParameters() -> AppearanceThemeParameters {
+        var appearance = AppearanceThemeParameters()
+        appearance.material = .dark
+        appearance.fontColor = .white.withAlphaComponent(0.9)
+        appearance.indicatedIconShadowColor = .darkGray
+        appearance.titleShadowColor = .darkGray
+        appearance.imageShadowColor = .gray.withAlphaComponent(0.8)
+        appearance.highlightMaterial = .ultraDark
+        appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
+        appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
+        appearance.enablePanelShadow = false
 
-            if visibility == .high || visibility == .highest {
-                appearance.material = .ultraDark
-                appearance.imageShadowColor = .gray.withAlphaComponent(0.4)
-                appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
-                appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.4)
-                appearance.highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
-                appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.7)
-                appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
-                appearance.highlightBorderWidth = 1
-                appearance.enablePanelShadow = true
-            }
-            if visibility == .highest {
-                appearance.highlightFocusedAlphaValue = 0.4
-                appearance.highlightHoveredAlphaValue = 0.2
-                appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
-                appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
-                appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
-                appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
-                appearance.highlightBorderWidth = appearanceStyle == .titles ? 2 : 4
-            }
+        if visibility == .high || visibility == .highest {
+            appearance.material = .ultraDark
+            appearance.imageShadowColor = .gray.withAlphaComponent(0.4)
+            appearance.highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
+            appearance.highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.4)
+            appearance.highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
+            appearance.highlightHoveredBorderColor = .gray.withAlphaComponent(0.7)
+            appearance.highlightBorderShadowColor = .white.withAlphaComponent(0.5)
+            appearance.highlightBorderWidth = 1
+            appearance.enablePanelShadow = true
+        }
+        if visibility == .highest {
+            appearance.highlightFocusedAlphaValue = 0.4
+            appearance.highlightHoveredAlphaValue = 0.2
+            appearance.highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
+            appearance.highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
+            appearance.highlightFocusedBorderColor = NSColor.systemAccentColor
+            appearance.highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+            appearance.highlightBorderWidth = appearanceStyle == .titles ? 2 : 4
         }
         return appearance
     }

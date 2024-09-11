@@ -159,7 +159,7 @@ class Preferences {
 
     // derived values
     static var appearanceSizeParameters: AppearanceSizeParameters {
-        AppearanceSize(appearanceStyle, appearanceSize, appearanceVisibility).getParameters()
+        AppearanceSize(appearanceStyle, appearanceSize).getParameters()
     }
     static var appearanceThemeParameters: AppearanceThemeParameters {
         AppearanceTheme(appearanceStyle, appearanceTheme, appearanceVisibility).getParameters()
