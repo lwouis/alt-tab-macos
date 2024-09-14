@@ -228,7 +228,6 @@ class ThumbnailsView: NSVisualEffectView {
 }
 
 class ScrollView: NSScrollView {
-    private var trackingArea: NSTrackingArea?
     // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
     override class var isCompatibleWithResponsiveScrolling: Bool { true }
 
@@ -246,16 +245,6 @@ class ScrollView: NSScrollView {
         usesPredominantAxisScrolling = true
         forceOverlayStyle()
         observeScrollingEvents()
-    }
-
-    override func updateTrackingAreas() {
-        super.updateTrackingAreas()
-        if let trackingArea = trackingArea {
-            removeTrackingArea(trackingArea)
-        }
-        let options: NSTrackingArea.Options = [.mouseMoved, .mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect]
-        trackingArea = NSTrackingArea(rect: bounds, options: options, owner: self, userInfo: nil)
-        addTrackingArea(trackingArea!)
     }
 
     private func observeScrollingEvents() {

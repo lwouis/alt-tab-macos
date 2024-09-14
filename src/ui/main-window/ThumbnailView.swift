@@ -74,6 +74,7 @@ class ThumbnailView: NSStackView {
         if Preferences.appearanceStyle == .appIcons {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
+            appIcon.setFrameOrigin(NSPoint(x: 0, y: 0))
             vStackView.setViews([hStackView], in: .leading)
             label.alignment = .center
             label.isHidden = true
@@ -347,8 +348,6 @@ class ThumbnailView: NSStackView {
         let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
         let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
         var width = CGFloat(0)
-        var vStackViewWidth = CGFloat(0)
-        var vStackViewHeight = CGFloat(0)
         if Preferences.appearanceStyle == .thumbnails {
             // Preferred to the width of the image, and the minimum width may be set to be large.
             if element.isWindowlessApp {
@@ -361,14 +360,16 @@ class ThumbnailView: NSStackView {
             let frameWidth = contentWidth + leftRightEdgeInsetsSize
             width = max(frameWidth, widthMin).rounded()
         }
-        vStackViewWidth = width - leftRightEdgeInsetsSize
-        vStackViewHeight = newHeight - leftRightEdgeInsetsSize
+        var vStackViewWidth = width - leftRightEdgeInsetsSize
+        var vStackViewHeight = newHeight - leftRightEdgeInsetsSize
+        var hStackViewHeight = max(appIcon.frame.height, ThumbnailTitleView.maxHeight(), fullscreenIcon.frame.height)
         if Preferences.appearanceStyle == .appIcons {
             vStackViewHeight = newHeight
                     - topBottomEdgeInsetsSize
                     - Appearance.intraCellPadding
                     - ThumbnailTitleView.maxHeight()
                     - Appearance.intraCellPadding
+            hStackViewHeight = appIcon.frame.height
         }
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
@@ -377,6 +378,7 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&vStackView.frame.size.height, vStackViewHeight)
         // Align top
         assignIfDifferent(&vStackView.frame.origin.y, newHeight - vStackViewHeight)
+        assignIfDifferent(&hStackView.frame.size.height, hStackViewHeight)
     }
 
     func setLabelWidth() {
