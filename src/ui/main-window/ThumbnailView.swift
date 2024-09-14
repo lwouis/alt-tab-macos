@@ -345,6 +345,7 @@ class ThumbnailView: NSStackView {
         // Retrieves the minimum width for the screen.
         let widthMin = ThumbnailView.minThumbnailWidth(screen)
         let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
+        let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
         var width = CGFloat(0)
         var vStackViewWidth = CGFloat(0)
         var vStackViewHeight = CGFloat(0)
@@ -362,7 +363,6 @@ class ThumbnailView: NSStackView {
         }
         vStackViewWidth = width - leftRightEdgeInsetsSize
         vStackViewHeight = newHeight - leftRightEdgeInsetsSize
-        let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
         if Preferences.appearanceStyle == .appIcons {
             vStackViewHeight = newHeight
                     - topBottomEdgeInsetsSize
@@ -376,7 +376,7 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&vStackView.frame.size.width, vStackViewWidth)
         assignIfDifferent(&vStackView.frame.size.height, vStackViewHeight)
         // Align top
-        assignIfDifferent(&vStackView.frame.origin.y, frame.height - vStackViewHeight)
+        assignIfDifferent(&vStackView.frame.origin.y, newHeight - vStackViewHeight)
     }
 
     func setLabelWidth() {

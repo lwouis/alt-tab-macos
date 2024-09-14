@@ -97,6 +97,9 @@ class ThumbnailsView: NSVisualEffectView {
             for (i, row) in rows.enumerated() {
                 for (j, view) in row.enumerated() {
                     view.numberOfViewsInRow = row.count
+                    view.isFirstInRow = j == 0
+                    view.isLastInRow = j == row.count - 1
+                    view.indexInRow = j
                 }
             }
             highlightStartView()
@@ -134,14 +137,6 @@ class ThumbnailsView: NSVisualEffectView {
                 maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
             }
             rows[rows.count - 1].append(view)
-            // for the first view in the row
-            view.isFirstInRow = (rows[rows.count - 1].count == 1)
-            // for the last view in the row (will be updated if a new view is added)
-            view.isLastInRow = true
-            if rows[rows.count - 1].count > 1 {
-                rows[rows.count - 1][rows[rows.count - 1].count - 2].isLastInRow = false
-            }
-            view.indexInRow = rows[rows.count - 1].count - 1
             newViews.append(view)
             window.rowIndex = rows.count - 1
         }
