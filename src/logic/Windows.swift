@@ -6,6 +6,7 @@ class Windows {
     static var hoveredWindowIndex: Int?
     // the first few thumbnails are the most commonly looked at; we pay special attention to them
     static let criticalFirstThumbnails = 3
+    static var lastWindowActivityType = WindowActivityType.none
 
     /// reordered list based on preferences, keeping the original index
     static func reorderList() {
@@ -122,20 +123,23 @@ class Windows {
 
     static func updateFocusedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
         var index: Int?
-        if fromMouse && newIndex != hoveredWindowIndex {
+        if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
             let oldIndex = hoveredWindowIndex
             hoveredWindowIndex = newIndex
             if let oldIndex = oldIndex {
                 ThumbnailsView.highlight(oldIndex)
             }
             index = hoveredWindowIndex
+            lastWindowActivityType = .hover
         }
-        if (!fromMouse || Preferences.mouseHoverEnabled) && newIndex != focusedWindowIndex {
+        if (!fromMouse || Preferences.mouseHoverEnabled)
+                   && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover)  {
             let oldIndex = focusedWindowIndex
             focusedWindowIndex = newIndex
             ThumbnailsView.highlight(oldIndex)
             previewFocusedWindowIfNeeded()
             index = focusedWindowIndex
+            lastWindowActivityType = .focus
         }
         guard let index = index else { return }
         ThumbnailsView.highlight(index)
@@ -373,4 +377,10 @@ func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResul
         return w1.title.localizedStandardCompare(w2.title)
     }
     return order
+}
+
+enum WindowActivityType: Int {
+    case none = 0
+    case hover = 1
+    case focus = 2
 }
