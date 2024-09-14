@@ -233,6 +233,7 @@ class ThumbnailsView: NSVisualEffectView {
 }
 
 class ScrollView: NSScrollView {
+    private var trackingArea: NSTrackingArea?
     // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
     override class var isCompatibleWithResponsiveScrolling: Bool { true }
 
@@ -252,9 +253,20 @@ class ScrollView: NSScrollView {
         observeScrollingEvents()
     }
 
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        if let trackingArea = trackingArea {
+            removeTrackingArea(trackingArea)
+        }
+        let options: NSTrackingArea.Options = [.mouseMoved, .mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect]
+        trackingArea = NSTrackingArea(rect: bounds, options: options, owner: self, userInfo: nil)
+        addTrackingArea(trackingArea!)
+    }
+
     private func observeScrollingEvents() {
         NotificationCenter.default.addObserver(forName: NSScrollView.didEndLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
             self?.isCurrentlyScrolling = false
+            self?.updateTrackingAreas()
         }
         NotificationCenter.default.addObserver(forName: NSScrollView.willStartLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
             self?.isCurrentlyScrolling = true
@@ -272,28 +284,42 @@ class ScrollView: NSScrollView {
     override func mouseMoved(with event: NSEvent) {
         // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
         if isCurrentlyScrolling { return }
-        if let hit = hitTest(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream) {
-            var target: NSView? = hit
-            while !(target is ThumbnailView) && target != nil {
-                target = target!.superview
-            }
-            if let target = target, target is ThumbnailView {
-                if previousTarget != target {
-                    previousTarget?.showOrHideWindowControls(false)
-                    previousTarget = target as? ThumbnailView
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { [weak self] in
+            guard let self = self else { return }
+
+            if let view = self.tryGetThumbnailViewAtMouseLocation() {
+                if self.previousTarget != view {
+                    self.previousTarget?.showOrHideWindowControls(false)
+                    self.previousTarget = view
                 }
-                let target = target as! ThumbnailView
-                target.mouseMoved()
+                view.mouseMoved()
             } else {
-                resetHoveredWindow()
+                self.resetHoveredWindow()
             }
-        } else {
-            resetHoveredWindow()
         }
     }
 
+    /// Handles the mouseExited event to determine whether the mouse has truly exited the current view's bounds.
+    ///
+    /// - Note: Sometimes the event is triggered incorrectly, but the mouse is still on the ScrollView.
+    ///         We are currently using a temporary solution, maybe there is a better way.
     override func mouseExited(with event: NSEvent) {
-        resetHoveredWindow()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { [weak self] in
+            guard let self = self else { return }
+
+            let mouseLocation = event.locationInWindow
+            let localMouseLocation = self.convert(mouseLocation, from: nil)
+            // If the mouse has exited the view
+            if self.bounds.contains(localMouseLocation) {
+                return
+            }
+
+            // not hovering over a `ThumbnailView`
+            if let view = self.tryGetThumbnailViewAtMouseLocation() {
+                return
+            }
+            self.resetHoveredWindow()
+        }
     }
 
     /// holding shift and using the scrolling wheel will generate a horizontal movement
@@ -307,6 +333,19 @@ class ScrollView: NSScrollView {
         } else {
             super.scrollWheel(with: event)
         }
+    }
+
+    private func tryGetThumbnailViewAtMouseLocation() -> ThumbnailView? {
+        if let view = hitTest(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream) {
+            var target: NSView? = view
+            while !(target is ThumbnailView) && target != nil {
+                target = target!.superview
+            }
+            if let target = target as? ThumbnailView {
+                return target
+            }
+        }
+        return nil
     }
 
     /// force overlay style after a change in System Preference > General > Show scroll bars
