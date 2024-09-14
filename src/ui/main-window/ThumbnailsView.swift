@@ -307,10 +307,9 @@ class ScrollView: NSScrollView {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { [weak self] in
             guard let self = self else { return }
 
-            let mouseLocation = event.locationInWindow
-            let localMouseLocation = self.convert(mouseLocation, from: nil)
+            let mouseLocation = self.convert(event.locationInWindow, from: nil)
             // If the mouse has exited the view
-            if self.bounds.contains(localMouseLocation) {
+            if self.bounds.contains(mouseLocation) {
                 return
             }
 
