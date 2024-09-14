@@ -376,7 +376,7 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&vStackView.frame.size.width, vStackViewWidth)
         assignIfDifferent(&vStackView.frame.size.height, vStackViewHeight)
         // Align top
-        assignIfDifferent(&vStackView.frame.origin.y, frame.height - vStackView.fittingSize.height)
+        assignIfDifferent(&vStackView.frame.origin.y, frame.height - vStackViewHeight)
     }
 
     func setLabelWidth() {
