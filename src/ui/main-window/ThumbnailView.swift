@@ -184,7 +184,7 @@ class ThumbnailView: NSStackView {
             hoveredView = ThumbnailsView.recycledViews[Windows.hoveredWindowIndex!]
         }
 
-        if isFocused {
+        if isFocused || (!isFocused && !isHovered) {
             hoveredView?.label.isHidden = true
             focusedView.label.isHidden = false
             updateAppIconsLabelFrame(focusedView)
