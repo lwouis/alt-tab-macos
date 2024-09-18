@@ -76,9 +76,9 @@ class ThumbnailView: NSStackView {
             hStackView = NSStackView(views: [appIcon])
             vStackView.setViews([hStackView], in: .leading)
             label.alignment = .center
-            label.isHidden = true
-            setViews([vStackView], in: .leading)
+            addSubview(vStackView)
             addSubview(label)
+            label.isHidden = true
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
             vStackView.setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
@@ -371,22 +371,28 @@ class ThumbnailView: NSStackView {
             hStackViewHeight = appIcon.frame.height
             assignIfDifferent(&appIcon.frame.origin.x, 0)
             assignIfDifferent(&appIcon.frame.origin.y, 0)
+            assignIfDifferent(&label.frame, NSRect(x: 0, y: Appearance.intraCellPadding,
+                    width: width, height: ThumbnailTitleView.maxHeight()))
         }
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
 
         assignIfDifferent(&vStackView.frame.size.width, vStackViewWidth)
         assignIfDifferent(&vStackView.frame.size.height, vStackViewHeight)
-        // Align top
-        assignIfDifferent(&vStackView.frame.origin.y, newHeight - vStackViewHeight)
+        assignIfDifferent(&vStackView.frame.origin.x, Appearance.edgeInsetsSize)
+        assignIfDifferent(&vStackView.frame.origin.y, newHeight - vStackViewHeight - Appearance.edgeInsetsSize)
         assignIfDifferent(&hStackView.frame.size.height, hStackViewHeight)
-        printSubviewFrames(of: self, indent: "  ")
+        printSubviewFrames(of: self)
     }
 
-    func printSubviewFrames(of view: NSView, indent: String = "") {
-        logger.d(window_?.title, "\(indent)View: \(type(of: view)), Frame: \(view.frame)")
-        for subview in view.subviews {
-            printSubviewFrames(of: subview, indent: indent + "  ")
+    func printSubviewFrames(of view: NSView, indent: String = "", isLast: Bool = true) {
+        let indentSymbol = isLast ? "└── " : "├── "
+        logger.d("\(indent)\(indentSymbol)View: \(type(of: view)), Frame: \(view.frame)")
+        let newIndent = indent + (isLast ? "    " : "│   ")
+
+        for (index, subview) in view.subviews.enumerated() {
+            let isLastSubview = index == view.subviews.count - 1
+            printSubviewFrames(of: subview, indent: newIndent, isLast: isLastSubview)
         }
     }
 
