@@ -373,6 +373,10 @@ class ThumbnailView: NSStackView {
             assignIfDifferent(&appIcon.frame.origin.y, 0)
             assignIfDifferent(&label.frame, NSRect(x: 0, y: Appearance.intraCellPadding,
                     width: width, height: ThumbnailTitleView.maxHeight()))
+            assignIfDifferent(&hStackView.frame.origin.x, 0)
+            assignIfDifferent(&hStackView.frame.origin.y, 0)
+            assignIfDifferent(&hStackView.frame.size.width, appIcon.frame.width)
+            assignIfDifferent(&hStackView.frame.size.height, appIcon.frame.height)
         }
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
@@ -381,7 +385,7 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&vStackView.frame.size.height, vStackViewHeight)
         assignIfDifferent(&vStackView.frame.origin.x, Appearance.edgeInsetsSize)
         assignIfDifferent(&vStackView.frame.origin.y, newHeight - vStackViewHeight - Appearance.edgeInsetsSize)
-        assignIfDifferent(&hStackView.frame.size.height, hStackViewHeight)
+
         printSubviewFrames(of: self)
     }
 
