@@ -74,7 +74,6 @@ class ThumbnailView: NSStackView {
         if Preferences.appearanceStyle == .appIcons {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
-            appIcon.setFrameOrigin(NSPoint(x: 0, y: 0))
             vStackView.setViews([hStackView], in: .leading)
             label.alignment = .center
             label.isHidden = true
@@ -370,6 +369,8 @@ class ThumbnailView: NSStackView {
                     - ThumbnailTitleView.maxHeight()
                     - Appearance.intraCellPadding
             hStackViewHeight = appIcon.frame.height
+            assignIfDifferent(&appIcon.frame.origin.x, 0)
+            assignIfDifferent(&appIcon.frame.origin.y, 0)
         }
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
@@ -379,6 +380,14 @@ class ThumbnailView: NSStackView {
         // Align top
         assignIfDifferent(&vStackView.frame.origin.y, newHeight - vStackViewHeight)
         assignIfDifferent(&hStackView.frame.size.height, hStackViewHeight)
+        printSubviewFrames(of: self, indent: "  ")
+    }
+
+    func printSubviewFrames(of view: NSView, indent: String = "") {
+        logger.d(window_?.title, "\(indent)View: \(type(of: view)), Frame: \(view.frame)")
+        for subview in view.subviews {
+            printSubviewFrames(of: subview, indent: indent + "  ")
+        }
     }
 
     func setLabelWidth() {
