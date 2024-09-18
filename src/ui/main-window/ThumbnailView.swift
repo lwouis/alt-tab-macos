@@ -76,7 +76,7 @@ class ThumbnailView: NSStackView {
             hStackView = NSStackView(views: [appIcon])
             vStackView.setViews([hStackView], in: .leading)
             label.alignment = .center
-            addSubview(vStackView)
+            setViews([vStackView], in: .leading)
             addSubview(label)
             label.isHidden = true
         } else {
