@@ -280,7 +280,9 @@ class ScrollView: NSScrollView {
                 let target = target as! ThumbnailView
                 target.mouseMoved()
             } else {
-                resetHoveredWindow()
+                if !checkIfInInter() {
+                    resetHoveredWindow()
+                }
             }
         } else {
             resetHoveredWindow()
@@ -289,6 +291,25 @@ class ScrollView: NSScrollView {
 
     override func mouseExited(with event: NSEvent) {
         resetHoveredWindow()
+    }
+
+    private func checkIfInInter() -> Bool {
+        if Preferences.appearanceStyle == .appIcons {
+            let mouseLocation = App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream
+            let mouseRect = NSRect(x: mouseLocation.x - Appearance.interCellPadding,
+                    y: mouseLocation.y - Appearance.interCellPadding,
+                    width: 2 * Appearance.interCellPadding,
+                    height: 2 * Appearance.interCellPadding)
+
+            if let hoveredWindowIndex = Windows.hoveredWindowIndex {
+                let thumbnail = ThumbnailsView.recycledViews[hoveredWindowIndex]
+                let mouseRectInView = thumbnail.convert(mouseRect, from: nil)
+                if thumbnail.bounds.intersects(mouseRectInView) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     /// holding shift and using the scrolling wheel will generate a horizontal movement
