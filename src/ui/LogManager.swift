@@ -64,6 +64,35 @@ class LogManager {
 
 extension SwiftyBeaver {
 
+    class func isVerboseEnabled() -> Bool {
+        return isEnabled(level: .verbose)
+    }
+
+    class func isDebugEnabled() -> Bool {
+        return isEnabled(level: .debug)
+    }
+
+    class func isInfoEnabled() -> Bool {
+        return isEnabled(level: .info)
+    }
+
+    class func isWarningEnabled() -> Bool {
+        return isEnabled(level: .warning)
+    }
+
+    class func isErrorEnabled() -> Bool {
+        return isEnabled(level: .error)
+    }
+
+    class func isEnabled(level: SwiftyBeaver.Level) -> Bool {
+        for destination in logger.destinations {
+            if level.rawValue >= destination.minLevel.rawValue {
+                return true
+            }
+        }
+        return false
+    }
+
     class func d(_ items: Any..., separator: String = " ", terminator: String = "\n",
                  _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
         let message = items.map { "\($0)" }.joined(separator: separator)

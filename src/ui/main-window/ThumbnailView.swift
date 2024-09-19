@@ -373,7 +373,9 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
 
-//        printSubviewFrames(of: self)
+        if logger.isDebugEnabled() {
+            printSubviewFrames(of: self)
+        }
     }
 
     func printSubviewFrames(of view: NSView, indent: String = "", isLast: Bool = true) {
