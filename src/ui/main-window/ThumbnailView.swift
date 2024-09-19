@@ -79,6 +79,17 @@ class ThumbnailView: NSStackView {
             setViews([vStackView], in: .leading)
             addSubview(label)
             label.isHidden = true
+
+            vStackView.translatesAutoresizingMaskIntoConstraints = false
+            label.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                vStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                vStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+                vStackView.topAnchor.constraint(equalTo: self.topAnchor),
+
+                label.topAnchor.constraint(equalTo: vStackView.bottomAnchor, constant: Appearance.intraCellPadding),
+                self.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: Appearance.intraCellPadding)
+            ])
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
             vStackView.setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
@@ -359,34 +370,10 @@ class ThumbnailView: NSStackView {
             let frameWidth = contentWidth + leftRightEdgeInsetsSize
             width = max(frameWidth, widthMin).rounded()
         }
-        var vStackViewWidth = width - leftRightEdgeInsetsSize
-        var vStackViewHeight = newHeight - leftRightEdgeInsetsSize
-        var hStackViewHeight = max(appIcon.frame.height, ThumbnailTitleView.maxHeight(), fullscreenIcon.frame.height)
-        if Preferences.appearanceStyle == .appIcons {
-            vStackViewHeight = newHeight
-                    - topBottomEdgeInsetsSize
-                    - Appearance.intraCellPadding
-                    - ThumbnailTitleView.maxHeight()
-                    - Appearance.intraCellPadding
-            hStackViewHeight = appIcon.frame.height
-            assignIfDifferent(&appIcon.frame.origin.x, 0)
-            assignIfDifferent(&appIcon.frame.origin.y, 0)
-            assignIfDifferent(&label.frame, NSRect(x: 0, y: Appearance.intraCellPadding,
-                    width: width, height: ThumbnailTitleView.maxHeight()))
-            assignIfDifferent(&hStackView.frame.origin.x, 0)
-            assignIfDifferent(&hStackView.frame.origin.y, 0)
-            assignIfDifferent(&hStackView.frame.size.width, appIcon.frame.width)
-            assignIfDifferent(&hStackView.frame.size.height, appIcon.frame.height)
-        }
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
 
-        assignIfDifferent(&vStackView.frame.size.width, vStackViewWidth)
-        assignIfDifferent(&vStackView.frame.size.height, vStackViewHeight)
-        assignIfDifferent(&vStackView.frame.origin.x, Appearance.edgeInsetsSize)
-        assignIfDifferent(&vStackView.frame.origin.y, newHeight - vStackViewHeight - Appearance.edgeInsetsSize)
-
-        printSubviewFrames(of: self)
+//        printSubviewFrames(of: self)
     }
 
     func printSubviewFrames(of view: NSView, indent: String = "", isLast: Bool = true) {
