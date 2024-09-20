@@ -3,6 +3,7 @@ import Cocoa
 class ThumbnailView: NSStackView {
     static let windowsControlSize = CGFloat(16)
     static let windowsControlSpacing = CGFloat(8)
+    static let noOpenWindowToolTip = NSLocalizedString("App is running but has no open window", comment: "")
     var window_: Window?
     var thumbnail = NSImageView()
     var appIcon = NSImageView()
@@ -17,6 +18,7 @@ class ThumbnailView: NSStackView {
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
     var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""), windowsControlSize)
+    var windowlessStateIcon = ThumbnailStateView(color: Appearance.fontColor.withAlphaComponent(0.8), tooltip: ThumbnailView.noOpenWindowToolTip)
 
     var hStackView: NSStackView!
     var vStackView: NSStackView!
@@ -50,13 +52,14 @@ class ThumbnailView: NSStackView {
         orientation = .vertical
         let shadow = ThumbnailView.makeShadow(Appearance.imageShadowColor)
         thumbnail.shadow = shadow
-        windowlessIcon.toolTip = NSLocalizedString("App is running but has no open window", comment: "")
+        windowlessIcon.toolTip = ThumbnailView.noOpenWindowToolTip
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
 
         addViews()
         addWindowControls()
         addDockLabelIcon()
+        addWindowlessStateIcon()
         setAccessibilityChildren([])
     }
 
@@ -99,6 +102,10 @@ class ThumbnailView: NSStackView {
 
     private func addDockLabelIcon() {
         appIcon.addSubview(dockLabelIcon, positioned: .above, relativeTo: nil)
+    }
+
+    private func addWindowlessStateIcon() {
+        appIcon.addSubview(windowlessStateIcon, positioned: .above, relativeTo: nil)
     }
 
     private func addWindowControls() {
@@ -290,6 +297,9 @@ class ThumbnailView: NSStackView {
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
             appIcon.setAccessibilityLabel(title)
+            if element.isWindowlessApp {
+                appIcon.toolTip = ThumbnailView.noOpenWindowToolTip
+            }
         }
         let labelChanged = label.string != title
         if labelChanged {
@@ -325,6 +335,7 @@ class ThumbnailView: NSStackView {
             windowlessIcon.frame.size = windowlessIconSize
             windowlessIcon.needsDisplay = true
         }
+        updateWindowlessStateIcon(element)
         setFrameWidthHeight(element, screen, newHeight)
         setLabelWidth()
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
@@ -400,6 +411,18 @@ class ThumbnailView: NSStackView {
                     - Appearance.iconSize
                     - Appearance.intraCellPadding - fontIconWidth
             assignIfDifferent(&label.textContainer!.size.width, labelWidth)
+        }
+    }
+
+    func updateWindowlessStateIcon(_ element: Window) {
+        assignIfDifferent(&windowlessStateIcon.isHidden, !element.isWindowlessApp)
+        if element.isWindowlessApp {
+            let iconSize = ThumbnailView.iconSize(NSScreen.preferred())
+            let radius = CGFloat(5)
+            assignIfDifferent(&windowlessStateIcon.frame.size.width, radius)
+            assignIfDifferent(&windowlessStateIcon.frame.size.height, radius)
+            assignIfDifferent(&windowlessStateIcon.frame.origin.x, (iconSize.width - radius) / 2)
+            assignIfDifferent(&windowlessStateIcon.frame.origin.y, 0)
         }
     }
 
