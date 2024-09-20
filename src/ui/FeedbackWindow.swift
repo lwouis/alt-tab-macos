@@ -125,4 +125,9 @@ class FeedbackWindow: NSWindow {
         }
         return result
     }
+
+    override func close() {
+        hideAppIfLastWindowIsClosed()
+        super.close()
+    }
 }

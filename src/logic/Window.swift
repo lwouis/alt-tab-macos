@@ -204,11 +204,19 @@ class Window: CustomStringConvertible {
     }
 
     func focus() {
-        if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications() {
-            application.runningApplication.activate(options: .activateAllWindows)
-        } else if let bundleID = application.runningApplication.bundleIdentifier, bundleID == App.id {
+        let bundleUrl = application.runningApplication.bundleURL
+        if bundleUrl == NSRunningApplication.current.bundleURL {
             App.shared.activate(ignoringOtherApps: true)
             App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
+            Windows.previewFocusedWindowIfNeeded()
+        } else if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications() {
+            if let bundleUrl = bundleUrl {
+                if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
+                    application.runningApplication.activate(options: .activateAllWindows)
+                }
+            } else {
+                application.runningApplication.activate(options: .activateAllWindows)
+            }
             Windows.previewFocusedWindowIfNeeded()
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,

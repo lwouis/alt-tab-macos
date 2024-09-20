@@ -107,4 +107,9 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
     func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return Array(toolbarItems.keys)
     }
+
+    override func close() {
+        hideAppIfLastWindowIsClosed()
+        super.close()
+    }
 }

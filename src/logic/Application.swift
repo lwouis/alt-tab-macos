@@ -82,6 +82,7 @@ class Application: NSObject {
         // TODO: this method manually checks windows, but will not find windows on other Spaces
         retryAxCallUntilTimeout(group, 5) { [weak self] in
             guard let self = self else { return }
+            var atLeastOneActualWindow = false
             if let axWindows_ = try self.axUiElement!.windows(), axWindows_.count > 0 {
                 // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
                 try Array(Set(axWindows_)).forEach { axWindow in
@@ -95,6 +96,7 @@ class Application: NSObject {
                             let isFullscreen = try axWindow.isFullscreen()
                             let isMinimized = try axWindow.isMinimized()
                             let position = try axWindow.position()
+                            atLeastOneActualWindow = true
                             DispatchQueue.main.async { [weak self] in
                                 guard let self = self else { return }
                                 if let window = (Windows.list.first { $0.isEqualRobust(axWindow, wid) }) {
@@ -111,7 +113,8 @@ class Application: NSObject {
                         }
                     }
                 }
-            } else {
+            }
+            if (!atLeastOneActualWindow) {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     let window = self.addWindowslessAppsIfNeeded()

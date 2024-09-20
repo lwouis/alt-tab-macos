@@ -282,3 +282,11 @@ extension Optional where Wrapped == String {
         return (self ?? "").localizedStandardCompare(string ?? "")
     }
 }
+
+extension NSWindow {
+    func hideAppIfLastWindowIsClosed() {
+        if (!NSApp.windows.contains { $0.isVisible && $0.className != "NSStatusBarWindow" && $0.windowNumber != windowNumber}) {
+            App.shared.hide(nil)
+        }
+    }
+}
