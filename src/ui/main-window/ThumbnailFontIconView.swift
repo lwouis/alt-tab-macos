@@ -69,7 +69,6 @@ class ThumbnailStateView: NSView {
     var color = Appearance.fontColor
     var size = CGFloat(5)
 
-    // Convenience initializer
     convenience init(color: NSColor = Appearance.fontColor, size: CGFloat = 5, tooltip: String? = nil) {
         self.init(frame: .zero)
         self.color = color
