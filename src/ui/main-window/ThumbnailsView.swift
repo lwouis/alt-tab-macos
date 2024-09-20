@@ -280,7 +280,7 @@ class ScrollView: NSScrollView {
                 let target = target as! ThumbnailView
                 target.mouseMoved()
             } else {
-                if !checkIfInInter() {
+                if !checkIfWithinInterPadding() {
                     resetHoveredWindow()
                 }
             }
@@ -293,7 +293,12 @@ class ScrollView: NSScrollView {
         resetHoveredWindow()
     }
 
-    private func checkIfInInter() -> Bool {
+    /// Checks whether the mouse pointer is within the padding area around a thumbnail.
+    ///
+    /// This is used to avoid gaps between thumbnail views where the mouse pointer might not be detected.
+    ///
+    /// @return `true` if the mouse pointer is within the padding area around a thumbnail; `false` otherwise.
+    private func checkIfWithinInterPadding() -> Bool {
         if Preferences.appearanceStyle == .appIcons {
             let mouseLocation = App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream
             let mouseRect = NSRect(x: mouseLocation.x - Appearance.interCellPadding,
