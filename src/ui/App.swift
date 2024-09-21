@@ -30,6 +30,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var appCenterDelegate: AppCenterCrash?
     // multiple delayed display triggers should only show the ui when the last one triggers
     var delayedDisplayScheduled = 0
+    var performDisableStageManager = false
 
     override init() {
         super.init()
@@ -129,6 +130,9 @@ class App: AppCenterApplication, NSApplicationDelegate {
             previewPanel.orderOut(nil)
         }
         hideAllTooltips()
+        if performDisableStageManager && !StageManager.isEnabled() {
+            StageManager.enable()
+        }
     }
 
     /// some tooltips may not be hidden when the main window is hidden; we force it through a private API
@@ -296,6 +300,10 @@ class App: AppCenterApplication, NSApplicationDelegate {
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             delayedDisplayScheduled += 1
+            if !self.performDisableStageManager && StageManager.isEnabled() {
+                self.performDisableStageManager = true
+                StageManager.disable()
+            }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
                 if self.delayedDisplayScheduled == 1 {
                     self.rebuildUi(screen)

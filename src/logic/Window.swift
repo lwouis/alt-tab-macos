@@ -136,12 +136,47 @@ class Window: CustomStringConvertible {
         guard let screenshot = screenshot() else {
             return
         }
-        // Disabled the screenshot in stage manager.
-        if screenshot.size.height < 200 {
-            return
+        // Despite attempts to fix the screenshot issue in Stage Manager mode, some problems will still persist.
+        if screenshot.size.height < 300 && screenshot.size.width < 500 && StageManager.isEnabled() {
+           if isDistortedImage(screenshot) {
+               return
+           } else if let thumbnail = thumbnail {
+              if (screenshot.size.height < thumbnail.size.height / 2) || (screenshot.size.width < thumbnail.size.width / 2) {
+                  return
+              }
+           }
         }
         thumbnail = screenshot
         thumbnailFullSize = thumbnail!.size
+    }
+
+    func isDistortedImage(_ image: NSImage) -> Bool {
+        guard let tiffData = image.tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: tiffData) else {
+            return false
+        }
+
+        let width = bitmap.pixelsWide
+        let height = bitmap.pixelsHigh
+        let centerX = width / 2
+        var colors: [NSColor?] = []
+        for i in 0..<4 {
+            let y = i + 1
+            colors.append(bitmap.colorAt(x: centerX, y: y))
+        }
+
+        func areColorsEqual(_ colors: [NSColor?]) -> Bool {
+            guard let firstColor = colors.first as? NSColor else { return false }
+            for color in colors {
+                if color != firstColor {
+                    return false
+                }
+            }
+            return true
+        }
+
+        let colorsEqual = areColorsEqual(colors)
+        return (width <= 200 && height <= 200) || (colorsEqual && (width < 500 || height < 500))
     }
 
     func getPreview() -> NSImage? {

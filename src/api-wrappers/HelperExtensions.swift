@@ -22,6 +22,18 @@ extension NSAppearance {
 
 extension NSColor {
 
+    func toHex() -> String? {
+        guard let rgbColor = usingColorSpace(.deviceRGB) else {
+            return nil
+        }
+
+        let red = Int(rgbColor.redComponent * 255.0)
+        let green = Int(rgbColor.greenComponent * 255.0)
+        let blue = Int(rgbColor.blueComponent * 255.0)
+
+        return String(format: "#%02X%02X%02X", red, green, blue)
+    }
+
     class var systemAccentColor: NSColor {
         if #available(macOS 10.14, *) {
             // dynamically adapts to changes in System Default; no need to listen to notifications
