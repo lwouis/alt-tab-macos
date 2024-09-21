@@ -30,7 +30,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var appCenterDelegate: AppCenterCrash?
     // multiple delayed display triggers should only show the ui when the last one triggers
     var delayedDisplayScheduled = 0
-    var performDisableStageManager = false
+    var performStageManagerCount = 0
 
     override init() {
         super.init()
@@ -130,7 +130,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
             previewPanel.orderOut(nil)
         }
         hideAllTooltips()
-        if performDisableStageManager && !StageManager.isEnabled() {
+        if Preferences.appearanceStyle == .thumbnails && performStageManagerCount == 1 && !StageManager.isEnabled() {
+            performStageManagerCount += 1
             StageManager.enable()
         }
     }
@@ -300,8 +301,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             delayedDisplayScheduled += 1
-            if !self.performDisableStageManager && StageManager.isEnabled() {
-                self.performDisableStageManager = true
+            if Preferences.appearanceStyle == .thumbnails && performStageManagerCount == 0 && StageManager.isEnabled() {
+                performStageManagerCount += 1
                 StageManager.disable()
             }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
