@@ -13,22 +13,8 @@ class StageManager {
     }
 
     static func isEnabled() -> Bool {
-        let task = Process()
-        task.launchPath = "/usr/bin/defaults"
-        task.arguments = ["read", "com.apple.WindowManager", "GloballyEnabled"]
-
-        let pipe = Pipe()
-        task.standardOutput = pipe
-        let fileHandle = pipe.fileHandleForReading
-
-        task.launch()
-        let data = fileHandle.readDataToEndOfFile()
-        task.waitUntilExit()
-
-        if let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            return output == "1"
-        }
-        return false
+        let (status, output) = executeProcess(arguments: ["read", "com.apple.WindowManager", "GloballyEnabled"])
+        return status == 0 && output == "1"
     }
 
     static func enable() -> Bool {
@@ -40,22 +26,28 @@ class StageManager {
     }
 
     private static func setEnabled(_ enabled: Bool) -> Bool {
-        let task = Process()
-        task.launchPath = "/usr/bin/defaults"
-        task.arguments = ["write", "com.apple.WindowManager", "GloballyEnabled", "-bool", enabled ? "true" : "false"]
+        let (status, _) = executeProcess(arguments: ["write", "com.apple.WindowManager", "GloballyEnabled", "-bool", enabled ? "true" : "false"])
+        return status == 0
+    }
+
+    private static func executeProcess(arguments: [String]) -> (Int32, String?) {
+        let process = Process()
+        process.launchPath = "/usr/bin/defaults"
+        process.arguments = arguments
 
         let pipe = Pipe()
-        task.standardOutput = pipe
+        process.standardOutput = pipe
         let fileHandle = pipe.fileHandleForReading
-
-        task.launch()
-        task.waitUntilExit()
+        process.launch()
+        process.waitUntilExit()
 
         let data = fileHandle.readDataToEndOfFile()
-        if let output = String(data: data, encoding: .utf8), output.count > 0 {
+        let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if let output = output, !output.isEmpty {
             logger.d(output)
         }
 
-        return task.terminationStatus == 0
+        return (process.terminationStatus, output)
     }
 }
