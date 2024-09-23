@@ -13,8 +13,11 @@ class StageManager {
     }
 
     static func isEnabled() -> Bool {
-        let (status, output) = executeProcess(arguments: ["read", "com.apple.WindowManager", "GloballyEnabled"])
-        return status == 0 && output == "1"
+        if #available(macOS 13.0, *) {
+            let (status, output) = executeProcess(arguments: ["read", "com.apple.WindowManager", "GloballyEnabled"])
+            return status == 0 && output == "1"
+        }
+        return false
     }
 
     @discardableResult
@@ -28,8 +31,11 @@ class StageManager {
     }
 
     private static func setEnabled(_ enabled: Bool) -> Bool {
-        let (status, _) = executeProcess(arguments: ["write", "com.apple.WindowManager", "GloballyEnabled", "-bool", enabled ? "true" : "false"])
-        return status == 0
+        if #available(macOS 13.0, *) {
+            let (status, _) = executeProcess(arguments: ["write", "com.apple.WindowManager", "GloballyEnabled", "-bool", enabled ? "true" : "false"])
+            return status == 0
+        }
+        return false
     }
 
     private static func executeProcess(arguments: [String]) -> (Int32, String?) {
