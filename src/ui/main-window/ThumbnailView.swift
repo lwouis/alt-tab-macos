@@ -18,7 +18,7 @@ class ThumbnailView: NSStackView {
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
     var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""), windowsControlSize)
-    var windowlessStateIcon = ThumbnailStateView(color: Appearance.fontColor.withAlphaComponent(0.8), tooltip: ThumbnailView.noOpenWindowToolTip)
+    var windowlessAppIndicator = WindowlessAppIndicator(color: Appearance.fontColor.withAlphaComponent(0.6), tooltip: ThumbnailView.noOpenWindowToolTip)
 
     var hStackView: NSStackView!
     var vStackView: NSStackView!
@@ -105,7 +105,7 @@ class ThumbnailView: NSStackView {
     }
 
     private func addWindowlessStateIcon() {
-        appIcon.addSubview(windowlessStateIcon, positioned: .above, relativeTo: nil)
+        appIcon.addSubview(windowlessAppIndicator, positioned: .above, relativeTo: nil)
     }
 
     private func addWindowControls() {
@@ -415,14 +415,14 @@ class ThumbnailView: NSStackView {
     }
 
     func updateWindowlessStateIcon(_ element: Window) {
-        assignIfDifferent(&windowlessStateIcon.isHidden, !element.isWindowlessApp)
+        assignIfDifferent(&windowlessAppIndicator.isHidden, !element.isWindowlessApp)
         if element.isWindowlessApp {
             let iconSize = ThumbnailView.iconSize(NSScreen.preferred())
             let radius = CGFloat(5)
-            assignIfDifferent(&windowlessStateIcon.frame.size.width, radius)
-            assignIfDifferent(&windowlessStateIcon.frame.size.height, radius)
-            assignIfDifferent(&windowlessStateIcon.frame.origin.x, (iconSize.width - radius) / 2)
-            assignIfDifferent(&windowlessStateIcon.frame.origin.y, 0)
+            assignIfDifferent(&windowlessAppIndicator.frame.size.width, radius)
+            assignIfDifferent(&windowlessAppIndicator.frame.size.height, radius)
+            assignIfDifferent(&windowlessAppIndicator.frame.origin.x, (iconSize.width - radius) / 2)
+            assignIfDifferent(&windowlessAppIndicator.frame.origin.y, 0)
         }
     }
 
