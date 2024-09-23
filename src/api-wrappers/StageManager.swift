@@ -17,10 +17,12 @@ class StageManager {
         return status == 0 && output == "1"
     }
 
+    @discardableResult
     static func enable() -> Bool {
         return setEnabled(true)
     }
 
+    @discardableResult
     static func disable() -> Bool {
         return setEnabled(false)
     }
