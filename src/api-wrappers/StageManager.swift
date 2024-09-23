@@ -6,7 +6,7 @@ class StageManager {
     private static var checkEnabledCount = 0
 
     static func isEnabledWithCache() -> Bool {
-        if checkEnabledCount == 1 { return enabled }
+        if checkEnabledCount >= 1 { return enabled }
         checkEnabledCount += 1
         enabled = isEnabled()
         return enabled
