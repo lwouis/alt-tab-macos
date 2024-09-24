@@ -154,7 +154,7 @@ class Window: CustomStringConvertible {
             // When the switcher is displayed for a short period of time,
             // the screenshot under StageManager will be taken during the animation, causing abnormal screenshots.
             let timeInterval = Date().timeIntervalSince(lastHideUiTime)
-            if timeInterval < 1 && StageManager.isEnabled() {
+            if timeInterval < 2 && StageManager.isEnabled() {
                 return true
             }
         }
