@@ -39,23 +39,31 @@ class StageManager {
     }
 
     private static func executeProcess(arguments: [String]) -> (Int32, String?) {
-        let process = Process()
-        process.launchPath = "/usr/bin/defaults"
-        process.arguments = arguments
+        if #available(macOS 13.0, *) {
+            let process = Process()
+            process.launchPath = "/usr/bin/defaults"
+            process.arguments = arguments
 
-        let pipe = Pipe()
-        process.standardOutput = pipe
-        let fileHandle = pipe.fileHandleForReading
-        process.launch()
-        process.waitUntilExit()
+            let pipe = Pipe()
+            process.standardOutput = pipe
+            let fileHandle = pipe.fileHandleForReading
+            do {
+                try process.run()
+            } catch {
+                logger.e("Failed to launch process.", error)
+                return (-1, nil)
+            }
+            process.waitUntilExit()
 
-        let data = fileHandle.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
+            let data = fileHandle.readDataToEndOfFile()
+            let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        if let output = output, !output.isEmpty {
-            logger.d(output)
+            if let output = output, !output.isEmpty {
+                logger.d(output)
+            }
+
+            return (process.terminationStatus, output)
         }
-
-        return (process.terminationStatus, output)
+        return (-1, nil)
     }
 }
