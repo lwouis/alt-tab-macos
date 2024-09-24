@@ -133,25 +133,36 @@ class Window: CustomStringConvertible {
     }
 
     func refreshThumbnail() {
-        guard let screenshot = screenshot() else {
+        guard let screenshot = screenshot(), !isIgnoreScreenshotUnderStageManager(screenshot) else {
             return
-        }
-        // Despite attempts to fix the screenshot issue in Stage Manager mode, some problems will still persist.
-        if screenshot.size.height < 300 && screenshot.size.width < 500 && StageManager.isEnabled() {
-           if isDistortedImage(screenshot) {
-               return
-           } else if let thumbnail = thumbnail {
-              if (screenshot.size.height < thumbnail.size.height / 2) || (screenshot.size.width < thumbnail.size.width / 2) {
-                  return
-              }
-           }
         }
         thumbnail = screenshot
         thumbnailFullSize = thumbnail!.size
     }
 
-    func isDistortedImage(_ image: NSImage) -> Bool {
-        guard let tiffData = image.tiffRepresentation,
+    private func isIgnoreScreenshotUnderStageManager(_ screenshot: NSImage) -> Bool {
+        // Despite attempts to fix the screenshot issue in Stage Manager mode, some problems will still persist.
+        if screenshot.size.height < 300 && screenshot.size.width < 500 && StageManager.isEnabled() {
+            if isDistortedImage(screenshot) {
+                return true
+            } else if let thumbnail = thumbnail {
+                if (screenshot.size.height < thumbnail.size.height / 2) || (screenshot.size.width < thumbnail.size.width / 2) {
+                    return true
+                }
+            }
+        } else if let lastHideUiTime = App.app.lastHideUiTime {
+            // When the switcher is displayed for a short period of time,
+            // the screenshot under StageManager will be taken during the animation, causing abnormal screenshots.
+            let timeInterval = Date().timeIntervalSince(lastHideUiTime)
+            if timeInterval < 1 && StageManager.isEnabled() {
+                return true
+            }
+        }
+        return false
+    }
+
+    func isDistortedImage(_ screenshot: NSImage) -> Bool {
+        guard let tiffData = screenshot.tiffRepresentation,
               let bitmap = NSBitmapImageRep(data: tiffData) else {
             return false
         }
