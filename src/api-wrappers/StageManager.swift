@@ -59,7 +59,7 @@ class StageManager {
             let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
 
             if let output = output, !output.isEmpty {
-                logger.d(output)
+                logger.d(process.launchPath, arguments, "output:", output)
             }
 
             return (process.terminationStatus, output)
