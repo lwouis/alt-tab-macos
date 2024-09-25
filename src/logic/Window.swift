@@ -142,20 +142,19 @@ class Window: CustomStringConvertible {
 
     private func isIgnoreScreenshotUnderStageManager(_ screenshot: NSImage) -> Bool {
         // Despite attempts to fix the screenshot issue in Stage Manager mode, some problems will still persist.
-        if screenshot.size.height < 300 && screenshot.size.width < 500 && StageManager.isEnabled() {
+        if let lastHideUiTime = App.app.lastHideUiTime, Date().timeIntervalSince(lastHideUiTime) < 3 {
+            // When the switcher is displayed for a short period of time,
+            // the screenshot under StageManager will be taken during the animation, causing abnormal screenshots.
+            if StageManager.isEnabled() {
+                return true
+            }
+        } else if screenshot.size.height < 350 && screenshot.size.width < 500 && StageManager.isEnabled() {
             if isDistortedImage(screenshot) {
                 return true
             } else if let thumbnail = thumbnail {
                 if (screenshot.size.height < thumbnail.size.height / 2) || (screenshot.size.width < thumbnail.size.width / 2) {
                     return true
                 }
-            }
-        } else if let lastHideUiTime = App.app.lastHideUiTime {
-            // When the switcher is displayed for a short period of time,
-            // the screenshot under StageManager will be taken during the animation, causing abnormal screenshots.
-            let timeInterval = Date().timeIntervalSince(lastHideUiTime)
-            if timeInterval < 2 && StageManager.isEnabled() {
-                return true
             }
         }
         return false
