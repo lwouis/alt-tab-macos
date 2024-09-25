@@ -36,6 +36,8 @@ class ThumbnailView: NSStackView {
     var indexInRow = 0
     var numberOfViewsInRow = 0
 
+    var windowControlIcons: [TrafficLightButton]!
+
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
     override var acceptsFirstResponder: Bool { true }
@@ -55,6 +57,7 @@ class ThumbnailView: NSStackView {
         windowlessIcon.toolTip = ThumbnailView.noOpenWindowToolTip
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
+        windowControlIcons = [quitIcon, closeIcon, minimizeIcon, maximizeIcon]
 
         addViews()
         addWindowControls()
@@ -113,7 +116,7 @@ class ThumbnailView: NSStackView {
         thumbnail.addSubview(closeIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(minimizeIcon, positioned: .above, relativeTo: nil)
         thumbnail.addSubview(maximizeIcon, positioned: .above, relativeTo: nil)
-        [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.isHidden = true }
+        windowControlIcons.forEach { $0.isHidden = true }
     }
 
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
@@ -124,7 +127,7 @@ class ThumbnailView: NSStackView {
             target.addSubview(quitIcon, positioned: .above, relativeTo: nil)
             var xOffset = CGFloat(3)
             var yOffset = CGFloat(2 + ThumbnailView.windowsControlSize)
-            [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { icon in
+            windowControlIcons.forEach { icon in
                 icon.isHidden = !shouldShow ||
                     (icon.type == .quit && !(window_?.application.canBeQuit() ?? true)) ||
                     (icon.type == .close && !(window_?.canBeClosed() ?? true)) ||
@@ -340,7 +343,7 @@ class ThumbnailView: NSStackView {
         setLabelWidth()
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
-        [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { $0.window_ = element }
+        windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(false)
         // force a display to avoid flickering; see https://github.com/lwouis/alt-tab-macos/issues/197
         // quirk: display() should be called last as it resets thumbnail.frame.size somehow
@@ -385,6 +388,7 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&frame.size.height, newHeight)
 
         if logger.isDebugEnabled() {
+            logger.d(window_?.title)
             printSubviewFrames(of: self)
         }
     }
@@ -593,6 +597,10 @@ class ThumbnailView: NSStackView {
             }
         }
         return NSSize(width: Appearance.iconSize, height: Appearance.iconSize)
+    }
+
+    func getWindowControlWidth() -> CGFloat {
+        return (ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing) * CGFloat(windowControlIcons.count)
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
