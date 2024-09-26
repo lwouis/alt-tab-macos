@@ -18,7 +18,7 @@ class ThumbnailView: NSStackView {
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
     var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""), windowsControlSize)
-    var windowlessAppIndicator = WindowlessAppIndicator(color: Appearance.fontColor.withAlphaComponent(0.6), tooltip: ThumbnailView.noOpenWindowToolTip)
+    var windowlessAppIndicator = WindowlessAppIndicator(tooltip: ThumbnailView.noOpenWindowToolTip)
 
     var hStackView: NSStackView!
     var vStackView: NSStackView!
@@ -62,7 +62,7 @@ class ThumbnailView: NSStackView {
         addViews()
         addWindowControls()
         addDockLabelIcon()
-        addWindowlessStateIcon()
+        addWindowlessIndicator()
         setAccessibilityChildren([])
     }
 
@@ -107,8 +107,8 @@ class ThumbnailView: NSStackView {
         appIcon.addSubview(dockLabelIcon, positioned: .above, relativeTo: nil)
     }
 
-    private func addWindowlessStateIcon() {
-        appIcon.addSubview(windowlessAppIndicator, positioned: .above, relativeTo: nil)
+    private func addWindowlessIndicator() {
+        addSubview(windowlessAppIndicator, positioned: .above, relativeTo: nil)
     }
 
     private func addWindowControls() {
@@ -300,9 +300,6 @@ class ThumbnailView: NSStackView {
             appIcon.image?.size = appIconSize
             appIcon.frame.size = appIconSize
             appIcon.setAccessibilityLabel(title)
-            if element.isWindowlessApp {
-                appIcon.toolTip = ThumbnailView.noOpenWindowToolTip
-            }
         }
         let labelChanged = label.string != title
         if labelChanged {
@@ -338,9 +335,9 @@ class ThumbnailView: NSStackView {
             windowlessIcon.frame.size = windowlessIconSize
             windowlessIcon.needsDisplay = true
         }
-        updateWindowlessStateIcon(element)
         setFrameWidthHeight(element, screen, newHeight)
         setLabelWidth()
+        updateWindowlessIndicator(element, screen)
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
         windowControlIcons.forEach { $0.window_ = element }
@@ -418,15 +415,24 @@ class ThumbnailView: NSStackView {
         }
     }
 
-    func updateWindowlessStateIcon(_ element: Window) {
+    func updateWindowlessIndicator(_ element: Window, _ screen: NSScreen) {
         assignIfDifferent(&windowlessAppIndicator.isHidden, !element.isWindowlessApp)
         if element.isWindowlessApp {
-            let iconSize = ThumbnailView.iconSize(NSScreen.preferred())
-            let radius = CGFloat(5)
-            assignIfDifferent(&windowlessAppIndicator.frame.size.width, radius)
-            assignIfDifferent(&windowlessAppIndicator.frame.size.height, radius)
-            assignIfDifferent(&windowlessAppIndicator.frame.origin.x, (iconSize.width - radius) / 2)
-            assignIfDifferent(&windowlessAppIndicator.frame.origin.y, 0)
+            var xOffset = CGFloat(0)
+            var yOffset = CGFloat(0)
+            if Preferences.appearanceStyle == .thumbnails {
+                xOffset = (frame.size.width - windowlessAppIndicator.frame.size.width) / 2
+                yOffset = Appearance.edgeInsetsSize
+            } else if Preferences.appearanceStyle == .appIcons {
+                xOffset = (frame.size.width - windowlessAppIndicator.frame.size.width) / 2
+                yOffset = ThumbnailFontIconView.maxHeight() + 2 * Appearance.intraCellPadding + Appearance.edgeInsetsSize / 2
+            } else if Preferences.appearanceStyle == .titles {
+                let iconSize = ThumbnailView.iconSize(screen)
+                xOffset = Appearance.edgeInsetsSize + (iconSize.width - windowlessAppIndicator.frame.size.width) / 2
+                yOffset = Appearance.edgeInsetsSize / 2
+            }
+            assignIfDifferent(&windowlessAppIndicator.frame.origin.x, xOffset)
+            assignIfDifferent(&windowlessAppIndicator.frame.origin.y, yOffset)
         }
     }
 

@@ -1,13 +1,23 @@
 import Cocoa
 
 class WindowlessAppIndicator: NSView {
-    var color: NSColor!
-    var size: CGFloat!
+    struct AppearanceParameter {
+        let width: CGFloat
+        let height: CGFloat
+        let cornerRadius: CGFloat
+    }
 
-    convenience init(color: NSColor = Appearance.fontColor, size: CGFloat = 5, tooltip: String? = nil) {
+    var color: NSColor!
+    var cornerRadius: CGFloat!
+
+    convenience init(color: NSColor = Appearance.fontColor.withAlphaComponent(0.5),
+                     parameter: AppearanceParameter = WindowlessAppIndicator.getAppearanceParameter(),
+                     tooltip: String? = nil) {
         self.init(frame: .zero)
         self.color = color
-        self.size = size
+        self.frame.size.width = parameter.width
+        self.frame.size.height = parameter.height
+        self.cornerRadius = parameter.cornerRadius
         self.toolTip = tooltip
     }
 
@@ -23,19 +33,26 @@ class WindowlessAppIndicator: NSView {
         super.draw(dirtyRect)
         color.setFill()
 
-        let radius = min(bounds.size.width, bounds.size.height) / 2
-        let center = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-
-        // Draw a circle
-        let circlePath = NSBezierPath()
-        circlePath.appendArc(withCenter: center, radius: radius, startAngle: 0, endAngle: 360)
-        circlePath.close()
-
-        circlePath.fill()
+        let rectPath = NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius)
+        rectPath.fill()
     }
 
     override func layout() {
         super.layout()
         needsDisplay = true
     }
+
+    static func getAppearanceParameter() -> AppearanceParameter {
+        if Preferences.appearanceStyle == .thumbnails || Preferences.appearanceStyle == .appIcons {
+            if Preferences.appearanceSize == .large {
+                return AppearanceParameter(width: 12, height: 5, cornerRadius: 3)
+            }
+            return AppearanceParameter(width: 10, height: 5, cornerRadius: 3)
+        }
+        if Preferences.appearanceSize == .large {
+            return AppearanceParameter(width: 8, height: 3, cornerRadius: 2)
+        }
+        return AppearanceParameter(width: 6, height: 3, cornerRadius: 2)
+    }
+
 }
