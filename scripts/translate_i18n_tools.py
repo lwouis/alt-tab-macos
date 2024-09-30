@@ -51,7 +51,7 @@ def read_localizable_strings_with_comments(file_path):
     return translations, comments
 
 
-def translate_text(translator, text, src_lang, dest_lang, max_retries=3):
+def translate_text(translator, text, src_lang, dest_lang, max_retries=0):
     """
     Translate text with retries in case of failure.
     """

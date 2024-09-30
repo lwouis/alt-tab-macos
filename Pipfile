@@ -6,6 +6,12 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-fonttools = "*"
+fonttools = "==4.8.1"
+googletrans = "==3.0.0"
+
+[requires]
+python_version = "3.6"
 
 [scripts]
+font2png = "scripts/convert_font_to_png.sh"
+translate = "python scripts/translate_i18n_tools.py resources/l10n"
