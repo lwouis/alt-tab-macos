@@ -17,7 +17,16 @@
 "Active screen" = "หน้าจอที่ใช้งาน";
 
 /* No comment provided by engineer. */
-"Active Space" = "Active Space";
+"Additional controls" = "การควบคุมเพิ่มเติม";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "การควบคุมเพิ่มเติม ...";
+
+/* No comment provided by engineer. */
+"Advanced" = "ขั้นสูง";
+
+/* No comment provided by engineer. */
+"After release" = "หลังจากเปิดตัว";
 
 /* No comment provided by engineer. */
 "Align windows" = "จัดตำแหน่งหน้าต่าง";
@@ -38,16 +47,19 @@
 "Allowed" = "อนุญาต";
 
 /* No comment provided by engineer. */
-"Alphabetical" = "อักษร";
-
-/* No comment provided by engineer. */
-"Also select windows using" = "เลือกหน้าต่างโดยใช้";
+"Alphabetical Order" = "Alphabetical Order";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab ขัดข้องครั้งสุดท้ายที่คุณใช้ การส่งรายงานการขัดข้องจะช่วยแก้ไขปัญหาได้";
 
 /* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "ขณะนี้ Alttab ถูกตั้งค่าให้แสดงแอปพลิเคชันการตั้งค่านี้จะใช้ได้เฉพาะเมื่อมีการตั้งค่า Alttab เพื่อแสดง Windows";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab ต้องการได้รับการอนุญาต";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab จะแสดงว่าหน้าต่างถูกย่อให้เล็กสุดหรือเต็มหน้าจอพร้อมไอคอนสถานะ";
 
 /* No comment provided by engineer. */
 "Always" = "ทุกครั้ง";
@@ -59,7 +71,16 @@
 "and press" = "และกด";
 
 /* No comment provided by engineer. */
+"Animations" = "ภาพเคลื่อนไหว";
+
+/* No comment provided by engineer. */
+"Animations…" = "ภาพเคลื่อนไหว ...";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "แอป (เริ่มต้นด้วย BundleID )";
+
+/* No comment provided by engineer. */
+"App Icons" = "ไอคอนแอพ";
 
 /* No comment provided by engineer. */
 "App is hidden" = "แอปถูกซ่อน";
@@ -74,10 +95,16 @@
 "Appearance" = "รูปแบบ";
 
 /* No comment provided by engineer. */
-"Are you sure you don’t want a response?" = "คุณแน่ใจหรือว่าไม่ต้องการการตอบกลับ?";
+"Application Name" = "Application Name";
 
 /* No comment provided by engineer. */
-"Arrow keys" = "ปุ่มลูกศร";
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "แอปพลิเคชัน";
+
+/* No comment provided by engineer. */
+"Are you sure you don’t want a response?" = "คุณแน่ใจหรือว่าไม่ต้องการการตอบกลับ?";
 
 /* No comment provided by engineer. */
 "Ask whether to send crash reports" = "ถามก่อนส่งรายงานการขัดข้อง";
@@ -122,19 +149,28 @@
 "Crash reports policy" = "นโยบายรายงานความผิดพลาด";
 
 /* No comment provided by engineer. */
-"Cursor follows focus" = "Cursor follows focus";
+"Customize App Icons style…" = "ปรับแต่งไอคอนแอพสไตล์ ...";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "ปรับแต่งรูปแบบรูปขนาดย่อ ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "กำหนดสไตล์สไตล์ ...";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
 
 /* No comment provided by engineer. */
 "Do nothing" = "ไม่ทำอะไร";
+
+/* No comment provided by engineer. */
+"Done" = "เสร็จแล้ว";
 
 /* No comment provided by engineer. */
 "Don’t check for updates periodically" = "ไม่ต้องตรวจสอบการอัพเดทเป็นระยะ";
 
 /* No comment provided by engineer. */
 "Don’t send" = "ไม่ส่ง";
-
-/* No comment provided by engineer. */
-"Don’t show windows from these apps" = "ไม่ต้องแสดงหน้าต่างจากแอปเหล่านี้";
 
 /* No comment provided by engineer. */
 "End" = "ท้าย";
@@ -146,19 +182,10 @@
 "Focus selected window" = "โฟกัสหน้าต่างที่เลือก";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "หน้าต่างเต็มหน้าจอ";
-
-/* No comment provided by engineer. */
-"Fullscreen windows" = "หน้าต่างเต็มหน้าจอ";
-
-/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "เข้าสู่/ออกจากโหมดเต็มหน้าจอ";
 
 /* No comment provided by engineer. */
 "General" = "ทั่วไป";
-
-/* No comment provided by engineer. */
-"Hidden windows" = "หน้าต่างซ่อน";
 
 /* No comment provided by engineer. */
 "Hide" = "ซ่อน";
@@ -182,10 +209,13 @@
 "Hide status icons" = "ซ่อนไอคอนสถานะ";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails" = "ซ่อนภาพขนาดย่อของหน้าต่าง";
+"Hide/Show app" = "ซ่อน/แสดงแอป";
 
 /* No comment provided by engineer. */
-"Hide/Show app" = "ซ่อน/แสดงแอป";
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
 
 /* No comment provided by engineer. */
 "Hold" = "กดค้าง";
@@ -197,19 +227,19 @@
 "Ignore shortcuts when active" = "ไม่ใช้คำสั่งลัดเมื่อใช้งาน";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts while a window from these apps is active" = "ไม่ต้องใช้คำสั่งลัดขณะที่หน้าต่างจากแอปเหล่านี้ทํางานอยู่";
+"Large" = "ใหญ่";
 
 /* No comment provided by engineer. */
 "Latest releases" = "รุ่นล่าสุด";
 
 /* No comment provided by engineer. */
-"Left" = "ซ้าย";
+"Leading" = "เป็นผู้นำ";
 
 /* No comment provided by engineer. */
-"Max height on screen" = "ความสูงสูงสุด";
+"Light" = "Light";
 
 /* No comment provided by engineer. */
-"Max width on screen" = "ความกว้างสูงสุด";
+"Medium" = "ปานกลาง";
 
 /* No comment provided by engineer. */
 "Menubar icon" = "ไอคอน Menubar";
@@ -221,25 +251,16 @@
 "Minimize/Deminimize window" = "ย่อ/ขยายหน้าต่าง";
 
 /* No comment provided by engineer. */
-"Minimized windows" = "หน้าต่างย่อ";
-
-/* No comment provided by engineer. */
-"Miscellaneous" = "เบ็ดเตล็ด";
-
-/* No comment provided by engineer. */
-"Mouse hover" = "Mouse hover";
+"Multiple screens" = "หลายหน้าจอ";
 
 /* No comment provided by engineer. */
 "Never send crash reports" = "ไม่ต้องส่งรายงานการขัดข้อง";
 
 /* No comment provided by engineer. */
-"Not allowed" = "ไม่อนุญาต";
-
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 license";
+"Normal" = "Normal";
 
 /* No comment provided by engineer. */
-"Only if the window is fullscreen" = "เฉพาะหน้าต่างโหมดเต็มหน้าจอ";
+"Not allowed" = "ไม่อนุญาต";
 
 /* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "เปิดการตั้งค่าการช่วยการเข้าถึง...";
@@ -248,7 +269,10 @@
 "Open Screen Recording Preferences…" = "เปิดการตั้งค่าการบันทึกหน้าจอ...";
 
 /* No comment provided by engineer. */
-"Optional email (if you want a reply)" = "ไม่บังคับ อีเมล (หากต้องการการตอบกลับ)";
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+
+/* No comment provided by engineer. */
+"Order windows by" = "สั่งซื้อหน้าต่างโดย";
 
 /* No comment provided by engineer. */
 "Policies" = "นโยบาย";
@@ -260,6 +284,9 @@
 "Preview selected window" = "ดูตัวอย่างหน้าต่างที่เลือก";
 
 /* No comment provided by engineer. */
+"Preview the selected window." = "ดูตัวอย่างหน้าต่างที่เลือก";
+
+/* No comment provided by engineer. */
 "Quit" = "ออก";
 
 /* No comment provided by engineer. */
@@ -269,10 +296,10 @@
 "Quit app" = "ออกจากแอป";
 
 /* No comment provided by engineer. */
-"Recently Created" = "เปิดล่าสุด";
+"Recently Created First" = "Recently Created First";
 
 /* No comment provided by engineer. */
-"Recently Focused" = "โฟกัสล่าสุด";
+"Recently Focused First" = "Recently Focused First";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "จดจำตัวเลือกของฉัน";
@@ -282,9 +309,6 @@
 
 /* No comment provided by engineer. */
 "Reset preferences and restart…" = "รีเซ็ตการตั้งค่าและเริ่มใหม่...";
-
-/* No comment provided by engineer. */
-"Rows of thumbnails" = "จำนวนแถวภาพขนาดย่อ";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Screen including menu bar";
@@ -303,6 +327,15 @@
 
 /* No comment provided by engineer. */
 "Select previous window" = "เลือกหน้าต่างก่อนหน้า";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "เลือก Windows บนเมาส์โฮเวอร์";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "เลือก windows โดยใช้ปุ่มลูกศร";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "เลือก Windows โดยใช้คีย์ VIM";
 
 /* No comment provided by engineer. */
 "Send" = "ส่ง";
@@ -341,13 +374,37 @@
 "Shortcut 5" = "คำสั่งลัด 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action %@" = "คำสั่งลัดถูกกําหนดให้กับการดําเนินการอื่นแล้ว %@";
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "ทางลัดเมื่อใช้งาน";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "ทางลัดเมื่อใช้งาน ...";
 
 /* No comment provided by engineer. */
 "Show" = "แสดง";
 
 /* No comment provided by engineer. */
+"Show & Hide" = "Show & Hide";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "แสดงรายการในสวิตช์สำหรับแต่ละหน้าต่างหรือสำหรับแต่ละแอปพลิเคชันWindows จะเน้นในขณะที่แอปพลิเคชันจะเปิดใช้งาน";
+
+/* No comment provided by engineer. */
 "Show at the end" = "แสดงท้ายสุด";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "แสดงหน้าต่างเต็มหน้าจอ";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "แสดงหน้าต่างที่ซ่อนอยู่";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "แสดงใน Switcher";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "แสดงหน้าต่างย่อเล็กสุด";
 
 /* No comment provided by engineer. */
 "Show on" = "แสดง";
@@ -356,13 +413,31 @@
 "Show standard tabs as windows" = "แสดงแท็บมาตรฐานเป็นหน้าต่าง";
 
 /* No comment provided by engineer. */
-"Show windows from" = "แสดงหน้าต่าง";
+"Show titles" = "แสดงชื่อ";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "แสดงหน้าต่างจากแอปพลิเคชัน";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "แสดงหน้าต่างจากหน้าจอ";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "แสดงหน้าต่างจากช่องว่าง";
+
+/* No comment provided by engineer. */
+"Size" = "ขนาด";
+
+/* No comment provided by engineer. */
+"Small" = "เล็ก";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "แอพบางตัวเช่น Finder หรือ Preview ใช้แท็บมาตรฐานซึ่งทำหน้าที่เหมือน Windows อิสระแอพอื่น ๆ เช่นเว็บเบราว์เซอร์ใช้แท็บที่กำหนดเองซึ่งทำหน้าที่ในรูปแบบที่ไม่ซ้ำกันและไม่ใช่หน้าต่างจริงAlttab ไม่สามารถแสดงรายการแยกต่างหาก";
 
 /* No comment provided by engineer. */
 "Source code repository" = "ซอร์สโค้ด";
 
 /* No comment provided by engineer. */
-"Space" = "Space";
+"Space Order" = "Space Order";
 
 /* No comment provided by engineer. */
 "Start" = "หน้า";
@@ -374,16 +449,31 @@
 "Support this project ❤️" = "ให้การสนับสนุน❤️";
 
 /* No comment provided by engineer. */
-"Theme" = "ธีม";
+"Switch between 3 different styles. You can customize them." = "สลับระหว่าง 3 สไตล์ที่แตกต่างกันคุณสามารถปรับแต่งได้";
 
 /* No comment provided by engineer. */
-"Then release" = "เมื่อปล่อย";
+"System" = "System";
+
+/* No comment provided by engineer. */
+"Theme" = "ธีม";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
 
 /* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "รูปขนาดย่อ";
+
+/* No comment provided by engineer. */
+"Title truncation" = "การตัดชื่อ";
+
+/* No comment provided by engineer. */
+"Titles" = "ชื่อเรื่อง";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "ทริกเกอร์ทางลัด";
 
 /* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "ยกเลิกกําหนดคำสั่งลัดที่มีอยู่และดําเนินการต่อ";
@@ -398,10 +488,10 @@
 "View existing discussions" = "ดูการพูดคุย";
 
 /* No comment provided by engineer. */
-"Vim keys" = "ปุ่ม Vim";
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions\n%@" = "ปุ่ม Vim ถูกกําหนดให้กับการดําเนินการอื่นแล้ว \n%@";
+"Visibility" = "การมองเห็น";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";
@@ -411,12 +501,6 @@
 
 /* No comment provided by engineer. */
 "When no open window" = "เมื่อไม่มีหน้าต่างเปิดอยู่";
-
-/* No comment provided by engineer. */
-"While open, press" = "ขณะเปิดอยู่ กด";
-
-/* No comment provided by engineer. */
-"Window app icon size" = "ขนาดไอคอนของหน้าต่าง";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "หน้าต่างอยู่ในโหมดเต็มหน้าจอ";
@@ -431,188 +515,14 @@
 "Window is on Space %d" = "Window is on Space %d";
 
 /* No comment provided by engineer. */
-"Window max width in row" = "ความกว้างสูงสุดของหน้าต่างในแถว";
+"Window Title" = "Window Title";
 
 /* No comment provided by engineer. */
-"Window min width in row" = "ความกว้างต่ำสุดของหน้าต่างในแถว";
-
-/* No comment provided by engineer. */
-"Window order" = "ลำดับหน้าต่าง";
-
-/* No comment provided by engineer. */
-"Window title font size" = "ขนาดชื่อของหน้าต่าง";
-
-/* No comment provided by engineer. */
-"Window title truncation" = "ตัดทอนชื่อหน้าต่าง";
+"Windows" = "หน้าต่าง";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "คุณไม่สามารถยกเลิกการกระทํานี้ได้";
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "คุณไม่ได้ระบุอีเมลของคุณ ดังนั้นจึงไม่สามารถรับการตอบกลับใด ๆ ได้";
-
-/* No comment provided by engineer. */
-"Appearance size" = "Appearance size";
-
-/* No comment provided by engineer. */
-"Show & Hide" = "Show & Hide";
-
-/* No comment provided by engineer. */
-"Effects" = "Effects";
-
-/* No comment provided by engineer. */
-"Small" = "เล็ก";
-
-/* No comment provided by engineer. */
-"Medium" = "ปานกลาง";
-
-/* No comment provided by engineer. */
-"Large" = "ใหญ่";
-
-/* No comment provided by engineer. */
-"Thumbnails" = "รูปขนาดย่อ";
-
-/* No comment provided by engineer. */
-"App Icons" = "ไอคอนแอพ";
-
-/* No comment provided by engineer. */
-"Titles" = "ชื่อเรื่อง";
-
-/* No comment provided by engineer. */
-"Centered" = "กึ่งกลาง";
-
-/* No comment provided by engineer. */
-"Apple Centered" = "แอปเปิ้ลเป็นศูนย์กลาง";
-
-/* No comment provided by engineer. */
-"Applications" = "แอปพลิเคชัน";
-
-/* No comment provided by engineer. */
-"Windows" = "หน้าต่าง";
-
-/* No comment provided by engineer. */
-"Window Titles" = "ชื่อหน้าต่าง";
-
-/* No comment provided by engineer. */
-"Leading" = "เป็นผู้นำ";
-
-/* No comment provided by engineer. */
-"Show running" = "แสดงการวิ่ง";
-
-/* No comment provided by engineer. */
-"Show titles" = "แสดงชื่อ";
-
-/* No comment provided by engineer. */
-"Done" = "เสร็จแล้ว";
-
-/* No comment provided by engineer. */
-"Advanced" = "ขั้นสูง";
-
-/* No comment provided by engineer. */
-"Thumbnails Advanced…" = "รูปขนาดย่อขั้นสูง ...";
-
-/* No comment provided by engineer. */
-"App Icons Advanced…" = "ไอคอนแอพขั้นสูง ...";
-
-/* No comment provided by engineer. */
-"Titles Advanced…" = "ชื่อขั้นสูง ...";
-
-/* No comment provided by engineer. */
-"Advanced…" = "ขั้นสูง…";
-
-/* No comment provided by engineer. */
-"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab จะแสดงว่าหน้าต่างถูกย่อให้เล็กสุดหรือเต็มหน้าจอพร้อมไอคอนสถานะ";
-
-/* No comment provided by engineer. */
-"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "แอพบางตัวเช่น Finder หรือ Preview ใช้แท็บมาตรฐานซึ่งทำหน้าที่เหมือน Windows อิสระแอพอื่น ๆ เช่นเว็บเบราว์เซอร์ใช้แท็บที่กำหนดเองซึ่งทำหน้าที่ในรูปแบบที่ไม่ซ้ำกันและไม่ใช่หน้าต่างจริงAlttab ไม่สามารถแสดงรายการแยกต่างหาก";
-
-/* No comment provided by engineer. */
-"Trigger shortcut" = "ทริกเกอร์ทางลัด";
-
-/* No comment provided by engineer. */
-"After release" = "หลังจากเปิดตัว";
-
-/* No comment provided by engineer. */
-"Show windows from applications" = "แสดงหน้าต่างจากแอปพลิเคชัน";
-
-/* No comment provided by engineer. */
-"Show windows from Spaces" = "แสดงหน้าต่างจากช่องว่าง";
-
-/* No comment provided by engineer. */
-"Show windows from screens" = "แสดงหน้าต่างจากหน้าจอ";
-
-/* No comment provided by engineer. */
-"Show minimized windows" = "แสดงหน้าต่างย่อเล็กสุด";
-
-/* No comment provided by engineer. */
-"Show hidden windows" = "แสดงหน้าต่างที่ซ่อนอยู่";
-
-/* No comment provided by engineer. */
-"Show fullscreen windows" = "แสดงหน้าต่างเต็มหน้าจอ";
-
-/* No comment provided by engineer. */
-"Order windows by" = "สั่งซื้อหน้าต่างโดย";
-
-/* No comment provided by engineer. */
-"Select windows using arrow keys" = "เลือก windows โดยใช้ปุ่มลูกศร";
-
-/* No comment provided by engineer. */
-"Select windows using vim keys" = "เลือก Windows โดยใช้คีย์ VIM";
-
-/* No comment provided by engineer. */
-"Select windows on mouse hover" = "เลือก Windows บนเมาส์โฮเวอร์";
-
-/* No comment provided by engineer. */
-"Additional controls" = "การควบคุมเพิ่มเติม";
-
-/* No comment provided by engineer. */
-"Shortcuts When Active" = "ทางลัดเมื่อใช้งาน";
-
-/* No comment provided by engineer. */
-"Animations…" = "ภาพเคลื่อนไหว ...";
-
-/* No comment provided by engineer. */
-"Switch between 3 different styles. You can customize them." = "สลับระหว่าง 3 สไตล์ที่แตกต่างกันคุณสามารถปรับแต่งได้";
-
-/* No comment provided by engineer. */
-"Size" = "ขนาด";
-
-/* No comment provided by engineer. */
-"Visibility" = "การมองเห็น";
-
-/* No comment provided by engineer. */
-"Multiple screens" = "หลายหน้าจอ";
-
-/* No comment provided by engineer. */
-"Customize Thumbnails style…" = "ปรับแต่งรูปแบบรูปขนาดย่อ ...";
-
-/* No comment provided by engineer. */
-"Customize App Icons style…" = "ปรับแต่งไอคอนแอพสไตล์ ...";
-
-/* No comment provided by engineer. */
-"Customize Titles style…" = "กำหนดสไตล์สไตล์ ...";
-
-/* No comment provided by engineer. */
-"Animations" = "ภาพเคลื่อนไหว";
-
-/* No comment provided by engineer. */
-"Title truncation" = "การตัดชื่อ";
-
-/* No comment provided by engineer. */
-"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "แสดงรายการในสวิตช์สำหรับแต่ละหน้าต่างหรือสำหรับแต่ละแอปพลิเคชันWindows จะเน้นในขณะที่แอปพลิเคชันจะเปิดใช้งาน";
-
-/* No comment provided by engineer. */
-"Show in switcher" = "แสดงใน Switcher";
-
-/* No comment provided by engineer. */
-"Additional controls…" = "การควบคุมเพิ่มเติม ...";
-
-/* No comment provided by engineer. */
-"Shortcuts when active…" = "ทางลัดเมื่อใช้งาน ...";
-
-/* No comment provided by engineer. */
-"Preview the selected window." = "ดูตัวอย่างหน้าต่างที่เลือก";
-
-/* No comment provided by engineer. */
-"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "ขณะนี้ Alttab ถูกตั้งค่าให้แสดงแอปพลิเคชันการตั้งค่านี้จะใช้ได้เฉพาะเมื่อมีการตั้งค่า Alttab เพื่อแสดง Windows";
 

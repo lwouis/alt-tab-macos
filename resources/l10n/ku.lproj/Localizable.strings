@@ -17,7 +17,16 @@
 "Active screen" = "Paceya çalak";
 
 /* No comment provided by engineer. */
-"Active Space" = "Valahiya çalak";
+"Additional controls" = "Kontrolên zêde";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Kontrolên zêde ...";
+
+/* No comment provided by engineer. */
+"Advanced" = "Pêşveçû";
+
+/* No comment provided by engineer. */
+"After release" = "Piştî serbestberdanê";
 
 /* No comment provided by engineer. */
 "Align windows" = "Windows align";
@@ -38,16 +47,19 @@
 "Allowed" = "Destûrdayî";
 
 /* No comment provided by engineer. */
-"Alphabetical" = "Alphabetical";
-
-/* No comment provided by engineer. */
-"Also select windows using" = "Di heman wextî de pacê vebijêre, bi vî re";
+"Alphabetical Order" = "Alphabetical Order";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
 
 /* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab niha tête danîn ku serlêdanan nîşan bide.Ev mîhengê tenê heye dema ku Alttab tê danîn da ku Windows nîşan bide.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab hin destûran hewce dike";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab dê nîşan bide ka pencere niha bi îkonek statûyê kêm e an tevde ye.";
 
 /* No comment provided by engineer. */
 "Always" = "Always";
@@ -59,7 +71,16 @@
 "and press" = "û çapemeniyê";
 
 /* No comment provided by engineer. */
+"Animations" = "Animations";
+
+/* No comment provided by engineer. */
+"Animations…" = "Anîmasyon ...";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starting with)";
+
+/* No comment provided by engineer. */
+"App Icons" = "Iconên App";
 
 /* No comment provided by engineer. */
 "App is hidden" = "App is hidden";
@@ -74,10 +95,16 @@
 "Appearance" = "Dîtbarî";
 
 /* No comment provided by engineer. */
-"Are you sure you don’t want a response?" = "Gelo tu bi rastî jî bersivekê naxwazî?";
+"Application Name" = "Application Name";
 
 /* No comment provided by engineer. */
-"Arrow keys" = "Tîra tûşan";
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Serlêdan";
+
+/* No comment provided by engineer. */
+"Are you sure you don’t want a response?" = "Gelo tu bi rastî jî bersivekê naxwazî?";
 
 /* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
@@ -122,19 +149,28 @@
 "Crash reports policy" = "Siyaseta Raportên Crash";
 
 /* No comment provided by engineer. */
-"Cursor follows focus" = "Cursor follows focus";
+"Customize App Icons style…" = "Şêwaza îkonên îkonên xweş ...";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Şêwaza thumbnails xweş bikin ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Titles Sêwiranê xweş ...";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Tiştekî neke";
+
+/* No comment provided by engineer. */
+"Done" = "Dank";
 
 /* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Li nûjeniyan vedorî venenêre";
 
 /* No comment provided by engineer. */
 "Don’t send" = "Neşîne";
-
-/* No comment provided by engineer. */
-"Don’t show windows from these apps" = "Paceyên wan sepanan nîşan nede";
 
 /* No comment provided by engineer. */
 "End" = "Dawî";
@@ -146,19 +182,10 @@
 "Focus selected window" = "Focus selected window";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "Pencereya tevahî";
-
-/* No comment provided by engineer. */
-"Fullscreen windows" = "Windows-ê tevahî";
-
-/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
 
 /* No comment provided by engineer. */
 "General" = "Giştî";
-
-/* No comment provided by engineer. */
-"Hidden windows" = "Hidden windows";
 
 /* No comment provided by engineer. */
 "Hide" = "Hide";
@@ -182,10 +209,13 @@
 "Hide status icons" = "Hide status icons";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails" = "Hide window thumbnails";
+"Hide/Show app" = "Sepan Veşêrîn/Nîşandin";
 
 /* No comment provided by engineer. */
-"Hide/Show app" = "Sepan Veşêrîn/Nîşandin";
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
 
 /* No comment provided by engineer. */
 "Hold" = "Pêbigre";
@@ -197,19 +227,19 @@
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+"Large" = "Mezin";
 
 /* No comment provided by engineer. */
 "Latest releases" = "Geşedanên dawîn";
 
 /* No comment provided by engineer. */
-"Left" = "Çep";
+"Leading" = "Pêşkeftin";
 
 /* No comment provided by engineer. */
-"Max height on screen" = "Max height on screen";
+"Light" = "Light";
 
 /* No comment provided by engineer. */
-"Max width on screen" = "Max width on screen";
+"Medium" = "Medya";
 
 /* No comment provided by engineer. */
 "Menubar icon" = "Menubar icon";
@@ -221,25 +251,16 @@
 "Minimize/Deminimize window" = "Piçûbike/Mezinbike";
 
 /* No comment provided by engineer. */
-"Minimized windows" = "Minimized windows";
-
-/* No comment provided by engineer. */
-"Miscellaneous" = "Miscellaneous";
-
-/* No comment provided by engineer. */
-"Mouse hover" = "Mişk li ser birin";
+"Multiple screens" = "Dîwarên pirjimar";
 
 /* No comment provided by engineer. */
 "Never send crash reports" = "Qet çaran raporên qirçîn neşîne";
 
 /* No comment provided by engineer. */
-"Not allowed" = "Destûr nayê dayîn";
-
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "lîsansa GPL-3.0";
+"Normal" = "Normal";
 
 /* No comment provided by engineer. */
-"Only if the window is fullscreen" = "Tenê gava pace fullscreen bûye";
+"Not allowed" = "Destûr nayê dayîn";
 
 /* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";
@@ -248,7 +269,10 @@
 "Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
 
 /* No comment provided by engineer. */
-"Optional email (if you want a reply)" = "Vebijarkî email (Heke hûn bersivek dixwazin)";
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Fermana Windows by";
 
 /* No comment provided by engineer. */
 "Policies" = "Policies";
@@ -260,6 +284,9 @@
 "Preview selected window" = "Preview selected window";
 
 /* No comment provided by engineer. */
+"Preview the selected window." = "Pencereya hilbijartî pêşdîtin.";
+
+/* No comment provided by engineer. */
 "Quit" = "Jêderkeve";
 
 /* No comment provided by engineer. */
@@ -269,10 +296,10 @@
 "Quit app" = "Ji sepanê derkeve";
 
 /* No comment provided by engineer. */
-"Recently Created" = "Recently Created";
+"Recently Created First" = "Recently Created First";
 
 /* No comment provided by engineer. */
-"Recently Focused" = "Recently Focused";
+"Recently Focused First" = "Recently Focused First";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Tercîha min bîrbîne";
@@ -282,9 +309,6 @@
 
 /* No comment provided by engineer. */
 "Reset preferences and restart…" = "Reset preferences and restart…";
-
-/* No comment provided by engineer. */
-"Rows of thumbnails" = "Rows of thumbnails";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Paceya menu bar nişandî";
@@ -303,6 +327,15 @@
 
 /* No comment provided by engineer. */
 "Select previous window" = "Paceya pêşîn vebijêre";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Windows-ê li ser Hover Mouse hilbijêrin";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Windows bi karanîna bişkojkên arşê hilbijêrin";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Windows bi karanîna keysên VIM bikar bînin";
 
 /* No comment provided by engineer. */
 "Send" = "Bişîne";
@@ -341,13 +374,37 @@
 "Shortcut 5" = "Shortcut 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action %@" = "Shortcut already assigned to another action %@";
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Kurte dema çalak";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Kurte dema çalak ...";
 
 /* No comment provided by engineer. */
 "Show" = "Nîşandin";
 
 /* No comment provided by engineer. */
+"Show & Hide" = "Nîşan bide û veşêrin";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Ji bo her pencereyê, an ji bo her serîlêdanê tiştek nîşan bide.Windows dê balê bikişîne, li ku serlêdan dê were aktîfkirin.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "Show at the end";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Windows-ê ya tevahî nîşan bide";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Windows veşartî nîşan bide";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Di şûna guhêrbar de nîşan bide";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Windows-ê kêm nîşan bide";
 
 /* No comment provided by engineer. */
 "Show on" = "Nîşan bide";
@@ -356,13 +413,31 @@
 "Show standard tabs as windows" = "Tabên standar weke paceyan nîşan bide";
 
 /* No comment provided by engineer. */
-"Show windows from" = "Show windows from";
+"Show titles" = "Sernavan nîşan bide";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Windows ji serlêdanan nîşan bide";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Windows ji ekranan nîşan bide";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Windows ji Spaces nîşan bikin";
+
+/* No comment provided by engineer. */
+"Size" = "Mezinayî";
+
+/* No comment provided by engineer. */
+"Small" = "Biçûk";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Hin serlêdanên mîna finder an pêşgotinê tabên standard bikar bînin ku mîna pencereyên serbixwe tevdigerin.Hin serlêdanên din mîna gerokên malperê tabên xwerû bikar tînin ku bi awayên yekta tevbigerin û pencereyên rastîn ne.Alttab nikare wan ji hev veqetîne.";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Repositoriya jêderka kodan";
 
 /* No comment provided by engineer. */
-"Space" = "Space";
+"Space Order" = "Space Order";
 
 /* No comment provided by engineer. */
 "Start" = "Destpêk";
@@ -374,16 +449,31 @@
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Theme" = "Mijad";
+"Switch between 3 different styles. You can customize them." = "Di navbera 3 şêwazên cûda de veguherînin.Hûn dikarin wan xweş bikin.";
 
 /* No comment provided by engineer. */
-"Then release" = "Pişre berde";
+"System" = "System";
+
+/* No comment provided by engineer. */
+"Theme" = "Mijad";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Ev destûr ji bo gerûbûna paceyê pêwiste.";
 
 /* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Thumbnails";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Sernav Truncation";
+
+/* No comment provided by engineer. */
+"Titles" = "Sernav";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Kurteya zirav";
 
 /* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
@@ -398,10 +488,10 @@
 "View existing discussions" = "Niqaşên heyî bibînin";
 
 /* No comment provided by engineer. */
-"Vim keys" = "Vim keys";
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions\n%@" = "Vim keys already assigned to other actions\n%@";
+"Visibility" = "Dîtinî";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";
@@ -411,12 +501,6 @@
 
 /* No comment provided by engineer. */
 "When no open window" = "When no open window";
-
-/* No comment provided by engineer. */
-"While open, press" = "While open, press";
-
-/* No comment provided by engineer. */
-"Window app icon size" = "Mezinahîya îconên sepan ên paceyan";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Window is fullscreen";
@@ -431,188 +515,14 @@
 "Window is on Space %d" = "Window is on Space %d";
 
 /* No comment provided by engineer. */
-"Window max width in row" = "Window max width in row";
+"Window Title" = "Window Title";
 
 /* No comment provided by engineer. */
-"Window min width in row" = "Window min width in row";
-
-/* No comment provided by engineer. */
-"Window order" = "Window order";
-
-/* No comment provided by engineer. */
-"Window title font size" = "Mezinahîya fontên sernav ên paceya";
-
-/* No comment provided by engineer. */
-"Window title truncation" = "Birîna sernavê pacê";
+"Windows" = "Windows";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Te email xwe nenivisandiye, bi vî halî ji tere ti bersivek dê neyî şandin";
-
-/* No comment provided by engineer. */
-"Appearance size" = "Mezinahiya xuyangê";
-
-/* No comment provided by engineer. */
-"Show & Hide" = "Nîşan bide û veşêrin";
-
-/* No comment provided by engineer. */
-"Effects" = "Bandorên";
-
-/* No comment provided by engineer. */
-"Small" = "Biçûk";
-
-/* No comment provided by engineer. */
-"Medium" = "Medya";
-
-/* No comment provided by engineer. */
-"Large" = "Mezin";
-
-/* No comment provided by engineer. */
-"Thumbnails" = "Thumbnails";
-
-/* No comment provided by engineer. */
-"App Icons" = "Iconên App";
-
-/* No comment provided by engineer. */
-"Titles" = "Sernav";
-
-/* No comment provided by engineer. */
-"Centered" = "Navend kirin";
-
-/* No comment provided by engineer. */
-"Apple Centered" = "Apple Centered";
-
-/* No comment provided by engineer. */
-"Applications" = "Serlêdan";
-
-/* No comment provided by engineer. */
-"Windows" = "Windows";
-
-/* No comment provided by engineer. */
-"Window Titles" = "Sernavên pencereyê";
-
-/* No comment provided by engineer. */
-"Leading" = "Pêşkeftin";
-
-/* No comment provided by engineer. */
-"Show running" = "Rakirina nîşan";
-
-/* No comment provided by engineer. */
-"Show titles" = "Sernavan nîşan bide";
-
-/* No comment provided by engineer. */
-"Done" = "Dank";
-
-/* No comment provided by engineer. */
-"Advanced" = "Pêşveçû";
-
-/* No comment provided by engineer. */
-"Thumbnails Advanced…" = "Thumbnails Advanced ...";
-
-/* No comment provided by engineer. */
-"App Icons Advanced…" = "App Icons Advanced ...";
-
-/* No comment provided by engineer. */
-"Titles Advanced…" = "Sernav pêşkeftî ...";
-
-/* No comment provided by engineer. */
-"Advanced…" = "Pêşveçû…";
-
-/* No comment provided by engineer. */
-"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab dê nîşan bide ka pencere niha bi îkonek statûyê kêm e an tevde ye.";
-
-/* No comment provided by engineer. */
-"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Hin serlêdanên mîna finder an pêşgotinê tabên standard bikar bînin ku mîna pencereyên serbixwe tevdigerin.Hin serlêdanên din mîna gerokên malperê tabên xwerû bikar tînin ku bi awayên yekta tevbigerin û pencereyên rastîn ne.Alttab nikare wan ji hev veqetîne.";
-
-/* No comment provided by engineer. */
-"Trigger shortcut" = "Kurteya zirav";
-
-/* No comment provided by engineer. */
-"After release" = "Piştî serbestberdanê";
-
-/* No comment provided by engineer. */
-"Show windows from applications" = "Windows ji serlêdanan nîşan bide";
-
-/* No comment provided by engineer. */
-"Show windows from Spaces" = "Windows ji Spaces nîşan bikin";
-
-/* No comment provided by engineer. */
-"Show windows from screens" = "Windows ji ekranan nîşan bide";
-
-/* No comment provided by engineer. */
-"Show minimized windows" = "Windows-ê kêm nîşan bide";
-
-/* No comment provided by engineer. */
-"Show hidden windows" = "Windows veşartî nîşan bide";
-
-/* No comment provided by engineer. */
-"Show fullscreen windows" = "Windows-ê ya tevahî nîşan bide";
-
-/* No comment provided by engineer. */
-"Order windows by" = "Fermana Windows by";
-
-/* No comment provided by engineer. */
-"Select windows using arrow keys" = "Windows bi karanîna bişkojkên arşê hilbijêrin";
-
-/* No comment provided by engineer. */
-"Select windows using vim keys" = "Windows bi karanîna keysên VIM bikar bînin";
-
-/* No comment provided by engineer. */
-"Select windows on mouse hover" = "Windows-ê li ser Hover Mouse hilbijêrin";
-
-/* No comment provided by engineer. */
-"Additional controls" = "Kontrolên zêde";
-
-/* No comment provided by engineer. */
-"Shortcuts When Active" = "Kurte dema çalak";
-
-/* No comment provided by engineer. */
-"Animations…" = "Anîmasyon ...";
-
-/* No comment provided by engineer. */
-"Switch between 3 different styles. You can customize them." = "Di navbera 3 şêwazên cûda de veguherînin.Hûn dikarin wan xweş bikin.";
-
-/* No comment provided by engineer. */
-"Size" = "Mezinayî";
-
-/* No comment provided by engineer. */
-"Visibility" = "Dîtinî";
-
-/* No comment provided by engineer. */
-"Multiple screens" = "Dîwarên pirjimar";
-
-/* No comment provided by engineer. */
-"Customize Thumbnails style…" = "Şêwaza thumbnails xweş bikin ...";
-
-/* No comment provided by engineer. */
-"Customize App Icons style…" = "Şêwaza îkonên îkonên xweş ...";
-
-/* No comment provided by engineer. */
-"Customize Titles style…" = "Titles Sêwiranê xweş ...";
-
-/* No comment provided by engineer. */
-"Animations" = "Animations";
-
-/* No comment provided by engineer. */
-"Title truncation" = "Sernav Truncation";
-
-/* No comment provided by engineer. */
-"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Ji bo her pencereyê, an ji bo her serîlêdanê tiştek nîşan bide.Windows dê balê bikişîne, li ku serlêdan dê were aktîfkirin.";
-
-/* No comment provided by engineer. */
-"Show in switcher" = "Di şûna guhêrbar de nîşan bide";
-
-/* No comment provided by engineer. */
-"Additional controls…" = "Kontrolên zêde ...";
-
-/* No comment provided by engineer. */
-"Shortcuts when active…" = "Kurte dema çalak ...";
-
-/* No comment provided by engineer. */
-"Preview the selected window." = "Pencereya hilbijartî pêşdîtin.";
-
-/* No comment provided by engineer. */
-"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab niha tête danîn ku serlêdanan nîşan bide.Ev mîhengê tenê heye dema ku Alttab tê danîn da ku Windows nîşan bide.";
 

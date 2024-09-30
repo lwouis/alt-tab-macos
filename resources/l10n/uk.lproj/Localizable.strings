@@ -17,7 +17,16 @@
 "Active screen" = "Активних екранів";
 
 /* No comment provided by engineer. */
-"Active Space" = "Активне мисце";
+"Additional controls" = "Додаткові елементи управління";
+
+/* No comment provided by engineer. */
+"Additional controls…" = "Додаткові елементи управління ...";
+
+/* No comment provided by engineer. */
+"Advanced" = "Просунутий";
+
+/* No comment provided by engineer. */
+"After release" = "Після випуску";
 
 /* No comment provided by engineer. */
 "Align windows" = "Вирівнюйте вікна";
@@ -38,16 +47,19 @@
 "Allowed" = "Дозволено";
 
 /* No comment provided by engineer. */
-"Alphabetical" = "За алфавітом";
-
-/* No comment provided by engineer. */
-"Also select windows using" = "Також обрати вікна, що використовують";
+"Alphabetical Order" = "Alphabetical Order";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab вийшов з ладу востаннє, коли ви ним користувалися. Надсилання звіту про аварійне завершення роботи допоможе вирішити проблему";
 
 /* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Наразі Alttab налаштований на показ програми.Цей параметр доступний лише тоді, коли Alttab встановлений для показу Windows.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab потребує деяких дозволів";
+
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab покаже, чи вікно наразі мінімізоване або повне екран із значком статусу.";
 
 /* No comment provided by engineer. */
 "Always" = "Завжди";
@@ -59,7 +71,16 @@
 "and press" = "і пресувати";
 
 /* No comment provided by engineer. */
+"Animations" = "Анімація";
+
+/* No comment provided by engineer. */
+"Animations…" = "Анімації ...";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID починається з)";
+
+/* No comment provided by engineer. */
+"App Icons" = "Піктограми додатків";
 
 /* No comment provided by engineer. */
 "App is hidden" = "Прогама схована";
@@ -74,10 +95,16 @@
 "Appearance" = "Вiдображення";
 
 /* No comment provided by engineer. */
-"Are you sure you don’t want a response?" = "Ви впевнені, що не хочете відповіді?";
+"Application Name" = "Application Name";
 
 /* No comment provided by engineer. */
-"Arrow keys" = "Клавіші зі стрілками";
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Заявки";
+
+/* No comment provided by engineer. */
+"Are you sure you don’t want a response?" = "Ви впевнені, що не хочете відповіді?";
 
 /* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Запитувати чи надсилати звіт про збій";
@@ -122,19 +149,28 @@
 "Crash reports policy" = "Політика звітів про аварії";
 
 /* No comment provided by engineer. */
-"Cursor follows focus" = "Курсор слідує за фокусом";
+"Customize App Icons style…" = "Налаштуйте стиль ікон додатків…";
+
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Налаштуйте мініатюри стиль ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Налаштуйте стиль назви ...";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Нічого не робити";
+
+/* No comment provided by engineer. */
+"Done" = "Зроблений";
 
 /* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Не перевiряти оновлення час вiд часу";
 
 /* No comment provided by engineer. */
 "Don’t send" = "Не надсилати";
-
-/* No comment provided by engineer. */
-"Don’t show windows from these apps" = "Не відображати вікна ций програм";
 
 /* No comment provided by engineer. */
 "End" = "Завершити";
@@ -146,19 +182,10 @@
 "Focus selected window" = "Фокусуватись на обраному вікні";
 
 /* No comment provided by engineer. */
-"Fullscreen window" = "Повносектне вікно";
-
-/* No comment provided by engineer. */
-"Fullscreen windows" = "Повносекнні вікна";
-
-/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "На весь екран / вікно";
 
 /* No comment provided by engineer. */
 "General" = "Загальні";
-
-/* No comment provided by engineer. */
-"Hidden windows" = "Сховані вікна";
 
 /* No comment provided by engineer. */
 "Hide" = "Сховати";
@@ -182,10 +209,13 @@
 "Hide status icons" = "Сховати іконки статусу";
 
 /* No comment provided by engineer. */
-"Hide window thumbnails" = "Сховати мініатюри вікон";
+"Hide/Show app" = "Сховати/Показати програму";
 
 /* No comment provided by engineer. */
-"Hide/Show app" = "Сховати/Показати програму";
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
 
 /* No comment provided by engineer. */
 "Hold" = "Утримання";
@@ -197,19 +227,19 @@
 "Ignore shortcuts when active" = "Ігнорувати хоткей допоки активне";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts while a window from these apps is active" = "Ігнорувати ярлики поки вікна цих програм активні";
+"Large" = "Великий";
 
 /* No comment provided by engineer. */
 "Latest releases" = "Останнiй релiз";
 
 /* No comment provided by engineer. */
-"Left" = "Вліво";
+"Leading" = "Провідний";
 
 /* No comment provided by engineer. */
-"Max height on screen" = "Максимальна висота на екрані";
+"Light" = "Light";
 
 /* No comment provided by engineer. */
-"Max width on screen" = "Максимальна ширина на екрані";
+"Medium" = "Середній";
 
 /* No comment provided by engineer. */
 "Menubar icon" = "Менубар ікона";
@@ -221,25 +251,16 @@
 "Minimize/Deminimize window" = "Згорнути/Розгорнути вікно";
 
 /* No comment provided by engineer. */
-"Minimized windows" = "Згорнуті вікна";
-
-/* No comment provided by engineer. */
-"Miscellaneous" = "Різне";
-
-/* No comment provided by engineer. */
-"Mouse hover" = "Наведення миші";
+"Multiple screens" = "Кілька екранів";
 
 /* No comment provided by engineer. */
 "Never send crash reports" = "Ніколи не надсилати звіти про збої";
 
 /* No comment provided by engineer. */
-"Not allowed" = "Заборонено";
-
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 лiцензiя";
+"Normal" = "Normal";
 
 /* No comment provided by engineer. */
-"Only if the window is fullscreen" = "Тільки якщо вікно повноекранне";
+"Not allowed" = "Заборонено";
 
 /* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Відкрити Налаштування Доступності";
@@ -248,7 +269,10 @@
 "Open Screen Recording Preferences…" = "Відкрити Налаштування Запису Екрану...";
 
 /* No comment provided by engineer. */
-"Optional email (if you want a reply)" = "Опцiонально email(якщо бажаєте)";
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+
+/* No comment provided by engineer. */
+"Order windows by" = "Замовте Windows";
 
 /* No comment provided by engineer. */
 "Policies" = "Політика";
@@ -260,6 +284,9 @@
 "Preview selected window" = "Показувати превʼю вибраного вікна";
 
 /* No comment provided by engineer. */
+"Preview the selected window." = "Попередній перегляд вибраного вікна.";
+
+/* No comment provided by engineer. */
 "Quit" = "Вийти";
 
 /* No comment provided by engineer. */
@@ -269,10 +296,10 @@
 "Quit app" = "Вийти з програми";
 
 /* No comment provided by engineer. */
-"Recently Created" = "Недавно створені";
+"Recently Created First" = "Recently Created First";
 
 /* No comment provided by engineer. */
-"Recently Focused" = "Недавно фокусовані";
+"Recently Focused First" = "Recently Focused First";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Запамʼятати мій вибір";
@@ -282,9 +309,6 @@
 
 /* No comment provided by engineer. */
 "Reset preferences and restart…" = "Скинути налаштування + перезапустити";
-
-/* No comment provided by engineer. */
-"Rows of thumbnails" = "Рядки мініатюр";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Екран з панеллю меню";
@@ -303,6 +327,15 @@
 
 /* No comment provided by engineer. */
 "Select previous window" = "Вибрати попереднє вікно";
+
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Виберіть Windows на нависанні миші";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Виберіть Windows за допомогою клавіш зі стрілками";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Виберіть Windows за допомогою клавіш VIM";
 
 /* No comment provided by engineer. */
 "Send" = "Вiдправити";
@@ -341,13 +374,37 @@
 "Shortcut 5" = "Хоткей 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action %@" = "Ярлик уже призначено для іншої дії %@";
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Ярлики при активності";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Ярлики, коли активні…";
 
 /* No comment provided by engineer. */
 "Show" = "Показати";
 
 /* No comment provided by engineer. */
+"Show & Hide" = "Показати сховати";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Показати елемент у комутаторі для кожного вікна або для кожної програми.Windows буде зосереджена, тоді як програми будуть активовані.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "Відобразити в кінці";
+
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Показати повноекранні вікна";
+
+/* No comment provided by engineer. */
+"Show hidden windows" = "Показати приховані вікна";
+
+/* No comment provided by engineer. */
+"Show in switcher" = "Показати в комутаторі";
+
+/* No comment provided by engineer. */
+"Show minimized windows" = "Показати мінімізовані вікна";
 
 /* No comment provided by engineer. */
 "Show on" = "Проявляти";
@@ -356,13 +413,31 @@
 "Show standard tabs as windows" = "Відображати стандартні таби як вікна";
 
 /* No comment provided by engineer. */
-"Show windows from" = "Відобразити вікна від";
+"Show titles" = "Показати назви";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Показати Windows з програм";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Показати вікна з екранів";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Показати вікна з пробілів";
+
+/* No comment provided by engineer. */
+"Size" = "Розмір";
+
+/* No comment provided by engineer. */
+"Small" = "Невеликий";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Деякі програми, такі як Finder або Preview, використовують стандартні вкладки, які діють як незалежні Windows.Деякі інші програми, такі як веб -браузери, використовують власні вкладки, які діють унікальними способами і не є фактичними вікнами.Alttab не може перелічити їх окремо.";
 
 /* No comment provided by engineer. */
 "Source code repository" = "Репозиторій початкового коду";
 
 /* No comment provided by engineer. */
-"Space" = "Стільниця";
+"Space Order" = "Space Order";
 
 /* No comment provided by engineer. */
 "Start" = "Почати";
@@ -374,16 +449,31 @@
 "Support this project ❤️" = "Підтримати цей проєкт ❤️";
 
 /* No comment provided by engineer. */
-"Theme" = "Тема";
+"Switch between 3 different styles. You can customize them." = "Перемикайте між 3 різними стилями.Ви можете їх налаштувати.";
 
 /* No comment provided by engineer. */
-"Then release" = "Тоді випустити";
+"System" = "System";
+
+/* No comment provided by engineer. */
+"Theme" = "Тема";
 
 /* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Цей дозвіл потрібен для фокусування вікон після того, як ви відпустите ярлик";
 
 /* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "Цей дозвіл потрібен для показу скриншотів і заголовків відкритих вікон";
+
+/* No comment provided by engineer. */
+"Thumbnails" = "Мініатюри";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Зловмисна обрізка";
+
+/* No comment provided by engineer. */
+"Titles" = "Титули";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Тригерний ярлик";
 
 /* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Скасувати призначення наявного ярлика та продовжити";
@@ -398,10 +488,10 @@
 "View existing discussions" = "Переглянути наявні обговорення";
 
 /* No comment provided by engineer. */
-"Vim keys" = "Клавіші Vim";
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions\n%@" = "Клавіші Vim уже призначені для інших дій\n%@";
+"Visibility" = "Видимість";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Видимі Простори";
@@ -411,12 +501,6 @@
 
 /* No comment provided by engineer. */
 "When no open window" = "Коли жодного вікна не відкрито";
-
-/* No comment provided by engineer. */
-"While open, press" = "Доки відкрито, натисніть";
-
-/* No comment provided by engineer. */
-"Window app icon size" = "Розмір іконки вікна програми";
 
 /* No comment provided by engineer. */
 "Window is fullscreen" = "Вікно займає весь екран";
@@ -431,188 +515,14 @@
 "Window is on Space %d" = "Вікно на стільниці %d";
 
 /* No comment provided by engineer. */
-"Window max width in row" = "Максимальна ширина вікна в рядку";
+"Window Title" = "Window Title";
 
 /* No comment provided by engineer. */
-"Window min width in row" = "Мінімальна ширина вікна в рядку";
-
-/* No comment provided by engineer. */
-"Window order" = "Порядок вікон";
-
-/* No comment provided by engineer. */
-"Window title font size" = "Розмір шрифту заголовку вікна";
-
-/* No comment provided by engineer. */
-"Window title truncation" = "Скорочення заголовку вікна";
+"Windows" = "Вікна";
 
 /* No comment provided by engineer. */
 "You can’t undo this action." = "Ви не можете відмінити цю дію.";
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Ви не вказали свою електронну пошту, тому не можете отримати жодної відповіді.";
-
-/* No comment provided by engineer. */
-"Appearance size" = "Розмір зовнішнього вигляду";
-
-/* No comment provided by engineer. */
-"Show & Hide" = "Показати сховати";
-
-/* No comment provided by engineer. */
-"Effects" = "Ефект";
-
-/* No comment provided by engineer. */
-"Small" = "Невеликий";
-
-/* No comment provided by engineer. */
-"Medium" = "Середній";
-
-/* No comment provided by engineer. */
-"Large" = "Великий";
-
-/* No comment provided by engineer. */
-"Thumbnails" = "Мініатюри";
-
-/* No comment provided by engineer. */
-"App Icons" = "Піктограми додатків";
-
-/* No comment provided by engineer. */
-"Titles" = "Титули";
-
-/* No comment provided by engineer. */
-"Centered" = "Центральний";
-
-/* No comment provided by engineer. */
-"Apple Centered" = "Яблук зосереджений";
-
-/* No comment provided by engineer. */
-"Applications" = "Заявки";
-
-/* No comment provided by engineer. */
-"Windows" = "Вікна";
-
-/* No comment provided by engineer. */
-"Window Titles" = "Віконні назви";
-
-/* No comment provided by engineer. */
-"Leading" = "Провідний";
-
-/* No comment provided by engineer. */
-"Show running" = "Показати біг";
-
-/* No comment provided by engineer. */
-"Show titles" = "Показати назви";
-
-/* No comment provided by engineer. */
-"Done" = "Зроблений";
-
-/* No comment provided by engineer. */
-"Advanced" = "Просунутий";
-
-/* No comment provided by engineer. */
-"Thumbnails Advanced…" = "Ескізи просунулися ...";
-
-/* No comment provided by engineer. */
-"App Icons Advanced…" = "Піктограми додатків просунулися ...";
-
-/* No comment provided by engineer. */
-"Titles Advanced…" = "Назви просунулися ...";
-
-/* No comment provided by engineer. */
-"Advanced…" = "Просунута…";
-
-/* No comment provided by engineer. */
-"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab покаже, чи вікно наразі мінімізоване або повне екран із значком статусу.";
-
-/* No comment provided by engineer. */
-"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Деякі програми, такі як Finder або Preview, використовують стандартні вкладки, які діють як незалежні Windows.Деякі інші програми, такі як веб -браузери, використовують власні вкладки, які діють унікальними способами і не є фактичними вікнами.Alttab не може перелічити їх окремо.";
-
-/* No comment provided by engineer. */
-"Trigger shortcut" = "Тригерний ярлик";
-
-/* No comment provided by engineer. */
-"After release" = "Після випуску";
-
-/* No comment provided by engineer. */
-"Show windows from applications" = "Показати Windows з програм";
-
-/* No comment provided by engineer. */
-"Show windows from Spaces" = "Показати вікна з пробілів";
-
-/* No comment provided by engineer. */
-"Show windows from screens" = "Показати вікна з екранів";
-
-/* No comment provided by engineer. */
-"Show minimized windows" = "Показати мінімізовані вікна";
-
-/* No comment provided by engineer. */
-"Show hidden windows" = "Показати приховані вікна";
-
-/* No comment provided by engineer. */
-"Show fullscreen windows" = "Показати повноекранні вікна";
-
-/* No comment provided by engineer. */
-"Order windows by" = "Замовте Windows";
-
-/* No comment provided by engineer. */
-"Select windows using arrow keys" = "Виберіть Windows за допомогою клавіш зі стрілками";
-
-/* No comment provided by engineer. */
-"Select windows using vim keys" = "Виберіть Windows за допомогою клавіш VIM";
-
-/* No comment provided by engineer. */
-"Select windows on mouse hover" = "Виберіть Windows на нависанні миші";
-
-/* No comment provided by engineer. */
-"Additional controls" = "Додаткові елементи управління";
-
-/* No comment provided by engineer. */
-"Shortcuts When Active" = "Ярлики при активності";
-
-/* No comment provided by engineer. */
-"Animations…" = "Анімації ...";
-
-/* No comment provided by engineer. */
-"Switch between 3 different styles. You can customize them." = "Перемикайте між 3 різними стилями.Ви можете їх налаштувати.";
-
-/* No comment provided by engineer. */
-"Size" = "Розмір";
-
-/* No comment provided by engineer. */
-"Visibility" = "Видимість";
-
-/* No comment provided by engineer. */
-"Multiple screens" = "Кілька екранів";
-
-/* No comment provided by engineer. */
-"Customize Thumbnails style…" = "Налаштуйте мініатюри стиль ...";
-
-/* No comment provided by engineer. */
-"Customize App Icons style…" = "Налаштуйте стиль ікон додатків…";
-
-/* No comment provided by engineer. */
-"Customize Titles style…" = "Налаштуйте стиль назви ...";
-
-/* No comment provided by engineer. */
-"Animations" = "Анімація";
-
-/* No comment provided by engineer. */
-"Title truncation" = "Зловмисна обрізка";
-
-/* No comment provided by engineer. */
-"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Показати елемент у комутаторі для кожного вікна або для кожної програми.Windows буде зосереджена, тоді як програми будуть активовані.";
-
-/* No comment provided by engineer. */
-"Show in switcher" = "Показати в комутаторі";
-
-/* No comment provided by engineer. */
-"Additional controls…" = "Додаткові елементи управління ...";
-
-/* No comment provided by engineer. */
-"Shortcuts when active…" = "Ярлики, коли активні…";
-
-/* No comment provided by engineer. */
-"Preview the selected window." = "Попередній перегляд вибраного вікна.";
-
-/* No comment provided by engineer. */
-"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Наразі Alttab налаштований на показ програми.Цей параметр доступний лише тоді, коли Alttab встановлений для показу Windows.";
 
