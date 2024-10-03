@@ -119,7 +119,7 @@ class Window: CustomStringConvertible {
         for notification in Window.notifications {
             retryAxCallUntilTimeout { [weak self] in
                 guard let self = self else { return }
-                try self.axUiElement.subscribeToNotification(axObserver, notification, nil, nil, self.cgWindowId)
+                try self.axUiElement.subscribeToNotification(axObserver, notification, nil)
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)

@@ -5,7 +5,6 @@ struct ShowHideRowInfo {
     var uncheckedImage: String!
     var checkedImage: String!
     var supportedStyles: [AppearanceStylePreference]!
-    var leftTitle: String!
     var subTitle: String?
     var leftViews = [NSView]()
     var rightViews = [NSView]()
@@ -380,8 +379,6 @@ class Popover: NSPopover {
 }
 
 class AppearanceTab: NSObject {
-    static var shared = AppearanceTab()
-
     static var customizeStyleButton: NSButton!
     static var animationsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!

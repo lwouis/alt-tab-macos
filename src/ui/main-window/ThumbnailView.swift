@@ -22,12 +22,10 @@ class ThumbnailView: NSStackView {
 
     var hStackView: NSStackView!
     var vStackView: NSStackView!
-    var labelStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
     var indexInRecycledViews: Int!
-    var shouldShowWindowControls = false
     var isShowingWindowControls = false
     var windowlessIcon = NSImageView()
 
@@ -185,7 +183,7 @@ class ThumbnailView: NSStackView {
         }
     }
 
-    func drawHighlight(_ i: Int) {
+    func drawHighlight() {
         let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         setBackground(isFocused: isFocused, isHovered: isHovered)
@@ -603,10 +601,6 @@ class ThumbnailView: NSStackView {
             }
         }
         return NSSize(width: Appearance.iconSize, height: Appearance.iconSize)
-    }
-
-    func getWindowControlWidth() -> CGFloat {
-        return (ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing) * CGFloat(windowControlIcons.count)
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {

@@ -363,12 +363,6 @@ class Windows {
 
         return sortedWindows.first
     }
-
-    static func findWindowGroup(_ window: Window) -> [Window] {
-        let windowsGroupedByApp = Dictionary(grouping: Windows.list) { $0.application.pid }
-        return windowsGroupedByApp[window.application.pid]!
-    }
-
 }
 
 func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {

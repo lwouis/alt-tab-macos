@@ -115,7 +115,7 @@ extension AXUIElement {
                 ) && (
                     mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
                         mustHaveIfSteam(runningApp, title, role) &&
-                        mustHaveIfColorSlurp(runningApp, title, subrole)
+                        mustHaveIfColorSlurp(runningApp, subrole)
                 )
             )
         )
@@ -131,7 +131,7 @@ extension AXUIElement {
         )
     }
 
-    private static func mustHaveIfColorSlurp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?) -> Bool {
+    private static func mustHaveIfColorSlurp(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
         return runningApp.bundleIdentifier != "com.IdeaPunch.ColorSlurp" || subrole == kAXStandardWindowSubrole
     }
 
@@ -253,6 +253,7 @@ extension AXUIElement {
         return try attribute(kAXTitleAttribute, String.self)
     }
 
+    // periphery:ignore
     func parent() throws -> AXUIElement? {
         return try attribute(kAXParentAttribute, AXUIElement.self)
     }
@@ -297,7 +298,7 @@ extension AXUIElement {
         performAction(kAXRaiseAction)
     }
 
-    func subscribeToNotification(_ axObserver: AXObserver, _ notification: String, _ callback: (() -> Void)? = nil, _ runningApplication: NSRunningApplication? = nil, _ wid: CGWindowID? = nil, _ startTime: DispatchTime = DispatchTime.now()) throws {
+    func subscribeToNotification(_ axObserver: AXObserver, _ notification: String, _ callback: (() -> Void)? = nil) throws {
         let result = AXObserverAddNotification(axObserver, self, notification as CFString, nil)
         if result == .success || result == .notificationAlreadyRegistered {
             callback?()

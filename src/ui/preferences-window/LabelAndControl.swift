@@ -60,6 +60,7 @@ class ClickHoverImageView: MouseHoverView {
 }
 
 class LabelAndControl: NSObject {
+    // periphery:ignore
     static func makeLabelWithImageRadioButtons(_ labelText: String,
                                                _ rawName: String,
                                                _ values: [ImageMacroPreference],
@@ -106,6 +107,7 @@ class LabelAndControl: NSObject {
         return views
     }
 
+    // periphery:ignore
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : " ", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
@@ -120,6 +122,7 @@ class LabelAndControl: NSObject {
         return button
     }
 
+    // periphery:ignore
     static func makeCheckbox(_ rawName: String, extraAction: ActionClosure? = nil) -> NSButton {
         let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
@@ -162,6 +165,7 @@ class LabelAndControl: NSObject {
         return view
     }
 
+    // periphery:ignore
     static func makeLabelWithCheckboxAndInfoButton(_ labelText: String,
                                                    _ rawName: String,
                                                    extraAction: ActionClosure? = nil,
@@ -188,6 +192,7 @@ class LabelAndControl: NSObject {
         return [hStack]
     }
 
+    // periphery:ignore
     static func makeTextArea(_ nCharactersWide: CGFloat, _ nLinesHigh: Int, _ placeholder: String, _ rawName: String, extraAction: ActionClosure? = nil) -> [NSView] {
         let textArea = TextArea(nCharactersWide, nLinesHigh, placeholder)
         textArea.callback = {
@@ -197,10 +202,6 @@ class LabelAndControl: NSObject {
         textArea.identifier = NSUserInterfaceItemIdentifier(rawName)
         textArea.stringValue = defaults.string(rawName)
         return [textArea]
-    }
-
-    static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [MacroPreference], _ suffixText: String? = nil, extraAction: ActionClosure? = nil) -> [NSView] {
-        return makeLabelWithProvidedControl(labelText, rawName, dropdown_(rawName, values), suffixText, extraAction: extraAction)
     }
 
     static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
@@ -217,6 +218,7 @@ class LabelAndControl: NSObject {
         return setupControl(dropdown, rawName, extraAction: extraAction) as! NSPopUpButton
     }
 
+    // periphery:ignore
     static func makeLabelWithRadioButtons(_ labelText: String,
                                           _ rawName: String,
                                           _ values: [MacroPreference],
@@ -299,7 +301,7 @@ class LabelAndControl: NSObject {
         if labelPosition == .right && control is NSButton {
             return [control]
         }
-        let label = makeLabel(labelText, labelPosition)
+        let label = makeLabel(labelText)
         if labelPosition == .right {
             if let suffixText = suffixText {
                 return [control, label, makeSuffix(rawName, suffixText, suffixUrl)]
@@ -340,7 +342,7 @@ class LabelAndControl: NSObject {
         }
     }
 
-    static func makeLabel(_ labelText: String, _ labelPosition: LabelPosition = .leftWithoutSeparator, shouldFit: Bool = true) -> NSTextField {
+    static func makeLabel(_ labelText: String, shouldFit: Bool = true) -> NSTextField {
         let label = TextField(labelText)
         label.isSelectable = false
         label.usesSingleLineMode = true
@@ -401,56 +403,4 @@ class LabelAndControl: NSObject {
 
 enum ControlIdentifierDiscriminator: String {
     case SUFFIX = "_suffix"
-}
-
-class TabView: NSTabView, NSTabViewDelegate {
-    // removing insets fixes a bug where tab views shift to the right and bottom by 7px when switching to tab #2
-    let insets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    override var alignmentRectInsets: NSEdgeInsets {
-        get {
-            insets
-        }
-    }
-
-    // workaround: this is the only I found to have NSTabView fittingSize be correct
-    override var intrinsicContentSize: NSSize {
-        get {
-            NSSize(width: selectedTabViewItem!.view!.fittingSize.width + TabView.padding * 2,
-                    height: selectedTabViewItem!.view!.fittingSize.height + TabView.padding * 2 + subviews[0].frame.height)
-        }
-    }
-
-    static let padding = CGFloat(7)
-
-    convenience init(_ labelsAndViews: [(String, NSView)]) {
-        self.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
-        labelsAndViews.enumerated().forEach { (i, tuple) in
-            let containerView = NSView()
-            containerView.addSubview(tuple.1)
-            containerView.widthAnchor.constraint(greaterThanOrEqualTo: tuple.1.widthAnchor).isActive = true
-            containerView.heightAnchor.constraint(greaterThanOrEqualTo: tuple.1.heightAnchor).isActive = true
-            let tab = NSTabViewItem(identifier: i)
-            tab.label = tuple.0
-            tab.view = containerView
-            addTabViewItem(tab)
-            tuple.1.fit()
-        }
-    }
-
-    func maxIntrinsicContentSize() -> NSSize {
-        var maxWidth: CGFloat = 0
-        var maxHeight: CGFloat = 0
-
-        for tabViewItem in tabViewItems {
-            if let view = tabViewItem.view {
-                let width = view.fittingSize.width + TabView.padding * 2
-                let height = view.fittingSize.height + TabView.padding * 2 + subviews[0].frame.height
-                maxWidth = max(maxWidth, width)
-                maxHeight = max(maxHeight, height)
-            }
-        }
-
-        return NSSize(width: maxWidth, height: maxHeight)
-    }
 }

@@ -42,9 +42,7 @@ class ImageTextButtonView: NSStackView {
 
     init(title: String, rawName: String, image: WidthHeightImage,
          state: NSControl.StateValue = .off,
-         onClick: ActionClosure? = nil,
          spacing: CGFloat = ImageTextButtonView.spacing,
-         padding: CGFloat = ImageTextButtonView.padding,
          cornerRadius: CGFloat = ImageTextButtonView.cornerRadius) {
         super.init(frame: .zero)
 

@@ -100,7 +100,7 @@ class TableGroupSetView: NSStackView {
             continuousTableGroups.removeAll()
 
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding, alignment: .leading)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
             views.append(stackView)
         }
     }
@@ -115,7 +115,7 @@ class TableGroupSetView: NSStackView {
             continuousOthers.removeAll()
 
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding, alignment: alignment)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
             views.append(stackView)
         }
     }
@@ -129,12 +129,12 @@ class TableGroupSetView: NSStackView {
             stackView.setViews(originalViews, in: .leading)
 
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding, alignment: alignment)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
             views.append(stackView)
         }
     }
 
-    func setStackViewConstraints(_ stackView: NSStackView, isFirst: Bool, padding: CGFloat, alignment: NSLayoutConstraint.Attribute) {
+    func setStackViewConstraints(_ stackView: NSStackView, isFirst: Bool, padding: CGFloat) {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         if isFirst {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: padding).isActive = true
@@ -152,8 +152,6 @@ class TableGroupView: ClickHoverStackView {
     static let rowIntraSpacing = CGFloat(5)
     static let cornerRadius = CGFloat(5)
     static let borderWidth = CGFloat(1)
-
-    private var lastMouseEnteredRowInfo: RowInfo?
 
     var title: String?
     var subTitle: String?
@@ -180,17 +178,14 @@ class TableGroupView: ClickHoverStackView {
     }
 
     class RowInfo {
-        let id: Int
         let view: NSView
         var previousSeparator: NSView?
         var nextSeparator: NSView?
 
         var leftViews: [NSView]?
         var rightViews: [NSView]?
-        var secondaryViews: [NSView]?
 
-        init(id: Int, view: NSView, previousSeparator: NSView? = nil, nextSeparator: NSView? = nil) {
-            self.id = id
+        init(view: NSView, previousSeparator: NSView? = nil, nextSeparator: NSView? = nil) {
             self.view = view
             self.previousSeparator = previousSeparator
             self.nextSeparator = nextSeparator
@@ -357,13 +352,13 @@ class TableGroupView: ClickHoverStackView {
         setMainRow(mainRow, in: rowView)
 
         if let subText = subText {
-            let subLabel = createSubLabel(with: subText, rightViewsWidth: mainRow.arrangedSubviews[2].fittingSize.width)
+            let subLabel = createSubLabel(with: subText)
             setSecondaryRow([subLabel], rowView: rowView, mainRow: mainRow)
         } else {
             mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
         }
 
-        let rowInfo = RowInfo(id: rows.count, view: rowView)
+        let rowInfo = RowInfo(view: rowView)
         rowInfo.leftViews = leftViews
         rowInfo.rightViews = rightViews
         let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
@@ -392,10 +387,9 @@ class TableGroupView: ClickHoverStackView {
             mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
         }
 
-        let rowInfo = RowInfo(id: rows.count, view: rowView)
+        let rowInfo = RowInfo(view: rowView)
         rowInfo.leftViews = leftViews
         rowInfo.rightViews = rightViews
-        rowInfo.secondaryViews = secondaryViews
         let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
         finalizeRow(tableStackView: tableStackView, rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
                 onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
@@ -406,7 +400,7 @@ class TableGroupView: ClickHoverStackView {
 
     private func finalizeRow(tableStackView: NSStackView, rowInfo: RowInfo, rowView: ClickHoverStackView, isAddSeparator: Bool,
                              onClick: EventClosure?, onMouseEntered: EventClosure?, onMouseExited: EventClosure?) {
-        rowInfo.previousSeparator = addSeparatorIfNeeded(tableStackView: tableStackView, below: rowView, isAddSeparator: isAddSeparator)
+        rowInfo.previousSeparator = addSeparatorIfNeeded(tableStackView: tableStackView, isAddSeparator: isAddSeparator)
 
         tableStackViews.last?.addArrangedSubview(rowView)
         setRowViewEvents(rowView, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
@@ -430,11 +424,6 @@ class TableGroupView: ClickHoverStackView {
         leftLabel.lineBreakMode = .byWordWrapping
         leftLabel.maximumNumberOfLines = 0
         return leftLabel
-    }
-
-    private func createMainRow(leftText: String?, rightViews: [NSView]?) -> NSStackView {
-        let leftLabel = TableGroupView.makeText(leftText)
-        return createMainRow(leftViews: [leftLabel], rightViews: rightViews)
     }
 
     private func createMainRow(leftViews: [NSView]?, rightViews: [NSView]?) -> NSStackView {
@@ -483,7 +472,7 @@ class TableGroupView: ClickHoverStackView {
         mainRow.heightAnchor.constraint(equalToConstant: mainRow.fittingSize.height).isActive = true
     }
 
-    private func createSubLabel(with text: String, rightViewsWidth: CGFloat) -> NSTextField {
+    private func createSubLabel(with text: String) -> NSTextField {
         let subLabel = NSTextField(wrappingLabelWithString: text)
         subLabel.font = NSFont.systemFont(ofSize: 12)
         subLabel.textColor = .gray
@@ -532,7 +521,7 @@ class TableGroupView: ClickHoverStackView {
         }
     }
 
-    private func addSeparatorIfNeeded(tableStackView: NSStackView, below rowView: NSView, isAddSeparator: Bool = true) -> NSView? {
+    private func addSeparatorIfNeeded(tableStackView: NSStackView, isAddSeparator: Bool = true) -> NSView? {
         guard !rows.isEmpty else { return nil }
         guard isAddSeparator else { return nil }
 
@@ -564,7 +553,6 @@ class TableGroupView: ClickHoverStackView {
         rowView.onMouseEntered = { event, view in
             if let onMouseEntered = onMouseEntered {
                 if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
-                    self.lastMouseEnteredRowInfo = rowInfo
                     self.addMouseEnteredEffects(rowInfo)
                     onMouseEntered(event, view)
                 }
@@ -576,12 +564,6 @@ class TableGroupView: ClickHoverStackView {
                 self.addMouseExitedEffects(rowInfo)
                 onMouseExited?(event, view)
             }
-        }
-    }
-
-    func removeLastMouseEnteredEffects() {
-        if let lastMouseEnteredRowInfo = lastMouseEnteredRowInfo {
-            self.addMouseExitedEffects(lastMouseEnteredRowInfo)
         }
     }
 
@@ -605,14 +587,6 @@ class TableGroupView: ClickHoverStackView {
                 separator.removeConstraint(existingWidthConstraint)
             }
             separator.widthAnchor.constraint(equalToConstant: width).isActive = true
-        }
-    }
-
-    func removeRow(byId id: Int) {
-        if let index = rows.firstIndex(where: { $0.id == id }) {
-            rows[index].view.removeFromSuperview()
-            rows.remove(at: index)
-            updateRowCornerRadius()
         }
     }
 

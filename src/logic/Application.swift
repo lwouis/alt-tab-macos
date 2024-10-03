@@ -202,7 +202,7 @@ class Application: NSObject {
                             self.manuallyUpdateWindows()
                         }
                     }
-                }, self.runningApplication)
+                })
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)

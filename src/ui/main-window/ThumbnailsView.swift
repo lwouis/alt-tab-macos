@@ -32,7 +32,7 @@ class ThumbnailsView: NSVisualEffectView {
         let view = recycledViews[indexInRecycledViews]
         view.indexInRecycledViews = indexInRecycledViews
         if view.frame != NSRect.zero {
-            view.drawHighlight(indexInRecycledViews)
+            view.drawHighlight()
         }
     }
 

@@ -1,13 +1,6 @@
 import Cocoa
 import Darwin
 
-extension Collection {
-    // recursive flatMap
-    func joined() -> [Any] {
-        return flatMap { ($0 as? [Any])?.joined() ?? [$0] }
-    }
-}
-
 extension NSAppearance {
     func getThemeName() -> AppearanceThemePreference {
         if #available(macOS 10.14, *) {
@@ -21,7 +14,7 @@ extension NSAppearance {
 }
 
 extension NSColor {
-
+    // periphery:ignore
     func toHex() -> String? {
         guard let rgbColor = usingColorSpace(.deviceRGB) else {
             return nil
@@ -80,36 +73,6 @@ extension NSColor {
         }
         // #ebebeb
         return NSColor(srgbRed: 235/255, green: 235/255, blue: 235/255, alpha: 0.8)
-    }
-
-    class var switchBorderColor: NSColor {
-        // #414141
-        if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 75/255, green: 75/255, blue: 75/255, alpha: 1)
-
-        }
-        // #d2d2d2
-        return NSColor(srgbRed: 210/255, green: 210/255, blue: 210/255, alpha: 1)
-    }
-
-    class var switchOffBackgroundColor: NSColor {
-        // #414141
-        if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 65/255, green: 65/255, blue: 65/255, alpha: 1)
-
-        }
-        // #d9d9d9
-        return NSColor(srgbRed: 217/255, green: 217/255, blue: 217/255, alpha: 1)
-    }
-
-    class var switchKnobColor: NSColor {
-        // #cacaca
-        if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 202/255, green: 202/255, blue: 202/255, alpha: 1)
-
-        }
-        // #ffffff
-        return NSColor.white
     }
 }
 
@@ -206,26 +169,6 @@ extension DispatchQoS {
     }
 }
 
-extension NSGridColumn {
-    func width(_ skipCell: Int? = nil) -> CGFloat {
-        var maxWidth = CGFloat(0)
-        for i in (0..<numberOfCells) {
-            if let skipCell = skipCell, i == skipCell { continue }
-            maxWidth = max(maxWidth, cell(at: i).contentView!.fittingSize.width)
-        }
-        return maxWidth
-    }
-}
-
-extension NSViewController {
-    func setView(_ subview: NSView) {
-        view = NSView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.subviews = [subview]
-        subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-}
-
 extension NSImage {
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
     static func initCopy(_ name: String) -> NSImage {
@@ -247,19 +190,6 @@ extension NSImage {
         original.draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, original.size.width, original.size.height), operation: .copy, fraction: 1)
         img.unlockFocus()
         return img
-    }
-
-    func tinted(_ tint: NSColor) -> NSImage {
-        let dimmed = copy() as! NSImage
-        let scaling = NSScreen.withMouse()?.backingScaleFactor ?? 1
-        let scaledSize = NSSize(width: (size.width * scaling).rounded(), height: (size.height * scaling).rounded())
-        dimmed.size = scaledSize
-        dimmed.lockFocus()
-        tint.set()
-        let imageRect = NSRect(origin: .zero, size: scaledSize)
-        imageRect.fill(using: .sourceAtop)
-        dimmed.unlockFocus()
-        return dimmed
     }
 }
 

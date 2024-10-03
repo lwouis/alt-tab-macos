@@ -9,7 +9,7 @@ class WorkspaceEvents {
         appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: observerCallback)
     }
 
-    static func observerCallback<A>(_ application: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
+    static func observerCallback<A>(_: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
         let workspaceApps = Set(NSWorkspace.shared.runningApplications)
         // TODO: symmetricDifference has bad performance
         let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))

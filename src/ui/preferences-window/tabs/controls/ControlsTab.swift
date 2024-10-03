@@ -35,8 +35,7 @@ class ControlsTab {
     static var arrowKeysCheckbox: Switch!
     static var vimKeysCheckbox: Switch!
 
-    static var tabViews: [TableGroupView]!
-    static var view: TableGroupSetView!
+    static var tableGroupViews: [TableGroupView]!
 
     static var shortcutsWhenActiveSheet: ShortcutsWhenActiveSheet!
     static var additionalControlsSheet: AdditionalControlsSheet!
@@ -47,12 +46,12 @@ class ControlsTab {
         let (holdShortcut3, nextWindowShortcut3, tab3View) = toShowSection(2)
         let (holdShortcut4, nextWindowShortcut4, tab4View) = toShowSection(3)
         let (holdShortcut5, nextWindowShortcut5, tab5View) = toShowSection(4)
-        tabViews = [tab1View, tab2View, tab3View, tab4View, tab5View]
+        tableGroupViews = [tab1View, tab2View, tab3View, tab4View, tab5View]
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
         [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3, nextWindowShortcut4, nextWindowShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
 
-        let tabs = StackView(tabViews, .vertical)
+        let tabs = StackView(tableGroupViews, .vertical)
         tabs.translatesAutoresizingMaskIntoConstraints = false
         tabs.fit()
 
@@ -74,7 +73,6 @@ class ControlsTab {
         let tools = StackView([additionalControlsButton, shortcutsButton], .horizontal)
         let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab4View, tab5View], toolsViews: [tools], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
-        ControlsTab.view = view
 
         shortcutsWhenActiveSheet = ShortcutsWhenActiveSheet()
         additionalControlsSheet = AdditionalControlsSheet()
@@ -120,7 +118,7 @@ class ControlsTab {
     }
 
     static func switchIndexTab(_ selectedIndex: Int) {
-        ControlsTab.tabViews.enumerated().forEach { (index, view) in
+        ControlsTab.tableGroupViews.enumerated().forEach { (index, view) in
             if selectedIndex == index {
                 view.isHidden = false
             } else {

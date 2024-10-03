@@ -119,7 +119,9 @@ class Preferences {
     static var toggleFullscreenWindowShortcut: String { defaults.string("toggleFullscreenWindowShortcut") }
     static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
+    // periphery:ignore
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
+    // periphery:ignore
     static var vimKeysEnabled: Bool { defaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
@@ -130,6 +132,7 @@ class Preferences {
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
+    // periphery:ignore
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
@@ -139,6 +142,7 @@ class Preferences {
     static var appearanceSize: AppearanceSizePreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
     static var appearanceTheme: AppearanceThemePreference { defaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
     static var appearanceVisibility: AppearanceVisibilityPreference { defaults.macroPref("appearanceVisibility", AppearanceVisibilityPreference.allCases) }
+    // periphery:ignore
     static var theme: ThemePreference { ThemePreference.macOs/*defaults.macroPref("theme", ThemePreference.allCases)*/ }
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
@@ -485,6 +489,7 @@ protocol ImageMacroPreference: MacroPreference {
     var image: WidthHeightImage { get }
 }
 
+// periphery:ignore
 struct ThemeParameters {
     let label: String
     let cellCornerRadius: CGFloat
@@ -733,6 +738,7 @@ enum ThemePreference: String, CaseIterable, ImageMacroPreference {
         }
     }
 
+    // periphery:ignore
     var themeParameters: ThemeParameters {
         switch self {
             case .macOs: return ThemeParameters(label: localizedString, cellCornerRadius: 10, windowCornerRadius: 23)
@@ -881,10 +887,6 @@ extension UserDefaults {
 
     func bool(_ key: String) -> Bool {
         return getThenConvertOrReset(key, { s in Bool(s) })
-    }
-
-    func cgfloat(_ key: String) -> CGFloat {
-        return getThenConvertOrReset(key, { s in Int(s).flatMap { CGFloat($0) } })
     }
 
     func double(_ key: String) -> Double {

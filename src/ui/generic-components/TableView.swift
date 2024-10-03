@@ -15,7 +15,7 @@ class BlacklistView: NSScrollView {
 class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
     var items = Preferences.blacklist
 
-    convenience init(_ dummy: Int?) {
+    convenience init(_: Int?) {
         self.init()
         translatesAutoresizingMaskIntoConstraints = false
         delegate = self

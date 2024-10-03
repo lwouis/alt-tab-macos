@@ -2,7 +2,6 @@ import Cocoa
 
 // macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy
 class SystemPermissions {
-    static var changeCallback: (() -> Void)!
     static var timer: Timer!
 
     static func accessibilityIsGranted() -> Bool {

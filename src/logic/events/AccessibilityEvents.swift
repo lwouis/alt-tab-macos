@@ -2,7 +2,7 @@ import Cocoa
 import ApplicationServices.HIServices.AXUIElement
 import ApplicationServices.HIServices.AXNotificationConstants
 
-func axObserverCallback(observer: AXObserver, element: AXUIElement, notificationName: CFString, _: UnsafeMutableRawPointer?) -> Void {
+let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
     let type = notificationName as String
     retryAxCallUntilTimeout { try handleEvent(type, element) }
 }
@@ -22,7 +22,7 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
             case kAXUIElementDestroyedNotification: try windowDestroyed(element, pid)
             case kAXWindowMiniaturizedNotification,
                  kAXWindowDeminiaturizedNotification: try windowMiniaturizedOrDeminiaturized(element, type)
-            case kAXTitleChangedNotification: try windowTitleChanged(element, pid)
+            case kAXTitleChangedNotification: try windowTitleChanged(element)
             case kAXWindowResizedNotification,
                  kAXWindowMovedNotification: try windowResizedOrMoved(element)
             default: return
@@ -161,7 +161,7 @@ fileprivate func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ ty
     }
 }
 
-fileprivate func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws {
+fileprivate func windowTitleChanged(_ element: AXUIElement) throws {
     if let wid = try element.cgWindowId() {
         let newTitle = try element.title()
         DispatchQueue.main.async {

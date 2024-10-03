@@ -9,6 +9,7 @@ extension NSScreen {
         return ratio() >= 1
     }
 
+    // periphery:ignore
     func refreshRate() -> Double? {
         if let screenNumber = deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID,
            let screenMode = CGDisplayCopyDisplayMode(screenNumber) {

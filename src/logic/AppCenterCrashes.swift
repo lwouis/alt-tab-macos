@@ -27,6 +27,7 @@ class AppCenterCrash: NSObject, CrashesDelegate {
         }
     }
 
+    // periphery:ignore
     func confirmationHandler(_ errorReports: [ErrorReport]) -> Bool {
         self.initNecessaryFacilities()
         let shouldSend = checkIfShouldSend()

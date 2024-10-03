@@ -6,6 +6,7 @@ import AppCenterCrashes
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
+// periphery:ignore
 var activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
     reason: "Prevent App Nap to preserve responsiveness")
 
@@ -27,6 +28,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var appIsBeingUsed = false
     var globalShortcutsAreDisabled = false
     var shortcutIndex = 0
+    // periphery:ignore
     var appCenterDelegate: AppCenterCrash?
     // multiple delayed display triggers should only show the ui when the last one triggers
     var delayedDisplayScheduled = 0
@@ -235,11 +237,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
         } else {
             previewPanel.orderOut(nil)
         }
-    }
-
-    func reopenUi() {
-        thumbnailsPanel.orderOut(nil)
-        rebuildUi()
     }
 
     func refreshOpenUi(_ windowsToUpdate: [Window]? = nil) {
