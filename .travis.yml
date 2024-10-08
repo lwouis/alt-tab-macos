@@ -6,7 +6,7 @@ os: osx
 osx_image: xcode13.4
 language: node_js
 node_js:
-  - 10
+  - 16
 addons:
   ssh_known_hosts: github.com
   homebrew:
