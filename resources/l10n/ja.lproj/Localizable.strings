@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "情報";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "%@ について";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "アクセシビリティ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "謝辞";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "稼働アプリケーション";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "稼働スクリーン";
 
-/*No comment provided by engineer.*/
-"Active Space" = "稼働デスクトップ";
+/* No comment provided by engineer. */
+"Additional controls" = "追加のコントロール";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "ウィンドウの配置：";
+/* No comment provided by engineer. */
+"Additional controls…" = "追加のコントロール…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "高度な";
+
+/* No comment provided by engineer. */
+"After release" = "リリース後";
+
+/* No comment provided by engineer. */
+"Align windows" = "ウィンドウを調整します";
+
+/* No comment provided by engineer. */
 "All apps" = "全てのアプリケーション";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "こちらのフォームからのデータはgithub.com上でチケットとして公開になります。";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "全てのスクリーン";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "全てのデスクトップ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "許可";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "アルファベット順";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "次の機能を使い、ウィンドウを選択：";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTabはあなたが最後に使用した際にクラッシュしました。クラッシュレポートの送信は、問題の改善につながります。";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTabは現在、アプリケーションを表示するように設定されています。この設定は、AltTabがWindowsを表示するように設定されている場合にのみ使用できます。";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTabが許可を求めています。";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTabは、現在、ウィンドウが最小化されているか、ステータスアイコンを備えたフルスクリーンであるかどうかを示します。";
+
+/* No comment provided by engineer. */
 "Always" = "常に";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "常にクラッシュレポートを送信する";
 
-/*No comment provided by engineer.*/
-"and press:" = "押しながら、次のキーを押す：";
+/* No comment provided by engineer. */
+"and press" = "そして押します";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "アニメーション";
+
+/* No comment provided by engineer. */
+"Animations…" = "アニメーション…";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "アプリ（次のバンドルIDで始まる）";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "アプリアイコン";
+
+/* No comment provided by engineer. */
 "App is hidden" = "アプリが隠されています";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "アプリは実行中ですが、開いているウィンドウがありません";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "表示を遅延：";
+/* No comment provided by engineer. */
+"Apparition delay" = "幻影遅延";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "外観";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "アプリケーション";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "本当に回答を受信しなくてもよろしいですか？";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "カーソルキー";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "クラッシュレポートを送るかどうか聞く";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "更新を定期的に自動インストールする";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "ブラックリスト";
 
 /*Cancel button*/
 "Cancel" = "キャンセル";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "キャンセルして、しまう";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "中央";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "今すぐアップデートを確認…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "定期的に更新を確認する";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "更新を確認する…";
 
 /*Menubar option*/
 "Check permissions…" = "権限を確認する…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "ウィンドウを閉じる";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "競合するショートカット";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "コントロール";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "クラッシュレポートポリシー：";
+/* No comment provided by engineer. */
+"Crash reports policy" = "クラッシュはポリシーを報告します";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "カーソルがフォーカスに従う";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "アプリのアイコンスタイルをカスタマイズする…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "サムネイルスタイルをカスタマイズする…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "タイトルスタイルをカスタマイズする…";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "何もしない";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "終わり";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "定期的に更新を確認しない";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "送信しない";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "これらのアプリからウィンドウを表示しない";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "文末";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "フェードアウトアニメーション：";
+/* No comment provided by engineer. */
+"Fade out animation" = "アニメーションをフェードアウトします";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "選択されたウィンドウを表示";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "ウィンドウを全画面表示に切り替える";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "フルスクリーンウィンドウ：";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "ウインドウをフルスクリーン／フルスクリーン解除";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "一般設定";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "非表示のウィンドウ：";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "隠す";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "アプリのバッジを隠す：";
+/* No comment provided by engineer. */
+"Hide app badges" = "アプリバッジを非表示にします";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "開いているウィンドウがないアプリを隠す：";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "開いたウィンドウのないアプリを非表示にします";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "マウスホバーした際、ウィンドウ設定を表示しない：";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "マウスホバーに色のついた円を非表示にします";
 
 /*%@ is AltTab*/
 "Hide in %@" = "%@から隠す";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "デスクトップ番号ラベルを表示しない：";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "スペース番号ラベルを非表示にします";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "ステータスアイコンを表示しない：";
+/* No comment provided by engineer. */
+"Hide status icons" = "ステータスアイコンを非表示にします";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "ウィンドウサムネイルを隠す：";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "アプリケーションを隠す / 表示";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = " ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "アプリの◯◯を改善したい…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "アクティブの間はショートカットを無効にする";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "これらのアプリのウィンドウがアクティブの間はショートカットを無効にする";
+/* No comment provided by engineer. */
+"Large" = "大きい";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "最新リリース";
 
-/*No comment provided by engineer.*/
-"Left" = "左";
+/* No comment provided by engineer. */
+"Leading" = "リーディング";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "スクリーン最大の高さ：";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "スクリーン最大の幅：";
+/* No comment provided by engineer. */
+"Medium" = "中くらい";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "メニューバーアイコン：";
+/* No comment provided by engineer. */
+"Menubar icon" = "メノバーアイコン";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "文中";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "ウィンドウを最小化/最小化解除";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "最小化されたウィンドウ：";
+/* No comment provided by engineer. */
+"Multiple screens" = "複数の画面";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "その他：";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "マウスホバー";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "クラッシュレポートを送らない";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "未許可";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0ライセンス";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "ウィンドウがフルスクリーンの時のみ";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "アクセシビリティ環境設定を開く…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "画面収録の設定を開く…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "任意：Eメール（返信を希望する場合）";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Windowsを注文します";
+
+/* No comment provided by engineer. */
 "Policies" = "ポリシー";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "環境設定…";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "選択した画面をプレビューする：";
+/* No comment provided by engineer. */
+"Preview selected window" = "選択したウィンドウをプレビューします";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "選択したウィンドウをプレビューします。";
+
+/* No comment provided by engineer. */
 "Quit" = "終了";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "%@ を終了";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "アプリケーションを終了";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "新しく作られた順";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "フォーカスされた順";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "設定を記憶する";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "設定をリセットして再起動";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "設定をリセットして再起動…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "サムネイルの行：";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "メニューバーのあるスクリーン";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "マウスのあるスクリーン";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "画面収録";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "AltTabが表示されるスクリーン";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "次のウィンドウを選択";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "前のウィンドウを選択";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "マウスホバーでウィンドウを選択します";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "矢印キーを使用してウィンドウを選択します";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "VIMキーを使用してWindowsを選択します";
+
+/* No comment provided by engineer. */
 "Send" = "送信";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "クラッシュレポートを送りますか？";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "送信";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "デバッグプロファイルを送信（CPU、メモリなど）";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "フィードバック提出";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "フィードバック提出…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "改善点のご共有あるいはバグのご報告";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "ショートカット１";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "ショートカット２";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "ショートカット３";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "ショートカット４";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "ショートカット５";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "既に：%@に割り当てられたショートカット";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "アクティブな場合のショートカット";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "アクティブなときのショートカット…";
+
+/* No comment provided by engineer. */
 "Show" = "アプリを表示";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "表示して非表示にします";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "各ウィンドウまたはアプリケーションごとにスイッチャーにアイテムを表示します。Windowsには焦点が当てられますが、アプリケーションはアクティブになります。";
+
+/* No comment provided by engineer. */
 "Show at the end" = "最後に表示";
 
-/*No comment provided by engineer.*/
-"Show on:" = "表示場所：";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "フルスクリーンのウィンドウを表示します";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "標準タブをウィンドウとして表示：";
+/* No comment provided by engineer. */
+"Show hidden windows" = "隠された窓を表示します";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "次からウィンドウを表示：";
+/* No comment provided by engineer. */
+"Show in switcher" = "スイッチャーで表示します";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "最小化されたウィンドウを表示します";
+
+/* No comment provided by engineer. */
+"Show on" = "表示します";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "標準タブをWindowsとして表示します";
+
+/* No comment provided by engineer. */
+"Show titles" = "タイトルを表示します";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "アプリケーションからWindowsを表示します";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "画面からWindowsを表示します";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "スペースから窓を表示します";
+
+/* No comment provided by engineer. */
+"Size" = "サイズ";
+
+/* No comment provided by engineer. */
+"Small" = "小さい";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "FinderやPreviewなどのアプリは、独立したウィンドウのように機能する標準タブを使用しています。Webブラウザのような他のアプリの一部は、独自の方法で機能し、実際のWindowsではないカスタムタブを使用します。AltTabはそれらを個別にリストすることはできません。";
+
+/* No comment provided by engineer. */
 "Source code repository" = "ソースコードレポジトリ";
 
-/*No comment provided by engineer.*/
-"Space" = "スペース";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "文頭";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "ログイン時に起動：";
+/* No comment provided by engineer. */
+"Start at login" = "ログインから始めます";
 
 /*Menubar option*/
 "Support this project ❤️" = "このプロジェクトを支援する ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "テーマ：";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3つの異なるスタイルを切り替えます。それらをカスタマイズできます。";
 
-/*No comment provided by engineer.*/
-"Then release:" = "離した時の動作：";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "テーマ";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "こちらの許可は、ショートカットキーを離した後、ウィンドウにフォーカスするのに必要です。";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "こちらの許可は、スクリーンショットと開いているウィンドウを表示するのに必要です。";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "サムネイル";
+
+/* No comment provided by engineer. */
+"Title truncation" = "タイトルの切り捨て";
+
+/* No comment provided by engineer. */
+"Titles" = "タイトル";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "トリガーショートカット";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "既存ショートカットの割当を解除して続く";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "アップデートポリシー：";
+/* No comment provided by engineer. */
+"Updates policy" = "ポリシーを更新します";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "バージョン";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "既存のディスカッションを見る";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vimのキーバインド";
+/* No comment provided by engineer. */
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "他のアクションに割り当てられているVimキー：%@";
+/* No comment provided by engineer. */
+"Visibility" = "可視性";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Visible Spaces" = "現在のスペース";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "フルスクリーンの場合";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "開いているウィンドウがない場合";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "ウィンドウが表示中、次のボタンを押す：";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "ウィンドウに表示されるアイコンサイズ：";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "ウィンドウが全画面表示中です";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "ウィンドウが最小化されています";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "ウィンドウが全てのデスクトップにあります";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "ウィンドウが %dデスクトップにあります";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "列に表示される最大ウィンドウ幅：";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "列に表示される最小ウィンドウ幅：";
+/* No comment provided by engineer. */
+"Windows" = "ウィンドウズ";
 
-/*No comment provided by engineer.*/
-"Window order:" = "ウインドウの並び：";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "ウィンドウに表示されるタイトルフォントサイズ：";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "ウィンドウタイトル短縮：";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "この操作は元に戻すことができません。";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "ご自身のEmailを入力しなかったため、回答を受信できません。";
+

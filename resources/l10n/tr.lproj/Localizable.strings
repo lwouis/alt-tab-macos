@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "Hakkında";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "Hakkında %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "Erişilebilirlik";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "Teşekkür bölümü";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "Etkin uygulama";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "Etkin ekran";
 
-/*No comment provided by engineer.*/
-"Active Space" = "Etkin Alan";
+/* No comment provided by engineer. */
+"Additional controls" = "Ek kontroller";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "Pencereleri hizala:";
+/* No comment provided by engineer. */
+"Additional controls…" = "Ek kontroller…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "Gelişmiş";
+
+/* No comment provided by engineer. */
+"After release" = "Serbest bırakıldıktan sonra";
+
+/* No comment provided by engineer. */
+"Align windows" = "Pencereleri hizalayın";
+
+/* No comment provided by engineer. */
 "All apps" = "Tüm uygulamalar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "Bu formdan giden bütün veriler, bilet olarak github.com üzerinde kamuya açılacaktır";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "Tüm ekranlar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "Tüm Alanlar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "İzin verildi";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "Alfabetik";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "Bunları kullanan pencereleri de seç:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Son sefer AltTab çöktü. Çökme raporlarını göndermek, hataların düzeltilmesine yardımcı olur";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab şu anda uygulamaları gösterecek şekilde ayarlanmıştır.Bu ayar yalnızca AltTab Windows'u gösterecek şekilde ayarlandığında kullanılabilir.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab'ın bir kaç izne ihtiyacı var";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab, pencerenin şu anda en aza indirilmiş mi yoksa bir durum simgesiyle tam ekran olup olmadığını gösterecektir.";
+
+/* No comment provided by engineer. */
 "Always" = "Her zaman";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "Çökme raporlarını her zaman gönder";
 
-/*No comment provided by engineer.*/
-"and press:" = "ve basın:";
+/* No comment provided by engineer. */
+"and press" = "ve basın";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "Animasyonlar";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animasyonlar…";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "Uygulama (BundleID ile başlayan)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "Uygulama simgeleri";
+
+/* No comment provided by engineer. */
 "App is hidden" = "Uygulama gizlendi";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "Uygulama çalışıyor ancak açık penceresi yok";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "Belirme gecikmesi:";
+/* No comment provided by engineer. */
+"Apparition delay" = "Görünüş Gecikmesi";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "Görünüm";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Başvuru";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "Cevap vermek istemediğinize emin misiniz?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "Ok tuşları";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Çökme raporlarının ne zaman gönderileceğini sor";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "Periyodik olarak güncellemeleri otomatik yükle";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "Karalisteler";
 
 /*Cancel button*/
 "Cancel" = "İptal";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "İptal et ve gizle";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "Ortala";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "Güncellemeleri kontrol et…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "Güncellemeleri periyodik olarak kontrol et";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "Güncellemeleri kontrol et…";
 
 /*Menubar option*/
 "Check permissions…" = "İzinleri kontrol et…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "Pencereyi kapat";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "Çakışan kestirme";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "Kontroller";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "Çökme raporları kuralları:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "Kaza Raporları Politikası";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "İmleç odağını takip et";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Uygulama simgeleri stilini özelleştirin…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Küçük resim stilini özelleştirin…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Başlıkları Özelleştir Stili…";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "Bir şey yapma";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "Tamamlamak";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Periyodik olarak güncellemeleri kontrol etme";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "Gönderme";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Bu uygulamaya ait pencereleri gösterme";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "Son";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "Karartma animasyonu:";
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade Out Animation";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "Seçilen pencereye odaklan";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Tam ekran penceresi";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "Tam ekran pencereler:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Pencere için tam ekranı aç/kapa";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "Genel";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "Gizli pencereler:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "Gizle";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "Uygulama bildirimlerini gizle:";
+/* No comment provided by engineer. */
+"Hide app badges" = "Uygulama bildirimlerini gizle";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Penceresi açık olmayan uygulamaları gizle:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "Penceresi açık olmayan uygulamaları gizle";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Fare üzerindeyken renkli pencere düğmelerini gizle:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "Fare üzerindeyken renkli pencere düğmelerini gizle";
 
 /*%@ is AltTab*/
 "Hide in %@" = "%@ Gizle";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Masaüstü Alan numaralarını gizle:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "Masaüstü Alan numaralarını gizle";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "Durum ikonlarını gizle:";
+/* No comment provided by engineer. */
+"Hide status icons" = "Durum ikonlarını gizle";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Pencere önizlemelerini gizle:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "Uygulamayı gizle/göster";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "Tut";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "Bence uygulama şu şekilde iyileştirilebilir…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Etkinken kestirmeleri yoksay";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Bu uygulamalardan bir pencere etkinken kestirmeleri devre dışı bırak";
+/* No comment provided by engineer. */
+"Large" = "Büyük";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "Son sürümler";
 
-/*No comment provided by engineer.*/
-"Left" = "Sol";
+/* No comment provided by engineer. */
+"Leading" = "Önde gelen";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "Ekrandaki maximum yükseklik:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "Ekrandaki maximum genişlik:";
+/* No comment provided by engineer. */
+"Medium" = "Orta";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar ikonu:";
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar simgesi";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "Orta";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimize et/Büyüt";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "Küçültülmüş pencereler:";
+/* No comment provided by engineer. */
+"Multiple screens" = "Birden fazla ekran";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "Diğer:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "Fare ile üzerine gelince";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "Çökme raporlarını asla gönderme";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "İzin verilmedi";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 lisansı";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Eğer pencere tam ekransa";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Erişilebilirlik Tercihlerini Aç…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "Ekran Kaydı Tercihlerini Aç…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "İsteğe bağlı: e-posta (bir yanıt istiyorsanız)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Windows sipariş";
+
+/* No comment provided by engineer. */
 "Policies" = "Kurallar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "Tercihler…";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Seçili pencereyi önizle:";
+/* No comment provided by engineer. */
+"Preview selected window" = "Seçili pencereyi önizle";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "Seçilen pencereyi önizleyin.";
+
+/* No comment provided by engineer. */
 "Quit" = "Çıkış";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "Çık %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "Uygulamayı kapat";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Yakında Oluşturulan";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Yakında Odaklanılan";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "Tercihimi hatırla";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "Tercihleri sıfırla ve yeniden başlat";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "Tercihleri sıfırla ve yeniden başlat…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Önizleme satırları:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "Menü çubuğunun olduğu monitör";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "Farenin olduğu monitör";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "Ekran Kaydı";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "AltTab'ı gösteren monitör";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "Sonraki pencereyi seç";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "Önceki pencereyi seç";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Fare Hover'da Windows'u seçin";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Ok tuşlarını kullanarak Windows'u seçin";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "VIM Keys'i kullanarak Windows'u seçin";
+
+/* No comment provided by engineer. */
 "Send" = "Gönder";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "Çökme raporu gönder?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "Yine de gönder";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "Hata ayıklama profili gönder (İşlemci, bellek, vb)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "Geri bildirim gönder";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "Geri bildirim gönder…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Geliştirme önerisi veya hata bilgisi paylaşın";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "Kestirme 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "Kestirme 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "Kestirme 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "Kestirme 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "Kestirme 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Kestirme hâlihazırda başka bir eylem için atanmış: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Aktif olduğunda kısayollar";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Aktif olduğunda kısayollar…";
+
+/* No comment provided by engineer. */
 "Show" = "Göster";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "Gösteri ve Sakla";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Her pencere veya her uygulama için değiştiricide bir öğeyi gösterin.Windows odaklanırken, uygulamalar etkinleştirilecektir.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "En sonda göster";
 
-/*No comment provided by engineer.*/
-"Show on:" = "Göster:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Tam ekran pencereleri göster";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Pencere içi tabları ayrı olarak göster:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "Gizli pencereleri göster";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "Pencereleri göster:";
+/* No comment provided by engineer. */
+"Show in switcher" = "Switcher'da Gösteri";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "Minimize edilmiş pencereleri göster";
+
+/* No comment provided by engineer. */
+"Show on" = "Gösteriş yapmak";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "Pencere içi tabları ayrı olarak göster";
+
+/* No comment provided by engineer. */
+"Show titles" = "Başlıkları Göster";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Uygulamalardan pencereleri göster";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Ekranlardan pencereleri göster";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Mekanlardan pencereleri göster";
+
+/* No comment provided by engineer. */
+"Size" = "Boyut";
+
+/* No comment provided by engineer. */
+"Small" = "Küçük";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder veya önizleme gibi bazı uygulamalar bağımsız pencereler gibi hareket eden standart sekmeler kullanır.Web tarayıcıları gibi diğer bazı uygulamalar, benzersiz yollarla hareket eden ve gerçek pencereler olmayan özel sekmeler kullanır.Alttab bunları ayrı olarak listeleyemez.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "Kaynak kodu deposu";
 
-/*No comment provided by engineer.*/
-"Space" = "Alan";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "Baş";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "Sistem açılışında çalıştır:";
+/* No comment provided by engineer. */
+"Start at login" = "Girişten Başlayın";
 
 /*Menubar option*/
 "Support this project ❤️" = "Projeyi destekle ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "Tema:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3 farklı stil arasında geçiş yapın.Onları özelleştirebilirsiniz.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "Sonra bırak:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "Tema";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Bu izin, kestirmeye basmayı bıraktıktan sonra ilgili pencereyi açabilmeniz için gerekiyor";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "Bu izin, açık pencerelerin başlıklarını ve önizlemeleri görebilmeniz için gerekiyor";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "Küçük resimler";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Başlık kesilmesi";
+
+/* No comment provided by engineer. */
+"Titles" = "Başlıklar";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Tetik kısayolu";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Atanmış kestirmeyi kaldır ve devam et";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "Güncelleme politikası:";
+/* No comment provided by engineer. */
+"Updates policy" = "Politikayı günceller";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "Sürüm";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "Mevcut tartışmaları görüntüle";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim tuşları";
+/* No comment provided by engineer. */
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Diğer eylemlere hâlihazırda atanmış Vim tuşları:\n%@";
+/* No comment provided by engineer. */
+"Visibility" = "Görünürlük";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Visible Spaces" = "Görünen Alanlar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "Tam ekran olduğunda";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "Açık pencere olmadığında";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "Açıkken basın:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "Pencere uygulama simge boyutu:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "Pencere tam ekran";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "Pencere simge durumuna küçültüldü";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "Pencere bütün Alanlarda";
 
-/*No comment provided by engineer.*/
-"Window is on Space %d" = "Pencerenin olduğu Alan: %d";
+/* No comment provided by engineer. */
+"Window is on Space %d" = "Pencerenin olduğu Alan %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "Azami pencere genişliği:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "Asgari pencere genişliği:";
+/* No comment provided by engineer. */
+"Windows" = "pencereler";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Pencere sırası:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "Pencere başlığı yazı tipi boyutu:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "Pencere başlığını kesme:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "Bu eylemi geri alamazsınız.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "E-posta adresinizi yazmadığınız için yanıt alamayacaksınız.";
+

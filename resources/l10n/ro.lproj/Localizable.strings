@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "Despre";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "Despre %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "Accesibilitate";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "Mulțumiri";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "Aplicație activă";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "Ecranul activ";
 
-/*No comment provided by engineer.*/
-"Active Space" = "Spațiul activ";
+/* No comment provided by engineer. */
+"Additional controls" = "Controale suplimentare";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "Aliniere ferestre:";
+/* No comment provided by engineer. */
+"Additional controls…" = "Controluri suplimentare ...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "Avansat";
+
+/* No comment provided by engineer. */
+"After release" = "După eliberare";
+
+/* No comment provided by engineer. */
+"Align windows" = "Aliniați ferestrele";
+
+/* No comment provided by engineer. */
 "All apps" = "Toate aplicațiile";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "Toate datele din acest formular vor fii făcute publice, ca tichet pe github.com";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "Toate ecranele";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "Toatele spațiile";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "Permis";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "De asemenea selectează ferestre utilizând:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab s-a închis accidental la ultima folosire. Trimițând o analiză de accident va ajuta la rezolvarea problemei";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab este în prezent setat să arate aplicații.Această setare este disponibilă numai atunci când AltTab este setat pentru a afișa Windows.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab necesită permisiuni";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab va arăta dacă fereastra este minimizată în prezent sau cu ecran complet cu o pictogramă de stare.";
+
+/* No comment provided by engineer. */
 "Always" = "Mereu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "Întotdeauna trimite raport de accident";
 
-/*No comment provided by engineer.*/
-"and press:" = "și apăsați:";
+/* No comment provided by engineer. */
+"and press" = "și apăsați";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "Animații";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animații ...";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID începând cu)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "Pictograme de aplicație";
+
+/* No comment provided by engineer. */
 "App is hidden" = "Aplicația este ascunsă";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "Aplicația rulează dar nu este nici-o fereastră deschisă";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "Întârziere apariție:";
+/* No comment provided by engineer. */
+"Apparition delay" = "Întârziere de apariție";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "Aspect";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplicații";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "Ești sigur că nu vrei un răspuns?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "Tastele din săgeți";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Întreabă când trimiți raport de accident";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "Instalare periodic a actualizărilor";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "Lista neagră";
 
 /*Cancel button*/
 "Cancel" = "Anulare";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "Anulează și ascunde";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "Centru";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "Verifică actualizări acum…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "Verifică pentru actualizări periodic";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "Verifică actualizări…";
 
 /*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "Închide fereastră";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "Conflict scurtătură";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "Controale";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "Politică raport de accident:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "Politica rapoartelor de accidente";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursorul urmărește focusul";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Personalizați stilul pictogramelor aplicației ...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Personalizați stilul miniaturilor ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Personalizați stilul titlurilor ...";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "Nu face nimic";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "Terminat";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Nu verifica pentru actualizări periodic";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "Nu trimite";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Nu arăta ferestre din aceste aplicații";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "Sfârșit";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "Animație ieșire:";
+/* No comment provided by engineer. */
+"Fade out animation" = "Estompează animația";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "Focusează fereastra selectată";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Fereastră ecran complet";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fereastră ecran complet:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "General";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "Ferestre ascunse:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "Ascunde";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "Ascunde eticheta aplicațiilor:";
+/* No comment provided by engineer. */
+"Hide app badges" = "Ascunde eticheta aplicațiilor";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Ascunde aplicații când nu este nici-o fereastră:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "Ascunde aplicații când nu este nici-o fereastră";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Ascunde cercurile colorate deasupra mouse-ului:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "Ascunde cercurile colorate deasupra mouse-ului";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Ascunde în %@";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Ascunde etichetele cu numărul Spațiului:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "Ascunde etichetele cu numărul Spațiului";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "Ascunde iconurile de status:";
+/* No comment provided by engineer. */
+"Hide status icons" = "Ascunde iconurile de status";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Ascunde miniatura fereastră:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "Ascunde/Arată aplicație";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "Reține";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "Cred că aplicația poate fi îmbunătățită prin…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Ignoră scurtăturile când este activ";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignoră scurtăturile cât timp o fereastră din aceste aplicații este activă";
+/* No comment provided by engineer. */
+"Large" = "Mare";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "Ultimele lansări";
 
-/*No comment provided by engineer.*/
-"Left" = "Stânga";
+/* No comment provided by engineer. */
+"Leading" = "Conducere";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "Înălțime maxima pe ecran:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "Lățime maxima pe ecran:";
+/* No comment provided by engineer. */
+"Medium" = "Mediu";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "Pictograma bară meniu:";
+/* No comment provided by engineer. */
+"Menubar icon" = "Pictograma menubar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "Mijloc";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimizează/Deminimizează fereastră";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "Fereastra minimizată:";
+/* No comment provided by engineer. */
+"Multiple screens" = "Mai multe ecrane";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "Diverse:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "Deasupra mousului";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "Niciodată nu trimite raporturi de accident";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "Nu este permis";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "Licența GPL-3.0";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Doar dacă fereastra este în ecran complet";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Deschide preferințele de Accesibilitate";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "Deschide preferințele Ecranului de înregistrare…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Opțional: email (daca vrei să răspunzi)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Comandați Windows de către";
+
+/* No comment provided by engineer. */
 "Policies" = "Politici";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "Preferințe…";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+/* No comment provided by engineer. */
+"Preview selected window" = "Preview selected window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "Previzualizați fereastra selectată.";
+
+/* No comment provided by engineer. */
 "Quit" = "Ieșire";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "Ieșire %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "Ieșire aplicație";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "Memorează opțiunile mele";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "Resetează preferințele și repornește";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "Reseta setările și da restart";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rânduri de miniaturi:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "Ecranul incluzând bara de meniu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "Ecranul include mouse";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "Ecran de înregistrare";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "Ecranul arată AltTab";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "Selectează următoarea fereastră";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "Selecteaza fereastra precedentă";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Selectați Windows pe mouse hover";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Selectați Windows folosind tastele săgeată";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Selectați Windows folosind tastele VIM";
+
+/* No comment provided by engineer. */
 "Send" = "Trimite";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "Trimite o analiză de accident?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "Trimite oricum";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "Trimite analiză profil (CPU, memorie, etc)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "Trimite sugestii";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "Trimite sugestii…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Distribuie idei de îmbunătățire, sau raportează probleme";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "Scurtătura 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "Scurtătura 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "Scurtătură 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "Scurtătură 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "Scurtătură 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Scurtătura este deja atribută unei alte acțiuni: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Comitete rapide atunci când sunt active";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Comitete rapide atunci când sunt active ...";
+
+/* No comment provided by engineer. */
 "Show" = "Arată";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "Arată ascunde";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Afișați un element în comutator pentru fiecare fereastră sau pentru fiecare aplicație.Windows va fi concentrat, în timp ce aplicațiile vor fi activate.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "Arată la sfârșit";
 
-/*No comment provided by engineer.*/
-"Show on:" = "Arată pe:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Afișați ferestre cu ecran complet";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Arată taburi standard ca ferestre:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "Afișați ferestrele ascunse";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "Arată ferestre de la:";
+/* No comment provided by engineer. */
+"Show in switcher" = "Afișați în comutator";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "Afișați ferestre minimizate";
+
+/* No comment provided by engineer. */
+"Show on" = "Arată pe";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "Arată taburi standard ca ferestre";
+
+/* No comment provided by engineer. */
+"Show titles" = "Arată titluri";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Afișați Windows din aplicații";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Afișați ferestrele de pe ecrane";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Afișați ferestrele din spații";
+
+/* No comment provided by engineer. */
+"Size" = "Dimensiune";
+
+/* No comment provided by engineer. */
+"Small" = "Mic";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Unele aplicații precum Finder sau Previzualizare folosesc file standard care acționează ca Windows Independent.Unele alte aplicații precum browserele web folosesc file personalizate care acționează în moduri unice și nu sunt Windows reale.AltTab nu le poate enumera separat.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "Depozit sursă cod";
 
-/*No comment provided by engineer.*/
-"Space" = "Space";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "Start";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "Start la autentificare:";
+/* No comment provided by engineer. */
+"Start at login" = "Începeți la autentificare";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "Temă:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Comutați între 3 stiluri diferite.Le puteți personaliza.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "Apoi eliberați:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "Temă";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Această permisiune este necesară pentru concetrarea ferestrei după ce lași scurtătura";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "Această permisiune este necesară pentru a arăta capturile de ecran și titlul ferestrelor deschise";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniaturi";
+
+/* No comment provided by engineer. */
+"Title truncation" = "TRUNCAREA TIPULUI";
+
+/* No comment provided by engineer. */
+"Titles" = "Titluri";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Comanda rapidă declanșatoare";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Anulează atribuirea scurtăturii existente și continuă";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "Politică actualizări:";
+/* No comment provided by engineer. */
+"Updates policy" = "Actualizează politica";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "Versiune";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "Vezi discuții existente";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Visibility" = "Vizibilitate";
+
+/* No comment provided by engineer. */
 "Visible Spaces" = "Spații vizibile";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "Când este în ecran complet";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "Când nu este o fereastră deschisă";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "În timp ce e deschis, apasă:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "Dimensiunea iconiței ferestrei din aplicație:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "Fereastra ocupă întregul ecran";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "Fereastra este minimizată";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "Fereastra este în fiecare Spațiu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "Fereastra este în spațiul %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "Lățime maximă fereastra în rând:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "Lățimea minimă a ferestrei pe rând:";
+/* No comment provided by engineer. */
+"Windows" = "Ferestre";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Window order:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "Dimensiunea fontului din titlul ferestrei:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "Trunchierea titlului din fereastră:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "Nu poți să anulezi acțiunea asta.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Nu ai scris adresa ta de email, nu poți primi nici-un răspuns.";
+

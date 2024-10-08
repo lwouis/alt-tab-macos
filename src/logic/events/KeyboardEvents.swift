@@ -22,7 +22,6 @@ class KeyboardEvents {
     static var eventHotKeyRefs = [String: EventHotKeyRef?]()
     static var hotKeyPressedEventHandler: EventHandlerRef?
     static var hotKeyReleasedEventHandler: EventHandlerRef?
-    static var localMonitor: Any!
 
     static func addGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
         addGlobalHandlerIfNeeded(shortcut)
@@ -62,7 +61,7 @@ class KeyboardEvents {
                     fn(shortcutId, shortcut)
                 }
             }
-            debugPrint("toggleGlobalShortcuts", shouldDisable)
+            logger.i("toggleGlobalShortcuts", shouldDisable)
             App.app.globalShortcutsAreDisabled = shouldDisable
         }
     }
@@ -73,7 +72,7 @@ class KeyboardEvents {
     }
 
     private static func addLocalMonitorForKeyDownAndKeyUp() {
-        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
+        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
             let someShortcutTriggered = handleEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, cocoaToCarbonFlags(event.modifierFlags), event.type == .keyDown ? event.isARepeat : false)
             return someShortcutTriggered ? nil : event
         }
@@ -143,7 +142,7 @@ fileprivate func handleEvent(_ id: EventHotKeyID?, _ shortcutState: ShortcutStat
     return someShortcutTriggered
 }
 
-fileprivate func cgEventFlagsChangedHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+fileprivate let cgEventFlagsChangedHandler: CGEventTapCallBack = {_, type, cgEvent, _ in
     if type == .flagsChanged {
         let modifiers = cocoaToCarbonFlags(NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue)))
         handleEvent(nil, nil, nil, modifiers, false)

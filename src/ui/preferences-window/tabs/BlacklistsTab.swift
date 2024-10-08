@@ -22,12 +22,12 @@ class BlacklistsTab {
             }
         }
 
-        let grid = GridView([
-            [blacklist],
-            [add]
-        ])
-        grid.fit()
+        let table = TableGroupView(width: PreferencesWindow.width)
+        _ = table.addRow(leftViews: [blacklist], secondaryViews: [add])
 
-        return grid
+        let view = TableGroupSetView(originalViews: [table])
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
+        return view
     }
 }

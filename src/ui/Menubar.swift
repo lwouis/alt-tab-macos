@@ -57,7 +57,7 @@ class Menubar {
         }
     }
 
-    func menubarIconCallback(_ sender: NSControl?) {
+    func menubarIconCallback(_: NSControl?) {
         if Preferences.menubarIcon == .hidden {
             statusItem.isVisible = false
         } else {

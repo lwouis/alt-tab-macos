@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "אודות";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "אודות %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "נגישות";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "תודות";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "יישום פעיל";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "מסך הפעיל";
 
-/*No comment provided by engineer.*/
-"Active Space" = "איזור פעיל";
+/* No comment provided by engineer. */
+"Additional controls" = "בקרות נוספות";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "יישר חלונות:";
+/* No comment provided by engineer. */
+"Additional controls…" = "בקרות נוספות ...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "מִתקַדֵם";
+
+/* No comment provided by engineer. */
+"After release" = "לאחר השחרור";
+
+/* No comment provided by engineer. */
+"Align windows" = "יישר חלונות";
+
+/* No comment provided by engineer. */
 "All apps" = "כל היישומים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "כל המידע מטופס זה יהפך לציבורי, ככרטיס בgithub.com";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "כל המסכים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "כל האזורים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "מאופשר";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "אלפאביתי";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "בחר חלון גם באמצעות:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab קרס בפעם האחרונה שהשתמשת בו. שליחה של דיווח קריסה יעזור לתקן את הבעיה";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab מוגדר כעת להציג יישומים.הגדרה זו זמינה רק כאשר AltTab מוגדר להצגת Windows.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "‫AltTab צריכה הרשאות מסוימות";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab תראה אם ​​החלון ממזער כרגע או מסך מלא עם סמל סטטוס.";
+
+/* No comment provided by engineer. */
 "Always" = "תמיד";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "תמיד שלח דיווחי קריסה";
 
-/*No comment provided by engineer.*/
-"and press:" = "ולחץ:";
+/* No comment provided by engineer. */
+"and press" = "ולחץ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "אנימציות";
+
+/* No comment provided by engineer. */
+"Animations…" = "אנימציות ...";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "ישום (BundlelD מתחיל ב-)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "סמלי אפליקציה";
+
+/* No comment provided by engineer. */
 "App is hidden" = "היישום מוסתר";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "היישום פועל אך אין לו חלון פתוח";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "עיכוב הופעה:";
+/* No comment provided by engineer. */
+"Apparition delay" = "עיכוב הופעה";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "מראה";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "יישומים";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "אתה בטוח שאתה לא רוצה תגובה?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "מקשי חצים";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "תמיד שאל אם לשלוח דיווח קריסה";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "התקן עדכונים אוטומטית על בסיס קבוע";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "רשימה שחורה";
 
 /*Cancel button*/
 "Cancel" = "ביטול";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "בטל והסתר";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "מרכז";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "בדוק עדכונים כעת";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "בדוק עדכונים על בסיס קבוע";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "בדוק עדכונים";
 
 /*Menubar option*/
 "Check permissions…" = "בדוק הרשאות…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "סגור חלון";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "קיצורי דרך סותרים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "שליטה";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "מדיניות דיווחי קריסה:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "מדיניות דוחות קריסה";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "הסמן עוקב אחר המיקוד";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "התאם אישית סגנון אייקוני אפליקציות ...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "התאמה אישית של תמונות ממוזערות ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "התאמה אישית של כותרות סגנון ...";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "לא לעשות כלום";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "בוצע";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "אל תבדוק עדכונים על בסיס קבוע";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "לא לשלוח";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "אל תציג חלונות מיישומים אלה";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "סוף";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "אנימציית היעלמות:";
+/* No comment provided by engineer. */
+"Fade out animation" = "דוהה אנימציה";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "התמקד בחלון שנבחר";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "חלון במסך מלא";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "חלונות במסך מלא:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "הכנסת/הוצאת חלון ממסך מלא";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "כללי";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "חלונות נסתרים:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "הסתר";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "הסתר תג התראות:";
+/* No comment provided by engineer. */
+"Hide app badges" = "הסתר תגי אפליקציות";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "הסתר יישומים ללא חלון פתוח:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "הסתר אפליקציות ללא חלון פתוח";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "הסתר כפתורי רמזור גם בריחוף על חלון:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "הסתר עיגולים צבעוניים על רחף עכבר";
 
 /*%@ is AltTab*/
 "Hide in %@" = "הסתר ב%@";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "הסתר תגיות מספר של איזור:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "הסתר תוויות מספר שטח";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "הסתר סמלי סטטוס:";
+/* No comment provided by engineer. */
+"Hide status icons" = "הסתר סמלי סטטוס";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "הסתר תמונות ממוזערות של חלונות:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "הסתר/הצג חלון";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "החזק";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "אני חושב שניתן לשפר את היישום באמצעות…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "התעלם מהקיצורים כאשר פועל";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "התעלם מקיצורי דרך כאשר חלון מיישום זו פעיל";
+/* No comment provided by engineer. */
+"Large" = "גָדוֹל";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "מהדורה אחרונה";
 
-/*No comment provided by engineer.*/
-"Left" = "שמאלה";
+/* No comment provided by engineer. */
+"Leading" = "מוֹבִיל";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "גובה מקסימלי במסך:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "רוחב מקסימלי במסך:";
+/* No comment provided by engineer. */
+"Medium" = "בינוני";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "סמל תפריט עליון:";
+/* No comment provided by engineer. */
+"Menubar icon" = "אייקון Menubar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "אמצע";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "מזער\\בטל מזעור חלון";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "חלונות ממוזערים:";
+/* No comment provided by engineer. */
+"Multiple screens" = "מספר מסכים";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "אחר:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "רחף עם עכבר";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "אף פעם אל תשלח דיווחי קריסה";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "לא מאופשר";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "רישיון GPL-3.0";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "רק אם החלון במסך מלא";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "פתח הגדרות נגישות…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "פתח הגדרות הקלטת מסך…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "אופציונלי: אימייל (אם תרצה תגובה חזרה)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "להזמין חלונות על ידי";
+
+/* No comment provided by engineer. */
 "Policies" = "מדיניות";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "העדפות";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "תצוגה מקדימה של החלון שנבחר:";
+/* No comment provided by engineer. */
+"Preview selected window" = "תצוגה מקדימה של חלון שנבחר";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "תצוגה מקדימה של החלון שנבחר.";
+
+/* No comment provided by engineer. */
 "Quit" = "צא מהיישום";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "צא מ%@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "צא מהיישום";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "נוצר לאחרונה";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "בפוקוס לאחרונה";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "זכור את בחירתי";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "אפס את ההעדפות והפעל מחדש";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "אפס העדפות והפעל מחדש…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "מס׳ שורות של תמונות ממוזערות:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "מסך הכולל את שורת התפריטים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "מסך שבו העכבר";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "הקלטת מסך";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "המסך המראה את AltTab";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "בחר בחלון הבא";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "בחר בחלון הקודם";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "בחר Windows on Hops";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "בחר Windows באמצעות מפתחות חצים";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "בחר Windows באמצעות מקשי Vim";
+
+/* No comment provided by engineer. */
 "Send" = "שלח";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "לשלוח דיווח קריסה?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "שלח בכל זאת";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "שלח נתוני מערכת (מעבד, זכרון וכו')";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "שלח משוב";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "שלח משוב...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "שתף רעיונות לשיפור, או דווח על באגים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "קיצור דרך 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "קיצור דרך 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "קיצור 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "קיצור 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "קיצור 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "הקיצור שנבחר כבר משוייך לפעולה אחרת: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "קיצורי דרך כאשר הם פעילים";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "קיצורי דרך כאשר הם פעילים ...";
+
+/* No comment provided by engineer. */
 "Show" = "הצג";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "הצג הסתר";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "הצג פריט במתג עבור כל חלון, או לכל יישום.Windows ימוקד, ואילו יישומים יופעלו.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "הצג בסוף";
 
-/*No comment provided by engineer.*/
-"Show on:" = "הצג ב:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "הצג חלונות מסך מלא";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "הצג טאבים כחלונות:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "הצג חלונות מוסתרים";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "הצג חלונות מ:";
+/* No comment provided by engineer. */
+"Show in switcher" = "להראות ב- Switcher";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "הצג חלונות ממוזערים";
+
+/* No comment provided by engineer. */
+"Show on" = "להראות על";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "הצג כרטיסיות סטנדרטיות כ- Windows";
+
+/* No comment provided by engineer. */
+"Show titles" = "הצג כותרות";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "הצג חלונות מיישומים";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "הצג חלונות מהמסכים";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "הצג חלונות מחללים";
+
+/* No comment provided by engineer. */
+"Size" = "גוֹדֶל";
+
+/* No comment provided by engineer. */
+"Small" = "קָטָן";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "יש אפליקציות כמו Finder או תצוגה מקדימה שמשתמשים בכרטיסיות סטנדרטיות הפועלות כמו חלונות עצמאיים.כמה אפליקציות אחרות כמו דפדפני אינטרנט משתמשים בכרטיסיות מותאמות אישית הפועלות בדרכים ייחודיות ואינן חלונות בפועל.Alttab לא יכול לרשום את אלה בנפרד.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "קוד מקור";
 
-/*No comment provided by engineer.*/
-"Space" = "חלל";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "התחלה";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "התחל בהפעלת המחשב:";
+/* No comment provided by engineer. */
+"Start at login" = "התחל בכניסה";
 
 /*Menubar option*/
 "Support this project ❤️" = "תמיכה בפרויקט ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "סגנון:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "מעבר בין 3 סגנונות שונים.אתה יכול להתאים אותם.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "ואז עזוב:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "נוֹשֵׂא";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "הרשאה זו דרושה כדי להתמקד על החלון הנכון לאחר שחרור קיצור המקשים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "הרשאה זו דרושה כדי להציג תמונות ממוזערות וכותרות של החלונות הפתוחים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "תמונות ממוזערות";
+
+/* No comment provided by engineer. */
+"Title truncation" = "גיזום כותרות";
+
+/* No comment provided by engineer. */
+"Titles" = "כותרות";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "קיצור דרך טריגר";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "בטל הקצאת קיצור קיים והמשך";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "מדיניות עדכונים:";
+/* No comment provided by engineer. */
+"Updates policy" = "מעדכן מדיניות";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "גרסה";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "הצג דיונים קיימים";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Visibility" = "רְאוּת";
+
+/* No comment provided by engineer. */
 "Visible Spaces" = "איזורים גלויים";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "במסך מלא";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "כשאין חלון פתוח";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "כאשר פתוח, לחץ:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "גודל סמל חלון:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "החלון במסך מלא";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "החלון ממוזער";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "החלון נמצא בכל איזור";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "החלון נמצא באיזור %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "רוחב מקסימלי של חלון בטור:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "רוחב מינימלי של חלון בטור:";
+/* No comment provided by engineer. */
+"Windows" = "חלונות";
 
-/*No comment provided by engineer.*/
-"Window order:" = "סדר חלונות:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "גודל כותרת חלון:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "כותרת חלון מקוצרת:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "לא ניתן לבטל פעולה זו.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "לא רשמת את כתובת המייל שלך, ולא תוכל לקבל מענה.";
+

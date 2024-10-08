@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "Tentang";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "Tentang %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "Aksesibilitas";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "Ucapan Terima Kasih";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "Aplikasi aktif";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "Layar aktif";
 
-/*No comment provided by engineer.*/
-"Active Space" = "Ruang aktif";
+/* No comment provided by engineer. */
+"Additional controls" = "Kontrol tambahan";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "Luruskan jendela:";
+/* No comment provided by engineer. */
+"Additional controls…" = "Kontrol tambahan…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "Canggih";
+
+/* No comment provided by engineer. */
+"After release" = "Setelah rilis";
+
+/* No comment provided by engineer. */
+"Align windows" = "Align Windows";
+
+/* No comment provided by engineer. */
 "All apps" = "Semua aplikasi";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "Semua data dari formulir ini akan dipublikasikan, sebagai tiket di github.com";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "Semua layar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "Semua ruang";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "Dibolehkan";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "Juga pilih jendela menggunakan:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab macet terakhir kali Anda menggunakannya. Mengirim laporan kerusakan akan membantu menyelesaikan masalah";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab saat ini diatur untuk menampilkan aplikasi.Pengaturan ini hanya tersedia saat Alttab diatur untuk menampilkan Windows.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab membutuhkan beberapa izin";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab akan menunjukkan jika jendela saat ini diminimalkan atau layar penuh dengan ikon status.";
+
+/* No comment provided by engineer. */
 "Always" = "Selalu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "Selalu kirim laporan kerusakan";
 
-/*No comment provided by engineer.*/
-"and press:" = "lalu tekan:";
+/* No comment provided by engineer. */
+"and press" = "dan tekan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "Animasi";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animasi…";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "Aplikasi (BundleID dimulai dengan)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "Ikon aplikasi";
+
+/* No comment provided by engineer. */
 "App is hidden" = "Aplikasi disembunyikan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "Aplikasi sedang berjalan tetapi tidak memiliki jendela yang terbuka";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "Penundaan penampakan:";
+/* No comment provided by engineer. */
+"Apparition delay" = "Penundaan penampakan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "Penampilan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplikasi";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "Apakah Anda yakin tidak ingin mendapat tanggapan?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "Tombol panah";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Tanyakan apakah ingin mengirim laporan kerusakan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "Instal pembaruan secara berkala";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "Daftar hitam";
 
 /*Cancel button*/
 "Cancel" = "Batal";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "Batalkan dan sembunyikan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "Tengah";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "Periksa pembaruan sekarang…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "Periksa pembaruan secara berkala";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "Periksa pembaruan…";
 
 /*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "Tutup jendela";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "Pintasan konflik";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "Kontrol";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "Kebijakan laporan kerusakan:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "Kebijakan Laporan Kecelakaan";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "Kursor mengikuti fokus";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Kustomisasi gaya ikon aplikasi…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Kustomisasi Gaya Thumbnail…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Kustomisasi Gaya Judul…";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "Tidak melakukan apapun";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "Selesai";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Jangan periksa pembaruan secara berkala";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "Jangan kirim";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Jangan tampilkan jendela dari aplikasi ini";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "Akhiri";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "Animasi fade out:";
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade Out Animasi";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "Fokus ke jendela yang dipilih";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Jendela layar penuh";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "Jendela layar penuh:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "Umum";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "Jendela tersembunyi:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "Sembunyikan";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "Sembunyikan lencana app:";
+/* No comment provided by engineer. */
+"Hide app badges" = "Sembunyikan lencana app";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Sembunyikan aplikasi tanpa jendela terbuka:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "Sembunyikan aplikasi tanpa jendela terbuka";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Sembunyikan lingkaran berwarna pada mouse hover:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "Sembunyikan lingkaran berwarna pada mouse hover";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Bersembunyi didalam %@";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Sembunyikan label nomor ruang:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "Sembunyikan label nomor ruang";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "Sembunyikan status ikon:";
+/* No comment provided by engineer. */
+"Hide status icons" = "Sembunyikan status ikon";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Sembunyikan thumbnail jendela:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "Tampilkan/Sembunyikan app";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "Tahan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "Saya pikir aplikasi dapat ditingkatkan dengan…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Abaikan pintasan saat aktif";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Abaikan pintasan saat jendela dari aplikasi ini aktif";
+/* No comment provided by engineer. */
+"Large" = "Besar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "Rilis terbaru";
 
-/*No comment provided by engineer.*/
-"Left" = "Kiri";
+/* No comment provided by engineer. */
+"Leading" = "Terkemuka";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "Tinggi maks di layar:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "Lebar maks di layar:";
+/* No comment provided by engineer. */
+"Medium" = "Sedang";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "Ikon menubar:";
+/* No comment provided by engineer. */
+"Menubar icon" = "Ikon Menubar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "Tengah";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimalkan / Deminimalkan jendela";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "Jendela yang diperkecil:";
+/* No comment provided by engineer. */
+"Multiple screens" = "Beberapa layar";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "Aneka ragam:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "Arahkan mouse";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "Jangan pernah kirim laporan kerusakan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "Tidak dibolehkan";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "Lisensi GPL-3.0";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Hanya jika jendela nya layar penuh";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Buka Preferensi Aksesibilitas…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "Buka Preferensi Perekaman Layar…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Opsional: surel (jika kamu ingin dapatkan balasan)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Pesan windows oleh";
+
+/* No comment provided by engineer. */
 "Policies" = "Kebijakan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "Preferensi…";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+/* No comment provided by engineer. */
+"Preview selected window" = "Preview selected window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "Pratinjau jendela yang dipilih.";
+
+/* No comment provided by engineer. */
 "Quit" = "Keluar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "Keluar %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "Keluar app";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "Ingat pilihan saya";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "Setel ulang preferensi dan mulai ulang";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "Setel ulang preferensi dan mulai ulang…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Deretan thumbnail:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "Layar termasuk bilah menu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "Layar termasuk mouse";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "Rekaman Layar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "Layar menampilkan AltTab";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "Pilih jendela berikutnya";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "Pilih jendela sebelumnya";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Pilih Windows di Mouse Way";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Pilih Windows Menggunakan Kunci Panah";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Pilih Windows Menggunakan Kunci Vim";
+
+/* No comment provided by engineer. */
 "Send" = "Kirim";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "Kirim sebuah laporan kerusakan?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "Tetap kirim";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "Kirim profil debug (CPU, memori, dll)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "Kirim umpan balik";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "Kirim umpan balik…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Bagikan gagasan peningkatan, atau laporkan bug";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "Pintasan 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "Pintasan 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "Pintasan 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "Pintasan 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "Pintasan 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Pintasan sudah ditetapkan ke tindakan lain: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Pintasan saat aktif";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Pintasan saat aktif…";
+
+/* No comment provided by engineer. */
 "Show" = "Tampilkan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "Tunjukan Sembunyikan";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Tampilkan item di switcher untuk setiap jendela, atau untuk setiap aplikasi.Windows akan difokuskan, sedangkan aplikasi akan diaktifkan.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "Tampilkan di akhir";
 
-/*No comment provided by engineer.*/
-"Show on:" = "Tunjukkan:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Tampilkan jendela layar penuh";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Tampilkan tab standar sebagai jendela:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "Tampilkan jendela tersembunyi";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "Tampilkan jendela dari:";
+/* No comment provided by engineer. */
+"Show in switcher" = "Tampilkan di Switcher";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "Tunjukkan jendela yang diminimalkan";
+
+/* No comment provided by engineer. */
+"Show on" = "Tunjukkan";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "Tampilkan tab standar sebagai jendela";
+
+/* No comment provided by engineer. */
+"Show titles" = "Tampilkan judul";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Tampilkan Windows dari Aplikasi";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Tampilkan jendela dari layar";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Tunjukkan jendela dari spasi";
+
+/* No comment provided by engineer. */
+"Size" = "Ukuran";
+
+/* No comment provided by engineer. */
+"Small" = "Kecil";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Beberapa aplikasi seperti Finder atau Preview menggunakan tab standar yang bertindak seperti jendela independen.Beberapa aplikasi lain seperti browser web menggunakan tab khusus yang bertindak dengan cara yang unik dan bukan jendela yang sebenarnya.Alttab tidak dapat mencantumkannya secara terpisah.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "Repositori kode sumber";
 
-/*No comment provided by engineer.*/
-"Space" = "Space";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "Mulai";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "Mulai saat masuk:";
+/* No comment provided by engineer. */
+"Start at login" = "Mulai dari login";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "Tema:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Beralih di antara 3 gaya yang berbeda.Anda dapat menyesuaikannya.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "Lalu lepaskan:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "Tema";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Izin ini diperlukan untuk memfokuskan jendela setelah Anda melepaskan pintasan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "Izin ini diperlukan untuk menampilkan tangkapan layar dan judul jendela yang terbuka";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "Thumbnails";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Pemotongan judul";
+
+/* No comment provided by engineer. */
+"Titles" = "Judul";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Pintasan pemicu";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Batalkan pintasan yang ada dan lanjutkan";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "Kebijakan pembaruan:";
+/* No comment provided by engineer. */
+"Updates policy" = "Kebijakan Pembaruan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "Versi";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "Lihat diskusi yang ada";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Visibility" = "Visibilitas";
+
+/* No comment provided by engineer. */
 "Visible Spaces" = "Ruang Terlihat";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "Saat layar penuh";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "Saat tidak ada jendela yang terbuka";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "Ketika terbuka, tekan:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "Ukuran ikon aplikasi jendela:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "Jendela adalah layar penuh";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "Jendela diminimalkan";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "Jendela ada di setiap Ruang";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "Jendela ada di Ruang %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "Lebar maks jendela dalam baris:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "Lebar minimal jendela dalam baris:";
+/* No comment provided by engineer. */
+"Windows" = "Windows";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Window order:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "Ukuran font judul jendela:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "Pemotongan judul jendela:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "Anda tidak dapat membatalkan tindakan ini.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Anda tidak menulis email Anda, sehingga tidak dapat menerima tanggapan apa pun.";
+

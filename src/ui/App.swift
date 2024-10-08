@@ -6,6 +6,7 @@ import AppCenterCrashes
 
 let cgsMainConnectionId = CGSMainConnectionID()
 
+// periphery:ignore
 var activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
     reason: "Prevent App Nap to preserve responsiveness")
 
@@ -27,6 +28,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var appIsBeingUsed = false
     var globalShortcutsAreDisabled = false
     var shortcutIndex = 0
+    // periphery:ignore
     var appCenterDelegate: AppCenterCrash?
     // multiple delayed display triggers should only show the ui when the last one triggers
     var delayedDisplayScheduled = 0
@@ -35,6 +37,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
         super.init()
         delegate = self
         App.app = self
+        // Fix the incorrect display of the ThumbnailView when the screen resolution changes.
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeCallback), name: NSApplication.didChangeScreenParametersNotification, object: nil)
+        if #available(macOS 10.14, *) {
+            DistributedNotificationCenter.default.addObserver(self, selector: #selector(didChangeCallback), name: NSNotification.Name("AppleInterfaceThemeChangedNotification"), object: nil)
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -44,6 +51,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
+        LogManager.setup()
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -57,6 +65,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             guard let self = self else { return }
             BackgroundWork.start()
             Preferences.initialize()
+            Appearance.update()
             self.menubar = Menubar()
             self.loadMainMenuXib()
             self.thumbnailsPanel = ThumbnailsPanel()
@@ -102,8 +111,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
-        ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
-        thumbnailsPanel.thumbnailsView.updateRoundedCorners(Preferences.windowCornerRadius)
+        thumbnailsPanel.thumbnailsView.reset()
     }
 
     func restart() {
@@ -114,7 +122,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func hideUi(_ keepPreview: Bool = false) {
-        debugPrint("hideUi")
+        logger.i("hideUi")
         appIsBeingUsed = false
         isFirstSummon = true
         MouseEvents.toggle(false)
@@ -163,7 +171,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func focusTarget() {
-        debugPrint("focusTarget")
+        logger.i("focusTarget")
         focusSelectedWindow(Windows.focusedWindow())
     }
 
@@ -185,11 +193,13 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     @objc func showPreferencesWindow() {
         showSecondaryWindow(preferencesWindow)
+        // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
+        preferencesWindow.center()
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {
         if let window = window {
-            NSScreen.preferred().repositionPanel(window, .appleCentered)
+            NSScreen.preferred().repositionPanel(window)
             App.shared.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
         }
@@ -222,24 +232,9 @@ class App: AppCenterApplication, NSApplicationDelegate {
         hideUi(true)
         if let window = selectedWindow, !MissionControl.isActive() {
             window.focus()
-            if Preferences.cursorFollowFocusEnabled {
-                moveCursorToSelectedWindow(window)
-            }
         } else {
             previewPanel.orderOut(nil)
         }
-    }
-
-    func moveCursorToSelectedWindow(_ window: Window) {
-        let referenceWindow = window.referenceWindowForTabbedWindow()
-        guard let position = referenceWindow?.position, let size = referenceWindow?.size else { return }
-        let point = CGPoint(x: position.x + size.width / 2, y: position.y + size.height / 2)
-        CGWarpMouseCursorPosition(point)
-    }
-
-    func reopenUi() {
-        thumbnailsPanel.orderOut(nil)
-        rebuildUi()
     }
 
     func refreshOpenUi(_ windowsToUpdate: [Window]? = nil) {
@@ -261,23 +256,23 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
-        currentScreen.repositionPanel(thumbnailsPanel, .appleCentered)
+        currentScreen.repositionPanel(thumbnailsPanel)
         Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
     }
 
     private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
         windowsToUpdate?.forEach { (window: Window) in
             guard appIsBeingUsed else { return }
-            if !Preferences.hideThumbnails { window.refreshThumbnail() }
+            if !Appearance.hideThumbnails { window.refreshThumbnail() }
             Windows.refreshIfWindowShouldBeShownToTheUser(window, currentScreen)
             window.updatesWindowSpace()
         }
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
-        debugPrint("showUiOrCycleSelection")
+        logger.i("showUiOrCycleSelection")
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
-            debugPrint("showUiOrCycleSelection: isFirstSummon")
+            logger.i("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
             if Windows.list.count == 0 || MissionControl.isActive() { hideUi(); return }
             // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
@@ -311,10 +306,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func rebuildUi(_ screen: NSScreen = NSScreen.preferred()) {
+        Appearance.update()
         guard appIsBeingUsed else { return }
         Windows.refreshFirstFewThumbnailsSync()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 monitors make thumbnailPanel invisible
+        thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 screens make thumbnailPanel invisible
         guard appIsBeingUsed else { return }
         refreshOpenUi()
         guard appIsBeingUsed else { return }
@@ -340,5 +336,15 @@ class App: AppCenterApplication, NSApplicationDelegate {
         if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
             App.app.hideUi()
         }
+    }
+
+
+    @objc func didChangeCallback(notification: Notification) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(handleChange), object: nil)
+        self.perform(#selector(handleChange), with: nil, afterDelay: 0.2)
+    }
+
+    @objc func handleChange() {
+        App.app.resetPreferencesDependentComponents()
     }
 }

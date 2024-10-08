@@ -8,14 +8,14 @@ class BlacklistView: NSScrollView {
         hasHorizontalScroller = false
         hasVerticalScroller = true
         documentView = TableView(nil)
-        fit(520, 360)
+        fit(500, 378)
     }
 }
 
 class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
     var items = Preferences.blacklist
 
-    convenience init(_ dummy: Int?) {
+    convenience init(_: Int?) {
         self.init()
         translatesAutoresizingMaskIntoConstraints = false
         delegate = self

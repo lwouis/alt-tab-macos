@@ -15,9 +15,3 @@ class MissionControl {
         return false
     }
 }
-
-enum MissionControlState {
-    case inactive
-    case expose
-    case showDesktop
-}

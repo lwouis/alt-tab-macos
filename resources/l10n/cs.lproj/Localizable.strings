@@ -1,458 +1,532 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "O AltTab";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "O %@u";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "Zpřístupnění";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "Zvláštní zmínky";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "Aktivní aplikace";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "Aktivní obrazovka";
 
-/*No comment provided by engineer.*/
-"Active Space" = "Aktivní Plocha";
+/* No comment provided by engineer. */
+"Additional controls" = "Další ovládací prvky";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "Zarovnat okna:";
+/* No comment provided by engineer. */
+"Additional controls…" = "Další ovládací prvky ...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "Pokročilý";
+
+/* No comment provided by engineer. */
+"After release" = "Po vydání";
+
+/* No comment provided by engineer. */
+"Align windows" = "Zarovnejte okna";
+
+/* No comment provided by engineer. */
 "All apps" = "Všechny aplikace";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "Všechna data z tohoto formuláře budou zveřejněna jako tiket na github.com";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "Všechny obrazovky";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "Všechny Plochy";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "Povoleno";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "Také okna vybírat pomocí:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab byl naposled neočekávaně ukončen. Odeslání hlášení o pádu pomůže chybu opravit";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab je v současné době nastaven na zobrazování aplikací.Toto nastavení je k dispozici pouze tehdy, když je Alttab nastavena tak, aby zobrazovala Windows.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab potřebuje některá oprávnění";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab zobrazí, zda je okno aktuálně minimalizováno nebo na celé obrazovce se stavovým ikonou.";
+
+/* No comment provided by engineer. */
 "Always" = "Always";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "Vždy odesílat hlášení o pádu";
 
-/*No comment provided by engineer.*/
-"and press:" = "a stiskněte:";
+/* No comment provided by engineer. */
+"and press" = "a stiskněte";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "Animace";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animace ...";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starting with)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "Ikony aplikace";
+
+/* No comment provided by engineer. */
 "App is hidden" = "App is hidden";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "App is running but has no open window";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "Prodleva zobrazení:";
+/* No comment provided by engineer. */
+"Apparition delay" = "Zpoždění zjevení";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "Vzhled";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplikace";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "Jste si jistí, že nechcete dostat odpověď?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "Šipky";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Zeptat se, zda odeslat hlášení o pádu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "Automaticky instalovat aktualizace";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "Blacklisty";
 
 /*Cancel button*/
 "Cancel" = "Zrušit";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "Zrušit a skrýt";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "Na střed";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "Zkontrolovat aktualizace...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 /*Fuzzy*/
 "Check for updates periodically" = "Pravidelně kontrolovat aktualizace";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "Zkontrolovat aktualizace...";
 
 /*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "Zavřít okno";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "Konflikt zkratek";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "Ovládání";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "Odesílání hlášení o pádu:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "Zásady zpráv o havárii";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Přizpůsobte styl ikon aplikací…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Přizpůsobte si miniatury styl ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Přizpůsobit styl titulů ...";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "Nedělat nic";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "Hotovo";
+
+/* No comment provided by engineer. */
 /*Fuzzy*/
 "Don’t check for updates periodically" = "Zakázat kontrolu aktualizací";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "Neodesílat";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Nezobrazovat okna těchto aplikací";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "Na konci";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "Animace mizení";
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade out animace";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "Přepnout do vybraného okna";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "Okna na celou obrazovku:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "Obecné";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "Skrytá okna:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "Skrýt";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "Skrýt čísla notifikací";
+/* No comment provided by engineer. */
+"Hide app badges" = "Skrýt čísla notifikací";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Skrýt aplikace bez aktivních oken";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "Skrýt aplikace bez aktivních oken";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Skrýt barevná kolečka při najetí myši";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "Skrýt barevná kolečka při najetí myši";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Skrýt čísla Ploch";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "Skrýt čísla Ploch";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "Skrýt ikony stavu";
+/* No comment provided by engineer. */
+"Hide status icons" = "Skrýt ikony stavu";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Skrýt náhledy oken:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "Skrýt/zobrazit aplikaci";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "Podržet";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "Myslím, že aplikace by mohla být vylepšena tak, že...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignorovat klávesové zkratky, když jsou aktivní okna následujících programů";
+/* No comment provided by engineer. */
+"Large" = "Velký";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 /*Fuzzy*/
 "Latest releases" = "Poslední vydání aktualizací";
 
-/*No comment provided by engineer.*/
-"Left" = "Vlevo";
+/* No comment provided by engineer. */
+"Leading" = "Vedoucí";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "Maximální výška na obrazovce";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "Maximální šířka na obrazovce";
+/* No comment provided by engineer. */
+"Medium" = "Střední";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "Ikona v menu";
+/* No comment provided by engineer. */
+"Menubar icon" = "Ikona Menubar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "Na středu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimalizovat/odminimalizovat okno";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "Minimalizovaná okna:";
+/* No comment provided by engineer. */
+"Multiple screens" = "Více obrazovek";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "Různé:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "Najetí myši";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "Nikdy neposílat hlášení o pádu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "Nepovoleno";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "Licence GPL-3.0";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Jen pokud je okno na celou obrazovku";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Otevřít Volby zpřístupnění";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "Otevřít Nastavení oprávnění nahrávání obrazovky";
 
-/*No comment provided by engineer.*/
-/*Fuzzy*/
-"Optional: email (if you want a reply)" = "E-mail (nepovinný, pokud chcete odpověď)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Objednat Windows od";
+
+/* No comment provided by engineer. */
 /*Fuzzy*/
 "Policies" = "Aktualizace a hlášení o pádu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "Nastavení...";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+/* No comment provided by engineer. */
+"Preview selected window" = "Preview selected window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "Náhled vybrané okno.";
+
+/* No comment provided by engineer. */
 "Quit" = "Zavřít";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "Ukončit %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "Zavřít aplikaci";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "Pamatovat si mou volbu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "Reset preferences and restart";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Počet řádků náhledů:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "Obrazovka s hlavní nabídkou";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "Obrazovka s myší";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "Nahrávání obrazovky";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "Obrazovka zobrazující AltTab";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "Vybrat následující okno";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "Vybrat předchozí okno";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Vyberte Windows na vznášení myši";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Vyberte Windows pomocí kláves se šipkami";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Vyberte Windows pomocí kláves Vim";
+
+/* No comment provided by engineer. */
 "Send" = "Odeslat";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "Odeslat hlášení o pádu?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "Poslat tak jako tak";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "Odeslat diagnostická data (CPU, paměť atd.)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "Odeslat zpětnou vazbu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "Odeslat zpětnou vazbu...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Navrhnout vylepšení nebo nahlásit chybu";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "Zkratka 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "Zkratka 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "Shortcut 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "Shortcut 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "Shortcut 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Zkratka je již používána jinou akcí: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Zkratky, když jsou aktivní";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Zkratky, když jsou aktivní ...";
+
+/* No comment provided by engineer. */
 "Show" = "Zobrazit";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "Zobrazit a skrýt";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Zobrazit položku v přepínači pro každé okno nebo pro každou aplikaci.Windows bude zaostřena, zatímco aplikace budou aktivovány.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "Zobrazit na konci";
 
-/*No comment provided by engineer.*/
-"Show on:" = "Zobrazit na:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Zobrazit okna na celé obrazovce";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Zobrazit standardní taby jako okna";
+/* No comment provided by engineer. */
+"Show hidden windows" = "Zobrazit skrytá okna";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "Zobrazit okna z:";
+/* No comment provided by engineer. */
+"Show in switcher" = "Zobrazit v přepínači";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "Zobrazit minimalizovaná okna";
+
+/* No comment provided by engineer. */
+"Show on" = "Zobrazit na";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "Zobrazit standardní taby jako okna";
+
+/* No comment provided by engineer. */
+"Show titles" = "Zobrazit tituly";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Zobrazit Windows z aplikací";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Zobrazit okna z obrazovek";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Zobrazit okna z mezer";
+
+/* No comment provided by engineer. */
+"Size" = "Velikost";
+
+/* No comment provided by engineer. */
+"Small" = "Malý";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Některé aplikace, jako je Finder nebo Preview, používají standardní karty, které fungují jako nezávislá Windows.Některé další aplikace, jako jsou webové prohlížeče, používají vlastní karty, které působí jedinečnými způsoby a nejsou skutečnými okny.Alttab je nemůže vyjmenovat samostatně.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "Repozitář zdrojového kódu";
 
-/*No comment provided by engineer.*/
-"Space" = "Space";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "Na začátku";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "Spustit při přihlášení:";
+/* No comment provided by engineer. */
+"Start at login" = "Začněte při přihlášení";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "Styl:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Přepněte mezi 3 různými styly.Můžete je přizpůsobit.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "Potom uvolněte:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "Téma";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Toto oprávnění je potřeba k přepnutí do okna po uvolnění klávesové zkratky";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "Toto oprávnění je potřeba k zobrazení náhledů a titulků otevřených oken";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "Miniatury";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Zkrácení titulu";
+
+/* No comment provided by engineer. */
+"Titles" = "Tituly";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Spouštěcí zkratka";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Odebrat existující zkratku a pokračovat";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "Kontrola aktualizací:";
+/* No comment provided by engineer. */
+"Updates policy" = "Aktualizace zásad";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "Verze";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "Zobrazit existující diskuse";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Visibility" = "Viditelnost";
+
+/* No comment provided by engineer. */
 "Visible Spaces" = "Viditelné Plochy";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "When fullscreen";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "When no open window";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "Při otevření stiskněte";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "Velikost ikony okna:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "Window is fullscreen";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "Window is minimized";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "Window is on every Space";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "Window is on Space %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "Maximální šířka okna v řádku:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "Minimální šířka okna v řádku:";
+/* No comment provided by engineer. */
+"Windows" = "Okna";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Window order:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "Velikost nadpisu okna:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "Zkrácení titulku okna";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Nenapsali jste váš e-mail, takže nemůžete dostat odpověď.";
+

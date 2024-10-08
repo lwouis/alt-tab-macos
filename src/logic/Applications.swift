@@ -86,7 +86,7 @@ class Applications {
         }
     }
 
-    static func refreshBadges_(_ items: [(URL?, String?)], _ currentIndex: Int = 0) {
+    static func refreshBadges_(_ items: [(URL?, String?)]) {
         Windows.list.enumerated().forEach { (i, window) in
             if !App.app.appIsBeingUsed { return }
             let view = ThumbnailsView.recycledViews[i]
@@ -119,12 +119,6 @@ class Applications {
         var info = ProcessInfoRec()
         GetProcessInformation(&psn, &info)
         return String(info.processType) != "XPC!"
-    }
-
-    // managing AltTab windows within AltTab create all sorts of side effects
-    // e.g. hiding the thumbnails panel gives focus to the preferences panel if open, thus changing its order in the list
-    private static func notAltTab(_ app: NSRunningApplication) -> Bool {
-        return app.processIdentifier != ProcessInfo.processInfo.processIdentifier
     }
     
     private static func isPasswords(_ app: NSRunningApplication) -> Bool {

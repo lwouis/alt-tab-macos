@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "जानकारी";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "%@ की जानकारी";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "अभिगम्यता";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "आभार";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "सक्रिय ऐप";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "सक्रिय स्क्रीन";
 
-/*No comment provided by engineer.*/
-"Active Space" = "सक्रिय स्पेस";
+/* No comment provided by engineer. */
+"Additional controls" = "अतिरिक्त नियंत्रण";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "खिड़की संरेखित करें:";
+/* No comment provided by engineer. */
+"Additional controls…" = "अतिरिक्त नियंत्रण…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "विकसित";
+
+/* No comment provided by engineer. */
+"After release" = "रिलीज़ के बाद";
+
+/* No comment provided by engineer. */
+"Align windows" = "विंडोज संरेखित करें";
+
+/* No comment provided by engineer. */
 "All apps" = "सब ऐप्स";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "इस पत्र के सभी जानकारी को github.com पर टिकट के रूप में सार्वजनिक किया जाएगा";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "सब स्क्रीन्स";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "सब स्पेस";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "अनुमत";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "खिड़कियाँ इसका उपयोग करके चुनें:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "पिछली बार जब आपने ऑल्टटैब इस्तेमाल किया था तो दुर्घटनाग्रस्त हो गया था। दुर्घटना की रिपोर्ट भेजने से समस्या को ठीक करने में मदद मिलेगी";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab वर्तमान में अनुप्रयोगों को दिखाने के लिए तैयार है।यह सेटिंग केवल तब उपलब्ध है जब AltTab विंडोज दिखाने के लिए तैयार है।";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "ऑल्टटैब को कुछ अनुमतियों की आवश्यकता है";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab दिखाएगा कि क्या विंडो वर्तमान में कम से कम है या एक स्थिति आइकन के साथ फुलस्क्रीन है।";
+
+/* No comment provided by engineer. */
 "Always" = "Always";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "हमेशा दुर्घटना की रिपोर्ट भेजें";
 
-/*No comment provided by engineer.*/
-"and press:" = "और दबाओ:";
+/* No comment provided by engineer. */
+"and press" = "और दबाएं";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "एनिमेशन";
+
+/* No comment provided by engineer. */
+"Animations…" = "एनिमेशन…";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starting with)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "ऐप आइकन";
+
+/* No comment provided by engineer. */
 "App is hidden" = "App is hidden";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "App is running but has no open window";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "प्रेत देरी:";
+/* No comment provided by engineer. */
+"Apparition delay" = "स्पष्टता विलंब";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "दिखावट";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "अनुप्रयोग";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "क्या आप सुनिश्चित हैं कि आपको कोई जवाब नहीं चाहिए?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "ऐरो कुंजी";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "पूछें कि क्या दुर्घटना की रिपोर्ट भेजनी है";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "समय-समय पर अपडेट खुद ब खुद इंस्टॉल करो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "काली सूची";
 
 /*Cancel button*/
 "Cancel" = "रद्द करो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "रद्द करो और छुपाओ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "मध्य";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "अभी अपडेट चेक करो...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "समय-समय पर अपडेट चेक करो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "अपडेट चेक करो...";
 
 /*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "विंडो बंद करो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "परस्पर विरोधी शॉर्टकट";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "नियंत्रण";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "दुर्घटना की रिपोर्ट नीति:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "दुर्घटना रिपोर्ट नीति";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "कस्टमाइज़ ऐप आइकन स्टाइल ...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "थंबनेल शैली को अनुकूलित करें ...";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "टाइटल स्टाइल को कस्टमाइज़ करें ...";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "कुछ मत करो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "हो गया";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "समय-समय पर अपडेट चेक मत करो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "मत भेजो";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "इन ऐप्स से खिड़की न दिखाएं";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "अंत";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "फेड आउट एनीमेशन:";
+/* No comment provided by engineer. */
+"Fade out animation" = "एनीमेशन को फीका";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "चयनित खिड़की पर केंद्र करें";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "पूर्ण स्क्रीन खिड़कियाँ:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "सामान्य";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "छिपा हुआ खिड़कियाँ:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "छुपाएं";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "एप बैज छुपाएं:";
+/* No comment provided by engineer. */
+"Hide app badges" = "एप बैज छुपाएं";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "बिना खुली खिड़की वाले ऐप्स छिपाएं:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "बिना खुली खिड़की वाले ऐप्स छिपाएं";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "माउस मँडराने पर पर रंगीन वृत्त छिपाएँ:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "माउस मँडराने पर पर रंगीन वृत्त छिपाएँ";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "स्पेस नंबर लेबल छुपाओ:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "स्पेस नंबर लेबल छुपाओ";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "स्थिति चिह्न छुपाएं:";
+/* No comment provided by engineer. */
+"Hide status icons" = "स्थिति चिह्न छुपाएं";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "खिड़की का थंबनेल छुपाएं:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "ऐप छुपाओ/दिखाओ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "दबाए रखें";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "मुझे लगता है कि इससे ऐप को बेहतर बनाया जा सकता है...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "इन ऐप्स की खिड़की सक्रिय होने पर शॉर्टकट पर ध्यान न दें";
+/* No comment provided by engineer. */
+"Large" = "बड़ा";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "सबसे नये रिलीज़";
 
-/*No comment provided by engineer.*/
-"Left" = "बाएं";
+/* No comment provided by engineer. */
+"Leading" = "अग्रणी";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "स्क्रीन पर अधिकतम ऊंचाई:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "स्क्रीन पर अधिकतम चौड़ाई:";
+/* No comment provided by engineer. */
+"Medium" = "मध्यम";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "मेनूबार आइकन:";
+/* No comment provided by engineer. */
+"Menubar icon" = "मीनुबर आइकन";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "मध्य";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "खिड़की छोटा/बड़ा करो";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "छोटा किया हुआ खिड़कियाँ:";
+/* No comment provided by engineer. */
+"Multiple screens" = "बहु -स्क्रीन";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "विविध:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "माउस मंडराना";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "दुर्घटना की रिपोर्ट कभी न भेजें";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "अनुमति नहीं हैं";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "जी.पी.एल-3.0 लाइसेंस";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "खिड़की फ़ुलस्क्रीन होने पर ही";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "अभिगम्यता पसंद खोलें...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "स्क्रीन रिकॉर्डिंग पसंद खोलें...";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "ऐच्छिक: ईमेल (अगर आप जवाब देना चाहते हैं)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "द्वारा विंडोज ऑर्डर करें";
+
+/* No comment provided by engineer. */
 "Policies" = "नियम";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "पसंद";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+/* No comment provided by engineer. */
+"Preview selected window" = "Preview selected window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "चयनित विंडो का पूर्वावलोकन करें।";
+
+/* No comment provided by engineer. */
 "Quit" = "बंद करो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "बंद करो %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "ऐप क्विट करो";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "मेरी पसंद याद रखो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "Reset preferences and restart";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "थंबनेल की पंक्तियाँ:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "मेनू बार सहित स्क्रीन";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "स्क्रीन जिसमे माउस हो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "स्क्रीन रिकॉर्डिंग";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "स्क्रीन जिसमे ऑल्टटैब हो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "अगली विंडो चुन";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "पिछली विंडो चुनो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "माउस होवर पर विंडोज का चयन करें";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "तीर कुंजियों का उपयोग करके विंडोज का चयन करें";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "VIM कुंजी का उपयोग करके विंडोज का चयन करें";
+
+/* No comment provided by engineer. */
 "Send" = "भेज दो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "दुर्घटना की रिपोर्ट भेजें?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "फिर भी भेज दो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "डिबग प्रोफ़ाइल भेजो (सीपीयू, स्मृति, आदि)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "राय भेजो";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "राय भेजो...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "सुधार के विचार साझा करें, या बग की रिपोर्ट करें";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "शॉर्टकट १";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "शॉर्टकट २";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "Shortcut 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "Shortcut 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "Shortcut 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "शॉर्टकट पहले से ही किसी अन्य क्रिया को सौंपा गया है: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "सक्रिय होने पर शॉर्टकट";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "शॉर्टकट जब सक्रिय…";
+
+/* No comment provided by engineer. */
 "Show" = "दिखाओ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "छिपा हुया दिखाओ";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "प्रत्येक विंडो के लिए, या प्रत्येक एप्लिकेशन के लिए स्विचर में एक आइटम दिखाएं।विंडोज पर ध्यान केंद्रित किया जाएगा, जबकि अनुप्रयोग सक्रिय हो जाएंगे।";
+
+/* No comment provided by engineer. */
 "Show at the end" = "अंत में दिखाओ";
 
-/*No comment provided by engineer.*/
-"Show on:" = "इस्पे दिखाओ:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "फुलस्क्रीन विंडोज दिखाएं";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "खिड़कियाँ के रूप में मानक टैब दिखाएं:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "छिपी हुई खिड़कियां दिखाएं";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "यहां से खिड़कियाँ दिखाएं:";
+/* No comment provided by engineer. */
+"Show in switcher" = "स्विचर में दिखाएँ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "कम से कम खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Show on" = "इस समय दिखाएं";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "खिड़कियाँ के रूप में मानक टैब दिखाएं";
+
+/* No comment provided by engineer. */
+"Show titles" = "शीर्षक दिखाओ";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "अनुप्रयोगों से खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "स्क्रीन से खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "रिक्त स्थान से खिड़कियां दिखाएं";
+
+/* No comment provided by engineer. */
+"Size" = "आकार";
+
+/* No comment provided by engineer. */
+"Small" = "छोटा";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "फाइंडर या प्रीव्यू जैसे कुछ ऐप मानक टैब का उपयोग करते हैं जो स्वतंत्र विंडो की तरह काम करते हैं।वेब ब्राउज़र जैसे कुछ अन्य ऐप कस्टम टैब का उपयोग करते हैं जो अद्वितीय तरीकों से कार्य करते हैं और वास्तविक विंडो नहीं हैं।AltTab उन अलग -अलग सूचीबद्ध नहीं कर सकता है।";
+
+/* No comment provided by engineer. */
 "Source code repository" = "स्रोत कोड भंडार";
 
-/*No comment provided by engineer.*/
-"Space" = "Space";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "शुरुआत";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "लॉग इन पे चलाओ:";
+/* No comment provided by engineer. */
+"Start at login" = "लॉगिन पर शुरू करें";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "अंदाज:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3 अलग -अलग शैलियों के बीच स्विच करें।आप उन्हें अनुकूलित कर सकते हैं।";
 
-/*No comment provided by engineer.*/
-"Then release:" = "फिर छोड़ो:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "विषय";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "शॉर्टकट जारी करने के बाद खिड़कियाँ पर केंद्र करने के लिए इस अनुमति की आवश्यकता है";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "खुली खिड़कियों के स्क्रीनशॉट और शीर्षक दिखाने के लिए इस अनुमति की आवश्यकता है";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "थंबनेल";
+
+/* No comment provided by engineer. */
+"Title truncation" = "हक";
+
+/* No comment provided by engineer. */
+"Titles" = "टाइटल";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "ट्रिगर शॉर्टकट";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "मौजूदा शॉर्टकट को सौंपना रद्द करें और जारी रखें";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "अपडेट नीति:";
+/* No comment provided by engineer. */
+"Updates policy" = "अद्यतन नीति";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "संस्करण";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "मौजूदा वाद-विवाद दिखाओ";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Visibility" = "दृश्यता";
+
+/* No comment provided by engineer. */
 "Visible Spaces" = "दृश्यत स्पेस";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "When fullscreen";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "When no open window";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "खुला होने पर, दबाओ:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "खिड़की ऐप आइकन आकार:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "Window is fullscreen";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "Window is minimized";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "Window is on every Space";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "Window is on Space %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "पंक्ति में खिड़की की अधिकतम चौड़ाई:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "पंक्ति में खिड़की की न्यूनतम चौड़ाई:";
+/* No comment provided by engineer. */
+"Windows" = "खिड़कियाँ";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Window order:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "खिड़की शीर्षक फ़ॉन्ट आकार:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "खिड़की शीर्षक काट-छाँट:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "आपने अपना ईमेल नहीं लिखा, इसलिए कोई जवाब नहीं मिल सकता ।";
+

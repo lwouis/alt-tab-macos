@@ -7,4 +7,5 @@ target 'alt-tab-macos' do
   pod 'ShortcutRecorder', :git => 'https://github.com/lwouis/ShortcutRecorder.git', :branch => 'alt-tab-current'
   pod 'SwiftyMarkdown', '1.1.0'
   pod 'AppCenter/Crashes', '4.3.0'
+  pod 'SwiftyBeaver', '1.9.0'
 end

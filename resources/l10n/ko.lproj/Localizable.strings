@@ -1,455 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "정보";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "%@에 관하여";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "손쉬운 사용";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "감사의 말";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "활성화된 앱";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "활성화된 화면";
 
-/*No comment provided by engineer.*/
-"Active Space" = "활성화된 Space";
+/* No comment provided by engineer. */
+"Additional controls" = "추가 컨트롤";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "윈도우 정렬방식:";
+/* No comment provided by engineer. */
+"Additional controls…" = "추가 제어…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "고급의";
+
+/* No comment provided by engineer. */
+"After release" = "출시 후";
+
+/* No comment provided by engineer. */
+"Align windows" = "Windows를 정렬합니다";
+
+/* No comment provided by engineer. */
 "All apps" = "모든 앱";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "위 양식의 모든 데이터는 github.com에 공개적으로 보여질 것입니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "모든 화면";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "모든 Space";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "허용됨";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "알파벳순";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "또한 다음을 이용해 윈도우를 선택하기:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab의 충돌이 감지되었습니다. 충돌 보고서를 보내는 것은 이 문제를 해결하는데 도움을 줄 수 있습니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab은 현재 응용 프로그램을 표시 할 예정입니다.이 설정은 AltTab이 Windows를 표시하도록 설정된 경우에만 사용할 수 있습니다.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab이 권한을 필요로 합니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab은 현재 창이 현재 최소화되었는지 또는 상태 아이콘이있는 전체 화면인지 표시됩니다.";
+
+/* No comment provided by engineer. */
 "Always" = "항상";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "항상 보내기";
 
-/*No comment provided by engineer.*/
-"and press:" = "와 다음을 누르면:";
+/* No comment provided by engineer. */
+"and press" = "그리고 누르십시오";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "애니메이션";
+
+/* No comment provided by engineer. */
+"Animations…" = "애니메이션…";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "앱 (다음으로 시작하는 번들ID)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "앱 아이콘";
+
+/* No comment provided by engineer. */
 "App is hidden" = "앱이 숨겨져 있습니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "앱이 실행 중이지만 열린 윈도우가 없습니다";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "나타나는 지연 시간:";
+/* No comment provided by engineer. */
+"Apparition delay" = "유령 지연";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "모양";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "응용 프로그램";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "답변을 받지 않으셔도 되나요?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "방향키";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "보내기 전에 물어보기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "주기적으로 자동 업데이트를 하기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "블랙리스트";
 
 /*Cancel button*/
 "Cancel" = "취소";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "취소하고 숨기기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "중앙";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "지금 업데이트 확인…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "주기적으로 업데이트를 확인하기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "업데이트 확인…";
 
 /*Menubar option*/
 "Check permissions…" = "권한 확인하기…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "윈도우 닫기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "단축키 충돌";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "조작";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "충돌 보고서 처리 방법:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "충돌 보고서 정책";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "커서가 포커스를 따름";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "앱 아이콘 스타일 사용자 정의…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "썸네일 스타일 사용자 정의…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "타이틀 스타일 사용자 정의…";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "아무것도 하지 않기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "완료";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "주기적으로 업데이트를 확인하지 않기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "보내지 않기";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "다음 앱들의 윈도우가 보여지지 않습니다";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "끝";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "페이드 아웃 애니메이션:";
+/* No comment provided by engineer. */
+"Fade out animation" = "애니메이션을 사라집니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "선택한 윈도우로 이동";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "윈도우를 전체 화면으로 전환";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "전체 화면 윈도우:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "윈도우 최대화/최소화";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "일반";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "숨겨진 윈도우:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "숨기기";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "앱 뱃지 숨기기:";
+/* No comment provided by engineer. */
+"Hide app badges" = "앱 뱃지 숨기기";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "열려있는 윈도우가 없는 앱 숨기기:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "열려있는 윈도우가 없는 앱 숨기기";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "마우스를 올릴 때 색칠된 원들 숨기기:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "마우스를 올릴 때 색칠된 원들 숨기기";
 
 /*%@ is AltTab*/
 "Hide in %@" = "%@에서 숨기기";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Space 번호 숨기기:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "Space 번호 숨기기";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "상태 아이콘 숨기기:";
+/* No comment provided by engineer. */
+"Hide status icons" = "상태 아이콘 숨기기";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "윈도우 썸네일 숨기기:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "앱 숨기기/보이기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = " ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "이 앱의 개선안은…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "단축키 무시";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "다음 앱들이 활성화되면 단축키를 무시합니다";
+/* No comment provided by engineer. */
+"Large" = "크기가 큰";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "최신 버전";
 
-/*No comment provided by engineer.*/
-"Left" = "왼쪽";
+/* No comment provided by engineer. */
+"Leading" = "주요한";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "화면 내의 최대 높이:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "화면 내의 최대 너비:";
+/* No comment provided by engineer. */
+"Medium" = "중간";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "메뉴바 아이콘:";
+/* No comment provided by engineer. */
+"Menubar icon" = "메뉴 바 아이콘";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "중간";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "윈도우 최소화/최대화";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "최소화된 윈도우:";
+/* No comment provided by engineer. */
+"Multiple screens" = "여러 화면";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "기타:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "마우스 올려놓기";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "절대 보내지 않기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "허용되지 않음";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 라이선스";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "전체 화면일 경우에만";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "손쉬운 사용 설정 열기…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "화면 기록 설정 열기…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "답변을 원하면 이메일 주소를 남겨주세요";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Windows를 주문하십시오";
+
+/* No comment provided by engineer. */
 "Policies" = "방침";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "설정…";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "선택한 윈도우 미리보기:";
+/* No comment provided by engineer. */
+"Preview selected window" = "선택한 윈도우 미리보기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "선택한 창을 미리 봅니다.";
+
+/* No comment provided by engineer. */
 "Quit" = "종료";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "%@ 종료";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "앱 종료";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "최근 생성순";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "최근 포커스순";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "내 선택 기억하기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "설정 초기화 후 다시 시작";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "설정 초기화 후 다시 시작...";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "썸네일의 줄 개수:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "메뉴 바를 포함한 화면";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "마우스를 포함한 화면";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "화면 기록";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "AltTab이 보여지는 화면";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "다음 윈도우를 선택";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "이전 윈도우를 선택";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "마우스 호버에서 창을 선택하십시오";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "화살표 키를 사용하여 Windows를 선택하십시오";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Vim 키를 사용하여 Windows를 선택하십시오";
+
+/* No comment provided by engineer. */
 "Send" = "보내기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "충돌 보고서를 보낼까요?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "보내기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "디버깅 정보 보내기 (CPU, memory 등)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "피드백 보내기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "피드백 보내기…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "개선안을 제안하거나 버그를 제보해주세요";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "단축키 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "단축키 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "단축키 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "단축키 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "단축키 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "단축키가 이미 다른 동작에 할당되어 있습니다: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "활성화 될 때 바로 가기";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "활성화 될 때 바로 가기…";
+
+/* No comment provided by engineer. */
 "Show" = "보기";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "표시 및 숨기십시오";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "각 창 또는 각 응용 프로그램에 대한 스위처에 항목을 표시하십시오.응용 프로그램은 활성화되는 반면 Windows는 집중됩니다.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "맨 뒤에서 보기";
 
-/*No comment provided by engineer.*/
-"Show on:" = "보여질 곳:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "전체 화면 창을 보여줍니다";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "기본 탭을 윈도우로 보여주기:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "숨겨진 창문을 보여주십시오";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "윈도우가 보일 곳:";
+/* No comment provided by engineer. */
+"Show in switcher" = "스위처에 표시하십시오";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "최소화 된 창을 보여줍니다";
+
+/* No comment provided by engineer. */
+"Show on" = "보여주십시오";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "기본 탭을 윈도우로 보여주기";
+
+/* No comment provided by engineer. */
+"Show titles" = "제목을 보여주십시오";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "응용 프로그램에서 Windows를 표시합니다";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "화면에서 창을 표시합니다";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "공간에서 창문을 보여줍니다";
+
+/* No comment provided by engineer. */
+"Size" = "크기";
+
+/* No comment provided by engineer. */
+"Small" = "작은";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder 또는 Preview와 같은 일부 앱은 독립 창처럼 작동하는 표준 탭을 사용합니다.웹 브라우저와 같은 다른 앱은 고유 한 방식으로 작동하고 실제 Windows가 아닌 사용자 정의 탭을 사용합니다.Alttab은 별도로 나열 할 수 없습니다.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "소스 코드";
 
-/*No comment provided by engineer.*/
-"Space" = "Space";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "처음";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "로그인 시 자동 실행:";
+/* No comment provided by engineer. */
+"Start at login" = "로그인에서 시작하십시오";
 
 /*Menubar option*/
 "Support this project ❤️" = "이 프로젝트 후원하기❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "테마:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "세 가지 다른 스타일 사이에서 전환하십시오.당신은 그들을 사용자 정의 할 수 있습니다.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "그리고 놓으면:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "주제";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "단축키 사용 후 창에 포커스 하기 위해서는 이 권한이 필요합니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "이 권한은 윈도우의 이미지와 제목을 띄울 수 있게 해줍니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "썸네일";
+
+/* No comment provided by engineer. */
+"Title truncation" = "제목 자리";
+
+/* No comment provided by engineer. */
+"Titles" = "제목";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "트리거 바로 가기";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "이미 존재하는 단축키를 할당 해제하고 계속";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "업데이트 방법:";
+/* No comment provided by engineer. */
+"Updates policy" = "정책을 업데이트합니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "버전";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "진행중인 논의 보기";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim 키";
+/* No comment provided by engineer. */
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim 키들은 다음과 같이 배정되어 있습니다:\n%@";
+/* No comment provided by engineer. */
+"Visibility" = "시계";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Visible Spaces" = "보이는 Space";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "전체 화면일 때";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "열린 윈도우가 없을 때";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "켜져 있을 때, 다음을 누르면:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "윈도우 앱 아이콘 크기:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "윈도우가 전체 화면 상태입니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "윈도우가 최소화 됐습니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "윈도우가 모든 Space에 있습니다";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "윈도우가 Space %d에 있습니다";
 
-/*No comment provided by engineer.*/
-/*Fuzzy*/
-"Window max width in row:" = "한 줄 내의 윈도우 최대 너비:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-/*Fuzzy*/
-"Window min width in row:" = "한 줄 내의 윈도우 최소 너비:";
+/* No comment provided by engineer. */
+"Windows" = "창";
 
-/*No comment provided by engineer.*/
-"Window order:" = "윈도우 정렬방식:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "윈도우 제목 글꼴 크기:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "윈도우 제목 생략 위치:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "이 작업은 되돌릴 수 없습니다.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "이메일을 적지 않으면 답변을 받을 수 없습니다.";
+

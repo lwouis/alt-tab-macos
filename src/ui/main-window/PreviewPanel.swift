@@ -33,15 +33,7 @@ private class BorderView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         let path = NSBezierPath(rect: bounds)
         path.append(NSBezierPath(roundedRect: bounds.insetBy(dx: 5, dy: 5), xRadius: 5, yRadius: 5).reversed)
-        systemAccentColor().withAlphaComponent(0.5).setFill()
+        NSColor.systemAccentColor.withAlphaComponent(0.5).setFill()
         path.fill()
     }
-}
-
-func systemAccentColor() -> NSColor {
-    if #available(OSX 10.14, *) {
-        // dynamically adapts to changes in System Default; no need to listen to notifications
-        return NSColor.controlAccentColor
-    }
-    return NSColor(srgbRed: 0, green: 0.47843137254901963, blue: 1, alpha: 1)
 }

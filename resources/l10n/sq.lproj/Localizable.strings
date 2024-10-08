@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "Rreth";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "Rreth %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "Çasja";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "Mirënjohjet";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "Aplikacioni aktiv";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "Ekrani aktiv";
 
-/*No comment provided by engineer.*/
-"Active Space" = "Hapësira Aktive";
+/* No comment provided by engineer. */
+"Additional controls" = "Kontrolle shtesë";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "Rradhit dritaret:";
+/* No comment provided by engineer. */
+"Additional controls…" = "Kontrolle shtesë";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "I avancuar";
+
+/* No comment provided by engineer. */
+"After release" = "Pas lëshimit";
+
+/* No comment provided by engineer. */
+"Align windows" = "Rreshtoni dritaret";
+
+/* No comment provided by engineer. */
 "All apps" = "Të gjitha aplikacionet";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "Të gjitha të dhënat nga kjo formë bëhen publike, si tiketë në github.com";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "Të gjitha dritaret";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "Të gjitha hapësirat";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "E lejuar";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "Gjithashtu zgjedh dritaret duke përdorur:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab dështoi kur e përdorët herën e fundit. Dërgimi i një raportimi të dështimit do të ndihmojë në zgjedhjen e problemit";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab aktualisht është vendosur të tregojë aplikacione.Kjo cilësim është në dispozicion vetëm kur Alttab është vendosur të tregojë Windows.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab ka nevojë për disa leje";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab do të tregojë nëse dritarja aktualisht është minimizuar ose në ekran të plotë me një ikonë të statusit.";
+
+/* No comment provided by engineer. */
 "Always" = "Always";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "Gjithmonë dërgo raportime të dështimeve";
 
-/*No comment provided by engineer.*/
-"and press:" = "dhe prekni:";
+/* No comment provided by engineer. */
+"and press" = "dhe shtypni";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "Animacione";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animacione";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleID starting with)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "Ikona të aplikacionit";
+
+/* No comment provided by engineer. */
 "App is hidden" = "App is hidden";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "App is running but has no open window";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "Vonesa e shfaqjes";
+/* No comment provided by engineer. */
+"Apparition delay" = "Vonesë në pamje";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "Pamja";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Aplikime";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "Jeni të sigurtë që nuk doni përgjigje?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "Tastet me shigjeta";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Pyet para se të dërgohet raporti i dështimeve";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "Auto-instalo përditësimet";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "Lista e zezë";
 
 /*Cancel button*/
 "Cancel" = "Anulo";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "Anulo dhe fshih";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "Qendër";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "Shiko për përditësime tani...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "Shiko për përditësime shpesh";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "Shiko për përditësime";
 
 /*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "Mbyll dritaren";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "Shkurtesë kontradiktore";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "Kontrollet";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "Politika e raportimit të dështimeve:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "Politika e raporteve të përplasjeve";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Rregulloni stilin e ikonave të aplikacionit";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Rregulloni stilin e tablove";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Rregulloni stilin e titujve";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "Bëj asgjë";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "I mbaruar";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Mos shiko për përditësime shpesh";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "Mos Dërgo";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Mos shfaq dritaret nga këto aplikacione";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "Fund";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "Animimi i zbehjes së jashtme:";
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade Out Animation";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "Fokuso dritaret e zgjedhura";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "Dritare me ekran të plotë:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "E përgjithshme";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "Dritaret e fshehura:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "Fshih";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "Fshih etiketat e aplikacioneve:";
+/* No comment provided by engineer. */
+"Hide app badges" = "Fshih etiketat e aplikacioneve";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Fshih aplikacionet pa dritare të hapura:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "Fshih aplikacionet pa dritare të hapura";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Fshih rrathët e ngjyrosur përmbi kursor:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "Fshih rrathët e ngjyrosur përmbi kursor";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Fshih etiketat e numrit:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "Fshih etiketat e numrit";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "Fshih ikonat e statusit:";
+/* No comment provided by engineer. */
+"Hide status icons" = "Fshih ikonat e statusit";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Fshihni minaturat e dritareve";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "Fshih/Shfaq Aplikacionin";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "Mbaj";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "Mendoj se aplikacioni mund të përmirësohet me…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Ignore shortcuts when active";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Injoro shkurtesat kur një dritare nga këto aplikacione është aktive";
+/* No comment provided by engineer. */
+"Large" = "I madh";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "Lansimet e fundit";
 
-/*No comment provided by engineer.*/
-"Left" = "Majtas";
+/* No comment provided by engineer. */
+"Leading" = "Drejtues";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "Lartësia maksimale në ekran:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "Gjerësia maksimale në ekran:";
+/* No comment provided by engineer. */
+"Medium" = "Mesatare";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "Ikona e menusë:";
+/* No comment provided by engineer. */
+"Menubar icon" = "Ikonë e menubarit";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "Mes";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Zvogëlo/Çzvogëlo dritaren";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "Dritare te zvogëluara:";
+/* No comment provided by engineer. */
+"Multiple screens" = "Ekranet e shumta";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "Të ndyshme:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "Mbi kursor";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "Kurrë mos dërgo raport të dështimeve";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "E palejuar";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 liçenca";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Vetën nëse dritarja është fullscreen";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Hap preferencat e çasjes…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "Hap preferencat e inqizimit të ekranit…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Jo-Obligative: E-mail (nëse doni përgjigje)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Porosit dritaret nga";
+
+/* No comment provided by engineer. */
 "Policies" = "Politikat";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "Preferencat";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+/* No comment provided by engineer. */
+"Preview selected window" = "Preview selected window";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "Paraprakisht dritaren e zgjedhur.";
+
+/* No comment provided by engineer. */
 "Quit" = "Dil";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "Dil %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "Mbyll aplikacionin";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "Mbaj mend zgjedhjen time";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "Reset preferences and restart";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rreshta me minaturë:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "Ekrani përfshin shiritin e menysë";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "Ekrani përfshin mous-in";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "Inqizimi i ekranit";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "Ekran shfaq AltTab";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "Zgjidh dritaren e ardhshme";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "Zgjidh dritaren paraprake";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Zgjidhni Windows on Mouse Hover";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Zgjidhni Windows duke përdorur çelësat e shigjetave";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Zgjidhni Windows duke përdorur çelësat VIM";
+
+/* No comment provided by engineer. */
 "Send" = "Dërgo";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "Dërgo raport dështimi?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "Sidoqoftë dërgo";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "Dërgo profilin e korigjimit (CPU, memory, etc)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "Dërgo mendime";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "Dërgo mendime…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Ndaj ide për përmirësim, ose raporto gabime";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "Shkurtesa 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "Shkurtesa 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "Shortcut 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "Shortcut 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "Shortcut 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shkurtesa tashmë është caktuar tjetër veprimi: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Shkurtore kur janë aktive";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Shkurtore kur janë aktive";
+
+/* No comment provided by engineer. */
 "Show" = "Shfaq";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "Shfaq Fshih";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Tregoni një artikull në ndërruesin për secilën dritare, ose për secilën aplikacion.Windows do të përqendrohet, ndërsa aplikacionet do të aktivizohen.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "Shfaq në fund";
 
-/*No comment provided by engineer.*/
-"Show on:" = "Shfaq në:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Shfaq dritaret me ekran të plotë";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Shfaq skedat standarde si dritare:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "Trego dritare të fshehura";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "Shfaq dritaret nga:";
+/* No comment provided by engineer. */
+"Show in switcher" = "Shfaq në Switcher";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "Trego dritare të minimizuara";
+
+/* No comment provided by engineer. */
+"Show on" = "Tregoj";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "Shfaq skedat standarde si dritare";
+
+/* No comment provided by engineer. */
+"Show titles" = "Tregojnë tituj";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Tregoni Windows nga aplikacionet";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Tregoni Windows nga Ekranet";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Tregoni dritare nga hapësirat";
+
+/* No comment provided by engineer. */
+"Size" = "Madhësi";
+
+/* No comment provided by engineer. */
+"Small" = "I vogël";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Disa aplikacione si Finder ose Preview përdorin skedat standarde të cilat veprojnë si dritare të pavarura.Disa aplikacione të tjera si shfletuesit e uebit përdorin skedat me porosi që veprojnë në mënyra unike dhe nuk janë dritare aktuale.Alttab nuk mund t'i rendisë ato veç e veç.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "Depo e kodit burimor";
 
-/*No comment provided by engineer.*/
-"Space" = "Space";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "Fillim";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "Starto gjatë identifikimit:";
+/* No comment provided by engineer. */
+"Start at login" = "Filloni në hyrje";
 
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "Motivi:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Kaloni midis 3 stileve të ndryshme.Ju mund t'i rregulloni ato.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "Pastaj lëshoni:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "Temë";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Kjo leje është e nevojshme për të fokusuar dritaret pasi të lëshoni shkurtesën";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "Kjo leje është e nevojshme për të shfaqur screenshots dhe titujt e dirtareve të hapura";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "Thumba";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Titulli i Titullit";
+
+/* No comment provided by engineer. */
+"Titles" = "Tituj";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Shkurtore";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Largo shkurtesën aktuale dhe vazhdo";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "Politika e përditësimit:";
+/* No comment provided by engineer. */
+"Updates policy" = "Politika e azhurnimeve";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "Verzioni";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "Shfaq diskutimet egzistuese";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Visibility" = "Shikim";
+
+/* No comment provided by engineer. */
 "Visible Spaces" = "Hapësirat e dukshme";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "When fullscreen";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "When no open window";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "Duke qenë hapur, prekni:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "Madhësia e ikonës së dritarës së aplikacionit:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "Window is fullscreen";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "Window is minimized";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "Window is on every Space";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "Window is on Space %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "Gjerësia maksimale e dritares në rresht:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "Gjerësia minimale e dritares në rresht";
+/* No comment provided by engineer. */
+"Windows" = "Dritare";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Window order:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "Madhësia e fontit të titullit të dritares:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "Titulli i kthesës së dritares:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "You can’t undo this action.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "JU nuk keni shkruar email, kështu që nuk mund të pranoni përgjigje";
+

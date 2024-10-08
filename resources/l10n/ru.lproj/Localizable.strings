@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "О программе";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "О приложении %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "Универсальный доступ";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "Лицензии";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "Активное приложение";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "Активный экран";
 
-/*No comment provided by engineer.*/
-"Active Space" = "Активный рабочий стол";
+/* No comment provided by engineer. */
+"Additional controls" = "Дополнительные элементы управления";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "Выравнивание окон:";
+/* No comment provided by engineer. */
+"Additional controls…" = "Дополнительные элементы управления…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "Передовой";
+
+/* No comment provided by engineer. */
+"After release" = "После выпуска";
+
+/* No comment provided by engineer. */
+"Align windows" = "Выровняйте окна";
+
+/* No comment provided by engineer. */
 "All apps" = "Все приложения";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "Все данные из этой формы будут опубликованы в виде вопроса на github.com";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "Все экраны";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "Все рабочие столы";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "Разрешено";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "По алфавиту";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "Также выбирать окна, используя:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab аварийно завершился в последний раз, когда вы его использовали. Отправка отчета поможет исправить проблему";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab в настоящее время настроен на показ приложений.Этот параметр доступен только тогда, когда Alttab установлен для отображения Windows.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab требуются некоторые разрешения";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab покажет, будет ли окно в настоящее время минимизировано или полноэкранно со значком состояния.";
+
+/* No comment provided by engineer. */
 "Always" = "Всегда";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "Всегда отправлять отчеты о вылетах";
 
-/*No comment provided by engineer.*/
-"and press:" = "и нажать:";
+/* No comment provided by engineer. */
+"and press" = "и пресс";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "Анимация";
+
+/* No comment provided by engineer. */
+"Animations…" = "Анимации ...";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "Приложение (BundleID начинается с)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "Значки приложения";
+
+/* No comment provided by engineer. */
 "App is hidden" = "Приложение скрыто";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "Приложение запущено, но нет открытого окна";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "Задержка появления:";
+/* No comment provided by engineer. */
+"Apparition delay" = "Задержка явления";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "Внешний вид";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Приложения";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "Вы уверены, что не хотите ответа?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "Клавиши стрелок";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Спрашивать, отправлять ли отчеты о вылетах";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "Автоматически устанавливать обновления";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "Черные списки";
 
 /*Cancel button*/
 "Cancel" = "Отмена";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "Отменить и скрыть";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "По центру";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "Проверить обновления сейчас…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "Периодически проверять обновления";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "Проверить обновления…";
 
 /*Menubar option*/
 "Check permissions…" = "Проверить разрешения…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "Закрыть окно";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "Комбинация клавиш с конфликтом";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "Управление";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "Правило отчетов о вылетах:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "Политика отчетов об аварии";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "Курсор следует за фокусом";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Настройте стиль значков приложений ...";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Настройте стиль миниатюрного стиля…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Настройте стиль названия ...";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "Ничего не делать";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "Сделанный";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Не проверять обновления";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "Не отправлять";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Не показывать окна этих приложений";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "Конец";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "Анимация затухания:";
+/* No comment provided by engineer. */
+"Fade out animation" = "Исчезнуть анимация";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "Фокус на выбранное окно";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Полноэкранное окно";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "Развернутые окна:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Переключить полноэкранный режим окна";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "Основное";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "Скрытые окна:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "Скрыть";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "Скрыть значки приложений:";
+/* No comment provided by engineer. */
+"Hide app badges" = "Скрыть значки приложений";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Скрыть приложения без открытых окон:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "Скрыть приложения без открытых окон";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Скрыть цветные круги при наведении мышью:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "Скрыть цветные круги при наведении мышью";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Скрыть в %@";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Скрыть номера рабочих столов:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "Скрыть номера рабочих столов";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "Скрыть иконки состояния:";
+/* No comment provided by engineer. */
+"Hide status icons" = "Скрыть иконки состояния";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Скрыть эскизы окон:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "Скрыть/Показать приложение";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "Удерживать";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "Я думаю, что приложение может быть улучшено…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Игнорировать комбинации когда активно";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Игнорировать комбинации клавиш пока окно приложения из этого списка активно";
+/* No comment provided by engineer. */
+"Large" = "Большой";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "Последние обновления";
 
-/*No comment provided by engineer.*/
-"Left" = "Слева";
+/* No comment provided by engineer. */
+"Leading" = "Ведущий";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "Макс. высота на экране:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "Макс. ширина на экране:";
+/* No comment provided by engineer. */
+"Medium" = "Середина";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "Иконка в строке меню:";
+/* No comment provided by engineer. */
+"Menubar icon" = "Менубар значок";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "Посередине";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Свернуть/Развернуть окно";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "Свернутые окна:";
+/* No comment provided by engineer. */
+"Multiple screens" = "Несколько экранов";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "Разное:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "Наведение мышью";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "Никогда не отправлять отчеты о вылетах";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "Не разрешено";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "Лицензия GPL-3.0";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Только если окно на полный экран";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Открыть настройки Универсального доступа…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "Открыть настройки Записи экрана…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Опционально: эл.почта (если вы хотите ответа)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Заказывать окна";
+
+/* No comment provided by engineer. */
 "Policies" = "Правила";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "Настройки…";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Превью выбранного окна:";
+/* No comment provided by engineer. */
+"Preview selected window" = "Превью выбранного окна";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "Предварительный просмотр выбранного окна.";
+
+/* No comment provided by engineer. */
 "Quit" = "Выход";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "Выход из %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "Выйти из приложения";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Недавно созданное";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Недавно активное";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "Запомнить мой выбор";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "Сброс настроек и перезапуск";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "Сброс настроек и перезапуск…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Ряды с эскизами окон:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "Экран с панелью меню";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "Экран с курсором";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "Запись экрана";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "Экран, показывающий AltTab";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "Выбрать следующее окно";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "Выбрать предыдущее окно";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Выберите Windows на мыши";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Выберите Windows, используя клавиши со стрелками";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Выберите Windows, используя Vim Keys";
+
+/* No comment provided by engineer. */
 "Send" = "Отправить";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "Отправить отчет о вылете?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "Все равно отправить";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "Отправить отладочный профиль (CPU, память и т.д.)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "Отправить отзыв";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "Отправить отзыв…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Поделитесь идеями по улучшению или сообщите об ошибках";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "Комбинация 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "Комбинация 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "Комбинация 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "Комбинация 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "Комбинация 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Комбинация уже назначена к другом действие: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Ярлыки при активном";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Ярлыки при активном ...";
+
+/* No comment provided by engineer. */
 "Show" = "Показать";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "Показать спрятать";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Покажите элемент в коммутаторе для каждого окна или для каждого приложения.Windows будет сфокусировано, тогда как приложения будут активированы.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "Показывать в конце";
 
-/*No comment provided by engineer.*/
-"Show on:" = "Показать на:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Показать полноэкранные окна";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Показывать вкладки стандартных приложений как окна:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "Показать скрытые окна";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "Показывать окна:";
+/* No comment provided by engineer. */
+"Show in switcher" = "Показать в переключателе";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "Показать минимизированные окна";
+
+/* No comment provided by engineer. */
+"Show on" = "Показать на";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "Показывать вкладки стандартных приложений как окна";
+
+/* No comment provided by engineer. */
+"Show titles" = "Показать названия";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Показать Windows из приложений";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Показать окна с экранов";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Показать окна из пространств";
+
+/* No comment provided by engineer. */
+"Size" = "Размер";
+
+/* No comment provided by engineer. */
+"Small" = "Маленький";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Некоторые приложения, такие как Finder или Preview, используют стандартные вкладки, которые действуют как независимые Windows.Некоторые другие приложения, такие как веб -браузеры, используют пользовательские вкладки, которые действуют уникальными способами, а не являются фактическими окнами.Alttab не может перечислить их отдельно.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "Репозиторий исходного кода";
 
-/*No comment provided by engineer.*/
-"Space" = "Пространство";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "Начало";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "Запускать при входе в систему:";
+/* No comment provided by engineer. */
+"Start at login" = "Начните с входа в систему";
 
 /*Menubar option*/
 "Support this project ❤️" = "Поддержать этот проект ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "Тема:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Переключитесь между 3 разными стилями.Вы можете настроить их.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "Затем отпустить:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "Тема";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Это разрешение нужно для фокусировки окна после отпускания комбинации клавиш";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "Это разрешение нужно для показа скриншотов и заголовков открытых окон";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "Миниатюры";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Усечение заголовка";
+
+/* No comment provided by engineer. */
+"Titles" = "Названия";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Триггерный ярлык";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Назначение отменить и дальше";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "Правило обновлений:";
+/* No comment provided by engineer. */
+"Updates policy" = "Политика обновлений";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "Версия";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "Посмотреть обсуждения";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim клавиши";
+/* No comment provided by engineer. */
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim клавиши уже назначены на другие действия:\n%@";
+/* No comment provided by engineer. */
+"Visibility" = "Видимость";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Visible Spaces" = "Видимые пространства";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "Когда полноэкранный";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "Когда нет открытых окон";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "Когда открыто, нажать:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "Размер иконки окна:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "Окно полноэкранное";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "Окно свернуто";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "Окно есть в каждом пространстве";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "Окно в пространстве %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "Максимальная ширина эскиза в ряду:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "Минимальная ширина эскиза в ряду:";
+/* No comment provided by engineer. */
+"Windows" = "Окна";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Порядок окон:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "Размер заголовка:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "Обрезка заголовка окна:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "Вы не можете отменить это действие";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Вы не написали свою электронную почту, поэтому не можете получить ответ.";
+

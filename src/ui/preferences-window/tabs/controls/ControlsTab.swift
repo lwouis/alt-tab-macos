@@ -32,83 +32,57 @@ class ControlsTab {
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
     ]
-    static var arrowKeysCheckbox: NSButton!
-    static var vimKeysCheckbox: NSButton!
+    static var arrowKeysCheckbox: Switch!
+    static var vimKeysCheckbox: Switch!
+
+    static var tableGroupViews: [TableGroupView]!
+
+    static var shortcutsWhenActiveSheet: ShortcutsWhenActiveSheet!
+    static var additionalControlsSheet: AdditionalControlsSheet!
 
     static func initTab() -> NSView {
-        let focusWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Focus selected window", comment: ""), "focusWindowShortcut", Preferences.focusWindowShortcut, labelPosition: .right)
-        let previousWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select previous window", comment: ""), "previousWindowShortcut", Preferences.previousWindowShortcut, labelPosition: .right)
-        let cancelShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Cancel and hide", comment: ""), "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)
-        let closeWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Close window", comment: ""), "closeWindowShortcut", Preferences.closeWindowShortcut, labelPosition: .right)
-        let minDeminWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Minimize/Deminimize window", comment: ""), "minDeminWindowShortcut", Preferences.minDeminWindowShortcut, labelPosition: .right)
-        let toggleFullscreenWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Fullscreen/Defullscreen window", comment: ""), "toggleFullscreenWindowShortcut", Preferences.toggleFullscreenWindowShortcut, labelPosition: .right)
-        let quitAppShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Quit app", comment: ""), "quitAppShortcut", Preferences.quitAppShortcut, labelPosition: .right)
-        let hideShowAppShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hide/Show app", comment: ""), "hideShowAppShortcut", Preferences.hideShowAppShortcut, labelPosition: .right)
-        let enableArrows = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Arrow keys", comment: ""), "arrowKeysEnabled", extraAction: ControlsTab.arrowKeysEnabledCallback, labelPosition: .right)
-        let enableVimKeys = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Vim keys", comment: ""), "vimKeysEnabled", extraAction: ControlsTab.vimKeysEnabledCallback, labelPosition: .right)
-        arrowKeysCheckbox = enableArrows[0] as? NSButton
-        vimKeysCheckbox = enableVimKeys[0] as? NSButton
-        let enableMouse = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Mouse hover", comment: ""), "mouseHoverEnabled", labelPosition: .right)
-        let enableCursorFollowFocus = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Cursor follows focus", comment: ""), "cursorFollowFocusEnabled", labelPosition: .right)
-        let selectWindowcheckboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Also select windows using:", comment: ""))
-        let selectWindowCheckboxes = StackView([StackView(enableArrows), StackView(enableVimKeys), StackView(enableMouse)], .vertical)
-        let miscCheckboxesExplanations = LabelAndControl.makeLabel(NSLocalizedString("Miscellaneous:", comment: ""))
-        let miscCheckboxes = StackView([StackView(enableCursorFollowFocus)], .vertical)
-        let shortcuts = StackView([focusWindowShortcut, previousWindowShortcut, cancelShortcut, closeWindowShortcut, minDeminWindowShortcut, toggleFullscreenWindowShortcut, quitAppShortcut, hideShowAppShortcut].map { (view: [NSView]) in StackView(view) }, .vertical)
-        let orPress = LabelAndControl.makeLabel(NSLocalizedString("While open, press:", comment: ""), shouldFit: false)
         let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection(0)
         let (holdShortcut2, nextWindowShortcut2, tab2View) = toShowSection(1)
         let (holdShortcut3, nextWindowShortcut3, tab3View) = toShowSection(2)
         let (holdShortcut4, nextWindowShortcut4, tab4View) = toShowSection(3)
         let (holdShortcut5, nextWindowShortcut5, tab5View) = toShowSection(4)
-        let tabView = TabView([
-            (NSLocalizedString("Shortcut 1", comment: ""), tab1View),
-            (NSLocalizedString("Shortcut 2", comment: ""), tab2View),
-            (NSLocalizedString("Shortcut 3", comment: ""), tab3View),
-            (NSLocalizedString("Shortcut 4", comment: ""), tab4View),
-            (NSLocalizedString("Shortcut 5", comment: ""), tab5View),
-        ])
-
-        ControlsTab.arrowKeysEnabledCallback(arrowKeysCheckbox)
-        ControlsTab.vimKeysEnabledCallback(vimKeysCheckbox)
+        tableGroupViews = [tab1View, tab2View, tab3View, tab4View, tab5View]
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
         [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3, nextWindowShortcut4, nextWindowShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
 
-        let grid = GridView([
-            [tabView],
-            [orPress, shortcuts],
-            [selectWindowcheckboxesExplanations, selectWindowCheckboxes],
-            [miscCheckboxesExplanations, miscCheckboxes]
-        ])
-        grid.column(at: 0).xPlacement = .trailing
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 0, length: 1))
-        grid.cell(atColumnIndex: 0, rowIndex: 0).xPlacement = .leading
-        tabView.rightAnchor.constraint(equalTo: grid.rightAnchor, constant: -GridView.padding).isActive = true
+        let tabs = StackView(tableGroupViews, .vertical)
+        tabs.translatesAutoresizingMaskIntoConstraints = false
+        tabs.fit()
 
-        // TODO: better layout logic. Maybe freeze the width of the preference window and have labels wrap on multiple lines
-        // currently this looks bad if the right column inside the tabView is larger than the right column of the top gridView
-        let leftColumnWidthTabView = tab1View.column(at: 0).width()
-        let leftColumnWidthTopView = grid.column(at: 0).width(0)
-        if leftColumnWidthTabView > leftColumnWidthTopView {
-            orPress.fit(tab1View.column(at: 0).width() + GridView.interPadding + TabView.padding, orPress.fittingSize.height)
-        } else {
-            orPress.fit()
-            tabView.leftAnchor.constraint(equalTo: tabView.superview!.leftAnchor, constant: leftColumnWidthTopView - leftColumnWidthTabView + 3).isActive = true
-        }
+        let table = TableGroupView(hasHeader: true, width: PreferencesWindow.width)
+        let tab = NSSegmentedControl(labels: [
+            NSLocalizedString("Shortcut 1", comment: ""),
+            NSLocalizedString("Shortcut 2", comment: ""),
+            NSLocalizedString("Shortcut 3", comment: ""),
+            NSLocalizedString("Shortcut 4", comment: ""),
+            NSLocalizedString("Shortcut 5", comment: ""),
+        ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
+        tab.selectedSegment = 0
+        tab.segmentStyle = .automatic
+        tab.widthAnchor.constraint(equalToConstant: PreferencesWindow.width).isActive = true
+        table.addHeader(views: [tab])
 
-        return grid
+        let additionalControlsButton = NSButton(title: NSLocalizedString("Additional controls…", comment: ""), target: self, action: #selector(ControlsTab.showAdditionalControlsSettings))
+        let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts when active…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
+        let tools = StackView([additionalControlsButton, shortcutsButton], .horizontal)
+        let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab4View, tab5View], toolsViews: [tools], toolsAlignment: .trailing)
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        shortcutsWhenActiveSheet = ShortcutsWhenActiveSheet()
+        additionalControlsSheet = AdditionalControlsSheet()
+
+        ControlsTab.switchIndexTab(0)
+        view.fit()
+        return view
     }
 
-    private static func toShowSection(_ index: Int) -> ([NSView], [NSView], GridView) {
-        let toShowExplanations = LabelAndControl.makeLabel(NSLocalizedString("Show windows from:", comment: ""))
-        let toShowExplanations2 = LabelAndControl.makeLabel(NSLocalizedString("Minimized windows:", comment: ""))
-        let toShowExplanations3 = LabelAndControl.makeLabel(NSLocalizedString("Hidden windows:", comment: ""))
-        let toShowExplanations4 = LabelAndControl.makeLabel(NSLocalizedString("Fullscreen windows:", comment: ""))
-        let windowOrderExplanation = LabelAndControl.makeLabel(NSLocalizedString("Window order:", comment: ""))
-        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), Preferences.indexToName("holdShortcut", index), Preferences.holdShortcut[index], false, labelPosition: .leftWithoutSeparator)
-        holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press:", comment: "")))
-        let holdAndPress = StackView(holdShortcut)
+    private static func toShowSection(_ index: Int) -> ([NSView], [NSView], TableGroupView) {
         let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
         let spacesToShow = LabelAndControl.makeDropdown(Preferences.indexToName("spacesToShow", index), SpacesToShowPreference.allCases)
         let screensToShow = LabelAndControl.makeDropdown(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
@@ -116,27 +90,49 @@ class ControlsTab {
         let showHiddenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showHiddenWindows", index), ShowHowPreference.allCases)
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
-        let separator = NSBox()
-        separator.boxType = .separator
+
+        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), Preferences.indexToName("holdShortcut", index), Preferences.holdShortcut[index], false, labelPosition: .leftWithoutSeparator)
+        holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press", comment: "")))
         let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
-        let shortcutStyle = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Then release:", comment: ""), Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
-        let toShowDropdowns = StackView([appsToShow, spacesToShow, screensToShow], .vertical, false)
-        toShowDropdowns.spacing = TabView.padding
-        toShowDropdowns.fit()
-        let tab = GridView([
-            [toShowExplanations, toShowDropdowns],
-            [toShowExplanations2, showMinimizedWindows],
-            [toShowExplanations3, showHiddenWindows],
-            [toShowExplanations4, showFullscreenWindows],
-            [windowOrderExplanation, windowOrder],
-            [separator],
-            [holdAndPress, StackView(nextWindowShortcut)],
-            shortcutStyle,
-        ], TabView.padding)
-        tab.column(at: 0).xPlacement = .trailing
-        tab.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2), verticalRange: NSRange(location: 5, length: 1))
-        tab.fit()
-        return (holdShortcut, nextWindowShortcut, tab)
+        let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
+
+        let table = TableGroupView(width: PreferencesWindow.width)
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger shortcut", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release", comment: ""), rightViews: [shortcutStyle]))
+
+        table.addNewTable()
+        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: ""))], rightViews: [appsToShow])
+        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from Spaces", comment: ""))], rightViews: [spacesToShow])
+        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from screens", comment: ""))], rightViews: [screensToShow])
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show minimized windows", comment: ""), rightViews: [showMinimizedWindows]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show hidden windows", comment: ""), rightViews: [showHiddenWindows]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Order windows by", comment: ""), rightViews: [windowOrder]))
+        table.fit()
+        return (holdShortcut, nextWindowShortcut, table)
+    }
+
+    @objc static func switchTab(_ sender: NSSegmentedControl) {
+        let selectedIndex = sender.selectedSegment
+        switchIndexTab(selectedIndex)
+    }
+
+    static func switchIndexTab(_ selectedIndex: Int) {
+        ControlsTab.tableGroupViews.enumerated().forEach { (index, view) in
+            if selectedIndex == index {
+                view.isHidden = false
+            } else {
+                view.isHidden = true
+            }
+        }
+    }
+
+    @objc static func showShortcutsSettings() {
+        App.app.preferencesWindow.beginSheet(shortcutsWhenActiveSheet)
+    }
+
+    @objc static func showAdditionalControlsSettings() {
+        App.app.preferencesWindow.beginSheet(additionalControlsSheet)
     }
 
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {
@@ -220,7 +216,7 @@ class ControlsTab {
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
         let keys = ["←", "→", "↑", "↓"]
-        if (sender as! NSButton).state == .on {
+        if (sender as! Switch).state == .on {
             keys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
         } else {
             keys.forEach { removeShortcutIfExists($0) }
@@ -234,11 +230,11 @@ class ControlsTab {
             "k": "vimCycleUp",
             "j": "vimCycleDown"
         ]
-        if (sender as! NSButton).state == .on {
+        if (sender as! Switch).state == .on {
             if isClearVimKeysSuccessful() {
                 keyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
             } else {
-                (sender as! NSButton).state = .off
+                (sender as! Switch).state = .off
                 Preferences.remove("vimKeysEnabled")
             }
         } else {
