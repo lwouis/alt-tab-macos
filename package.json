@@ -16,7 +16,6 @@
     ]
   },
   "scripts": {
-    "postinstall": "node scripts/install_swiftformat.js",
     "format": "node scripts/swiftformat.js",
     "format:check": "node scripts/swiftformat.js --lint"
   },
