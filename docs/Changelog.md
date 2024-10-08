@@ -1,5 +1,22 @@
 # Release notes
 
+# [6.73.0](https://github.com/lwouis/alt-tab-macos/compare/v6.72.0...v6.73.0) (2024-10-08)
+
+
+### Bug Fixes
+
+* closing alttab windows gives focus to previous app (closes [#3577](https://github.com/lwouis/alt-tab-macos/issues/3577)) ([0e6f200](https://github.com/lwouis/alt-tab-macos/commit/0e6f200))
+* detect passwords app (closes [#3545](https://github.com/lwouis/alt-tab-macos/issues/3545)) ([d0cd206](https://github.com/lwouis/alt-tab-macos/commit/d0cd206))
+* dragging files onto windowless apps was inconsistent ([0a9fe9b](https://github.com/lwouis/alt-tab-macos/commit/0a9fe9b))
+* finder would sometimes not be listed (closes [#3350](https://github.com/lwouis/alt-tab-macos/issues/3350)) ([eba5e42](https://github.com/lwouis/alt-tab-macos/commit/eba5e42))
+* focusing an app could open another version of it ([9d5f11a](https://github.com/lwouis/alt-tab-macos/commit/9d5f11a))
+* preview window could remain after focusing an app (closes [#3505](https://github.com/lwouis/alt-tab-macos/issues/3505)) ([e890a60](https://github.com/lwouis/alt-tab-macos/commit/e890a60))
+
+
+### Features
+
+* add kannada and malayalam and localizations ([5e27701](https://github.com/lwouis/alt-tab-macos/commit/5e27701))
+
 # [6.72.0](https://github.com/lwouis/alt-tab-macos/compare/v6.71.0...v6.72.0) (2024-07-14)
 
 
