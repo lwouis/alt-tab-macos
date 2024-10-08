@@ -32,7 +32,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var appCenterDelegate: AppCenterCrash?
     // multiple delayed display triggers should only show the ui when the last one triggers
     var delayedDisplayScheduled = 0
-    var lastHideUiTime: Date?
 
     override init() {
         super.init()
@@ -132,7 +131,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
             previewPanel.orderOut(nil)
         }
         hideAllTooltips()
-        App.app.lastHideUiTime = Date()
     }
 
     /// some tooltips may not be hidden when the main window is hidden; we force it through a private API

@@ -133,60 +133,11 @@ class Window: CustomStringConvertible {
     }
 
     func refreshThumbnail() {
-        guard let screenshot = screenshot()/*, !isIgnoreScreenshotUnderStageManager(screenshot) */else {
+        guard let screenshot = screenshot() else {
             return
         }
         thumbnail = screenshot
         thumbnailFullSize = thumbnail!.size
-    }
-
-    private func isIgnoreScreenshotUnderStageManager(_ screenshot: NSImage) -> Bool {
-        // Despite attempts to fix the screenshot issue in Stage Manager mode, some problems will still persist.
-        if let lastHideUiTime = App.app.lastHideUiTime, Date().timeIntervalSince(lastHideUiTime) < 3 {
-            // When the switcher is displayed for a short period of time,
-            // the screenshot under StageManager will be taken during the animation, causing abnormal screenshots.
-            if StageManager.isEnabled() {
-                return true
-            }
-        } else if screenshot.size.height < 350 && screenshot.size.width < 500 && StageManager.isEnabled() {
-            if isDistortedImage(screenshot) {
-                return true
-            } else if let thumbnail = thumbnail {
-                if (screenshot.size.height < thumbnail.size.height / 2) || (screenshot.size.width < thumbnail.size.width / 2) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    func isDistortedImage(_ screenshot: NSImage) -> Bool {
-        guard let tiffData = screenshot.tiffRepresentation,
-              let bitmap = NSBitmapImageRep(data: tiffData) else {
-            return false
-        }
-
-        let width = bitmap.pixelsWide
-        let height = bitmap.pixelsHigh
-        let centerX = width / 2
-        var colors: [NSColor?] = []
-        for i in 0..<4 {
-            let y = i + 1
-            colors.append(bitmap.colorAt(x: centerX, y: y))
-        }
-
-        func areColorsEqual(_ colors: [NSColor?]) -> Bool {
-            guard let firstColor = colors.first as? NSColor else { return false }
-            for color in colors {
-                if color != firstColor {
-                    return false
-                }
-            }
-            return true
-        }
-
-        let colorsEqual = areColorsEqual(colors)
-        return (width <= 200 && height <= 200) || (colorsEqual && (width < 500 || height < 500))
     }
 
     func getPreview() -> NSImage? {

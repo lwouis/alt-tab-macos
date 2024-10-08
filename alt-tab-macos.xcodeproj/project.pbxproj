@@ -13,7 +13,6 @@
 		1C9610F8AF7AD8CA53B62913 /* titles_hide_status_icons_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961E64CF8FB6E3FDAA3DAA /* titles_hide_status_icons_light@2x.jpg */; };
 		1C961111398A3C5361862E49 /* thumbnails_show_status_icons_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961DA8E2A2EC560CD57DB3 /* thumbnails_show_status_icons_light@2x.jpg */; };
 		1C96111B8D813931DE26CB43 /* app_icons_show_running_applications_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961F68C77AAE38E5A2E046 /* app_icons_show_running_applications_light@2x.jpg */; };
-		1C96116F527EEA42BCBD3909 /* StageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9613FB68AF16AE939A9A77 /* StageManager.swift */; };
 		1C961184435D18C7DEBC7AD6 /* thumbnails_show_running_applications_windows_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961139B16ADE6E0B8A33A6 /* thumbnails_show_running_applications_windows_light@2x.jpg */; };
 		1C96120EFA0571E70E83C36B /* app_icons_hide_windowless_apps_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961389E736411009044AF9 /* app_icons_hide_windowless_apps_light@2x.jpg */; };
 		1C9612508530E03B81C1ECD7 /* thumbnails_hide_tabs_as_windows_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C96149CA86A8915BA0576D3 /* thumbnails_hide_tabs_as_windows_light@2x.jpg */; };
@@ -260,7 +259,6 @@
 		1C961334F059C39979BEDF19 /* app_icons_show_running_applications_windows_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app_icons_show_running_applications_windows_light@2x.jpg"; sourceTree = "<group>"; };
 		1C961359F2A8150F6020197A /* app_icons_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app_icons_light@2x.jpg"; sourceTree = "<group>"; };
 		1C961389E736411009044AF9 /* app_icons_hide_windowless_apps_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app_icons_hide_windowless_apps_light@2x.jpg"; sourceTree = "<group>"; };
-		1C9613FB68AF16AE939A9A77 /* StageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageManager.swift; sourceTree = "<group>"; };
 		1C96142EB71D683D7237C7ED /* app_icons_show_preview_focused_window_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app_icons_show_preview_focused_window_light@2x.jpg"; sourceTree = "<group>"; };
 		1C96145685B5DFCD24C58943 /* thumbnails_show_space_number_labels_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnails_show_space_number_labels_light@2x.jpg"; sourceTree = "<group>"; };
 		1C961484E5164C1BFF3B78FF /* thumbnails_show_running_applications_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnails_show_running_applications_light@2x.jpg"; sourceTree = "<group>"; };
@@ -1253,7 +1251,6 @@
 				D04BA8DB8AA7E5570DAC568A /* Sysctl.swift */,
 				D04BA514F1C4B475B3CA6EB6 /* Bash.swift */,
 				BF0C82E4DE5A28800F1DA6E6 /* MissionControl.swift */,
-				1C9613FB68AF16AE939A9A77 /* StageManager.swift */,
 			);
 			path = "api-wrappers";
 			sourceTree = "<group>";
@@ -2067,7 +2064,6 @@
 				1C961F9CF4F1BEDF04ACAEE0 /* Switch.swift in Sources */,
 				1C96182D2ECA735740ED474E /* ImageTextButtonView.swift in Sources */,
 				1C96143D5AD69C894A4D8375 /* LogManager.swift in Sources */,
-				1C96116F527EEA42BCBD3909 /* StageManager.swift in Sources */,
 				BF0C860F1779DDE8C0171EA0 /* WindowlessAppIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
