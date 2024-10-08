@@ -133,7 +133,7 @@ class Window: CustomStringConvertible {
     }
 
     func refreshThumbnail() {
-        guard let screenshot = screenshot(), !isIgnoreScreenshotUnderStageManager(screenshot) else {
+        guard let screenshot = screenshot()/*, !isIgnoreScreenshotUnderStageManager(screenshot) */else {
             return
         }
         thumbnail = screenshot

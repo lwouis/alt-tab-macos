@@ -7,17 +7,17 @@ class Applications {
 
     static func manuallyUpdateWindowsFor2s() {
         // Only perform stage manager once on startup.
-        if Preferences.appearanceStyle == .thumbnails && performStageManagerCount == 0 && StageManager.isEnabled() {
-            performStageManagerCount += 1
-            StageManager.disable()
-        }
+//        if Preferences.appearanceStyle == .thumbnails && performStageManagerCount == 0 && StageManager.isEnabled() {
+//            performStageManagerCount += 1
+//            StageManager.disable()
+//        }
         let group = DispatchGroup()
         manuallyUpdateWindows(group)
         _ = group.wait(wallTimeout: .now() + .seconds(2))
-        if Preferences.appearanceStyle == .thumbnails && performStageManagerCount == 1 && !StageManager.isEnabled() {
-            performStageManagerCount += 1
-            StageManager.enable()
-        }
+//        if Preferences.appearanceStyle == .thumbnails && performStageManagerCount == 1 && !StageManager.isEnabled() {
+//            performStageManagerCount += 1
+//            StageManager.enable()
+//        }
     }
 
     static func manuallyUpdateWindows(_ group: DispatchGroup? = nil) {
