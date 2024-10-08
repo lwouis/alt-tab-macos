@@ -236,6 +236,7 @@ class ThumbnailView: NSStackView {
         // NSImageView instances are registered to drag-and-drop by default
         thumbnail.unregisterDraggedTypes()
         appIcon.unregisterDraggedTypes()
+        windowlessIcon.unregisterDraggedTypes()
         // we only handle URLs (i.e. not text, image, or other draggable things)
         registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeURL as String)])
     }
