@@ -1,0 +1,454 @@
+
+/*No comment provided by engineer.*/
+"About" = "ಬಗ್ಗೆ";
+
+/*Menubar option. %@ is AltTab*/
+"About %@" = "About %@";
+
+/*No comment provided by engineer.*/
+"Accessibility" = "Accessibility";
+
+/*No comment provided by engineer.*/
+"Acknowledgments" = "ಸ್ವೀಕೃತಿ";
+
+/*No comment provided by engineer.*/
+"Active app" = "ಸಕ್ರಿಯ ಆ್ಯಪ್";
+
+/*No comment provided by engineer.*/
+"Active screen" = "ಸಕ್ರಿಯ ಸ್ಕ್ರೀನ್";
+
+/*No comment provided by engineer.*/
+"Active Space" = "ಸಕ್ರಿಯ ಜಾಗ";
+
+/*No comment provided by engineer.*/
+"Align windows:" = "ವಿಂಡೋಗಳನ್ನು ಜೋಡಿಸಿ:";
+
+/*No comment provided by engineer.*/
+"All apps" = "ಎಲ್ಲಾ ಆ್ಯಪ್ ಗಳು";
+
+/*No comment provided by engineer.*/
+"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+
+/*No comment provided by engineer.*/
+"All screens" = "ಎಲ್ಲ ಸ್ಕ್ರೀನ್ ಗಳು";
+
+/*No comment provided by engineer.*/
+"All Spaces" = "ಎಲ್ಲ ಜಾಗ ಗಳು";
+
+/*No comment provided by engineer.*/
+"Allowed" = "ಅನುಮತಿಸಲಾಗಿದೆ";
+
+/*No comment provided by engineer.*/
+"Alphabetical" = "Alphabetical";
+
+/*No comment provided by engineer.*/
+"Also select windows using:" = "Also select windows using:";
+
+/*No comment provided by engineer.*/
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+
+/*No comment provided by engineer.*/
+"AltTab needs some permissions" = "ಆಲ್ಟ್-ಟ್ಯಾಬ್ ಗೆ ಕೆಲವು ಅನುಮತಿಗಳು ಬೇಕಾಗಿದ್ದಾವೆ";
+
+/*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
+"Always send crash reports" = "Always send crash reports";
+
+/*No comment provided by engineer.*/
+"and press:" = "ಮತ್ತು ಒತ್ತಿರಿ:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
+
+/*No comment provided by engineer.*/
+"Apparition delay:" = "ಪ್ರತ್ಯಕ್ಷತೆ ವಿಳಂಬ:";
+
+/*No comment provided by engineer.*/
+"Appearance" = "ತೋರಿಕೆ";
+
+/*No comment provided by engineer.*/
+"Are you sure you don’t want a response?" = "ನಿಮಗೆ ಖಚಿತವಾಗಿ ಪ್ರತಿಕ್ರಿಯೆ ಬೇಡವೇ?";
+
+/*No comment provided by engineer.*/
+"Arrow keys" = "ಆ್ಯರೋ ಕೀಲಿಗಳು";
+
+/*No comment provided by engineer.*/
+"Ask whether to send crash reports" = "Ask whether to send crash reports";
+
+/*No comment provided by engineer.*/
+"Auto-install updates periodically" = "ನಿಯತಕಾಲಿಕ ಸ್ವಯಂ ತಂತ್ರಾಂಶ ಅನುಸ್ಥಾಪನೆ";
+
+/*No comment provided by engineer.*/
+"Blacklists" = "ಕಪ್ಪುಪಟ್ಟಿಗಳು";
+
+/*Cancel button*/
+"Cancel" = "ರದ್ದುಮಾಡಿ";
+
+/*No comment provided by engineer.*/
+"Cancel and hide" = "ರದ್ದುಮಾಡಿ ಮತ್ತು ಮರೆಮಾಡಿ";
+
+/*No comment provided by engineer.*/
+"Center" = "ಮಧ್ಯ";
+
+/*No comment provided by engineer.*/
+"Check for updates now…" = "ಹೊಸ ತoತ್ರಾಂಶಕ್ಕಾಗಿ ಈಗ ಪರಿಶೀಲಿಸಿ…";
+
+/*No comment provided by engineer.*/
+"Check for updates periodically" = "ಹೊಸ ತoತ್ರಾಂಶಕ್ಕಾಗಿ ನಿಯತಕಾಲಿಕವಾಗಿ ಪರಿಶೀಲಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Check for updates…" = "ಹೊಸ ತoತ್ರಾಂಶಕ್ಕಾಗಿ ಪರಿಶೀಲಿಸಿ…";
+
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
+/*No comment provided by engineer.*/
+"Close window" = "ವಿಂಡೋವನ್ನು ರದ್ದುಮಾಡಿ";
+
+/*No comment provided by engineer.*/
+"Conflicting shortcut" = "Conflicting shortcut";
+
+/*No comment provided by engineer.*/
+"Controls" = "Controls";
+
+/*No comment provided by engineer.*/
+"Crash reports policy:" = "Crash reports policy:";
+
+/*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
+"Do nothing" = "Do nothing";
+
+/*No comment provided by engineer.*/
+"Don’t check for updates periodically" = "ಹೊಸ ತoತ್ರಾಂಶಕ್ಕಾಗಿ ಪರಿಶೀಲಿಸಬೇಡಿ";
+
+/*No comment provided by engineer.*/
+"Don’t send" = "Don’t send";
+
+/*No comment provided by engineer.*/
+"Don’t show windows from these apps" = "ಈ ಆ್ಯಪ್ ಗಳ ವಿಂಡೋಗಳನ್ನು ತೋರಿಸಬೇಡಿ";
+
+/*No comment provided by engineer.*/
+"End" = "ಮುಗಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Fade out animation:" = "ಅನಿಮೇಷನ್ ಮಸುಕು ಮಾಡಿ:";
+
+/*No comment provided by engineer.*/
+"Focus selected window" = "Focus selected window";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
+
+/*No comment provided by engineer.*/
+"Fullscreen windows:" = "Fullscreen windows:";
+
+/*No comment provided by engineer.*/
+"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+
+/*No comment provided by engineer.*/
+"General" = "ಸಾಮಾನ್ಯ";
+
+/*No comment provided by engineer.*/
+"Hidden windows:" = "Hidden windows:";
+
+/*No comment provided by engineer.*/
+"Hide" = "Hide";
+
+/*No comment provided by engineer.*/
+"Hide app badges:" = "Hide app badges:";
+
+/*No comment provided by engineer.*/
+"Hide apps with no open window:" = "Hide apps with no open window:";
+
+/*No comment provided by engineer.*/
+"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
+/*No comment provided by engineer.*/
+"Hide Space number labels:" = "ಜಾಗವನ್ನು ಮರೆಮಾಡುವ ಸಂಖ್ಯೆ ಲೇಬಲ್:";
+
+/*No comment provided by engineer.*/
+"Hide status icons:" = "Hide status icons:";
+
+/*No comment provided by engineer.*/
+"Hide window thumbnails:" = "Hide window thumbnails:";
+
+/*No comment provided by engineer.*/
+"Hide/Show app" = "ಆ್ಯಪ್ ಅನ್ನು ಮರೆಮಾಡಿ/ತೋರಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Hold" = "ಹಿಡಿ";
+
+/*No comment provided by engineer.*/
+"I think the app could be improved with…" = "ತoತ್ರಾಂಶವನ್ನು ಹೀಗೆ ಸುಧಾರಿಸಬಹುದೆಂದು ನನ್ನ ಅನಿಸಿಕೆ…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+
+/*No comment provided by engineer.*/
+"Latest releases" = "ಇತ್ತೀಚಿನ ಬಿಡುಗಡೆಗಳು";
+
+/*No comment provided by engineer.*/
+"Left" = "ಎಡ";
+
+/*No comment provided by engineer.*/
+"Max height on screen:" = "Max height on screen:";
+
+/*No comment provided by engineer.*/
+"Max width on screen:" = "Max width on screen:";
+
+/*No comment provided by engineer.*/
+"Menubar icon:" = "Menubar icon:";
+
+/*No comment provided by engineer.*/
+"Middle" = "ಮಧ್ಯ";
+
+/*No comment provided by engineer.*/
+"Minimize/Deminimize window" = "ವಿಂಡೋವನ್ನ ಸಣ್ಣದು/ದೊಡ್ಡದು ಮಾಡಿ";
+
+/*No comment provided by engineer.*/
+"Minimized windows:" = "Minimized windows:";
+
+/*No comment provided by engineer.*/
+"Miscellaneous:" = "Miscellaneous:";
+
+/*No comment provided by engineer.*/
+/*Fuzzy*/
+"Mouse hover" = "ಮೌಸ್ ಸುಳಿದಾಟ";
+
+/*No comment provided by engineer.*/
+"Never send crash reports" = "Never send crash reports";
+
+/*No comment provided by engineer.*/
+"Not allowed" = "ಅನುಮತಿಸಲಾಗಿಲ್ಲ";
+
+/*Copyright (human-readable)*/
+"NSHumanReadableCopyright" = "ಜಿಪಿಎಲ್-೩.೦ ಲೈಸೆನ್ಸ್";
+
+/*No comment provided by engineer.*/
+"Only if the window is fullscreen" = "ವಿಂಡೋ ಪೂರ್ಣ ಸ್ಕ್ರೀನ್ ಇದ್ದಾಗ ಮಾತ್ರ";
+
+/*No comment provided by engineer.*/
+"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+
+/*No comment provided by engineer.*/
+"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+
+/*No comment provided by engineer.*/
+"Optional: email (if you want a reply)" = "ಐಚ್ಛಿಕ: ಇಮೇಲ್ (ನಿಮಗೆ ಉತ್ತರಿಸಬೇಕಾದಲ್ಲಿ)";
+
+/*No comment provided by engineer.*/
+"Policies" = "Policies";
+
+/*No comment provided by engineer.*/
+"Preferences…" = "ಆದ್ಯತೆಗಳು…";
+
+/*No comment provided by engineer.*/
+"Preview selected window:" = "Preview selected window:";
+
+/*No comment provided by engineer.*/
+"Quit" = "ಹೊರಬನ್ನಿ";
+
+/*No comment provided by engineer.*/
+"Quit %@" = "ಬಿಟ್ಟುಬಿಡಿ %@";
+
+/*No comment provided by engineer.*/
+"Quit app" = "ಆ್ಯಪ್ ಇಂದ ಹೊರಬನ್ನಿ";
+
+/*No comment provided by engineer.*/
+"Recently Created" = "Recently Created";
+
+/*No comment provided by engineer.*/
+"Recently Focused" = "Recently Focused";
+
+/*No comment provided by engineer.*/
+"Remember my choice" = "Remember my choice";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Reset preferences and restart…";
+
+/*No comment provided by engineer.*/
+"Rows of thumbnails:" = "Rows of thumbnails:";
+
+/*No comment provided by engineer.*/
+"Screen including menu bar" = "ಮೆನು ಬಾರ್ ಒಳಗೊಂಡಂತೆ ಸ್ಕ್ರೀನ್";
+
+/*No comment provided by engineer.*/
+"Screen including mouse" = "ಸ್ಕ್ರೀನ್ ಜೊತೆ ಮೌಸ್ ಒಳಗೂಡಿ";
+
+/*No comment provided by engineer.*/
+"Screen Recording" = "Screen Recording";
+
+/*No comment provided by engineer.*/
+"Screen showing AltTab" = "ಆಲ್ಟ್-ಟ್ಯಾಬ್ ತೋರಿಸುವ ಸ್ಕ್ರೀನ್";
+
+/*No comment provided by engineer.*/
+"Select next window" = "ಮುಂದಿನ ವಿಂಡೋವನ್ನು ಆರಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Select previous window" = "ಹಿಂದಿನ ವಿಂಡೋವನ್ನು ಆರಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Send" = "ಕಳುಹಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Send a crash report?" = "Send a crash report?";
+
+/*No comment provided by engineer.*/
+"Send anyway" = "ಹೇಗಾದರೂ ಕಳುಹಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Send debug profile (CPU, memory, etc)" = "ದೋಷಗಳನ್ನು ತೆಗೆದು ಹಾಕುವ ಮಾಹಿತಿ ಕಳುಹಿಸಿ (ಸಿಪಿಯು, ಮೆಮೊರಿ, ಮುಂತಾದವು)";
+
+/*No comment provided by engineer.*/
+"Send feedback" = "ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Send feedback…" = "ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ…";
+
+/*No comment provided by engineer.*/
+"Share improvement ideas, or report bugs" = "ಸುಧಾರಣೆ ಉಪಾಯಗಳು, ಅಥವಾ ದೋಷಗಳನ್ನು ವರದಿ ಮಾಡಿ";
+
+/*No comment provided by engineer.*/
+"Shortcut 1" = "Shortcut 1";
+
+/*No comment provided by engineer.*/
+"Shortcut 2" = "Shortcut 2";
+
+/*No comment provided by engineer.*/
+"Shortcut 3" = "Shortcut 3";
+
+/*No comment provided by engineer.*/
+"Shortcut 4" = "Shortcut 4";
+
+/*No comment provided by engineer.*/
+"Shortcut 5" = "Shortcut 5";
+
+/*No comment provided by engineer.*/
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+
+/*No comment provided by engineer.*/
+"Show" = "ತೋರಿಸಿ";
+
+/*No comment provided by engineer.*/
+"Show at the end" = "Show at the end";
+
+/*No comment provided by engineer.*/
+"Show on:" = "ಬಗ್ಗೆ ತೋರಿಸಿ:";
+
+/*No comment provided by engineer.*/
+"Show standard tabs as windows:" = "ಸಾಧಾರಣ ಟ್ಯಾಬ್ ಗಳನ್ನು ವಿಂಡೋವಿನಂತೆ ತೋರಿಸಿ:";
+
+/*No comment provided by engineer.*/
+"Show windows from:" = "Show windows from:";
+
+/*No comment provided by engineer.*/
+"Source code repository" = "ಮೂಲ ಕೋಡ್ ಭಂಡಾರ";
+
+/*No comment provided by engineer.*/
+"Space" = "Space";
+
+/*No comment provided by engineer.*/
+"Start" = "ಶುರುಮಾಡಿ";
+
+/*No comment provided by engineer.*/
+"Start at login:" = "ಶುರುವಿನಲ್ಲೇ ಲಾಗಿನ್ ಆಗಿ:";
+
+/*Menubar option*/
+"Support this project ❤️" = "Support this project ❤️";
+
+/*No comment provided by engineer.*/
+"Theme:" = "ಥೀಮ್:";
+
+/*No comment provided by engineer.*/
+"Then release:" = "Then release:";
+
+/*No comment provided by engineer.*/
+"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+
+/*No comment provided by engineer.*/
+"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+
+/*No comment provided by engineer.*/
+"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+
+/*No comment provided by engineer.*/
+"Updates policy:" = "ನವೀಕರಣ ನೀತಿ:";
+
+/*No comment provided by engineer.*/
+"Version" = "ಆವೃತ್ತಿ";
+
+/*No comment provided by engineer.*/
+"View existing discussions" = "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಚರ್ಚೆಗಳನ್ನು ನೋಡಿ";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+
+/*No comment provided by engineer.*/
+"Visible Spaces" = "Visible Spaces";
+
+/*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
+
+/*No comment provided by engineer.*/
+"While open, press:" = "While open, press:";
+
+/*No comment provided by engineer.*/
+"Window app icon size:" = "ವಿಂಡೋ ಆ್ಯಪ್ ಐಕಾನ್ ಗಾತ್ರ:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
+
+/*No comment provided by engineer.*/
+"Window max width in row:" = "Window max width in row:";
+
+/*No comment provided by engineer.*/
+"Window min width in row:" = "Window min width in row:";
+
+/*No comment provided by engineer.*/
+"Window order:" = "Window order:";
+
+/*No comment provided by engineer.*/
+"Window title font size:" = "ವಿಂಡೋ ಶೀರ್ಷಿಕೆ ಅಕ್ಷರ ಗಾತ್ರ:";
+
+/*No comment provided by engineer.*/
+"Window title truncation:" = "ವಿಂಡೋ ಶೀರ್ಷಿಕೆ ಮೊಟಕುಗೊಳಿಸುವಿಕೆ:";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "You can’t undo this action.";
+
+/*No comment provided by engineer.*/
+"You didn’t write your email, thus can’t receive any response." = "ನೀವು ನಿಮ್ಮ ಇಮೇಲ್ ಕೊಡದಿದ್ದ ಕಾರಣ ಪ್ರತಿಕ್ರಿಯೆ ಲಭಿಸುವುದಿಲ್ಲ.";
