@@ -1,7 +1,8 @@
 import Cocoa
 
 class ThumbnailTitleView: BaseLabel {
-    convenience init(_ size: CGFloat, _ shadow: NSShadow? = ThumbnailView.makeShadow(.darkGray)) {
+    convenience init(_ height: CGFloat,
+                     _ shadow: NSShadow? = ThumbnailView.makeShadow(Appearance.titleShadowColor)) {
         let textStorage = NSTextStorage()
         let layoutManager = NSLayoutManager()
         textStorage.addLayoutManager(layoutManager)
@@ -10,11 +11,11 @@ class ThumbnailTitleView: BaseLabel {
         textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
         self.init(NSRect.zero, textContainer)
-        font = Preferences.font
-        textColor = Preferences.fontColor
+        font = Appearance.font
+        textColor = Appearance.fontColor
         self.shadow = shadow
-        defaultParagraphStyle = makeParagraphStyle(size)
-        heightAnchor.constraint(equalToConstant: size).isActive = true
+        defaultParagraphStyle = makeParagraphStyle(height)
+        heightAnchor.constraint(equalToConstant: height).isActive = true
     }
 
     private func makeParagraphStyle(_ size: CGFloat) -> NSMutableParagraphStyle {
@@ -34,5 +35,32 @@ class ThumbnailTitleView: BaseLabel {
             return .byTruncatingMiddle
         }
         return .byTruncatingHead
+    }
+
+    func getTitleWidth() -> CGFloat {
+        guard let font = self.font else {
+            return 0
+        }
+
+        let text = self.string
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .paragraphStyle: defaultParagraphStyle ?? NSParagraphStyle.default
+        ]
+
+        let attributedString = NSAttributedString(string: text, attributes: attributes)
+
+        // Use boundingRect to calculate the text size
+        let textSize = attributedString.boundingRect(
+                with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
+                options: [.usesLineFragmentOrigin, .usesFontLeading],
+                context: nil
+        ).size
+
+        return ceil(textSize.width)
+    }
+
+    static func maxHeight() -> CGFloat {
+        return Appearance.fontHeight + 3
     }
 }

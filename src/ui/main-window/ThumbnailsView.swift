@@ -4,23 +4,35 @@ class ThumbnailsView: NSVisualEffectView {
     let scrollView = ScrollView()
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
+    static var thumbnailsWith = CGFloat(0.0)
+    static var thumbnailsHeight = CGFloat(0.0)
 
     convenience init() {
         self.init(frame: .zero)
-        material = .dark
+        material = Appearance.material
+        blendingMode = .behindWindow
         state = .active
         wantsLayer = true
-        updateRoundedCorners(Preferences.windowCornerRadius)
+        updateRoundedCorners(Appearance.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
     }
 
+    func reset() {
+        // it would be nicer to remove this whole "reset" logic, and instead update each component to check Appearance properties before showing
+        // Maybe in some Appkit willDraw() function that triggers before drawing it
+        Appearance.update()
+        self.material = Appearance.material
+        ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
+        updateRoundedCorners(Appearance.windowCornerRadius)
+    }
+
     static func highlight(_ indexInRecycledViews: Int) {
-        let v = recycledViews[indexInRecycledViews]
-        v.indexInRecycledViews = indexInRecycledViews
-        if v.frame != NSRect.zero {
-            v.drawHighlight(indexInRecycledViews)
+        let view = recycledViews[indexInRecycledViews]
+        view.indexInRecycledViews = indexInRecycledViews
+        if view.frame != NSRect.zero {
+            view.drawHighlight()
         }
     }
 
@@ -45,7 +57,7 @@ class ThumbnailsView: NSVisualEffectView {
 
     func nextRow(_ direction: Direction) -> [ThumbnailView]? {
         let step = direction == .down ? 1 : -1
-        if let currentRow = Windows.focusedWindow()?.row {
+        if let currentRow = Windows.focusedWindow()?.rowIndex {
             let nextRow = (currentRow + step) % rows.count
             let nextRow_ = nextRow < 0 ? rows.count + nextRow : nextRow
             if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow)) &&
@@ -76,31 +88,32 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     func updateItemsAndLayout(_ screen: NSScreen) {
-        let widthMax = ThumbnailsPanel.widthMax(screen).rounded()
+        let widthMax = ThumbnailsPanel.maxThumbnailsWidth(screen).rounded()
         if let (maxX, maxY) = layoutThumbnailViews(screen, widthMax) {
             layoutParentViews(screen, maxX, widthMax, maxY)
             if Preferences.alignThumbnails == .center {
                 centerRows(maxX)
             }
+            for (i, row) in rows.enumerated() {
+                for (j, view) in row.enumerated() {
+                    view.numberOfViewsInRow = row.count
+                    view.isFirstInRow = j == 0
+                    view.isLastInRow = j == row.count - 1
+                    view.indexInRow = j
+                }
+            }
             highlightStartView()
         }
     }
 
-    func rowHeight(_ screen: NSScreen) -> CGFloat {
-        if Preferences.hideThumbnails {
-            return max(Preferences.iconSize, Preferences.fontHeight + 3) + Preferences.intraCellPadding * 2
-        }
-        return ThumbnailView.height(screen).rounded(.down)
-    }
-
     private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
-        let height = rowHeight(screen)
+        let height = ThumbnailView.height(screen)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
-        let startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
+        let startingX = isLeftToRight ? Appearance.interCellPadding : widthMax - Appearance.interCellPadding
         var currentX = startingX
-        var currentY = Preferences.interCellPadding
+        var currentY = Appearance.interCellPadding
         var maxX = CGFloat(0)
-        var maxY = currentY + height + Preferences.interCellPadding
+        var maxY = currentY + height + Appearance.interCellPadding
         var newViews = [ThumbnailView]()
         rows.removeAll()
         rows.append([ThumbnailView]())
@@ -113,19 +126,19 @@ class ThumbnailsView: NSVisualEffectView {
             let projectedX = projectedWidth(currentX, width).rounded(.down)
             if needNewLine(projectedX, widthMax) {
                 currentX = startingX
-                currentY = (currentY + height + Preferences.interCellPadding).rounded(.down)
+                currentY = (currentY + height + Appearance.interCellPadding).rounded(.down)
                 view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
                 currentX = projectedWidth(currentX, width).rounded(.down)
-                maxY = max(currentY + height + Preferences.interCellPadding, maxY)
+                maxY = max(currentY + height + Appearance.interCellPadding, maxY)
                 rows.append([ThumbnailView]())
             } else {
                 view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
                 currentX = projectedX
                 maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
             }
-            newViews.append(view)
             rows[rows.count - 1].append(view)
-            window.row = rows.count - 1
+            newViews.append(view)
+            window.rowIndex = rows.count - 1
         }
         scrollView.documentView!.subviews = newViews
         return (maxX, maxY)
@@ -140,9 +153,9 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func projectedWidth(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
         if App.shared.userInterfaceLayoutDirection == .leftToRight {
-            return currentX + width + Preferences.interCellPadding
+            return currentX + width + Appearance.interCellPadding
         }
-        return currentX - width - Preferences.interCellPadding
+        return currentX - width - Appearance.interCellPadding
     }
 
     private func localizedCurrentX(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
@@ -150,10 +163,23 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
-        let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
-        frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
+        let heightMax = ThumbnailsPanel.maxThumbnailsHeight(screen).rounded()
+
+        ThumbnailsView.thumbnailsWith = min(maxX, widthMax)
+        ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
+        var frameWidth = ThumbnailsView.thumbnailsWith + Appearance.windowPadding * 2
+        var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2
+        var originX = Appearance.windowPadding
+        var originY = Appearance.windowPadding
+        if Preferences.appearanceStyle == .appIcons {
+            // If there is title under the icon on the last line, the height of the title needs to be subtracted.
+            frameHeight = frameHeight - Appearance.intraCellPadding - ThumbnailTitleView.maxHeight()
+            originY = originY - Appearance.intraCellPadding - ThumbnailTitleView.maxHeight()
+        }
+        frame.size = NSSize(width: frameWidth, height: frameHeight)
+
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
-        scrollView.frame.origin = CGPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)
+        scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
@@ -161,25 +187,26 @@ class ThumbnailsView: NSVisualEffectView {
         }
         scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
         if let existingTrackingArea = scrollView.trackingAreas.first {
-            scrollView.documentView!.removeTrackingArea(existingTrackingArea)
+            scrollView.removeTrackingArea(existingTrackingArea)
         }
-        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
+        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds,
+                options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
     }
 
     func centerRows(_ maxX: CGFloat) {
         var rowStartIndex = 0
-        var rowWidth = Preferences.interCellPadding
-        var rowY = Preferences.interCellPadding
+        var rowWidth = Appearance.interCellPadding
+        var rowY = Appearance.interCellPadding
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return }
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             if view.frame.origin.y == rowY {
-                rowWidth += view.frame.size.width + Preferences.interCellPadding
+                rowWidth += view.frame.size.width + Appearance.interCellPadding
             } else {
                 shiftRow(maxX, rowWidth, rowStartIndex, index)
                 rowStartIndex = index
-                rowWidth = Preferences.interCellPadding + view.frame.size.width + Preferences.interCellPadding
+                rowWidth = Appearance.interCellPadding + view.frame.size.width + Appearance.interCellPadding
                 rowY = view.frame.origin.y
             }
         }
@@ -253,7 +280,9 @@ class ScrollView: NSScrollView {
                 let target = target as! ThumbnailView
                 target.mouseMoved()
             } else {
-                resetHoveredWindow()
+                if !checkIfWithinInterPadding() {
+                    resetHoveredWindow()
+                }
             }
         } else {
             resetHoveredWindow()
@@ -262,6 +291,30 @@ class ScrollView: NSScrollView {
 
     override func mouseExited(with event: NSEvent) {
         resetHoveredWindow()
+    }
+
+    /// Checks whether the mouse pointer is within the padding area around a thumbnail.
+    ///
+    /// This is used to avoid gaps between thumbnail views where the mouse pointer might not be detected.
+    ///
+    /// @return `true` if the mouse pointer is within the padding area around a thumbnail; `false` otherwise.
+    private func checkIfWithinInterPadding() -> Bool {
+        if Preferences.appearanceStyle == .appIcons {
+            let mouseLocation = App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream
+            let mouseRect = NSRect(x: mouseLocation.x - Appearance.interCellPadding,
+                    y: mouseLocation.y - Appearance.interCellPadding,
+                    width: 2 * Appearance.interCellPadding,
+                    height: 2 * Appearance.interCellPadding)
+
+            if let hoveredWindowIndex = Windows.hoveredWindowIndex {
+                let thumbnail = ThumbnailsView.recycledViews[hoveredWindowIndex]
+                let mouseRectInView = thumbnail.convert(mouseRect, from: nil)
+                if thumbnail.bounds.intersects(mouseRectInView) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     /// holding shift and using the scrolling wheel will generate a horizontal movement

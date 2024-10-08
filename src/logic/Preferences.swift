@@ -32,7 +32,6 @@ class Preferences {
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
         "mouseHoverEnabled": "false",
-        "cursorFollowFocusEnabled": "false",
         "showMinimizedWindows": ShowHowPreference.show.rawValue,
         "showMinimizedWindows2": ShowHowPreference.show.rawValue,
         "showMinimizedWindows3": ShowHowPreference.show.rawValue,
@@ -55,11 +54,17 @@ class Preferences {
         "windowOrder5": WindowOrderPreference.recentlyFocused.rawValue,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
-        "windowDisplayDelay": "0",
+        "windowDisplayDelay": "100",
+        "appearanceStyle": AppearanceStylePreference.thumbnails.rawValue,
+        "appearanceSize": AppearanceSizePreference.medium.rawValue,
+        "appearanceTheme": AppearanceThemePreference.system.rawValue,
+        "appearanceVisibility": AppearanceVisibilityPreference.normal.rawValue,
         "theme": ThemePreference.macOs.rawValue,
         "showOnScreen": ShowOnScreenPreference.active.rawValue,
         "titleTruncation": TitleTruncationPreference.end.rawValue,
-        "alignThumbnails": AlignThumbnailsPreference.left.rawValue,
+        "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
+        "showAppsOrWindows": ShowAppsOrWindowsPreference.windows.rawValue,
+        "showTitles": ShowTitlesPreference.windowTitle.rawValue,
         "appsToShow": AppsToShowPreference.all.rawValue,
         "appsToShow2": AppsToShowPreference.active.rawValue,
         "appsToShow3": AppsToShowPreference.all.rawValue,
@@ -102,19 +107,8 @@ class Preferences {
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
-    static var fontColor: NSColor { .white }
-    static var windowPadding: CGFloat { 18 }
-    static var interCellPadding: CGFloat { 5 }
-    static var intraCellPadding: CGFloat { 5 }
 
     // persisted values
-    static var maxWidthOnScreen: CGFloat { defaults.cgfloat("maxWidthOnScreen") / CGFloat(100) }
-    static var maxHeightOnScreen: CGFloat { defaults.cgfloat("maxHeightOnScreen") / CGFloat(100) }
-    static var windowMaxWidthInRow: CGFloat { defaults.cgfloat("windowMaxWidthInRow") / CGFloat(100) }
-    static var windowMinWidthInRow: CGFloat { defaults.cgfloat("windowMinWidthInRow") / CGFloat(100) }
-    static var rowsCount: CGFloat { defaults.cgfloat("rowsCount") }
-    static var iconSize: CGFloat { defaults.cgfloat("iconSize") }
-    static var fontHeight: CGFloat { defaults.cgfloat("fontHeight") }
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { defaults.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { defaults.string($0) } }
     static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
@@ -125,10 +119,11 @@ class Preferences {
     static var toggleFullscreenWindowShortcut: String { defaults.string("toggleFullscreenWindowShortcut") }
     static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
+    // periphery:ignore
     static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
+    // periphery:ignore
     static var vimKeysEnabled: Bool { defaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
-    static var cursorFollowFocusEnabled: Bool { defaults.bool("cursorFollowFocusEnabled") }
     static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { defaults.bool("hideColoredCircles") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
@@ -137,16 +132,23 @@ class Preferences {
     static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
-    static var hideThumbnails: Bool { defaults.bool("hideThumbnails") }
+    // periphery:ignore
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
 
     // macro values
-    static var theme: ThemePreference { defaults.macroPref("theme", ThemePreference.allCases) }
+    static var appearanceStyle: AppearanceStylePreference { defaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
+    static var appearanceSize: AppearanceSizePreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
+    static var appearanceTheme: AppearanceThemePreference { defaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
+    static var appearanceVisibility: AppearanceVisibilityPreference { defaults.macroPref("appearanceVisibility", AppearanceVisibilityPreference.allCases) }
+    // periphery:ignore
+    static var theme: ThemePreference { ThemePreference.macOs/*defaults.macroPref("theme", ThemePreference.allCases)*/ }
     static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
+    static var showAppsOrWindows: ShowAppsOrWindowsPreference { defaults.macroPref("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases) }
+    static var showTitles: ShowTitlesPreference { defaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
@@ -158,11 +160,6 @@ class Preferences {
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { defaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
-
-    // derived values
-    static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
-    static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
-    static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
 
     static func initialize() {
         removeCorruptedPreferences()
@@ -214,29 +211,56 @@ class Preferences {
     }
 
     private static func updateToNewPreferences(_ currentVersion: String) {
-        if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
-            migrateBlacklists()
-            if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
-                migrateMinMaxWindowsWidthInRow()
-                if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
-                    // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                    (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
-                    if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
-                        // "Show windows from:" got the "Active Space" option removed
-                        migrateShowWindowsFrom()
-                        if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
-                            // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                            migrateNextWindowShortcuts()
-                            // dropdowns preferences used to store English text; now they store indexes
-                            migrateDropdownsFromTextToIndexes()
-                            // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                            migrateMenubarIconFromCheckboxToDropdown()
-                            // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                            migrateShowWindowsCheckboxToDropdown()
-                            // "Max size on screen" was split into max width and max height
-                            migrateMaxSizeOnScreenToWidthAndHeight()
+        if currentVersion.compare("6.72.0", options: .numeric) != .orderedDescending {
+            migratePreferencesIndexes()
+            if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
+                migrateBlacklists()
+                if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
+                    migrateMinMaxWindowsWidthInRow()
+                    if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
+                        // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                        (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
+                        if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
+                            // "Show windows from:" got the "Active Space" option removed
+                            migrateShowWindowsFrom()
+                            if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
+                                // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                                migrateNextWindowShortcuts()
+                                // dropdowns preferences used to store English text; now they store indexes
+                                migrateDropdownsFromTextToIndexes()
+                                // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                                migrateMenubarIconFromCheckboxToDropdown()
+                                // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                                migrateShowWindowsCheckboxToDropdown()
+                                // "Max size on screen" was split into max width and max height
+                                migrateMaxSizeOnScreenToWidthAndHeight()
+                            }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    // we want to rely on preferences numbers to match the enum indexes. This migration realigns existing desyncs
+    private static func migratePreferencesIndexes() {
+        // migrate spacesToShow from 1 to 2. 1 was removed a while ago. 1=active => 2=>visible
+        ["", "2", "3", "4", "5"].forEach { suffix in
+            if let spacesToShow = defaults.string(forKey: "spacesToShow" + suffix) {
+                if spacesToShow == "1" {
+                    defaults.set("2", forKey: "spacesToShow" + suffix)
+                }
+            }
+        }
+
+        // migrate spacesToShow from 0 to 2 and 2 to 0. 0 used to be end, 2 used to be start; they got switch for the UI order
+        ["", "2", "3", "4", "5"].forEach { suffix in
+            if let spacesToShow = defaults.string(forKey: "titleTruncation" + suffix) {
+                if spacesToShow == "0" {
+                    defaults.set("2", forKey: "titleTruncation" + suffix)
+                }
+                if spacesToShow == "2" {
+                    defaults.set("0", forKey: "titleTruncation" + suffix)
                 }
             }
         }
@@ -337,16 +361,16 @@ class Preferences {
 
     private static func migrateShowWindowsCheckboxToDropdown() {
         ["showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows"]
-                .flatMap { [$0, $0 + "2"] }
-                .forEach {
-                    if let old = defaults.string(forKey: $0) {
-                        if old == "true" {
-                            defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
-                        } else if old == "false" {
-                            defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
-                        }
+            .flatMap { [$0, $0 + "2"] }
+            .forEach {
+                if let old = defaults.string(forKey: $0) {
+                    if old == "true" {
+                        defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
+                    } else if old == "false" {
+                        defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
                     }
                 }
+            }
     }
 
     private static func migrateDropdownsFromTextToIndexes() {
@@ -381,6 +405,10 @@ class Preferences {
         }
         // vertical; tested with 10/16
         return "6"
+    }
+
+    static func onlyShowApplications() -> Bool {
+        return Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails
     }
 
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards
@@ -441,6 +469,27 @@ protocol MacroPreference {
     var localizedString: LocalizedString { get }
 }
 
+protocol SfSymbolMacroPreference: MacroPreference {
+    var symbolName: String { get }
+}
+
+struct WidthHeightImage {
+    var width: CGFloat
+    var height: CGFloat
+    var name: String
+
+    init(width: CGFloat = 80, height: CGFloat = 50, name: String) {
+        self.width = width
+        self.height = height
+        self.name = name
+    }
+}
+
+protocol ImageMacroPreference: MacroPreference {
+    var image: WidthHeightImage { get }
+}
+
+// periphery:ignore
 struct ThemeParameters {
     let label: String
     let cellCornerRadius: CGFloat
@@ -500,10 +549,10 @@ enum WindowOrderPreference: String, CaseIterable, MacroPreference {
 
     var localizedString: LocalizedString {
         switch self {
-            case .recentlyFocused: return NSLocalizedString("Recently Focused", comment: "")
-            case .recentlyCreated: return NSLocalizedString("Recently Created", comment: "")
-            case .alphabetical: return NSLocalizedString("Alphabetical", comment: "")
-            case .space: return NSLocalizedString("Space", comment: "")
+            case .recentlyFocused: return NSLocalizedString("Recently Focused First", comment: "")
+            case .recentlyCreated: return NSLocalizedString("Recently Created First", comment: "")
+            case .alphabetical: return NSLocalizedString("Alphabetical Order", comment: "")
+            case .space: return NSLocalizedString("Space Order", comment: "")
         }
     }
 }
@@ -559,32 +608,119 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
 }
 
 enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
-    case end = "0"
+    case start = "0"
     case middle = "1"
-    case start = "2"
+    case end = "2"
 
     var localizedString: LocalizedString {
         switch self {
-            case .end: return NSLocalizedString("End", comment: "")
-            case .middle: return NSLocalizedString("Middle", comment: "")
             case .start: return NSLocalizedString("Start", comment: "")
+            case .middle: return NSLocalizedString("Middle", comment: "")
+            case .end: return NSLocalizedString("End", comment: "")
         }
     }
 }
 
-enum AlignThumbnailsPreference: String, CaseIterable, MacroPreference {
-    case left = "0"
+enum ShowAppsOrWindowsPreference: String, CaseIterable, MacroPreference {
+    case applications = "0"
+    case windows = "1"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .applications: return NSLocalizedString("Applications", comment: "")
+            case .windows: return NSLocalizedString("Windows", comment: "")
+        }
+    }
+}
+
+enum ShowTitlesPreference: String, CaseIterable, MacroPreference {
+    case windowTitle = "0"
+    case appName = "1"
+    case appNameAndWindowTitle = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .windowTitle: return NSLocalizedString("Window Title", comment: "")
+            case .appName: return NSLocalizedString("Application Name", comment: "")
+            case .appNameAndWindowTitle: return NSLocalizedString("Application Name - Window Title", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .windowTitle: return WidthHeightImage(name: "show_running_windows")
+            case .appName: return WidthHeightImage(name: "show_running_applications")
+            case .appNameAndWindowTitle: return WidthHeightImage(name: "show_running_applications_windows")
+        }
+    }
+}
+
+enum AlignThumbnailsPreference: String, CaseIterable, ImageMacroPreference {
+    case leading = "0"
     case center = "1"
 
     var localizedString: LocalizedString {
         switch self {
-            case .left: return NSLocalizedString("Left", comment: "")
+            case .leading: return NSLocalizedString("Leading", comment: "")
             case .center: return NSLocalizedString("Center", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        switch self {
+            case .leading: return WidthHeightImage(name: "align_thumbnails_leading")
+            case .center: return WidthHeightImage(name: "align_thumbnails_center")
         }
     }
 }
 
-enum ThemePreference: String, CaseIterable, MacroPreference {
+enum AppearanceStylePreference: String, CaseIterable, ImageMacroPreference {
+    case thumbnails = "0"
+    case appIcons = "1"
+    case titles = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .thumbnails: return NSLocalizedString("Thumbnails", comment: "")
+            case .appIcons: return NSLocalizedString("App Icons", comment: "")
+            case .titles: return NSLocalizedString("Titles", comment: "")
+        }
+    }
+
+    var image: WidthHeightImage {
+        let width = CGFloat(150)
+        let height = width / 1.6
+        switch self {
+            case .thumbnails: return WidthHeightImage(width: width, height: height, name: "thumbnails")
+            case .appIcons: return WidthHeightImage(width: width, height: height, name: "app_icons")
+            case .titles: return WidthHeightImage(width: width, height: height, name: "titles")
+        }
+    }
+}
+
+enum AppearanceSizePreference: String, CaseIterable, SfSymbolMacroPreference {
+    case small = "0"
+    case medium = "1"
+    case large = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .small: return NSLocalizedString("Small", comment: "")
+            case .medium: return NSLocalizedString("Medium", comment: "")
+            case .large: return NSLocalizedString("Large", comment: "")
+        }
+    }
+
+    var symbolName: String {
+        switch self {
+            case .small: return "moonphase.waning.gibbous.inverse"
+            case .medium: return "moonphase.last.quarter.inverse"
+            case .large: return "moonphase.waning.crescent.inverse"
+        }
+    }
+}
+
+enum ThemePreference: String, CaseIterable, ImageMacroPreference {
     case macOs = "0"
     case windows10 = "1"
 
@@ -595,10 +731,62 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
         }
     }
 
+    var image: WidthHeightImage {
+        switch self {
+            case .macOs: return WidthHeightImage(name: "macos")
+            case .windows10: return WidthHeightImage(name: "windows10")
+        }
+    }
+
+    // periphery:ignore
     var themeParameters: ThemeParameters {
         switch self {
             case .macOs: return ThemeParameters(label: localizedString, cellCornerRadius: 10, windowCornerRadius: 23)
             case .windows10: return ThemeParameters(label: localizedString, cellCornerRadius: 0, windowCornerRadius: 0)
+        }
+    }
+}
+
+enum AppearanceThemePreference: String, CaseIterable, SfSymbolMacroPreference {
+    case light = "0"
+    case dark = "1"
+    case system = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .light: return NSLocalizedString("Light", comment: "")
+            case .dark: return NSLocalizedString("Dark", comment: "")
+            case .system: return NSLocalizedString("System", comment: "")
+        }
+    }
+
+    var symbolName: String {
+        switch self {
+            case .light: return "sun.max"
+            case .dark: return "moon.fill"
+            case .system: return "laptopcomputer"
+        }
+    }
+}
+
+enum AppearanceVisibilityPreference: String, CaseIterable, SfSymbolMacroPreference {
+    case normal = "0"
+    case high = "1"
+    case highest = "2"
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .normal: return NSLocalizedString("Normal", comment: "")
+            case .high: return NSLocalizedString("High", comment: "")
+            case .highest: return NSLocalizedString("Highest", comment: "")
+        }
+    }
+
+    var symbolName: String {
+        switch self {
+            case .normal: return "eye"
+            case .high: return "eyeglasses"
+            case .highest: return "binoculars.fill"
         }
     }
 }
@@ -699,10 +887,6 @@ extension UserDefaults {
 
     func bool(_ key: String) -> Bool {
         return getThenConvertOrReset(key, { s in Bool(s) })
-    }
-
-    func cgfloat(_ key: String) -> CGFloat {
-        return getThenConvertOrReset(key, { s in Int(s).flatMap { CGFloat($0) } })
     }
 
     func double(_ key: String) -> Double {

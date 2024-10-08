@@ -9,7 +9,7 @@ class Spaces {
 
     static func observeSpaceChanges() {
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
-            debugPrint("OS event", "activeSpaceDidChangeNotification")
+            logger.i("OS event", "activeSpaceDidChangeNotification")
             refreshAllIdsAndIndexes()
             updateCurrentSpace()
             // if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
@@ -21,7 +21,7 @@ class Spaces {
             Applications.manuallyUpdateWindows()
         })
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: nil, using: { _ in
-            debugPrint("OS event", "didChangeScreenParametersNotification")
+            logger.i("OS event", "didChangeScreenParametersNotification")
             refreshAllIdsAndIndexes()
         })
     }
@@ -45,7 +45,7 @@ class Spaces {
         currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
             spaceId == currentSpaceId
         }?.1 ?? SpaceIndex(1)
-        debugPrint("Current space", currentSpaceId)
+        logger.i("Current Space", currentSpaceId)
     }
 
     static func refreshAllIdsAndIndexes() -> Void {

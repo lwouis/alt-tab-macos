@@ -1,0 +1,8 @@
+retain_objc_accessible: true
+schemes:
+  - Release
+targets:
+  - alt-tab-macos
+workspace: alt-tab-macos.xcworkspace
+report_exclude:
+  - src/api-wrappers/PrivateApis.swift

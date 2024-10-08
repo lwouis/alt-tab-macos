@@ -10,11 +10,13 @@ extension CGWindow {
         return CGWindowListCopyWindowInfo([.excludeDesktopElements, option], kCGNullWindowID) as! [CGWindow]
     }
 
+    // periphery:ignore
     // workaround: filtering this criteria seems to remove non-windows UI elements
     func isNotMenubarOrOthers() -> Bool {
         return layer() == 0
     }
 
+    // periphery:ignore
     func id() -> CGWindowID? {
         return value(kCGWindowNumber, CGWindowID.self)
     }
@@ -23,10 +25,12 @@ extension CGWindow {
         return value(kCGWindowLayer, Int.self)
     }
 
+    // periphery:ignore
     func bounds() -> CFDictionary? {
         return value(kCGWindowBounds, CFDictionary.self)
     }
 
+    // periphery:ignore
     func ownerPID() -> pid_t? {
         return value(kCGWindowOwnerPID, pid_t.self)
     }

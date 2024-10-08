@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "Om";
 
 /*Menubar option. %@ is AltTab*/
 "About %@" = "Om %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Accessibility" = "Tilgjengelegheit";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Acknowledgments" = "Takk til";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active app" = "Aktiv app";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Active screen" = "Aktiv skjerm";
 
-/*No comment provided by engineer.*/
-"Active Space" = "Aktivt område";
+/* No comment provided by engineer. */
+"Additional controls" = "Additional controls";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "Juster vindaugsplasseringa:";
+/* No comment provided by engineer. */
+"Additional controls…" = "Additional controls…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Advanced" = "Advanced";
+
+/* No comment provided by engineer. */
+"After release" = "After release";
+
+/* No comment provided by engineer. */
+"Align windows" = "Align windows";
+
+/* No comment provided by engineer. */
 "All apps" = "Alle appar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All data from this form will be made public, as a ticket on github.com" = "Alle data frå dette skjemaet vil verta offentlege, som ei sak på github.com";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All screens" = "Alle skjermar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "All Spaces" = "Alle område";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Allowed" = "Tillate";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "Alfabetisk";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "Alphabetical Order";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "Vel òg vindauge med:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kræsja sist du brukte han. Å senda ein kræsjrapport vil hjelpa til med å løysa problemet";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.";
+
+/* No comment provided by engineer. */
 "AltTab needs some permissions" = "AltTab treng nokre løyve";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab will show if the window is currently minimized or fullscreen with a status icon.";
+
+/* No comment provided by engineer. */
 "Always" = "Alltid";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Always send crash reports" = "Send alltid kræsjrapportar";
 
-/*No comment provided by engineer.*/
-"and press:" = "og trykk:";
+/* No comment provided by engineer. */
+"and press" = "and press";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "Animations";
+
+/* No comment provided by engineer. */
+"Animations…" = "Animations…";
+
+/* No comment provided by engineer. */
 "App (BundleID starting with)" = "App (BundleId startar med)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"App Icons" = "App Icons";
+
+/* No comment provided by engineer. */
 "App is hidden" = "App er gøymd";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "App is running but has no open window" = "App køyrer utan opne vindauge";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "Visingsforseinking:";
+/* No comment provided by engineer. */
+"Apparition delay" = "Apparition delay";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Appearance" = "Utsjånad";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Application Name" = "Application Name";
+
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "Application Name - Window Title";
+
+/* No comment provided by engineer. */
+"Applications" = "Applications";
+
+/* No comment provided by engineer. */
 "Are you sure you don’t want a response?" = "Er du sikker på at du ikkje vil ha ei tilbakemelding?";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "Piltastar";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ask whether to send crash reports" = "Spør om det skal sendast kræsjrapportar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "Installer oppdateringar automatisk med jamne mellomrom";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Blacklists" = "Svartelister";
 
 /*Cancel button*/
 "Cancel" = "Avbryt";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Cancel and hide" = "Avbryt og gøym";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Center" = "Midtstilt";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates now…" = "Sjå etter oppdateringar no…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates periodically" = "Sjå etter oppdateringar med jamne mellomrom";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Check for updates…" = "Sjå etter oppdateringar…";
 
 /*Menubar option*/
 "Check permissions…" = "Sjekk løyve…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Close window" = "Lat att vindauga";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Conflicting shortcut" = "Snarveg brukt annan stad";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Controls" = "Kontroller";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "Kræsjrapportinnstillingar:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "Crash reports policy";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "Peikar fylgjer fokus";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "Customize App Icons style…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "Customize Thumbnails style…";
+
+/* No comment provided by engineer. */
+"Customize Titles style…" = "Customize Titles style…";
+
+/* No comment provided by engineer. */
+"Dark" = "Dark";
+
+/* No comment provided by engineer. */
 "Do nothing" = "Ikkje gjer noko";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Done" = "Done";
+
+/* No comment provided by engineer. */
 "Don’t check for updates periodically" = "Ikkje sjå etter oppdateringar med jamne mellomrom";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Don’t send" = "Ikkje send";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Ikkje vis vindauge frå desse appane";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "End" = "Slutten";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "Uttoningsanimasjon:";
+/* No comment provided by engineer. */
+"Fade out animation" = "Fade out animation";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Focus selected window" = "Fokuser på valt vindauge";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Fullskjermsvindauge";
-
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "Vindauge i fullskjerm:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Fullscreen/Defullscreen window" = "Gjer vindauget fullskjerms/standard";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "General" = "Allment";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "Gøymde vindauge:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide" = "Gøym";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "Gøym app-merkelapp:";
+/* No comment provided by engineer. */
+"Hide app badges" = "Gøym app-merkelapp";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Gøym appar utan opne vindauge:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "Gøym appar utan opne vindauge";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Gøym farga sirklar når musa er over:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "Gøym farga sirklar når musa er over";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Gøym i %@";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Gøym merking av områdenummer:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "Gøym merking av områdenummer";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "Gøym statusikon:";
+/* No comment provided by engineer. */
+"Hide status icons" = "Gøym statusikon";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Gøym miniatyrbilete:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Hide/Show app" = "Gøym/vis app";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"High" = "High";
+
+/* No comment provided by engineer. */
+"Highest" = "Highest";
+
+/* No comment provided by engineer. */
 "Hold" = "Hald";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "Eg tykkjer appen kunne ha vorte betre med…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Ignore shortcuts when active" = "Ignorer snarveg når aktiv";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignorer hurtigtastar medan eit vindauge frå desse appane er aktivt";
+/* No comment provided by engineer. */
+"Large" = "Large";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Latest releases" = "Siste versjonar";
 
-/*No comment provided by engineer.*/
-"Left" = "Til venstre";
+/* No comment provided by engineer. */
+"Leading" = "Leading";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "Maks høgde på skjerm:";
+/* No comment provided by engineer. */
+"Light" = "Light";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "Maks breidde på skjerm:";
+/* No comment provided by engineer. */
+"Medium" = "Medium";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "Menylineikon:";
+/* No comment provided by engineer. */
+"Menubar icon" = "Menubar icon";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Middle" = "Midten";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimer/Gjenopprett vindauge";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "Minimerte vindauge:";
+/* No comment provided by engineer. */
+"Multiple screens" = "Multiple screens";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "Ymse:";
-
-/*No comment provided by engineer.*/
-"Mouse hover" = "Hald musa over";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Never send crash reports" = "Send aldri kræsjrapportar";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
 "Not allowed" = "Ikkje tillate";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0-lisens";
-
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Berre om vindauget er i fullskjerm";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Opne tilgjengelegheitsinnstillingar…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "Opne skjermopptaksinnstillingar…";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Valfritt: e-post (om du ynskjer svar)";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Order windows by" = "Order windows by";
+
+/* No comment provided by engineer. */
 "Policies" = "Fornying og kræsj";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Preferences…" = "Val…";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Førehandsvis valt vindauge:";
+/* No comment provided by engineer. */
+"Preview selected window" = "Førehandsvis valt vindauge";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Preview the selected window." = "Preview the selected window.";
+
+/* No comment provided by engineer. */
 "Quit" = "Avslutt";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit %@" = "Avslutt %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Quit app" = "Avslutt app";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Nyleg oppretta";
+/* No comment provided by engineer. */
+"Recently Created First" = "Recently Created First";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Nyleg fokusert";
+/* No comment provided by engineer. */
+"Recently Focused First" = "Recently Focused First";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Remember my choice" = "Hugs valet mitt";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart" = "Tilbakestill innstillingar og start om att";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Reset preferences and restart…" = "Nullstill innstillingane og start om att…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rader med miniatyrbilete:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including menu bar" = "Skjerm med menyline";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen including mouse" = "Skjerm med mus";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen Recording" = "Skjermopptak";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Screen showing AltTab" = "Skjerm som viser AltTab";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select next window" = "Vel neste vindauge";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Select previous window" = "Vel førre vindauge";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "Select windows on mouse hover";
+
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "Select windows using arrow keys";
+
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "Select windows using vim keys";
+
+/* No comment provided by engineer. */
 "Send" = "Send";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send a crash report?" = "Senda ein krøsjrapport?";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send anyway" = "Send likevel";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send debug profile (CPU, memory, etc)" = "Send avlusingsinformasjon (CPU, minne, osb)";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback" = "Send tilbakemelding";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Send feedback…" = "Send tilbakemelding…";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Del forbetringsidear, eller meld om feil";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 1" = "Snarveg 1";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 2" = "Snarveg 2";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 3" = "Snarveg 3";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 4" = "Snarveg 4";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Shortcut 5" = "Snarveg 5";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Snarveg allereide tildelt ei anna handling: %@";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "Shortcuts When Active";
+
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "Shortcuts when active…";
+
+/* No comment provided by engineer. */
 "Show" = "Vis";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show & Hide" = "Show & Hide";
+
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.";
+
+/* No comment provided by engineer. */
 "Show at the end" = "Vis på slutten";
 
-/*No comment provided by engineer.*/
-"Show on:" = "Vis på:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "Show fullscreen windows";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Vis standardflikar som vindauge:";
+/* No comment provided by engineer. */
+"Show hidden windows" = "Show hidden windows";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "Vis vindauge frå:";
+/* No comment provided by engineer. */
+"Show in switcher" = "Show in switcher";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Show minimized windows" = "Show minimized windows";
+
+/* No comment provided by engineer. */
+"Show on" = "Show on";
+
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "Vis standardflikar som vindauge";
+
+/* No comment provided by engineer. */
+"Show titles" = "Show titles";
+
+/* No comment provided by engineer. */
+"Show windows from applications" = "Show windows from applications";
+
+/* No comment provided by engineer. */
+"Show windows from screens" = "Show windows from screens";
+
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "Show windows from Spaces";
+
+/* No comment provided by engineer. */
+"Size" = "Size";
+
+/* No comment provided by engineer. */
+"Small" = "Small";
+
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.";
+
+/* No comment provided by engineer. */
 "Source code repository" = "Kjeldekodearkiv";
 
-/*No comment provided by engineer.*/
-"Space" = "Space/Område";
+/* No comment provided by engineer. */
+"Space Order" = "Space Order";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Start" = "Byrjinga";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "Start ved innlogging:";
+/* No comment provided by engineer. */
+"Start at login" = "Start at login";
 
 /*Menubar option*/
 "Support this project ❤️" = "Støtt dette prosjektet ❤️";
 
-/*No comment provided by engineer.*/
-"Theme:" = "Tema:";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
 
-/*No comment provided by engineer.*/
-"Then release:" = "Så slepp:";
+/* No comment provided by engineer. */
+"System" = "System";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Theme" = "Theme";
+
+/* No comment provided by engineer. */
 "This permission is needed to focus windows after you release the shortcut" = "Dette løyvet er naudsynt for å kunna fokusera på vindauget når du slepp hurtigtasten";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "This permission is needed to show screenshots and titles of open windows" = "Dette løyvet er naudsynt for å kunna visa skjermbilete og tittel på opne vindauge";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Thumbnails" = "Thumbnails";
+
+/* No comment provided by engineer. */
+"Title truncation" = "Title truncation";
+
+/* No comment provided by engineer. */
+"Titles" = "Titles";
+
+/* No comment provided by engineer. */
+"Trigger shortcut" = "Trigger shortcut";
+
+/* No comment provided by engineer. */
 "Unassign existing shortcut and continue" = "Fjern eksisterande snarveg og hald fram";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "Oppdateringsinnstillingar:";
+/* No comment provided by engineer. */
+"Updates policy" = "Updates policy";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Version" = "Versjon";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "View existing discussions" = "Sjå pågåande diskusjonar";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim-tastar";
+/* No comment provided by engineer. */
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
-/*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim-tastar er allereie gjevne til andre handlingar:\n%@";
+/* No comment provided by engineer. */
+"Visibility" = "Visibility";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Visible Spaces" = "Synlege område";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When fullscreen" = "Når i fullskjerm";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "When no open window" = "Når ingen opne vindauge";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "Når open, trykk:";
-
-/*No comment provided by engineer.*/
-"Window app icon size:" = "Storleik på vindaugsappikon:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is fullscreen" = "Vindauget er i fullskjerm";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is minimized" = "Vindauget er minimert";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on every Space" = "Vindauget er på alle område";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "Window is on Space %d" = "Vindauget er på område %d";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "Maks vindaugsbreidde på rad:";
+/* No comment provided by engineer. */
+"Window Title" = "Window Title";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "Minimum vindaugsbreidde på rad:";
+/* No comment provided by engineer. */
+"Windows" = "Windows";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Vindaugsrekkjefylgje:";
-
-/*No comment provided by engineer.*/
-"Window title font size:" = "Skriftstorleik på vindaugstittel:";
-
-/*No comment provided by engineer.*/
-"Window title truncation:" = "Avstytting av vindaugstittel:";
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You can’t undo this action." = "Du kan ikkje angra denne handlinga.";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Du la ikkje inn e-postadressa di, difor kan du ikkje få tilbakemelding.";
+

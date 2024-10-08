@@ -4,8 +4,6 @@ class PermissionView: StackView {
     static let greenColor = NSColor(srgbRed: 0.38, green: 0.75, blue: 0.33, alpha: 0.2)
     static let redColor = NSColor(srgbRed: 0.90, green: 0.35, blue: 0.32, alpha: 0.2)
 
-    var checkFunction: (() -> Bool)!
-    var button: NSButton!
     var status: NSTextField!
     var isPermissionGranted = false
 
@@ -32,8 +30,6 @@ class PermissionView: StackView {
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.alignment = .centerY
         self.init([titleStack, justification, buttonStack], .vertical, top: GridView.interPadding, right: GridView.interPadding, bottom: GridView.interPadding, left: GridView.interPadding)
-        self.checkFunction = checkFunction
-        self.button = button
         self.status = status
         wantsLayer = true
         layer!.cornerRadius = GridView.interPadding / 2

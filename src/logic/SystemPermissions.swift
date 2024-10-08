@@ -2,18 +2,17 @@ import Cocoa
 
 // macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy
 class SystemPermissions {
-    static var changeCallback: (() -> Void)!
     static var timer: Timer!
 
     static func accessibilityIsGranted() -> Bool {
-        if #available(OSX 10.9, *) {
+        if #available(macOS 10.9, *) {
             return AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeRetainedValue(): false] as CFDictionary)
         }
         return true
     }
 
     static func screenRecordingIsGranted() -> Bool {
-        if #available(OSX 10.15, *) {
+        if #available(macOS 10.15, *) {
             return screenRecordingIsGranted_()
         }
         return true
@@ -57,7 +56,7 @@ class SystemPermissions {
     }
 
     static func observePermissionsPreStartup(_ startupBlock: @escaping () -> Void) {
-        if #available(OSX 10.15, *) {
+        if #available(macOS 10.15, *) {
             // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
             SLSRequestScreenCaptureAccess()
         }
@@ -73,7 +72,7 @@ class SystemPermissions {
                     if accessibility != App.app.permissionsWindow.accessibilityView.isPermissionGranted {
                         App.app.permissionsWindow.accessibilityView.updatePermissionStatus(accessibility)
                     }
-                    if #available(OSX 10.15, *), screenRecording != App.app.permissionsWindow.screenRecordingView.isPermissionGranted {
+                    if #available(macOS 10.15, *), screenRecording != App.app.permissionsWindow.screenRecordingView.isPermissionGranted {
                         App.app.permissionsWindow.screenRecordingView.updatePermissionStatus(screenRecording)
                     }
                 }

@@ -37,7 +37,7 @@ private func observe_() {
     }
 }
 
-private func mouseHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+private let mouseHandler: CGEventTapCallBack = {_, type, cgEvent, _ in
     if type == .leftMouseDown {
         isPointerInsideUi_()
         if !isPointerInsideUi {

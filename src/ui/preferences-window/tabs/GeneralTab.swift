@@ -4,11 +4,13 @@ class GeneralTab {
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
 
     static func initTab() -> NSView {
-        let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
-        let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)
-        let resetPreferences = Button(NSLocalizedString("Reset preferences and restart…", comment: "")) { _ in GeneralTab.resetPreferences() }
-        if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }
-        let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
+        let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
+                rightViews: [LabelAndControl.makeSwitch("startAtLogin", extraAction: startAtLoginCallback)])
+        let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)])
+        let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
+        if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
+        let menubarIconDropdown = menubarIcon.rightViews[0] as! NSPopUpButton
         for i in 0...2 {
             let image = NSImage.initCopy("menubar-" + String(i + 1))
             image.isTemplate = i < 2
@@ -20,17 +22,18 @@ class GeneralTab {
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
 
-        let grid = GridView([
-            startAtLogin,
-            menubarIcon,
-        ])
-        grid.column(at: 0).xPlacement = .trailing
-        grid.fit()
-
-        startAtLoginCallback(startAtLogin[1] as! NSControl)
+        startAtLoginCallback(startAtLogin.rightViews[0] as! NSControl)
         enableDraggingOffMenubarIcon(menubarIconDropdown)
 
-        return StackView([grid, resetPreferences], .vertical, bottom: GridView.padding)
+        let table = TableGroupView(width: PreferencesWindow.width)
+        _ = table.addRow(startAtLogin)
+        _ = table.addRow(menubarIcon)
+        table.fit()
+
+        let view = TableGroupSetView(originalViews: [table], toolsViews: [resetPreferences], toolsAlignment: .trailing)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
+        return view
     }
 
     private static func enableDraggingOffMenubarIcon(_ menubarIconDropdown: NSPopUpButton) {
@@ -44,14 +47,14 @@ class GeneralTab {
         }
     }
 
-    static func resetPreferences() {
+    @objc static func resetPreferences() {
         let alert = NSAlert()
         alert.alertStyle = .critical
         alert.messageText = ""
         alert.informativeText = NSLocalizedString("You can’t undo this action.", comment: "")
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         let resetButton = alert.addButton(withTitle: NSLocalizedString("Reset preferences and restart", comment: ""))
-        if #available(OSX 11, *) { resetButton.hasDestructiveAction = true }
+        if #available(macOS 11.0, *) { resetButton.hasDestructiveAction = true }
         if alert.runModal() == .alertSecondButtonReturn {
             Preferences.resetAll()
             App.app.restart()
@@ -66,11 +69,11 @@ class GeneralTab {
             do {
                 try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
             } catch let error {
-                debugPrint("Failed to create LaunchAgent directory at '\(launchAgentsPath.path)'", error)
+                logger.e("Failed to create LaunchAgent directory at '\(launchAgentsPath.path)'", error)
             }
         }
         launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
-        if (sender as! NSButton).state == .on {
+        if (sender as! Switch).state == .on {
             // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
             // docs: man launchd.plist
             let plist: NSDictionary = [
@@ -93,7 +96,7 @@ class GeneralTab {
             do {
                 try FileManager.default.removeItem(at: launchAgentsPath)
             } catch let error {
-                debugPrint("Failed to remove LaunchAgent", error)
+                logger.e("Failed to remove LaunchAgent", error)
             }
         }
     }

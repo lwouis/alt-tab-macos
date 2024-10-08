@@ -1,6 +1,6 @@
 import Cocoa
 
-class Window {
+class Window: CustomStringConvertible {
     static var globalCreationCounter = Int.zero
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
@@ -24,7 +24,7 @@ class Window {
     var axUiElement: AXUIElement!
     var application: Application
     var axObserver: AXObserver?
-    var row: Int?
+    var rowIndex: Int?
 
     static let notifications = [
         kAXUIElementDestroyedNotification,
@@ -49,12 +49,12 @@ class Window {
         self.title = bestEffortTitle(axTitle)
         Window.globalCreationCounter += 1
         self.creationOrder = Window.globalCreationCounter
-        if !Preferences.hideThumbnails {
+        if !Appearance.hideThumbnails {
             refreshThumbnail()
         }
         application.removeWindowslessAppWindow()
         checkIfFocused(application, wid)
-        debugPrint("Adding window", cgWindowId ?? "nil", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        logger.i("Adding window", cgWindowId ?? "nil", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
     }
 
@@ -64,11 +64,36 @@ class Window {
         self.title = application.runningApplication.localizedName
         Window.globalCreationCounter += 1
         self.creationOrder = Window.globalCreationCounter
-        debugPrint("Adding app-window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        logger.i("Adding app-window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 
     deinit {
-        debugPrint("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        logger.i("Deinit window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+    }
+
+    var description: String {
+        let s = """
+                Window(cgWindowId: \(cgWindowId)\
+                , title: \(title)\
+                , thumbnailFullSize: \(thumbnailFullSize)\
+                , shouldShowTheUser: \(shouldShowTheUser)\
+                , isTabbed: \(isTabbed)\
+                , isFullscreen: \(isFullscreen)\
+                , isMinimized: \(isMinimized)\
+                , isOnAllSpaces: \(isOnAllSpaces)\
+                , isWindowlessApp: \(isWindowlessApp)\
+                , position: \(position)\
+                , size: \(size)\
+                , spaceId: \(spaceId)\
+                , spaceIndex: \(spaceIndex)\
+                , axUiElement: \(axUiElement)\
+                , application: \(application)\
+                , axObserver: \(axObserver)\
+                , rowIndex: \(rowIndex)\
+                , lastFocusOrder: \(lastFocusOrder)\
+                , creationOrder: \(creationOrder)
+                """
+        return s
     }
 
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
@@ -85,7 +110,7 @@ class Window {
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
         // the window can be deallocated by the OS, in which case its `CGWindowID` will be `-1`
         // we check for equality both on the AXUIElement, and the CGWindowID, in order to catch all scenarios
-        return otherWindowAxUiElement == axUiElement || (cgWindowId != nil && Int(cgWindowId!) != -1 && otherWindowWid == cgWindowId)
+        return otherWindowAxUiElement == axUiElement || (cgWindowId != nil && cgWindowId != CGWindowID(bitPattern: -1) && otherWindowWid == cgWindowId)
     }
 
     private func observeEvents() {
@@ -94,14 +119,14 @@ class Window {
         for notification in Window.notifications {
             retryAxCallUntilTimeout { [weak self] in
                 guard let self = self else { return }
-                try self.axUiElement.subscribeToNotification(axObserver, notification, nil, nil, self.cgWindowId)
+                try self.axUiElement.subscribeToNotification(axObserver, notification, nil)
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
 
     private func screenshot(_ bestResolution: Bool = false) -> NSImage? {
-        guard !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != -1, let cgImage = cgWindowId.screenshot(bestResolution) else {
+        guard !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != CGWindowID(bitPattern: -1), let cgImage = cgWindowId.screenshot(bestResolution) else {
             return nil
         }
         return NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
@@ -180,7 +205,7 @@ class Window {
             App.shared.activate(ignoringOtherApps: true)
             App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
             Windows.previewFocusedWindowIfNeeded()
-        } else if isWindowlessApp || cgWindowId == nil {
+        } else if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications() {
             if let bundleUrl = bundleUrl {
                 if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
                     application.runningApplication.activate(options: .activateAllWindows)
@@ -277,10 +302,30 @@ class Window {
 
     func referenceWindowForTabbedWindow() -> Window? {
         // if the window is tabbed, we can't know its position/size before it's focused, so we use the currently
-        // visible window-tab to decide where to put the cursor, as these are known and will match the other tab
+        // visible window-tab. Its data will match the tabbed window's
         // TODO: handle the case where the app has multiple window-groups. In that case, we need to find the right
         //       window-group, instead of picking the focused one
         return isTabbed ? application.focusedWindow : self
     }
-}
 
+    // Determines if this window is the main application window
+    func isAppMainWindow() -> Bool {
+        if let element = application.axUiElement {
+            var mainWindow: AnyObject?
+            if AXUIElementCopyAttributeValue(element, kAXMainWindowAttribute as CFString, &mainWindow) == .success {
+                if let mainWin = mainWindow as! AXUIElement? {
+                    do {
+                        let w1 = try mainWin.cgWindowId()
+                        let w2 = try self.axUiElement.cgWindowId()
+                        if w1 == w2 {
+                            return true
+                        }
+                    } catch {
+                        return false
+                    }
+                }
+            }
+        }
+        return false
+    }
+}

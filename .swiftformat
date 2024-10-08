@@ -1,0 +1,6 @@
+# We can find the rules here.
+# https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md
+
+--swiftversion 5.5
+
+--maxwidth 120

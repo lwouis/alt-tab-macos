@@ -16,7 +16,9 @@ enum Symbols: String {
 // Font icon using SF Symbols from the SF Pro font from Apple
 // see https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
 class ThumbnailFontIconView: ThumbnailTitleView {
-    convenience init(_ symbol: Symbols, _ tooltip: String?, _ size: CGFloat = Preferences.fontHeight, _ color: NSColor = .white, _ shadow: NSShadow? = ThumbnailView.makeShadow(.darkGray)) {
+    convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Appearance.fontHeight,
+                     color: NSColor = Appearance.fontColor,
+                     shadow: NSShadow? = ThumbnailView.makeShadow(Appearance.indicatedIconShadowColor)) {
         self.init(size, shadow)
         string = symbol.rawValue
         // This helps SF symbols display vertically centered and not clipped at the top
@@ -52,13 +54,13 @@ class ThumbnailFontIconView: ThumbnailTitleView {
 }
 
 class ThumbnailFilledFontIconView: NSView {
-    convenience init(_ thumbnailFontIconView: ThumbnailFontIconView, _ backgroundColor: NSColor, _ size: CGFloat) {
+    convenience init(_ thumbnailFontIconView: ThumbnailFontIconView, backgroundColor: NSColor, size: CGFloat) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        let backgroundView = ThumbnailFontIconView(.filledCircled, nil, size - 2, backgroundColor, nil)
+        let backgroundView = ThumbnailFontIconView(symbol: .filledCircled, size: size - 4, color: backgroundColor, shadow: nil)
         addSubview(backgroundView)
         addSubview(thumbnailFontIconView, positioned: .above, relativeTo: nil)
-        backgroundView.frame.origin = CGPoint(x: backgroundView.frame.origin.x + 1, y: backgroundView.frame.origin.y + 1)
+        backgroundView.frame.origin = CGPoint(x: backgroundView.frame.origin.x + 2, y: backgroundView.frame.origin.y + 2)
         fit(thumbnailFontIconView.fittingSize.width, thumbnailFontIconView.fittingSize.height)
     }
 }
