@@ -41,6 +41,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Abdur-Rahman Bilal
 * Aden Aziz
 * Admin
+* Aindriú Mac Giolla Eoin
 * Ajaykumarmkaju
 * Albert Abdilim
 * Alex

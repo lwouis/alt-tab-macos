@@ -6,6 +6,7 @@ class Windows {
     static var hoveredWindowIndex: Int?
     // the first few thumbnails are the most commonly looked at; we pay special attention to them
     static let criticalFirstThumbnails = 3
+    static var lastWindowActivityType = WindowActivityType.none
 
     /// reordered list based on preferences, keeping the original index
     static func reorderList() {
@@ -122,20 +123,23 @@ class Windows {
 
     static func updateFocusedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
         var index: Int?
-        if fromMouse && newIndex != hoveredWindowIndex {
+        if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
             let oldIndex = hoveredWindowIndex
             hoveredWindowIndex = newIndex
             if let oldIndex = oldIndex {
                 ThumbnailsView.highlight(oldIndex)
             }
             index = hoveredWindowIndex
+            lastWindowActivityType = .hover
         }
-        if (!fromMouse || Preferences.mouseHoverEnabled) && newIndex != focusedWindowIndex {
+        if (!fromMouse || Preferences.mouseHoverEnabled)
+                   && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover)  {
             let oldIndex = focusedWindowIndex
             focusedWindowIndex = newIndex
             ThumbnailsView.highlight(oldIndex)
             previewFocusedWindowIfNeeded()
             index = focusedWindowIndex
+            lastWindowActivityType = .focus
         }
         guard let index = index else { return }
         ThumbnailsView.highlight(index)
@@ -147,6 +151,7 @@ class Windows {
     static func previewFocusedWindowIfNeeded() {
         guard
             Preferences.previewFocusedWindow,
+            !Preferences.onlyShowApplications(),
             App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
             let window = focusedWindow(),
             let preview = window.getPreview(),
@@ -233,7 +238,7 @@ class Windows {
         list.forEach {
             if let cgWindowId = $0.cgWindowId {
                 if $0.isMinimized || $0.isHidden {
-                    if #available(macOS 13, *) {
+                    if #available(macOS 13.0, *) {
                         // not exact after window merging
                         $0.isTabbed = !cgsWindowIds.contains(cgWindowId)
                     } else {
@@ -268,7 +273,7 @@ class Windows {
     }
 
     static func refreshFirstFewThumbnailsSync() {
-        if Preferences.hideThumbnails { return }
+        if Appearance.hideThumbnails { return }
         list.filter { $0.shouldShowTheUser }
                 .prefix(criticalFirstThumbnails)
                 .forEachAsync { window in window.refreshThumbnail() }
@@ -276,7 +281,7 @@ class Windows {
 
     static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails) {
         DispatchQueue.main.async {
-            if !App.app.appIsBeingUsed || Preferences.hideThumbnails { return }
+            if !App.app.appIsBeingUsed || Appearance.hideThumbnails { return }
             BackgroundWork.mainQueueConcurrentWorkQueue.async {
                 if currentIndex < list.count {
                     let window = list[currentIndex]
@@ -294,6 +299,20 @@ class Windows {
     static func refreshWhichWindowsToShowTheUser(_ screen: NSScreen) {
         Windows.list.forEach { (window: Window) in
             refreshIfWindowShouldBeShownToTheUser(window, screen)
+        }
+
+        if Preferences.onlyShowApplications() {
+            // Group windows by application and select the optimal main window
+            let windowsGroupedByApp = Dictionary(grouping: Windows.list) { $0.application.pid }
+            windowsGroupedByApp.forEach { (app, windows) in
+                if windows.count > 1, let mainWindow = selectMainWindow(windows) {
+                    windows.forEach { window in
+                        if window.cgWindowId != mainWindow.cgWindowId {
+                            window.shouldShowTheUser = false
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -315,6 +334,35 @@ class Windows {
                 !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(screen)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
     }
+
+    /// Selects the most appropriate main window from a given list of windows.
+    ///
+    /// The selection criteria are as follows:
+    /// 1. Prefer the focused window if it exists.
+    /// 2. Prefer the main window of the application if the focused window is not found.
+    ///
+    /// - Parameter windows: An array of `Window` objects to select from.
+    /// - Returns: The most appropriate `Window` object based on the selection criteria, or `nil` if the array is empty.
+    static func selectMainWindow(_ windows: [Window]) -> Window? {
+        let sortedWindows = windows.sorted { (window1, window2) -> Bool in
+            // Prefer the focus window
+            if window1.application.focusedWindow?.cgWindowId == window1.cgWindowId {
+                return true
+            } else if window2.application.focusedWindow?.cgWindowId == window2.cgWindowId {
+                return false
+            }
+
+            // Prefer the main window
+            if window1.isAppMainWindow() && !window2.isAppMainWindow() {
+                return true
+            } else if !window1.isAppMainWindow() && window2.isAppMainWindow() {
+                return false
+            }
+            return true
+        }
+
+        return sortedWindows.first
+    }
 }
 
 func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
@@ -323,4 +371,10 @@ func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResul
         return w1.title.localizedStandardCompare(w2.title)
     }
     return order
+}
+
+enum WindowActivityType: Int {
+    case none = 0
+    case hover = 1
+    case focus = 2
 }

@@ -10,7 +10,7 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
-        hasShadow = false
+        hasShadow = Appearance.enablePanelShadow
         titleVisibility = .hidden
         backgroundColor = .clear
         contentView! = thumbnailsView
@@ -47,17 +47,25 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     }
 
     func show() {
+        hasShadow = Appearance.enablePanelShadow
         alphaValue = 1
         makeKeyAndOrderFront(nil)
         MouseEvents.toggle(true)
         thumbnailsView.scrollView.flashScrollers()
     }
 
-    static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return screen.frame.width * Preferences.maxWidthOnScreen - Preferences.windowPadding * 2
+    /// The maximum height that thumbnails can be drawn.
+    /// - Parameter screen:
+    /// - Returns:
+    static func maxThumbnailsWidth(_ screen: NSScreen) -> CGFloat {
+        return screen.frame.width * Appearance.maxWidthOnScreen - Appearance.windowPadding * 2
     }
 
-    static func heightMax(_ screen: NSScreen) -> CGFloat {
-        return screen.frame.height * Preferences.maxHeightOnScreen - Preferences.windowPadding * 2
+    /// The maximum height that thumbnails can be drawn.
+    ///
+    /// - Parameter screen:
+    /// - Returns:
+    static func maxThumbnailsHeight(_ screen: NSScreen) -> CGFloat {
+        return screen.frame.height * Appearance.maxHeightOnScreen - Appearance.windowPadding * 2
     }
 }

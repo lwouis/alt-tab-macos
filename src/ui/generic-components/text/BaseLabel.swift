@@ -1,12 +1,6 @@
 import Cocoa
 
 class BaseLabel: NSTextView {
-    convenience init(_ text: String) {
-        self.init(frame: .zero)
-        string = text
-        setup()
-    }
-
     convenience init(_ frame: NSRect, _ container: NSTextContainer?) {
         self.init(frame: frame, textContainer: container)
         setup()

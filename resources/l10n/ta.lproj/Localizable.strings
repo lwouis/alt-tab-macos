@@ -1,453 +1,528 @@
-
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
 "About" = "பற்றி";
 
-/*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+/* Menubar option. %@ is AltTab */
+"About %@" = "சுமார் %@";
 
-/*No comment provided by engineer.*/
-"Accessibility" = "Accessibility";
+/* No comment provided by engineer. */
+"Accessibility" = "அணுகல்";
 
-/*No comment provided by engineer.*/
-"Acknowledgments" = "Acknowledgments";
+/* No comment provided by engineer. */
+"Acknowledgments" = "ஒப்புதல்கள்";
 
-/*No comment provided by engineer.*/
-"Active app" = "Active app";
+/* No comment provided by engineer. */
+"Active app" = "செயலில் உள்ள பயன்பாடு";
 
-/*No comment provided by engineer.*/
-"Active screen" = "Active screen";
+/* No comment provided by engineer. */
+"Active screen" = "செயலில் உள்ள திரை";
 
-/*No comment provided by engineer.*/
-"Active Space" = "Active Space";
+/* No comment provided by engineer. */
+"Additional controls" = "கூடுதல் கட்டுப்பாடுகள்";
 
-/*No comment provided by engineer.*/
-"Align windows:" = "Align windows:";
+/* No comment provided by engineer. */
+"Additional controls…" = "கூடுதல் கட்டுப்பாடுகள்…";
 
-/*No comment provided by engineer.*/
-"All apps" = "All apps";
+/* No comment provided by engineer. */
+"Advanced" = "மேம்படுத்தபட்ட";
 
-/*No comment provided by engineer.*/
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+/* No comment provided by engineer. */
+"After release" = "வெளியான பிறகு";
 
-/*No comment provided by engineer.*/
-"All screens" = "All screens";
+/* No comment provided by engineer. */
+"Align windows" = "விண்டோஸை சீரமைக்கவும்";
 
-/*No comment provided by engineer.*/
-"All Spaces" = "All Spaces";
+/* No comment provided by engineer. */
+"All apps" = "அனைத்து பயன்பாடுகளும்";
 
-/*No comment provided by engineer.*/
-"Allowed" = "Allowed";
+/* No comment provided by engineer. */
+"All data from this form will be made public, as a ticket on github.com" = "இந்த படிவத்திலிருந்து வரும் அனைத்து தரவும் Github.com இல் டிக்கெட்டாக பகிரங்கப்படுத்தப்படும்";
 
-/*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+/* No comment provided by engineer. */
+"All screens" = "அனைத்து திரைகளும்";
 
-/*No comment provided by engineer.*/
-"Also select windows using:" = "Also select windows using:";
+/* No comment provided by engineer. */
+"All Spaces" = "அனைத்து இடங்களும்";
 
-/*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+/* No comment provided by engineer. */
+"Allowed" = "அனுமதிக்கப்படுகிறது";
 
-/*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab needs some permissions";
+/* No comment provided by engineer. */
+"Alphabetical Order" = "அகரவரிசை வரிசை";
 
-/*No comment provided by engineer.*/
-"Always" = "Always";
+/* No comment provided by engineer. */
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "கடைசியாக நீங்கள் அதைப் பயன்படுத்தியபோது ஆல்டாப் செயலிழந்தார்.செயலிழப்பு அறிக்கையை அனுப்புவது சிக்கலை சரிசெய்ய உதவும்";
 
-/*No comment provided by engineer.*/
-"Always send crash reports" = "Always send crash reports";
+/* No comment provided by engineer. */
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "பயன்பாடுகளைக் காண்பிப்பதற்காக அல்தாப் தற்போது அமைக்கப்பட்டுள்ளது.சாளரங்களைக் காண்பிக்க ஆல்டாப் அமைக்கப்படும்போது மட்டுமே இந்த அமைப்பு கிடைக்கும்.";
 
-/*No comment provided by engineer.*/
-"and press:" = "and press:";
+/* No comment provided by engineer. */
+"AltTab needs some permissions" = "ஆல்டாப் சில அனுமதிகள் தேவை";
 
-/*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID starting with)";
+/* No comment provided by engineer. */
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "சாளரம் தற்போது குறைக்கப்பட்டுள்ளதா அல்லது நிலை ஐகானுடன் முழுத்திர்காலமாக இருந்தால் ஆல்டாப் காண்பிக்கும்.";
 
-/*No comment provided by engineer.*/
-"App is hidden" = "App is hidden";
+/* No comment provided by engineer. */
+"Always" = "எப்போதும்";
 
-/*No comment provided by engineer.*/
-"App is running but has no open window" = "App is running but has no open window";
+/* No comment provided by engineer. */
+"Always send crash reports" = "எப்போதும் செயலிழப்பு அறிக்கைகளை அனுப்பவும்";
 
-/*No comment provided by engineer.*/
-"Apparition delay:" = "தோற்றம் தாமதம் :";
+/* No comment provided by engineer. */
+"and press" = "மற்றும் அழுத்தவும்";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Animations" = "அனிமேஷன்கள்";
+
+/* No comment provided by engineer. */
+"Animations…" = "அனிமேஷன்…";
+
+/* No comment provided by engineer. */
+"App (BundleID starting with)" = "பயன்பாடு (மூட்டை தொடங்கி)";
+
+/* No comment provided by engineer. */
+"App Icons" = "பயன்பாட்டு சின்னங்கள்";
+
+/* No comment provided by engineer. */
+"App is hidden" = "பயன்பாடு மறைக்கப்பட்டுள்ளது";
+
+/* No comment provided by engineer. */
+"App is running but has no open window" = "பயன்பாடு இயங்குகிறது, ஆனால் திறந்த சாளரம் இல்லை";
+
+/* No comment provided by engineer. */
+"Apparition delay" = "தோற்றம் தாமதம்";
+
+/* No comment provided by engineer. */
 "Appearance" = "தோற்றம்";
 
-/*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+/* No comment provided by engineer. */
+"Application Name" = "பயன்பாட்டு பெயர்";
 
-/*No comment provided by engineer.*/
-"Arrow keys" = "Arrow keys";
+/* No comment provided by engineer. */
+"Application Name - Window Title" = "பயன்பாட்டு பெயர் - சாளர தலைப்பு";
 
-/*No comment provided by engineer.*/
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+/* No comment provided by engineer. */
+"Applications" = "பயன்பாடுகள்";
 
-/*No comment provided by engineer.*/
+/* No comment provided by engineer. */
+"Are you sure you don’t want a response?" = "நீங்கள் ஒரு பதிலை விரும்பவில்லை என்பதில் உறுதியாக இருக்கிறீர்களா?";
+
+/* No comment provided by engineer. */
+"Ask whether to send crash reports" = "செயலிழப்பு அறிக்கைகளை அனுப்பலாமா என்று கேளுங்கள்";
+
+/* No comment provided by engineer. */
 "Auto-install updates periodically" = "அவ்வப்போது புதுப்பிப்புகளைத் தானாக நிறுவவும்";
 
-/*No comment provided by engineer.*/
-"Blacklists" = "Blacklists";
+/* No comment provided by engineer. */
+"Blacklists" = "தடுப்புப்பட்டியல்கள்";
 
-/*Cancel button*/
-"Cancel" = "Cancel";
+/* No comment provided by engineer. */
+"Cancel" = "ரத்துசெய்";
 
-/*No comment provided by engineer.*/
-"Cancel and hide" = "Cancel and hide";
+/* No comment provided by engineer. */
+"Cancel and hide" = "ரத்து செய்து மறைக்க";
 
-/*No comment provided by engineer.*/
-"Center" = "Center";
+/* No comment provided by engineer. */
+"Center" = "மையம்";
 
-/*No comment provided by engineer.*/
-"Check for updates now…" = "Check for updates now…";
+/* No comment provided by engineer. */
+"Check for updates now…" = "புதுப்பிப்புகளை இப்போது சரிபார்க்கவும்…";
 
-/*No comment provided by engineer.*/
-"Check for updates periodically" = "Check for updates periodically";
+/* No comment provided by engineer. */
+"Check for updates periodically" = "அவ்வப்போது புதுப்பிப்புகளைச் சரிபார்க்கவும்";
 
-/*No comment provided by engineer.*/
-"Check for updates…" = "Check for updates…";
+/* Menubar option */
+"Check for updates…" = "புதுப்பிப்புகளை சரிபார்க்கவும்…";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "அனுமதிகளை சரிபார்க்கவும்…";
 
-/*No comment provided by engineer.*/
-"Close window" = "Close window";
+/* No comment provided by engineer. */
+"Close window" = "சாளரத்தை மூடு";
 
-/*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+/* No comment provided by engineer. */
+"Conflicting shortcut" = "முரண்பட்ட குறுக்குவழி";
 
-/*No comment provided by engineer.*/
-"Controls" = "Controls";
+/* No comment provided by engineer. */
+"Controls" = "கட்டுப்பாடுகள்";
 
-/*No comment provided by engineer.*/
-"Crash reports policy:" = "Crash reports policy:";
+/* No comment provided by engineer. */
+"Crash reports policy" = "க்ராஷ் அறிக்கைகள் கொள்கை";
 
-/*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+/* No comment provided by engineer. */
+"Customize App Icons style…" = "பயன்பாட்டு சின்னங்கள் பாணியைத் தனிப்பயனாக்குங்கள்…";
 
-/*No comment provided by engineer.*/
-"Do nothing" = "Do nothing";
+/* No comment provided by engineer. */
+"Customize Thumbnails style…" = "சிறுபட பாணியைத் தனிப்பயனாக்குங்கள்…";
 
-/*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Don’t check for updates periodically";
+/* No comment provided by engineer. */
+"Customize Titles style…" = "தலைப்புகள் பாணியைத் தனிப்பயனாக்குங்கள்…";
 
-/*No comment provided by engineer.*/
-"Don’t send" = "Don’t send";
+/* No comment provided by engineer. */
+"Dark" = "இருண்ட";
 
-/*No comment provided by engineer.*/
-"Don’t show windows from these apps" = "Don’t show windows from these apps";
+/* No comment provided by engineer. */
+"Do nothing" = "எதுவும் செய்ய வேண்டாம்";
 
-/*No comment provided by engineer.*/
-"End" = "End";
+/* No comment provided by engineer. */
+"Done" = "முடிந்தது";
 
-/*No comment provided by engineer.*/
-"Fade out animation:" = "Fade out animation:";
+/* No comment provided by engineer. */
+"Don’t check for updates periodically" = "அவ்வப்போது புதுப்பிப்புகளை சரிபார்க்க வேண்டாம்";
 
-/*No comment provided by engineer.*/
-"Focus selected window" = "Focus selected window";
+/* No comment provided by engineer. */
+"Don’t send" = "அனுப்ப வேண்டாம்";
 
-/*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+/* No comment provided by engineer. */
+"End" = "முடிவு";
 
-/*No comment provided by engineer.*/
-"Fullscreen windows:" = "Fullscreen windows:";
+/* No comment provided by engineer. */
+"Fade out animation" = "அனிமேஷனை மங்கச் செய்யுங்கள்";
 
-/*No comment provided by engineer.*/
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+/* No comment provided by engineer. */
+"Focus selected window" = "தேர்ந்தெடுக்கப்பட்ட சாளரத்தை கவனம் செலுத்துங்கள்";
 
-/*No comment provided by engineer.*/
-"General" = "General";
+/* No comment provided by engineer. */
+"Fullscreen/Defullscreen window" = "முழுத்திரை/டெஃபுலெல்ஸ்கிரீன் சாளரம்";
 
-/*No comment provided by engineer.*/
-"Hidden windows:" = "Hidden windows:";
+/* No comment provided by engineer. */
+"General" = "பொது";
 
-/*No comment provided by engineer.*/
-"Hide" = "Hide";
+/* No comment provided by engineer. */
+"Hide" = "மறை";
 
-/*No comment provided by engineer.*/
-"Hide app badges:" = "Hide app badges:";
+/* No comment provided by engineer. */
+"Hide app badges" = "பயன்பாட்டு பேட்ஜ்களை மறைக்கவும்";
 
-/*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Hide apps with no open window:";
+/* No comment provided by engineer. */
+"Hide apps with no open window" = "திறந்த சாளரம் இல்லாத பயன்பாடுகளை மறைக்கவும்";
 
-/*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
+/* No comment provided by engineer. */
+"Hide colored circles on mouse hover" = "சுட்டி வட்டத்தில் வண்ண வட்டங்களை மறைக்கவும்";
 
-/*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+/* %@ is AltTab */
+"Hide in %@" = "%@ இல் மறைக்கவும்";
 
-/*No comment provided by engineer.*/
-"Hide Space number labels:" = "Hide Space number labels:";
+/* No comment provided by engineer. */
+"Hide Space number labels" = "விண்வெளி எண் லேபிள்களை மறைக்கவும்";
 
-/*No comment provided by engineer.*/
-"Hide status icons:" = "Hide status icons:";
+/* No comment provided by engineer. */
+"Hide status icons" = "நிலை சின்னங்களை மறைக்கவும்";
 
-/*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Hide window thumbnails:";
+/* No comment provided by engineer. */
+"Hide/Show app" = "பயன்பாட்டை மறைக்க/காட்டு";
 
-/*No comment provided by engineer.*/
-"Hide/Show app" = "Hide/Show app";
+/* No comment provided by engineer. */
+"High" = "உயர்ந்த";
 
-/*No comment provided by engineer.*/
-"Hold" = "Hold";
+/* No comment provided by engineer. */
+"Highest" = "அதிகபட்சம்";
 
-/*No comment provided by engineer.*/
-"I think the app could be improved with…" = "I think the app could be improved with…";
+/* No comment provided by engineer. */
+"Hold" = "பிடி";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+/* No comment provided by engineer. */
+"I think the app could be improved with…" = "பயன்பாட்டை மேம்படுத்த முடியும் என்று நினைக்கிறேன்…";
 
-/*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
+/* No comment provided by engineer. */
+"Ignore shortcuts when active" = "செயலில் இருக்கும்போது குறுக்குவழிகளை புறக்கணிக்கவும்";
 
-/*No comment provided by engineer.*/
-"Latest releases" = "Latest releases";
+/* No comment provided by engineer. */
+"Large" = "பெரிய";
 
-/*No comment provided by engineer.*/
-"Left" = "Left";
+/* No comment provided by engineer. */
+"Latest releases" = "சமீபத்திய வெளியீடுகள்";
 
-/*No comment provided by engineer.*/
-"Max height on screen:" = "Max height on screen:";
+/* No comment provided by engineer. */
+"Leading" = "முன்னணி";
 
-/*No comment provided by engineer.*/
-"Max width on screen:" = "Max width on screen:";
+/* No comment provided by engineer. */
+"Light" = "ஒளி";
 
-/*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+/* No comment provided by engineer. */
+"Medium" = "நடுத்தர";
 
-/*No comment provided by engineer.*/
-"Middle" = "Middle";
+/* No comment provided by engineer. */
+"Menubar icon" = "மெனுபார் ஐகான்";
 
-/*No comment provided by engineer.*/
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+/* No comment provided by engineer. */
+"Middle" = "நடுத்தர";
 
-/*No comment provided by engineer.*/
-"Minimized windows:" = "Minimized windows:";
+/* No comment provided by engineer. */
+"Minimize/Deminimize window" = "சாளரத்தை குறைக்க/குறைக்கவும்";
 
-/*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+/* No comment provided by engineer. */
+"Multiple screens" = "பல திரைகள்";
 
-/*No comment provided by engineer.*/
-"Mouse hover" = "Mouse hover";
+/* No comment provided by engineer. */
+"Never send crash reports" = "செயலிழப்பு அறிக்கைகளை ஒருபோதும் அனுப்ப வேண்டாம்";
 
-/*No comment provided by engineer.*/
-"Never send crash reports" = "Never send crash reports";
+/* No comment provided by engineer. */
+"Normal" = "சாதாரண";
 
-/*No comment provided by engineer.*/
-"Not allowed" = "Not allowed";
+/* No comment provided by engineer. */
+"Not allowed" = "அனுமதிக்கப்படவில்லை";
 
-/*Copyright (human-readable)*/
-"NSHumanReadableCopyright" = "GPL-3.0 உரிமம்";
+/* No comment provided by engineer. */
+"Open Accessibility Preferences…" = "திறந்த அணுகல் விருப்பத்தேர்வுகள்…";
 
-/*No comment provided by engineer.*/
-"Only if the window is fullscreen" = "Only if the window is fullscreen";
+/* No comment provided by engineer. */
+"Open Screen Recording Preferences…" = "திறந்த திரை பதிவு விருப்பத்தேர்வுகள்…";
 
-/*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+/* No comment provided by engineer. */
+"Optional: email (if you want a reply)" = "விரும்பினால்: மின்னஞ்சல் (நீங்கள் பதில் விரும்பினால்)";
 
-/*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+/* No comment provided by engineer. */
+"Order windows by" = "விண்டோஸை ஆர்டர் செய்யுங்கள்";
 
-/*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+/* No comment provided by engineer. */
+"Policies" = "கொள்கைகள்";
 
-/*No comment provided by engineer.*/
-"Policies" = "Policies";
+/* Menubar option */
+"Preferences…" = "விருப்பத்தேர்வுகள்…";
 
-/*No comment provided by engineer.*/
-"Preferences…" = "Preferences…";
+/* No comment provided by engineer. */
+"Preview selected window" = "தேர்ந்தெடுக்கப்பட்ட சாளரத்தை முன்னோட்டம்";
 
-/*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+/* No comment provided by engineer. */
+"Preview the selected window." = "தேர்ந்தெடுக்கப்பட்ட சாளரத்தை முன்னோட்டமிடுங்கள்.";
 
-/*No comment provided by engineer.*/
-"Quit" = "Quit";
+/* No comment provided by engineer. */
+"Quit" = "வெளியேறு";
 
-/*No comment provided by engineer.*/
-"Quit %@" = "Quit %@";
+/* Menubar option. %@ is AltTab */
+"Quit %@" = "வெளியேறுதல் %@";
 
-/*No comment provided by engineer.*/
-"Quit app" = "Quit app";
+/* No comment provided by engineer. */
+"Quit app" = "பயன்பாட்டை விட்டு";
 
-/*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+/* No comment provided by engineer. */
+"Recently Created First" = "சமீபத்தில் முதலில் உருவாக்கப்பட்டது";
 
-/*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+/* No comment provided by engineer. */
+"Recently Focused First" = "சமீபத்தில் முதலில் கவனம் செலுத்தியது";
 
-/*No comment provided by engineer.*/
-"Remember my choice" = "Remember my choice";
+/* No comment provided by engineer. */
+"Remember my choice" = "என் விருப்பத்தை நினைவில் கொள்ளுங்கள்";
 
-/*No comment provided by engineer.*/
-"Reset preferences and restart" = "Reset preferences and restart";
+/* No comment provided by engineer. */
+"Reset preferences and restart" = "விருப்பங்களை மீட்டமைத்து மறுதொடக்கம் செய்யுங்கள்";
 
-/*No comment provided by engineer.*/
-"Reset preferences and restart…" = "Reset preferences and restart…";
+/* No comment provided by engineer. */
+"Reset preferences and restart…" = "விருப்பங்களை மீட்டமைத்து மறுதொடக்கம் செய்யுங்கள்…";
 
-/*No comment provided by engineer.*/
-"Rows of thumbnails:" = "Rows of thumbnails:";
+/* No comment provided by engineer. */
+"Screen including menu bar" = "மெனு பட்டி உள்ளிட்ட திரை";
 
-/*No comment provided by engineer.*/
-"Screen including menu bar" = "Screen including menu bar";
+/* No comment provided by engineer. */
+"Screen including mouse" = "சுட்டி உள்ளிட்ட திரை";
 
-/*No comment provided by engineer.*/
-"Screen including mouse" = "Screen including mouse";
+/* No comment provided by engineer. */
+"Screen Recording" = "திரை பதிவு";
 
-/*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+/* No comment provided by engineer. */
+"Screen showing AltTab" = "திரை அல்தாப் காட்டுகிறது";
 
-/*No comment provided by engineer.*/
-"Screen showing AltTab" = "Screen showing AltTab";
+/* No comment provided by engineer. */
+"Select next window" = "அடுத்த சாளரத்தைத் தேர்ந்தெடுக்கவும்";
 
-/*No comment provided by engineer.*/
-"Select next window" = "Select next window";
+/* No comment provided by engineer. */
+"Select previous window" = "முந்தைய சாளரத்தைத் தேர்ந்தெடுக்கவும்";
 
-/*No comment provided by engineer.*/
-"Select previous window" = "Select previous window";
+/* No comment provided by engineer. */
+"Select windows on mouse hover" = "சுட்டி வட்டத்தில் விண்டோஸைத் தேர்ந்தெடுக்கவும்";
 
-/*No comment provided by engineer.*/
-"Send" = "Send";
+/* No comment provided by engineer. */
+"Select windows using arrow keys" = "அம்பு விசைகளைப் பயன்படுத்தி விண்டோஸைத் தேர்ந்தெடுக்கவும்";
 
-/*No comment provided by engineer.*/
-"Send a crash report?" = "Send a crash report?";
+/* No comment provided by engineer. */
+"Select windows using vim keys" = "விம் விசைகளைப் பயன்படுத்தி விண்டோஸைத் தேர்ந்தெடுக்கவும்";
 
-/*No comment provided by engineer.*/
-"Send anyway" = "Send anyway";
+/* No comment provided by engineer. */
+"Send" = "அனுப்பு";
 
-/*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+/* No comment provided by engineer. */
+"Send a crash report?" = "செயலிழப்பு அறிக்கையை அனுப்பவா?";
 
-/*No comment provided by engineer.*/
-"Send feedback" = "Send feedback";
+/* No comment provided by engineer. */
+"Send anyway" = "எப்படியும் அனுப்புங்கள்";
 
-/*No comment provided by engineer.*/
-"Send feedback…" = "Send feedback…";
+/* No comment provided by engineer. */
+"Send debug profile (CPU, memory, etc)" = "பிழைத்திருத்த சுயவிவரத்தை அனுப்பவும் (CPU, நினைவகம் போன்றவை)";
 
-/*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
+/* No comment provided by engineer. */
+"Send feedback" = "கருத்துக்களை அனுப்பவும்";
 
-/*No comment provided by engineer.*/
-"Shortcut 1" = "Shortcut 1";
+/* Menubar option */
+"Send feedback…" = "கருத்துக்களை அனுப்பவும்…";
 
-/*No comment provided by engineer.*/
-"Shortcut 2" = "Shortcut 2";
+/* No comment provided by engineer. */
+"Share improvement ideas, or report bugs" = "மேம்பாட்டு யோசனைகளைப் பகிரவும் அல்லது பிழைகள் புகாரளிக்கவும்";
 
-/*No comment provided by engineer.*/
-"Shortcut 3" = "Shortcut 3";
+/* No comment provided by engineer. */
+"Shortcut 1" = "குறுக்குவழி 1";
 
-/*No comment provided by engineer.*/
-"Shortcut 4" = "Shortcut 4";
+/* No comment provided by engineer. */
+"Shortcut 2" = "குறுக்குவழி 2";
 
-/*No comment provided by engineer.*/
-"Shortcut 5" = "Shortcut 5";
+/* No comment provided by engineer. */
+"Shortcut 3" = "குறுக்குவழி 3";
 
-/*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+/* No comment provided by engineer. */
+"Shortcut 4" = "குறுக்குவழி 4";
 
-/*No comment provided by engineer.*/
-"Show" = "Show";
+/* No comment provided by engineer. */
+"Shortcut 5" = "குறுக்குவழி 5";
 
-/*No comment provided by engineer.*/
-"Show at the end" = "Show at the end";
+/* No comment provided by engineer. */
+"Shortcut already assigned to another action: %@" = "குறுக்குவழி ஏற்கனவே மற்றொரு செயலுக்கு ஒதுக்கப்பட்டுள்ளது: %@";
 
-/*No comment provided by engineer.*/
-"Show on:" = "Show on:";
+/* No comment provided by engineer. */
+"Shortcuts When Active" = "செயலில் இருக்கும்போது குறுக்குவழிகள்";
 
-/*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Show standard tabs as windows:";
+/* No comment provided by engineer. */
+"Shortcuts when active…" = "செயலில் இருக்கும்போது குறுக்குவழிகள்…";
 
-/*No comment provided by engineer.*/
-"Show windows from:" = "Show windows from:";
+/* Menubar option */
+"Show" = "காட்டு";
 
-/*No comment provided by engineer.*/
-"Source code repository" = "Source code repository";
+/* No comment provided by engineer. */
+"Show & Hide" = "காட்டு மற்றும் மறை";
 
-/*No comment provided by engineer.*/
-"Space" = "Space";
+/* No comment provided by engineer. */
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "ஒவ்வொரு சாளரத்திற்கும் அல்லது ஒவ்வொரு பயன்பாட்டிற்கும் ஸ்விட்சரில் ஒரு உருப்படியைக் காட்டுங்கள்.விண்டோஸ் கவனம் செலுத்தப்படும், அதேசமயம் பயன்பாடுகள் செயல்படுத்தப்படும்.";
 
-/*No comment provided by engineer.*/
-"Start" = "Start";
+/* No comment provided by engineer. */
+"Show at the end" = "இறுதியில் காட்டு";
 
-/*No comment provided by engineer.*/
-"Start at login:" = "Start at login:";
+/* No comment provided by engineer. */
+"Show fullscreen windows" = "முழுத்திரை சாளரங்களைக் காட்டு";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* No comment provided by engineer. */
+"Show hidden windows" = "மறைக்கப்பட்ட ஜன்னல்களைக் காட்டு";
 
-/*No comment provided by engineer.*/
-"Theme:" = "Theme:";
+/* No comment provided by engineer. */
+"Show in switcher" = "ஸ்விட்சரில் காட்டு";
 
-/*No comment provided by engineer.*/
-"Then release:" = "Then release:";
+/* No comment provided by engineer. */
+"Show minimized windows" = "குறைக்கப்பட்ட ஜன்னல்களைக் காட்டு";
 
-/*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+/* No comment provided by engineer. */
+"Show on" = "காண்பி";
 
-/*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+/* No comment provided by engineer. */
+"Show standard tabs as windows" = "நிலையான தாவல்களை விண்டோஸாகக் காட்டு";
 
-/*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+/* No comment provided by engineer. */
+"Show titles" = "தலைப்புகளைக் காட்டு";
 
-/*No comment provided by engineer.*/
-"Updates policy:" = "Updates policy:";
+/* No comment provided by engineer. */
+"Show windows from applications" = "பயன்பாடுகளிலிருந்து விண்டோஸைக் காட்டு";
 
-/*No comment provided by engineer.*/
-"Version" = "Version";
+/* No comment provided by engineer. */
+"Show windows from screens" = "திரைகளிலிருந்து விண்டோஸைக் காட்டு";
 
-/*No comment provided by engineer.*/
-"View existing discussions" = "View existing discussions";
+/* No comment provided by engineer. */
+"Show windows from Spaces" = "இடைவெளிகளிலிருந்து விண்டோஸைக் காட்டு";
 
-/*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+/* No comment provided by engineer. */
+"Size" = "அளவு";
 
-/*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+/* No comment provided by engineer. */
+"Small" = "சிறிய";
 
-/*No comment provided by engineer.*/
-"Visible Spaces" = "Visible Spaces";
+/* No comment provided by engineer. */
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "கண்டுபிடிப்பாளர் அல்லது முன்னோட்டம் போன்ற சில பயன்பாடுகள் சுயாதீன சாளரங்களைப் போல செயல்படும் நிலையான தாவல்களைப் பயன்படுத்துகின்றன.வலை உலாவிகள் போன்ற வேறு சில பயன்பாடுகள் தனிப்பயன் தாவல்களைப் பயன்படுத்துகின்றன, அவை தனித்துவமான வழிகளில் செயல்படும் மற்றும் உண்மையான சாளரங்கள் அல்ல.ஆல்டாப் அவற்றை தனித்தனியாக பட்டியலிட முடியாது.";
 
-/*No comment provided by engineer.*/
-"When fullscreen" = "When fullscreen";
+/* No comment provided by engineer. */
+"Source code repository" = "மூல குறியீடு களஞ்சியம்";
 
-/*No comment provided by engineer.*/
-"When no open window" = "When no open window";
+/* No comment provided by engineer. */
+"Space Order" = "விண்வெளி வரிசை";
 
-/*No comment provided by engineer.*/
-"While open, press:" = "While open, press:";
+/* No comment provided by engineer. */
+"Start" = "தொடக்க";
 
-/*No comment provided by engineer.*/
-"Window app icon size:" = "Window app icon size:";
+/* No comment provided by engineer. */
+"Start at login" = "உள்நுழைவில் தொடங்கவும்";
 
-/*No comment provided by engineer.*/
-"Window is fullscreen" = "Window is fullscreen";
+/* Menubar option */
+"Support this project ❤️" = "இந்த திட்டத்தை ஆதரிக்கவும்";
 
-/*No comment provided by engineer.*/
-"Window is minimized" = "Window is minimized";
+/* No comment provided by engineer. */
+"Switch between 3 different styles. You can customize them." = "3 வெவ்வேறு பாணிகளுக்கு இடையில் மாறவும்.நீங்கள் அவற்றைத் தனிப்பயனாக்கலாம்.";
 
-/*No comment provided by engineer.*/
-"Window is on every Space" = "Window is on every Space";
+/* No comment provided by engineer. */
+"System" = "அமைப்பு";
 
-/*No comment provided by engineer.*/
-"Window is on Space %d" = "Window is on Space %d";
+/* No comment provided by engineer. */
+"Theme" = "தீம்";
 
-/*No comment provided by engineer.*/
-"Window max width in row:" = "Window max width in row:";
+/* No comment provided by engineer. */
+"This permission is needed to focus windows after you release the shortcut" = "நீங்கள் குறுக்குவழியை வெளியிட்ட பிறகு சாளரங்களை மையப்படுத்த இந்த அனுமதி தேவை";
 
-/*No comment provided by engineer.*/
-"Window min width in row:" = "Window min width in row:";
+/* No comment provided by engineer. */
+"This permission is needed to show screenshots and titles of open windows" = "திறந்த சாளரங்களின் ஸ்கிரீன் ஷாட்கள் மற்றும் தலைப்புகளைக் காட்ட இந்த அனுமதி தேவை";
 
-/*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+/* No comment provided by engineer. */
+"Thumbnails" = "சிறு உருவங்கள்";
 
-/*No comment provided by engineer.*/
-"Window title font size:" = "Window title font size:";
+/* No comment provided by engineer. */
+"Title truncation" = "தலைப்பு துண்டிப்பு";
 
-/*No comment provided by engineer.*/
-"Window title truncation:" = "Window title truncation:";
+/* No comment provided by engineer. */
+"Titles" = "தலைப்புகள்";
 
-/*No comment provided by engineer.*/
-"You can’t undo this action." = "You can’t undo this action.";
+/* No comment provided by engineer. */
+"Trigger shortcut" = "குறுக்குவழியைத் தூண்டவும்";
 
-/*No comment provided by engineer.*/
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+/* No comment provided by engineer. */
+"Unassign existing shortcut and continue" = "தற்போதுள்ள குறுக்குவழியை ஒதுக்கி தொடரவும்";
+
+/* No comment provided by engineer. */
+"Updates policy" = "கொள்கை புதுப்பிக்கிறது";
+
+/* No comment provided by engineer. */
+"Version" = "பதிப்பு";
+
+/* No comment provided by engineer. */
+"View existing discussions" = "தற்போதுள்ள விவாதங்களைக் காண்க";
+
+/* No comment provided by engineer. */
+"Vim keys already assigned to other actions:\n%@" = "மற்ற செயல்களுக்கு ஏற்கனவே ஒதுக்கப்பட்ட VIM விசைகள்: \ n%@";
+
+/* No comment provided by engineer. */
+"Visibility" = "பார்வை";
+
+/* No comment provided by engineer. */
+"Visible Spaces" = "புலப்படும் இடங்கள்";
+
+/* No comment provided by engineer. */
+"When fullscreen" = "முழுத்திரை போது";
+
+/* No comment provided by engineer. */
+"When no open window" = "திறந்த சாளரம் இல்லாதபோது";
+
+/* No comment provided by engineer. */
+"Window is fullscreen" = "சாளரம் முழுத்திரை";
+
+/* No comment provided by engineer. */
+"Window is minimized" = "சாளரம் குறைக்கப்படுகிறது";
+
+/* No comment provided by engineer. */
+"Window is on every Space" = "சாளரம் ஒவ்வொரு இடத்திலும் உள்ளது";
+
+/* No comment provided by engineer. */
+"Window is on Space %d" = "சாளரம் விண்வெளி %d இல் உள்ளது";
+
+/* No comment provided by engineer. */
+"Window Title" = "சாளர தலைப்பு";
+
+/* No comment provided by engineer. */
+"Windows" = "விண்டோஸ்";
+
+/* No comment provided by engineer. */
+"You can’t undo this action." = "இந்த செயலை நீங்கள் செயல்தவிர்க்க முடியாது.";
+
+/* No comment provided by engineer. */
+"You didn’t write your email, thus can’t receive any response." = "உங்கள் மின்னஞ்சலை நீங்கள் எழுதவில்லை, இதனால் எந்த பதிலும் பெற முடியாது.";
+

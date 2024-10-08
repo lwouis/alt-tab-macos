@@ -3,7 +3,7 @@
 PRODUCT_NAME = AltTab
 PRODUCT_BUNDLE_IDENTIFIER = com.lwouis.alt-tab-macos
 MACOSX_DEPLOYMENT_TARGET = 10.12
-SWIFT_VERSION = 5.0
+SWIFT_VERSION = 5.8
 INFOPLIST_FILE = Info.plist
 CODE_SIGN_ENTITLEMENTS = alt_tab_macos.entitlements
 FRAMEWORK_SEARCH_PATHS[config=*] = $(inherited) /System/Library/PrivateFrameworks // for SkyLight.framework

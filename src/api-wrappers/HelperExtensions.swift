@@ -1,10 +1,78 @@
 import Cocoa
 import Darwin
 
-extension Collection {
-    // recursive flatMap
-    func joined() -> [Any] {
-        return flatMap { ($0 as? [Any])?.joined() ?? [$0] }
+extension NSAppearance {
+    func getThemeName() -> AppearanceThemePreference {
+        if #available(macOS 10.14, *) {
+            let appearance = NSApp.effectiveAppearance.name
+            if appearance == .darkAqua || appearance == .vibrantDark {
+                return .dark
+            }
+        }
+        return .light
+    }
+}
+
+extension NSColor {
+    // periphery:ignore
+    func toHex() -> String? {
+        guard let rgbColor = usingColorSpace(.deviceRGB) else {
+            return nil
+        }
+
+        let red = Int(rgbColor.redComponent * 255.0)
+        let green = Int(rgbColor.greenComponent * 255.0)
+        let blue = Int(rgbColor.blueComponent * 255.0)
+
+        return String(format: "#%02X%02X%02X", red, green, blue)
+    }
+
+    class var systemAccentColor: NSColor {
+        if #available(macOS 10.14, *) {
+            // dynamically adapts to changes in System Default; no need to listen to notifications
+            return NSColor.controlAccentColor
+        }
+        return NSColor.blue
+    }
+
+    class var tableBorderColor: NSColor {
+        // #4b4b4b
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 75/255, green: 75/255, blue: 75/255, alpha: 0.8)
+
+        }
+        // #e5e5e5
+        return NSColor(srgbRed: 229/255, green: 229/255, blue: 229/255, alpha: 0.8)
+    }
+
+    class var tableBackgroundColor: NSColor {
+        // #2b2b2b
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 43/255, green: 43/255, blue: 43/255, alpha: 0.8)
+
+        }
+        // #f2f2f2
+        return NSColor(srgbRed: 242/255, green: 242/255, blue: 242/255, alpha: 0.8)
+    }
+
+    class var tableSeparatorColor: NSColor {
+        // #353535
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 53/255, green: 53/255, blue: 53/255, alpha: 0.8)
+
+        }
+        // #e7e7e7
+        return NSColor(srgbRed: 231/255, green: 231/255, blue: 231/255, alpha: 0.8)
+    }
+
+    class var tableHoverColor: NSColor {
+        // #363636
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 54/255, green: 54/255, blue: 54/255, alpha: 0.8)
+
+        }
+        // #ebebeb
+        return NSColor(srgbRed: 235/255, green: 235/255, blue: 235/255, alpha: 0.8)
     }
 }
 
@@ -101,26 +169,6 @@ extension DispatchQoS {
     }
 }
 
-extension NSGridColumn {
-    func width(_ skipCell: Int? = nil) -> CGFloat {
-        var maxWidth = CGFloat(0)
-        for i in (0..<numberOfCells) {
-            if let skipCell = skipCell, i == skipCell { continue }
-            maxWidth = max(maxWidth, cell(at: i).contentView!.fittingSize.width)
-        }
-        return maxWidth
-    }
-}
-
-extension NSViewController {
-    func setView(_ subview: NSView) {
-        view = NSView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.subviews = [subview]
-        subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-}
-
 extension NSImage {
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
     static func initCopy(_ name: String) -> NSImage {
@@ -142,19 +190,6 @@ extension NSImage {
         original.draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, original.size.width, original.size.height), operation: .copy, fraction: 1)
         img.unlockFocus()
         return img
-    }
-
-    func tinted(_ tint: NSColor) -> NSImage {
-        let dimmed = copy() as! NSImage
-        let scaling = NSScreen.withMouse()?.backingScaleFactor ?? 1
-        let scaledSize = NSSize(width: (size.width * scaling).rounded(), height: (size.height * scaling).rounded())
-        dimmed.size = scaledSize
-        dimmed.lockFocus()
-        tint.set()
-        let imageRect = NSRect(origin: .zero, size: scaledSize)
-        imageRect.fill(using: .sourceAtop)
-        dimmed.unlockFocus()
-        return dimmed
     }
 }
 

@@ -40,7 +40,26 @@ class Application: NSObject {
     }
 
     deinit {
-        debugPrint("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
+        logger.i("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
+    }
+
+    override var description: String {
+        let s = """
+                Application(kvObservers: \(kvObservers)\
+                , runningApplication.bundleIdentifier: \(runningApplication.bundleIdentifier)\
+                , runningApplication.title: \(runningApplication.localizedName)\
+                , runningApplication.isActive: \(runningApplication.isActive)\
+                , axUiElement: \(axUiElement)\
+                , axObserver: \(axObserver)\
+                , isReallyFinishedLaunching: \(isReallyFinishedLaunching)\
+                , isHidden: \(isHidden)\
+                , hasBeenActiveOnce: \(hasBeenActiveOnce)\
+                , dockLabel: \(dockLabel)\
+                , pid: \(pid)\
+                , focusedWindow.cgWindowId: \(focusedWindow?.cgWindowId)\
+                , alreadyRequestedToQuit: \(alreadyRequestedToQuit)
+                """
+        return s
     }
 
     func removeWindowslessAppWindow() {
@@ -54,7 +73,7 @@ class Application: NSObject {
         if runningApplication.activationPolicy != .prohibited && axUiElement == nil {
             axUiElement = AXUIElementCreateApplication(pid)
             AXObserverCreate(pid, axObserverCallback, &axObserver)
-            debugPrint("Adding app", pid ?? "nil", runningApplication.bundleIdentifier ?? "nil")
+            logger.i("Adding app", pid ?? "nil", runningApplication.bundleIdentifier ?? "nil")
             observeEvents()
         }
     }
@@ -183,7 +202,7 @@ class Application: NSObject {
                             self.manuallyUpdateWindows()
                         }
                     }
-                }, self.runningApplication)
+                })
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)

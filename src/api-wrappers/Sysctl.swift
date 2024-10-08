@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Sysctl {
+struct Sysctl {
     static func run(_ name: String) -> String {
         return run(name, { $0.baseAddress.flatMap { String(validatingUTF8: $0) } }) ?? ""
     }
