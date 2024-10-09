@@ -1,5 +1,19 @@
 # Release notes
 
+# [7.0.0](https://github.com/lwouis/alt-tab-macos/compare/v6.73.0...v7.0.0) (2024-10-09)
+
+
+### Features
+
+* major rehaul of the preferences! ([6d97cbd](https://github.com/lwouis/alt-tab-macos/commit/6d97cbd)), closes [#351](https://github.com/lwouis/alt-tab-macos/issues/351)
+
+
+### BREAKING CHANGES
+
+* The old preferences panel has been replaced with a brand new one
+
+Preferences are now much simpler, full of visual illustrations, and should provide a much better experience. Pick between 3 styles (thumbnails, app-icons, titles), sizes, dark/light themes, high visibility options, and more!
+
 # [6.73.0](https://github.com/lwouis/alt-tab-macos/compare/v6.72.0...v6.73.0) (2024-10-08)
 
 
