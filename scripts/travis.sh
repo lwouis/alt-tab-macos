@@ -3,6 +3,8 @@
 set -exu
 
 env | sort
+xcodebuild -version
+xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -showBuildSettings | grep SWIFT_VERSION
 
 npm ci
 
