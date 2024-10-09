@@ -426,8 +426,12 @@ class ThumbnailView: NSStackView {
                 yOffset = ThumbnailFontIconView.maxHeight() + 2 * Appearance.intraCellPadding + Appearance.edgeInsetsSize / 2
             } else if Preferences.appearanceStyle == .titles {
                 let iconSize = ThumbnailView.iconSize(screen)
-                xOffset = Appearance.edgeInsetsSize + (iconSize.width - windowlessAppIndicator.frame.size.width) / 2
                 yOffset = Appearance.edgeInsetsSize / 2
+                if App.shared.userInterfaceLayoutDirection == .leftToRight {
+                    xOffset = Appearance.edgeInsetsSize + (iconSize.width - windowlessAppIndicator.frame.size.width) / 2
+                } else {
+                    xOffset = frame.size.width - Appearance.edgeInsetsSize - (iconSize.width / 2) - (windowlessAppIndicator.frame.size.width / 2)
+                }
             }
             assignIfDifferent(&windowlessAppIndicator.frame.origin.x, xOffset)
             assignIfDifferent(&windowlessAppIndicator.frame.origin.y, yOffset)
