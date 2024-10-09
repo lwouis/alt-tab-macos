@@ -55,7 +55,7 @@ def translate_text(translator, text, src_lang, dest_lang, max_retries=0):
     """
     Translate text with retries in case of failure.
     """
-    for attempt in range(max_retries):
+    for attempt in range(max_retries + 1):
         try:
             translated = translator.translate(text, src=src_lang, dest=dest_lang).text
             return translated
