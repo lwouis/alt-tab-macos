@@ -47,7 +47,7 @@
 "Allowed" = "অনুমোদিত";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "বর্ণানুক্রমিক ক্রম";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "আপনি শেষবার ব্যবহার করার সময় AltTab ক্র্যাশ হয়েছে। একটি ক্র্যাশ রিপোর্ট পাঠালে সেই সমস্যার সমাধান পেতে সাহায্য করবে";
@@ -95,10 +95,10 @@
 "Appearance" = "অলংকরণ";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "অ্যাপ্লিকেশন নাম";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "আবেদনের নাম - উইন্ডো শিরোনাম";
 
 /* No comment provided by engineer. */
 "Applications" = "অ্যাপ্লিকেশন";
@@ -133,8 +133,8 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "হালনাগাদ অনুসন্ধান করুন…";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "অনুমতি পরীক্ষা করুন ...";
 
 /* No comment provided by engineer. */
 "Close window" = "উইন্ডো বন্ধ করুন";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "শিরোনাম শৈলী কাস্টমাইজ করুন ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "অন্ধকার";
 
 /* No comment provided by engineer. */
 "Do nothing" = "কিছু করনা";
@@ -182,7 +182,7 @@
 "Focus selected window" = "নির্বাচিত উইন্ডোতে ফোকাস করুন";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "ফুলস্ক্রিন/ডিফুলস্ক্রিন উইন্ডো";
 
 /* No comment provided by engineer. */
 "General" = "সাধারন";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "অ্যাপ লুকান/দেখান";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "উচ্চ";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "সর্বোচ্চ";
 
 /* No comment provided by engineer. */
 "Hold" = "ধরে রাখ";
@@ -236,7 +236,7 @@
 "Leading" = "নেতৃত্ব";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "হালকা";
 
 /* No comment provided by engineer. */
 "Medium" = "মধ্যম";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "কখনোই ক্র্যাশ রিপোর্ট পাঠাবেন না";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "সাধারণ";
 
 /* No comment provided by engineer. */
 "Not allowed" = "অনুমতি নেই";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "স্ক্রীন রেকর্ডিং সেটিং খুলুন...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Ption চ্ছিক: ইমেল (আপনি যদি উত্তর চান)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "দ্বারা উইন্ডোজ অর্ডার করুন";
@@ -281,7 +281,7 @@
 "Preferences…" = "পছন্দ…";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "পূর্বরূপ নির্বাচিত উইন্ডো";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "নির্বাচিত উইন্ডো পূর্বরূপ দেখুন।";
@@ -296,10 +296,10 @@
 "Quit app" = "অ্যাপ বন্ধ করুন";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "সম্প্রতি প্রথম তৈরি";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "সম্প্রতি প্রথমে ফোকাস করা";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "আমার পছন্দ মনে রেখো";
@@ -308,7 +308,7 @@
 "Reset preferences and restart" = "সেটিং রিসেট করুন এবং পুনরায় চালু করুন";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "পছন্দগুলি পুনরায় সেট করুন এবং পুনরায় চালু করুন ...";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "মেনু বার সহ স্ক্রীন";
@@ -365,16 +365,16 @@
 "Shortcut 2" = "শর্টকাট 2";
 
 /* No comment provided by engineer. */
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "শর্টকাট 3";
 
 /* No comment provided by engineer. */
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "শর্টকাট 4";
 
 /* No comment provided by engineer. */
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "শর্টকাট 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "শর্টকাট ইতিমধ্যে অন্য ক্রিয়ায় বরাদ্দ করা হয়েছে: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "সক্রিয় হলে শর্টকাট";
@@ -437,7 +437,7 @@
 "Source code repository" = "সোর্স কোড সংগ্রহস্থল";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "স্পেস অর্ডার";
 
 /* No comment provided by engineer. */
 "Start" = "শুরু করুন";
@@ -445,14 +445,14 @@
 /* No comment provided by engineer. */
 "Start at login" = "লগইন শুরু করুন";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "এই প্রকল্প সমর্থন ❤";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "3 টি বিভিন্ন শৈলীর মধ্যে স্যুইচ করুন।আপনি তাদের কাস্টমাইজ করতে পারেন।";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "সিস্টেম";
 
 /* No comment provided by engineer. */
 "Theme" = "থিম";
@@ -488,7 +488,7 @@
 "View existing discussions" = "বিদ্যমান আলোচনা দেখুন";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "ভিম কীগুলি ইতিমধ্যে অন্যান্য ক্রিয়াকলাপে নির্ধারিত: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "দৃশ্যমানতা";
@@ -515,13 +515,13 @@
 "Window is on Space %d" = "উইন্ডো %d স্পেসে আছে";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "উইন্ডো শিরোনাম";
 
 /* No comment provided by engineer. */
 "Windows" = "উইন্ডোজ";
 
 /* No comment provided by engineer. */
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "আপনি এই ক্রিয়াটি পূর্বাবস্থায় ফিরিয়ে আনতে পারবেন না।";
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "আপনি আপনার ইমেল লেখেননি, তাই কোনো রিপ্লেও পাবেন না।";

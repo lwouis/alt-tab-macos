@@ -1,20 +1,20 @@
 /* No comment provided by engineer. */
-"About" = "About";
+"About" = "Ümber";
 
-/*Menubar option. %@ is AltTab*/
+/* Menubar option. %@ is AltTab */
 "About %@" = "About %@";
 
 /* No comment provided by engineer. */
-"Accessibility" = "Accessibility";
+"Accessibility" = "Ligipääsetavus";
 
 /* No comment provided by engineer. */
-"Acknowledgments" = "Acknowledgments";
+"Acknowledgments" = "Tunnustused";
 
 /* No comment provided by engineer. */
 "Active app" = "Active app";
 
 /* No comment provided by engineer. */
-"Active screen" = "Active screen";
+"Active screen" = "Aktiivne ekraan";
 
 /* No comment provided by engineer. */
 "Additional controls" = "Lisakontroll";
@@ -35,19 +35,19 @@
 "All apps" = "All apps";
 
 /* No comment provided by engineer. */
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Kõik selle vormi andmed avalikustatakse Github.com -i piletina";
 
 /* No comment provided by engineer. */
-"All screens" = "All screens";
+"All screens" = "Kõik ekraanid";
 
 /* No comment provided by engineer. */
 "All Spaces" = "All Spaces";
 
 /* No comment provided by engineer. */
-"Allowed" = "Allowed";
+"Allowed" = "Lubatud";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Tähestikuline järjekord";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
@@ -56,16 +56,16 @@
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab on praegu seatud rakenduste kuvamiseks.See säte on saadaval ainult siis, kui Alttab on seatud Windowsi kuvamiseks.";
 
 /* No comment provided by engineer. */
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "Alttab vajab mingeid õigusi";
 
 /* No comment provided by engineer. */
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab näitab, kas aken on praegu minimeeritud või olekuikooniga täisekraanil.";
 
 /* No comment provided by engineer. */
-"Always" = "Always";
+"Always" = "Alati";
 
 /* No comment provided by engineer. */
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Saada alati krahhi aruanded";
 
 /* No comment provided by engineer. */
 "and press" = "ja vajutama";
@@ -77,7 +77,7 @@
 "Animations…" = "Animatsioonid ...";
 
 /* No comment provided by engineer. */
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Rakendus (bundleID alustab)";
 
 /* No comment provided by engineer. */
 "App Icons" = "Rakenduse ikoonid";
@@ -86,7 +86,7 @@
 "App is hidden" = "App is hidden";
 
 /* No comment provided by engineer. */
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Rakendus töötab, kuid sellel pole avatud akent";
 
 /* No comment provided by engineer. */
 "Apparition delay" = "Ilmumisviivitus";
@@ -95,25 +95,25 @@
 "Appearance" = "Välimus";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Rakenduse nimi";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Rakenduse nimi - akna pealkiri";
 
 /* No comment provided by engineer. */
 "Applications" = "Rakendused";
 
 /* No comment provided by engineer. */
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Kas olete kindel, et te ei soovi vastust?";
 
 /* No comment provided by engineer. */
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Küsige, kas saata krahhi aruandeid";
 
 /* No comment provided by engineer. */
 "Auto-install updates periodically" = "Auto-install updates periodically";
 
 /* No comment provided by engineer. */
-"Blacklists" = "Blacklists";
+"Blacklists" = "Mustade nimekirjad";
 
 /*Cancel button*/
 "Cancel" = "Tühista";
@@ -125,25 +125,25 @@
 "Center" = "Keskel";
 
 /* No comment provided by engineer. */
-"Check for updates now…" = "Check for updates now…";
+"Check for updates now…" = "Kontrollige värskendusi kohe ...";
 
 /* No comment provided by engineer. */
-"Check for updates periodically" = "Check for updates periodically";
+"Check for updates periodically" = "Kontrollige värskendusi perioodiliselt";
 
-/* No comment provided by engineer. */
+/* Menubar option */
 "Check for updates…" = "Check for updates…";
 
-/*Menubar option*/
+/* Menubar option */
 "Check permissions…" = "Check permissions…";
 
 /* No comment provided by engineer. */
-"Close window" = "Close window";
+"Close window" = "Sulgede aken";
 
 /* No comment provided by engineer. */
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Vastuoluline otsetee";
 
 /* No comment provided by engineer. */
-"Controls" = "Controls";
+"Controls" = "Kontrollrühmad";
 
 /* No comment provided by engineer. */
 "Crash reports policy" = "Krahhi aruannete poliitika";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Kohandage pealkirjade stiil ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Tume";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Do nothing";
@@ -167,13 +167,13 @@
 "Done" = "Tehtud";
 
 /* No comment provided by engineer. */
-"Don’t check for updates periodically" = "Don’t check for updates periodically";
+"Don’t check for updates periodically" = "Ärge kontrollige värskendusi perioodiliselt";
 
 /* No comment provided by engineer. */
-"Don’t send" = "Don’t send";
+"Don’t send" = "Ärge saatke";
 
 /* No comment provided by engineer. */
-"End" = "End";
+"End" = "Lõpp";
 
 /* No comment provided by engineer. */
 "Fade out animation" = "Tuhmuma animatsiooni";
@@ -182,13 +182,13 @@
 "Focus selected window" = "Focus selected window";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Täisekraanil/defullcreen aken";
 
 /* No comment provided by engineer. */
 "General" = "Üldine";
 
 /* No comment provided by engineer. */
-"Hide" = "Hide";
+"Hide" = "Varjama";
 
 /* No comment provided by engineer. */
 "Hide app badges" = "Hide app badges";
@@ -197,25 +197,25 @@
 "Hide apps with no open window" = "Hide apps with no open window";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
+"Hide colored circles on mouse hover" = "Peida hiire hõljumisel värvilised ringid";
 
-/*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+/* %@ is AltTab */
+"Hide in %@" = "Peida sisse %@";
 
 /* No comment provided by engineer. */
 "Hide Space number labels" = "Hide Space number labels";
 
 /* No comment provided by engineer. */
-"Hide status icons" = "Hide status icons";
+"Hide status icons" = "Peida olekuikoonid";
 
 /* No comment provided by engineer. */
-"Hide/Show app" = "Hide/Show app";
+"Hide/Show app" = "Peida/näituserakendus";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Kõrge";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Kõrgeim";
 
 /* No comment provided by engineer. */
 "Hold" = "Hoia";
@@ -224,7 +224,7 @@
 "I think the app could be improved with…" = "I think the app could be improved with…";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignoreeri otseteid aktiivselt";
 
 /* No comment provided by engineer. */
 "Large" = "Suur";
@@ -236,7 +236,7 @@
 "Leading" = "Juhtiv";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Hele";
 
 /* No comment provided by engineer. */
 "Medium" = "Vahend";
@@ -245,7 +245,7 @@
 "Menubar icon" = "Menubari ikoon";
 
 /* No comment provided by engineer. */
-"Middle" = "Middle";
+"Middle" = "Keskosa";
 
 /* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimize/Deminimize window";
@@ -254,22 +254,22 @@
 "Multiple screens" = "Mitu ekraani";
 
 /* No comment provided by engineer. */
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Ärge kunagi saatke krahhi aruandeid";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Normaalne";
 
 /* No comment provided by engineer. */
-"Not allowed" = "Not allowed";
+"Not allowed" = "Pole lubatud";
 
 /* No comment provided by engineer. */
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Avatud juurdepääsetavuse eelistused ...";
 
 /* No comment provided by engineer. */
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Avatud ekraani salvestamise eelistused ...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Valikuline: e -post (kui soovite vastust)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Tellige aknad";
@@ -277,17 +277,17 @@
 /* No comment provided by engineer. */
 "Policies" = "Policies";
 
-/* No comment provided by engineer. */
-"Preferences…" = "Preferences…";
+/* Menubar option */
+"Preferences…" = "Eelistused ...";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Eelvaade valitud aken";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Eelvaade valitud aken.";
 
 /* No comment provided by engineer. */
-"Quit" = "Quit";
+"Quit" = "Loobuma";
 
 /* No comment provided by engineer. */
 "Quit %@" = "Sulge %@";
@@ -296,34 +296,34 @@
 "Quit app" = "Quit app";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Hiljuti loodi esimene";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Hiljuti keskendus kõigepealt";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Remember my choice";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Lähtestage eelistused ja taaskäivitage";
 
 /* No comment provided by engineer. */
 "Reset preferences and restart…" = "Reset preferences and restart…";
 
 /* No comment provided by engineer. */
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including menu bar" = "Ekraan sisaldab menüüriba";
 
 /* No comment provided by engineer. */
-"Screen including mouse" = "Screen including mouse";
+"Screen including mouse" = "Ekraan koos hiirga";
 
 /* No comment provided by engineer. */
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Ekraanisalvestus";
 
 /* No comment provided by engineer. */
-"Screen showing AltTab" = "Screen showing AltTab";
+"Screen showing AltTab" = "Ekraan, mis näitab altabi";
 
 /* No comment provided by engineer. */
-"Select next window" = "Select next window";
+"Select next window" = "Valige järgmine aken";
 
 /* No comment provided by engineer. */
 "Select previous window" = "Select previous window";
@@ -341,40 +341,40 @@
 "Send" = "Saada";
 
 /* No comment provided by engineer. */
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Kas saata krahhi aruanne?";
 
 /* No comment provided by engineer. */
-"Send anyway" = "Send anyway";
+"Send anyway" = "Saada niikuinii";
 
 /* No comment provided by engineer. */
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+"Send debug profile (CPU, memory, etc)" = "Saada silumisprofiil (CPU, mälu jne)";
 
 /* No comment provided by engineer. */
-"Send feedback" = "Send feedback";
+"Send feedback" = "Saada tagasisidet";
+
+/* Menubar option */
+"Send feedback…" = "Saada tagasisidet ...";
 
 /* No comment provided by engineer. */
-"Send feedback…" = "Send feedback…";
+"Share improvement ideas, or report bugs" = "Jagage parendamise ideid või teatage vigadest";
 
 /* No comment provided by engineer. */
-"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
+"Shortcut 1" = "Otsetee 1";
 
 /* No comment provided by engineer. */
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 2" = "Otsetee 2";
 
 /* No comment provided by engineer. */
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 3" = "Otsetee 3";
 
 /* No comment provided by engineer. */
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 4" = "Otsetee 4";
 
 /* No comment provided by engineer. */
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 5" = "Otsetee 5";
 
 /* No comment provided by engineer. */
-"Shortcut 5" = "Shortcut 5";
-
-/* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Otsetee on juba teisele toimingule määratud: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Otseteed aktiivselt";
@@ -392,7 +392,7 @@
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Kuvage iga akna või iga rakenduse jaoks lüliti üksust.Aknad keskenduvad, rakendused aga aktiveeritakse.";
 
 /* No comment provided by engineer. */
-"Show at the end" = "Show at the end";
+"Show at the end" = "Näidata lõpus";
 
 /* No comment provided by engineer. */
 "Show fullscreen windows" = "Kuva täisekraaniga aknad";
@@ -410,7 +410,7 @@
 "Show on" = "Näitama";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows" = "Show standard tabs as windows";
+"Show standard tabs as windows" = "Näidake standardseid vahekaarte kui Windowsi";
 
 /* No comment provided by engineer. */
 "Show titles" = "Näitama pealkirju";
@@ -437,7 +437,7 @@
 "Source code repository" = "Source code repository";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Kosmosekorraldus";
 
 /* No comment provided by engineer. */
 "Start" = "Start";
@@ -445,23 +445,23 @@
 /* No comment provided by engineer. */
 "Start at login" = "Alustage sisselogimisest";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Toetage seda projekti ❤️";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Lülitage 3 erineva stiili vahel.Saate neid kohandada.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Süsteem";
 
 /* No comment provided by engineer. */
 "Theme" = "Teema";
 
 /* No comment provided by engineer. */
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "See luba on vaja Windowsi keskendumiseks pärast otsetee vabastamist";
 
 /* No comment provided by engineer. */
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Seda luba on vaja avatud akende ekraanipiltide ja pealkirjade kuvamiseks";
 
 /* No comment provided by engineer. */
 "Thumbnails" = "Pisipildid";
@@ -476,7 +476,7 @@
 "Trigger shortcut" = "Päästiku otsetee";
 
 /* No comment provided by engineer. */
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Olemasoleva otsetee määramine ja jätkake";
 
 /* No comment provided by engineer. */
 "Updates policy" = "Värskendab poliitikat";
@@ -488,34 +488,34 @@
 "View existing discussions" = "View existing discussions";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM võtmed on juba muude toimingute jaoks määratud: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Nähtavus";
 
 /* No comment provided by engineer. */
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Nähtavad ruumid";
 
 /* No comment provided by engineer. */
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Kui täisekraanil";
 
 /* No comment provided by engineer. */
-"When no open window" = "When no open window";
+"When no open window" = "Kui pole avatud akent";
 
 /* No comment provided by engineer. */
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Aken on täisekraaniga";
 
 /* No comment provided by engineer. */
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Aken on minimeeritud";
 
 /* No comment provided by engineer. */
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Aken on igal ruumis";
 
 /* No comment provided by engineer. */
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Aken on kosmoses %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Akna pealkiri";
 
 /* No comment provided by engineer. */
 "Windows" = "Aknad";
@@ -524,5 +524,5 @@
 "You can’t undo this action." = "You can’t undo this action.";
 
 /* No comment provided by engineer. */
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "Te ei kirjutanud oma e -posti, seega ei saa te vastust.";
 

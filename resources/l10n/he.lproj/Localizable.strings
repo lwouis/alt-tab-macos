@@ -47,7 +47,7 @@
 "Allowed" = "מאופשר";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "סדר אלפביתי";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab קרס בפעם האחרונה שהשתמשת בו. שליחה של דיווח קריסה יעזור לתקן את הבעיה";
@@ -95,10 +95,10 @@
 "Appearance" = "מראה";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "שם יישום";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "שם יישום - כותרת חלון";
 
 /* No comment provided by engineer. */
 "Applications" = "יישומים";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "התאמה אישית של כותרות סגנון ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "כֵּהֶה";
 
 /* No comment provided by engineer. */
 "Do nothing" = "לא לעשות כלום";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "הסתר/הצג חלון";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "גָבוֹהַ";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "הֲכִי גָבוֹהַ";
 
 /* No comment provided by engineer. */
 "Hold" = "החזק";
@@ -236,7 +236,7 @@
 "Leading" = "מוֹבִיל";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "אוֹר";
 
 /* No comment provided by engineer. */
 "Medium" = "בינוני";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "אף פעם אל תשלח דיווחי קריסה";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "נוֹרמָלִי";
 
 /* No comment provided by engineer. */
 "Not allowed" = "לא מאופשר";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "פתח הגדרות הקלטת מסך…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "אופציונלי: דואל (אם אתה רוצה תשובה)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "להזמין חלונות על ידי";
@@ -296,10 +296,10 @@
 "Quit app" = "צא מהיישום";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "לאחרונה נוצר תחילה";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "לאחרונה התמקד תחילה";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "זכור את בחירתי";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "קיצור 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "קיצור דרך כבר הוקצה לפעולה אחרת: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "קיצורי דרך כאשר הם פעילים";
@@ -437,7 +437,7 @@
 "Source code repository" = "קוד מקור";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "סדר חלל";
 
 /* No comment provided by engineer. */
 "Start" = "התחלה";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "מעבר בין 3 סגנונות שונים.אתה יכול להתאים אותם.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "מַעֲרֶכֶת";
 
 /* No comment provided by engineer. */
 "Theme" = "נוֹשֵׂא";
@@ -488,7 +488,7 @@
 "View existing discussions" = "הצג דיונים קיימים";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim Keys כבר הוקצה לפעולות אחרות: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "רְאוּת";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "החלון נמצא באיזור %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "כותרת חלון";
 
 /* No comment provided by engineer. */
 "Windows" = "חלונות";
@@ -525,4 +525,3 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "לא רשמת את כתובת המייל שלך, ולא תוכל לקבל מענה.";
-

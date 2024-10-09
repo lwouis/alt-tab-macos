@@ -47,7 +47,7 @@
 "Allowed" = "Povolené";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Abecedný poriadok";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab bol pri poslednom použití nečakane ukončený. Odoslaním správy o zlyhaní môžete pomôcť problém vyriešiť";
@@ -62,7 +62,7 @@
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab sa zobrazí, ak je okno v súčasnosti minimalizované alebo na celej obrazovke s ikonou stavu.";
 
 /* No comment provided by engineer. */
-"Always" = "Always";
+"Always" = "Vždy";
 
 /* No comment provided by engineer. */
 "Always send crash reports" = "Vždy zasielajte správy o zlyhaní";
@@ -77,16 +77,16 @@
 "Animations…" = "Animácie ...";
 
 /* No comment provided by engineer. */
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "App (Bundleid začínajúca)";
 
 /* No comment provided by engineer. */
 "App Icons" = "Ikony aplikácií";
 
 /* No comment provided by engineer. */
-"App is hidden" = "App is hidden";
+"App is hidden" = "Aplikácia je skrytá";
 
 /* No comment provided by engineer. */
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Aplikácia je spustená, ale nemá otvorené okno";
 
 /* No comment provided by engineer. */
 "Apparition delay" = "Oneskorenie";
@@ -95,10 +95,10 @@
 "Appearance" = "Vzhľad";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Názov aplikácie";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Názov aplikácie - Názov okna";
 
 /* No comment provided by engineer. */
 "Applications" = "Žiadosti";
@@ -113,7 +113,7 @@
 "Auto-install updates periodically" = "Periodická auto-inštalácia aktualizácíí";
 
 /* No comment provided by engineer. */
-"Blacklists" = "Blacklists";
+"Blacklists" = "Čierne zoznamy";
 
 /*Cancel button*/
 "Cancel" = "Zrušiť";
@@ -133,14 +133,14 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "Kontrolovať aktualizácie…";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "Skontrolujte povolenia ...";
 
 /* No comment provided by engineer. */
 "Close window" = "Zavrieť okno";
 
 /* No comment provided by engineer. */
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Konfliktná skratka";
 
 /* No comment provided by engineer. */
 "Controls" = "Ovládače";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Prispôsobte štýl titulov…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Tmavý";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Nevykonať nič";
@@ -182,7 +182,7 @@
 "Focus selected window" = "Zobraz zvýraznené okno";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Okno s plnou obrazovkou/defullscreen";
 
 /* No comment provided by engineer. */
 "General" = "Hlavné";
@@ -199,8 +199,8 @@
 /* No comment provided by engineer. */
 "Hide colored circles on mouse hover" = "Skryť farebné kruhy pri umiestnení kurzora myši";
 
-/*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+/* %@ is AltTab */
+"Hide in %@" = "Skryť v %@";
 
 /* No comment provided by engineer. */
 "Hide Space number labels" = "Skryť číslo plochy";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Skryť/Zobraziť aplikáciu";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Vysoký";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Najvyšší";
 
 /* No comment provided by engineer. */
 "Hold" = "Držať";
@@ -224,7 +224,7 @@
 "I think the app could be improved with…" = "Myslím si, že by aplikácia mohla byť nasledovne vylepšená…";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignorujte skratky, keď sú aktívne";
 
 /* No comment provided by engineer. */
 "Large" = "Veľký";
@@ -236,7 +236,7 @@
 "Leading" = "Hlavný";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Osvetlenie";
 
 /* No comment provided by engineer. */
 "Medium" = "Médium";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Nikdy neposielať správy o zlyhaní";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Normálny";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Zakázané";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Otvoriť predvoľby nahrávania obrazovky…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Voliteľné: E -mail (ak chcete odpoveď)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Objednať si okná podľa";
@@ -281,7 +281,7 @@
 "Preferences…" = "Nastavenia…";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Zvolené okno";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Ukážte si vybrané okno.";
@@ -296,19 +296,19 @@
 "Quit app" = "Ukončiť aplikáciu";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Nedávno vytvorené ako prvé";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Nedávno sústredený prvý";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Zapamätaj si moju voľbu";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Resetovať preferencie a reštartovať";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Obnovte preferencie a reštart…";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Obrazovka vrátane panela s ponukami";
@@ -365,16 +365,16 @@
 "Shortcut 2" = "Skratka 2";
 
 /* No comment provided by engineer. */
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Skratka 3";
 
 /* No comment provided by engineer. */
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Skratka 4";
 
 /* No comment provided by engineer. */
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Skratka 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Skratka už priradená k inej akcii: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Skratky, keď sú aktívne";
@@ -437,7 +437,7 @@
 "Source code repository" = "Úložisko zdrojových kódov";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Vesmírny poriadok";
 
 /* No comment provided by engineer. */
 "Start" = "Začiatok";
@@ -445,14 +445,14 @@
 /* No comment provided by engineer. */
 "Start at login" = "Začnite pri prihlásení";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Podporte tento projekt ❤";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Prepnite medzi 3 rôzne štýly.Môžete ich prispôsobiť.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Systém";
 
 /* No comment provided by engineer. */
 "Theme" = "Téma";
@@ -476,7 +476,7 @@
 "Trigger shortcut" = "Spúšťacia skratka";
 
 /* No comment provided by engineer. */
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Nepriassign existujúca skratka a pokračujte";
 
 /* No comment provided by engineer. */
 "Updates policy" = "Aktualizuje pravidlá";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Zobraziť prebiehajúce diskusie";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim Keys už priradené k iným akciám: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Viditeľnosť";
@@ -497,31 +497,31 @@
 "Visible Spaces" = "Viditeľné plochy";
 
 /* No comment provided by engineer. */
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Keď je celá obrazovka";
 
 /* No comment provided by engineer. */
-"When no open window" = "When no open window";
+"When no open window" = "Keď žiadne otvorené okno";
 
 /* No comment provided by engineer. */
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Okno je celá";
 
 /* No comment provided by engineer. */
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Okno je minimalizované";
 
 /* No comment provided by engineer. */
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Okno je na každom priestore";
 
 /* No comment provided by engineer. */
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Okno je na vesmíre %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Názov okna";
 
 /* No comment provided by engineer. */
 "Windows" = "Okná";
 
 /* No comment provided by engineer. */
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Túto akciu nemôžete vrátiť späť.";
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Nezadali ste svoj e-mail, takže nemôžete dostávať žiadne odpovede.";

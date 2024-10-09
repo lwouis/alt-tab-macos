@@ -47,7 +47,7 @@
 "Allowed" = "Tillåten";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Alfabetisk ordning";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kraschade vid förra användingen. Skicka felrapport för att underlätta åtgärder";
@@ -95,10 +95,10 @@
 "Appearance" = "Utseende";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Applikationsnamn";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Applikationsnamn - fönstertitel";
 
 /* No comment provided by engineer. */
 "Applications" = "Ansökningar";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Anpassa titlarstil ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Mörk";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Gör ingenting";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Dölj/Visa app";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Hög";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Högsta";
 
 /* No comment provided by engineer. */
 "Hold" = "Håll ned";
@@ -236,7 +236,7 @@
 "Leading" = "Ledande";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Ljus";
 
 /* No comment provided by engineer. */
 "Medium" = "Medium";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Öppna skärminspelningsinställningar…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Valfritt: E -post (om du vill ha svar)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Beställ Windows av";
@@ -296,10 +296,10 @@
 "Quit app" = "Avsluta app";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Nyligen skapad först";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Nyligen fokuserad först";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Kom ihåg mitt val";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Genvägen som redan tilldelats en annan åtgärd: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Genvägar när de är aktiva";
@@ -437,7 +437,7 @@
 "Source code repository" = "Källkodskatalog";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Rymdorder";
 
 /* No comment provided by engineer. */
 "Start" = "Början";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Visa befintliga diskussioner";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM -nycklar som redan tilldelats andra åtgärder: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Synlighet";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Fönstret finns på skrivbord %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Fönstertitel";
 
 /* No comment provided by engineer. */
 "Windows" = "Fönster";

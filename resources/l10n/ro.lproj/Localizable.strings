@@ -47,7 +47,7 @@
 "Allowed" = "Permis";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Ordinea alfabetică";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab s-a închis accidental la ultima folosire. Trimițând o analiză de accident va ajuta la rezolvarea problemei";
@@ -95,10 +95,10 @@
 "Appearance" = "Aspect";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Numele aplicației";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Numele aplicației - titlul ferestrei";
 
 /* No comment provided by engineer. */
 "Applications" = "Aplicații";
@@ -133,8 +133,8 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "Verifică actualizări…";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "Verificați permisiunile ...";
 
 /* No comment provided by engineer. */
 "Close window" = "Închide fereastră";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Personalizați stilul titlurilor ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Întuneric";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Nu face nimic";
@@ -182,7 +182,7 @@
 "Focus selected window" = "Focusează fereastra selectată";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Fereastră cu ecran complet/deflullscreen";
 
 /* No comment provided by engineer. */
 "General" = "General";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Ascunde/Arată aplicație";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Ridicat";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Cel mai înalt";
 
 /* No comment provided by engineer. */
 "Hold" = "Reține";
@@ -236,7 +236,7 @@
 "Leading" = "Conducere";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Aprinde";
 
 /* No comment provided by engineer. */
 "Medium" = "Mediu";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Deschide preferințele Ecranului de înregistrare…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Opțional: e -mail (dacă doriți un răspuns)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Comandați Windows de către";
@@ -281,7 +281,7 @@
 "Preferences…" = "Preferințe…";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Previzualizare fereastra selectată";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Previzualizați fereastra selectată.";
@@ -296,10 +296,10 @@
 "Quit app" = "Ieșire aplicație";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Creat recent pe primul loc";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Recent concentrat pe primul loc";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Memorează opțiunile mele";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Scurtătură 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Comanda rapidă deja atribuită unei alte acțiuni: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Comitete rapide atunci când sunt active";
@@ -437,22 +437,22 @@
 "Source code repository" = "Depozit sursă cod";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Comandă spațială";
 
 /* No comment provided by engineer. */
-"Start" = "Start";
+"Start" = "Început";
 
 /* No comment provided by engineer. */
 "Start at login" = "Începeți la autentificare";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Susțineți acest proiect ❤️";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Comutați între 3 stiluri diferite.Le puteți personaliza.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Sistem";
 
 /* No comment provided by engineer. */
 "Theme" = "Temă";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Vezi discuții existente";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Tastele vim deja alocate altor acțiuni: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Vizibilitate";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Fereastra este în spațiul %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Titlul ferestrei";
 
 /* No comment provided by engineer. */
 "Windows" = "Ferestre";

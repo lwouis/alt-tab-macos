@@ -47,7 +47,7 @@
 "Allowed" = "Cho phép";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Thứ tự bảng chữ cái";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab gặp sự cố ở lần sử dụng gần đây. Gửi báo cáo sự cố sẽ giúp giải quyết các vấn đề này";
@@ -95,10 +95,10 @@
 "Appearance" = "Giao diện";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Tên ứng dụng";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Tên ứng dụng - Tiêu đề cửa sổ";
 
 /* No comment provided by engineer. */
 "Applications" = "Các ứng dụng";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Tùy chỉnh phong cách tiêu đề…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Tối tăm";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Không làm gì";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Ẩn/Hiện ứng dụng";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Cao";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Cao nhất";
 
 /* No comment provided by engineer. */
 "Hold" = "Giữ";
@@ -236,7 +236,7 @@
 "Leading" = "Dẫn đầu";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Ánh sáng";
 
 /* No comment provided by engineer. */
 "Medium" = "Trung bình";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Không bao giờ gửi báo cáo sự cố";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Bình thường";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Không cho phép";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Mở Screen Recording Preferences";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Tùy chọn: Email (nếu bạn muốn trả lời)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Đặt hàng Windows By";
@@ -296,10 +296,10 @@
 "Quit app" = "Thoát ứng dụng";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Gần đây được tạo ra đầu tiên";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Gần đây tập trung đầu tiên";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Ghi nhớ lựa chọn của tôi";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Phím tắt 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Phím tắt đã được gán cho một hành động khác: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Phím tắt khi hoạt động";
@@ -437,7 +437,7 @@
 "Source code repository" = "Kho quản lý mã nguồn";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Lệnh không gian";
 
 /* No comment provided by engineer. */
 "Start" = "Đầu";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Chuyển đổi giữa 3 kiểu khác nhau.Bạn có thể tùy chỉnh chúng.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Hệ thống";
 
 /* No comment provided by engineer. */
 "Theme" = "Chủ đề";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Xem các cuộc thảo luận đã có";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Khóa VIM đã được gán cho các hành động khác: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Khả năng hiển thị";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Cửa sổ đang ở Không gian %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Tiêu đề cửa sổ";
 
 /* No comment provided by engineer. */
 "Windows" = "các cửa sổ";

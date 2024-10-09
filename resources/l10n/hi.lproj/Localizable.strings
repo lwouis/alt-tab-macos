@@ -47,7 +47,7 @@
 "Allowed" = "अनुमत";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "वर्णमाला क्रम";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "पिछली बार जब आपने ऑल्टटैब इस्तेमाल किया था तो दुर्घटनाग्रस्त हो गया था। दुर्घटना की रिपोर्ट भेजने से समस्या को ठीक करने में मदद मिलेगी";
@@ -62,7 +62,7 @@
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab दिखाएगा कि क्या विंडो वर्तमान में कम से कम है या एक स्थिति आइकन के साथ फुलस्क्रीन है।";
 
 /* No comment provided by engineer. */
-"Always" = "Always";
+"Always" = "हमेशा";
 
 /* No comment provided by engineer. */
 "Always send crash reports" = "हमेशा दुर्घटना की रिपोर्ट भेजें";
@@ -77,16 +77,16 @@
 "Animations…" = "एनिमेशन…";
 
 /* No comment provided by engineer. */
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "ऐप (बंडलिड के साथ शुरू)";
 
 /* No comment provided by engineer. */
 "App Icons" = "ऐप आइकन";
 
 /* No comment provided by engineer. */
-"App is hidden" = "App is hidden";
+"App is hidden" = "ऐप छिपा हुआ है";
 
 /* No comment provided by engineer. */
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "ऐप चल रहा है, लेकिन कोई खुली खिड़की नहीं है";
 
 /* No comment provided by engineer. */
 "Apparition delay" = "स्पष्टता विलंब";
@@ -95,10 +95,10 @@
 "Appearance" = "दिखावट";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "अनुप्रयोग नाम";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "आवेदन का नाम - विंडो शीर्षक";
 
 /* No comment provided by engineer. */
 "Applications" = "अनुप्रयोग";
@@ -133,8 +133,8 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "अपडेट चेक करो...";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "अनुमतियों की जाँच करें…";
 
 /* No comment provided by engineer. */
 "Close window" = "विंडो बंद करो";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "टाइटल स्टाइल को कस्टमाइज़ करें ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "अँधेरा";
 
 /* No comment provided by engineer. */
 "Do nothing" = "कुछ मत करो";
@@ -182,7 +182,7 @@
 "Focus selected window" = "चयनित खिड़की पर केंद्र करें";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "FullScreen/defulscreen विंडो";
 
 /* No comment provided by engineer. */
 "General" = "सामान्य";
@@ -199,8 +199,8 @@
 /* No comment provided by engineer. */
 "Hide colored circles on mouse hover" = "माउस मँडराने पर पर रंगीन वृत्त छिपाएँ";
 
-/*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+/* %@ is AltTab */
+"Hide in %@" = "में छिपा %@";
 
 /* No comment provided by engineer. */
 "Hide Space number labels" = "स्पेस नंबर लेबल छुपाओ";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "ऐप छुपाओ/दिखाओ";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "उच्च";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "उच्चतम";
 
 /* No comment provided by engineer. */
 "Hold" = "दबाए रखें";
@@ -224,7 +224,7 @@
 "I think the app could be improved with…" = "मुझे लगता है कि इससे ऐप को बेहतर बनाया जा सकता है...";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "सक्रिय होने पर शॉर्टकट को अनदेखा करें";
 
 /* No comment provided by engineer. */
 "Large" = "बड़ा";
@@ -236,7 +236,7 @@
 "Leading" = "अग्रणी";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "रोशनी";
 
 /* No comment provided by engineer. */
 "Medium" = "मध्यम";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "दुर्घटना की रिपोर्ट कभी न भेजें";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "सामान्य";
 
 /* No comment provided by engineer. */
 "Not allowed" = "अनुमति नहीं हैं";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "स्क्रीन रिकॉर्डिंग पसंद खोलें...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "वैकल्पिक: ईमेल (यदि आप एक उत्तर चाहते हैं)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "द्वारा विंडोज ऑर्डर करें";
@@ -281,7 +281,7 @@
 "Preferences…" = "पसंद";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "पूर्वावलोकन चयनित विंडो";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "चयनित विंडो का पूर्वावलोकन करें।";
@@ -296,19 +296,19 @@
 "Quit app" = "ऐप क्विट करो";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "हाल ही में पहले बनाया गया";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "हाल ही में ध्यान केंद्रित किया";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "मेरी पसंद याद रखो";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "वरीयताओं को रीसेट करें और पुनरारंभ करें";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "वरीयताओं को रीसेट करें और पुनरारंभ करें ...";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "मेनू बार सहित स्क्रीन";
@@ -365,16 +365,16 @@
 "Shortcut 2" = "शॉर्टकट २";
 
 /* No comment provided by engineer. */
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "शॉर्टकट 3";
 
 /* No comment provided by engineer. */
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "शॉर्टकट 4";
 
 /* No comment provided by engineer. */
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "शॉर्टकट 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "शॉर्टकट पहले से ही एक और कार्रवाई को सौंपा गया है: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "सक्रिय होने पर शॉर्टकट";
@@ -437,7 +437,7 @@
 "Source code repository" = "स्रोत कोड भंडार";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "अंतरिक्ष आदेश";
 
 /* No comment provided by engineer. */
 "Start" = "शुरुआत";
@@ -445,14 +445,14 @@
 /* No comment provided by engineer. */
 "Start at login" = "लॉगिन पर शुरू करें";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "इस परियोजना का समर्थन करें ❤";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "3 अलग -अलग शैलियों के बीच स्विच करें।आप उन्हें अनुकूलित कर सकते हैं।";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "प्रणाली";
 
 /* No comment provided by engineer. */
 "Theme" = "विषय";
@@ -488,7 +488,7 @@
 "View existing discussions" = "मौजूदा वाद-विवाद दिखाओ";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim कीज़ पहले से ही अन्य कार्यों को सौंपा गया: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "दृश्यता";
@@ -497,31 +497,31 @@
 "Visible Spaces" = "दृश्यत स्पेस";
 
 /* No comment provided by engineer. */
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "जब फुलस्क्रीन";
 
 /* No comment provided by engineer. */
-"When no open window" = "When no open window";
+"When no open window" = "जब कोई खुली खिड़की नहीं";
 
 /* No comment provided by engineer. */
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "विंडो फुलस्क्रीन है";
 
 /* No comment provided by engineer. */
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "खिड़की कम से कम है";
 
 /* No comment provided by engineer. */
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "खिड़की हर जगह पर है";
 
 /* No comment provided by engineer. */
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "खिड़की अंतरिक्ष %d पर है";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "खिड़की का शीर्षक";
 
 /* No comment provided by engineer. */
 "Windows" = "खिड़कियाँ";
 
 /* No comment provided by engineer. */
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "आप इस कार्रवाई को पूर्ववत नहीं कर सकते।";
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "आपने अपना ईमेल नहीं लिखा, इसलिए कोई जवाब नहीं मिल सकता ।";

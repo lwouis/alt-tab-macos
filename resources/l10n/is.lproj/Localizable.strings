@@ -35,7 +35,7 @@
 "All apps" = "Öll forrit";
 
 /* No comment provided by engineer. */
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Öll gögn frá þessu formi verða gerð opinber, sem miði á github.com";
 
 /* No comment provided by engineer. */
 "All screens" = "Allir skjáir";
@@ -47,7 +47,7 @@
 "Allowed" = "Leyft";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Stafrófsröð";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab krassaði seinast þegar það var notað vegna villu. Að senda krass-skýrslu hjálpar við að laga villunni";
@@ -65,7 +65,7 @@
 "Always" = "Alltaf";
 
 /* No comment provided by engineer. */
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Sendu alltaf hrunskýrslur";
 
 /* No comment provided by engineer. */
 "and press" = "og ýttu á";
@@ -77,7 +77,7 @@
 "Animations…" = "Teiknimyndir ...";
 
 /* No comment provided by engineer. */
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "App (Bundleid byrjar með)";
 
 /* No comment provided by engineer. */
 "App Icons" = "App tákn";
@@ -95,19 +95,19 @@
 "Appearance" = "Útlit";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Nafn umsóknar";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Nafn umsóknar - gluggatitill";
 
 /* No comment provided by engineer. */
 "Applications" = "Forrit";
 
 /* No comment provided by engineer. */
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Ertu viss um að þú viljir ekki hafa svar?";
 
 /* No comment provided by engineer. */
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Spurðu hvort senda eigi hrunskýrslur";
 
 /* No comment provided by engineer. */
 "Auto-install updates periodically" = "Niðurhala uppfærslur sjálfvirkt";
@@ -140,10 +140,10 @@
 "Close window" = "Loka glugga";
 
 /* No comment provided by engineer. */
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Andstæð flýtileið";
 
 /* No comment provided by engineer. */
-"Controls" = "Controls";
+"Controls" = "Stýringar";
 
 /* No comment provided by engineer. */
 "Crash reports policy" = "Stefna um hrun skýrir frá";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Sérsniðið titla stíl ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Dimmt";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Gera ekkert";
@@ -179,10 +179,10 @@
 "Fade out animation" = "Dofna út fjör";
 
 /* No comment provided by engineer. */
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Fókus valinn gluggi";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Fullskjá/defulScreen gluggi";
 
 /* No comment provided by engineer. */
 "General" = "Almennt";
@@ -191,22 +191,22 @@
 "Hide" = "Fela";
 
 /* No comment provided by engineer. */
-"Hide app badges" = "Hide app badges";
+"Hide app badges" = "Fela app merki";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window" = "Hide apps with no open window";
+"Hide apps with no open window" = "Fela forrit án opins glugga";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
+"Hide colored circles on mouse hover" = "Fela litaða hringi á mús sveima";
 
 /*%@ is AltTab*/
 "Hide in %@" = "Fela í %@";
 
 /* No comment provided by engineer. */
-"Hide Space number labels" = "Hide Space number labels";
+"Hide Space number labels" = "Fela geimnúmeramerki";
 
 /* No comment provided by engineer. */
-"Hide status icons" = "Hide status icons";
+"Hide status icons" = "Fela stöðutákn";
 
 /* No comment provided by engineer. */
 "Hide/Show app" = "Fela / Sýna forrit";
@@ -215,7 +215,7 @@
 "High" = "High";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Hæst";
 
 /* No comment provided by engineer. */
 "Hold" = "Halda inni";
@@ -236,7 +236,7 @@
 "Leading" = "Leiðandi";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Ljós";
 
 /* No comment provided by engineer. */
 "Medium" = "Miðlungs";
@@ -254,10 +254,10 @@
 "Multiple screens" = "Marga skjái";
 
 /* No comment provided by engineer. */
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Sendu aldrei hrunskýrslur";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Venjulegt";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Ekki leyft";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Opna Skjáupptöku stillingar";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Valfrjálst: Netfang (ef þú vilt fá svar)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Pantaðu glugga eftir";
@@ -281,7 +281,7 @@
 "Preferences…" = "Stillingar";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Forsýning Valinn gluggi";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Forskoða valinn glugga.";
@@ -296,10 +296,10 @@
 "Quit app" = "Loka forriti";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Nýlega stofnað fyrst";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Nýlega einbeitt fyrst";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Muna valkost";
@@ -311,7 +311,7 @@
 "Reset preferences and restart…" = "Endurstilla stillingar og endurræsa";
 
 /* No comment provided by engineer. */
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including menu bar" = "Skjár þar á meðal valmyndastikan";
 
 /* No comment provided by engineer. */
 "Screen including mouse" = "Skjár inniheldur mús";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Flýtileið 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Flýtileið þegar úthlutað til annarrar aðgerðar: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Flýtileiðir þegar þær eru virkar";
@@ -392,7 +392,7 @@
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Sýndu hlut í rofanum fyrir hvern glugga, eða fyrir hvert forrit.Windows verður einbeitt en forrit verða virk.";
 
 /* No comment provided by engineer. */
-"Show at the end" = "Show at the end";
+"Show at the end" = "Sýna í lokin";
 
 /* No comment provided by engineer. */
 "Show fullscreen windows" = "Sýndu glugga á fullri skjá";
@@ -410,7 +410,7 @@
 "Show on" = "Sýna áfram";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows" = "Show standard tabs as windows";
+"Show standard tabs as windows" = "Sýna staðlaða flipa sem Windows";
 
 /* No comment provided by engineer. */
 "Show titles" = "Sýna titla";
@@ -437,7 +437,7 @@
 "Source code repository" = "Kóðasafn";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Geimpöntun";
 
 /* No comment provided by engineer. */
 "Start" = "Upphaf";
@@ -452,16 +452,16 @@
 "Switch between 3 different styles. You can customize them." = "Skiptu á milli 3 mismunandi stíl.Þú getur sérsniðið þá.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Kerfi";
 
 /* No comment provided by engineer. */
 "Theme" = "Þema";
 
 /* No comment provided by engineer. */
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Þetta leyfi er þörf til að einbeita gluggum eftir að þú sleppir flýtileiðinni";
 
 /* No comment provided by engineer. */
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Þetta leyfi er þörf til að sýna skjámyndir og titla af opnum gluggum";
 
 /* No comment provided by engineer. */
 "Thumbnails" = "Smámyndir";
@@ -476,7 +476,7 @@
 "Trigger shortcut" = "Kveikja flýtileið";
 
 /* No comment provided by engineer. */
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Undirskipta núverandi flýtileið og halda áfram";
 
 /* No comment provided by engineer. */
 "Updates policy" = "Uppfærir stefnu";
@@ -488,13 +488,13 @@
 "View existing discussions" = "Sjá umræður";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim lyklar þegar úthlutaðir öðrum aðgerðum: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Skyggni";
 
 /* No comment provided by engineer. */
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Sýnileg rými";
 
 /* No comment provided by engineer. */
 "When fullscreen" = "Í fullri stærð";
@@ -503,19 +503,19 @@
 "When no open window" = "Þegar engin gluggi er opinn";
 
 /* No comment provided by engineer. */
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Gluggi er fullskjár";
 
 /* No comment provided by engineer. */
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Gluggi er lágmarkaður";
 
 /* No comment provided by engineer. */
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Gluggi er á hverju rými";
 
 /* No comment provided by engineer. */
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Gluggi er á Space %D";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Gluggatitill";
 
 /* No comment provided by engineer. */
 "Windows" = "Gluggar";

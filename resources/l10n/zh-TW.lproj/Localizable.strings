@@ -47,7 +47,7 @@
 "Allowed" = "允許";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "字母順序";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用時當機了，送出當機報告會幫助我們解決這個問題";
@@ -95,10 +95,10 @@
 "Appearance" = "外觀";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "應用名稱";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "應用名稱 - 窗口標題";
 
 /* No comment provided by engineer. */
 "Applications" = "應用程序";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "自定義標題樣式…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "暗色";
 
 /* No comment provided by engineer. */
 "Do nothing" = "什麼都別做";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "隱藏／顯示程式";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "高的";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "最高";
 
 /* No comment provided by engineer. */
 "Hold" = "按住";
@@ -236,7 +236,7 @@
 "Leading" = "首位的";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "亮色";
 
 /* No comment provided by engineer. */
 "Medium" = "中等的";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "永不送出當機報告";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "普通";
 
 /* No comment provided by engineer. */
 "Not allowed" = "不允許";
@@ -269,10 +269,10 @@
 "Open Screen Recording Preferences…" = "打開螢幕錄製偏好設定…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "可選：電子郵件（如果您想要答复）";
 
 /* No comment provided by engineer. */
-"Order windows by" = "排序Windows";
+"Order windows by" = "窗口排序";
 
 /* No comment provided by engineer. */
 "Policies" = "策略";
@@ -296,10 +296,10 @@
 "Quit app" = "離開程式";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "最近創建了";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "最近專注於首先";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "記住我的選擇";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "快速鍵 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "快捷方式已經分配給另一個操作：％@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "活躍時的快捷鍵";
@@ -437,10 +437,10 @@
 "Source code repository" = "原始碼儲存庫";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "空間順序";
 
 /* No comment provided by engineer. */
-"Start" = "開頭";
+"Start" = "開始";
 
 /* No comment provided by engineer. */
 "Start at login" = "從登錄開始";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "在3種不同樣式之間切換。您可以自定義它們。";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "系統";
 
 /* No comment provided by engineer. */
 "Theme" = "主題";
@@ -488,7 +488,7 @@
 "View existing discussions" = "觀看目前的討論";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM鍵已經分配給其他操作：\ n％@";
 
 /* No comment provided by engineer. */
 "Visibility" = "可見性";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "視窗在空間 %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "窗口標題";
 
 /* No comment provided by engineer. */
 "Windows" = "窗口";
@@ -525,4 +525,3 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "若沒有填寫電子信箱，您將無法收到回覆";
-

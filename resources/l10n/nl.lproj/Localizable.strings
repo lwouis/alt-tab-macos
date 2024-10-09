@@ -47,7 +47,7 @@
 "Allowed" = "Toegestaan";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Alfabetische volgorde";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab is de vorige keer gecrasht. Je kunt ons helpen door een crashrapportage te versturen";
@@ -77,10 +77,10 @@
 "Animations…" = "Animaties ...";
 
 /* No comment provided by engineer. */
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "App (Bundleid beginnend met)";
 
 /* No comment provided by engineer. */
-"App Icons" = "App Icons";
+"App Icons" = "App -pictogrammen";
 
 /* No comment provided by engineer. */
 "App is hidden" = "App is verborgen";
@@ -95,10 +95,10 @@
 "Appearance" = "Weergave";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Applicatienaam";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Applicatienaam - Window -titel";
 
 /* No comment provided by engineer. */
 "Applications" = "Toepassingen";
@@ -113,7 +113,7 @@
 "Auto-install updates periodically" = "Installeer regelmatig automatisch updates";
 
 /* No comment provided by engineer. */
-"Blacklists" = "Blacklists";
+"Blacklists" = "Blacslijsten";
 
 /*Cancel button*/
 "Cancel" = "Annuleer";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Titels stijl aanpassen ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Donker";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Doe niets";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Verberg/Toon programma";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Hoog";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Hoogst";
 
 /* No comment provided by engineer. */
 "Hold" = "Houd";
@@ -236,7 +236,7 @@
 "Leading" = "Leidend";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Licht";
 
 /* No comment provided by engineer. */
 "Medium" = "Medium";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Verstuurt nooit crashrapportages";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Normaal";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Niet toegestaan";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Open schermopname-voorkeuren…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Optioneel: e -mail (als u een antwoord wilt)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Bestel ramen bij";
@@ -296,10 +296,10 @@
 "Quit app" = "Sluit programma";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Onlangs op de eerste plaats gemaakt";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Recent gerichte eerste";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Onthoud mijn keuze";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Snelkoppeling 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Snelkoppeling al toegewezen aan een andere actie: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Snelkoppelingen wanneer actief";
@@ -437,10 +437,10 @@
 "Source code repository" = "Broncode-repository";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Ruimtevolgorde";
 
 /* No comment provided by engineer. */
-"Start" = "Start";
+"Start" = "Begin";
 
 /* No comment provided by engineer. */
 "Start at login" = "Begin bij inloggen";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Schakel tussen 3 verschillende stijlen.U kunt ze aanpassen.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Systeem";
 
 /* No comment provided by engineer. */
 "Theme" = "Thema";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Bekijk bestaande discussies";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM -toetsen al toegewezen aan andere acties: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Zichtbaarheid";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Venster is op elke ruimte %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Raamtitel";
 
 /* No comment provided by engineer. */
 "Windows" = "ramen";

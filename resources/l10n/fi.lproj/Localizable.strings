@@ -47,7 +47,7 @@
 "Allowed" = "Sallittu";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Aakkosjärjestys";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kaatui viime käyttökerralla. Vikaraportin lähettäminen auttaa ongelman korjaamiseen";
@@ -95,10 +95,10 @@
 "Appearance" = "Ulkonäkö";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Sovelluksen nimi";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Sovelluksen nimi - ikkunan otsikko";
 
 /* No comment provided by engineer. */
 "Applications" = "Sovellukset";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Mukauta otsikot tyyliä…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Tumma";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Älä tee mitään";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Piilota/näytä ohjelma";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Korkea";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Korkein";
 
 /* No comment provided by engineer. */
 "Hold" = "Pidä";
@@ -236,7 +236,7 @@
 "Leading" = "Johtava";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Valaistus";
 
 /* No comment provided by engineer. */
 "Medium" = "Keskipitkä";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Älä lähetä vikaraportteja";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Normaali";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Ei sallittu";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Avaa Näytön nauhoitusasetukset…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Valinnainen: sähköposti (jos haluat vastauksen)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Tilata Windows";
@@ -296,10 +296,10 @@
 "Quit app" = "Sulje ohjelma";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Äskettäin luotu ensin";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Äskettäin keskittynyt ensin";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Muista valintani";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Pikanäppäin 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Pikakuvake jo toiseen toimintaan: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Pikakuvakkeet aktiivisena";
@@ -437,7 +437,7 @@
 "Source code repository" = "Lähdekoodi";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Avaruusjärjestys";
 
 /* No comment provided by engineer. */
 "Start" = "Alku";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Vaihda 3 eri tyyliä.Voit mukauttaa niitä.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Järjestelmä";
 
 /* No comment provided by engineer. */
 "Theme" = "Teema";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Näytä keskustelut";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM -avaimet, jotka on jo annettu muille toimille: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Näkyvyys";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Ikkuna on tilassa %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Ikkunan otsikko";
 
 /* No comment provided by engineer. */
 "Windows" = "Ikkunat";

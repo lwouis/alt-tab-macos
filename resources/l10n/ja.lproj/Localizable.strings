@@ -47,7 +47,7 @@
 "Allowed" = "許可";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "アルファベット順";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTabはあなたが最後に使用した際にクラッシュしました。クラッシュレポートの送信は、問題の改善につながります。";
@@ -95,10 +95,10 @@
 "Appearance" = "外観";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "アプリケーション名";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "アプリケーション名 - ウィンドウタイトル";
 
 /* No comment provided by engineer. */
 "Applications" = "アプリケーション";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "タイトルスタイルをカスタマイズする…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "暗い";
 
 /* No comment provided by engineer. */
 "Do nothing" = "何もしない";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "アプリケーションを隠す / 表示";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "高い";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "最高";
 
 /* No comment provided by engineer. */
 "Hold" = " ";
@@ -236,7 +236,7 @@
 "Leading" = "リーディング";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "ライト";
 
 /* No comment provided by engineer. */
 "Medium" = "中くらい";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "クラッシュレポートを送らない";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "普通";
 
 /* No comment provided by engineer. */
 "Not allowed" = "未許可";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "画面収録の設定を開く…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "オプション：メール（返信が必要な場合）";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Windowsを注文します";
@@ -296,10 +296,10 @@
 "Quit app" = "アプリケーションを終了";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "最近最初に作成されました";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "最近最初に焦点を合わせました";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "設定を記憶する";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "ショートカット５";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "既に別のアクションに割り当てられているショートカット：％@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "アクティブな場合のショートカット";
@@ -437,7 +437,7 @@
 "Source code repository" = "ソースコードレポジトリ";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "宇宙注文";
 
 /* No comment provided by engineer. */
 "Start" = "文頭";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "3つの異なるスタイルを切り替えます。それらをカスタマイズできます。";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "システム";
 
 /* No comment provided by engineer. */
 "Theme" = "テーマ";
@@ -488,7 +488,7 @@
 "View existing discussions" = "既存のディスカッションを見る";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "すでに他のアクションに割り当てられているVIMキー：\ n％@";
 
 /* No comment provided by engineer. */
 "Visibility" = "可視性";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "ウィンドウが %dデスクトップにあります";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "ウィンドウタイトル";
 
 /* No comment provided by engineer. */
 "Windows" = "ウィンドウズ";

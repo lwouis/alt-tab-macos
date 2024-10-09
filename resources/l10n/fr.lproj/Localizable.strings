@@ -47,7 +47,7 @@
 "Allowed" = "Autorisé";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Ordre alphabétique";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab a crashé la dernière fois que vous l’avez utilisé. L’envoi d’un rapport d’erreur aidera à résoudre le problème.";
@@ -95,10 +95,10 @@
 "Appearance" = "Apparence";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Nom de demande";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Nom de l'application - Titre de la fenêtre";
 
 /* No comment provided by engineer. */
 "Applications" = "Applications";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Personnaliser le style des titres…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Sombre";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Ne rien faire";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Masquer/Afficher l’App";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Haut";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Le plus élevé";
 
 /* No comment provided by engineer. */
 "Hold" = "Maintenir";
@@ -236,7 +236,7 @@
 "Leading" = "Menant";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Lumière";
 
 /* No comment provided by engineer. */
 "Medium" = "Moyen";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Ne jamais envoyer de rapport d’erreur";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Normale";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Non autorisé";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Ouvrir les Préférences d’Enregistrement de l’écran…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Facultatif: e-mail (si vous voulez une réponse)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Commander des fenêtres par";
@@ -296,10 +296,10 @@
 "Quit app" = "Quitter l’App";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Récemment créé en premier";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Récemment concentré d'abord";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Se souvenir de mon choix";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Raccourci 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Raccourci déjà attribué à une autre action:% @";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Raccourcis lorsqu'il est actif";
@@ -437,7 +437,7 @@
 "Source code repository" = "Archive du code source";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Commande d'espace";
 
 /* No comment provided by engineer. */
 "Start" = "Début";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Basculer entre 3 styles différents.Vous pouvez les personnaliser.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Système";
 
 /* No comment provided by engineer. */
 "Theme" = "Thème";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Voir les discussions existantes";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim Keys déjà attribuée à d'autres actions: \ n% @";
 
 /* No comment provided by engineer. */
 "Visibility" = "Visibilité";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Attribuer au Bureau %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Titre de fenêtre";
 
 /* No comment provided by engineer. */
 "Windows" = "les fenêtres";

@@ -47,7 +47,7 @@
 "Allowed" = "Permitido";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Orde alfabética";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab tivo un problema a derradeira vez que o usaches. Enviar un informe de error axudará a que o problema poda ser amañado";
@@ -62,7 +62,7 @@
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab mostrará se a xanela está actualmente minimizada ou en pantalla completa cunha icona de estado.";
 
 /* No comment provided by engineer. */
-"Always" = "Always";
+"Always" = "Sempre";
 
 /* No comment provided by engineer. */
 "Always send crash reports" = "Sempre enviar informes de erro";
@@ -77,16 +77,16 @@
 "Animations…" = "Animacións ...";
 
 /* No comment provided by engineer. */
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Aplicación (BULGEID comezando con)";
 
 /* No comment provided by engineer. */
 "App Icons" = "Iconas da aplicación";
 
 /* No comment provided by engineer. */
-"App is hidden" = "App is hidden";
+"App is hidden" = "A aplicación está oculta";
 
 /* No comment provided by engineer. */
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "A aplicación está en funcionamento pero non ten xanela aberta";
 
 /* No comment provided by engineer. */
 "Apparition delay" = "Atraso de aparición";
@@ -95,10 +95,10 @@
 "Appearance" = "Apariencia";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Nome da aplicación";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Nome da aplicación - Título da xanela";
 
 /* No comment provided by engineer. */
 "Applications" = "Aplicacións";
@@ -133,8 +133,8 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "Comprobar actualizacións...";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "Comprobe os permisos ...";
 
 /* No comment provided by engineer. */
 "Close window" = "Pechar ventá";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Personalizar o estilo de títulos ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Escuro";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Non facer nada";
@@ -182,7 +182,7 @@
 "Focus selected window" = "Dar o foco a ventá seleccionada";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Fullscreen/fiestra de pantalla";
 
 /* No comment provided by engineer. */
 "General" = "Xeral";
@@ -199,8 +199,8 @@
 /* No comment provided by engineer. */
 "Hide colored circles on mouse hover" = "Ocultar círculos con cor ao pasar o rato";
 
-/*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+/* %@ is AltTab */
+"Hide in %@" = "Esconderse en %@";
 
 /* No comment provided by engineer. */
 "Hide Space number labels" = "Ocultar etiquetas de número de espazo";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Ocultar/Amosar aplicación";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Alto";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Máis alto";
 
 /* No comment provided by engineer. */
 "Hold" = "Manter";
@@ -224,7 +224,7 @@
 "I think the app could be improved with…" = "Acho que a aplicación podría mellorarse con...";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignore os atallos cando están activos";
 
 /* No comment provided by engineer. */
 "Large" = "Grande";
@@ -236,7 +236,7 @@
 "Leading" = "Líder";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Luz";
 
 /* No comment provided by engineer. */
 "Medium" = "Medio";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Abrir Preferencias de Grabación de Pantalla...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Opcional: correo electrónico (se queres unha resposta)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Pide Windows por";
@@ -281,7 +281,7 @@
 "Preferences…" = "Preferencias...";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Vista previa Xanela seleccionada";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Vista previa da xanela seleccionada.";
@@ -296,19 +296,19 @@
 "Quit app" = "Pechar aplicación";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Recentemente creado primeiro";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Primeiro enfocado recentemente";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Recordar a miña elección";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart" = "Restablecer as preferencias e reiniciar";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Restablecer as preferencias e reiniciar ...";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Pantalla que inclúe a barra de menú";
@@ -365,16 +365,16 @@
 "Shortcut 2" = "Atallo 2";
 
 /* No comment provided by engineer. */
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Atallo 3";
 
 /* No comment provided by engineer. */
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Atallo 4";
 
 /* No comment provided by engineer. */
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Atallo 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Atallo xa asignado a outra acción: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Atallos cando están activos";
@@ -437,7 +437,7 @@
 "Source code repository" = "Repositorio de código fonte";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Orde espacial";
 
 /* No comment provided by engineer. */
 "Start" = "Comezo";
@@ -445,14 +445,14 @@
 /* No comment provided by engineer. */
 "Start at login" = "Comeza no inicio de sesión";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Apoia a este proxecto ❤️";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Cambia entre 3 estilos diferentes.Podes personalizalos.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Sistema";
 
 /* No comment provided by engineer. */
 "Theme" = "Tema";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Ver discusións existentes";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM teclas xa asignadas a outras accións: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Visibilidade";
@@ -497,31 +497,31 @@
 "Visible Spaces" = "Spaces visible";
 
 /* No comment provided by engineer. */
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Cando se atopa toda a pantalla";
 
 /* No comment provided by engineer. */
-"When no open window" = "When no open window";
+"When no open window" = "Cando non hai xanela aberta";
 
 /* No comment provided by engineer. */
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "A xanela está en pantalla completa";
 
 /* No comment provided by engineer. */
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "A xanela minimízase";
 
 /* No comment provided by engineer. */
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "A xanela está en todos os espazo";
 
 /* No comment provided by engineer. */
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "A xanela está no espazo %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Título da xanela";
 
 /* No comment provided by engineer. */
 "Windows" = "Windows";
 
 /* No comment provided by engineer. */
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Non podes desfacer esta acción.";
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Non escribiches o teu correo electrónico, así que non poderás recibir resposta.";

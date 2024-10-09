@@ -47,7 +47,7 @@
 "Allowed" = "Дозволено";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Алфавітний порядок";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab вийшов з ладу востаннє, коли ви ним користувалися. Надсилання звіту про аварійне завершення роботи допоможе вирішити проблему";
@@ -95,10 +95,10 @@
 "Appearance" = "Вiдображення";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Назва застосування";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Назва програми - Назва вікна";
 
 /* No comment provided by engineer. */
 "Applications" = "Заявки";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Налаштуйте стиль назви ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Темний";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Нічого не робити";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Сховати/Показати програму";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Високий";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Найвищий";
 
 /* No comment provided by engineer. */
 "Hold" = "Утримання";
@@ -236,7 +236,7 @@
 "Leading" = "Провідний";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Світлий";
 
 /* No comment provided by engineer. */
 "Medium" = "Середній";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Ніколи не надсилати звіти про збої";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Нормальний";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Заборонено";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Відкрити Налаштування Запису Екрану...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Необов’язково: електронна пошта (якщо ви хочете відповісти)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Замовте Windows";
@@ -296,10 +296,10 @@
 "Quit app" = "Вийти з програми";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Нещодавно створений першим";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Нещодавно зосереджений спочатку";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Запамʼятати мій вибір";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Хоткей 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Ярлик вже призначений до іншої дії: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Ярлики при активності";
@@ -437,7 +437,7 @@
 "Source code repository" = "Репозиторій початкового коду";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Космічний порядок";
 
 /* No comment provided by engineer. */
 "Start" = "Почати";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Перемикайте між 3 різними стилями.Ви можете їх налаштувати.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Система";
 
 /* No comment provided by engineer. */
 "Theme" = "Тема";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Переглянути наявні обговорення";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim Keys вже призначений для інших дій: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Видимість";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Вікно на стільниці %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Назва вікна";
 
 /* No comment provided by engineer. */
 "Windows" = "Вікна";

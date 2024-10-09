@@ -47,7 +47,7 @@
 "Allowed" = "Dozvoljeno";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Абецедни ред";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab se prinudno zaustavio prilikom prošlog korišćenja. Slanje podataka o grešci će pomoći da se greška popravi";
@@ -95,10 +95,10 @@
 "Appearance" = "Izgled";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Назив апликације";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Назив апликације - Назив прозора";
 
 /* No comment provided by engineer. */
 "Applications" = "Апликације";
@@ -133,8 +133,8 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "Proveri ažuriranja...";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "Проверите дозволе ...";
 
 /* No comment provided by engineer. */
 "Close window" = "Zatvori prozor";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Прилагодите наслове стила ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Мрак";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Ne radi ništa";
@@ -182,7 +182,7 @@
 "Focus selected window" = "Fokusiraj odabrani prozor";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Потпуни прозор / диплома";
 
 /* No comment provided by engineer. */
 "General" = "Generalno";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Sakrij/Prikaži aplikaciju";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Високо";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Највиши";
 
 /* No comment provided by engineer. */
 "Hold" = "Zadrži";
@@ -236,7 +236,7 @@
 "Leading" = "Вођење";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Светло";
 
 /* No comment provided by engineer. */
 "Medium" = "Средњи";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Nikad ne šalji podatke o greškama";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Нормалан";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Nije dozvoljeno";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Otvori Podešavanja Snimanja Ekrana…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Необавезно: Е-пошта (ако желите одговор)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Наручите Виндовс би";
@@ -281,7 +281,7 @@
 "Preferences…" = "Podešavanja…";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Преглед одабраног прозора";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Прегледајте изабрани прозор.";
@@ -296,10 +296,10 @@
 "Quit app" = "Zatvori aplikaciju";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Недавно креиран први";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Недавно се фокусирао прво";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Zapamti moj izbor";
@@ -308,7 +308,7 @@
 "Reset preferences and restart" = "Resetuj podešavanja i restartuj";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset preferences and restart…" = "Ресетујте преференције и поново покрените ...";
 
 /* No comment provided by engineer. */
 "Screen including menu bar" = "Ekran sa meni linijom";
@@ -365,16 +365,16 @@
 "Shortcut 2" = "Prečica 2";
 
 /* No comment provided by engineer. */
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 3" = "Пречица 3";
 
 /* No comment provided by engineer. */
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 4" = "Пречица 4";
 
 /* No comment provided by engineer. */
-"Shortcut 5" = "Shortcut 5";
+"Shortcut 5" = "Пречица 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Пречица је већ додељена још једној акцији:% @";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Пречице када су активни";
@@ -437,7 +437,7 @@
 "Source code repository" = "Repozitorijum s izvornim kodom";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Свемирски ред";
 
 /* No comment provided by engineer. */
 "Start" = "Početak";
@@ -445,14 +445,14 @@
 /* No comment provided by engineer. */
 "Start at login" = "Почните при пријави";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Подршка овог пројекта ❤";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Прелазите између 3 различите стилове.Можете их прилагодити.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Систем";
 
 /* No comment provided by engineer. */
 "Theme" = "Тема";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Vidi postojeće diskusije";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "ВиМ кључеви који су већ додељени другим акцијама: \ н% @";
 
 /* No comment provided by engineer. */
 "Visibility" = "Видљивост";
@@ -515,13 +515,13 @@
 "Window is on Space %d" = "Prozor je na Prostoru %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Назив прозора";
 
 /* No comment provided by engineer. */
 "Windows" = "Прозори";
 
 /* No comment provided by engineer. */
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Не можете поништити ову акцију.";
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Email adresa nije data, i zato neće biti odgovora.";

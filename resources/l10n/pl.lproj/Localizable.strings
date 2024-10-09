@@ -47,7 +47,7 @@
 "Allowed" = "Dozwolone";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Zakon alfabetyczny";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab nieoczekiwanie zakończyło pracę. Wysłanie raportu pomoże naprawić problem";
@@ -95,10 +95,10 @@
 "Appearance" = "Wygląd";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Nazwa aplikacji";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Nazwa aplikacji - tytuł okna";
 
 /* No comment provided by engineer. */
 "Applications" = "Aplikacje";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Dostosuj styl tytułów…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Ciemny";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Nic nie rób";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Pokaż/ukryj aplikacje";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Wysoki";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Najwyższy";
 
 /* No comment provided by engineer. */
 "Hold" = "Przytrzymaj";
@@ -236,7 +236,7 @@
 "Leading" = "Prowadzący";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Światło";
 
 /* No comment provided by engineer. */
 "Medium" = "Średni";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Nigdy nie wysyłaj raportów crashów";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Normalna";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Nie dozwolone";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Otwórz ustawienia nagrywania ekranu…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Opcjonalnie: e -mail (jeśli chcesz odpowiedzieć)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Zamów Windows według";
@@ -296,10 +296,10 @@
 "Quit app" = "Wyjdź z aplikacji";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Niedawno utworzono pierwszy";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Niedawno skoncentrowane najpierw";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Pamiętaj mój wybór";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Skrót 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Skrót już przypisany do innej akcji: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Skróty, gdy są aktywne";
@@ -437,7 +437,7 @@
 "Source code repository" = "Repozytorium kodu źródłowego";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Zakaz kosmiczny";
 
 /* No comment provided by engineer. */
 "Start" = "Na początku";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Wyświetl istniejące dyskusje";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM Keys przypisane już do innych działań: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Widoczność";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Okno jest na przestrzeni %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Tytuł okna";
 
 /* No comment provided by engineer. */
 "Windows" = "Okna";

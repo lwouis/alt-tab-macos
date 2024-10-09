@@ -47,7 +47,7 @@
 "Allowed" = "Dibolehkan";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Urutan abjad";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab macet terakhir kali Anda menggunakannya. Mengirim laporan kerusakan akan membantu menyelesaikan masalah";
@@ -95,10 +95,10 @@
 "Appearance" = "Penampilan";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Nama Aplikasi";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Nama Aplikasi - Judul Jendela";
 
 /* No comment provided by engineer. */
 "Applications" = "Aplikasi";
@@ -133,8 +133,8 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "Periksa pembaruan…";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "Periksa izin…";
 
 /* No comment provided by engineer. */
 "Close window" = "Tutup jendela";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Kustomisasi Gaya Judul…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Gelap";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Tidak melakukan apapun";
@@ -182,7 +182,7 @@
 "Focus selected window" = "Fokus ke jendela yang dipilih";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Jendela layar penuh/DefullScreen";
 
 /* No comment provided by engineer. */
 "General" = "Umum";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Tampilkan/Sembunyikan app";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Tinggi";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Paling tinggi";
 
 /* No comment provided by engineer. */
 "Hold" = "Tahan";
@@ -236,7 +236,7 @@
 "Leading" = "Terkemuka";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Lampu";
 
 /* No comment provided by engineer. */
 "Medium" = "Sedang";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Buka Preferensi Perekaman Layar…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Opsional: Email (jika Anda ingin balasan)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Pesan windows oleh";
@@ -281,7 +281,7 @@
 "Preferences…" = "Preferensi…";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Pratinjau jendela yang dipilih";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Pratinjau jendela yang dipilih.";
@@ -296,10 +296,10 @@
 "Quit app" = "Keluar app";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Baru -baru ini dibuat terlebih dahulu";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Baru -baru ini fokus dulu";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Ingat pilihan saya";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Pintasan 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Pintasan yang sudah ditugaskan ke tindakan lain: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Pintasan saat aktif";
@@ -437,7 +437,7 @@
 "Source code repository" = "Repositori kode sumber";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Pesanan ruang";
 
 /* No comment provided by engineer. */
 "Start" = "Mulai";
@@ -445,14 +445,14 @@
 /* No comment provided by engineer. */
 "Start at login" = "Mulai dari login";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Dukung proyek ini ❤️";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Beralih di antara 3 gaya yang berbeda.Anda dapat menyesuaikannya.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Sistem";
 
 /* No comment provided by engineer. */
 "Theme" = "Tema";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Lihat diskusi yang ada";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Kunci vim yang sudah ditetapkan untuk tindakan lain: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Visibilitas";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Jendela ada di Ruang %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Judul jendela";
 
 /* No comment provided by engineer. */
 "Windows" = "Windows";

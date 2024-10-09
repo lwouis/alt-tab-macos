@@ -47,7 +47,7 @@
 "Allowed" = "İzin verildi";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Alfabetik sipariş";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Son sefer AltTab çöktü. Çökme raporlarını göndermek, hataların düzeltilmesine yardımcı olur";
@@ -95,10 +95,10 @@
 "Appearance" = "Görünüm";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Uygulama Adı";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Uygulama Adı - Pencere Başlığı";
 
 /* No comment provided by engineer. */
 "Applications" = "Başvuru";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Başlıkları Özelleştir Stili…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Karanlık";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Bir şey yapma";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Uygulamayı gizle/göster";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Yüksek";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "En yüksek";
 
 /* No comment provided by engineer. */
 "Hold" = "Tut";
@@ -236,7 +236,7 @@
 "Leading" = "Önde gelen";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Işık";
 
 /* No comment provided by engineer. */
 "Medium" = "Orta";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Ekran Kaydı Tercihlerini Aç…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "İsteğe bağlı: E -posta (cevap istiyorsanız)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Windows sipariş";
@@ -296,10 +296,10 @@
 "Quit app" = "Uygulamayı kapat";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Son zamanlarda ilk yaratıldı";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Son zamanlarda ilk odaklanmış";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Tercihimi hatırla";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Kestirme 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Kısayol zaten başka bir eyleme atandı: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Aktif olduğunda kısayollar";
@@ -437,7 +437,7 @@
 "Source code repository" = "Kaynak kodu deposu";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Uzay siparişi";
 
 /* No comment provided by engineer. */
 "Start" = "Baş";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "3 farklı stil arasında geçiş yapın.Onları özelleştirebilirsiniz.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Sistem";
 
 /* No comment provided by engineer. */
 "Theme" = "Tema";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Mevcut tartışmaları görüntüle";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim Knits zaten diğer eylemlere atandı: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Görünürlük";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Pencerenin olduğu Alan %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Pencere başlığı";
 
 /* No comment provided by engineer. */
 "Windows" = "pencereler";

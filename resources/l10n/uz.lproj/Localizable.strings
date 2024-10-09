@@ -1,20 +1,20 @@
 /* No comment provided by engineer. */
 "About" = "Haqida";
 
-/*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+/* Menubar option. %@ is AltTab */
+"About %@" = "%% @";
 
 /* No comment provided by engineer. */
-"Accessibility" = "Accessibility";
+"Accessibility" = "Erkinlik";
 
 /* No comment provided by engineer. */
-"Acknowledgments" = "Acknowledgments";
+"Acknowledgments" = "Minnatdorchilik";
 
 /* No comment provided by engineer. */
-"Active app" = "Active app";
+"Active app" = "Faol ilova";
 
 /* No comment provided by engineer. */
-"Active screen" = "Active screen";
+"Active screen" = "Faol ekran";
 
 /* No comment provided by engineer. */
 "Additional controls" = "Qo'shimcha boshqarish vositalari";
@@ -32,40 +32,40 @@
 "Align windows" = "Derazalarni tekislang";
 
 /* No comment provided by engineer. */
-"All apps" = "All apps";
+"All apps" = "Barcha ilovalar";
 
 /* No comment provided by engineer. */
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Ushbu shakldagi barcha ma'lumotlar Gitbub.com-da chipta sifatida ommaga taqdim etiladi";
 
 /* No comment provided by engineer. */
-"All screens" = "All screens";
+"All screens" = "Barcha ekranlar";
 
 /* No comment provided by engineer. */
-"All Spaces" = "All Spaces";
+"All Spaces" = "Barcha bo'shliqlar";
 
 /* No comment provided by engineer. */
-"Allowed" = "Allowed";
+"Allowed" = "Ruxsat berilgan";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Alifbo tartibida";
 
 /* No comment provided by engineer. */
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Altabab oxirgi marta siz undan foydalanganingizda qulab tushdi.Avariya hisobotini yuborish muammoni hal qilishga yordam beradi";
 
 /* No comment provided by engineer. */
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Hozirda Altabtob dasturlarni namoyish etish uchun o'rnatiladi.Ushbu sozlama faqat AltTab derazalarni ko'rsatish uchun mavjud bo'lganda mavjud.";
 
 /* No comment provided by engineer. */
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "Olttab ba'zi ruxsatlarga muhtoj";
 
 /* No comment provided by engineer. */
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Altabab oynaning status belgisi bilan minimallashtirilgan yoki to'liq ekranli bo'lsa, ko'rsatadi.";
 
 /* No comment provided by engineer. */
-"Always" = "Always";
+"Always" = "Har doim";
 
 /* No comment provided by engineer. */
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Har doim avtohalokat haqida xabarlarni yuboring";
 
 /* No comment provided by engineer. */
 "and press" = "va bosing";
@@ -77,16 +77,16 @@
 "Animations…" = "Animatsiyalar ...";
 
 /* No comment provided by engineer. */
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "Ilova (Bmadleiddan boshlab)";
 
 /* No comment provided by engineer. */
 "App Icons" = "Ilova piktogrammasi";
 
 /* No comment provided by engineer. */
-"App is hidden" = "App is hidden";
+"App is hidden" = "Ilova yashirin";
 
 /* No comment provided by engineer. */
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "Ilova ishlamoqda, ammo ochiq deraza yo'q";
 
 /* No comment provided by engineer. */
 "Apparition delay" = "Ko'rish kechikishi";
@@ -95,34 +95,34 @@
 "Appearance" = "Ko`rinish";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Ilova nomi";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Ilova nomi - oyna nomi";
 
 /* No comment provided by engineer. */
 "Applications" = "Arizalar";
 
 /* No comment provided by engineer. */
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Haqiqatan ham javob berishni xohlamaysizmi?";
 
 /* No comment provided by engineer. */
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Avtohalokat haqida xabar berishni so'rang";
 
 /* No comment provided by engineer. */
 "Auto-install updates periodically" = "Vaqti-vaqti bilan yangilanishlarni avtomatik o'rnatish";
 
 /* No comment provided by engineer. */
-"Blacklists" = "Blacklists";
+"Blacklists" = "Qora ro'yxatga olinganlar";
 
 /*Cancel button*/
 "Cancel" = "Bekor";
 
 /* No comment provided by engineer. */
-"Cancel and hide" = "Cancel and hide";
+"Cancel and hide" = "Bekor qilish va yashirish";
 
 /* No comment provided by engineer. */
-"Center" = "Center";
+"Center" = "Markaz";
 
 /* No comment provided by engineer. */
 "Check for updates now…" = "Yangilanishlarni hozir tekshiring…";
@@ -133,17 +133,17 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "yangilanishlarni tekshir";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "Ruxsatnomalarni tekshirish ...";
 
 /* No comment provided by engineer. */
-"Close window" = "Close window";
+"Close window" = "Oynani yopish";
 
 /* No comment provided by engineer. */
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Qarama-qarshi yorliq";
 
 /* No comment provided by engineer. */
-"Controls" = "Controls";
+"Controls" = "Boshqaruv";
 
 /* No comment provided by engineer. */
 "Crash reports policy" = "Avariya hisobotlari siyosati";
@@ -158,10 +158,10 @@
 "Customize Titles style…" = "Titmalar uslubini sozlash ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Qorong'i";
 
 /* No comment provided by engineer. */
-"Do nothing" = "Do nothing";
+"Do nothing" = "Hech narsa qilmang";
 
 /* No comment provided by engineer. */
 "Done" = "Bajarildi";
@@ -170,73 +170,73 @@
 "Don’t check for updates periodically" = "Vaqti-vaqti bilan yangilanishlarni tekshirishma";
 
 /* No comment provided by engineer. */
-"Don’t send" = "Don’t send";
+"Don’t send" = "Yubormang";
 
 /* No comment provided by engineer. */
-"End" = "End";
+"End" = "Oxiri";
 
 /* No comment provided by engineer. */
 "Fade out animation" = "Yo'q animatsiya";
 
 /* No comment provided by engineer. */
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Face Tanlangan oynani";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "To'liq ekranli / ximuls ekran oynasi";
 
 /* No comment provided by engineer. */
-"General" = "General";
+"General" = "Umumiy";
 
 /* No comment provided by engineer. */
-"Hide" = "Hide";
+"Hide" = "Yashirmoq";
 
 /* No comment provided by engineer. */
-"Hide app badges" = "Hide app badges";
+"Hide app badges" = "Ilova nishonlarini yashirish";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window" = "Hide apps with no open window";
+"Hide apps with no open window" = "Ilovalarni ochiq oyna bilan yashiring";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
+"Hide colored circles on mouse hover" = "Sichqonchani sichqonchada yashiring";
 
-/*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
+/* %@ is AltTab */
+"Hide in %@" = "% @";
 
 /* No comment provided by engineer. */
 "Hide Space number labels" = "Bo'shliq raqami teglarini yashirish";
 
 /* No comment provided by engineer. */
-"Hide status icons" = "Hide status icons";
+"Hide status icons" = "Holat belgilarini yashirish";
 
 /* No comment provided by engineer. */
-"Hide/Show app" = "Hide/Show app";
+"Hide/Show app" = "Ilovani yashirish / ko'rsatish";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Baland";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Eng yuqori";
 
 /* No comment provided by engineer. */
-"Hold" = "Hold";
+"Hold" = "Ushlab turmoq";
 
 /* No comment provided by engineer. */
-"I think the app could be improved with…" = "I think the app could be improved with…";
+"I think the app could be improved with…" = "Menimcha, ilova yaxshilanishi mumkin ...";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Faol bo'lganda yorliqlarni e'tiborsiz qoldiring";
 
 /* No comment provided by engineer. */
 "Large" = "Katta";
 
 /* No comment provided by engineer. */
-"Latest releases" = "Latest releases";
+"Latest releases" = "So'nggi relizlar";
 
 /* No comment provided by engineer. */
 "Leading" = "Yetakchi";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Yorug'lik";
 
 /* No comment provided by engineer. */
 "Medium" = "O'rta";
@@ -245,88 +245,88 @@
 "Menubar icon" = "Menubar ikonkasi";
 
 /* No comment provided by engineer. */
-"Middle" = "Middle";
+"Middle" = "O'rtada";
 
 /* No comment provided by engineer. */
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+"Minimize/Deminimize window" = "Oynani minimallashtirish / o'chirish";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Bir nechta ekranlar";
 
 /* No comment provided by engineer. */
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Hech qachon avtohalokat haqida xabar yubormang";
 
 /* No comment provided by engineer. */
 "Normal" = "Normal";
 
 /* No comment provided by engineer. */
-"Not allowed" = "Not allowed";
+"Not allowed" = "Ruxsat berilmagan";
 
 /* No comment provided by engineer. */
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Ochiq foydalanish imtiyozlari ...";
 
 /* No comment provided by engineer. */
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Ekran yozuvini qayd etish imtiyozlari ...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Ixtiyoriy: Elektron pochta (agar javobni xohlasangiz)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Windows-ni buyurtma qiling";
 
 /* No comment provided by engineer. */
-"Policies" = "Policies";
+"Policies" = "Siyosat";
+
+/* Menubar option */
+"Preferences…" = "Afzalliklar ...";
 
 /* No comment provided by engineer. */
-"Preferences…" = "Preferences…";
-
-/* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Tanlangan oynani ko'rib chiqish";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Tanlangan oynani oldindan ko'rib chiqing.";
 
 /* No comment provided by engineer. */
-"Quit" = "Quit";
+"Quit" = "Ketmoq";
+
+/* Menubar option. %@ is AltTab */
+"Quit %@" = "% @";
 
 /* No comment provided by engineer. */
-"Quit %@" = "Quit %@";
+"Quit app" = "Chiqish ilovasi";
 
 /* No comment provided by engineer. */
-"Quit app" = "Quit app";
+"Recently Created First" = "Yaqinda birinchi bo'lib yaratilgan";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Focused First" = "Yaqinda birinchisi";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Remember my choice" = "Mening tanlovimni eslang";
 
 /* No comment provided by engineer. */
-"Remember my choice" = "Remember my choice";
+"Reset preferences and restart" = "Afzalliklar va qayta ishga tushirish";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart…" = "Afzalliklar va qayta ishga tushirish ...";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Screen including menu bar" = "Ekran menyu satr";
 
 /* No comment provided by engineer. */
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including mouse" = "Sichqoncha ekranini o'z ichiga oladi";
 
 /* No comment provided by engineer. */
-"Screen including mouse" = "Screen including mouse";
+"Screen Recording" = "Ekran yozuvi";
 
 /* No comment provided by engineer. */
-"Screen Recording" = "Screen Recording";
+"Screen showing AltTab" = "Olttab ko'rsatadigan ekran";
 
 /* No comment provided by engineer. */
-"Screen showing AltTab" = "Screen showing AltTab";
+"Select next window" = "Keyingi oynani tanlang";
 
 /* No comment provided by engineer. */
-"Select next window" = "Select next window";
-
-/* No comment provided by engineer. */
-"Select previous window" = "Select previous window";
+"Select previous window" = "Oldingi oynani tanlang";
 
 /* No comment provided by engineer. */
 "Select windows on mouse hover" = "Sichqonchani sichqonchani tanlang";
@@ -338,43 +338,43 @@
 "Select windows using vim keys" = "Vim tugmachalari yordamida Windows-ni tanlang";
 
 /* No comment provided by engineer. */
-"Send" = "Send";
+"Send" = "Yuborish";
 
 /* No comment provided by engineer. */
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Avariya hisobotini yuboring?";
 
 /* No comment provided by engineer. */
-"Send anyway" = "Send anyway";
+"Send anyway" = "Baribir yuboring";
 
 /* No comment provided by engineer. */
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+"Send debug profile (CPU, memory, etc)" = "Narxie Profilini yuboring (protsessor, xotira va hk)";
 
 /* No comment provided by engineer. */
-"Send feedback" = "Send feedback";
+"Send feedback" = "Fikr-mulohazalarni yuboring";
+
+/* Menubar option */
+"Send feedback…" = "Fikr-mulohazalar yuborish ...";
 
 /* No comment provided by engineer. */
-"Send feedback…" = "Send feedback…";
+"Share improvement ideas, or report bugs" = "Mamlakatni obodonlashtirish g'oyalarini yoki xatolarni xabar qiling";
 
 /* No comment provided by engineer. */
-"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
+"Shortcut 1" = "Yorliq 1";
 
 /* No comment provided by engineer. */
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 2" = "Yorliq 2";
 
 /* No comment provided by engineer. */
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 3" = "Yorliq 3";
 
 /* No comment provided by engineer. */
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 4" = "Yorliq 4";
 
 /* No comment provided by engineer. */
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 5" = "Yorliq 5";
 
 /* No comment provided by engineer. */
-"Shortcut 5" = "Shortcut 5";
-
-/* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "QisqaCUT allaqachon boshqa harakatga tayinlangan:% @";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Faol bo'lganda yorliqlar";
@@ -382,8 +382,8 @@
 /* No comment provided by engineer. */
 "Shortcuts when active…" = "Faol bo'lganda yorliqlar ...";
 
-/* No comment provided by engineer. */
-"Show" = "Show";
+/* Menubar option */
+"Show" = "Ko'rsatish";
 
 /* No comment provided by engineer. */
 "Show & Hide" = "Ko'rsatish va yashirish";
@@ -392,7 +392,7 @@
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Har bir deraza uchun yoki har bir dastur uchun elementni ko'rsating.Windows yo'naltiriladi, ilovalar faollashtiriladi.";
 
 /* No comment provided by engineer. */
-"Show at the end" = "Show at the end";
+"Show at the end" = "Oxirida ko'rsatish";
 
 /* No comment provided by engineer. */
 "Show fullscreen windows" = "To'liq ekranli derazalarni ko'rsating";
@@ -410,7 +410,7 @@
 "Show on" = "Ko'rsatmoq";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows" = "Show standard tabs as windows";
+"Show standard tabs as windows" = "Windows sifatida standart yorliqlarni ko'rsating";
 
 /* No comment provided by engineer. */
 "Show titles" = "Sarliqlarni ko'rsating";
@@ -434,34 +434,34 @@
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder yoki oldindan ko'rish kabi ba'zi ilovalar mustaqil Windows kabi ishlaydigan oddiy yorliqlardan foydalaning.Veb-brauzerlar kabi ba'zi boshqa ilovalar noyob yo'llar bilan shug'ullanadigan va haqiqiy derazalar emas.Altabab alohidalarni ro'yxatga olish mumkin emas.";
 
 /* No comment provided by engineer. */
-"Source code repository" = "Source code repository";
+"Source code repository" = "Manba kodi ombori";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Kosmik buyurtma";
 
 /* No comment provided by engineer. */
-"Start" = "Start";
+"Start" = "Boshlamoq";
 
 /* No comment provided by engineer. */
 "Start at login" = "Kirishdan boshlang";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Ushbu loyihani qo'llab-quvvatlang";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "3 xil uslubni almashtiring.Siz ularni sozlashingiz mumkin.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Tizim";
 
 /* No comment provided by engineer. */
 "Theme" = "Mavzuni";
 
 /* No comment provided by engineer. */
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Ushbu ruxsatni yorliqni chiqargandan so'ng, derazalarda bo'lish uchun kerak";
 
 /* No comment provided by engineer. */
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Ushbu ruxsatnomani ochiq derazalarning ekran rasmlari va unvonlarini ko'rsatish uchun kerak";
 
 /* No comment provided by engineer. */
 "Thumbnails" = "Eskiz";
@@ -476,53 +476,53 @@
 "Trigger shortcut" = "Tragger yorliq";
 
 /* No comment provided by engineer. */
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Mavjud yorliqni qisqartiring va davom eting";
 
 /* No comment provided by engineer. */
 "Updates policy" = "Siyosatni yangilash";
 
 /* No comment provided by engineer. */
-"Version" = "Version";
+"Version" = "Versiya";
 
 /* No comment provided by engineer. */
-"View existing discussions" = "View existing discussions";
+"View existing discussions" = "Mavjud munozarani ko'rish";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Boshqa harakatlar uchun tayinlangan Vim kalitlari: \ n% @";
 
 /* No comment provided by engineer. */
 "Visibility" = "Ko'rinishi";
 
 /* No comment provided by engineer. */
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Ko'rinadigan bo'sh joylar";
 
 /* No comment provided by engineer. */
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "To'liq ekranda";
 
 /* No comment provided by engineer. */
-"When no open window" = "When no open window";
+"When no open window" = "Ochiq deraza yo'q bo'lganda";
 
 /* No comment provided by engineer. */
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Deraza to'liq ekran";
 
 /* No comment provided by engineer. */
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Oynani minimallashtiradi";
 
 /* No comment provided by engineer. */
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Oyna har bir joyda";
 
 /* No comment provided by engineer. */
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Deraza kosmosda% d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Oyna nomi";
 
 /* No comment provided by engineer. */
 "Windows" = "Derazalar";
 
 /* No comment provided by engineer. */
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Siz ushbu harakatni bekor qila olmaysiz.";
 
 /* No comment provided by engineer. */
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "Siz elektron pochtangizni yozmadingiz, shuning uchun hech qanday javob ololmaysiz.";
 

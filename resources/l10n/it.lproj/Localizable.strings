@@ -47,7 +47,7 @@
 "Allowed" = "Consentito";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Ordine alfabetico";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab si è arrestato in modo anomalo l'ultima volta. L'invio di una segnalazione potrebbe aiutare a risolvere il problema.";
@@ -95,10 +95,10 @@
 "Appearance" = "Aspetto";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Nome dell'applicazione";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Nome dell'applicazione - Titolo della finestra";
 
 /* No comment provided by engineer. */
 "Applications" = "Applicazioni";
@@ -182,7 +182,7 @@
 "Focus selected window" = "Attiva la finestra selezionata";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Finestra a schermo intero/defullscreen";
 
 /* No comment provided by engineer. */
 "General" = "Generali";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Nascondi/mostra app";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Alto";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Più alto";
 
 /* No comment provided by engineer. */
 "Hold" = "Tieni premuto";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Non inviare resoconti";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Normale";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Non consentito";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Apri impostazioni Registrazione schermo…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Facoltativo: e -mail (se vuoi una risposta)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Ordina finestre di";
@@ -296,10 +296,10 @@
 "Quit app" = "Esci dall'app";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Recentemente creato per primo";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Recentemente concentrato per primo";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Ricorda la mia scelta";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Comando 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Scorciatoia già assegnata a un'altra azione: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Scorciatoie quando attivo";
@@ -437,7 +437,7 @@
 "Source code repository" = "Repository del codice sorgente";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Ordine spaziale";
 
 /* No comment provided by engineer. */
 "Start" = "All'inizio";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Passa tra 3 stili diversi.Puoi personalizzarli.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Sistema";
 
 /* No comment provided by engineer. */
 "Theme" = "Tema";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Visualizza discussioni esistenti";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Chiavi vim già assegnate ad altre azioni: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Visibilità";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "La finestra è nello spazio %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Titolo della finestra";
 
 /* No comment provided by engineer. */
 "Windows" = "finestre";

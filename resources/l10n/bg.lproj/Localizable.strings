@@ -47,7 +47,7 @@
 "Allowed" = "Разрешен";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Азбучен ред";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab заби последния път. Изпращането на отчет ще помогне за отстраняване на проблема";
@@ -95,10 +95,10 @@
 "Appearance" = "Изглед";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Име на приложението";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Име на приложението - заглавие на прозореца";
 
 /* No comment provided by engineer. */
 "Applications" = "Приложения";
@@ -133,8 +133,8 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "Провери за нови онбонвявания...";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "Проверете разрешенията ...";
 
 /* No comment provided by engineer. */
 "Close window" = "Затвори прозореца";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Персонализирайте стила на заглавия ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Тъмно";
 
 /* No comment provided by engineer. */
 "Do nothing" = "не прави нищо";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Скрой/покажи проложението";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Високо";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Най -високо";
 
 /* No comment provided by engineer. */
 "Hold" = "Със задръжане на";
@@ -236,7 +236,7 @@
 "Leading" = "Водещ";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Светлина";
 
 /* No comment provided by engineer. */
 "Medium" = "Среден";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Никога";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Нормално";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Не е разрешено";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Отвори настройките за запис на екрана...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Незадължително: Имейл (ако искате отговор)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Поръчайте Windows от";
@@ -296,10 +296,10 @@
 "Quit app" = "Излез от приложението";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Наскоро създаден първо";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Наскоро се съсредоточи първо";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Запомни избора ми";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Клавишна комбинация 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Пряк път, който вече е присвоен на друго действие: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Преки пътища, когато са активни";
@@ -437,7 +437,7 @@
 "Source code repository" = "Сорс код";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Космическа поръчка";
 
 /* No comment provided by engineer. */
 "Start" = "в началото";
@@ -445,14 +445,14 @@
 /* No comment provided by engineer. */
 "Start at login" = "Започнете от вход";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Подкрепете този проект ❤";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Превключете между 3 различни стила.Можете да ги персонализирате.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Система";
 
 /* No comment provided by engineer. */
 "Theme" = "Тема";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Виж дискусиите";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM клавиши, които вече са присвоени на други действия: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Видимост";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Прозорецът е на работно пространство %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Заглавие на прозореца";
 
 /* No comment provided by engineer. */
 "Windows" = "Windows";

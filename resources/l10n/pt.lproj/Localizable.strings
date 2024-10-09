@@ -47,7 +47,7 @@
 "Allowed" = "Permitido";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Ordem alfabética";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "A aplicação terminou inesperadamente na última vez que foi utilizado. Ao enviar um relatório de falha ajuda a corrigir o erro";
@@ -95,10 +95,10 @@
 "Appearance" = "Aparência";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Nome do aplicativo";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Nome do aplicativo - Título da janela";
 
 /* No comment provided by engineer. */
 "Applications" = "Formulários";
@@ -215,7 +215,7 @@
 "High" = "High";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Mais alto";
 
 /* No comment provided by engineer. */
 "Hold" = "Segurar";
@@ -236,7 +236,7 @@
 "Leading" = "Principal";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Luz";
 
 /* No comment provided by engineer. */
 "Medium" = "Medium";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Abrir Preferências de Gravação de Ecrã…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Opcional: email (se você quiser uma resposta)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Encomende o Windows por";
@@ -296,10 +296,10 @@
 "Quit app" = "Fechar aplicação";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Recentemente criado primeiro";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Recentemente focado primeiro";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Lembrar a minha escolha";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Atalho 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Atalho já atribuído a outra ação: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Atalhos quando ativos";
@@ -437,7 +437,7 @@
 "Source code repository" = "Repositório do Código Fonte";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Ordem espacial";
 
 /* No comment provided by engineer. */
 "Start" = "Início";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Alterne entre 3 estilos diferentes.Você pode personalizá -los.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Sistema";
 
 /* No comment provided by engineer. */
 "Theme" = "Tema";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Ver discussões existentes";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM Keys já atribuídos a outras ações: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Visibilidade";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Janela está no Space %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Título da janela";
 
 /* No comment provided by engineer. */
 "Windows" = "janelas";

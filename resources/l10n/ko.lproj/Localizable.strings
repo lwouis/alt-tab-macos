@@ -47,7 +47,7 @@
 "Allowed" = "허용됨";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "알파벳 순서";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab의 충돌이 감지되었습니다. 충돌 보고서를 보내는 것은 이 문제를 해결하는데 도움을 줄 수 있습니다";
@@ -95,10 +95,10 @@
 "Appearance" = "모양";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "응용 프로그램 이름";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "응용 프로그램 이름 - 창 제목";
 
 /* No comment provided by engineer. */
 "Applications" = "응용 프로그램";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "타이틀 스타일 사용자 정의…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "어두운";
 
 /* No comment provided by engineer. */
 "Do nothing" = "아무것도 하지 않기";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "앱 숨기기/보이기";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "높은";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "제일 높은";
 
 /* No comment provided by engineer. */
 "Hold" = " ";
@@ -236,7 +236,7 @@
 "Leading" = "주요한";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "빛";
 
 /* No comment provided by engineer. */
 "Medium" = "중간";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "절대 보내지 않기";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "정상";
 
 /* No comment provided by engineer. */
 "Not allowed" = "허용되지 않음";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "화면 기록 설정 열기…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "선택 사항 : 이메일 (답장을 원하는 경우)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Windows를 주문하십시오";
@@ -296,10 +296,10 @@
 "Quit app" = "앱 종료";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "최근에 처음 만들었습니다";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "최근에 먼저 집중했습니다";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "내 선택 기억하기";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "단축키 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "이미 다른 조치에 할당 된 바로 가기 : %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "활성화 될 때 바로 가기";
@@ -437,7 +437,7 @@
 "Source code repository" = "소스 코드";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "우주 순서";
 
 /* No comment provided by engineer. */
 "Start" = "처음";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "세 가지 다른 스타일 사이에서 전환하십시오.당신은 그들을 사용자 정의 할 수 있습니다.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "체계";
 
 /* No comment provided by engineer. */
 "Theme" = "주제";
@@ -488,7 +488,7 @@
 "View existing discussions" = "진행중인 논의 보기";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "이미 다른 작업에 할당 된 VIM 키 : \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "시계";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "윈도우가 Space %d에 있습니다";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "창 제목";
 
 /* No comment provided by engineer. */
 "Windows" = "창";

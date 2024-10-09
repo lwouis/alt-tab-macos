@@ -1,14 +1,14 @@
 /* No comment provided by engineer. */
 "About" = "Iwwer";
 
-/*Menubar option. %@ is AltTab*/
-"About %@" = "About %@";
+/* Menubar option. %@ is AltTab */
+"About %@" = "Iwwer% @";
 
 /* No comment provided by engineer. */
-"Accessibility" = "Accessibility";
+"Accessibility" = "Accessibilitéit";
 
 /* No comment provided by engineer. */
-"Acknowledgments" = "Acknowledgments";
+"Acknowledgments" = "Unerkennung";
 
 /* No comment provided by engineer. */
 "Active app" = "Aktif Applikatioun";
@@ -35,7 +35,7 @@
 "All apps" = "All Applikatioun";
 
 /* No comment provided by engineer. */
-"All data from this form will be made public, as a ticket on github.com" = "All data from this form will be made public, as a ticket on github.com";
+"All data from this form will be made public, as a ticket on github.com" = "All Daten aus dëser Form ginn ëffentlech gemaach, als en Ticket op Github.com";
 
 /* No comment provided by engineer. */
 "All screens" = "All Schierm";
@@ -44,28 +44,28 @@
 "All Spaces" = "All Espace";
 
 /* No comment provided by engineer. */
-"Allowed" = "Allowed";
+"Allowed" = "Erlaabt";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Alphabetesch Uerdnung";
 
 /* No comment provided by engineer. */
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Den Alettab huet d'lescht Kéier erofgefall, deen Dir et benotzt hutt.Schéckt e Crash Bericht wäert hëllefen d'Fro fixéiert";
 
 /* No comment provided by engineer. */
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Den Alttab ass de Moment gesat fir d'Applikatiounen ze weisen.Dës Astellung ass nëmme verfügbar wann den Alettab gesat ass fir Windows ze weisen.";
 
 /* No comment provided by engineer. */
-"AltTab needs some permissions" = "AltTab needs some permissions";
+"AltTab needs some permissions" = "Den Alttab brauch e puer Permissiounen";
 
 /* No comment provided by engineer. */
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Den Alttab wäert weisen wann d'Fënster am Moment miniméiert oder vollstänneg mat enger Statuskondokon miniméiert.";
 
 /* No comment provided by engineer. */
-"Always" = "Always";
+"Always" = "Ëmmer";
 
 /* No comment provided by engineer. */
-"Always send crash reports" = "Always send crash reports";
+"Always send crash reports" = "Schéckt ëmmer Crash Berichter";
 
 /* No comment provided by engineer. */
 "and press" = "an dréckt";
@@ -77,16 +77,16 @@
 "Animations…" = "Animiounen ...";
 
 /* No comment provided by engineer. */
-"App (BundleID starting with)" = "App (BundleID starting with)";
+"App (BundleID starting with)" = "App (Bundleid Start mat)";
 
 /* No comment provided by engineer. */
 "App Icons" = "App Symboler";
 
 /* No comment provided by engineer. */
-"App is hidden" = "App is hidden";
+"App is hidden" = "App ass verstoppt";
 
 /* No comment provided by engineer. */
-"App is running but has no open window" = "App is running but has no open window";
+"App is running but has no open window" = "App leeft, awer huet keng oppe Fënster huet";
 
 /* No comment provided by engineer. */
 "Apparition delay" = "Bewäertung Retard";
@@ -95,25 +95,25 @@
 "Appearance" = "Ausgesinn";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Uwendungsnumm";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Applikatioun Numm - Fenster Titel";
 
 /* No comment provided by engineer. */
 "Applications" = "Uwendungen";
 
 /* No comment provided by engineer. */
-"Are you sure you don’t want a response?" = "Are you sure you don’t want a response?";
+"Are you sure you don’t want a response?" = "Sidd Dir sécher, dass Dir net eng Äntwert wëllt?";
 
 /* No comment provided by engineer. */
-"Ask whether to send crash reports" = "Ask whether to send crash reports";
+"Ask whether to send crash reports" = "Frot ob d'Crash Berichter ze schécken";
 
 /* No comment provided by engineer. */
 "Auto-install updates periodically" = "Automatesch reegelméisseg Updates installéiren";
 
 /* No comment provided by engineer. */
-"Blacklists" = "Blacklists";
+"Blacklists" = "Schloen Moleschloss";
 
 /*Cancel button*/
 "Cancel" = "Ofbriechen";
@@ -133,17 +133,17 @@
 /* No comment provided by engineer. */
 "Check for updates…" = "No Updates sichen…";
 
-/*Menubar option*/
-"Check permissions…" = "Check permissions…";
+/* Menubar option */
+"Check permissions…" = "Préift Permissiounen ...";
 
 /* No comment provided by engineer. */
-"Close window" = "Close window";
+"Close window" = "Fënster zoumaachen op Fënster";
 
 /* No comment provided by engineer. */
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Konfliktend Ofkiirzung";
 
 /* No comment provided by engineer. */
-"Controls" = "Controls";
+"Controls" = "Nees Kontrolls";
 
 /* No comment provided by engineer. */
 "Crash reports policy" = "Crash Bericht Politik";
@@ -158,10 +158,10 @@
 "Customize Titles style…" = "Personaliséiere Titelenstil ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Donkidn";
 
 /* No comment provided by engineer. */
-"Do nothing" = "Do nothing";
+"Do nothing" = "Näischt maachen";
 
 /* No comment provided by engineer. */
 "Done" = "Verdataktioun";
@@ -170,73 +170,73 @@
 "Don’t check for updates periodically" = "Net reegelméisseg no Updates sichen";
 
 /* No comment provided by engineer. */
-"Don’t send" = "Don’t send";
+"Don’t send" = "Schéckt net";
 
 /* No comment provided by engineer. */
-"End" = "End";
+"End" = "Schlisster";
 
 /* No comment provided by engineer. */
 "Fade out animation" = "Verschwannen Animatioun";
 
 /* No comment provided by engineer. */
-"Focus selected window" = "Focus selected window";
+"Focus selected window" = "Fokusséiert ausgewielt Fënster";
 
 /* No comment provided by engineer. */
-"Fullscreen/Defullscreen window" = "Fullscreen/Defullscreen window";
+"Fullscreen/Defullscreen window" = "Fullcreen / Dänulelscreen Fenster";
 
 /* No comment provided by engineer. */
 "General" = "Allgemeng";
 
 /* No comment provided by engineer. */
-"Hide" = "Hide";
+"Hide" = "Verstaechen";
 
 /* No comment provided by engineer. */
-"Hide app badges" = "Hide app badges";
+"Hide app badges" = "Verstoppen App Badges";
 
 /* No comment provided by engineer. */
-"Hide apps with no open window" = "Hide apps with no open window";
+"Hide apps with no open window" = "Verstoppen Apps ouni Open Fenster";
 
 /* No comment provided by engineer. */
-"Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
+"Hide colored circles on mouse hover" = "Verstoppen faarweg Kreeser op der Maushiewen";
 
-/*%@ is AltTab*/
-"Hide in %@" = "Hide in %@";
-
-/* No comment provided by engineer. */
-"Hide Space number labels" = "Hide Space number labels";
+/* %@ is AltTab */
+"Hide in %@" = "Verstoppen an% @";
 
 /* No comment provided by engineer. */
-"Hide status icons" = "Hide status icons";
+"Hide Space number labels" = "Verstoppen Raumnummer Etiketten";
 
 /* No comment provided by engineer. */
-"Hide/Show app" = "Hide/Show app";
+"Hide status icons" = "Verstoppen Status Symboler";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"Hide/Show app" = "Verstoppen / weisen App";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"High" = "Héichheet";
+
+/* No comment provided by engineer. */
+"Highest" = "Héchst";
 
 /* No comment provided by engineer. */
 "Hold" = "Bäihalen";
 
 /* No comment provided by engineer. */
-"I think the app could be improved with…" = "I think the app could be improved with…";
+"I think the app could be improved with…" = "Ech mengen d'App kéint verbessert ginn mat ...";
 
 /* No comment provided by engineer. */
-"Ignore shortcuts when active" = "Ignore shortcuts when active";
+"Ignore shortcuts when active" = "Ignoréieren Ofkiirzungen wann aktiv";
 
 /* No comment provided by engineer. */
 "Large" = "Grouss";
 
 /* No comment provided by engineer. */
-"Latest releases" = "Latest releases";
+"Latest releases" = "Läscht Verëffentlechungen";
 
 /* No comment provided by engineer. */
 "Leading" = "Iech féieren";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Liicht";
 
 /* No comment provided by engineer. */
 "Medium" = "Mëttelméisseg";
@@ -245,88 +245,88 @@
 "Menubar icon" = "Menubar Ikon";
 
 /* No comment provided by engineer. */
-"Middle" = "Middle";
+"Middle" = "Mëttnoss";
 
 /* No comment provided by engineer. */
-"Minimize/Deminimize window" = "Minimize/Deminimize window";
+"Minimize/Deminimize window" = "Minimize / ofdeimiséieren Fenster";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Multiple Schiirme";
 
 /* No comment provided by engineer. */
-"Never send crash reports" = "Never send crash reports";
+"Never send crash reports" = "Schéckt ni Crash Berichter";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Normelle";
 
 /* No comment provided by engineer. */
-"Not allowed" = "Not allowed";
+"Not allowed" = "Net erlaabt";
 
 /* No comment provided by engineer. */
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Preferences…" = "Open Accessibilitéitspräferenz ...";
 
 /* No comment provided by engineer. */
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Preferences…" = "Open Écran Opname Virléiften ...";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Optional: E-Mail (Wann Dir eng Äntwert wëllt)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Bestellen Windows vum";
 
 /* No comment provided by engineer. */
-"Policies" = "Policies";
+"Policies" = "Politik";
 
 /* No comment provided by engineer. */
 "Preferences…" = "Astellung…";
 
 /* No comment provided by engineer. */
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Preview ausgewielt Fënster";
 
 /* No comment provided by engineer. */
 "Preview the selected window." = "Preview déi ausgewielten Fënster.";
 
 /* No comment provided by engineer. */
-"Quit" = "Quit";
+"Quit" = "Ness";
+
+/* Menubar option. %@ is AltTab */
+"Quit %@" = "Ophalen% @";
 
 /* No comment provided by engineer. */
-"Quit %@" = "Quit %@";
+"Quit app" = "Ophalen App";
 
 /* No comment provided by engineer. */
-"Quit app" = "Quit app";
+"Recently Created First" = "Viru kuerzem als éischt erstallt";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Focused First" = "Kuerzem fokusséiert éischt";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Remember my choice" = "Erënnert mech un";
 
 /* No comment provided by engineer. */
-"Remember my choice" = "Remember my choice";
+"Reset preferences and restart" = "Reset Virléiften a nei starten";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset preferences and restart…" = "Reset Virléiften a Restart ...";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Screen including menu bar" = "Écran abegraff Menu Bar";
 
 /* No comment provided by engineer. */
-"Screen including menu bar" = "Screen including menu bar";
+"Screen including mouse" = "Écran inklusiv Maus";
 
 /* No comment provided by engineer. */
-"Screen including mouse" = "Screen including mouse";
+"Screen Recording" = "Écran Opname";
 
 /* No comment provided by engineer. */
-"Screen Recording" = "Screen Recording";
+"Screen showing AltTab" = "Écran weist Alttab";
 
 /* No comment provided by engineer. */
-"Screen showing AltTab" = "Screen showing AltTab";
+"Select next window" = "Wielt déi nächst Fenster";
 
 /* No comment provided by engineer. */
-"Select next window" = "Select next window";
-
-/* No comment provided by engineer. */
-"Select previous window" = "Select previous window";
+"Select previous window" = "Wielt virdrun Fënster";
 
 /* No comment provided by engineer. */
 "Select windows on mouse hover" = "Wielt Windows op Maus Hover";
@@ -341,40 +341,40 @@
 "Send" = "Fortschécken";
 
 /* No comment provided by engineer. */
-"Send a crash report?" = "Send a crash report?";
+"Send a crash report?" = "Schéckt e Crash Bericht?";
 
 /* No comment provided by engineer. */
-"Send anyway" = "Send anyway";
+"Send anyway" = "Schéckt iwwerhaapt";
 
 /* No comment provided by engineer. */
-"Send debug profile (CPU, memory, etc)" = "Send debug profile (CPU, memory, etc)";
+"Send debug profile (CPU, memory, etc)" = "Schéckt Debug Profil (CPU, Memory, etc)";
 
 /* No comment provided by engineer. */
-"Send feedback" = "Send feedback";
+"Send feedback" = "Schéckt Feedback";
+
+/* Menubar option */
+"Send feedback…" = "Schéckt Feedback ...";
 
 /* No comment provided by engineer. */
-"Send feedback…" = "Send feedback…";
+"Share improvement ideas, or report bugs" = "Deelt d'Verbesserung Iddien, oder Rapporte berichten";
 
 /* No comment provided by engineer. */
-"Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
+"Shortcut 1" = "Ofkiirzung 1";
 
 /* No comment provided by engineer. */
-"Shortcut 1" = "Shortcut 1";
+"Shortcut 2" = "Ofkiirzung 2";
 
 /* No comment provided by engineer. */
-"Shortcut 2" = "Shortcut 2";
+"Shortcut 3" = "Ofkiirzung 3";
 
 /* No comment provided by engineer. */
-"Shortcut 3" = "Shortcut 3";
+"Shortcut 4" = "Ofkiirzung 4";
 
 /* No comment provided by engineer. */
-"Shortcut 4" = "Shortcut 4";
+"Shortcut 5" = "Ofkiirzung 5";
 
 /* No comment provided by engineer. */
-"Shortcut 5" = "Shortcut 5";
-
-/* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Ofkiirzung huet schonn an eng aner Aktioun zougewisen:% @";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Ofkiirzungen wann aktiv";
@@ -392,7 +392,7 @@
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Weist en Element am Duchel fir all Fënster, oder fir all Applikatioun.Windows ginn fokusséiert, wou d'Uwendungen ageschalt ginn.";
 
 /* No comment provided by engineer. */
-"Show at the end" = "Show at the end";
+"Show at the end" = "Um Enn weisen";
 
 /* No comment provided by engineer. */
 "Show fullscreen windows" = "Weise vollen Fensteren";
@@ -410,7 +410,7 @@
 "Show on" = "Weisen op";
 
 /* No comment provided by engineer. */
-"Show standard tabs as windows" = "Show standard tabs as windows";
+"Show standard tabs as windows" = "Show Standard Tabs als Windows";
 
 /* No comment provided by engineer. */
 "Show titles" = "Gafen Titelen";
@@ -434,34 +434,34 @@
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "E puer Apps wéi Finder oder Virschau wéi Standard Tabs, déi wéi onofhängeg Fensteren handelen.E puer aner Apps wéi Web Browser benotze Benotzerdefinéiert Tabs déi op eenzegaarteg Weeër handelen an net tatsächlech Fensteren.Den Alttab kann dës separat net liwweren.";
 
 /* No comment provided by engineer. */
-"Source code repository" = "Source code repository";
+"Source code repository" = "Quellcode Repository";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Raumuerdnung";
 
 /* No comment provided by engineer. */
-"Start" = "Start";
+"Start" = "Nei fänken";
 
 /* No comment provided by engineer. */
 "Start at login" = "Start um Login";
 
-/*Menubar option*/
-"Support this project ❤️" = "Support this project ❤️";
+/* Menubar option */
+"Support this project ❤️" = "Ënnerstëtzt dëse Projet ❤️";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Schalt tëscht 3 verschidde Stiler.Dir kënnt se personaliséieren.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "System de System";
 
 /* No comment provided by engineer. */
 "Theme" = "Thema";
 
 /* No comment provided by engineer. */
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Dës Erlaabnis gëtt gebraucht fir Windows ze fokusséieren nodeems Dir de Ofkierzung befollegt";
 
 /* No comment provided by engineer. */
-"This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
+"This permission is needed to show screenshots and titles of open windows" = "Dës Erlaabnis gëtt gebraucht fir Screenshots an Titelen vun oppenen Fensteren ze weisen";
 
 /* No comment provided by engineer. */
 "Thumbnails" = "Miniatur";
@@ -476,7 +476,7 @@
 "Trigger shortcut" = "Ausléiser Ofkiirzung";
 
 /* No comment provided by engineer. */
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "UNASSIGIE existent Ofkiirzung a weider";
 
 /* No comment provided by engineer. */
 "Updates policy" = "Updates Politik";
@@ -485,44 +485,44 @@
 "Version" = "Versioun";
 
 /* No comment provided by engineer. */
-"View existing discussions" = "View existing discussions";
+"View existing discussions" = "Kuckt existent Diskussiounen";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim Schlësselen déi scho fir aner Aktiounen zougewisen hunn: \ n% @";
 
 /* No comment provided by engineer. */
 "Visibility" = "Visatierlechung";
 
 /* No comment provided by engineer. */
-"Visible Spaces" = "Visible Spaces";
+"Visible Spaces" = "Biance gesinn";
 
 /* No comment provided by engineer. */
-"When fullscreen" = "When fullscreen";
+"When fullscreen" = "Wann Fullcreen";
 
 /* No comment provided by engineer. */
-"When no open window" = "When no open window";
+"When no open window" = "Wa keng oppe Fënster";
 
 /* No comment provided by engineer. */
-"Window is fullscreen" = "Window is fullscreen";
+"Window is fullscreen" = "Fënster ass Fullscreen";
 
 /* No comment provided by engineer. */
-"Window is minimized" = "Window is minimized";
+"Window is minimized" = "Fënster ass miniméiert";
 
 /* No comment provided by engineer. */
-"Window is on every Space" = "Window is on every Space";
+"Window is on every Space" = "Fënster ass op all Raum";
 
 /* No comment provided by engineer. */
-"Window is on Space %d" = "Window is on Space %d";
+"Window is on Space %d" = "Fënster ass op Raums% D";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Fënster Testbetter";
 
 /* No comment provided by engineer. */
 "Windows" = "FënsterSenferenzen";
 
 /* No comment provided by engineer. */
-"You can’t undo this action." = "You can’t undo this action.";
+"You can’t undo this action." = "Dir kënnt dës Aktioun net ofhalen.";
 
 /* No comment provided by engineer. */
-"You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+"You didn’t write your email, thus can’t receive any response." = "Dir hutt Är E-Mail net geschriwwen, also kann also keng Äntwert kréien.";
 

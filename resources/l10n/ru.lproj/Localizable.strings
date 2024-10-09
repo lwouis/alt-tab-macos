@@ -47,7 +47,7 @@
 "Allowed" = "Разрешено";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Алфавитный порядок";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab аварийно завершился в последний раз, когда вы его использовали. Отправка отчета поможет исправить проблему";
@@ -95,10 +95,10 @@
 "Appearance" = "Внешний вид";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Имя приложения";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Имя приложения - заголовок окна";
 
 /* No comment provided by engineer. */
 "Applications" = "Приложения";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Настройте стиль названия ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Темный";
 
 /* No comment provided by engineer. */
 "Do nothing" = "Ничего не делать";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Скрыть/Показать приложение";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Высокий";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Высший";
 
 /* No comment provided by engineer. */
 "Hold" = "Удерживать";
@@ -236,7 +236,7 @@
 "Leading" = "Ведущий";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Свет";
 
 /* No comment provided by engineer. */
 "Medium" = "Середина";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "Никогда не отправлять отчеты о вылетах";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "Нормальный";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Не разрешено";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Открыть настройки Записи экрана…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Необязательно: электронная почта (если вы хотите ответ)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Заказывать окна";
@@ -296,10 +296,10 @@
 "Quit app" = "Выйти из приложения";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Недавно создан первым";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Недавно сосредоточен первым";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Запомнить мой выбор";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Комбинация 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Ярлык уже назначен на другое действие: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Ярлыки при активном";
@@ -437,7 +437,7 @@
 "Source code repository" = "Репозиторий исходного кода";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Космический заказ";
 
 /* No comment provided by engineer. */
 "Start" = "Начало";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Переключитесь между 3 разными стилями.Вы можете настроить их.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Система";
 
 /* No comment provided by engineer. */
 "Theme" = "Тема";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Посмотреть обсуждения";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim Keys, уже назначенные другими действиями: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Видимость";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "Окно в пространстве %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Название окон";
 
 /* No comment provided by engineer. */
 "Windows" = "Окна";

@@ -47,7 +47,7 @@
 "Allowed" = "Permès";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Ordre alfabètic";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab s'ha tancat a causa d'un problema. Enviar un informe d'error ajudarà a resoldre'l";
@@ -95,10 +95,10 @@
 "Appearance" = "Aparença";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "Nom de l'aplicació";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Nom de l'aplicació: títol de la finestra";
 
 /* No comment provided by engineer. */
 "Applications" = "Aplicacions";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "Personalitzeu l'estil de títols ...";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "Fosc";
 
 /* No comment provided by engineer. */
 "Do nothing" = "No fer res";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "Amagar/Mostrar aplicació";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "Alt";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "Més alt";
 
 /* No comment provided by engineer. */
 "Hold" = "Mantenir";
@@ -236,7 +236,7 @@
 "Leading" = "Líder";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "Llum";
 
 /* No comment provided by engineer. */
 "Medium" = "Mitjà";
@@ -269,7 +269,7 @@
 "Open Screen Recording Preferences…" = "Obrir preferències de gravació de pantalla…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "Opcional: correu electrònic (si voleu una resposta)";
 
 /* No comment provided by engineer. */
 "Order windows by" = "Ordeneu les finestres per";
@@ -296,10 +296,10 @@
 "Quit app" = "Sortir de l'aplicació";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Primer creat recentment";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Primer centrat recentment";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "Recordar la meva selecció";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "Drecera 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Drecera ja assignada a una altra acció: %@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "Dreceres quan estan actives";
@@ -437,7 +437,7 @@
 "Source code repository" = "Repositori del codi font";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "Ordre d'espai";
 
 /* No comment provided by engineer. */
 "Start" = "Inici";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "Canvieu entre 3 estils diferents.Podeu personalitzar -los.";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "Sistema";
 
 /* No comment provided by engineer. */
 "Theme" = "Tema";
@@ -488,7 +488,7 @@
 "View existing discussions" = "Veure discussions en curs";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Les claus vim ja assignades a altres accions: \ n%@";
 
 /* No comment provided by engineer. */
 "Visibility" = "Visibilitat";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "La finestra és present a l'espai %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "Títol de la finestra";
 
 /* No comment provided by engineer. */
 "Windows" = "Finestres";

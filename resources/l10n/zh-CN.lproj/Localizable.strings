@@ -47,7 +47,7 @@
 "Allowed" = "允许";
 
 /* No comment provided by engineer. */
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "字母顺序";
 
 /* No comment provided by engineer. */
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用时崩溃了， 发送崩溃报告将有助于解决问题";
@@ -95,10 +95,10 @@
 "Appearance" = "外观";
 
 /* No comment provided by engineer. */
-"Application Name" = "Application Name";
+"Application Name" = "应用名称";
 
 /* No comment provided by engineer. */
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "应用名称 - 窗口标题";
 
 /* No comment provided by engineer. */
 "Applications" = "应用程序";
@@ -158,7 +158,7 @@
 "Customize Titles style…" = "自定义标题样式…";
 
 /* No comment provided by engineer. */
-"Dark" = "Dark";
+"Dark" = "深色";
 
 /* No comment provided by engineer. */
 "Do nothing" = "不执行任何操作";
@@ -212,10 +212,10 @@
 "Hide/Show app" = "隐藏/显示应用";
 
 /* No comment provided by engineer. */
-"High" = "High";
+"High" = "高的";
 
 /* No comment provided by engineer. */
-"Highest" = "Highest";
+"Highest" = "最高";
 
 /* No comment provided by engineer. */
 "Hold" = "按住";
@@ -236,7 +236,7 @@
 "Leading" = "首位的";
 
 /* No comment provided by engineer. */
-"Light" = "Light";
+"Light" = "浅色";
 
 /* No comment provided by engineer. */
 "Medium" = "中等的";
@@ -257,7 +257,7 @@
 "Never send crash reports" = "从不发送崩溃报告";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "普通";
 
 /* No comment provided by engineer. */
 "Not allowed" = "未允许";
@@ -269,13 +269,13 @@
 "Open Screen Recording Preferences…" = "打开屏幕录制偏好设置…";
 
 /* No comment provided by engineer. */
-"Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
+"Optional: email (if you want a reply)" = "可选：电子邮件（如果您想要答复）";
 
 /* No comment provided by engineer. */
-"Order windows by" = "排序Windows";
+"Order windows by" = "窗口排序";
 
 /* No comment provided by engineer. */
-"Policies" = "政策";
+"Policies" = "策略";
 
 /* No comment provided by engineer. */
 "Preferences…" = "偏好设置…";
@@ -296,10 +296,10 @@
 "Quit app" = "退出应用";
 
 /* No comment provided by engineer. */
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "最近创建";
 
 /* No comment provided by engineer. */
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "最近专注";
 
 /* No comment provided by engineer. */
 "Remember my choice" = "记住我的选择";
@@ -374,7 +374,7 @@
 "Shortcut 5" = "快捷键 5";
 
 /* No comment provided by engineer. */
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "快捷方式已经分配给另一个操作：％@";
 
 /* No comment provided by engineer. */
 "Shortcuts When Active" = "活跃时的快捷键";
@@ -437,10 +437,10 @@
 "Source code repository" = "源代码仓库";
 
 /* No comment provided by engineer. */
-"Space Order" = "Space Order";
+"Space Order" = "空间顺序";
 
 /* No comment provided by engineer. */
-"Start" = "开头";
+"Start" = "开始";
 
 /* No comment provided by engineer. */
 "Start at login" = "从登录开始";
@@ -452,7 +452,7 @@
 "Switch between 3 different styles. You can customize them." = "在3种不同样式之间切换。您可以自定义它们。";
 
 /* No comment provided by engineer. */
-"System" = "System";
+"System" = "系统";
 
 /* No comment provided by engineer. */
 "Theme" = "主题";
@@ -488,7 +488,7 @@
 "View existing discussions" = "查看现有讨论";
 
 /* No comment provided by engineer. */
-"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
+"Vim keys already assigned to other actions:\n%@" = "VIM键已经分配给其他操作：\ n％@";
 
 /* No comment provided by engineer. */
 "Visibility" = "可见性";
@@ -515,7 +515,7 @@
 "Window is on Space %d" = "窗口在空间 %d";
 
 /* No comment provided by engineer. */
-"Window Title" = "Window Title";
+"Window Title" = "窗口标题";
 
 /* No comment provided by engineer. */
 "Windows" = "窗口";
@@ -525,4 +525,3 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "您未填写电子邮箱地址，将无法收到回复。";
-
