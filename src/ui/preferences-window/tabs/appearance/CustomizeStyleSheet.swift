@@ -171,9 +171,9 @@ class CustomizeStyleSheet: SheetWindow {
         let selectedIndex = sender.selectedSegment
         [showHideView, advancedView].enumerated().forEach { (index, view) in
             if selectedIndex == index {
-                view.isHidden = false
+                view!.isHidden = false
             } else {
-                view.isHidden = true
+                view!.isHidden = true
             }
         }
         adjustWindowHeight()
