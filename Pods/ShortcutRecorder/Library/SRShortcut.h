@@ -120,6 +120,8 @@ NS_SWIFT_NAME(Shortcut)
  */
 @property (readonly) NSEventModifierFlags modifierFlags;
 
+@property (readonly) NSEventModifierFlags displayModifierFlags;
+
 /*!
  Representation of the key code with modifier flags.
 

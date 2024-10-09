@@ -1,7 +1,7 @@
 import Cocoa
 import ShortcutRecorder
 
-let allowedModifiers = NSEvent.ModifierFlags(arrayLiteral: [.command, .control, .option, .shift])
+let allowedModifiers = NSEvent.ModifierFlags(arrayLiteral: [.command, .control, .option, .shift, .function])
 
 class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
     var clearable: Bool!
