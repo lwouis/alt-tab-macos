@@ -235,13 +235,13 @@ class TableGroupView: ClickHoverStackView {
     private func setupTitleView() {
         if title == nil && subTitle == nil { return }
         titleStackView.orientation = .vertical
-        titleStackView.alignment = .left
+        titleStackView.alignment = .leading
         titleStackView.spacing = TableGroupView.rowIntraSpacing
 
         if let title = title {
             titleLabel.stringValue = title
             titleLabel.font = NSFont.boldSystemFont(ofSize: 13)
-            titleLabel.alignment = .left
+            titleLabel.alignment = .natural
             titleLabel.lineBreakMode = .byWordWrapping
             titleLabel.maximumNumberOfLines = 0
 
@@ -261,7 +261,7 @@ class TableGroupView: ClickHoverStackView {
             subTitleLabel.stringValue = subTitle
             subTitleLabel.font = NSFont.systemFont(ofSize: 12)
             subTitleLabel.textColor = .gray
-            subTitleLabel.alignment = .left
+            subTitleLabel.alignment = .natural
             subTitleLabel.lineBreakMode = .byWordWrapping
             subTitleLabel.maximumNumberOfLines = 0
 
