@@ -15,16 +15,20 @@ class PopupButtonLikeSystemSettings: NSPopUpButton {
     }
 
     override var intrinsicContentSize: NSSize {
-        let fakePopUpButton = NSPopUpButton()
-        fakePopUpButton.addItem(withTitle: title)
-        fakePopUpButton.selectedItem!.image = selectedItem!.image
-        let fakeCell = fakePopUpButton.cell! as! NSPopUpButtonCell
-        let currentCell = cell! as! NSPopUpButtonCell
-        fakeCell.bezelStyle = currentCell.bezelStyle
-        fakeCell.arrowPosition = currentCell.arrowPosition
-        fakeCell.imagePosition = currentCell.imagePosition
-        fakePopUpButton.showsBorderOnlyWhileMouseInside = showsBorderOnlyWhileMouseInside
-        fakePopUpButton.sizeToFit()
-        return fakePopUpButton.intrinsicContentSize
+        if let selectedItem = selectedItem {
+            let fakePopUpButton = NSPopUpButton()
+            fakePopUpButton.addItem(withTitle: title)
+            fakePopUpButton.item(at: 0)!.image = selectedItem.image
+            let fakeCell = fakePopUpButton.cell! as! NSPopUpButtonCell
+            let currentCell = cell! as! NSPopUpButtonCell
+            fakeCell.bezelStyle = currentCell.bezelStyle
+            fakeCell.arrowPosition = currentCell.arrowPosition
+            fakeCell.imagePosition = currentCell.imagePosition
+            fakePopUpButton.showsBorderOnlyWhileMouseInside = showsBorderOnlyWhileMouseInside
+            fakePopUpButton.sizeToFit()
+            return fakePopUpButton.intrinsicContentSize
+        } else {
+            return super.intrinsicContentSize
+        }
     }
 }

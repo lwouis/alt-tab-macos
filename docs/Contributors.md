@@ -138,6 +138,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lcwhhh
 * Lester
 * Loïc 
+* Loic. peron
 * LostInCompilation
 * Lumaxis
 * lwouis
@@ -197,6 +198,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * shlomo
 * Sippawit Thammawiset
 * Sjur Moshagen
+* Sjur.n. moshagen
 * Stan Smits
 * Stefan
 * Svetoslav Stefanov
