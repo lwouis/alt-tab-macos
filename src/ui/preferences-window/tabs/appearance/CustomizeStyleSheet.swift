@@ -79,6 +79,7 @@ class CustomizeStyleSheet: SheetWindow {
         showTitlesRowInfo = table.addRow(showTitles, onMouseEntered: { event, view in
             self.showAppsOrWindowsIllustratedImage()
         })
+        table.addNewTable()
         table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         }, onMouseExited: { event, view in
@@ -96,7 +97,7 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeAppIconsView() -> TableGroupSetView {
         let table = makeAppWindowTableGroupView()
-
+        table.addNewTable()
         table.addRow(alignThumbnails, onMouseEntered: { event, view in
             self.showAlignThumbnailsIllustratedImage()
         })
@@ -112,7 +113,7 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeTitlesView() -> TableGroupSetView {
         let table = makeAppWindowTableGroupView()
-
+        table.addNewTable()
         table.addRow(titleTruncation)
         table.fit()
 
@@ -158,11 +159,11 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func showAppsOrWindowsIllustratedImage() {
-        var imageName = ShowTitlesPreference.windowTitle.image.name
-        if Preferences.showAppsOrWindows == .applications || Preferences.showTitles == .appName {
-            imageName = ShowTitlesPreference.appName.image.name
-        } else if Preferences.showTitles == .appNameAndWindowTitle {
-            imageName = ShowTitlesPreference.appNameAndWindowTitle.image.name
+        var imageName = Preferences.showTitles.image.name
+        if Preferences.appearanceStyle != .thumbnails {
+            if Preferences.showAppsOrWindows == .applications || Preferences.showTitles == .appName {
+                imageName = ShowTitlesPreference.appName.image.name
+            }
         }
         self.illustratedImageView.highlight(true, imageName)
     }
