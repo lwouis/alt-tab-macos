@@ -52,5 +52,8 @@
 /* VoiceOver name of the Control modifier key */
 "Control" = "Control";
 
+/* VoiceOver name of the Function modifier key */
+"Function" = "Function";
+
 /* VoiceOver name of the modifier keys delimiter */
 "-" = "-";
