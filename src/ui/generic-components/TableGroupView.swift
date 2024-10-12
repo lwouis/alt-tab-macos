@@ -163,7 +163,7 @@ class TableGroupView: ClickHoverStackView {
     let headerStackView = NSStackView()
     var tableStackViews = [NSStackView]()
 
-    private var rows = [RowInfo]()
+    private var rowInfoTables = [[RowInfo]]()
 
     struct Row {
         let leftTitle: String
@@ -211,10 +211,12 @@ class TableGroupView: ClickHoverStackView {
             table.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
             table.layer?.borderColor = NSColor.tableBorderColor.cgColor
         }
-        rows.forEach { row in
-            row.view.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
-            row.previousSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
-            row.nextSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
+        rowInfoTables.forEach { table in
+            table.forEach { row in
+                row.view.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
+                row.previousSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
+                row.nextSeparator?.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
+            }
         }
     }
 
@@ -318,6 +320,7 @@ class TableGroupView: ClickHoverStackView {
         tableStackView.layer?.borderWidth = TableGroupView.borderWidth
         addArrangedSubview(tableStackView)
         tableStackViews.append(tableStackView)
+        rowInfoTables.append([RowInfo]())
 
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         tableStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -364,7 +367,7 @@ class TableGroupView: ClickHoverStackView {
         let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
         finalizeRow(tableStackView: tableStackView, rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
                 onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
-        rows.append(rowInfo)
+        rowInfoTables[rowInfoTables.count - 1].append(rowInfo)
         updateRowCornerRadius()
         return rowInfo
     }
@@ -393,7 +396,7 @@ class TableGroupView: ClickHoverStackView {
         let tableStackView = tableIndex == -1 ? tableStackViews[tableStackViews.count - 1] : tableStackViews[tableIndex]
         finalizeRow(tableStackView: tableStackView, rowInfo: rowInfo, rowView: rowView, isAddSeparator: isAddSeparator,
                 onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
-        rows.append(rowInfo)
+        rowInfoTables[rowInfoTables.count - 1].append(rowInfo)
         updateRowCornerRadius()
         return rowInfo
     }
@@ -522,7 +525,7 @@ class TableGroupView: ClickHoverStackView {
     }
 
     private func addSeparatorIfNeeded(tableStackView: NSStackView, isAddSeparator: Bool = true) -> NSView? {
-        guard !rows.isEmpty else { return nil }
+        guard !rowInfoTables[rowInfoTables.count - 1].isEmpty else { return nil }
         guard isAddSeparator else { return nil }
 
         let separator = NSView()
@@ -535,9 +538,10 @@ class TableGroupView: ClickHoverStackView {
         separator.centerXAnchor.constraint(equalTo: tableStackView.centerXAnchor).isActive = true
         adjustSeparatorWidth(separator: separator, isMouseInside: false)
 
-        if var lastRow = rows.last {
+        var lastTable = rowInfoTables[rowInfoTables.count - 1]
+        if var lastRow = lastTable.last {
             lastRow.nextSeparator = separator
-            rows[rows.count - 1] = lastRow
+            lastTable[lastTable.count - 1] = lastRow
         }
         return separator
     }
@@ -552,17 +556,21 @@ class TableGroupView: ClickHoverStackView {
 
         rowView.onMouseEntered = { event, view in
             if let onMouseEntered = onMouseEntered {
-                if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
-                    self.addMouseEnteredEffects(rowInfo)
-                    onMouseEntered(event, view)
+                self.rowInfoTables.forEach { table in
+                    if let rowInfo = table.first(where: { $0.view === rowView }) {
+                        self.addMouseEnteredEffects(rowInfo)
+                        onMouseEntered(event, view)
+                    }
                 }
             }
         }
 
         rowView.onMouseExited = { event, view in
-            if let rowInfo = self.rows.first(where: { $0.view === rowView }) {
-                self.addMouseExitedEffects(rowInfo)
-                onMouseExited?(event, view)
+            self.rowInfoTables.forEach { table in
+                if let rowInfo = table.first(where: { $0.view === rowView }) {
+                    self.addMouseExitedEffects(rowInfo)
+                    onMouseExited?(event, view)
+                }
             }
         }
     }
@@ -597,29 +605,34 @@ class TableGroupView: ClickHoverStackView {
     }
 
     private func updateRowCornerRadius() {
-        guard !rows.isEmpty else { return }
-
-        for (index, rowInfo) in rows.enumerated() {
-            if #available(macOS 10.13, *) {
-                if index == 0 {
-                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                    rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-                } else if index == rows.count - 1 {
-                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                    rowInfo.view.layer?.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        rowInfoTables.forEach { table in
+            for (index, rowInfo) in table.enumerated() {
+                if #available(macOS 10.13, *) {
+                    if table.count == 1 {
+                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                        rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner]
+                    } else if index == 0 {
+                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                        rowInfo.view.layer?.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                    } else if index == table.count - 1 {
+                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                        rowInfo.view.layer?.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                    } else {
+                        rowInfo.view.layer?.cornerRadius = 0
+                        rowInfo.view.layer?.maskedCorners = []
+                    }
                 } else {
-                    rowInfo.view.layer?.cornerRadius = 0
-                    rowInfo.view.layer?.maskedCorners = []
-                }
-            } else {
-                if index == 0 {
-                    // Degraded experience, rounded corners will appear in the lower left and lower right corners.
-                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                } else if index == rows.count - 1 {
-                    // Degraded experience, rounded corners will appear in the upper left and upper right corners.
-                    rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
-                } else {
-                    rowInfo.view.layer?.cornerRadius = 0
+                    if index == 0 {
+                        // Degraded experience, rounded corners will appear in the lower left and lower right corners.
+                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    }
+                    if index == table.count - 1 {
+                        // Degraded experience, rounded corners will appear in the upper left and upper right corners.
+                        rowInfo.view.layer?.cornerRadius = TableGroupView.cornerRadius
+                    }
+                    if 0 < index && index < table.count - 1 {
+                        rowInfo.view.layer?.cornerRadius = 0
+                    }
                 }
             }
         }
