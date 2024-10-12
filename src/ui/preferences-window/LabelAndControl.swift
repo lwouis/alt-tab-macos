@@ -260,12 +260,14 @@ class LabelAndControl: NSObject {
                 button.setWidth(segmentWidth, forSegment: i)
             }
             if #available(macOS 11.0, *) {
-                if let preference = preference as? SfSymbolMacroPreference {
-                    button.setImage(NSImage(systemSymbolName: preference.symbolName, accessibilityDescription: nil)!, forSegment: i)
+                if let preference = preference as? SfSymbolMacroPreference,
+                   let symbolImage = NSImage(systemSymbolName: preference.symbolName, accessibilityDescription: nil) {
+                    button.setImage(symbolImage, forSegment: i)
                 }
             }
-            if defaults.int(rawName) == i {
-                button.selectedSegment = i
+            let selectedSegment = defaults.int(rawName)
+            if selectedSegment >= 0 && selectedSegment < macroPreferences.count {
+                button.selectedSegment = selectedSegment
             }
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
         }

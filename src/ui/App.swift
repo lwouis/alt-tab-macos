@@ -183,18 +183,16 @@ class App: AppCenterApplication, NSApplicationDelegate {
         permissionsWindow.show()
     }
 
-    @objc func showFeedbackPanel() {
-        showSecondaryWindow(feedbackWindow)
-    }
-
     @objc func supportProject() {
         NSWorkspace.shared.open(URL(string: App.website + "/support")!)
     }
 
+    @objc func showFeedbackPanel() {
+        showSecondaryWindow(feedbackWindow)
+    }
+
     @objc func showPreferencesWindow() {
         showSecondaryWindow(preferencesWindow)
-        // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
-        preferencesWindow.center()
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {
@@ -202,6 +200,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
             NSScreen.preferred().repositionPanel(window)
             App.shared.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
+            // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
+            window.center()
         }
     }
 
