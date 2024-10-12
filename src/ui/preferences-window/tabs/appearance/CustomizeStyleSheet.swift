@@ -160,10 +160,8 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func showAppsOrWindowsIllustratedImage() {
         var imageName = Preferences.showTitles.image.name
-        if Preferences.appearanceStyle != .thumbnails {
-            if Preferences.showAppsOrWindows == .applications || Preferences.showTitles == .appName {
-                imageName = ShowTitlesPreference.appName.image.name
-            }
+        if Preferences.onlyShowApplications() {
+            imageName = ShowTitlesPreference.appName.image.name
         }
         self.illustratedImageView.highlight(true, imageName)
     }
