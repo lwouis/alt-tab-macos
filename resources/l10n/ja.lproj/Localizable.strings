@@ -526,3 +526,9 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "ご自身のEmailを入力しなかったため、回答を受信できません。";
 
+/* No comment provided by engineer. */
+"Miscellaneous" = "その他";
+
+/* No comment provided by engineer. */
+"Cursor follows focus" = "カーソルはフォーカスに続きます";
+
