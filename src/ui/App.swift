@@ -232,9 +232,19 @@ class App: AppCenterApplication, NSApplicationDelegate {
         hideUi(true)
         if let window = selectedWindow, !MissionControl.isActive() {
             window.focus()
+            if Preferences.cursorFollowFocusEnabled {
+                moveCursorToSelectedWindow(window)
+            }
         } else {
             previewPanel.orderOut(nil)
         }
+    }
+
+    func moveCursorToSelectedWindow(_ window: Window) {
+        let referenceWindow = window.referenceWindowForTabbedWindow()
+        guard let position = referenceWindow?.position, let size = referenceWindow?.size else { return }
+        let point = CGPoint(x: position.x + size.width / 2, y: position.y + size.height / 2)
+        CGWarpMouseCursorPosition(point)
     }
 
     func refreshOpenUi(_ windowsToUpdate: [Window]? = nil) {
