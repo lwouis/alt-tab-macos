@@ -152,6 +152,9 @@
 "Crash reports policy" = "Crash reports policy";
 
 /* No comment provided by engineer. */
+"Cursor follows focus" = "Cursor follows focus";
+
+/* No comment provided by engineer. */
 "Customize App Icons style…" = "Customize App Icons style…";
 
 /* No comment provided by engineer. */
@@ -264,6 +267,9 @@
 
 /* No comment provided by engineer. */
 "Minimize/Deminimize window" = "Minimize/Deminimize window";
+
+/* No comment provided by engineer. */
+"Miscellaneous" = "Miscellaneous";
 
 /* No comment provided by engineer. */
 "Multiple screens" = "Multiple screens";

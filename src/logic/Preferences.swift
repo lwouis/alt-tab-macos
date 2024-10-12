@@ -26,6 +26,7 @@ class Preferences {
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
         "mouseHoverEnabled": "false",
+        "cursorFollowFocusEnabled": "false",
         "showMinimizedWindows": ShowHowPreference.show.indexAsString,
         "showMinimizedWindows2": ShowHowPreference.show.indexAsString,
         "showMinimizedWindows3": ShowHowPreference.show.indexAsString,
@@ -117,6 +118,7 @@ class Preferences {
     // periphery:ignore
     static var vimKeysEnabled: Bool { UserDefaults.standard.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { UserDefaults.standard.bool("mouseHoverEnabled") }
+    static var cursorFollowFocusEnabled: Bool { UserDefaults.standard.bool("cursorFollowFocusEnabled") }
     static var showTabsAsWindows: Bool { UserDefaults.standard.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { UserDefaults.standard.bool("hideColoredCircles") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(UserDefaults.standard.int("windowDisplayDelay")) }
