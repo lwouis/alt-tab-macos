@@ -67,9 +67,14 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         let item = NSToolbarItem(itemIdentifier: identifier)
         item.label = label
         if #available(macOS 11.0, *) {
-            item.image = NSImage(systemSymbolName: image, accessibilityDescription: nil)
-        } else {
-            item.image = NSImage.initTemplateCopy(image)
+            // each systemSymbolName has a different minimum macOS requirements; we need to make sure it exists
+            if let image = NSImage(systemSymbolName: image, accessibilityDescription: nil) {
+                item.image = image
+            }
+        }
+        // it seems that new instances of NSToolbarItems have their image set to a 1x1 image
+        if item.image == nil || item.image!.size == .init(width: 1, height: 1) {
+            item.image = NSImage.initTemplateCopy(id)
             item.maxSize = .init(width: 22, height: 22)
         }
         item.target = self

@@ -261,6 +261,7 @@ class LabelAndControl: NSObject {
             }
             if #available(macOS 11.0, *) {
                 if let preference = preference as? SfSymbolMacroPreference,
+                   // each systemSymbolName has a different minimum macOS requirements; we need to make sure it exists
                    let symbolImage = NSImage(systemSymbolName: preference.symbolName, accessibilityDescription: nil) {
                     button.setImage(symbolImage, forSegment: i)
                 }

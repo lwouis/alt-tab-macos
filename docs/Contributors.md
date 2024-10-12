@@ -53,6 +53,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Ameng
 * Anders
 * Andrew Vader
+* antoon334
 * Anurag Roy
 * anushree b
 * Arman
