@@ -1,5 +1,15 @@
 # Release notes
 
+## [7.0.2](https://github.com/lwouis/alt-tab-macos/compare/v7.0.1...v7.0.2) (2024-10-12)
+
+
+### Bug Fixes
+
+* avoid crashing in some cases ([d46d903](https://github.com/lwouis/alt-tab-macos/commit/d46d903))
+* block titles in preferences in rtl languages ([ea5574b](https://github.com/lwouis/alt-tab-macos/commit/ea5574b))
+* preferences panel icons wouldnt show on old macos versions ([9258acf](https://github.com/lwouis/alt-tab-macos/commit/9258acf))
+* show titles > application name, in thumbnails style (closes [#3667](https://github.com/lwouis/alt-tab-macos/issues/3667)) ([b4e97ea](https://github.com/lwouis/alt-tab-macos/commit/b4e97ea))
+
 ## [7.0.1](https://github.com/lwouis/alt-tab-macos/compare/v7.0.0...v7.0.1) (2024-10-11)
 
 
