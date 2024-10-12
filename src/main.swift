@@ -1,9 +1,8 @@
 import AppKit
 import Darwin
 
-func printStackTrace() {
-    let stackSymbols = Thread.callStackSymbols
-    for symbol in stackSymbols {
+func printStackTrace(_ callStackSymbols: [String]) {
+    for symbol in callStackSymbols {
         print(symbol)
     }
 }
@@ -15,7 +14,7 @@ func printStackTrace() {
     signal($0) { s in
         setNativeCommandTabEnabled(true)
         debugPrint("Exiting after receiving signal", s)
-        printStackTrace()
+        printStackTrace(Thread.callStackSymbols)
         exit(0)
     }
 }
@@ -25,7 +24,7 @@ func printStackTrace() {
 NSSetUncaughtExceptionHandler { (exception) in
     setNativeCommandTabEnabled(true)
     debugPrint("Exiting after receiving uncaught NSException", exception)
-    printStackTrace()
+    printStackTrace(exception.callStackSymbols)
     exit(0)
 }
 
