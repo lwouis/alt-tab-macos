@@ -48,7 +48,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
             (4, NSLocalizedString("Blacklists", comment: ""), "blacklists", "hand.raised", BlacklistsTab.initTab()),
             (5, NSLocalizedString("About", comment: ""), "about", "info.circle", AboutTab.initTab()),
             (6, NSLocalizedString("Acknowledgments", comment: ""), "acknowledgments", "hand.thumbsup", AcknowledgmentsTab.initTab()),
-        ].forEach { makeToolbarItem($0.0, $0.1, $0.2, $0.3, $0.4) }
+        ].forEach { makeToolbarItem(index: $0.0, label: $0.1, id: $0.2, image: $0.3, view: $0.4) }
 
         largestTabWidth = Array(toolbarItems.values).reduce(CGFloat(0)) { max($0, $1.2.subviews[0].fittingSize.width) }
         Array(toolbarItems.values).forEach {
@@ -62,14 +62,14 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         tabItemClicked(toolbarItems[toolbar!.selectedItemIdentifier!]!.1)
     }
 
-    func makeToolbarItem(_ index: Int, _ label: String, _ id: String, _ image: String, _ view: NSView) {
+    func makeToolbarItem(index: Int, label: String, id: String, image: String, view: NSView) {
         let identifier = NSToolbarItem.Identifier(rawValue: id)
         let item = NSToolbarItem(itemIdentifier: identifier)
         item.label = label
         if #available(macOS 11.0, *) {
             item.image = NSImage(systemSymbolName: image, accessibilityDescription: nil)
         } else {
-            item.image = NSImage.initTemplateCopy(image)
+            item.image = NSImage.initTemplateCopy(id)
             item.maxSize = .init(width: 22, height: 22)
         }
         item.target = self
