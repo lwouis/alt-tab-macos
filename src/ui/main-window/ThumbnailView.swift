@@ -351,12 +351,10 @@ class ThumbnailView: NSStackView {
         let appName = window_?.application.runningApplication.localizedName
         let windowTitle = window_?.title
 
-        if Preferences.appearanceStyle != .thumbnails {
-            if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
-                return appName ?? ""
-            } else if Preferences.showTitles == .appNameAndWindowTitle {
-                return [appName, windowTitle].compactMap{ $0 }.joined(separator: " - ")
-            }
+        if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
+            return appName ?? ""
+        } else if Preferences.showTitles == .appNameAndWindowTitle {
+            return [appName, windowTitle].compactMap{ $0 }.joined(separator: " - ")
         }
         return windowTitle ?? ""
     }
