@@ -526,3 +526,9 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Te ei kirjutanud oma e -posti, seega ei saa te vastust.";
 
+/* No comment provided by engineer. */
+"Miscellaneous" = "Mitmesuguseid";
+
+/* No comment provided by engineer. */
+"Cursor follows focus" = "Kursor järgib fookust";
+

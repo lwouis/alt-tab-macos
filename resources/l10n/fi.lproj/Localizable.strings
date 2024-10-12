@@ -526,3 +526,9 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Et antanut sähköpostiosoitettasi, joten emme voi lähettää sinulle vastausta.";
 
+/* No comment provided by engineer. */
+"Miscellaneous" = "Sekalainen";
+
+/* No comment provided by engineer. */
+"Cursor follows focus" = "Kohdistin seuraa Focusia";
+

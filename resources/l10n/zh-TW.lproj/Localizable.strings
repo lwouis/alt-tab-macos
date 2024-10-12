@@ -525,3 +525,9 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "若沒有填寫電子信箱，您將無法收到回覆";
+
+/* No comment provided by engineer. */
+"Miscellaneous" = "混雜的";
+
+/* No comment provided by engineer. */
+"Cursor follows focus" = "光標跟隨焦點";

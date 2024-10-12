@@ -526,3 +526,9 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Du hast keine E-Mail-Adresse angegeben, sodass man dir nicht antworten kann.";
 
+/* No comment provided by engineer. */
+"Miscellaneous" = "Verschiedenes";
+
+/* No comment provided by engineer. */
+"Cursor follows focus" = "Der Cursor folgt Focus";
+

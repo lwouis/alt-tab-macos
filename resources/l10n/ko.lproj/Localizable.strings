@@ -526,3 +526,9 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "이메일을 적지 않으면 답변을 받을 수 없습니다.";
 
+/* No comment provided by engineer. */
+"Miscellaneous" = "여러 가지 잡다한";
+
+/* No comment provided by engineer. */
+"Cursor follows focus" = "커서는 초점을 따릅니다";
+

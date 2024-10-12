@@ -526,3 +526,9 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Няма да получиш отговор, защото не си написал събщение.";
 
+/* No comment provided by engineer. */
+"Miscellaneous" = "Разни";
+
+/* No comment provided by engineer. */
+"Cursor follows focus" = "Курсорът следва фокуса";
+
