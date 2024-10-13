@@ -85,6 +85,7 @@ class Preferences {
         "hideStatusIcons": "false",
         "startAtLogin": "true",
         "menubarIcon": MenubarIconPreference.outlined.rawValue,
+        "language": LanguagePreference.systemDefault.rawValue,
         "blacklist": defaultBlacklist(),
         "updatePolicy": UpdatePolicyPreference.autoCheck.rawValue,
         "crashPolicy": CrashPolicyPreference.ask.rawValue,
@@ -160,6 +161,7 @@ class Preferences {
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { defaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
+    static var language: LanguagePreference { defaults.macroPref("language", LanguagePreference.allCases) }
 
     static func initialize() {
         removeCorruptedPreferences()
@@ -511,6 +513,269 @@ enum MenubarIconPreference: String, CaseIterable, MacroPreference {
             case .filled: return " "
             case .colored: return " "
             case .hidden: return " "
+        }
+    }
+}
+
+enum LanguagePreference: String, CaseIterable, MacroPreference {
+    case systemDefault = "0"
+    case arabic = "1"
+    case bulgarian = "2"
+    case bengali = "3"
+    case catalan = "4"
+    case czech = "5"
+    case danish = "6"
+    case german = "7"
+    case greek = "8"
+    case english = "9"
+    case spanish = "10"
+    case estonian = "11"
+    case persian = "12"
+    case finnish = "13"
+    case french = "14"
+    case galician = "15"
+    case hebrew = "16"
+    case hindi = "17"
+    case croatian = "18"
+    case hungarian = "19"
+    case indonesian = "20"
+    case icelandic = "21"
+    case italian = "22"
+    case japanese = "23"
+    case kannada = "24"
+    case korean = "25"
+    case kurdish = "26"
+    case luxembourgish = "27"
+    case malayalam = "28"
+    case norwegianBokmal = "29"
+    case dutch = "30"
+    case norwegianNynorsk = "31"
+    case polish = "32"
+    case portuguese = "33"
+    case brazilianPortuguese = "34"
+    case romanian = "35"
+    case russian = "36"
+    case slovak = "37"
+    case slovenian = "38"
+    case albanian = "39"
+    case serbian = "40"
+    case swedish = "41"
+    case tamil = "42"
+    case thai = "43"
+    case turkish = "44"
+    case ukrainian = "45"
+    case uzbek = "46"
+    case vietnamese = "47"
+    case simplifiedChinese = "48"
+    case traditionalChinese = "49"
+
+    var localizedString: String {
+        switch self {
+            case .systemDefault:
+                return NSLocalizedString("System Default", comment: "")
+            case .arabic:
+                return "العربية"
+            case .bulgarian:
+                return "Български"
+            case .bengali:
+                return "বাংলা"
+            case .catalan:
+                return "Català"
+            case .czech:
+                return "Čeština"
+            case .danish:
+                return "Dansk"
+            case .german:
+                return "Deutsch"
+            case .greek:
+                return "Ελληνικά"
+            case .english:
+                return "English"
+            case .spanish:
+                return "Español"
+            case .estonian:
+                return "Eesti"
+            case .persian:
+                return "فارسی"
+            case .finnish:
+                return "Suomi"
+            case .french:
+                return "Français"
+            case .galician:
+                return "Galego"
+            case .hebrew:
+                return "עברית"
+            case .hindi:
+                return "हिन्दी"
+            case .croatian:
+                return "Hrvatski"
+            case .hungarian:
+                return "Magyar"
+            case .indonesian:
+                return "Bahasa Indonesia"
+            case .icelandic:
+                return "Íslenska"
+            case .italian:
+                return "Italiano"
+            case .japanese:
+                return "日本語"
+            case .kannada:
+                return "ಕನ್ನಡ"
+            case .korean:
+                return "한국어"
+            case .kurdish:
+                return "Kurdî"
+            case .luxembourgish:
+                return "Lëtzebuergesch"
+            case .malayalam:
+                return "മലയാളം"
+            case .norwegianBokmal:
+                return "Norsk Bokmål"
+            case .dutch:
+                return "Nederlands"
+            case .norwegianNynorsk:
+                return "Norsk Nynorsk"
+            case .polish:
+                return "Polski"
+            case .portuguese:
+                return "Português"
+            case .brazilianPortuguese:
+                return "Português (Brasil)"
+            case .romanian:
+                return "Română"
+            case .russian:
+                return "Русский"
+            case .slovak:
+                return "Slovenčina"
+            case .slovenian:
+                return "Slovenščina"
+            case .albanian:
+                return "Shqip"
+            case .serbian:
+                return "Српски"
+            case .swedish:
+                return "Svenska"
+            case .tamil:
+                return "தமிழ்"
+            case .thai:
+                return "ไทย"
+            case .turkish:
+                return "Türkçe"
+            case .ukrainian:
+                return "Українська"
+            case .uzbek:
+                return "O'zbek"
+            case .vietnamese:
+                return "Tiếng Việt"
+            case .simplifiedChinese:
+                return "简体中文"
+            case .traditionalChinese:
+                return "繁體中文"
+        }
+    }
+
+    var appleLanguages: String {
+        switch self {
+            case .systemDefault:
+                return ""
+            case .arabic:
+                return "ar"
+            case .bulgarian:
+                return "bg"
+            case .bengali:
+                return "bn"
+            case .catalan:
+                return "ca"
+            case .czech:
+                return "cs"
+            case .danish:
+                return "da"
+            case .german:
+                return "de"
+            case .greek:
+                return "el"
+            case .english:
+                return "en"
+            case .spanish:
+                return "es"
+            case .estonian:
+                return "et"
+            case .persian:
+                return "fa"
+            case .finnish:
+                return "fi"
+            case .french:
+                return "fr"
+            case .galician:
+                return "gl"
+            case .hebrew:
+                return "he"
+            case .hindi:
+                return "hi"
+            case .croatian:
+                return "hr"
+            case .hungarian:
+                return "hu"
+            case .indonesian:
+                return "id"
+            case .icelandic:
+                return "is"
+            case .italian:
+                return "it"
+            case .japanese:
+                return "ja"
+            case .kannada:
+                return "kn"
+            case .korean:
+                return "ko"
+            case .kurdish:
+                return "ku"
+            case .luxembourgish:
+                return "lb"
+            case .malayalam:
+                return "ml"
+            case .norwegianBokmal:
+                return "nb"
+            case .dutch:
+                return "nl"
+            case .norwegianNynorsk:
+                return "nn"
+            case .polish:
+                return "pl"
+            case .portuguese:
+                return "pt"
+            case .brazilianPortuguese:
+                return "pt-BR"
+            case .romanian:
+                return "ro"
+            case .russian:
+                return "ru"
+            case .slovak:
+                return "sk"
+            case .slovenian:
+                return "sl"
+            case .albanian:
+                return "sq"
+            case .serbian:
+                return "sr"
+            case .swedish:
+                return "sv"
+            case .tamil:
+                return "ta"
+            case .thai:
+                return "th"
+            case .turkish:
+                return "tr"
+            case .ukrainian:
+                return "uk"
+            case .uzbek:
+                return "uz"
+            case .vietnamese:
+                return "vi"
+            case .simplifiedChinese:
+                return "zh-CN"
+            case .traditionalChinese:
+                return "zh-TW"
         }
     }
 }
