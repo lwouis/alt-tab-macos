@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Dir hutt Är E-Mail net geschriwwen, also kann also keng Äntwert kréien.";
 
+/* No comment provided by engineer. */
+"Language" = "Sprooche";
+
+/* No comment provided by engineer. */
+"System Default" = "System Standard";
+
+/* No comment provided by engineer. */
+"Language Change" = "Sproochungsreit";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "D'Applikatioun muss nei starten fir d'Sprooch ze bewerben.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Elo nei starten";
+
+/* No comment provided by engineer. */
+"Later" = "Spéider";
+

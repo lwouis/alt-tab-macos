@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Bạn không điền email nên sẽ không nhận được phản hồi.";
 
+/* No comment provided by engineer. */
+"Language" = "Ngôn ngữ";
+
+/* No comment provided by engineer. */
+"System Default" = "Mặc định hệ thống";
+
+/* No comment provided by engineer. */
+"Language Change" = "Thay đổi ngôn ngữ";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Ứng dụng cần khởi động lại để áp dụng thay đổi ngôn ngữ.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Khởi động lại ngay bây giờ";
+
+/* No comment provided by engineer. */
+"Later" = "Sau đó";
+

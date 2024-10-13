@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "உங்கள் மின்னஞ்சலை நீங்கள் எழுதவில்லை, இதனால் எந்த பதிலும் பெற முடியாது.";
 
+/* No comment provided by engineer. */
+"Language" = "மொழி";
+
+/* No comment provided by engineer. */
+"System Default" = "கணினி இயல்புநிலை";
+
+/* No comment provided by engineer. */
+"Language Change" = "மொழி மாற்றம்";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "மொழி மாற்றத்தைப் பயன்படுத்த விண்ணப்பம் மறுதொடக்கம் செய்ய வேண்டும்.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "இப்போது மறுதொடக்கம் செய்யுங்கள்";
+
+/* No comment provided by engineer. */
+"Later" = "பின்னர்";
+

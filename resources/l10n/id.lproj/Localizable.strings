@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Anda tidak menulis email Anda, sehingga tidak dapat menerima tanggapan apa pun.";
 
+/* No comment provided by engineer. */
+"Language" = "Bahasa";
+
+/* No comment provided by engineer. */
+"System Default" = "Default Sistem";
+
+/* No comment provided by engineer. */
+"Language Change" = "Perubahan bahasa";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Aplikasi perlu restart untuk menerapkan perubahan bahasa.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Restart sekarang";
+
+/* No comment provided by engineer. */
+"Later" = "Nanti";
+

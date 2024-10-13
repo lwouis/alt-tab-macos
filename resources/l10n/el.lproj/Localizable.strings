@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Δεν γράψατε το email σας, επομένως δεν μπορείτε να λάβετε καμία απάντηση.";
 
+/* No comment provided by engineer. */
+"Language" = "Γλώσσα";
+
+/* No comment provided by engineer. */
+"System Default" = "Αθέατος συστήματος";
+
+/* No comment provided by engineer. */
+"Language Change" = "Αλλαγή γλώσσας";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Η εφαρμογή πρέπει να επανεκκινήσει για να εφαρμόσει την αλλαγή της γλώσσας.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Επανεκκινήστε τώρα";
+
+/* No comment provided by engineer. */
+"Later" = "Αργότερα";
+
