@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Du uppgav ingen e-post och kan därför inte få svar.";
 
+/* No comment provided by engineer. */
+"Language" = "Språk";
+
+/* No comment provided by engineer. */
+"System Default" = "Systemets standard";
+
+/* No comment provided by engineer. */
+"Language Change" = "Språkförändring";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Applikationen måste starta om för att tillämpa språkändringen.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Starta om nu";
+
+/* No comment provided by engineer. */
+"Later" = "Senare";
+

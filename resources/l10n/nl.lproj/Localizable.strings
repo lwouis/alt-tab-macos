@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Je hebt geen e-mail ingevoerd en kunt dus geen reactie ontvangen.";
 
+/* No comment provided by engineer. */
+"Language" = "Taal";
+
+/* No comment provided by engineer. */
+"System Default" = "Standaard systeem";
+
+/* No comment provided by engineer. */
+"Language Change" = "Taalverandering";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "De applicatie moet opnieuw opstarten om de taalwijziging toe te passen.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Start nu opnieuw op";
+
+/* No comment provided by engineer. */
+"Later" = "Later";
+

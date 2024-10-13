@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Niste napisali svoju e -poštu, pa ne možete dobiti nikakav odgovor.";
 
+/* No comment provided by engineer. */
+"Language" = "Jezik";
+
+/* No comment provided by engineer. */
+"System Default" = "Sustav zadani";
+
+/* No comment provided by engineer. */
+"Language Change" = "Jezična promjena";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Aplikacija se mora ponovno pokrenuti kako bi primijenila promjenu jezika.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Ponovno pokrenite";
+
+/* No comment provided by engineer. */
+"Later" = "Kasnije";
+

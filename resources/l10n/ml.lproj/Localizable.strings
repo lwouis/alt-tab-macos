@@ -526,3 +526,21 @@
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
 
+/* No comment provided by engineer. */
+"Language" = "ഭാഷ";
+
+/* No comment provided by engineer. */
+"System Default" = "സിസ്റ്റം സ്ഥിരസ്ഥിതി";
+
+/* No comment provided by engineer. */
+"Language Change" = "ഭാഷാ മാറ്റം";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "ഭാഷാ മാറ്റം പ്രയോഗിക്കുന്നതിന് അപ്ലിക്കേഷൻ പുനരാരംഭിക്കേണ്ടതുണ്ട്.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "ഇപ്പോൾ പുനരാരംഭിക്കുക";
+
+/* No comment provided by engineer. */
+"Later" = "താമസിച്ച";
+

@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "คุณไม่ได้ระบุอีเมลของคุณ ดังนั้นจึงไม่สามารถรับการตอบกลับใด ๆ ได้";
 
+/* No comment provided by engineer. */
+"Language" = "ภาษา";
+
+/* No comment provided by engineer. */
+"System Default" = "ค่าเริ่มต้นของระบบ";
+
+/* No comment provided by engineer. */
+"Language Change" = "การเปลี่ยนแปลงภาษา";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "แอปพลิเคชันจำเป็นต้องรีสตาร์ทเพื่อใช้การเปลี่ยนแปลงภาษา";
+
+/* No comment provided by engineer. */
+"Restart Now" = "รีสตาร์ททันที";
+
+/* No comment provided by engineer. */
+"Later" = "ภายหลัง";
+

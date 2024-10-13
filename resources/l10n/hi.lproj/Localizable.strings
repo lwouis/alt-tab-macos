@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "आपने अपना ईमेल नहीं लिखा, इसलिए कोई जवाब नहीं मिल सकता ।";
 
+/* No comment provided by engineer. */
+"Language" = "भाषा";
+
+/* No comment provided by engineer. */
+"System Default" = "प्रणालीगत चूक";
+
+/* No comment provided by engineer. */
+"Language Change" = "भाषा परिवर्तन";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "भाषा परिवर्तन को लागू करने के लिए आवेदन को पुनरारंभ करने की आवश्यकता है।";
+
+/* No comment provided by engineer. */
+"Restart Now" = "अब पुनःचालू करें";
+
+/* No comment provided by engineer. */
+"Later" = "बाद में";
+

@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Няма да получиш отговор, защото не си написал събщение.";
 
+/* No comment provided by engineer. */
+"Language" = "Език";
+
+/* No comment provided by engineer. */
+"System Default" = "По подразбиране на системата";
+
+/* No comment provided by engineer. */
+"Language Change" = "Промяна на езика";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Приложението трябва да се рестартира, за да приложи промяната на езика.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Рестартирайте сега";
+
+/* No comment provided by engineer. */
+"Later" = "По -късно";
+

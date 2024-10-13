@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Du skrev ikke din e -mail, og kan derfor ikke modtage noget svar.";
 
+/* No comment provided by engineer. */
+"Language" = "Sprog";
+
+/* No comment provided by engineer. */
+"System Default" = "Systemstandard";
+
+/* No comment provided by engineer. */
+"Language Change" = "Sprogændring";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Applikationen skal genstarte for at anvende sprogændringen.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Genstart nu";
+
+/* No comment provided by engineer. */
+"Later" = "Senere";
+

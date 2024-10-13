@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "شما ایمیل خود را ننوشتید ، بنابراین نمی توانید پاسخی دریافت کنید.";
 
+/* No comment provided by engineer. */
+"Language" = "زبان";
+
+/* No comment provided by engineer. */
+"System Default" = "پیش فرض سیستم";
+
+/* No comment provided by engineer. */
+"Language Change" = "تغییر زبان";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "برای اعمال تغییر زبان ، برنامه باید مجدداً راه اندازی شود.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "اکنون دوباره راه اندازی کنید";
+
+/* No comment provided by engineer. */
+"Later" = "بعداً";
+

@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Siz elektron pochtangizni yozmadingiz, shuning uchun hech qanday javob ololmaysiz.";
 
+/* No comment provided by engineer. */
+"Language" = "Til";
+
+/* No comment provided by engineer. */
+"System Default" = "Tizim parametrlari";
+
+/* No comment provided by engineer. */
+"Language Change" = "Til o'zgarishi";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Ilova til o'zgarishini qo'llash uchun qayta ishga tushirish kerak.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Hozir qayta ishga tushiring";
+
+/* No comment provided by engineer. */
+"Later" = "Keyinchalik";
+

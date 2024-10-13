@@ -526,3 +526,21 @@
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "ನೀವು ನಿಮ್ಮ ಇಮೇಲ್ ಕೊಡದಿದ್ದ ಕಾರಣ ಪ್ರತಿಕ್ರಿಯೆ ಲಭಿಸುವುದಿಲ್ಲ.";
 
+/* No comment provided by engineer. */
+"Language" = "ಭಾಷೆ";
+
+/* No comment provided by engineer. */
+"System Default" = "ಸಿಸ್ಟಮ್ ಡೀಫಾಲ್ಟ್";
+
+/* No comment provided by engineer. */
+"Language Change" = "ಭಾಷಾ ಬದಲಾವಣೆ";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "ಭಾಷಾ ಬದಲಾವಣೆಯನ್ನು ಅನ್ವಯಿಸಲು ಅಪ್ಲಿಕೇಶನ್ ಮರುಪ್ರಾರಂಭಿಸಬೇಕಾಗಿದೆ.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "ಈಗ ಮರುಪ್ರಾರಂಭಿಸಿ";
+
+/* No comment provided by engineer. */
+"Later" = "ನಂತರದ";
+

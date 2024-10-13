@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Nezadali ste svoj e-mail, takže nemôžete dostávať žiadne odpovede.";
 
+/* No comment provided by engineer. */
+"Language" = "Jazyk";
+
+/* No comment provided by engineer. */
+"System Default" = "Predvolený";
+
+/* No comment provided by engineer. */
+"Language Change" = "Zmena jazyka";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Aplikácia sa musí reštartovať, aby sa uplatnila zmena jazyka.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Reštartujte teraz";
+
+/* No comment provided by engineer. */
+"Later" = "Neskôr";
+

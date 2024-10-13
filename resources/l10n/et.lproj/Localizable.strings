@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Te ei kirjutanud oma e -posti, seega ei saa te vastust.";
 
+/* No comment provided by engineer. */
+"Language" = "Keel";
+
+/* No comment provided by engineer. */
+"System Default" = "Süsteemi vaikimisi";
+
+/* No comment provided by engineer. */
+"Language Change" = "Keelevahetus";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Keelemuutuse rakendamiseks peab rakendus taaskäivitama.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Taaskäivitage kohe";
+
+/* No comment provided by engineer. */
+"Later" = "Hiljem";
+

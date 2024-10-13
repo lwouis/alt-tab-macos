@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Ви не вказали свою електронну пошту, тому не можете отримати жодної відповіді.";
 
+/* No comment provided by engineer. */
+"Language" = "Мова";
+
+/* No comment provided by engineer. */
+"System Default" = "Система за замовчуванням";
+
+/* No comment provided by engineer. */
+"Language Change" = "Зміна мови";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Додаток повинен перезапустити, щоб застосувати зміну мови.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Перезапустити зараз";
+
+/* No comment provided by engineer. */
+"Later" = "Пізніше";
+

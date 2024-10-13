@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "이메일을 적지 않으면 답변을 받을 수 없습니다.";
 
+/* No comment provided by engineer. */
+"Language" = "언어";
+
+/* No comment provided by engineer. */
+"System Default" = "시스템 기본값";
+
+/* No comment provided by engineer. */
+"Language Change" = "언어 변화";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "언어 변경을 적용하려면 응용 프로그램이 다시 시작되어야합니다.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "지금 다시 시작하십시오";
+
+/* No comment provided by engineer. */
+"Later" = "나중에";
+

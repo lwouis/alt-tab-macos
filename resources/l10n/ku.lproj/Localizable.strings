@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Te email xwe nenivisandiye, bi vî halî ji tere ti bersivek dê neyî şandin";
 
+/* No comment provided by engineer. */
+"Language" = "Ziman";
+
+/* No comment provided by engineer. */
+"System Default" = "Pergala Default";
+
+/* No comment provided by engineer. */
+"Language Change" = "Guhertina ziman";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Pêdivî ye ku serîlêdan ji nû ve destpêkirina guhartina zimên bike.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Niha ji nû ve dest pê bike";
+
+/* No comment provided by engineer. */
+"Later" = "Paşan";
+

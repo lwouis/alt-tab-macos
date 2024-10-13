@@ -529,3 +529,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "لم تكتب بريدك؛ فلذلك لن تحصل على رد.";
 
+/* No comment provided by engineer. */
+"Language" = "لغة";
+
+/* No comment provided by engineer. */
+"System Default" = "النظام الافتراضي";
+
+/* No comment provided by engineer. */
+"Language Change" = "تغيير اللغة";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "يحتاج التطبيق إلى إعادة التشغيل لتطبيق تغيير اللغة.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "أعد التشغيل الآن";
+
+/* No comment provided by engineer. */
+"Later" = "لاحقاً";
+
