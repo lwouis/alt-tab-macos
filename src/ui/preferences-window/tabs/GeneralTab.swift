@@ -8,6 +8,8 @@ class GeneralTab {
                 rightViews: [LabelAndControl.makeSwitch("startAtLogin", extraAction: startAtLoginCallback)])
         let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)])
+        let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
+                rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
         let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
         if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
         let menubarIconDropdown = menubarIcon.rightViews[0] as! NSPopUpButton
@@ -26,9 +28,10 @@ class GeneralTab {
         enableDraggingOffMenubarIcon(menubarIconDropdown)
 
         let table = TableGroupView(width: PreferencesWindow.width)
-        _ = table.addRow(startAtLogin)
-        _ = table.addRow(menubarIcon)
-        table.fit()
+        table.addRow(startAtLogin)
+        table.addRow(menubarIcon)
+        table.addNewTable()
+        table.addRow(language)
 
         let view = TableGroupSetView(originalViews: [table], toolsViews: [resetPreferences], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -98,6 +101,25 @@ class GeneralTab {
             } catch let error {
                 logger.e("Failed to remove LaunchAgent", error)
             }
+        }
+    }
+
+    static func setLanguageCallback(_ sender: NSControl) {
+        if Preferences.language == .systemDefault {
+            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+        } else {
+            UserDefaults.standard.set([Preferences.language.appleLanguages], forKey: "AppleLanguages")
+        }
+
+        // Inform the user that the app needs to restart to apply the language change
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("Language Change", comment: "")
+        alert.informativeText = NSLocalizedString("The application needs to restart to apply the language change.", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Restart Now", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Later", comment: ""))
+        if alert.runModal() == .alertFirstButtonReturn {
+            App.app.restart()
         }
     }
 }
