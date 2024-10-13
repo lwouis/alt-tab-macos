@@ -525,3 +525,22 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "您未填写电子邮箱地址，将无法收到回复。";
+
+/* No comment provided by engineer. */
+"Language" = "语言";
+
+/* No comment provided by engineer. */
+"System Default" = "系统默认";
+
+/* No comment provided by engineer. */
+"Language Change" = "语言改变";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "该应用程序需要重新启动以应用语言更改。";
+
+/* No comment provided by engineer. */
+"Restart Now" = "现在重新启动";
+
+/* No comment provided by engineer. */
+"Later" = "之后";
+

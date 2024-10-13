@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "No has indicat adreça de correu, no rebràs cap resposta.";
 
+/* No comment provided by engineer. */
+"Language" = "Llengua";
+
+/* No comment provided by engineer. */
+"System Default" = "El sistema per defecte del sistema";
+
+/* No comment provided by engineer. */
+"Language Change" = "Canvi d'idioma";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "L’aplicació ha de reiniciar per aplicar el canvi d’idioma.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Reinicieu ara";
+
+/* No comment provided by engineer. */
+"Later" = "Més tard";
+

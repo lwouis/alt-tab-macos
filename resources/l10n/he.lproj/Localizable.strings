@@ -525,3 +525,22 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "לא רשמת את כתובת המייל שלך, ולא תוכל לקבל מענה.";
+
+/* No comment provided by engineer. */
+"Language" = "שָׂפָה";
+
+/* No comment provided by engineer. */
+"System Default" = "ברירת מחדל של המערכת";
+
+/* No comment provided by engineer. */
+"Language Change" = "שינוי שפה";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "היישום צריך להפעיל מחדש כדי ליישם את שינוי השפה.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "הפעל מחדש עכשיו";
+
+/* No comment provided by engineer. */
+"Later" = "מְאוּחָר יוֹתֵר";
+

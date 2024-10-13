@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Non hai fornito un indirizzo email non potrai ricevere risposta.";
 
+/* No comment provided by engineer. */
+"Language" = "Lingua";
+
+/* No comment provided by engineer. */
+"System Default" = "Predefinito del sistema";
+
+/* No comment provided by engineer. */
+"Language Change" = "Cambiamento di lingua";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "L'applicazione deve riavviare per applicare la modifica della lingua.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Riavvia ora";
+
+/* No comment provided by engineer. */
+"Later" = "Dopo";
+

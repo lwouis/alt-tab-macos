@@ -525,3 +525,15 @@
 
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "You didn’t write your email, thus can’t receive any response.";
+
+"Language" = "Language";
+
+"System Default" = "System Default";
+
+"Language Change" = "Language Change";
+
+"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+
+"Restart Now" = "Restart Now";
+
+"Later" = "Later";

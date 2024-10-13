@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "JU nuk keni shkruar email, kështu që nuk mund të pranoni përgjigje";
 
+/* No comment provided by engineer. */
+"Language" = "Gjuhë";
+
+/* No comment provided by engineer. */
+"System Default" = "Parazgjedhur i sistemit";
+
+/* No comment provided by engineer. */
+"Language Change" = "Ndryshimi i gjuhës";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Aplikacioni duhet të rindizet për të aplikuar ndryshimin e gjuhës.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Rinisni tani";
+
+/* No comment provided by engineer. */
+"Later" = "Më vonë";
+

@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Et antanut sähköpostiosoitettasi, joten emme voi lähettää sinulle vastausta.";
 
+/* No comment provided by engineer. */
+"Language" = "Kieli";
+
+/* No comment provided by engineer. */
+"System Default" = "Järjestelmän laiminlyönti";
+
+/* No comment provided by engineer. */
+"Language Change" = "Kielenvaihto";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Sovelluksen on käynnistettävä uudelleen kielenmuutoksen soveltamiseksi.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Käynnistä nyt uudelleen";
+
+/* No comment provided by engineer. */
+"Later" = "Myöhemmin";
+

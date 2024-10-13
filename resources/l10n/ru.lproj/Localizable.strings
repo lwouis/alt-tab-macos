@@ -526,3 +526,21 @@
 /* No comment provided by engineer. */
 "You didn’t write your email, thus can’t receive any response." = "Вы не написали свою электронную почту, поэтому не можете получить ответ.";
 
+/* No comment provided by engineer. */
+"Language" = "Язык";
+
+/* No comment provided by engineer. */
+"System Default" = "Система по умолчанию";
+
+/* No comment provided by engineer. */
+"Language Change" = "Языковое изменение";
+
+/* No comment provided by engineer. */
+"The application needs to restart to apply the language change." = "Приложение должно перезапустить, чтобы применять изменение языка.";
+
+/* No comment provided by engineer. */
+"Restart Now" = "Перезапустить сейчас";
+
+/* No comment provided by engineer. */
+"Later" = "Позже";
+
