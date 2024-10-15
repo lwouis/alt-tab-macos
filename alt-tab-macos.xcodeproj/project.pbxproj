@@ -109,7 +109,7 @@
 		BF0C863526C260F4155F9D2C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C852BFEEFB55B6E4EF18D /* Localizable.strings */; };
 		BF0C8658CC748011E57691B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C84F4B25A7C26A88ADE92 /* Localizable.strings */; };
 		BF0C865E3C3F3B353A7A7CBC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C86FFF1C801761B7CE363 /* Localizable.strings */; };
-		BF0C86BA26EFA59DEE24C70B /* Support.md in Sources */ = {isa = PBXBuildFile; fileRef = BF0C815B4782DEEEDB2C76C5 /* Support.md */; };
+		BF0C86BA26EFA59DEE24C70B /* PBXBuildFile */ = {isa = PBXBuildFile; fileRef = BF0C815B4782DEEEDB2C76C5 /* Support.md */; };
 		BF0C86BB79E417163E813179 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C80851C26EDB3DB98556C /* InfoPlist.strings */; };
 		BF0C87732A6E660899D13BFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C886B1D6E707E9E6BE46C /* InfoPlist.strings */; };
 		BF0C884D88B74F05B8BBF956 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C88A25E1ED37E5F80AC91 /* Localizable.strings */; };
@@ -382,14 +382,15 @@
 		BF0C899605B39AB4EE0E8EB8 /* icon_512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_512x512.png; sourceTree = "<group>"; };
 		BF0C89A541FBEA23E7CB1D94 /* lb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = lb; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C89F6EA16DD7322626E20 /* FUNDING.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = FUNDING.yml; sourceTree = "<group>"; };
-		BF0C8A479D2B7FB80531F037 /* PopupButtonLikeSystemSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupButtonLikeSystemSettings.swift; sourceTree = "<group>"; };
 		BF0C8A3DAEA5B956593AF97A /* kn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = kn; path = InfoPlist.strings; sourceTree = "<group>"; };
+		BF0C8A479D2B7FB80531F037 /* PopupButtonLikeSystemSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupButtonLikeSystemSettings.swift; sourceTree = "<group>"; };
 		BF0C8A50151A4EF88E494357 /* da */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = da; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8AF53097C87EDC6F5FA6 /* nb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nb; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8B15FFB262ECC54B5AA4 /* sl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sl; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8B2C057099EDABE46779 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		BF0C8B2EA9269BA0B79A525F /* sk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sk; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8BA452332236D972C60E /* ATShortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATShortcut.swift; sourceTree = "<group>"; };
+		BF0C8BED805610C4F9C46A4A /* export_l10n_strings_to_poeditor.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = export_l10n_strings_to_poeditor.sh; sourceTree = "<group>"; };
 		BF0C8C4E74DCA631A049492A /* preferences-policies.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-policies.jpg"; sourceTree = "<group>"; };
 		BF0C8C4F77466FB59071A71F /* sr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sr; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8C5210ACA9FBFAE9C631 /* preferences-general.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-general.jpg"; sourceTree = "<group>"; };
@@ -1369,6 +1370,7 @@
 				1C96112432E87D36F90AFBED /* translate_i18n_tools.py */,
 				1C9618B3872558FBDE74D073 /* install_swiftformat.js */,
 				1C961AD30050B3BAC2A8EDD4 /* swiftformat.js */,
+				BF0C8BED805610C4F9C46A4A /* export_l10n_strings_to_poeditor.sh */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
