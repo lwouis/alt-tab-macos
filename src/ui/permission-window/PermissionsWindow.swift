@@ -11,7 +11,7 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
         setupView()
     }
 
-    func show() {
+    func show(_ startupBlock: @escaping () -> Void) {
         accessibilityView.updatePermissionStatus(SystemPermissions.accessibilityIsGranted())
         if #available(macOS 10.15, *) {
             screenRecordingView.updatePermissionStatus(SystemPermissions.screenRecordingIsGranted())
@@ -19,17 +19,24 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
         center()
         App.shared.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
+        SystemPermissions.observePermissionsToUpdatePermissionsWindow(startupBlock)
     }
 
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
-        if !SystemPermissions.accessibilityIsGranted() || !SystemPermissions.screenRecordingIsGranted() {
-            logger.e("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
-                "Please authorize and re-launch.",
-                "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
-                separator: "\n")
-            App.shared.terminate(self)
+
+
+   func windowWillClose(_ notification: Notification) {
+       logger.d("PermissionsWindow windowWillClose", SystemPermissions.preStartupPermissionsPassed)
+        if !SystemPermissions.preStartupPermissionsPassed {
+            if SystemPermissions.accessibilityIsGranted() == .notGranted || SystemPermissions.screenRecordingIsGranted() == .notGranted {
+                logger.e("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
+                        "Please authorize and re-launch.",
+                        "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
+                        separator: "\n")
+                App.shared.terminate(self)
+            }
+        } else {
+            SystemPermissions.timerPermissionsToUpdatePermissionsWindow?.invalidate()
         }
-        return true
     }
 
     private func setupWindow() {
@@ -66,7 +73,8 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
                 NSLocalizedString("This permission is needed to show screenshots and titles of open windows", comment: ""),
                 NSLocalizedString("Open Screen Recording Preferences…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
-                SystemPermissions.screenRecordingIsGranted
+                SystemPermissions.screenRecordingIsGranted,
+                StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
             )
             rows.append([screenRecordingView])
         }

@@ -101,6 +101,7 @@ class Preferences {
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
+        "screenRecordingPermissionSkipped": "false",
     ]
 
     // system preferences
@@ -137,6 +138,7 @@ class Preferences {
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
+    static var screenRecordingPermissionSkipped: Bool { defaults.bool("screenRecordingPermissionSkipped") }
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { defaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }

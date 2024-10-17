@@ -18,7 +18,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static let website = "https://alt-tab-macos.netlify.app"
     static var app: App!
-    var menubar: Menubar!
     var thumbnailsPanel: ThumbnailsPanel!
     var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
@@ -59,14 +58,14 @@ class App: AppCenterApplication, NSApplicationDelegate {
         PFMoveToApplicationsFolderIfNecessary()
         #endif
         AXUIElement.setGlobalTimeout()
+        Preferences.initialize()
         BackgroundWork.startSystemPermissionThread()
         permissionsWindow = PermissionsWindow()
         SystemPermissions.ensurePermissionsAreGranted { [weak self] in
             guard let self = self else { return }
             BackgroundWork.start()
-            Preferences.initialize()
             Appearance.update()
-            self.menubar = Menubar()
+            Menubar.initialize()
             self.loadMainMenuXib()
             self.thumbnailsPanel = ThumbnailsPanel()
             self.previewPanel = PreviewPanel()
@@ -80,7 +79,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
             #if DEBUG
-            self.showPreferencesWindow()
+//            self.showPreferencesWindow()
             #endif
         }
     }
@@ -117,6 +116,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func restart() {
         // we use -n to open a new instance, to avoid calling applicationShouldHandleReopen
         // we use Bundle.main.bundlePath in case of multiple AltTab versions on the machine
+        printStackTrace()
         Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["-n", Bundle.main.bundlePath])
         App.shared.terminate(self)
     }
@@ -180,7 +180,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     @objc func checkPermissions(_ sender: NSMenuItem) {
-        permissionsWindow.show()
+        permissionsWindow.show({})
     }
 
     @objc func supportProject() {

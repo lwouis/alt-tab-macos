@@ -1,14 +1,21 @@
 import Cocoa
 
 class Menubar {
-    var statusItem: NSStatusItem!
-    var menu: NSMenu!
+    static var statusItem: NSStatusItem!
+    static var menu: NSMenu!
+    static var permissionCalloutMenuItems: [NSMenuItem]?
 
-    init() {
+    static func initialize() {
         menu = NSMenu()
         menu.title = App.name // perf: prevent going through expensive code-path within appkit
+        let permissionCalloutMenuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        permissionCalloutMenuItem.view = PermissionCallout()
+        let calloutSeparator = NSMenuItem.separator()
+        permissionCalloutMenuItems = [permissionCalloutMenuItem, calloutSeparator]
+        menu.addItem(permissionCalloutMenuItem)
+        menu.addItem(calloutSeparator)
         menu.addItem(
-            withTitle: String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name),
+                withTitle: String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name),
             action: #selector(App.app.showAboutTab),
             keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
@@ -48,16 +55,16 @@ class Menubar {
         menubarIconCallback(nil)
     }
 
-    @objc func statusItemOnClick() {
+    @objc static func statusItemOnClick() {
         // NSApp.currentEvent == nil if the icon is "clicked" through VoiceOver
         if let type = NSApp.currentEvent?.type, type != .leftMouseDown {
             App.app.showUi()
         } else {
-            statusItem.popUpMenu(App.app.menubar.menu)
+            statusItem.popUpMenu(Menubar.menu)
         }
     }
 
-    func menubarIconCallback(_: NSControl?) {
+    static func menubarIconCallback(_: NSControl?) {
         if Preferences.menubarIcon == .hidden {
             statusItem.isVisible = false
         } else {
@@ -65,7 +72,7 @@ class Menubar {
         }
     }
 
-    private func loadPreferredIcon() {
+    static private func loadPreferredIcon() {
         let i = imageIndexFromPreference()
         let image = NSImage(named: "menubar-" + i)!
         image.isTemplate = i == "3" ? false : true
@@ -74,12 +81,33 @@ class Menubar {
         statusItem.button!.imageScaling = .scaleProportionallyUpOrDown
     }
 
-    private func imageIndexFromPreference() -> String {
+    static private func imageIndexFromPreference() -> String {
         switch Preferences.menubarIcon {
             case .outlined: return "1"
             case .filled: return "2"
             case .colored: return "3"
             default: return "4"
         }
+    }
+}
+
+class PermissionCallout: StackView {
+    convenience init() {
+        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("AltTab is running without Screen Recording permissions. Thumbnails won’t show.", comment: "Menubar callout"))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.preferredMaxLayoutWidth = 250
+        label.isSelectable = false
+        label.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        let button = NSButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.attributedTitle = NSAttributedString(string: NSLocalizedString("Grant permission", comment: "Menubar callout button"), attributes: [NSAttributedString.Key.foregroundColor: NSColor.white])
+        button.onAction = { _ in
+            Preferences.remove("screenRecordingPermissionSkipped")
+            App.app.restart()
+        }
+        self.init([label, button], .vertical, true, top: 8, right: 15, bottom: 10, left: 15)
+        wantsLayer = true
+        layer!.backgroundColor = NSColor.purple.cgColor
     }
 }

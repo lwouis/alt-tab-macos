@@ -7,7 +7,7 @@ class GeneralTab {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
                 rightViews: [LabelAndControl.makeSwitch("startAtLogin", extraAction: startAtLoginCallback)])
         let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: App.app.menubar.menubarIconCallback)])
+                rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)])
         let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
         let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
@@ -40,8 +40,8 @@ class GeneralTab {
     }
 
     private static func enableDraggingOffMenubarIcon(_ menubarIconDropdown: NSPopUpButton) {
-        App.app.menubar.statusItem.behavior = .removalAllowed
-        menubarIsVisibleObserver = App.app.menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
+        Menubar.statusItem.behavior = .removalAllowed
+        menubarIsVisibleObserver = Menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
             if change.oldValue == true && change.newValue == false {
                 let hiddenIndex = Int(MenubarIconPreference.hidden.rawValue)!
                 menubarIconDropdown.selectItem(at: hiddenIndex)
