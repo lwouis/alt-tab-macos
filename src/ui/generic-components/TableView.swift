@@ -80,7 +80,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         button.lineBreakMode = .byTruncatingTail
         let cases: [MacroPreference] = isHidePref ? BlacklistHidePreference.allCases : BlacklistIgnorePreference.allCases
         button.addItems(withTitles: cases.map { $0.localizedString })
-        button.selectItem(at: Int(isHidePref ? item.hide.rawValue : item.ignore.rawValue)!)
+        button.selectItem(at: isHidePref ? item.hide.index : item.ignore.index)
         button.onAction = { self.wasUpdated(colId, $0) }
         let parent = NSView()
         parent.addSubview(button)
@@ -94,9 +94,9 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         if colId == "col1" {
             items[row].bundleIdentifier = LabelAndControl.getControlValue(control, nil)!
         } else if colId == "col2" {
-            items[row].hide = BlacklistHidePreference(rawValue: LabelAndControl.getControlValue(control, nil)!)!
+            items[row].hide = BlacklistHidePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
         } else {
-            items[row].ignore = BlacklistIgnorePreference(rawValue: LabelAndControl.getControlValue(control, nil)!)!
+            items[row].ignore = BlacklistIgnorePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
         }
         savePreferences()
     }

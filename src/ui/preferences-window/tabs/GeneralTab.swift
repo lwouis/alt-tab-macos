@@ -43,7 +43,7 @@ class GeneralTab {
         Menubar.statusItem.behavior = .removalAllowed
         menubarIsVisibleObserver = Menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
             if change.oldValue == true && change.newValue == false {
-                let hiddenIndex = Int(MenubarIconPreference.hidden.rawValue)!
+                let hiddenIndex = MenubarIconPreference.hidden.index
                 menubarIconDropdown.selectItem(at: hiddenIndex)
                 LabelAndControl.controlWasChanged(menubarIconDropdown, "menubarIcon")
             }

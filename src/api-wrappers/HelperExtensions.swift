@@ -232,3 +232,12 @@ extension NSWindow {
         }
     }
 }
+
+extension CaseIterable where Self: Equatable {
+    var index: Int {
+        return Self.allCases.distance(from: Self.allCases.startIndex, to: Self.allCases.index(of: self)!)
+    }
+    var indexAsString: String {
+        return String(describing: self.index)
+    }
+}

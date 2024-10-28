@@ -7,10 +7,6 @@ let defaults = UserDefaults.standard
 class Preferences {
     // default values
     static var defaultValues: [String: String] = [
-        "maxWidthOnScreen": "80",
-        "maxHeightOnScreen": "80",
-        "iconSize": "32",
-        "fontHeight": "15",
         "holdShortcut": "⌥",
         "holdShortcut2": "⌥",
         "holdShortcut3": "⌥",
@@ -32,71 +28,68 @@ class Preferences {
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
         "mouseHoverEnabled": "false",
-        "showMinimizedWindows": ShowHowPreference.show.rawValue,
-        "showMinimizedWindows2": ShowHowPreference.show.rawValue,
-        "showMinimizedWindows3": ShowHowPreference.show.rawValue,
-        "showMinimizedWindows4": ShowHowPreference.show.rawValue,
-        "showMinimizedWindows5": ShowHowPreference.show.rawValue,
-        "showHiddenWindows": ShowHowPreference.show.rawValue,
-        "showHiddenWindows2": ShowHowPreference.show.rawValue,
-        "showHiddenWindows3": ShowHowPreference.show.rawValue,
-        "showHiddenWindows4": ShowHowPreference.show.rawValue,
-        "showHiddenWindows5": ShowHowPreference.show.rawValue,
-        "showFullscreenWindows": ShowHowPreference.show.rawValue,
-        "showFullscreenWindows2": ShowHowPreference.show.rawValue,
-        "showFullscreenWindows3": ShowHowPreference.show.rawValue,
-        "showFullscreenWindows4": ShowHowPreference.show.rawValue,
-        "showFullscreenWindows5": ShowHowPreference.show.rawValue,
-        "windowOrder": WindowOrderPreference.recentlyFocused.rawValue,
-        "windowOrder2": WindowOrderPreference.recentlyFocused.rawValue,
-        "windowOrder3": WindowOrderPreference.recentlyFocused.rawValue,
-        "windowOrder4": WindowOrderPreference.recentlyFocused.rawValue,
-        "windowOrder5": WindowOrderPreference.recentlyFocused.rawValue,
+        "showMinimizedWindows": ShowHowPreference.show.indexAsString,
+        "showMinimizedWindows2": ShowHowPreference.show.indexAsString,
+        "showMinimizedWindows3": ShowHowPreference.show.indexAsString,
+        "showMinimizedWindows4": ShowHowPreference.show.indexAsString,
+        "showMinimizedWindows5": ShowHowPreference.show.indexAsString,
+        "showHiddenWindows": ShowHowPreference.show.indexAsString,
+        "showHiddenWindows2": ShowHowPreference.show.indexAsString,
+        "showHiddenWindows3": ShowHowPreference.show.indexAsString,
+        "showHiddenWindows4": ShowHowPreference.show.indexAsString,
+        "showHiddenWindows5": ShowHowPreference.show.indexAsString,
+        "showFullscreenWindows": ShowHowPreference.show.indexAsString,
+        "showFullscreenWindows2": ShowHowPreference.show.indexAsString,
+        "showFullscreenWindows3": ShowHowPreference.show.indexAsString,
+        "showFullscreenWindows4": ShowHowPreference.show.indexAsString,
+        "showFullscreenWindows5": ShowHowPreference.show.indexAsString,
+        "windowOrder": WindowOrderPreference.recentlyFocused.indexAsString,
+        "windowOrder2": WindowOrderPreference.recentlyFocused.indexAsString,
+        "windowOrder3": WindowOrderPreference.recentlyFocused.indexAsString,
+        "windowOrder4": WindowOrderPreference.recentlyFocused.indexAsString,
+        "windowOrder5": WindowOrderPreference.recentlyFocused.indexAsString,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "100",
-        "appearanceStyle": AppearanceStylePreference.thumbnails.rawValue,
-        "appearanceSize": AppearanceSizePreference.medium.rawValue,
-        "appearanceTheme": AppearanceThemePreference.system.rawValue,
-        "appearanceVisibility": AppearanceVisibilityPreference.normal.rawValue,
-        "theme": ThemePreference.macOs.rawValue,
-        "showOnScreen": ShowOnScreenPreference.active.rawValue,
-        "titleTruncation": TitleTruncationPreference.end.rawValue,
-        "alignThumbnails": AlignThumbnailsPreference.center.rawValue,
-        "showAppsOrWindows": ShowAppsOrWindowsPreference.windows.rawValue,
-        "showTitles": ShowTitlesPreference.windowTitle.rawValue,
-        "appsToShow": AppsToShowPreference.all.rawValue,
-        "appsToShow2": AppsToShowPreference.active.rawValue,
-        "appsToShow3": AppsToShowPreference.all.rawValue,
-        "appsToShow4": AppsToShowPreference.all.rawValue,
-        "appsToShow5": AppsToShowPreference.all.rawValue,
-        "spacesToShow": SpacesToShowPreference.all.rawValue,
-        "spacesToShow2": SpacesToShowPreference.all.rawValue,
-        "spacesToShow3": SpacesToShowPreference.all.rawValue,
-        "spacesToShow4": SpacesToShowPreference.all.rawValue,
-        "spacesToShow5": SpacesToShowPreference.all.rawValue,
-        "screensToShow": ScreensToShowPreference.all.rawValue,
-        "screensToShow2": ScreensToShowPreference.all.rawValue,
-        "screensToShow3": ScreensToShowPreference.all.rawValue,
-        "screensToShow4": ScreensToShowPreference.all.rawValue,
-        "screensToShow5": ScreensToShowPreference.all.rawValue,
+        "appearanceStyle": AppearanceStylePreference.thumbnails.indexAsString,
+        "appearanceSize": AppearanceSizePreference.medium.indexAsString,
+        "appearanceTheme": AppearanceThemePreference.system.indexAsString,
+        "appearanceVisibility": AppearanceVisibilityPreference.normal.indexAsString,
+        "theme": ThemePreference.macOs.indexAsString,
+        "showOnScreen": ShowOnScreenPreference.active.indexAsString,
+        "titleTruncation": TitleTruncationPreference.end.indexAsString,
+        "alignThumbnails": AlignThumbnailsPreference.center.indexAsString,
+        "showAppsOrWindows": ShowAppsOrWindowsPreference.windows.indexAsString,
+        "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
+        "appsToShow": AppsToShowPreference.all.indexAsString,
+        "appsToShow2": AppsToShowPreference.active.indexAsString,
+        "appsToShow3": AppsToShowPreference.all.indexAsString,
+        "appsToShow4": AppsToShowPreference.all.indexAsString,
+        "appsToShow5": AppsToShowPreference.all.indexAsString,
+        "spacesToShow": SpacesToShowPreference.all.indexAsString,
+        "spacesToShow2": SpacesToShowPreference.all.indexAsString,
+        "spacesToShow3": SpacesToShowPreference.all.indexAsString,
+        "spacesToShow4": SpacesToShowPreference.all.indexAsString,
+        "spacesToShow5": SpacesToShowPreference.all.indexAsString,
+        "screensToShow": ScreensToShowPreference.all.indexAsString,
+        "screensToShow2": ScreensToShowPreference.all.indexAsString,
+        "screensToShow3": ScreensToShowPreference.all.indexAsString,
+        "screensToShow4": ScreensToShowPreference.all.indexAsString,
+        "screensToShow5": ScreensToShowPreference.all.indexAsString,
         "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
         "hideStatusIcons": "false",
         "startAtLogin": "true",
-        "menubarIcon": MenubarIconPreference.outlined.rawValue,
-        "language": LanguagePreference.systemDefault.rawValue,
+        "menubarIcon": MenubarIconPreference.outlined.indexAsString,
+        "language": LanguagePreference.systemDefault.indexAsString,
         "blacklist": defaultBlacklist(),
-        "updatePolicy": UpdatePolicyPreference.autoCheck.rawValue,
-        "crashPolicy": CrashPolicyPreference.ask.rawValue,
-        "rowsCount": rowCountDependingOnScreenRatio(),
-        "windowMinWidthInRow": "15",
-        "windowMaxWidthInRow": "30",
-        "shortcutStyle": ShortcutStylePreference.focusOnRelease.rawValue,
-        "shortcutStyle2": ShortcutStylePreference.focusOnRelease.rawValue,
-        "shortcutStyle3": ShortcutStylePreference.focusOnRelease.rawValue,
-        "shortcutStyle4": ShortcutStylePreference.focusOnRelease.rawValue,
-        "shortcutStyle5": ShortcutStylePreference.focusOnRelease.rawValue,
+        "updatePolicy": UpdatePolicyPreference.autoCheck.indexAsString,
+        "crashPolicy": CrashPolicyPreference.ask.indexAsString,
+        "shortcutStyle": ShortcutStylePreference.focusOnRelease.indexAsString,
+        "shortcutStyle2": ShortcutStylePreference.focusOnRelease.indexAsString,
+        "shortcutStyle3": ShortcutStylePreference.focusOnRelease.indexAsString,
+        "shortcutStyle4": ShortcutStylePreference.focusOnRelease.indexAsString,
+        "shortcutStyle5": ShortcutStylePreference.focusOnRelease.indexAsString,
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
@@ -369,9 +362,9 @@ class Preferences {
             .forEach {
                 if let old = defaults.string(forKey: $0) {
                     if old == "true" {
-                        defaults.set(ShowHowPreference.show.rawValue, forKey: $0)
+                        defaults.set(ShowHowPreference.show.indexAsString, forKey: $0)
                     } else if old == "false" {
-                        defaults.set(ShowHowPreference.hide.rawValue, forKey: $0)
+                        defaults.set(ShowHowPreference.hide.indexAsString, forKey: $0)
                     }
                 }
             }
@@ -400,15 +393,6 @@ class Preferences {
            let new = oldAndNew[old] {
             defaults.set(new, forKey: preference)
         }
-    }
-
-    static func rowCountDependingOnScreenRatio() -> String {
-        // landscape; tested with 4/3, 16/10, 16/9
-        if NSScreen.main!.ratio() > 1 {
-            return "4"
-        }
-        // vertical; tested with 10/16
-        return "6"
     }
 
     static func onlyShowApplications() -> Bool {
@@ -502,11 +486,11 @@ struct ThemeParameters {
 
 typealias LocalizedString = String
 
-enum MenubarIconPreference: String, CaseIterable, MacroPreference {
-    case outlined = "0"
-    case filled = "1"
-    case colored = "2"
-    case hidden = "3"
+enum MenubarIconPreference: CaseIterable, MacroPreference {
+    case outlined
+    case filled
+    case colored
+    case hidden
 
     var localizedString: LocalizedString {
         switch self {
@@ -519,57 +503,57 @@ enum MenubarIconPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum LanguagePreference: String, CaseIterable, MacroPreference {
-    case systemDefault = "0"
-    case arabic = "1"
-    case bulgarian = "2"
-    case bengali = "3"
-    case catalan = "4"
-    case czech = "5"
-    case danish = "6"
-    case german = "7"
-    case greek = "8"
-    case english = "9"
-    case spanish = "10"
-    case estonian = "11"
-    case persian = "12"
-    case finnish = "13"
-    case french = "14"
-    case galician = "15"
-    case hebrew = "16"
-    case hindi = "17"
-    case croatian = "18"
-    case hungarian = "19"
-    case indonesian = "20"
-    case icelandic = "21"
-    case italian = "22"
-    case japanese = "23"
-    case kannada = "24"
-    case korean = "25"
-    case kurdish = "26"
-    case luxembourgish = "27"
-    case malayalam = "28"
-    case norwegianBokmal = "29"
-    case dutch = "30"
-    case norwegianNynorsk = "31"
-    case polish = "32"
-    case portuguese = "33"
-    case brazilianPortuguese = "34"
-    case romanian = "35"
-    case russian = "36"
-    case slovak = "37"
-    case slovenian = "38"
-    case albanian = "39"
-    case serbian = "40"
-    case swedish = "41"
-    case tamil = "42"
-    case thai = "43"
-    case turkish = "44"
-    case ukrainian = "45"
-    case uzbek = "46"
-    case vietnamese = "47"
-    case simplifiedChinese = "48"
-    case traditionalChinese = "49"
+enum LanguagePreference: CaseIterable, MacroPreference {
+    case systemDefault
+    case arabic
+    case bulgarian
+    case bengali
+    case catalan
+    case czech
+    case danish
+    case german
+    case greek
+    case english
+    case spanish
+    case estonian
+    case persian
+    case finnish
+    case french
+    case galician
+    case hebrew
+    case hindi
+    case croatian
+    case hungarian
+    case indonesian
+    case icelandic
+    case italian
+    case japanese
+    case kannada
+    case korean
+    case kurdish
+    case luxembourgish
+    case malayalam
+    case norwegianBokmal
+    case dutch
+    case norwegianNynorsk
+    case polish
+    case portuguese
+    case brazilianPortuguese
+    case romanian
+    case russian
+    case slovak
+    case slovenian
+    case albanian
+    case serbian
+    case swedish
+    case tamil
+    case thai
+    case turkish
+    case ukrainian
+    case uzbek
+    case vietnamese
+    case simplifiedChinese
+    case traditionalChinese
 
     var localizedString: String {
         switch self {
@@ -782,9 +766,9 @@ enum LanguagePreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShortcutStylePreference: String, CaseIterable, MacroPreference {
-    case focusOnRelease = "0"
-    case doNothingOnRelease = "1"
+enum ShortcutStylePreference: CaseIterable, MacroPreference {
+    case focusOnRelease
+    case doNothingOnRelease
 
     var localizedString: LocalizedString {
         switch self {
@@ -794,10 +778,10 @@ enum ShortcutStylePreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShowHowPreference: String, CaseIterable, MacroPreference {
-    case show = "0"
-    case hide = "1"
-    case showAtTheEnd = "2"
+enum ShowHowPreference: CaseIterable, MacroPreference {
+    case show
+    case hide
+    case showAtTheEnd
 
     var localizedString: LocalizedString {
         switch self {
@@ -808,11 +792,11 @@ enum ShowHowPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum WindowOrderPreference: String, CaseIterable, MacroPreference {
-    case recentlyFocused = "0"
-    case recentlyCreated = "1"
-    case alphabetical = "2"
-    case space = "3"
+enum WindowOrderPreference: CaseIterable, MacroPreference {
+    case recentlyFocused
+    case recentlyCreated
+    case alphabetical
+    case space
 
     var localizedString: LocalizedString {
         switch self {
@@ -824,9 +808,9 @@ enum WindowOrderPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum AppsToShowPreference: String, CaseIterable, MacroPreference {
-    case all = "0"
-    case active = "1"
+enum AppsToShowPreference: CaseIterable, MacroPreference {
+    case all
+    case active
 
     var localizedString: LocalizedString {
         switch self {
@@ -836,9 +820,9 @@ enum AppsToShowPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
-    case all = "0"
-    case visible = "2"
+enum SpacesToShowPreference: CaseIterable, MacroPreference {
+    case all
+    case visible
 
     var localizedString: LocalizedString {
         switch self {
@@ -848,9 +832,9 @@ enum SpacesToShowPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
-    case all = "0"
-    case showingAltTab = "1"
+enum ScreensToShowPreference: CaseIterable, MacroPreference {
+    case all
+    case showingAltTab
 
     var localizedString: LocalizedString {
         switch self {
@@ -860,10 +844,10 @@ enum ScreensToShowPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
-    case active = "0"
-    case includingMouse = "1"
-    case includingMenubar = "2"
+enum ShowOnScreenPreference: CaseIterable, MacroPreference {
+    case active
+    case includingMouse
+    case includingMenubar
 
     var localizedString: LocalizedString {
         switch self {
@@ -874,10 +858,10 @@ enum ShowOnScreenPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
-    case start = "0"
-    case middle = "1"
-    case end = "2"
+enum TitleTruncationPreference: CaseIterable, MacroPreference {
+    case start
+    case middle
+    case end
 
     var localizedString: LocalizedString {
         switch self {
@@ -888,9 +872,9 @@ enum TitleTruncationPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShowAppsOrWindowsPreference: String, CaseIterable, MacroPreference {
-    case applications = "0"
-    case windows = "1"
+enum ShowAppsOrWindowsPreference: CaseIterable, MacroPreference {
+    case applications
+    case windows
 
     var localizedString: LocalizedString {
         switch self {
@@ -900,10 +884,10 @@ enum ShowAppsOrWindowsPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum ShowTitlesPreference: String, CaseIterable, MacroPreference {
-    case windowTitle = "0"
-    case appName = "1"
-    case appNameAndWindowTitle = "2"
+enum ShowTitlesPreference: CaseIterable, MacroPreference {
+    case windowTitle
+    case appName
+    case appNameAndWindowTitle
 
     var localizedString: LocalizedString {
         switch self {
@@ -922,9 +906,9 @@ enum ShowTitlesPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum AlignThumbnailsPreference: String, CaseIterable, ImageMacroPreference {
-    case leading = "0"
-    case center = "1"
+enum AlignThumbnailsPreference: CaseIterable, ImageMacroPreference {
+    case leading
+    case center
 
     var localizedString: LocalizedString {
         switch self {
@@ -941,10 +925,10 @@ enum AlignThumbnailsPreference: String, CaseIterable, ImageMacroPreference {
     }
 }
 
-enum AppearanceStylePreference: String, CaseIterable, ImageMacroPreference {
-    case thumbnails = "0"
-    case appIcons = "1"
-    case titles = "2"
+enum AppearanceStylePreference: CaseIterable, ImageMacroPreference {
+    case thumbnails
+    case appIcons
+    case titles
 
     var localizedString: LocalizedString {
         switch self {
@@ -965,10 +949,10 @@ enum AppearanceStylePreference: String, CaseIterable, ImageMacroPreference {
     }
 }
 
-enum AppearanceSizePreference: String, CaseIterable, SfSymbolMacroPreference {
-    case small = "0"
-    case medium = "1"
-    case large = "2"
+enum AppearanceSizePreference: CaseIterable, SfSymbolMacroPreference {
+    case small
+    case medium
+    case large
 
     var localizedString: LocalizedString {
         switch self {
@@ -987,9 +971,9 @@ enum AppearanceSizePreference: String, CaseIterable, SfSymbolMacroPreference {
     }
 }
 
-enum ThemePreference: String, CaseIterable, ImageMacroPreference {
-    case macOs = "0"
-    case windows10 = "1"
+enum ThemePreference: CaseIterable, ImageMacroPreference {
+    case macOs
+    case windows10
 
     var localizedString: LocalizedString {
         switch self {
@@ -1014,10 +998,10 @@ enum ThemePreference: String, CaseIterable, ImageMacroPreference {
     }
 }
 
-enum AppearanceThemePreference: String, CaseIterable, SfSymbolMacroPreference {
-    case light = "0"
-    case dark = "1"
-    case system = "2"
+enum AppearanceThemePreference: CaseIterable, SfSymbolMacroPreference {
+    case light
+    case dark
+    case system
 
     var localizedString: LocalizedString {
         switch self {
@@ -1036,10 +1020,10 @@ enum AppearanceThemePreference: String, CaseIterable, SfSymbolMacroPreference {
     }
 }
 
-enum AppearanceVisibilityPreference: String, CaseIterable, SfSymbolMacroPreference {
-    case normal = "0"
-    case high = "1"
-    case highest = "2"
+enum AppearanceVisibilityPreference: CaseIterable, SfSymbolMacroPreference {
+    case normal
+    case high
+    case highest
 
     var localizedString: LocalizedString {
         switch self {
@@ -1058,10 +1042,10 @@ enum AppearanceVisibilityPreference: String, CaseIterable, SfSymbolMacroPreferen
     }
 }
 
-enum UpdatePolicyPreference: String, CaseIterable, MacroPreference {
-    case manual = "0"
-    case autoCheck = "1"
-    case autoInstall = "2"
+enum UpdatePolicyPreference: CaseIterable, MacroPreference {
+    case manual
+    case autoCheck
+    case autoInstall
 
     var localizedString: LocalizedString {
         switch self {
@@ -1072,10 +1056,10 @@ enum UpdatePolicyPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum CrashPolicyPreference: String, CaseIterable, MacroPreference {
-    case never = "0"
-    case ask = "1"
-    case always = "2"
+enum CrashPolicyPreference: CaseIterable, MacroPreference {
+    case never
+    case ask
+    case always
 
     var localizedString: LocalizedString {
         switch self {
@@ -1086,10 +1070,10 @@ enum CrashPolicyPreference: String, CaseIterable, MacroPreference {
     }
 }
 
-enum BlacklistHidePreference: String, CaseIterable, MacroPreference, Codable {
-    case none = "0"
-    case always = "1"
-    case whenNoOpenWindow = "2"
+enum BlacklistHidePreference: CaseIterable, MacroPreference, Codable {
+    case none
+    case always
+    case whenNoOpenWindow
 
     var localizedString: LocalizedString {
         switch self {
@@ -1100,10 +1084,10 @@ enum BlacklistHidePreference: String, CaseIterable, MacroPreference, Codable {
     }
 }
 
-enum BlacklistIgnorePreference: String, CaseIterable, MacroPreference, Codable {
-    case none = "0"
-    case always = "1"
-    case whenFullscreen = "2"
+enum BlacklistIgnorePreference: CaseIterable, MacroPreference, Codable {
+    case none
+    case always
+    case whenFullscreen
 
     var localizedString: LocalizedString {
         switch self {
