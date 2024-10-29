@@ -108,7 +108,7 @@ class GeneralTab {
         if Preferences.language == .systemDefault {
             UserDefaults.standard.removeObject(forKey: "AppleLanguages")
         } else {
-            UserDefaults.standard.set([Preferences.language.appleLanguages], forKey: "AppleLanguages")
+            UserDefaults.standard.set([Preferences.language.appleLanguageCode!], forKey: "AppleLanguages")
         }
 
         // Inform the user that the app needs to restart to apply the language change

@@ -505,55 +505,56 @@ enum MenubarIconPreference: CaseIterable, MacroPreference {
 
 enum LanguagePreference: CaseIterable, MacroPreference {
     case systemDefault
-    case arabic
-    case bulgarian
-    case bengali
+    case indonesian
     case catalan
-    case czech
     case danish
     case german
-    case greek
+    case estonian
     case english
     case spanish
-    case estonian
-    case persian
-    case finnish
     case french
+    case irish
     case galician
-    case hebrew
-    case hindi
     case croatian
-    case hungarian
-    case indonesian
-    case icelandic
     case italian
-    case japanese
-    case kannada
-    case korean
     case kurdish
+    case romanian
     case luxembourgish
-    case malayalam
-    case norwegianBokmal
+    case hungarian
     case dutch
+    case norwegianBokmal
     case norwegianNynorsk
+    case uzbek
     case polish
     case portuguese
-    case brazilianPortuguese
-    case romanian
-    case russian
+    case portugueseBrasil
+    case albanian
     case slovak
     case slovenian
-    case albanian
-    case serbian
+    case finnish
     case swedish
-    case tamil
-    case thai
-    case turkish
-    case ukrainian
-    case uzbek
     case vietnamese
-    case simplifiedChinese
-    case traditionalChinese
+    case turkish
+    case icelandic
+    case czech
+    case greek
+    case bulgarian
+    case russian
+    case serbian
+    case ukrainian
+    case hebrew
+    case arabic
+    case persian
+    case hindi
+    case bengali
+    case tamil
+    case kannada
+    case malayalam
+    case thai
+    case japanese
+    case chineseSimplified
+    case chineseTraditional
+    case korean
 
     var localizedString: String {
         switch self {
@@ -580,17 +581,19 @@ enum LanguagePreference: CaseIterable, MacroPreference {
             case .spanish:
                 return "Español"
             case .estonian:
-                return "Eesti"
+                return "Eesti keel"
             case .persian:
                 return "فارسی"
             case .finnish:
                 return "Suomi"
             case .french:
                 return "Français"
+            case .irish:
+                return "Gaeilge"
             case .galician:
                 return "Galego"
             case .hebrew:
-                return "עברית"
+                return "עִבְרִית"
             case .hindi:
                 return "हिन्दी"
             case .croatian:
@@ -625,10 +628,10 @@ enum LanguagePreference: CaseIterable, MacroPreference {
                 return "Polski"
             case .portuguese:
                 return "Português"
-            case .brazilianPortuguese:
+            case .portugueseBrasil:
                 return "Português (Brasil)"
             case .romanian:
-                return "Română"
+                return "Limba română"
             case .russian:
                 return "Русский"
             case .slovak:
@@ -638,32 +641,32 @@ enum LanguagePreference: CaseIterable, MacroPreference {
             case .albanian:
                 return "Shqip"
             case .serbian:
-                return "Српски"
+                return "Српски / Srpski"
             case .swedish:
                 return "Svenska"
             case .tamil:
                 return "தமிழ்"
             case .thai:
-                return "ไทย"
+                return "ภาษาไทย"
             case .turkish:
                 return "Türkçe"
             case .ukrainian:
                 return "Українська"
             case .uzbek:
-                return "O'zbek"
+                return "Oʻzbekcha"
             case .vietnamese:
                 return "Tiếng Việt"
-            case .simplifiedChinese:
+            case .chineseSimplified:
                 return "简体中文"
-            case .traditionalChinese:
+            case .chineseTraditional:
                 return "繁體中文"
         }
     }
 
-    var appleLanguages: String {
+    var appleLanguageCode: String? {
         switch self {
             case .systemDefault:
-                return ""
+                return nil
             case .arabic:
                 return "ar"
             case .bulgarian:
@@ -692,6 +695,8 @@ enum LanguagePreference: CaseIterable, MacroPreference {
                 return "fi"
             case .french:
                 return "fr"
+            case .irish:
+                return "ga"
             case .galician:
                 return "gl"
             case .hebrew:
@@ -730,7 +735,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
                 return "pl"
             case .portuguese:
                 return "pt"
-            case .brazilianPortuguese:
+            case .portugueseBrasil:
                 return "pt-BR"
             case .romanian:
                 return "ro"
@@ -758,9 +763,9 @@ enum LanguagePreference: CaseIterable, MacroPreference {
                 return "uz"
             case .vietnamese:
                 return "vi"
-            case .simplifiedChinese:
+            case .chineseSimplified:
                 return "zh-CN"
-            case .traditionalChinese:
+            case .chineseTraditional:
                 return "zh-TW"
         }
     }
