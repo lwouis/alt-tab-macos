@@ -4,32 +4,27 @@ permalink: /
 
 # Introduction
 
-[<img src="public/demo/frontpage.jpg" alt="Screenshot" width="1440" height="900" style="width:100%; height:auto;" />](public/demo/frontpage.jpg)
+[<img src="public/demo/frontpage.jpg" alt="Screenshot showing AltTab" width="1920" height="1080" style="width:100%; height:auto;" />](public/demo/frontpage.jpg)
 
-**AltTab** brings the power of Windows’s "alt-tab" window switcher to macOS.
+Alternative Styles
+
+| [<img loading="lazy" src="public/demo/app-icons-style.jpg" alt="Screenshot: App Icons Style" width="513" height="241" style="width:100%; height:auto;" />](public/demo/app-icons-style.jpg) | [<img loading="lazy" src="public/demo/titles-style.jpg" alt="Screenshot: Titles Style" width="766" height="248" style="width:100%; height:auto;" />](public/demo/titles-style.jpg) |
+
+## Installation
+
+* [**Download the latest release**]({{ site.github.latest_release.assets[0].browser_download_url }})
+* Alternatively, you can use [homebrew](https://brew.sh/): `brew install --cask alt-tab`
 
 ## Features
 
 * Switch focus to any window
-* Minimize, close, fullscreen any window
-* Hide, quit any app
-* Customize AltTab appearance (e.g. show app badges, Space numbers, increase icon, thumbnail, title size, etc)
-* Custom trigger shortcuts with almost any key
+* Minimize, close, fullscreen any window; Hide, quit any app
+* Customize AltTab appearance (pick one of 3 styles, then customize further)
+* Custom trigger shortcuts with almost any keys
 * Blacklist apps you don’t want to list or trigger AltTab from
-* Dark Mode
+* Light and Dark Appearance
 * Drag-and-drop things on top of window thumbnails
-* Right-to-left languages and UI
 * Accessibility: VoiceOver, sticky keys, reduced transparency, etc
-
-## Installation
-
-[**Download the latest release**]({{ site.github.latest_release.assets[0].browser_download_url }})
-
-Alternatively, you can use [homebrew](https://brew.sh/):
-
-| Homebrew 2.7 and above | Homebrew 2.5 and 2.6 | Homebrew 2.4 and below             |
-|------------------------|----------------------|------------------------------------|
-| `brew install --cask alt-tab` | `brew install alt-tab` | `brew cask install alt-tab`        |
 
 ## Compatibility
 
@@ -38,7 +33,7 @@ Alternatively, you can use [homebrew](https://brew.sh/):
 
 ## Localization
 
-AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Gaeilge, Galego, Hrvatski, Italiano, Kurdî, Limba română, Lëtzebuergesch, Magyar, Nederlands, Norsk Bokmål, Norsk Nynorsk, Oʻzbekcha, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Íslenska, Čeština, Ελληνικά, Български, Русский, Српски / Srpski, Українська, עִבְרִית, العربية, فارسی, हिन्दी, বাংলা, தமிழ், ಕನ್ನಡ, മലയാളം, ภาษาไทย, 日本語, 简体中文, 繁體中文, 한국어
+AltTab is available in many languages: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Gaeilge, Galego, Hrvatski, Italiano, Kurdî, Limba română, Lëtzebuergesch, Magyar, Nederlands, Norsk Bokmål, Norsk Nynorsk, Oʻzbekcha, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Íslenska, Čeština, Ελληνικά, Български, Русский, Српски / Srpski, Українська, עִבְרִית, العربية, فارسی, हिन्दी, বাংলা, தமிழ், ಕನ್ನಡ, മലയാളം, ภาษาไทย, 日本語, 简体中文, 繁體中文, 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 
@@ -51,9 +46,9 @@ AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, E
 
 Change the shortcut keys, switch to a Windows theme and more, using the Preferences window:
 
-| [<img loading="lazy" src="public/demo/preferences-appearance.jpg" alt="Screenshot1" width="1064" height="1280" style="width:100%; height:auto;" />](public/demo/preferences-appearance.jpg) | [<img loading="lazy" src="public/demo/preferences-controls.jpg" alt="Screenshot 2" width="1081" height="1280" style="width:100%; height:auto;" />](public/demo/preferences-controls.jpg) |
-| [<img loading="lazy" src="public/demo/preferences-blacklist.jpg" alt="Screenshot3" width="1280" height="1161" style="width:100%; height:auto;" />](public/demo/preferences-blacklist.jpg) | [<img loading="lazy" src="public/demo/preferences-policies.jpg" alt="Screenshot 4" width="1280" height="786" style="width:100%; height:auto;" />](public/demo/preferences-policies.jpg) |
-| [<img loading="lazy" src="public/demo/preferences-general.jpg" alt="Screenshot5" width="1280" height="640" style="width:100%; height:auto;" />](public/demo/preferences-general.jpg) | |
+| [<img loading="lazy" src="public/demo/preferences-general.jpg" alt="Screenshot: General preferences" width="672" height="354" style="width:100%; height:auto;" />](public/demo/preferences-general.jpg) | [<img loading="lazy" src="public/demo/preferences-controls.jpg" alt="Screenshot: Controls preferences" width="677" height="688" style="width:100%; height:auto;" />](public/demo/preferences-controls.jpg) |
+| [<img loading="lazy" src="public/demo/preferences-appearance.jpg" alt="Screenshot: Appearance preferences" width="672" height="735" style="width:100%; height:auto;" />](public/demo/preferences-appearance.jpg) | [<img loading="lazy" src="public/demo/preferences-appearance-details.jpg" alt="Screenshot: Appearance preferences (details)" width="672" height="934" style="width:100%; height:auto;" />](public/demo/preferences-appearance-details.jpg) |
+| [<img loading="lazy" src="public/demo/preferences-blacklist.jpg" alt="Screenshot: Blacklist preferences" width="672" height="655" style="width:100%; height:auto;" />](public/demo/preferences-blacklist.jpg) | [<img loading="lazy" src="public/demo/preferences-policies.jpg" alt="Screenshot: Policies preferences" width="672" height="353" style="width:100%; height:auto;" />](public/demo/preferences-policies.jpg) |
 
 ## Alternatives
 
@@ -71,12 +66,6 @@ Before building my own app, I looked around at similar apps. However, none was c
 | Built-in `⌘ command` + `` ` ``                                                              | Cycles through tabs and windows, but only of the same app. Only cycling, no direct access                    |
 
 There are also related apps which don’t really overlap in functionality, but target similar needs: [Swish](https://highlyopinionated.co/swish/), [Hookshot](https://hookshot.app/), [Magnet](https://magnet.crowdcafe.com/), [Spectacle](https://www.spectacleapp.com/), [Rectangle](https://github.com/rxhanson/Rectangle), [yabai](https://github.com/koekeishiya/yabai), [LayAuto](https://layautoapp.com/), [OptimalLayout](http://most-advantageous.com/optimal-layout/), [BetterTouchTool](https://folivora.ai/), [BetterSnapTool](https://folivora.ai/bettersnaptool), [Moom](https://manytricks.com/moom/), [uBar](https://brawersoftware.com/products/ubar).
-
-## More screenshots
-
-| 1 row | 2 rows | Windows theme |
-|-------|---------|-------|
-| [<img loading="lazy" src="public/demo/1-row.jpg" alt="Screenshot" width="1440" height="900" style="width:100%; height:auto;" />](public/demo/1-row.jpg) | [<img loading="lazy" src="public/demo/2-rows.jpg" alt="Screenshot" width="1440" height="900" style="width:100%; height:auto;" />](public/demo/2-rows.jpg) | [<img loading="lazy" src="public/demo/windows-theme.jpg" alt="Screenshot" width="1440" height="900" style="width:100%; height:auto;" />](public/demo/windows-theme.jpg) |
 
 ## License
 
