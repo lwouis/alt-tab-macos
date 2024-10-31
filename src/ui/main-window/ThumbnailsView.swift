@@ -16,7 +16,7 @@ class ThumbnailsView: NSVisualEffectView {
         updateRoundedCorners(Appearance.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
-        (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+        (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
     }
 
     func reset() {
