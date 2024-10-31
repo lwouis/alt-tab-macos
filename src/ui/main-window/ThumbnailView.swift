@@ -308,7 +308,8 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden || Preferences.hideStatusIcons)
         assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
         assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized || Preferences.hideStatusIcons)
-        assignIfDifferent(&spaceIcon.isHidden, element.isWindowlessApp || Spaces.isSingleSpace() || Preferences.hideSpaceNumberLabels)
+        assignIfDifferent(&spaceIcon.isHidden, element.isWindowlessApp || Spaces.isSingleSpace() || Preferences.hideSpaceNumberLabels
+                || (NSScreen.screens.count < 2 && Preferences.spacesToShow[App.app.shortcutIndex] == .visible))
         if !spaceIcon.isHidden {
             if element.spaceIndex > 30 || element.isOnAllSpaces {
                 spaceIcon.setStar()
