@@ -6,7 +6,8 @@ IDEWorkspaceChecks.plist
 /DerivedData/
 /build/
 .DS_Store
-docs/_site/
+/docs/_site/
+/docs/vendor/
 codesign.conf
 codesign.crt
 codesign.key
