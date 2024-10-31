@@ -1,11 +1,11 @@
 import Cocoa
 
 class ThumbnailView: NSStackView {
-    static let windowsControlSize = CGFloat(16)
-    static let windowsControlSpacing = CGFloat(8)
     static let noOpenWindowToolTip = NSLocalizedString("App is running but has no open window", comment: "")
     var window_: Window?
     var thumbnail = NSImageView()
+    var windowlessIcon = NSImageView()
+    var thumbnailContainer: NSStackView!
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Appearance.fontHeight)
     var fullscreenIcon = ThumbnailFontIconView(symbol: .circledPlusSign, tooltip: NSLocalizedString("Window is fullscreen", comment: ""))
@@ -14,10 +14,10 @@ class ThumbnailView: NSStackView {
     var spaceIcon = ThumbnailFontIconView(symbol: .circledNumber0)
     var dockLabelIcon = ThumbnailFilledFontIconView(ThumbnailFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(),
             color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), shadow: nil), backgroundColor: NSColor.white, size: dockLabelLabelSize())
-    var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""), windowsControlSize)
-    var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""), windowsControlSize)
-    var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""), windowsControlSize)
-    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""), windowsControlSize)
+    var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""))
+    var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""))
+    var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""))
+    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""))
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: ThumbnailView.noOpenWindowToolTip)
 
     var hStackView: NSStackView!
@@ -27,7 +27,6 @@ class ThumbnailView: NSStackView {
     var dragAndDropTimer: Timer?
     var indexInRecycledViews: Int!
     var isShowingWindowControls = false
-    var windowlessIcon = NSImageView()
 
     var isFirstInRow = false
     var isLastInRow = false
@@ -56,9 +55,7 @@ class ThumbnailView: NSStackView {
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
         windowControlIcons = [quitIcon, closeIcon, minimizeIcon, maximizeIcon]
-
         addViews()
-        addWindowControls()
         addDockLabelIcon()
         addWindowlessIndicator()
         setAccessibilityChildren([])
@@ -74,30 +71,42 @@ class ThumbnailView: NSStackView {
         vStackView.layer!.borderWidth = CGFloat(1)
         vStackView.edgeInsets = NSEdgeInsets(top: Appearance.edgeInsetsSize, left: Appearance.edgeInsetsSize,
                 bottom: Appearance.edgeInsetsSize, right: Appearance.edgeInsetsSize)
-
+        setViews([vStackView], in: .leading)
         if Preferences.appearanceStyle == .appIcons {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
             vStackView.setViews([hStackView], in: .leading)
             label.alignment = .center
-            setViews([vStackView], in: .leading)
             addSubview(label)
             label.isHidden = true
-
-            vStackView.translatesAutoresizingMaskIntoConstraints = false
-            label.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                vStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                vStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                vStackView.topAnchor.constraint(equalTo: self.topAnchor),
-
+                vStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                vStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                vStackView.topAnchor.constraint(equalTo: topAnchor),
                 label.topAnchor.constraint(equalTo: vStackView.bottomAnchor, constant: Appearance.intraCellPadding),
-                self.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: Appearance.intraCellPadding)
+                bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: Appearance.intraCellPadding)
             ])
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
-            vStackView.setViews([hStackView, thumbnail, windowlessIcon], in: .leading)
-            setViews([vStackView], in: .leading)
+            thumbnailContainer = NSStackView(views: [thumbnail, windowlessIcon])
+            thumbnailContainer.orientation = .vertical
+//            thumbnailContainer.alignment = .leading
+//            thumbnailContainer.distribution = .equalCentering
+            vStackView.setViews([hStackView, thumbnailContainer], in: .leading)
+            NSLayoutConstraint.activate([
+                vStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                vStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                vStackView.topAnchor.constraint(equalTo: topAnchor),
+                vStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                thumbnailContainer.leftAnchor.constraint(equalTo: leftAnchor),
+                thumbnailContainer.rightAnchor.constraint(equalTo: rightAnchor),
+            ])
+            if Preferences.appearanceStyle == .thumbnails {
+                windowControlIcons.forEach {
+                    thumbnailContainer.addSubview($0, positioned: .above, relativeTo: nil)
+                    $0.isHidden = true
+                }
+            }
         }
     }
 
@@ -109,22 +118,12 @@ class ThumbnailView: NSStackView {
         addSubview(windowlessAppIndicator, positioned: .above, relativeTo: nil)
     }
 
-    private func addWindowControls() {
-        thumbnail.addSubview(quitIcon, positioned: .above, relativeTo: nil)
-        thumbnail.addSubview(closeIcon, positioned: .above, relativeTo: nil)
-        thumbnail.addSubview(minimizeIcon, positioned: .above, relativeTo: nil)
-        thumbnail.addSubview(maximizeIcon, positioned: .above, relativeTo: nil)
-        windowControlIcons.forEach { $0.isHidden = true }
-    }
-
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
         let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !Appearance.hideThumbnails
-        if isShowingWindowControls != shouldShow {
+        if Preferences.appearanceStyle == .thumbnails, isShowingWindowControls != shouldShow {
             isShowingWindowControls = shouldShow
-            let target = (window_?.isWindowlessApp ?? true) ? windowlessIcon : thumbnail
-            target.addSubview(quitIcon, positioned: .above, relativeTo: nil)
-            var xOffset = CGFloat(3)
-            var yOffset = CGFloat(2 + ThumbnailView.windowsControlSize)
+            var xOffset = 3 + Appearance.edgeInsetsSize
+            var yOffset = 2 + TrafficLightButton.size
             windowControlIcons.forEach { icon in
                 icon.isHidden = !shouldShow ||
                     (icon.type == .quit && !(window_?.application.canBeQuit() ?? true)) ||
@@ -133,11 +132,11 @@ class ThumbnailView: NSStackView {
                 if !icon.isHidden {
                     icon.setFrameOrigin(NSPoint(
                         x: xOffset,
-                        y: target.frame.height - yOffset))
-                    xOffset += ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing
-                    if xOffset + ThumbnailView.windowsControlSize > target.frame.width {
-                        xOffset = 3
-                        yOffset += ThumbnailView.windowsControlSize + ThumbnailView.windowsControlSpacing
+                        y: thumbnailContainer.frame.height - yOffset))
+                    xOffset += TrafficLightButton.size + TrafficLightButton.spacing
+                    if xOffset + TrafficLightButton.size > thumbnailContainer.frame.width {
+                        xOffset = 3 + Appearance.edgeInsetsSize
+                        yOffset += TrafficLightButton.size + TrafficLightButton.spacing
                     }
                 }
                 // Force the icons to redraw, or after clicking the fullscreen button,
@@ -365,36 +364,21 @@ class ThumbnailView: NSStackView {
         let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
         let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
         var width = CGFloat(0)
+        var contentWidth = CGFloat(0)
         if Preferences.appearanceStyle == .thumbnails {
             // Preferred to the width of the image, and the minimum width may be set to be large.
             if element.isWindowlessApp {
-                width = (windowlessIcon.frame.size.width + leftRightEdgeInsetsSize).rounded()
+                contentWidth = windowlessIcon.frame.size.width
             } else {
-                width = (thumbnail.frame.size.width + leftRightEdgeInsetsSize).rounded()
+                contentWidth = thumbnail.frame.size.width
             }
         } else {
-            let contentWidth = max(hStackView.frame.size.width, Appearance.iconSize)
-            let frameWidth = contentWidth + leftRightEdgeInsetsSize
-            width = max(frameWidth, widthMin).rounded()
+            contentWidth = max(hStackView.frame.size.width, Appearance.iconSize)
         }
+        let frameWidth = (contentWidth + leftRightEdgeInsetsSize).rounded()
+        width = max(frameWidth, widthMin).rounded()
         assignIfDifferent(&frame.size.width, width)
         assignIfDifferent(&frame.size.height, newHeight)
-
-        if logger.isDebugEnabled() {
-            logger.d(window_?.title)
-            printSubviewFrames(of: self)
-        }
-    }
-
-    func printSubviewFrames(of view: NSView, indent: String = "", isLast: Bool = true) {
-        let indentSymbol = isLast ? "└── " : "├── "
-        logger.d("\(indent)\(indentSymbol)View: \(type(of: view)), Frame: \(view.frame)")
-        let newIndent = indent + (isLast ? "    " : "│   ")
-
-        for (index, subview) in view.subviews.enumerated() {
-            let isLastSubview = index == view.subviews.count - 1
-            printSubviewFrames(of: subview, indent: newIndent, isLast: isLastSubview)
-        }
     }
 
     func setLabelWidth() {

@@ -2,16 +2,18 @@ import Cocoa
 import Foundation
 
 class TrafficLightButton: NSButton {
+    static let size = CGFloat(16)
+    static let spacing = CGFloat(8)
     var isMouseOver = false
     var type: TrafficLightButtonType!
     var window_: Window?
 
-    init(_ type: TrafficLightButtonType, _ tooltip: String, _ size: CGFloat) {
-        super.init(frame: .init(origin: .zero, size: .init(width: size, height: size)))
+    init(_ type: TrafficLightButtonType, _ tooltip: String) {
+        super.init(frame: .init(origin: .zero, size: .init(width: TrafficLightButton.size, height: TrafficLightButton.size)))
         self.type = type
         target = self
         action = #selector(onClick)
-        fit(size, size)
+        fit(TrafficLightButton.size, TrafficLightButton.size)
         addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil))
         toolTip = tooltip
         appearance = .init(named: .aqua)
