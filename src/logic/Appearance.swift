@@ -87,16 +87,18 @@ class Appearance {
         switch currentSize {
         case .small:
             rowsCount = isHorizontalScreen ? 5 : 8
-            iconSize = 30
-            fontHeight = 14
+            iconSize = 20
+            fontHeight = 12
         case .medium:
             rowsCount = isHorizontalScreen ? 4 : 7
             iconSize = 30
-            fontHeight = 15
+            fontHeight = 13
         case .large:
             rowsCount = isHorizontalScreen ? 3 : 6
-            iconSize = 40
-            fontHeight = 18
+            windowMinWidthInRow = 0.15
+            windowMaxWidthInRow = 0.3
+            iconSize = 32
+            fontHeight = 16
         }
         if currentVisibility == .highest {
             edgeInsetsSize = 10
@@ -120,14 +122,14 @@ class Appearance {
         switch currentSize {
         case .small:
             iconSize = 88
-            fontHeight = 15
+            fontHeight = 13
         case .medium:
             iconSize = 128
             fontHeight = 15
         case .large:
             windowPadding = 28
             iconSize = 168
-            fontHeight = 20
+            fontHeight = 17
         }
     }
 
@@ -146,14 +148,14 @@ class Appearance {
         rowsCount = 1
         switch currentSize {
         case .small:
-            iconSize = 25
+            iconSize = 20
             fontHeight = 13
         case .medium:
-            iconSize = 30
-            fontHeight = 15
+            iconSize = 26
+            fontHeight = 14
         case .large:
-            iconSize = 40
-            fontHeight = 18
+            iconSize = 32
+            fontHeight = 16
         }
     }
 
