@@ -33,4 +33,4 @@
 #  skip_cleanup: true
 #  on:
 #    repo: lwouis/alt-tab-macos
-#after_deploy: scripts/after_deploy.sh
+#after_deploy: scripts/update_website.sh

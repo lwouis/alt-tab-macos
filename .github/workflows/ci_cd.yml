@@ -56,4 +56,4 @@ jobs:
         with:
           tag_name: ${{ steps.set_tag_name.outputs.tag_name }}
           files: ${{ env.XCODE_BUILD_PATH }}/*.zip
-      - run: scripts/after_deploy.sh
+      - run: scripts/update_website.sh
