@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
-set -exu
+set -ex
 
 pwd
 env | sort
+jq --version
 xcodebuild -version
 xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -showBuildSettings | grep SWIFT_VERSION
 
 npm ci
-#if travis
-#   npx commitlint-travis
-#   npx commitlint
-#else
+if [ "$TRAVIS" = true ] ; then
+  npx commitlint-travis
+  npx commitlint
+else
   npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
-  false
-#fi
+fi
 scripts/ensure_generated_files_are_up_to_date.sh
 
 if [ $IS_RELEASE ]; then
@@ -24,7 +24,7 @@ fi
 
 scripts/codesign/setup_ci_master.sh
 xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -derivedDataPath DerivedData
-file "$TRAVIS_BUILD_DIR/$XCODE_BUILD_PATH/$APP_NAME.app/Contents/MacOS/$APP_NAME"
+file "$BUILD_DIR/$XCODE_BUILD_PATH/$APP_NAME.app/Contents/MacOS/$APP_NAME"
 
 #if [ $IS_RELEASE ]; then
 #  scripts/package_and_notarize_release.sh

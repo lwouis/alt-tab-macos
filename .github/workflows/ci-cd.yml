@@ -18,17 +18,21 @@ jobs:
           node-version: 16
       - name: Set up xcode
         run: sudo xcode-select -s /Applications/Xcode_13.4.1.app/Contents/Developer
-      - name: 'Check jq'
+      - name: Calculate checkout fetch-depth
+        id: pre-checkout
+        env:
+          COMMITS: ${{ toJson(github.event.commits) }}
         run: |
-          which jq
-          jq --version
-      #      - name: 'Setup jq'
-#        uses: dcarbone/install-jq-action@v2
-#        with:
-#          version: 1.7
-#          force: false
-      - name: Checkout repository
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            COUNT=$(( $(echo "$COMMITS" | jq length) + 1 ))
+          else
+            COUNT=1
+          fi
+          echo "fetch-depth=$COUNT" >> "$GITHUB_OUTPUT"
+      - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ steps.pre-checkout.outputs.fetch-depth }}
       - name: Set up environment variables
         run: |
           echo "IS_RELEASE=$(if [ \"$GITHUB_REF_NAME\" = \"master\" -a \"$GITHUB_EVENT_NAME\" = \"push\" ]; then echo true; else echo false; fi)" >> $GITHUB_ENV
@@ -44,7 +48,7 @@ jobs:
           APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
           APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
           APPLE_P12_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_P12_CERTIFICATE_PASSWORD }}
-          TRAVIS_BUILD_DIR: ${{ github.workspace }}
+          BUILD_DIR: ${{ github.workspace }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_EVENT_AFTER: ${{ github.event.after }}
         run: |
