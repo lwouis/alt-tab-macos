@@ -12,7 +12,8 @@ npm ci
 #   npx commitlint-travis
 #   npx commitlint
 #else
-#  npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+  npx commitlint --from ${{ github.event.before }} --to ${{ github.event.after }} --verbose
+  false
 #fi
 scripts/ensure_generated_files_are_up_to_date.sh
 
