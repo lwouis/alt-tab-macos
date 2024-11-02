@@ -3,15 +3,29 @@ on:
     branches:
       - master
       - test-github-actions
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  APPCENTER_SECRET: ${{ secrets.APPCENTER_SECRET }}
+  APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN }}
+  APPLE_ID: ${{ secrets.APPLE_ID }}
+  APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+  APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+  APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
+  FEEDBACK_TOKEN: ${{ secrets.FEEDBACK_TOKEN }}
+  NETLIFY_WEBHOOK: ${{ secrets.NETLIFY_WEBHOOK }}
+  SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
+  GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+  GITHUB_EVENT_AFTER: ${{ github.event.after }}
+  BUILD_DIR: ${{ github.workspace }}
 jobs:
   build:
     runs-on: macos-12
     environment: production
     steps:
-      - name: Dump gitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
+#      - name: Dump gitHub context
+#        env:
+#          GITHUB_CONTEXT: ${{ toJSON(github) }}
+#        run: echo "$GITHUB_CONTEXT"
       - name: Set up node
         uses: actions/setup-node@v3
         with:
@@ -43,28 +57,10 @@ jobs:
         run: |
           scripts/print_env.sh
       - name: Run ci_cd.sh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          APPCENTER_SECRET: ${{ secrets.APPCENTER_SECRET }}
-          APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
-          APPLE_P12_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_P12_CERTIFICATE_PASSWORD }}
-#          FEEDBACK_TOKEN: ${{ secrets.FEEDBACK_TOKEN }}
-#          GITHUB_SSH_KEY: ${{ secrets.GITHUB_SSH_KEY }}
-#          NETLIFY_WEBHOOK: ${{ secrets.NETLIFY_WEBHOOK }}
-#          SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
-          BUILD_DIR: ${{ github.workspace }}
-          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
-          GITHUB_EVENT_AFTER: ${{ github.event.after }}
         run: |
           scripts/pre_build_checks.sh
           scripts/ci_cd.sh
 #      - name: Deploy to github releases
-##        env:
-##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #        uses: softprops/action-gh-release@v1
 #        with:
 #          files: ${{ env.XCODE_BUILD_PATH }}/*.zip

@@ -1,27 +1,27 @@
-branches:
-  only:
-    - master
-    - test-github-actions
-os: osx
-osx_image: xcode13.4
-language: node_js
-node_js:
-  - 16
+#branches:
+#  only:
+#    - master
+#    - test-github-actions
+#os: osx
+#osx_image: xcode13.4
+#language: node_js
+#node_js:
+#  - 16
 #addons:
 #  ssh_known_hosts: github.com
 #  homebrew:
 #    packages:
 #      - vitorgalvao/tiny-scripts/cask-repair
 #    update: true
-env:
-  global:
-    - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
-    - XCODE_BUILD_PATH="DerivedData/Build/Products/Release"
-    - VERSION_FILE="VERSION.txt"
-    - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
-    - BUILD_DIR="$TRAVIS_BUILD_DIR"
-install: true # disable default install
-script: scripts/print_env_vars.sh
+#env:
+#  global:
+#    - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
+#    - XCODE_BUILD_PATH="DerivedData/Build/Products/Release"
+#    - VERSION_FILE="VERSION.txt"
+#    - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
+#    - BUILD_DIR="$TRAVIS_BUILD_DIR"
+#install: true # disable default install
+#script: scripts/print_env_vars.sh
 #script: scripts/print_env.sh && scripts/pre_build_checks.sh && scripts/ci_cd.sh
 #before_deploy: if [[ $TRAVIS_TEST_RESULT == 1 ]]; then echo "build failed; exiting to prevent deploy phases"; sleep 2; exit 1; fi
 #deploy:

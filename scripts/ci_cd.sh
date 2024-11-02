@@ -2,10 +2,10 @@
 
 set -ex
 
-if [ $IS_RELEASE ]; then
+#if [ $IS_RELEASE ]; then
   scripts/determine_version.sh
   scripts/replace_environment_variables_in_app.sh
-fi
+#fi
 
 scripts/codesign/setup_ci_master.sh
 xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -derivedDataPath DerivedData
