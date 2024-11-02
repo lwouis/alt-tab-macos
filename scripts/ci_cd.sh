@@ -2,21 +2,6 @@
 
 set -ex
 
-pwd
-env | sort
-jq --version
-xcodebuild -version
-xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -showBuildSettings | grep SWIFT_VERSION
-
-npm ci
-if [ "$TRAVIS" = true ] ; then
-  npx commitlint-travis
-  npx commitlint
-else
-  npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
-fi
-scripts/ensure_generated_files_are_up_to_date.sh
-
 if [ $IS_RELEASE ]; then
   scripts/determine_version.sh
   scripts/replace_environment_variables_in_app.sh

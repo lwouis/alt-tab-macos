@@ -39,7 +39,10 @@ jobs:
           echo "XCODE_BUILD_PATH=DerivedData/Build/Products/Release" >> $GITHUB_ENV
           echo "VERSION_FILE=VERSION.txt" >> $GITHUB_ENV
           echo "APP_NAME=$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)" >> $GITHUB_ENV
-      - name: Run ci-cd.sh
+      - name: Run print-env.sh
+        run: |
+          scripts/print_env.sh
+      - name: Run ci_cd.sh
         env:
           APPCENTER_SECRET: ${{ vars.APPCENTER_SECRET }}
           FEEDBACK_TOKEN: ${{ vars.FEEDBACK_TOKEN }}
@@ -51,8 +54,10 @@ jobs:
           BUILD_DIR: ${{ github.workspace }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_EVENT_AFTER: ${{ github.event.after }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          scripts/ci-cd.sh
+          scripts/pre_build_checks.sh
+          scripts/ci_cd.sh
 #      - name: Deploy to github releases
 ##        env:
 ##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
