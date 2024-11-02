@@ -18,10 +18,15 @@ jobs:
           node-version: 16
       - name: Set up xcode
         run: sudo xcode-select -s /Applications/Xcode_13.4.1.app/Contents/Developer
-      - name: Set up cask-repair
+      - name: 'Check jq'
         run: |
-          brew update
-          brew install vitorgalvao/tiny-scripts/cask-repair
+          which jq
+          jq --version
+      #      - name: 'Setup jq'
+#        uses: dcarbone/install-jq-action@v2
+#        with:
+#          version: 1.7
+#          force: false
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up environment variables

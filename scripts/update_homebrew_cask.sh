@@ -2,6 +2,9 @@
 
 set -exu
 
+brew update
+brew install vitorgalvao/tiny-scripts/cask-repair
+
 version="$(cat $VERSION_FILE)"
 
 # add github ssh key
