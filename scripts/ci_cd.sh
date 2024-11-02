@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-set -exu
-
-env | sort
-xcodebuild -version
-xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -showBuildSettings | grep SWIFT_VERSION
-
-npm ci
-
-npx commitlint-travis
-scripts/ensure_generated_files_are_up_to_date.sh
+set -ex
 
 if [ $IS_RELEASE ]; then
   scripts/determine_version.sh
@@ -17,8 +8,10 @@ if [ $IS_RELEASE ]; then
 fi
 
 scripts/codesign/setup_ci_master.sh
+xcodebuild -version
+xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -showBuildSettings | grep SWIFT_VERSION
 xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Release -derivedDataPath DerivedData
-file "$TRAVIS_BUILD_DIR/$XCODE_BUILD_PATH/$APP_NAME.app/Contents/MacOS/$APP_NAME"
+file "$BUILD_DIR/$XCODE_BUILD_PATH/$APP_NAME.app/Contents/MacOS/$APP_NAME"
 
 if [ $IS_RELEASE ]; then
   scripts/package_and_notarize_release.sh

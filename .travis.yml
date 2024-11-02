@@ -1,34 +1,36 @@
-branches:
-  only:
-    - master
-    - develop
-os: osx
-osx_image: xcode13.4
-language: node_js
-node_js:
-  - 16
-addons:
-  ssh_known_hosts: github.com
-  homebrew:
-    packages:
-      - vitorgalvao/tiny-scripts/cask-repair
-    update: true
-env:
-  global:
-    - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
-    - XCODE_BUILD_PATH="DerivedData/Build/Products/Release"
-    - VERSION_FILE="VERSION.txt"
-    - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
-install: true # disable default install
-script: scripts/travis.sh
-before_deploy: if [[ $TRAVIS_TEST_RESULT == 1 ]]; then echo "build failed; exiting to prevent deploy phases"; sleep 2; exit 1; fi
-deploy:
-  provider: releases
-  token:
-    secure: wZUHfOs+JQ0ikNMJ8BnM+8fuoQdhgOEQpNd01ueZxe760GAAjSbq1icME8qaYJJMk1G6n14jo9ecEhzxF0XV8hSdy4WtikK7l5SXiOx5Efuh/tNscmHggGk235eLwQD9pglePZsP3xJUB1BHEj260rypkjnSx5kVOfLUeB1ASeg4+KdxZd2vXjwel+YQf+dYbNUYtwoWqjiLbqT1ao+0q04MPgD2c9jb+HnsA94LUGb44lPXqfUJ+xG2LxBpcDW/q1JhFXL/AmJb0dOOEVzzrBqfWysPukgPMONexZse4c3BBqkMI52ZuF3OoEVAffofmuGKiR5OoyU/hW17xi9jGeb79r+Xt4RdaJAgwcn7/7GtemYKUJp8jhLGsy9XZJShENX7UHTkP3L4iyOrd2Wz+ctZWAebyNReLt985/xTaplpDiQrPcKAuQNBa4sgWk5rIsf7Z0tcBfZau/fQl9Q4100xTbwC+GeAbL0IyXG3kVzQGsGllXHr/2JM1sj7rmKA7lmDlp7xiOBCPscn2YCT87U+F6VbYoNvnxne0igQOUwrvX4qa4XlYrUXDeHcyKku0m8znY74nOu+m6LXkIt8r29pi6Xac0/ZGMwKZRUvKg/skamWPRoy9DAVd8TBQW1c91oYKmqDQRy0eWnD6X1djcKywJ7WlSQDejebJql0h+o=
-  file_glob: true
-  file: "$XCODE_BUILD_PATH/*.zip"
-  skip_cleanup: true
-  on:
-    repo: lwouis/alt-tab-macos
-after_deploy: scripts/after_deploy.sh
+#branches:
+#  only:
+#    - master
+#    - test-github-actions
+#os: osx
+#osx_image: xcode13.4
+#language: node_js
+#node_js:
+#  - 16
+#addons:
+#  ssh_known_hosts: github.com
+#  homebrew:
+#    packages:
+#      - vitorgalvao/tiny-scripts/cask-repair
+#    update: true
+#env:
+#  global:
+#    - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
+#    - XCODE_BUILD_PATH="DerivedData/Build/Products/Release"
+#    - VERSION_FILE="VERSION.txt"
+#    - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
+#    - BUILD_DIR="$TRAVIS_BUILD_DIR"
+#install: true # disable default install
+#script: scripts/print_env_vars.sh
+#script: scripts/print_env.sh && scripts/pre_build_checks.sh && scripts/ci_cd.sh
+#before_deploy: if [[ $TRAVIS_TEST_RESULT == 1 ]]; then echo "build failed; exiting to prevent deploy phases"; sleep 2; exit 1; fi
+#deploy:
+#  provider: releases
+#  token:
+#    secure: wZUHfOs+JQ0ikNMJ8BnM+8fuoQdhgOEQpNd01ueZxe760GAAjSbq1icME8qaYJJMk1G6n14jo9ecEhzxF0XV8hSdy4WtikK7l5SXiOx5Efuh/tNscmHggGk235eLwQD9pglePZsP3xJUB1BHEj260rypkjnSx5kVOfLUeB1ASeg4+KdxZd2vXjwel+YQf+dYbNUYtwoWqjiLbqT1ao+0q04MPgD2c9jb+HnsA94LUGb44lPXqfUJ+xG2LxBpcDW/q1JhFXL/AmJb0dOOEVzzrBqfWysPukgPMONexZse4c3BBqkMI52ZuF3OoEVAffofmuGKiR5OoyU/hW17xi9jGeb79r+Xt4RdaJAgwcn7/7GtemYKUJp8jhLGsy9XZJShENX7UHTkP3L4iyOrd2Wz+ctZWAebyNReLt985/xTaplpDiQrPcKAuQNBa4sgWk5rIsf7Z0tcBfZau/fQl9Q4100xTbwC+GeAbL0IyXG3kVzQGsGllXHr/2JM1sj7rmKA7lmDlp7xiOBCPscn2YCT87U+F6VbYoNvnxne0igQOUwrvX4qa4XlYrUXDeHcyKku0m8znY74nOu+m6LXkIt8r29pi6Xac0/ZGMwKZRUvKg/skamWPRoy9DAVd8TBQW1c91oYKmqDQRy0eWnD6X1djcKywJ7WlSQDejebJql0h+o=
+#  file_glob: true
+#  file: "$XCODE_BUILD_PATH/*.zip"
+#  skip_cleanup: true
+#  on:
+#    repo: lwouis/alt-tab-macos
+#after_deploy: scripts/after_deploy.sh

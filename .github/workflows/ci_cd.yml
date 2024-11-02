@@ -1,0 +1,58 @@
+on:
+  push:
+    branches:
+      - master
+      - test-github-actions
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  APPCENTER_SECRET: ${{ secrets.APPCENTER_SECRET }}
+  APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN }}
+  APPLE_ID: ${{ secrets.APPLE_ID }}
+  APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+  APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+  APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
+  FEEDBACK_TOKEN: ${{ secrets.FEEDBACK_TOKEN }}
+  NETLIFY_WEBHOOK: ${{ secrets.NETLIFY_WEBHOOK }}
+  SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
+  GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+  GITHUB_EVENT_AFTER: ${{ github.event.after }}
+  BUILD_DIR: ${{ github.workspace }}
+  XCODE_BUILD_PATH: DerivedData/Build/Products/Release
+  VERSION_FILE: VERSION.txt
+  APP_NAME: AltTab
+jobs:
+  build:
+    runs-on: macos-12
+    environment: production
+    steps:
+#      - env:
+#          GITHUB_CONTEXT: ${{ toJSON(github) }}
+#        run: echo "$GITHUB_CONTEXT"
+      - run: echo "IS_RELEASE=$(if [ \"$GITHUB_REF_NAME\" = \"master\" -a \"$GITHUB_EVENT_NAME\" = \"push\" ]; then echo true; else echo false; fi)" >> $GITHUB_ENV
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: sudo xcode-select -s /Applications/Xcode_13.4.1.app/Contents/Developer
+      - id: pre-checkout
+        env:
+          COMMITS: ${{ toJson(github.event.commits) }}
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            COUNT=$(( $(echo "$COMMITS" | jq length) + 1 ))
+          else
+            COUNT=1
+          fi
+          echo "fetch-depth=$COUNT" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ steps.pre-checkout.outputs.fetch-depth }}
+      - run: scripts/print_env.sh
+      - run: scripts/pre_build_checks.sh
+      - run: scripts/ci_cd.sh
+      - id: set_tag_name
+        run: echo "tag_name=v"$(cat $VERSION_FILE)"" >> "$GITHUB_OUTPUT"
+      - uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.set_tag_name.outputs.tag_name }}
+          files: ${{ env.XCODE_BUILD_PATH }}/*.zip
+      - run: scripts/after_deploy.sh
