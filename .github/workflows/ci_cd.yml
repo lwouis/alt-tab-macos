@@ -44,17 +44,21 @@ jobs:
           scripts/print_env.sh
       - name: Run ci_cd.sh
         env:
-          APPCENTER_SECRET: ${{ vars.APPCENTER_SECRET }}
-          FEEDBACK_TOKEN: ${{ vars.FEEDBACK_TOKEN }}
-          APPLE_ID: ${{ vars.APPLE_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPCENTER_SECRET: ${{ secrets.APPCENTER_SECRET }}
+          APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
           APPLE_P12_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_P12_CERTIFICATE_PASSWORD }}
+#          FEEDBACK_TOKEN: ${{ secrets.FEEDBACK_TOKEN }}
+#          GITHUB_SSH_KEY: ${{ secrets.GITHUB_SSH_KEY }}
+#          NETLIFY_WEBHOOK: ${{ secrets.NETLIFY_WEBHOOK }}
+#          SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
           BUILD_DIR: ${{ github.workspace }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_EVENT_AFTER: ${{ github.event.after }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           scripts/pre_build_checks.sh
           scripts/ci_cd.sh

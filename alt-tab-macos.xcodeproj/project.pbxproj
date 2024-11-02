@@ -139,6 +139,7 @@
 		BF0C8CC5057406014FD612CC /* ATShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8BA452332236D972C60E /* ATShortcut.swift */; };
 		BF0C8D1C57D74106018D073C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C87F5D4AD51D6950C98B0 /* InfoPlist.strings */; };
 		BF0C8D610C93D48F572937F8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8FBA6B0F4DEB510C71CB /* Localizable.strings */; };
+		BF0C8DBAB7E87E90EF660E78 /* print_env_vars.sh in Resources */ = {isa = PBXBuildFile; fileRef = BF0C847556DC867D7B575D76 /* print_env_vars.sh */; };
 		BF0C8DD7EBC3BA1E86BF4BDB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C841E403C1C6E8C65727E /* InfoPlist.strings */; };
 		BF0C8DF4207B0BDC2178277B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8FA077BB185496B4CAE8 /* Localizable.strings */; };
 		BF0C8E16F38203AEC71E062B /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8343C1F6FCA82552DCB7 /* TableView.swift */; };
@@ -349,6 +350,7 @@
 		BF0C843C2EDF4EF3A7A2C64A /* app.svg */ = {isa = PBXFileReference; lastKnownFileType = file.svg; path = app.svg; sourceTree = "<group>"; };
 		BF0C8465A0A9EA2814A22C35 /* SF-Pro-Text-Regular-Full.otf */ = {isa = PBXFileReference; lastKnownFileType = file.otf; path = "SF-Pro-Text-Regular-Full.otf"; sourceTree = "<group>"; };
 		BF0C84674BAE2B4D7871B86C /* et */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = et; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C847556DC867D7B575D76 /* print_env_vars.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = print_env_vars.sh; sourceTree = "<group>"; };
 		BF0C847A108ABC72723ABBA2 /* hi */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hi; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C848A4DDFF5D118CA9CAF /* ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ca; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C84B9B7A41E4A4534E519 /* app-icons-style-full.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app-icons-style-full.jpg"; sourceTree = "<group>"; };
@@ -1401,6 +1403,7 @@
 				BF0C8BED805610C4F9C46A4A /* export_l10n_strings_to_poeditor.sh */,
 				BF0C8C0FF1B21F5F7CE16B79 /* print_env.sh */,
 				BF0C8703C7489A44BEC4BCED /* pre_build_checks.sh */,
+				BF0C847556DC867D7B575D76 /* print_env_vars.sh */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
@@ -1963,6 +1966,7 @@
 				BF0C81480366BAD71BC9A158 /* InfoPlist.strings in Resources */,
 				BF0C8B2EE49F4753F663FEF2 /* Localizable.strings in Resources */,
 				BF0C88C371B5550E7D23E4F1 /* InfoPlist.strings in Resources */,
+				BF0C8DBAB7E87E90EF660E78 /* print_env_vars.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
