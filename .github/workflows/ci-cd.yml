@@ -18,7 +18,7 @@ jobs:
           node-version: 16
       - name: Set up xcode
         run: sudo xcode-select -s /Applications/Xcode_13.4.1.app/Contents/Developer
-      - name: Set up cas-repair
+      - name: Set up cask-repair
         run: |
           brew update
           brew install vitorgalvao/tiny-scripts/cask-repair
@@ -40,6 +40,8 @@ jobs:
           APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
           APPLE_P12_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_P12_CERTIFICATE_PASSWORD }}
           TRAVIS_BUILD_DIR: ${{ github.workspace }}
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_EVENT_AFTER: ${{ github.event.after }}
         run: |
           scripts/ci-cd.sh
 #      - name: Deploy to github releases

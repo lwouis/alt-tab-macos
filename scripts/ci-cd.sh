@@ -12,7 +12,7 @@ npm ci
 #   npx commitlint-travis
 #   npx commitlint
 #else
-  npx commitlint --from ${{ github.event.before }} --to ${{ github.event.after }} --verbose
+  npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
   false
 #fi
 scripts/ensure_generated_files_are_up_to_date.sh
