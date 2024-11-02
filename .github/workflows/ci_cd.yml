@@ -20,6 +20,7 @@ env:
   XCODE_BUILD_PATH: DerivedData/Build/Products/Release
   VERSION_FILE: VERSION.txt
   APP_NAME: AltTab
+  GITHUB_USER: lwouis # for cask-repair
 jobs:
   build:
     runs-on: macos-12
