@@ -1,0 +1,53 @@
+on:
+  push:
+    branches:
+      - master
+      - test-github-actions
+jobs:
+  build:
+    runs-on: macos-12
+    environment: production
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Set up xcode
+        run: sudo xcode-select -s /Applications/Xcode_13.4.1.app/Contents/Developer
+      - name: Set up cas-repair
+        run: |
+          brew update
+          brew install vitorgalvao/tiny-scripts/cask-repair
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up environment variables
+        run: |
+          echo "IS_RELEASE=$(if [ \"$GITHUB_REF_NAME\" = \"master\" -a \"$GITHUB_EVENT_NAME\" = \"push\" ]; then echo true; else echo false; fi)" >> $GITHUB_ENV
+          echo "XCODE_BUILD_PATH=DerivedData/Build/Products/Release" >> $GITHUB_ENV
+          echo "VERSION_FILE=VERSION.txt" >> $GITHUB_ENV
+          echo "APP_NAME=$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)" >> $GITHUB_ENV
+      - name: Run ci-cd.sh
+        env:
+          APPCENTER_SECRET: ${{ vars.APPCENTER_SECRET }}
+          FEEDBACK_TOKEN: ${{ vars.FEEDBACK_TOKEN }}
+          APPLE_ID: ${{ vars.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+          APPLE_P12_CERTIFICATE: ${{ secrets.APPLE_P12_CERTIFICATE }}
+          APPLE_P12_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_P12_CERTIFICATE_PASSWORD }}
+          TRAVIS_BUILD_DIR: ${{ github.workspace }}
+        run: |
+          scripts/ci-cd.sh
+#      - name: Deploy to github releases
+##        env:
+##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          files: ${{ env.XCODE_BUILD_PATH }}/*.zip
+#      - name: Run after_deploy.sh
+#        run: |
+#          scripts/after_deploy.sh

@@ -1,7 +1,6 @@
 branches:
   only:
     - master
-    - develop
 os: osx
 osx_image: xcode13.4
 language: node_js
@@ -20,7 +19,7 @@ env:
     - VERSION_FILE="VERSION.txt"
     - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
 install: true # disable default install
-script: scripts/travis.sh
+script: scripts/ci-cd.sh
 before_deploy: if [[ $TRAVIS_TEST_RESULT == 1 ]]; then echo "build failed; exiting to prevent deploy phases"; sleep 2; exit 1; fi
 deploy:
   provider: releases
