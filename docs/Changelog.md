@@ -1,5 +1,24 @@
 # Release notes
 
+# [7.1.0](https://github.com/lwouis/alt-tab-macos/compare/v7.0.2...v7.1.0) (2024-11-02)
+
+
+### Bug Fixes
+
+* fixed the rounded corners when the mouse moves over the table ([dd379c4](https://github.com/lwouis/alt-tab-macos/commit/dd379c4))
+
+
+### Features
+
+* add irish localization ([19f59b2](https://github.com/lwouis/alt-tab-macos/commit/19f59b2))
+* add language preference ([f33418e](https://github.com/lwouis/alt-tab-macos/commit/f33418e))
+* allow to run the app without screen-recording permissions ([129d061](https://github.com/lwouis/alt-tab-macos/commit/129d061)), closes [#1082](https://github.com/lwouis/alt-tab-macos/issues/1082)
+* hide space labels when showing same-space windows (closes [#3766](https://github.com/lwouis/alt-tab-macos/issues/3766)) ([ad64ced](https://github.com/lwouis/alt-tab-macos/commit/ad64ced))
+* i18n ([d77fa67](https://github.com/lwouis/alt-tab-macos/commit/d77fa67))
+* improve appearance at the different sizes ([2c857a6](https://github.com/lwouis/alt-tab-macos/commit/2c857a6))
+* improve display of wide/tall thumbnails (closes [#3791](https://github.com/lwouis/alt-tab-macos/issues/3791)) ([45bbc93](https://github.com/lwouis/alt-tab-macos/commit/45bbc93))
+* improve localizations ([9d1349b](https://github.com/lwouis/alt-tab-macos/commit/9d1349b))
+
 ## [7.0.2](https://github.com/lwouis/alt-tab-macos/compare/v7.0.1...v7.0.2) (2024-10-12)
 
 
