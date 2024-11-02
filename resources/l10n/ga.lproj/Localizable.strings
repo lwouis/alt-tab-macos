@@ -21,19 +21,19 @@
 "Active Space" = "Spás Gníomhach";
 
 /*No comment provided by engineer.*/
-"Additional controls" = "Additional controls";
+"Additional controls" = "Rialuithe breise";
 
 /*No comment provided by engineer.*/
-"Additional controls…" = "Additional controls…";
+"Additional controls…" = "Rialuithe breise…";
 
 /*No comment provided by engineer.*/
-"Advanced" = "Advanced";
+"Advanced" = "Ard";
 
 /*No comment provided by engineer.*/
-"After release" = "After release";
+"After release" = "Tar éis scaoileadh";
 
 /*No comment provided by engineer.*/
-"Align windows" = "Align windows";
+"Align windows" = "Ailínigh fuinneoga";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "Ailínigh fuinneoga:";
@@ -57,7 +57,7 @@
 "Alphabetical" = "Aibítre";
 
 /*No comment provided by engineer.*/
-"Alphabetical Order" = "Alphabetical Order";
+"Alphabetical Order" = "Ord Aibítre";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Roghnaigh fuinneoga freisin ag baint úsáide as:";
@@ -66,13 +66,13 @@
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Thuar AltTab an uair dheireanach a d'úsáid tú é. Má sheoltar tuairisc tuairteála, cabhrófar leis an tsaincheist a réiteach";
 
 /*No comment provided by engineer.*/
-"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Tá AltTab socraithe faoi láthair chun Feidhmchláir a thaispeáint. Níl an socrú seo ar fáil ach amháin nuair atá AltTab socraithe chun Windows a thaispeáint.";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "Teastaíonn roinnt ceadanna ó AltTab";
 
 /*No comment provided by engineer.*/
-"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab will show if the window is currently minimized or fullscreen with a status icon.";
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Léireoidh AltTab an bhfuil an fhuinneog íoslaghdaithe faoi láthair nó an scáileán iomlán le deilbhín stádais.";
 
 /*No comment provided by engineer.*/
 "Always" = "I gcónaí";
@@ -81,22 +81,22 @@
 "Always send crash reports" = "Seol tuairiscí tuairteála i gcónaí";
 
 /*No comment provided by engineer.*/
-"and press" = "and press";
+"and press" = "agus brúigh";
 
 /*No comment provided by engineer.*/
 "and press:" = "agus brúigh:";
 
 /*No comment provided by engineer.*/
-"Animations" = "Animations";
+"Animations" = "Beochán";
 
 /*No comment provided by engineer.*/
-"Animations…" = "Animations…";
+"Animations…" = "Beochan…";
 
 /*No comment provided by engineer.*/
 "App (BundleID starting with)" = "Aip (BundleID ag tosú le)";
 
 /*No comment provided by engineer.*/
-"App Icons" = "App Icons";
+"App Icons" = "Deilbhíní Aip";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "Tá an aip i bhfolach";
@@ -105,7 +105,7 @@
 "App is running but has no open window" = "Tá an aip ag rith ach níl aon fhuinneog oscailte aige";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "Apparition delay";
+"Apparition delay" = "Moill ar chuma";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Moill ar chuma:";
@@ -114,13 +114,13 @@
 "Appearance" = "Dealramh";
 
 /*No comment provided by engineer.*/
-"Application Name" = "Application Name";
+"Application Name" = "Ainm Feidhmchláir";
 
 /*No comment provided by engineer.*/
-"Application Name - Window Title" = "Application Name - Window Title";
+"Application Name - Window Title" = "Ainm Feidhmchláir - Teideal Fuinneog";
 
 /*No comment provided by engineer.*/
-"Applications" = "Applications";
+"Applications" = "Feidhmchláir";
 
 /*No comment provided by engineer.*/
 "Are you sure you don’t want a response?" = "An bhfuil tú cinnte nach dteastaíonn freagra uait?";
@@ -168,7 +168,7 @@
 "Controls" = "Rialuithe";
 
 /*No comment provided by engineer.*/
-"Crash reports policy" = "Crash reports policy";
+"Crash reports policy" = "Beartas tuairiscithe tuairteála";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "Beartas tuairiscithe tuairteála:";
@@ -177,16 +177,16 @@
 "Cursor follows focus" = "Leanann an cúrsóir fócas";
 
 /*No comment provided by engineer.*/
-"Customize App Icons style…" = "Customize App Icons style…";
+"Customize App Icons style…" = "Saincheap stíl Dheilbhíní Aipe…";
 
 /*No comment provided by engineer.*/
-"Customize Thumbnails style…" = "Customize Thumbnails style…";
+"Customize Thumbnails style…" = "Saincheap stíl Mionsamhlacha…";
 
 /*No comment provided by engineer.*/
-"Customize Titles style…" = "Customize Titles style…";
+"Customize Titles style…" = "Saincheap stíl Teidil…";
 
 /*No comment provided by engineer.*/
-"Dark" = "Dark";
+"Dark" = "Dorcha";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Ná déan faic";
@@ -201,13 +201,13 @@
 "Don’t show windows from these apps" = "Ná taispeáin fuinneoga ó na haipeanna seo";
 
 /*No comment provided by engineer.*/
-"Done" = "Done";
+"Done" = "Déanta";
 
 /*No comment provided by engineer.*/
 "End" = "Deireadh";
 
 /*No comment provided by engineer.*/
-"Fade out animation" = "Fade out animation";
+"Fade out animation" = "Céimnigh amach beochan";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Beochan céimnithe:";
@@ -234,19 +234,19 @@
 "Hide" = "Folaigh";
 
 /*No comment provided by engineer.*/
-"Hide app badges" = "Hide app badges";
+"Hide app badges" = "Folaigh suaitheantais app";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "Folaigh suaitheantais aipe:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window" = "Hide apps with no open window";
+"Hide apps with no open window" = "Folaigh aipeanna gan aon fhuinneog oscailte";
 
 /*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Folaigh aipeanna gan aon fhuinneog oscailte:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover" = "Hide colored circles on mouse hover";
+"Hide colored circles on mouse hover" = "Folaigh ciorcail daite ar hover luiche";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Folaigh ciorcail daite ar hover luiche:";
@@ -255,13 +255,13 @@
 "Hide in %@" = "Folaigh i %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels" = "Hide Space number labels";
+"Hide Space number labels" = "Folaigh lipéid uimhreacha spáis";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Folaigh lipéid uimhreacha spáis:";
 
 /*No comment provided by engineer.*/
-"Hide status icons" = "Hide status icons";
+"Hide status icons" = "Folaigh deilbhíní stádais";
 
 /*No comment provided by engineer.*/
 "Hide status icons:" = "Folaigh deilbhíní stádais:";
@@ -273,10 +273,10 @@
 "Hide/Show app" = "Folaigh/Taispeáin an aip";
 
 /*No comment provided by engineer.*/
-"High" = "High";
+"High" = "Ard";
 
 /*No comment provided by engineer.*/
-"Highest" = "Highest";
+"Highest" = "Is airde";
 
 /*No comment provided by engineer.*/
 "Hold" = "Coinnigh";
@@ -291,19 +291,19 @@
 "Ignore shortcuts while a window from these apps is active" = "Déan neamhaird de aicearraí agus fuinneog ó na haipeanna seo gníomhach";
 
 /*No comment provided by engineer.*/
-"Large" = "Large";
+"Large" = "Mór";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Na heisiúintí is déanaí";
 
 /*No comment provided by engineer.*/
-"Leading" = "Leading";
+"Leading" = "Ceannaireacht";
 
 /*No comment provided by engineer.*/
 "Left" = "Ar chlé";
 
 /*No comment provided by engineer.*/
-"Light" = "Light";
+"Light" = "Solas";
 
 /*No comment provided by engineer.*/
 "Max height on screen:" = "Uasairde ar an scáileán:";
@@ -312,10 +312,10 @@
 "Max width on screen:" = "Leithead uasta ar an scáileán:";
 
 /*No comment provided by engineer.*/
-"Medium" = "Medium";
+"Medium" = "Meánach";
 
 /*No comment provided by engineer.*/
-"Menubar icon" = "Menubar icon";
+"Menubar icon" = "Deilbhín an bharra roghchláir";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "Deilbhín an roghchláir:";
@@ -336,13 +336,13 @@
 "Mouse hover" = "Ainlíonn luch";
 
 /*No comment provided by engineer.*/
-"Multiple screens" = "Multiple screens";
+"Multiple screens" = "Scáileáin iolracha";
 
 /*No comment provided by engineer.*/
 "Never send crash reports" = "Ná seol tuairiscí tuairteála riamh";
 
 /*No comment provided by engineer.*/
-"Normal" = "Normal";
+"Normal" = "Gnáth";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "Ní cheadaítear";
@@ -363,7 +363,7 @@
 "Optional: email (if you want a reply)" = "Roghnach: ríomhphost (má tá freagra uait)";
 
 /*No comment provided by engineer.*/
-"Order windows by" = "Order windows by";
+"Order windows by" = "Ordaigh fuinneoga le";
 
 /*No comment provided by engineer.*/
 "Policies" = "Polasaithe";
@@ -372,13 +372,13 @@
 "Preferences…" = "Sainroghanna…";
 
 /*No comment provided by engineer.*/
-"Preview selected window" = "Preview selected window";
+"Preview selected window" = "Réamhamharc an fhuinneog roghnaithe";
 
 /*No comment provided by engineer.*/
 "Preview selected window:" = "Réamhamharc ar fhuinneog roghnaithe:";
 
 /*No comment provided by engineer.*/
-"Preview the selected window." = "Preview the selected window.";
+"Preview the selected window." = "Réamhamharc ar an bhfuinneog roghnaithe.";
 
 /*No comment provided by engineer.*/
 "Quit" = "Scoir";
@@ -393,13 +393,13 @@
 "Recently Created" = "Cruthaithe Le Déanaí";
 
 /*No comment provided by engineer.*/
-"Recently Created First" = "Recently Created First";
+"Recently Created First" = "Cruthaíodh Ar dtús le Déanaí";
 
 /*No comment provided by engineer.*/
 "Recently Focused" = "Dírithe le déanaí";
 
 /*No comment provided by engineer.*/
-"Recently Focused First" = "Recently Focused First";
+"Recently Focused First" = "Dírithe ar dtús le déanaí";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Cuimhnigh mo rogha";
@@ -432,13 +432,13 @@
 "Select previous window" = "Roghnaigh an fhuinneog roimhe seo";
 
 /*No comment provided by engineer.*/
-"Select windows on mouse hover" = "Select windows on mouse hover";
+"Select windows on mouse hover" = "Roghnaigh fuinneoga ar ainlíonn luch";
 
 /*No comment provided by engineer.*/
-"Select windows using arrow keys" = "Select windows using arrow keys";
+"Select windows using arrow keys" = "Roghnaigh fuinneoga ag baint úsáide as saigheadeochracha";
 
 /*No comment provided by engineer.*/
-"Select windows using vim keys" = "Select windows using vim keys";
+"Select windows using vim keys" = "Roghnaigh fuinneoga ag baint úsáide as vim keys";
 
 /*No comment provided by engineer.*/
 "Send" = "Seol";
@@ -456,7 +456,7 @@
 "Send feedback" = "Seol aiseolas";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "Seol aiseolas...";
+"Send feedback…" = "Seol aiseolas…";
 
 /*No comment provided by engineer.*/
 "Share improvement ideas, or report bugs" = "Comhroinn smaointe feabhsúcháin, nó tuairiscigh fabhtanna";
@@ -480,70 +480,70 @@
 "Shortcut already assigned to another action: %@" = "Tá aicearra sannta cheana do ghníomh eile: %@";
 
 /*No comment provided by engineer.*/
-"Shortcuts When Active" = "Shortcuts When Active";
+"Shortcuts When Active" = "Aicearraí Nuair atá Gníomhach";
 
 /*No comment provided by engineer.*/
-"Shortcuts when active…" = "Shortcuts when active…";
+"Shortcuts when active…" = "Aicearraí agus tú gníomhach…";
 
 /*No comment provided by engineer.*/
 "Show" = "Taispeáin";
 
 /*No comment provided by engineer.*/
-"Show & Hide" = "Show & Hide";
+"Show & Hide" = "Taispeáin & Folaigh";
 
 /*No comment provided by engineer.*/
-"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.";
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Taispeáin mír sa lascóir do gach fuinneog, nó do gach feidhmchlár. Díreofar Windows, ach cuirfear feidhmchláir i ngníomh.";
 
 /*No comment provided by engineer.*/
 "Show at the end" = "Taispeáin ag an deireadh";
 
 /*No comment provided by engineer.*/
-"Show fullscreen windows" = "Show fullscreen windows";
+"Show fullscreen windows" = "Taispeáin fuinneoga lánscáileáin";
 
 /*No comment provided by engineer.*/
-"Show hidden windows" = "Show hidden windows";
+"Show hidden windows" = "Taispeáin fuinneoga ceilte";
 
 /*No comment provided by engineer.*/
-"Show in switcher" = "Show in switcher";
+"Show in switcher" = "Taispeáin i lascóir";
 
 /*No comment provided by engineer.*/
-"Show minimized windows" = "Show minimized windows";
+"Show minimized windows" = "Taispeáin fuinneoga íoslaghdaithe";
 
 /*No comment provided by engineer.*/
-"Show on" = "Show on";
+"Show on" = "Taispeáin ar";
 
 /*No comment provided by engineer.*/
 "Show on:" = "Taispeáin ar:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows" = "Show standard tabs as windows";
+"Show standard tabs as windows" = "Taispeáin cluaisíní caighdeánacha mar fhuinneoga";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Taispeáin cluaisíní caighdeánacha mar fhuinneoga:";
 
 /*No comment provided by engineer.*/
-"Show titles" = "Show titles";
+"Show titles" = "Taispeáin teidil";
 
 /*No comment provided by engineer.*/
-"Show windows from applications" = "Show windows from applications";
+"Show windows from applications" = "Taispeáin fuinneoga ó fheidhmchláir";
 
 /*No comment provided by engineer.*/
-"Show windows from screens" = "Show windows from screens";
+"Show windows from screens" = "Taispeáin fuinneoga ó scáileáin";
 
 /*No comment provided by engineer.*/
-"Show windows from Spaces" = "Show windows from Spaces";
+"Show windows from Spaces" = "Taispeáin fuinneoga ó Spaces";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Taispeáin fuinneoga ó:";
 
 /*No comment provided by engineer.*/
-"Size" = "Size";
+"Size" = "Méid";
 
 /*No comment provided by engineer.*/
-"Small" = "Small";
+"Small" = "Beag";
 
 /*No comment provided by engineer.*/
-"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.";
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Úsáideann roinnt aipeanna ar nós Aimsitheoir nó Réamhamhairc cluaisíní caighdeánacha a fheidhmíonn cosúil le fuinneoga neamhspleácha. Úsáideann roinnt aipeanna eile cosúil le brabhsálaithe gréasáin cluaisíní saincheaptha a ghníomhaíonn ar bhealaí uathúla agus nach fuinneoga iarbhír iad. Ní féidir le AltTab iad sin a liostú ar leithligh.";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Stórais cód foinse";
@@ -552,13 +552,13 @@
 "Space" = "Spás";
 
 /*No comment provided by engineer.*/
-"Space Order" = "Space Order";
+"Space Order" = "Ordú Spáis";
 
 /*No comment provided by engineer.*/
 "Start" = "Tosaigh";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Start at login";
+"Start at login" = "Tosaigh ag logáil isteach";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Tosaigh ag logáil isteach:";
@@ -567,13 +567,13 @@
 "Support this project ❤️" = "Tacaigh leis an tionscadal seo ❤️";
 
 /*No comment provided by engineer.*/
-"Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
+"Switch between 3 different styles. You can customize them." = "Athraigh idir 3 stíleanna éagsúla. Is féidir leat iad a shaincheapadh.";
 
 /*No comment provided by engineer.*/
-"System" = "System";
+"System" = "Córas";
 
 /*No comment provided by engineer.*/
-"Theme" = "Theme";
+"Theme" = "Téama";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Téama:";
@@ -588,22 +588,22 @@
 "This permission is needed to show screenshots and titles of open windows" = "Tá an cead seo ag teastáil chun scáileáin scáileáin agus teidil fuinneoga oscailte a thaispeáint";
 
 /*No comment provided by engineer.*/
-"Thumbnails" = "Thumbnails";
+"Thumbnails" = "Mionsamhlacha";
 
 /*No comment provided by engineer.*/
-"Title truncation" = "Title truncation";
+"Title truncation" = "Teascadh teidil";
 
 /*No comment provided by engineer.*/
-"Titles" = "Titles";
+"Titles" = "Teidil";
 
 /*No comment provided by engineer.*/
-"Trigger shortcut" = "Trigger shortcut";
+"Trigger shortcut" = "Aicearra truicear";
 
 /*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "Díshannaigh an t-aicearra reatha agus lean ar aghaidh";
 
 /*No comment provided by engineer.*/
-"Updates policy" = "Updates policy";
+"Updates policy" = "Nuashonraítear polasaí";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Polasaí nuashonraithe:";
@@ -621,7 +621,7 @@
 "Vim keys already assigned to other actions:\n%@" = "Eochracha Vim sannta cheana féin do ghníomhartha eile:\n%@";
 
 /*No comment provided by engineer.*/
-"Visibility" = "Visibility";
+"Visibility" = "Infheictheacht";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Spásanna Infheicthe";
@@ -660,7 +660,7 @@
 "Window order:" = "Ordú fuinneoige:";
 
 /*No comment provided by engineer.*/
-"Window Title" = "Window Title";
+"Window Title" = "Teideal Fuinneog";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Méid cló teideal na fuinneoige:";
@@ -669,7 +669,7 @@
 "Window title truncation:" = "Teascadh teideal fuinneoige:";
 
 /*No comment provided by engineer.*/
-"Windows" = "Windows";
+"Windows" = "Fuinneoga";
 
 /*No comment provided by engineer.*/
 "You can’t undo this action." = "Ní féidir leat an gníomh seo a chealú.";
