@@ -6,7 +6,7 @@ certificateFile="$1"
 certificatePassword="$2"
 
 keychain="alt-tab-macos.keychain"
-keychainPassword="travis"
+keychainPassword="password"
 
 # create a keychain
 security create-keychain -p $keychainPassword $keychain
