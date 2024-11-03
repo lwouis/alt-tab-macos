@@ -1,5 +1,12 @@
 # Release notes
 
+## [7.1.1](https://github.com/lwouis/alt-tab-macos/compare/v7.1.0...v7.1.1) (2024-11-03)
+
+
+### Bug Fixes
+
+* blacklist could prevent app launch in v7.1.0 ([8f4784f](https://github.com/lwouis/alt-tab-macos/commit/8f4784f))
+
 # [7.1.0](https://github.com/lwouis/alt-tab-macos/compare/v7.0.2...v7.1.0) (2024-11-02)
 
 
