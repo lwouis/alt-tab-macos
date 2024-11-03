@@ -82,15 +82,17 @@ class Appearance {
         edgeInsetsSize = 12
         maxWidthOnScreen = 0.9
         maxHeightOnScreen = 0.8
-        windowMinWidthInRow = 0.1
-        windowMaxWidthInRow = 0.25
         switch currentSize {
         case .small:
             rowsCount = isHorizontalScreen ? 5 : 8
+            windowMinWidthInRow = 0.09
+            windowMaxWidthInRow = 0.16
             iconSize = 20
             fontHeight = 12
         case .medium:
             rowsCount = isHorizontalScreen ? 4 : 7
+            windowMinWidthInRow = 0.11
+            windowMaxWidthInRow = 0.2
             iconSize = 30
             fontHeight = 13
         case .large:
