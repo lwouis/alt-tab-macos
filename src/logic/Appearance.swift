@@ -83,7 +83,7 @@ class Appearance {
         maxWidthOnScreen = 0.9
         maxHeightOnScreen = 0.8
         windowMinWidthInRow = 0.1
-        windowMaxWidthInRow = 0.15
+        windowMaxWidthInRow = 0.25
         switch currentSize {
         case .small:
             rowsCount = isHorizontalScreen ? 5 : 8
