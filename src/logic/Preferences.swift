@@ -129,7 +129,7 @@ class Preferences {
     static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
     // periphery:ignore
     static var startAtLogin: Bool { defaults.bool("startAtLogin") }
-    static var blacklist: [BlacklistEntry] { jsonDecode([BlacklistEntry].self, defaults.string("blacklist")) }
+    static var blacklist: [BlacklistEntry] { defaults.json("blacklist", [BlacklistEntry].self) }
     static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { defaults.bool("screenRecordingPermissionSkipped") }
 
@@ -422,10 +422,6 @@ class Preferences {
         ].map {
             BlacklistEntry(bundleIdentifier: $0, hide: .none, ignore: .whenFullscreen)
         })
-    }
-
-    static func jsonDecode<T>(_ type: T.Type, _ value: String) -> T where T: Decodable {
-        return try! JSONDecoder().decode(type, from: value.data(using: .utf8)!)
     }
 
     static func jsonEncode<T>(_ value: T) -> String where T: Encodable {
@@ -1075,10 +1071,10 @@ enum CrashPolicyPreference: CaseIterable, MacroPreference {
     }
 }
 
-enum BlacklistHidePreference: CaseIterable, MacroPreference, Codable {
-    case none
-    case always
-    case whenNoOpenWindow
+enum BlacklistHidePreference: String/* required for jsonEncode */, CaseIterable, MacroPreference, Codable {
+    case none = "0"
+    case always = "1"
+    case whenNoOpenWindow = "2"
 
     var localizedString: LocalizedString {
         switch self {
@@ -1089,10 +1085,10 @@ enum BlacklistHidePreference: CaseIterable, MacroPreference, Codable {
     }
 }
 
-enum BlacklistIgnorePreference: CaseIterable, MacroPreference, Codable {
-    case none
-    case always
-    case whenFullscreen
+enum BlacklistIgnorePreference: String/* required for jsonEncode */, CaseIterable, MacroPreference, Codable {
+    case none = "0"
+    case always = "1"
+    case whenFullscreen = "2"
 
     var localizedString: LocalizedString {
         switch self {
@@ -1151,5 +1147,13 @@ extension UserDefaults {
 
     func macroPref<A>(_ key: String, _ macroPreferences: [A]) -> A {
         return getThenConvertOrReset(key, { s in Int(s).flatMap { macroPreferences[safe: $0] } })
+    }
+
+    func json<T>(_ key: String, _ type: T.Type) -> T where T: Decodable {
+        return getThenConvertOrReset(key, { s in jsonDecode(s, type) })
+    }
+
+    private func jsonDecode<T>(_ value: String, _ type: T.Type) -> T? where T: Decodable {
+        return value.data(using: .utf8).flatMap { try? JSONDecoder().decode(type, from: $0) }
     }
 }
