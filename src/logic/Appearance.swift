@@ -72,6 +72,24 @@ class Appearance {
         }
     }
 
+    private static func calculateWindowWidthRatios() -> (CGFloat, CGFloat) {
+        let aspectRatio = NSScreen.preferred().ratio()
+
+        let minRatio: CGFloat
+        let maxRatio: CGFloat
+
+        if aspectRatio >= 1 {
+            minRatio = 0.7 / (aspectRatio * rowsCount)
+            maxRatio = 1.5 / (aspectRatio * rowsCount)
+        } else {
+            minRatio = 1.3 / rowsCount
+            maxRatio = 2.1 / rowsCount
+        }
+
+        // Make sure the values are clamped between some reasonable bounds
+        return (max(0.09, minRatio), min(0.3, maxRatio))
+    }
+
     private static func thumbnailsSize(_ isHorizontalScreen: Bool) {
         hideThumbnails = false
         windowPadding = 18
@@ -85,23 +103,18 @@ class Appearance {
         switch currentSize {
         case .small:
             rowsCount = isHorizontalScreen ? 5 : 8
-            windowMinWidthInRow = 0.09
-            windowMaxWidthInRow = 0.16
             iconSize = 20
             fontHeight = 12
         case .medium:
             rowsCount = isHorizontalScreen ? 4 : 7
-            windowMinWidthInRow = 0.11
-            windowMaxWidthInRow = 0.2
             iconSize = 30
             fontHeight = 13
         case .large:
             rowsCount = isHorizontalScreen ? 3 : 6
-            windowMinWidthInRow = 0.15
-            windowMaxWidthInRow = 0.3
             iconSize = 32
             fontHeight = 16
         }
+        (windowMinWidthInRow, windowMaxWidthInRow) = calculateWindowWidthRatios()
         if currentVisibility == .highest {
             edgeInsetsSize = 10
             cellCornerRadius = 12
