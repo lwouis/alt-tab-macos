@@ -27,12 +27,6 @@ jobs:
 #      - env:
 #          GITHUB_CONTEXT: ${{ toJSON(github) }}
 #        run: echo "$GITHUB_CONTEXT"
-      - run: echo "IS_RELEASE=$(if [ \"$GITHUB_REF_NAME\" = \"master\" -a \"$GITHUB_EVENT_NAME\" = \"push\" ]; then echo true; else echo false; fi)" >> $GITHUB_ENV
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-      - run: sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer
       - id: pre-checkout
         env:
           COMMITS: ${{ toJson(github.event.commits) }}
@@ -46,6 +40,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: ${{ steps.pre-checkout.outputs.fetch-depth }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer
       - run: scripts/print_env.sh
       - run: npm ci
       - run: npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
