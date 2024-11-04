@@ -14,8 +14,8 @@ class Appearance {
     static var windowMaxWidthInRow = CGFloat(0)
     static var iconSize = CGFloat(0)
     static var fontHeight = CGFloat(0)
-    static var maxWidthOnScreen = CGFloat(0)
-    static var maxHeightOnScreen = CGFloat(0)
+    static var maxWidthOnScreen = CGFloat(0.8)
+    static var maxHeightOnScreen = CGFloat(0.8)
     
     // theme
     static var material = NSVisualEffectView.Material.dark
@@ -72,6 +72,24 @@ class Appearance {
         }
     }
 
+    // calculate windowMinWidthInRow and windowMaxWidthInRow such that:
+    // * fullscreen windows fill their tile vertically
+    // * narrow windows have enough width that a few words can be read from their title
+    private static func calculateGoodValuesForThumbnailsWidthMinMax() -> (CGFloat, CGFloat) {
+        let aspectRatio = NSScreen.preferred().ratio()
+        let minRatio: CGFloat
+        let maxRatio: CGFloat
+        if aspectRatio >= 1 {
+            minRatio = 0.7 / (aspectRatio * rowsCount)
+            maxRatio = 1.5 / (aspectRatio * rowsCount)
+        } else {
+            minRatio = 1.3 / rowsCount
+            maxRatio = 2.1 / rowsCount
+        }
+        // Make sure the values are clamped between some reasonable bounds
+        return (max(0.09, minRatio), min(0.3, maxRatio))
+    }
+
     private static func thumbnailsSize(_ isHorizontalScreen: Bool) {
         hideThumbnails = false
         windowPadding = 18
@@ -80,10 +98,6 @@ class Appearance {
         intraCellPadding = 5
         interCellPadding = 1
         edgeInsetsSize = 12
-        maxWidthOnScreen = 0.9
-        maxHeightOnScreen = 0.8
-        windowMinWidthInRow = 0.1
-        windowMaxWidthInRow = 0.15
         switch currentSize {
         case .small:
             rowsCount = isHorizontalScreen ? 5 : 8
@@ -95,11 +109,10 @@ class Appearance {
             fontHeight = 13
         case .large:
             rowsCount = isHorizontalScreen ? 3 : 6
-            windowMinWidthInRow = 0.15
-            windowMaxWidthInRow = 0.3
             iconSize = 32
             fontHeight = 16
         }
+        (windowMinWidthInRow, windowMaxWidthInRow) = calculateGoodValuesForThumbnailsWidthMinMax()
         if currentVisibility == .highest {
             edgeInsetsSize = 10
             cellCornerRadius = 12
@@ -114,8 +127,6 @@ class Appearance {
         intraCellPadding = 5
         interCellPadding = 1
         edgeInsetsSize = 5
-        maxWidthOnScreen = 0.95
-        maxHeightOnScreen = 0.9
         windowMinWidthInRow = 0.04
         windowMaxWidthInRow = 0.3
         rowsCount = 1
@@ -141,8 +152,7 @@ class Appearance {
         intraCellPadding = 5
         interCellPadding = 1
         edgeInsetsSize = 7
-        maxWidthOnScreen = isHorizontalScreen ? 0.6 : 0.85
-        maxHeightOnScreen = 0.8
+        maxWidthOnScreen = isHorizontalScreen ? 0.6 : 0.8
         windowMinWidthInRow = 0.6
         windowMaxWidthInRow = 0.9
         rowsCount = 1
