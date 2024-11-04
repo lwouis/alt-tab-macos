@@ -29,6 +29,7 @@ class LogManager {
         #else
         console.minLevel = .error
         file.minLevel = .error
+//        logger.addDestination(console)
 //        logger.addDestination(file)
         #endif
 

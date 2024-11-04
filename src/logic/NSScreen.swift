@@ -22,7 +22,7 @@ extension NSScreen {
         preferred_() ?? NSScreen.screens.first!
     }
 
-    static func preferred_() -> NSScreen? {
+    private static func preferred_() -> NSScreen? {
         switch Preferences.showOnScreen {
             case .includingMouse: return withMouse()
             case .active: return NSScreen.active()

@@ -163,7 +163,7 @@ class Windows {
         }
         App.app.previewPanel.setPreview(preview)
         var frame = NSRect(origin: position, size: size)
-        frame.origin.y = NSScreen.screens[0].frame.maxY - frame.maxY
+        frame.origin.y = NSScreen.preferred().frame.maxY - frame.maxY
         App.app.previewPanel.setFrame(frame, display: false)
         App.app.previewPanel.order(.below, relativeTo: App.app.thumbnailsPanel.windowNumber)
     }
