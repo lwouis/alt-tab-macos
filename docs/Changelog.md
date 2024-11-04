@@ -1,5 +1,13 @@
 # Release notes
 
+# [7.2.0](https://github.com/lwouis/alt-tab-macos/compare/v7.1.1...v7.2.0) (2024-11-04)
+
+
+### Features
+
+* hide space labels when showing same-space windows ([88c1595](https://github.com/lwouis/alt-tab-macos/commit/88c1595)), closes [#3766](https://github.com/lwouis/alt-tab-macos/issues/3766)
+* improve switcher layout and presentation ([545b5db](https://github.com/lwouis/alt-tab-macos/commit/545b5db))
+
 ## [7.1.1](https://github.com/lwouis/alt-tab-macos/compare/v7.1.0...v7.1.1) (2024-11-03)
 
 
