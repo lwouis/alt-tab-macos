@@ -21,7 +21,7 @@ env:
   APP_NAME: AltTab
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-13
     environment: production
     steps:
 #      - env:
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-      - run: sudo xcode-select -s /Applications/Xcode_13.4.1.app/Contents/Developer
+      - run: sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer
       - id: pre-checkout
         env:
           COMMITS: ${{ toJson(github.event.commits) }}
