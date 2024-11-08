@@ -61,7 +61,6 @@ class ATShortcut {
     func shouldTrigger() -> Bool {
         if scope == .global {
             if triggerPhase == .down && (!App.app.appIsBeingUsed || index == nil || index == App.app.shortcutIndex) {
-                App.app.appIsBeingUsed = true
                 return true
             }
             if triggerPhase == .up && App.app.appIsBeingUsed && (index == nil || index == App.app.shortcutIndex) && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {

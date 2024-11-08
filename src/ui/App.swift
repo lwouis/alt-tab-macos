@@ -206,7 +206,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     @objc func showUi() {
-        appIsBeingUsed = true
         showUiOrCycleSelection(0)
     }
 
@@ -271,6 +270,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
         logger.i("showUiOrCycleSelection")
+        App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             logger.i("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
