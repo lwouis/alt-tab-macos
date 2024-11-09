@@ -19,7 +19,11 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
         center()
         App.shared.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
-        SystemPermissions.observePermissionsToUpdatePermissionsWindow(startupBlock)
+        if #available(macOS 10.15, *), !SystemPermissions.preStartupPermissionsPassed {
+            // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
+            SLSRequestScreenCaptureAccess()
+        }
+        SystemPermissions.pollPermissionsToUpdatePermissionsWindow(startupBlock)
     }
 
 
