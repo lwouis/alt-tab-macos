@@ -76,6 +76,7 @@ class ATShortcut {
     }
 
     func executeAction(_ isARepeat: Bool) {
+        logger.i(id)
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             KeyRepeatTimer.isARepeat = isARepeat

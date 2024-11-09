@@ -229,7 +229,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func focusSelectedWindow(_ selectedWindow: Window?) {
         hideUi(true)
-        if let window = selectedWindow, !MissionControl.isActive() {
+        if let window = selectedWindow, MissionControl.state() == .inactive {
             window.focus()
         } else {
             previewPanel.orderOut(nil)
@@ -269,12 +269,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
-        logger.i("showUiOrCycleSelection")
+        logger.d(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
-            logger.i("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
-            if Windows.list.count == 0 || MissionControl.isActive() { hideUi(); return }
+            if Windows.list.count == 0 || MissionControl.state() != .inactive { hideUi(); return }
             // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
             Windows.detectTabbedWindows()
             // TODO: find a way to update space info when spaces are changed, instead of on every trigger

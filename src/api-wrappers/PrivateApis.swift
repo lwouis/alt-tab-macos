@@ -207,6 +207,14 @@ let kAXStatusLabelAttribute = "AXStatusLabel"
 // for some reason, these attributes are missing from AXRoleConstants
 let kAXDocumentWindowSubrole = "AXDocumentWindow"
 
+// mission control private notifications
+enum MissionControlState: String, CaseIterable {
+    case showAllWindows = "AXExposeShowAllWindows"
+    case showFrontWindows = "AXExposeShowFrontWindows"
+    case showDesktop = "AXExposeShowDesktop"
+    case inactive = "AXExposeExit"
+}
+
 enum CGSSymbolicHotKey: Int, CaseIterable {
     case commandTab = 1
     case commandShiftTab = 2

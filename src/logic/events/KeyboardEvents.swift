@@ -132,6 +132,7 @@ class KeyboardEvents {
 
 @discardableResult
 fileprivate func handleEvent(_ id: EventHotKeyID?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: UInt32?, _ isARepeat: Bool) -> Bool {
+    logger.d(id, shortcutState, keyCode, modifiers, isARepeat)
     var someShortcutTriggered = false
     for shortcut in ControlsTab.shortcuts.values {
         if shortcut.matches(id, shortcutState, keyCode, modifiers, isARepeat) && shortcut.shouldTrigger() {
