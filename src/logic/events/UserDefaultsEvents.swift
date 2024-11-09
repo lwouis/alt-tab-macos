@@ -10,6 +10,11 @@ class UserDefaultsEvents: NSObject {
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        handleEvent(keyPath)
+    }
+
+    private func handleEvent(_ keyPath: String?) {
+        logger.d(keyPath, PoliciesTab.policyLock, Preferences.updatePolicy)
         guard !PoliciesTab.policyLock else { return }
         let buttons = PoliciesTab.updatesPolicyDropdown!
         let id = buttonIdToUpdate()

@@ -25,7 +25,7 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
 
 
    func windowWillClose(_ notification: Notification) {
-       logger.d("PermissionsWindow windowWillClose", SystemPermissions.preStartupPermissionsPassed)
+       logger.d(SystemPermissions.preStartupPermissionsPassed)
         if !SystemPermissions.preStartupPermissionsPassed {
             if SystemPermissions.accessibilityIsGranted() == .notGranted || SystemPermissions.screenRecordingIsGranted() == .notGranted {
                 logger.e("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",

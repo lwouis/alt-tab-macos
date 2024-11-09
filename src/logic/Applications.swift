@@ -21,7 +21,7 @@ class Applications {
     static func initialDiscovery() {
         addInitialRunningApplications()
         addInitialRunningApplicationsWindows()
-        WorkspaceEvents.observeRunningApplications()
+        RunningApplicationsEvents.observe()
     }
 
     static func addInitialRunningApplications() {
@@ -48,7 +48,7 @@ class Applications {
     static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
         runningApps.forEach {
             if $0.bundleIdentifier == "com.apple.dock" {
-                MissionControl.observe($0.processIdentifier)
+                DockEvents.observe($0.processIdentifier)
             }
             if isActualApplication($0) {
                 Applications.list.append(Application($0))
@@ -68,7 +68,7 @@ class Applications {
             }
             Windows.list.removeAll { $0.application.runningApplication.isEqual(runningApp) }
         }
-        guard Windows.list.count > 0 else { App.app.hideUi(); return }
+        if Windows.list.count == 0 { App.app.hideUi(); return }
         if windowsOnTheLeftOfFocusedWindow > 0 {
             Windows.cycleFocusedWindowIndex(-windowsOnTheLeftOfFocusedWindow)
         }

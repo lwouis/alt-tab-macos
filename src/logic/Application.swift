@@ -40,7 +40,7 @@ class Application: NSObject {
     }
 
     deinit {
-        logger.i("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
+        logger.d("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
     }
 
     override var description: String {
@@ -73,7 +73,7 @@ class Application: NSObject {
         if runningApplication.activationPolicy != .prohibited && axUiElement == nil {
             axUiElement = AXUIElementCreateApplication(pid)
             AXObserverCreate(pid, axObserverCallback, &axObserver)
-            logger.i("Adding app", pid ?? "nil", runningApplication.bundleIdentifier ?? "nil")
+            logger.d("Adding app", pid ?? "nil", runningApplication.bundleIdentifier ?? "nil")
             observeEvents()
         }
     }

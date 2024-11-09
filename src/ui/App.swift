@@ -50,7 +50,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
-        LogManager.setup()
+        Logger.initialize()
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -69,7 +69,9 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.loadMainMenuXib()
             self.thumbnailsPanel = ThumbnailsPanel()
             self.previewPanel = PreviewPanel()
-            Spaces.initialDiscovery()
+            Spaces.initialize()
+            SpacesEvents.observe()
+            ScreensEvents.observe()
             Applications.initialDiscovery()
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
@@ -122,7 +124,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func hideUi(_ keepPreview: Bool = false) {
-        logger.i("hideUi")
+        logger.i()
+        if appIsBeingUsed == false { return } // already hidden
         appIsBeingUsed = false
         isFirstSummon = true
         MouseEvents.toggle(false)
@@ -171,8 +174,9 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func focusTarget() {
-        logger.i("focusTarget")
-        focusSelectedWindow(Windows.focusedWindow())
+        let focusedWindow = Windows.focusedWindow()
+        logger.i(focusedWindow ?? "nil")
+        focusSelectedWindow(focusedWindow)
     }
 
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {

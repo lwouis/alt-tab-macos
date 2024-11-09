@@ -26,7 +26,7 @@ private func observe_() {
         place: .headInsertEventTap,
         options: .defaultTap,
         eventsOfInterest: eventMask,
-        callback: mouseHandler,
+        callback: handleEvent,
         userInfo: nil)
     if let eventTap = eventTap {
         MouseEvents.toggle(false)
@@ -37,7 +37,7 @@ private func observe_() {
     }
 }
 
-private let mouseHandler: CGEventTapCallBack = {_, type, cgEvent, _ in
+private let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
     if type == .leftMouseDown {
         isPointerInsideUi_()
         if !isPointerInsideUi {

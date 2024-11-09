@@ -7,25 +7,6 @@ class Spaces {
     static var screenSpacesMap = [ScreenUuid: [CGSSpaceID]]()
     static var idsAndIndexes = [(CGSSpaceID, SpaceIndex)]()
 
-    static func observeSpaceChanges() {
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: { _ in
-            logger.i("OS event", "activeSpaceDidChangeNotification")
-            refreshAllIdsAndIndexes()
-            updateCurrentSpace()
-            // if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
-            Windows.list.forEachAsync { $0.updatesWindowSpace() }
-            // from macos 12.2 beta onwards, we can't get other-space windows; grabbing windows when switching spaces mitigates the issue
-            // also, updating windows on Space transition works around an issue with Safari where its fullscreen windows spawn not in fullscreen.
-            // resize/move events happen and the window is still not fullscreen. AltTab doesn't get informed that the window is later fullscreen.
-            // updating on Space change helps correct the window to being fullscreen
-            Applications.manuallyUpdateWindows()
-        })
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: nil, using: { _ in
-            logger.i("OS event", "didChangeScreenParametersNotification")
-            refreshAllIdsAndIndexes()
-        })
-    }
-
     static func refreshCurrentSpaceId() {
         // it seems that in some rare scenarios, some of these values are nil; we wrap to avoid crashing
         if let mainScreen = NSScreen.main,
@@ -34,10 +15,9 @@ class Spaces {
         }
     }
 
-    static func initialDiscovery() {
+    static func initialize() {
         refreshAllIdsAndIndexes()
         updateCurrentSpace()
-        observeSpaceChanges()
     }
 
     static func updateCurrentSpace() {
@@ -45,7 +25,7 @@ class Spaces {
         currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
             spaceId == currentSpaceId
         }?.1 ?? SpaceIndex(1)
-        logger.i("Current Space", currentSpaceId)
+        logger.i(currentSpaceIndex, currentSpaceId)
     }
 
     static func refreshAllIdsAndIndexes() -> Void {
