@@ -7,28 +7,46 @@ class Spaces {
     static var screenSpacesMap = [ScreenUuid: [CGSSpaceID]]()
     static var idsAndIndexes = [(CGSSpaceID, SpaceIndex)]()
 
-    static func refreshCurrentSpaceId() {
+    static func isSingleSpace() -> Bool {
+        return idsAndIndexes.count == 1
+    }
+
+    static func otherSpaces() -> [CGSSpaceID] {
+        return idsAndIndexes.filter { $0.0 != currentSpaceId }.map { $0.0 }
+    }
+
+    static func windowsInSpaces(_ spaceIds: [CGSSpaceID], _ includeInvisible: Bool = true) -> [CGWindowID] {
+        var set_tags = ([] as CGSCopyWindowsTags).rawValue
+        var clear_tags = ([] as CGSCopyWindowsTags).rawValue
+        var options = [.screenSaverLevel1000] as CGSCopyWindowsOptions
+        if includeInvisible {
+            options = [options, .invisible1, .invisible2]
+        }
+        return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, options.rawValue, &set_tags, &clear_tags) as! [CGWindowID]
+    }
+
+    static func refresh() {
+        refreshAllIdsAndIndexes()
+        updateCurrentSpace()
+    }
+
+    static func refreshSpacesAndWindows() {
+        Spaces.refresh()
+        Windows.list.forEachAsync { $0.updatesWindowSpace() }
+    }
+
+    private static func updateCurrentSpace() {
         // it seems that in some rare scenarios, some of these values are nil; we wrap to avoid crashing
         if let mainScreen = NSScreen.main,
            let uuid = mainScreen.uuid() {
             currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, uuid)
         }
-    }
-
-    static func initialize() {
-        refreshAllIdsAndIndexes()
-        updateCurrentSpace()
-    }
-
-    static func updateCurrentSpace() {
-        refreshCurrentSpaceId()
         currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
-            spaceId == currentSpaceId
-        }?.1 ?? SpaceIndex(1)
-        logger.i(currentSpaceIndex, currentSpaceId)
+                    spaceId == currentSpaceId
+                }?.1 ?? SpaceIndex(1)
     }
 
-    static func refreshAllIdsAndIndexes() -> Void {
+    private static func refreshAllIdsAndIndexes() -> Void {
         idsAndIndexes.removeAll()
         screenSpacesMap.removeAll()
         visibleSpaces.removeAll()
@@ -46,24 +64,6 @@ class Spaces {
             }
             visibleSpaces.append((screen["Current Space"] as! NSDictionary)["id64"] as! CGSSpaceID)
         }
-    }
-
-    static func otherSpaces() -> [CGSSpaceID] {
-        return idsAndIndexes.filter { $0.0 != currentSpaceId }.map { $0.0 }
-    }
-
-    static func windowsInSpaces(_ spaceIds: [CGSSpaceID], _ includeInvisible: Bool = true) -> [CGWindowID] {
-        var set_tags = ([] as CGSCopyWindowsTags).rawValue
-        var clear_tags = ([] as CGSCopyWindowsTags).rawValue
-        var options = [.screenSaverLevel1000] as CGSCopyWindowsOptions
-        if includeInvisible {
-            options = [options, .invisible1, .invisible2]
-        }
-        return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, options.rawValue, &set_tags, &clear_tags) as! [CGWindowID]
-    }
-
-    static func isSingleSpace() -> Bool {
-        return idsAndIndexes.count == 1
     }
 }
 

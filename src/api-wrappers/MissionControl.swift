@@ -13,6 +13,7 @@ class MissionControl {
 
     static func setState(_ state: MissionControlState) {
         state_ = state
+        logger.i(state)
     }
 
     // on macOS < 12, this is the way we used to guess if Mission Control is active

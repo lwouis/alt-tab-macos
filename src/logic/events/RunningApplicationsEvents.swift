@@ -9,11 +9,11 @@ class RunningApplicationsEvents {
         appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: handleEvent)
     }
 
-    static func handleEvent<A>(_: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
+    private static func handleEvent<A>(_: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
         let workspaceApps = Set(NSWorkspace.shared.runningApplications)
         // TODO: symmetricDifference has bad performance
         let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
-        logger.d(change.kind, diff.map { ($0.processIdentifier, $0.bundleIdentifier) })
+        logger.d(diff.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") })
         if change.kind == .insertion {
             Applications.addRunningApplications(diff)
         } else if change.kind == .removal {

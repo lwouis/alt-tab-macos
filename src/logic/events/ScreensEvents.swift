@@ -2,9 +2,17 @@ import Cocoa
 
 class ScreensEvents {
     static func observe() {
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: nil, using: { notification in
-            logger.i(notification.name, NSScreen.screens.map { ($0.uuid(), $0.frame) })
-            Spaces.refreshAllIdsAndIndexes()
-        })
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEvent), name: NSApplication.didChangeScreenParametersNotification, object: nil)
+    }
+
+    @objc private static func handleEvent(_ notification: Notification) {
+        logger.d(notification.name.rawValue)
+        // a screen added or removed can shuffle windows around Spaces; we refresh them
+        Spaces.refreshSpacesAndWindows()
+        logger.i("screens", NSScreen.screens.map { ($0.uuid() ?? "nil" as CFString, $0.frame) })
+        logger.i("spaces", Spaces.screenSpacesMap)
+        logger.i("current space", Spaces.currentSpaceIndex, Spaces.currentSpaceId)
+        // a screen added or removed, or screen resolution change can mess up layout; we reset components
+        App.app.resetPreferencesDependentComponents()
     }
 }

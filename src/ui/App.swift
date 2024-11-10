@@ -36,11 +36,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
         super.init()
         delegate = self
         App.app = self
-        // Fix the incorrect display of the ThumbnailView when the screen resolution changes.
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeCallback), name: NSApplication.didChangeScreenParametersNotification, object: nil)
-        if #available(macOS 10.14, *) {
-            DistributedNotificationCenter.default.addObserver(self, selector: #selector(didChangeCallback), name: NSNotification.Name("AppleInterfaceThemeChangedNotification"), object: nil)
-        }
     }
 
     required init?(coder: NSCoder) {
@@ -69,9 +64,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.loadMainMenuXib()
             self.thumbnailsPanel = ThumbnailsPanel()
             self.previewPanel = PreviewPanel()
-            Spaces.initialize()
+            Spaces.refresh()
             SpacesEvents.observe()
             ScreensEvents.observe()
+            SystemAppearanceEvents.observe()
+            SystemScrollerStyleEvents.observe()
             Applications.initialDiscovery()
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
@@ -175,7 +172,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func focusTarget() {
         let focusedWindow = Windows.focusedWindow()
-        logger.i(focusedWindow ?? "nil")
+        logger.i(focusedWindow?.cgWindowId.map { String(describing: $0) } ?? "nil", focusedWindow?.title ?? "nil", focusedWindow?.application.pid ?? "nil", focusedWindow?.application.runningApplication.bundleIdentifier ?? "nil")
         focusSelectedWindow(focusedWindow)
     }
 
@@ -245,8 +242,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         let currentScreen = NSScreen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
-        Spaces.refreshCurrentSpaceId()
-        Spaces.refreshAllIdsAndIndexes()
+        Spaces.refresh()
         guard appIsBeingUsed else { return }
         refreshSpecificWindows(windowsToUpdate, currentScreen)
         if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
@@ -281,14 +277,9 @@ class App: AppCenterApplication, NSApplicationDelegate {
             // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
             Windows.detectTabbedWindows()
             // TODO: find a way to update space info when spaces are changed, instead of on every trigger
-            // replace with:
-            // So far, the best signal I've found is to watch com.apple.dock for the uiElementDestroyed notification.
-            // When Mission Control is triggered, an AXGroup element is created (with some nested groups for the window and desktop buttons).
-            // There's no way to observe this with the AX API, other than polling. However, when Mission Control is deactivated,
-            // that AXGroup gets destroyed, triggering the uiElementDestroyed notification.
-            // (At that point we won't be able to see what the element was, of course.)
-            Spaces.refreshAllIdsAndIndexes()
-            Windows.updateSpaces()
+            // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
+            // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
+            Spaces.refreshSpacesAndWindows()
             let screen = NSScreen.preferred()
             self.shortcutIndex = shortcutIndex
             Windows.refreshWhichWindowsToShowTheUser(screen)
@@ -339,15 +330,5 @@ class App: AppCenterApplication, NSApplicationDelegate {
         if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
             App.app.hideUi()
         }
-    }
-
-
-    @objc func didChangeCallback(notification: Notification) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(handleChange), object: nil)
-        self.perform(#selector(handleChange), with: nil, afterDelay: 0.2)
-    }
-
-    @objc func handleChange() {
-        App.app.resetPreferencesDependentComponents()
     }
 }

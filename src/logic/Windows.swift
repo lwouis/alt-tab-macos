@@ -223,13 +223,6 @@ class Windows {
         }
     }
 
-    static func updateSpaces() {
-        // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
-        // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
-        Spaces.refreshCurrentSpaceId()
-        list.forEachAsync { $0.updatesWindowSpace() }
-    }
-
     /// tabs detection is a flaky work-around the lack of public API to observe OS tabs
     /// see: https://github.com/lwouis/alt-tab-macos/issues/1540
     static func detectTabbedWindows() {
