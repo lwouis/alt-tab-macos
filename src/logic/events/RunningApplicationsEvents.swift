@@ -9,6 +9,7 @@ class RunningApplicationsEvents {
         appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: handleEvent)
     }
 
+    // TODO: handle this on a separate thread?
     private static func handleEvent<A>(_: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
         let workspaceApps = Set(NSWorkspace.shared.runningApplications)
         // TODO: symmetricDifference has bad performance

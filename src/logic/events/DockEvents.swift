@@ -27,5 +27,7 @@ class DockEvents {
 
 fileprivate let handleEvent: AXObserverCallback = { _, _, notificationName, _ in
     logger.d(notificationName)
-    MissionControl.setState(MissionControlState(rawValue: notificationName as String)!)
+    DispatchQueue.main.async {
+        MissionControl.setState(MissionControlState(rawValue: notificationName as String)!)
+    }
 }

@@ -22,15 +22,13 @@ class AppCenterCrash: NSObject, CrashesDelegate {
         if defaults.string(forKey: "crashPolicy") == nil {
             defaults.register(defaults: ["crashPolicy": "1"])
         }
-        if BackgroundWork.crashReportsQueue == nil {
-            BackgroundWork.crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
-        }
     }
 
     // periphery:ignore
     func confirmationHandler(_ errorReports: [ErrorReport]) -> Bool {
         self.initNecessaryFacilities()
         let shouldSend = checkIfShouldSend()
+        BackgroundWork.startCrashReportsQueue()
         BackgroundWork.crashReportsQueue.async {
             AppCenter.networkRequestsAllowed = shouldSend
             Crashes.notify(with: shouldSend ? .send : .dontSend)

@@ -71,6 +71,7 @@ class KeyboardEvents {
         addCgEventTapForModifierFlags()
     }
 
+    // TODO: handle this on a background thread?
     private static func addLocalMonitorForKeyDownAndKeyUp() {
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
             let someShortcutTriggered = handleEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, cocoaToCarbonFlags(event.modifierFlags), event.type == .keyDown ? event.isARepeat : false)
@@ -91,7 +92,7 @@ class KeyboardEvents {
             userInfo: nil)
         if let eventTap = eventTap {
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-            CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
+            CFRunLoopAddSource(BackgroundWork.keyboardEventsThread.runLoop, runLoopSource, .commonModes)
         } else {
             App.app.restart()
         }
@@ -145,10 +146,13 @@ fileprivate func handleEvent(_ id: EventHotKeyID?, _ shortcutState: ShortcutStat
 
 fileprivate let cgEventFlagsChangedHandler: CGEventTapCallBack = {_, type, cgEvent, _ in
     if type == .flagsChanged {
-        let modifiers = cocoaToCarbonFlags(NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue)))
-        handleEvent(nil, nil, nil, modifiers, false)
+        DispatchQueue.main.async {
+            let modifiers = cocoaToCarbonFlags(NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue)))
+            handleEvent(nil, nil, nil, modifiers, false)
+        }
     } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
-    return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
+    // we always return this because we want to let these event pass through to the currently focused app
+    return Unmanaged.passUnretained(cgEvent)
 }

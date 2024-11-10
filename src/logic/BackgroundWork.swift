@@ -8,6 +8,7 @@ class BackgroundWork {
     static var crashReportsQueue: DispatchQueue!
     static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
     static var mouseEventsThread: BackgroundThreadWithRunLoop!
+    static var keyboardEventsThread: BackgroundThreadWithRunLoop!
     static var systemPermissionsThread: BackgroundThreadWithRunLoop!
     static var repeatingKeyThread: BackgroundThreadWithRunLoop!
     static var missionControlThread: BackgroundThreadWithRunLoop!
@@ -19,17 +20,33 @@ class BackgroundWork {
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
+        // TODO: clarify how this works
         mainQueueConcurrentWorkQueue = DispatchQueue.globalConcurrent("mainQueueConcurrentWorkQueue", .userInteractive)
+        // calls to act on windows (e.g. AXUIElementSetAttributeValue, AXUIElementPerformAction) are done off the main thread
         accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
+        // calls to the AX APIs are blocking. We dispatch those on a globalConcurrent queue
         axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
-        crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
+        // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
+        // we observe mouse clicks when thumbnailsPanel is open. They arrive on this thread, and are handled off the main thread initially
         mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread", .userInteractive)
+        // some instances of events can be handled off the main thread; maybe not worth moving to a background thread
+        keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread", .userInteractive)
+        // not 100% sure this shouldn't be on the main-thread; it doesn't do anything except dispatch to main.async
         repeatingKeyThread = BackgroundThreadWithRunLoop("repeatingKeyThread", .userInteractive)
+        // not 100% sure this shouldn't be on the main-thread; it doesn't do anything except dispatch to main.async
         missionControlThread = BackgroundThreadWithRunLoop("missionControlThread", .userInteractive)
     }
 
+    static func startCrashReportsQueue() {
+        if crashReportsQueue == nil {
+            // crash reports can be sent off the main thread
+            crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
+        }
+    }
+
     static func startSystemPermissionThread() {
+        // not 100% sure this shouldn't be on the main-thread; it doesn't do anything except dispatch to main.async
         systemPermissionsThread = BackgroundThreadWithRunLoop("systemPermissionsThread", .utility)
     }
 }
