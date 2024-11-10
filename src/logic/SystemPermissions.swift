@@ -26,7 +26,7 @@ class SystemPermissions {
                 checkPermissionsToUpdatePermissionsWindow(startupBlock)
             }
         }
-        timerPermissionsToUpdatePermissionsWindow!.tolerance = 0.09
+        timerPermissionsToUpdatePermissionsWindow!.tolerance = 0.1
         CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsToUpdatePermissionsWindow!, .defaultMode)
     }
 
@@ -36,7 +36,7 @@ class SystemPermissions {
                 checkPermissionsWhileAltTabIsRunning()
             }
         }
-        timerPermissionsRemovedWhileAltTabIsRunning!.tolerance = 4.9
+        timerPermissionsRemovedWhileAltTabIsRunning!.tolerance = 1
         CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsRemovedWhileAltTabIsRunning!, .defaultMode)
     }
 
