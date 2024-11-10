@@ -192,6 +192,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * rbnis
 * rei fujise
 * Roccobot
+* Roccobot
 * Rodrigo Schneider
 * Ron Nuss
 * sa-ha
@@ -231,6 +232,8 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Yukai
 * yumechan
 * Yusuf Caliskan
+* Zuhaib Syed
 * 橙梓
 * Ивайло
 * Андрій Кирбаба
+* Τσιλιμπότης Δημ.

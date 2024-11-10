@@ -363,7 +363,7 @@
 "Optional: email (if you want a reply)" = "Opcjonalne: email (jeśli chcesz odpowiedź)";
 
 /*No comment provided by engineer.*/
-"Order windows by" = "Zamów Windows według";
+"Order windows by" = "Sortuj okna według";
 
 /*No comment provided by engineer.*/
 "Policies" = "Polityki";
@@ -378,7 +378,7 @@
 "Preview selected window:" = "Podświetlaj wybrane okno";
 
 /*No comment provided by engineer.*/
-"Preview the selected window." = "Podgląd wybrane okno.";
+"Preview the selected window." = "Podejrzyj wybrane okno.";
 
 /*No comment provided by engineer.*/
 "Quit" = "Wyjdź";
@@ -393,12 +393,13 @@
 "Recently Created" = "Ostatnio utworzone";
 
 /*No comment provided by engineer.*/
-"Recently Created First" = "Niedawno utworzono pierwszy";
+"Recently Created First" = "Niedawno utworzone";
 
 /*No comment provided by engineer.*/
 "Recently Focused" = "Ostatnio aktywne";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Recently Focused First" = "Niedawno skoncentrowane najpierw";
 
 /*No comment provided by engineer.*/
@@ -432,13 +433,14 @@
 "Select previous window" = "Przejdź do poprzedniego okna";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Select windows on mouse hover" = "Wybierz Windows na myszy";
 
 /*No comment provided by engineer.*/
-"Select windows using arrow keys" = "Wybierz Windows za pomocą klawiszy strzałek";
+"Select windows using arrow keys" = "Wybieraj okna za pomocą strzałek";
 
 /*No comment provided by engineer.*/
-"Select windows using vim keys" = "Wybierz Windows za pomocą klawiszy VIM";
+"Select windows using vim keys" = "Wybieraj okna za pomocą klawiszy VIM";
 
 /*No comment provided by engineer.*/
 "Send" = "Wyślij";
@@ -489,9 +491,10 @@
 "Show" = "Pokaż";
 
 /*No comment provided by engineer.*/
-"Show & Hide" = "Pokaż ukryj";
+"Show & Hide" = "Pokaż i ukryj";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Pokaż element w przełączniku dla każdego okna lub dla każdej aplikacji.Windows zostanie skoncentrowany, podczas gdy aplikacje będą aktywowane.";
 
 /*No comment provided by engineer.*/
@@ -552,13 +555,14 @@
 "Space" = "Przestrzeń";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Space Order" = "Zakaz kosmiczny";
 
 /*No comment provided by engineer.*/
 "Start" = "Na początku";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Zacznij od logowania";
+"Start at login" = "Otwieraj podczas logowania";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Uruchom przy zalogowaniu:";
@@ -567,13 +571,13 @@
 "Support this project ❤️" = "Wesprzyj ten projekt ❤️";
 
 /*No comment provided by engineer.*/
-"Switch between 3 different styles. You can customize them." = "Przełącz między 3 różnymi stylami.Możesz je dostosować.";
+"Switch between 3 different styles. You can customize them." = "Przełącz między 3 różnymi stylami. Możesz je dostosować.";
 
 /*No comment provided by engineer.*/
 "System" = "System";
 
 /*No comment provided by engineer.*/
-"Theme" = "Temat";
+"Theme" = "Motyw";
 
 /*No comment provided by engineer.*/
 "Theme:" = "Motyw:";
@@ -603,7 +607,7 @@
 "Unassign existing shortcut and continue" = "Anuluj przypisanie istniejącego skrótu i kontynuuj";
 
 /*No comment provided by engineer.*/
-"Updates policy" = "Aktualizuje zasady";
+"Updates policy" = "Zasady aktualizacji";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Zasady aktualizacji:";

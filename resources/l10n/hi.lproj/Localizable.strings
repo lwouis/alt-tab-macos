@@ -54,7 +54,7 @@
 "Allowed" = "अनुमत";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "अल्फाबैटिकल";
 
 /*No comment provided by engineer.*/
 "Alphabetical Order" = "वर्णमाला क्रम";
@@ -174,7 +174,7 @@
 "Crash reports policy:" = "दुर्घटना की रिपोर्ट नीति:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "कर्सर फोकस को फॉलो करता है";
 
 /*No comment provided by engineer.*/
 "Customize App Icons style…" = "कस्टमाइज़ ऐप आइकन स्टाइल ...";
@@ -216,7 +216,7 @@
 "Focus selected window" = "चयनित खिड़की पर केंद्र करें";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "फुल्स्क्रीन विंडो";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "पूर्ण स्क्रीन खिड़कियाँ:";
@@ -375,7 +375,7 @@
 "Preview selected window" = "पूर्वावलोकन चयनित विंडो";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "सैलैक्टिड विंडो को प्रीव्यू करे:";
 
 /*No comment provided by engineer.*/
 "Preview the selected window." = "चयनित विंडो का पूर्वावलोकन करें।";
@@ -390,13 +390,13 @@
 "Quit app" = "ऐप क्विट करो";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "अभी बना हुआ";
 
 /*No comment provided by engineer.*/
 "Recently Created First" = "हाल ही में पहले बनाया गया";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "अभी फोकस लगा हुआ";
 
 /*No comment provided by engineer.*/
 "Recently Focused First" = "हाल ही में ध्यान केंद्रित किया";
@@ -549,7 +549,7 @@
 "Source code repository" = "स्रोत कोड भंडार";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "स्पेस";
 
 /*No comment provided by engineer.*/
 "Space Order" = "अंतरिक्ष आदेश";
@@ -615,7 +615,7 @@
 "View existing discussions" = "मौजूदा वाद-विवाद दिखाओ";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "विम कीयों";
 
 /*No comment provided by engineer.*/
 "Vim keys already assigned to other actions:\n%@" = "Vim कीज़ पहले से ही अन्य कार्यों को सौंपा गया: \\ n%@";
@@ -657,7 +657,7 @@
 "Window min width in row:" = "पंक्ति में खिड़की की न्यूनतम चौड़ाई:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "विंडो और्डर";
 
 /*No comment provided by engineer.*/
 "Window Title" = "खिड़की का शीर्षक";
