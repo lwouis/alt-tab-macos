@@ -27,16 +27,21 @@ class KeyRepeatTimer {
         if ((timer == nil || !timer!.isValid) && atShortcut.state != .up) {
             let repeatRate = ticksToSeconds(defaults.string(forKey: "KeyRepeat") ?? "6")
             let initialDelay = ticksToSeconds(defaults.string(forKey: "InitialKeyRepeat") ?? "25")
-            timer = Timer(fire: Date(timeIntervalSinceNow: initialDelay), interval: repeatRate, repeats: true, block: { _ in
-                if atShortcut.state == .up {
-                    timer?.invalidate()
-                } else {
-                    DispatchQueue.main.async {
-                        block()
-                    }
-                }
-            })
+            timer = Timer(fire: Date(timeIntervalSinceNow: initialDelay), interval: repeatRate, repeats: true) { _ in
+                handleEvent(atShortcut, block)
+            }
+            timer!.tolerance = repeatRate * 0.1
             CFRunLoopAddTimer(BackgroundWork.repeatingKeyThread.runLoop, timer!, .defaultMode)
+        }
+    }
+
+    private static func handleEvent(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            if atShortcut.state == .up {
+                timer?.invalidate()
+            } else {
+                block()
+            }
         }
     }
 
