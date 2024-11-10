@@ -32,7 +32,7 @@ class Spaces {
 
     static func refreshSpacesAndWindows() {
         Spaces.refresh()
-        Windows.list.forEachAsync { $0.updatesWindowSpace() }
+        App.app.refreshOpenUi(Windows.list)
     }
 
     private static func updateCurrentSpace() {

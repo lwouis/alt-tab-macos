@@ -279,7 +279,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
             // TODO: find a way to update space info when spaces are changed, instead of on every trigger
             // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
             // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
-            Spaces.refreshSpacesAndWindows()
+            Spaces.refresh()
+            Windows.list.forEachAsync { $0.updatesWindowSpace() }
             let screen = NSScreen.preferred()
             self.shortcutIndex = shortcutIndex
             Windows.refreshWhichWindowsToShowTheUser(screen)
