@@ -1,5 +1,21 @@
 # Release notes
 
+# [7.3.0](https://github.com/lwouis/alt-tab-macos/compare/v7.2.0...v7.3.0) (2024-11-10)
+
+
+### Bug Fixes
+
+* better handle screen or space changes (closes [#1254](https://github.com/lwouis/alt-tab-macos/issues/1254), closes [#2983](https://github.com/lwouis/alt-tab-macos/issues/2983)) ([3c4aaf5](https://github.com/lwouis/alt-tab-macos/commit/3c4aaf5))
+* potential issues with key repeats due to concurrency ([4cfe16a](https://github.com/lwouis/alt-tab-macos/commit/4cfe16a))
+* switcher would not close, or cycle on its own (closes [#3117](https://github.com/lwouis/alt-tab-macos/issues/3117)) ([d430f83](https://github.com/lwouis/alt-tab-macos/commit/d430f83))
+* works without screen-recording permissions (closes [#3819](https://github.com/lwouis/alt-tab-macos/issues/3819)) ([f7de2bb](https://github.com/lwouis/alt-tab-macos/commit/f7de2bb))
+
+
+### Features
+
+* can pass the --logs= flags at launch to show logs ([81eb07e](https://github.com/lwouis/alt-tab-macos/commit/81eb07e))
+* improve el, fi, hi, it, pl, pt localizations ([a9614c1](https://github.com/lwouis/alt-tab-macos/commit/a9614c1))
+
 # [7.2.0](https://github.com/lwouis/alt-tab-macos/compare/v7.1.1...v7.2.0) (2024-11-04)
 
 
