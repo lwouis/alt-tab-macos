@@ -14,7 +14,7 @@ class Appearance {
     static var windowMaxWidthInRow = CGFloat(0)
     static var iconSize = CGFloat(0)
     static var fontHeight = CGFloat(0)
-    static var maxWidthOnScreen = CGFloat(0.8)
+    static var maxWidthOnScreen = CGFloat(0.9)
     static var maxHeightOnScreen = CGFloat(0.8)
     
     // theme
@@ -127,6 +127,7 @@ class Appearance {
         intraCellPadding = 5
         interCellPadding = 1
         edgeInsetsSize = 5
+        maxWidthOnScreen = 0.95
         windowMinWidthInRow = 0.04
         windowMaxWidthInRow = 0.3
         rowsCount = 1
