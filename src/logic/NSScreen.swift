@@ -9,13 +9,27 @@ extension NSScreen {
         return ratio() >= 1
     }
 
-    // periphery:ignore
-    func refreshRate() -> Double? {
-        if let screenNumber = deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID,
-           let screenMode = CGDisplayCopyDisplayMode(screenNumber) {
-            return screenMode.refreshRate
+    func number() -> CGDirectDisplayID? {
+        return deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID
+    }
+
+    func uuid() -> ScreenUuid? {
+        if let screenNumber = number(),
+           // these APIs implicitly unwrap their return values, but it can actually be nil thus we check
+           let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber as! UInt32),
+           let uuid = CFUUIDCreateString(nil, screenUuid.takeRetainedValue()) {
+            return uuid
         }
         return nil
+    }
+
+    // periphery:ignore
+    func refreshRate() -> Double? {
+        return number().map { CGDisplayCopyDisplayMode($0)?.refreshRate }
+    }
+
+    func physicalSize() -> CGSize? {
+        return number().map { CGDisplayScreenSize($0) }
     }
 
     static func preferred() -> NSScreen {
@@ -62,16 +76,6 @@ extension NSScreen {
         let x = screenFrame.minX + max(screenFrame.width - panelFrame.width, 0) * 0.5
         let y = screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * 0.5
         window.setFrameOrigin(NSPoint(x: x, y: y))
-    }
-
-    func uuid() -> ScreenUuid? {
-        if let screenNumber = deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")],
-           // these APIs implicitly unwrap their return values, but it can actually be nil thus we check
-           let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber as! UInt32),
-           let uuid = CFUUIDCreateString(nil, screenUuid.takeRetainedValue()) {
-            return uuid
-        }
-        return nil
     }
 }
 
