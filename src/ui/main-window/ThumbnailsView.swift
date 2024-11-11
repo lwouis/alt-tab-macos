@@ -4,7 +4,7 @@ class ThumbnailsView: NSVisualEffectView {
     let scrollView = ScrollView()
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
-    static var thumbnailsWith = CGFloat(0.0)
+    static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
 
     convenience init() {
@@ -165,9 +165,9 @@ class ThumbnailsView: NSVisualEffectView {
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
         let heightMax = ThumbnailsPanel.maxThumbnailsHeight(screen).rounded()
 
-        ThumbnailsView.thumbnailsWith = min(maxX, widthMax)
+        ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
         ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
-        var frameWidth = ThumbnailsView.thumbnailsWith + Appearance.windowPadding * 2
+        var frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
         var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2
         var originX = Appearance.windowPadding
         var originY = Appearance.windowPadding

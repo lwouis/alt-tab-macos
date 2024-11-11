@@ -25,7 +25,7 @@ extension NSScreen {
 
     // periphery:ignore
     func refreshRate() -> Double? {
-        return number().map { CGDisplayCopyDisplayMode($0)?.refreshRate }
+        return number().flatMap { CGDisplayCopyDisplayMode($0)?.refreshRate }
     }
 
     func physicalSize() -> CGSize? {
