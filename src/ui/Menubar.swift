@@ -12,8 +12,6 @@ class Menubar {
         permissionCalloutMenuItem.view = PermissionCallout()
         let calloutSeparator = NSMenuItem.separator()
         permissionCalloutMenuItems = [permissionCalloutMenuItem, calloutSeparator]
-        menu.addItem(permissionCalloutMenuItem)
-        menu.addItem(calloutSeparator)
         menu.addItem(
                 withTitle: String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name),
             action: #selector(App.app.showAboutTab),
@@ -53,6 +51,18 @@ class Menubar {
         statusItem.button!.action = #selector(statusItemOnClick)
         statusItem.button!.sendAction(on: [.leftMouseDown, .rightMouseDown])
         menubarIconCallback(nil)
+    }
+
+    // NSMenuItem.isHidden isn't reliable with custom views. We add/remove to hide/show these items
+    static func togglePermissionCallout(_ show: Bool) {
+        permissionCalloutMenuItems?.enumerated().forEach { offset, element in
+            if show && !menu.items.contains(element) {
+                menu.insertItem(element, at: offset)
+            }
+            if !show && menu.items.contains(element) {
+                menu.removeItem(element)
+            }
+        }
     }
 
     @objc static func statusItemOnClick() {

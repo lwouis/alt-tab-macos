@@ -59,9 +59,7 @@ class SystemPermissions {
         let accessibility = accessibilityIsGranted()
         let screenRecording = screenRecordingIsGranted()
         logger.d(accessibility, screenRecording, preStartupPermissionsPassed)
-        Menubar.permissionCalloutMenuItems?.forEach {
-            $0.isHidden = screenRecording != .skipped
-        }
+        Menubar.togglePermissionCallout(screenRecording == .skipped)
         if accessibility == .notGranted {
             App.app.restart()
         }
@@ -82,9 +80,7 @@ class SystemPermissions {
         let accessibility = accessibilityIsGranted()
         let screenRecording = screenRecordingIsGranted()
         logger.d(accessibility, screenRecording, preStartupPermissionsPassed)
-        Menubar.permissionCalloutMenuItems?.forEach {
-            $0.isHidden = screenRecording != .skipped
-        }
+        Menubar.togglePermissionCallout(screenRecording == .skipped)
         if accessibility != App.app.permissionsWindow?.accessibilityView?.permissionStatus {
             App.app.permissionsWindow?.accessibilityView.updatePermissionStatus(accessibility)
         }
