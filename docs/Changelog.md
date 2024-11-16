@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.4.0](https://github.com/lwouis/alt-tab-macos/compare/v7.3.0...v7.4.0) (2024-11-16)
+
+
+### Bug Fixes
+
+* permission callout could show even with permission granted ([9585c92](https://github.com/lwouis/alt-tab-macos/commit/9585c92)), closes [#3801](https://github.com/lwouis/alt-tab-macos/issues/3801)
+
+
+### Features
+
+* better switcher max-width at various monitor sizes ([49178b5](https://github.com/lwouis/alt-tab-macos/commit/49178b5))
+* improve ar, de, el, hu, it, ko, pt localizations ([c4f98a1](https://github.com/lwouis/alt-tab-macos/commit/c4f98a1))
+
 # [7.3.0](https://github.com/lwouis/alt-tab-macos/compare/v7.2.0...v7.3.0) (2024-11-10)
 
 
