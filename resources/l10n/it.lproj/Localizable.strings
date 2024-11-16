@@ -24,7 +24,7 @@
 "Additional controls" = "Controlli aggiuntivi";
 
 /*No comment provided by engineer.*/
-"Additional controls…" = "Controlli aggiuntivi ...";
+"Additional controls…" = "Controlli aggiuntivi…";
 
 /*No comment provided by engineer.*/
 "Advanced" = "Avanzate";
@@ -57,7 +57,7 @@
 "Alphabetical" = "Alfabetico";
 
 /*No comment provided by engineer.*/
-"Alphabetical Order" = "Ordine alfabetico";
+"Alphabetical Order" = "Alfabetico";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Seleziona le finestre usando anche:";
@@ -81,7 +81,7 @@
 "Always send crash reports" = "Invia sempre resoconti di arresti anomali";
 
 /*No comment provided by engineer.*/
-"and press" = "e premere";
+"and press" = "e premi";
 
 /*No comment provided by engineer.*/
 "and press:" = "e premi:";
@@ -132,7 +132,7 @@
 "Ask whether to send crash reports" = "Chiedi se inviare resconti di arresti anomali";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Aggiornamento automatico";
+"Auto-install updates periodically" = "Scarica e installa gli aggiornamenti disponibili";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Esclusioni";
@@ -150,7 +150,7 @@
 "Check for updates now…" = "Cerca aggiornamenti…";
 
 /*No comment provided by engineer.*/
-"Check for updates periodically" = "Verifica periodicamente la presenza di aggiornamenti";
+"Check for updates periodically" = "Verifica se sono disponibili aggiornamenti";
 
 /*No comment provided by engineer.*/
 "Check for updates…" = "Ricerca aggiornamenti…";
@@ -192,7 +192,7 @@
 "Do nothing" = "Non fare nulla";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Solo aggiornamenti manuali";
+"Don’t check for updates periodically" = "Disattivato (manuale)";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Non inviare";
@@ -363,7 +363,7 @@
 "Optional: email (if you want a reply)" = "Indirizzo email (solo se vuoi una risposta)";
 
 /*No comment provided by engineer.*/
-"Order windows by" = "Ordina le finestre in base a:";
+"Order windows by" = "Ordinamento delle finestre";
 
 /*No comment provided by engineer.*/
 "Policies" = "Sicurezza";
@@ -480,10 +480,10 @@
 "Shortcut already assigned to another action: %@" = "Comando già assegnato a: %@";
 
 /*No comment provided by engineer.*/
-"Shortcuts When Active" = "Scorciatoie con anteprime attive";
+"Shortcuts When Active" = "Scorciatoie aggiuntive (solo per la vista anteprima finestre)";
 
 /*No comment provided by engineer.*/
-"Shortcuts when active…" = "Scorciatoie con anteprime attive…";
+"Shortcuts when active…" = "Scorciatoie aggiuntive (solo per la vista anteprima finestre)";
 
 /*No comment provided by engineer.*/
 "Show" = "Mostra";
@@ -498,16 +498,16 @@
 "Show at the end" = "Mostra alla fine";
 
 /*No comment provided by engineer.*/
-"Show fullscreen windows" = "Mostra le finestre a schermo intero";
+"Show fullscreen windows" = "Finestre a schermo intero";
 
 /*No comment provided by engineer.*/
-"Show hidden windows" = "Mostra le finestre nascoste";
+"Show hidden windows" = "Finestre nascoste";
 
 /*No comment provided by engineer.*/
 "Show in switcher" = "Mostra in AltTab";
 
 /*No comment provided by engineer.*/
-"Show minimized windows" = "Mostra le finestre minimizzate";
+"Show minimized windows" = "Finestre minimizzate";
 
 /*No comment provided by engineer.*/
 "Show on" = "Limita a:";
@@ -525,13 +525,13 @@
 "Show titles" = "Mostra i titoli";
 
 /*No comment provided by engineer.*/
-"Show windows from applications" = "Mostra le finestre di applicazioni";
+"Show windows from applications" = "Mostra le finestre di…";
 
 /*No comment provided by engineer.*/
-"Show windows from screens" = "Mostra le finestre da tutti gli schermi";
+"Show windows from screens" = "Mostra da… (schermi)";
 
 /*No comment provided by engineer.*/
-"Show windows from Spaces" = "Mostra le finestre da tutti gli spazi";
+"Show windows from Spaces" = "Mostra da… (Spaces o 'spazi' di macOS)";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Mostra finestre da:";
@@ -552,7 +552,7 @@
 "Space" = "Spazio";
 
 /*No comment provided by engineer.*/
-"Space Order" = "Posizione";
+"Space Order" = "In base alla posizione";
 
 /*No comment provided by engineer.*/
 "Start" = "All'inizio";

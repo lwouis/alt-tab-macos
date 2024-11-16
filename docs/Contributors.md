@@ -79,6 +79,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Darius Rosendahl
 * Darko
 * David R
+* Dékány Martin
 * Didier Deschrijver
 * Dzhuneyt
 * EDUARDO
@@ -171,6 +172,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * MuDraconis
 * Muzhenstudent
 * Mwolfinspace
+* Naseeb Naushad
 * Nathancodes
 * Nikola Rajić
 * Nils Fahldieck
@@ -196,6 +198,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Rodrigo Schneider
 * Ron Nuss
 * sa-ha
+* Sami Suleiman
 * sawtooth
 * Selcuk Dursun
 * Sergey
@@ -213,7 +216,9 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Svetoslav Stefanov
 * Thomas Wölk
 * Thorsten
+* Thorsten
 * Tomoa Nozawa
+* Tsilimpotis Dimitrios
 * Umutakkaya1996
 * Vadym
 * Vijayant Saini

@@ -27,7 +27,7 @@
 "Additional controls…" = "추가 제어…";
 
 /*No comment provided by engineer.*/
-"Advanced" = "고급의";
+"Advanced" = "고급";
 
 /*No comment provided by engineer.*/
 "After release" = "출시 후";
@@ -186,7 +186,7 @@
 "Customize Titles style…" = "타이틀 스타일 사용자 정의…";
 
 /*No comment provided by engineer.*/
-"Dark" = "어두운";
+"Dark" = "다크";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "아무것도 하지 않기";
@@ -303,7 +303,7 @@
 "Left" = "왼쪽";
 
 /*No comment provided by engineer.*/
-"Light" = "빛";
+"Light" = "라이트";
 
 /*No comment provided by engineer.*/
 "Max height on screen:" = "화면 내의 최대 높이:";
@@ -489,7 +489,7 @@
 "Show" = "보기";
 
 /*No comment provided by engineer.*/
-"Show & Hide" = "표시 및 숨기십시오";
+"Show & Hide" = "표시 & 숨기기";
 
 /*No comment provided by engineer.*/
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "각 창 또는 각 응용 프로그램에 대한 스위처에 항목을 표시하십시오.응용 프로그램은 활성화되는 반면 Windows는 집중됩니다.";
@@ -501,7 +501,7 @@
 "Show fullscreen windows" = "전체 화면 창을 보여줍니다";
 
 /*No comment provided by engineer.*/
-"Show hidden windows" = "숨겨진 창문을 보여주십시오";
+"Show hidden windows" = "숨겨진 창을 보여줍니다";
 
 /*No comment provided by engineer.*/
 "Show in switcher" = "스위처에 표시하십시오";
@@ -543,7 +543,7 @@
 "Small" = "작은";
 
 /*No comment provided by engineer.*/
-"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder 또는 Preview와 같은 일부 앱은 독립 창처럼 작동하는 표준 탭을 사용합니다.웹 브라우저와 같은 다른 앱은 고유 한 방식으로 작동하고 실제 Windows가 아닌 사용자 정의 탭을 사용합니다.Alttab은 별도로 나열 할 수 없습니다.";
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Finder 또는 Preview와 같은 일부 앱은 독립 창처럼 작동하는 표준 탭을 사용합니다. 웹 브라우저와 같은 다른 앱은 고유 한 방식으로 작동하는 커스텀 탭을 사용하며, 이는 실제 창이 아닙니다. AltTab은 이러한 탭을 개별적으로 나열할 수 없습니다.";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "소스 코드";
@@ -552,7 +552,7 @@
 "Space" = "Space";
 
 /*No comment provided by engineer.*/
-"Space Order" = "우주 순서";
+"Space Order" = "Space 순서";
 
 /*No comment provided by engineer.*/
 "Start" = "처음";
@@ -570,10 +570,10 @@
 "Switch between 3 different styles. You can customize them." = "세 가지 다른 스타일 사이에서 전환하십시오.당신은 그들을 사용자 정의 할 수 있습니다.";
 
 /*No comment provided by engineer.*/
-"System" = "체계";
+"System" = "시스템";
 
 /*No comment provided by engineer.*/
-"Theme" = "주제";
+"Theme" = "테마";
 
 /*No comment provided by engineer.*/
 "Theme:" = "테마:";

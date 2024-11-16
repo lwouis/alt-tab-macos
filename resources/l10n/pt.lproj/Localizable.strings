@@ -12,7 +12,7 @@
 "Acknowledgments" = "Agradecimentos";
 
 /*No comment provided by engineer.*/
-"Active app" = "Aplicação activa";
+"Active app" = "Aplicações activas";
 
 /*No comment provided by engineer.*/
 "Active screen" = "Ecrã activo";
@@ -48,13 +48,13 @@
 "All screens" = "Todas os ecrãs";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "Todos os spaces";
+"All Spaces" = "Todos os Ambientes de Trabalho";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Permitido";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Ordem alfabética";
+"Alphabetical" = "Ordem Alfabética";
 
 /*No comment provided by engineer.*/
 "Alphabetical Order" = "Ordem Alfabética";
@@ -63,7 +63,7 @@
 "Also select windows using:" = "Também escolher janelas utilizando:";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "A aplicação terminou inesperadamente na última vez que foi utilizado. Ao enviar um relatório de falha ajuda a corrigir o erro";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "A aplicação terminou inesperadamente na última vez que foi utilizada. Ao enviar um relatório de falha ajuda a corrigir o erro";
 
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Actualmente, o AltTab está definido para mostrar aplicações.Essa configuração está disponível apenas quando o AltTab está definido para mostrar o janelas.";
@@ -93,7 +93,7 @@
 "Animations…" = "Animações...";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "App (BundleID começando com)";
+"App (BundleID starting with)" = "App (BundleID a começar com)";
 
 /*No comment provided by engineer.*/
 "App Icons" = "Ícones de apliçação";
@@ -141,7 +141,7 @@
 "Cancel" = "Cancelar";
 
 /*No comment provided by engineer.*/
-"Cancel and hide" = "Cancelar e esconder";
+"Cancel and hide" = "Cancelar e ocultar";
 
 /*No comment provided by engineer.*/
 "Center" = "Centro";
@@ -153,7 +153,7 @@
 "Check for updates periodically" = "Procurar actualizações periodicamente";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "Procurar actualizações…";
+"Check for updates…" = "Procurar por actualizações…";
 
 /*Menubar option*/
 "Check permissions…" = "Verificar permissões...";
@@ -207,13 +207,13 @@
 "End" = "Fim";
 
 /*No comment provided by engineer.*/
-"Fade out animation" = "Desbotamento da animação";
+"Fade out animation" = "Animação de fade out";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "Animação de desaparecimento:";
 
 /*No comment provided by engineer.*/
-"Focus selected window" = "Foco na janela activa";
+"Focus selected window" = "Focar na janela activa";
 
 /*No comment provided by engineer.*/
 "Fullscreen window" = "Ecrã inteiro";
@@ -231,28 +231,28 @@
 "Hidden windows:" = "Janelas escondidas:";
 
 /*No comment provided by engineer.*/
-"Hide" = "Esconder";
+"Hide" = "Ocultar";
 
 /*No comment provided by engineer.*/
 "Hide app badges" = "Ocultar crachás de aplicação";
 
 /*No comment provided by engineer.*/
-"Hide app badges:" = "Esconder emblemas:";
+"Hide app badges:" = "Ocultar emblemas:";
 
 /*No comment provided by engineer.*/
 "Hide apps with no open window" = "Ocultar aplicações sem janela aberta";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window:" = "Esconder aplicações sem janelas abertas:";
+"Hide apps with no open window:" = "Ocultar aplicações sem janelas abertas:";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover" = "Ocultar círculos coloridos com o rato em cima";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover:" = "Esconder círculos coloridos onde o rato passar:";
+"Hide colored circles on mouse hover:" = "Ocultar círculos coloridos onde o rato passar:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "Esconder em %@";
+"Hide in %@" = "Ocultar em %@";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels" = "Ocultar rótulos do numero do \"Space\"";
@@ -264,19 +264,19 @@
 "Hide status icons" = "Ocultar ícones de status";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "Esconder ícones de estado:";
+"Hide status icons:" = "Ocultar ícones de estado:";
 
 /*No comment provided by engineer.*/
-"Hide window thumbnails:" = "Esconder miniaturas das janelas:";
+"Hide window thumbnails:" = "Ocultar miniaturas das janelas:";
 
 /*No comment provided by engineer.*/
-"Hide/Show app" = "Esconder/Mostrar aplicação";
+"Hide/Show app" = "Ocultar/Mostrar aplicação";
 
 /*No comment provided by engineer.*/
-"High" = "High";
+"High" = "Alta";
 
 /*No comment provided by engineer.*/
-"Highest" = "Mais alto";
+"Highest" = "Mais alta";
 
 /*No comment provided by engineer.*/
 "Hold" = "Segurar";
@@ -285,7 +285,7 @@
 "I think the app could be improved with…" = "Eu acho que a aplicação poderia ser melhorada se…";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "Ignorar atalhos quando activa";
+"Ignore shortcuts when active" = "Ignorar atalhos enquanto activo";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorar atalhos sempre que uma destas janelas esteja activa";
@@ -390,16 +390,16 @@
 "Quit app" = "Fechar aplicação";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recentemente Criada";
+"Recently Created" = "Mais Recentemente Criada";
 
 /*No comment provided by engineer.*/
-"Recently Created First" = "Recentemente criado primeiro";
+"Recently Created First" = "Mais Recentemente Criada Primeiro";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recentemente Activa";
+"Recently Focused" = "Mais Recentemente Focada";
 
 /*No comment provided by engineer.*/
-"Recently Focused First" = "Recentemente focado primeiro";
+"Recently Focused First" = "Mais Recentemente Focada Primeiro";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Lembrar a minha escolha";
@@ -438,7 +438,7 @@
 "Select windows using arrow keys" = "Seleccione janelas utilzando as setas do teclado";
 
 /*No comment provided by engineer.*/
-"Select windows using vim keys" = "Seleccione janelas usando as teclas do Vim";
+"Select windows using vim keys" = "Seleccione janelas utilizando as teclas do Vim";
 
 /*No comment provided by engineer.*/
 "Send" = "Enviar";
@@ -480,19 +480,19 @@
 "Shortcut already assigned to another action: %@" = "Atalho já atribuído a outra acção: %@";
 
 /*No comment provided by engineer.*/
-"Shortcuts When Active" = "Atalhos quando activo";
+"Shortcuts When Active" = "Atalhos Enquanto Activo";
 
 /*No comment provided by engineer.*/
-"Shortcuts when active…" = "Atalhos quando activo...";
+"Shortcuts when active…" = "Atalhos enquanto activo";
 
 /*No comment provided by engineer.*/
 "Show" = "Mostrar";
 
 /*No comment provided by engineer.*/
-"Show & Hide" = "Mostrar/Esconder";
+"Show & Hide" = "Mostrar/Ocultar";
 
 /*No comment provided by engineer.*/
-"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Mostre um item no comutador para cada janela ou para cada apliação. As janelas focar-se-ão quando as aplicações estiverem activas.";
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Mostre um item no comutador para cada janela ou para cada aplicação. As janelas focar-se-ão quando as aplicações estiverem activas.";
 
 /*No comment provided by engineer.*/
 "Show at the end" = "Mostrar no fim";
@@ -528,10 +528,10 @@
 "Show windows from applications" = "Mostrar janelas de aplicações";
 
 /*No comment provided by engineer.*/
-"Show windows from screens" = "Mostrar janelas das telas";
+"Show windows from screens" = "Mostrar janelas de ecrãs";
 
 /*No comment provided by engineer.*/
-"Show windows from Spaces" = "Mostrar janelas de espaços";
+"Show windows from Spaces" = "Mostrar janelas dos Ambientes de Trabalho";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Mostrar janelas de:";
@@ -543,7 +543,7 @@
 "Small" = "Pequeno";
 
 /*No comment provided by engineer.*/
-"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Algumas aplicações como o Finder ou Preview usam separadores padrão que actuam como janelas independentes. Outras, como navegadores da Web, usam separadores personalizados que actuam de forma única e, na verdade, não são janelas reais. AltTab não pode listá-las separadamente.";
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Algumas aplicações como o Finder ou Preview utilizam separadores padrão que actuam como janelas independentes. Outras, como navegadores da Web, utilizam separadores personalizados que actuam de forma única e, na verdade, não são janelas reais. AltTab não pode listá-las separadamente.";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "Repositório do Código Fonte";
@@ -552,13 +552,13 @@
 "Space" = "Space";
 
 /*No comment provided by engineer.*/
-"Space Order" = "Ordem espacial";
+"Space Order" = "Ordem por Ambiente de Trabalho";
 
 /*No comment provided by engineer.*/
 "Start" = "Início";
 
 /*No comment provided by engineer.*/
-"Start at login" = "Comecar ao arrancar";
+"Start at login" = "Começar no arranque";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "Iniciar ao efectuar login:";
@@ -603,7 +603,7 @@
 "Unassign existing shortcut and continue" = "Eliminar atalho e continuar";
 
 /*No comment provided by engineer.*/
-"Updates policy" = "Atualiza a política";
+"Updates policy" = "Actualiza a política";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Regras de actualização:";
@@ -624,7 +624,7 @@
 "Visibility" = "Visibilidade";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "Spaces Visíveis";
+"Visible Spaces" = "Ambientes de Trabalho Visíveis";
 
 /*No comment provided by engineer.*/
 "When fullscreen" = "Quando em ecrã inteiro";
@@ -645,7 +645,7 @@
 "Window is minimized" = "Janela está minimizada";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "Janela está em todos os Spaces";
+"Window is on every Space" = "Janela está em todos os Ambientes de Trabalho";
 
 /*No comment provided by engineer.*/
 "Window is on Space %d" = "Janela está no Space %d";
@@ -669,7 +669,7 @@
 "Window title truncation:" = "Truncar título:";
 
 /*No comment provided by engineer.*/
-"Windows" = "janelas";
+"Windows" = "Janelas";
 
 /*No comment provided by engineer.*/
 "You can’t undo this action." = "Não pode desfazer esta acção.";

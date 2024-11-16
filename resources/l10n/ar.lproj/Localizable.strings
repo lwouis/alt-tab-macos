@@ -24,10 +24,10 @@
 "Additional controls" = "ضوابط إضافية";
 
 /*No comment provided by engineer.*/
-"Additional controls…" = "ضوابط إضافية ...";
+"Additional controls…" = "ضوابط إضافية…";
 
 /*No comment provided by engineer.*/
-"Advanced" = "متقدم";
+"Advanced" = "متقدّم";
 
 /*No comment provided by engineer.*/
 "After release" = "بعد الإصدار";
@@ -54,25 +54,25 @@
 "Allowed" = "مسموح";
 
 /*No comment provided by engineer.*/
-"Alphabetical" = "Alphabetical";
+"Alphabetical" = "أبجديّ";
 
 /*No comment provided by engineer.*/
 "Alphabetical Order" = "الترتيب الأبجدي";
 
 /*No comment provided by engineer.*/
-"Also select windows using:" = "أيضاً إختر النوافذ ب:";
+"Also select windows using:" = "أيضاً اختر النوافذ بـ:";
 
 /*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "تعطل AltTab عندما استخدمته آخر مرة. ارسال بلاغ التعطل سوف يساعد في إصلاح المشكلة";
 
 /*No comment provided by engineer.*/
-"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "تم تعيين Alttab حاليًا لإظهار التطبيقات.هذا الإعداد متاح فقط عندما يتم تعيين Alttab لإظهار Windows.";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "تم تعيين Alttab حاليًا لعرض التطبيقات.هذا الإعداد متاح فقط عندما يتم تعيين Alttab لإظهار النوافذ.";
 
 /*No comment provided by engineer.*/
-"AltTab needs some permissions" = "AltTab بحتاج لبعض الأذونات";
+"AltTab needs some permissions" = "AltTab يحتاج إلى بعض الأذونات";
 
 /*No comment provided by engineer.*/
-"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "سيظهر Alttab ما إذا كانت النافذة تقليلها حاليًا أو شاشة كاملة باستخدام أيقونة الحالة.";
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "سيظهر AltTab إذا كانت النافذة مقلّصة حالياً أو في وضع ملء الشاشة مع أيقونة الحالة.";
 
 /*No comment provided by engineer.*/
 "Always" = "دائماً";
@@ -81,7 +81,7 @@
 "Always send crash reports" = "أرسل بلاغات التعطل دائماً";
 
 /*No comment provided by engineer.*/
-"and press" = "واضغط";
+"and press" = "ثمّ اضغط";
 
 /*No comment provided by engineer.*/
 "and press:" = "واضغط:";
@@ -90,7 +90,7 @@
 "Animations" = "الرسوم المتحركة";
 
 /*No comment provided by engineer.*/
-"Animations…" = "الرسوم المتحركة ...";
+"Animations…" = "الرسوم المتحركة…";
 
 /*No comment provided by engineer.*/
 "App (BundleID starting with)" = "التطبيق (bundleid بدءا من)";
@@ -123,7 +123,7 @@
 "Applications" = "التطبيقات";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "هل أنت متأكد بأنك لا تريد رداً ؟";
+"Are you sure you don’t want a response?" = "هل أنت متأكد بأنك لا تريد رداً؟";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "أزرار الأسهم";
@@ -156,7 +156,7 @@
 "Check for updates…" = "ابحث عن تحديثات…";
 
 /*Menubar option*/
-"Check permissions…" = "تحقق الأذونات ...";
+"Check permissions…" = "تحقق من الأذونات…";
 
 /*No comment provided by engineer.*/
 "Close window" = "إغلاق النافذة";
@@ -174,16 +174,16 @@
 "Crash reports policy:" = "سياسات بلاغات التعطل:";
 
 /*No comment provided by engineer.*/
-"Cursor follows focus" = "Cursor follows focus";
+"Cursor follows focus" = "المؤشر يتبع التركيز";
 
 /*No comment provided by engineer.*/
-"Customize App Icons style…" = "تخصيص نمط أيقونات التطبيق ...";
+"Customize App Icons style…" = "تخصيص نمط أيقونات التطبيق…";
 
 /*No comment provided by engineer.*/
-"Customize Thumbnails style…" = "تخصيص نمط المصغرة ...";
+"Customize Thumbnails style…" = "تخصيص نمط المصغرة…";
 
 /*No comment provided by engineer.*/
-"Customize Titles style…" = "تخصيص نمط العناوين ...";
+"Customize Titles style…" = "تخصيص نمط العناوين…";
 
 /*No comment provided by engineer.*/
 "Dark" = "مظلم";
@@ -207,7 +207,7 @@
 "End" = "النهاية";
 
 /*No comment provided by engineer.*/
-"Fade out animation" = "تلاشى الرسوم المتحركة";
+"Fade out animation" = "الرسوم المتحركة للتلاشي";
 
 /*No comment provided by engineer.*/
 "Fade out animation:" = "تأثير الإختفاء:";
@@ -216,7 +216,7 @@
 "Focus selected window" = "ركّز النافذة المختارة";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "Fullscreen window";
+"Fullscreen window" = "نافذة ملء الشاشة";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "النوافذ كاملة الشاشة:";
@@ -234,37 +234,37 @@
 "Hide" = "إخفاء";
 
 /*No comment provided by engineer.*/
-"Hide app badges" = "إخفاء أيقونات التطبيقات";
+"Hide app badges" = "اخفِ أيقونات التطبيقات";
 
 /*No comment provided by engineer.*/
 "Hide app badges:" = "إخفاء أيقونات التطبيقات:";
 
 /*No comment provided by engineer.*/
-"Hide apps with no open window" = "إخفاء التطبيقات بدون نوافذ مفتوحة";
+"Hide apps with no open window" = "اخفِ التطبيقات بدون نوافذ مفتوحة";
 
 /*No comment provided by engineer.*/
 "Hide apps with no open window:" = "إخفاء التطبيقات بدون نوافذ مفتوحة:";
 
 /*No comment provided by engineer.*/
-"Hide colored circles on mouse hover" = "أخفاء الدوائر الملونة عند تحويم الفأرة";
+"Hide colored circles on mouse hover" = "اخفِ الدوائر الملونة عند تحويم الفأرة";
 
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "أخفاء الدوائر الملونة عند تحويم الفأرة:";
 
 /*%@ is AltTab*/
-"Hide in %@" = "الاختباء في ٪@";
+"Hide in %@" = "اِخفِ في %@";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels" = "إخفاء مساحة الأرقام";
+"Hide Space number labels" = "اخفِ مساحة الأرقام";
 
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "إخفاء مساحة الأرقام:";
 
 /*No comment provided by engineer.*/
-"Hide status icons" = "أخفاء أيقونة الحالة";
+"Hide status icons" = "اخفِ أيقونة الحالة";
 
 /*No comment provided by engineer.*/
-"Hide status icons:" = "أخفاء أيقونة الحالة:";
+"Hide status icons:" = "اخفِ أيقونة الحالة:";
 
 /*No comment provided by engineer.*/
 "Hide window thumbnails:" = "إخفاء الصورة المصغرة للنافذة:";
@@ -288,7 +288,7 @@
 "Ignore shortcuts when active" = "تجاهل الاختصارات عند النشاط";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts while a window from these apps is active" = "لا تفعّل الإختصارات عندما تكن نافذة من أحد هذه التطبيقات مفعّلة";
+"Ignore shortcuts while a window from these apps is active" = "لا تفعّل الإختصارات عندما تكون نافذة من أحد هذه التطبيقات مفعّلة";
 
 /*No comment provided by engineer.*/
 "Large" = "كبير";
@@ -312,10 +312,10 @@
 "Max width on screen:" = "أكبر عرض على الشاشة:";
 
 /*No comment provided by engineer.*/
-"Medium" = "واسطة";
+"Medium" = "متوسط";
 
 /*No comment provided by engineer.*/
-"Menubar icon" = "أيقونة مينوبار";
+"Menubar icon" = "أيقونة شريط القوائم";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "أيقونة شريط القوائم:";
@@ -330,7 +330,7 @@
 "Minimized windows:" = "النوافذ المصغرة:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "xx";
+"Miscellaneous:" = "متنوّع:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "تمرير المؤشر";
@@ -365,7 +365,7 @@
 "Optional: email (if you want a reply)" = "اختياري: بريد (إذا كنت تريد رد)";
 
 /*No comment provided by engineer.*/
-"Order windows by" = "طلب Windows بواسطة";
+"Order windows by" = "رتّب النوافذ حسب";
 
 /*No comment provided by engineer.*/
 "Policies" = "سياسات";
@@ -377,7 +377,7 @@
 "Preview selected window" = "معاينة نافذة محددة";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "Preview selected window:";
+"Preview selected window:" = "عاينْ النافذة المختارة:";
 
 /*No comment provided by engineer.*/
 "Preview the selected window." = "معاينة النافذة المحددة.";
@@ -392,13 +392,13 @@
 "Quit app" = "إغلاق البرنامج";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Recently Created";
+"Recently Created" = "تم إنشاؤه مؤخراً";
 
 /*No comment provided by engineer.*/
 "Recently Created First" = "تم إنشاؤها مؤخرًا أولاً";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Recently Focused";
+"Recently Focused" = "تم التركيز عليه مؤخراً";
 
 /*No comment provided by engineer.*/
 "Recently Focused First" = "ركز مؤخرا أولا";
@@ -435,10 +435,10 @@
 "Select previous window" = "حدد النافذة السابقة";
 
 /*No comment provided by engineer.*/
-"Select windows on mouse hover" = "حدد Windows على تحوم الماوس";
+"Select windows on mouse hover" = "حدد النوافذ عند تحويم الفأرة";
 
 /*No comment provided by engineer.*/
-"Select windows using arrow keys" = "حدد Windows باستخدام مفاتيح الأسهم";
+"Select windows using arrow keys" = "حدد النوافذ باستخدام مفاتيح الأسهم";
 
 /*No comment provided by engineer.*/
 "Select windows using vim keys" = "حدد Windows باستخدام مفاتيح VIM";
@@ -447,7 +447,7 @@
 "Send" = "إرسال";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "هل تريد أرسال بلاغ تعطل؟";
+"Send a crash report?" = "هل تريد إرسال بلاغ تعطل؟";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "إرسال على أية حال";
@@ -471,13 +471,13 @@
 "Shortcut 2" = "الإختصار ٢";
 
 /*No comment provided by engineer.*/
-"Shortcut 3" = "اختصار 3";
+"Shortcut 3" = "الاختصار ٣";
 
 /*No comment provided by engineer.*/
-"Shortcut 4" = "اختصار 4";
+"Shortcut 4" = "الاختصار ٤";
 
 /*No comment provided by engineer.*/
-"Shortcut 5" = "اختصار 5";
+"Shortcut 5" = "الاختصار ٥";
 
 /*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "الإختصار محجوز لفعل آخر: %@";
@@ -522,7 +522,7 @@
 "Show standard tabs as windows" = "إظهر التابات كشاشات";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "إظهر التابات كشاشات:";
+"Show standard tabs as windows:" = "أظهر التبويبات كنوافذ:";
 
 /*No comment provided by engineer.*/
 "Show titles" = "إظهار العناوين";
@@ -552,7 +552,7 @@
 "Source code repository" = "مخزن شفرة المصدر";
 
 /*No comment provided by engineer.*/
-"Space" = "Space";
+"Space" = "مساحة";
 
 /*No comment provided by engineer.*/
 "Space Order" = "ترتيب الفضاء";
@@ -567,7 +567,7 @@
 "Start at login:" = "شغّل البرنامج عند الدخول:";
 
 /*Menubar option*/
-"Support this project ❤️" = "دعم هذا المشروع ❤";
+"Support this project ❤️" = "اِدعم هذا المشروع ❤";
 
 /*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "التبديل بين 3 أنماط مختلفة.يمكنك تخصيصها.";
@@ -582,7 +582,7 @@
 "Theme:" = "المظهر:";
 
 /*No comment provided by engineer.*/
-"Then release:" = "واترك:";
+"Then release:" = "ثمّ اترك:";
 
 /*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "هذا الإذن يسمح لنا بالتركيز على النوافذ بعد تفعيلك للإختصار";
@@ -618,16 +618,16 @@
 "View existing discussions" = "أنظر للنقاشات الحالية";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim keys";
+"Vim keys" = "مفاتيح Vim";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "مفاتيح VIM المعينة بالفعل لإجراءات أخرى: \\ n ٪@";
+"Vim keys already assigned to other actions:\n%@" = "مفاتيح Vim المعينة بالفعل لإجراءات أخرى: \\\n%@";
 
 /*No comment provided by engineer.*/
 "Visibility" = "الرؤية";
 
 /*No comment provided by engineer.*/
-"Visible Spaces" = "المسافات الظاهرة";
+"Visible Spaces" = "المساحات الظاهرة";
 
 /*No comment provided by engineer.*/
 "When fullscreen" = "عند ملء الشاشة";
@@ -645,13 +645,13 @@
 "Window is fullscreen" = "النافذة ملء الشاشة";
 
 /*No comment provided by engineer.*/
-"Window is minimized" = "تم تقليل النافذة";
+"Window is minimized" = "تمَّ تقليص النافذة";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "النافذة في كل مساحة";
+"Window is on every Space" = "النافذة موجودة في كل المساحات";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "النافذة على الفضاء ٪ د";
+"Window is on Space %d" = "النافذة موجودة في المساحة %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "أكبر عرض للنافذة بالأعمدة:";
@@ -660,7 +660,7 @@
 "Window min width in row:" = "أصغر عرض للنافذة بالأعمدة:";
 
 /*No comment provided by engineer.*/
-"Window order:" = "Window order:";
+"Window order:" = "ترتيب النوافذ:";
 
 /*No comment provided by engineer.*/
 "Window Title" = "عنوان النافذة";
@@ -672,7 +672,7 @@
 "Window title truncation:" = "اقتطاع عنوان النافذة:";
 
 /*No comment provided by engineer.*/
-"Windows" = "شبابيك";
+"Windows" = "نوافذ";
 
 /*No comment provided by engineer.*/
 "You can’t undo this action." = "لا يمكنك التراجع عن هذا الإجراء.";
