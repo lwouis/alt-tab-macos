@@ -45,7 +45,11 @@ class KeyRepeatTimer {
         }
     }
 
+    // NSEvent.keyRepeatInterval exists, but it doesn't seem to update when System Settings are updated, or when the user runs `defaults write -g KeyRepeat X`
+    // On the other side, defaults.string(forKey: "KeyRepeat") always reflects the current value correctly
     private static func ticksToSeconds(_ appleNumber: String) -> Double {
-        return Double(appleNumber)! / 60 // Apple probably hard-coupled key repeat-rate with 60hz monitors
+        // These numbers are "ticks". Apple has hardcoded that 60 ticks == 1s
+        // It has stayed like this on recent macOS releases, and is the same on high refresh-rate monitors (e.g. 120 FPS)
+        return Double(appleNumber)! / 60
     }
 }
