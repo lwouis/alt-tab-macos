@@ -266,9 +266,9 @@ class Appearance {
     // * most people will seat far enough so that they can view the whole width of the screen
     // * some people use wide-screen or TV monitors. Those people tend to be too close to the screen, since they need to use keyboard and mouse on their desk
     // Let's use this heuristic: let's assume that people can view 60cm comfortably. Bigger screens can only show parts of AltTab
-    // Let's clamp at 96% so there are 2% margins
+    // Let's clamp at 90% like Windows 11
     private static func comfortableWidth(_ physicalWidth: Double) -> Double {
-        return min(0.96, 600.0 / physicalWidth)
+        return min(0.9, 600.0 / physicalWidth)
     }
 
     /// Used for tuning. This is the latest output:
