@@ -31,7 +31,7 @@ class KeyRepeatTimer {
                 handleEvent(atShortcut, block)
             }
             timer!.tolerance = repeatRate * 0.1
-            CFRunLoopAddTimer(BackgroundWork.repeatingKeyThread.runLoop, timer!, .defaultMode)
+            CFRunLoopAddTimer(BackgroundWork.repeatingKeyThread.runLoop, timer!, .commonModes)
         }
     }
 

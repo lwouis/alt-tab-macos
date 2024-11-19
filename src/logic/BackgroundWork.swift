@@ -95,6 +95,6 @@ class BackgroundThreadWithRunLoop {
         var context = CFRunLoopSourceContext()
         context.perform = { _ in }
         let source = CFRunLoopSourceCreate(nil, 0, &context)
-        CFRunLoopAddSource(runLoop, source, .defaultMode)
+        CFRunLoopAddSource(runLoop, source, .commonModes)
     }
 }

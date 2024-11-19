@@ -122,7 +122,7 @@ class Window: CustomStringConvertible {
                 try self.axUiElement.subscribeToNotification(axObserver, notification, nil)
             }
         }
-        CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
+        CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 
     private func screenshot(_ bestResolution: Bool = false) -> NSImage? {

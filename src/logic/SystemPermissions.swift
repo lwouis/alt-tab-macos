@@ -27,7 +27,7 @@ class SystemPermissions {
             }
         }
         timerPermissionsToUpdatePermissionsWindow!.tolerance = 0.1
-        CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsToUpdatePermissionsWindow!, .defaultMode)
+        CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsToUpdatePermissionsWindow!, .commonModes)
     }
 
     static func pollPermissionsRemovedWhileAltTabIsRunning() {
@@ -37,7 +37,7 @@ class SystemPermissions {
             }
         }
         timerPermissionsRemovedWhileAltTabIsRunning!.tolerance = 1
-        CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsRemovedWhileAltTabIsRunning!, .defaultMode)
+        CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsRemovedWhileAltTabIsRunning!, .commonModes)
     }
 
     static func accessibilityIsGranted() -> PermissionStatus {

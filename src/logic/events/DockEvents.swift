@@ -14,7 +14,7 @@ class DockEvents {
                     try axUiElement!.subscribeToNotification(axObserver!, notification.rawValue, nil)
                 }
             }
-            CFRunLoopAddSource(BackgroundWork.missionControlThread.runLoop, AXObserverGetRunLoopSource(axObserver!), .defaultMode)
+            CFRunLoopAddSource(BackgroundWork.missionControlThread.runLoop, AXObserverGetRunLoopSource(axObserver!), .commonModes)
         } else {
             // we could handle macOS < 12 here like yabai does. However, they poll with ax calls until they notice Mission Control stops
             // this takes up ressources when Mission Control is open. If the user keeps it open for a few hours, this would accelerate battery usage
