@@ -1,10 +1,13 @@
 import Foundation
 
 class MissionControl {
+    private static let stateLock = NSLock()
     private static var state_ = MissionControlState.inactive
 
     static func state() -> MissionControlState {
         if #available(macOS 12.0, *) {
+            stateLock.lock()
+            defer { stateLock.unlock() }
             return state_
         } else {
             return isActive() ? .showAllWindows : .inactive
@@ -12,6 +15,8 @@ class MissionControl {
     }
 
     static func setState(_ state: MissionControlState) {
+        stateLock.lock()
+        defer { stateLock.unlock() }
         state_ = state
         logger.i(state)
     }
