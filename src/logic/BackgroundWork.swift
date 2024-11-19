@@ -15,8 +15,6 @@ class BackgroundWork {
 
     // we cap concurrent tasks to .processorCount to avoid thread explosion on the .global queue
     static let globalSemaphore = DispatchSemaphore(value: ProcessInfo.processInfo.processorCount)
-    // Thread.start() is async; we use a semaphore to ensure threads are actually ready before we continue the launch sequence
-    static let threadStartSemaphore = DispatchSemaphore(value: 0)
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
@@ -73,24 +71,30 @@ extension DispatchQueue {
 class BackgroundThreadWithRunLoop {
     var thread: Thread?
     var runLoop: CFRunLoop?
-    var hasSentSemaphoreSignal = false
+    // Thread.start() is async; we use a semaphore to make the init() sync
+    let threadStartSemaphore = DispatchSemaphore(value: 0)
 
     init(_ name: String, _ qos: DispatchQoS) {
         thread = Thread {
+            logger.d(name)
+            // the RunLoop is lazy; calling this initialize it
             self.runLoop = CFRunLoopGetCurrent()
-            while !self.thread!.isCancelled {
-                if !self.hasSentSemaphoreSignal {
-                    BackgroundWork.threadStartSemaphore.signal()
-                    self.hasSentSemaphoreSignal = true
-                }
-                CFRunLoopRun()
-                // avoid tight loop while waiting for the first runloop source to be added
-                Thread.sleep(forTimeInterval: 0.1)
-            }
+            self.addDummySourceToPreventRunLoopTermination()
+            self.threadStartSemaphore.signal()
+            CFRunLoopRun()
         }
         thread!.name = name
         thread!.qualityOfService = qos.toQualityOfService()
         thread!.start()
-        BackgroundWork.threadStartSemaphore.wait()
+        threadStartSemaphore.wait()
+    }
+
+    /// adding a no-op source keeps the RunLoop running until actual sources are added
+    /// it would otherwise terminate on CFRunLoopRun()
+    private func addDummySourceToPreventRunLoopTermination() {
+        var context = CFRunLoopSourceContext()
+        context.perform = { _ in }
+        let source = CFRunLoopSourceCreate(nil, 0, &context)
+        CFRunLoopAddSource(runLoop, source, .defaultMode)
     }
 }
