@@ -57,7 +57,7 @@
 "Alphabetical" = "Alfabetik";
 
 /*No comment provided by engineer.*/
-"Alphabetical Order" = "Alfabetik sipariş";
+"Alphabetical Order" = "Alfabetik sıra";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Bunları kullanan pencereleri de seç:";
@@ -363,7 +363,7 @@
 "Optional: email (if you want a reply)" = "İsteğe bağlı: e-posta (bir yanıt istiyorsanız)";
 
 /*No comment provided by engineer.*/
-"Order windows by" = "Windows sipariş";
+"Order windows by" = "Pencere sırası";
 
 /*No comment provided by engineer.*/
 "Policies" = "Kurallar";
@@ -390,16 +390,16 @@
 "Quit app" = "Uygulamayı kapat";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Yakında Oluşturulan";
+"Recently Created" = "Son Oluşturulan";
 
 /*No comment provided by engineer.*/
-"Recently Created First" = "Son zamanlarda ilk yaratıldı";
+"Recently Created First" = "Son Oluşturulan Başta";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Yakında Odaklanılan";
+"Recently Focused" = "Son Odaklanılan";
 
 /*No comment provided by engineer.*/
-"Recently Focused First" = "Son zamanlarda ilk odaklanmış";
+"Recently Focused First" = "Son Odaklanılan Başta";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Tercihimi hatırla";
@@ -432,13 +432,13 @@
 "Select previous window" = "Önceki pencereyi seç";
 
 /*No comment provided by engineer.*/
-"Select windows on mouse hover" = "Fare Hover'da Windows'u seçin";
+"Select windows on mouse hover" = "Fare ile üzerine gelinen pencereleri seç";
 
 /*No comment provided by engineer.*/
-"Select windows using arrow keys" = "Ok tuşlarını kullanarak Windows'u seçin";
+"Select windows using arrow keys" = "Ok tuşları ile pencere seç";
 
 /*No comment provided by engineer.*/
-"Select windows using vim keys" = "VIM Keys'i kullanarak Windows'u seçin";
+"Select windows using vim keys" = "vim kısayolları ile pencere seç";
 
 /*No comment provided by engineer.*/
 "Send" = "Gönder";
@@ -507,7 +507,7 @@
 "Show in switcher" = "Switcher'da Gösteri";
 
 /*No comment provided by engineer.*/
-"Show minimized windows" = "Minimize edilmiş pencereleri göster";
+"Show minimized windows" = "Küçültülmüş pencereleri göster";
 
 /*No comment provided by engineer.*/
 "Show on" = "Gösteriş yapmak";
@@ -516,10 +516,10 @@
 "Show on:" = "Göster:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows" = "Pencere içi tabları ayrı olarak göster";
+"Show standard tabs as windows" = "Pencere içi sekmeleri ayrı olarak göster";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Pencere içi tabları ayrı olarak göster:";
+"Show standard tabs as windows:" = "Pencere içi sekmeleri ayrı olarak göster:";
 
 /*No comment provided by engineer.*/
 "Show titles" = "Başlıkları Göster";
@@ -531,7 +531,7 @@
 "Show windows from screens" = "Ekranlardan pencereleri göster";
 
 /*No comment provided by engineer.*/
-"Show windows from Spaces" = "Mekanlardan pencereleri göster";
+"Show windows from Spaces" = "Spaces pencerelerini göster";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Pencereleri göster:";
@@ -648,7 +648,7 @@
 "Window is on every Space" = "Pencere bütün Alanlarda";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Pencerenin olduğu Alan: %d";
+"Window is on Space %d" = "Pencerenin olduğu Space: %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Azami pencere genişliği:";
@@ -666,10 +666,10 @@
 "Window title font size:" = "Pencere başlığı yazı tipi boyutu:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Pencere başlığını kesme:";
+"Window title truncation:" = "Pencere başlığını kısaltma:";
 
 /*No comment provided by engineer.*/
-"Windows" = "pencereler";
+"Windows" = "Pencereler";
 
 /*No comment provided by engineer.*/
 "You can’t undo this action." = "Bu eylemi geri alamazsınız.";
