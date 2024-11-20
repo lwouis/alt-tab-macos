@@ -56,7 +56,7 @@ class Appearance {
     private static func updateSize() {
         let screen = NSScreen.preferred()
         let isHorizontalScreen = screen.isHorizontal()
-        maxWidthOnScreen = comfortableWidth(screen.physicalSize()!.width)
+        maxWidthOnScreen = AppearanceUtils.comfortableWidth(screen.physicalSize()!.width)
         if currentStyle == .appIcons {
             appIconsSize()
         } else if currentStyle == .titles {
@@ -258,69 +258,5 @@ class Appearance {
         }
         // Make sure the values are clamped between some reasonable bounds
         return (max(0.09, minRatio), min(0.3, maxRatio))
-    }
-
-    // How wide should the ThumbnailsPanel be, for comfortable viewing?
-    // * a comfortable field-of-view is 50-60 degrees
-    // * people sit at various distances from the screen. We can't know how far they sit
-    // * most people will seat far enough so that they can view the whole width of the screen
-    // * some people use wide-screen or TV monitors. Those people tend to be too close to the screen, since they need to use keyboard and mouse on their desk
-    // Let's use this heuristic: let's assume that people can view 60cm comfortably. Bigger screens can only show parts of AltTab
-    // Let's clamp at 90% like Windows 11
-    private static func comfortableWidth(_ physicalWidth: Double) -> Double {
-        return min(0.9, 600.0 / physicalWidth)
-    }
-
-    /// Used for tuning. This is the latest output:
-    ///   Width | Screen model
-    ///    96% | 11" Laptop: MacBook Air 11"
-    ///    96% | 13" Laptop: MacBook Air 13"
-    ///    96% | 14" Laptop: MacBook Pro 14"
-    ///    96% | 15" Laptop: MacBook Pro 15"
-    ///    96% | 16" Laptop: MacBook Pro 16"
-    ///    96% | 19" Monitor: Apple Studio Display 19"
-    ///    96% | 20" Monitor: Apple Cinema Display 20"
-    ///    96% | 21" Monitor: LG 21:9 UltraWide
-    ///    96% | 22" Monitor: ASUS 22" Full HD
-    ///    96% | 24" Monitor: Dell P2419H
-    ///    96% | 27" Monitor: LG 27UK850-W
-    ///    91% | 30" Monitor: BenQ PD3200U
-    ///    84% | 32" Monitor: BenQ EW3270U
-    ///    75% | 34" UltraWide Monitor: LG 34UC79G-B
-    ///    84% | 32" TV: Samsung UE32T5300
-    ///    67% | 40" TV: Samsung Q60B
-    ///    63% | 43" TV: LG 43UN7300
-    ///    54% | 50" TV: Samsung TU8000
-    ///    50% | 55" TV: LG OLED55CXPUA
-    ///    45% | 60" TV: Vizio 60-inch 4K
-    private static func printCoverageTable() {
-        let screens = [
-            // screen model, width, height
-            ("11\" Laptop: MacBook Air 11\"", 255.7, 178.6),
-            ("13\" Laptop: MacBook Air 13\"", 304.1, 197.8),
-            ("14\" Laptop: MacBook Pro 14\"", 311.0, 221.1),
-            ("15\" Laptop: MacBook Pro 15\"", 344.4, 233.0),
-            ("16\" Laptop: MacBook Pro 16\"", 358.4, 245.9),
-            ("19\" Monitor: Apple Studio Display 19\"", 403, 236),
-            ("20\" Monitor: Apple Cinema Display 20\"", 440, 268),
-            ("21\" Monitor: LG 21:9 UltraWide", 470, 290),
-            ("22\" Monitor: ASUS 22\" Full HD", 485, 290),
-            ("24\" Monitor: Dell P2419H", 531.3, 298.6),
-            ("27\" Monitor: LG 27UK850-W", 596.8, 336.4),
-            ("30\" Monitor: BenQ PD3200U", 657.5, 376.3),
-            ("32\" Monitor: BenQ EW3270U", 711.5, 398.9),
-            ("34\" UltraWide Monitor: LG 34UC79G-B", 798.5, 336.5),
-            ("32\" TV: Samsung UE32T5300", 715, 406),
-            ("40\" TV: Samsung Q60B", 889, 510),
-            ("43\" TV: LG 43UN7300", 956, 551),
-            ("50\" TV: Samsung TU8000", 1110, 630),
-            ("55\" TV: LG OLED55CXPUA", 1210, 715),
-            ("60\" TV: Vizio 60-inch 4K", 1320, 750),
-        ]
-        print("Width | Screen model")
-        for screen in screens {
-            let percent = comfortableWidth(screen.1)
-            print("\(String(format: "%4.0f%", percent * 100))% | \(screen.0)")
-        }
     }
 }
