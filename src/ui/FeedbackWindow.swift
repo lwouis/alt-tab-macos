@@ -7,6 +7,7 @@ class FeedbackWindow: NSWindow {
         let base64Token = Bundle.main.object(forInfoDictionaryKey: "FeedbackToken") as! String
         return String(data: Data(base64Encoded: base64Token)!, encoding: .utf8)!
     }()
+    var issueTitle: TextArea!
     var body: TextArea!
     var email: TextArea!
     var sendButton: NSButton!
@@ -44,15 +45,15 @@ class FeedbackWindow: NSWindow {
             sendButton,
         ])
         buttons.spacing = GridView.interPadding
-        body = TextArea(80, 12, NSLocalizedString("I think the app could be improved with…", comment: ""), { () -> Void in
-            self.sendButton.isEnabled = !self.body.stringValue.isEmpty
-        })
+        issueTitle = TextArea(80, 1, NSLocalizedString("Title", comment: ""), checkEmptyFields)
+        body = TextArea(80, 12, NSLocalizedString("I think the app could be improved with…", comment: ""), checkEmptyFields)
         email = TextArea(80, 1, NSLocalizedString("Optional: email (if you want a reply)", comment: ""))
         debugProfile = NSButton(checkboxWithTitle: NSLocalizedString("Send debug profile (CPU, memory, etc)", comment: ""), target: nil, action: nil)
         debugProfile.state = .on
         let warning = BoldLabel(NSLocalizedString("All data from this form will be made public, as a ticket on github.com", comment: ""))
         let view = GridView([
             [header],
+            [issueTitle],
             [body],
             [email],
             [debugProfile],
@@ -63,6 +64,10 @@ class FeedbackWindow: NSWindow {
         view.cell(atColumnIndex: 0, rowIndex: 5).xPlacement = .trailing
         setContentSize(view.fittingSize)
         contentView = view
+    }
+
+    func checkEmptyFields() {
+        sendButton.isEnabled = !body.stringValue.isEmpty && !issueTitle.stringValue.isEmpty
     }
 
     // allow to close with the escape key
@@ -104,8 +109,8 @@ class FeedbackWindow: NSWindow {
         // access token of the alt-tab-macos-bot github account, with scope repo > public_repo
         request.addValue("token " + FeedbackWindow.token, forHTTPHeaderField: "Authorization")
         request.httpBody = try! JSONSerialization.data(withJSONObject: [
-            "title": "[In-app feedback]",
-            "body": assembleBody()
+            "title": issueTitle.stringValue,
+            "body": assembleBody(),
         ])
         return request
     }
