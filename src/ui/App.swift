@@ -29,7 +29,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var shortcutIndex = 0
     // periphery:ignore
     var appCenterDelegate: AppCenterCrash?
-    // multiple delayed display triggers should only show the ui when the last one triggers
+    // don't queue multiple delayed rebuildUi() calls
     var delayedDisplayScheduled = 0
 
     override init() {
@@ -121,8 +121,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func hideUi(_ keepPreview: Bool = false) {
-        logger.i()
-        if appIsBeingUsed == false { return } // already hidden
+        logger.i(appIsBeingUsed)
+        guard appIsBeingUsed else { return } // already hidden
         appIsBeingUsed = false
         isFirstSummon = true
         MouseEvents.toggle(false)
@@ -171,6 +171,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func focusTarget() {
+        guard appIsBeingUsed else { return } // already hidden
         let focusedWindow = Windows.focusedWindow()
         logger.i(focusedWindow?.cgWindowId.map { String(describing: $0) } ?? "nil", focusedWindow?.title ?? "nil", focusedWindow?.application.pid ?? "nil", focusedWindow?.application.runningApplication.bundleIdentifier ?? "nil")
         focusSelectedWindow(focusedWindow)
@@ -229,6 +230,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func focusSelectedWindow(_ selectedWindow: Window?) {
+        guard appIsBeingUsed else { return } // already hidden
         hideUi(true)
         if let window = selectedWindow, MissionControl.state() == .inactive {
             window.focus()
@@ -287,12 +289,16 @@ class App: AppCenterApplication, NSApplicationDelegate {
             Windows.reorderList()
             if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
-            delayedDisplayScheduled += 1
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
-                if self.delayedDisplayScheduled == 1 {
-                    self.rebuildUi(screen)
+            if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
+                self.rebuildUi(screen)
+            } else {
+                delayedDisplayScheduled += 1
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
+                    if self.delayedDisplayScheduled == 1 {
+                        self.rebuildUi(screen)
+                    }
+                    self.delayedDisplayScheduled -= 1
                 }
-                self.delayedDisplayScheduled -= 1
             }
         } else {
             cycleSelection(.leading)
@@ -301,6 +307,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func rebuildUi(_ screen: NSScreen = NSScreen.preferred()) {
+        guard appIsBeingUsed else { return }
         Appearance.update()
         guard appIsBeingUsed else { return }
         Windows.refreshFirstFewThumbnailsSync()
