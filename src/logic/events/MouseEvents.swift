@@ -3,7 +3,6 @@ import Carbon.HIToolbox.Events
 
 fileprivate var eventTap: CFMachPort!
 fileprivate var shouldBeEnabled: Bool!
-fileprivate var isPointerInsideUi: Bool!
 
 class MouseEvents {
     static func observe() {
@@ -20,7 +19,7 @@ class MouseEvents {
 
 private func observe_() {
     let eventMask = [CGEventType.leftMouseDown, CGEventType.leftMouseUp].reduce(CGEventMask(0), { $0 | (1 << $1.rawValue) })
-    // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
+    // CGEvent.tapCreate returns nil if ensureAccessibilityCheckboxIsChecked() didn't pass
     eventTap = CGEvent.tapCreate(
         tap: .cgSessionEventTap,
         place: .headInsertEventTap,
@@ -31,7 +30,7 @@ private func observe_() {
     if let eventTap = eventTap {
         MouseEvents.toggle(false)
         let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-        CFRunLoopAddSource(BackgroundWork.mouseEventsThread.runLoop, runLoopSource, .commonModes)
+        CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
     } else {
         App.app.restart()
     }
@@ -39,14 +38,12 @@ private func observe_() {
 
 private let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
     if type == .leftMouseDown {
-        isPointerInsideUi_()
-        if !isPointerInsideUi {
+        if !isPointerInsideUi() {
             return nil // focused app won't receive the event
         }
     } else if type == .leftMouseUp && cgEvent.getIntegerValueField(.mouseEventClickState) >= 1 {
-        isPointerInsideUi_()
-        if !isPointerInsideUi {
-            DispatchQueue.main.async { App.app.hideUi() }
+        if !isPointerInsideUi() {
+            App.app.hideUi()
             return nil // focused app won't receive the event
         }
     } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
@@ -55,8 +52,6 @@ private let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
     return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
 }
 
-private func isPointerInsideUi_() {
-    DispatchQueue.main.sync {
-        isPointerInsideUi = App.app.thumbnailsPanel.contentLayoutRect.contains(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream)
-    }
+private func isPointerInsideUi() -> Bool {
+    return App.app.thumbnailsPanel.contentLayoutRect.contains(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream)
 }

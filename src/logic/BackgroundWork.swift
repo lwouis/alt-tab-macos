@@ -7,7 +7,6 @@ class BackgroundWork {
     static var axCallsQueue: DispatchQueue!
     static var crashReportsQueue: DispatchQueue!
     static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
-    static var mouseEventsThread: BackgroundThreadWithRunLoop!
     static var keyboardEventsThread: BackgroundThreadWithRunLoop!
     static var systemPermissionsThread: BackgroundThreadWithRunLoop!
     static var repeatingKeyThread: BackgroundThreadWithRunLoop!
@@ -26,9 +25,7 @@ class BackgroundWork {
         axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
-        // we observe mouse clicks when thumbnailsPanel is open. They arrive on this thread, and are handled off the main thread initially
-        mouseEventsThread = BackgroundThreadWithRunLoop("mouseEventsThread", .userInteractive)
-        // some instances of events can be handled off the main thread; maybe not worth moving to a background thread
+        // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
         keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread", .userInteractive)
         // not 100% sure this shouldn't be on the main-thread; it doesn't do anything except dispatch to main.async
         repeatingKeyThread = BackgroundThreadWithRunLoop("repeatingKeyThread", .userInteractive)
