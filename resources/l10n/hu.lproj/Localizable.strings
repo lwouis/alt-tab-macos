@@ -18,7 +18,7 @@
 "Active screen" = "Aktív képernyő";
 
 /*No comment provided by engineer.*/
-"Active Space" = "Aktív terület";
+"Active Space" = "Aktuális Íróasztal";
 
 /*No comment provided by engineer.*/
 "Additional controls" = "További kezelőszervek";
@@ -48,7 +48,7 @@
 "All screens" = "Minden képernyő";
 
 /*No comment provided by engineer.*/
-"All Spaces" = "Minden terület";
+"All Spaces" = "Összes Íróasztal";
 
 /*No comment provided by engineer.*/
 "Allowed" = "Engedélyezve";
@@ -68,17 +68,20 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Az AltTab jelenleg az alkalmazások megjelenítésére van beállítva.Ez a beállítás csak akkor érhető el, ha az AltTab az Ablakok megjelenítésére van beállítva.";
 
+/*Menubar callout*/
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "Az AltTab-nak néhány jogosultságra van szüksége";
 
 /*No comment provided by engineer.*/
-"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Az AltTab megmutatja hogy az Ablak minimalizálva vagy teljes képernyőn van.";
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Az AltTab megmutatja hogy az Ablak minimalizálva van-e (mínusz jel) vagy se.";
 
 /*No comment provided by engineer.*/
 "Always" = "Mindig";
 
 /*No comment provided by engineer.*/
-"Always send crash reports" = "Mindig küldjön hiba-jelentést";
+"Always send crash reports" = "Mindig küldjön Hibajelentést";
 
 /*No comment provided by engineer.*/
 "and press" = "és nyomja meg";
@@ -171,7 +174,7 @@
 "Crash reports policy" = "Összeomlás Jelentés irányelve";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "Hiba-jelentés házirend:";
+"Crash reports policy:" = "Hibajelentés házirend:";
 
 /*No comment provided by engineer.*/
 "Cursor follows focus" = "Az egér követi a fókuszt";
@@ -204,7 +207,7 @@
 "Done" = "Kész";
 
 /*No comment provided by engineer.*/
-"End" = "Vége";
+"End" = "Végén";
 
 /*No comment provided by engineer.*/
 "Fade out animation" = "Eltűnés animáció";
@@ -226,6 +229,9 @@
 
 /*No comment provided by engineer.*/
 "General" = "Általános";
+
+/*Menubar callout button*/
+"Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Rejtett ablakok:";
@@ -291,7 +297,16 @@
 "Ignore shortcuts while a window from these apps is active" = "Figyelmen kívül hagyja a parancsikonokat, miközben ezeknek az alkalmazásoknak az ablaka aktív";
 
 /*No comment provided by engineer.*/
+"Language" = "Language";
+
+/*No comment provided by engineer.*/
+"Language Change" = "Language Change";
+
+/*No comment provided by engineer.*/
 "Large" = "Nagy";
+
+/*No comment provided by engineer.*/
+"Later" = "Later";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Legutóbbi kiadások";
@@ -315,13 +330,13 @@
 "Medium" = "Közepes";
 
 /*No comment provided by engineer.*/
-"Menubar icon" = "Menubar ikon";
+"Menubar icon" = "Menüsor ikonja";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menü-sor ikon:";
+"Menubar icon:" = "Menüsor ikon:";
 
 /*No comment provided by engineer.*/
-"Middle" = "Közepe";
+"Middle" = "Közepén";
 
 /*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Ablak kicsinyítés/visszaállítása";
@@ -339,7 +354,7 @@
 "Multiple screens" = "Több képernyő";
 
 /*No comment provided by engineer.*/
-"Never send crash reports" = "Soha ne küldjön hiba-jelentést";
+"Never send crash reports" = "Soha ne küldjön Hibajelentést";
 
 /*No comment provided by engineer.*/
 "Normal" = "Normál";
@@ -411,10 +426,13 @@
 "Reset preferences and restart…" = "Alaphelyzetbe állítás és újraindítás...";
 
 /*No comment provided by engineer.*/
+"Restart Now" = "Restart Now";
+
+/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Sorok előnézetben:";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "Képernyő a Menü Sávval";
+"Screen including menu bar" = "Képernyő a Menüsorral";
 
 /*No comment provided by engineer.*/
 "Screen including mouse" = "A képernyő ahol az egér van";
@@ -444,7 +462,7 @@
 "Send" = "Küldés";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "Küldjünk hiba-jelentést?";
+"Send a crash report?" = "Küldjünk Hibajelentést?";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "Küldés mindenképp";
@@ -495,7 +513,7 @@
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Ablakonkénti vagy Alkalmazásonkénti megjelenítés az AppVáltóban.";
 
 /*No comment provided by engineer.*/
-"Show at the end" = "Mutasd meg a végén";
+"Show at the end" = "Lista végén mutat";
 
 /*No comment provided by engineer.*/
 "Show fullscreen windows" = "Teljes képernyős Ablakok megjelenítése";
@@ -525,7 +543,7 @@
 "Show titles" = "Címek mutatása";
 
 /*No comment provided by engineer.*/
-"Show windows from applications" = "Ablak mutatása az Alkalmazásokból";
+"Show windows from applications" = "Ablak Mutatása";
 
 /*No comment provided by engineer.*/
 "Show windows from screens" = "Ablak mutatása a Képernyőről";
@@ -538,6 +556,9 @@
 
 /*No comment provided by engineer.*/
 "Size" = "Méret";
+
+/*No comment provided by engineer.*/
+"Skipped" = "Skipped";
 
 /*No comment provided by engineer.*/
 "Small" = "Kicsi";
@@ -555,7 +576,7 @@
 "Space Order" = "Íróasztal Sorrendje";
 
 /*No comment provided by engineer.*/
-"Start" = "Eleje";
+"Start" = "Elején";
 
 /*No comment provided by engineer.*/
 "Start at login" = "Indítás bejelentkezéskor";
@@ -564,13 +585,19 @@
 "Start at login:" = "Indítás bejelentkezéskor:";
 
 /*Menubar option*/
-"Support this project ❤️" = "Támogassa ezt a projektet ❤️";
+"Support this project ❤️" = "Támogasd a projektet ❤️";
 
 /*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "Váltás 3 testre szabható stílus között";
 
 /*No comment provided by engineer.*/
 "System" = "Rendszer";
+
+/*No comment provided by engineer.*/
+"System Default" = "System Default";
+
+/*No comment provided by engineer.*/
+"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
 
 /*No comment provided by engineer.*/
 "Theme" = "Téma";
@@ -591,6 +618,9 @@
 "Thumbnails" = "Miniatűrök";
 
 /*No comment provided by engineer.*/
+"Title" = "Title";
+
+/*No comment provided by engineer.*/
 "Title truncation" = "Rövidíés";
 
 /*No comment provided by engineer.*/
@@ -607,6 +637,9 @@
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Frissítési beállítások:";
+
+/*No comment provided by engineer.*/
+"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 
 /*No comment provided by engineer.*/
 "Version" = "Verzió";
@@ -660,7 +693,7 @@
 "Window order:" = "Ablakok sorrendje:";
 
 /*No comment provided by engineer.*/
-"Window Title" = "Ablak Cím";
+"Window Title" = "Ablak címe";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "Ablak címének betű mérete:";

@@ -12,13 +12,13 @@
 "Acknowledgments" = "Teşekkür bölümü";
 
 /*No comment provided by engineer.*/
-"Active app" = "Etkin uygulama";
+"Active app" = "Aktif uygulama";
 
 /*No comment provided by engineer.*/
-"Active screen" = "Etkin ekran";
+"Active screen" = "Aktif ekran";
 
 /*No comment provided by engineer.*/
-"Active Space" = "Etkin Alan";
+"Active Space" = "Aktif Alan";
 
 /*No comment provided by engineer.*/
 "Additional controls" = "Ek kontroller";
@@ -57,7 +57,7 @@
 "Alphabetical" = "Alfabetik";
 
 /*No comment provided by engineer.*/
-"Alphabetical Order" = "Alfabetik sipariş";
+"Alphabetical Order" = "Alfabetik sıra";
 
 /*No comment provided by engineer.*/
 "Also select windows using:" = "Bunları kullanan pencereleri de seç:";
@@ -67,6 +67,9 @@
 
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab şu anda uygulamaları gösterecek şekilde ayarlanmıştır.Bu ayar yalnızca AltTab Windows'u gösterecek şekilde ayarlandığında kullanılabilir.";
+
+/*Menubar callout*/
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab'ın bir kaç izne ihtiyacı var";
@@ -108,7 +111,7 @@
 "Apparition delay" = "Görünüş Gecikmesi";
 
 /*No comment provided by engineer.*/
-"Apparition delay:" = "Belirme gecikmesi:";
+"Apparition delay:" = "Görünme gecikmesi:";
 
 /*No comment provided by engineer.*/
 "Appearance" = "Görünüm";
@@ -132,7 +135,7 @@
 "Ask whether to send crash reports" = "Çökme raporlarının ne zaman gönderileceğini sor";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Periyodik olarak güncellemeleri otomatik yükle";
+"Auto-install updates periodically" = "Güncellemeleri otomatik olarak yükle";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Karalisteler";
@@ -192,7 +195,7 @@
 "Do nothing" = "Bir şey yapma";
 
 /*No comment provided by engineer.*/
-"Don’t check for updates periodically" = "Periyodik olarak güncellemeleri kontrol etme";
+"Don’t check for updates periodically" = "Güncellemeleri periyodik olarak kontrol etme";
 
 /*No comment provided by engineer.*/
 "Don’t send" = "Gönderme";
@@ -227,6 +230,9 @@
 /*No comment provided by engineer.*/
 "General" = "Genel";
 
+/*Menubar callout button*/
+"Grant permission" = "Grant permission";
+
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Gizli pencereler:";
 
@@ -258,7 +264,7 @@
 "Hide Space number labels" = "Masaüstü Alan numaralarını gizle";
 
 /*No comment provided by engineer.*/
-"Hide Space number labels:" = "Masaüstü Alan numaralarını gizle:";
+"Hide Space number labels:" = "Numara etiketlerini gizle:";
 
 /*No comment provided by engineer.*/
 "Hide status icons" = "Durum ikonlarını gizle";
@@ -291,7 +297,16 @@
 "Ignore shortcuts while a window from these apps is active" = "Bu uygulamalardan bir pencere etkinken kestirmeleri devre dışı bırak";
 
 /*No comment provided by engineer.*/
+"Language" = "Language";
+
+/*No comment provided by engineer.*/
+"Language Change" = "Language Change";
+
+/*No comment provided by engineer.*/
 "Large" = "Büyük";
+
+/*No comment provided by engineer.*/
+"Later" = "Later";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Son sürümler";
@@ -360,10 +375,10 @@
 "Open Screen Recording Preferences…" = "Ekran Kaydı Tercihlerini Aç…";
 
 /*No comment provided by engineer.*/
-"Optional: email (if you want a reply)" = "İsteğe bağlı: e-posta (bir yanıt istiyorsanız)";
+"Optional: email (if you want a reply)" = "Opsiyonel: E-Posta (Eğer bir yanıt istiyorsanız)";
 
 /*No comment provided by engineer.*/
-"Order windows by" = "Windows sipariş";
+"Order windows by" = "Pencere sırası";
 
 /*No comment provided by engineer.*/
 "Policies" = "Kurallar";
@@ -390,16 +405,16 @@
 "Quit app" = "Uygulamayı kapat";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "Yakında Oluşturulan";
+"Recently Created" = "Son Oluşturulan";
 
 /*No comment provided by engineer.*/
-"Recently Created First" = "Son zamanlarda ilk yaratıldı";
+"Recently Created First" = "Son Oluşturulan Başta";
 
 /*No comment provided by engineer.*/
-"Recently Focused" = "Yakında Odaklanılan";
+"Recently Focused" = "Son Odaklanılan";
 
 /*No comment provided by engineer.*/
-"Recently Focused First" = "Son zamanlarda ilk odaklanmış";
+"Recently Focused First" = "Son Odaklanılan Başta";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Tercihimi hatırla";
@@ -409,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Reset preferences and restart…" = "Tercihleri sıfırla ve yeniden başlat…";
+
+/*No comment provided by engineer.*/
+"Restart Now" = "Restart Now";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Önizleme satırları:";
@@ -432,13 +450,13 @@
 "Select previous window" = "Önceki pencereyi seç";
 
 /*No comment provided by engineer.*/
-"Select windows on mouse hover" = "Fare Hover'da Windows'u seçin";
+"Select windows on mouse hover" = "Fare ile üzerine gelinen pencereleri seç";
 
 /*No comment provided by engineer.*/
-"Select windows using arrow keys" = "Ok tuşlarını kullanarak Windows'u seçin";
+"Select windows using arrow keys" = "Ok tuşları ile pencere seç";
 
 /*No comment provided by engineer.*/
-"Select windows using vim keys" = "VIM Keys'i kullanarak Windows'u seçin";
+"Select windows using vim keys" = "vim kısayolları ile pencere seç";
 
 /*No comment provided by engineer.*/
 "Send" = "Gönder";
@@ -507,7 +525,7 @@
 "Show in switcher" = "Switcher'da Gösteri";
 
 /*No comment provided by engineer.*/
-"Show minimized windows" = "Minimize edilmiş pencereleri göster";
+"Show minimized windows" = "Küçültülmüş pencereleri göster";
 
 /*No comment provided by engineer.*/
 "Show on" = "Gösteriş yapmak";
@@ -516,10 +534,10 @@
 "Show on:" = "Göster:";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows" = "Pencere içi tabları ayrı olarak göster";
+"Show standard tabs as windows" = "Pencere içi sekmeleri ayrı olarak göster";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "Pencere içi tabları ayrı olarak göster:";
+"Show standard tabs as windows:" = "Pencere içi sekmeleri ayrı olarak göster:";
 
 /*No comment provided by engineer.*/
 "Show titles" = "Başlıkları Göster";
@@ -531,13 +549,16 @@
 "Show windows from screens" = "Ekranlardan pencereleri göster";
 
 /*No comment provided by engineer.*/
-"Show windows from Spaces" = "Mekanlardan pencereleri göster";
+"Show windows from Spaces" = "Spaces pencerelerini göster";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "Pencereleri göster:";
 
 /*No comment provided by engineer.*/
 "Size" = "Boyut";
+
+/*No comment provided by engineer.*/
+"Skipped" = "Skipped";
 
 /*No comment provided by engineer.*/
 "Small" = "Küçük";
@@ -573,6 +594,12 @@
 "System" = "Sistem";
 
 /*No comment provided by engineer.*/
+"System Default" = "System Default";
+
+/*No comment provided by engineer.*/
+"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+
+/*No comment provided by engineer.*/
 "Theme" = "Tema";
 
 /*No comment provided by engineer.*/
@@ -589,6 +616,9 @@
 
 /*No comment provided by engineer.*/
 "Thumbnails" = "Küçük resimler";
+
+/*No comment provided by engineer.*/
+"Title" = "Title";
 
 /*No comment provided by engineer.*/
 "Title truncation" = "Başlık kesilmesi";
@@ -609,7 +639,10 @@
 "Updates policy:" = "Güncelleme politikası:";
 
 /*No comment provided by engineer.*/
-"Version" = "Sürüm";
+"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
+
+/*No comment provided by engineer.*/
+"Version" = "Versiyon";
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "Mevcut tartışmaları görüntüle";
@@ -636,7 +669,7 @@
 "While open, press:" = "Açıkken basın:";
 
 /*No comment provided by engineer.*/
-"Window app icon size:" = "Pencere uygulama simge boyutu:";
+"Window app icon size:" = "Uygulama penceresi ikon boyutu:";
 
 /*No comment provided by engineer.*/
 "Window is fullscreen" = "Pencere tam ekran";
@@ -648,7 +681,7 @@
 "Window is on every Space" = "Pencere bütün Alanlarda";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "Pencerenin olduğu Alan: %d";
+"Window is on Space %d" = "Pencere Space %d'de";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Azami pencere genişliği:";
@@ -663,13 +696,13 @@
 "Window Title" = "Pencere başlığı";
 
 /*No comment provided by engineer.*/
-"Window title font size:" = "Pencere başlığı yazı tipi boyutu:";
+"Window title font size:" = "Pencere başlığı yazı boyutu:";
 
 /*No comment provided by engineer.*/
-"Window title truncation:" = "Pencere başlığını kesme:";
+"Window title truncation:" = "Pencere başlığını kısaltma:";
 
 /*No comment provided by engineer.*/
-"Windows" = "pencereler";
+"Windows" = "Pencereler";
 
 /*No comment provided by engineer.*/
 "You can’t undo this action." = "Bu eylemi geri alamazsınız.";

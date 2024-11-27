@@ -48,6 +48,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Alex
 * Alexander Kilian
 * Alexey Eremeev
+* Ali
 * Ali Gokmen
 * Ali. tas103
 * Allen Guan
@@ -200,6 +201,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * sa-ha
 * Sami Suleiman
 * sawtooth
+* Sebastian
 * Selcuk Dursun
 * Sergey
 * Seyedparsa Mirtaheri

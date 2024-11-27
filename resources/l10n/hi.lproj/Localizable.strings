@@ -68,6 +68,9 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab वर्तमान में अनुप्रयोगों को दिखाने के लिए तैयार है।यह सेटिंग केवल तब उपलब्ध है जब AltTab विंडोज दिखाने के लिए तैयार है।";
 
+/*Menubar callout*/
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "ऑल्टटैब को कुछ अनुमतियों की आवश्यकता है";
 
@@ -227,6 +230,9 @@
 /*No comment provided by engineer.*/
 "General" = "सामान्य";
 
+/*Menubar callout button*/
+"Grant permission" = "Grant permission";
+
 /*No comment provided by engineer.*/
 "Hidden windows:" = "छिपा हुआ खिड़कियाँ:";
 
@@ -291,7 +297,16 @@
 "Ignore shortcuts while a window from these apps is active" = "इन ऐप्स की खिड़की सक्रिय होने पर शॉर्टकट पर ध्यान न दें";
 
 /*No comment provided by engineer.*/
+"Language" = "Language";
+
+/*No comment provided by engineer.*/
+"Language Change" = "Language Change";
+
+/*No comment provided by engineer.*/
 "Large" = "बड़ा";
+
+/*No comment provided by engineer.*/
+"Later" = "Later";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "सबसे नये रिलीज़";
@@ -409,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Reset preferences and restart…" = "वरीयताओं को रीसेट करें और पुनरारंभ करें ...";
+
+/*No comment provided by engineer.*/
+"Restart Now" = "Restart Now";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "थंबनेल की पंक्तियाँ:";
@@ -540,6 +558,9 @@
 "Size" = "आकार";
 
 /*No comment provided by engineer.*/
+"Skipped" = "Skipped";
+
+/*No comment provided by engineer.*/
 "Small" = "छोटा";
 
 /*No comment provided by engineer.*/
@@ -573,6 +594,12 @@
 "System" = "प्रणाली";
 
 /*No comment provided by engineer.*/
+"System Default" = "System Default";
+
+/*No comment provided by engineer.*/
+"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+
+/*No comment provided by engineer.*/
 "Theme" = "विषय";
 
 /*No comment provided by engineer.*/
@@ -591,6 +618,9 @@
 "Thumbnails" = "थंबनेल";
 
 /*No comment provided by engineer.*/
+"Title" = "Title";
+
+/*No comment provided by engineer.*/
 "Title truncation" = "हक";
 
 /*No comment provided by engineer.*/
@@ -607,6 +637,9 @@
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "अपडेट नीति:";
+
+/*No comment provided by engineer.*/
+"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 
 /*No comment provided by engineer.*/
 "Version" = "संस्करण";

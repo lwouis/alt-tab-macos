@@ -68,6 +68,9 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab מוגדר כעת להציג יישומים.הגדרה זו זמינה רק כאשר AltTab מוגדר להצגת Windows.";
 
+/*Menubar callout*/
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "‫AltTab צריך הרשאות מסוימות";
 
@@ -227,6 +230,9 @@
 /*No comment provided by engineer.*/
 "General" = "כללי";
 
+/*Menubar callout button*/
+"Grant permission" = "Grant permission";
+
 /*No comment provided by engineer.*/
 "Hidden windows:" = "חלונות נסתרים:";
 
@@ -291,7 +297,16 @@
 "Ignore shortcuts while a window from these apps is active" = "התעלם מקיצורי דרך כאשר חלון מיישום זו פעיל";
 
 /*No comment provided by engineer.*/
+"Language" = "Language";
+
+/*No comment provided by engineer.*/
+"Language Change" = "Language Change";
+
+/*No comment provided by engineer.*/
 "Large" = "גָדוֹל";
+
+/*No comment provided by engineer.*/
+"Later" = "Later";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "מהדורה אחרונה";
@@ -409,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Reset preferences and restart…" = "אפס העדפות והפעל מחדש…";
+
+/*No comment provided by engineer.*/
+"Restart Now" = "Restart Now";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "מס׳ שורות של תמונות ממוזערות:";
@@ -540,6 +558,9 @@
 "Size" = "גוֹדֶל";
 
 /*No comment provided by engineer.*/
+"Skipped" = "Skipped";
+
+/*No comment provided by engineer.*/
 "Small" = "קָטָן";
 
 /*No comment provided by engineer.*/
@@ -573,6 +594,12 @@
 "System" = "מַעֲרֶכֶת";
 
 /*No comment provided by engineer.*/
+"System Default" = "System Default";
+
+/*No comment provided by engineer.*/
+"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+
+/*No comment provided by engineer.*/
 "Theme" = "נוֹשֵׂא";
 
 /*No comment provided by engineer.*/
@@ -591,6 +618,9 @@
 "Thumbnails" = "תמונות ממוזערות";
 
 /*No comment provided by engineer.*/
+"Title" = "Title";
+
+/*No comment provided by engineer.*/
 "Title truncation" = "גיזום כותרות";
 
 /*No comment provided by engineer.*/
@@ -607,6 +637,9 @@
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "מדיניות עדכונים:";
+
+/*No comment provided by engineer.*/
+"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 
 /*No comment provided by engineer.*/
 "Version" = "גרסה";

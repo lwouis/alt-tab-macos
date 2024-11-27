@@ -68,6 +68,9 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab zeigt derzeit Anwendungen an. Diese Einstellung ist nur verfügbar, wenn AltTab so eingestellt ist, dass Fenster angezeigt werden.";
 
+/*Menubar callout*/
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab braucht einige Berechtigungen";
 
@@ -227,6 +230,9 @@
 /*No comment provided by engineer.*/
 "General" = "Allgemein";
 
+/*Menubar callout button*/
+"Grant permission" = "Grant permission";
+
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Verborgene Fenster:";
 
@@ -291,7 +297,16 @@
 "Ignore shortcuts while a window from these apps is active" = "Kurzbefehle ignorieren, wenn ein Fenster dieser App aktiv ist";
 
 /*No comment provided by engineer.*/
+"Language" = "Language";
+
+/*No comment provided by engineer.*/
+"Language Change" = "Language Change";
+
+/*No comment provided by engineer.*/
 "Large" = "Groß";
+
+/*No comment provided by engineer.*/
+"Later" = "Later";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Neueste Versionen";
@@ -409,6 +424,9 @@
 
 /*No comment provided by engineer.*/
 "Reset preferences and restart…" = "Einstellungen zurücksetzen und neu starten…";
+
+/*No comment provided by engineer.*/
+"Restart Now" = "Restart Now";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Zeilen mit Vorschaubildern:";
@@ -540,6 +558,9 @@
 "Size" = "Größe";
 
 /*No comment provided by engineer.*/
+"Skipped" = "Skipped";
+
+/*No comment provided by engineer.*/
 "Small" = "Klein";
 
 /*No comment provided by engineer.*/
@@ -573,6 +594,12 @@
 "System" = "System";
 
 /*No comment provided by engineer.*/
+"System Default" = "System Default";
+
+/*No comment provided by engineer.*/
+"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+
+/*No comment provided by engineer.*/
 "Theme" = "Thema";
 
 /*No comment provided by engineer.*/
@@ -591,6 +618,9 @@
 "Thumbnails" = "Vorschaubilder";
 
 /*No comment provided by engineer.*/
+"Title" = "Title";
+
+/*No comment provided by engineer.*/
 "Title truncation" = "Titelkürzung";
 
 /*No comment provided by engineer.*/
@@ -607,6 +637,9 @@
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Richtlinie für Aktualisierungen:";
+
+/*No comment provided by engineer.*/
+"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 
 /*No comment provided by engineer.*/
 "Version" = "Version";
