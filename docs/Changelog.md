@@ -1,5 +1,14 @@
 # Release notes
 
+# [7.5.0](https://github.com/lwouis/alt-tab-macos/compare/v7.4.0...v7.5.0) (2024-11-27)
+
+
+### Features
+
+* improve da, hu, tr localizations ([ffdab44](https://github.com/lwouis/alt-tab-macos/commit/ffdab44))
+* in-app feedback form now requires a title ([05851fb](https://github.com/lwouis/alt-tab-macos/commit/05851fb))
+* update switcher max-width to 90% of screen, like windows 11 ([a94eeb0](https://github.com/lwouis/alt-tab-macos/commit/a94eeb0))
+
 # [7.4.0](https://github.com/lwouis/alt-tab-macos/compare/v7.3.0...v7.4.0) (2024-11-16)
 
 
