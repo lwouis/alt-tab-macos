@@ -29,7 +29,16 @@ extension NSScreen {
     }
 
     func physicalSize() -> CGSize? {
-        return number().map { CGDisplayScreenSize($0) }
+        if let number = number() {
+            let size = CGDisplayScreenSize(number)
+            // CGDisplayScreenSize docs says it can return "zero"
+            if size.width > 0 && size.height > 0 &&
+                       // CGDisplayScreenSize may return wrong values; we compare physical and logical ratios to reject
+                       abs(ratio() - (size.width / size.height)) < 0.2 {
+                return size
+            }
+        }
+        return nil
     }
 
     static func preferred() -> NSScreen {
@@ -43,6 +52,8 @@ extension NSScreen {
             case .includingMenubar: return NSScreen.screens.first
         }
     }
+
+
 
     // NSScreen.main docs are incorrect. It stopped returning the screen with the key window in macOS 10.9
 

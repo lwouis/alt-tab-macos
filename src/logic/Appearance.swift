@@ -56,13 +56,13 @@ class Appearance {
     private static func updateSize() {
         let screen = NSScreen.preferred()
         let isHorizontalScreen = screen.isHorizontal()
-        maxWidthOnScreen = AppearanceUtils.comfortableWidth(screen.physicalSize()!.width)
+        maxWidthOnScreen = AppearanceTestable.comfortableWidth(screen.physicalSize().map { $0.width })
         if currentStyle == .appIcons {
             appIconsSize()
         } else if currentStyle == .titles {
             titlesSize(isHorizontalScreen)
         } else {
-            thumbnailsSize(isHorizontalScreen)
+            thumbnailsSize(isHorizontalScreen, screen)
         }
     }
 
@@ -74,7 +74,7 @@ class Appearance {
         }
     }
 
-    private static func thumbnailsSize(_ isHorizontalScreen: Bool) {
+    private static func thumbnailsSize(_ isHorizontalScreen: Bool, _ screen: NSScreen) {
         hideThumbnails = false
         windowPadding = 18
         cellCornerRadius = 10
@@ -96,7 +96,8 @@ class Appearance {
             iconSize = 32
             fontHeight = 16
         }
-        (windowMinWidthInRow, windowMaxWidthInRow) = goodValuesForThumbnailsWidthMinMax()
+        let thumbnailsPanelRatio = (screen.frame.width * maxWidthOnScreen) / (screen.frame.height * maxHeightOnScreen)
+        (windowMinWidthInRow, windowMaxWidthInRow) = AppearanceTestable.goodValuesForThumbnailsWidthMinMax(thumbnailsPanelRatio, rowsCount)
         if currentVisibility == .highest {
             edgeInsetsSize = 10
             cellCornerRadius = 12
@@ -240,23 +241,5 @@ class Appearance {
             highlightBorderShadowColor = .white.withAlphaComponent(0.5)
             highlightBorderWidth = currentStyle == .titles ? 2 : 4
         }
-    }
-
-    // calculate windowMinWidthInRow and windowMaxWidthInRow such that:
-    // * fullscreen windows fill their tile vertically
-    // * narrow windows have enough width that a few words can be read from their title
-    private static func goodValuesForThumbnailsWidthMinMax() -> (CGFloat, CGFloat) {
-        let aspectRatio = NSScreen.preferred().ratio()
-        let minRatio: CGFloat
-        let maxRatio: CGFloat
-        if aspectRatio >= 1 {
-            minRatio = 0.7 / (aspectRatio * rowsCount)
-            maxRatio = 1.5 / (aspectRatio * rowsCount)
-        } else {
-            minRatio = 1.3 / rowsCount
-            maxRatio = 2.1 / rowsCount
-        }
-        // Make sure the values are clamped between some reasonable bounds
-        return (max(0.09, minRatio), min(0.3, maxRatio))
     }
 }
