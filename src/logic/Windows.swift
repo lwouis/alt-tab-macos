@@ -187,7 +187,7 @@ class Windows {
     static func cycleFocusedWindowIndex(_ step: Int) {
         let nextIndex = windowIndexAfterCycling(step)
         if ((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
-               (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
+               (ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
             return
         }
         updateFocusedAndHoveredWindowIndex(nextIndex)

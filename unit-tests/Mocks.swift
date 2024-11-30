@@ -1,0 +1,92 @@
+import ShortcutRecorder
+
+class App {
+    class AppMock {
+        var appIsBeingUsed = false
+        var shortcutIndex = 0
+    }
+    static let app = AppMock()
+}
+
+class ControlsTab {
+    static let shortcuts = [
+        "holdShortcut": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut", .global, .up, 0),
+        "holdShortcut2": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut2", .global, .up, 1),
+        "holdShortcut3": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut3", .global, .up, 2),
+        "holdShortcut4": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut4", .global, .up, 3),
+        "holdShortcut5": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut5", .global, .up, 4),
+        "nextWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "⇥")!, "nextWindowShortcut", .global, .down),
+        "nextWindowShortcut2": ATShortcut(Shortcut(keyEquivalent: "`")!, "nextWindowShortcut2", .global, .down),
+        "→": ATShortcut(Shortcut(keyEquivalent: "→")!, "→", .local, .down),
+        "←": ATShortcut(Shortcut(keyEquivalent: "←")!, "←", .local, .down),
+        "↑": ATShortcut(Shortcut(keyEquivalent: "↑")!, "↑", .local, .down),
+        "↓": ATShortcut(Shortcut(keyEquivalent: "↓")!, "↓", .local, .down),
+//        "vimCycleRight": ATShortcut(Shortcut(keyEquivalent: "l")!, "vimCycleRight", .local, .down),
+//        "vimCycleLeft": ATShortcut(Shortcut(keyEquivalent: "h")!, "vimCycleLeft", .local, .down),
+//        "vimCycleUp": ATShortcut(Shortcut(keyEquivalent: "k")!, "vimCycleUp", .local, .down),
+//        "vimCycleDown": ATShortcut(Shortcut(keyEquivalent: "j")!, "vimCycleDown", .local, .down),
+        "focusWindowShortcut": ATShortcut(Shortcut(keyEquivalent: " ")!, "focusWindowShortcut", .local, .down),
+        "previousWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "⇧")!, "previousWindowShortcut", .local, .down),
+        "cancelShortcut": ATShortcut(Shortcut(keyEquivalent: "⎋")!, "cancelShortcut", .local, .down),
+        "closeWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "w")!, "closeWindowShortcut", .local, .down),
+        "minDeminWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "m")!, "minDeminWindowShortcut", .local, .down),
+        "toggleFullscreenWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "f")!, "toggleFullscreenWindowShortcut", .local, .down),
+        "quitAppShortcut": ATShortcut(Shortcut(keyEquivalent: "q")!, "quitAppShortcut", .local, .down),
+        "hideShowAppShortcut": ATShortcut(Shortcut(keyEquivalent: "h")!, "hideShowAppShortcut", .local, .down),
+    ]
+
+    static func executeAction(_ action: String) {
+        shortcutsActionsTriggered.append(action)
+        if action.starts(with: "holdShortcut") {
+            App.app.appIsBeingUsed = false
+        }
+        if action.starts(with: "nextWindowShortcut") {
+            App.app.appIsBeingUsed = true
+        }
+    }
+
+    static var shortcutsActionsTriggered: [String] = []
+}
+
+class KeyRepeatTimer {
+    static func deactivateTimerForRepeatingKey(_ shortcutName: String) {
+    }
+}
+
+class LoggerMock {
+    func d(_ items: Any..., separator: String = " ", terminator: String = "\n",
+           _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
+    }
+
+    func i(_ items: Any..., separator: String = " ", terminator: String = "\n",
+           _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
+    }
+
+    func w(_ items: Any..., separator: String = " ", terminator: String = "\n",
+           _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
+    }
+
+    func e(_ items: String..., separator: String = " ", terminator: String = "\n",
+           _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
+        print(items.joined(separator: " "))
+    }
+}
+
+let logger = LoggerMock()
+
+class Preferences {
+    static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]
+
+    static func indexToName(_ baseName: String, _ index: Int) -> String {
+        return baseName + (index == 0 ? "" : String(index + 1))
+    }
+}
+
+enum ShortcutStylePreference: CaseIterable {
+    case focusOnRelease
+    case doNothingOnRelease
+}
+
+class ModifierFlags {
+    static var current: NSEvent.ModifierFlags = []
+}

@@ -292,4 +292,8 @@ class ControlsTab {
             shortcuts.removeValue(forKey: controlId)
         }
     }
+
+    static func executeAction(_ action: String) {
+        shortcutsActions[action]!()
+    }
 }

@@ -241,3 +241,9 @@ extension CaseIterable where Self: Equatable {
         return String(describing: self.index)
     }
 }
+
+class ModifierFlags {
+    static var current: NSEvent.ModifierFlags {
+        return NSEvent.modifierFlags
+    }
+}

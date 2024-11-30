@@ -7,18 +7,6 @@ class KeyboardEvents {
     static let signature = "altt".utf16.reduce(0) { ($0 << 8) + OSType($1) }
     // GetEventMonitorTarget/GetApplicationEventTarget also work, but require Accessibility Permission
     static let shortcutEventTarget = GetEventDispatcherTarget()
-    static let globalShortcutsIds = [
-        "nextWindowShortcut": 0,
-        "nextWindowShortcut2": 1,
-        "nextWindowShortcut3": 2,
-        "nextWindowShortcut4": 3,
-        "nextWindowShortcut5": 4,
-        "holdShortcut": 5,
-        "holdShortcut2": 6,
-        "holdShortcut3": 7,
-        "holdShortcut4": 8,
-        "holdShortcut5": 9,
-    ]
     static var eventHotKeyRefs = [String: EventHotKeyRef?]()
     static var hotKeyPressedEventHandler: EventHandlerRef?
     static var hotKeyReleasedEventHandler: EventHandlerRef?
@@ -42,7 +30,7 @@ class KeyboardEvents {
 
     static func registerHotKeyIfNeeded(_ controlId: String, _ shortcut: Shortcut) {
         if shortcut.keyCode != .none {
-            let id = globalShortcutsIds[controlId]!
+            let id = KeyboardEventsTestable.globalShortcutsIds[controlId]!
             let hotkeyId = EventHotKeyID(signature: signature, id: UInt32(id))
             let key = shortcut.carbonKeyCode
             let mods = shortcut.carbonModifierFlags
@@ -56,7 +44,7 @@ class KeyboardEvents {
     static func toggleGlobalShortcuts(_ shouldDisable: Bool) {
         if shouldDisable != App.app.globalShortcutsAreDisabled {
             let fn = shouldDisable ? unregisterHotKeyIfNeeded : registerHotKeyIfNeeded
-            for shortcutId in globalShortcutsIds.keys {
+            for shortcutId in KeyboardEventsTestable.globalShortcutsIds.keys {
                 if let shortcut = ControlsTab.shortcuts[shortcutId]?.shortcut {
                     fn(shortcutId, shortcut)
                 }
@@ -74,7 +62,7 @@ class KeyboardEvents {
     // TODO: handle this on a background thread?
     private static func addLocalMonitorForKeyDownAndKeyUp() {
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
-            let someShortcutTriggered = handleEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, cocoaToCarbonFlags(event.modifierFlags), event.type == .keyDown ? event.isARepeat : false)
+            let someShortcutTriggered = handleKeyboardEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, event.modifierFlags, event.type == .keyDown ? event.isARepeat : false)
             return someShortcutTriggered ? nil : event
         }
     }
@@ -104,7 +92,7 @@ class KeyboardEvents {
             InstallEventHandler(shortcutEventTarget, { (_: EventHandlerCallRef?, event: EventRef?, _: UnsafeMutableRawPointer?) -> OSStatus in
                 var id = EventHotKeyID()
                 GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &id)
-                handleEvent(id, .down, nil, nil, false)
+                handleKeyboardEvent(Int(id.id), .down, nil, nil, false)
                 return noErr
             }, eventTypes.count, &eventTypes, nil, &hotKeyPressedEventHandler)
         }
@@ -113,7 +101,7 @@ class KeyboardEvents {
             InstallEventHandler(shortcutEventTarget, { (_: EventHandlerCallRef?, event: EventRef?, _: UnsafeMutableRawPointer?) -> OSStatus in
                 var id = EventHotKeyID()
                 GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &id)
-                handleEvent(id, .up, nil, nil, false)
+                handleKeyboardEvent(Int(id.id), .up, nil, nil, false)
                 return noErr
             }, eventTypes.count, &eventTypes, nil, &hotKeyReleasedEventHandler)
         }
@@ -131,24 +119,11 @@ class KeyboardEvents {
     }
 }
 
-@discardableResult
-fileprivate func handleEvent(_ id: EventHotKeyID?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: UInt32?, _ isARepeat: Bool) -> Bool {
-    logger.d(id, shortcutState, keyCode, modifiers, isARepeat)
-    var someShortcutTriggered = false
-    for shortcut in ControlsTab.shortcuts.values {
-        if shortcut.matches(id, shortcutState, keyCode, modifiers, isARepeat) && shortcut.shouldTrigger() {
-            shortcut.executeAction(isARepeat)
-            someShortcutTriggered = true
-        }
-    }
-    return someShortcutTriggered
-}
-
 fileprivate let cgEventFlagsChangedHandler: CGEventTapCallBack = {_, type, cgEvent, _ in
     if type == .flagsChanged {
         DispatchQueue.main.async {
-            let modifiers = cocoaToCarbonFlags(NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue)))
-            handleEvent(nil, nil, nil, modifiers, false)
+            let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
+            handleKeyboardEvent(nil, nil, nil, modifiers, false)
         }
     } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) {
         CGEvent.tapEnable(tap: eventTap!, enable: true)

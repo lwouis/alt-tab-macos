@@ -9,3 +9,17 @@ target 'alt-tab-macos' do
   pod 'AppCenter/Crashes', '4.3.0'
   pod 'SwiftyBeaver', '1.9.0'
 end
+
+target 'unit-tests' do
+  use_frameworks!
+  pod 'ShortcutRecorder', :git => 'https://github.com/lwouis/ShortcutRecorder.git', :branch => 'alt-tab-current'
+  # disable code signing which is unnecessary for tests
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
+        config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      end
+    end
+  end
+end

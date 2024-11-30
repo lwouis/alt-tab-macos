@@ -61,7 +61,7 @@ class ThumbnailsView: NSVisualEffectView {
             let nextRow = (currentRow + step) % rows.count
             let nextRow_ = nextRow < 0 ? rows.count + nextRow : nextRow
             if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow)) &&
-                   (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
+                   (ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
                 return nil
             }
             return rows[nextRow_]

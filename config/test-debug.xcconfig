@@ -1,0 +1,4 @@
+// docs: https://help.apple.com/xcode/mac/11.4/#/itcaec37c2a6
+
+#include "Pods/Target Support Files/Pods-unit-tests/Pods-unit-tests.debug.xcconfig"
+#include "test-base.xcconfig"

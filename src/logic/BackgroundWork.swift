@@ -27,9 +27,9 @@ class BackgroundWork {
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
         // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
         keyboardEventsThread = BackgroundThreadWithRunLoop("keyboardEventsThread", .userInteractive)
-        // not 100% sure this shouldn't be on the main-thread; it doesn't do anything except dispatch to main.async
+        // we time key repeat on a background thread for precision. We handle their consequence on the main-thread
         repeatingKeyThread = BackgroundThreadWithRunLoop("repeatingKeyThread", .userInteractive)
-        // not 100% sure this shouldn't be on the main-thread; it doesn't do anything except dispatch to main.async
+        // we main Mission Control state on a background thread. We protect reads from main-thread with an NSLock
         missionControlThread = BackgroundThreadWithRunLoop("missionControlThread", .userInteractive)
     }
 

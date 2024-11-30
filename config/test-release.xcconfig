@@ -1,11 +1,7 @@
 // docs: https://help.apple.com/xcode/mac/11.4/#/itcaec37c2a6
 
-CODE_SIGNING_REQUIRED = NO // no need for codesign
-CODE_SIGNING_ALLOWED = NO // no need for codesign
+#include "Pods/Target Support Files/Pods-unit-tests/Pods-unit-tests.release.xcconfig"
+#include "test-base.xcconfig"
+
 DEBUG_INFORMATION_FORMAT = none  // we don't need dSYM files
 GCC_GENERATE_DEBUGGING_SYMBOLS = NO // we don't need dSYM files
-ONLY_ACTIVE_ARCH = YES // only need to run on the host machine
-ENABLE_BITCODE = NO
-GCC_GENERATE_TEST_COVERAGE_FILES = NO
-GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO
-TEST_ATTACHMENT_LOGGING = NO

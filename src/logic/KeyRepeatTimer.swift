@@ -3,13 +3,13 @@ import ShortcutRecorder
 
 class KeyRepeatTimer {
     static var timer: Timer?
-    static var isARepeat = false
+    static var currentTimerShortcutName: String?
 
     static func toggleRepeatingKeyPreviousWindow() {
         if let shortcut = ControlsTab.shortcuts["previousWindowShortcut"],
            // events already repeat when using a shortcut with a keycode; no need for artificial repeat
            shortcut.shortcut.keyCode == .none {
-            toggleRepeatingKey(shortcut) {
+            activateTimerForRepeatingKey(shortcut) {
                 App.app.previousWindowShortcutWithRepeatingKey()
             }
         }
@@ -17,13 +17,21 @@ class KeyRepeatTimer {
 
     static func toggleRepeatingKeyNextWindow() {
         if let shortcut = ControlsTab.shortcuts[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)] {
-            toggleRepeatingKey(shortcut) {
-                ControlsTab.shortcutsActions[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)]!()
+            activateTimerForRepeatingKey(shortcut) {
+                ControlsTab.executeAction(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
             }
         }
     }
 
-    private static func toggleRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
+    static func deactivateTimerForRepeatingKey(_ shortcutName: String) {
+        if shortcutName == currentTimerShortcutName {
+            logger.d(shortcutName)
+            currentTimerShortcutName = nil
+            timer?.invalidate()
+        }
+    }
+
+    private static func activateTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         if ((timer == nil || !timer!.isValid) && atShortcut.state != .up) {
             let repeatRate = ticksToSeconds(defaults.string(forKey: "KeyRepeat") ?? "6")
             let initialDelay = ticksToSeconds(defaults.string(forKey: "InitialKeyRepeat") ?? "25")
@@ -32,13 +40,14 @@ class KeyRepeatTimer {
             }
             timer!.tolerance = repeatRate * 0.1
             CFRunLoopAddTimer(BackgroundWork.repeatingKeyThread.runLoop, timer!, .commonModes)
+            currentTimerShortcutName = atShortcut.id
         }
     }
 
     private static func handleEvent(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         DispatchQueue.main.async {
             if atShortcut.state == .up {
-                timer?.invalidate()
+                deactivateTimerForRepeatingKey(atShortcut.id)
             } else {
                 block()
             }
