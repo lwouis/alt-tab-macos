@@ -367,6 +367,7 @@
 		BF0C84B9B7A41E4A4534E519 /* app-icons-style-full.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app-icons-style-full.jpg"; sourceTree = "<group>"; };
 		BF0C84E11784B3B0900D0963 /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = app.icns; sourceTree = "<group>"; };
 		BF0C850C46CCD8B978168CCD /* sv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sv; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C8584E388193A514A11BD /* xcbeautify */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xcbeautify; sourceTree = "<group>"; };
 		BF0C861255F42BF7B23408EF /* sq */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sq; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C86370093A080DD5974D8 /* convert_svg_to_png.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = convert_svg_to_png.sh; sourceTree = "<group>"; };
 		BF0C8641C2317A67E9E8D389 /* ro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ro; path = Localizable.strings; sourceTree = "<group>"; };
@@ -1442,6 +1443,7 @@
 				BF0C8C0FF1B21F5F7CE16B79 /* print_env.sh */,
 				BF0C89D7F23D82A3FF442E0B /* build_app.sh */,
 				BF0C8A261AAA42191426A587 /* run_tests.sh */,
+				BF0C8584E388193A514A11BD /* xcbeautify */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
