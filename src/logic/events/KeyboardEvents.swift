@@ -49,7 +49,7 @@ class KeyboardEvents {
                     fn(shortcutId, shortcut)
                 }
             }
-            logger.i("toggleGlobalShortcuts", shouldDisable)
+            Logger.info("toggleGlobalShortcuts", shouldDisable)
             App.app.globalShortcutsAreDisabled = shouldDisable
         }
     }

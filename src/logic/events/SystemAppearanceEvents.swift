@@ -8,8 +8,8 @@ class SystemAppearanceEvents {
     }
 
     @objc private static func handleEvent(_ notification: Notification) {
-        logger.d(notification.name.rawValue)
-        logger.i(defaults.string(forKey: "AppleInterfaceStyle") ?? "Light")
+        Logger.debug(notification.name.rawValue)
+        Logger.info(defaults.string(forKey: "AppleInterfaceStyle") ?? "Light")
         // fix layout issues by resetting components
         App.app.resetPreferencesDependentComponents()
     }

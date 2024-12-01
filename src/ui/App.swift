@@ -121,7 +121,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func hideUi(_ keepPreview: Bool = false) {
-        logger.i(appIsBeingUsed)
+        Logger.info(appIsBeingUsed)
         guard appIsBeingUsed else { return } // already hidden
         appIsBeingUsed = false
         isFirstSummon = true
@@ -173,7 +173,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     func focusTarget() {
         guard appIsBeingUsed else { return } // already hidden
         let focusedWindow = Windows.focusedWindow()
-        logger.i(focusedWindow?.cgWindowId.map { String(describing: $0) } ?? "nil", focusedWindow?.title ?? "nil", focusedWindow?.application.pid ?? "nil", focusedWindow?.application.runningApplication.bundleIdentifier ?? "nil")
+        Logger.info(focusedWindow?.cgWindowId.map { String(describing: $0) } ?? "nil", focusedWindow?.title ?? "nil", focusedWindow?.application.pid ?? "nil", focusedWindow?.application.runningApplication.bundleIdentifier ?? "nil")
         focusSelectedWindow(focusedWindow)
     }
 
@@ -271,7 +271,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
-        logger.d(shortcutIndex, self.shortcutIndex, isFirstSummon)
+        Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             isFirstSummon = false

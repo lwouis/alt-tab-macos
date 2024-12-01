@@ -53,26 +53,12 @@ class KeyRepeatTimer {
     }
 }
 
-class LoggerMock {
-    func d(_ items: Any..., separator: String = " ", terminator: String = "\n",
-           _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
-    }
-
-    func i(_ items: Any..., separator: String = " ", terminator: String = "\n",
-           _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
-    }
-
-    func w(_ items: Any..., separator: String = " ", terminator: String = "\n",
-           _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
-    }
-
-    func e(_ items: String..., separator: String = " ", terminator: String = "\n",
-           _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
-        print(items.joined(separator: " "))
-    }
+class Logger {
+    static func debug(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
+    static func info(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
+    static func warning(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
+    static func error(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
 }
-
-let logger = LoggerMock()
 
 class Preferences {
     static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]

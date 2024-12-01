@@ -1,9 +1,8 @@
 import SwiftyBeaver
 import Foundation
 
-let logger = SwiftyBeaver.self
-
 class Logger {
+    private static let logger = SwiftyBeaver.self
     static let flag = "--logs="
 
     static func initialize() {
@@ -32,79 +31,25 @@ class Logger {
         }
         return .error
     }
-}
 
-extension SwiftyBeaver {
-    class func isVerboseEnabled() -> Bool {
-        return isEnabled(level: .verbose)
+    static func debug(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        custom(.debug, items, file: file, function: function, line: line, context: context)
     }
 
-    class func isDebugEnabled() -> Bool {
-        return isEnabled(level: .debug)
+    static func info(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        custom(.info, items, file: file, function: function, line: line, context: context)
     }
 
-    class func isInfoEnabled() -> Bool {
-        return isEnabled(level: .info)
+    static func warning(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        custom(.warning, items, file: file, function: function, line: line, context: context)
     }
 
-    class func isWarningEnabled() -> Bool {
-        return isEnabled(level: .warning)
+    static func error(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        custom(.error, items, file: file, function: function, line: line, context: context)
     }
 
-    class func isErrorEnabled() -> Bool {
-        return isEnabled(level: .error)
-    }
-
-    class func isEnabled(level: SwiftyBeaver.Level) -> Bool {
-        for destination in logger.destinations {
-            if level.rawValue >= destination.minLevel.rawValue {
-                return true
-            }
-        }
-        return false
-    }
-
-    class func d(_ items: Any..., separator: String = " ", terminator: String = "\n",
-                 _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
-        let message = items.map { "\($0)" }.joined(separator: separator)
-        if terminator == "\n" {
-            debug(message, file, function, line: line, context: context)
-        } else {
-            let finalMessage = message + terminator
-            debug(finalMessage, file, function, line: line, context: context)
-        }
-    }
-
-    class func i(_ items: Any..., separator: String = " ", terminator: String = "\n",
-                 _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
-        let message = items.map { "\($0)" }.joined(separator: separator)
-        if terminator == "\n" {
-            info(message, file, function, line: line, context: context)
-        } else {
-            let finalMessage = message + terminator
-            info(finalMessage, file, function, line: line, context: context)
-        }
-    }
-
-    class func w(_ items: Any..., separator: String = " ", terminator: String = "\n",
-                 _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
-        let message = items.map { "\($0)" }.joined(separator: separator)
-        if terminator == "\n" {
-            warning(message, file, function, line: line, context: context)
-        } else {
-            let finalMessage = message + terminator
-            warning(finalMessage, file, function, line: line, context: context)
-        }
-    }
-
-    class func e(_ items: Any..., separator: String = " ", terminator: String = "\n",
-                 _ file: String = #file, _ function: String = #function, _ line: Int = #line, context: Any? = nil) {
-        let message = items.map { "\($0)" }.joined(separator: separator)
-        if terminator == "\n" {
-            error(message, file, function, line: line, context: context)
-        } else {
-            let finalMessage = message + terminator
-            error(finalMessage, file, function, line: line, context: context)
-        }
+    private static func custom(_ level: SwiftyBeaver.Level, _ items: Any..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        let message = items.map { "\($0)" }.joined(separator: " ")
+        logger.custom(level: level, message: message, file: file, function: function, line: line, context: context)
     }
 }

@@ -58,7 +58,7 @@ class SystemPermissions {
     private static func checkPermissionsWhileAltTabIsRunning() {
         let accessibility = accessibilityIsGranted()
         let screenRecording = screenRecordingIsGranted()
-        logger.d(accessibility, screenRecording, preStartupPermissionsPassed)
+        Logger.debug(accessibility, screenRecording, preStartupPermissionsPassed)
         Menubar.togglePermissionCallout(screenRecording == .skipped)
         if accessibility == .notGranted {
             App.app.restart()
@@ -79,7 +79,7 @@ class SystemPermissions {
     private static func checkPermissionsToUpdatePermissionsWindow(_ startupBlock: @escaping () -> Void) {
         let accessibility = accessibilityIsGranted()
         let screenRecording = screenRecordingIsGranted()
-        logger.d(accessibility, screenRecording, preStartupPermissionsPassed)
+        Logger.debug(accessibility, screenRecording, preStartupPermissionsPassed)
         Menubar.togglePermissionCallout(screenRecording == .skipped)
         if accessibility != App.app.permissionsWindow?.accessibilityView?.permissionStatus {
             App.app.permissionsWindow?.accessibilityView.updatePermissionStatus(accessibility)

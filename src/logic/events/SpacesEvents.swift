@@ -6,10 +6,10 @@ class SpacesEvents {
     }
 
     private static func handleEvent(_ notification: Notification) {
-        logger.d(notification.name.rawValue)
+        Logger.debug(notification.name.rawValue)
         // if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
         Spaces.refreshSpacesAndWindows()
-        logger.i("current space", Spaces.currentSpaceIndex, Spaces.currentSpaceId)
+        Logger.info("current space", Spaces.currentSpaceIndex, Spaces.currentSpaceId)
         // from macos 12.2 beta onwards, we can't get other-space windows; grabbing windows when switching spaces mitigates the issue
         // also, updating windows on Space transition works around an issue with Safari where its fullscreen windows spawn not in fullscreen.
         // resize/move events happen and the window is still not fullscreen. AltTab doesn't get informed that the window is later fullscreen.

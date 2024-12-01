@@ -33,9 +33,6 @@ class ATShortcut {
             let modifiersMatch_ = modifiersMatch(cocoaToCarbonFlags(modifiers))
             let newState: ShortcutState = ((shortcut.keyCode == .none || keyCode == shortcut.carbonKeyCode) && modifiersMatch_) ? .down : .up
             let flipped = state != newState
-//            if self.id == "holdShortcut" {
-//                logger.e(self.id, state, newState, modifiersMatch_)
-//            }
             state = newState
             // state == down is unambiguous; state == up is hard to match with a particular shortcut, unless it's been flipped
             if (triggerPhase == .down && state == .down) || (triggerPhase == .up && state == .up && flipped) {
@@ -57,9 +54,6 @@ class ATShortcut {
 
     func shouldTrigger() -> Bool {
         if scope == .global {
-//            if id == "holdShortcut" {
-//                logger.e(id, triggerPhase, App.app.appIsBeingUsed, index, App.app.shortcutIndex, Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease)
-//            }
             if triggerPhase == .down && (!App.app.appIsBeingUsed || index == nil || index == App.app.shortcutIndex) {
                 return true
             }
@@ -76,7 +70,7 @@ class ATShortcut {
     }
 
     func executeAction(_ isARepeat: Bool) {
-        logger.e("executeAction", id)
+        Logger.info("executeAction", id)
         ATShortcut.lastEventIsARepeat = isARepeat
         ControlsTab.executeAction(id)
     }
@@ -95,7 +89,6 @@ class ATShortcut {
                 let currentModifiers = cocoaToCarbonFlags(ModifierFlags.current)
                 if currentModifiers != (currentModifiers | (currentHoldShortcut.shortcut.carbonModifierFlags)) {
                     currentHoldShortcut.state = .up
-                    logger.e("safetyChecksOnShortcutsUp", "holdShortcut")
                     ControlsTab.executeAction(currentHoldShortcut.id)
                 }
             }

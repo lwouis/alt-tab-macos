@@ -14,7 +14,7 @@ class UserDefaultsEvents: NSObject {
     }
 
     private func handleEvent(_ keyPath: String?) {
-        logger.d(keyPath, PoliciesTab.policyLock, Preferences.updatePolicy)
+        Logger.debug(keyPath, PoliciesTab.policyLock, Preferences.updatePolicy)
         guard !PoliciesTab.policyLock else { return }
         let buttons = PoliciesTab.updatesPolicyDropdown!
         let id = buttonIdToUpdate()

@@ -54,7 +54,7 @@ class Window: CustomStringConvertible {
         }
         application.removeWindowslessAppWindow()
         checkIfFocused(application, wid)
-        logger.d("Adding window", cgWindowId ?? "nil", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        Logger.debug("Adding window", cgWindowId ?? "nil", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
         observeEvents()
     }
 
@@ -64,11 +64,11 @@ class Window: CustomStringConvertible {
         self.title = application.runningApplication.localizedName
         Window.globalCreationCounter += 1
         self.creationOrder = Window.globalCreationCounter
-        logger.d(title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        Logger.debug(title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 
     deinit {
-        logger.d(title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        Logger.debug(title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 
     var description: String {

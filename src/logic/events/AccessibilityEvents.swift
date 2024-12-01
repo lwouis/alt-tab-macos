@@ -4,7 +4,7 @@ import ApplicationServices.HIServices.AXNotificationConstants
 
 let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
     let type = notificationName as String
-    logger.d(type)
+    Logger.debug(type)
     retryAxCallUntilTimeout { try handleEvent(type, element) }
 }
 
@@ -12,7 +12,7 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
     // events are handled concurrently, thus we check that the app is still running
     if let pid = try element.pid(),
        try pid != ProcessInfo.processInfo.processIdentifier || (element.subrole() != kAXUnknownSubrole) {
-        logger.i(type, pid, try element.title() ?? "nil")
+        Logger.info(type, pid, try element.title() ?? "nil")
         switch type {
             case kAXApplicationActivatedNotification: try applicationActivated(element, pid)
             case kAXApplicationHiddenNotification,

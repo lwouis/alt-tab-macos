@@ -73,7 +73,7 @@ class BackgroundThreadWithRunLoop {
 
     init(_ name: String, _ qos: DispatchQoS) {
         thread = Thread {
-            logger.d(name)
+            Logger.debug(name)
             // the RunLoop is lazy; calling this initialize it
             self.runLoop = CFRunLoopGetCurrent()
             self.addDummySourceToPreventRunLoopTermination()

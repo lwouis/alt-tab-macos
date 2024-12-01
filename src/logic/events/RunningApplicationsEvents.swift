@@ -14,7 +14,7 @@ class RunningApplicationsEvents {
         let workspaceApps = Set(NSWorkspace.shared.runningApplications)
         // TODO: symmetricDifference has bad performance
         let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
-        logger.d(diff.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") })
+        Logger.debug(diff.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") })
         if change.kind == .insertion {
             Applications.addRunningApplications(diff)
         } else if change.kind == .removal {

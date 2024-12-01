@@ -29,13 +29,12 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
 
 
    func windowWillClose(_ notification: Notification) {
-       logger.d(SystemPermissions.preStartupPermissionsPassed)
+       Logger.debug(SystemPermissions.preStartupPermissionsPassed)
         if !SystemPermissions.preStartupPermissionsPassed {
             if SystemPermissions.accessibilityIsGranted() == .notGranted || SystemPermissions.screenRecordingIsGranted() == .notGranted {
-                logger.e("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
+                Logger.error("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
                         "Please authorize and re-launch.",
-                        "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx",
-                        separator: "\n")
+                        "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
                 App.shared.terminate(self)
             }
         } else {
