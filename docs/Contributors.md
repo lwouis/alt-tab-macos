@@ -129,6 +129,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jules Beckers
 * Julian Nowaczyk
 * Julio
+* justcontributor
 * Kagurazaka Tsuki
 * kal
 * kant
