@@ -41,15 +41,17 @@ class ControlsTab {
     static var additionalControlsSheet: AdditionalControlsSheet!
 
     static func initTab() -> NSView {
-        let (holdShortcut, nextWindowShortcut, tab1View) = toShowSection(0)
-        let (holdShortcut2, nextWindowShortcut2, tab2View) = toShowSection(1)
-        let (holdShortcut3, nextWindowShortcut3, tab3View) = toShowSection(2)
-        let (holdShortcut4, nextWindowShortcut4, tab4View) = toShowSection(3)
-        let (holdShortcut5, nextWindowShortcut5, tab5View) = toShowSection(4)
-        tableGroupViews = [tab1View, tab2View, tab3View, tab4View, tab5View]
+        let (holdShortcut, nextWindowShortcut, tab1View) = shortcutTab(0)
+        let (holdShortcut2, nextWindowShortcut2, tab2View) = shortcutTab(1)
+        let (holdShortcut3, nextWindowShortcut3, tab3View) = shortcutTab(2)
+        let (holdShortcut4, nextWindowShortcut4, tab4View) = shortcutTab(3)
+        let (holdShortcut5, nextWindowShortcut5, tab5View) = shortcutTab(4)
+        let (gesture, tab6View) = gestureTab(5)
+        tableGroupViews = [tab1View, tab2View, tab3View, tab4View, tab5View, tab6View]
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
         [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3, nextWindowShortcut4, nextWindowShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
+        [gesture].forEach { ControlsTab.gestureChangedCallback($0[0] as! NSControl) }
 
         let tabs = StackView(tableGroupViews, .vertical)
         tabs.translatesAutoresizingMaskIntoConstraints = false
@@ -62,6 +64,7 @@ class ControlsTab {
             NSLocalizedString("Shortcut 3", comment: ""),
             NSLocalizedString("Shortcut 4", comment: ""),
             NSLocalizedString("Shortcut 5", comment: ""),
+            NSLocalizedString("Gesture", comment: ""),
         ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
         tab.selectedSegment = 0
         tab.segmentStyle = .automatic
@@ -71,7 +74,7 @@ class ControlsTab {
         let additionalControlsButton = NSButton(title: NSLocalizedString("Additional controls…", comment: ""), target: self, action: #selector(ControlsTab.showAdditionalControlsSettings))
         let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts when active…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
         let tools = StackView([additionalControlsButton, shortcutsButton], .horizontal)
-        let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab4View, tab5View], toolsViews: [tools], toolsAlignment: .trailing)
+        let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab4View, tab5View, tab6View], toolsViews: [tools], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
 
         shortcutsWhenActiveSheet = ShortcutsWhenActiveSheet()
@@ -82,7 +85,21 @@ class ControlsTab {
         return view
     }
 
-    private static func toShowSection(_ index: Int) -> ([NSView], [NSView], TableGroupView) {
+    private static func shortcutTab(_ index: Int) -> ([NSView], [NSView], TableGroupView) {
+        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), Preferences.indexToName("holdShortcut", index), Preferences.holdShortcut[index], false, labelPosition: .leftWithoutSeparator)
+        holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press", comment: "")))
+        let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
+        let tab = controlTab(index, holdShortcut + [nextWindowShortcut[0]])
+        return (holdShortcut, nextWindowShortcut, tab)
+    }
+
+    private static func gestureTab(_ index: Int) -> ([NSView], TableGroupView) {
+        let gesture = LabelAndControl.makeDropdown("gesture",  GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
+        let tab = controlTab(index, [gesture])
+        return ([gesture], tab)
+    }
+
+    private static func controlTab(_ index: Int, _ trigger: [NSView]) -> TableGroupView {
         let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
         let spacesToShow = LabelAndControl.makeDropdown(Preferences.indexToName("spacesToShow", index), SpacesToShowPreference.allCases)
         let screensToShow = LabelAndControl.makeDropdown(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
@@ -90,14 +107,11 @@ class ControlsTab {
         let showHiddenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showHiddenWindows", index), ShowHowPreference.allCases)
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
-
-        var holdShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Hold", comment: ""), Preferences.indexToName("holdShortcut", index), Preferences.holdShortcut[index], false, labelPosition: .leftWithoutSeparator)
-        holdShortcut.append(LabelAndControl.makeLabel(NSLocalizedString("and press", comment: "")))
-        let nextWindowShortcut = LabelAndControl.makeLabelWithRecorder(NSLocalizedString("Select next window", comment: ""), Preferences.indexToName("nextWindowShortcut", index), Preferences.nextWindowShortcut[index], labelPosition: .right)
+        
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
 
         let table = TableGroupView(width: PreferencesWindow.width)
-        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger shortcut", comment: ""), rightViews: holdShortcut + [nextWindowShortcut[0]]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger shortcut", comment: ""), rightViews: trigger))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release", comment: ""), rightViews: [shortcutStyle]))
 
         table.addNewTable()
@@ -109,7 +123,7 @@ class ControlsTab {
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Order windows by", comment: ""), rightViews: [windowOrder]))
         table.fit()
-        return (holdShortcut, nextWindowShortcut, table)
+        return table
     }
 
     @objc static func switchTab(_ sender: NSSegmentedControl) {
@@ -290,6 +304,19 @@ class ControlsTab {
                 KeyboardEvents.removeGlobalShortcut(controlId, atShortcut.shortcut)
             }
             shortcuts.removeValue(forKey: controlId)
+        }
+    }
+
+    @objc static func gestureChangedCallback(_ sender: NSControl) {
+        guard let value = LabelAndControl.getControlValue(sender, nil),
+              let intValue = Int(value),
+              intValue < GesturePreference.allCases.count else {
+            return
+        }
+        let swipe = GesturePreference.allCases[intValue]
+        switch swipe {
+        case .none: TrackpadEvents.toggle(false)
+        case .threeFingerSwipe: TrackpadEvents.toggle(true)
         }
     }
 

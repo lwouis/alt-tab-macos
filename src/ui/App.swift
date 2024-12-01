@@ -70,6 +70,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             SystemAppearanceEvents.observe()
             SystemScrollerStyleEvents.observe()
             Applications.initialDiscovery()
+            TrackpadEvents.observe()
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()
