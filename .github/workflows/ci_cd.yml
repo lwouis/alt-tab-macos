@@ -21,7 +21,7 @@ env:
   APP_NAME: AltTab
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-13 # Intel VM; see https://github.com/actions/runner-images/tree/main
     environment: production
     steps:
 #      - env:
