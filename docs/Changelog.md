@@ -1,5 +1,14 @@
 # Release notes
 
+# [7.6.0](https://github.com/lwouis/alt-tab-macos/compare/v7.5.0...v7.6.0) (2024-12-01)
+
+
+### Features
+
+* better display on some external monitors (closes [#3866](https://github.com/lwouis/alt-tab-macos/issues/3866)) ([165a669](https://github.com/lwouis/alt-tab-macos/commit/165a669))
+* improve keyboard handling when macos is overwhelmed ([4a9b543](https://github.com/lwouis/alt-tab-macos/commit/4a9b543))
+* improve korean localization ([22aafce](https://github.com/lwouis/alt-tab-macos/commit/22aafce))
+
 # [7.5.0](https://github.com/lwouis/alt-tab-macos/compare/v7.4.0...v7.5.0) (2024-11-27)
 
 
