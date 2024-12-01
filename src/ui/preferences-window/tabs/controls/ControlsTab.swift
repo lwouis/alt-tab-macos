@@ -94,8 +94,27 @@ class ControlsTab {
     }
 
     private static func gestureTab(_ index: Int) -> ([NSView], TableGroupView) {
-        let gesture = LabelAndControl.makeDropdown("gesture",  GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
-        let tab = controlTab(index, [gesture])
+        let gesture = LabelAndControl.makeDropdown("gesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
+        
+        let infoBtn = NSButton(frame: NSRect(x: 0, y: 0, width: 16, height: 16))
+        if #available(macOS 11.0, *) {
+            infoBtn.image = NSImage(systemSymbolName: "info.circle", accessibilityDescription: nil)
+        } else {
+            let infoImage = NSImage(named: NSImage.infoName)?
+                .copy() as? NSImage
+            infoImage?.size = NSSize(width: 18, height: 18)
+            infoBtn.image = infoImage
+        }
+        infoBtn.bezelStyle = .inline
+        infoBtn.isBordered = false
+        infoBtn.target = self
+        infoBtn.action = #selector(showGestureInfo(_:))
+        
+        let gestureWithTooltip = StackView([infoBtn, gesture], .horizontal)
+        gestureWithTooltip.spacing = 8
+        gestureWithTooltip.alignment = .centerY
+        
+        let tab = controlTab(index, [gestureWithTooltip])
         return ([gesture], tab)
     }
 
@@ -318,6 +337,28 @@ class ControlsTab {
         case .none: TrackpadEvents.toggle(false)
         case .threeFingerSwipe: TrackpadEvents.toggle(true)
         }
+    }
+
+    @objc private static func showGestureInfo(_ sender: NSButton) {
+        let popover = NSPopover()
+        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("Swipe with three fingers may conflict with system shortcuts. Check for any conflicts in System Settings > Trackpad > More Gestures", comment: ""))
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let container = NSView(frame: NSRect(x: 0, y: 0, width: 280, height: 0))
+        container.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
+            label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -12),
+            label.topAnchor.constraint(equalTo: container.topAnchor, constant: 12),
+            label.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -12)
+        ])
+        
+        popover.contentViewController = NSViewController()
+        popover.contentViewController?.view = container
+        popover.behavior = .transient
+        popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
     }
 
     static func executeAction(_ action: String) {
