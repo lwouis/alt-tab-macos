@@ -217,11 +217,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
         showPreferencesWindow()
     }
 
-    func cycleSelection(_ direction: Direction) {
+    func cycleSelection(_ direction: Direction, allowWrap: Bool = true) {
         if direction == .up || direction == .down {
-            thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction)
+            thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
-            Windows.cycleFocusedWindowIndex(direction.step())
+            Windows.cycleFocusedWindowIndex(direction.step(), allowWrap: allowWrap)
         }
     }
 
