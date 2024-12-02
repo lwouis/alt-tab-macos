@@ -24,7 +24,9 @@ class ThumbnailsView: NSVisualEffectView {
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         Appearance.update()
         self.material = Appearance.material
-        ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
+        for i in 0..<ThumbnailsView.recycledViews.count {
+            ThumbnailsView.recycledViews[i] = ThumbnailView()
+        }
         updateRoundedCorners(Appearance.windowCornerRadius)
     }
 
@@ -115,7 +117,7 @@ class ThumbnailsView: NSVisualEffectView {
         var maxX = CGFloat(0)
         var maxY = currentY + height + Appearance.interCellPadding
         var newViews = [ThumbnailView]()
-        rows.removeAll()
+        rows.removeAll(keepingCapacity: true)
         rows.append([ThumbnailView]())
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return nil }
