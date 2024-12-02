@@ -342,24 +342,33 @@ class ControlsTab {
 
     @objc private static func showGestureInfo(_ sender: NSButton) {
         let popover = NSPopover()
-        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("Swipe with three fingers may conflict with system shortcuts. Check for any conflicts in System Settings > Trackpad > More Gestures", comment: ""))
+        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("Swipe with three fingers may conflict with system shortcuts.\nCheck for any conflicts within System Settings > Trackpad > More Gestures.", comment: ""))
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.alignment = .center
         
         let container = NSView(frame: NSRect(x: 0, y: 0, width: 280, height: 0))
-        container.addSubview(label)
+        let openBtn = NSButton(title: NSLocalizedString("Open", comment: ""), target: self, action: #selector(openSystemGestures(_:)))
+        let stack = StackView([label, openBtn], .vertical)
+        stack.alignment = .centerX
+        container.addSubview(stack)
         
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
-            label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -12),
-            label.topAnchor.constraint(equalTo: container.topAnchor, constant: 12),
-            label.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -12)
+            stack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
+            stack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -12),
+            stack.topAnchor.constraint(equalTo: container.topAnchor, constant: 12),
+            stack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -12)
         ])
         
         popover.contentViewController = NSViewController()
         popover.contentViewController?.view = container
         popover.behavior = .transient
         popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
+    }
+
+    @objc private static func openSystemGestures(_ sender: NSButton) {
+        // Apple doesn't expose the More Gestures tab directly
+        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.Trackpad-Settings.extension")!)
     }
 
     static func executeAction(_ action: String) {
