@@ -342,7 +342,7 @@ class ControlsTab {
 
     @objc private static func showGestureInfo(_ sender: NSButton) {
         let popover = NSPopover()
-        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("Swipe with three fingers may conflict with system shortcuts.\nCheck for any conflicts within System Settings > Trackpad > More Gestures.", comment: ""))
+        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("Swipe may conflict with system shortcuts.\nCheck for any conflicts within System Settings > Trackpad > More Gestures.", comment: ""))
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.alignment = .center
