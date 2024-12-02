@@ -168,6 +168,7 @@ class Preferences {
     static var menubarIcon: MenubarIconPreference { UserDefaults.standard.macroPref("menubarIcon", MenubarIconPreference.allCases) }
     static var menubarIconShown: Bool { UserDefaults.standard.bool("menubarIconShown") }
     static var language: LanguagePreference { UserDefaults.standard.macroPref("language", LanguagePreference.allCases) }
+    static var gesture: GesturePreference { UserDefaults.standard.macroPref("gesture", GesturePreference.allCases) }
 
     static func initialize() {
         removeCorruptedPreferences()
@@ -524,11 +525,13 @@ enum MenubarIconPreference: CaseIterable, MacroPreference {
 enum GesturePreference: CaseIterable, MacroPreference {
     case none
     case threeFingerSwipe
+    case fourFingerSwipe
 
     var localizedString: LocalizedString {
         switch self {
-            case .none: return ""
+            case .none: return NSLocalizedString("Disabled", comment: "")
             case .threeFingerSwipe: return NSLocalizedString("Swipe with Three Fingers", comment: "")
+            case .fourFingerSwipe: return NSLocalizedString("Swipe with Four Fingers", comment: "")
         }
     }
 }

@@ -334,8 +334,9 @@ class ControlsTab {
         }
         let swipe = GesturePreference.allCases[intValue]
         switch swipe {
-        case .none: TrackpadEvents.toggle(false)
-        case .threeFingerSwipe: TrackpadEvents.toggle(true)
+            case .none: TrackpadEvents.toggle(false)
+            case .threeFingerSwipe: TrackpadEvents.toggle(true)
+            case .fourFingerSwipe: TrackpadEvents.toggle(true)
         }
     }
 

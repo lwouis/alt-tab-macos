@@ -58,10 +58,14 @@ private func eventHandler(
 }
 
 private func touchEventHandler(_ nsEvent: NSEvent) {
+    let requiredFingers = Preferences.gesture == .fourFingerSwipe ? 4 : 3
     let touches = nsEvent.allTouches()
 
-    if touches.isEmpty || touches.allSatisfy({ $0.phase == .ended }) || touches.count != 3 {
-        if App.app.appIsBeingUsed && touches.count < 3 && App.app.shortcutIndex == 5
+    // Sometimes there are empty touch events that we have to skip. There are no empty touch events if Mission Control or App Expose use 3-finger swipes though.
+    if touches.isEmpty { return }
+
+    if touches.allSatisfy({ $0.phase == .ended }) || touches.count != requiredFingers {
+        if App.app.appIsBeingUsed && touches.count < requiredFingers && App.app.shortcutIndex == 5
             && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease
         {
             DispatchQueue.main.async { App.app.focusTarget() }
