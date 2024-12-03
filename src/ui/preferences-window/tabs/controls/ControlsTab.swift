@@ -148,7 +148,7 @@ class ControlsTab {
     /// commandTab and commandKeyAboveTab are self-contained in the "nextWindowShortcut" shortcuts
     /// but the keys of commandShiftTab can be spread between holdShortcut and a local shortcut
     static func combinedModifiersMatch(_ modifiers1: UInt32, _ modifiers2: UInt32) -> Bool {
-        return (0..<5).contains {
+        return (0..<Preferences.holdShortcut.count).contains {
             if let holdShortcut = shortcuts[Preferences.indexToName("holdShortcut", $0)] {
                 return (holdShortcut.shortcut.carbonModifierFlags | modifiers1) == (holdShortcut.shortcut.carbonModifierFlags | modifiers2)
             }
