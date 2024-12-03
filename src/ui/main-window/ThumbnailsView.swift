@@ -241,6 +241,7 @@ class ScrollView: NSScrollView {
         documentView = FlippedView(frame: .zero)
         drawsBackground = false
         hasVerticalScroller = true
+        verticalScrollElasticity = .none
         scrollerStyle = .overlay
         scrollerKnobStyle = .light
         horizontalScrollElasticity = .none
