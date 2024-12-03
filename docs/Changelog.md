@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.7.0](https://github.com/lwouis/alt-tab-macos/compare/v7.6.0...v7.7.0) (2024-12-03)
+
+
+### Bug Fixes
+
+* [after release: do nothing] was broken in v7.6.0 (closes [#3929](https://github.com/lwouis/alt-tab-macos/issues/3929)) ([83b5319](https://github.com/lwouis/alt-tab-macos/commit/83b5319))
+
+
+### Features
+
+* improve chinese localization ([17e9599](https://github.com/lwouis/alt-tab-macos/commit/17e9599))
+* improve tooltips in preferences ([f97e9f9](https://github.com/lwouis/alt-tab-macos/commit/f97e9f9))
+
 # [7.6.0](https://github.com/lwouis/alt-tab-macos/compare/v7.5.0...v7.6.0) (2024-12-01)
 
 
