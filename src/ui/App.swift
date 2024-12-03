@@ -74,6 +74,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
+            TrackpadEvents.observe()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
@@ -216,11 +217,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
         showPreferencesWindow()
     }
 
-    func cycleSelection(_ direction: Direction) {
+    func cycleSelection(_ direction: Direction, allowWrap: Bool = true) {
         if direction == .up || direction == .down {
-            thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction)
+            thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
-            Windows.cycleFocusedWindowIndex(direction.step())
+            Windows.cycleFocusedWindowIndex(direction.step(), allowWrap: allowWrap)
         }
     }
 

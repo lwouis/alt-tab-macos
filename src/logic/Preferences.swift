@@ -15,6 +15,7 @@ class Preferences {
         "nextWindowShortcut3": "",
         "nextWindowShortcut4": "",
         "nextWindowShortcut5": "",
+        "nextWindowGesture": GesturePreference.disabled.indexAsString,
         "focusWindowShortcut": "Space",
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
@@ -32,21 +33,25 @@ class Preferences {
         "showMinimizedWindows3": ShowHowPreference.show.indexAsString,
         "showMinimizedWindows4": ShowHowPreference.show.indexAsString,
         "showMinimizedWindows5": ShowHowPreference.show.indexAsString,
+        "showMinimizedWindows6": ShowHowPreference.show.indexAsString,
         "showHiddenWindows": ShowHowPreference.show.indexAsString,
         "showHiddenWindows2": ShowHowPreference.show.indexAsString,
         "showHiddenWindows3": ShowHowPreference.show.indexAsString,
         "showHiddenWindows4": ShowHowPreference.show.indexAsString,
         "showHiddenWindows5": ShowHowPreference.show.indexAsString,
+        "showHiddenWindows6": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows2": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows3": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows4": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows5": ShowHowPreference.show.indexAsString,
+        "showFullscreenWindows6": ShowHowPreference.show.indexAsString,
         "windowOrder": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder2": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder3": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder4": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder5": WindowOrderPreference.recentlyFocused.indexAsString,
+        "windowOrder6": WindowOrderPreference.recentlyFocused.indexAsString,
         "showTabsAsWindows": "false",
         "hideColoredCircles": "false",
         "windowDisplayDelay": "100",
@@ -65,16 +70,19 @@ class Preferences {
         "appsToShow3": AppsToShowPreference.all.indexAsString,
         "appsToShow4": AppsToShowPreference.all.indexAsString,
         "appsToShow5": AppsToShowPreference.all.indexAsString,
+        "appsToShow6": AppsToShowPreference.all.indexAsString,
         "spacesToShow": SpacesToShowPreference.all.indexAsString,
         "spacesToShow2": SpacesToShowPreference.all.indexAsString,
         "spacesToShow3": SpacesToShowPreference.all.indexAsString,
         "spacesToShow4": SpacesToShowPreference.all.indexAsString,
         "spacesToShow5": SpacesToShowPreference.all.indexAsString,
+        "spacesToShow6": SpacesToShowPreference.all.indexAsString,
         "screensToShow": ScreensToShowPreference.all.indexAsString,
         "screensToShow2": ScreensToShowPreference.all.indexAsString,
         "screensToShow3": ScreensToShowPreference.all.indexAsString,
         "screensToShow4": ScreensToShowPreference.all.indexAsString,
         "screensToShow5": ScreensToShowPreference.all.indexAsString,
+        "screensToShow6": ScreensToShowPreference.all.indexAsString,
         "fadeOutAnimation": "false",
         "hideSpaceNumberLabels": "false",
         "hideStatusIcons": "false",
@@ -90,6 +98,7 @@ class Preferences {
         "shortcutStyle3": ShortcutStylePreference.focusOnRelease.indexAsString,
         "shortcutStyle4": ShortcutStylePreference.focusOnRelease.indexAsString,
         "shortcutStyle5": ShortcutStylePreference.focusOnRelease.indexAsString,
+        "shortcutStyle6": ShortcutStylePreference.focusOnRelease.indexAsString,
         "hideAppBadges": "false",
         "hideWindowlessApps": "false",
         "hideThumbnails": "false",
@@ -106,6 +115,7 @@ class Preferences {
     // persisted values
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { UserDefaults.standard.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { UserDefaults.standard.string($0) } }
+    static var nextWindowGesture: GesturePreference { UserDefaults.standard.macroPref("nextWindowGesture", GesturePreference.allCases) }
     static var focusWindowShortcut: String { UserDefaults.standard.string("focusWindowShortcut") }
     static var previousWindowShortcut: String { UserDefaults.standard.string("previousWindowShortcut") }
     static var cancelShortcut: String { UserDefaults.standard.string("cancelShortcut") }
@@ -148,14 +158,14 @@ class Preferences {
     static var showTitles: ShowTitlesPreference { UserDefaults.standard.macroPref("showTitles", ShowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { UserDefaults.standard.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { UserDefaults.standard.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
-    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { UserDefaults.standard.macroPref($0, AppsToShowPreference.allCases) } }
-    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2", "spacesToShow3", "spacesToShow4", "spacesToShow5"].map { UserDefaults.standard.macroPref($0, SpacesToShowPreference.allCases) } }
-    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2", "screensToShow3", "screensToShow4", "screensToShow5"].map { UserDefaults.standard.macroPref($0, ScreensToShowPreference.allCases) } }
-    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4", "showMinimizedWindows5"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
-    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
-    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
-    static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { UserDefaults.standard.macroPref($0, WindowOrderPreference.allCases) } }
-    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { UserDefaults.standard.macroPref($0, ShortcutStylePreference.allCases) } }
+    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5", "appsToShow6"].map { UserDefaults.standard.macroPref($0, AppsToShowPreference.allCases) } }
+    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2", "spacesToShow3", "spacesToShow4", "spacesToShow5", "spacesToShow6"].map { UserDefaults.standard.macroPref($0, SpacesToShowPreference.allCases) } }
+    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2", "screensToShow3", "screensToShow4", "screensToShow5", "screensToShow6"].map { UserDefaults.standard.macroPref($0, ScreensToShowPreference.allCases) } }
+    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4", "showMinimizedWindows5", "showMinimizedWindows6"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
+    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5", "showHiddenWindows6"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
+    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5", "showFullscreenWindows6"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
+    static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5", "windowOrder6"].map { UserDefaults.standard.macroPref($0, WindowOrderPreference.allCases) } }
+    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5", "shortcutStyle6"].map { UserDefaults.standard.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { UserDefaults.standard.macroPref("menubarIcon", MenubarIconPreference.allCases) }
     static var menubarIconShown: Bool { UserDefaults.standard.bool("menubarIconShown") }
     static var language: LanguagePreference { UserDefaults.standard.macroPref("language", LanguagePreference.allCases) }
@@ -508,6 +518,20 @@ enum MenubarIconPreference: CaseIterable, MacroPreference {
             case .outlined: return " "
             case .filled: return " "
             case .colored: return " "
+        }
+    }
+}
+
+enum GesturePreference: CaseIterable, MacroPreference {
+    case disabled
+    case threeFingerSwipe
+    case fourFingerSwipe
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .disabled: return NSLocalizedString("Disabled", comment: "")
+            case .threeFingerSwipe: return NSLocalizedString("Swipe with Three Fingers", comment: "")
+            case .fourFingerSwipe: return NSLocalizedString("Swipe with Four Fingers", comment: "")
         }
     }
 }

@@ -57,24 +57,32 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
-    func nextRow(_ direction: Direction) -> [ThumbnailView]? {
+    func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [ThumbnailView]? {
         let step = direction == .down ? 1 : -1
         if let currentRow = Windows.focusedWindow()?.rowIndex {
-            let nextRow = (currentRow + step) % rows.count
-            let nextRow_ = nextRow < 0 ? rows.count + nextRow : nextRow
-            if ((step > 0 && nextRow_ < currentRow) || (step < 0 && nextRow_ > currentRow)) &&
+            var nextRow = currentRow + step
+            if nextRow >= rows.count {
+                if allowWrap {
+                    nextRow = nextRow % rows.count
+                } else { return nil }
+            } else if nextRow < 0 {
+                if allowWrap {
+                    nextRow = rows.count + nextRow
+                } else { return nil }
+            }
+            if ((step > 0 && nextRow < currentRow) || (step < 0 && nextRow > currentRow)) &&
                    (ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
                 return nil
             }
-            return rows[nextRow_]
+            return rows[nextRow]
         }
         return nil
     }
 
-    func navigateUpOrDown(_ direction: Direction) {
+    func navigateUpOrDown(_ direction: Direction, allowWrap: Bool = true) {
         let focusedViewFrame = ThumbnailsView.recycledViews[Windows.focusedWindowIndex].frame
         let originCenter = NSMidX(focusedViewFrame)
-        if let targetRow = nextRow(direction) {
+        if let targetRow = nextRow(direction, allowWrap: allowWrap) {
             let leftSide = originCenter < NSMidX(frame)
             let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
             let iterable = leadingSide ? targetRow : targetRow.reversed()
