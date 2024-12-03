@@ -42,6 +42,7 @@ class ControlsTab {
         }
         if action.starts(with: "nextWindowShortcut") {
             App.app.appIsBeingUsed = true
+            App.app.shortcutIndex = Preferences.nameToIndex(action)
         }
     }
 
@@ -65,6 +66,11 @@ class Preferences {
 
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))
+    }
+
+    static func nameToIndex(_ name: String) -> Int {
+        guard let number = name.last?.wholeNumberValue else { return 0 }
+        return number - 1
     }
 }
 
