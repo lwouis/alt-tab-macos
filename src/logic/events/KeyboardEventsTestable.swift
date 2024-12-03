@@ -22,9 +22,16 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
     for shortcut in ControlsTab.shortcuts.values {
         if shortcut.matches(globalId, shortcutState, keyCode, modifiers) && shortcut.shouldTrigger() {
             shortcut.executeAction(isARepeat)
-            someShortcutTriggered = true
+            // we want to pass-through alt-up to the active app, since it saw alt-down previously
+            if !shortcut.id.starts(with: "holdShortcut") {
+                someShortcutTriggered = true
+            }
         }
         shortcut.redundantSafetyMeasures()
     }
+    // TODO if we manage to move all keyboard listening to the background thread, we'll have issues returning this boolean
+    // this function uses many objects that are also used on the main-thread. It also executes the actions
+    // we'll have to rework this whole approach. Today we rely on somewhat in-order events/actions
+    // special attention should be given to App.app.appIsBeingUsed which is being set to true when executing the nextWindowShortcut action
     return someShortcutTriggered
 }
