@@ -11,6 +11,7 @@ enum Symbols: String {
     case filledCircled = "􀀁"
     case filledCircledNumber0 = "􀀹"
     case filledCircledNumber10 = "􀔔"
+    case circledInfo = "􀅴"
 }
 
 // Font icon using SF Symbols from the SF Pro font from Apple

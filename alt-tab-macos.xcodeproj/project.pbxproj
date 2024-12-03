@@ -53,7 +53,6 @@
 		1C961BD37A4652E7A692ED8A /* thumbnails_show_running_applications_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961484E5164C1BFF3B78FF /* thumbnails_show_running_applications_light@2x.jpg */; };
 		1C961C3245C17EC408B798DE /* app_icons_hide_preview_focused_window_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961A9B3F8ABA1ECFDF7C9F /* app_icons_hide_preview_focused_window_light@2x.jpg */; };
 		1C961C7FC66CEEE4223C57A2 /* thumbnails_hide_space_number_labels_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C9611334B667767A4514B57 /* thumbnails_hide_space_number_labels_light@2x.jpg */; };
-		1C961CB7E9B170E1CD99881F /* info_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C9616ABADF052D54E9375C2 /* info_button@2x.png */; };
 		1C961D268F3911907129C96A /* titles_show_windowless_apps_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C9618877FB96FD51E89A597 /* titles_show_windowless_apps_light@2x.jpg */; };
 		1C961DD2AB893820F334BBA4 /* thumbnails_hide_preview_focused_window_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961802AB937EC23AADBBFA /* thumbnails_hide_preview_focused_window_light@2x.jpg */; };
 		1C961DE40FF784E02A044D35 /* thumbnails_hide_status_icons_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C9616C88A2EED5DFF4E83D8 /* thumbnails_hide_status_icons_light@2x.jpg */; };
@@ -291,7 +290,6 @@
 		1C9616522F4E58860385E090 /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = file.swiftformat; path = .swiftformat; sourceTree = "<group>"; };
 		1C9616610337AE2361694C63 /* titles_hide_preview_focused_window_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "titles_hide_preview_focused_window_light@2x.jpg"; sourceTree = "<group>"; };
 		1C96168DC0D8707F8EC6B442 /* titles_show_running_applications_windows_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "titles_show_running_applications_windows_light@2x.jpg"; sourceTree = "<group>"; };
-		1C9616ABADF052D54E9375C2 /* info_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_button@2x.png"; sourceTree = "<group>"; };
 		1C9616C88A2EED5DFF4E83D8 /* thumbnails_hide_status_icons_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnails_hide_status_icons_light@2x.jpg"; sourceTree = "<group>"; };
 		1C9617A90991E963760F7475 /* thumbnails_show_app_badges_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnails_show_app_badges_light@2x.jpg"; sourceTree = "<group>"; };
 		1C9617C5839903D752070CF2 /* ImageTextButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTextButtonView.swift; sourceTree = "<group>"; };
@@ -714,14 +712,6 @@
 				1C9618877FB96FD51E89A597 /* titles_show_windowless_apps_light@2x.jpg */,
 			);
 			path = illustrations;
-			sourceTree = "<group>";
-		};
-		1C961A5CDC3134CCB0811D78 /* preferences */ = {
-			isa = PBXGroup;
-			children = (
-				1C9616ABADF052D54E9375C2 /* info_button@2x.png */,
-			);
-			path = preferences;
 			sourceTree = "<group>";
 		};
 		1C961B4542D84D5B6E937B15 /* workflows */ = {
@@ -1484,7 +1474,6 @@
 				BF0C86C288D4FD8F92D3C7DB /* app */,
 				BF0C80536B40523C5DB23BE2 /* menubar */,
 				BF0C8060939B50725E1C3392 /* permission-window */,
-				1C961A5CDC3134CCB0811D78 /* preferences */,
 			);
 			path = icons;
 			sourceTree = "<group>";
@@ -2004,7 +1993,6 @@
 				BF0C816911CAD3F1B5865BFA /* Localizable.strings in Resources */,
 				BF0C863526C260F4155F9D2C /* Localizable.strings in Resources */,
 				BF0C8C0EDECEA32BBCE5B27D /* Localizable.strings in Resources */,
-				1C961CB7E9B170E1CD99881F /* info_button@2x.png in Resources */,
 				1C96150A9E75C3D69638C481 /* app_icons_light@2x.jpg in Resources */,
 				1C9617DCCF162B8F8CBF2C1D /* app_icons_align_thumbnails_center_light@2x.jpg in Resources */,
 				1C961F211FCEFE8A725563DD /* app_icons_align_thumbnails_leading_light@2x.jpg in Resources */,

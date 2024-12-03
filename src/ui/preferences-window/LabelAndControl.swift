@@ -32,13 +32,13 @@ class MouseHoverView: NSView {
 }
 
 class ClickHoverImageView: MouseHoverView {
-    var imageView: NSImageView!
+    var infoCircle: NSView!
     var onClick: EventClosure?
 
-    init(imageView: NSImageView) {
+    init(infoCircle: NSView) {
         super.init(frame: .zero)
-        self.imageView = imageView
-        addSubview(imageView)
+        self.infoCircle = infoCircle
+        addSubview(infoCircle)
 
         let clickGesture = NSClickGestureRecognizer(target: self, action: #selector(handleClick(_:)))
         addGestureRecognizer(clickGesture)
@@ -130,37 +130,21 @@ class LabelAndControl: NSObject {
         return checkbox
     }
 
-    static func makeInfoButton(width: CGFloat = 15,
-                               height: CGFloat = 15,
-                               padding: CGFloat = 2,
+    static func makeInfoButton(size: CGFloat = 18,
                                onClick: EventClosure? = nil,
                                onMouseEntered: EventClosure? = nil,
                                onMouseExited: EventClosure? = nil) -> ClickHoverImageView {
-        let imageView = NSImageView(image: NSImage(named: "info_button")!)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.imageScaling = .scaleProportionallyUpOrDown
-
-        // Enable layer-backed view to improve rendering quality
-        imageView.wantsLayer = true
-        imageView.layer?.contentsGravity = .resizeAspect
-        imageView.layer?.shouldRasterize = true
-        imageView.layer?.rasterizationScale = NSScreen.main?.backingScaleFactor ?? 1.0
-
-        let view = ClickHoverImageView(imageView: imageView)
+        let imageView = ThumbnailFontIconView(symbol: .circledInfo, size: size, color: .labelColor, shadow: nil)
+        let view = ClickHoverImageView(infoCircle: imageView)
         view.onClick = onClick
         view.onMouseEntered = onMouseEntered
         view.onMouseExited = onMouseExited
-
-        // Set constraints to add equal padding around the image
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: width),
-            imageView.heightAnchor.constraint(equalToConstant: height),
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-
         return view
     }
 
@@ -172,10 +156,9 @@ class LabelAndControl: NSObject {
                                                    onClick: EventClosure? = nil,
                                                    onMouseEntered: EventClosure? = nil,
                                                    onMouseExited: EventClosure? = nil,
-                                                   width: CGFloat = 15,
-                                                   height: CGFloat = 15) -> [NSView] {
+                                                   size: CGFloat = 15) -> [NSView] {
         let labelCheckboxViews = makeLabelWithCheckbox(labelText, rawName, extraAction: extraAction, labelPosition: labelPosition)
-        let infoButtonView = makeInfoButton(width: width, height: height, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
+        let infoButtonView = makeInfoButton(size: size, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
 
         var views: [NSView] = []
         labelCheckboxViews.forEach { view in

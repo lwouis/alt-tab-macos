@@ -30,7 +30,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
         imageView.layer?.masksToBounds = true
         imageView.layer?.cornerRadius = TableGroupView.cornerRadius
 
-        super.init(imageView: imageView)
+        super.init(infoCircle: imageView)
         self.style = style
         self.theme = theme
         self.imageName = imageName
@@ -77,12 +77,12 @@ class IllustratedImageThemeView: ClickHoverImageView {
         if highlighted {
             updateImage(imageName)
         } else {
-            self.imageView.image = NSImage(named: self.imageName)
+            (infoCircle as! NSImageView).image = NSImage(named: self.imageName)
         }
     }
 
     private func updateImage(_ imageName: String) {
-        imageView.image = NSImage(named: self.getStyleThemeImageName(imageName))
+        (infoCircle as! NSImageView).image = NSImage(named: getStyleThemeImageName(imageName))
     }
 
     static func getConcatenatedImageName(_ style: AppearanceStylePreference,
@@ -214,7 +214,7 @@ class ShowHideIllustratedView {
         showTabsAsWindows.supportedStyles = [.thumbnails, .appIcons, .titles]
         showTabsAsWindows.leftViews = [TableGroupView.makeText(NSLocalizedString("Show standard tabs as windows", comment: ""))]
         showTabsAsWindows.subTitle = NSLocalizedString("Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately.", comment: "")
-        showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
+        showTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(showTabsAsWindows) {
                 Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)
             } else {
@@ -237,7 +237,7 @@ class ShowHideIllustratedView {
         previewFocusedWindow.supportedStyles = [.thumbnails, .appIcons, .titles]
         previewFocusedWindow.leftViews = [TableGroupView.makeText(NSLocalizedString("Preview selected window", comment: ""))]
         previewFocusedWindow.subTitle = NSLocalizedString("Preview the selected window.", comment: "")
-        previewFocusedWindow.rightViews.append(LabelAndControl.makeInfoButton(width: 15, height: 15, onMouseEntered: { event, view in
+        previewFocusedWindow.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
             if ShowHideIllustratedView.isDisabledOnApplications(previewFocusedWindow) {
                 Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)
             } else {
@@ -329,11 +329,13 @@ class ShowHideIllustratedView {
     }
 }
 
-class Popover: NSPopover {
+class Popover: NSPopover, NSPopoverDelegate {
     static let shared = Popover()
+    private var hidingInitiated = true
 
     override init() {
         super.init()
+        delegate = self
         contentViewController = NSViewController()
         behavior = .semitransient
     }
@@ -342,12 +344,18 @@ class Popover: NSPopover {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func popoverWillClose(_ notification: Notification) {
+        hidingInitiated = true
+    }
+
     func hide() {
         performClose(nil)
     }
 
-    func show(event: NSEvent, positioningView: NSView, message: String) {
-        hide()
+    func show(event: NSEvent, positioningView: NSView, message: String, extraView: NSView? = nil) {
+        if !hidingInitiated { return }
+        hidingInitiated = false
+
         let view = NSView()
 
         let label = NSTextField(labelWithString: message)
@@ -356,16 +364,16 @@ class Popover: NSPopover {
         label.maximumNumberOfLines = 0
         label.isEditable = false
         label.isSelectable = true
-        label.textColor = NSColor.gray
         label.font = NSFont.systemFont(ofSize: 12)
-        view.addSubview(label)
+        var actualView: NSView = extraView == nil ? label : StackView([label, extraView!], .vertical)
+        view.addSubview(actualView)
 
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            actualView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            actualView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            actualView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            actualView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
         contentViewController?.view = view
 
