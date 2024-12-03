@@ -43,12 +43,12 @@ class ATShortcut {
     }
 
     private func modifiersMatch(_ modifiers: UInt32) -> Bool {
+        // holdShortcut: contains at least
         if id.hasPrefix("holdShortcut") {
-            // contains at least
             return modifiers == (modifiers | shortcut.carbonModifierFlags)
         }
-        let holdModifiers = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)]!.shortcut.carbonModifierFlags
-        // contains exactly or exactly + holdShortcut modifiers
+        // other shortcuts: contains exactly or exactly + holdShortcut modifiers
+        let holdModifiers = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)]?.shortcut.carbonModifierFlags ?? 0
         return modifiers == shortcut.carbonModifierFlags || modifiers == (shortcut.carbonModifierFlags | holdModifiers)
     }
 
@@ -84,8 +84,8 @@ class ATShortcut {
         // Knowing this, we handle these edge-cases by double checking if holdShortcut is UP, when any shortcut state is UP
         // If it is, then we trigger the holdShortcut action
         if App.app.appIsBeingUsed {
-            let currentHoldShortcut = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)]!
-            if id == currentHoldShortcut.id {
+            if let currentHoldShortcut = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)],
+               id == currentHoldShortcut.id {
                 let currentModifiers = cocoaToCarbonFlags(ModifierFlags.current)
                 if currentModifiers != (currentModifiers | (currentHoldShortcut.shortcut.carbonModifierFlags)) {
                     currentHoldShortcut.state = .up
