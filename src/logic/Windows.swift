@@ -4,8 +4,6 @@ class Windows {
     static var list = [Window]()
     static var focusedWindowIndex = Int(0)
     static var hoveredWindowIndex: Int?
-    // the first few thumbnails are the most commonly looked at; we pay special attention to them
-    static let criticalFirstThumbnails = 3
     static var lastWindowActivityType = WindowActivityType.none
 
     /// reordered list based on preferences, keeping the original index
@@ -265,14 +263,7 @@ class Windows {
         Windows.list = sortedTuples.map { $0.1 }
     }
 
-    static func refreshFirstFewThumbnailsSync() {
-        if Appearance.hideThumbnails { return }
-        list.filter { $0.shouldShowTheUser }
-                .prefix(criticalFirstThumbnails)
-                .forEachAsync { window in window.refreshThumbnail() }
-    }
-
-    static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int = criticalFirstThumbnails) {
+    static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int) {
         DispatchQueue.main.async {
             if !App.app.appIsBeingUsed || Appearance.hideThumbnails { return }
             BackgroundWork.mainQueueConcurrentWorkQueue.async {

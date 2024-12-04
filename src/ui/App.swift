@@ -310,8 +310,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
         guard appIsBeingUsed else { return }
         Appearance.update()
         guard appIsBeingUsed else { return }
-        Windows.refreshFirstFewThumbnailsSync()
-        guard appIsBeingUsed else { return }
         thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 screens make thumbnailPanel invisible
         guard appIsBeingUsed else { return }
         refreshOpenUi()
@@ -319,7 +317,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.show()
         Windows.previewFocusedWindowIfNeeded()
         guard appIsBeingUsed else { return }
-        Windows.refreshThumbnailsAsync(screen)
+        Windows.refreshThumbnailsAsync(screen, 0)
         guard appIsBeingUsed else { return }
         Applications.refreshBadges()
         KeyRepeatTimer.toggleRepeatingKeyNextWindow()
