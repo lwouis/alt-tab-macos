@@ -19,8 +19,8 @@ class AppCenterCrash: NSObject, CrashesDelegate {
 
     // at launch, the crash report handler can be called before some things are not yet ready; we ensure they are
     func initNecessaryFacilities() {
-        if defaults.string(forKey: "crashPolicy") == nil {
-            defaults.register(defaults: ["crashPolicy": "1"])
+        if UserDefaults.standard.string(forKey: "crashPolicy") == nil {
+            UserDefaults.standard.register(defaults: ["crashPolicy": "1"])
         }
     }
 

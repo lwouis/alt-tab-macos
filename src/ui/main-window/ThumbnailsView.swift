@@ -96,7 +96,7 @@ class ThumbnailsView: NSVisualEffectView {
             if Preferences.alignThumbnails == .center {
                 centerRows(maxX)
             }
-            for (i, row) in rows.enumerated() {
+            for row in rows {
                 for (j, view) in row.enumerated() {
                     view.numberOfViewsInRow = row.count
                     view.isFirstInRow = j == 0
@@ -169,9 +169,9 @@ class ThumbnailsView: NSVisualEffectView {
 
         ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
         ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
-        var frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
+        let frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
         var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2
-        var originX = Appearance.windowPadding
+        let originX = Appearance.windowPadding
         var originY = Appearance.windowPadding
         if Preferences.appearanceStyle == .appIcons {
             // If there is title under the icon on the last line, the height of the title needs to be subtracted.

@@ -76,7 +76,7 @@ class LabelAndControl: NSObject {
                                       buttonSpacing: CGFloat = 15) -> NSStackView {
         var buttons = [ImageTextButtonView]()
         let buttonViews = values.enumerated().map { (index, preference) -> ImageTextButtonView in
-            let state: NSControl.StateValue = defaults.int(rawName) == index ? .on : .off
+            let state: NSControl.StateValue = UserDefaults.standard.int(rawName) == index ? .on : .off
             let buttonView = ImageTextButtonView(title: preference.localizedString, rawName: rawName, image: preference.image, state: state)
             buttons.append(buttonView)
             buttonView.onClick = { control in
@@ -110,13 +110,13 @@ class LabelAndControl: NSObject {
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : " ", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
-        checkbox.state = defaults.bool(rawName) ? .on : .off
+        checkbox.state = UserDefaults.standard.bool(rawName) ? .on : .off
         let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
     }
 
     static func makeSwitch(_ rawName: String, extraAction: ActionClosure? = nil) -> NSControl {
-        let button = Switch(defaults.bool(rawName))
+        let button = Switch(UserDefaults.standard.bool(rawName))
         _ = setupControl(button, rawName, extraAction: extraAction)
         return button
     }
@@ -125,7 +125,7 @@ class LabelAndControl: NSObject {
     static func makeCheckbox(_ rawName: String, extraAction: ActionClosure? = nil) -> NSButton {
         let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
-        checkbox.state = defaults.bool(rawName) ? .on : .off
+        checkbox.state = UserDefaults.standard.bool(rawName) ? .on : .off
         _ = setupControl(checkbox, rawName, extraAction: extraAction)
         return checkbox
     }
@@ -182,7 +182,7 @@ class LabelAndControl: NSObject {
             extraAction?(textArea)
         }
         textArea.identifier = NSUserInterfaceItemIdentifier(rawName)
-        textArea.stringValue = defaults.string(rawName)
+        textArea.stringValue = UserDefaults.standard.string(rawName)
         return [textArea]
     }
 
@@ -191,7 +191,7 @@ class LabelAndControl: NSObject {
         popUp.addItems(withTitles: macroPreferences.map {
             $0.localizedString
         })
-        popUp.selectItem(at: defaults.int(rawName))
+        popUp.selectItem(at: UserDefaults.standard.int(rawName))
         return popUp
     }
 
@@ -223,7 +223,7 @@ class LabelAndControl: NSObject {
         return macroPreferences.map {
             let button = NSButton(radioButtonWithTitle: $0.localizedString, target: nil, action: nil)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.state = defaults.int(rawName) == i ? .on : .off
+            button.state = UserDefaults.standard.int(rawName) == i ? .on : .off
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
             i += 1
             return button
@@ -248,7 +248,7 @@ class LabelAndControl: NSObject {
                     button.setImage(symbolImage, forSegment: i)
                 }
             }
-            let selectedSegment = defaults.int(rawName)
+            let selectedSegment = UserDefaults.standard.int(rawName)
             if selectedSegment >= 0 && selectedSegment < macroPreferences.count {
                 button.selectedSegment = selectedSegment
             }
@@ -260,7 +260,7 @@ class LabelAndControl: NSObject {
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,
                                     _ numberOfTickMarks: Int = 0, _ allowsTickMarkValuesOnly: Bool = false,
                                     _ unitText: String = "", width: CGFloat = 200, extraAction: ActionClosure? = nil) -> [NSView] {
-        let value = defaults.double(rawName)
+        let value = UserDefaults.standard.double(rawName)
         let formatter = MeasurementFormatter()
         formatter.numberFormatter = NumberFormatter()
         let suffixText = formatter.string(from: Measurement(value: value, unit: Unit(symbol: unitText)))

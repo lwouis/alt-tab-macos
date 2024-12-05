@@ -1,6 +1,6 @@
 import Cocoa
 
-class Window: CustomStringConvertible {
+class Window {
     static var globalCreationCounter = Int.zero
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
@@ -69,31 +69,6 @@ class Window: CustomStringConvertible {
 
     deinit {
         Logger.debug(title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
-    }
-
-    var description: String {
-        let s = """
-                Window(cgWindowId: \(cgWindowId)\
-                , title: \(title)\
-                , thumbnailFullSize: \(thumbnailFullSize)\
-                , shouldShowTheUser: \(shouldShowTheUser)\
-                , isTabbed: \(isTabbed)\
-                , isFullscreen: \(isFullscreen)\
-                , isMinimized: \(isMinimized)\
-                , isOnAllSpaces: \(isOnAllSpaces)\
-                , isWindowlessApp: \(isWindowlessApp)\
-                , position: \(position)\
-                , size: \(size)\
-                , spaceId: \(spaceId)\
-                , spaceIndex: \(spaceIndex)\
-                , axUiElement: \(axUiElement)\
-                , application: \(application)\
-                , axObserver: \(axObserver)\
-                , rowIndex: \(rowIndex)\
-                , lastFocusOrder: \(lastFocusOrder)\
-                , creationOrder: \(creationOrder)
-                """
-        return s
     }
 
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow

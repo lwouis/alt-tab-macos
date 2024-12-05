@@ -539,7 +539,7 @@ class TableGroupView: ClickHoverStackView {
         adjustSeparatorWidth(separator: separator, isMouseInside: false)
 
         var lastTable = rowInfoTables[rowInfoTables.count - 1]
-        if var lastRow = lastTable.last {
+        if let lastRow = lastTable.last {
             lastRow.nextSeparator = separator
             lastTable[lastTable.count - 1] = lastRow
         }

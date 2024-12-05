@@ -365,7 +365,7 @@ class Popover: NSPopover, NSPopoverDelegate {
         label.isEditable = false
         label.isSelectable = true
         label.font = NSFont.systemFont(ofSize: 12)
-        var actualView: NSView = extraView == nil ? label : StackView([label, extraView!], .vertical)
+        let actualView: NSView = extraView == nil ? label : StackView([label, extraView!], .vertical)
         view.addSubview(actualView)
 
         NSLayoutConstraint.activate([

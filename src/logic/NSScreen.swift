@@ -16,7 +16,7 @@ extension NSScreen {
     func uuid() -> ScreenUuid? {
         if let screenNumber = number(),
            // these APIs implicitly unwrap their return values, but it can actually be nil thus we check
-           let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber as! UInt32),
+           let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber),
            let uuid = CFUUIDCreateString(nil, screenUuid.takeRetainedValue()) {
             return uuid
         }

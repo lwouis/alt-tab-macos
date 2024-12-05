@@ -95,12 +95,12 @@ extension Collection {
     func forEachAsync(fn: @escaping (Element) -> Void) {
         let group = DispatchGroup()
         for element in self {
-            BackgroundWork.globalSemaphore.wait()
+            backgroundWorkGlobalSemaphore.wait()
             BackgroundWork.mainQueueConcurrentWorkQueue.async(group: group) {
-                group.enter()
-                fn(element)
-                BackgroundWork.globalSemaphore.signal()
-                group.leave()
+                    group.enter()
+                    fn(element)
+                    backgroundWorkGlobalSemaphore.signal()
+                    group.leave()
             }
         }
         group.wait()
@@ -235,7 +235,7 @@ extension NSWindow {
 
 extension CaseIterable where Self: Equatable {
     var index: Int {
-        return Self.allCases.distance(from: Self.allCases.startIndex, to: Self.allCases.index(of: self)!)
+        return Self.allCases.distance(from: Self.allCases.startIndex, to: Self.allCases.firstIndex(of: self)!)
     }
     var indexAsString: String {
         return String(describing: self.index)

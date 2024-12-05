@@ -33,8 +33,8 @@ class KeyRepeatTimer {
 
     private static func activateTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         if ((timer == nil || !timer!.isValid) && atShortcut.state != .up) {
-            let repeatRate = ticksToSeconds(defaults.string(forKey: "KeyRepeat") ?? "6")
-            let initialDelay = ticksToSeconds(defaults.string(forKey: "InitialKeyRepeat") ?? "25")
+            let repeatRate = ticksToSeconds(UserDefaults.standard.string(forKey: "KeyRepeat") ?? "6")
+            let initialDelay = ticksToSeconds(UserDefaults.standard.string(forKey: "InitialKeyRepeat") ?? "25")
             timer = Timer(fire: Date(timeIntervalSinceNow: initialDelay), interval: repeatRate, repeats: true) { _ in
                 handleEvent(atShortcut, block)
             }

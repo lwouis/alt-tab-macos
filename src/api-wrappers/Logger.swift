@@ -19,7 +19,7 @@ class Logger {
     }
 
     static func decideLevel() -> SwiftyBeaver.Level {
-        if let level = CommandLine.arguments.first { $0.starts(with: flag) }?.substring(from: flag.endIndex) {
+        if let level = (CommandLine.arguments.first { $0.starts(with: flag) })?.dropFirst(flag.count) {
             switch level {
             case "verbose": return .verbose
             case "debug": return .debug

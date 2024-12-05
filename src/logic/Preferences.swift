@@ -2,8 +2,6 @@ import Cocoa
 import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
-let defaults = UserDefaults.standard
-
 class Preferences {
     // default values
     static var defaultValues: [String: String] = [
@@ -104,59 +102,59 @@ class Preferences {
     // not exposed as preferences now but may be in the future, probably through macro preferences
 
     // persisted values
-    static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { defaults.string($0) } }
-    static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { defaults.string($0) } }
-    static var focusWindowShortcut: String { defaults.string("focusWindowShortcut") }
-    static var previousWindowShortcut: String { defaults.string("previousWindowShortcut") }
-    static var cancelShortcut: String { defaults.string("cancelShortcut") }
-    static var closeWindowShortcut: String { defaults.string("closeWindowShortcut") }
-    static var minDeminWindowShortcut: String { defaults.string("minDeminWindowShortcut") }
-    static var toggleFullscreenWindowShortcut: String { defaults.string("toggleFullscreenWindowShortcut") }
-    static var quitAppShortcut: String { defaults.string("quitAppShortcut") }
-    static var hideShowAppShortcut: String { defaults.string("hideShowAppShortcut") }
+    static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { UserDefaults.standard.string($0) } }
+    static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { UserDefaults.standard.string($0) } }
+    static var focusWindowShortcut: String { UserDefaults.standard.string("focusWindowShortcut") }
+    static var previousWindowShortcut: String { UserDefaults.standard.string("previousWindowShortcut") }
+    static var cancelShortcut: String { UserDefaults.standard.string("cancelShortcut") }
+    static var closeWindowShortcut: String { UserDefaults.standard.string("closeWindowShortcut") }
+    static var minDeminWindowShortcut: String { UserDefaults.standard.string("minDeminWindowShortcut") }
+    static var toggleFullscreenWindowShortcut: String { UserDefaults.standard.string("toggleFullscreenWindowShortcut") }
+    static var quitAppShortcut: String { UserDefaults.standard.string("quitAppShortcut") }
+    static var hideShowAppShortcut: String { UserDefaults.standard.string("hideShowAppShortcut") }
     // periphery:ignore
-    static var arrowKeysEnabled: Bool { defaults.bool("arrowKeysEnabled") }
+    static var arrowKeysEnabled: Bool { UserDefaults.standard.bool("arrowKeysEnabled") }
     // periphery:ignore
-    static var vimKeysEnabled: Bool { defaults.bool("vimKeysEnabled") }
-    static var mouseHoverEnabled: Bool { defaults.bool("mouseHoverEnabled") }
-    static var showTabsAsWindows: Bool { defaults.bool("showTabsAsWindows") }
-    static var hideColoredCircles: Bool { defaults.bool("hideColoredCircles") }
-    static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(defaults.int("windowDisplayDelay")) }
-    static var fadeOutAnimation: Bool { defaults.bool("fadeOutAnimation") }
-    static var hideSpaceNumberLabels: Bool { defaults.bool("hideSpaceNumberLabels") }
-    static var hideStatusIcons: Bool { defaults.bool("hideStatusIcons") }
-    static var hideAppBadges: Bool { defaults.bool("hideAppBadges") }
-    static var hideWindowlessApps: Bool { defaults.bool("hideWindowlessApps") }
+    static var vimKeysEnabled: Bool { UserDefaults.standard.bool("vimKeysEnabled") }
+    static var mouseHoverEnabled: Bool { UserDefaults.standard.bool("mouseHoverEnabled") }
+    static var showTabsAsWindows: Bool { UserDefaults.standard.bool("showTabsAsWindows") }
+    static var hideColoredCircles: Bool { UserDefaults.standard.bool("hideColoredCircles") }
+    static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(UserDefaults.standard.int("windowDisplayDelay")) }
+    static var fadeOutAnimation: Bool { UserDefaults.standard.bool("fadeOutAnimation") }
+    static var hideSpaceNumberLabels: Bool { UserDefaults.standard.bool("hideSpaceNumberLabels") }
+    static var hideStatusIcons: Bool { UserDefaults.standard.bool("hideStatusIcons") }
+    static var hideAppBadges: Bool { UserDefaults.standard.bool("hideAppBadges") }
+    static var hideWindowlessApps: Bool { UserDefaults.standard.bool("hideWindowlessApps") }
     // periphery:ignore
-    static var startAtLogin: Bool { defaults.bool("startAtLogin") }
-    static var blacklist: [BlacklistEntry] { defaults.json("blacklist", [BlacklistEntry].self) }
-    static var previewFocusedWindow: Bool { defaults.bool("previewFocusedWindow") }
-    static var screenRecordingPermissionSkipped: Bool { defaults.bool("screenRecordingPermissionSkipped") }
+    static var startAtLogin: Bool { UserDefaults.standard.bool("startAtLogin") }
+    static var blacklist: [BlacklistEntry] { UserDefaults.standard.json("blacklist", [BlacklistEntry].self) }
+    static var previewFocusedWindow: Bool { UserDefaults.standard.bool("previewFocusedWindow") }
+    static var screenRecordingPermissionSkipped: Bool { UserDefaults.standard.bool("screenRecordingPermissionSkipped") }
 
     // macro values
-    static var appearanceStyle: AppearanceStylePreference { defaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
-    static var appearanceSize: AppearanceSizePreference { defaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
-    static var appearanceTheme: AppearanceThemePreference { defaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
-    static var appearanceVisibility: AppearanceVisibilityPreference { defaults.macroPref("appearanceVisibility", AppearanceVisibilityPreference.allCases) }
+    static var appearanceStyle: AppearanceStylePreference { UserDefaults.standard.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
+    static var appearanceSize: AppearanceSizePreference { UserDefaults.standard.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
+    static var appearanceTheme: AppearanceThemePreference { UserDefaults.standard.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
+    static var appearanceVisibility: AppearanceVisibilityPreference { UserDefaults.standard.macroPref("appearanceVisibility", AppearanceVisibilityPreference.allCases) }
     // periphery:ignore
-    static var theme: ThemePreference { ThemePreference.macOs/*defaults.macroPref("theme", ThemePreference.allCases)*/ }
-    static var showOnScreen: ShowOnScreenPreference { defaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
-    static var titleTruncation: TitleTruncationPreference { defaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
-    static var alignThumbnails: AlignThumbnailsPreference { defaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
-    static var showAppsOrWindows: ShowAppsOrWindowsPreference { defaults.macroPref("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases) }
-    static var showTitles: ShowTitlesPreference { defaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
-    static var updatePolicy: UpdatePolicyPreference { defaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
-    static var crashPolicy: CrashPolicyPreference { defaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
-    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { defaults.macroPref($0, AppsToShowPreference.allCases) } }
-    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2", "spacesToShow3", "spacesToShow4", "spacesToShow5"].map { defaults.macroPref($0, SpacesToShowPreference.allCases) } }
-    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2", "screensToShow3", "screensToShow4", "screensToShow5"].map { defaults.macroPref($0, ScreensToShowPreference.allCases) } }
-    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4", "showMinimizedWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5"].map { defaults.macroPref($0, ShowHowPreference.allCases) } }
-    static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { defaults.macroPref($0, WindowOrderPreference.allCases) } }
-    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { defaults.macroPref($0, ShortcutStylePreference.allCases) } }
-    static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
-    static var language: LanguagePreference { defaults.macroPref("language", LanguagePreference.allCases) }
+    static var theme: ThemePreference { ThemePreference.macOs/*UserDefaults.standard.macroPref("theme", ThemePreference.allCases)*/ }
+    static var showOnScreen: ShowOnScreenPreference { UserDefaults.standard.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
+    static var titleTruncation: TitleTruncationPreference { UserDefaults.standard.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
+    static var alignThumbnails: AlignThumbnailsPreference { UserDefaults.standard.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
+    static var showAppsOrWindows: ShowAppsOrWindowsPreference { UserDefaults.standard.macroPref("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases) }
+    static var showTitles: ShowTitlesPreference { UserDefaults.standard.macroPref("showTitles", ShowTitlesPreference.allCases) }
+    static var updatePolicy: UpdatePolicyPreference { UserDefaults.standard.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
+    static var crashPolicy: CrashPolicyPreference { UserDefaults.standard.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
+    static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4", "appsToShow5"].map { UserDefaults.standard.macroPref($0, AppsToShowPreference.allCases) } }
+    static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2", "spacesToShow3", "spacesToShow4", "spacesToShow5"].map { UserDefaults.standard.macroPref($0, SpacesToShowPreference.allCases) } }
+    static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2", "screensToShow3", "screensToShow4", "screensToShow5"].map { UserDefaults.standard.macroPref($0, ScreensToShowPreference.allCases) } }
+    static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4", "showMinimizedWindows5"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
+    static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4", "showHiddenWindows5"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
+    static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4", "showFullscreenWindows5"].map { UserDefaults.standard.macroPref($0, ShowHowPreference.allCases) } }
+    static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { UserDefaults.standard.macroPref($0, WindowOrderPreference.allCases) } }
+    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { UserDefaults.standard.macroPref($0, ShortcutStylePreference.allCases) } }
+    static var menubarIcon: MenubarIconPreference { UserDefaults.standard.macroPref("menubarIcon", MenubarIconPreference.allCases) }
+    static var language: LanguagePreference { UserDefaults.standard.macroPref("language", LanguagePreference.allCases) }
 
     static func initialize() {
         removeCorruptedPreferences()
@@ -167,44 +165,44 @@ class Preferences {
     static func removeCorruptedPreferences() {
         // from v5.1.0+, there are crash reports of users somehow having their hold shortcuts set to ""
         ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].forEach {
-            if let s = defaults.string(forKey: $0), s == "" {
-                defaults.removeObject(forKey: $0)
+            if let s = UserDefaults.standard.string(forKey: $0), s == "" {
+                UserDefaults.standard.removeObject(forKey: $0)
             }
         }
     }
 
     static func resetAll() {
-        defaults.removePersistentDomain(forName: App.id)
+        UserDefaults.standard.removePersistentDomain(forName: App.id)
     }
 
     static func registerDefaults() {
-        defaults.register(defaults: defaultValues)
+        UserDefaults.standard.register(defaults: defaultValues)
     }
 
     static func getString(_ key: String) -> String? {
-        defaults.string(forKey: key)
+        UserDefaults.standard.string(forKey: key)
     }
 
     static func set<T>(_ key: String, _ value: T) where T: Encodable {
-        defaults.set(key == "blacklist" ? jsonEncode(value) : value, forKey: key)
+        UserDefaults.standard.set(key == "blacklist" ? jsonEncode(value) : value, forKey: key)
         UserDefaults.cache.removeValue(forKey: key)
     }
 
     static func remove(_ key: String) {
-        defaults.removeObject(forKey: key)
+        UserDefaults.standard.removeObject(forKey: key)
         UserDefaults.cache.removeValue(forKey: key)
     }
 
-    static var all: [String: Any] { defaults.persistentDomain(forName: App.id)! }
+    static var all: [String: Any] { UserDefaults.standard.persistentDomain(forName: App.id)! }
 
     static func migratePreferences() {
         let preferencesKey = "preferencesVersion"
-        if let diskVersion = defaults.string(forKey: preferencesKey) {
+        if let diskVersion = UserDefaults.standard.string(forKey: preferencesKey) {
             if diskVersion.compare(App.version, options: .numeric) == .orderedAscending {
                 updateToNewPreferences(diskVersion)
             }
         }
-        defaults.set(App.version, forKey: preferencesKey)
+        UserDefaults.standard.set(App.version, forKey: preferencesKey)
     }
 
     private static func updateToNewPreferences(_ currentVersion: String) {
@@ -243,21 +241,21 @@ class Preferences {
     private static func migratePreferencesIndexes() {
         // migrate spacesToShow from 1 to 2. 1 was removed a while ago. 1=active => 2=>visible
         ["", "2", "3", "4", "5"].forEach { suffix in
-            if let spacesToShow = defaults.string(forKey: "spacesToShow" + suffix) {
+            if let spacesToShow = UserDefaults.standard.string(forKey: "spacesToShow" + suffix) {
                 if spacesToShow == "1" {
-                    defaults.set("2", forKey: "spacesToShow" + suffix)
+                    UserDefaults.standard.set("2", forKey: "spacesToShow" + suffix)
                 }
             }
         }
 
         // migrate spacesToShow from 0 to 2 and 2 to 0. 0 used to be end, 2 used to be start; they got switch for the UI order
         ["", "2", "3", "4", "5"].forEach { suffix in
-            if let spacesToShow = defaults.string(forKey: "titleTruncation" + suffix) {
+            if let spacesToShow = UserDefaults.standard.string(forKey: "titleTruncation" + suffix) {
                 if spacesToShow == "0" {
-                    defaults.set("2", forKey: "titleTruncation" + suffix)
+                    UserDefaults.standard.set("2", forKey: "titleTruncation" + suffix)
                 }
                 if spacesToShow == "2" {
-                    defaults.set("0", forKey: "titleTruncation" + suffix)
+                    UserDefaults.standard.set("0", forKey: "titleTruncation" + suffix)
                 }
             }
         }
@@ -265,17 +263,17 @@ class Preferences {
 
     private static func migrateBlacklists() {
         var entries = [BlacklistEntry]()
-        if let old = defaults.string(forKey: "dontShowBlacklist") {
+        if let old = UserDefaults.standard.string(forKey: "dontShowBlacklist") {
             entries.append(contentsOf: oldBlacklistEntriesToNewOnes(old, .always, .none))
         }
-        if let old = defaults.string(forKey: "disableShortcutsBlacklist") {
-            let onlyFullscreen = defaults.bool(forKey: "disableShortcutsBlacklistOnlyFullscreen")
+        if let old = UserDefaults.standard.string(forKey: "disableShortcutsBlacklist") {
+            let onlyFullscreen = UserDefaults.standard.bool(forKey: "disableShortcutsBlacklistOnlyFullscreen")
             entries.append(contentsOf: oldBlacklistEntriesToNewOnes(old, .none, onlyFullscreen ? .whenFullscreen : .always))
         }
         if entries.count > 0 {
-            defaults.set(Preferences.jsonEncode(entries), forKey: "blacklist")
+            UserDefaults.standard.set(Preferences.jsonEncode(entries), forKey: "blacklist")
             ["dontShowBlacklist", "disableShortcutsBlacklist", "disableShortcutsBlacklistOnlyFullscreen"].forEach {
-                defaults.removeObject(forKey: $0)
+                UserDefaults.standard.removeObject(forKey: $0)
             }
         }
     }
@@ -292,9 +290,9 @@ class Preferences {
 
     private static func migrateMinMaxWindowsWidthInRow() {
         ["windowMinWidthInRow", "windowMaxWidthInRow"].forEach {
-            if let old = defaults.string(forKey: $0) {
+            if let old = UserDefaults.standard.string(forKey: $0) {
                 if old == "0" {
-                    defaults.set("1", forKey: $0)
+                    UserDefaults.standard.set("1", forKey: $0)
                 }
             }
         }
@@ -326,12 +324,12 @@ class Preferences {
 
     private static func migrateShowWindowsFrom() {
         ["", "2"].forEach { suffix in
-            if let spacesToShow = defaults.string(forKey: "spacesToShow" + suffix) {
+            if let spacesToShow = UserDefaults.standard.string(forKey: "spacesToShow" + suffix) {
                 if spacesToShow == "2" {
-                    defaults.set("1", forKey: "screensToShow" + suffix)
-                    defaults.set("1", forKey: "spacesToShow" + suffix)
+                    UserDefaults.standard.set("1", forKey: "screensToShow" + suffix)
+                    UserDefaults.standard.set("1", forKey: "spacesToShow" + suffix)
                 } else if spacesToShow == "1" {
-                    defaults.set("1", forKey: "screensToShow" + suffix)
+                    UserDefaults.standard.set("1", forKey: "screensToShow" + suffix)
                 }
             }
         }
@@ -339,20 +337,20 @@ class Preferences {
 
     private static func migrateNextWindowShortcuts() {
         ["", "2"].forEach { suffix in
-            if let oldHoldShortcut = defaults.string(forKey: "holdShortcut" + suffix),
-               let oldNextWindowShortcut = defaults.string(forKey: "nextWindowShortcut" + suffix) {
+            if let oldHoldShortcut = UserDefaults.standard.string(forKey: "holdShortcut" + suffix),
+               let oldNextWindowShortcut = UserDefaults.standard.string(forKey: "nextWindowShortcut" + suffix) {
                 let nextWindowShortcutCleanedUp = oldHoldShortcut.reduce(oldNextWindowShortcut, { $0.replacingOccurrences(of: String($1), with: "") })
                 if oldNextWindowShortcut != nextWindowShortcutCleanedUp {
-                    defaults.set(nextWindowShortcutCleanedUp, forKey: "nextWindowShortcut" + suffix)
+                    UserDefaults.standard.set(nextWindowShortcutCleanedUp, forKey: "nextWindowShortcut" + suffix)
                 }
             }
         }
     }
 
     private static func migrateMaxSizeOnScreenToWidthAndHeight() {
-        if let old = defaults.string(forKey: "maxScreenUsage") {
-            defaults.set(old, forKey: "maxWidthOnScreen")
-            defaults.set(old, forKey: "maxHeightOnScreen")
+        if let old = UserDefaults.standard.string(forKey: "maxScreenUsage") {
+            UserDefaults.standard.set(old, forKey: "maxWidthOnScreen")
+            UserDefaults.standard.set(old, forKey: "maxHeightOnScreen")
         }
     }
 
@@ -360,11 +358,11 @@ class Preferences {
         ["showMinimizedWindows", "showHiddenWindows", "showFullscreenWindows"]
             .flatMap { [$0, $0 + "2"] }
             .forEach {
-                if let old = defaults.string(forKey: $0) {
+                if let old = UserDefaults.standard.string(forKey: $0) {
                     if old == "true" {
-                        defaults.set(ShowHowPreference.show.indexAsString, forKey: $0)
+                        UserDefaults.standard.set(ShowHowPreference.show.indexAsString, forKey: $0)
                     } else if old == "false" {
-                        defaults.set(ShowHowPreference.hide.indexAsString, forKey: $0)
+                        UserDefaults.standard.set(ShowHowPreference.hide.indexAsString, forKey: $0)
                     }
                 }
             }
@@ -381,17 +379,17 @@ class Preferences {
     }
 
     private static func migrateMenubarIconFromCheckboxToDropdown() {
-        if let old = defaults.string(forKey: "hideMenubarIcon") {
+        if let old = UserDefaults.standard.string(forKey: "hideMenubarIcon") {
             if old == "true" {
-                defaults.set("3", forKey: "menubarIcon")
+                UserDefaults.standard.set("3", forKey: "menubarIcon")
             }
         }
     }
 
     static func migratePreferenceValue(_ preference: String, _ oldAndNew: [String: String]) {
-        if let old = defaults.string(forKey: preference),
+        if let old = UserDefaults.standard.string(forKey: preference),
            let new = oldAndNew[old] {
-            defaults.set(new, forKey: preference)
+            UserDefaults.standard.set(new, forKey: preference)
         }
     }
 
@@ -1112,7 +1110,7 @@ extension UserDefaults {
         if let c = UserDefaults.cache[key] {
             return c
         }
-        let v = defaults.string(forKey: key)!
+        let v = UserDefaults.standard.string(forKey: key)!
         UserDefaults.cache[key] = v
         return v
     }

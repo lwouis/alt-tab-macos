@@ -19,7 +19,7 @@ class DebugProfile {
             ("OS architecture", Sysctl.run("hw.machine")),
             ("Locale", Locale.current.debugDescription),
             ("Spaces", String(Spaces.idsAndIndexes.count)),
-            ("Dark mode", defaults.string(forKey: "AppleInterfaceStyle") ?? "Light"),
+            ("Dark mode", UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light"),
             ("\"Displays have separate Spaces\"", NSScreen.screensHaveSeparateSpaces ? "checked" : "unchecked"),
             // hardware
             ("Hardware model", Sysctl.run("hw.model")),
@@ -63,7 +63,7 @@ class DebugProfile {
     }
 
     private static func appPreference(_ key: String) -> String {
-        defaults.object(forKey: key).map { String(describing: $0) } ?? "nil"
+        UserDefaults.standard.object(forKey: key).map { String(describing: $0) } ?? "nil"
     }
 
     private static func screen(_ screen: NSScreen) -> String {

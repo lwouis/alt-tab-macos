@@ -366,7 +366,6 @@ class ThumbnailView: NSStackView {
         // Retrieves the minimum width for the screen.
         let widthMin = ThumbnailView.minThumbnailWidth(screen)
         let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
-        let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
         var width = CGFloat(0)
         var contentWidth = CGFloat(0)
         if Preferences.appearanceStyle == .thumbnails {
@@ -583,7 +582,7 @@ class ThumbnailView: NSStackView {
         if Preferences.appearanceStyle == .appIcons {
             let widthMin = ThumbnailView.minThumbnailWidth(screen)
             let contentWidth = Appearance.iconSize
-            let leftRightEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
+            let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
             let frameWidth = contentWidth + leftRightEdgeInsetsSize
             let width = max(frameWidth, widthMin).rounded()
             if widthMin > frameWidth {
