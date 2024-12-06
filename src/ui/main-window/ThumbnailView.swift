@@ -280,7 +280,7 @@ class ThumbnailView: NSStackView {
                 thumbnail.image = element.icon?.copy() as? NSImage
                 thumbnail.image?.size = NSSize(width: 1024, height: 1024)
             }
-            let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail.image, screen)
+            let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail.image, screen, false)
             thumbnail.image?.size = thumbnailSize
             thumbnail.frame.size = thumbnailSize
             // for Accessibility > "speak items under the pointer"
@@ -331,7 +331,7 @@ class ThumbnailView: NSStackView {
         if element.isWindowlessApp {
             windowlessIcon.image = appIcon.image!.copy() as? NSImage
             windowlessIcon.image?.size = NSSize(width: 1024, height: 1024)
-            let windowlessIconSize = ThumbnailView.thumbnailSize(windowlessIcon.image, screen)
+            let windowlessIconSize = ThumbnailView.thumbnailSize(windowlessIcon.image, screen, true)
             windowlessIcon.image!.size = windowlessIconSize
             windowlessIcon.frame.size = windowlessIconSize
             windowlessIcon.needsDisplay = true
@@ -548,7 +548,7 @@ class ThumbnailView: NSStackView {
         return (ThumbnailsPanel.maxThumbnailsHeight(screen) - Appearance.interCellPadding) / Appearance.rowsCount - Appearance.interCellPadding
     }
 
-    static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> NSSize {
+    static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen, _ isWindowlessApp: Bool) -> NSSize {
         guard let image = image else { return NSSize(width: 0, height: 0) }
         let thumbnailHeightMax = ThumbnailView.maxThumbnailHeight(screen)
                 - Appearance.edgeInsetsSize * 2
@@ -556,6 +556,10 @@ class ThumbnailView: NSStackView {
                 - Appearance.iconSize
         let thumbnailWidthMax = ThumbnailView.maxThumbnailWidth(screen)
                 - Appearance.edgeInsetsSize * 2
+        // don't stretch very small windows; keep them 1:1 in the switcher
+        if !isWindowlessApp && image.size.width < thumbnailWidthMax && image.size.height < thumbnailHeightMax {
+            return image.size
+        }
         let thumbnailHeight = min(image.size.height, thumbnailHeightMax)
         let thumbnailWidth = min(image.size.width, thumbnailWidthMax)
         let imageRatio = image.size.width / image.size.height
