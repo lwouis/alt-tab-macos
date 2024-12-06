@@ -1,5 +1,15 @@
 # Release notes
 
+# [7.8.0](https://github.com/lwouis/alt-tab-macos/compare/v7.7.0...v7.8.0) (2024-12-06)
+
+
+### Features
+
+* bring back the cursor follow focus feature ([#3882](https://github.com/lwouis/alt-tab-macos/issues/3882)) ([73382db](https://github.com/lwouis/alt-tab-macos/commit/73382db))
+* improve display of very small windows (closes [#3902](https://github.com/lwouis/alt-tab-macos/issues/3902)) ([9bafd03](https://github.com/lwouis/alt-tab-macos/commit/9bafd03))
+* improve irish localization ([89c02c9](https://github.com/lwouis/alt-tab-macos/commit/89c02c9))
+* switcher will show faster (closes [#3845](https://github.com/lwouis/alt-tab-macos/issues/3845)) ([b694c83](https://github.com/lwouis/alt-tab-macos/commit/b694c83))
+
 # [7.7.0](https://github.com/lwouis/alt-tab-macos/compare/v7.6.0...v7.7.0) (2024-12-03)
 
 
