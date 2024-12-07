@@ -231,7 +231,7 @@
 "General" = "General";
 
 /*Menubar callout button*/
-"Grant permission" = "Grant permission";
+"Grant permission" = "Concedir permís";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Finestres amagades:";
@@ -297,16 +297,16 @@
 "Ignore shortcuts while a window from these apps is active" = "Ignorar dreceres si una finestra d'aquestes aplicacions està activa";
 
 /*No comment provided by engineer.*/
-"Language" = "Language";
+"Language" = "Idioma";
 
 /*No comment provided by engineer.*/
-"Language Change" = "Language Change";
+"Language Change" = "Canvi d'idioma";
 
 /*No comment provided by engineer.*/
 "Large" = "Gran";
 
 /*No comment provided by engineer.*/
-"Later" = "Later";
+"Later" = "Després";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Últimes versions";
@@ -426,7 +426,7 @@
 "Reset preferences and restart…" = "Restaurar preferències i iniciar…";
 
 /*No comment provided by engineer.*/
-"Restart Now" = "Restart Now";
+"Restart Now" = "Reiniciar ara";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Files de miniatures:";
@@ -558,7 +558,7 @@
 "Size" = "Tamany";
 
 /*No comment provided by engineer.*/
-"Skipped" = "Skipped";
+"Skipped" = "Omès";
 
 /*No comment provided by engineer.*/
 "Small" = "Petit";
@@ -594,10 +594,10 @@
 "System" = "Sistema";
 
 /*No comment provided by engineer.*/
-"System Default" = "System Default";
+"System Default" = "Per defecte";
 
 /*No comment provided by engineer.*/
-"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+"The application needs to restart to apply the language change." = "Cal reiniciar l'Alt-Tab per tal d'aplicar el canvi d'idioma.";
 
 /*No comment provided by engineer.*/
 "Theme" = "Tema";
@@ -618,7 +618,7 @@
 "Thumbnails" = "Miniatures";
 
 /*No comment provided by engineer.*/
-"Title" = "Title";
+"Title" = "Títol";
 
 /*No comment provided by engineer.*/
 "Title truncation" = "Títol Truncation";

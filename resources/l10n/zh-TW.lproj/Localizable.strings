@@ -6,7 +6,7 @@
 "About %@" = "關於 %@";
 
 /*No comment provided by engineer.*/
-"Accessibility" = "無障礙";
+"Accessibility" = "補助使用";
 
 /*No comment provided by engineer.*/
 "Acknowledgments" = "鳴謝";
@@ -15,25 +15,25 @@
 "Active app" = "活躍的程式";
 
 /*No comment provided by engineer.*/
-"Active screen" = "活躍的螢幕";
+"Active screen" = "活躍的顯示器";
 
 /*No comment provided by engineer.*/
 "Active Space" = "活躍的空間";
 
 /*No comment provided by engineer.*/
-"Additional controls" = "其他控制";
+"Additional controls" = "額外設定";
 
 /*No comment provided by engineer.*/
-"Additional controls…" = "其他控件…";
+"Additional controls…" = "額外設定⋯";
 
 /*No comment provided by engineer.*/
-"Advanced" = "高級";
+"Advanced" = "進階";
 
 /*No comment provided by engineer.*/
 "After release" = "按鍵釋放後";
 
 /*No comment provided by engineer.*/
-"Align windows" = "對齊窗口";
+"Align windows" = "對齊視窗";
 
 /*No comment provided by engineer.*/
 "Align windows:" = "排列視窗：";
@@ -45,7 +45,7 @@
 "All data from this form will be made public, as a ticket on github.com" = "此表單的所有資料都會被公開為 GitHub 上的 Ticket";
 
 /*No comment provided by engineer.*/
-"All screens" = "全部螢幕";
+"All screens" = "全部顯示器";
 
 /*No comment provided by engineer.*/
 "All Spaces" = "全部空間";
@@ -66,16 +66,16 @@
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用時當機了，送出當機報告會幫助我們解決這個問題";
 
 /*No comment provided by engineer.*/
-"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab目前設置為顯示應用程序。僅當AltTab設置為顯示Windows時，此設置才可用。";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab 目前設定顯示為應用程式。只有當 AltTab 顯示為視窗時，此設定才可用。";
 
 /*Menubar callout*/
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "現在 AltTab 在沒螢幕錄影的權限下運作。所以無法顯示縮圖。";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab 需要取得權限";
 
 /*No comment provided by engineer.*/
-"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab將顯示窗口當前使用狀態圖標的窗口是最小化的還是全屏的。";
+"AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab 將顯示狀態圖示表示目前視窗是最小化或是最大化。";
 
 /*No comment provided by engineer.*/
 "Always" = "總是";
@@ -93,13 +93,13 @@
 "Animations" = "動畫";
 
 /*No comment provided by engineer.*/
-"Animations…" = "動畫…";
+"Animations…" = "動畫⋯";
 
 /*No comment provided by engineer.*/
-"App (BundleID starting with)" = "程式（BundleID開頭是）";
+"App (BundleID starting with)" = "程式（BundleID 開頭是）";
 
 /*No comment provided by engineer.*/
-"App Icons" = "應用圖標";
+"App Icons" = "應用程式圖示";
 
 /*No comment provided by engineer.*/
 "App is hidden" = "應用程式已隱藏";
@@ -108,7 +108,7 @@
 "App is running but has no open window" = "程式在運行但沒有打開的視窗";
 
 /*No comment provided by engineer.*/
-"Apparition delay" = "幻影延遲";
+"Apparition delay" = "顯示前的延遲";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "顯示前的延遲：";
@@ -117,13 +117,13 @@
 "Appearance" = "外觀";
 
 /*No comment provided by engineer.*/
-"Application Name" = "應用名稱";
+"Application Name" = "應用程式名稱";
 
 /*No comment provided by engineer.*/
-"Application Name - Window Title" = "應用名稱 - 窗口標題";
+"Application Name - Window Title" = "應用程式名稱 - 視窗標題";
 
 /*No comment provided by engineer.*/
-"Applications" = "應用程序";
+"Applications" = "應用程式";
 
 /*No comment provided by engineer.*/
 "Are you sure you don’t want a response?" = "您確定不想收到回覆嗎？";
@@ -150,16 +150,16 @@
 "Center" = "置中";
 
 /*No comment provided by engineer.*/
-"Check for updates now…" = "立即檢查更新…";
+"Check for updates now…" = "立即檢查更新⋯";
 
 /*No comment provided by engineer.*/
 "Check for updates periodically" = "定期自動檢查更新";
 
 /*No comment provided by engineer.*/
-"Check for updates…" = "檢查更新…";
+"Check for updates…" = "檢查更新⋯";
 
 /*Menubar option*/
-"Check permissions…" = "檢查權限……";
+"Check permissions…" = "檢查權限⋯";
 
 /*No comment provided by engineer.*/
 "Close window" = "關閉視窗";
@@ -171,7 +171,7 @@
 "Controls" = "控制";
 
 /*No comment provided by engineer.*/
-"Crash reports policy" = "崩潰報告策略";
+"Crash reports policy" = "當機報告策略";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "當機報告策略：";
@@ -180,16 +180,16 @@
 "Cursor follows focus" = "滑鼠跟隨焦點";
 
 /*No comment provided by engineer.*/
-"Customize App Icons style…" = "自定義應用圖標樣式…";
+"Customize App Icons style…" = "設定應用程式圖示樣式⋯";
 
 /*No comment provided by engineer.*/
-"Customize Thumbnails style…" = "自定義縮略圖樣式…";
+"Customize Thumbnails style…" = "設定縮圖樣式⋯";
 
 /*No comment provided by engineer.*/
-"Customize Titles style…" = "自定義標題樣式…";
+"Customize Titles style…" = "設定標題樣式⋯";
 
 /*No comment provided by engineer.*/
-"Dark" = "暗色";
+"Dark" = "深色";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "什麼都別做";
@@ -219,7 +219,7 @@
 "Focus selected window" = "聚焦選擇的視窗";
 
 /*No comment provided by engineer.*/
-"Fullscreen window" = "將視窗進入全螢幕";
+"Fullscreen window" = "全螢幕視窗";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "全螢幕視窗：";
@@ -231,10 +231,10 @@
 "General" = "一般";
 
 /*Menubar callout button*/
-"Grant permission" = "Grant permission";
+"Grant permission" = "取得權限";
 
 /*No comment provided by engineer.*/
-"Hidden windows:" = "隱藏視窗：";
+"Hidden windows:" = "隱藏的視窗：";
 
 /*No comment provided by engineer.*/
 "Hide" = "隱藏";
@@ -279,7 +279,7 @@
 "Hide/Show app" = "隱藏／顯示程式";
 
 /*No comment provided by engineer.*/
-"High" = "高的";
+"High" = "高";
 
 /*No comment provided by engineer.*/
 "Highest" = "最高";
@@ -288,37 +288,37 @@
 "Hold" = "按住";
 
 /*No comment provided by engineer.*/
-"I think the app could be improved with…" = "我認為這個程式可以改善在…";
+"I think the app could be improved with…" = "我覺得這個程式可以改善⋯";
 
 /*No comment provided by engineer.*/
-"Ignore shortcuts when active" = "活躍時忽略快捷鍵";
+"Ignore shortcuts when active" = "活躍時忽略快速鍵";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "當這些程式的視窗活躍時，忽略快速鍵";
 
 /*No comment provided by engineer.*/
-"Language" = "Language";
+"Language" = "語言";
 
 /*No comment provided by engineer.*/
-"Language Change" = "Language Change";
+"Language Change" = "選擇語言";
 
 /*No comment provided by engineer.*/
-"Large" = "大的";
+"Large" = "大";
 
 /*No comment provided by engineer.*/
-"Later" = "Later";
+"Later" = "之後";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "最新版本";
 
 /*No comment provided by engineer.*/
-"Leading" = "首位的";
+"Leading" = "靠前";
 
 /*No comment provided by engineer.*/
 "Left" = "靠左";
 
 /*No comment provided by engineer.*/
-"Light" = "亮色";
+"Light" = "淺色";
 
 /*No comment provided by engineer.*/
 "Max height on screen:" = "最大螢幕佔用高度";
@@ -327,10 +327,10 @@
 "Max width on screen:" = "最大螢幕佔用寬度";
 
 /*No comment provided by engineer.*/
-"Medium" = "中等的";
+"Medium" = "中等";
 
 /*No comment provided by engineer.*/
-"Menubar icon" = "Menubar圖標";
+"Menubar icon" = "選單列圖示";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "選單列圖示：";
@@ -345,19 +345,19 @@
 "Minimized windows:" = "最小化視窗";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "雜項：";
+"Miscellaneous:" = "其他設定：";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "滑鼠懸停";
 
 /*No comment provided by engineer.*/
-"Multiple screens" = "多個屏幕";
+"Multiple screens" = "多個顯示器";
 
 /*No comment provided by engineer.*/
 "Never send crash reports" = "永不送出當機報告";
 
 /*No comment provided by engineer.*/
-"Normal" = "普通";
+"Normal" = "一般";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "不允許";
@@ -369,31 +369,31 @@
 "Only if the window is fullscreen" = "只在視窗全螢幕顯示時啟用";
 
 /*No comment provided by engineer.*/
-"Open Accessibility Preferences…" = "打開無障礙偏好設定…";
+"Open Accessibility Preferences…" = "開啟補助使用⋯";
 
 /*No comment provided by engineer.*/
-"Open Screen Recording Preferences…" = "打開螢幕錄製偏好設定…";
+"Open Screen Recording Preferences…" = "打開螢幕錄影偏好設定⋯";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "電子信箱（選填，如果你想要收到回覆）";
 
 /*No comment provided by engineer.*/
-"Order windows by" = "窗口排序";
+"Order windows by" = "視窗排序";
 
 /*No comment provided by engineer.*/
 "Policies" = "策略";
 
 /*No comment provided by engineer.*/
-"Preferences…" = "偏好設定…";
+"Preferences…" = "偏好設定⋯";
 
 /*No comment provided by engineer.*/
-"Preview selected window" = "預覽選中的視窗";
+"Preview selected window" = "預覽選定的視窗";
 
 /*No comment provided by engineer.*/
-"Preview selected window:" = "預覽選中的視窗：";
+"Preview selected window:" = "預覽選定的視窗：";
 
 /*No comment provided by engineer.*/
-"Preview the selected window." = "預覽選定的窗口。";
+"Preview the selected window." = "預覽選定的視窗。";
 
 /*No comment provided by engineer.*/
 "Quit" = "離開";
@@ -405,43 +405,43 @@
 "Quit app" = "離開程式";
 
 /*No comment provided by engineer.*/
-"Recently Created" = "最近打開的視窗";
+"Recently Created" = "最近開啟的視窗";
 
 /*No comment provided by engineer.*/
-"Recently Created First" = "最近創建了";
+"Recently Created First" = "最近開啟的";
 
 /*No comment provided by engineer.*/
 "Recently Focused" = "最近聚焦的視窗";
 
 /*No comment provided by engineer.*/
-"Recently Focused First" = "最近專注於首先";
+"Recently Focused First" = "最近聚焦的視窗";
 
 /*No comment provided by engineer.*/
-"Remember my choice" = "記住我的選擇";
+"Remember my choice" = "記住我的設定";
 
 /*No comment provided by engineer.*/
 "Reset preferences and restart" = "重設偏好設定並重新啟動";
 
 /*No comment provided by engineer.*/
-"Reset preferences and restart…" = "重置所有選項並重新啟動……";
+"Reset preferences and restart…" = "重設偏好設定並重新啟動⋯⋯";
 
 /*No comment provided by engineer.*/
-"Restart Now" = "Restart Now";
+"Restart Now" = "重新啟動";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "縮圖列數：";
 
 /*No comment provided by engineer.*/
-"Screen including menu bar" = "包含選單列的螢幕";
+"Screen including menu bar" = "包含選單列的顯示器";
 
 /*No comment provided by engineer.*/
-"Screen including mouse" = "滑鼠所在的螢幕";
+"Screen including mouse" = "滑鼠所在的顯示器";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "螢幕錄製";
+"Screen Recording" = "螢幕錄影";
 
 /*No comment provided by engineer.*/
-"Screen showing AltTab" = "顯示 AltTab 的螢幕";
+"Screen showing AltTab" = "顯示 AltTab 的顯示器";
 
 /*No comment provided by engineer.*/
 "Select next window" = "選擇下一個視窗";
@@ -450,13 +450,13 @@
 "Select previous window" = "選擇前一個視窗";
 
 /*No comment provided by engineer.*/
-"Select windows on mouse hover" = "選擇鼠標懸停在鼠標上的Windows";
+"Select windows on mouse hover" = "選擇滑鼠懸停在上面的視窗";
 
 /*No comment provided by engineer.*/
-"Select windows using arrow keys" = "使用方向鍵選擇Windows";
+"Select windows using arrow keys" = "使用方向鍵選擇視窗";
 
 /*No comment provided by engineer.*/
-"Select windows using vim keys" = "使用VIM鍵選擇Windows";
+"Select windows using vim keys" = "使用 Vim 鍵選擇視窗";
 
 /*No comment provided by engineer.*/
 "Send" = "送出";
@@ -468,16 +468,16 @@
 "Send anyway" = "直接送出";
 
 /*No comment provided by engineer.*/
-"Send debug profile (CPU, memory, etc)" = "送出除錯資訊（CPU、記憶體、…等）";
+"Send debug profile (CPU, memory, etc)" = "送出 debug 資訊（包括處理器、記憶體⋯等）";
 
 /*No comment provided by engineer.*/
 "Send feedback" = "送出回饋";
 
 /*No comment provided by engineer.*/
-"Send feedback…" = "送出回饋…";
+"Send feedback…" = "送出回饋⋯";
 
 /*No comment provided by engineer.*/
-"Share improvement ideas, or report bugs" = "分享改進的想法，或是回報問題";
+"Share improvement ideas, or report bugs" = "分享建議，或是回報問題";
 
 /*No comment provided by engineer.*/
 "Shortcut 1" = "快速鍵 1";
@@ -498,10 +498,10 @@
 "Shortcut already assigned to another action: %@" = "快速鍵已分配給另一個動作：%@";
 
 /*No comment provided by engineer.*/
-"Shortcuts When Active" = "活躍時的快捷鍵";
+"Shortcuts When Active" = "活躍時的快速鍵";
 
 /*No comment provided by engineer.*/
-"Shortcuts when active…" = "活躍時的快捷鍵…";
+"Shortcuts when active…" = "活躍時的快速鍵⋯";
 
 /*No comment provided by engineer.*/
 "Show" = "顯示";
@@ -510,46 +510,46 @@
 "Show & Hide" = "顯示隱藏";
 
 /*No comment provided by engineer.*/
-"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "在每個窗口或每個應用程序的開關中顯示一個項目。Windows將被聚焦，而應用程序將被激活。";
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "設定在切換器中顯示每一個視窗或者是顯示每一個應用程式。選擇視窗時會聚焦該視窗，而選擇應用程式會啟動該程式。";
 
 /*No comment provided by engineer.*/
 "Show at the end" = "在最後顯示";
 
 /*No comment provided by engineer.*/
-"Show fullscreen windows" = "顯示全屏窗口";
+"Show fullscreen windows" = "顯示全螢幕視窗";
 
 /*No comment provided by engineer.*/
-"Show hidden windows" = "顯示隱藏的窗口";
+"Show hidden windows" = "顯示隱藏的視窗";
 
 /*No comment provided by engineer.*/
 "Show in switcher" = "在切換器中顯示";
 
 /*No comment provided by engineer.*/
-"Show minimized windows" = "顯示最小的窗口";
+"Show minimized windows" = "顯示最小化的視窗";
 
 /*No comment provided by engineer.*/
-"Show on" = "展示";
+"Show on" = "顯示在";
 
 /*No comment provided by engineer.*/
 "Show on:" = "顯示在：";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows" = "將分頁顯示為視窗";
+"Show standard tabs as windows" = "將標籤頁顯示為視窗";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows:" = "將分頁顯示為視窗：";
+"Show standard tabs as windows:" = "將標籤頁顯示為視窗：";
 
 /*No comment provided by engineer.*/
-"Show titles" = "展示標題";
+"Show titles" = "顯示標題";
 
 /*No comment provided by engineer.*/
-"Show windows from applications" = "顯示應用程序的窗口";
+"Show windows from applications" = "顯示應用程式的視窗";
 
 /*No comment provided by engineer.*/
-"Show windows from screens" = "從屏幕上顯示窗口";
+"Show windows from screens" = "顯示每個顯示器的視窗";
 
 /*No comment provided by engineer.*/
-"Show windows from Spaces" = "從空間顯示窗口";
+"Show windows from Spaces" = "顯示每個空間的視窗";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "顯示以下視窗：";
@@ -558,16 +558,16 @@
 "Size" = "大小";
 
 /*No comment provided by engineer.*/
-"Skipped" = "Skipped";
+"Skipped" = "忽略的";
 
 /*No comment provided by engineer.*/
-"Small" = "小的";
+"Small" = "小";
 
 /*No comment provided by engineer.*/
-"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "一些應用程序（例如Finder或Preview）使用的應用程序使用標準選項卡，其作用為獨立窗口。Web瀏覽器（例如Web瀏覽器）的其他一些應用程序使用自定義標籤，這些標籤以獨特的方式起作用，而不是實際的窗口。AltTab無法單獨列出這些內容。";
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "一些應用程式，例如 Finder 或 預覽程式，使用標籤頁作為獨立視窗。一些網頁瀏覽器使用自行實作的標籤頁，這些標籤頁以特殊的方式運作，而非實際的視窗。AltTab 無法單獨列出這些內容。";
 
 /*No comment provided by engineer.*/
-"Source code repository" = "原始碼儲存庫";
+"Source code repository" = "軟體原始碼";
 
 /*No comment provided by engineer.*/
 "Space" = "空間";
@@ -579,7 +579,7 @@
 "Start" = "開頭";
 
 /*No comment provided by engineer.*/
-"Start at login" = "從登錄開始";
+"Start at login" = "在登入時啟動";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "在登入時啟動：";
@@ -588,16 +588,16 @@
 "Support this project ❤️" = "支持這個專案 ❤️";
 
 /*No comment provided by engineer.*/
-"Switch between 3 different styles. You can customize them." = "在3種不同樣式之間切換。您可以自定義它們。";
+"Switch between 3 different styles. You can customize them." = "在 3 種不同樣式之間切換。您可以客製化它們。";
 
 /*No comment provided by engineer.*/
 "System" = "系統";
 
 /*No comment provided by engineer.*/
-"System Default" = "System Default";
+"System Default" = "系統預設";
 
 /*No comment provided by engineer.*/
-"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+"The application needs to restart to apply the language change." = "應用程式需要重新啟動來套用語言設定。";
 
 /*No comment provided by engineer.*/
 "Theme" = "主題";
@@ -612,13 +612,13 @@
 "This permission is needed to focus windows after you release the shortcut" = "需要取得此權限，才能在放開快速鍵後聚焦視窗";
 
 /*No comment provided by engineer.*/
-"This permission is needed to show screenshots and titles of open windows" = "需要取得此權限，才能顯示打開視窗的截圖與標題資訊";
+"This permission is needed to show screenshots and titles of open windows" = "需要取得此權限，才能顯示已開啟視窗的截圖與標題資訊";
 
 /*No comment provided by engineer.*/
-"Thumbnails" = "縮略圖";
+"Thumbnails" = "縮圖";
 
 /*No comment provided by engineer.*/
-"Title" = "Title";
+"Title" = "標題";
 
 /*No comment provided by engineer.*/
 "Title truncation" = "標題截斷";
@@ -639,28 +639,28 @@
 "Updates policy:" = "更新策略：";
 
 /*No comment provided by engineer.*/
-"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
+"Use the app without this permission. Thumbnails won’t show." = "繼續使用但不授權這個權限。將不會顯示縮圖。";
 
 /*No comment provided by engineer.*/
 "Version" = "版本";
 
 /*No comment provided by engineer.*/
-"View existing discussions" = "觀看目前的討論";
+"View existing discussions" = "查看目前的討論";
 
 /*No comment provided by engineer.*/
-"Vim keys" = "Vim 快捷鍵";
+"Vim keys" = "Vim 快速鍵";
 
 /*No comment provided by engineer.*/
-"Vim keys already assigned to other actions:\n%@" = "Vim keys 已經被其它操作佔用：\n%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim 快速鍵已經被其它操作佔用：\n%@";
 
 /*No comment provided by engineer.*/
-"Visibility" = "可見性";
+"Visibility" = "能見度";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "可見空間";
 
 /*No comment provided by engineer.*/
-"When fullscreen" = "全屏時";
+"When fullscreen" = "全螢幕時";
 
 /*No comment provided by engineer.*/
 "When no open window" = "當沒有開啟的視窗時";
@@ -672,7 +672,7 @@
 "Window app icon size:" = "視窗圖示的大小：";
 
 /*No comment provided by engineer.*/
-"Window is fullscreen" = "視窗已全屏";
+"Window is fullscreen" = "視窗已全螢幕";
 
 /*No comment provided by engineer.*/
 "Window is minimized" = "視窗已最小化";
@@ -693,7 +693,7 @@
 "Window order:" = "視窗排序方式：";
 
 /*No comment provided by engineer.*/
-"Window Title" = "窗口標題";
+"Window Title" = "視窗標題";
 
 /*No comment provided by engineer.*/
 "Window title font size:" = "視窗標題的字體大小：";
@@ -702,7 +702,7 @@
 "Window title truncation:" = "視窗標題截斷：";
 
 /*No comment provided by engineer.*/
-"Windows" = "窗口";
+"Windows" = "視窗";
 
 /*No comment provided by engineer.*/
 "You can’t undo this action." = "您無法復原此操作。";

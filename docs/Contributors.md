@@ -126,6 +126,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jisan
 * Joao Vitor Casarin
 * Jord Nijhuis
+* Jui Yuan Liu
 * Jules Beckers
 * Julian Nowaczyk
 * Julio
