@@ -442,8 +442,6 @@ class Preferences {
 private protocol AvoidDeprecationWarnings {
     static func migrateLoginItem()
 }
-
-// workaround to silence compiler warning
 extension Preferences: AvoidDeprecationWarnings {
 }
 

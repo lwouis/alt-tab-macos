@@ -1,6 +1,23 @@
 import Cocoa
 
 class GeneralTab {
+    // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
+    // docs: man launchd.plist
+    private static let launchAgentPlist: NSDictionary = [
+        "Label": App.id,
+        "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
+        "RunAtLoad": true,
+        "LimitLoadToSessionType": "Aqua",
+        // starting from macOS 13, AssociatedBundleIdentifiers is required, otherwise the UI in
+        // System Settings > General > Login Items, will show "Louis Pontoise" instead of "AltTab.app"
+        "AssociatedBundleIdentifiers": App.id,
+        // "ProcessType: If left unspecified, the system will apply light resource limits to the job,
+        //               throttling its CPU usage and I/O bandwidth"
+        "ProcessType": "Interactive",
+        // "LegacyTimers": If this key is set to true, timers created by the job will opt into less
+        //                 efficient but more precise behavior and not be coalesced with other timers.
+        "LegacyTimers": true,
+    ]
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
 
     static func initTab() -> NSView {
@@ -66,6 +83,13 @@ class GeneralTab {
 
     /// add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
     static func startAtLoginCallback(_ sender: NSControl) {
+        let sender = sender as! Switch
+        // if the user has added AltTab manually as a LoginItem, we remove it, and add AltTab as a LaunchAgent
+        // LaunchAgent are the recommended method for open-at-login in recent versions of macos
+        if (GeneralTab.self as AvoidDeprecationWarnings.Type).removeLoginItemIfPresent() && sender.state == .off {
+            sender.state = .on
+            LabelAndControl.controlWasChanged(sender, sender.identifier!.rawValue)
+        }
         var launchAgentsPath = (try? FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)) ?? URL.init(fileURLWithPath: "~/Library", isDirectory: true)
         launchAgentsPath.appendPathComponent("LaunchAgents", isDirectory: true)
         if !FileManager.default.fileExists(atPath: launchAgentsPath.path) {
@@ -76,32 +100,37 @@ class GeneralTab {
             }
         }
         launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
-        if (sender as! Switch).state == .on {
-            // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
-            // docs: man launchd.plist
-            let plist: NSDictionary = [
-                "Label": App.id,
-                "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
-                "RunAtLoad": true,
-                "LimitLoadToSessionType": "Aqua",
-                // starting from macOS 13, AssociatedBundleIdentifiers is required, otherwise the UI in
-                // System Settings > General > Login Items, will show "Louis Pontoise" instead of "AltTab.app"
-                "AssociatedBundleIdentifiers": App.id,
-                // "ProcessType: If left unspecified, the system will apply light resource limits to the job,
-                //               throttling its CPU usage and I/O bandwidth"
-                "ProcessType": "Interactive",
-                // "LegacyTimers": If this key is set to true, timers created by the job will opt into less
-                //                 efficient but more precise behavior and not be coalesced with other timers.
-                "LegacyTimers": true,
-            ]
-            plist.write(to: launchAgentsPath, atomically: true)
+        if sender.state == .on {
+            launchAgentPlist.write(to: launchAgentsPath, atomically: true)
+            Logger.debug(launchAgentsPath.absoluteString + " written")
         } else {
-            do {
-                try FileManager.default.removeItem(at: launchAgentsPath)
-            } catch let error {
-                Logger.error("Failed to remove LaunchAgent", error)
+            if FileManager.default.fileExists(atPath: launchAgentsPath.path) {
+                do {
+                    try FileManager.default.removeItem(at: launchAgentsPath)
+                    Logger.debug(launchAgentsPath.absoluteString + " deleted")
+                } catch let error {
+                    Logger.error("Failed to remove LaunchAgent", error)
+                }
             }
         }
+    }
+
+    @available(OSX, deprecated: 10.11)
+    static func removeLoginItemIfPresent() -> Bool {
+        var removed = false
+        if let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil)?.takeRetainedValue(),
+           let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil)?.takeRetainedValue() as? [LSSharedFileListItem] {
+            let appUrl = URL(fileURLWithPath: Bundle.main.bundlePath)
+            for item in loginItemsSnapshot {
+                let itemUrl = LSSharedFileListItemCopyResolvedURL(item, 0, nil)?.takeRetainedValue() as? URL
+                // example: itemUrl="file:///Applications/AltTab.app/"; lastPathComponent="AltTab.app"
+                if (itemUrl?.lastPathComponent == appUrl.lastPathComponent) {
+                    LSSharedFileListItemRemove(loginItems, item)
+                    removed = true
+                }
+            }
+        }
+        return removed
     }
 
     static func setLanguageCallback(_ sender: NSControl) {
@@ -122,4 +151,10 @@ class GeneralTab {
             App.app.restart()
         }
     }
+}
+
+private protocol AvoidDeprecationWarnings {
+    static func removeLoginItemIfPresent() -> Bool
+}
+extension GeneralTab: AvoidDeprecationWarnings {
 }
