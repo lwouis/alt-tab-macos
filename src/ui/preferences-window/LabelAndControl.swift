@@ -115,7 +115,7 @@ class LabelAndControl: NSObject {
         return views
     }
 
-    static func makeSwitch(_ rawName: String, extraAction: ActionClosure? = nil) -> NSControl {
+    static func makeSwitch(_ rawName: String, extraAction: ActionClosure? = nil) -> Switch {
         let button = Switch(UserDefaults.standard.bool(rawName))
         _ = setupControl(button, rawName, extraAction: extraAction)
         return button

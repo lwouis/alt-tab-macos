@@ -50,7 +50,6 @@ class Menubar {
         statusItem.target = self
         statusItem.button!.action = #selector(statusItemOnClick)
         statusItem.button!.sendAction(on: [.leftMouseDown, .rightMouseDown])
-        menubarIconCallback(nil)
     }
 
     // NSMenuItem.isHidden isn't reliable with custom views. We add/remove to hide/show these items
@@ -75,29 +74,23 @@ class Menubar {
     }
 
     static func menubarIconCallback(_: NSControl?) {
-        if Preferences.menubarIcon == .hidden {
-            statusItem.isVisible = false
-        } else {
+        if Preferences.menubarIconShown {
             loadPreferredIcon()
+        } else {
+            statusItem.isVisible = false
+        }
+        if let menubarIconDropdown = GeneralTab.menubarIconDropdown {
+            menubarIconDropdown.isEnabled = Preferences.menubarIconShown
         }
     }
 
     static private func loadPreferredIcon() {
-        let i = imageIndexFromPreference()
-        let image = NSImage(named: "menubar-" + i)!
-        image.isTemplate = i == "3" ? false : true
+        let i = Preferences.menubarIcon.indexAsString
+        let image = NSImage(named: "menubar-\(i)")!
+        image.isTemplate = i != "2"
         statusItem.button!.image = image
         statusItem.isVisible = true
         statusItem.button!.imageScaling = .scaleProportionallyUpOrDown
-    }
-
-    static private func imageIndexFromPreference() -> String {
-        switch Preferences.menubarIcon {
-            case .outlined: return "1"
-            case .filled: return "2"
-            case .colored: return "3"
-            default: return "4"
-        }
     }
 }
 

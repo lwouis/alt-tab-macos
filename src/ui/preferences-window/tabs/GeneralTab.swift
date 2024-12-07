@@ -18,31 +18,37 @@ class GeneralTab {
         //                 efficient but more precise behavior and not be coalesced with other timers.
         "LegacyTimers": true,
     ]
+    static var menubarIconDropdown: NSPopUpButton?
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
 
     static func initTab() -> NSView {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
                 rightViews: [LabelAndControl.makeSwitch("startAtLogin", extraAction: startAtLoginCallback)])
+        menubarIconDropdown = LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
+        let menuIconShownToggle = LabelAndControl.makeSwitch("menubarIconShown", extraAction: Menubar.menubarIconCallback)
         let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)])
+                rightViews: [
+                    menubarIconDropdown!,
+                    menuIconShownToggle,
+                ])
         let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
                 rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
         let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
         if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
-        let menubarIconDropdown = menubarIcon.rightViews[0] as! NSPopUpButton
-        for i in 0...2 {
-            let image = NSImage.initCopy("menubar-" + String(i + 1))
+        for i in 0..<MenubarIconPreference.allCases.count {
+            let image = NSImage.initCopy("menubar-\(i)")
             image.isTemplate = i < 2
-            menubarIconDropdown.item(at: i)!.image = image
+            menubarIconDropdown!.item(at: i)!.image = image
         }
-        menubarIconDropdown.item(at: 3)!.image = NSImage(size: NSSize(width: 1, height: menubarIconDropdown.item(at: 0)!.image!.size.height))
-        let cell = menubarIconDropdown.cell! as! NSPopUpButtonCell
+        let cell = menubarIconDropdown!.cell! as! NSPopUpButtonCell
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
 
         startAtLoginCallback(startAtLogin.rightViews[0] as! NSControl)
-        enableDraggingOffMenubarIcon(menubarIconDropdown)
+
+        Menubar.menubarIconCallback(nil)
+        enableDraggingOffMenubarIcon(menuIconShownToggle)
 
         let table = TableGroupView(width: PreferencesWindow.width)
         table.addRow(startAtLogin)
@@ -56,13 +62,12 @@ class GeneralTab {
         return view
     }
 
-    private static func enableDraggingOffMenubarIcon(_ menubarIconDropdown: NSPopUpButton) {
+    private static func enableDraggingOffMenubarIcon(_ menuIconShownToggle: Switch) {
         Menubar.statusItem.behavior = .removalAllowed
         menubarIsVisibleObserver = Menubar.statusItem.observe(\.isVisible, options: [.old, .new]) { _, change in
             if change.oldValue == true && change.newValue == false {
-                let hiddenIndex = MenubarIconPreference.hidden.index
-                menubarIconDropdown.selectItem(at: hiddenIndex)
-                LabelAndControl.controlWasChanged(menubarIconDropdown, "menubarIcon")
+                menuIconShownToggle.state = .off
+                LabelAndControl.controlWasChanged(menuIconShownToggle, nil)
             }
         }
     }

@@ -80,6 +80,7 @@ class Preferences {
         "hideStatusIcons": "false",
         "startAtLogin": "true",
         "menubarIcon": MenubarIconPreference.outlined.indexAsString,
+        "menubarIconShown": "true",
         "language": LanguagePreference.systemDefault.indexAsString,
         "blacklist": defaultBlacklist(),
         "updatePolicy": UpdatePolicyPreference.autoCheck.indexAsString,
@@ -156,6 +157,7 @@ class Preferences {
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4", "windowOrder5"].map { UserDefaults.standard.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4", "shortcutStyle5"].map { UserDefaults.standard.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { UserDefaults.standard.macroPref("menubarIcon", MenubarIconPreference.allCases) }
+    static var menubarIconShown: Bool { UserDefaults.standard.bool("menubarIconShown") }
     static var language: LanguagePreference { UserDefaults.standard.macroPref("language", LanguagePreference.allCases) }
 
     static func initialize() {
@@ -199,42 +201,57 @@ class Preferences {
 
     static func migratePreferences() {
         let preferencesKey = "preferencesVersion"
-        if let diskVersion = UserDefaults.standard.string(forKey: preferencesKey) {
-            if diskVersion.compare(App.version, options: .numeric) == .orderedAscending {
-                updateToNewPreferences(diskVersion)
+        if let versionInPlist = UserDefaults.standard.string(forKey: preferencesKey) {
+            if versionInPlist.compare(App.version, options: .numeric) != .orderedDescending {
+                updateToNewPreferences(versionInPlist)
             }
         }
         UserDefaults.standard.set(App.version, forKey: preferencesKey)
     }
 
-    private static func updateToNewPreferences(_ currentVersion: String) {
-        if currentVersion.compare("6.72.0", options: .numeric) != .orderedDescending {
-            migratePreferencesIndexes()
-            if currentVersion.compare("6.42.0", options: .numeric) != .orderedDescending {
-                migrateBlacklists()
-                if currentVersion.compare("6.28.1", options: .numeric) != .orderedDescending {
-                    migrateMinMaxWindowsWidthInRow()
-                    if currentVersion.compare("6.27.1", options: .numeric) != .orderedDescending {
-                        // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                        (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
-                        if currentVersion.compare("6.23.0", options: .numeric) != .orderedDescending {
-                            // "Show windows from:" got the "Active Space" option removed
-                            migrateShowWindowsFrom()
-                            if currentVersion.compare("6.18.1", options: .numeric) != .orderedDescending {
-                                // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                                migrateNextWindowShortcuts()
-                                // dropdowns preferences used to store English text; now they store indexes
-                                migrateDropdownsFromTextToIndexes()
-                                // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                                migrateMenubarIconFromCheckboxToDropdown()
-                                // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                                migrateShowWindowsCheckboxToDropdown()
-                                // "Max size on screen" was split into max width and max height
-                                migrateMaxSizeOnScreenToWidthAndHeight()
+    private static func updateToNewPreferences(_ versionInPlist: String) {
+        // x.compare(y) is .orderedDescending if x > y
+        if versionInPlist.compare("7.8.0", options: .numeric) != .orderedDescending {
+            migrateMenubarIconWithNewShownToggle()
+            if versionInPlist.compare("7.0.0", options: .numeric) != .orderedDescending {
+                migratePreferencesIndexes()
+                if versionInPlist.compare("6.43.0", options: .numeric) != .orderedDescending {
+                    migrateBlacklists()
+                    if versionInPlist.compare("6.28.1", options: .numeric) != .orderedDescending {
+                        migrateMinMaxWindowsWidthInRow()
+                        if versionInPlist.compare("6.27.1", options: .numeric) != .orderedDescending {
+                            // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                            (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
+                            if versionInPlist.compare("6.23.0", options: .numeric) != .orderedDescending {
+                                // "Show windows from:" got the "Active Space" option removed
+                                migrateShowWindowsFrom()
+                                if versionInPlist.compare("6.18.1", options: .numeric) != .orderedDescending {
+                                    // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                                    migrateNextWindowShortcuts()
+                                    // dropdowns preferences used to store English text; now they store indexes
+                                    migrateDropdownsFromTextToIndexes()
+                                    // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                                    migrateMenubarIconFromCheckboxToDropdown()
+                                    // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                                    migrateShowWindowsCheckboxToDropdown()
+                                    // "Max size on screen" was split into max width and max height
+                                    migrateMaxSizeOnScreenToWidthAndHeight()
+                                }
                             }
                         }
                     }
                 }
+            }
+        }
+    }
+
+    // we added the new menubarIconShown toggle. It replaces menubarIcon having value "3" which would hide the icon
+    // there are now 2 preferences : menubarIconShown is a boolean, and menubarIcon has values 0, 1, 2
+    private static func migrateMenubarIconWithNewShownToggle() {
+        if let old = UserDefaults.standard.string(forKey: "menubarIcon") {
+            if old == "3" {
+                UserDefaults.standard.set("0", forKey: "menubarIcon")
+                UserDefaults.standard.set("false", forKey: "menubarIconShown")
             }
         }
     }
@@ -484,7 +501,6 @@ enum MenubarIconPreference: CaseIterable, MacroPreference {
     case outlined
     case filled
     case colored
-    case hidden
 
     var localizedString: LocalizedString {
         switch self {
@@ -492,7 +508,6 @@ enum MenubarIconPreference: CaseIterable, MacroPreference {
             case .outlined: return " "
             case .filled: return " "
             case .colored: return " "
-            case .hidden: return " "
         }
     }
 }
