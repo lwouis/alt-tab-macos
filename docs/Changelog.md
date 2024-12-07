@@ -1,5 +1,13 @@
 # Release notes
 
+# [7.9.0](https://github.com/lwouis/alt-tab-macos/compare/v7.8.0...v7.9.0) (2024-12-07)
+
+
+### Features
+
+* improve catalan and taiwanese localizations ([bf3a4dc](https://github.com/lwouis/alt-tab-macos/commit/bf3a4dc))
+* try to avoid launching multiple instances at login (closes [#1840](https://github.com/lwouis/alt-tab-macos/issues/1840)) ([e4cfd85](https://github.com/lwouis/alt-tab-macos/commit/e4cfd85))
+
 # [7.8.0](https://github.com/lwouis/alt-tab-macos/compare/v7.7.0...v7.8.0) (2024-12-06)
 
 
