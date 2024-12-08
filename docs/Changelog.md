@@ -1,5 +1,13 @@
 # Release notes
 
+# [7.10.0](https://github.com/lwouis/alt-tab-macos/compare/v7.9.0...v7.10.0) (2024-12-08)
+
+
+### Features
+
+* improve catalan localization ([7e199f6](https://github.com/lwouis/alt-tab-macos/commit/7e199f6))
+* make it more clear how to hide the menubar icon (closes [#503](https://github.com/lwouis/alt-tab-macos/issues/503)) ([9ca0649](https://github.com/lwouis/alt-tab-macos/commit/9ca0649))
+
 # [7.9.0](https://github.com/lwouis/alt-tab-macos/compare/v7.8.0...v7.9.0) (2024-12-07)
 
 
