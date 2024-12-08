@@ -15,7 +15,7 @@ class Preferences {
         "nextWindowShortcut3": "",
         "nextWindowShortcut4": "",
         "nextWindowShortcut5": "",
-        "gesture": GesturePreference.threeFingerSwipe.indexAsString,
+        "gesture": GesturePreference.none.indexAsString,
         "focusWindowShortcut": "Space",
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
