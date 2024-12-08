@@ -99,9 +99,13 @@ class ControlsTab {
             Popover.shared.show(event: event, positioningView: view, message: label, extraView: button)
         })
         let gesture = LabelAndControl.makeDropdown("nextWindowGesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
+        
         let gestureWithTooltip = StackView([infoBtn, gesture], .horizontal)
         gestureWithTooltip.spacing = 8
         gestureWithTooltip.alignment = .centerY
+        gestureWithTooltip.constraints.forEach { if $0.firstAttribute == .height { $0.isActive = false } }
+        gestureWithTooltip.heightAnchor.constraint(equalToConstant: 21).isActive = true
+        
         return controlTab(index, [gestureWithTooltip])
     }
 
