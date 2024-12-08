@@ -222,8 +222,8 @@ class ThumbnailsView: NSVisualEffectView {
     private func shiftRow(_ maxX: CGFloat, _ rowWidth: CGFloat, _ rowStartIndex: Int, _ index: Int) {
         let offset = ((maxX - rowWidth) / 2).rounded()
         if offset > 0 {
-            (rowStartIndex..<index).forEach {
-                ThumbnailsView.recycledViews[$0].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
+            for i in rowStartIndex..<index {
+                ThumbnailsView.recycledViews[i].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
             }
         }
     }
