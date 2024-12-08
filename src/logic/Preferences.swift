@@ -15,7 +15,7 @@ class Preferences {
         "nextWindowShortcut3": "",
         "nextWindowShortcut4": "",
         "nextWindowShortcut5": "",
-        "gesture": GesturePreference.none.indexAsString,
+        "nextWindowGesture": GesturePreference.none.indexAsString,
         "focusWindowShortcut": "Space",
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
@@ -115,6 +115,7 @@ class Preferences {
     // persisted values
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3", "holdShortcut4", "holdShortcut5"].map { UserDefaults.standard.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3", "nextWindowShortcut4", "nextWindowShortcut5"].map { UserDefaults.standard.string($0) } }
+    static var nextWindowGesture: GesturePreference { UserDefaults.standard.macroPref("nextWindowGesture", GesturePreference.allCases) }
     static var focusWindowShortcut: String { UserDefaults.standard.string("focusWindowShortcut") }
     static var previousWindowShortcut: String { UserDefaults.standard.string("previousWindowShortcut") }
     static var cancelShortcut: String { UserDefaults.standard.string("cancelShortcut") }
@@ -168,7 +169,6 @@ class Preferences {
     static var menubarIcon: MenubarIconPreference { UserDefaults.standard.macroPref("menubarIcon", MenubarIconPreference.allCases) }
     static var menubarIconShown: Bool { UserDefaults.standard.bool("menubarIconShown") }
     static var language: LanguagePreference { UserDefaults.standard.macroPref("language", LanguagePreference.allCases) }
-    static var gesture: GesturePreference { UserDefaults.standard.macroPref("gesture", GesturePreference.allCases) }
 
     static func initialize() {
         removeCorruptedPreferences()

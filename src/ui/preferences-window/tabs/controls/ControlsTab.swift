@@ -94,7 +94,7 @@ class ControlsTab {
     }
 
     private static func gestureTab(_ index: Int) -> ([NSView], TableGroupView) {
-        let gesture = LabelAndControl.makeDropdown("gesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
+        let gesture = LabelAndControl.makeDropdown("nextWindowGesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
         
         let infoBtn = NSButton(frame: NSRect(x: 0, y: 0, width: 16, height: 16))
         if #available(macOS 11.0, *) {
