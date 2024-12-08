@@ -284,7 +284,6 @@ class Windows {
         Windows.list.forEach { (window: Window) in
             refreshIfWindowShouldBeShownToTheUser(window, screen)
         }
-
         if Preferences.onlyShowApplications() {
             // Group windows by application and select the optimal main window
             let windowsGroupedByApp = Dictionary(grouping: Windows.list) { $0.application.pid }
@@ -345,7 +344,7 @@ class Windows {
             return true
         }
 
-        return sortedWindows.first
+        return sortedWindows.first { $0.shouldShowTheUser }
     }
 }
 
