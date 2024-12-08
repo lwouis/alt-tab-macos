@@ -167,6 +167,9 @@
 "Dark" = "Dark";
 
 /* No comment provided by engineer. */
+"Disabled" = "Disabled";
+
+/* No comment provided by engineer. */
 "Do nothing" = "Do nothing";
 
 /* No comment provided by engineer. */
@@ -192,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "General" = "General";
+
+/* No comment provided by engineer. */
+"Gesture" = "Gesture";
 
 /* Menubar callout button */
 "Grant permission" = "Grant permission";
@@ -288,6 +294,9 @@
 
 /* No comment provided by engineer. */
 "Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+
+/* No comment provided by engineer. */
+"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 
 /* No comment provided by engineer. */
 "Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
@@ -474,6 +483,15 @@
 
 /* Menubar option */
 "Support this project ❤️" = "Support this project ❤️";
+
+/* No comment provided by engineer. */
+"Swipe may conflict with system shortcuts" = "Swipe may conflict with system shortcuts";
+
+/* No comment provided by engineer. */
+"Swipe with Four Fingers" = "Swipe with Four Fingers";
+
+/* No comment provided by engineer. */
+"Swipe with Three Fingers" = "Swipe with Three Fingers";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
