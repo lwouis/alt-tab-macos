@@ -16,6 +16,7 @@ fileprivate var extendNextXThreshold = false
 class TrackpadEvents {
     static func observe() {
         observe_()
+        TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
     }
 
     static func toggle(_ enabled: Bool) {
@@ -31,7 +32,7 @@ private func observe_() {
     eventTap = CGEvent.tapCreate(
         tap: .cghidEventTap, // we need raw data
         place: .headInsertEventTap,
-        options: .listenOnly,
+        options: .defaultTap,
         eventsOfInterest: NSEvent.EventTypeMask.gesture.rawValue,
         callback: handleEvent,
         userInfo: nil)
@@ -46,12 +47,12 @@ private func observe_() {
 private let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
     if type.rawValue == NSEvent.EventType.gesture.rawValue {
         if touchEventHandler(cgEvent) {
-            return nil
+            return nil // focused app won't receive the event
         }
     } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
-    return Unmanaged.passUnretained(cgEvent)
+    return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
 }
 
 private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {

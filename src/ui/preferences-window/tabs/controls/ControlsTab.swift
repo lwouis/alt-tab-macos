@@ -46,12 +46,11 @@ class ControlsTab {
         let (holdShortcut3, nextWindowShortcut3, tab3View) = shortcutTab(2)
         let (holdShortcut4, nextWindowShortcut4, tab4View) = shortcutTab(3)
         let (holdShortcut5, nextWindowShortcut5, tab5View) = shortcutTab(4)
-        let (gesture, tab6View) = gestureTab(5)
+        let tab6View = gestureTab(5)
         tableGroupViews = [tab1View, tab2View, tab3View, tab4View, tab5View, tab6View]
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
         [holdShortcut, holdShortcut2, holdShortcut3, holdShortcut4, holdShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3, nextWindowShortcut4, nextWindowShortcut5].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
-        [gesture].forEach { ControlsTab.gestureChangedCallback($0[0] as! NSControl) }
 
         let tabs = StackView(tableGroupViews, .vertical)
         tabs.translatesAutoresizingMaskIntoConstraints = false
@@ -93,29 +92,17 @@ class ControlsTab {
         return (holdShortcut, nextWindowShortcut, tab)
     }
 
-    private static func gestureTab(_ index: Int) -> ([NSView], TableGroupView) {
+    private static func gestureTab(_ index: Int) -> TableGroupView {
+        let label = NSLocalizedString("Swipe may conflict with system shortcuts", comment: "")
+        let button = NSButton(title: NSLocalizedString("Open Trackpad Preferences…", comment: ""), target: self, action: #selector(openSystemGestures(_:)))
+        let infoBtn = LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
+            Popover.shared.show(event: event, positioningView: view, message: label, extraView: button)
+        })
         let gesture = LabelAndControl.makeDropdown("nextWindowGesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
-        
-        let infoBtn = NSButton(frame: NSRect(x: 0, y: 0, width: 16, height: 16))
-        if #available(macOS 11.0, *) {
-            infoBtn.image = NSImage(systemSymbolName: "info.circle", accessibilityDescription: nil)
-        } else {
-            let infoImage = NSImage(named: NSImage.infoName)?
-                .copy() as? NSImage
-            infoImage?.size = NSSize(width: 18, height: 18)
-            infoBtn.image = infoImage
-        }
-        infoBtn.bezelStyle = .inline
-        infoBtn.isBordered = false
-        infoBtn.target = self
-        infoBtn.action = #selector(showGestureInfo(_:))
-        
         let gestureWithTooltip = StackView([infoBtn, gesture], .horizontal)
         gestureWithTooltip.spacing = 8
         gestureWithTooltip.alignment = .centerY
-        
-        let tab = controlTab(index, [gestureWithTooltip])
-        return ([gesture], tab)
+        return controlTab(index, [gestureWithTooltip])
     }
 
     private static func controlTab(_ index: Int, _ trigger: [NSView]) -> TableGroupView {
@@ -126,7 +113,6 @@ class ControlsTab {
         let showHiddenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showHiddenWindows", index), ShowHowPreference.allCases)
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
-        
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
 
         let table = TableGroupView(width: PreferencesWindow.width)
@@ -327,43 +313,7 @@ class ControlsTab {
     }
 
     @objc static func gestureChangedCallback(_ sender: NSControl) {
-        guard let value = LabelAndControl.getControlValue(sender, nil),
-              let intValue = Int(value),
-              intValue < GesturePreference.allCases.count else {
-            return
-        }
-        let swipe = GesturePreference.allCases[intValue]
-        switch swipe {
-            case .none: TrackpadEvents.toggle(false)
-            case .threeFingerSwipe: TrackpadEvents.toggle(true)
-            case .fourFingerSwipe: TrackpadEvents.toggle(true)
-        }
-    }
-
-    @objc private static func showGestureInfo(_ sender: NSButton) {
-        let popover = NSPopover()
-        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("Swipe may conflict with system shortcuts.\nCheck for any conflicts within System Settings > Trackpad > More Gestures.", comment: ""))
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.alignment = .center
-        
-        let container = NSView(frame: NSRect(x: 0, y: 0, width: 280, height: 0))
-        let openBtn = NSButton(title: NSLocalizedString("Open", comment: ""), target: self, action: #selector(openSystemGestures(_:)))
-        let stack = StackView([label, openBtn], .vertical)
-        stack.alignment = .centerX
-        container.addSubview(stack)
-        
-        NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
-            stack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -12),
-            stack.topAnchor.constraint(equalTo: container.topAnchor, constant: 12),
-            stack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -12)
-        ])
-        
-        popover.contentViewController = NSViewController()
-        popover.contentViewController?.view = container
-        popover.behavior = .transient
-        popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
+        TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
     }
 
     @objc private static func openSystemGestures(_ sender: NSButton) {

@@ -15,7 +15,7 @@ class Preferences {
         "nextWindowShortcut3": "",
         "nextWindowShortcut4": "",
         "nextWindowShortcut5": "",
-        "nextWindowGesture": GesturePreference.none.indexAsString,
+        "nextWindowGesture": GesturePreference.disabled.indexAsString,
         "focusWindowShortcut": "Space",
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
@@ -523,13 +523,13 @@ enum MenubarIconPreference: CaseIterable, MacroPreference {
 }
 
 enum GesturePreference: CaseIterable, MacroPreference {
-    case none
+    case disabled
     case threeFingerSwipe
     case fourFingerSwipe
 
     var localizedString: LocalizedString {
         switch self {
-            case .none: return NSLocalizedString("Disabled", comment: "")
+            case .disabled: return NSLocalizedString("Disabled", comment: "")
             case .threeFingerSwipe: return NSLocalizedString("Swipe with Three Fingers", comment: "")
             case .fourFingerSwipe: return NSLocalizedString("Swipe with Four Fingers", comment: "")
         }

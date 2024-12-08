@@ -70,11 +70,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
             SystemAppearanceEvents.observe()
             SystemScrollerStyleEvents.observe()
             Applications.initialDiscovery()
-            TrackpadEvents.observe()
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
+            TrackpadEvents.observe()
             // TODO: undeterministic; events in the queue may still be processing; good enough for now
             DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
