@@ -91,14 +91,16 @@ private func touchEventHandler(_ nsEvent: NSEvent) {
     }
 
     // handle swipes when the app is open
-    let xThreshold =
-        CYCLE_THRESHOLD
-        + (extendNextXThreshold ? CYCLE_THRESHOLD - SHOW_UI_THRESHOLD : 0)
-    if abs(displacement.x) > xThreshold {
-        let direction: Direction = displacement.x < 0 ? .left : .right
-        DispatchQueue.main.async { App.app.cycleSelection(direction, allowWrap: false) }
-        resetDisplacement(x: true, y: false)
-        extendNextXThreshold = false
+    if abs(displacement.x) > CYCLE_THRESHOLD {
+        // if extendNextXThreshold is set, extend the threshold for a right swipe to account for the show ui swipe
+        if !extendNextXThreshold || displacement.x < 0
+            || displacement.x > 2 * CYCLE_THRESHOLD - SHOW_UI_THRESHOLD
+        {
+            let direction: Direction = displacement.x < 0 ? .left : .right
+            DispatchQueue.main.async { App.app.cycleSelection(direction, allowWrap: false) }
+            resetDisplacement(x: true, y: false)
+            extendNextXThreshold = false
+        }
     }
     if abs(displacement.y) > CYCLE_THRESHOLD {
         let direction: Direction = displacement.y < 0 ? .down : .up
