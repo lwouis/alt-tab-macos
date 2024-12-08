@@ -100,12 +100,13 @@ class ControlsTab {
         })
         let gesture = LabelAndControl.makeDropdown("nextWindowGesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
         
-        let gestureWithTooltip = StackView([infoBtn, gesture], .horizontal)
+        let gestureWithTooltip = NSStackView()
+        gestureWithTooltip.orientation = .horizontal
         gestureWithTooltip.spacing = 8
         gestureWithTooltip.alignment = .centerY
-        gestureWithTooltip.constraints.forEach { if $0.firstAttribute == .height { $0.isActive = false } }
-        gestureWithTooltip.heightAnchor.constraint(equalToConstant: 21).isActive = true
-        
+        gestureWithTooltip.setViews([gesture], in: .trailing)
+        gestureWithTooltip.setViews([infoBtn], in: .leading)
+
         return controlTab(index, [gestureWithTooltip])
     }
 
