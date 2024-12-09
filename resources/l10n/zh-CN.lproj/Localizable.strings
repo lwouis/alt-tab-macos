@@ -591,7 +591,7 @@
 "Start" = "开头";
 
 /*No comment provided by engineer.*/
-"Start at login" = "从登录开始";
+"Start at login" = "开机启动";
 
 /*No comment provided by engineer.*/
 "Start at login:" = "开机启动：";

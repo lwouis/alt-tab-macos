@@ -224,6 +224,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Tomoa Nozawa
 * Tsilimpotis Dimitrios
 * Umutakkaya1996
+* User23483
 * Vadym
 * Vijayant Saini
 * Vincent Orback
