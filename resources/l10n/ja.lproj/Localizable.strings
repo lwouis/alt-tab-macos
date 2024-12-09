@@ -192,6 +192,9 @@
 "Dark" = "ダーク";
 
 /*No comment provided by engineer.*/
+"Disabled" = "Disabled";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "何もしない";
 
 /*No comment provided by engineer.*/
@@ -229,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "General" = "一般設定";
+
+/*No comment provided by engineer.*/
+"Gesture" = "Gesture";
 
 /*Menubar callout button*/
 "Grant permission" = "Grant permission";
@@ -345,6 +351,9 @@
 "Minimized windows:" = "最小化されたウィンドウ：";
 
 /*No comment provided by engineer.*/
+"Miscellaneous" = "Miscellaneous";
+
+/*No comment provided by engineer.*/
 "Miscellaneous:" = "その他：";
 
 /*No comment provided by engineer.*/
@@ -373,6 +382,9 @@
 
 /*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "画面収録の設定を開く…";
+
+/*No comment provided by engineer.*/
+"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "任意：Eメール（返信を希望する場合）";
@@ -588,6 +600,12 @@
 "Support this project ❤️" = "このプロジェクトを支援する ❤️";
 
 /*No comment provided by engineer.*/
+"Swipe with Four Fingers" = "Swipe with Four Fingers";
+
+/*No comment provided by engineer.*/
+"Swipe with Three Fingers" = "Swipe with Three Fingers";
+
+/*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "3つの異なるスタイルを切り替えます。それらをカスタマイズできます。";
 
 /*No comment provided by engineer.*/
@@ -709,3 +727,6 @@
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "ご自身のEmailを入力しなかったため、回答を受信できません。";
+
+/*No comment provided by engineer.*/
+"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

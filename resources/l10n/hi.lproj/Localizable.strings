@@ -192,6 +192,9 @@
 "Dark" = "अँधेरा";
 
 /*No comment provided by engineer.*/
+"Disabled" = "Disabled";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "कुछ मत करो";
 
 /*No comment provided by engineer.*/
@@ -229,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "General" = "सामान्य";
+
+/*No comment provided by engineer.*/
+"Gesture" = "Gesture";
 
 /*Menubar callout button*/
 "Grant permission" = "Grant permission";
@@ -345,6 +351,9 @@
 "Minimized windows:" = "छोटा किया हुआ खिड़कियाँ:";
 
 /*No comment provided by engineer.*/
+"Miscellaneous" = "Miscellaneous";
+
+/*No comment provided by engineer.*/
 "Miscellaneous:" = "विविध:";
 
 /*No comment provided by engineer.*/
@@ -373,6 +382,9 @@
 
 /*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "स्क्रीन रिकॉर्डिंग पसंद खोलें...";
+
+/*No comment provided by engineer.*/
+"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "ऐच्छिक: ईमेल (अगर आप जवाब देना चाहते हैं)";
@@ -588,6 +600,12 @@
 "Support this project ❤️" = "इस परियोजना का समर्थन करें ❤";
 
 /*No comment provided by engineer.*/
+"Swipe with Four Fingers" = "Swipe with Four Fingers";
+
+/*No comment provided by engineer.*/
+"Swipe with Three Fingers" = "Swipe with Three Fingers";
+
+/*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "3 अलग -अलग शैलियों के बीच स्विच करें।आप उन्हें अनुकूलित कर सकते हैं।";
 
 /*No comment provided by engineer.*/
@@ -709,3 +727,6 @@
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "आपने अपना ईमेल नहीं लिखा, इसलिए कोई जवाब नहीं मिल सकता ।";
+
+/*No comment provided by engineer.*/
+"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

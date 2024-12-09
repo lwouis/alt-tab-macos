@@ -192,6 +192,9 @@
 "Dark" = "深色";
 
 /*No comment provided by engineer.*/
+"Disabled" = "Disabled";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "什麼都別做";
 
 /*No comment provided by engineer.*/
@@ -229,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "General" = "一般";
+
+/*No comment provided by engineer.*/
+"Gesture" = "Gesture";
 
 /*Menubar callout button*/
 "Grant permission" = "取得權限";
@@ -345,6 +351,9 @@
 "Minimized windows:" = "最小化視窗";
 
 /*No comment provided by engineer.*/
+"Miscellaneous" = "Miscellaneous";
+
+/*No comment provided by engineer.*/
 "Miscellaneous:" = "其他設定：";
 
 /*No comment provided by engineer.*/
@@ -373,6 +382,9 @@
 
 /*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "打開螢幕錄影偏好設定⋯";
+
+/*No comment provided by engineer.*/
+"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "電子信箱（選填，如果你想要收到回覆）";
@@ -588,6 +600,12 @@
 "Support this project ❤️" = "支持這個專案 ❤️";
 
 /*No comment provided by engineer.*/
+"Swipe with Four Fingers" = "Swipe with Four Fingers";
+
+/*No comment provided by engineer.*/
+"Swipe with Three Fingers" = "Swipe with Three Fingers";
+
+/*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "在 3 種不同樣式之間切換。您可以客製化它們。";
 
 /*No comment provided by engineer.*/
@@ -709,3 +727,6 @@
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "若沒有填寫電子信箱，您將無法收到回覆";
+
+/*No comment provided by engineer.*/
+"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

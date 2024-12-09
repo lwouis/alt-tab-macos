@@ -192,6 +192,9 @@
 "Dark" = "Temno";
 
 /*No comment provided by engineer.*/
+"Disabled" = "Disabled";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Ne naredi ničesar";
 
 /*No comment provided by engineer.*/
@@ -229,6 +232,9 @@
 
 /*No comment provided by engineer.*/
 "General" = "Splošno";
+
+/*No comment provided by engineer.*/
+"Gesture" = "Gesture";
 
 /*Menubar callout button*/
 "Grant permission" = "Grant permission";
@@ -345,6 +351,9 @@
 "Minimized windows:" = "Minimized windows:";
 
 /*No comment provided by engineer.*/
+"Miscellaneous" = "Miscellaneous";
+
+/*No comment provided by engineer.*/
 "Miscellaneous:" = "Miscellaneous:";
 
 /*No comment provided by engineer.*/
@@ -373,6 +382,9 @@
 
 /*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "Nastavitve odprtega zaslona…";
+
+/*No comment provided by engineer.*/
+"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Neobvezno: email (če želiš odgovor)";
@@ -588,6 +600,12 @@
 "Support this project ❤️" = "Podprite ta projekt ❤️";
 
 /*No comment provided by engineer.*/
+"Swipe with Four Fingers" = "Swipe with Four Fingers";
+
+/*No comment provided by engineer.*/
+"Swipe with Three Fingers" = "Swipe with Three Fingers";
+
+/*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "Preklopite med 3 različnimi slogi.Jih lahko prilagodite.";
 
 /*No comment provided by engineer.*/
@@ -709,3 +727,6 @@
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Niste napisali svojega e -poštnega sporočila, zato ne morete prejeti nobenega odgovora.";
+
+/*No comment provided by engineer.*/
+"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

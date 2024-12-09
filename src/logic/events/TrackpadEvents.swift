@@ -9,7 +9,7 @@ fileprivate let CYCLE_THRESHOLD: Float = 0.04
 
 // gesture tracking state
 fileprivate var prevTouchPositions: [String: NSPoint] = [:]
-fileprivate var totalDisplacement = (x: Float(0), y: Float(0))
+fileprivate var totalDisplacement = Distance(x: 0, y: 0)
 fileprivate var extendNextXThreshold = false
 
 //TODO: underlying content scrolls if both Mission Control and App Expose use 4-finger swipes or are off in Trackpad settings. It doesn't scroll if any of them use 3-finger swipe though.
@@ -67,22 +67,36 @@ private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
     let requiredFingers = Preferences.nextWindowGesture == .fourFingerSwipe ? 4 : 3
     if touches.allSatisfy({ $0.phase == .ended }) || touches.count != requiredFingers {
         clearState()
-        if App.app.appIsBeingUsed && touches.count < requiredFingers && App.app.shortcutIndex == Preferences.gestureIndex
-            && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
-            DispatchQueue.main.async { App.app.focusTarget() }
-            return true
-        }
-        return false
+        return checkForFingersUp(touches, requiredFingers)
     }
-
+    if #available(macOS 10.13, *) {
+        // simulate mouseWheel-stopped to end potential existing scrolling started before AltTab was opened
+        // this avoid the swipe to trigger a scroll on the active window and show AltTab, at the same time
+        CGEvent(scrollWheelEvent2Source: nil, units: .pixel, wheelCount: 1, wheel1: 0, wheel2: 0, wheel3: 0)?
+                .post(tap: .cghidEventTap)
+    }
     guard let delta = calculateTouchDelta(touches) else { return false }
-    let displacement = (x: totalDisplacement.x + delta.x, y: totalDisplacement.y + delta.y)
+    let displacement = Distance(x: totalDisplacement.x + delta.x, y: totalDisplacement.y + delta.y)
     totalDisplacement = displacement
+    if let r = checkForSwipeTrigger(displacement) { return r }
+    if let r = checkForSwipeHorizontalCycling(displacement) { return r }
+    if let r = checkForSwipeVerticalCycling(displacement) { return r }
+    return false
+}
 
-    // handle showing the app initially
+private func checkForFingersUp(_ touches: Set<NSTouch>, _ requiredFingers: Int) -> Bool {
+    if App.app.appIsBeingUsed && touches.count < requiredFingers && App.app.shortcutIndex == Preferences.gestureIndex
+               && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
+        DispatchQueue.main.async { App.app.focusTarget() }
+        return true
+    }
+    return false
+}
+
+private func checkForSwipeTrigger(_ displacement: Distance) -> Bool? {
     if !App.app.appIsBeingUsed {
         if abs(displacement.x) > SHOW_UI_THRESHOLD && abs(displacement.y) < SHOW_UI_THRESHOLD {
-            resetDisplacement(x: true, y: false)
+            totalDisplacement.x = 0
             // the SHOW_UI_THRESHOLD is much less then the CYCLE_THRESHOLD
             // so for consistency when swiping, extend the threshold for the next horizontal swipe
             extendNextXThreshold = true
@@ -91,35 +105,37 @@ private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
         }
         return false
     }
-
-    // handle swipes when the app is open
-    if abs(displacement.x) > CYCLE_THRESHOLD {
-        // if extendNextXThreshold is set, extend the threshold for a right swipe to account for the show ui swipe
-        if !extendNextXThreshold || displacement.x < 0
-            || displacement.x > 2 * CYCLE_THRESHOLD - SHOW_UI_THRESHOLD
-        {
-            let direction: Direction = displacement.x < 0 ? .left : .right
-            resetDisplacement(x: true, y: false)
-            extendNextXThreshold = false
-        DispatchQueue.main.async { App.app.cycleSelection(direction, allowWrap: false) }
-        return true
-        }
-    }
-    if abs(displacement.y) > CYCLE_THRESHOLD {
-        let direction: Direction = displacement.y < 0 ? .down : .up
-        resetDisplacement(x: false, y: true)
-        DispatchQueue.main.async { App.app.cycleSelection(direction, allowWrap: false) }
-        return true
-    }
-    return false
+    return nil
 }
 
-private func calculateTouchDelta(_ touches: Set<NSTouch>) -> (x: Float, y: Float)? {
+private func checkForSwipeHorizontalCycling(_ displacement: Distance) -> Bool? {
+    if abs(displacement.x) > CYCLE_THRESHOLD {
+        // if extendNextXThreshold is set, extend the threshold for a right swipe to account for the show ui swipe
+        if !extendNextXThreshold || displacement.x < 0 || displacement.x > 2 * CYCLE_THRESHOLD - SHOW_UI_THRESHOLD {
+            totalDisplacement.x = 0
+            extendNextXThreshold = false
+            DispatchQueue.main.async { App.app.cycleSelection(displacement.x < 0 ? .left : .right, allowWrap: false) }
+            return true
+        }
+    }
+    return nil
+}
+
+private func checkForSwipeVerticalCycling(_ displacement: Distance) -> Bool? {
+    if abs(displacement.y) > CYCLE_THRESHOLD {
+        totalDisplacement.y = 0
+        DispatchQueue.main.async { App.app.cycleSelection(displacement.y < 0 ? .down : .up, allowWrap: false) }
+        return true
+    }
+    return nil
+}
+
+private func calculateTouchDelta(_ touches: Set<NSTouch>) -> Distance? {
     var allRight = true
     var allLeft = true
     var allUp = true
     var allDown = true
-    var sumDelta = (x: Float(0), y: Float(0))
+    var sumDelta = Distance(x: 0, y: 0)
     var count = 0
 
     for touch in touches {
@@ -132,9 +148,7 @@ private func calculateTouchDelta(_ touches: Set<NSTouch>) -> (x: Float, y: Float
         }
         if prevPosition == nil { continue }
 
-        let delta = (
-            x: Float(position.x - prevPosition!.x), y: Float(position.y - prevPosition!.y)
-        )
+        let delta = Distance(x: Float(position.x - prevPosition!.x), y: Float(position.y - prevPosition!.y))
 
         allRight = allRight && delta.x > 0
         allLeft = allLeft && delta.x < 0
@@ -148,21 +162,17 @@ private func calculateTouchDelta(_ touches: Set<NSTouch>) -> (x: Float, y: Float
 
     // All fingers should move in the same direction.
     if count == 0 || (!allRight && !allLeft && !allUp && !allDown) { return nil }
-    return (x: sumDelta.x / Float(count), y: sumDelta.y / Float(count))
+    return Distance(x: sumDelta.x / Float(count), y: sumDelta.y / Float(count))
 }
 
 private func clearState() {
-    prevTouchPositions.removeAll()
-    resetDisplacement()
+    prevTouchPositions.removeAll(keepingCapacity: true)
+    totalDisplacement.x = 0
+    totalDisplacement.y = 0
     extendNextXThreshold = false
 }
 
-private func resetDisplacement(x: Bool = true, y: Bool = true) {
-    if x && y {
-        totalDisplacement = (0, 0)
-    } else if x {
-        totalDisplacement.x = 0
-    } else if y {
-        totalDisplacement.y = 0
-    }
+struct Distance {
+    var x: Float
+    var y: Float
 }

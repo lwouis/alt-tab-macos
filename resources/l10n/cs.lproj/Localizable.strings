@@ -193,6 +193,9 @@
 "Dark" = "Tma";
 
 /*No comment provided by engineer.*/
+"Disabled" = "Disabled";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Nedělat nic";
 
 /*No comment provided by engineer.*/
@@ -231,6 +234,9 @@
 
 /*No comment provided by engineer.*/
 "General" = "Obecné";
+
+/*No comment provided by engineer.*/
+"Gesture" = "Gesture";
 
 /*Menubar callout button*/
 "Grant permission" = "Grant permission";
@@ -348,6 +354,9 @@
 "Minimized windows:" = "Minimalizovaná okna:";
 
 /*No comment provided by engineer.*/
+"Miscellaneous" = "Miscellaneous";
+
+/*No comment provided by engineer.*/
 "Miscellaneous:" = "Různé:";
 
 /*No comment provided by engineer.*/
@@ -376,6 +385,9 @@
 
 /*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "Otevřít Nastavení oprávnění nahrávání obrazovky";
+
+/*No comment provided by engineer.*/
+"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 
 /*No comment provided by engineer.*/
 /*Fuzzy*/
@@ -593,6 +605,12 @@
 "Support this project ❤️" = "Podpořte tento projekt ❤";
 
 /*No comment provided by engineer.*/
+"Swipe with Four Fingers" = "Swipe with Four Fingers";
+
+/*No comment provided by engineer.*/
+"Swipe with Three Fingers" = "Swipe with Three Fingers";
+
+/*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "Přepněte mezi 3 různými styly.Můžete je přizpůsobit.";
 
 /*No comment provided by engineer.*/
@@ -714,3 +732,6 @@
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Nenapsali jste váš e-mail, takže nemůžete dostat odpověď.";
+
+/*No comment provided by engineer.*/
+"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
