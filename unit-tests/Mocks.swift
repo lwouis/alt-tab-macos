@@ -13,8 +13,6 @@ class ControlsTab {
         "holdShortcut": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut", .global, .up, 0),
         "holdShortcut2": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut2", .global, .up, 1),
         "holdShortcut3": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut3", .global, .up, 2),
-        "holdShortcut4": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut4", .global, .up, 3),
-        "holdShortcut5": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut5", .global, .up, 4),
         "nextWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "⇥")!, "nextWindowShortcut", .global, .down),
         "nextWindowShortcut2": ATShortcut(Shortcut(keyEquivalent: "`")!, "nextWindowShortcut2", .global, .down),
         "→": ATShortcut(Shortcut(keyEquivalent: "→")!, "→", .local, .down),
@@ -62,7 +60,7 @@ class Logger {
 }
 
 class Preferences {
-    static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]
+    static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]
 
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))

@@ -67,7 +67,7 @@ private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
     let requiredFingers = Preferences.nextWindowGesture == .fourFingerSwipe ? 4 : 3
     if touches.allSatisfy({ $0.phase == .ended }) || touches.count != requiredFingers {
         clearState()
-        if App.app.appIsBeingUsed && touches.count < requiredFingers && App.app.shortcutIndex == 5
+        if App.app.appIsBeingUsed && touches.count < requiredFingers && App.app.shortcutIndex == Preferences.gestureIndex
             && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
             DispatchQueue.main.async { App.app.focusTarget() }
             return true
@@ -86,7 +86,7 @@ private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
             // the SHOW_UI_THRESHOLD is much less then the CYCLE_THRESHOLD
             // so for consistency when swiping, extend the threshold for the next horizontal swipe
             extendNextXThreshold = true
-            DispatchQueue.main.async { App.app.showUiOrCycleSelection(5) }
+            DispatchQueue.main.async { App.app.showUiOrCycleSelection(Preferences.gestureIndex) }
             return true
         }
         return false
