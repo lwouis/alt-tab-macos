@@ -1,5 +1,21 @@
 # Release notes
 
+# [7.11.0](https://github.com/lwouis/alt-tab-macos/compare/v7.10.0...v7.11.0) (2024-12-09)
+
+
+### Bug Fixes
+
+* always show a window in show:apps mode (closes [#3950](https://github.com/lwouis/alt-tab-macos/issues/3950)) ([ac70fcc](https://github.com/lwouis/alt-tab-macos/commit/ac70fcc))
+
+
+### Features
+
+* decrease shortcuts from 5 to 3 ([d65f220](https://github.com/lwouis/alt-tab-macos/commit/d65f220))
+* improve chinese localization ([764e0f3](https://github.com/lwouis/alt-tab-macos/commit/764e0f3))
+* improve focus in show:apps mode (closes [#3951](https://github.com/lwouis/alt-tab-macos/issues/3951)) ([cb191d6](https://github.com/lwouis/alt-tab-macos/commit/cb191d6))
+* support 3 or 4 finger swipes to use the app (closes [#730](https://github.com/lwouis/alt-tab-macos/issues/730)) ([903e758](https://github.com/lwouis/alt-tab-macos/commit/903e758))
+* switcher will now show in "show desktop" mode (closes [#783](https://github.com/lwouis/alt-tab-macos/issues/783)) ([9b85f00](https://github.com/lwouis/alt-tab-macos/commit/9b85f00))
+
 # [7.10.0](https://github.com/lwouis/alt-tab-macos/compare/v7.9.0...v7.10.0) (2024-12-08)
 
 
