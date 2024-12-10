@@ -34,6 +34,8 @@ SRModifierFlagString const SRModifierFlagStringCommand = @"⌘";
 SRModifierFlagString const SRModifierFlagStringOption = @"⌥";
 SRModifierFlagString const SRModifierFlagStringShift = @"⇧";
 SRModifierFlagString const SRModifierFlagStringControl = @"⌃";
+SRModifierFlagString const SRModifierFlagStringFunction1 = @"f";
+SRModifierFlagString const SRModifierFlagStringFunction2 = @"n";
 
 
 NSBundle *SRBundle()
@@ -95,3 +97,32 @@ NSImage *SRImage(NSString *anImageName)
 }
 
 @end
+
+
+static UInt32 cached_inHotKeyModifiers = 0;
+
+
+OSStatus interposed_RegisterEventHotKey(
+    UInt32 inHotKeyCode,
+    UInt32 inHotKeyModifiers,
+    EventHotKeyID inHotKeyID,
+    EventTargetRef inTarget,
+    OptionBits inOptions,
+    EventHotKeyRef * outRef
+) {
+    cached_inHotKeyModifiers = inHotKeyModifiers;
+    return RegisterEventHotKey(inHotKeyCode, inHotKeyModifiers, inHotKeyID, inTarget, inOptions, outRef);
+}
+
+
+CGError interposed_CGSSetHotKeyWithExclusion(int cid, void* uid, UInt16 keyEquivalent, UInt16 keyCode, UInt64 keyModifiers, int exclusion) {
+    if (cached_inHotKeyModifiers != 0) {
+        keyModifiers = SRCarbonToCocoaFlags(cached_inHotKeyModifiers);
+        cached_inHotKeyModifiers = 0;
+    }
+    return CGSSetHotKeyWithExclusion(cid, uid, keyEquivalent, keyCode, keyModifiers, exclusion);
+}
+
+
+DYLD_INTERPOSE(interposed_RegisterEventHotKey, RegisterEventHotKey)
+DYLD_INTERPOSE(interposed_CGSSetHotKeyWithExclusion, CGSSetHotKeyWithExclusion)
