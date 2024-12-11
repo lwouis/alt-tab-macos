@@ -375,6 +375,8 @@ class ThumbnailView: NSStackView {
             } else {
                 contentWidth = thumbnail.frame.size.width
             }
+        } else if Preferences.appearanceStyle == .titles {
+            contentWidth = ThumbnailView.maxThumbnailWidth(screen) - Appearance.edgeInsetsSize * 2
         } else {
             contentWidth = max(hStackView.frame.size.width, Appearance.iconSize)
         }
@@ -390,7 +392,7 @@ class ThumbnailView: NSStackView {
         } else {
             let visibleCount = [fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count
             let fontIconWidth = CGFloat(visibleCount) * (Appearance.fontHeight + Appearance.intraCellPadding)
-            let labelWidth = max(vStackView.frame.width, frame.width)
+            let labelWidth = frame.width
                     - Appearance.edgeInsetsSize * 2
                     - Appearance.iconSize
                     - Appearance.intraCellPadding - fontIconWidth
