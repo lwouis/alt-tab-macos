@@ -1,5 +1,17 @@
 # Release notes
 
+# [7.12.0](https://github.com/lwouis/alt-tab-macos/compare/v7.11.0...v7.12.0) (2024-12-11)
+
+
+### Bug Fixes
+
+* switcher could appear collapsed in titles style (closes [#3744](https://github.com/lwouis/alt-tab-macos/issues/3744)) ([60534bc](https://github.com/lwouis/alt-tab-macos/commit/60534bc))
+
+
+### Features
+
+* acknowledgments tab was slow to display (closes [#3957](https://github.com/lwouis/alt-tab-macos/issues/3957)) ([41ddd7c](https://github.com/lwouis/alt-tab-macos/commit/41ddd7c))
+
 # [7.11.0](https://github.com/lwouis/alt-tab-macos/compare/v7.10.0...v7.11.0) (2024-12-09)
 
 
