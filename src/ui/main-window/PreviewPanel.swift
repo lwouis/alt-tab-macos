@@ -3,6 +3,7 @@ import Cocoa
 class PreviewPanel: NSPanel {
     private let previewView = NSImageView()
     private let borderView = BorderView()
+    private var currentId: CGWindowID?
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.nonactivatingPanel, .titled, .fullSizeContentView], backing: .buffered, defer: false)
@@ -24,8 +25,22 @@ class PreviewPanel: NSPanel {
         setAccessibilitySubrole(.unknown)
     }
 
-    func setPreview(_ preview: NSImage) {
-        previewView.image = preview
+    func show(_ id: CGWindowID, _ preview: NSImage, _ position: CGPoint, _ size: CGSize) {
+        if id != currentId  {
+            previewView.image = preview
+            var frame = NSRect(origin: position, size: size)
+            frame.origin.y = NSScreen.preferred().frame.maxY - frame.maxY
+            setFrame(frame, display: false)
+        }
+        if id != currentId || !isVisible {
+            alphaValue = 0
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = 0.3
+                animator().alphaValue = 1
+            }
+            currentId = id
+            order(.below, relativeTo: App.app.thumbnailsPanel.windowNumber)
+        }
     }
 }
 

@@ -152,6 +152,7 @@ class Windows {
             !Preferences.onlyShowApplications(),
             App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
             let window = focusedWindow(),
+            let id = window.cgWindowId,
             let preview = window.getPreview(),
             let position = window.position,
             let size = window.size
@@ -159,11 +160,7 @@ class Windows {
             App.app.previewPanel.orderOut(nil)
             return
         }
-        App.app.previewPanel.setPreview(preview)
-        var frame = NSRect(origin: position, size: size)
-        frame.origin.y = NSScreen.preferred().frame.maxY - frame.maxY
-        App.app.previewPanel.setFrame(frame, display: false)
-        App.app.previewPanel.order(.below, relativeTo: App.app.thumbnailsPanel.windowNumber)
+        App.app.previewPanel.show(id, preview, position, size)
     }
 
     static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {
