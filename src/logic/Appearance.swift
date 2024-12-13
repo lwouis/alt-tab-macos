@@ -85,8 +85,8 @@ class Appearance {
         switch currentSize {
         case .small:
             rowsCount = isHorizontalScreen ? 5 : 8
-            iconSize = 20
-            fontHeight = 12
+            iconSize = 25
+            fontHeight = 13
         case .medium:
             rowsCount = isHorizontalScreen ? 4 : 7
             iconSize = 30
