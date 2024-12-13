@@ -11,17 +11,21 @@ class ThumbnailTitleView: BaseLabel {
         textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
         self.init(NSRect.zero, textContainer)
+
         font = Appearance.font
         textColor = Appearance.fontColor
         self.shadow = shadow
         defaultParagraphStyle = makeParagraphStyle(height)
-        heightAnchor.constraint(equalToConstant: height).isActive = true
+
+        // Set height constraint
+        let lineHeight = height + ThumbnailTitleView.extraLineSpacing(for: height)
+        heightAnchor.constraint(equalToConstant: lineHeight).isActive = true
     }
 
     private func makeParagraphStyle(_ size: CGFloat) -> NSMutableParagraphStyle {
         let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraphStyle.lineBreakMode = getTruncationMode()
-        paragraphStyle.maximumLineHeight = size
+        paragraphStyle.maximumLineHeight = size + ThumbnailTitleView.extraLineSpacing(for: size)
         paragraphStyle.minimumLineHeight = size
         paragraphStyle.allowsDefaultTighteningForTruncation = false
         return paragraphStyle
@@ -35,6 +39,33 @@ class ThumbnailTitleView: BaseLabel {
             return .byTruncatingMiddle
         }
         return .byTruncatingHead
+    }
+
+    /// Draws the text within the given dirty rectangle.
+    ///
+    /// This function is responsible for rendering the text content in the view.
+    /// It ensures that the text is properly aligned and vertically centered
+    /// within the view’s bounds. The `NSLayoutManager` is utilized to manage
+    /// the layout of the glyphs (text characters) and draw them at the
+    /// calculated position.
+    ///
+    /// - Parameter dirtyRect: The portion of the view’s bounds that needs to be updated.
+    override func draw(_ dirtyRect: NSRect) {
+        guard let textStorage = textStorage,
+              let layoutManager = textStorage.layoutManagers.first,
+              let textContainer = layoutManager.textContainers.first else {
+            return
+        }
+        textContainer.size = bounds.size
+
+        // Get the layout rectangle for the text
+        let glyphRange = layoutManager.glyphRange(for: textContainer)
+        let textBoundingRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+
+        // Calculate the vertical offset to center the text within the view's bounds
+        let yOffset = (bounds.height - textBoundingRect.height) / 2.0
+        let drawPoint = NSPoint(x: 0, y: yOffset)
+        layoutManager.drawGlyphs(forGlyphRange: glyphRange, at: drawPoint)
     }
 
     func getTitleWidth() -> CGFloat {
@@ -60,7 +91,11 @@ class ThumbnailTitleView: BaseLabel {
         return ceil(textSize.width)
     }
 
+    static func extraLineSpacing(for fontSize: CGFloat) -> CGFloat {
+        return fontSize * 0.2
+    }
+
     static func maxHeight() -> CGFloat {
-        return Appearance.fontHeight + 3
+        return Appearance.fontHeight + extraLineSpacing(for: Appearance.fontHeight)
     }
 }
