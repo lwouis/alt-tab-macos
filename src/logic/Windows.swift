@@ -161,7 +161,10 @@ class Windows {
         }
         App.app.previewPanel.setPreview(preview)
         var frame = NSRect(origin: position, size: size)
-        frame.origin.y = NSScreen.preferred().frame.maxY - frame.maxY
+        // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)
+        // Always use the primary screen as reference since all coordinates are relative to it
+        let primaryScreen = NSScreen.screens.first!
+        frame.origin.y = primaryScreen.frame.maxY - frame.maxY
         App.app.previewPanel.setFrame(frame, display: false)
         App.app.previewPanel.order(.below, relativeTo: App.app.thumbnailsPanel.windowNumber)
     }
