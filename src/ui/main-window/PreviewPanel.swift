@@ -29,7 +29,9 @@ class PreviewPanel: NSPanel {
         if id != currentId  {
             previewView.image = preview
             var frame = NSRect(origin: position, size: size)
-            frame.origin.y = NSScreen.preferred().frame.maxY - frame.maxY
+            // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)
+            // Always use the primary screen as reference since all coordinates are relative to it
+            frame.origin.y = NSScreen.screens.first!.frame.maxY - frame.maxY
             setFrame(frame, display: false)
         }
         if id != currentId || !isVisible {
