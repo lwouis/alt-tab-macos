@@ -164,6 +164,26 @@ class Windows {
         frame.origin.y = NSScreen.preferred().frame.maxY - frame.maxY
         App.app.previewPanel.setFrame(frame, display: false)
         App.app.previewPanel.order(.below, relativeTo: App.app.thumbnailsPanel.windowNumber)
+        // There is a specific z-ordering issue that occurs when using
+        // `App.app.previewPanel.order(.below, thumbnailsPanel.windowNumber)` in the following
+        // scenario:
+        // 1. Initially showing a preview of a window that is on a different monitor than the thumbnails panel
+        // 2. Then selecting a window in the switcher that is on the same monitor as the thumbnails panel,
+        //    and whose position overlaps with the thumbnails panel
+        // 3. For a single frame, the preview of the newly selected window can appear above the thumbnails panel
+        //    before going back underneath it
+        //
+        // This appears to be related to how macOS handles window z-ordering across multiple displays.
+        // Simply using order(.below) is not sufficient to prevent this brief flicker.
+        // We explicitly set the preview panel's window level to be one below the thumbnails panel
+        // as an additional measure to maintain correct z-ordering.
+        //
+        // Other attempted solutions that did not work:
+        // - App.app.thumbnailsPanel.makeKeyAndOrderFront(nil)
+        // - App.app.thumbnailsPanel.orderFrontRegardless()
+        // - Setting explicit .orderedIndex values for the preview and thumbnail panels (regardless
+        //   of what is set, they seem to always return Int.max)
+        App.app.previewPanel.level = App.app.thumbnailsPanel.level - 1
     }
 
     static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {
