@@ -243,24 +243,33 @@ class Windows {
         }
     }
 
+    /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
+    /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
+    /// with topmost windows first.
     static func sortByLevel() {
-        var windowLevelMap = [CGWindowID: Int]()
-        for (index, cgWindowId) in Spaces.windowsInSpaces([Spaces.currentSpaceId]).enumerated() {
-            windowLevelMap[cgWindowId] = index
+        // Create mapping of window ID -> z-order position from visible spaces
+        // IMPORTANT: Query across all visible spaces, otherwise with screens have separate spaces
+        // we'll only get windows from the active screen
+        let windowOrderMap = Dictionary(uniqueKeysWithValues: Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated().map { ($1, $0) })
+        
+        // Set lastFocusOrder based on z-order position or Int.max if not found
+        list.forEach {
+            if let cgWindowId = $0.cgWindowId, let order = windowOrderMap[cgWindowId] {
+                $0.lastFocusOrder = order
+            } else {
+                debugPrint("Warning: Window '\($0.title ?? "Untitled")' not found in window list. Initializing lastFocusOrder to Int.max")
+                $0.lastFocusOrder = Int.max
+            }
         }
-        var sortedTuples = Windows.list
-                .filter { $0.cgWindowId != nil }
-                .map { (windowLevelMap[$0.cgWindowId!], $0) }
-        sortedTuples.sort(by: {
-            if $0.0 == nil {
-                return false
+    
+        // Sort and ensure monotonic lastFocusOrder values
+        list = list
+            .sorted { $0.lastFocusOrder < $1.lastFocusOrder }
+            .enumerated()
+            .map { (index, window) -> Window in
+                window.lastFocusOrder = index
+                return window
             }
-            if $1.0 == nil {
-                return true
-            }
-            return $0.0! < $1.0!
-        })
-        Windows.list = sortedTuples.map { $0.1 }
     }
 
     static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int) {
