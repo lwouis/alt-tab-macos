@@ -90,10 +90,9 @@ class ThumbnailView: NSStackView {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
             thumbnailContainer = NSStackView(views: [thumbnail, windowlessIcon])
             thumbnailContainer.orientation = .vertical
-//            thumbnailContainer.alignment = .leading
-//            thumbnailContainer.distribution = .equalCentering
             vStackView.setViews([hStackView, thumbnailContainer], in: .leading)
             NSLayoutConstraint.activate([
+                label.centerYAnchor.constraint(equalTo: hStackView.centerYAnchor),
                 vStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 vStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
                 vStackView.topAnchor.constraint(equalTo: topAnchor),

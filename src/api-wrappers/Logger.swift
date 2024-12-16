@@ -13,7 +13,7 @@ class Logger {
         console.levelString.info = "INFO"
         console.levelString.warning = "WARN"
         console.levelString.error = "ERRO"
-        console.format = "$C$DHH:mm:ss$d $L$c $N.swift:$l $F $M"
+        console.format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $C$L$c $N.swift:$l $F - $M"
         console.minLevel = decideLevel()
         logger.addDestination(console)
     }
