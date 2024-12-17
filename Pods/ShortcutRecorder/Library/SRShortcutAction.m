@@ -391,6 +391,8 @@ static void *_SRShortcutActionContext = &_SRShortcutActionContext;
                 eventType = self.modifierFlags & NSEventModifierFlagShift ? SRKeyEventTypeDown : SRKeyEventTypeUp;
             else if (keyCode == kVK_Control || keyCode == kVK_RightControl)
                 eventType = self.modifierFlags & NSEventModifierFlagControl ? SRKeyEventTypeDown : SRKeyEventTypeUp;
+            else if (keyCode == kVK_Function)
+                eventType = self.modifierFlags & NSEventModifierFlagFunction ? SRKeyEventTypeDown : SRKeyEventTypeUp;
             else
                 os_trace("#Error Unexpected key code %hu for the FlagsChanged event", keyCode);
             break;
