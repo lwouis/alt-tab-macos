@@ -243,24 +243,24 @@ class Windows {
         }
     }
 
+    /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
+    /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
+    /// with topmost windows first.
     static func sortByLevel() {
-        var windowLevelMap = [CGWindowID: Int]()
-        for (index, cgWindowId) in Spaces.windowsInSpaces([Spaces.currentSpaceId]).enumerated() {
+        var windowLevelMap = [CGWindowID?: Int]()
+        for (index, cgWindowId) in Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated() {
             windowLevelMap[cgWindowId] = index
         }
-        var sortedTuples = Windows.list
-                .filter { $0.cgWindowId != nil }
-                .map { (windowLevelMap[$0.cgWindowId!], $0) }
-        sortedTuples.sort(by: {
-            if $0.0 == nil {
-                return false
+        
+        list = list
+            .sorted { w1, w2 in
+                (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
             }
-            if $1.0 == nil {
-                return true
+            .enumerated()
+            .map { (index, window) -> Window in
+                window.lastFocusOrder = index
+                return window
             }
-            return $0.0! < $1.0!
-        })
-        Windows.list = sortedTuples.map { $0.1 }
     }
 
     static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int) {
