@@ -247,23 +247,15 @@ class Windows {
     /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
     /// with topmost windows first.
     static func sortByLevel() {
-        var windowLevelMap = [CGWindowID: Int]()
+        var windowLevelMap = [CGWindowID?: Int]()
         for (index, cgWindowId) in Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated() {
             windowLevelMap[cgWindowId] = index
         }
         
-        // First set lastFocusOrder based on window level map
-        list.forEach {
-            if let cgWindowId = $0.cgWindowId {
-                $0.lastFocusOrder = windowLevelMap[cgWindowId] ?? Int.max
-            } else {
-                $0.lastFocusOrder = Int.max
-            }
-        }
-        
-        // Sort windows by lastFocusOrder and update the order to be sequential
         list = list
-            .sorted { $0.lastFocusOrder < $1.lastFocusOrder }
+            .sorted { w1, w2 in
+                (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
+            }
             .enumerated()
             .map { (index, window) -> Window in
                 window.lastFocusOrder = index
