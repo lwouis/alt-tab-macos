@@ -247,22 +247,21 @@ class Windows {
     /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
     /// with topmost windows first.
     static func sortByLevel() {
-        // Create mapping of window ID -> z-order position from visible spaces
-        // IMPORTANT: Query across all visible spaces, otherwise with screens have separate spaces
-        // we'll only get windows from the active screen
-        let windowOrderMap = Dictionary(uniqueKeysWithValues: Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated().map { ($1, $0) })
+        var windowLevelMap = [CGWindowID: Int]()
+        for (index, cgWindowId) in Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated() {
+            windowLevelMap[cgWindowId] = index
+        }
         
-        // Set lastFocusOrder based on z-order position or Int.max if not found
+        // First set lastFocusOrder based on window level map
         list.forEach {
-            if let cgWindowId = $0.cgWindowId, let order = windowOrderMap[cgWindowId] {
-                $0.lastFocusOrder = order
+            if let cgWindowId = $0.cgWindowId {
+                $0.lastFocusOrder = windowLevelMap[cgWindowId] ?? Int.max
             } else {
-                debugPrint("Warning: Window '\($0.title ?? "Untitled")' not found in window list. Initializing lastFocusOrder to Int.max")
                 $0.lastFocusOrder = Int.max
             }
         }
-    
-        // Sort and ensure monotonic lastFocusOrder values
+        
+        // Sort windows by lastFocusOrder and update the order to be sequential
         list = list
             .sorted { $0.lastFocusOrder < $1.lastFocusOrder }
             .enumerated()
