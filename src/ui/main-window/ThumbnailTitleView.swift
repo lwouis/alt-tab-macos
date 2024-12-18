@@ -41,6 +41,15 @@ class ThumbnailTitleView: BaseLabel {
         return .byTruncatingHead
     }
 
+    /// Draws the text within the given dirty rectangle.
+    ///
+    /// This function is responsible for rendering the text content in the view.
+    /// It ensures that the text is properly aligned and vertically centered
+    /// within the view’s bounds. The `NSLayoutManager` is utilized to manage
+    /// the layout of the glyphs (text characters) and draw them at the
+    /// calculated position.
+    ///
+    /// - Parameter dirtyRect: The portion of the view’s bounds that needs to be updated.
     override func draw(_ dirtyRect: NSRect) {
         guard let textStorage = textStorage,
               let layoutManager = textStorage.layoutManagers.first,
