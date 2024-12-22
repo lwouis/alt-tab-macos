@@ -2,10 +2,10 @@ import Cocoa
 
 class SpacesEvents {
     static func observe() {
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil, using: handleEvent)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(handleEvent), name: NSWorkspace.activeSpaceDidChangeNotification, object: nil)
     }
 
-    private static func handleEvent(_ notification: Notification) {
+    @objc private static func handleEvent(_ notification: Notification) {
         Logger.debug(notification.name.rawValue)
         // if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
         Spaces.refreshSpacesAndWindows()

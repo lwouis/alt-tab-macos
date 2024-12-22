@@ -258,12 +258,16 @@ class ScrollView: NSScrollView {
     }
 
     private func observeScrollingEvents() {
-        NotificationCenter.default.addObserver(forName: NSScrollView.didEndLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.isCurrentlyScrolling = false
-        }
-        NotificationCenter.default.addObserver(forName: NSScrollView.willStartLiveScrollNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.isCurrentlyScrolling = true
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(scrollingStarted), name: NSScrollView.willStartLiveScrollNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(scrollingEnded), name: NSScrollView.didEndLiveScrollNotification, object: nil)
+    }
+
+    @objc private func scrollingStarted() {
+        isCurrentlyScrolling = true
+    }
+
+    @objc private func scrollingEnded() {
+        isCurrentlyScrolling = false
     }
 
     private func resetHoveredWindow() {
