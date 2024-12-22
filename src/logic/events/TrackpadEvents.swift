@@ -95,8 +95,9 @@ private func checkForFingersUp(_ touches: Set<NSTouch>, _ requiredFingers: Int) 
 
 private func checkForSwipeTrigger(_ displacement: Distance) -> Bool? {
     if !App.app.appIsBeingUsed {
-        if abs(displacement.x) > SHOW_UI_THRESHOLD && abs(displacement.y) < SHOW_UI_THRESHOLD {
+        if abs(displacement.x) > SHOW_UI_THRESHOLD || abs(displacement.y) > SHOW_UI_THRESHOLD {
             totalDisplacement.x = 0
+            totalDisplacement.y = 0
             // the SHOW_UI_THRESHOLD is much less then the CYCLE_THRESHOLD
             // so for consistency when swiping, extend the threshold for the next horizontal swipe
             extendNextXThreshold = true
