@@ -30,5 +30,13 @@
     "lint-staged": "^13.0.0",
     "marked": "^0.8.0",
     "semantic-release": "^15.13.24"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@types/node": "^22.10.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }

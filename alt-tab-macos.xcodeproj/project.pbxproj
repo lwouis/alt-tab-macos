@@ -376,6 +376,7 @@
 		BF0C84B9B7A41E4A4534E519 /* app-icons-style-full.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app-icons-style-full.jpg"; sourceTree = "<group>"; };
 		BF0C84E11784B3B0900D0963 /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = app.icns; sourceTree = "<group>"; };
 		BF0C850C46CCD8B978168CCD /* sv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sv; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C85C20516C4210508F349 /* tsconfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tsconfig.json; sourceTree = "<group>"; };
 		BF0C861255F42BF7B23408EF /* sq */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sq; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C86370093A080DD5974D8 /* convert_svg_to_png.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = convert_svg_to_png.sh; sourceTree = "<group>"; };
 		BF0C8641C2317A67E9E8D389 /* ro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ro; path = Localizable.strings; sourceTree = "<group>"; };
@@ -455,6 +456,7 @@
 		BF0C8EAF02309B9C489E65F4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BF0C8EC400A560FDF99F8C35 /* el */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = el; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8EE17F3ABD7A6D44BFFE /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C8F0D85CC18CFF0880427 /* upload_l10n_strings_context.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.ts; path = upload_l10n_strings_context.ts; sourceTree = "<group>"; };
 		BF0C8FC083A2443F3EAF5DB7 /* preferences-blacklist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-blacklist.jpg"; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E6F409CA442F83B7BE71AD /* Pods_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1183,6 +1185,7 @@
 				1C9616522F4E58860385E090 /* .swiftformat */,
 				BF0C87320241EAE01E38EF53 /* .periphery.yml */,
 				BF0C8719351B41D268CE8B70 /* unit-tests */,
+				BF0C85C20516C4210508F349 /* tsconfig.json */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1459,6 +1462,7 @@
 				BF0C89D7F23D82A3FF442E0B /* build_app.sh */,
 				BF0C8A261AAA42191426A587 /* run_tests.sh */,
 				BF0C873357DBF7008830E73F /* xcbeautify */,
+				BF0C8F0D85CC18CFF0880427 /* upload_l10n_strings_context.ts */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
