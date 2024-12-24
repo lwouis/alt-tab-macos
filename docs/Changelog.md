@@ -1,5 +1,24 @@
 # Release notes
 
+# [7.13.0](https://github.com/lwouis/alt-tab-macos/compare/v7.12.0...v7.13.0) (2024-12-24)
+
+
+### Bug Fixes
+
+* enabling previews with multiple screens could lead to flickering ([87a2b21](https://github.com/lwouis/alt-tab-macos/commit/87a2b21))
+* prevent initial window lastFocusOrder overlaps ([d32f953](https://github.com/lwouis/alt-tab-macos/commit/d32f953))
+* previews on multiple screens could get misplaced ([2a0a858](https://github.com/lwouis/alt-tab-macos/commit/2a0a858))
+* titles could sometimes be covered when in small size ([c5e13cc](https://github.com/lwouis/alt-tab-macos/commit/c5e13cc))
+
+
+### Features
+
+* add fade-in for window previews (closes [#2456](https://github.com/lwouis/alt-tab-macos/issues/2456)) ([40c9a18](https://github.com/lwouis/alt-tab-macos/commit/40c9a18))
+* allow vertical swipes as trigger (closes [#4012](https://github.com/lwouis/alt-tab-macos/issues/4012)) ([9adf64c](https://github.com/lwouis/alt-tab-macos/commit/9adf64c))
+* improve localizations ([6d9059e](https://github.com/lwouis/alt-tab-macos/commit/6d9059e))
+* reduce disk size of localizations ([9ec2762](https://github.com/lwouis/alt-tab-macos/commit/9ec2762))
+* swiping won't wrap-around to other rows (closes [#3983](https://github.com/lwouis/alt-tab-macos/issues/3983)) ([6215b65](https://github.com/lwouis/alt-tab-macos/commit/6215b65))
+
 # [7.12.0](https://github.com/lwouis/alt-tab-macos/compare/v7.11.0...v7.12.0) (2024-12-11)
 
 
