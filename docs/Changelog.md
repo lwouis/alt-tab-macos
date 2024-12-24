@@ -1,5 +1,13 @@
 # Release notes
 
+## [7.13.1](https://github.com/lwouis/alt-tab-macos/compare/v7.13.0...v7.13.1) (2024-12-24)
+
+
+### Bug Fixes
+
+* acknowledgments tab was hard to read in dark mode (closes [#4019](https://github.com/lwouis/alt-tab-macos/issues/4019)) ([4481d94](https://github.com/lwouis/alt-tab-macos/commit/4481d94))
+* app crash from v7.13.0 (closes [#4016](https://github.com/lwouis/alt-tab-macos/issues/4016)) ([d3b5bef](https://github.com/lwouis/alt-tab-macos/commit/d3b5bef))
+
 # [7.13.0](https://github.com/lwouis/alt-tab-macos/compare/v7.12.0...v7.13.0) (2024-12-24)
 
 
