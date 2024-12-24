@@ -20,20 +20,19 @@ class ThumbnailFontIconView: ThumbnailTitleView {
     convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Appearance.fontHeight,
                      color: NSColor = Appearance.fontColor,
                      shadow: NSShadow? = ThumbnailView.makeShadow(Appearance.indicatedIconShadowColor)) {
-        self.init(size, shadow)
-        string = symbol.rawValue
         // This helps SF symbols display vertically centered and not clipped at the top
-        font = NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())!
+        self.init(size, shadow: shadow, font: NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())!)
+        stringValue = symbol.rawValue
         textColor = color
-        // This helps SF symbols not be clipped on the right
-        widthAnchor.constraint(equalToConstant: size * 1.15).isActive = true
+        widthAnchor.constraint(equalToConstant: cell!.cellSize.width).isActive = true
         toolTip = tooltip
+        fixHeight()
     }
 
     // number should be in the interval [0-50]
     func setNumber(_ number: Int, _ filled: Bool) {
         let (baseCharacter, offset) = baseCharacterAndOffset(number, filled)
-        assignIfDifferent(&string, String(UnicodeScalar(Int(baseCharacter.unicodeScalars.first!.value) + offset)!))
+        assignIfDifferent(&stringValue, String(UnicodeScalar(Int(baseCharacter.unicodeScalars.first!.value) + offset)!))
     }
 
     private func baseCharacterAndOffset(_ number: Int, _ filled: Bool) -> (String, Int) {
@@ -46,11 +45,11 @@ class ThumbnailFontIconView: ThumbnailTitleView {
     }
 
     func setStar() {
-        assignIfDifferent(&string, Symbols.circledStar.rawValue)
+        assignIfDifferent(&stringValue, Symbols.circledStar.rawValue)
     }
 
     func setFilledStar() {
-        assignIfDifferent(&string, Symbols.filledCircledStar.rawValue)
+        assignIfDifferent(&stringValue, Symbols.filledCircledStar.rawValue)
     }
 }
 

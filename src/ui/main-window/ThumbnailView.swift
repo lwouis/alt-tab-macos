@@ -8,6 +8,7 @@ class ThumbnailView: NSStackView {
     var thumbnailContainer: NSStackView!
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Appearance.fontHeight)
+    var labelConstraint: NSLayoutConstraint!
     var fullscreenIcon = ThumbnailFontIconView(symbol: .circledPlusSign, tooltip: NSLocalizedString("Window is fullscreen", comment: ""))
     var minimizedIcon = ThumbnailFontIconView(symbol: .circledMinusSign, tooltip: NSLocalizedString("Window is minimized", comment: ""))
     var hiddenIcon = ThumbnailFontIconView(symbol: .circledSlashSign, tooltip: NSLocalizedString("App is hidden", comment: ""))
@@ -21,6 +22,7 @@ class ThumbnailView: NSStackView {
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: ThumbnailView.noOpenWindowToolTip)
 
     var hStackView: NSStackView!
+    var hStackViewConstraint: NSLayoutConstraint!
     var vStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -54,6 +56,7 @@ class ThumbnailView: NSStackView {
         windowlessIcon.toolTip = ThumbnailView.noOpenWindowToolTip
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
+        label.fixHeight()
         windowControlIcons = [quitIcon, closeIcon, minimizeIcon, maximizeIcon]
         addViews()
         addDockLabelIcon()
@@ -88,6 +91,8 @@ class ThumbnailView: NSStackView {
             ])
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
+            hStackView.translatesAutoresizingMaskIntoConstraints = false
+            hStackView.distribution = .fillProportionally
             thumbnailContainer = NSStackView(views: [thumbnail, windowlessIcon])
             thumbnailContainer.orientation = .vertical
             vStackView.setViews([hStackView, thumbnailContainer], in: .leading)
@@ -226,18 +231,13 @@ class ThumbnailView: NSStackView {
 
     private func updateAppIconsLabelFrame(_ view: ThumbnailView) {
         let viewWidth = view.frame.width
-        let labelWidth = view.label.getTitleWidth()
+        let labelWidth = view.label.cell!.cellSize.width
         let maxAllowedLabelWidth = getMaxAllowedLabelWidth(view)
         let effectiveLabelWidth = max(min(labelWidth, maxAllowedLabelWidth), viewWidth)
 
         var leftOffset = CGFloat(0)
-        var rightOffset = CGFloat(0)
-
         if view.isFirstInRow && view.isLastInRow {
             leftOffset = 0
-            rightOffset = 0
-        } else if view.isFirstInRow {
-            rightOffset = max(0, effectiveLabelWidth - viewWidth)
         } else if view.isLastInRow {
             leftOffset = max(0, effectiveLabelWidth - viewWidth)
         } else if !view.isFirstInRow && !view.isLastInRow {
@@ -247,25 +247,25 @@ class ThumbnailView: NSStackView {
 
             if availableLeftWidth >= halfNeededOffset && availableRightWidth >= halfNeededOffset {
                 leftOffset = halfNeededOffset
-                rightOffset = halfNeededOffset
             } else if availableLeftWidth <= halfNeededOffset && availableRightWidth <= halfNeededOffset {
                 leftOffset = availableLeftWidth
-                rightOffset = availableRightWidth
             } else if availableRightWidth <= halfNeededOffset {
-                rightOffset = availableRightWidth
-                leftOffset = min(effectiveLabelWidth - viewWidth - rightOffset, availableLeftWidth)
+                leftOffset = min(effectiveLabelWidth - viewWidth - availableRightWidth, availableLeftWidth)
             } else if availableLeftWidth <= halfNeededOffset {
                 leftOffset = availableLeftWidth
-                rightOffset = min(effectiveLabelWidth - viewWidth - leftOffset, availableRightWidth)
             }
         }
-
-        // Bottom aligned with space
         let xPosition = -leftOffset
         let yPosition = Appearance.intraCellPadding
-        let height = ThumbnailTitleView.maxHeight()
+        let height = view.label.cell!.cellSize.height
         view.label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
-        assignIfDifferent(&view.label.textContainer!.size.width, effectiveLabelWidth)
+        if let labelConstraint = labelConstraint {
+            labelConstraint.constant = effectiveLabelWidth
+        } else {
+            labelConstraint = view.label.widthAnchor.constraint(equalToConstant: effectiveLabelWidth)
+            labelConstraint.isActive = true
+        }
+        view.label.toolTip = view.label.cell!.cellSize.width >= view.label.frame.size.width ? view.label.stringValue : nil
     }
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
@@ -294,12 +294,13 @@ class ThumbnailView: NSStackView {
             appIcon.image = element.icon
             let appIconSize = ThumbnailView.iconSize(screen)
             appIcon.image?.size = appIconSize
-            appIcon.frame.size = appIconSize
+            appIcon.widthAnchor.constraint(equalToConstant: appIconSize.width).isActive = true
+            appIcon.heightAnchor.constraint(equalToConstant: appIconSize.height).isActive = true
             appIcon.setAccessibilityLabel(title)
         }
-        let labelChanged = label.string != title
+        let labelChanged = label.stringValue != title
         if labelChanged {
-            label.string = title
+            label.stringValue = title
             // workaround: setting string on NSTextView changes the font (most likely a Cocoa bug)
             label.font = Appearance.font
             setAccessibilityLabel(title)
@@ -325,7 +326,7 @@ class ThumbnailView: NSStackView {
         if appIconChanged || dockLabelChanged {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
-        label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
+        label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Appearance.hideThumbnails)
         if element.isWindowlessApp {
             windowlessIcon.image = appIcon.image!.copy() as? NSImage
@@ -336,7 +337,13 @@ class ThumbnailView: NSStackView {
             windowlessIcon.needsDisplay = true
         }
         setFrameWidthHeight(element, screen, newHeight)
-        setLabelWidth()
+        let hStackViewWidth = frame.width - Appearance.edgeInsetsSize * 2
+        if let hStackViewConstraint = hStackViewConstraint {
+            hStackViewConstraint.constant = hStackViewWidth
+        } else {
+            hStackViewConstraint = hStackView.widthAnchor.constraint(equalToConstant: hStackViewWidth)
+            hStackViewConstraint.isActive = true
+        }
         updateWindowlessIndicator(element, screen)
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
@@ -385,20 +392,6 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&frame.size.height, newHeight)
     }
 
-    func setLabelWidth() {
-        if Preferences.appearanceStyle == .appIcons {
-            assignIfDifferent(&label.textContainer!.size.width, frame.width)
-        } else {
-            let visibleCount = [fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count
-            let fontIconWidth = CGFloat(visibleCount) * (Appearance.fontHeight + Appearance.intraCellPadding)
-            let labelWidth = frame.width
-                    - Appearance.edgeInsetsSize * 2
-                    - Appearance.iconSize
-                    - Appearance.intraCellPadding - fontIconWidth
-            assignIfDifferent(&label.textContainer!.size.width, labelWidth)
-        }
-    }
-
     func updateWindowlessIndicator(_ element: Window, _ screen: NSScreen) {
         assignIfDifferent(&windowlessAppIndicator.isHidden, !element.isWindowlessApp)
         if element.isWindowlessApp {
@@ -409,7 +402,7 @@ class ThumbnailView: NSStackView {
                 yOffset = Appearance.edgeInsetsSize
             } else if Preferences.appearanceStyle == .appIcons {
                 xOffset = (frame.size.width - windowlessAppIndicator.frame.size.width) / 2
-                yOffset = ThumbnailFontIconView.maxHeight() + 2 * Appearance.intraCellPadding + Appearance.edgeInsetsSize / 2
+                yOffset = label.cell!.cellSize.height + 2 * Appearance.intraCellPadding + Appearance.edgeInsetsSize / 2
             } else if Preferences.appearanceStyle == .titles {
                 let iconSize = ThumbnailView.iconSize(screen)
                 yOffset = Appearance.edgeInsetsSize / 2

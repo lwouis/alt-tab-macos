@@ -212,7 +212,6 @@
 		D04BA7B9421871EDBD58F4E3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABA255CD25D8724A06CD /* Localizable.strings */; };
 		D04BA7BE7F3DD24D58ACE942 /* AppearanceTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA64F1F344007EA13BA05 /* AppearanceTab.swift */; };
 		D04BA7E39FA539DD8316447A /* PermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA0726EABD146753B9EF8 /* PermissionView.swift */; };
-		D04BA7F86F1926FBE31F44BF /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA53992F116E5E704CAB3 /* BaseLabel.swift */; };
 		D04BA8092885B40CE3527370 /* PoliciesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD60C97E609A759E721E /* PoliciesTab.swift */; };
 		D04BA83AF2B1C3C5166C119F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAD58DF3FA085A45BEB50 /* InfoPlist.strings */; };
 		D04BA8480A8FF466CA89DA5B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA70746DEEC3D30B43F81 /* main.swift */; };
@@ -522,7 +521,6 @@
 		D04BA514F1C4B475B3CA6EB6 /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bash.swift; sourceTree = "<group>"; };
 		D04BA51D43775E57CE91154A /* 3 windows - 1 line - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line - wide window.jpg"; sourceTree = "<group>"; };
 		D04BA538C059434921F2A4C2 /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = InfoPlist.strings; sourceTree = "<group>"; };
-		D04BA53992F116E5E704CAB3 /* BaseLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
 		D04BA5488C8142D30E7D3EF9 /* browserconfig.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = browserconfig.xml; sourceTree = "<group>"; };
 		D04BA55D1B2C8BFF61954466 /* generate_selfsigned_certificate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_selfsigned_certificate.sh; sourceTree = "<group>"; };
 		D04BA59FD487D0DEBBA66A94 /* createicns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = createicns; sourceTree = "<group>"; };
@@ -1591,7 +1589,6 @@
 				D04BACEE8D430B8CAAD8C4CD /* BoldLabel.swift */,
 				D04BA49E45BFFF3D9FC60E43 /* HyperlinkLabel.swift */,
 				D04BA7C836A8CE8C0B8D128B /* TextArea.swift */,
-				D04BA53992F116E5E704CAB3 /* BaseLabel.swift */,
 				D04BA5BD11C365C19461458C /* TextField.swift */,
 				D04BAED1C4D6BB8E24847E79 /* TitleLabel.swift */,
 			);
@@ -2233,7 +2230,6 @@
 				D04BAB4EB890853B5B9B2C61 /* BoldLabel.swift in Sources */,
 				D04BAABE804F3769CE22BEB6 /* HyperlinkLabel.swift in Sources */,
 				D04BAD2A7F2E8BF64EE982E9 /* TextArea.swift in Sources */,
-				D04BA7F86F1926FBE31F44BF /* BaseLabel.swift in Sources */,
 				D04BA11E56383D082D7BE5A5 /* ThumbnailsView.swift in Sources */,
 				5F21C9E42C6E94700091F72F /* CustomizeStyleSheet.swift in Sources */,
 				D04BA1621718FF26F8D5E75D /* CustomRecorderControl.swift in Sources */,
