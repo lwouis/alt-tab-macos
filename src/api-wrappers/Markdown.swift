@@ -22,7 +22,8 @@ class Markdown {
         .underlineStyle: NSUnderlineStyle.single.rawValue
     ]
     private static let baseAttributes: [NSAttributedString.Key: Any] = [
-        .font: NSFont.systemFont(ofSize: 13)
+        .font: NSFont.systemFont(ofSize: 13),
+        .foregroundColor: NSColor.labelColor,
     ]
     private static let linkRegex = try! NSRegularExpression(pattern: "\\[(.*?)\\]\\((.*?)\\)")
     private static let boldRegex = try! NSRegularExpression(pattern: "\\*\\*(.*?)\\*\\*")
