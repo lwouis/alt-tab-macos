@@ -3,6 +3,7 @@
 "About" = "Hakkında";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Hakkında %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab şu anda uygulamaları gösterecek şekilde ayarlanmıştır.Bu ayar yalnızca AltTab Windows'u gösterecek şekilde ayarlandığında kullanılabilir.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Güncellemeleri periyodik olarak kontrol et";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Güncellemeleri kontrol et…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "İzinleri kontrol et…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Fare üzerindeyken renkli pencere düğmelerini gizle:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "%@ Gizle";
 
@@ -396,6 +402,7 @@
 "Policies" = "Kurallar";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Tercihler…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Çıkış";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Çık %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Geri bildirim gönder";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Geri bildirim gönder…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Aktif olduğunda kısayollar…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Göster";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Sistem açılışında çalıştır:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Projeyi destekle ❤️";
 

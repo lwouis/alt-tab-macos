@@ -3,6 +3,7 @@
 "About" = "Haqida";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "%% @";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Hozirda Altabtob dasturlarni namoyish etish uchun o'rnatiladi.Ushbu sozlama faqat AltTab derazalarni ko'rsatish uchun mavjud bo'lganda mavjud.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Vaqti-vaqti bilan yangilanishlarni tekshirish";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "yangilanishlarni tekshir";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Ruxsatnomalarni tekshirish ...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "% @";
 
@@ -396,6 +402,7 @@
 "Policies" = "Siyosat";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Afzalliklar ...";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Ketmoq";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "% @";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Fikr-mulohazalarni yuboring";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Fikr-mulohazalar yuborish ...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Faol bo'lganda yorliqlar ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Ko'rsatish";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Start at login:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Ushbu loyihani qo'llab-quvvatlang";
 

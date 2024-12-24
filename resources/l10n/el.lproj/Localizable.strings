@@ -3,6 +3,7 @@
 "About" = "Σχετικά";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Σχετικά με %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Το Alttab έχει οριστεί επί του παρόντος να εμφανίζει Εφαρμογές. Αυτή η ρύθμιση είναι διαθέσιμη μόνο όταν το alttab έχει ρυθμιστεί να εμφανίζει Παράθυρα.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Να γίνεται περιοδικός έλεγχος ενημερώσεων";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Έλεγχος για ενημερώσεις...";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Έλεγχος για δικαιώματα...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Απόκρυψη χρωματιστών κύκλων κατά την αιώρηση ποντικιού:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Απόκρυψη σε %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Πολιτικές";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Προτιμήσεις...";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Τερματισμός εφαρμογής";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Έξοδος %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Αποστολή σχολίων";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Αποστολή σχολίων...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Συντομεύσεις, όταν ενεργό…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Εμφάνιση";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Άνοιγμα κατά την είσοδο:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Υποστηρίξτε αυτό το έργο ❤️";
 

@@ -3,6 +3,7 @@
 "About" = "Tentang";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Tentang %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab saat ini diatur untuk menampilkan aplikasi.Pengaturan ini hanya tersedia saat Alttab diatur untuk menampilkan Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Periksa pembaruan secara berkala";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Periksa pembaruan…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Periksa izin…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Sembunyikan lingkaran berwarna pada mouse hover:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Bersembunyi didalam %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Kebijakan";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Preferensi…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Keluar";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Keluar %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Kirim umpan balik";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Kirim umpan balik…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Pintasan saat aktif…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Tampilkan";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Mulai saat masuk:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Dukung proyek ini ❤️";
 

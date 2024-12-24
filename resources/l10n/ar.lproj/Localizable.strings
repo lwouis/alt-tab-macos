@@ -3,6 +3,7 @@
 "About" = "حول";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "حول %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "تم تعيين Alttab حاليًا لعرض التطبيقات.هذا الإعداد متاح فقط عندما يتم تعيين Alttab لإظهار النوافذ.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "ابحث عن تحديثات بشكل دوري";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "ابحث عن تحديثات…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "تحقق من الأذونات…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "أخفاء الدوائر الملونة عند تحويم الفأرة:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "اِخفِ في %@";
 
@@ -398,6 +404,7 @@
 "Policies" = "سياسات";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "التفضيلات…";
 
 /*No comment provided by engineer.*/
@@ -413,6 +420,7 @@
 "Quit" = "إغلاق";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "خروج %@";
 
 /*No comment provided by engineer.*/
@@ -489,6 +497,7 @@
 "Send feedback" = "أرسل رأيك";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "أرسل رأيك…";
 
 /*No comment provided by engineer.*/
@@ -519,6 +528,7 @@
 "Shortcuts when active…" = "اختصارات عندما تنشط ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "إظهار";
 
 /*No comment provided by engineer.*/
@@ -599,6 +609,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "شغّل البرنامج عند الدخول:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "اِدعم هذا المشروع ❤";
 

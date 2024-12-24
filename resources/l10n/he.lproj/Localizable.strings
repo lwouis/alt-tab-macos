@@ -3,6 +3,7 @@
 "About" = "אודות";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "אודות %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab מוגדר כעת להציג יישומים.הגדרה זו זמינה רק כאשר AltTab מוגדר להצגת Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "בדוק עדכונים על בסיס קבוע";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "בדוק עדכונים";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "בדוק הרשאות…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "הסתר כפתורי רמזור גם בריחוף על חלון:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "הסתר ב%@";
 
@@ -396,6 +402,7 @@
 "Policies" = "מדיניות";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "העדפות";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "צא מהיישום";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "צא מ%@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "שלח משוב";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "שלח משוב...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "קיצורי דרך כאשר הם פעילים ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "הצג";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "התחל בהפעלת המחשב:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "תמיכה בפרויקט ❤️";
 

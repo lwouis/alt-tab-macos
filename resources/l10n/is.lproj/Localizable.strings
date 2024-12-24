@@ -3,6 +3,7 @@
 "About" = "Um";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Um %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab er nú stillt á að sýna forrit.Þessi stilling er aðeins tiltæk þegar AltTAB er stillt á að sýna Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Leita að uppfærslum reglulega";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Leita að uppfærslum";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Skoða heimildir";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Fela í %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Stefnur";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Stillingar";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Loka";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Loka %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Senda tillögur";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Senda tillögur";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Flýtileiðir þegar þær eru virkar ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Sýna";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Keyra við innskráningu:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Styrkja verkefnið ❤️";
 

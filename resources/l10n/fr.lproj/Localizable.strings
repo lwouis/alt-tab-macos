@@ -3,6 +3,7 @@
 "About" = "À propos";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "À propos de %@";
 
 /*No comment provided by engineer.*/
@@ -69,7 +70,8 @@
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab est actuellement défini pour afficher des applications.Ce paramètre n'est disponible que lorsque AlTTAB est défini pour afficher Windows.";
 
 /*Menubar callout*/
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+/*Menubar callout*/
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab est lancé sans les permissions d'enregistrement de l'écran. Les miniatures ne s'afficheront pas.";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab a besoin de permissions";
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Vérifier les mises à jour automatiquement";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Vérifier les mises à jour...";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Permissions…";
 
@@ -192,7 +196,7 @@
 "Dark" = "Sombre";
 
 /*No comment provided by engineer.*/
-"Disabled" = "Disabled";
+"Disabled" = "Desactivé";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Ne rien faire";
@@ -237,7 +241,8 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
-"Grant permission" = "Grant permission";
+/*Menubar callout button*/
+"Grant permission" = "Accorder les permissions";
 
 /*No comment provided by engineer.*/
 "Hidden windows:" = "Fenêtres masquées :";
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Masquer les cercles colorés au survol de la souris :";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Caché dans %@";
 
@@ -303,16 +309,16 @@
 "Ignore shortcuts while a window from these apps is active" = "Ignorer les raccourcis si une fenêtre de ces Apps est active";
 
 /*No comment provided by engineer.*/
-"Language" = "Language";
+"Language" = "Langue";
 
 /*No comment provided by engineer.*/
-"Language Change" = "Language Change";
+"Language Change" = "Changer la langue";
 
 /*No comment provided by engineer.*/
 "Large" = "Large";
 
 /*No comment provided by engineer.*/
-"Later" = "Later";
+"Later" = "Plus tard";
 
 /*No comment provided by engineer.*/
 "Latest releases" = "Dernières versions";
@@ -351,7 +357,7 @@
 "Minimized windows:" = "Fenêtres réduites :";
 
 /*No comment provided by engineer.*/
-"Miscellaneous" = "Miscellaneous";
+"Miscellaneous" = "Divers";
 
 /*No comment provided by engineer.*/
 "Miscellaneous:" = "Divers :";
@@ -396,6 +402,7 @@
 "Policies" = "Politiques";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Préférences…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Quitter";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Quitter %@";
 
 /*No comment provided by engineer.*/
@@ -438,7 +446,7 @@
 "Reset preferences and restart…" = "Réinitialiser les préférences et redémarrer…";
 
 /*No comment provided by engineer.*/
-"Restart Now" = "Restart Now";
+"Restart Now" = "Redémarrer maintenant";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Lignes d’aperçus :";
@@ -486,6 +494,7 @@
 "Send feedback" = "Partager un retour d’expérience";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Partager un retour d’expérience…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Raccourcis lorsqu'il est actif…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Afficher";
 
 /*No comment provided by engineer.*/
@@ -570,7 +580,7 @@
 "Size" = "Taille";
 
 /*No comment provided by engineer.*/
-"Skipped" = "Skipped";
+"Skipped" = "Passé";
 
 /*No comment provided by engineer.*/
 "Small" = "Small";
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Lancer au démarrage :";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Soutenir ce projet ❤️";
 
@@ -636,7 +647,7 @@
 "Thumbnails" = "Vignettes";
 
 /*No comment provided by engineer.*/
-"Title" = "Title";
+"Title" = "Titre";
 
 /*No comment provided by engineer.*/
 "Title truncation" = "Troncature du titre";

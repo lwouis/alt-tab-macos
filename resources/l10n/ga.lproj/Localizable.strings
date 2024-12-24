@@ -3,6 +3,7 @@
 "About" = "Maidir";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Maidir le %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Tá AltTab socraithe faoi láthair chun Feidhmchláir a thaispeáint. Níl an socrú seo ar fáil ach amháin nuair atá AltTab socraithe chun Windows a thaispeáint.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "Tá AltTab ag rith gan ceadanna Taifeadta Scáileáin. Ní thaispeánfar mionsamhlacha.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Seiceáil le haghaidh nuashonruithe go tréimhsiúil";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Seiceáil le haghaidh nuashonruithe…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Seiceáil ceadanna…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Deonaigh cead";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Folaigh ciorcail daite ar hover luiche:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Folaigh i %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Polasaithe";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Sainroghanna…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Scoir";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Scoir %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Seol aiseolas";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Seol aiseolas…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Aicearraí agus tú gníomhach…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Taispeáin";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Tosaigh ag logáil isteach:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Tacaigh leis an tionscadal seo ❤️";
 

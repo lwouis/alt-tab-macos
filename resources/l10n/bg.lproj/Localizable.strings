@@ -3,6 +3,7 @@
 "About" = "Относно";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Относно %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "В момента Alttab е настроен да показва приложения.Тази настройка е достъпна само когато Alttab е настроен да показва Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Проверявай за нови обновявания";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Провери за нови онбонвявания...";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Проверете разрешенията ...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Не показвай контроли на прозореца при преминаване с мишка";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Скрий в %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Политики";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Настройки...";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Излез";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Излез %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Изпрати обратна връзка";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Изпрати обратна връзка...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Преки пътища, когато са активни ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "покажи";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Пусни при стартиране";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Подкрепете този проект ❤";
 

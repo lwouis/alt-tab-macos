@@ -3,6 +3,7 @@
 "About" = "关于";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "关于 %@";
 
 /*No comment provided by engineer.*/
@@ -21,10 +22,10 @@
 "Active Space" = "活跃桌面";
 
 /*No comment provided by engineer.*/
-"Additional controls" = "其他控件";
+"Additional controls" = "其他控制";
 
 /*No comment provided by engineer.*/
-"Additional controls…" = "其他控件…";
+"Additional controls…" = "其他控制…";
 
 /*No comment provided by engineer.*/
 "Advanced" = "高级";
@@ -63,13 +64,14 @@
 "Also select windows using:" = "窗口选择方式：";
 
 /*No comment provided by engineer.*/
-"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用时崩溃了， 发送崩溃报告将有助于解决问题";
+"AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab 在您上次使用时崩溃了，发送崩溃报告将有助于解决问题";
 
 /*No comment provided by engineer.*/
-"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab目前设置为显示应用程序。仅当AltTab设置为显示Windows时，此设置才可用。";
+"AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab目前设置为显示应用程序。仅当AltTab设置为显示窗口时，此设置才可用。";
 
 /*Menubar callout*/
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab未获得录制屏幕权限，预览图不会展示";
+/*Menubar callout*/
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab未获得录制屏幕权限，预览图不会显示。";
 
 /*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab 需要获取一些隐私权限";
@@ -126,7 +128,7 @@
 "Applications" = "应用程序";
 
 /*No comment provided by engineer.*/
-"Are you sure you don’t want a response?" = "确定不愿意收到回复吗？";
+"Are you sure you don’t want a response?" = "您确定不需要收到回复吗？";
 
 /*No comment provided by engineer.*/
 "Arrow keys" = "方向键";
@@ -156,10 +158,12 @@
 "Check for updates periodically" = "定期检查更新";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "检查更新…";
 
 /*Menubar option*/
-"Check permissions…" = "查看许可";
+/*Menubar option*/
+"Check permissions…" = "检查权限...";
 
 /*No comment provided by engineer.*/
 "Close window" = "关闭窗口";
@@ -174,7 +178,7 @@
 "Crash reports policy" = "崩溃报告策略";
 
 /*No comment provided by engineer.*/
-"Crash reports policy:" = "崩溃报告政策：";
+"Crash reports policy:" = "崩溃报告策略：";
 
 /*No comment provided by engineer.*/
 "Cursor follows focus" = "鼠标跟随焦点";
@@ -192,7 +196,7 @@
 "Dark" = "深色";
 
 /*No comment provided by engineer.*/
-"Disabled" = "Disabled";
+"Disabled" = "禁用";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "不执行任何操作";
@@ -234,8 +238,9 @@
 "General" = "通用";
 
 /*No comment provided by engineer.*/
-"Gesture" = "Gesture";
+"Gesture" = "手势";
 
+/*Menubar callout button*/
 /*Menubar callout button*/
 "Grant permission" = "授权";
 
@@ -264,6 +269,7 @@
 "Hide colored circles on mouse hover:" = "鼠标悬停时隐藏彩色圆圈：";
 
 /*%@ is AltTab*/
+/*%@ is AltTab*/
 "Hide in %@" = "在 %@ 隐藏";
 
 /*No comment provided by engineer.*/
@@ -285,7 +291,7 @@
 "Hide/Show app" = "隐藏/显示应用";
 
 /*No comment provided by engineer.*/
-"High" = "高的";
+"High" = "高";
 
 /*No comment provided by engineer.*/
 "Highest" = "最高";
@@ -306,10 +312,10 @@
 "Language" = "语言";
 
 /*No comment provided by engineer.*/
-"Language Change" = "更换语言";
+"Language Change" = "语言更换";
 
 /*No comment provided by engineer.*/
-"Large" = "大的";
+"Large" = "大";
 
 /*No comment provided by engineer.*/
 "Later" = "稍后";
@@ -318,7 +324,7 @@
 "Latest releases" = "最新版本";
 
 /*No comment provided by engineer.*/
-"Leading" = "首位的";
+"Leading" = "前置";
 
 /*No comment provided by engineer.*/
 "Left" = "居左";
@@ -333,10 +339,10 @@
 "Max width on screen:" = "最大屏幕占用宽度：";
 
 /*No comment provided by engineer.*/
-"Medium" = "中等的";
+"Medium" = "中";
 
 /*No comment provided by engineer.*/
-"Menubar icon" = "Menubar图标";
+"Menubar icon" = "菜单栏图标";
 
 /*No comment provided by engineer.*/
 "Menubar icon:" = "菜单栏图标：";
@@ -351,7 +357,7 @@
 "Minimized windows:" = "最小化窗口：";
 
 /*No comment provided by engineer.*/
-"Miscellaneous" = "Miscellaneous";
+"Miscellaneous" = "杂项";
 
 /*No comment provided by engineer.*/
 "Miscellaneous:" = "杂项：";
@@ -366,7 +372,7 @@
 "Never send crash reports" = "从不发送崩溃报告";
 
 /*No comment provided by engineer.*/
-"Normal" = "普通";
+"Normal" = "正常";
 
 /*No comment provided by engineer.*/
 "Not allowed" = "未允许";
@@ -384,7 +390,7 @@
 "Open Screen Recording Preferences…" = "打开屏幕录制偏好设置…";
 
 /*No comment provided by engineer.*/
-"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
+"Open Trackpad Preferences…" = "打开触控板偏好设置...";
 
 /*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "电子邮箱地址 (可选，若想接收答复)";
@@ -393,9 +399,10 @@
 "Order windows by" = "窗口排序";
 
 /*No comment provided by engineer.*/
-"Policies" = "政策";
+"Policies" = "策略";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "偏好设置…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "退出";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "退出 %@";
 
 /*No comment provided by engineer.*/
@@ -420,13 +428,13 @@
 "Recently Created" = "最后创建的";
 
 /*No comment provided by engineer.*/
-"Recently Created First" = "最近创建";
+"Recently Created First" = "最近创建优先";
 
 /*No comment provided by engineer.*/
 "Recently Focused" = "最后聚焦的";
 
 /*No comment provided by engineer.*/
-"Recently Focused First" = "最近专注";
+"Recently Focused First" = "最近聚焦优先";
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "记住我的选择";
@@ -462,19 +470,19 @@
 "Select previous window" = "选择上一个窗口";
 
 /*No comment provided by engineer.*/
-"Select windows on mouse hover" = "选择鼠标悬停在鼠标上的Windows";
+"Select windows on mouse hover" = "使用鼠标悬停选择窗口";
 
 /*No comment provided by engineer.*/
-"Select windows using arrow keys" = "使用方向键选择Windows";
+"Select windows using arrow keys" = "使用方向键选择窗口";
 
 /*No comment provided by engineer.*/
-"Select windows using vim keys" = "使用VIM键选择Windows";
+"Select windows using vim keys" = "使用VIM键选择窗口";
 
 /*No comment provided by engineer.*/
 "Send" = "发送";
 
 /*No comment provided by engineer.*/
-"Send a crash report?" = "发送一个崩溃报告？";
+"Send a crash report?" = "发送一份崩溃报告？";
 
 /*No comment provided by engineer.*/
 "Send anyway" = "仍然发送";
@@ -486,6 +494,7 @@
 "Send feedback" = "发送反馈";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "发送反馈…";
 
 /*No comment provided by engineer.*/
@@ -516,13 +525,15 @@
 "Shortcuts when active…" = "活跃时的快捷键…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "显示";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Show & Hide" = "显示隐藏";
 
 /*No comment provided by engineer.*/
-"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "在每个窗口或每个应用程序的开关中显示一个项目。Windows将被聚焦，而应用程序将被激活。";
+"Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "在窗口切换器中，把每个窗口或应用程序显示为一个项目。窗口将会被聚焦，而应用程序将会被激活。";
 
 /*No comment provided by engineer.*/
 "Show at the end" = "在最后显示";
@@ -537,73 +548,75 @@
 "Show in switcher" = "在切换器中显示";
 
 /*No comment provided by engineer.*/
-"Show minimized windows" = "显示最小的窗口";
+"Show minimized windows" = "显示最小化的窗口";
 
 /*No comment provided by engineer.*/
-"Show on" = "展示";
+"Show on" = "显示在";
 
 /*No comment provided by engineer.*/
 "Show on:" = "显示在：";
 
 /*No comment provided by engineer.*/
-"Show standard tabs as windows" = "以窗口形式显示某些程序的标签页";
+"Show standard tabs as windows" = "显示标准标签页为窗口";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "以窗口形式显示某些程序的标签页：";
 
 /*No comment provided by engineer.*/
-"Show titles" = "展示标题";
+"Show titles" = "显示标题";
 
 /*No comment provided by engineer.*/
-"Show windows from applications" = "显示应用程序的窗口";
+"Show windows from applications" = "显示各应用程序的窗口";
 
 /*No comment provided by engineer.*/
-"Show windows from screens" = "从屏幕上显示窗口";
+"Show windows from screens" = "显示各屏幕的窗口";
 
 /*No comment provided by engineer.*/
-"Show windows from Spaces" = "从空间显示窗口";
+"Show windows from Spaces" = "显示各桌面的窗口";
 
 /*No comment provided by engineer.*/
 "Show windows from:" = "显示以下窗口：";
 
 /*No comment provided by engineer.*/
-"Size" = "大小";
+"Size" = "尺寸";
 
 /*No comment provided by engineer.*/
 "Skipped" = "已跳过";
 
 /*No comment provided by engineer.*/
-"Small" = "小的";
+"Small" = "小";
 
 /*No comment provided by engineer.*/
-"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "一些应用程序（例如Finder或Preview）使用的应用程序使用标准选项卡，其作用为独立窗口。Web浏览器（例如Web浏览器）的其他一些应用程序使用自定义标签，这些标签以独特的方式起作用，而不是实际的窗口。AltTab无法单独列出这些内容。";
+"Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "一些应用程序（例如“访达”或“预览”）使用标准的标签页，他们表现为独立窗口。一些其他应用（例如网页浏览器）使用自定义的标签页，他们以独特的方式表现，而不是实际的窗口。AltTab无法单独列出这些标签页。";
 
 /*No comment provided by engineer.*/
 "Source code repository" = "源代码仓库";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Space" = "空格";
 
 /*No comment provided by engineer.*/
-"Space Order" = "空间顺序";
+"Space Order" = "桌面顺序";
 
 /*No comment provided by engineer.*/
 "Start" = "开头";
 
 /*No comment provided by engineer.*/
-"Start at login" = "开机启动";
+"Start at login" = "登录时启动";
 
 /*No comment provided by engineer.*/
-"Start at login:" = "开机启动：";
+"Start at login:" = "登录时启动：";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "支持该项目 ❤️";
 
 /*No comment provided by engineer.*/
-"Swipe with Four Fingers" = "Swipe with Four Fingers";
+"Swipe with Four Fingers" = "用四指轻扫";
 
 /*No comment provided by engineer.*/
-"Swipe with Three Fingers" = "Swipe with Three Fingers";
+"Swipe with Three Fingers" = "用三指轻扫";
 
 /*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "在3种不同样式之间切换。您可以自定义它们。";
@@ -615,9 +628,10 @@
 "System Default" = "系统默认";
 
 /*No comment provided by engineer.*/
-"The application needs to restart to apply the language change." = "应用需重启以更换语言";
+"The application needs to restart to apply the language change." = "应用需要重启以更换语言。";
 
 /*No comment provided by engineer.*/
+/*Fuzzy*/
 "Theme" = "主题";
 
 /*No comment provided by engineer.*/
@@ -645,7 +659,7 @@
 "Titles" = "标题";
 
 /*No comment provided by engineer.*/
-"Trigger shortcut" = "触发快捷方式";
+"Trigger shortcut" = "触发快捷键";
 
 /*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "取消指定现有的快捷键并继续";
@@ -657,7 +671,8 @@
 "Updates policy:" = "更新方式：";
 
 /*No comment provided by engineer.*/
-"Use the app without this permission. Thumbnails won’t show." = "如果不授权此权限，预览图不会展示";
+/*Fuzzy*/
+"Use the app without this permission. Thumbnails won’t show." = "如果不授予此权限，预览图不会展示。";
 
 /*No comment provided by engineer.*/
 "Version" = "版本";
@@ -669,8 +684,7 @@
 "Vim keys" = "Vim 快捷键";
 
 /*No comment provided by engineer.*/
-/*Fuzzy*/
-"Vim keys already assigned to other actions:\n%@" = "Vim按键已绑定为：%@";
+"Vim keys already assigned to other actions:\n%@" = "Vim键已分配到其他动作：%@";
 
 /*No comment provided by engineer.*/
 "Visibility" = "可见性";
@@ -697,10 +711,10 @@
 "Window is minimized" = "窗口已最小化";
 
 /*No comment provided by engineer.*/
-"Window is on every Space" = "窗口在每一个空间";
+"Window is on every Space" = "窗口在每一个桌面";
 
 /*No comment provided by engineer.*/
-"Window is on Space %d" = "窗口在空间 %d";
+"Window is on Space %d" = "窗口在桌面 %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "每行窗口最大宽度：";
@@ -730,4 +744,4 @@
 "You didn’t write your email, thus can’t receive any response." = "您未填写电子邮箱地址，将无法收到回复。";
 
 /*No comment provided by engineer.*/
-"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
+"You may need to disable some conflicting system gestures" = "您可能需要禁用一些有冲突的系统手势";

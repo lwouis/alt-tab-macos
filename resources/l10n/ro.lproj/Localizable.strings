@@ -3,6 +3,7 @@
 "About" = "Despre";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Despre %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab este în prezent setat să arate aplicații.Această setare este disponibilă numai atunci când AltTab este setat pentru a afișa Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Verifică pentru actualizări periodic";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Verifică actualizări…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Verificați permisiunile ...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Ascunde cercurile colorate deasupra mouse-ului:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Ascunde în %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Politici";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Preferințe…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Ieșire";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Ieșire %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Trimite sugestii";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Trimite sugestii…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Comitete rapide atunci când sunt active ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Arată";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Start la autentificare:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Susțineți acest proiect ❤️";
 

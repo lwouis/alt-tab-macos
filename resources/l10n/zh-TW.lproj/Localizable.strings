@@ -3,6 +3,7 @@
 "About" = "關於";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "關於 %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab 目前設定顯示為應用程式。只有當 AltTab 顯示為視窗時，此設定才可用。";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "現在 AltTab 在沒螢幕錄影的權限下運作。所以無法顯示縮圖。";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "定期自動檢查更新";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "檢查更新⋯";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "檢查權限⋯";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "取得權限";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "隱藏滑鼠懸停時顯示的視窗控制鈕：";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "在 %@ 隱藏";
 
@@ -396,6 +402,7 @@
 "Policies" = "策略";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "偏好設定⋯";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "離開";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "離開 %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "送出回饋";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "送出回饋⋯";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "活躍時的快速鍵⋯";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "顯示";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "在登入時啟動：";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "支持這個專案 ❤️";
 

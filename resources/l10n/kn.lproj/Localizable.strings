@@ -3,6 +3,7 @@
 "About" = "ಬಗ್ಗೆ";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "About %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "ಹೊಸ ತoತ್ರಾಂಶಕ್ಕಾಗಿ ನಿಯತಕಾಲಿಕವಾಗಿ ಪರಿಶೀಲಿಸಿ";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "ಹೊಸ ತoತ್ರಾಂಶಕ್ಕಾಗಿ ಪರಿಶೀಲಿಸಿ…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Hide in %@";
 
@@ -397,6 +403,7 @@
 "Policies" = "Policies";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "ಆದ್ಯತೆಗಳು…";
 
 /*No comment provided by engineer.*/
@@ -412,6 +419,7 @@
 "Quit" = "ಹೊರಬನ್ನಿ";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "ಬಿಟ್ಟುಬಿಡಿ %@";
 
 /*No comment provided by engineer.*/
@@ -487,6 +495,7 @@
 "Send feedback" = "ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ…";
 
 /*No comment provided by engineer.*/
@@ -517,6 +526,7 @@
 "Shortcuts when active…" = "Shortcuts when active…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "ತೋರಿಸಿ";
 
 /*No comment provided by engineer.*/
@@ -597,6 +607,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "ಶುರುವಿನಲ್ಲೇ ಲಾಗಿನ್ ಆಗಿ:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Support this project ❤️";
 

@@ -3,6 +3,7 @@
 "About" = "Info";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Oko %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab je trenutno postavljen za prikaz aplikacija.Ova je postavka dostupna samo kada je Alttab postavljen za prikaz Windows -a.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Povremeno provjeri ažuriranja";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Provjeri ažuriranja…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Provjerite dozvole ...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Sakrij se u %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Pravila";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Postavke ...";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Prestati";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Prestani %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Pošaljite povratne informacije";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Pošaljite povratne informacije ...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Prečaci kada su aktivni ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Pokazati";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Start at login:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Podržite ovaj projekt ❤️";
 

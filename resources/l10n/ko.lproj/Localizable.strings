@@ -3,6 +3,7 @@
 "About" = "정보";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "%@에 관하여";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "현재 AltTab이 앱을 표시하도록 설정되어 있습니다. 이 설정은 AltTab이 창을 표시하도록 설정한 경우에만 이용할 수 있습니다.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab이 화면 녹화 권한 없이 동작합니다. 썸네일이 표시되지 않습니다.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "주기적으로 업데이트를 확인하기";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "업데이트 확인…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "권한 확인…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "권한 부여";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "마우스를 올릴 때 색칠된 원들 숨기기:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "%@에서 숨기기";
 
@@ -396,6 +402,7 @@
 "Policies" = "정책";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "설정…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "종료";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "%@ 종료";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "피드백 보내기";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "피드백 보내기…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "활성화 시 단축키…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "보기";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "로그인 시 자동 실행:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "이 프로젝트 후원하기❤️";
 

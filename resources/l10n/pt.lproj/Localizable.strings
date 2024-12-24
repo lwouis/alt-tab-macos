@@ -3,6 +3,7 @@
 "About" = "Informações";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Sobre %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Actualmente, o AltTab está definido para mostrar aplicações.Essa configuração está disponível apenas quando o AltTab está definido para mostrar o janelas.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Procurar actualizações periodicamente";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Procurar por actualizações…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Verificar permissões...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Ocultar círculos coloridos onde o rato passar:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Ocultar em %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Políticas";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Preferências…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Sair";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Sair %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Enviar comentário";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Enviar comentário…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Atalhos enquanto activo";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Mostrar";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Iniciar ao efectuar login:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Apoie este projecto ❤️";
 

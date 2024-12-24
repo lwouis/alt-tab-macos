@@ -3,6 +3,7 @@
 "About" = "जानकारी";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "%@ की जानकारी";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab वर्तमान में अनुप्रयोगों को दिखाने के लिए तैयार है।यह सेटिंग केवल तब उपलब्ध है जब AltTab विंडोज दिखाने के लिए तैयार है।";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "समय-समय पर अपडेट चेक करो";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "अपडेट चेक करो...";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "अनुमतियों की जाँच करें…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "माउस मँडराने पर पर रंगीन वृत्त छिपाएँ:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "में छिपा %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "नियम";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "पसंद";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "बंद करो";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "बंद करो %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "राय भेजो";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "राय भेजो...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "शॉर्टकट जब सक्रिय…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "दिखाओ";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "लॉग इन पे चलाओ:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "इस परियोजना का समर्थन करें ❤";
 

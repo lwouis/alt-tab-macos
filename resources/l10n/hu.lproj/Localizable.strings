@@ -3,6 +3,7 @@
 "About" = "Az App-ról";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Körülbelül %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Az AltTab jelenleg az alkalmazások megjelenítésére van beállítva.Ez a beállítás csak akkor érhető el, ha az AltTab az Ablakok megjelenítésére van beállítva.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Frissítések automatikus keresése";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Frissítések keresése…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Ellenőrizze az engedélyeket ...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "A színes körök elrejtése amikor az egeret fölé viszi:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Rejtse el a %-ot@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Házirendek";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Beállítások…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Kilépés";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Kilépés %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Visszajelzés küldése";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Visszajelzés küldése…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Parancs amikor aktív...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Mutat";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Indítás bejelentkezéskor:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Támogasd a projektet ❤️";
 

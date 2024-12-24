@@ -107,6 +107,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Gumpanath Puttarassu
 * hann-solo
 * Haoshuai Xu
+* Hao豪
 * Hjörtur Hjartarson
 * Hokuto Kato
 * Huandngoc
@@ -137,6 +138,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Kawarimidoll+git
 * kazuki sakamoto
 * Kevinsevinche
+* KillianG
 * Kinyagulovrr
 * Klara
 * Kristófer Fannar Björnsson

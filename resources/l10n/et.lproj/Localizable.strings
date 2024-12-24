@@ -3,6 +3,7 @@
 "About" = "Ümber";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "About %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab on praegu seatud rakenduste kuvamiseks.See säte on saadaval ainult siis, kui Alttab on seatud Windowsi kuvamiseks.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Kontrollige värskendusi perioodiliselt";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Check for updates…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Check permissions…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Peida sisse %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Policies";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Eelistused ...";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Loobuma";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Sulge %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Saada tagasisidet";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Saada tagasisidet ...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Otseteed aktiivselt ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Näita";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Start at login:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Toetage seda projekti ❤️";
 

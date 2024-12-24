@@ -3,6 +3,7 @@
 "About" = "Thông tin";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Thông tin %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab hiện đang được thiết lập để hiển thị các ứng dụng.Cài đặt này chỉ khả dụng khi AltTab được đặt để hiển thị Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Kiểm tra cập nhật theo chu kì";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Kiểm tra cập nhật";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Đang kiểm tra quyền truy cập…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Ẩn các nút cửa sổ khi di chuyển chuột lên:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Ẩn ở %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Điều khoản";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Tuỳ chỉnh";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Thoát";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Thoát %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Gửi phản hồi";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Gửi phản hồi...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Các phím tắt khi hoạt động…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Hiện";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Khởi động khi đăng nhập:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Ủng hộ dự án này ❤️";
 

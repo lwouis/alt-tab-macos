@@ -3,6 +3,7 @@
 "About" = "O AltTab";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "O %@u";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab je v současné době nastaven na zobrazování aplikací.Toto nastavení je k dispozici pouze tehdy, když je Alttab nastavena tak, aby zobrazovala Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -157,8 +159,10 @@
 "Check for updates periodically" = "Pravidelně kontrolovat aktualizace";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Zkontrolovat aktualizace...";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Zkontrolujte oprávnění ...";
 
@@ -239,6 +243,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -265,6 +270,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Skrýt barevná kolečka při najetí myši";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Skrýt %@";
 
@@ -401,6 +407,7 @@
 "Policies" = "Aktualizace a hlášení o pádu";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Nastavení...";
 
 /*No comment provided by engineer.*/
@@ -416,6 +423,7 @@
 "Quit" = "Zavřít";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Ukončit %@";
 
 /*No comment provided by engineer.*/
@@ -491,6 +499,7 @@
 "Send feedback" = "Odeslat zpětnou vazbu";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Odeslat zpětnou vazbu...";
 
 /*No comment provided by engineer.*/
@@ -521,6 +530,7 @@
 "Shortcuts when active…" = "Zkratky, když jsou aktivní ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Zobrazit";
 
 /*No comment provided by engineer.*/
@@ -601,6 +611,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Spustit při přihlášení:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Podpořte tento projekt ❤";
 

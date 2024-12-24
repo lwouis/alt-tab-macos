@@ -3,6 +3,7 @@
 "About" = "பற்றி";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "சுமார் %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "பயன்பாடுகளைக் காண்பிப்பதற்காக அல்தாப் தற்போது அமைக்கப்பட்டுள்ளது.சாளரங்களைக் காண்பிக்க ஆல்டாப் அமைக்கப்படும்போது மட்டுமே இந்த அமைப்பு கிடைக்கும்.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "அவ்வப்போது புதுப்பிப்புகளைச் சரிபார்க்கவும்";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "புதுப்பிப்புகளை சரிபார்க்கவும்…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "அனுமதிகளை சரிபார்க்கவும்…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "%@ இல் மறைக்கவும்";
 
@@ -396,6 +402,7 @@
 "Policies" = "கொள்கைகள்";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "விருப்பத்தேர்வுகள்…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "வெளியேறு";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "வெளியேறுதல் %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "கருத்துக்களை அனுப்பவும்";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "கருத்துக்களை அனுப்பவும்…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "செயலில் இருக்கும்போது குறுக்குவழிகள்…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "காட்டு";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Start at login:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "இந்த திட்டத்தை ஆதரிக்கவும்";
 

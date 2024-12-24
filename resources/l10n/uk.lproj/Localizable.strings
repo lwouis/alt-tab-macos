@@ -3,6 +3,7 @@
 "About" = "Про нас";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "Про %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Наразі Alttab налаштований на показ програми.Цей параметр доступний лише тоді, коли Alttab встановлений для показу Windows.";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "Перевiряти оновлення час вiд часу";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "Перевiрити оновлення...";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "Перевірити дозволи...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Сховати кольорові круги при наведені миші:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "Сховати в %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "Політика";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "Налаштування...";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "Вийти";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Вийти з %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "Надіслати відгук";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "Надіслати відгук...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "Ярлики, коли активні…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "Показати";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Запускати під час входу:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "Підтримати цей проєкт ❤️";
 

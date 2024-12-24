@@ -3,6 +3,7 @@
 "About" = "情報";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "%@ について";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTabは現在、アプリケーションを表示するように設定されています。この設定は、AltTabがWindowsを表示するように設定されている場合にのみ使用できます。";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "定期的に更新を確認する";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "更新を確認する…";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "権限を確認する…";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "マウスホバーした際、ウィンドウ設定を表示しない：";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "%@から隠す";
 
@@ -396,6 +402,7 @@
 "Policies" = "ポリシー";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "環境設定…";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "終了";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "%@ を終了";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "フィードバック提出";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "フィードバック提出…";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "アクティブ時のショートカット…";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "アプリを表示";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "ログイン時に起動：";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "このプロジェクトを支援する ❤️";
 

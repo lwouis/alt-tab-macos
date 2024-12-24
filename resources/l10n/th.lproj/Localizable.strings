@@ -3,6 +3,7 @@
 "About" = "เกี่ยวกับ";
 
 /*Menubar option. %@ is AltTab*/
+/*Menubar option. %@ is AltTab*/
 "About %@" = "เกี่ยวกับ %@";
 
 /*No comment provided by engineer.*/
@@ -68,6 +69,7 @@
 /*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "ขณะนี้ Alttab ถูกตั้งค่าให้แสดงแอปพลิเคชันการตั้งค่านี้จะใช้ได้เฉพาะเมื่อมีการตั้งค่า Alttab เพื่อแสดง Windows";
 
+/*Menubar callout*/
 /*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 
@@ -156,8 +158,10 @@
 "Check for updates periodically" = "ตรวจสอบการอัพเดทเป็นระยะ";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Check for updates…" = "ตรวจสอบการอัพเดท...";
 
+/*Menubar option*/
 /*Menubar option*/
 "Check permissions…" = "ตรวจสอบการอนุญาต...";
 
@@ -237,6 +241,7 @@
 "Gesture" = "Gesture";
 
 /*Menubar callout button*/
+/*Menubar callout button*/
 "Grant permission" = "Grant permission";
 
 /*No comment provided by engineer.*/
@@ -263,6 +268,7 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "ซ่อนปุ่มสีตอนวางเมาส์:";
 
+/*%@ is AltTab*/
 /*%@ is AltTab*/
 "Hide in %@" = "ซ่อนใน %@";
 
@@ -396,6 +402,7 @@
 "Policies" = "นโยบาย";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Preferences…" = "การตั้งค่า...";
 
 /*No comment provided by engineer.*/
@@ -411,6 +418,7 @@
 "Quit" = "ออก";
 
 /*No comment provided by engineer.*/
+/*Menubar option. %@ is AltTab*/
 "Quit %@" = "ออกจาก %@";
 
 /*No comment provided by engineer.*/
@@ -486,6 +494,7 @@
 "Send feedback" = "ส่งความคิดเห็น";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Send feedback…" = "ส่งความคิดเห็น...";
 
 /*No comment provided by engineer.*/
@@ -516,6 +525,7 @@
 "Shortcuts when active…" = "ทางลัดเมื่อใช้งาน ...";
 
 /*No comment provided by engineer.*/
+/*Menubar option*/
 "Show" = "แสดง";
 
 /*No comment provided by engineer.*/
@@ -596,6 +606,7 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "เริ่มเมื่อล็อกอิน:";
 
+/*Menubar option*/
 /*Menubar option*/
 "Support this project ❤️" = "ให้การสนับสนุน❤️";
 
