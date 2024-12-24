@@ -1,743 +1,244 @@
-
-/*No comment provided by engineer.*/
 "About" = "Maidir";
-
-/*Menubar option. %@ is AltTab*/
-/*Menubar option. %@ is AltTab*/
 "About %@" = "Maidir le %@";
-
-/*No comment provided by engineer.*/
 "Accessibility" = "Inrochtaineacht";
-
-/*No comment provided by engineer.*/
 "Acknowledgments" = "Buíochas";
-
-/*No comment provided by engineer.*/
 "Active app" = "Aip ghníomhach";
-
-/*No comment provided by engineer.*/
 "Active screen" = "Scáileán gníomhach";
-
-/*No comment provided by engineer.*/
 "Active Space" = "Spás Gníomhach";
-
-/*No comment provided by engineer.*/
 "Additional controls" = "Rialuithe breise";
-
-/*No comment provided by engineer.*/
 "Additional controls…" = "Rialuithe breise…";
-
-/*No comment provided by engineer.*/
 "Advanced" = "Ard";
-
-/*No comment provided by engineer.*/
 "After release" = "Tar éis scaoileadh";
-
-/*No comment provided by engineer.*/
 "Align windows" = "Ailínigh fuinneoga";
-
-/*No comment provided by engineer.*/
 "Align windows:" = "Ailínigh fuinneoga:";
-
-/*No comment provided by engineer.*/
 "All apps" = "Gach aipeanna";
-
-/*No comment provided by engineer.*/
 "All data from this form will be made public, as a ticket on github.com" = "Poibleofar na sonraí go léir ón bhfoirm seo, mar thicéad ar github.com";
-
-/*No comment provided by engineer.*/
 "All screens" = "Gach scáileáin";
-
-/*No comment provided by engineer.*/
 "All Spaces" = "Gach Spás";
-
-/*No comment provided by engineer.*/
 "Allowed" = "Ceadaithe";
-
-/*No comment provided by engineer.*/
 "Alphabetical" = "Aibítre";
-
-/*No comment provided by engineer.*/
 "Alphabetical Order" = "Ord Aibítre";
-
-/*No comment provided by engineer.*/
 "Also select windows using:" = "Roghnaigh fuinneoga freisin ag baint úsáide as:";
-
-/*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Thuar AltTab an uair dheireanach a d'úsáid tú é. Má sheoltar tuairisc tuairteála, cabhrófar leis an tsaincheist a réiteach";
-
-/*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Tá AltTab socraithe faoi láthair chun Feidhmchláir a thaispeáint. Níl an socrú seo ar fáil ach amháin nuair atá AltTab socraithe chun Windows a thaispeáint.";
-
-/*Menubar callout*/
-/*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "Tá AltTab ag rith gan ceadanna Taifeadta Scáileáin. Ní thaispeánfar mionsamhlacha.";
-
-/*No comment provided by engineer.*/
 "AltTab needs some permissions" = "Teastaíonn roinnt ceadanna ó AltTab";
-
-/*No comment provided by engineer.*/
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Léireoidh AltTab an bhfuil an fhuinneog íoslaghdaithe faoi láthair nó an scáileán iomlán le deilbhín stádais.";
-
-/*No comment provided by engineer.*/
 "Always" = "I gcónaí";
-
-/*No comment provided by engineer.*/
 "Always send crash reports" = "Seol tuairiscí tuairteála i gcónaí";
-
-/*No comment provided by engineer.*/
 "and press" = "agus brúigh";
-
-/*No comment provided by engineer.*/
 "and press:" = "agus brúigh:";
-
-/*No comment provided by engineer.*/
 "Animations" = "Beochán";
-
-/*No comment provided by engineer.*/
 "Animations…" = "Beochan…";
-
-/*No comment provided by engineer.*/
 "App (BundleID starting with)" = "Aip (BundleID ag tosú le)";
-
-/*No comment provided by engineer.*/
 "App Icons" = "Deilbhíní Aip";
-
-/*No comment provided by engineer.*/
 "App is hidden" = "Tá an aip i bhfolach";
-
-/*No comment provided by engineer.*/
 "App is running but has no open window" = "Tá an aip ag rith ach níl aon fhuinneog oscailte aige";
-
-/*No comment provided by engineer.*/
 "Apparition delay" = "Moill ar chuma";
-
-/*No comment provided by engineer.*/
 "Apparition delay:" = "Moill ar chuma:";
-
-/*No comment provided by engineer.*/
 "Appearance" = "Dealramh";
-
-/*No comment provided by engineer.*/
 "Application Name" = "Ainm Feidhmchláir";
-
-/*No comment provided by engineer.*/
 "Application Name - Window Title" = "Ainm Feidhmchláir - Teideal Fuinneog";
-
-/*No comment provided by engineer.*/
 "Applications" = "Feidhmchláir";
-
-/*No comment provided by engineer.*/
 "Are you sure you don’t want a response?" = "An bhfuil tú cinnte nach dteastaíonn freagra uait?";
-
-/*No comment provided by engineer.*/
 "Arrow keys" = "Eochracha Saighead";
-
-/*No comment provided by engineer.*/
 "Ask whether to send crash reports" = "Fiafraigh ar cheart tuairiscí tuairteála a sheoladh";
-
-/*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Uathshuiteáil nuashonruithe go tréimhsiúil";
-
-/*No comment provided by engineer.*/
 "Blacklists" = "Liostaí dubha";
-
-/*Cancel button*/
 "Cancel" = "Cealaigh";
-
-/*No comment provided by engineer.*/
 "Cancel and hide" = "Cealaigh agus folaigh";
-
-/*No comment provided by engineer.*/
 "Center" = "Ionad";
-
-/*No comment provided by engineer.*/
 "Check for updates now…" = "Seiceáil le haghaidh nuashonruithe anois…";
-
-/*No comment provided by engineer.*/
 "Check for updates periodically" = "Seiceáil le haghaidh nuashonruithe go tréimhsiúil";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Check for updates…" = "Seiceáil le haghaidh nuashonruithe…";
-
-/*Menubar option*/
-/*Menubar option*/
 "Check permissions…" = "Seiceáil ceadanna…";
-
-/*No comment provided by engineer.*/
 "Close window" = "Dún an fhuinneog";
-
-/*No comment provided by engineer.*/
 "Conflicting shortcut" = "Aicearra contrártha";
-
-/*No comment provided by engineer.*/
 "Controls" = "Rialuithe";
-
-/*No comment provided by engineer.*/
 "Crash reports policy" = "Beartas tuairiscithe tuairteála";
-
-/*No comment provided by engineer.*/
 "Crash reports policy:" = "Beartas tuairiscithe tuairteála:";
-
-/*No comment provided by engineer.*/
 "Cursor follows focus" = "Leanann an cúrsóir fócas";
-
-/*No comment provided by engineer.*/
 "Customize App Icons style…" = "Saincheap stíl Dheilbhíní Aipe…";
-
-/*No comment provided by engineer.*/
 "Customize Thumbnails style…" = "Saincheap stíl Mionsamhlacha…";
-
-/*No comment provided by engineer.*/
 "Customize Titles style…" = "Saincheap stíl Teidil…";
-
-/*No comment provided by engineer.*/
 "Dark" = "Dorcha";
-
-/*No comment provided by engineer.*/
 "Disabled" = "Disabled";
-
-/*No comment provided by engineer.*/
 "Do nothing" = "Ná déan faic";
-
-/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Ná seiceáil le haghaidh nuashonruithe ó am go chéile";
-
-/*No comment provided by engineer.*/
 "Don’t send" = "Ná seol";
-
-/*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Ná taispeáin fuinneoga ó na haipeanna seo";
-
-/*No comment provided by engineer.*/
 "Done" = "Déanta";
-
-/*No comment provided by engineer.*/
 "End" = "Deireadh";
-
-/*No comment provided by engineer.*/
 "Fade out animation" = "Céimnigh amach beochan";
-
-/*No comment provided by engineer.*/
 "Fade out animation:" = "Beochan céimnithe:";
-
-/*No comment provided by engineer.*/
 "Focus selected window" = "Fócas an fhuinneog roghnaithe";
-
-/*No comment provided by engineer.*/
 "Fullscreen window" = "Fuinneog lánscáileáin";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fuinneoga lánscáileáin:";
-
-/*No comment provided by engineer.*/
 "Fullscreen/Defullscreen window" = "Fuinneog lánscáileáin/lánscáileáin";
-
-/*No comment provided by engineer.*/
 "General" = "Ginearálta";
-
-/*No comment provided by engineer.*/
 "Gesture" = "Gesture";
-
-/*Menubar callout button*/
-/*Menubar callout button*/
 "Grant permission" = "Deonaigh cead";
-
-/*No comment provided by engineer.*/
 "Hidden windows:" = "Fuinneoga i bhfolach:";
-
-/*No comment provided by engineer.*/
 "Hide" = "Folaigh";
-
-/*No comment provided by engineer.*/
 "Hide app badges" = "Folaigh suaitheantais app";
-
-/*No comment provided by engineer.*/
 "Hide app badges:" = "Folaigh suaitheantais aipe:";
-
-/*No comment provided by engineer.*/
 "Hide apps with no open window" = "Folaigh aipeanna gan aon fhuinneog oscailte";
-
-/*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Folaigh aipeanna gan aon fhuinneog oscailte:";
-
-/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover" = "Folaigh ciorcail daite ar hover luiche";
-
-/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Folaigh ciorcail daite ar hover luiche:";
-
-/*%@ is AltTab*/
-/*%@ is AltTab*/
 "Hide in %@" = "Folaigh i %@";
-
-/*No comment provided by engineer.*/
 "Hide Space number labels" = "Folaigh lipéid uimhreacha spáis";
-
-/*No comment provided by engineer.*/
 "Hide Space number labels:" = "Folaigh lipéid uimhreacha spáis:";
-
-/*No comment provided by engineer.*/
 "Hide status icons" = "Folaigh deilbhíní stádais";
-
-/*No comment provided by engineer.*/
 "Hide status icons:" = "Folaigh deilbhíní stádais:";
-
-/*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Folaigh mionsamhlacha fuinneoige:";
-
-/*No comment provided by engineer.*/
 "Hide/Show app" = "Folaigh/Taispeáin an aip";
-
-/*No comment provided by engineer.*/
 "High" = "Ard";
-
-/*No comment provided by engineer.*/
 "Highest" = "Is airde";
-
-/*No comment provided by engineer.*/
 "Hold" = "Coinnigh";
-
-/*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Ceapaim go bhféadfaí an aip a fheabhsú le…";
-
-/*No comment provided by engineer.*/
 "Ignore shortcuts when active" = "Déan neamhaird de aicearraí agus tú gníomhach";
-
-/*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Déan neamhaird de aicearraí agus fuinneog ó na haipeanna seo gníomhach";
-
-/*No comment provided by engineer.*/
 "Language" = "Teanga";
-
-/*No comment provided by engineer.*/
 "Language Change" = "Athrú Teanga";
-
-/*No comment provided by engineer.*/
 "Large" = "Mór";
-
-/*No comment provided by engineer.*/
 "Later" = "Níos déanaí";
-
-/*No comment provided by engineer.*/
 "Latest releases" = "Na heisiúintí is déanaí";
-
-/*No comment provided by engineer.*/
 "Leading" = "Ceannaireacht";
-
-/*No comment provided by engineer.*/
 "Left" = "Ar chlé";
-
-/*No comment provided by engineer.*/
 "Light" = "Solas";
-
-/*No comment provided by engineer.*/
 "Max height on screen:" = "Uasairde ar an scáileán:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Leithead uasta ar an scáileán:";
-
-/*No comment provided by engineer.*/
 "Medium" = "Meánach";
-
-/*No comment provided by engineer.*/
 "Menubar icon" = "Deilbhín an bharra roghchláir";
-
-/*No comment provided by engineer.*/
 "Menubar icon:" = "Deilbhín an roghchláir:";
-
-/*No comment provided by engineer.*/
 "Middle" = "Meánach";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Íoslaghdaigh/Íoslaghdaigh an fhuinneog";
-
-/*No comment provided by engineer.*/
 "Minimized windows:" = "Fuinneoga Íoslaghdaithe:";
-
-/*No comment provided by engineer.*/
 "Miscellaneous" = "Miscellaneous";
-
-/*No comment provided by engineer.*/
 "Miscellaneous:" = "Llghnéitheach:";
-
-/*No comment provided by engineer.*/
 "Mouse hover" = "Ainlíonn luch";
-
-/*No comment provided by engineer.*/
 "Multiple screens" = "Scáileáin iolracha";
-
-/*No comment provided by engineer.*/
 "Never send crash reports" = "Ná seol tuairiscí tuairteála riamh";
-
-/*No comment provided by engineer.*/
 "Normal" = "Gnáth";
-
-/*No comment provided by engineer.*/
 "Not allowed" = "Ní cheadaítear";
-
-/*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "Ceadúnas GPL-3.0";
-
-/*No comment provided by engineer.*/
 "Only if the window is fullscreen" = "Ach amháin má tá an fhuinneog lánscáileáin";
-
-/*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Oscail Roghanna Inrochtaineachta…";
-
-/*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "Roghanna Taifeadta Scáileáin Oscailte…";
-
-/*No comment provided by engineer.*/
 "Open Trackpad Preferences…" = "Open Trackpad Preferences…";
-
-/*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Roghnach: ríomhphost (má tá freagra uait)";
-
-/*No comment provided by engineer.*/
 "Order windows by" = "Ordaigh fuinneoga le";
-
-/*No comment provided by engineer.*/
 "Policies" = "Polasaithe";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Preferences…" = "Sainroghanna…";
-
-/*No comment provided by engineer.*/
 "Preview selected window" = "Réamhamharc an fhuinneog roghnaithe";
-
-/*No comment provided by engineer.*/
 "Preview selected window:" = "Réamhamharc ar fhuinneog roghnaithe:";
-
-/*No comment provided by engineer.*/
 "Preview the selected window." = "Réamhamharc ar an bhfuinneog roghnaithe.";
-
-/*No comment provided by engineer.*/
 "Quit" = "Scoir";
-
-/*No comment provided by engineer.*/
-/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Scoir %@";
-
-/*No comment provided by engineer.*/
 "Quit app" = "Scoir an aip";
-
-/*No comment provided by engineer.*/
 "Recently Created" = "Cruthaithe Le Déanaí";
-
-/*No comment provided by engineer.*/
 "Recently Created First" = "Cruthaíodh Ar dtús le Déanaí";
-
-/*No comment provided by engineer.*/
 "Recently Focused" = "Dírithe le déanaí";
-
-/*No comment provided by engineer.*/
 "Recently Focused First" = "Dírithe ar dtús le déanaí";
-
-/*No comment provided by engineer.*/
 "Remember my choice" = "Cuimhnigh mo rogha";
-
-/*No comment provided by engineer.*/
 "Reset preferences and restart" = "Athshocraigh sainroghanna agus atosú";
-
-/*No comment provided by engineer.*/
 "Reset preferences and restart…" = "Athshocraigh sainroghanna agus atosaigh…";
-
-/*No comment provided by engineer.*/
 "Restart Now" = "Atosaigh Anois";
-
-/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Sraitheanna mionsamhlacha:";
-
-/*No comment provided by engineer.*/
 "Screen including menu bar" = "Scáileán lena n-áirítear barra roghchláir";
-
-/*No comment provided by engineer.*/
 "Screen including mouse" = "Scáileán lena n-áirítear luch";
-
-/*No comment provided by engineer.*/
 "Screen Recording" = "Taifeadadh Scáileáin";
-
-/*No comment provided by engineer.*/
 "Screen showing AltTab" = "Scáileán ag taispeáint AltTab";
-
-/*No comment provided by engineer.*/
 "Select next window" = "Roghnaigh an chéad fhuinneog eile";
-
-/*No comment provided by engineer.*/
 "Select previous window" = "Roghnaigh an fhuinneog roimhe seo";
-
-/*No comment provided by engineer.*/
 "Select windows on mouse hover" = "Roghnaigh fuinneoga ar ainlíonn luch";
-
-/*No comment provided by engineer.*/
 "Select windows using arrow keys" = "Roghnaigh fuinneoga ag baint úsáide as saigheadeochracha";
-
-/*No comment provided by engineer.*/
 "Select windows using vim keys" = "Roghnaigh fuinneoga ag baint úsáide as vim keys";
-
-/*No comment provided by engineer.*/
 "Send" = "Seol";
-
-/*No comment provided by engineer.*/
 "Send a crash report?" = "Seol tuairisc tuairteála?";
-
-/*No comment provided by engineer.*/
 "Send anyway" = "Seol ar aon nós";
-
-/*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Seol próifíl dífhabhtaithe (LAP, cuimhne, srl)";
-
-/*No comment provided by engineer.*/
 "Send feedback" = "Seol aiseolas";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Send feedback…" = "Seol aiseolas…";
-
-/*No comment provided by engineer.*/
 "Share improvement ideas, or report bugs" = "Comhroinn smaointe feabhsúcháin, nó tuairiscigh fabhtanna";
-
-/*No comment provided by engineer.*/
 "Shortcut 1" = "Aicearra 1";
-
-/*No comment provided by engineer.*/
 "Shortcut 2" = "Aicearra 2";
-
-/*No comment provided by engineer.*/
 "Shortcut 3" = "Aicearra 3";
-
-/*No comment provided by engineer.*/
 "Shortcut 4" = "Aicearra 4";
-
-/*No comment provided by engineer.*/
 "Shortcut 5" = "Aicearra 5";
-
-/*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Tá aicearra sannta cheana do ghníomh eile: %@";
-
-/*No comment provided by engineer.*/
 "Shortcuts When Active" = "Aicearraí Nuair atá Gníomhach";
-
-/*No comment provided by engineer.*/
 "Shortcuts when active…" = "Aicearraí agus tú gníomhach…";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Show" = "Taispeáin";
-
-/*No comment provided by engineer.*/
 "Show & Hide" = "Taispeáin & Folaigh";
-
-/*No comment provided by engineer.*/
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Taispeáin mír sa lascóir do gach fuinneog, nó do gach feidhmchlár. Díreofar Windows, ach cuirfear feidhmchláir i ngníomh.";
-
-/*No comment provided by engineer.*/
 "Show at the end" = "Taispeáin ag an deireadh";
-
-/*No comment provided by engineer.*/
 "Show fullscreen windows" = "Taispeáin fuinneoga lánscáileáin";
-
-/*No comment provided by engineer.*/
 "Show hidden windows" = "Taispeáin fuinneoga ceilte";
-
-/*No comment provided by engineer.*/
 "Show in switcher" = "Taispeáin i lascóir";
-
-/*No comment provided by engineer.*/
 "Show minimized windows" = "Taispeáin fuinneoga íoslaghdaithe";
-
-/*No comment provided by engineer.*/
 "Show on" = "Taispeáin ar";
-
-/*No comment provided by engineer.*/
 "Show on:" = "Taispeáin ar:";
-
-/*No comment provided by engineer.*/
 "Show standard tabs as windows" = "Taispeáin cluaisíní caighdeánacha mar fhuinneoga";
-
-/*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Taispeáin cluaisíní caighdeánacha mar fhuinneoga:";
-
-/*No comment provided by engineer.*/
 "Show titles" = "Taispeáin teidil";
-
-/*No comment provided by engineer.*/
 "Show windows from applications" = "Taispeáin fuinneoga ó fheidhmchláir";
-
-/*No comment provided by engineer.*/
 "Show windows from screens" = "Taispeáin fuinneoga ó scáileáin";
-
-/*No comment provided by engineer.*/
 "Show windows from Spaces" = "Taispeáin fuinneoga ó Spaces";
-
-/*No comment provided by engineer.*/
 "Show windows from:" = "Taispeáin fuinneoga ó:";
-
-/*No comment provided by engineer.*/
 "Size" = "Méid";
-
-/*No comment provided by engineer.*/
 "Skipped" = "Scipeáladh";
-
-/*No comment provided by engineer.*/
 "Small" = "Beag";
-
-/*No comment provided by engineer.*/
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Úsáideann roinnt aipeanna ar nós Aimsitheoir nó Réamhamhairc cluaisíní caighdeánacha a fheidhmíonn cosúil le fuinneoga neamhspleácha. Úsáideann roinnt aipeanna eile cosúil le brabhsálaithe gréasáin cluaisíní saincheaptha a ghníomhaíonn ar bhealaí uathúla agus nach fuinneoga iarbhír iad. Ní féidir le AltTab iad sin a liostú ar leithligh.";
-
-/*No comment provided by engineer.*/
 "Source code repository" = "Stórais cód foinse";
-
-/*No comment provided by engineer.*/
 "Space" = "Spás";
-
-/*No comment provided by engineer.*/
 "Space Order" = "Ordú Spáis";
-
-/*No comment provided by engineer.*/
 "Start" = "Tosaigh";
-
-/*No comment provided by engineer.*/
 "Start at login" = "Tosaigh ag logáil isteach";
-
-/*No comment provided by engineer.*/
 "Start at login:" = "Tosaigh ag logáil isteach:";
-
-/*Menubar option*/
-/*Menubar option*/
 "Support this project ❤️" = "Tacaigh leis an tionscadal seo ❤️";
-
-/*No comment provided by engineer.*/
 "Swipe with Four Fingers" = "Swipe with Four Fingers";
-
-/*No comment provided by engineer.*/
 "Swipe with Three Fingers" = "Swipe with Three Fingers";
-
-/*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "Athraigh idir 3 stíleanna éagsúla. Is féidir leat iad a shaincheapadh.";
-
-/*No comment provided by engineer.*/
 "System" = "Córas";
-
-/*No comment provided by engineer.*/
 "System Default" = "Réamhshocrú Córais";
-
-/*No comment provided by engineer.*/
 "The application needs to restart to apply the language change." = "Ní mór an feidhmchlár a atosú chun an t-athrú teanga a chur i bhfeidhm.";
-
-/*No comment provided by engineer.*/
 "Theme" = "Téama";
-
-/*No comment provided by engineer.*/
 "Theme:" = "Téama:";
-
-/*No comment provided by engineer.*/
 "Then release:" = "Ansin scaoil:";
-
-/*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Tá an cead seo ag teastáil chun fuinneoga a dhíriú tar éis duit an t-aicearra a scaoileadh";
-
-/*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Tá an cead seo ag teastáil chun scáileáin scáileáin agus teidil fuinneoga oscailte a thaispeáint";
-
-/*No comment provided by engineer.*/
 "Thumbnails" = "Mionsamhlacha";
-
-/*No comment provided by engineer.*/
 "Title" = "Teideal";
-
-/*No comment provided by engineer.*/
 "Title truncation" = "Teascadh teidil";
-
-/*No comment provided by engineer.*/
 "Titles" = "Teidil";
-
-/*No comment provided by engineer.*/
 "Trigger shortcut" = "Aicearra truicear";
-
-/*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "Díshannaigh an t-aicearra reatha agus lean ar aghaidh";
-
-/*No comment provided by engineer.*/
 "Updates policy" = "Nuashonraítear polasaí";
-
-/*No comment provided by engineer.*/
 "Updates policy:" = "Polasaí nuashonraithe:";
-
-/*No comment provided by engineer.*/
 "Use the app without this permission. Thumbnails won’t show." = "Bain úsáid as an aip gan an cead seo. Ní thaispeánfar mionsamhlacha.";
-
-/*No comment provided by engineer.*/
 "Version" = "Leagan";
-
-/*No comment provided by engineer.*/
 "View existing discussions" = "Féach ar an bplé atá ann cheana féin";
-
-/*No comment provided by engineer.*/
 "Vim keys" = "Eochracha Vim";
-
-/*No comment provided by engineer.*/
 "Vim keys already assigned to other actions:\n%@" = "Eochracha Vim sannta cheana féin do ghníomhartha eile:\n%@";
-
-/*No comment provided by engineer.*/
 "Visibility" = "Infheictheacht";
-
-/*No comment provided by engineer.*/
 "Visible Spaces" = "Spásanna Infheicthe";
-
-/*No comment provided by engineer.*/
 "When fullscreen" = "Nuair a bheidh scáileán iomlán";
-
-/*No comment provided by engineer.*/
 "When no open window" = "Nuair nach bhfuil aon fhuinneog oscailte";
-
-/*No comment provided by engineer.*/
 "While open, press:" = "Agus tú ar oscailt, brúigh:";
-
-/*No comment provided by engineer.*/
 "Window app icon size:" = "Méid deilbhín na haipe fuinneoige:";
-
-/*No comment provided by engineer.*/
 "Window is fullscreen" = "Tá an fhuinneog lánscáileáin";
-
-/*No comment provided by engineer.*/
 "Window is minimized" = "Íoslaghdaítear an fhuinneog";
-
-/*No comment provided by engineer.*/
 "Window is on every Space" = "Tá fuinneog ar gach spás";
-
-/*No comment provided by engineer.*/
 "Window is on Space %d" = "Tá an fhuinneog ar Spás %d";
-
-/*No comment provided by engineer.*/
 "Window max width in row:" = "Leithead uasta fuinneoige i ndiaidh a chéile:";
-
-/*No comment provided by engineer.*/
 "Window min width in row:" = "Leithead min fuinneoige i ndiaidh a chéile:";
-
-/*No comment provided by engineer.*/
 "Window order:" = "Ordú fuinneoige:";
-
-/*No comment provided by engineer.*/
 "Window Title" = "Teideal Fuinneog";
-
-/*No comment provided by engineer.*/
 "Window title font size:" = "Méid cló teideal na fuinneoige:";
-
-/*No comment provided by engineer.*/
 "Window title truncation:" = "Teascadh teideal fuinneoige:";
-
-/*No comment provided by engineer.*/
 "Windows" = "Fuinneoga";
-
-/*No comment provided by engineer.*/
 "You can’t undo this action." = "Ní féidir leat an gníomh seo a chealú.";
-
-/*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Níor scríobh tú do ríomhphost, mar sin ní féidir leat freagra ar bith a fháil.";
-
-/*No comment provided by engineer.*/
 "You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

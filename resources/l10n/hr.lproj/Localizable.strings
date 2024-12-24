@@ -1,743 +1,244 @@
-
-/*No comment provided by engineer.*/
 "About" = "Info";
-
-/*Menubar option. %@ is AltTab*/
-/*Menubar option. %@ is AltTab*/
 "About %@" = "Oko %@";
-
-/*No comment provided by engineer.*/
 "Accessibility" = "Pristupačnost";
-
-/*No comment provided by engineer.*/
 "Acknowledgments" = "Priznanja";
-
-/*No comment provided by engineer.*/
 "Active app" = "Aktivna aplikacija";
-
-/*No comment provided by engineer.*/
 "Active screen" = "Aktivni zaslon";
-
-/*No comment provided by engineer.*/
 "Active Space" = "Active Space";
-
-/*No comment provided by engineer.*/
 "Additional controls" = "Dodatne kontrole";
-
-/*No comment provided by engineer.*/
 "Additional controls…" = "Dodatne kontrole ...";
-
-/*No comment provided by engineer.*/
 "Advanced" = "Napredna";
-
-/*No comment provided by engineer.*/
 "After release" = "Nakon puštanja";
-
-/*No comment provided by engineer.*/
 "Align windows" = "Poravnaj prozore";
-
-/*No comment provided by engineer.*/
 "Align windows:" = "Align windows:";
-
-/*No comment provided by engineer.*/
 "All apps" = "Sve aplikacije";
-
-/*No comment provided by engineer.*/
 "All data from this form will be made public, as a ticket on github.com" = "Svi podaci iz ovog obrasca bit će objavljeni kao karta na github.com";
-
-/*No comment provided by engineer.*/
 "All screens" = "Svi ekrani";
-
-/*No comment provided by engineer.*/
 "All Spaces" = "Svi prostori";
-
-/*No comment provided by engineer.*/
 "Allowed" = "Dopušten";
-
-/*No comment provided by engineer.*/
 "Alphabetical" = "Alphabetical";
-
-/*No comment provided by engineer.*/
 "Alphabetical Order" = "Abecedni red";
-
-/*No comment provided by engineer.*/
 "Also select windows using:" = "Also select windows using:";
-
-/*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Alttab se srušio posljednji put kad ste ga koristili.Slanje izvještaja o sudaru pomoći će popraviti problem";
-
-/*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab je trenutno postavljen za prikaz aplikacija.Ova je postavka dostupna samo kada je Alttab postavljen za prikaz Windows -a.";
-
-/*Menubar callout*/
-/*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
-
-/*No comment provided by engineer.*/
 "AltTab needs some permissions" = "Alttabu trebaju neka dopuštenja";
-
-/*No comment provided by engineer.*/
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Alttab će pokazati je li prozor trenutno minimaliziran ili cijeli zaslon s ikonom statusa.";
-
-/*No comment provided by engineer.*/
 "Always" = "Uvijek";
-
-/*No comment provided by engineer.*/
 "Always send crash reports" = "Uvijek pošaljite izvještaje o sudaru";
-
-/*No comment provided by engineer.*/
 "and press" = "I pritisnite";
-
-/*No comment provided by engineer.*/
 "and press:" = "and press:";
-
-/*No comment provided by engineer.*/
 "Animations" = "Animacije";
-
-/*No comment provided by engineer.*/
 "Animations…" = "Animacije ...";
-
-/*No comment provided by engineer.*/
 "App (BundleID starting with)" = "Aplikacija (BundleID započinje s)";
-
-/*No comment provided by engineer.*/
 "App Icons" = "Ikone aplikacija";
-
-/*No comment provided by engineer.*/
 "App is hidden" = "Aplikacija je skrivena";
-
-/*No comment provided by engineer.*/
 "App is running but has no open window" = "Aplikacija se pokreće, ali nema otvorenog prozora";
-
-/*No comment provided by engineer.*/
 "Apparition delay" = "Kašnjenje ukazanja";
-
-/*No comment provided by engineer.*/
 "Apparition delay:" = "Odgoda prikazivanja:";
-
-/*No comment provided by engineer.*/
 "Appearance" = "Izgled";
-
-/*No comment provided by engineer.*/
 "Application Name" = "Naziv aplikacije";
-
-/*No comment provided by engineer.*/
 "Application Name - Window Title" = "Naziv aplikacije - Naslov prozora";
-
-/*No comment provided by engineer.*/
 "Applications" = "Prijava";
-
-/*No comment provided by engineer.*/
 "Are you sure you don’t want a response?" = "Jeste li sigurni da ne želite odgovor?";
-
-/*No comment provided by engineer.*/
 "Arrow keys" = "Arrow keys";
-
-/*No comment provided by engineer.*/
 "Ask whether to send crash reports" = "Pitajte hoćete li poslati izvještaje o sudaru";
-
-/*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Automatsko povremeno instaliranje ažuriranja";
-
-/*No comment provided by engineer.*/
 "Blacklists" = "Crne liste";
-
-/*Cancel button*/
 "Cancel" = "Odustani";
-
-/*No comment provided by engineer.*/
 "Cancel and hide" = "Otkaži i sakrij";
-
-/*No comment provided by engineer.*/
 "Center" = "Centar";
-
-/*No comment provided by engineer.*/
 "Check for updates now…" = "Provjeri ažuriranja sad…";
-
-/*No comment provided by engineer.*/
 "Check for updates periodically" = "Povremeno provjeri ažuriranja";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Check for updates…" = "Provjeri ažuriranja…";
-
-/*Menubar option*/
-/*Menubar option*/
 "Check permissions…" = "Provjerite dozvole ...";
-
-/*No comment provided by engineer.*/
 "Close window" = "Bliski prozor";
-
-/*No comment provided by engineer.*/
 "Conflicting shortcut" = "Sukobljeni prečac";
-
-/*No comment provided by engineer.*/
 "Controls" = "Kontrole";
-
-/*No comment provided by engineer.*/
 "Crash reports policy" = "Politika izvještaja o padu";
-
-/*No comment provided by engineer.*/
 "Crash reports policy:" = "Crash reports policy:";
-
-/*No comment provided by engineer.*/
 "Cursor follows focus" = "Cursor follows focus";
-
-/*No comment provided by engineer.*/
 "Customize App Icons style…" = "Prilagodite stil ikona aplikacija ...";
-
-/*No comment provided by engineer.*/
 "Customize Thumbnails style…" = "Prilagodite stil sličica ...";
-
-/*No comment provided by engineer.*/
 "Customize Titles style…" = "Prilagodite stil naslova ...";
-
-/*No comment provided by engineer.*/
 "Dark" = "Tamna";
-
-/*No comment provided by engineer.*/
 "Disabled" = "Disabled";
-
-/*No comment provided by engineer.*/
 "Do nothing" = "Ne raditi ništa";
-
-/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Ne provjeravaj ažuriranja povremeno";
-
-/*No comment provided by engineer.*/
 "Don’t send" = "Ne šalji";
-
-/*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
-
-/*No comment provided by engineer.*/
 "Done" = "Završen";
-
-/*No comment provided by engineer.*/
 "End" = "Kraj";
-
-/*No comment provided by engineer.*/
 "Fade out animation" = "Izblijedi animacija";
-
-/*No comment provided by engineer.*/
 "Fade out animation:" = "Fade out animation:";
-
-/*No comment provided by engineer.*/
 "Focus selected window" = "Izabrani prozor fokus";
-
-/*No comment provided by engineer.*/
 "Fullscreen window" = "Fullscreen window";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fullscreen windows:";
-
-/*No comment provided by engineer.*/
 "Fullscreen/Defullscreen window" = "Prozor s punim zaslonom/DefulllScreen";
-
-/*No comment provided by engineer.*/
 "General" = "General";
-
-/*No comment provided by engineer.*/
 "Gesture" = "Gesture";
-
-/*Menubar callout button*/
-/*Menubar callout button*/
 "Grant permission" = "Grant permission";
-
-/*No comment provided by engineer.*/
 "Hidden windows:" = "Hidden windows:";
-
-/*No comment provided by engineer.*/
 "Hide" = "Sakriti";
-
-/*No comment provided by engineer.*/
 "Hide app badges" = "Sakrij značke aplikacije";
-
-/*No comment provided by engineer.*/
 "Hide app badges:" = "Hide app badges:";
-
-/*No comment provided by engineer.*/
 "Hide apps with no open window" = "Sakrij aplikacije bez otvorenog prozora";
-
-/*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Hide apps with no open window:";
-
-/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover" = "Sakrij obojene krugove na miša lebde";
-
-/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Hide colored circles on mouse hover:";
-
-/*%@ is AltTab*/
-/*%@ is AltTab*/
 "Hide in %@" = "Sakrij se u %@";
-
-/*No comment provided by engineer.*/
 "Hide Space number labels" = "Sakrij naljepnice broja prostora";
-
-/*No comment provided by engineer.*/
 "Hide Space number labels:" = "Hide Space number labels:";
-
-/*No comment provided by engineer.*/
 "Hide status icons" = "Sakrij ikone statusa";
-
-/*No comment provided by engineer.*/
 "Hide status icons:" = "Hide status icons:";
-
-/*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Hide window thumbnails:";
-
-/*No comment provided by engineer.*/
 "Hide/Show app" = "Sakrij/prikaži aplikaciju";
-
-/*No comment provided by engineer.*/
 "High" = "Visok";
-
-/*No comment provided by engineer.*/
 "Highest" = "Najviši";
-
-/*No comment provided by engineer.*/
 "Hold" = "Zadržati";
-
-/*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Mislim da bi se aplikacija mogla poboljšati ...";
-
-/*No comment provided by engineer.*/
 "Ignore shortcuts when active" = "Zanemarite prečace kada su aktivni";
-
-/*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignore shortcuts while a window from these apps is active";
-
-/*No comment provided by engineer.*/
 "Language" = "Language";
-
-/*No comment provided by engineer.*/
 "Language Change" = "Language Change";
-
-/*No comment provided by engineer.*/
 "Large" = "Velik";
-
-/*No comment provided by engineer.*/
 "Later" = "Later";
-
-/*No comment provided by engineer.*/
 "Latest releases" = "Najnovija izdanja";
-
-/*No comment provided by engineer.*/
 "Leading" = "Vodeći";
-
-/*No comment provided by engineer.*/
 "Left" = "Left";
-
-/*No comment provided by engineer.*/
 "Light" = "Svjetlo";
-
-/*No comment provided by engineer.*/
 "Max height on screen:" = "Max height on screen:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Max width on screen:";
-
-/*No comment provided by engineer.*/
 "Medium" = "Srednji";
-
-/*No comment provided by engineer.*/
 "Menubar icon" = "Ikona menubara";
-
-/*No comment provided by engineer.*/
 "Menubar icon:" = "Menubar icon:";
-
-/*No comment provided by engineer.*/
 "Middle" = "Srednji";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Minimizirati/deminimizirati prozor";
-
-/*No comment provided by engineer.*/
 "Minimized windows:" = "Minimized windows:";
-
-/*No comment provided by engineer.*/
 "Miscellaneous" = "Miscellaneous";
-
-/*No comment provided by engineer.*/
 "Miscellaneous:" = "Miscellaneous:";
-
-/*No comment provided by engineer.*/
 "Mouse hover" = "Mouse hover";
-
-/*No comment provided by engineer.*/
 "Multiple screens" = "Više ekrana";
-
-/*No comment provided by engineer.*/
 "Never send crash reports" = "Nikad ne šalji izvještaje o sudaru";
-
-/*No comment provided by engineer.*/
 "Normal" = "Normalan";
-
-/*No comment provided by engineer.*/
 "Not allowed" = "Nije dopušteno";
-
-/*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 licenca";
-
-/*No comment provided by engineer.*/
 "Only if the window is fullscreen" = "Only if the window is fullscreen";
-
-/*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Postavke otvorene pristupa…";
-
-/*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "Postavke snimanja zaslona ...";
-
-/*No comment provided by engineer.*/
 "Open Trackpad Preferences…" = "Open Trackpad Preferences…";
-
-/*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Neobavezno: e -pošta (ako želite odgovor)";
-
-/*No comment provided by engineer.*/
 "Order windows by" = "Naručite prozore prema";
-
-/*No comment provided by engineer.*/
 "Policies" = "Pravila";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Preferences…" = "Postavke ...";
-
-/*No comment provided by engineer.*/
 "Preview selected window" = "Pregled odabranog prozora";
-
-/*No comment provided by engineer.*/
 "Preview selected window:" = "Preview selected window:";
-
-/*No comment provided by engineer.*/
 "Preview the selected window." = "Pregledajte odabrani prozor.";
-
-/*No comment provided by engineer.*/
 "Quit" = "Prestati";
-
-/*No comment provided by engineer.*/
-/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Prestani %@";
-
-/*No comment provided by engineer.*/
 "Quit app" = "Prestani aplikacija";
-
-/*No comment provided by engineer.*/
 "Recently Created" = "Recently Created";
-
-/*No comment provided by engineer.*/
 "Recently Created First" = "Nedavno stvoren prvi";
-
-/*No comment provided by engineer.*/
 "Recently Focused" = "Recently Focused";
-
-/*No comment provided by engineer.*/
 "Recently Focused First" = "Nedavno usredotočen prvi";
-
-/*No comment provided by engineer.*/
 "Remember my choice" = "Sjetite se mog izbora";
-
-/*No comment provided by engineer.*/
 "Reset preferences and restart" = "Ponovno postavite postavke i ponovno pokrenite";
-
-/*No comment provided by engineer.*/
 "Reset preferences and restart…" = "Ponovno postavite postavke i ponovno pokrenite ...";
-
-/*No comment provided by engineer.*/
 "Restart Now" = "Restart Now";
-
-/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rows of thumbnails:";
-
-/*No comment provided by engineer.*/
 "Screen including menu bar" = "Zaslon koji uključuje traku izbornika";
-
-/*No comment provided by engineer.*/
 "Screen including mouse" = "Zaslon koji uključuje miš";
-
-/*No comment provided by engineer.*/
 "Screen Recording" = "Snimanje zaslona";
-
-/*No comment provided by engineer.*/
 "Screen showing AltTab" = "Zaslon koji prikazuje alttab";
-
-/*No comment provided by engineer.*/
 "Select next window" = "Odaberite Sljedeći prozor";
-
-/*No comment provided by engineer.*/
 "Select previous window" = "Odaberite prethodni prozor";
-
-/*No comment provided by engineer.*/
 "Select windows on mouse hover" = "Odaberite Windows on Mouse LOVER";
-
-/*No comment provided by engineer.*/
 "Select windows using arrow keys" = "Odaberite Windows pomoću tipki sa strelicama";
-
-/*No comment provided by engineer.*/
 "Select windows using vim keys" = "Odaberite Windows pomoću VIM tipki";
-
-/*No comment provided by engineer.*/
 "Send" = "Pošalji";
-
-/*No comment provided by engineer.*/
 "Send a crash report?" = "Pošaljite izvještaj o sudaru?";
-
-/*No comment provided by engineer.*/
 "Send anyway" = "Pošaljite svejedno";
-
-/*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Pošaljite profil za uklanjanje pogrešaka (CPU, memorija itd.)";
-
-/*No comment provided by engineer.*/
 "Send feedback" = "Pošaljite povratne informacije";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Send feedback…" = "Pošaljite povratne informacije ...";
-
-/*No comment provided by engineer.*/
 "Share improvement ideas, or report bugs" = "Dijeliti ideje za poboljšanje ili prijaviti greške";
-
-/*No comment provided by engineer.*/
 "Shortcut 1" = "Prečac 1";
-
-/*No comment provided by engineer.*/
 "Shortcut 2" = "Prečac 2";
-
-/*No comment provided by engineer.*/
 "Shortcut 3" = "Prečac 3";
-
-/*No comment provided by engineer.*/
 "Shortcut 4" = "Prečac 4";
-
-/*No comment provided by engineer.*/
 "Shortcut 5" = "Prečac 5";
-
-/*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Prečac je već dodijeljen drugoj akciji: %@";
-
-/*No comment provided by engineer.*/
 "Shortcuts When Active" = "Prečaci kada su aktivni";
-
-/*No comment provided by engineer.*/
 "Shortcuts when active…" = "Prečaci kada su aktivni ...";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Show" = "Pokazati";
-
-/*No comment provided by engineer.*/
 "Show & Hide" = "Pokaži sakrij";
-
-/*No comment provided by engineer.*/
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Prikažite stavku u prekidaču za svaki prozor ili za svaku aplikaciju.Windows će biti usredotočeni, dok će se aplikacije aktivirati.";
-
-/*No comment provided by engineer.*/
 "Show at the end" = "Prikaži na kraju";
-
-/*No comment provided by engineer.*/
 "Show fullscreen windows" = "Prikaži prozore s cijelim zaslonom";
-
-/*No comment provided by engineer.*/
 "Show hidden windows" = "Prikaži skrivene prozore";
-
-/*No comment provided by engineer.*/
 "Show in switcher" = "Prikaži u Switcheru";
-
-/*No comment provided by engineer.*/
 "Show minimized windows" = "Prikaži minimizirani prozori";
-
-/*No comment provided by engineer.*/
 "Show on" = "Prikazati";
-
-/*No comment provided by engineer.*/
 "Show on:" = "Show on:";
-
-/*No comment provided by engineer.*/
 "Show standard tabs as windows" = "Prikažite standardne kartice kao Windows";
-
-/*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Show standard tabs as windows:";
-
-/*No comment provided by engineer.*/
 "Show titles" = "Pokazuju naslove";
-
-/*No comment provided by engineer.*/
 "Show windows from applications" = "Prikaži Windows iz aplikacija";
-
-/*No comment provided by engineer.*/
 "Show windows from screens" = "Prikaži prozore s ekrana";
-
-/*No comment provided by engineer.*/
 "Show windows from Spaces" = "Prikaži prozore iz prostora";
-
-/*No comment provided by engineer.*/
 "Show windows from:" = "Show windows from:";
-
-/*No comment provided by engineer.*/
 "Size" = "Veličina";
-
-/*No comment provided by engineer.*/
 "Skipped" = "Skipped";
-
-/*No comment provided by engineer.*/
 "Small" = "Mali";
-
-/*No comment provided by engineer.*/
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Neke aplikacije poput Finder ili Preview koriste standardne kartice koje djeluju kao neovisni Windows.Neke druge aplikacije poput web preglednika koriste prilagođene kartice koje djeluju na jedinstvene načine i nisu stvarni prozori.Alttab ih ne može nabrojati odvojeno.";
-
-/*No comment provided by engineer.*/
 "Source code repository" = "Spremstvo izvornog koda";
-
-/*No comment provided by engineer.*/
 "Space" = "Space";
-
-/*No comment provided by engineer.*/
 "Space Order" = "Svemirski red";
-
-/*No comment provided by engineer.*/
 "Start" = "Start";
-
-/*No comment provided by engineer.*/
 "Start at login" = "Započnite od prijave";
-
-/*No comment provided by engineer.*/
 "Start at login:" = "Start at login:";
-
-/*Menubar option*/
-/*Menubar option*/
 "Support this project ❤️" = "Podržite ovaj projekt ❤️";
-
-/*No comment provided by engineer.*/
 "Swipe with Four Fingers" = "Swipe with Four Fingers";
-
-/*No comment provided by engineer.*/
 "Swipe with Three Fingers" = "Swipe with Three Fingers";
-
-/*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "Prebacivanje između 3 različita stila.Možete ih prilagoditi.";
-
-/*No comment provided by engineer.*/
 "System" = "Sistem";
-
-/*No comment provided by engineer.*/
 "System Default" = "System Default";
-
-/*No comment provided by engineer.*/
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
-
-/*No comment provided by engineer.*/
 "Theme" = "Tema";
-
-/*No comment provided by engineer.*/
 "Theme:" = "Theme:";
-
-/*No comment provided by engineer.*/
 "Then release:" = "Then release:";
-
-/*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Ovo je dopuštenje potrebno da se usredotočite Windows nakon što objavite prečac";
-
-/*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Ovo je dopuštenje potrebno za prikazivanje snimki zaslona i naslova otvorenih sustava";
-
-/*No comment provided by engineer.*/
 "Thumbnails" = "Minijatura";
-
-/*No comment provided by engineer.*/
 "Title" = "Title";
-
-/*No comment provided by engineer.*/
 "Title truncation" = "Skraćenje naslova";
-
-/*No comment provided by engineer.*/
 "Titles" = "Titula";
-
-/*No comment provided by engineer.*/
 "Trigger shortcut" = "Prečac okidača";
-
-/*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "Neusmislite postojeću prečac i nastavite";
-
-/*No comment provided by engineer.*/
 "Updates policy" = "Politika ažuriranja";
-
-/*No comment provided by engineer.*/
 "Updates policy:" = "Updates policy:";
-
-/*No comment provided by engineer.*/
 "Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
-
-/*No comment provided by engineer.*/
 "Version" = "Verzija";
-
-/*No comment provided by engineer.*/
 "View existing discussions" = "Pogledajte postojeće rasprave";
-
-/*No comment provided by engineer.*/
 "Vim keys" = "Vim keys";
-
-/*No comment provided by engineer.*/
 "Vim keys already assigned to other actions:\n%@" = "VIM ključevi već dodijeljeni drugim radnjama: \\ n%@";
-
-/*No comment provided by engineer.*/
 "Visibility" = "Vidljivost";
-
-/*No comment provided by engineer.*/
 "Visible Spaces" = "Vidljivi prostori";
-
-/*No comment provided by engineer.*/
 "When fullscreen" = "Kad je puni zaslon";
-
-/*No comment provided by engineer.*/
 "When no open window" = "Kad nema otvorenog prozora";
-
-/*No comment provided by engineer.*/
 "While open, press:" = "While open, press:";
-
-/*No comment provided by engineer.*/
 "Window app icon size:" = "Window app icon size:";
-
-/*No comment provided by engineer.*/
 "Window is fullscreen" = "Prozor je puni zaslon";
-
-/*No comment provided by engineer.*/
 "Window is minimized" = "Prozor je minimiziran";
-
-/*No comment provided by engineer.*/
 "Window is on every Space" = "Prozor je na svakom prostoru";
-
-/*No comment provided by engineer.*/
 "Window is on Space %d" = "Prozor je na prostoru %d";
-
-/*No comment provided by engineer.*/
 "Window max width in row:" = "Window max width in row:";
-
-/*No comment provided by engineer.*/
 "Window min width in row:" = "Window min width in row:";
-
-/*No comment provided by engineer.*/
 "Window order:" = "Window order:";
-
-/*No comment provided by engineer.*/
 "Window Title" = "Prozor";
-
-/*No comment provided by engineer.*/
 "Window title font size:" = "Window title font size:";
-
-/*No comment provided by engineer.*/
 "Window title truncation:" = "Window title truncation:";
-
-/*No comment provided by engineer.*/
 "Windows" = "Prozori";
-
-/*No comment provided by engineer.*/
 "You can’t undo this action." = "Ne možete poništiti ovu radnju.";
-
-/*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Niste napisali svoju e -poštu, pa ne možete dobiti nikakav odgovor.";
-
-/*No comment provided by engineer.*/
 "You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

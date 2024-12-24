@@ -1,743 +1,244 @@
-
-/*No comment provided by engineer.*/
 "About" = "Tietoja";
-
-/*Menubar option. %@ is AltTab*/
-/*Menubar option. %@ is AltTab*/
 "About %@" = "Tietoja %@sta";
-
-/*No comment provided by engineer.*/
 "Accessibility" = "Käyttöapu";
-
-/*No comment provided by engineer.*/
 "Acknowledgments" = "Kiitokset";
-
-/*No comment provided by engineer.*/
 "Active app" = "Aktiivinen ohjelma";
-
-/*No comment provided by engineer.*/
 "Active screen" = "Aktiivisella näytöllä";
-
-/*No comment provided by engineer.*/
 "Active Space" = "Aktiivinen tila";
-
-/*No comment provided by engineer.*/
 "Additional controls" = "Lisäohjaimet";
-
-/*No comment provided by engineer.*/
 "Additional controls…" = "Lisäohjaimet…";
-
-/*No comment provided by engineer.*/
 "Advanced" = "Kehittyneemmät";
-
-/*No comment provided by engineer.*/
 "After release" = "Vapautuksen jälkeen";
-
-/*No comment provided by engineer.*/
 "Align windows" = "Tasaa ikkunat";
-
-/*No comment provided by engineer.*/
 "Align windows:" = "Tasaa ikkunat:";
-
-/*No comment provided by engineer.*/
 "All apps" = "Kaikki apit";
-
-/*No comment provided by engineer.*/
 "All data from this form will be made public, as a ticket on github.com" = "Tämän lomakkeen tiedot tulevat julkisiksi Github.comiin";
-
-/*No comment provided by engineer.*/
 "All screens" = "Kaikki ruudut";
-
-/*No comment provided by engineer.*/
 "All Spaces" = "Kaikki tilat";
-
-/*No comment provided by engineer.*/
 "Allowed" = "Sallittu";
-
-/*No comment provided by engineer.*/
 "Alphabetical" = "Aakkosjärjestys";
-
-/*No comment provided by engineer.*/
 "Alphabetical Order" = "Aakkosjärjestys";
-
-/*No comment provided by engineer.*/
 "Also select windows using:" = "Valitse ikkunoita myös:";
-
-/*No comment provided by engineer.*/
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab kaatui viime käyttökerralla. Vikaraportin lähettäminen auttaa ongelman korjaamiseen";
-
-/*No comment provided by engineer.*/
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "AltTab on tällä hetkellä asetettu näyttämään apit. Tämä asetus on käytettävissä vain, kun AltTab on asetettu näyttämään ikkunat.";
-
-/*Menubar callout*/
-/*Menubar callout*/
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
-
-/*No comment provided by engineer.*/
 "AltTab needs some permissions" = "AltTab tarvitsee joitakin oikeuksia";
-
-/*No comment provided by engineer.*/
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab näyttää kuvakkeella, onko ikkuna pienennetty tai koko näytöllä.";
-
-/*No comment provided by engineer.*/
 "Always" = "Aina";
-
-/*No comment provided by engineer.*/
 "Always send crash reports" = "Lähetä vikaraportit aina";
-
-/*No comment provided by engineer.*/
 "and press" = "ja paina";
-
-/*No comment provided by engineer.*/
 "and press:" = "ja paina:";
-
-/*No comment provided by engineer.*/
 "Animations" = "Animaatiot";
-
-/*No comment provided by engineer.*/
 "Animations…" = "Animaatiot…";
-
-/*No comment provided by engineer.*/
 "App (BundleID starting with)" = "Appi (BundleID alkaen)";
-
-/*No comment provided by engineer.*/
 "App Icons" = "Appikuvakkeet";
-
-/*No comment provided by engineer.*/
 "App is hidden" = "Sovellus on piilotettu";
-
-/*No comment provided by engineer.*/
 "App is running but has no open window" = "Sovellus on käynnissä, mutta sillä ei ole ikkunoita";
-
-/*No comment provided by engineer.*/
 "Apparition delay" = "Ilmestysviive";
-
-/*No comment provided by engineer.*/
 "Apparition delay:" = "Ilmestymisviive:";
-
-/*No comment provided by engineer.*/
 "Appearance" = "Ulkoasu";
-
-/*No comment provided by engineer.*/
 "Application Name" = "Apin nimi";
-
-/*No comment provided by engineer.*/
 "Application Name - Window Title" = "Apin nimi - ikkunan otsikko";
-
-/*No comment provided by engineer.*/
 "Applications" = "Apit";
-
-/*No comment provided by engineer.*/
 "Are you sure you don’t want a response?" = "Oletko varma ettet halua vastausta?";
-
-/*No comment provided by engineer.*/
 "Arrow keys" = "Nuolinäppäimet";
-
-/*No comment provided by engineer.*/
 "Ask whether to send crash reports" = "Kysy lähetetäänkö vikaraportit";
-
-/*No comment provided by engineer.*/
 "Auto-install updates periodically" = "Asenna päivitykset automaattisesti aika ajoin";
-
-/*No comment provided by engineer.*/
 "Blacklists" = "Estolistat";
-
-/*Cancel button*/
 "Cancel" = "Peru";
-
-/*No comment provided by engineer.*/
 "Cancel and hide" = "Peru ja piilota";
-
-/*No comment provided by engineer.*/
 "Center" = "Keskellä";
-
-/*No comment provided by engineer.*/
 "Check for updates now…" = "Tarkista päivitykset nyt…";
-
-/*No comment provided by engineer.*/
 "Check for updates periodically" = "Tarkista päivitykset aika ajoin";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Check for updates…" = "Tarkista päivitykset…";
-
-/*Menubar option*/
-/*Menubar option*/
 "Check permissions…" = "Tarkista käyttöoikeudet...";
-
-/*No comment provided by engineer.*/
 "Close window" = "Sulje ikkuna";
-
-/*No comment provided by engineer.*/
 "Conflicting shortcut" = "Pikanäppäinristiriita";
-
-/*No comment provided by engineer.*/
 "Controls" = "Ohjaimet";
-
-/*No comment provided by engineer.*/
 "Crash reports policy" = "Vikaraporttien käytäntö";
-
-/*No comment provided by engineer.*/
 "Crash reports policy:" = "Vikaraporttien käytäntö:";
-
-/*No comment provided by engineer.*/
 "Cursor follows focus" = "Osoitin seuraa kohdennusta";
-
-/*No comment provided by engineer.*/
 "Customize App Icons style…" = "Mukauta appikuvakkeiden tyyliä…";
-
-/*No comment provided by engineer.*/
 "Customize Thumbnails style…" = "Mukauta pikkukuvien tyyliä…";
-
-/*No comment provided by engineer.*/
 "Customize Titles style…" = "Mukauta otsikoiden tyyliä…";
-
-/*No comment provided by engineer.*/
 "Dark" = "Tumma";
-
-/*No comment provided by engineer.*/
 "Disabled" = "Disabled";
-
-/*No comment provided by engineer.*/
 "Do nothing" = "Älä tee mitään";
-
-/*No comment provided by engineer.*/
 "Don’t check for updates periodically" = "Älä tarkista päivityksiä";
-
-/*No comment provided by engineer.*/
 "Don’t send" = "Älä lähetä";
-
-/*No comment provided by engineer.*/
 "Don’t show windows from these apps" = "Älä näytä ikkunoita näistä ohjelmista";
-
-/*No comment provided by engineer.*/
 "Done" = "Valmis";
-
-/*No comment provided by engineer.*/
 "End" = "Loppu";
-
-/*No comment provided by engineer.*/
 "Fade out animation" = "Haihtumisen animaation";
-
-/*No comment provided by engineer.*/
 "Fade out animation:" = "Häipymisanimaatio:";
-
-/*No comment provided by engineer.*/
 "Focus selected window" = "Kohdenna valittu ikkuna";
-
-/*No comment provided by engineer.*/
 "Fullscreen window" = "Koko näytön ikkuna";
-
-/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Koko näytön ikkunat:";
-
-/*No comment provided by engineer.*/
 "Fullscreen/Defullscreen window" = "Ikkuna koko näyttöön/pois";
-
-/*No comment provided by engineer.*/
 "General" = "Yleinen";
-
-/*No comment provided by engineer.*/
 "Gesture" = "Gesture";
-
-/*Menubar callout button*/
-/*Menubar callout button*/
 "Grant permission" = "Grant permission";
-
-/*No comment provided by engineer.*/
 "Hidden windows:" = "Piilotetut ikkunat:";
-
-/*No comment provided by engineer.*/
 "Hide" = "Piilota";
-
-/*No comment provided by engineer.*/
 "Hide app badges" = "Piilota appien merkit";
-
-/*No comment provided by engineer.*/
 "Hide app badges:" = "Piilota appien merkit:";
-
-/*No comment provided by engineer.*/
 "Hide apps with no open window" = "Piilota apit, joilla ei ole avoimia ikkunoita";
-
-/*No comment provided by engineer.*/
 "Hide apps with no open window:" = "Piilota apit, joilla ei ole avoimia ikkunoita:";
-
-/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover" = "Piilota väriympyrät hiirellä osoittaessakin";
-
-/*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Piilota väriympyrät hiirellä osoittaessakin:";
-
-/*%@ is AltTab*/
-/*%@ is AltTab*/
 "Hide in %@" = "Piilota %@ssa";
-
-/*No comment provided by engineer.*/
 "Hide Space number labels" = "Piilota tilojen numerot";
-
-/*No comment provided by engineer.*/
 "Hide Space number labels:" = "Piilota tilojen numerot:";
-
-/*No comment provided by engineer.*/
 "Hide status icons" = "Piilota statusikonit";
-
-/*No comment provided by engineer.*/
 "Hide status icons:" = "Piilota statusikonit:";
-
-/*No comment provided by engineer.*/
 "Hide window thumbnails:" = "Piilota pikkukuvat:";
-
-/*No comment provided by engineer.*/
 "Hide/Show app" = "Piilota/näytä appi";
-
-/*No comment provided by engineer.*/
 "High" = "Korkea";
-
-/*No comment provided by engineer.*/
 "Highest" = "Korkein";
-
-/*No comment provided by engineer.*/
 "Hold" = "Pidä";
-
-/*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Ohjelmaa voisi mielestäni parantaa…";
-
-/*No comment provided by engineer.*/
 "Ignore shortcuts when active" = "Sivuuta pikanäppäimet, kun aktiivinen";
-
-/*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Älä käsittele pikanäppäimiä näiden ohjelmien ollessa aktiivisia";
-
-/*No comment provided by engineer.*/
 "Language" = "Language";
-
-/*No comment provided by engineer.*/
 "Language Change" = "Language Change";
-
-/*No comment provided by engineer.*/
 "Large" = "Suuri";
-
-/*No comment provided by engineer.*/
 "Later" = "Later";
-
-/*No comment provided by engineer.*/
 "Latest releases" = "Uusimmat julkaisut";
-
-/*No comment provided by engineer.*/
 "Leading" = "Reunaan";
-
-/*No comment provided by engineer.*/
 "Left" = "Vasen";
-
-/*No comment provided by engineer.*/
 "Light" = "Vaalea";
-
-/*No comment provided by engineer.*/
 "Max height on screen:" = "Maksimikorkeus näytöllä:";
-
-/*No comment provided by engineer.*/
 "Max width on screen:" = "Maksimileveys näytöllä:";
-
-/*No comment provided by engineer.*/
 "Medium" = "Keskikoko";
-
-/*No comment provided by engineer.*/
 "Menubar icon" = "Valikkorivin kuvake";
-
-/*No comment provided by engineer.*/
 "Menubar icon:" = "Valikkorivin kuvake:";
-
-/*No comment provided by engineer.*/
 "Middle" = "Keski";
-
-/*No comment provided by engineer.*/
 "Minimize/Deminimize window" = "Pienennä/palauta ikkuna";
-
-/*No comment provided by engineer.*/
 "Minimized windows:" = "Pienennetyt ikkunat:";
-
-/*No comment provided by engineer.*/
 "Miscellaneous" = "Miscellaneous";
-
-/*No comment provided by engineer.*/
 "Miscellaneous:" = "Sekalaista:";
-
-/*No comment provided by engineer.*/
 "Mouse hover" = "Hiiren liike";
-
-/*No comment provided by engineer.*/
 "Multiple screens" = "Useita näyttöjä";
-
-/*No comment provided by engineer.*/
 "Never send crash reports" = "Älä lähetä vikaraportteja";
-
-/*No comment provided by engineer.*/
 "Normal" = "Normaali";
-
-/*No comment provided by engineer.*/
 "Not allowed" = "Ei sallittu";
-
-/*Copyright (human-readable)*/
 "NSHumanReadableCopyright" = "GPL-3.0 -lisenssi";
-
-/*No comment provided by engineer.*/
 "Only if the window is fullscreen" = "Vain, jos ikkuna on koko näytöllä";
-
-/*No comment provided by engineer.*/
 "Open Accessibility Preferences…" = "Avaa Käyttöapuasetukset…";
-
-/*No comment provided by engineer.*/
 "Open Screen Recording Preferences…" = "Avaa Näytön tallennusasetukset…";
-
-/*No comment provided by engineer.*/
 "Open Trackpad Preferences…" = "Open Trackpad Preferences…";
-
-/*No comment provided by engineer.*/
 "Optional: email (if you want a reply)" = "Vapaaehtoinen: sähköposti (jos haluat vastauksen)";
-
-/*No comment provided by engineer.*/
 "Order windows by" = "Järjestä ikkunat";
-
-/*No comment provided by engineer.*/
 "Policies" = "Käytännöt";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Preferences…" = "Asetukset…";
-
-/*No comment provided by engineer.*/
 "Preview selected window" = "Esikatsele valittua ikkunaa";
-
-/*No comment provided by engineer.*/
 "Preview selected window:" = "Esikatsele valittua ikkunaa:";
-
-/*No comment provided by engineer.*/
 "Preview the selected window." = "Esikatsele valittu ikkuna.";
-
-/*No comment provided by engineer.*/
 "Quit" = "Lopeta";
-
-/*No comment provided by engineer.*/
-/*Menubar option. %@ is AltTab*/
 "Quit %@" = "Lopeta %@";
-
-/*No comment provided by engineer.*/
 "Quit app" = "Lopeta appi";
-
-/*No comment provided by engineer.*/
 "Recently Created" = "Luontijärjestys";
-
-/*No comment provided by engineer.*/
 "Recently Created First" = "Äskettäin luodut ensin";
-
-/*No comment provided by engineer.*/
 "Recently Focused" = "Kohdennusjärjestys";
-
-/*No comment provided by engineer.*/
 "Recently Focused First" = "Äskettäin kohdennetut ensin";
-
-/*No comment provided by engineer.*/
 "Remember my choice" = "Muista valintani";
-
-/*No comment provided by engineer.*/
 "Reset preferences and restart" = "Nollaa asetukset ja aloita alusta";
-
-/*No comment provided by engineer.*/
 "Reset preferences and restart…" = "Nollaa asetukset ja käynnistä uudelleen…";
-
-/*No comment provided by engineer.*/
 "Restart Now" = "Restart Now";
-
-/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Pikkukuvien rivit:";
-
-/*No comment provided by engineer.*/
 "Screen including menu bar" = "Näytöllä, jossa valikkorivi";
-
-/*No comment provided by engineer.*/
 "Screen including mouse" = "Näytöllä, jossa hiiri";
-
-/*No comment provided by engineer.*/
 "Screen Recording" = "Näytön tallennus";
-
-/*No comment provided by engineer.*/
 "Screen showing AltTab" = "Näytöllä, jossa AltTab";
-
-/*No comment provided by engineer.*/
 "Select next window" = "Valitse seuraava ikkuna";
-
-/*No comment provided by engineer.*/
 "Select previous window" = "Valitse edellinen ikkuna";
-
-/*No comment provided by engineer.*/
 "Select windows on mouse hover" = "Valitse ikkunat hiiren osoittimella";
-
-/*No comment provided by engineer.*/
 "Select windows using arrow keys" = "Valitse ikkunat nuolinäppäimillä";
-
-/*No comment provided by engineer.*/
 "Select windows using vim keys" = "Valitse ikkunat VIM -näppäimillä";
-
-/*No comment provided by engineer.*/
 "Send" = "Lähetä";
-
-/*No comment provided by engineer.*/
 "Send a crash report?" = "Lähetä vikaraportti?";
-
-/*No comment provided by engineer.*/
 "Send anyway" = "Lähetä silti";
-
-/*No comment provided by engineer.*/
 "Send debug profile (CPU, memory, etc)" = "Lähetä debug-profiili (prosessori, muisti ym.)";
-
-/*No comment provided by engineer.*/
 "Send feedback" = "Lähetä palautetta";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Send feedback…" = "Lähetä palautetta…";
-
-/*No comment provided by engineer.*/
 "Share improvement ideas, or report bugs" = "Jaa parannusehdotuksia tai raportoi bugeja";
-
-/*No comment provided by engineer.*/
 "Shortcut 1" = "Pikanäppäin 1";
-
-/*No comment provided by engineer.*/
 "Shortcut 2" = "Pikanäppäin 2";
-
-/*No comment provided by engineer.*/
 "Shortcut 3" = "Pikanäppäin 3";
-
-/*No comment provided by engineer.*/
 "Shortcut 4" = "Pikanäppäin 4";
-
-/*No comment provided by engineer.*/
 "Shortcut 5" = "Pikanäppäin 5";
-
-/*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Pikanäppäin on jo määritetty toiseen toimintoon: %@";
-
-/*No comment provided by engineer.*/
 "Shortcuts When Active" = "Pikakomennot aktiivisena";
-
-/*No comment provided by engineer.*/
 "Shortcuts when active…" = "Pikakomennot aktiivisena…";
-
-/*No comment provided by engineer.*/
-/*Menubar option*/
 "Show" = "Näytä";
-
-/*No comment provided by engineer.*/
 "Show & Hide" = "Näytä ja piilota";
-
-/*No comment provided by engineer.*/
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Näytä kohde kytkimessä jokaiselle ikkunaan tai jokaiselle sovellukselle. Ikkunat kohdennetaan, kun taas apit aktivoidaan.";
-
-/*No comment provided by engineer.*/
 "Show at the end" = "Näytä lopussa";
-
-/*No comment provided by engineer.*/
 "Show fullscreen windows" = "Näytä koko näytön ikkunat";
-
-/*No comment provided by engineer.*/
 "Show hidden windows" = "Näytä piilotetut ikkunat";
-
-/*No comment provided by engineer.*/
 "Show in switcher" = "Näytä vaihtajassa";
-
-/*No comment provided by engineer.*/
 "Show minimized windows" = "Näytä pienennetyt ikkunat";
-
-/*No comment provided by engineer.*/
 "Show on" = "Näytä";
-
-/*No comment provided by engineer.*/
 "Show on:" = "Näytä:";
-
-/*No comment provided by engineer.*/
 "Show standard tabs as windows" = "Näytä välilehdet ikkunoina";
-
-/*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Näytä välilehdet ikkunoina:";
-
-/*No comment provided by engineer.*/
 "Show titles" = "Näytä otsikot";
-
-/*No comment provided by engineer.*/
 "Show windows from applications" = "Näytä ikkunat apeista";
-
-/*No comment provided by engineer.*/
 "Show windows from screens" = "Näytä ikkunat näytöiltä";
-
-/*No comment provided by engineer.*/
 "Show windows from Spaces" = "Näytä ikkunat tiloista";
-
-/*No comment provided by engineer.*/
 "Show windows from:" = "Näytä ikkunat:";
-
-/*No comment provided by engineer.*/
 "Size" = "Koko";
-
-/*No comment provided by engineer.*/
 "Skipped" = "Skipped";
-
-/*No comment provided by engineer.*/
 "Small" = "Pieni";
-
-/*No comment provided by engineer.*/
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Jotkut apit, kuten Finder tai Esikatselu, käyttävät vakio -välilehtiä, jotka toimivat kuin itsenäiset ikkunat. Jotkut muut apit, kuten verkkoselaimet, käyttävät mukautettuja välilehtiä, jotka toimivat ainutlaatuisilla tavoilla eivätkä ole todellisia ikkunoita. AltTab ei voi luetella niitä erikseen.";
-
-/*No comment provided by engineer.*/
 "Source code repository" = "Lähdekoodi";
-
-/*No comment provided by engineer.*/
 "Space" = "Tila";
-
-/*No comment provided by engineer.*/
 "Space Order" = "Tilajärjestys";
-
-/*No comment provided by engineer.*/
 "Start" = "Alku";
-
-/*No comment provided by engineer.*/
 "Start at login" = "Avaa sisäänkirjauduttaessa";
-
-/*No comment provided by engineer.*/
 "Start at login:" = "Avaa sisäänkirjauduttaessa:";
-
-/*Menubar option*/
-/*Menubar option*/
 "Support this project ❤️" = "Tue tätä projektia ❤️";
-
-/*No comment provided by engineer.*/
 "Swipe with Four Fingers" = "Swipe with Four Fingers";
-
-/*No comment provided by engineer.*/
 "Swipe with Three Fingers" = "Swipe with Three Fingers";
-
-/*No comment provided by engineer.*/
 "Switch between 3 different styles. You can customize them." = "Vaihda 3 eri tyylin välillä. Voit mukauttaa niitä.";
-
-/*No comment provided by engineer.*/
 "System" = "Järjestelmä";
-
-/*No comment provided by engineer.*/
 "System Default" = "System Default";
-
-/*No comment provided by engineer.*/
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
-
-/*No comment provided by engineer.*/
 "Theme" = "Teema";
-
-/*No comment provided by engineer.*/
 "Theme:" = "Teema:";
-
-/*No comment provided by engineer.*/
 "Then release:" = "Sitten päästä:";
-
-/*No comment provided by engineer.*/
 "This permission is needed to focus windows after you release the shortcut" = "Tarvitaan ikkunoiden valitsemiseksi";
-
-/*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "Tarvitaan ikkunoiden otsikoiden ja pikkukuvien näyttämiseen";
-
-/*No comment provided by engineer.*/
 "Thumbnails" = "Pikkukuvat";
-
-/*No comment provided by engineer.*/
 "Title" = "Title";
-
-/*No comment provided by engineer.*/
 "Title truncation" = "Otsikon lyhennys";
-
-/*No comment provided by engineer.*/
 "Titles" = "Otsikot";
-
-/*No comment provided by engineer.*/
 "Trigger shortcut" = "Pikakomento";
-
-/*No comment provided by engineer.*/
 "Unassign existing shortcut and continue" = "Poista olemassa oleva pikanäppäinmääritys ja jatka";
-
-/*No comment provided by engineer.*/
 "Updates policy" = "Päivityskäytäntö";
-
-/*No comment provided by engineer.*/
 "Updates policy:" = "Päivityskäytäntö:";
-
-/*No comment provided by engineer.*/
 "Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
-
-/*No comment provided by engineer.*/
 "Version" = "Versio";
-
-/*No comment provided by engineer.*/
 "View existing discussions" = "Näytä keskustelut";
-
-/*No comment provided by engineer.*/
 "Vim keys" = "Vim-näppäimet";
-
-/*No comment provided by engineer.*/
 "Vim keys already assigned to other actions:\n%@" = "Vim-näppäimet on jo määritetty toisiin toimintoihin:\n%@";
-
-/*No comment provided by engineer.*/
 "Visibility" = "Näkyvyys";
-
-/*No comment provided by engineer.*/
 "Visible Spaces" = "Näkyvät tilat";
-
-/*No comment provided by engineer.*/
 "When fullscreen" = "Kun koko näytöllä";
-
-/*No comment provided by engineer.*/
 "When no open window" = "Kun ikkunoita ei ole auki";
-
-/*No comment provided by engineer.*/
 "While open, press:" = "Kun auki, paina:";
-
-/*No comment provided by engineer.*/
 "Window app icon size:" = "Ohjelmaikonin koko:";
-
-/*No comment provided by engineer.*/
 "Window is fullscreen" = "Ikkuna on koko näytöllä";
-
-/*No comment provided by engineer.*/
 "Window is minimized" = "Ikkuna on pienennetty";
-
-/*No comment provided by engineer.*/
 "Window is on every Space" = "Ikkuna on jokaisessa tilassa";
-
-/*No comment provided by engineer.*/
 "Window is on Space %d" = "Ikkuna on tilassa %d";
-
-/*No comment provided by engineer.*/
 "Window max width in row:" = "Ikkunan maksimileveys rivillä:";
-
-/*No comment provided by engineer.*/
 "Window min width in row:" = "Ikkunan minimileveys rivillä:";
-
-/*No comment provided by engineer.*/
 "Window order:" = "Ikkunoiden järjestys:";
-
-/*No comment provided by engineer.*/
 "Window Title" = "Ikkunan otsikko";
-
-/*No comment provided by engineer.*/
 "Window title font size:" = "Otsikkotekstin koko:";
-
-/*No comment provided by engineer.*/
 "Window title truncation:" = "Ikkunaotsikoiden lyhennys:";
-
-/*No comment provided by engineer.*/
 "Windows" = "Ikkunat";
-
-/*No comment provided by engineer.*/
 "You can’t undo this action." = "Et voi perua tätä toimintoa.";
-
-/*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "Et antanut sähköpostiosoitettasi, joten emme voi lähettää sinulle vastausta.";
-
-/*No comment provided by engineer.*/
 "You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

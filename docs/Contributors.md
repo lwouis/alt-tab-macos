@@ -10,6 +10,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [Calinou](https://github.com/Calinou)
 * [damonpam](https://github.com/damonpam)
 * [decodism](https://github.com/decodism)
+* [delaneyb](https://github.com/delaneyb)
 * [gingerr](https://github.com/gingerr)
 * [GrzegorzKazana](https://github.com/GrzegorzKazana)
 * [hughlilly](https://github.com/hughlilly)
@@ -29,7 +30,6 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [ShlomoCode](https://github.com/ShlomoCode)
 * [skolj](https://github.com/skolj)
 * [xanathar](https://github.com/xanathar)
-* [xconverge](https://github.com/xconverge)
 * [zacharee](https://github.com/zacharee)
 
 They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
