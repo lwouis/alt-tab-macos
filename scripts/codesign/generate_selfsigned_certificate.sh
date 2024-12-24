@@ -23,5 +23,14 @@ EOL
 openssl genrsa -out $certificateFile.key 2048
 # generate self-signed certificate
 openssl req -x509 -new -config $certificateFile.conf -nodes -key $certificateFile.key -extensions extensions -sha256 -out $certificateFile.crt
+
+openssl_version=$(openssl version)
+# openssl v3.x requires to pass -legacy
+# see https://www.misterpki.com/openssl-pkcs12-legacy/
+if [[ $openssl_version == OpenSSL\ 3* ]]; then
+  flag="-legacy"
+else
+  flag=""
+fi
 # wrap key and certificate into PKCS12
-openssl pkcs12 -export -inkey $certificateFile.key -in $certificateFile.crt -out $certificateFile.p12 -passout pass:$certificatePassword
+openssl pkcs12 $flag -export -inkey $certificateFile.key -in $certificateFile.crt -out $certificateFile.p12 -passout pass:$certificatePassword
