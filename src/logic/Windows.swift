@@ -251,16 +251,15 @@ class Windows {
         for (index, cgWindowId) in Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated() {
             windowLevelMap[cgWindowId] = index
         }
-        var orderForUnlistedWindows = Int.max
-        for window in list {
-            if let listedOrder = windowLevelMap[window.cgWindowId] {
-                window.lastFocusOrder = listedOrder
-            } else {
-                window.lastFocusOrder = orderForUnlistedWindows
-                orderForUnlistedWindows -= 1
-            }
-        }
-        list.sort { $0.lastFocusOrder < $1.lastFocusOrder }
+        list = list
+                .sorted { w1, w2 in
+                    (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
+                }
+                .enumerated()
+                .map { (index, window) -> Window in
+                    window.lastFocusOrder = index
+                    return window
+                }
     }
 
     static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int) {
