@@ -6,22 +6,20 @@ set -exu
 export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib"
 
 currentDir="$(pwd)"
-size=16
+finalSize=256
+upscaledSize=$((finalSize * 4))
 
-function convert() {
-  #  magick convert \
-  #    -background none \
-  #    -density 144 \
-  #    -resize 24x24 \
-  #    "resources/icons/window-controls/$1.svg" \
-  #    "resources/icons/window-controls/$1-magik.png"
+function generate_png() {
   /Applications/Inkscape.app/Contents/MacOS/inkscape \
-    -z \
-    -w "$((size * 2))" -h "$((size * 2))" \
-    "$currentDir/resources/icons/window-controls/$1.svg" \
-    -e "$currentDir/resources/icons/window-controls/$1@2x.png"
+    -w "$upscaledSize" -h "$upscaledSize" \
+    "$currentDir/$1.svg" \
+    -o "$currentDir/$1_$upscaledSize.png"
+
+  # better quality if we make a large png, then downscale it, then produce the small png directly
+  magick \
+    "$currentDir/$1_$upscaledSize.png" \
+    -resize 25% \
+    "$currentDir/$1_$finalSize.png"
 }
 
-convert "close"
-convert "fullscreen"
-convert "minimize"
+generate_png "resources/icons/app/app"
