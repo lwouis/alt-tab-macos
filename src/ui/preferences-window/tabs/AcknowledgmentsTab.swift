@@ -7,17 +7,19 @@ class AcknowledgmentsTab {
     static func initTab() -> NSView {
         let textViews: [NSTextView] = ["Contributors", "Acknowledgments"].map {
             let markdownFileUrl = Bundle.main.url(forResource: $0, withExtension: "md")!
-            let content = try! String(contentsOf: markdownFileUrl, encoding: .utf8)
+            var content = try! String(contentsOf: markdownFileUrl, encoding: .utf8)
+            if content.last == "\n" {
+                content.removeLast()
+            }
             let attributedString = Markdown.toAttributedString(content)
             let textView = NSTextView()
             textView.textContainer!.widthTracksTextView = true
             textView.translatesAutoresizingMaskIntoConstraints = false
-            textView.drawsBackground = true
-            textView.backgroundColor = .clear
+            textView.drawsBackground = false
             textView.isSelectable = true
             textView.isEditable = false
             textView.enabledTextCheckingTypes = 0
-            textView.frame.size.width = 230
+            textView.frame.size.width = 240
             textView.textStorage!.setAttributedString(attributedString)
             textView.layoutManager!.ensureLayout(for: textView.textContainer!)
             textView.frame = textView.layoutManager!.usedRect(for: textView.textContainer!)
@@ -25,13 +27,15 @@ class AcknowledgmentsTab {
             return textView
         }
         let subGrid = GridView([textViews])
-        subGrid.column(at: 1).leadingPadding = 20
         subGrid.fit()
 
-        let scrollView = ScrollView()
+        let scrollView = NSScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.drawsBackground = false
+        scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = false
+        scrollView.documentView = FlippedView(frame: .zero)
         scrollView.documentView!.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.scrollerKnobStyle = .default
         scrollView.documentView!.subviews = [subGrid]
         let totalWidth = subGrid.fittingSize.width
         scrollView.frame.size = NSSize(width: totalWidth, height: maxTabHeight)
