@@ -96,6 +96,8 @@
 "High" = "উচ্চ";
 "Highest" = "সর্বোচ্চ";
 "Hold" = "ধরে রাখ";
+"Horizontal Swipe with Four Fingers" = "Horizontal Swipe with Four Fingers";
+"Horizontal Swipe with Three Fingers" = "Horizontal Swipe with Three Fingers";
 "I think the app could be improved with…" = "আমি মনে করি অ্যাপটি আরো উন্নত করা যেতে পারে...";
 "Ignore shortcuts when active" = "সক্রিয় থাকাকালীন শর্টকাট উপেক্ষা করুন";
 "Ignore shortcuts while a window from these apps is active" = "এই অ্যাপগুলির একটি উইন্ডো সক্রিয় থাকাকালীন শর্টকাটগুলি উপেক্ষা করুন৷";
@@ -219,6 +221,8 @@
 "Updates policy:" = "আপডেট নীতি:";
 "Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 "Version" = "সংস্করণ";
+"Vertical Swipe with Four Fingers" = "Vertical Swipe with Four Fingers";
+"Vertical Swipe with Three Fingers" = "Vertical Swipe with Three Fingers";
 "View existing discussions" = "বিদ্যমান আলোচনা দেখুন";
 "Vim keys" = "Vim keys";
 "Vim keys already assigned to other actions:\n%@" = "ভিম কীগুলি ইতিমধ্যে অন্যান্য ক্রিয়াকলাপে নির্ধারিত: \\ n%@";

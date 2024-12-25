@@ -96,6 +96,8 @@
 "High" = "Alta";
 "Highest" = "Mais alta";
 "Hold" = "Segurar";
+"Horizontal Swipe with Four Fingers" = "Horizontal Swipe with Four Fingers";
+"Horizontal Swipe with Three Fingers" = "Horizontal Swipe with Three Fingers";
 "I think the app could be improved with…" = "Eu acho que a aplicação poderia ser melhorada se…";
 "Ignore shortcuts when active" = "Ignorar atalhos enquanto activo";
 "Ignore shortcuts while a window from these apps is active" = "Ignorar atalhos sempre que uma destas janelas esteja activa";
@@ -219,6 +221,8 @@
 "Updates policy:" = "Regras de actualização:";
 "Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 "Version" = "Versão";
+"Vertical Swipe with Four Fingers" = "Vertical Swipe with Four Fingers";
+"Vertical Swipe with Three Fingers" = "Vertical Swipe with Three Fingers";
 "View existing discussions" = "Ver discussões existentes";
 "Vim keys" = "Teclas Vim";
 "Vim keys already assigned to other actions:\n%@" = "Teclas Vim já se encontram associadas a outras acções:\n%@";

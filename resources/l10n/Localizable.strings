@@ -236,6 +236,12 @@
 "Hold" = "Hold";
 
 /* No comment provided by engineer. */
+"Horizontal Swipe with Four Fingers" = "Horizontal Swipe with Four Fingers";
+
+/* No comment provided by engineer. */
+"Horizontal Swipe with Three Fingers" = "Horizontal Swipe with Three Fingers";
+
+/* No comment provided by engineer. */
 "I think the app could be improved with…" = "I think the app could be improved with…";
 
 /* No comment provided by engineer. */
@@ -479,12 +485,6 @@
 "Support this project ❤️" = "Support this project ❤️";
 
 /* No comment provided by engineer. */
-"Swipe with Four Fingers" = "Swipe with Four Fingers";
-
-/* No comment provided by engineer. */
-"Swipe with Three Fingers" = "Swipe with Three Fingers";
-
-/* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
 
 /* No comment provided by engineer. */
@@ -531,6 +531,12 @@
 
 /* No comment provided by engineer. */
 "Version" = "Version";
+
+/* No comment provided by engineer. */
+"Vertical Swipe with Four Fingers" = "Vertical Swipe with Four Fingers";
+
+/* No comment provided by engineer. */
+"Vertical Swipe with Three Fingers" = "Vertical Swipe with Three Fingers";
 
 /* No comment provided by engineer. */
 "View existing discussions" = "View existing discussions";

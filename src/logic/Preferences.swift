@@ -203,31 +203,34 @@ class Preferences {
 
     private static func updateToNewPreferences(_ versionInPlist: String) {
         // x.compare(y) is .orderedDescending if x > y
-        if versionInPlist.compare("7.8.0", options: .numeric) != .orderedDescending {
-            migrateMenubarIconWithNewShownToggle()
-            if versionInPlist.compare("7.0.0", options: .numeric) != .orderedDescending {
-                migratePreferencesIndexes()
-                if versionInPlist.compare("6.43.0", options: .numeric) != .orderedDescending {
-                    migrateBlacklists()
-                    if versionInPlist.compare("6.28.1", options: .numeric) != .orderedDescending {
-                        migrateMinMaxWindowsWidthInRow()
-                        if versionInPlist.compare("6.27.1", options: .numeric) != .orderedDescending {
-                            // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
-                            (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
-                            if versionInPlist.compare("6.23.0", options: .numeric) != .orderedDescending {
-                                // "Show windows from:" got the "Active Space" option removed
-                                migrateShowWindowsFrom()
-                                if versionInPlist.compare("6.18.1", options: .numeric) != .orderedDescending {
-                                    // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
-                                    migrateNextWindowShortcuts()
-                                    // dropdowns preferences used to store English text; now they store indexes
-                                    migrateDropdownsFromTextToIndexes()
-                                    // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
-                                    migrateMenubarIconFromCheckboxToDropdown()
-                                    // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
-                                    migrateShowWindowsCheckboxToDropdown()
-                                    // "Max size on screen" was split into max width and max height
-                                    migrateMaxSizeOnScreenToWidthAndHeight()
+        if versionInPlist.compare("7.13.1", options: .numeric) != .orderedDescending {
+            migrateGestures()
+            if versionInPlist.compare("7.8.0", options: .numeric) != .orderedDescending {
+                migrateMenubarIconWithNewShownToggle()
+                if versionInPlist.compare("7.0.0", options: .numeric) != .orderedDescending {
+                    migratePreferencesIndexes()
+                    if versionInPlist.compare("6.43.0", options: .numeric) != .orderedDescending {
+                        migrateBlacklists()
+                        if versionInPlist.compare("6.28.1", options: .numeric) != .orderedDescending {
+                            migrateMinMaxWindowsWidthInRow()
+                            if versionInPlist.compare("6.27.1", options: .numeric) != .orderedDescending {
+                                // "Start at login" new implem doesn't use Login Items; we remove the entry from previous versions
+                                (Preferences.self as AvoidDeprecationWarnings.Type).migrateLoginItem()
+                                if versionInPlist.compare("6.23.0", options: .numeric) != .orderedDescending {
+                                    // "Show windows from:" got the "Active Space" option removed
+                                    migrateShowWindowsFrom()
+                                    if versionInPlist.compare("6.18.1", options: .numeric) != .orderedDescending {
+                                        // nextWindowShortcut used to be able to have modifiers already present in holdShortcut; we remove these
+                                        migrateNextWindowShortcuts()
+                                        // dropdowns preferences used to store English text; now they store indexes
+                                        migrateDropdownsFromTextToIndexes()
+                                        // the "Hide menubar icon" checkbox was replaced with a dropdown of: icon1, icon2, hidden
+                                        migrateMenubarIconFromCheckboxToDropdown()
+                                        // "Show minimized/hidden/fullscreen windows" checkboxes were replaced with dropdowns
+                                        migrateShowWindowsCheckboxToDropdown()
+                                        // "Max size on screen" was split into max width and max height
+                                        migrateMaxSizeOnScreenToWidthAndHeight()
+                                    }
                                 }
                             }
                         }
@@ -236,6 +239,19 @@ class Preferences {
             }
         }
     }
+
+    // we split gestures from disabled, 3-finger, 4-finger to: disabled, 3-finger-horizontal, 3-finger-vertical, 4-finger-horizontal, 4-finger-vertical
+    // no need to map 0 -> 0 (disabled -> disabled)
+    // no need to map 1 -> 1 (3-finger -> 3-finger-horizontal)
+    // we need to map 2 -> 3 (4-finger -> 4-finger-horizontal)
+    private static func migrateGestures() {
+        if let old = UserDefaults.standard.string(forKey: "nextWindowGesture") {
+            if old == "2" { // 2 (4-finger) -> 3 (4-finger-horizontal)
+                UserDefaults.standard.set("3", forKey: "nextWindowGesture")
+            }
+        }
+    }
+
 
     // we added the new menubarIconShown toggle. It replaces menubarIcon having value "3" which would hide the icon
     // there are now 2 preferences : menubarIconShown is a boolean, and menubarIcon has values 0, 1, 2
@@ -506,15 +522,27 @@ enum MenubarIconPreference: CaseIterable, MacroPreference {
 
 enum GesturePreference: CaseIterable, MacroPreference {
     case disabled
-    case threeFingerSwipe
-    case fourFingerSwipe
+    case threeFingerHorizontalSwipe
+    case threeFingerVerticalSwipe
+    case fourFingerHorizontalSwipe
+    case fourFingerVerticalSwipe
 
     var localizedString: LocalizedString {
         switch self {
             case .disabled: return NSLocalizedString("Disabled", comment: "")
-            case .threeFingerSwipe: return NSLocalizedString("Swipe with Three Fingers", comment: "")
-            case .fourFingerSwipe: return NSLocalizedString("Swipe with Four Fingers", comment: "")
+            case .threeFingerHorizontalSwipe: return NSLocalizedString("Horizontal Swipe with Three Fingers", comment: "")
+            case .threeFingerVerticalSwipe: return NSLocalizedString("Vertical Swipe with Three Fingers", comment: "")
+            case .fourFingerHorizontalSwipe: return NSLocalizedString("Horizontal Swipe with Four Fingers", comment: "")
+            case .fourFingerVerticalSwipe: return NSLocalizedString("Vertical Swipe with Four Fingers", comment: "")
         }
+    }
+
+    func isHorizontal() -> Bool {
+        return self == .threeFingerHorizontalSwipe || self == .fourFingerHorizontalSwipe
+    }
+
+    func isThreeFinger() -> Bool {
+        return self == .threeFingerHorizontalSwipe || self == .threeFingerVerticalSwipe
     }
 }
 
