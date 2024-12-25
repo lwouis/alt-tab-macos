@@ -88,6 +88,8 @@ class FeedbackWindow: NSWindow {
                 Logger.error("HTTP call failed:", response ?? "nil", error ?? "nil")
             }
         }).resume()
+        issueTitle.stringValue = ""
+        body.stringValue = ""
         close()
     }
 
