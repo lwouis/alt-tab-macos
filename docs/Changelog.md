@@ -1,5 +1,19 @@
 # Release notes
 
+# [7.14.0](https://github.com/lwouis/alt-tab-macos/compare/v7.13.1...v7.14.0) (2024-12-26)
+
+
+### Bug Fixes
+
+* improve acknowledgments tab (closes [#4025](https://github.com/lwouis/alt-tab-macos/issues/4025)) ([db5500f](https://github.com/lwouis/alt-tab-macos/commit/db5500f))
+
+
+### Features
+
+* clear feedback form after submission (closes [#4026](https://github.com/lwouis/alt-tab-macos/issues/4026)) ([42bbd0f](https://github.com/lwouis/alt-tab-macos/commit/42bbd0f))
+* improve chinese, irish, italian localizations ([18ef16f](https://github.com/lwouis/alt-tab-macos/commit/18ef16f))
+* swipes can now be horizontal or vertical (closes [#4020](https://github.com/lwouis/alt-tab-macos/issues/4020)) ([fda3ada](https://github.com/lwouis/alt-tab-macos/commit/fda3ada))
+
 ## [7.13.1](https://github.com/lwouis/alt-tab-macos/compare/v7.13.0...v7.13.1) (2024-12-24)
 
 
