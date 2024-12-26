@@ -62,7 +62,7 @@
 "Customize Thumbnails style…" = "Saincheap stíl Mionsamhlacha…";
 "Customize Titles style…" = "Saincheap stíl Teidil…";
 "Dark" = "Dorcha";
-"Disabled" = "Disabled";
+"Disabled" = "Díchumasaithe";
 "Do nothing" = "Ná déan faic";
 "Don’t check for updates periodically" = "Ná seiceáil le haghaidh nuashonruithe ó am go chéile";
 "Don’t send" = "Ná seol";
@@ -76,7 +76,7 @@
 "Fullscreen windows:" = "Fuinneoga lánscáileáin:";
 "Fullscreen/Defullscreen window" = "Fuinneog lánscáileáin/lánscáileáin";
 "General" = "Ginearálta";
-"Gesture" = "Gesture";
+"Gesture" = "Gothaí";
 "Grant permission" = "Deonaigh cead";
 "Hidden windows:" = "Fuinneoga i bhfolach:";
 "Hide" = "Folaigh";
@@ -117,7 +117,7 @@
 "Middle" = "Meánach";
 "Minimize/Deminimize window" = "Íoslaghdaigh/Íoslaghdaigh an fhuinneog";
 "Minimized windows:" = "Fuinneoga Íoslaghdaithe:";
-"Miscellaneous" = "Miscellaneous";
+"Miscellaneous" = "Ilghnéitheach";
 "Miscellaneous:" = "Llghnéitheach:";
 "Mouse hover" = "Ainlíonn luch";
 "Multiple screens" = "Scáileáin iolracha";
@@ -128,7 +128,7 @@
 "Only if the window is fullscreen" = "Ach amháin má tá an fhuinneog lánscáileáin";
 "Open Accessibility Preferences…" = "Oscail Roghanna Inrochtaineachta…";
 "Open Screen Recording Preferences…" = "Roghanna Taifeadta Scáileáin Oscailte…";
-"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
+"Open Trackpad Preferences…" = "Oscail Roghanna Trackpad…";
 "Optional: email (if you want a reply)" = "Roghnach: ríomhphost (má tá freagra uait)";
 "Order windows by" = "Ordaigh fuinneoga le";
 "Policies" = "Polasaithe";
@@ -200,8 +200,8 @@
 "Start at login" = "Tosaigh ag logáil isteach";
 "Start at login:" = "Tosaigh ag logáil isteach:";
 "Support this project ❤️" = "Tacaigh leis an tionscadal seo ❤️";
-"Swipe with Four Fingers" = "Swipe with Four Fingers";
-"Swipe with Three Fingers" = "Swipe with Three Fingers";
+"Swipe with Four Fingers" = "Swipe le Ceithre mhéar";
+"Swipe with Three Fingers" = "Swipe le Trí mhéar";
 "Switch between 3 different styles. You can customize them." = "Athraigh idir 3 stíleanna éagsúla. Is féidir leat iad a shaincheapadh.";
 "System" = "Córas";
 "System Default" = "Réamhshocrú Córais";
@@ -245,4 +245,4 @@
 "Windows" = "Fuinneoga";
 "You can’t undo this action." = "Ní féidir leat an gníomh seo a chealú.";
 "You didn’t write your email, thus can’t receive any response." = "Níor scríobh tú do ríomhphost, mar sin ní féidir leat freagra ar bith a fháil.";
-"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
+"You may need to disable some conflicting system gestures" = "Seans go mbeidh ort roinnt gothaí córais contrártha a dhíchumasú";
