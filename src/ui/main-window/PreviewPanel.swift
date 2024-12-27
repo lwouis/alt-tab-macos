@@ -47,7 +47,7 @@ class PreviewPanel: NSPanel {
             // 2. Select a window in the switcher that is on the same monitor as the thumbnails panel, and whose position overlaps with the thumbnails panel
             // 3. For a single frame, the preview of the newly selected window can appear above the thumbnails panel before going back underneath it
             // Simply using order(.below) is not sufficient to prevent this brief flicker. We explicitly set the preview panel's window level to be one below the thumbnails panel
-            App.app.previewPanel.level = App.app.thumbnailsPanel.level - 1
+            App.app.previewPanel.level = NSWindow.Level(rawValue: App.app.previewPanel.level.rawValue - 1)
         }
     }
 }
