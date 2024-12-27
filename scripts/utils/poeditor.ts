@@ -12,6 +12,10 @@ export class Poeditor {
         return await Poeditor.makeCall('terms/update', [['data', JSON.stringify(terms)]])
     }
 
+    static async addTerms(terms: Term[]): Promise<any> {
+        return await Poeditor.makeCall('terms/add', [['data', JSON.stringify(terms)]])
+    }
+
     private static async makeCall(apiPath: string, params: [string, any][]): Promise<any> {
         const body = new FormData()
         body.append('api_token', Poeditor.apiKey)

@@ -1,5 +1,5 @@
-import {L10n} from "./utils/l10n"
-import {Poeditor, Term} from "./utils/poeditor";
+import {L10n} from "../utils/l10n"
+import {Poeditor, Term} from "../utils/poeditor";
 
 function compareLocalAndRemote(localTerms: Term[], remoteTerms: Term[]): Term[] {
     let result = []

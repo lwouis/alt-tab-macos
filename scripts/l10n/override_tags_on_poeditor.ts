@@ -1,5 +1,5 @@
-import {L10n} from './utils/l10n'
-import {Poeditor, Term} from "./utils/poeditor";
+import {L10n} from '../utils/l10n'
+import {Poeditor, Term} from "../utils/poeditor";
 
 function addContextToTerms(termsWithVersionTags: Term[], remoteTerms: Term[]) {
     const result: Term[] = []
