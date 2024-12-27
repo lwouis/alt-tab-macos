@@ -1206,7 +1206,7 @@ static void *_SRStyleGuideObservingContext = &_SRStyleGuideObservingContext;
 {
     [super prepareForInterfaceBuilder];
     self.objectValue = [SRShortcut shortcutWithCode:0
-                                      modifierFlags:NSEventModifierFlagControl | NSEventModifierFlagOption | NSEventModifierFlagShift | NSEventModifierFlagCommand
+                                      modifierFlags:NSEventModifierFlagControl | NSEventModifierFlagOption | NSEventModifierFlagShift | NSEventModifierFlagCommand | NSEventModifierFlagFunction
                                          characters:@""
                         charactersIgnoringModifiers:@"a"];
 }
@@ -1269,7 +1269,7 @@ static void *_SRStyleGuideObservingContext = &_SRStyleGuideObservingContext;
         return SRLoc(@"");
 
     __auto_type layoutDirection = self.stringValueRespectsUserInterfaceLayoutDirection ? self.userInterfaceLayoutDirection : NSUserInterfaceLayoutDirectionLeftToRight;
-    NSString *flags = [SRSymbolicModifierFlagsTransformer.sharedTransformer transformedValue:@(_objectValue.modifierFlags)
+    NSString *flags = [SRSymbolicModifierFlagsTransformer.sharedTransformer transformedValue:@(_objectValue.displayModifierFlags)
                                                                              layoutDirection:layoutDirection];
     SRKeyCodeTransformer *transformer = nil;
 
@@ -1798,6 +1798,8 @@ static void *_SRStyleGuideObservingContext = &_SRStyleGuideObservingContext;
                 nextModifierFlags ^= NSEventModifierFlagShift;
             else if ((modifierFlags & NSEventModifierFlagControl) && (keyCode == kVK_Control || keyCode == kVK_RightControl))
                 nextModifierFlags ^= NSEventModifierFlagControl;
+            else if ((modifierFlags & NSEventModifierFlagFunction) && keyCode == kVK_Function)
+                nextModifierFlags ^= NSEventModifierFlagFunction;
             else if (modifierFlags == 0 && _lastSeenModifierFlags != 0)
             {
                 SRShortcut *newObjectValue = [SRShortcut shortcutWithCode:SRKeyCodeNone

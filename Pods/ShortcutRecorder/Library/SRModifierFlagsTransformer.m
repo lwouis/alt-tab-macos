@@ -106,6 +106,9 @@
 
     if (flags & NSEventModifierFlagCommand)
         [flagsStringComponents addObject:SRLoc(@"Command")];
+    
+    if (flags & NSEventModifierFlagFunction)
+        [flagsStringComponents addObject:SRLoc(@"Function")];
 
     if (aDirection == NSUserInterfaceLayoutDirectionRightToLeft)
         return [[[flagsStringComponents reverseObjectEnumerator] allObjects] componentsJoinedByString:SRLoc(@"-")];
@@ -157,6 +160,9 @@
 
     if (flags & NSEventModifierFlagCommand)
         [flagsStringFragments addObject:SRModifierFlagStringCommand];
+    
+    if (flags & NSEventModifierFlagFunction)
+        [flagsStringFragments addObject:[SRModifierFlagStringFunction1 stringByAppendingString:SRModifierFlagStringFunction2]];
 
     if (aDirection == NSUserInterfaceLayoutDirectionRightToLeft)
         return [[[flagsStringFragments reverseObjectEnumerator] allObjects] componentsJoinedByString:@""];
@@ -187,6 +193,9 @@
             flags |= NSEventModifierFlagShift;
         else if ([substring isEqualToString:SRModifierFlagStringCommand] && (flags & NSEventModifierFlagCommand) == 0)
             flags |= NSEventModifierFlagCommand;
+        else if ([substring isEqualToString:SRModifierFlagStringFunction1] && (flags & NSEventModifierFlagFunction) == 0)
+            flags |= NSEventModifierFlagFunction;
+        else if ([substring isEqualToString:SRModifierFlagStringFunction2] && (flags & NSEventModifierFlagFunction) != 0) {}
         else
         {
             foundInvalidSubstring = YES;
