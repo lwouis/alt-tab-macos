@@ -1,7 +1,7 @@
 import Cocoa
 
 class ThumbnailTitleView: NSTextField {
-    convenience init(_ height: CGFloat, shadow: NSShadow? = ThumbnailView.makeShadow(Appearance.titleShadowColor), font: NSFont = Appearance.font) {
+    convenience init(shadow: NSShadow?, font: NSFont) {
         self.init(labelWithString: "")
         self.font = font
         textColor = Appearance.fontColor
@@ -27,13 +27,5 @@ class ThumbnailTitleView: NSTextField {
             return .byTruncatingMiddle
         }
         return .byTruncatingHead
-    }
-
-    static func extraLineSpacing(for fontSize: CGFloat) -> CGFloat {
-        return fontSize * 0.2
-    }
-
-    static func maxHeight() -> CGFloat {
-        return Appearance.fontHeight + extraLineSpacing(for: Appearance.fontHeight)
     }
 }

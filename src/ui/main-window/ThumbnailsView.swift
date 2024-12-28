@@ -99,8 +99,8 @@ class ThumbnailsView: NSVisualEffectView {
 
     func updateItemsAndLayout(_ screen: NSScreen) {
         let widthMax = ThumbnailsPanel.maxThumbnailsWidth(screen).rounded()
-        if let (maxX, maxY) = layoutThumbnailViews(screen, widthMax) {
-            layoutParentViews(screen, maxX, widthMax, maxY)
+        if let (maxX, maxY, labelHeight) = layoutThumbnailViews(screen, widthMax) {
+            layoutParentViews(screen, maxX, widthMax, maxY, labelHeight)
             if Preferences.alignThumbnails == .center {
                 centerRows(maxX)
             }
@@ -116,8 +116,9 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
-    private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
-        let height = ThumbnailView.height(screen)
+    private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat)? {
+        let labelHeight = ThumbnailsView.recycledViews.first!.label.cell!.cellSize.height
+        let height = ThumbnailView.height(screen, labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
         let startingX = isLeftToRight ? Appearance.interCellPadding : widthMax - Appearance.interCellPadding
         var currentX = startingX
@@ -151,7 +152,7 @@ class ThumbnailsView: NSVisualEffectView {
             window.rowIndex = rows.count - 1
         }
         scrollView.documentView!.subviews = newViews
-        return (maxX, maxY)
+        return (maxX, maxY, labelHeight)
     }
 
     private func needNewLine(_ projectedX: CGFloat, _ widthMax: CGFloat) -> Bool {
@@ -172,7 +173,7 @@ class ThumbnailsView: NSVisualEffectView {
         App.shared.userInterfaceLayoutDirection == .leftToRight ? currentX : currentX - width
     }
 
-    private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
+    private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
         let heightMax = ThumbnailsPanel.maxThumbnailsHeight(screen).rounded()
 
         ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
@@ -183,8 +184,8 @@ class ThumbnailsView: NSVisualEffectView {
         var originY = Appearance.windowPadding
         if Preferences.appearanceStyle == .appIcons {
             // If there is title under the icon on the last line, the height of the title needs to be subtracted.
-            frameHeight = frameHeight - Appearance.intraCellPadding - ThumbnailTitleView.maxHeight()
-            originY = originY - Appearance.intraCellPadding - ThumbnailTitleView.maxHeight()
+            frameHeight = frameHeight - Appearance.intraCellPadding - labelHeight
+            originY = originY - Appearance.intraCellPadding - labelHeight
         }
         frame.size = NSSize(width: frameWidth, height: frameHeight)
 

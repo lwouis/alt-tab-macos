@@ -7,7 +7,7 @@ class ThumbnailView: NSStackView {
     var windowlessIcon = NSImageView()
     var thumbnailContainer: NSStackView!
     var appIcon = NSImageView()
-    var label = ThumbnailTitleView(Appearance.fontHeight)
+    var label = ThumbnailTitleView(shadow: ThumbnailView.makeShadow(Appearance.titleShadowColor), font: Appearance.font)
     var fullscreenIcon = ThumbnailFontIconView(symbol: .circledPlusSign, tooltip: NSLocalizedString("Window is fullscreen", comment: ""))
     var minimizedIcon = ThumbnailFontIconView(symbol: .circledMinusSign, tooltip: NSLocalizedString("Window is minimized", comment: ""))
     var hiddenIcon = ThumbnailFontIconView(symbol: .circledSlashSign, tooltip: NSLocalizedString("App is hidden", comment: ""))
@@ -84,8 +84,7 @@ class ThumbnailView: NSStackView {
                 vStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 vStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
                 vStackView.topAnchor.constraint(equalTo: topAnchor),
-                label.topAnchor.constraint(equalTo: vStackView.bottomAnchor, constant: Appearance.intraCellPadding),
-                bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: Appearance.intraCellPadding)
+                label.topAnchor.constraint(equalTo: vStackView.bottomAnchor),
             ])
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
@@ -579,15 +578,15 @@ class ThumbnailView: NSStackView {
         return NSSize(width: Appearance.iconSize, height: Appearance.iconSize)
     }
 
-    static func height(_ screen: NSScreen) -> CGFloat {
+    static func height(_ screen: NSScreen, _ labelHeight: CGFloat) -> CGFloat {
         let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
         if Preferences.appearanceStyle == .titles {
-            return max(ThumbnailView.iconSize(screen).height, ThumbnailTitleView.maxHeight()) + topBottomEdgeInsetsSize
+            return max(ThumbnailView.iconSize(screen).height, labelHeight) + topBottomEdgeInsetsSize
         } else if Preferences.appearanceStyle == .appIcons {
             return ThumbnailView.iconSize(screen).height
                     + topBottomEdgeInsetsSize
                     + Appearance.intraCellPadding
-                    + ThumbnailTitleView.maxHeight()
+                    + labelHeight
                     + Appearance.intraCellPadding
         }
         return ThumbnailView.maxThumbnailHeight(screen).rounded(.down)

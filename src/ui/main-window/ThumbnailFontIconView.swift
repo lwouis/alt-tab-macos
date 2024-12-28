@@ -21,7 +21,7 @@ class ThumbnailFontIconView: ThumbnailTitleView {
                      color: NSColor = Appearance.fontColor,
                      shadow: NSShadow? = ThumbnailView.makeShadow(Appearance.indicatedIconShadowColor)) {
         // This helps SF symbols display vertically centered and not clipped at the top
-        self.init(size, shadow: shadow, font: NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())!)
+        self.init(shadow: shadow, font: NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())!)
         stringValue = symbol.rawValue
         textColor = color
         addOrUpdateConstraint(widthAnchor, cell!.cellSize.width)
