@@ -101,7 +101,7 @@ class PermissionCallout: StackView {
         label.textColor = .white
         label.preferredMaxLayoutWidth = 250
         label.isSelectable = false
-        label.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        label.addOrUpdateConstraint(label.widthAnchor, 250)
         let button = NSButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.attributedTitle = NSAttributedString(string: NSLocalizedString("Grant permission", comment: "Menubar callout button"), attributes: [NSAttributedString.Key.foregroundColor: NSColor.white])

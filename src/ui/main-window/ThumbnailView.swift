@@ -8,7 +8,6 @@ class ThumbnailView: NSStackView {
     var thumbnailContainer: NSStackView!
     var appIcon = NSImageView()
     var label = ThumbnailTitleView(Appearance.fontHeight)
-    var labelConstraint: NSLayoutConstraint!
     var fullscreenIcon = ThumbnailFontIconView(symbol: .circledPlusSign, tooltip: NSLocalizedString("Window is fullscreen", comment: ""))
     var minimizedIcon = ThumbnailFontIconView(symbol: .circledMinusSign, tooltip: NSLocalizedString("Window is minimized", comment: ""))
     var hiddenIcon = ThumbnailFontIconView(symbol: .circledSlashSign, tooltip: NSLocalizedString("App is hidden", comment: ""))
@@ -22,7 +21,6 @@ class ThumbnailView: NSStackView {
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: ThumbnailView.noOpenWindowToolTip)
 
     var hStackView: NSStackView!
-    var hStackViewConstraint: NSLayoutConstraint!
     var vStackView: NSStackView!
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -259,12 +257,7 @@ class ThumbnailView: NSStackView {
         let yPosition = Appearance.intraCellPadding
         let height = view.label.cell!.cellSize.height
         view.label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
-        if let labelConstraint = labelConstraint {
-            labelConstraint.constant = effectiveLabelWidth
-        } else {
-            labelConstraint = view.label.widthAnchor.constraint(equalToConstant: effectiveLabelWidth)
-            labelConstraint.isActive = true
-        }
+        view.label.addOrUpdateConstraint(view.label.widthAnchor, effectiveLabelWidth)
         view.label.toolTip = view.label.cell!.cellSize.width >= view.label.frame.size.width ? view.label.stringValue : nil
     }
 
@@ -294,8 +287,8 @@ class ThumbnailView: NSStackView {
             appIcon.image = element.icon
             let appIconSize = ThumbnailView.iconSize(screen)
             appIcon.image?.size = appIconSize
-            appIcon.widthAnchor.constraint(equalToConstant: appIconSize.width).isActive = true
-            appIcon.heightAnchor.constraint(equalToConstant: appIconSize.height).isActive = true
+            appIcon.addOrUpdateConstraint(appIcon.widthAnchor, appIconSize.width)
+            appIcon.addOrUpdateConstraint(appIcon.heightAnchor, appIconSize.height)
             appIcon.setAccessibilityLabel(title)
         }
         let labelChanged = label.stringValue != title
@@ -338,12 +331,7 @@ class ThumbnailView: NSStackView {
         }
         setFrameWidthHeight(element, screen, newHeight)
         let hStackViewWidth = frame.width - Appearance.edgeInsetsSize * 2
-        if let hStackViewConstraint = hStackViewConstraint {
-            hStackViewConstraint.constant = hStackViewWidth
-        } else {
-            hStackViewConstraint = hStackView.widthAnchor.constraint(equalToConstant: hStackViewWidth)
-            hStackViewConstraint.isActive = true
-        }
+        hStackView.addOrUpdateConstraint(hStackView.widthAnchor, hStackViewWidth)
         updateWindowlessIndicator(element, screen)
         self.mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         self.mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }

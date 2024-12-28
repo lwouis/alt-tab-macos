@@ -24,7 +24,7 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         self.init(size, shadow: shadow, font: NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())!)
         stringValue = symbol.rawValue
         textColor = color
-        widthAnchor.constraint(equalToConstant: cell!.cellSize.width).isActive = true
+        addOrUpdateConstraint(widthAnchor, cell!.cellSize.width)
         toolTip = tooltip
         fixHeight()
     }

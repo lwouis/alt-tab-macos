@@ -274,7 +274,7 @@ class LabelAndControl: NSObject {
         }
         slider.allowsTickMarkValuesOnly = allowsTickMarkValuesOnly
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.widthAnchor.constraint(equalToConstant: width).isActive = true
+        slider.addOrUpdateConstraint(slider.widthAnchor, width)
         return makeLabelWithProvidedControl(labelText, rawName, slider, suffixText, extraAction: extraAction)
     }
 

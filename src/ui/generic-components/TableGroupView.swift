@@ -589,12 +589,8 @@ class TableGroupView: ClickHoverStackView {
 
     private func adjustSeparatorWidth(separator: NSView?, isMouseInside: Bool) {
         let width = isMouseInside ? self.width : (self.width - 2 * TableGroupView.padding)
-
         if let separator = separator {
-            if let existingWidthConstraint = separator.constraints.first(where: { $0.firstAttribute == .width }) {
-                separator.removeConstraint(existingWidthConstraint)
-            }
-            separator.widthAnchor.constraint(equalToConstant: width).isActive = true
+            separator.addOrUpdateConstraint(separator.widthAnchor, width)
         }
     }
 

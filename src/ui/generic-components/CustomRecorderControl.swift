@@ -18,7 +18,7 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
         allowsModifierFlagsOnlyShortcut = true
         restrictModifiers([])
         objectValue = Shortcut(keyEquivalent: shortcutString)
-        widthAnchor.constraint(equalToConstant: 100).isActive = true
+        addOrUpdateConstraint(widthAnchor, 100)
     }
 
     override func drawClearButton(_ aDirtyRect: NSRect) {

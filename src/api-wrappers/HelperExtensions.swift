@@ -79,14 +79,22 @@ extension NSColor {
 extension NSView {
     // constrain size to fittingSize
     func fit() {
-        widthAnchor.constraint(equalToConstant: fittingSize.width).isActive = true
-        heightAnchor.constraint(equalToConstant: fittingSize.height).isActive = true
+        addOrUpdateConstraint(widthAnchor, fittingSize.width)
+        addOrUpdateConstraint(heightAnchor, fittingSize.height)
     }
 
     // constrain size to provided width and height
     func fit(_ width: CGFloat, _ height: CGFloat) {
-        widthAnchor.constraint(equalToConstant: width).isActive = true
-        heightAnchor.constraint(equalToConstant: height).isActive = true
+        addOrUpdateConstraint(widthAnchor, width)
+        addOrUpdateConstraint(heightAnchor, height)
+    }
+
+    func addOrUpdateConstraint(_ anchor: NSLayoutDimension, _ constant: CGFloat) {
+        if let constraint = (constraints.first { $0.firstAnchor == anchor && $0.secondAnchor == nil }) {
+            constraint.constant = constant
+        } else {
+            anchor.constraint(equalToConstant: constant).isActive = true
+        }
     }
 }
 
