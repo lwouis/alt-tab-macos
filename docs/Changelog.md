@@ -1,5 +1,13 @@
 # Release notes
 
+## [7.14.1](https://github.com/lwouis/alt-tab-macos/compare/v7.14.0...v7.14.1) (2024-12-28)
+
+
+### Bug Fixes
+
+* improve label display in app-icons style ([7e501a4](https://github.com/lwouis/alt-tab-macos/commit/7e501a4))
+* title would sometimes not show when mouse hovering ([dd05ba2](https://github.com/lwouis/alt-tab-macos/commit/dd05ba2))
+
 # [7.14.0](https://github.com/lwouis/alt-tab-macos/compare/v7.13.1...v7.14.0) (2024-12-26)
 
 
