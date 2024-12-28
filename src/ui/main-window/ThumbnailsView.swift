@@ -225,6 +225,9 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func highlightStartView() {
         ThumbnailsView.highlight(Windows.focusedWindowIndex)
+        if let hoveredWindowIndex = Windows.hoveredWindowIndex {
+            ThumbnailsView.highlight(hoveredWindowIndex)
+        }
     }
 
     private func shiftRow(_ maxX: CGFloat, _ rowWidth: CGFloat, _ rowStartIndex: Int, _ index: Int) {
