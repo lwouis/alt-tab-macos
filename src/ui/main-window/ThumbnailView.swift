@@ -64,6 +64,7 @@ class ThumbnailView: NSStackView {
 
     private func addViews() {
         vStackView = NSStackView()
+        vStackView.translatesAutoresizingMaskIntoConstraints = false
         vStackView.orientation = .vertical
         vStackView.wantsLayer = true
         vStackView.layer!.backgroundColor = .clear
@@ -76,15 +77,15 @@ class ThumbnailView: NSStackView {
         if Preferences.appearanceStyle == .appIcons {
             // The label is outside and below the selected icon in AppIcons style
             hStackView = NSStackView(views: [appIcon])
+            hStackView.translatesAutoresizingMaskIntoConstraints = false
             vStackView.setViews([hStackView], in: .leading)
             label.alignment = .center
-            addSubview(label)
             label.isHidden = true
+            addSubview(label)
             NSLayoutConstraint.activate([
-                vStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                vStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                vStackView.topAnchor.constraint(equalTo: topAnchor),
-                label.topAnchor.constraint(equalTo: vStackView.bottomAnchor),
+                hStackView.heightAnchor.constraint(equalTo: appIcon.heightAnchor),
+                vStackView.heightAnchor.constraint(equalTo: hStackView.heightAnchor, constant: Appearance.intraCellPadding),
+                label.topAnchor.constraint(equalTo: vStackView.bottomAnchor, constant: 8), // subjectively looks vertically centered
             ])
         } else {
             hStackView = NSStackView(views: [appIcon, label, hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon])
@@ -94,11 +95,8 @@ class ThumbnailView: NSStackView {
             thumbnailContainer.orientation = .vertical
             vStackView.setViews([hStackView, thumbnailContainer], in: .leading)
             NSLayoutConstraint.activate([
-                label.centerYAnchor.constraint(equalTo: hStackView.centerYAnchor),
-                vStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                vStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                vStackView.topAnchor.constraint(equalTo: topAnchor),
                 vStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                label.centerYAnchor.constraint(equalTo: hStackView.centerYAnchor),
                 thumbnailContainer.leftAnchor.constraint(equalTo: leftAnchor),
                 thumbnailContainer.rightAnchor.constraint(equalTo: rightAnchor),
             ])
@@ -109,6 +107,11 @@ class ThumbnailView: NSStackView {
                 }
             }
         }
+        NSLayoutConstraint.activate([
+            vStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            vStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            vStackView.topAnchor.constraint(equalTo: topAnchor),
+        ])
     }
 
     private func addDockLabelIcon() {
