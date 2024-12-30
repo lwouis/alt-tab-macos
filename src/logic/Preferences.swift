@@ -194,7 +194,7 @@ class Preferences {
     static func migratePreferences() {
         let preferencesKey = "preferencesVersion"
         if let versionInPlist = UserDefaults.standard.string(forKey: preferencesKey) {
-            if versionInPlist.compare(App.version, options: .numeric) != .orderedDescending {
+            if versionInPlist != "#VERSION#" && versionInPlist.compare(App.version, options: .numeric) != .orderedDescending {
                 updateToNewPreferences(versionInPlist)
             }
         }
