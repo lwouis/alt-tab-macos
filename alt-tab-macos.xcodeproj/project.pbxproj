@@ -398,6 +398,7 @@
 		BF0C87B913292EE53EDE4220 /* menubar-0.svg */ = {isa = PBXFileReference; lastKnownFileType = file.svg; path = "menubar-0.svg"; sourceTree = "<group>"; };
 		BF0C87C0514B13DACB6E702B /* fa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fa; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C87D65E0436CBC0EF29FA /* uz */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = uz; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C87DEBA9A475991238DBB /* codesign_sparkle_embedded_apps.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = codesign_sparkle_embedded_apps.sh; sourceTree = "<group>"; };
 		BF0C87F376F3DC4C453878A6 /* th */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = th; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C88136469A49E6F72A132 /* bn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = bn; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8844AE04D9B503CAD044 /* ml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ml; path = Localizable.strings; sourceTree = "<group>"; };
@@ -486,7 +487,6 @@
 		D04BA10777505D8A67ABD186 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		D04BA107C8B8FE7FF8536606 /* too many windows - 4 lines - paginated.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "too many windows - 4 lines - paginated.jpg"; sourceTree = "<group>"; };
 		D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
-		D04BA123744B0C27E9F54B05 /* codesign_sparkle_embedded_apps.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = codesign_sparkle_embedded_apps.sh; sourceTree = "<group>"; };
 		D04BA18724DC58FA95DB33DB /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file.lock; path = Podfile.lock; sourceTree = "<group>"; };
 		D04BA18B55AA6C9EE41985D0 /* Contributing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Contributing.md; sourceTree = "<group>"; };
 		D04BA1B438BF3E65044D1138 /* ControlsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsTab.swift; sourceTree = "<group>"; };
@@ -1360,6 +1360,7 @@
 				D04BA2E723062A1DAC58618F /* setup_ci_pr.sh */,
 				D04BAEF1D194C2379C9970F1 /* setup_ci_master.sh */,
 				D04BAD98C2DCFE95458947D3 /* setup_local.sh */,
+				BF0C87DEBA9A475991238DBB /* codesign_sparkle_embedded_apps.sh */,
 			);
 			path = codesign;
 			sourceTree = "<group>";
@@ -1478,7 +1479,6 @@
 				D04BA4B5292629AA6B560216 /* package_and_notarize_release.sh */,
 				D04BAC6AFC7F06D1A567F27A /* replace_environment_variables_in_app.sh */,
 				D04BA0AAAE82C72855DBBA26 /* update_appcast.sh */,
-				D04BA123744B0C27E9F54B05 /* codesign_sparkle_embedded_apps.sh */,
 				D04BA4FB0047656BEA21F1BE /* codesign */,
 				D04BAA5ECAE8BB8F8656DEDF /* update_contributors.sh */,
 				D04BAD65AA870A49D2F89DBC /* ensure_generated_files_are_up_to_date.sh */,
@@ -2112,7 +2112,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "scripts/codesign_sparkle_embedded_apps.sh\n";
+			shellScript = "scripts/codesign/codesign_sparkle_embedded_apps.sh\n";
 			showEnvVarsInLog = 0;
 		};
 		5968B81A43F20B6ECD92C7F7 /* [CP] Check Pods Manifest.lock */ = {
