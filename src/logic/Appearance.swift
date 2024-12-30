@@ -3,8 +3,8 @@ import Cocoa
 class Appearance {
     // size
     static var windowPadding = CGFloat(18)
-    static var interCellPadding = CGFloat(5)
-    static var intraCellPadding = CGFloat(1)
+    static var interCellPadding = CGFloat(1)
+    static var intraCellPadding = CGFloat(5)
     static var edgeInsetsSize = CGFloat(5)
     static var cellCornerRadius = CGFloat(10)
     static var windowCornerRadius = CGFloat(23)
@@ -79,8 +79,6 @@ class Appearance {
         windowPadding = 18
         cellCornerRadius = 10
         windowCornerRadius = 23
-        intraCellPadding = 5
-        interCellPadding = 1
         edgeInsetsSize = 12
         switch currentSize {
         case .small:
@@ -109,8 +107,6 @@ class Appearance {
         windowPadding = 25
         cellCornerRadius = 10
         windowCornerRadius = 23
-        intraCellPadding = 5
-        interCellPadding = 1
         edgeInsetsSize = 5
         windowMinWidthInRow = 0.04
         windowMaxWidthInRow = 0.3
@@ -134,8 +130,6 @@ class Appearance {
         windowPadding = 18
         cellCornerRadius = 10
         windowCornerRadius = 23
-        intraCellPadding = 5
-        interCellPadding = 1
         edgeInsetsSize = 7
         maxWidthOnScreen = isHorizontalScreen ? 0.6 : 0.8
         windowMinWidthInRow = 0.6
