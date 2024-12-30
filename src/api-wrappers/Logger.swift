@@ -48,8 +48,8 @@ class Logger {
         custom(.error, items, file: file, function: function, line: line, context: context)
     }
 
-    private static func custom(_ level: SwiftyBeaver.Level, _ items: Any..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
-        let message = items.map { "\($0)" }.joined(separator: " ")
+    private static func custom(_ level: SwiftyBeaver.Level, _ items: [Any?], file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        let message = items.map { "\($0 ?? "nil")" }.joined(separator: " ")
         logger.custom(level: level, message: message, file: file, function: function, line: line, context: context)
     }
 }
