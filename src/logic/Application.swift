@@ -46,7 +46,7 @@ class Application: NSObject {
     func removeWindowslessAppWindow() {
         if let windowlessAppWindow = (Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid }) {
             Windows.list.remove(at: windowlessAppWindow)
-            App.app.refreshOpenUi()
+            App.app.refreshOpenUi([])
         }
     }
 
@@ -98,8 +98,9 @@ class Application: NSObject {
             if (!atLeastOneActualWindow) {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    let window = self.addWindowslessAppsIfNeeded()
-                    App.app.refreshOpenUi(window)
+                    if self.addWindowlessWindowIfNeeded() != nil {
+                        App.app.refreshOpenUi([])
+                    }
                 }
                 // workaround: some apps launch but take a while to create their window(s)
                 // initial windows don't trigger a windowCreated notification, so we won't get notified
@@ -113,14 +114,14 @@ class Application: NSObject {
         }
     }
 
-    func addWindowslessAppsIfNeeded() -> [Window]? {
+    func addWindowlessWindowIfNeeded() -> Window? {
         if !Preferences.hideWindowlessApps &&
                runningApplication.activationPolicy == .regular &&
                !runningApplication.isTerminated &&
                (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
             let window = Window(self)
             Windows.appendAndUpdateFocus(window)
-            return [window]
+            return window
         }
         return nil
     }

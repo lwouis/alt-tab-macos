@@ -37,6 +37,7 @@ class ClickHoverImageView: MouseHoverView {
 
     init(infoCircle: NSView) {
         super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         self.infoCircle = infoCircle
         addSubview(infoCircle)
 
@@ -130,7 +131,7 @@ class LabelAndControl: NSObject {
         return checkbox
     }
 
-    static func makeInfoButton(size: CGFloat = 18,
+    static func makeInfoButton(size: CGFloat = 16,
                                onClick: EventClosure? = nil,
                                onMouseEntered: EventClosure? = nil,
                                onMouseExited: EventClosure? = nil) -> ClickHoverImageView {
@@ -320,7 +321,7 @@ class LabelAndControl: NSObject {
         }
         // some preferences require re-creating some components
         if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-                   (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceVisibility", "titleTruncation", "showOnScreen", "showAppsOrWindows"].contains { (pref: String) -> Bool in
+                   (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceVisibility", "showOnScreen", "showAppsOrWindows"].contains { (pref: String) -> Bool in
                        pref == senderControl.identifier!.rawValue
                    }) {
             (App.shared as! App).resetPreferencesDependentComponents()

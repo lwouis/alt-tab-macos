@@ -42,9 +42,10 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
             let window = (appFocusedWindow != nil && wid != nil) ? Windows.updateLastFocus(appFocusedWindow!, wid!)?.first : nil
             app.focusedWindow = window
             App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
-            App.app.refreshOpenUi(window != nil ? [window!] : nil)
+            App.app.refreshOpenUi(window != nil ? [window!] : [])
         }
     }
+
 }
 
 fileprivate func applicationHiddenOrShown(_ pid: pid_t, _ type: String) throws {
@@ -99,6 +100,11 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
             let position = try element.position()
             let size = try element.size()
             DispatchQueue.main.async {
+                // if the window is shown by alt-tab, we mark her as focused for this app
+                // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
+                if let w = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+                    Applications.find(pid)?.focusedWindow = w
+                }
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows)
                 } else if AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
@@ -106,11 +112,6 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
                     App.app.refreshOpenUi([window])
-                }
-                // if the window is shown by alt-tab, we mark her as focused for this app
-                // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
-                if let w = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
-                    Applications.find(pid)?.focusedWindow = w
                 }
             }
         }
@@ -137,13 +138,12 @@ fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
         if let index = (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) {
             let window = Windows.list[index]
             Windows.removeAndUpdateFocus(window)
-            let windowlessApp = window.application.addWindowslessAppsIfNeeded()
-            if windowlessApp != nil {
+            if window.application.addWindowlessWindowIfNeeded() != nil {
                 Applications.find(pid)?.focusedWindow = nil
             }
             if Windows.list.count > 0 {
                 Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
-                App.app.refreshOpenUi(windowlessApp)
+                App.app.refreshOpenUi([])
             } else {
                 App.app.hideUi()
             }

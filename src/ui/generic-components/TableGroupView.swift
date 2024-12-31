@@ -314,10 +314,10 @@ class TableGroupView: ClickHoverStackView {
         tableStackView.orientation = .vertical
         tableStackView.spacing = 0
         tableStackView.wantsLayer = true
-        tableStackView.layer?.backgroundColor = NSColor.tableBackgroundColor.cgColor
-        tableStackView.layer?.cornerRadius = TableGroupView.cornerRadius
-        tableStackView.layer?.borderColor = NSColor.tableBorderColor.cgColor
-        tableStackView.layer?.borderWidth = TableGroupView.borderWidth
+        tableStackView.layer!.backgroundColor = NSColor.tableBackgroundColor.cgColor
+        tableStackView.layer!.cornerRadius = TableGroupView.cornerRadius
+        tableStackView.layer!.borderColor = NSColor.tableBorderColor.cgColor
+        tableStackView.layer!.borderWidth = TableGroupView.borderWidth
         addArrangedSubview(tableStackView)
         tableStackViews.append(tableStackView)
         rowInfoTables.append([RowInfo]())

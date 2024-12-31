@@ -27,8 +27,8 @@ class IllustratedImageThemeView: ClickHoverImageView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.imageScaling = .scaleProportionallyUpOrDown
         imageView.wantsLayer = true
-        imageView.layer?.masksToBounds = true
-        imageView.layer?.cornerRadius = TableGroupView.cornerRadius
+        imageView.layer!.masksToBounds = true
+        imageView.layer!.cornerRadius = TableGroupView.cornerRadius
 
         super.init(infoCircle: imageView)
         self.style = style

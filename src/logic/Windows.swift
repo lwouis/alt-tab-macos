@@ -223,22 +223,18 @@ class Windows {
 
     /// tabs detection is a flaky work-around the lack of public API to observe OS tabs
     /// see: https://github.com/lwouis/alt-tab-macos/issues/1540
-    static func detectTabbedWindows() {
-        lazy var cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 })
-        lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 }, false)
-        list.forEach {
-            if let cgWindowId = $0.cgWindowId {
-                if $0.isMinimized || $0.isHidden {
-                    if #available(macOS 13.0, *) {
-                        // not exact after window merging
-                        $0.isTabbed = !cgsWindowIds.contains(cgWindowId)
-                    } else {
-                        // not known
-                        $0.isTabbed = false
-                    }
+    private static func detectTabbedWindows(_ window: Window, _ cgsWindowIds: [CGWindowID], _ visibleCgsWindowIds: [CGWindowID]) {
+        if let cgWindowId = window.cgWindowId {
+            if window.isMinimized || window.isHidden {
+                if #available(macOS 13.0, *) {
+                    // not exact after window merging
+                    window.isTabbed = !cgsWindowIds.contains(cgWindowId)
                 } else {
-                    $0.isTabbed = !visibleCgsWindowIds.contains(cgWindowId)
+                    // not known
+                    window.isTabbed = false
                 }
+            } else {
+                window.isTabbed = !visibleCgsWindowIds.contains(cgWindowId)
             }
         }
     }
@@ -262,30 +258,85 @@ class Windows {
                 }
     }
 
-    static func refreshThumbnailsAsync(_ screen: NSScreen, _ currentIndex: Int) {
-        DispatchQueue.main.async {
-            if !App.app.appIsBeingUsed || Appearance.hideThumbnails { return }
-            BackgroundWork.mainQueueConcurrentWorkQueue.async {
-                if currentIndex < list.count {
-                    let window = list[currentIndex]
-                    if window.shouldShowTheUser && !window.isWindowlessApp {
-                        window.refreshThumbnail()
-                    }
-                    refreshThumbnailsAsync(screen, currentIndex + 1)
-                } else {
-                    DispatchQueue.main.async { App.app.refreshOpenUi() }
+    static func updatesBeforeShowing(_ screen: NSScreen) -> Bool {
+        if list.count == 0 || MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
+        // TODO: find a way to update space info when spaces are changed, instead of on every trigger
+        // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
+        // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
+        Spaces.refresh()
+        let spaceIdsAndIndexes = Spaces.idsAndIndexes.map { $0.0 }
+        lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
+        lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
+        for window in list {
+            // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
+            detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
+            updatesWindowSpace(window)
+            refreshIfWindowShouldBeShownToTheUser(window, screen)
+        }
+        refreshWhichWindowsToShowTheUser(screen)
+        reorderList()
+        if (!list.contains { $0.shouldShowTheUser }) { return false }
+        return true
+    }
+
+    private static func updatesWindowSpace(_ window: Window) {
+        // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
+        // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
+        // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
+        if let cgWindowId = window.cgWindowId {
+            let spaceIds = cgWindowId.spaces()
+            if spaceIds.count == 1 {
+                window.spaceId = spaceIds.first!
+                window.spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
+                window.isOnAllSpaces = false
+            } else if spaceIds.count > 1 {
+                window.spaceId = Spaces.currentSpaceId
+                window.spaceIndex = Spaces.currentSpaceIndex
+                window.isOnAllSpaces = true
+            }
+        }
+    }
+
+    // dispatch screenshot requests off the main-thread, then wait for completion
+    static func refreshThumbnails(_ windows: [Window], _ bestResolution: Bool, _ onlyUpdateScreenshots: Bool) {
+        if Appearance.hideThumbnails { return }
+        var eligibleWindows = [Window]()
+        for window in windows {
+            if !window.isWindowlessApp, let cgWindowId = window.cgWindowId, cgWindowId != CGWindowID(bitPattern: -1) {
+                eligibleWindows.append(window)
+            }
+        }
+        if eligibleWindows.isEmpty { return }
+        screenshotEligibleWindowsAndRefreshUi(eligibleWindows, bestResolution, onlyUpdateScreenshots)
+    }
+
+    private static func screenshotEligibleWindowsAndRefreshUi(_ eligibleWindows: [Window], _ bestResolution: Bool, _ onlyUpdateScreenshots: Bool) {
+        eligibleWindows.forEach { _ in BackgroundWork.screenshotsDispatchGroup.enter() }
+        for window in eligibleWindows {
+            BackgroundWork.screenshotsQueue.async { [weak window] in
+                backgroundWorkGlobalSemaphore.wait()
+                defer {
+                    backgroundWorkGlobalSemaphore.signal()
+                    BackgroundWork.screenshotsDispatchGroup.leave()
                 }
+                if let cgImage = window?.cgWindowId?.screenshot(bestResolution) {
+                    DispatchQueue.main.async { [weak window] in
+                        window?.refreshThumbnail(NSImage.fromCgImage(cgImage))
+                    }
+                }
+            }
+        }
+        if !onlyUpdateScreenshots {
+            BackgroundWork.screenshotsDispatchGroup.notify(queue: DispatchQueue.main) {
+                App.app.refreshOpenUi([])
             }
         }
     }
 
     static func refreshWhichWindowsToShowTheUser(_ screen: NSScreen) {
-        Windows.list.forEach { (window: Window) in
-            refreshIfWindowShouldBeShownToTheUser(window, screen)
-        }
         if Preferences.onlyShowApplications() {
             // Group windows by application and select the optimal main window
-            let windowsGroupedByApp = Dictionary(grouping: Windows.list) { $0.application.pid }
+            let windowsGroupedByApp = Dictionary(grouping: list) { $0.application.pid }
             windowsGroupedByApp.forEach { (app, windows) in
                 if windows.count > 1, let mainWindow = selectMainWindow(windows) {
                     windows.forEach { window in
@@ -298,7 +349,7 @@ class Windows {
         }
     }
 
-    static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
+    private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
         window.shouldShowTheUser =
             !(window.application.runningApplication.bundleIdentifier.flatMap { id in
                 Preferences.blacklist.contains {

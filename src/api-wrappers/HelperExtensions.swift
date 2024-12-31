@@ -96,24 +96,46 @@ extension NSView {
             anchor.constraint(equalToConstant: constant).isActive = true
         }
     }
+
+    func centerFrameInParent(x: Bool = false, y: Bool = false) {
+        let selfSize = (self is NSTextField) ? (self as! NSTextField).cell!.cellSize : frame.size
+        let superviewSize = (superview! is NSTextField) ? (superview! as! NSTextField).cell!.cellSize : superview!.frame.size
+        if (x) {
+            frame.origin.x = ((superviewSize.width - selfSize.width) / 2).rounded()
+        }
+        if (y) {
+            let diff = superviewSize.height - selfSize.height
+            // if there is no perfect centering, we biais top, as it's more aesthetic for ThumbnailView.label
+            let diffWithBiasTop = diff.truncatingRemainder(dividingBy: 2) == 0 ? diff : diff - 1
+            frame.origin.y = (diffWithBiasTop / 2).rounded()
+        }
+    }
+
+    func setSubviews(_ views: [NSView]) {
+        for view in views {
+            normalizeSubview(view)
+        }
+        subviews = views
+    }
+
+    func addSubviews(_ views: [NSView]) {
+        for view in views {
+            normalizeSubview(view)
+        }
+        subviews = subviews + views
+    }
+
+    func setSubviewAbove(_ view: NSView) {
+        normalizeSubview(view)
+        addSubview(view, positioned: .above, relativeTo: nil)
+    }
+
+    private func normalizeSubview(_ view: NSView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
 }
 
 extension Collection {
-    // forEach with each iteration run concurrently on the global queue
-    func forEachAsync(fn: @escaping (Element) -> Void) {
-        let group = DispatchGroup()
-        for element in self {
-            backgroundWorkGlobalSemaphore.wait()
-            BackgroundWork.mainQueueConcurrentWorkQueue.async(group: group) {
-                    group.enter()
-                    fn(element)
-                    backgroundWorkGlobalSemaphore.signal()
-                    group.leave()
-            }
-        }
-        group.wait()
-    }
-
     subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
@@ -199,6 +221,10 @@ extension NSImage {
         img.unlockFocus()
         return img
     }
+
+    static func fromCgImage(_ cgImage: CGImage) -> NSImage {
+        return NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
+    }
 }
 
 extension pid_t {
@@ -257,6 +283,11 @@ class ModifierFlags {
 }
 
 extension NSPoint {
+    static func += (lhs: inout NSPoint, rhs: NSPoint) {
+        lhs.x += rhs.x
+        lhs.y += rhs.y
+    }
+
     static func + (lhs: NSPoint, rhs: NSPoint) -> NSPoint {
         return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
     }

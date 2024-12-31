@@ -56,26 +56,35 @@ class Applications {
         }
     }
 
-    static func removeRunningApplications(_ runningApps: [NSRunningApplication]) {
+    static func removeRunningApplications(_ terminatingApps: [NSRunningApplication]) {
+        let existingAppsToRemove = list.filter { app in terminatingApps.contains { tApp in app.runningApplication.isEqual(tApp) } }
+        let existingWindowstoRemove = Windows.list.filter { window in terminatingApps.contains { tApp in window.application.runningApplication.isEqual(tApp) } }
+        if existingAppsToRemove.isEmpty && existingWindowstoRemove.isEmpty { return }
         var windowsOnTheLeftOfFocusedWindow = 0
-        for runningApp in runningApps {
-            // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
-            Applications.list.removeAll { $0.runningApplication.isEqual(runningApp) }
-            Windows.list.enumerated().forEach { (index, window) in
-                if window.application.runningApplication.isEqual(runningApp) && index < Windows.focusedWindowIndex && window.shouldShowTheUser {
+        for tApp in terminatingApps {
+            for (index, window) in Windows.list.enumerated() {
+                if window.application.runningApplication.isEqual(tApp)
+                           && index < Windows.focusedWindowIndex && window.shouldShowTheUser {
                     windowsOnTheLeftOfFocusedWindow += 1
                 }
             }
-            Windows.list.removeAll { $0.application.runningApplication.isEqual(runningApp) }
+            // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
+            Applications.list.removeAll { $0.runningApplication.isEqual(tApp) }
+            Windows.list.removeAll { $0.application.runningApplication.isEqual(tApp) }
         }
-        if Windows.list.count == 0 { App.app.hideUi(); return }
-        if windowsOnTheLeftOfFocusedWindow > 0 {
-            Windows.cycleFocusedWindowIndex(-windowsOnTheLeftOfFocusedWindow)
+        if Windows.list.count == 0 {
+            App.app.hideUi()
+        } else {
+            if windowsOnTheLeftOfFocusedWindow > 0 {
+                Windows.cycleFocusedWindowIndex(-windowsOnTheLeftOfFocusedWindow)
+            }
+            if !existingWindowstoRemove.isEmpty {
+                App.app.refreshOpenUi([])
+            }
         }
-        App.app.refreshOpenUi()
     }
 
-    static func refreshBadges() {
+    static func refreshBadgesAsync() {
         if !App.app.appIsBeingUsed || Preferences.hideAppBadges { return }
         retryAxCallUntilTimeout {
             if let dockPid = (list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.pid),

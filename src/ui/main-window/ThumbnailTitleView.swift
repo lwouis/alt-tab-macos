@@ -6,7 +6,6 @@ class ThumbnailTitleView: NSTextField {
         self.font = font
         textColor = Appearance.fontColor
         self.shadow = shadow
-        lineBreakMode = getTruncationMode()
         allowsDefaultTighteningForTruncation = false
         translatesAutoresizingMaskIntoConstraints = false
     }
@@ -17,6 +16,13 @@ class ThumbnailTitleView: NSTextField {
 
     override func mouseMoved(with event: NSEvent) {
         // no-op here prevents tooltips from disappearing on mouseMoved
+    }
+
+    func updateTruncationModeIfNeeded() {
+        let newLineBreakMode = getTruncationMode()
+        if lineBreakMode != newLineBreakMode {
+            lineBreakMode = newLineBreakMode
+        }
     }
 
     private func getTruncationMode() -> NSLineBreakMode {

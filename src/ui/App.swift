@@ -250,17 +250,17 @@ class App: AppCenterApplication, NSApplicationDelegate {
         CGWarpMouseCursorPosition(point)
     }
 
-    func refreshOpenUi(_ windowsToUpdate: [Window]? = nil) {
+    func refreshOpenUi(_ windowsToScreenshot: [Window], skipUpdatesBeforeShowing: Bool = false, onlyUpdateScreenshots: Bool = false) {
+        if !Appearance.hideThumbnails && !windowsToScreenshot.isEmpty {
+            Windows.refreshThumbnails(windowsToScreenshot, false, onlyUpdateScreenshots)
+            return
+        }
         guard appIsBeingUsed else { return }
         let currentScreen = NSScreen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
-        // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
-        // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
-        Spaces.refresh()
+        if !skipUpdatesBeforeShowing {
+            if !Windows.updatesBeforeShowing(currentScreen) { hideUi(); return }
+        }
         guard appIsBeingUsed else { return }
-        refreshSpecificWindows(windowsToUpdate, currentScreen)
-        if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
-        guard appIsBeingUsed else { return }
-        Windows.reorderList()
         Windows.updateFocusedWindowIndex()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout(currentScreen)
@@ -269,16 +269,12 @@ class App: AppCenterApplication, NSApplicationDelegate {
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
         currentScreen.repositionPanel(thumbnailsPanel)
+        guard appIsBeingUsed else { return }
         Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
-    }
-
-    private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
-        windowsToUpdate?.forEach { (window: Window) in
-            guard appIsBeingUsed else { return }
-            if !Appearance.hideThumbnails { window.refreshThumbnail() }
-            Windows.refreshIfWindowShouldBeShownToTheUser(window, currentScreen)
-            window.updatesWindowSpace()
-        }
+        guard appIsBeingUsed else { return }
+        Windows.previewFocusedWindowIfNeeded()
+        guard appIsBeingUsed else { return }
+        Applications.refreshBadgesAsync()
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
@@ -286,27 +282,17 @@ class App: AppCenterApplication, NSApplicationDelegate {
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             isFirstSummon = false
-            if Windows.list.count == 0 || MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { hideUi(); return }
-            // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
-            Windows.detectTabbedWindows()
-            // TODO: find a way to update space info when spaces are changed, instead of on every trigger
-            // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
-            // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
-            Spaces.refresh()
-            Windows.list.forEachAsync { $0.updatesWindowSpace() }
-            let screen = NSScreen.preferred()
             self.shortcutIndex = shortcutIndex
-            Windows.refreshWhichWindowsToShowTheUser(screen)
-            Windows.reorderList()
-            if (!Windows.list.contains { $0.shouldShowTheUser }) { hideUi(); return }
+            let screen = NSScreen.preferred()
+            if !Windows.updatesBeforeShowing(screen) { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
-                self.rebuildUi(screen)
+                buildUiAndShowPanel(screen)
             } else {
                 delayedDisplayScheduled += 1
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
                     if self.delayedDisplayScheduled == 1 {
-                        self.rebuildUi(screen)
+                        self.buildUiAndShowPanel(screen)
                     }
                     self.delayedDisplayScheduled -= 1
                 }
@@ -317,21 +303,17 @@ class App: AppCenterApplication, NSApplicationDelegate {
         }
     }
 
-    func rebuildUi(_ screen: NSScreen = NSScreen.preferred()) {
+    func buildUiAndShowPanel(_ screen: NSScreen = NSScreen.preferred()) {
         guard appIsBeingUsed else { return }
         Appearance.update()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 screens make thumbnailPanel invisible
+        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
         guard appIsBeingUsed else { return }
-        refreshOpenUi()
+        refreshOpenUi([], skipUpdatesBeforeShowing: true) // first display with the data we have
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
-        Windows.previewFocusedWindowIfNeeded()
-        guard appIsBeingUsed else { return }
-        Windows.refreshThumbnailsAsync(screen, 0)
-        guard appIsBeingUsed else { return }
-        Applications.refreshBadges()
-        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+        refreshOpenUi(Windows.list, skipUpdatesBeforeShowing: true, onlyUpdateScreenshots: true) // second refresh with fresh thumbnails
     }
 
     func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: NSRunningApplication?) {

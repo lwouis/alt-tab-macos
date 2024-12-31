@@ -7,7 +7,6 @@ class Window {
     var creationOrder = Int.zero
     var title: String!
     var thumbnail: NSImage?
-    var thumbnailFullSize: NSSize?
     var icon: NSImage? { get { application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
@@ -49,9 +48,6 @@ class Window {
         self.title = bestEffortTitle(axTitle)
         Window.globalCreationCounter += 1
         self.creationOrder = Window.globalCreationCounter
-        if !Appearance.hideThumbnails {
-            refreshThumbnail()
-        }
         application.removeWindowslessAppWindow()
         checkIfFocused(application, wid)
         Logger.debug("Adding window", cgWindowId ?? "nil", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
@@ -100,23 +96,26 @@ class Window {
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 
-    private func screenshot(_ bestResolution: Bool = false) -> NSImage? {
-        guard !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != CGWindowID(bitPattern: -1), let cgImage = cgWindowId.screenshot(bestResolution) else {
-            return nil
-        }
-        return NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
-    }
-
-    func refreshThumbnail() {
-        guard let screenshot = screenshot() else {
-            return
-        }
+    func refreshThumbnail(_ screenshot: NSImage?) {
         thumbnail = screenshot
-        thumbnailFullSize = thumbnail!.size
+        if App.app.appIsBeingUsed && shouldShowTheUser {
+            if let index = (Windows.list.firstIndex { $0.cgWindowId == cgWindowId }) {
+                let view = ThumbnailsView.recycledViews[index]
+                if !view.thumbnail.isHidden {
+                    view.thumbnail.image = thumbnail
+                    let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail, NSScreen.preferred(), false)
+                    view.thumbnail.image?.size = thumbnailSize
+                    view.thumbnail.frame.size = thumbnailSize
+                }
+            }
+        }
     }
 
     func getPreview() -> NSImage? {
-        return screenshot(true)
+        if let cgImage = cgWindowId?.screenshot(true) {
+            return NSImage.fromCgImage(cgImage)
+        }
+        return nil
     }
 
     func canBeClosed() -> Bool {
@@ -238,24 +237,6 @@ class Window {
             return cgTitle
         }
         return application.runningApplication.localizedName ?? ""
-    }
-
-    func updatesWindowSpace() {
-        // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
-        // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
-        // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
-        if let cgWindowId = cgWindowId {
-            let spaceIds = cgWindowId.spaces()
-            if spaceIds.count == 1 {
-                spaceId = spaceIds.first!
-                spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
-                isOnAllSpaces = false
-            } else if spaceIds.count > 1 {
-                spaceId = Spaces.currentSpaceId
-                spaceIndex = Spaces.currentSpaceIndex
-                isOnAllSpaces = true
-            }
-        }
     }
 
     func isOnScreen(_ screen: NSScreen) -> Bool {

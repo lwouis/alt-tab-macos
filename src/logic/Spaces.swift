@@ -30,11 +30,6 @@ class Spaces {
         updateCurrentSpace()
     }
 
-    static func refreshSpacesAndWindows() {
-        Spaces.refresh()
-        App.app.refreshOpenUi(Windows.list)
-    }
-
     private static func updateCurrentSpace() {
         // it seems that in some rare scenarios, some of these values are nil; we wrap to avoid crashing
         if let mainScreen = NSScreen.main,

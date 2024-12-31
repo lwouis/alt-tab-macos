@@ -2,7 +2,7 @@ import Foundation
 
 // queues and dedicated threads to observe background events such as keyboard inputs, or accessibility events
 class BackgroundWork {
-    static var mainQueueConcurrentWorkQueue: DispatchQueue!
+    static var screenshotsQueue: DispatchQueue!
     static var accessibilityCommandsQueue: DispatchQueue!
     static var axCallsQueue: DispatchQueue!
     static var crashReportsQueue: DispatchQueue!
@@ -11,11 +11,12 @@ class BackgroundWork {
     static var systemPermissionsThread: BackgroundThreadWithRunLoop!
     static var repeatingKeyThread: BackgroundThreadWithRunLoop!
     static var missionControlThread: BackgroundThreadWithRunLoop!
+    static let screenshotsDispatchGroup = DispatchGroup()
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
-        // TODO: clarify how this works
-        mainQueueConcurrentWorkQueue = DispatchQueue.globalConcurrent("mainQueueConcurrentWorkQueue", .userInteractive)
+        // screenshots are taken off the main thread, concurrently
+        screenshotsQueue = DispatchQueue.globalConcurrent("screenshotsQueue", .userInteractive)
         // calls to act on windows (e.g. AXUIElementSetAttributeValue, AXUIElementPerformAction) are done off the main thread
         accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
         // calls to the AX APIs are blocking. We dispatch those on a globalConcurrent queue

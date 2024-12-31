@@ -15,7 +15,7 @@ extension CGWindowID {
         return CGSCopySpacesForWindows(cgsMainConnectionId, CGSSpaceMask.all.rawValue, [self] as CFArray) as! [CGSSpaceID]
     }
 
-    func screenshot(_ bestResolution: Bool = false) -> CGImage? {
+    func screenshot(_ bestResolution: Bool) -> CGImage? {
         // CGSHWCaptureWindowList
         var windowId_ = self
         let list = CGSHWCaptureWindowList(cgsMainConnectionId, &windowId_, 1, [.ignoreGlobalClipShape, bestResolution ? .bestResolution : .nominalResolution]).takeRetainedValue() as! [CGImage]
