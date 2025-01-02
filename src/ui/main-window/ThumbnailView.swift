@@ -372,7 +372,7 @@ class ThumbnailView: FlippedView {
         } else {
             vStackView.frame.size = NSSize(width: frame.width, height: frame.height)
             hStackView.frame.size = NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, label.cell!.cellSize.height))
-            let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.intraCellPadding - indicatorsSpace()
+            let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorsSpace()
             label.setWidth(labelWidth)
         }
         if Preferences.appearanceStyle == .thumbnails {
@@ -398,10 +398,10 @@ class ThumbnailView: FlippedView {
                             : indicatorSpace - iconWidth
                 }
             }
-            let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.intraCellPadding - indicatorSpace
+            let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorSpace
             label.frame.origin.x = App.shared.userInterfaceLayoutDirection == .leftToRight
-                    ? appIcon.frame.maxX + Appearance.intraCellPadding
-                    : hStackView.frame.width - appIcon.frame.width - Appearance.intraCellPadding - labelWidth
+                    ? appIcon.frame.maxX + Appearance.appIconLabelSpacing
+                    : hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth
             label.centerFrameInParent(y: true)
         }
         if Preferences.appearanceStyle == .thumbnails {

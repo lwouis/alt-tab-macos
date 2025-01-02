@@ -5,6 +5,7 @@ class Appearance {
     static var windowPadding = CGFloat(18)
     static var interCellPadding = CGFloat(1)
     static var intraCellPadding = CGFloat(5)
+    static var appIconLabelSpacing = CGFloat(2)
     static var edgeInsetsSize = CGFloat(5)
     static var cellCornerRadius = CGFloat(10)
     static var windowCornerRadius = CGFloat(23)
