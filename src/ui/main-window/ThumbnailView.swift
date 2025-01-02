@@ -462,8 +462,7 @@ class ThumbnailView: FlippedView {
         } else {
             contentWidth = Appearance.iconSize
         }
-        let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
-        let frameWidth = (contentWidth + leftRightEdgeInsetsSize).rounded()
+        let frameWidth = (contentWidth + Appearance.edgeInsetsSize * 2).rounded()
         let widthMin = ThumbnailView.minThumbnailWidth(screen)
         let width = max(frameWidth, widthMin).rounded()
         assignIfDifferent(&frame.size.width, width)
@@ -567,11 +566,10 @@ class ThumbnailView: FlippedView {
         if Preferences.appearanceStyle == .appIcons {
             let widthMin = ThumbnailView.minThumbnailWidth(screen)
             let contentWidth = Appearance.iconSize
-            let leftRightEdgeInsetsSize = ThumbnailView.getLeftRightEdgeInsetsSize()
-            let frameWidth = contentWidth + leftRightEdgeInsetsSize
+            let frameWidth = contentWidth + Appearance.edgeInsetsSize * 2
             let width = max(frameWidth, widthMin).rounded()
             if widthMin > frameWidth {
-                let iconSize = width - leftRightEdgeInsetsSize
+                let iconSize = width - Appearance.edgeInsetsSize * 2
                 return NSSize(width: iconSize, height: iconSize)
             }
         }
@@ -579,24 +577,11 @@ class ThumbnailView: FlippedView {
     }
 
     static func height(_ screen: NSScreen, _ labelHeight: CGFloat) -> CGFloat {
-        let topBottomEdgeInsetsSize = ThumbnailView.getTopBottomEdgeInsetsSize()
         if Preferences.appearanceStyle == .titles {
-            return max(ThumbnailView.iconSize(screen).height, labelHeight) + topBottomEdgeInsetsSize
+            return max(ThumbnailView.iconSize(screen).height, labelHeight) + Appearance.edgeInsetsSize * 2
         } else if Preferences.appearanceStyle == .appIcons {
-            return ThumbnailView.iconSize(screen).height
-                    + topBottomEdgeInsetsSize
-                    + Appearance.intraCellPadding
-                    + labelHeight
-                    + Appearance.intraCellPadding
+            return ThumbnailView.iconSize(screen).height + Appearance.edgeInsetsSize * 2 + Appearance.intraCellPadding * 2 + labelHeight
         }
         return ThumbnailView.maxThumbnailHeight(screen).rounded(.down)
-    }
-
-    static func getLeftRightEdgeInsetsSize() -> CGFloat {
-        return Appearance.edgeInsetsSize * 2
-    }
-
-    static func getTopBottomEdgeInsetsSize() -> CGFloat {
-        return Appearance.edgeInsetsSize * 2
     }
 }
