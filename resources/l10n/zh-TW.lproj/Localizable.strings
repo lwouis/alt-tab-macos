@@ -62,7 +62,7 @@
 "Customize Thumbnails style…" = "設定縮圖樣式⋯";
 "Customize Titles style…" = "設定標題樣式⋯";
 "Dark" = "深色";
-"Disabled" = "Disabled";
+"Disabled" = "關閉";
 "Do nothing" = "什麼都別做";
 "Don’t check for updates periodically" = "不要定期自動檢查更新";
 "Don’t send" = "不要送出";
@@ -76,7 +76,7 @@
 "Fullscreen windows:" = "全螢幕視窗：";
 "Fullscreen/Defullscreen window" = "全螢幕 / 取消全螢幕視窗";
 "General" = "一般";
-"Gesture" = "Gesture";
+"Gesture" = "手勢";
 "Grant permission" = "取得權限";
 "Hidden windows:" = "隱藏的視窗：";
 "Hide" = "隱藏";
@@ -96,8 +96,8 @@
 "High" = "高";
 "Highest" = "最高";
 "Hold" = "按住";
-"Horizontal Swipe with Four Fingers" = "Horizontal Swipe with Four Fingers";
-"Horizontal Swipe with Three Fingers" = "Horizontal Swipe with Three Fingers";
+"Horizontal Swipe with Four Fingers" = "用四指左右滑動";
+"Horizontal Swipe with Three Fingers" = "用三指左右滑動";
 "I think the app could be improved with…" = "我覺得這個程式可以改善⋯";
 "Ignore shortcuts when active" = "活躍時忽略快速鍵";
 "Ignore shortcuts while a window from these apps is active" = "當這些程式的視窗活躍時，忽略快速鍵";
@@ -117,7 +117,7 @@
 "Middle" = "中間";
 "Minimize/Deminimize window" = "最小化／最大化視窗";
 "Minimized windows:" = "最小化視窗";
-"Miscellaneous" = "Miscellaneous";
+"Miscellaneous" = "其他設定";
 "Miscellaneous:" = "其他設定：";
 "Mouse hover" = "滑鼠懸停";
 "Multiple screens" = "多個顯示器";
@@ -128,7 +128,7 @@
 "Only if the window is fullscreen" = "只在視窗全螢幕顯示時啟用";
 "Open Accessibility Preferences…" = "開啟補助使用⋯";
 "Open Screen Recording Preferences…" = "打開螢幕錄影偏好設定⋯";
-"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
+"Open Trackpad Preferences…" = "開啟觸控式軌跡板設定";
 "Optional: email (if you want a reply)" = "電子信箱（選填，如果你想要收到回覆）";
 "Order windows by" = "視窗排序";
 "Policies" = "策略";
@@ -200,8 +200,8 @@
 "Start at login" = "在登入時啟動";
 "Start at login:" = "在登入時啟動：";
 "Support this project ❤️" = "支持這個專案 ❤️";
-"Swipe with Four Fingers" = "Swipe with Four Fingers";
-"Swipe with Three Fingers" = "Swipe with Three Fingers";
+"Swipe with Four Fingers" = "用四指滑動";
+"Swipe with Three Fingers" = "用三指滑動";
 "Switch between 3 different styles. You can customize them." = "在 3 種不同樣式之間切換。您可以客製化它們。";
 "System" = "系統";
 "System Default" = "系統預設";
@@ -221,8 +221,8 @@
 "Updates policy:" = "更新策略：";
 "Use the app without this permission. Thumbnails won’t show." = "繼續使用但不授權這個權限。將不會顯示縮圖。";
 "Version" = "版本";
-"Vertical Swipe with Four Fingers" = "Vertical Swipe with Four Fingers";
-"Vertical Swipe with Three Fingers" = "Vertical Swipe with Three Fingers";
+"Vertical Swipe with Four Fingers" = "用四指上下滑動";
+"Vertical Swipe with Three Fingers" = "用三指上下滑動";
 "View existing discussions" = "查看目前的討論";
 "Vim keys" = "Vim 快速鍵";
 "Vim keys already assigned to other actions:\n%@" = "Vim 快速鍵已經被其它操作佔用：\n%@";
@@ -245,4 +245,4 @@
 "Windows" = "視窗";
 "You can’t undo this action." = "您無法復原此操作。";
 "You didn’t write your email, thus can’t receive any response." = "若沒有填寫電子信箱，您將無法收到回覆";
-"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
+"You may need to disable some conflicting system gestures" = "您或許需關閉一些衝突的系統手勢";

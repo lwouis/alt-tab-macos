@@ -97,6 +97,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Frank
 * Friendship1
 * Fukuda
+* Ganesh Sawant
 * Gezimos
 * Giacomo Volpi
 * Giang
@@ -123,6 +124,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Jakob
 * Jakob Licina
 * Jakub Bartušek
+* Jesus Angel Villafuerte
 * jiho4
 * Jisan
 * Joao Vitor Casarin
@@ -179,6 +181,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Mwolfinspace
 * Naseeb Naushad
 * Nathancodes
+* Navekar Vishal
 * Nikola Rajić
 * Nils Fahldieck
 * Nilton Souza
@@ -191,6 +194,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Petr Kolář
 * Piotr Budny
 * Quentin. douarre
+* Rami Elsawy
 * Raphaël
 * Rasmus
 * Raymonf
