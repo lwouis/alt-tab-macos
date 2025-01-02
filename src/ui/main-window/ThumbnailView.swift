@@ -159,11 +159,14 @@ class ThumbnailView: FlippedView {
 
     private func setupSharedSubiews() {
         let shadow = ThumbnailView.makeShadow(Appearance.imageShadowColor)
+        thumbnail.imageScaling = .scaleProportionallyUpOrDown
         thumbnail.shadow = shadow
         windowlessIcon.translatesAutoresizingMaskIntoConstraints = false
+        windowlessIcon.imageScaling = .scaleProportionallyUpOrDown
         windowlessIcon.toolTip = ThumbnailView.noOpenWindowToolTip
         windowlessIcon.shadow = shadow
         appIcon.translatesAutoresizingMaskIntoConstraints = false
+        appIcon.imageScaling = .scaleProportionallyUpOrDown
         appIcon.shadow = shadow
         appIcon.setSubviewAbove(dockLabelIcon)
         label.fixHeight()
@@ -340,8 +343,8 @@ class ThumbnailView: FlippedView {
         if appIconChanged || dockLabelChanged {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
-        if element.isWindowlessApp {
-            windowlessIcon.image = appIcon.image!.copy() as? NSImage
+        if element.isWindowlessApp && windowlessIcon.image != element.icon {
+            windowlessIcon.image = element.icon
         }
         windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(false)
@@ -353,19 +356,16 @@ class ThumbnailView: FlippedView {
         if Preferences.appearanceStyle == .thumbnails {
             if !thumbnail.isHidden {
                 let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail.image, screen, false)
-                thumbnail.image?.size = thumbnailSize
-                thumbnail.frame.size = thumbnailSize
+                thumbnail.setSize(thumbnailSize)
             }
             if !windowlessIcon.isHidden {
                 let windowlessIconSize = ThumbnailView.thumbnailSize(windowlessIcon.image, screen, true)
-                windowlessIcon.image!.size = windowlessIconSize
-                windowlessIcon.frame.size = windowlessIconSize
+                windowlessIcon.setSize(windowlessIconSize)
             }
         }
         setFrameWidthHeight(screen, newHeight)
         let appIconSize = ThumbnailView.iconSize(screen)
-        appIcon.image?.size = appIconSize
-        appIcon.frame.size = appIconSize
+        appIcon.setSize(appIconSize)
         if Preferences.appearanceStyle == .appIcons {
             vStackView.frame.size = NSSize(width: frame.width, height: appIcon.frame.height + Appearance.edgeInsetsSize * 2)
             hStackView.frame.size = NSSize(width: appIcon.frame.width, height: appIcon.frame.height)

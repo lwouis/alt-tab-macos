@@ -25,9 +25,10 @@ class PreviewPanel: NSPanel {
         setAccessibilitySubrole(.unknown)
     }
 
-    func show(_ id: CGWindowID, _ preview: NSImage, _ position: CGPoint, _ size: CGSize) {
+    func show(_ id: CGWindowID, _ preview: NSImage, _ previewSize: NSSize, _ position: CGPoint, _ size: CGSize) {
         if id != currentId  {
             previewView.image = preview
+            previewView.image!.size = previewSize
             var frame = NSRect(origin: position, size: size)
             // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)
             // Always use the primary screen as reference since all coordinates are relative to it

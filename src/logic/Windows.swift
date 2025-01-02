@@ -153,14 +153,14 @@ class Windows {
             App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
             let window = focusedWindow(),
             let id = window.cgWindowId,
-            let preview = window.getPreview(),
+            let (preview, previewSize) = window.getPreview(),
             let position = window.position,
             let size = window.size
         else {
             App.app.previewPanel.orderOut(nil)
             return
         }
-        App.app.previewPanel.show(id, preview, position, size)
+        App.app.previewPanel.show(id, preview, previewSize, position, size)
     }
 
     static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {

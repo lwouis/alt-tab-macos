@@ -199,6 +199,17 @@ extension DispatchQoS {
     }
 }
 
+extension NSImageView {
+    func setSize(_ size: NSSize) {
+        frame.size = size
+        // TODO: NSImageView does some internal magic, and ends up with constraints. We need to add our own to force its size
+        // We can't update .image.size because we share the image between multiple NSImageViews
+        // I wish there was a better way to only set the frame.size
+        addOrUpdateConstraint(widthAnchor, size.width)
+        addOrUpdateConstraint(heightAnchor, size.height)
+    }
+}
+
 extension NSImage {
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
     static func initCopy(_ name: String) -> NSImage {
