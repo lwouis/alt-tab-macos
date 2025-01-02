@@ -210,6 +210,15 @@ extension NSImageView {
     }
 }
 
+extension NSTextField {
+    func setWidth(_ width: CGFloat) {
+        frame.size.width = width
+        // TODO: NSTextField does some internal magic, and ends up with constraints. We need to add our own to force its size
+        // I wish there was a better way to only set the frame.size
+        addOrUpdateConstraint(widthAnchor, width)
+    }
+}
+
 extension NSImage {
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
     static func initCopy(_ name: String) -> NSImage {

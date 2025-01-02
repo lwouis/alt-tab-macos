@@ -297,7 +297,7 @@ class ThumbnailView: FlippedView {
         let height = view.label.cell!.cellSize.height
         let yPosition = view.hStackView.frame.origin.y + view.hStackView.frame.height + Appearance.intraCellPadding * 2
         view.label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
-        view.label.addOrUpdateConstraint(view.label.widthAnchor, effectiveLabelWidth)
+        view.label.setWidth(effectiveLabelWidth)
         view.label.toolTip = view.label.cell!.cellSize.width >= view.label.frame.size.width ? view.label.stringValue : nil
     }
 
@@ -373,8 +373,7 @@ class ThumbnailView: FlippedView {
             vStackView.frame.size = NSSize(width: frame.width, height: frame.height)
             hStackView.frame.size = NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, label.cell!.cellSize.height))
             let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.intraCellPadding - indicatorsSpace()
-            label.frame.size.width = labelWidth
-            label.addOrUpdateConstraint(label.widthAnchor, labelWidth)
+            label.setWidth(labelWidth)
         }
         if Preferences.appearanceStyle == .thumbnails {
             let content = !windowlessIcon.isHidden ? windowlessIcon : thumbnail
