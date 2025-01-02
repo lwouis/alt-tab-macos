@@ -4,10 +4,29 @@ class Windows {
     static var list = [Window]()
     static var focusedWindowIndex = Int(0)
     static var hoveredWindowIndex: Int?
-    static var lastWindowActivityType = WindowActivityType.none
+    private static var lastWindowActivityType = WindowActivityType.none
+
+    /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
+    /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
+    /// with topmost windows first.
+    static func sortByLevel() {
+        var windowLevelMap = [CGWindowID?: Int]()
+        for (index, cgWindowId) in Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated() {
+            windowLevelMap[cgWindowId] = index
+        }
+        list = list
+                .sorted { w1, w2 in
+                    (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
+                }
+                .enumerated()
+                .map { (index, window) -> Window in
+                    window.lastFocusOrder = index
+                    return window
+                }
+    }
 
     /// reordered list based on preferences, keeping the original index
-    static func reorderList() {
+    private static func sort() {
         list.sort {
             // separate buckets for these types of windows
             if $0.isWindowlessApp != $1.isWindowlessApp {
@@ -30,12 +49,12 @@ class Windows {
             }
             var order = ComparisonResult.orderedSame
             if sortType == .alphabetical {
-                order = sortByAppNameThenWindowTitle($0, $1)
+                order = compareByAppNameThenWindowTitle($0, $1)
             }
             if sortType == .space {
                 order = $0.spaceIndex.compare($1.spaceIndex)
                 if order == .orderedSame {
-                    order = sortByAppNameThenWindowTitle($0, $1)
+                    order = compareByAppNameThenWindowTitle($0, $1)
                 }
             }
             if order == .orderedSame {
@@ -43,6 +62,14 @@ class Windows {
             }
             return order == .orderedAscending
         }
+    }
+
+    private static func compareByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
+        let order = w1.application.runningApplication.localizedName.localizedStandardCompare(w2.application.runningApplication.localizedName)
+        if order == .orderedSame {
+            return w1.title.localizedStandardCompare(w2.title)
+        }
+        return order
     }
 
     static func setInitialFocusedAndHoveredWindowIndex() {
@@ -236,25 +263,6 @@ class Windows {
         }
     }
 
-    /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
-    /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
-    /// with topmost windows first.
-    static func sortByLevel() {
-        var windowLevelMap = [CGWindowID?: Int]()
-        for (index, cgWindowId) in Spaces.windowsInSpaces(Spaces.visibleSpaces).enumerated() {
-            windowLevelMap[cgWindowId] = index
-        }
-        list = list
-                .sorted { w1, w2 in
-                    (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
-                }
-                .enumerated()
-                .map { (index, window) -> Window in
-                    window.lastFocusOrder = index
-                    return window
-                }
-    }
-
     static func updatesBeforeShowing(_ screen: NSScreen) -> Bool {
         if list.count == 0 || MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
         // TODO: find a way to update space info when spaces are changed, instead of on every trigger
@@ -271,7 +279,7 @@ class Windows {
             refreshIfWindowShouldBeShownToTheUser(window, screen)
         }
         refreshWhichWindowsToShowTheUser(screen)
-        reorderList()
+        sort()
         if (!list.contains { $0.shouldShowTheUser }) { return false }
         return true
     }
@@ -393,14 +401,6 @@ class Windows {
 
         return sortedWindows.first { $0.shouldShowTheUser }
     }
-}
-
-func sortByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
-    let order = w1.application.runningApplication.localizedName.localizedStandardCompare(w2.application.runningApplication.localizedName)
-    if order == .orderedSame {
-        return w1.title.localizedStandardCompare(w2.title)
-    }
-    return order
 }
 
 enum WindowActivityType: Int {
