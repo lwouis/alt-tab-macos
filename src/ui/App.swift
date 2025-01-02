@@ -251,7 +251,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func refreshOpenUi(_ windowsToScreenshot: [Window], skipUpdatesBeforeShowing: Bool = false, onlyUpdateScreenshots: Bool = false) {
         if !Appearance.hideThumbnails && !windowsToScreenshot.isEmpty {
-            Windows.refreshThumbnails(windowsToScreenshot, true, onlyUpdateScreenshots)
+            Windows.refreshThumbnails(windowsToScreenshot, onlyUpdateScreenshots)
             return
         }
         guard appIsBeingUsed else { return }

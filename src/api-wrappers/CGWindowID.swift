@@ -15,10 +15,10 @@ extension CGWindowID {
         return CGSCopySpacesForWindows(cgsMainConnectionId, CGSSpaceMask.all.rawValue, [self] as CFArray) as! [CGSSpaceID]
     }
 
-    func screenshot(_ bestResolution: Bool) -> CGImage? {
+    func screenshot() -> CGImage? {
         // CGSHWCaptureWindowList
         var windowId_ = self
-        let list = CGSHWCaptureWindowList(cgsMainConnectionId, &windowId_, 1, [.ignoreGlobalClipShape, bestResolution ? .bestResolution : .nominalResolution]).takeRetainedValue() as! [CGImage]
+        let list = CGSHWCaptureWindowList(cgsMainConnectionId, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution]).takeRetainedValue() as! [CGImage]
         return list.first
 
 //        // CGWindowListCreateImage

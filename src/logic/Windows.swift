@@ -298,7 +298,7 @@ class Windows {
     }
 
     // dispatch screenshot requests off the main-thread, then wait for completion
-    static func refreshThumbnails(_ windows: [Window], _ bestResolution: Bool, _ onlyUpdateScreenshots: Bool) {
+    static func refreshThumbnails(_ windows: [Window], _ onlyUpdateScreenshots: Bool) {
         if Appearance.hideThumbnails { return }
         var eligibleWindows = [Window]()
         for window in windows {
@@ -307,10 +307,10 @@ class Windows {
             }
         }
         if eligibleWindows.isEmpty { return }
-        screenshotEligibleWindowsAndRefreshUi(eligibleWindows, bestResolution, onlyUpdateScreenshots)
+        screenshotEligibleWindowsAndRefreshUi(eligibleWindows, onlyUpdateScreenshots)
     }
 
-    private static func screenshotEligibleWindowsAndRefreshUi(_ eligibleWindows: [Window], _ bestResolution: Bool, _ onlyUpdateScreenshots: Bool) {
+    private static func screenshotEligibleWindowsAndRefreshUi(_ eligibleWindows: [Window], _ onlyUpdateScreenshots: Bool) {
         eligibleWindows.forEach { _ in BackgroundWork.screenshotsDispatchGroup.enter() }
         for window in eligibleWindows {
             BackgroundWork.screenshotsQueue.async { [weak window] in
@@ -319,7 +319,7 @@ class Windows {
                     backgroundWorkGlobalSemaphore.signal()
                     BackgroundWork.screenshotsDispatchGroup.leave()
                 }
-                if let cgImage = window?.cgWindowId?.screenshot(bestResolution) {
+                if let cgImage = window?.cgWindowId?.screenshot() {
                     DispatchQueue.main.async { [weak window] in
                         window?.refreshThumbnail(NSImage.fromCgImage(cgImage))
                     }
