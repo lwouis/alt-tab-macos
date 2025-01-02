@@ -10,6 +10,7 @@ class KeyboardEvents {
     static var eventHotKeyRefs = [String: EventHotKeyRef?]()
     static var hotKeyPressedEventHandler: EventHandlerRef?
     static var hotKeyReleasedEventHandler: EventHandlerRef?
+    static var globalShortcutsAreDisabled = false
 
     static func addGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
         addGlobalHandlerIfNeeded(shortcut)
@@ -42,7 +43,7 @@ class KeyboardEvents {
     }
 
     static func toggleGlobalShortcuts(_ shouldDisable: Bool) {
-        if shouldDisable != App.app.globalShortcutsAreDisabled {
+        if shouldDisable != globalShortcutsAreDisabled {
             let fn = shouldDisable ? unregisterHotKeyIfNeeded : registerHotKeyIfNeeded
             for shortcutId in KeyboardEventsTestable.globalShortcutsIds.keys {
                 if let shortcut = ControlsTab.shortcuts[shortcutId]?.shortcut {
@@ -50,7 +51,7 @@ class KeyboardEvents {
                 }
             }
             Logger.info("toggleGlobalShortcuts", shouldDisable)
-            App.app.globalShortcutsAreDisabled = shouldDisable
+            globalShortcutsAreDisabled = shouldDisable
         }
     }
 

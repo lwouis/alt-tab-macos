@@ -21,17 +21,16 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var thumbnailsPanel: ThumbnailsPanel!
     var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
-    var feedbackWindow: FeedbackWindow!
     var permissionsWindow: PermissionsWindow!
-    var isFirstSummon = true
-    var isVeryFirstSummon = true
     var appIsBeingUsed = false
-    var globalShortcutsAreDisabled = false
     var shortcutIndex = 0
+    private var feedbackWindow: FeedbackWindow!
+    private var isFirstSummon = true
+    private var isVeryFirstSummon = true
     // periphery:ignore
-    var appCenterDelegate: AppCenterCrash?
+    private var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
-    var delayedDisplayScheduled = 0
+    private var delayedDisplayScheduled = 0
 
     override init() {
         super.init()
