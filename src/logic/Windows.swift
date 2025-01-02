@@ -147,20 +147,17 @@ class Windows {
     }
 
     static func previewFocusedWindowIfNeeded() {
-        guard
-            Preferences.previewFocusedWindow,
-            !Preferences.onlyShowApplications(),
-            App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
-            let window = focusedWindow(),
-            let id = window.cgWindowId,
-            let (preview, previewSize) = window.getPreview(),
-            let position = window.position,
-            let size = window.size
-        else {
+        if Preferences.previewFocusedWindow && !Preferences.onlyShowApplications()
+                   && App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
+           let window = focusedWindow(),
+           let id = window.cgWindowId,
+           let thumbnail = window.thumbnail,
+           let position = window.position,
+           let size = window.size {
+            App.app.previewPanel.show(id, thumbnail, position, size)
+        } else {
             App.app.previewPanel.orderOut(nil)
-            return
         }
-        App.app.previewPanel.show(id, preview, previewSize, position, size)
     }
 
     static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {

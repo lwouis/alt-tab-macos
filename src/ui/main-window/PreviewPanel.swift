@@ -5,6 +5,11 @@ class PreviewPanel: NSPanel {
     private let borderView = BorderView()
     private var currentId: CGWindowID?
 
+    /// this allows the window to be above the menubar when its origin.y is set to 0
+    override func constrainFrameRect(_ frameRect: NSRect, to screen: NSScreen?) -> NSRect {
+        frameRect
+    }
+
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.nonactivatingPanel, .titled, .fullSizeContentView], backing: .buffered, defer: false)
         isFloatingPanel = true
@@ -18,17 +23,14 @@ class PreviewPanel: NSPanel {
         previewView.addSubview(borderView)
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
-        // 2nd highest level possible; this allows the app to go on top of context menus
-        // highest level is .screenSaver but makes drag and drop on top the main window impossible
-        level = .popUpMenu
         // helps filter out this window from the thumbnails
         setAccessibilitySubrole(.unknown)
     }
 
-    func show(_ id: CGWindowID, _ preview: NSImage, _ previewSize: NSSize, _ position: CGPoint, _ size: CGSize) {
+    func show(_ id: CGWindowID, _ preview: NSImage, _ position: CGPoint, _ size: CGSize) {
         if id != currentId  {
             previewView.image = preview
-            previewView.image!.size = previewSize
+            previewView.image!.size = size
             var frame = NSRect(origin: position, size: size)
             // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)
             // Always use the primary screen as reference since all coordinates are relative to it
@@ -48,7 +50,7 @@ class PreviewPanel: NSPanel {
             // 2. Select a window in the switcher that is on the same monitor as the thumbnails panel, and whose position overlaps with the thumbnails panel
             // 3. For a single frame, the preview of the newly selected window can appear above the thumbnails panel before going back underneath it
             // Simply using order(.below) is not sufficient to prevent this brief flicker. We explicitly set the preview panel's window level to be one below the thumbnails panel
-            App.app.previewPanel.level = NSWindow.Level(rawValue: App.app.previewPanel.level.rawValue - 1)
+            App.app.previewPanel.level = NSWindow.Level(rawValue: App.app.thumbnailsPanel.level.rawValue - 1)
         }
     }
 }
