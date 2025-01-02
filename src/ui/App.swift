@@ -24,6 +24,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     var feedbackWindow: FeedbackWindow!
     var permissionsWindow: PermissionsWindow!
     var isFirstSummon = true
+    var isVeryFirstSummon = true
     var appIsBeingUsed = false
     var globalShortcutsAreDisabled = false
     var shortcutIndex = 0
@@ -75,8 +76,6 @@ class App: AppCenterApplication, NSApplicationDelegate {
             KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
             TrackpadEvents.observe()
-            // TODO: undeterministic; events in the queue may still be processing; good enough for now
-            DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
             self.preloadWindows()
             #if DEBUG
 //            self.showPreferencesWindow()
@@ -281,6 +280,10 @@ class App: AppCenterApplication, NSApplicationDelegate {
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
+            if isVeryFirstSummon {
+                DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
+                isVeryFirstSummon = false
+            }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
             let screen = NSScreen.preferred()

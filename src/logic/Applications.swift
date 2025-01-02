@@ -30,7 +30,9 @@ class Applications {
 
     static func addInitialRunningApplicationsWindows() {
         let otherSpaces = Spaces.otherSpaces()
-        if otherSpaces.count > 0 {
+        // the CGSAddWindowsToSpaces trick stopped working starting with macOS 12.2
+        // see https://github.com/lwouis/alt-tab-macos/issues/1324
+        if otherSpaces.count > 0, #unavailable(macOS 12.2) {
             let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId])
             let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces)
             let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
@@ -41,7 +43,7 @@ class Applications {
                 CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
             }
         } else {
-            Applications.manuallyUpdateWindowsFor2s()
+            Applications.manuallyUpdateWindows()
         }
     }
 

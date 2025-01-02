@@ -40,7 +40,3 @@ extension CGWindowID {
         return value as? T
     }
 }
-
-//class Testt {
-//    static var sampleCgImage: CGImage? = nil
-//}
