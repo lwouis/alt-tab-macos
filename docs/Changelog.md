@@ -1,5 +1,22 @@
 # Release notes
 
+# [7.15.0](https://github.com/lwouis/alt-tab-macos/compare/v7.14.1...v7.15.0) (2025-01-02)
+
+
+### Bug Fixes
+
+* better position preview for fullscreen windows (closes [#4051](https://github.com/lwouis/alt-tab-macos/issues/4051)) ([3b0cba4](https://github.com/lwouis/alt-tab-macos/commit/3b0cba4))
+* layout was sometimes broken in app-icons style (closes [#4036](https://github.com/lwouis/alt-tab-macos/issues/4036)) ([be5eb26](https://github.com/lwouis/alt-tab-macos/commit/be5eb26))
+
+
+### Features
+
+* improve chinese-taiwanese localization ([dfcf9de](https://github.com/lwouis/alt-tab-macos/commit/dfcf9de))
+* improve performance and order accuracy at launch ([fc6d636](https://github.com/lwouis/alt-tab-macos/commit/fc6d636))
+* improve quality of thumbnails and performance ([a138a92](https://github.com/lwouis/alt-tab-macos/commit/a138a92))
+* reduce space between app icon and window title ([295eb2b](https://github.com/lwouis/alt-tab-macos/commit/295eb2b))
+* switcher displays faster; other performance improvements ([b51ff65](https://github.com/lwouis/alt-tab-macos/commit/b51ff65))
+
 ## [7.14.1](https://github.com/lwouis/alt-tab-macos/compare/v7.14.0...v7.14.1) (2024-12-28)
 
 
