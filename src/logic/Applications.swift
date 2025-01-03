@@ -106,9 +106,7 @@ class Applications {
             let view = ThumbnailsView.recycledViews[i]
             if let app = Applications.find(window.application.pid) {
                 if app.runningApplication.activationPolicy == .regular,
-                   let bundleId = app.runningApplication.bundleIdentifier,
-                   let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId),
-                   let matchingItem = (items.first { $0.0 == url }),
+                   let matchingItem = (items.first { $0.0 == app.bundleURL }),
                    let label = matchingItem.1 {
                     app.dockLabel = label
                     view.updateDockLabelIcon(label)

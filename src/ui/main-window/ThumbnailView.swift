@@ -439,7 +439,7 @@ class ThumbnailView: FlippedView {
     }
 
     private func getAppOrAndWindowTitle() -> String {
-        let appName = window_?.application.runningApplication.localizedName
+        let appName = window_?.application.localizedName
         let windowTitle = window_?.title
         if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
             return appName ?? ""

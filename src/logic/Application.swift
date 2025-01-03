@@ -8,6 +8,8 @@ class Application: NSObject {
     var axUiElement: AXUIElement?
     var axObserver: AXObserver?
     var isReallyFinishedLaunching = false
+    var localizedName: String?
+    var bundleURL: URL?
     var isHidden: Bool!
     var hasBeenActiveOnce: Bool!
     var icon: NSImage?
@@ -23,6 +25,8 @@ class Application: NSObject {
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
         icon = runningApplication.icon
+        localizedName = runningApplication.localizedName
+        bundleURL = runningApplication.bundleURL
         observeEventsIfEligible()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
