@@ -1,6 +1,6 @@
 import Cocoa
 
-class ThumbnailsPanel: NSPanel, NSWindowDelegate {
+class ThumbnailsPanel: NSPanel {
     var thumbnailsView = ThumbnailsView()
     override var canBecomeKey: Bool { true }
 
@@ -23,16 +23,6 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         setAccessibilitySubrole(.unknown)
         // for VoiceOver
         setAccessibilityLabel(App.name)
-    }
-
-    func windowDidResignKey(_ notification: Notification) {
-        // other windows can steal key focus from alt-tab; we make sure that if it's active, if keeps key focus
-        // dispatching to the main queue is necessary to introduce a delay in scheduling the makeKey; otherwise it is ignored
-        DispatchQueue.main.async {
-            if App.app.appIsBeingUsed {
-                App.app.thumbnailsPanel.makeKeyAndOrderFront(nil)
-            }
-        }
     }
 
     override func orderOut(_ sender: Any?) {
@@ -60,5 +50,17 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
 
     static func maxThumbnailsHeight(_ screen: NSScreen) -> CGFloat {
         return screen.frame.height * Appearance.maxHeightOnScreen - Appearance.windowPadding * 2
+    }
+}
+
+extension ThumbnailsPanel: NSWindowDelegate {
+    func windowDidResignKey(_ notification: Notification) {
+        // other windows can steal key focus from alt-tab; we make sure that if it's active, if keeps key focus
+        // dispatching to the main queue is necessary to introduce a delay in scheduling the makeKey; otherwise it is ignored
+        DispatchQueue.main.async {
+            if App.app.appIsBeingUsed {
+                App.app.thumbnailsPanel.makeKeyAndOrderFront(nil)
+            }
+        }
     }
 }

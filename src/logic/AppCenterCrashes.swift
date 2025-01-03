@@ -2,7 +2,7 @@ import Cocoa
 import AppCenter
 import AppCenterCrashes
 
-class AppCenterCrash: NSObject, CrashesDelegate {
+class AppCenterCrash: NSObject {
     static let secret = Bundle.main.object(forInfoDictionaryKey: "AppCenterSecret") as! String
 
     override init() {
@@ -72,7 +72,9 @@ class AppCenterCrash: NSObject, CrashesDelegate {
         }
         return 1
     }
+}
 
+extension AppCenterCrash: CrashesDelegate {
     func attachments(with crashes: Crashes, for errorReport: ErrorReport) -> [ErrorAttachmentLog]? {
         return [ErrorAttachmentLog.attachment(withText: DebugProfile.make(), filename: "debug-profile.md")!]
     }

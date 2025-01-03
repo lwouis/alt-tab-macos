@@ -1,8 +1,7 @@
 import Cocoa
 
-class PreferencesWindow: NSWindow, NSToolbarDelegate {
+class PreferencesWindow: NSWindow {
     static let width = CGFloat(520)
-
     var toolbarItems = [NSToolbarItem.Identifier: (Int, NSToolbarItem, NSView)]()
     var canBecomeKey_ = true
     override var canBecomeKey: Bool { canBecomeKey_ }
@@ -95,6 +94,13 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         recalculateKeyViewLoop()
     }
 
+    override func close() {
+        hideAppIfLastWindowIsClosed()
+        super.close()
+    }
+}
+
+extension PreferencesWindow: NSToolbarDelegate {
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         return toolbarItems[itemIdentifier]!.1
     }
@@ -109,10 +115,5 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
 
     func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return Array(toolbarItems.keys)
-    }
-
-    override func close() {
-        hideAppIfLastWindowIsClosed()
-        super.close()
     }
 }

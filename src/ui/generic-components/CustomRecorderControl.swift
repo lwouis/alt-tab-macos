@@ -1,9 +1,8 @@
 import Cocoa
 import ShortcutRecorder
 
-let allowedModifiers = NSEvent.ModifierFlags(arrayLiteral: [.command, .control, .option, .shift])
-
-class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
+class CustomRecorderControl: RecorderControl {
+    static let allowedModifiers = NSEvent.ModifierFlags(arrayLiteral: [.command, .control, .option, .shift])
     var clearable: Bool!
     var id: String!
 
@@ -34,18 +33,7 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
     }
 
     func restrictModifiers(_ restrictedModifiers: NSEvent.ModifierFlags) {
-        set(allowedModifierFlags: allowedModifiers.subtracting(restrictedModifiers), requiredModifierFlags: [], allowsEmptyModifierFlags: true)
-    }
-
-    /// only allow modifiers: ⌥ -> valid, e -> invalid, ⌥e -> invalid
-    func recorderControl(_ control: RecorderControl, canRecord shortcut: Shortcut) -> Bool {
-        if !clearable && shortcut.keyCode != .none {
-            return false
-        }
-        if let shortcutAlreadyAssigned = isShortcutAlreadyAssigned(shortcut) {
-            alertIfSameShortcutAlreadyAssigned(shortcut, shortcutAlreadyAssigned)
-        }
-        return true
+        set(allowedModifierFlags: CustomRecorderControl.allowedModifiers.subtracting(restrictedModifiers), requiredModifierFlags: [], allowsEmptyModifierFlags: true)
     }
 
     func alertIfSameShortcutAlreadyAssigned(_ shortcut: Shortcut, _ shortcutAlreadyAssigned: ATShortcut) {
@@ -119,5 +107,18 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
             return true
         })?
             .value
+    }
+}
+
+extension CustomRecorderControl: RecorderControlDelegate {
+    /// only allow modifiers: ⌥ -> valid, e -> invalid, ⌥e -> invalid
+    func recorderControl(_ control: RecorderControl, canRecord shortcut: Shortcut) -> Bool {
+        if !clearable && shortcut.keyCode != .none {
+            return false
+        }
+        if let shortcutAlreadyAssigned = isShortcutAlreadyAssigned(shortcut) {
+            alertIfSameShortcutAlreadyAssigned(shortcut, shortcutAlreadyAssigned)
+        }
+        return true
     }
 }

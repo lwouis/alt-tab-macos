@@ -1,6 +1,6 @@
 import Cocoa
 
-class TextArea: NSTextField, NSTextFieldDelegate {
+class TextArea: NSTextField {
     static let padding = CGFloat(5)
     static let interLineFactor = CGFloat(1.6)
     var callback: (() -> Void)!
@@ -14,16 +14,18 @@ class TextArea: NSTextField, NSTextFieldDelegate {
         let height: CGFloat = (NSFont.systemFontSize * TextArea.interLineFactor * CGFloat(nLinesHigh) + TextArea.padding * 2).rounded()
         fit(width, height)
     }
+}
 
-    func controlTextDidChange(_ notification: Notification) {
-        callback?()
-    }
-
+extension TextArea: NSTextFieldDelegate {
     // enter key inserts new line instead of submitting
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         guard commandSelector == #selector(NSResponder.insertNewline) else { return false }
         textView.insertNewlineIgnoringFieldEditor(self)
         return true
+    }
+
+    func controlTextDidChange(_ notification: Notification) {
+        callback?()
     }
 }
 

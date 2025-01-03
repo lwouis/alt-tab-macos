@@ -79,19 +79,6 @@ class TableView: NSTableView {
     private func savePreferences() {
         Preferences.set("blacklist", items)
     }
-}
-
-extension TableView: NSTableViewDataSource {
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return items.count
-    }
-}
-
-extension TableView: NSTableViewDelegate {
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let item = items[row]
-        return tableColumn!.identifier.rawValue == "col1" ? text(item) : dropdown(item, tableColumn!.identifier.rawValue)
-    }
 
     private func text(_ item: BlacklistEntry) -> NSView {
         let text = TextField(item.bundleIdentifier)
@@ -125,6 +112,19 @@ extension TableView: NSTableViewDelegate {
         button.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
         button.widthAnchor.constraint(equalTo: parent.widthAnchor).isActive = true
         return parent
+    }
+}
+
+extension TableView: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return items.count
+    }
+}
+
+extension TableView: NSTableViewDelegate {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let item = items[row]
+        return tableColumn!.identifier.rawValue == "col1" ? text(item) : dropdown(item, tableColumn!.identifier.rawValue)
     }
 }
 
