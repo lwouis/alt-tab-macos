@@ -45,11 +45,9 @@ class ControlsTab {
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
         [holdShortcut, holdShortcut2, holdShortcut3].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
-
         let tabs = StackView(tableGroupViews, .vertical)
         tabs.translatesAutoresizingMaskIntoConstraints = false
         tabs.fit()
-
         let table = TableGroupView(hasHeader: true, width: PreferencesWindow.width)
         let tab = NSSegmentedControl(labels: [
             NSLocalizedString("Shortcut 1", comment: ""),
@@ -61,16 +59,13 @@ class ControlsTab {
         tab.segmentStyle = .automatic
         tab.widthAnchor.constraint(equalToConstant: PreferencesWindow.width).isActive = true
         table.addHeader(views: [tab])
-
         let additionalControlsButton = NSButton(title: NSLocalizedString("Additional controls…", comment: ""), target: self, action: #selector(ControlsTab.showAdditionalControlsSettings))
         let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts when active…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
         let tools = StackView([additionalControlsButton, shortcutsButton], .horizontal)
         let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab6View], toolsViews: [tools], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
-
         shortcutsWhenActiveSheet = ShortcutsWhenActiveSheet()
         additionalControlsSheet = AdditionalControlsSheet()
-
         ControlsTab.switchIndexTab(0)
         view.fit()
         return view
@@ -91,7 +86,6 @@ class ControlsTab {
             Popover.shared.show(event: event, positioningView: view, message: label, extraView: button)
         })
         let gesture = LabelAndControl.makeDropdown("nextWindowGesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
-        
         let gestureWithTooltip = NSStackView()
         gestureWithTooltip.orientation = .horizontal
         gestureWithTooltip.alignment = .centerY
@@ -113,11 +107,9 @@ class ControlsTab {
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
-
         let table = TableGroupView(width: PreferencesWindow.width)
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger shortcut", comment: ""), rightViews: trigger))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release", comment: ""), rightViews: [shortcutStyle]))
-
         table.addNewTable()
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: ""))], rightViews: [appsToShow])
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from Spaces", comment: ""))], rightViews: [spacesToShow])

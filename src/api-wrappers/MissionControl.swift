@@ -28,9 +28,9 @@ class MissionControl {
         for window in CGWindow.windows(.optionOnScreenOnly) {
             // ownerName == "Dock" && title == nil is a sign that Mission Control may be active
             if window.ownerName() == "Dock" && window.title() == nil
-                       // layer == 500 can be a false positive when a user drags a file from a Dock folder
-                       // see https://github.com/lwouis/alt-tab-macos/issues/706
-                       && window.layer() != 500 {
+                   // layer == 500 can be a false positive when a user drags a file from a Dock folder
+                   // see https://github.com/lwouis/alt-tab-macos/issues/706
+                   && window.layer() != 500 {
                 return true
             }
         }

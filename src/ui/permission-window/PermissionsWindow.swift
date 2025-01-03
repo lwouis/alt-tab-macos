@@ -26,15 +26,13 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
         SystemPermissions.pollPermissionsToUpdatePermissionsWindow(startupBlock)
     }
 
-
-
-   func windowWillClose(_ notification: Notification) {
-       Logger.debug(SystemPermissions.preStartupPermissionsPassed)
+    func windowWillClose(_ notification: Notification) {
+        Logger.debug(SystemPermissions.preStartupPermissionsPassed)
         if !SystemPermissions.preStartupPermissionsPassed {
             if SystemPermissions.accessibilityIsGranted() == .notGranted || SystemPermissions.screenRecordingIsGranted() == .notGranted {
                 Logger.error("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
-                        "Please authorize and re-launch.",
-                        "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
+                    "Please authorize and re-launch.",
+                    "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
                 App.shared.terminate(self)
             }
         } else {
@@ -83,7 +81,6 @@ class PermissionsWindow: NSWindow, NSWindowDelegate {
         }
         let view = GridView(rows as! [[NSView]])
         view.fit()
-
         setContentSize(view.fittingSize)
         contentView = view
     }

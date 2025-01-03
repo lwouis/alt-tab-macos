@@ -41,7 +41,6 @@ class SheetWindow: NSWindow {
         contentView.topAnchor.constraint(equalTo: view.topAnchor, constant: TableGroupSetView.padding).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -TableGroupSetView.padding).isActive = true
         contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: TableGroupSetView.padding).isActive = true
-
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.wantsLayer = true
         separator.layer?.backgroundColor = NSColor.tableSeparatorColor.cgColor
@@ -49,7 +48,6 @@ class SheetWindow: NSWindow {
         separator.widthAnchor.constraint(equalToConstant: SheetWindow.width + TableGroupSetView.leftRightPadding).isActive = true
         separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
         separator.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: TableGroupSetView.padding).isActive = true
-
         view.addArrangedSubview(doneButton)
         doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -TableGroupSetView.padding).isActive = true
         doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -TableGroupSetView.padding).isActive = true

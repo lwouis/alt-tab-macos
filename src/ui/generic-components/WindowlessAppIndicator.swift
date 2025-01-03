@@ -32,7 +32,6 @@ class WindowlessAppIndicator: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         color.setFill()
-
         let rectPath = NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius)
         rectPath.fill()
     }
@@ -54,5 +53,4 @@ class WindowlessAppIndicator: NSView {
         }
         return AppearanceParameter(width: 6, height: 3, cornerRadius: 1)
     }
-
 }

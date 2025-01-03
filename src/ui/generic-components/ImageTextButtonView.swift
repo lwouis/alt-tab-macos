@@ -8,16 +8,15 @@ class ImageTextButtonView: NSStackView {
 
         override func drawFocusRingMask() {
             let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 1, dy: 1),
-                    xRadius: ImageTextButtonView.cornerRadius, yRadius: ImageTextButtonView.cornerRadius)
+                xRadius: ImageTextButtonView.cornerRadius, yRadius: ImageTextButtonView.cornerRadius)
             path.fill()
         }
 
         override func draw(_ dirtyRect: NSRect) {
             super.draw(dirtyRect)
-
             if self.window?.firstResponder == self && NSApp.isActive {
                 let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 1, dy: 1),
-                        xRadius: ImageTextButtonView.cornerRadius, yRadius: ImageTextButtonView.cornerRadius)
+                    xRadius: ImageTextButtonView.cornerRadius, yRadius: ImageTextButtonView.cornerRadius)
                 path.lineWidth = 2.0
                 path.stroke()
             }
@@ -45,12 +44,10 @@ class ImageTextButtonView: NSStackView {
          spacing: CGFloat = ImageTextButtonView.spacing,
          cornerRadius: CGFloat = ImageTextButtonView.cornerRadius) {
         super.init(frame: .zero)
-
         self.orientation = .vertical
         self.alignment = .centerX
         self.spacing = spacing
         self.translatesAutoresizingMaskIntoConstraints = false
-
         makeButton(rawName, state, image, cornerRadius: cornerRadius)
         makeLabel(title)
         self.state = state
@@ -72,11 +69,9 @@ class ImageTextButtonView: NSStackView {
         button.layer?.borderWidth = ImageTextButtonView.borderWidth
         button.state = state
         addArrangedSubview(button)
-
         // Create an NSView to contain the image and provide padding
         let imageContainer = NSView()
         imageContainer.translatesAutoresizingMaskIntoConstraints = false
-
         // TODO: The appearance theme functionality has not been implemented yet.
         // We will implement it later; for now, use the light theme.
         let imageView = NSImageView(image: NSImage(named: image.name + "_light")!)
@@ -85,7 +80,6 @@ class ImageTextButtonView: NSStackView {
         imageView.wantsLayer = true
         imageView.layer?.cornerRadius = cornerRadius - 3
         imageContainer.addSubview(imageView)
-
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: image.width),
             imageView.heightAnchor.constraint(equalToConstant: image.height),
@@ -94,7 +88,6 @@ class ImageTextButtonView: NSStackView {
             imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: padding),
             imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -padding),
         ])
-
         button.addSubview(imageContainer)
         NSLayoutConstraint.activate([
             imageContainer.centerXAnchor.constraint(equalTo: button.centerXAnchor),
@@ -105,7 +98,6 @@ class ImageTextButtonView: NSStackView {
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: ImageTextButtonView.borderWidth),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -ImageTextButtonView.borderWidth),
         ])
-
         button.identifier = NSUserInterfaceItemIdentifier(rawName)
         button.onAction = { control in
             self.state = .on

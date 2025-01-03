@@ -1,4 +1,5 @@
 import Cocoa
+
 class Switch: NSButton {
 
     var switchButton: NSControl?
@@ -40,7 +41,6 @@ class Switch: NSButton {
             self.isBordered = false
             self.title = ""
             self.setButtonType(.toggle)
-
             switchButton = NSSwitch(frame: self.bounds)
             switchButton?.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(switchButton!)
@@ -49,7 +49,6 @@ class Switch: NSButton {
             switchButton?.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
             switchButton?.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
             switchButton?.controlSize = .mini
-
             switchButton?.target = self
             switchButton?.action = #selector(switchToggled(_:))
         } else {

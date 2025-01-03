@@ -128,7 +128,6 @@ class TrafficLightButton: NSButton {
                 firstPointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
                 firstPointB = NSMakePoint(bounds.width * 0.12, bounds.height * 0.5)
                 firstPointC = NSMakePoint(bounds.width * 0.5, bounds.height * 0.12)
-
                 secondPointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
                 secondPointB = NSMakePoint(bounds.width * 0.5, bounds.height * 0.88)
                 secondPointC = NSMakePoint(bounds.width * 0.88, bounds.height * 0.5)
@@ -137,7 +136,6 @@ class TrafficLightButton: NSButton {
                 firstPointA = NSMakePoint(bounds.width * 0.25, bounds.height * 0.25)
                 firstPointB = NSMakePoint(bounds.width * 0.25, bounds.height * 0.65)
                 firstPointC = NSMakePoint(bounds.width * 0.65, bounds.height * 0.25)
-
                 secondPointA = NSMakePoint(bounds.width * 0.75, bounds.height * 0.75)
                 secondPointB = NSMakePoint(bounds.width * 0.35, bounds.height * 0.75)
                 secondPointC = NSMakePoint(bounds.width * 0.75, bounds.height * 0.35)
@@ -149,10 +147,8 @@ class TrafficLightButton: NSButton {
             symbol.close()
             lineColor.setFill()
             symbol.fill()
-
             // Clear path for the next triangle
             symbol.removeAllPoints()
-
             // Draw second triangle
             symbol.move(to: secondPointA)
             symbol.line(to: secondPointB)
@@ -202,35 +198,34 @@ enum TrafficLightButtonType {
     case fullscreen
 }
 
-
 // experiment: use actual buttons from OS through standardWindowButton
 // issues:
 //   * zoom button has a popover that can't be removed
 //   * overall they look/act depending on the parent window
 //     e.g. need to set `window.collectionBehavior = .fullScreenPrimary` to get fullscreen button
-
-//class TrafficLightButton: NSView {
-//    convenience init(_ nameTest: NSWindow.ButtonType) {
-//        self.init(frame: .zero)
-//        let button = NSWindow.standardWindowButton(nameTest, for: [.miniaturizable, .closable, .nonactivatingPanel])!
-//        button.action = nil
-//        addSubview(button)
-//        fit(button.frame.size.width, button.frame.size.height)
-//    }
 //
-//    /// force the hovered state as if the mouse was on the traffic lights area
-//    /// see https://stackoverflow.com/a/30417372/2249756
-//    @objc func _mouseInGroup(_: Any) -> Bool {
-//        return true
-//    }
+//  class TrafficLightButton: NSView {
+//      convenience init(_ nameTest: NSWindow.ButtonType) {
+//          self.init(frame: .zero)
+//          let button = NSWindow.standardWindowButton(nameTest, for: [.miniaturizable, .closable, .nonactivatingPanel])!
+//          button.action = nil
+//          addSubview(button)
+//          fit(button.frame.size.width, button.frame.size.height)
+//      }
 //
-//    override func updateTrackingAreas() {
-//        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
-//    }
+//      /// force the hovered state as if the mouse was on the traffic lights area
+//      /// see https://stackoverflow.com/a/30417372/2249756
+//      @objc func _mouseInGroup(_: Any) -> Bool {
+//          return true
+//      }
 //
-//    override func mouseEntered(with event: NSEvent) {
-//    }
+//      override func updateTrackingAreas() {
+//          addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
+//      }
 //
-//    override func mouseExited(with event: NSEvent) {
-//    }
-//}
+//      override func mouseEntered(with event: NSEvent) {
+//      }
+//
+//      override func mouseExited(with event: NSEvent) {
+//      }
+//  }

@@ -46,16 +46,15 @@ class PermissionView: StackView {
         var color: NSColor
         var label: String
         switch permissionStatus {
-        case .granted:
-            color = PermissionView.greenColor
-            label = NSLocalizedString("Allowed", comment: "")
-        case .notGranted:
-            color = PermissionView.redColor
-            label = NSLocalizedString("Not allowed", comment: "")
-
-        case .skipped:
-            color = PermissionView.yellowColor
-            label = NSLocalizedString("Skipped", comment: "")
+            case .granted:
+                color = PermissionView.greenColor
+                label = NSLocalizedString("Allowed", comment: "")
+            case .notGranted:
+                color = PermissionView.redColor
+                label = NSLocalizedString("Not allowed", comment: "")
+            case .skipped:
+                color = PermissionView.yellowColor
+                label = NSLocalizedString("Skipped", comment: "")
         }
         status.stringValue = "● " + label
         status.textColor = color.withAlphaComponent(1)

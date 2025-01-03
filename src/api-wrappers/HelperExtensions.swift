@@ -19,11 +19,9 @@ extension NSColor {
         guard let rgbColor = usingColorSpace(.deviceRGB) else {
             return nil
         }
-
         let red = Int(rgbColor.redComponent * 255.0)
         let green = Int(rgbColor.greenComponent * 255.0)
         let blue = Int(rgbColor.blueComponent * 255.0)
-
         return String(format: "#%02X%02X%02X", red, green, blue)
     }
 
@@ -38,41 +36,37 @@ extension NSColor {
     class var tableBorderColor: NSColor {
         // #4b4b4b
         if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 75/255, green: 75/255, blue: 75/255, alpha: 0.8)
-
+            return NSColor(srgbRed: 75 / 255, green: 75 / 255, blue: 75 / 255, alpha: 0.8)
         }
         // #e5e5e5
-        return NSColor(srgbRed: 229/255, green: 229/255, blue: 229/255, alpha: 0.8)
+        return NSColor(srgbRed: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 0.8)
     }
 
     class var tableBackgroundColor: NSColor {
         // #2b2b2b
         if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 43/255, green: 43/255, blue: 43/255, alpha: 0.8)
-
+            return NSColor(srgbRed: 43 / 255, green: 43 / 255, blue: 43 / 255, alpha: 0.8)
         }
         // #f2f2f2
-        return NSColor(srgbRed: 242/255, green: 242/255, blue: 242/255, alpha: 0.8)
+        return NSColor(srgbRed: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 0.8)
     }
 
     class var tableSeparatorColor: NSColor {
         // #353535
         if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 53/255, green: 53/255, blue: 53/255, alpha: 0.8)
-
+            return NSColor(srgbRed: 53 / 255, green: 53 / 255, blue: 53 / 255, alpha: 0.8)
         }
         // #e7e7e7
-        return NSColor(srgbRed: 231/255, green: 231/255, blue: 231/255, alpha: 0.8)
+        return NSColor(srgbRed: 231 / 255, green: 231 / 255, blue: 231 / 255, alpha: 0.8)
     }
 
     class var tableHoverColor: NSColor {
         // #363636
         if NSAppearance.current.getThemeName() == .dark {
-            return NSColor(srgbRed: 54/255, green: 54/255, blue: 54/255, alpha: 0.8)
-
+            return NSColor(srgbRed: 54 / 255, green: 54 / 255, blue: 54 / 255, alpha: 0.8)
         }
         // #ebebeb
-        return NSColor(srgbRed: 235/255, green: 235/255, blue: 235/255, alpha: 0.8)
+        return NSColor(srgbRed: 235 / 255, green: 235 / 255, blue: 235 / 255, alpha: 0.8)
     }
 }
 
@@ -281,7 +275,7 @@ extension Optional where Wrapped == String {
 
 extension NSWindow {
     func hideAppIfLastWindowIsClosed() {
-        if (!NSApp.windows.contains { $0.isVisible && $0.className != "NSStatusBarWindow" && $0.windowNumber != windowNumber}) {
+        if (!NSApp.windows.contains { $0.isVisible && $0.className != "NSStatusBarWindow" && $0.windowNumber != windowNumber }) {
             App.shared.hide(nil)
         }
     }
@@ -303,20 +297,20 @@ class ModifierFlags {
 }
 
 extension NSPoint {
-    static func += (lhs: inout NSPoint, rhs: NSPoint) {
+    static func +=(lhs: inout NSPoint, rhs: NSPoint) {
         lhs.x += rhs.x
         lhs.y += rhs.y
     }
 
-    static func + (lhs: NSPoint, rhs: NSPoint) -> NSPoint {
+    static func +(lhs: NSPoint, rhs: NSPoint) -> NSPoint {
         return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
     }
 
-    static func - (lhs: NSPoint, rhs: NSPoint) -> NSPoint {
+    static func -(lhs: NSPoint, rhs: NSPoint) -> NSPoint {
         return NSPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
     }
 
-    static func / (lhs: NSPoint, rhs: Int) -> NSPoint {
+    static func /(lhs: NSPoint, rhs: Int) -> NSPoint {
         return NSPoint(x: lhs.x / Double(rhs), y: lhs.y / Double(rhs))
     }
 }

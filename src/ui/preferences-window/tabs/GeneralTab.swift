@@ -23,16 +23,16 @@ class GeneralTab {
 
     static func initTab() -> NSView {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
-                rightViews: [LabelAndControl.makeSwitch("startAtLogin", extraAction: startAtLoginCallback)])
+            rightViews: [LabelAndControl.makeSwitch("startAtLogin", extraAction: startAtLoginCallback)])
         menubarIconDropdown = LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
         let menuIconShownToggle = LabelAndControl.makeSwitch("menubarIconShown", extraAction: Menubar.menubarIconCallback)
         let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
-                rightViews: [
-                    menubarIconDropdown!,
-                    menuIconShownToggle,
-                ])
+            rightViews: [
+                menubarIconDropdown!,
+                menuIconShownToggle,
+            ])
         let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
+            rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
         let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
         if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
         for i in 0..<MenubarIconPreference.allCases.count {
@@ -44,18 +44,14 @@ class GeneralTab {
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
-
         startAtLoginCallback(startAtLogin.rightViews[0] as! NSControl)
-
         Menubar.menubarIconCallback(nil)
         enableDraggingOffMenubarIcon(menuIconShownToggle)
-
         let table = TableGroupView(width: PreferencesWindow.width)
         table.addRow(startAtLogin)
         table.addRow(menubarIcon)
         table.addNewTable()
         table.addRow(language)
-
         let view = TableGroupSetView(originalViews: [table], toolsViews: [resetPreferences], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
@@ -144,7 +140,6 @@ class GeneralTab {
         } else {
             UserDefaults.standard.set([Preferences.language.appleLanguageCode!], forKey: "AppleLanguages")
         }
-
         // Inform the user that the app needs to restart to apply the language change
         let alert = NSAlert()
         alert.alertStyle = .informational
@@ -161,5 +156,5 @@ class GeneralTab {
 private protocol AvoidDeprecationWarnings {
     static func removeLoginItemIfPresent() -> Bool
 }
-extension GeneralTab: AvoidDeprecationWarnings {
-}
+
+extension GeneralTab: AvoidDeprecationWarnings {}

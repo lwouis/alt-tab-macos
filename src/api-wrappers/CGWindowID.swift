@@ -20,10 +20,9 @@ extension CGWindowID {
         var windowId_ = self
         let list = CGSHWCaptureWindowList(cgsMainConnectionId, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution]).takeRetainedValue() as! [CGImage]
         return list.first
-
 //        // CGWindowListCreateImage
 //        return CGWindowListCreateImage(.null, .optionIncludingWindow, self, [.boundsIgnoreFraming, .bestResolution])
-
+//
 //        // CGSCaptureWindowsContentsToRectWithOptions
 //        var windowId_ = self
 //        if Testt.sampleCgImage == nil {

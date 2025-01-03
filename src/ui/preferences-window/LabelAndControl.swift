@@ -40,7 +40,6 @@ class ClickHoverImageView: MouseHoverView {
         translatesAutoresizingMaskIntoConstraints = false
         self.infoCircle = infoCircle
         addSubview(infoCircle)
-
         let clickGesture = NSClickGestureRecognizer(target: self, action: #selector(handleClick(_:)))
         addGestureRecognizer(clickGesture)
     }
@@ -91,7 +90,6 @@ class LabelAndControl: NSObject {
             }
             return buttonView
         }
-
         let view = NSStackView(views: buttonViews)
         view.orientation = .horizontal
         view.spacing = buttonSpacing
@@ -160,7 +158,6 @@ class LabelAndControl: NSObject {
                                                    size: CGFloat = 15) -> [NSView] {
         let labelCheckboxViews = makeLabelWithCheckbox(labelText, rawName, extraAction: extraAction, labelPosition: labelPosition)
         let infoButtonView = makeInfoButton(size: size, onClick: onClick, onMouseEntered: onMouseEntered, onMouseExited: onMouseExited)
-
         var views: [NSView] = []
         labelCheckboxViews.forEach { view in
             views.append(view)
@@ -171,7 +168,6 @@ class LabelAndControl: NSObject {
         hStack.spacing = 8
         hStack.alignment = .centerY
         hStack.translatesAutoresizingMaskIntoConstraints = false
-
         return [hStack]
     }
 
@@ -208,14 +204,12 @@ class LabelAndControl: NSObject {
                                           extraAction: ActionClosure? = nil,
                                           buttonSpacing: CGFloat = 30) -> [NSView] {
         let buttons = makeRadioButtons(rawName, values, extraAction: extraAction)
-
         let horizontalStackView = NSStackView(views: buttons)
         horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         horizontalStackView.orientation = .horizontal
         horizontalStackView.spacing = buttonSpacing
         horizontalStackView.alignment = .centerY
         horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-
         return [makeLabel(labelText), horizontalStackView]
     }
 
@@ -237,7 +231,6 @@ class LabelAndControl: NSObject {
         }, trackingMode: .selectOne, target: nil, action: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.segmentStyle = .automatic
-
         for (i, preference) in macroPreferences.enumerated() {
             if segmentWidth > 0 {
                 button.setWidth(segmentWidth, forSegment: i)
@@ -321,9 +314,9 @@ class LabelAndControl: NSObject {
         }
         // some preferences require re-creating some components
         if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-                   (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceVisibility", "showOnScreen", "showAppsOrWindows"].contains { (pref: String) -> Bool in
-                       pref == senderControl.identifier!.rawValue
-                   }) {
+               (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceVisibility", "showOnScreen", "showAppsOrWindows"].contains { (pref: String) -> Bool in
+                   pref == senderControl.identifier!.rawValue
+               }) {
             (App.shared as! App).resetPreferencesDependentComponents()
         }
     }

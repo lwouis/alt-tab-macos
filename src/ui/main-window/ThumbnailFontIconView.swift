@@ -24,6 +24,7 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         return paragraphStyle
     }()
     var initialAttributedString: NSMutableAttributedString!
+
     convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Appearance.fontHeight,
                      color: NSColor = Appearance.fontColor,
                      shadow: NSShadow? = ThumbnailView.makeShadow(Appearance.indicatedIconShadowColor)) {
@@ -41,6 +42,7 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         let (baseCharacter, offset) = baseCharacterAndOffset(number, filled)
         replaceCharIfNeeded(String(UnicodeScalar(Int(baseCharacter.unicodeScalars.first!.value) + offset)!))
     }
+
     func setStar() {
         replaceCharIfNeeded(Symbols.circledStar.rawValue)
     }

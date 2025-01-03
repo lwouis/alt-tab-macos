@@ -81,14 +81,11 @@ extension AXUIElement {
         // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
-
-//        debugPrint(runningApp.bundleIdentifier, title, level, CGWindow.normalLevel, subrole, role, size)
-
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
-        return wid != 0 &&
-                // Finder's file copy dialogs are wide but < 100 height (see https://github.com/lwouis/alt-tab-macos/issues/1466)
-                // Sonoma introduced a bug: a caps-lock indicator shows as a small window. We try to hide it by filtering out tiny windows
-                size != nil && (size!.width > 100 || size!.height > 100) && (
+        return wid != 0
+            // Finder's file copy dialogs are wide but < 100 height (see https://github.com/lwouis/alt-tab-macos/issues/1466)
+            // Sonoma introduced a bug: a caps-lock indicator shows as a small window. We try to hide it by filtering out tiny windows
+            && size != nil && (size!.width > 100 || size!.height > 100) && (
             (
                 books(runningApp) ||
                     keynote(runningApp) ||

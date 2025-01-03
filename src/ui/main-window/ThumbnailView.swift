@@ -13,8 +13,8 @@ class ThumbnailView: FlippedView {
     var hiddenIcon = ThumbnailFontIconView(symbol: .circledSlashSign, tooltip: NSLocalizedString("App is hidden", comment: ""))
     var spaceIcon = ThumbnailFontIconView(symbol: .circledNumber0)
     var dockLabelIcon = ThumbnailFilledFontIconView(
-            ThumbnailFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(), color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), shadow: nil),
-            backgroundColor: NSColor.white, size: dockLabelLabelSize())
+        ThumbnailFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(), color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), shadow: nil),
+        backgroundColor: NSColor.white, size: dockLabelLabelSize())
     var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""))
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""))
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""))
@@ -121,9 +121,9 @@ class ThumbnailView: FlippedView {
             isShowingWindowControls = shouldShow
             for icon in windowControlIcons {
                 icon.isHidden = !shouldShow
-                        || (icon.type == .quit && !(window_?.application.canBeQuit() ?? true))
-                        || (icon.type == .close && !(window_?.canBeClosed() ?? true))
-                        || ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
+                    || (icon.type == .quit && !(window_?.application.canBeQuit() ?? true))
+                    || (icon.type == .close && !(window_?.canBeClosed() ?? true))
+                    || ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
                 // Force the icons to redraw; otherwise after clicking the fullscreen button,
                 // it will still appear to be in fullscreen mode.
                 icon.display()
@@ -259,7 +259,6 @@ class ThumbnailView: FlippedView {
     private func getMaxAllowedLabelWidth(_ view: ThumbnailView) -> CGFloat {
         let viewWidth = view.frame.width
         let maxAllowedWidth = min(viewWidth * 2, ThumbnailsView.thumbnailsWidth)
-
         let availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
         let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
         let totalWidth = availableLeftWidth + availableRightWidth + viewWidth
@@ -272,7 +271,6 @@ class ThumbnailView: FlippedView {
         let labelWidth = view.label.cell!.cellSize.width
         let maxAllowedLabelWidth = getMaxAllowedLabelWidth(view)
         let effectiveLabelWidth = max(min(labelWidth, maxAllowedLabelWidth), viewWidth)
-
         var leftOffset = CGFloat(0)
         if view.isFirstInRow && view.isLastInRow {
             leftOffset = 0
@@ -282,7 +280,6 @@ class ThumbnailView: FlippedView {
             let halfNeededOffset = max(0, (effectiveLabelWidth - viewWidth) / 2)
             let availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
             let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
-
             if availableLeftWidth >= halfNeededOffset && availableRightWidth >= halfNeededOffset {
                 leftOffset = halfNeededOffset
             } else if availableLeftWidth <= halfNeededOffset && availableRightWidth <= halfNeededOffset {
@@ -309,9 +306,9 @@ class ThumbnailView: FlippedView {
         assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
         assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized || Preferences.hideStatusIcons)
         assignIfDifferent(&spaceIcon.isHidden, element.isWindowlessApp || Spaces.isSingleSpace() || Preferences.hideSpaceNumberLabels || (
-                Preferences.spacesToShow[App.app.shortcutIndex] == .visible && (
-                        NSScreen.screens.count < 2 || Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
-                )
+            Preferences.spacesToShow[App.app.shortcutIndex] == .visible && (
+                NSScreen.screens.count < 2 || Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
+            )
         ))
         if !thumbnail.isHidden {
             thumbnail.image = element.thumbnail
@@ -385,8 +382,8 @@ class ThumbnailView: FlippedView {
         hStackView.frame.origin = NSPoint(x: Appearance.edgeInsetsSize, y: Appearance.edgeInsetsSize)
         if Preferences.appearanceStyle != .appIcons {
             appIcon.frame.origin.x = App.shared.userInterfaceLayoutDirection == .leftToRight
-                    ? 0
-                    : hStackView.frame.width - appIcon.frame.width
+                ? 0
+                : hStackView.frame.width - appIcon.frame.width
             let iconWidth = windowIndicatorIcons.first!.cell!.cellSize.width
             var indicatorSpace = CGFloat(0)
             for icon in windowIndicatorIcons {
@@ -394,14 +391,14 @@ class ThumbnailView: FlippedView {
                     indicatorSpace += iconWidth
                     icon.centerFrameInParent(y: true)
                     icon.frame.origin.x = App.shared.userInterfaceLayoutDirection == .leftToRight
-                            ? hStackView.frame.width - indicatorSpace
-                            : indicatorSpace - iconWidth
+                        ? hStackView.frame.width - indicatorSpace
+                        : indicatorSpace - iconWidth
                 }
             }
             let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorSpace
             label.frame.origin.x = App.shared.userInterfaceLayoutDirection == .leftToRight
-                    ? appIcon.frame.maxX + Appearance.appIconLabelSpacing
-                    : hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth
+                ? appIcon.frame.maxX + Appearance.appIconLabelSpacing
+                : hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth
             label.centerFrameInParent(y: true)
         }
         if Preferences.appearanceStyle == .thumbnails {
@@ -424,7 +421,7 @@ class ThumbnailView: FlippedView {
                 windowlessAppIndicator.centerFrameInParent(x: true)
             } else {
                 windowlessAppIndicator.frame.origin.x = ((appIcon.frame.width / 2) - (windowlessAppIndicator.frame.width / 2)).rounded()
-                        + (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : appIcon.frame.origin.x)
+                    + (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : appIcon.frame.origin.x)
             }
             windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height
         }
@@ -432,13 +429,13 @@ class ThumbnailView: FlippedView {
             let iconSize = ThumbnailView.iconSize(screen)
             dockLabelIcon.frame.origin.x = ((iconSize.width * 0.8) - (dockLabelIcon.fittingSize.width / 2)).rounded()
             dockLabelIcon.frame.origin.y = ((iconSize.height * 0.8) - (dockLabelIcon.fittingSize.height / 2)).rounded()
-                    - (Preferences.appearanceSize == .small ? 2 : 0)
+                - (Preferences.appearanceSize == .small ? 2 : 0)
         }
     }
 
     private func indicatorsSpace() -> CGFloat {
         let iconWidth = windowIndicatorIcons.first!.cell!.cellSize.width
-        return CGFloat(windowIndicatorIcons.filter{ !$0.isHidden }.count) * iconWidth
+        return CGFloat(windowIndicatorIcons.filter { !$0.isHidden }.count) * iconWidth
     }
 
     private func getAppOrAndWindowTitle() -> String {
@@ -447,7 +444,7 @@ class ThumbnailView: FlippedView {
         if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
             return appName ?? ""
         } else if Preferences.showTitles == .appNameAndWindowTitle {
-            return [appName, windowTitle].compactMap{ $0 }.joined(separator: " - ")
+            return [appName, windowTitle].compactMap { $0 }.joined(separator: " - ")
         }
         return windowTitle ?? ""
     }
@@ -471,8 +468,8 @@ class ThumbnailView: FlippedView {
 
     private func getAccessibilityHelp(_ appName: String?, _ dockLabel: String?) -> String {
         [appName, dockLabel.map { getAccessibilityTextForBadge($0) }]
-                .compactMap { $0 }
-                .joined(separator: " - ")
+            .compactMap { $0 }
+            .joined(separator: " - ")
     }
 
     private func getAccessibilityTextForBadge(_ dockLabel: String) -> String {
@@ -531,11 +528,11 @@ class ThumbnailView: FlippedView {
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen, _ isWindowlessApp: Bool) -> NSSize {
         guard let image = image else { return NSSize(width: 0, height: 0) }
         let thumbnailHeightMax = ThumbnailView.maxThumbnailHeight(screen)
-                - Appearance.edgeInsetsSize * 2
-                - Appearance.intraCellPadding
-                - Appearance.iconSize
+            - Appearance.edgeInsetsSize * 2
+            - Appearance.intraCellPadding
+            - Appearance.iconSize
         let thumbnailWidthMax = ThumbnailView.maxThumbnailWidth(screen)
-                - Appearance.edgeInsetsSize * 2
+            - Appearance.edgeInsetsSize * 2
         // don't stretch very small windows; keep them 1:1 in the switcher
         if !isWindowlessApp && image.size.width < thumbnailWidthMax && image.size.height < thumbnailHeightMax {
             return image.size

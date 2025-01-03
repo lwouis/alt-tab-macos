@@ -8,9 +8,9 @@ class AnimationsSheet: SheetWindow {
         let indicator = slider[2]
         indicator.fit(55, indicator.fittingSize.height)
         table.addRow(leftText: NSLocalizedString("Apparition delay", comment: ""),
-                rightViews: [rule, indicator])
+            rightViews: [rule, indicator])
         table.addRow(leftText: NSLocalizedString("Fade out animation", comment: ""),
-                rightViews: LabelAndControl.makeSwitch("fadeOutAnimation"))
+            rightViews: LabelAndControl.makeSwitch("fadeOutAnimation"))
         table.fit()
         return table
     }

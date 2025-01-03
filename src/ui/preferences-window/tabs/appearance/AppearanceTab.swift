@@ -29,14 +29,12 @@ class IllustratedImageThemeView: ClickHoverImageView {
         imageView.wantsLayer = true
         imageView.layer!.masksToBounds = true
         imageView.layer!.cornerRadius = TableGroupView.cornerRadius
-
         super.init(infoCircle: imageView)
         self.style = style
         self.theme = theme
         self.imageName = imageName
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
-
         let imageWidth = width - IllustratedImageThemeView.padding
         let imageHeight = imageWidth / 1.6
         NSLayoutConstraint.activate([
@@ -71,7 +69,6 @@ class IllustratedImageThemeView: ClickHoverImageView {
         if highlighted && imageName.isEmpty {
             return
         }
-
         setFocused(highlighted)
         setBorder()
         if highlighted {
@@ -106,7 +103,6 @@ class IllustratedImageThemeView: ClickHoverImageView {
             illustratedImageView.highlight(false)
         }
     }
-
 }
 
 class ShowHideIllustratedView {
@@ -155,7 +151,6 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideAppBadges.rowId)
         }))
         showHideRows.append(hideAppBadges)
-
         var hideStatusIcons = ShowHideRowInfo()
         hideStatusIcons.rowId = "hideStatusIcons"
         hideStatusIcons.uncheckedImage = "show_status_icons"
@@ -172,7 +167,6 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideStatusIcons.rowId)
         }))
         showHideRows.append(hideStatusIcons)
-
         var hideSpaceNumberLabels = ShowHideRowInfo()
         hideSpaceNumberLabels.rowId = "hideSpaceNumberLabels"
         hideSpaceNumberLabels.uncheckedImage = "show_space_number_labels"
@@ -183,7 +177,6 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
         }))
         showHideRows.append(hideSpaceNumberLabels)
-
         var hideColoredCircles = ShowHideRowInfo()
         hideColoredCircles.rowId = "hideColoredCircles"
         hideColoredCircles.uncheckedImage = "show_colored_circles"
@@ -194,7 +187,6 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
         }))
         showHideRows.append(hideColoredCircles)
-
         var hideWindowlessApps = ShowHideRowInfo()
         hideWindowlessApps.rowId = "hideWindowlessApps"
         hideWindowlessApps.uncheckedImage = "show_windowless_apps"
@@ -205,7 +197,6 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideWindowlessApps.rowId)
         }))
         showHideRows.append(hideWindowlessApps)
-
         let featureUnavailable = NSLocalizedString("AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.", comment: "")
         var showTabsAsWindows = ShowHideRowInfo()
         showTabsAsWindows.rowId = "showTabsAsWindows"
@@ -229,7 +220,6 @@ class ShowHideIllustratedView {
             }
         }))
         showHideRows.append(showTabsAsWindows)
-
         var previewFocusedWindow = ShowHideRowInfo()
         previewFocusedWindow.rowId = "previewFocusedWindow"
         previewFocusedWindow.uncheckedImage = "hide_preview_focused_window"
@@ -355,9 +345,7 @@ class Popover: NSPopover, NSPopoverDelegate {
     func show(event: NSEvent, positioningView: NSView, message: String, extraView: NSView? = nil) {
         if !hidingInitiated { return }
         hidingInitiated = false
-
         let view = NSView()
-
         let label = NSTextField(labelWithString: message)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byWordWrapping
@@ -367,7 +355,6 @@ class Popover: NSPopover, NSPopoverDelegate {
         label.font = NSFont.systemFont(ofSize: 12)
         let actualView: NSView = extraView == nil ? label : StackView([label, extraView!], .vertical)
         view.addSubview(actualView)
-
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
             actualView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
@@ -376,12 +363,10 @@ class Popover: NSPopover, NSPopoverDelegate {
             actualView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
         contentViewController?.view = view
-
         // Convert the mouse location to the positioning view's coordinate system
         let locationInWindow = event.locationInWindow
         let locationInPositioningView = positioningView.convert(locationInWindow, from: nil)
         let rect = CGRect(origin: locationInPositioningView, size: .zero)
-
         show(relativeTo: rect, of: positioningView, preferredEdge: .minX)
     }
 }
@@ -403,7 +388,6 @@ class AppearanceTab: NSObject {
     private static func makeView() -> NSStackView {
         let appearanceView = makeAppearanceView()
         let multipleScreensView = makeMultipleScreensView()
-
         let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, animationsButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
@@ -412,20 +396,18 @@ class AppearanceTab: NSObject {
 
     private static func makeAppearanceView() -> NSView {
         let table = TableGroupView(title: NSLocalizedString("Appearance", comment: ""),
-                subTitle: NSLocalizedString("Switch between 3 different styles. You can customize them.", comment: ""),
-                width: PreferencesWindow.width)
+            subTitle: NSLocalizedString("Switch between 3 different styles. You can customize them.", comment: ""),
+            width: PreferencesWindow.width)
         table.addRow(secondaryViews: [LabelAndControl.makeImageRadioButtons("appearanceStyle", AppearanceStylePreference.allCases, extraAction: { _ in
             toggleCustomizeStyleButton()
         }, buttonSpacing: 10)], secondaryViewsAlignment: .centerX)
-
         table.addRow(leftText: NSLocalizedString("Size", comment: ""),
-                rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])
+            rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])
         table.addRow(leftText: NSLocalizedString("Theme", comment: ""),
-                rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
+            rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
         table.addRow(leftText: NSLocalizedString("Visibility", comment: ""),
-                rightViews: [LabelAndControl.makeSegmentedControl("appearanceVisibility", AppearanceVisibilityPreference.allCases, segmentWidth: 100)])
+            rightViews: [LabelAndControl.makeSegmentedControl("appearanceVisibility", AppearanceVisibilityPreference.allCases, segmentWidth: 100)])
         table.addRow(rightViews: customizeStyleButton)
-
         table.fit()
         return table
     }
@@ -433,7 +415,7 @@ class AppearanceTab: NSObject {
     private static func makeMultipleScreensView() -> NSView {
         let table = TableGroupView(title: NSLocalizedString("Multiple screens", comment: ""), width: PreferencesWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on", comment: ""),
-                rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
+            rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
         table.fit()
         return table
     }

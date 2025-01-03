@@ -118,6 +118,6 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
             }
             return true
         })?
-                .value
+            .value
     }
 }

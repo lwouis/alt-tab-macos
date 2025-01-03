@@ -20,7 +20,6 @@ class CustomizeStyleSheet: SheetWindow {
     override func makeContentView() -> NSView {
         makeComponents()
         showHideView = showHideIllustratedView.makeView()
-
         if style == .thumbnails {
             advancedView = makeThumbnailsView()
         } else if style == .appIcons {
@@ -35,7 +34,6 @@ class CustomizeStyleSheet: SheetWindow {
         control.selectedSegment = 0
         control.segmentStyle = .automatic
         control.widthAnchor.constraint(equalToConstant: CustomizeStyleSheet.width).isActive = true
-
         let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView], padding: 0)
         return view
     }
@@ -49,29 +47,29 @@ class CustomizeStyleSheet: SheetWindow {
         illustratedImageView = IllustratedImageThemeView(style, CustomizeStyleSheet.illustratedImageWidth)
         showHideIllustratedView = ShowHideIllustratedView(style, illustratedImageView)
         alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons(
-                        "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
-                    self.showAlignThumbnailsIllustratedImage()
-                }))
+            rightViews: LabelAndControl.makeRadioButtons(
+                "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
+                self.showAlignThumbnailsIllustratedImage()
+            }))
         titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Title truncation", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
+            rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
         let showAppWindowsInfo = LabelAndControl.makeInfoButton(onMouseEntered: { (event, view) in
             Popover.shared.show(event: event, positioningView: view,
-                    message: NSLocalizedString("Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.", comment: ""))
+                message: NSLocalizedString("Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.", comment: ""))
         }, onMouseExited: { (event, view) in
             Popover.shared.hide()
         })
         showAppsOrWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
-                rightViews: LabelAndControl.makeRadioButtons("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { _ in
-                    self.showHideIllustratedView.setStateOnApplications()
-                    self.toggleAppNamesWindowTitles()
-                    self.showAppsOrWindowsIllustratedImage()
-                }) + [showAppWindowsInfo])
+            rightViews: LabelAndControl.makeRadioButtons("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { _ in
+                self.showHideIllustratedView.setStateOnApplications()
+                self.toggleAppNamesWindowTitles()
+                self.showAppsOrWindowsIllustratedImage()
+            }) + [showAppWindowsInfo])
         showTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
-                rightViews: [LabelAndControl.makeDropdown(
-                        "showTitles", ShowTitlesPreference.allCases, extraAction: { _ in
-                    self.showAppsOrWindowsIllustratedImage()
-                })])
+            rightViews: [LabelAndControl.makeDropdown(
+                "showTitles", ShowTitlesPreference.allCases, extraAction: { _ in
+                self.showAppsOrWindowsIllustratedImage()
+            })])
     }
 
     private func makeThumbnailsView() -> TableGroupSetView {
@@ -90,7 +88,6 @@ class CustomizeStyleSheet: SheetWindow {
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         table.fit()
-
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         return view
     }
@@ -105,7 +102,6 @@ class CustomizeStyleSheet: SheetWindow {
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         table.fit()
-
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         toggleAppNamesWindowTitles()
         return view
@@ -116,7 +112,6 @@ class CustomizeStyleSheet: SheetWindow {
         table.addNewTable()
         table.addRow(titleTruncation)
         table.fit()
-
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         toggleAppNamesWindowTitles()
         return view
@@ -180,7 +175,6 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func adjustWindowHeight() {
         guard let contentView = self.contentView else { return }
-
         // Calculate the fitting height of the content view
         let fittingSize = contentView.fittingSize
         var windowFrame = frame

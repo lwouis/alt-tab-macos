@@ -21,12 +21,12 @@ class Logger {
     static func decideLevel() -> SwiftyBeaver.Level {
         if let level = (CommandLine.arguments.first { $0.starts(with: flag) })?.dropFirst(flag.count) {
             switch level {
-            case "verbose": return .verbose
-            case "debug": return .debug
-            case "info": return .info
-            case "warning": return .warning
-            case "error": return .error
-            default: break
+                case "verbose": return .verbose
+                case "debug": return .debug
+                case "info": return .info
+                case "warning": return .warning
+                case "error": return .error
+                default: break
             }
         }
         return .error

@@ -82,18 +82,18 @@ class Appearance {
         windowCornerRadius = 23
         edgeInsetsSize = 12
         switch currentSize {
-        case .small:
-            rowsCount = isHorizontalScreen ? 5 : 8
-            iconSize = 20
-            fontHeight = 12
-        case .medium:
-            rowsCount = isHorizontalScreen ? 4 : 7
-            iconSize = 30
-            fontHeight = 13
-        case .large:
-            rowsCount = isHorizontalScreen ? 3 : 6
-            iconSize = 32
-            fontHeight = 16
+            case .small:
+                rowsCount = isHorizontalScreen ? 5 : 8
+                iconSize = 20
+                fontHeight = 12
+            case .medium:
+                rowsCount = isHorizontalScreen ? 4 : 7
+                iconSize = 30
+                fontHeight = 13
+            case .large:
+                rowsCount = isHorizontalScreen ? 3 : 6
+                iconSize = 32
+                fontHeight = 16
         }
         let thumbnailsPanelRatio = (screen.frame.width * maxWidthOnScreen) / (screen.frame.height * maxHeightOnScreen)
         (windowMinWidthInRow, windowMaxWidthInRow) = AppearanceTestable.goodValuesForThumbnailsWidthMinMax(thumbnailsPanelRatio, rowsCount)
@@ -113,16 +113,16 @@ class Appearance {
         windowMaxWidthInRow = 0.3
         rowsCount = 1
         switch currentSize {
-        case .small:
-            iconSize = 88
-            fontHeight = 13
-        case .medium:
-            iconSize = 128
-            fontHeight = 15
-        case .large:
-            windowPadding = 28
-            iconSize = 168
-            fontHeight = 17
+            case .small:
+                iconSize = 88
+                fontHeight = 13
+            case .medium:
+                iconSize = 128
+                fontHeight = 15
+            case .large:
+                windowPadding = 28
+                iconSize = 168
+                fontHeight = 17
         }
     }
 
@@ -137,15 +137,15 @@ class Appearance {
         windowMaxWidthInRow = 0.9
         rowsCount = 1
         switch currentSize {
-        case .small:
-            iconSize = 20
-            fontHeight = 13
-        case .medium:
-            iconSize = 26
-            fontHeight = 14
-        case .large:
-            iconSize = 32
-            fontHeight = 16
+            case .small:
+                iconSize = 20
+                fontHeight = 13
+            case .medium:
+                iconSize = 26
+                fontHeight = 14
+            case .large:
+                iconSize = 32
+                fontHeight = 16
         }
     }
 
@@ -156,39 +156,39 @@ class Appearance {
         imageShadowColor = .lightGray.withAlphaComponent(0.4)
         highlightMaterial = .mediumLight
         switch currentVisibility {
-        case .normal:
-            material = .light
-            highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
-            highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
-            enablePanelShadow = false
-            highlightFocusedAlphaValue = 1.0
-            highlightHoveredAlphaValue = 0.8
-            highlightFocusedBorderColor = NSColor.clear
-            highlightHoveredBorderColor = NSColor.clear
-            highlightBorderShadowColor = NSColor.clear
-            highlightBorderWidth = 0
-        case .high:
-            material = .mediumLight
-            highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
-            highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
-            enablePanelShadow = true
-            highlightFocusedAlphaValue = 1.0
-            highlightHoveredAlphaValue = 0.8
-            highlightFocusedBorderColor = .lightGray.withAlphaComponent(0.9)
-            highlightHoveredBorderColor = .lightGray.withAlphaComponent(0.8)
-            highlightBorderShadowColor = .black.withAlphaComponent(0.5)
-            highlightBorderWidth = 1
-        case .highest:
-            material = .mediumLight
-            highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
-            highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
-            enablePanelShadow = true
-            highlightFocusedAlphaValue = 0.4
-            highlightHoveredAlphaValue = 0.2
-            highlightFocusedBorderColor = NSColor.systemAccentColor
-            highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
-            highlightBorderShadowColor = .black.withAlphaComponent(0.5)
-            highlightBorderWidth = currentStyle == .titles ? 2 : 4
+            case .normal:
+                material = .light
+                highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
+                highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
+                enablePanelShadow = false
+                highlightFocusedAlphaValue = 1.0
+                highlightHoveredAlphaValue = 0.8
+                highlightFocusedBorderColor = NSColor.clear
+                highlightHoveredBorderColor = NSColor.clear
+                highlightBorderShadowColor = NSColor.clear
+                highlightBorderWidth = 0
+            case .high:
+                material = .mediumLight
+                highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
+                highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
+                enablePanelShadow = true
+                highlightFocusedAlphaValue = 1.0
+                highlightHoveredAlphaValue = 0.8
+                highlightFocusedBorderColor = .lightGray.withAlphaComponent(0.9)
+                highlightHoveredBorderColor = .lightGray.withAlphaComponent(0.8)
+                highlightBorderShadowColor = .black.withAlphaComponent(0.5)
+                highlightBorderWidth = 1
+            case .highest:
+                material = .mediumLight
+                highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
+                highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
+                enablePanelShadow = true
+                highlightFocusedAlphaValue = 0.4
+                highlightHoveredAlphaValue = 0.2
+                highlightFocusedBorderColor = NSColor.systemAccentColor
+                highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+                highlightBorderShadowColor = .black.withAlphaComponent(0.5)
+                highlightBorderWidth = currentStyle == .titles ? 2 : 4
         }
     }
 
@@ -198,42 +198,42 @@ class Appearance {
         titleShadowColor = .darkGray
         highlightMaterial = .ultraDark
         switch currentVisibility {
-        case .normal:
-            material = .dark
-            imageShadowColor = .gray.withAlphaComponent(0.8)
-            highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
-            highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
-            enablePanelShadow = false
-            highlightFocusedAlphaValue = 1.0
-            highlightHoveredAlphaValue = 0.8
-            highlightFocusedBorderColor = NSColor.clear
-            highlightHoveredBorderColor = NSColor.clear
-            highlightBorderShadowColor = NSColor.clear
-            highlightBorderWidth = 0
-        case .high:
-            material = .ultraDark
-            imageShadowColor = .gray.withAlphaComponent(0.4)
-            highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
-            highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.4)
-            enablePanelShadow = true
-            highlightFocusedAlphaValue = 1.0
-            highlightHoveredAlphaValue = 0.8
-            highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
-            highlightHoveredBorderColor = .gray.withAlphaComponent(0.7)
-            highlightBorderShadowColor = .white.withAlphaComponent(0.5)
-            highlightBorderWidth = 1
-        case .highest:
-            material = .ultraDark
-            imageShadowColor = .gray.withAlphaComponent(0.4)
-            highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
-            highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
-            enablePanelShadow = true
-            highlightFocusedAlphaValue = 0.4
-            highlightHoveredAlphaValue = 0.2
-            highlightFocusedBorderColor = NSColor.systemAccentColor
-            highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
-            highlightBorderShadowColor = .white.withAlphaComponent(0.5)
-            highlightBorderWidth = currentStyle == .titles ? 2 : 4
+            case .normal:
+                material = .dark
+                imageShadowColor = .gray.withAlphaComponent(0.8)
+                highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
+                highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
+                enablePanelShadow = false
+                highlightFocusedAlphaValue = 1.0
+                highlightHoveredAlphaValue = 0.8
+                highlightFocusedBorderColor = NSColor.clear
+                highlightHoveredBorderColor = NSColor.clear
+                highlightBorderShadowColor = NSColor.clear
+                highlightBorderWidth = 0
+            case .high:
+                material = .ultraDark
+                imageShadowColor = .gray.withAlphaComponent(0.4)
+                highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
+                highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.4)
+                enablePanelShadow = true
+                highlightFocusedAlphaValue = 1.0
+                highlightHoveredAlphaValue = 0.8
+                highlightFocusedBorderColor = .gray.withAlphaComponent(0.8)
+                highlightHoveredBorderColor = .gray.withAlphaComponent(0.7)
+                highlightBorderShadowColor = .white.withAlphaComponent(0.5)
+                highlightBorderWidth = 1
+            case .highest:
+                material = .ultraDark
+                imageShadowColor = .gray.withAlphaComponent(0.4)
+                highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
+                highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
+                enablePanelShadow = true
+                highlightFocusedAlphaValue = 0.4
+                highlightHoveredAlphaValue = 0.2
+                highlightFocusedBorderColor = NSColor.systemAccentColor
+                highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.8)
+                highlightBorderShadowColor = .white.withAlphaComponent(0.5)
+                highlightBorderWidth = currentStyle == .titles ? 2 : 4
         }
     }
 }

@@ -64,11 +64,15 @@ class ThumbnailsView: NSVisualEffectView {
             if nextRow >= rows.count {
                 if allowWrap {
                     nextRow = nextRow % rows.count
-                } else { return nil }
+                } else {
+                    return nil
+                }
             } else if nextRow < 0 {
                 if allowWrap {
                     nextRow = rows.count + nextRow
-                } else { return nil }
+                } else {
+                    return nil
+                }
             }
             if ((step > 0 && nextRow < currentRow) || (step < 0 && nextRow > currentRow)) &&
                    (ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
@@ -175,7 +179,6 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
         let heightMax = ThumbnailsPanel.maxThumbnailsHeight(screen).rounded()
-
         ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
         ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
         let frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
@@ -188,7 +191,6 @@ class ThumbnailsView: NSVisualEffectView {
             originY = originY - Appearance.intraCellPadding - labelHeight
         }
         frame.size = NSSize(width: frameWidth, height: frameHeight)
-
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
         scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size
@@ -201,7 +203,7 @@ class ThumbnailsView: NSVisualEffectView {
             scrollView.removeTrackingArea(existingTrackingArea)
         }
         scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds,
-                options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
+            options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
     }
 
     func centerRows(_ maxX: CGFloat) {
@@ -320,10 +322,9 @@ class ScrollView: NSScrollView {
         if Preferences.appearanceStyle == .appIcons {
             let mouseLocation = App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream
             let mouseRect = NSRect(x: mouseLocation.x - Appearance.interCellPadding,
-                    y: mouseLocation.y - Appearance.interCellPadding,
-                    width: 2 * Appearance.interCellPadding,
-                    height: 2 * Appearance.interCellPadding)
-
+                y: mouseLocation.y - Appearance.interCellPadding,
+                width: 2 * Appearance.interCellPadding,
+                height: 2 * Appearance.interCellPadding)
             if let hoveredWindowIndex = Windows.hoveredWindowIndex {
                 let thumbnail = ThumbnailsView.recycledViews[hoveredWindowIndex]
                 let mouseRectInView = thumbnail.convert(mouseRect, from: nil)

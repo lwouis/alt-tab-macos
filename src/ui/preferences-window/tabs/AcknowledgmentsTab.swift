@@ -28,7 +28,6 @@ class AcknowledgmentsTab {
         }
         let subGrid = GridView([textViews])
         subGrid.fit()
-
         let scrollView = NSScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.drawsBackground = false
@@ -42,7 +41,6 @@ class AcknowledgmentsTab {
         scrollView.contentView.frame.size = scrollView.frame.size
         scrollView.documentView!.frame.size = subGrid.fittingSize
         scrollView.fit(totalWidth, maxTabHeight)
-
         return scrollView
     }
 }

@@ -49,7 +49,6 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
             (5, NSLocalizedString("About", comment: ""), "about", "info.circle", AboutTab.initTab()),
             (6, NSLocalizedString("Acknowledgments", comment: ""), "acknowledgments", "hand.thumbsup", AcknowledgmentsTab.initTab()),
         ].forEach { makeToolbarItem($0.0, $0.1, $0.2, $0.3, $0.4) }
-
         largestTabWidth = Array(toolbarItems.values).reduce(CGFloat(0)) { max($0, $1.2.subviews[0].fittingSize.width) }
         Array(toolbarItems.values).forEach {
             $0.2.fit(largestTabWidth, $0.2.subviews[0].fittingSize.height)
@@ -91,7 +90,6 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         let item = toolbarItems[item.itemIdentifier]!
         contentView = item.2
         title = item.1.label
-
         // Reset focused ring
         makeFirstResponder(contentView?.subviews[0])
         recalculateKeyViewLoop()

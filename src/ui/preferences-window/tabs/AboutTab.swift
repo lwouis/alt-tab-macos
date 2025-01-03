@@ -30,7 +30,6 @@ class AboutTab {
         let supportProjectCell = grid.cell(atColumnIndex: 0, rowIndex: 2)
         supportProjectCell.xPlacement = .center
         grid.fit()
-
         return grid
     }
 }

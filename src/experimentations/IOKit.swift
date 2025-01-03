@@ -11,7 +11,6 @@ class IOKitPrototype {
             kIOHIDDeviceUsagePageKey: kHIDPage_GenericDesktop,
             kIOHIDDeviceUsageKey: kHIDUsage_GD_Keyboard
         ] as CFDictionary)
-
         IOHIDManagerRegisterInputValueCallback(manager, keyboardEventHandler, nil)
         IOHIDManagerScheduleWithRunLoop(manager, BackgroundWork.keyboardEventsThread.runLoop!, CFRunLoopMode.commonModes.rawValue)
         IOHIDManagerOpen(manager, IOOptionBits(kIOHIDOptionsTypeNone))
@@ -27,28 +26,24 @@ func keyCodeToString(keyCode: UInt32) -> String? {
         print("Keyboard layout data is nil")
         return nil
     }
-
     let layoutBytes = CFDataGetBytePtr(unsafeBitCast(layoutDataPtr, to: CFData.self))
     let layoutPtr = unsafeBitCast(layoutBytes, to: UnsafePointer<UCKeyboardLayout>.self)
-
     var chars: [UniChar] = Array(repeating: 0, count: 4)
     var actualLength: Int = 0
     let modifierFlags = UInt32(0) // You can populate this based on event flags if available
     var deadKeyState: UInt32 = 0
-
     let osStatus = UCKeyTranslate(
-            layoutPtr,
-            UInt16(keyCode), // Adjust usage to match standard key mapping
-            UInt16(kUCKeyActionDown), // Pressed key
-            modifierFlags,
-            UInt32(LMGetKbdType()), // Keyboard Type
-            OptionBits(kUCKeyTranslateNoDeadKeysBit),
-            &deadKeyState,
-            chars.count,
-            &actualLength,
-            &chars
+        layoutPtr,
+        UInt16(keyCode), // Adjust usage to match standard key mapping
+        UInt16(kUCKeyActionDown), // Pressed key
+        modifierFlags,
+        UInt32(LMGetKbdType()), // Keyboard Type
+        OptionBits(kUCKeyTranslateNoDeadKeysBit),
+        &deadKeyState,
+        chars.count,
+        &actualLength,
+        &chars
     )
-
     if osStatus == noErr, actualLength > 0 {
         return String(utf16CodeUnits: chars, count: actualLength)
     }
@@ -84,7 +79,6 @@ func keyboardEventHandler(_: UnsafeMutableRawPointer?, _: IOReturn, _: UnsafeMut
         return
     }
     let pressed = IOHIDValueGetIntegerValue(event) == 1
-
     // TIS calls have to happen on the main thread
     // Apple docs: TextInputSources API is not thread safe. If you are a UI application, you must call TextInputSources API on the main thread
     DispatchQueue.main.sync {
@@ -95,7 +89,6 @@ func keyboardEventHandler(_: UnsafeMutableRawPointer?, _: IOReturn, _: UnsafeMut
 //        print("Input Source ID: \(sourceId)")
 //        print(scancode, keyCodeToString(keyCode: scancode))
 //        print(scancode, keyCodeToStringUsingCG(keyCode: scancode))
-
 //        let keyCode = Int(scancode - 4) // Subtract 4 to align with key codes in `UCKeyTranslate`
 //        if let keyString = keyCodeToString(keyCode: keyCode) {
 //            let state = pressed ? "Pressed" : "Released"

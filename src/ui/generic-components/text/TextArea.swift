@@ -44,10 +44,10 @@ class TextFieldCell: NSTextFieldCell {
     // add padding all around
     override func drawingRect(forBounds rect: NSRect) -> NSRect {
         return super.drawingRect(forBounds: NSMakeRect(
-                rect.origin.x + TextArea.padding,
-                rect.origin.y + TextArea.padding,
-                rect.size.width - TextArea.padding * 2,
-                rect.size.height - TextArea.padding * 2
+            rect.origin.x + TextArea.padding,
+            rect.origin.y + TextArea.padding,
+            rect.size.width - TextArea.padding * 2,
+            rect.size.height - TextArea.padding * 2
         ))
     }
 }
