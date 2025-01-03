@@ -7,6 +7,7 @@ class Window {
     var creationOrder = Int.zero
     var title: String!
     var thumbnail: NSImage?
+    var thumbnailFullSize: NSSize?
     var icon: NSImage? { get { application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
@@ -98,12 +99,13 @@ class Window {
 
     func refreshThumbnail(_ screenshot: NSImage?) {
         thumbnail = screenshot
+        thumbnailFullSize = screenshot?.size
         if App.app.appIsBeingUsed && shouldShowTheUser {
             if let index = (Windows.list.firstIndex { $0.cgWindowId == cgWindowId }) {
                 let view = ThumbnailsView.recycledViews[index]
                 if !view.thumbnail.isHidden {
                     view.thumbnail.image = thumbnail
-                    let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail, NSScreen.preferred(), false)
+                    let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail, false)
                     view.thumbnail.image?.size = thumbnailSize
                     view.thumbnail.frame.size = thumbnailSize
                 }

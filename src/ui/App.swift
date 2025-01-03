@@ -145,7 +145,8 @@ class App: AppCenterApplication {
 
     func showSecondaryWindow(_ window: NSWindow?) {
         if let window = window {
-            NSScreen.preferred().repositionPanel(window)
+            NSScreen.updatePreferred()
+            NSScreen.preferred.repositionPanel(window)
             App.shared.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
             // Use the center function to continue to center, the `repositionPanel` function cannot center, it may be a system bug
@@ -201,19 +202,19 @@ class App: AppCenterApplication {
             return
         }
         guard appIsBeingUsed else { return }
-        let currentScreen = NSScreen.preferred() // fix screen between steps since it could change (e.g. mouse moved to another screen)
         if !skipUpdatesBeforeShowing {
-            if !Windows.updatesBeforeShowing(currentScreen) { hideUi(); return }
+            if !Windows.updatesBeforeShowing() { hideUi(); return }
         }
         guard appIsBeingUsed else { return }
         Windows.updateFocusedWindowIndex()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.thumbnailsView.updateItemsAndLayout(currentScreen)
+        print("updateItemsAndLayout")
+        thumbnailsPanel.thumbnailsView.updateItemsAndLayout()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
-        currentScreen.repositionPanel(thumbnailsPanel)
+        NSScreen.preferred.repositionPanel(thumbnailsPanel)
         guard appIsBeingUsed else { return }
         Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
         guard appIsBeingUsed else { return }
@@ -232,16 +233,16 @@ class App: AppCenterApplication {
             }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
-            let screen = NSScreen.preferred()
-            if !Windows.updatesBeforeShowing(screen) { hideUi(); return }
+            NSScreen.updatePreferred()
+            if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
-                buildUiAndShowPanel(screen)
+                buildUiAndShowPanel()
             } else {
                 delayedDisplayScheduled += 1
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
                     if self.delayedDisplayScheduled == 1 {
-                        self.buildUiAndShowPanel(screen)
+                        self.buildUiAndShowPanel()
                     }
                     self.delayedDisplayScheduled -= 1
                 }
@@ -252,7 +253,7 @@ class App: AppCenterApplication {
         }
     }
 
-    func buildUiAndShowPanel(_ screen: NSScreen = NSScreen.preferred()) {
+    func buildUiAndShowPanel() {
         guard appIsBeingUsed else { return }
         Appearance.update()
         guard appIsBeingUsed else { return }
@@ -299,6 +300,7 @@ extension App: NSApplicationDelegate {
         SystemPermissions.ensurePermissionsAreGranted { [weak self] in
             guard let self = self else { return }
             BackgroundWork.start()
+            NSScreen.updatePreferred()
             Appearance.update()
             Menubar.initialize()
             self.loadMainMenuXib()

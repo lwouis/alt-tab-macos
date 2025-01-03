@@ -262,7 +262,7 @@ class Windows {
         }
     }
 
-    static func updatesBeforeShowing(_ screen: NSScreen) -> Bool {
+    static func updatesBeforeShowing() -> Bool {
         if list.count == 0 || MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
         // TODO: find a way to update space info when spaces are changed, instead of on every trigger
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
@@ -275,9 +275,9 @@ class Windows {
             // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
             detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
             updatesWindowSpace(window)
-            refreshIfWindowShouldBeShownToTheUser(window, screen)
+            refreshIfWindowShouldBeShownToTheUser(window)
         }
-        refreshWhichWindowsToShowTheUser(screen)
+        refreshWhichWindowsToShowTheUser()
         sort()
         if (!list.contains { $0.shouldShowTheUser }) { return false }
         return true
@@ -337,7 +337,7 @@ class Windows {
         }
     }
 
-    static func refreshWhichWindowsToShowTheUser(_ screen: NSScreen) {
+    static func refreshWhichWindowsToShowTheUser() {
         if Preferences.onlyShowApplications() {
             // Group windows by application and select the optimal main window
             let windowsGroupedByApp = Dictionary(grouping: list) { $0.application.pid }
@@ -353,7 +353,7 @@ class Windows {
         }
     }
 
-    private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window, _ screen: NSScreen) {
+    private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window) {
         window.shouldShowTheUser =
             !(window.application.runningApplication.bundleIdentifier.flatMap { id in
                 Preferences.blacklist.contains {
@@ -368,7 +368,7 @@ class Windows {
                 !(!(Preferences.showFullscreenWindows[App.app.shortcutIndex] != .hide) && window.isFullscreen) &&
                 !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide) && window.isMinimized) &&
                 !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaces.contains(window.spaceId)) &&
-                !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(screen)) &&
+                !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(NSScreen.preferred)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
     }
 

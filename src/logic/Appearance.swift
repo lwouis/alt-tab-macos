@@ -55,15 +55,14 @@ class Appearance {
     }
 
     private static func updateSize() {
-        let screen = NSScreen.preferred()
-        let isHorizontalScreen = screen.isHorizontal()
-        maxWidthOnScreen = AppearanceTestable.comfortableWidth(screen.physicalSize().map { $0.width })
+        let isHorizontalScreen = NSScreen.preferred.isHorizontal()
+        maxWidthOnScreen = AppearanceTestable.comfortableWidth(NSScreen.preferred.physicalSize().map { $0.width })
         if currentStyle == .appIcons {
             appIconsSize()
         } else if currentStyle == .titles {
             titlesSize(isHorizontalScreen)
         } else {
-            thumbnailsSize(isHorizontalScreen, screen)
+            thumbnailsSize(isHorizontalScreen)
         }
     }
 
@@ -75,7 +74,7 @@ class Appearance {
         }
     }
 
-    private static func thumbnailsSize(_ isHorizontalScreen: Bool, _ screen: NSScreen) {
+    private static func thumbnailsSize(_ isHorizontalScreen: Bool) {
         hideThumbnails = false
         windowPadding = 18
         cellCornerRadius = 10
@@ -95,7 +94,7 @@ class Appearance {
                 iconSize = 32
                 fontHeight = 16
         }
-        let thumbnailsPanelRatio = (screen.frame.width * maxWidthOnScreen) / (screen.frame.height * maxHeightOnScreen)
+        let thumbnailsPanelRatio = (NSScreen.preferred.frame.width * maxWidthOnScreen) / (NSScreen.preferred.frame.height * maxHeightOnScreen)
         (windowMinWidthInRow, windowMaxWidthInRow) = AppearanceTestable.goodValuesForThumbnailsWidthMinMax(thumbnailsPanelRatio, rowsCount)
         if currentVisibility == .highest {
             edgeInsetsSize = 10

@@ -22,6 +22,7 @@ class ThumbnailsView: NSVisualEffectView {
     func reset() {
         // it would be nicer to remove this whole "reset" logic, and instead update each component to check Appearance properties before showing
         // Maybe in some Appkit willDraw() function that triggers before drawing it
+        NSScreen.updatePreferred()
         Appearance.update()
         material = Appearance.material
         for i in 0..<ThumbnailsView.recycledViews.count {
@@ -101,10 +102,10 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
-    func updateItemsAndLayout(_ screen: NSScreen) {
-        let widthMax = ThumbnailsPanel.maxThumbnailsWidth(screen).rounded()
-        if let (maxX, maxY, labelHeight) = layoutThumbnailViews(screen, widthMax) {
-            layoutParentViews(screen, maxX, widthMax, maxY, labelHeight)
+    func updateItemsAndLayout() {
+        let widthMax = ThumbnailsPanel.maxThumbnailsWidth().rounded()
+        if let (maxX, maxY, labelHeight) = layoutThumbnailViews(widthMax) {
+            layoutParentViews(maxX, widthMax, maxY, labelHeight)
             if Preferences.alignThumbnails == .center {
                 centerRows(maxX)
             }
@@ -120,9 +121,9 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
-    private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat)? {
+    private func layoutThumbnailViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat)? {
         let labelHeight = ThumbnailsView.recycledViews.first!.label.cell!.cellSize.height
-        let height = ThumbnailView.height(screen, labelHeight)
+        let height = ThumbnailView.height(labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
         let startingX = isLeftToRight ? Appearance.interCellPadding : widthMax - Appearance.interCellPadding
         var currentX = startingX
@@ -136,7 +137,7 @@ class ThumbnailsView: NSVisualEffectView {
             guard App.app.appIsBeingUsed else { return nil }
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
-            view.updateRecycledCellWithNewContent(window, index, height, screen)
+            view.updateRecycledCellWithNewContent(window, index, height)
             let width = view.frame.size.width
             let projectedX = projectedWidth(currentX, width).rounded(.down)
             if needNewLine(projectedX, widthMax) {
@@ -177,8 +178,8 @@ class ThumbnailsView: NSVisualEffectView {
         App.shared.userInterfaceLayoutDirection == .leftToRight ? currentX : currentX - width
     }
 
-    private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
-        let heightMax = ThumbnailsPanel.maxThumbnailsHeight(screen).rounded()
+    private func layoutParentViews(_ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
+        let heightMax = ThumbnailsPanel.maxThumbnailsHeight()
         ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
         ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
         let frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
