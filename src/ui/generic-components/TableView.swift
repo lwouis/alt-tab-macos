@@ -12,7 +12,7 @@ class BlacklistView: NSScrollView {
     }
 }
 
-class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
+class TableView: NSTableView {
     var items = Preferences.blacklist
 
     convenience init(_: Int?) {
@@ -34,7 +34,25 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         reloadData()
     }
 
-    func addHeaders(_ columnHeaders: [String]) {
+    func insertRow(_ bundleId: String) {
+        if !(items.contains { $0.bundleIdentifier == bundleId }) {
+            items.append(BlacklistEntry(bundleIdentifier: bundleId, hide: .always, ignore: .none))
+            insertRows(at: [numberOfRows])
+            savePreferences()
+        }
+    }
+
+    func removeSelectedRows() {
+        if numberOfSelectedRows > 0 {
+            for selectedRowIndex in selectedRowIndexes.reversed() {
+                items.remove(at: selectedRowIndex)
+            }
+            removeRows(at: selectedRowIndexes)
+            savePreferences()
+        }
+    }
+
+    private func addHeaders(_ columnHeaders: [String]) {
         columnHeaders.enumerated().forEach { (i, header: String) in
             let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("col\(i + 1)"))
             column.headerToolTip = header
@@ -46,16 +64,36 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         }
     }
 
+    private func wasUpdated(_ colId: String, _ control: NSControl) {
+        let row = row(for: control)
+        if colId == "col1" {
+            items[row].bundleIdentifier = LabelAndControl.getControlValue(control, nil)!
+        } else if colId == "col2" {
+            items[row].hide = BlacklistHidePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
+        } else {
+            items[row].ignore = BlacklistIgnorePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
+        }
+        savePreferences()
+    }
+
+    private func savePreferences() {
+        Preferences.set("blacklist", items)
+    }
+}
+
+extension TableView: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return items.count
     }
+}
 
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView {
+extension TableView: NSTableViewDelegate {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let item = items[row]
         return tableColumn!.identifier.rawValue == "col1" ? text(item) : dropdown(item, tableColumn!.identifier.rawValue)
     }
 
-    func text(_ item: BlacklistEntry) -> NSView {
+    private func text(_ item: BlacklistEntry) -> NSView {
         let text = TextField(item.bundleIdentifier)
         text.isEditable = true
         text.allowsExpansionToolTips = true
@@ -72,7 +110,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         return parent
     }
 
-    func dropdown(_ item: BlacklistEntry, _ colId: String) -> NSView {
+    private func dropdown(_ item: BlacklistEntry, _ colId: String) -> NSView {
         let isHidePref = colId == "col2"
         let button = NSPopUpButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -87,40 +125,6 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         button.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
         button.widthAnchor.constraint(equalTo: parent.widthAnchor).isActive = true
         return parent
-    }
-
-    func wasUpdated(_ colId: String, _ control: NSControl) {
-        let row = row(for: control)
-        if colId == "col1" {
-            items[row].bundleIdentifier = LabelAndControl.getControlValue(control, nil)!
-        } else if colId == "col2" {
-            items[row].hide = BlacklistHidePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
-        } else {
-            items[row].ignore = BlacklistIgnorePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
-        }
-        savePreferences()
-    }
-
-    func removeSelectedRows() {
-        if numberOfSelectedRows > 0 {
-            for selectedRowIndex in selectedRowIndexes.reversed() {
-                items.remove(at: selectedRowIndex)
-            }
-            removeRows(at: selectedRowIndexes)
-            savePreferences()
-        }
-    }
-
-    func insertRow(_ bundleId: String) {
-        if !(items.contains { $0.bundleIdentifier == bundleId }) {
-            items.append(BlacklistEntry(bundleIdentifier: bundleId, hide: .always, ignore: .none))
-            insertRows(at: [numberOfRows])
-            savePreferences()
-        }
-    }
-
-    func savePreferences() {
-        Preferences.set("blacklist", items)
     }
 }
 
