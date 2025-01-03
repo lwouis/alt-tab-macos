@@ -95,7 +95,7 @@ class PreferencesWindow: NSWindow, NSToolbarDelegate {
         recalculateKeyViewLoop()
     }
 
-    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem {
         return toolbarItems[itemIdentifier]!.1
     }
 

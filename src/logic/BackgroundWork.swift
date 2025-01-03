@@ -51,16 +51,16 @@ class BackgroundWork {
         init(_ name: String, _ qos: DispatchQoS) {
             super.init()
             self.name = name
-            self.qualityOfService = qos.toQualityOfService()
-            self.start()
+            qualityOfService = qos.toQualityOfService()
+            start()
             threadStartSemaphore.wait()
         }
 
         override func main() {
             Logger.debug(name)
             // the RunLoop is lazy; calling this initialize it
-            self.runLoop = CFRunLoopGetCurrent()
-            self.addDummySourceToPreventRunLoopTermination()
+            runLoop = CFRunLoopGetCurrent()
+            addDummySourceToPreventRunLoopTermination()
             threadStartSemaphore.signal()
             CFRunLoopRun()
         }

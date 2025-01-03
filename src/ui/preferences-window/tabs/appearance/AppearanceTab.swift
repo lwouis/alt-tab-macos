@@ -33,19 +33,19 @@ class IllustratedImageThemeView: ClickHoverImageView {
         self.style = style
         self.theme = theme
         self.imageName = imageName
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.wantsLayer = true
+        translatesAutoresizingMaskIntoConstraints = false
+        wantsLayer = true
         let imageWidth = width - IllustratedImageThemeView.padding
         let imageHeight = imageWidth / 1.6
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: imageWidth),
             imageView.heightAnchor.constraint(equalToConstant: imageHeight),
-            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: IllustratedImageThemeView.padding),
-            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -IllustratedImageThemeView.padding),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: IllustratedImageThemeView.padding),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -IllustratedImageThemeView.padding),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: IllustratedImageThemeView.padding),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -IllustratedImageThemeView.padding),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: IllustratedImageThemeView.padding),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -IllustratedImageThemeView.padding),
         ])
-        self.highlight(false)
+        highlight(false)
         onClick = { (event, view) in
             self.highlight(false)
         }
@@ -56,13 +56,13 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     private func setBorder() {
-        self.layer?.cornerRadius = TableGroupView.cornerRadius + 3
-        self.layer?.borderColor = self.isFocused ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.cgColor
-        self.layer?.borderWidth = 3
+        layer?.cornerRadius = TableGroupView.cornerRadius + 3
+        layer?.borderColor = isFocused ? NSColor.systemAccentColor.cgColor : NSColor.lightGray.cgColor
+        layer?.borderWidth = 3
     }
 
     private func setFocused(_ focused: Bool) {
-        self.isFocused = focused
+        isFocused = focused
     }
 
     func highlight(_ highlighted: Bool, _ imageName: String = "") {
@@ -94,7 +94,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     func getStyleThemeImageName(_ imageName: String = "") -> String {
-        return IllustratedImageThemeView.getConcatenatedImageName(self.style, self.theme, imageName)
+        return IllustratedImageThemeView.getConcatenatedImageName(style, theme, imageName)
     }
 
     static func resetImage(_ illustratedImageView: IllustratedImageThemeView, _ event: NSEvent, _ view: NSView) {
@@ -120,7 +120,7 @@ class ShowHideIllustratedView {
     func makeView() -> TableGroupSetView {
         table = TableGroupView(width: CustomizeStyleSheet.width)
         for row in showHideRows {
-            self.setStateOnApplications(row: row)
+            setStateOnApplications(row: row)
             if row.supportedStyles.contains(style) {
                 table.addRow(leftViews: row.leftViews, rightViews: row.rightViews, onClick: { event, view in
                     if !ShowHideIllustratedView.isDisabledOnApplications(row) {

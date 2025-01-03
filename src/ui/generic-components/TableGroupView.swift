@@ -24,7 +24,7 @@ class TableGroupSetView: NSStackView {
                      toolsAlignment: NSLayoutConstraint.Attribute = .centerX) {
         self.init(frame: .zero)
         self.spacing = spacing
-        self.orientation = .vertical
+        orientation = .vertical
         self.originalViews = originalViews
         var continuousTableGroups = [NSView]()
         var continuousOthers = [NSView]()
@@ -214,7 +214,7 @@ class TableGroupView: ClickHoverStackView {
         orientation = .vertical
         spacing = TableGroupView.spacing
         translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraint(equalToConstant: self.width).isActive = true
+        widthAnchor.constraint(equalToConstant: width).isActive = true
         wantsLayer = true
         setupTitleView()
         if hasHeader {
@@ -259,7 +259,7 @@ class TableGroupView: ClickHoverStackView {
             subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
             subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             // Calculate the fitting height for subLabel and activate the height constraint
-            let subLabelHeight = calculateHeightForLabel(subTitleLabel, width: self.width - 2 * TableGroupView.padding)
+            let subLabelHeight = calculateHeightForLabel(subTitleLabel, width: width - 2 * TableGroupView.padding)
             subTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: subLabelHeight).isActive = true
         } else {
             subTitleLabel.isHidden = true
@@ -453,7 +453,7 @@ class TableGroupView: ClickHoverStackView {
         subLabel.setContentHuggingPriority(.required, for: .vertical)
         subLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         subLabel.translatesAutoresizingMaskIntoConstraints = false
-        let subLabelHeight = calculateHeightForLabel(subLabel, width: self.width - 2 * TableGroupView.padding)
+        let subLabelHeight = calculateHeightForLabel(subLabel, width: width - 2 * TableGroupView.padding)
         subLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: subLabelHeight).isActive = true
         return subLabel
     }
@@ -534,18 +534,18 @@ class TableGroupView: ClickHoverStackView {
 
     private func addMouseEnteredEffects(_ rowInfo: RowInfo) {
         rowInfo.view.layer?.backgroundColor = NSColor.tableHoverColor.cgColor
-        self.adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: true)
-        self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: true)
+        adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: true)
+        adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: true)
     }
 
     private func addMouseExitedEffects(_ rowInfo: RowInfo) {
         rowInfo.view.layer?.backgroundColor = NSColor.clear.cgColor
-        self.adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: false)
-        self.adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: false)
+        adjustSeparatorWidth(separator: rowInfo.previousSeparator, isMouseInside: false)
+        adjustSeparatorWidth(separator: rowInfo.nextSeparator, isMouseInside: false)
     }
 
     private func adjustSeparatorWidth(separator: NSView?, isMouseInside: Bool) {
-        let width = isMouseInside ? self.width : (self.width - 2 * TableGroupView.padding)
+        let width = isMouseInside ? width : (width - 2 * TableGroupView.padding)
         if let separator = separator {
             separator.addOrUpdateConstraint(separator.widthAnchor, width)
         }

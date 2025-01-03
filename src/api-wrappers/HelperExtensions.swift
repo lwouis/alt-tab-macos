@@ -141,7 +141,7 @@ class SelectorWrapper<T> {
     let closure: (T) -> Void
 
     init(withClosure closure: @escaping (T) -> Void) {
-        self.selector = #selector(callClosure)
+        selector = #selector(callClosure)
         self.closure = closure
     }
 

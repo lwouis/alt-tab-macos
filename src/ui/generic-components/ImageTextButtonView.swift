@@ -14,7 +14,7 @@ class ImageTextButtonView: NSStackView {
 
         override func draw(_ dirtyRect: NSRect) {
             super.draw(dirtyRect)
-            if self.window?.firstResponder == self && NSApp.isActive {
+            if window?.firstResponder == self && NSApp.isActive {
                 let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 1, dy: 1),
                     xRadius: ImageTextButtonView.cornerRadius, yRadius: ImageTextButtonView.cornerRadius)
                 path.lineWidth = 2.0
@@ -44,10 +44,10 @@ class ImageTextButtonView: NSStackView {
          spacing: CGFloat = ImageTextButtonView.spacing,
          cornerRadius: CGFloat = ImageTextButtonView.cornerRadius) {
         super.init(frame: .zero)
-        self.orientation = .vertical
-        self.alignment = .centerX
+        orientation = .vertical
+        alignment = .centerX
         self.spacing = spacing
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         makeButton(rawName, state, image, cornerRadius: cornerRadius)
         makeLabel(title)
         self.state = state

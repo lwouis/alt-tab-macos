@@ -23,7 +23,7 @@ class ThumbnailsView: NSVisualEffectView {
         // it would be nicer to remove this whole "reset" logic, and instead update each component to check Appearance properties before showing
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         Appearance.update()
-        self.material = Appearance.material
+        material = Appearance.material
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }

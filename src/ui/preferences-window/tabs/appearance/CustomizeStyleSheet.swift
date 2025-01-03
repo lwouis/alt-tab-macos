@@ -150,7 +150,7 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func showAlignThumbnailsIllustratedImage() {
-        self.illustratedImageView.highlight(true, Preferences.alignThumbnails.image.name)
+        illustratedImageView.highlight(true, Preferences.alignThumbnails.image.name)
     }
 
     private func showAppsOrWindowsIllustratedImage() {
@@ -158,7 +158,7 @@ class CustomizeStyleSheet: SheetWindow {
         if Preferences.onlyShowApplications() {
             imageName = ShowTitlesPreference.appName.image.name
         }
-        self.illustratedImageView.highlight(true, imageName)
+        illustratedImageView.highlight(true, imageName)
     }
 
     @objc func switchTab(_ sender: NSSegmentedControl) {
@@ -174,7 +174,7 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func adjustWindowHeight() {
-        guard let contentView = self.contentView else { return }
+        guard let contentView = contentView else { return }
         // Calculate the fitting height of the content view
         let fittingSize = contentView.fittingSize
         var windowFrame = frame

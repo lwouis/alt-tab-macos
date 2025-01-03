@@ -15,10 +15,10 @@ class WindowlessAppIndicator: NSView {
                      tooltip: String? = nil) {
         self.init(frame: .zero)
         self.color = color
-        self.frame.size.width = parameter.width
-        self.frame.size.height = parameter.height
-        self.cornerRadius = parameter.cornerRadius
-        self.toolTip = tooltip
+        frame.size.width = parameter.width
+        frame.size.height = parameter.height
+        cornerRadius = parameter.cornerRadius
+        toolTip = tooltip
     }
 
     override init(frame frameRect: NSRect) {

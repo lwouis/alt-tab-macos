@@ -38,16 +38,16 @@ class Window {
         // TODO: make a efficient batched AXUIElementCopyMultipleAttributeValues call once for each window, and store the values
         self.axUiElement = axUiElement
         self.application = application
-        self.cgWindowId = wid
-        self.spaceId = Spaces.currentSpaceId
-        self.spaceIndex = Spaces.currentSpaceIndex
+        cgWindowId = wid
+        spaceId = Spaces.currentSpaceId
+        spaceIndex = Spaces.currentSpaceIndex
         self.isFullscreen = isFullscreen
         self.isMinimized = isMinimized
         self.position = position
         self.size = size
-        self.title = bestEffortTitle(axTitle)
+        title = bestEffortTitle(axTitle)
         Window.globalCreationCounter += 1
-        self.creationOrder = Window.globalCreationCounter
+        creationOrder = Window.globalCreationCounter
         application.removeWindowslessAppWindow()
         checkIfFocused(application, wid)
         Logger.debug("Adding window", cgWindowId ?? "nil", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
@@ -57,9 +57,9 @@ class Window {
     init(_ application: Application) {
         isWindowlessApp = true
         self.application = application
-        self.title = application.runningApplication.localizedName
+        title = application.runningApplication.localizedName
         Window.globalCreationCounter += 1
-        self.creationOrder = Window.globalCreationCounter
+        creationOrder = Window.globalCreationCounter
         Logger.debug(title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 
@@ -215,7 +215,7 @@ class Window {
         memcpy(&bytes2[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
         memset(&bytes2[0x20], 0xFF, 0x10)
         [bytes1, bytes2].forEach { bytes in
-            _ = bytes.withUnsafeBufferPointer() { pointer in
+            _ = bytes.withUnsafeBufferPointer { pointer in
                 SLPSPostEventRecordTo(&psn_, &UnsafeMutablePointer(mutating: pointer.baseAddress)!.pointee)
             }
         }
@@ -265,7 +265,7 @@ class Window {
                 if let mainWin = mainWindow as! AXUIElement? {
                     do {
                         let w1 = try mainWin.cgWindowId()
-                        let w2 = try self.axUiElement.cgWindowId()
+                        let w2 = try axUiElement.cgWindowId()
                         if w1 == w2 {
                             return true
                         }

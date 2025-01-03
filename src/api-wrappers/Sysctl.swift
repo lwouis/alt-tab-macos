@@ -10,24 +10,24 @@ struct Sysctl {
     }
 
     static func run(_ keys: [Int32]) -> String? {
-        return data(keys)?.withUnsafeBufferPointer() { dataPointer -> String? in
+        return data(keys)?.withUnsafeBufferPointer { dataPointer -> String? in
             dataPointer.baseAddress.flatMap { String(validatingUTF8: $0) }
         }
     }
 
     private static func run<R>(_ name: String, _ fn: (UnsafeBufferPointer<Int8>) -> R?) -> R? {
-        return keys(name).flatMap { keys in data(keys)?.withUnsafeBufferPointer() { fn($0) } }
+        return keys(name).flatMap { keys in data(keys)?.withUnsafeBufferPointer { fn($0) } }
     }
 
     private static func data(_ keys: [Int32]) -> [Int8]? {
-        return keys.withUnsafeBufferPointer() { keysPointer in
+        return keys.withUnsafeBufferPointer { keysPointer in
             var requiredSize = 0
             let preFlightResult = Darwin.sysctl(UnsafeMutablePointer<Int32>(mutating: keysPointer.baseAddress), UInt32(keys.count), nil, &requiredSize, nil, 0)
             if preFlightResult != 0 {
                 return nil
             }
             let data = Array<Int8>(repeating: 0, count: requiredSize)
-            let result = data.withUnsafeBufferPointer() { dataBuffer -> Int32 in
+            let result = data.withUnsafeBufferPointer { dataBuffer -> Int32 in
                 return Darwin.sysctl(UnsafeMutablePointer<Int32>(mutating: keysPointer.baseAddress), UInt32(keys.count), UnsafeMutableRawPointer(mutating: dataBuffer.baseAddress), &requiredSize, nil, 0)
             }
             if result != 0 {

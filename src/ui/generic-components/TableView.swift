@@ -50,7 +50,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         return items.count
     }
 
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView {
         let item = items[row]
         return tableColumn!.identifier.rawValue == "col1" ? text(item) : dropdown(item, tableColumn!.identifier.rawValue)
     }

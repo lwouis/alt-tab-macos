@@ -11,7 +11,7 @@ class Switch: NSButton {
                     switchButton.state = state
                 }
             }
-            sendAction(self.action, to: self.target)
+            sendAction(action, to: target)
         }
     }
 
@@ -28,7 +28,7 @@ class Switch: NSButton {
     init(_ isOn: Bool = false) {
         super.init(frame: .zero)
         setupButton()
-        self.state = isOn ? .on : .off
+        state = isOn ? .on : .off
     }
 
     required init?(coder: NSCoder) {
@@ -37,23 +37,23 @@ class Switch: NSButton {
 
     private func setupButton() {
         if #available(macOS 10.15, *) {
-            self.bezelStyle = .regularSquare
-            self.isBordered = false
-            self.title = ""
-            self.setButtonType(.toggle)
-            switchButton = NSSwitch(frame: self.bounds)
+            bezelStyle = .regularSquare
+            isBordered = false
+            title = ""
+            setButtonType(.toggle)
+            switchButton = NSSwitch(frame: bounds)
             switchButton?.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(switchButton!)
-            switchButton?.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-            switchButton?.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-            switchButton?.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            switchButton?.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            switchButton?.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+            switchButton?.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+            switchButton?.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            switchButton?.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             switchButton?.controlSize = .mini
             switchButton?.target = self
             switchButton?.action = #selector(switchToggled(_:))
         } else {
-            self.setButtonType(.switch)
-            self.title = ""
+            setButtonType(.switch)
+            title = ""
         }
     }
 
@@ -69,6 +69,6 @@ class Switch: NSButton {
     }
 
     @objc private func switchToggled(_ sender: NSButton) {
-        self.state = sender.state
+        state = sender.state
     }
 }

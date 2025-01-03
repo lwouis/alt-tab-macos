@@ -14,7 +14,7 @@ class AppCenterCrash: NSObject, CrashesDelegate {
         AppCenter.networkRequestsAllowed = false
         AppCenter.start(withAppSecret: AppCenterCrash.secret, services: [Crashes.self])
         Crashes.delegate = self
-        Crashes.userConfirmationHandler = self.confirmationHandler
+        Crashes.userConfirmationHandler = confirmationHandler
     }
 
     // at launch, the crash report handler can be called before some things are not yet ready; we ensure they are
@@ -26,7 +26,7 @@ class AppCenterCrash: NSObject, CrashesDelegate {
 
     // periphery:ignore
     func confirmationHandler(_ errorReports: [ErrorReport]) -> Bool {
-        self.initNecessaryFacilities()
+        initNecessaryFacilities()
         let shouldSend = checkIfShouldSend()
         BackgroundWork.startCrashReportsQueue()
         BackgroundWork.crashReportsQueue.async {
@@ -50,7 +50,7 @@ class AppCenterCrash: NSObject, CrashesDelegate {
             let checkbox = NSButton(checkboxWithTitle: NSLocalizedString("Remember my choice", comment: ""), target: nil, action: nil)
             alert.accessoryView = checkbox
             let userChoice = alert.runModal()
-            let id = self.crashButtonIdToUpdate(userChoice, checkbox)
+            let id = crashButtonIdToUpdate(userChoice, checkbox)
             if let buttons = PoliciesTab.crashPolicyDropdown, buttons.numberOfItems > id {
                 buttons.selectItem(at: id)
             }
