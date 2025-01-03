@@ -54,7 +54,7 @@ class ImageTextButtonView: NSStackView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("Class only supports programmatic initialization")
     }
 
     private func makeButton(_ rawName: String, _ state: NSControl.StateValue, _ image: WidthHeightImage,

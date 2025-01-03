@@ -10,7 +10,7 @@ let cgsMainConnectionId = CGSMainConnectionID()
 var activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
     reason: "Prevent App Nap to preserve responsiveness")
 
-class App: AppCenterApplication, NSApplicationDelegate {
+class App: AppCenterApplication {
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     static let id = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
@@ -39,57 +39,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        appCenterDelegate = AppCenterCrash()
-        App.shared.disableRelaunchOnLogin()
-        Logger.initialize()
-        #if DEBUG
-        UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
-        #endif
-        #if !DEBUG
-        PFMoveToApplicationsFolderIfNecessary()
-        #endif
-        AXUIElement.setGlobalTimeout()
-        Preferences.initialize()
-        BackgroundWork.startSystemPermissionThread()
-        permissionsWindow = PermissionsWindow()
-        SystemPermissions.ensurePermissionsAreGranted { [weak self] in
-            guard let self = self else { return }
-            BackgroundWork.start()
-            Appearance.update()
-            Menubar.initialize()
-            self.loadMainMenuXib()
-            self.thumbnailsPanel = ThumbnailsPanel()
-            self.previewPanel = PreviewPanel()
-            Spaces.refresh()
-            SpacesEvents.observe()
-            ScreensEvents.observe()
-            SystemAppearanceEvents.observe()
-            SystemScrollerStyleEvents.observe()
-            Applications.initialDiscovery()
-            self.preferencesWindow = PreferencesWindow()
-            self.feedbackWindow = FeedbackWindow()
-            KeyboardEvents.addEventHandlers()
-            MouseEvents.observe()
-            TrackpadEvents.observe()
-            self.preloadWindows()
-            #if DEBUG
-//            self.showPreferencesWindow()
-            #endif
-        }
-    }
-
-    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        showPreferencesWindow()
-        return true
-    }
-
-    func applicationWillTerminate(_ notification: Notification) {
-        // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
-        setNativeCommandTabEnabled(true)
+        fatalError("Class only supports programmatic initialization")
     }
 
     /// pre-load some windows so they are faster on first display
@@ -331,5 +281,57 @@ class App: AppCenterApplication, NSApplicationDelegate {
         if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
             App.app.hideUi()
         }
+    }
+}
+
+extension App: NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        appCenterDelegate = AppCenterCrash()
+        App.shared.disableRelaunchOnLogin()
+        Logger.initialize()
+        #if DEBUG
+        UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
+        #endif
+        #if !DEBUG
+        PFMoveToApplicationsFolderIfNecessary()
+        #endif
+        AXUIElement.setGlobalTimeout()
+        Preferences.initialize()
+        BackgroundWork.startSystemPermissionThread()
+        permissionsWindow = PermissionsWindow()
+        SystemPermissions.ensurePermissionsAreGranted { [weak self] in
+            guard let self = self else { return }
+            BackgroundWork.start()
+            Appearance.update()
+            Menubar.initialize()
+            self.loadMainMenuXib()
+            self.thumbnailsPanel = ThumbnailsPanel()
+            self.previewPanel = PreviewPanel()
+            Spaces.refresh()
+            SpacesEvents.observe()
+            ScreensEvents.observe()
+            SystemAppearanceEvents.observe()
+            SystemScrollerStyleEvents.observe()
+            Applications.initialDiscovery()
+            self.preferencesWindow = PreferencesWindow()
+            self.feedbackWindow = FeedbackWindow()
+            KeyboardEvents.addEventHandlers()
+            MouseEvents.observe()
+            TrackpadEvents.observe()
+            self.preloadWindows()
+            #if DEBUG
+//            self.showPreferencesWindow()
+            #endif
+        }
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        showPreferencesWindow()
+        return true
+    }
+
+    func applicationWillTerminate(_ notification: Notification) {
+        // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
+        setNativeCommandTabEnabled(true)
     }
 }

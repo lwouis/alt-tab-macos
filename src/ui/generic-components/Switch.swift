@@ -1,7 +1,6 @@
 import Cocoa
 
 class Switch: NSButton {
-
     var switchButton: NSControl?
 
     override var state: NSControl.StateValue {
@@ -32,7 +31,7 @@ class Switch: NSButton {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("Class only supports programmatic initialization")
     }
 
     private func setupButton() {

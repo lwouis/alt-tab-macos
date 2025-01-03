@@ -20,7 +20,7 @@ class TrafficLightButton: NSButton {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("Class only supports programmatic initialization")
     }
 
     @objc func onClick() {

@@ -52,7 +52,7 @@ class IllustratedImageThemeView: ClickHoverImageView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("Class only supports programmatic initialization")
     }
 
     private func setBorder() {
@@ -319,7 +319,7 @@ class ShowHideIllustratedView {
     }
 }
 
-class Popover: NSPopover, NSPopoverDelegate {
+class Popover: NSPopover {
     static let shared = Popover()
     private var hidingInitiated = true
 
@@ -331,11 +331,7 @@ class Popover: NSPopover, NSPopoverDelegate {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func popoverWillClose(_ notification: Notification) {
-        hidingInitiated = true
+        fatalError("Class only supports programmatic initialization")
     }
 
     func hide() {
@@ -368,6 +364,12 @@ class Popover: NSPopover, NSPopoverDelegate {
         let locationInPositioningView = positioningView.convert(locationInWindow, from: nil)
         let rect = CGRect(origin: locationInPositioningView, size: .zero)
         show(relativeTo: rect, of: positioningView, preferredEdge: .minX)
+    }
+}
+
+extension Popover: NSPopoverDelegate {
+    func popoverWillClose(_ notification: Notification) {
+        hidingInitiated = true
     }
 }
 

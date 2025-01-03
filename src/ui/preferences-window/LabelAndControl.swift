@@ -45,7 +45,7 @@ class ClickHoverImageView: MouseHoverView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("Class only supports programmatic initialization")
     }
 
     @objc private func handleClick(_ sender: NSClickGestureRecognizer) {
