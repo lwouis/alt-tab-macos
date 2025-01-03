@@ -434,6 +434,7 @@
 		BF0C8A50151A4EF88E494357 /* da */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = da; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8AF53097C87EDC6F5FA6 /* nb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nb; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8B15FFB262ECC54B5AA4 /* sl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sl; path = InfoPlist.strings; sourceTree = "<group>"; };
+		BF0C8B25934F02B9AC8B2B84 /* PrivateApis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateApis.swift; sourceTree = "<group>"; };
 		BF0C8B2C057099EDABE46779 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		BF0C8B2EA9269BA0B79A525F /* sk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sk; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8B5D1A9658E64F8ECB56 /* SystemScrollerStyleEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemScrollerStyleEvents.swift; sourceTree = "<group>"; };
@@ -881,6 +882,7 @@
 			children = (
 				BF0C8070A1BBA8B425C8EF34 /* IOKit.swift */,
 				BF0C8EAF02309B9C489E65F4 /* README.md */,
+				BF0C8B25934F02B9AC8B2B84 /* PrivateApis.swift */,
 			);
 			path = experimentations;
 			sourceTree = "<group>";
