@@ -15,14 +15,14 @@ class Windows {
             windowLevelMap[cgWindowId] = index
         }
         list = list
-                .sorted { w1, w2 in
-                    (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
-                }
-                .enumerated()
-                .map { (index, window) -> Window in
-                    window.lastFocusOrder = index
-                    return window
-                }
+            .sorted { w1, w2 in
+                (windowLevelMap[w1.cgWindowId] ?? .max) < (windowLevelMap[w2.cgWindowId] ?? .max)
+            }
+            .enumerated()
+            .map { (index, window) -> Window in
+                window.lastFocusOrder = index
+                return window
+            }
     }
 
     /// reordered list based on preferences, keeping the original index
@@ -33,12 +33,11 @@ class Windows {
                 return $1.isWindowlessApp
             }
             if Preferences.showHiddenWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isHidden != $1.isHidden {
-               return $1.isHidden
+                return $1.isHidden
             }
             if Preferences.showMinimizedWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isMinimized != $1.isMinimized {
                 return $1.isMinimized
             }
-
             // sort within each buckets
             let sortType = Preferences.windowOrder[App.app.shortcutIndex]
             if sortType == .recentlyFocused {
@@ -158,7 +157,7 @@ class Windows {
             lastWindowActivityType = .hover
         }
         if (!fromMouse || Preferences.mouseHoverEnabled)
-                   && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover)  {
+               && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
             let oldIndex = focusedWindowIndex
             focusedWindowIndex = newIndex
             ThumbnailsView.highlight(oldIndex)
@@ -175,7 +174,7 @@ class Windows {
 
     static func previewFocusedWindowIfNeeded() {
         if Preferences.previewFocusedWindow && !Preferences.onlyShowApplications()
-                   && App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
+               && App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow,
            let window = focusedWindow(),
            let id = window.cgWindowId,
            let thumbnail = window.thumbnail,
@@ -207,9 +206,9 @@ class Windows {
         let nextIndex = windowIndexAfterCycling(step)
         // don't wrap-around at the end, if key-repeat
         if (((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
-               (!allowWrap || ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false))
-                   // don't cycle to another row, if !allowWrap
-                   || (!allowWrap && list[nextIndex].rowIndex != list[focusedWindowIndex].rowIndex) {
+            (!allowWrap || ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false))
+               // don't cycle to another row, if !allowWrap
+               || (!allowWrap && list[nextIndex].rowIndex != list[focusedWindowIndex].rowIndex) {
             return
         }
         updateFocusedAndHoveredWindowIndex(nextIndex)
@@ -389,7 +388,6 @@ class Windows {
             } else if window2.application.focusedWindow?.cgWindowId == window2.cgWindowId {
                 return false
             }
-
             // Prefer the main window
             if window1.isAppMainWindow() && !window2.isAppMainWindow() {
                 return true
@@ -398,7 +396,6 @@ class Windows {
             }
             return true
         }
-
         return sortedWindows.first { $0.shouldShowTheUser }
     }
 }

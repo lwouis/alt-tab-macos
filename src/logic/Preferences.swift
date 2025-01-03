@@ -89,9 +89,6 @@ class Preferences {
     // system preferences
     static var finderShowsQuitMenuItem: Bool { UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false }
 
-    // constant values
-    // not exposed as preferences now but may be in the future, probably through macro preferences
-
     // persisted values
     static var holdShortcut: [String] { ["holdShortcut", "holdShortcut2", "holdShortcut3"].map { UserDefaults.standard.string($0) } }
     static var nextWindowShortcut: [String] { ["nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3"].map { UserDefaults.standard.string($0) } }
@@ -252,9 +249,8 @@ class Preferences {
         }
     }
 
-
-    // we added the new menubarIconShown toggle. It replaces menubarIcon having value "3" which would hide the icon
-    // there are now 2 preferences : menubarIconShown is a boolean, and menubarIcon has values 0, 1, 2
+    /// we added the new menubarIconShown toggle. It replaces menubarIcon having value "3" which would hide the icon
+    /// there are now 2 preferences : menubarIconShown is a boolean, and menubarIcon has values 0, 1, 2
     private static func migrateMenubarIconWithNewShownToggle() {
         if let old = UserDefaults.standard.string(forKey: "menubarIcon") {
             if old == "3" {
@@ -274,7 +270,6 @@ class Preferences {
                 }
             }
         }
-
         // migrate spacesToShow from 0 to 2 and 2 to 0. 0 used to be end, 2 used to be start; they got switch for the UI order
         ["", "2", "3", "4", "5"].forEach { suffix in
             if let spacesToShow = UserDefaults.standard.string(forKey: "titleTruncation" + suffix) {
@@ -520,8 +515,8 @@ extension UserDefaults {
 private protocol AvoidDeprecationWarnings {
     static func migrateLoginItem()
 }
-extension Preferences: AvoidDeprecationWarnings {
-}
+
+extension Preferences: AvoidDeprecationWarnings {}
 
 struct BlacklistEntry: Codable {
     var bundleIdentifier: String

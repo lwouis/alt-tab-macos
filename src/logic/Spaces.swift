@@ -37,8 +37,8 @@ class Spaces {
             currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, uuid)
         }
         currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
-                    spaceId == currentSpaceId
-                }?.1 ?? SpaceIndex(1)
+            spaceId == currentSpaceId
+        }?.1 ?? SpaceIndex(1)
     }
 
     private static func refreshAllIdsAndIndexes() -> Void {

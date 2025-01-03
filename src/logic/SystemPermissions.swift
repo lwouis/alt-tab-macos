@@ -50,7 +50,7 @@ class SystemPermissions {
     static func screenRecordingIsGranted() -> PermissionStatus {
         if #available(macOS 10.15, *) {
             return screenRecordingIsGranted_() ? .granted :
-                    (Preferences.screenRecordingPermissionSkipped ? .skipped : .notGranted)
+                (Preferences.screenRecordingPermissionSkipped ? .skipped : .notGranted)
         }
         return .granted
     }
@@ -84,7 +84,6 @@ class SystemPermissions {
         if accessibility != App.app.permissionsWindow?.accessibilityView?.permissionStatus {
             App.app.permissionsWindow?.accessibilityView.updatePermissionStatus(accessibility)
         }
-
         if #available(macOS 10.15, *), screenRecording != App.app.permissionsWindow?.screenRecordingView?.permissionStatus {
             App.app.permissionsWindow?.screenRecordingView?.updatePermissionStatus(screenRecording)
         }

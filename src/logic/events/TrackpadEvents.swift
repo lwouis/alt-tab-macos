@@ -21,12 +21,12 @@ class TrackpadEvents {
 private func observe_() {
     // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
     eventTap = CGEvent.tapCreate(
-            tap: .cghidEventTap, // we need raw data
-            place: .headInsertEventTap,
-            options: .defaultTap,
-            eventsOfInterest: NSEvent.EventTypeMask.gesture.rawValue,
-            callback: handleEvent,
-            userInfo: nil)
+        tap: .cghidEventTap, // we need raw data
+        place: .headInsertEventTap,
+        options: .defaultTap,
+        eventsOfInterest: NSEvent.EventTypeMask.gesture.rawValue,
+        callback: handleEvent,
+        userInfo: nil)
     if let eventTap = eventTap {
         let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
         CFRunLoopAddSource(BackgroundWork.keyboardEventsThread.runLoop, runLoopSource, .commonModes)
@@ -86,7 +86,7 @@ class GestureDetector {
 
     static func checkForFingersUp(_ touches: Set<NSTouch>, _ requiredFingers: Int) -> Bool {
         if App.app.appIsBeingUsed && touches.count < requiredFingers && App.app.shortcutIndex == Preferences.gestureIndex
-                   && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
+               && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
             DispatchQueue.main.async { App.app.focusTarget() }
             return true
         }
@@ -117,7 +117,7 @@ class GestureDetector {
             // simulate mouseWheel-stopped to end potential existing scrolling started before AltTab was opened
             // this avoid the swipe to trigger a scroll on the active window and show AltTab, at the same time
             CGEvent(scrollWheelEvent2Source: nil, units: .pixel, wheelCount: 1, wheel1: 0, wheel2: 0, wheel3: 0)?
-                    .post(tap: .cghidEventTap)
+                .post(tap: .cghidEventTap)
         }
     }
 }

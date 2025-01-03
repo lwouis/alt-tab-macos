@@ -45,7 +45,6 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
             App.app.refreshOpenUi(window != nil ? [window!] : [])
         }
     }
-
 }
 
 fileprivate func applicationHiddenOrShown(_ pid: pid_t, _ type: String) throws {
@@ -74,7 +73,7 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
         DispatchQueue.main.async {
             if let app = Applications.find(pid), let runningApp = NSRunningApplication(processIdentifier: pid) {
                 if (!Windows.list.contains { $0.isEqualRobust(element, wid) }) &&
-                    AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size) {
+                       AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size) {
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
                     Windows.cycleFocusedWindowIndex(1)

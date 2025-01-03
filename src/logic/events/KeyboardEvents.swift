@@ -120,7 +120,7 @@ class KeyboardEvents {
     }
 }
 
-fileprivate let cgEventFlagsChangedHandler: CGEventTapCallBack = {_, type, cgEvent, _ in
+fileprivate let cgEventFlagsChangedHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
     if type == .flagsChanged {
         // TODO: it would be great to shortcut matching and trigger on the background thread
         // it would enable us to set App.app.isBeingUsed here, and could stop tasks on main when they check the flag

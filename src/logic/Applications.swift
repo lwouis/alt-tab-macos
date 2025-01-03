@@ -66,7 +66,7 @@ class Applications {
         for tApp in terminatingApps {
             for (index, window) in Windows.list.enumerated() {
                 if window.application.runningApplication.isEqual(tApp)
-                           && index < Windows.focusedWindowIndex && window.shouldShowTheUser {
+                       && index < Windows.focusedWindowIndex && window.shouldShowTheUser {
                     windowsOnTheLeftOfFocusedWindow += 1
                 }
             }
@@ -134,7 +134,7 @@ class Applications {
         GetProcessInformation(&psn, &info)
         return String(info.processType) != "XPC!"
     }
-    
+
     private static func isPasswords(_ app: NSRunningApplication) -> Bool {
         return app.bundleIdentifier == "com.apple.Passwords"
     }

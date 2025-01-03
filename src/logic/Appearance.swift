@@ -17,7 +17,7 @@ class Appearance {
     static var fontHeight = CGFloat(0)
     static var maxWidthOnScreen = CGFloat(0.8)
     static var maxHeightOnScreen = CGFloat(0.8)
-    
+
     // theme
     static var material = NSVisualEffectView.Material.dark
     static var fontColor = NSColor.white
@@ -178,7 +178,6 @@ class Appearance {
             highlightHoveredBorderColor = .lightGray.withAlphaComponent(0.8)
             highlightBorderShadowColor = .black.withAlphaComponent(0.5)
             highlightBorderWidth = 1
-
         case .highest:
             material = .mediumLight
             highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)

@@ -33,8 +33,8 @@ extension NSScreen {
             let size = CGDisplayScreenSize(number)
             // CGDisplayScreenSize docs says it can return "zero"
             if size.width > 0 && size.height > 0 &&
-                       // CGDisplayScreenSize may return wrong values; we compare physical and logical ratios to reject
-                       abs(ratio() - (size.width / size.height)) < 0.2 {
+                   // CGDisplayScreenSize may return wrong values; we compare physical and logical ratios to reject
+                   abs(ratio() - (size.width / size.height)) < 0.2 {
                 return size
             }
         }
@@ -53,15 +53,12 @@ extension NSScreen {
         }
     }
 
-
-
-    // NSScreen.main docs are incorrect. It stopped returning the screen with the key window in macOS 10.9
-
-    // see https://stackoverflow.com/a/56268826/2249756
-    // There are a few cases where .main doesn't return the screen with the key window:
-    //   * if the active screen shows a fullscreen app, it always returns screens[0]
-    //   * if NSScreen.screensHaveSeparateSpaces == false, and key window is on another screen than screens[0], it still returns screens[0]
-    // we find the screen with the key window ourselves manually
+    /// NSScreen.main docs are incorrect. It stopped returning the screen with the key window in macOS 10.9
+    /// see https://stackoverflow.com/a/56268826/2249756
+    /// There are a few cases where .main doesn't return the screen with the key window:
+    ///   * if the active screen shows a fullscreen app, it always returns screens[0]
+    ///   * if NSScreen.screensHaveSeparateSpaces == false, and key window is on another screen than screens[0], it still returns screens[0]
+    /// we find the screen with the key window ourselves manually
     static func active() -> NSScreen? {
         if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier) {
             if let focusedWindow = app.focusedWindow {
