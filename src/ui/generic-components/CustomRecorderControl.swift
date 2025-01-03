@@ -87,30 +87,37 @@ class CustomRecorderControl: RecorderControl, RecorderControlDelegate {
     }
 
     private func isShortcutAlreadyAssigned(_ shortcut: Shortcut) -> ATShortcut? {
+        // Get corresponding paired shortcut name and object
         let comboShortcutName = id.starts(with: "holdShortcut") ?
             Preferences.indexToName("nextWindowShortcut", Preferences.nameToIndex(id)) :
             (id.starts(with: "nextWindowShortcut") ?
                 Preferences.indexToName("holdShortcut", Preferences.nameToIndex(id)) : id)
         let comboShortcut = comboShortcutName.flatMap { ControlsTab.shortcuts[$0]?.shortcut }
+        
         return (ControlsTab.shortcuts.first { (id2, s2) in
             let shortcut2 = s2.shortcut
+            // Skip self-comparison, empty shortcuts, hold shortcuts, and paired shortcuts
             if id == id2
                    || (shortcut2.keyCode == .none && shortcut2.carbonModifierFlags == 0)
                    || id2.starts(with: "holdShortcut")
                    || ((id.starts(with: "holdShortcut") || id.starts(with: "nextWindowShortcut")) && id2 == comboShortcutName) {
                 return false
             }
+            // Check for matching key codes
             if shortcut2.keyCode != (id.starts(with: "holdShortcut") ? comboShortcut?.keyCode : shortcut.keyCode) {
                 return false
             }
+            
             if id.starts(with: "holdShortcut") {
-                if ((comboShortcut?.carbonModifierFlags ?? 0) ^ (ControlsTab.shortcuts[id]?.shortcut.carbonModifierFlags ?? 0) | shortcut.carbonModifierFlags)
-                       != (shortcut.carbonModifierFlags | shortcut2.carbonModifierFlags) {
+                // For holdShortcuts, only match exact modifier combinations
+                if shortcut.carbonModifierFlags != shortcut2.carbonModifierFlags {
                     return false
                 }
             } else if id.starts(with: "nextWindowShortcut") {
-                if ((comboShortcut?.carbonModifierFlags ?? 0) | shortcut.carbonModifierFlags)
-                       != ((comboShortcut?.carbonModifierFlags ?? 0) | shortcut2.carbonModifierFlags) {
+                // For nextWindowShortcuts, compare combined modifiers using bitwise OR
+                let shortcut1Mods = (comboShortcut?.carbonModifierFlags ?? 0) | shortcut.carbonModifierFlags
+                let shortcut2Mods = shortcut2.carbonModifierFlags
+                if shortcut1Mods != shortcut2Mods {
                     return false
                 }
             } else if !ControlsTab.combinedModifiersMatch(shortcut2.carbonModifierFlags, shortcut.carbonModifierFlags) {
