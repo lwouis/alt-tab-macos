@@ -12,9 +12,9 @@ class PermissionsWindow: NSWindow {
     }
 
     func show(_ startupBlock: @escaping () -> Void) {
-        accessibilityView.updatePermissionStatus(SystemPermissions.accessibilityIsGranted())
+        accessibilityView.updatePermissionStatus(SystemPermissions.updateAccessibilityIsGranted())
         if #available(macOS 10.15, *) {
-            screenRecordingView.updatePermissionStatus(SystemPermissions.screenRecordingIsGranted())
+            screenRecordingView.updatePermissionStatus(SystemPermissions.updateScreenRecordingIsGranted())
         }
         center()
         App.shared.activate(ignoringOtherApps: true)
@@ -47,7 +47,7 @@ class PermissionsWindow: NSWindow {
             NSLocalizedString("This permission is needed to focus windows after you release the shortcut", comment: ""),
             NSLocalizedString("Open Accessibility Preferences…", comment: ""),
             "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
-            SystemPermissions.accessibilityIsGranted
+            SystemPermissions.updateAccessibilityIsGranted
         )
         var rows = [
             [header],
@@ -60,7 +60,7 @@ class PermissionsWindow: NSWindow {
                 NSLocalizedString("This permission is needed to show screenshots and titles of open windows", comment: ""),
                 NSLocalizedString("Open Screen Recording Preferences…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
-                SystemPermissions.screenRecordingIsGranted,
+                SystemPermissions.updateScreenRecordingIsGranted,
                 StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
             )
             rows.append([screenRecordingView])
@@ -76,7 +76,7 @@ extension PermissionsWindow: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         Logger.debug(SystemPermissions.preStartupPermissionsPassed)
         if !SystemPermissions.preStartupPermissionsPassed {
-            if SystemPermissions.accessibilityIsGranted() == .notGranted || SystemPermissions.screenRecordingIsGranted() == .notGranted {
+            if SystemPermissions.updateAccessibilityIsGranted() == .notGranted || SystemPermissions.updateScreenRecordingIsGranted() == .notGranted {
                 Logger.error("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
                     "Please authorize and re-launch.",
                     "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
