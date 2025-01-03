@@ -1,6 +1,10 @@
-# We can find the rules here.
-# https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md
+# rules: https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md
 
---swiftversion 5.5
-
---maxwidth 120
+--swiftversion 5.8
+--maxwidth 110
+--nowrapoperators .,==,!=,<,>,>=,<=
+--wrapternary before-operators
+--disable andOperator
+--disable wrapConditionalBodies
+--disable wrapLoopBodies
+--disable wrapMultilineStatementBraces
