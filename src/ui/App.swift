@@ -4,13 +4,10 @@ import LetsMove
 import ShortcutRecorder
 import AppCenterCrashes
 
-let cgsMainConnectionId = CGSMainConnectionID()
-
-// periphery:ignore
-var activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
-    reason: "Prevent App Nap to preserve responsiveness")
-
 class App: AppCenterApplication {
+    /// periphery:ignore
+    static let activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
+        reason: "Prevent App Nap to preserve responsiveness")
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     static let id = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String

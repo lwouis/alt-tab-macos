@@ -207,7 +207,7 @@ func psnEqual(_ psn1: ProcessSerialNumber, _ psn2: ProcessSerialNumber) -> Bool 
 
 func windowIdToPsn(_ wid: CGWindowID) -> ProcessSerialNumber {
     var elementConnection = UInt32(0)
-    CGSGetWindowOwner(cgsMainConnectionId, wid, &elementConnection)
+    CGSGetWindowOwner(CGS_CONNECTION, wid, &elementConnection)
     var psn = ProcessSerialNumber()
     CGSGetConnectionPSN(elementConnection, &psn)
     return psn

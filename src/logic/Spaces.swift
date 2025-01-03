@@ -22,7 +22,7 @@ class Spaces {
         if includeInvisible {
             options = [options, .invisible1, .invisible2]
         }
-        return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, options.rawValue, &set_tags, &clear_tags) as! [CGWindowID]
+        return CGSCopyWindowsWithOptionsAndTags(CGS_CONNECTION, 0, spaceIds as CFArray, options.rawValue, &set_tags, &clear_tags) as! [CGWindowID]
     }
 
     static func refresh() {
@@ -34,7 +34,7 @@ class Spaces {
         // it seems that in some rare scenarios, some of these values are nil; we wrap to avoid crashing
         if let mainScreen = NSScreen.main,
            let uuid = mainScreen.uuid() {
-            currentSpaceId = CGSManagedDisplayGetCurrentSpace(cgsMainConnectionId, uuid)
+            currentSpaceId = CGSManagedDisplayGetCurrentSpace(CGS_CONNECTION, uuid)
         }
         currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
             spaceId == currentSpaceId
@@ -46,7 +46,7 @@ class Spaces {
         screenSpacesMap.removeAll()
         visibleSpaces.removeAll()
         var spaceIndex = SpaceIndex(1)
-        (CGSCopyManagedDisplaySpaces(cgsMainConnectionId) as! [NSDictionary]).forEach { (screen: NSDictionary) in
+        (CGSCopyManagedDisplaySpaces(CGS_CONNECTION) as! [NSDictionary]).forEach { (screen: NSDictionary) in
             var display = screen["Display Identifier"] as! ScreenUuid
             if display as String == "Main", let mainUuid = NSScreen.main?.uuid() {
                 display = mainUuid

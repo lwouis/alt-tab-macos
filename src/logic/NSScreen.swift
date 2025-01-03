@@ -71,7 +71,7 @@ extension NSScreen {
 
     // there is only 1 active menubar. Other screens will show their menubar dimmed
     static func withActiveMenubar() -> NSScreen? {
-        return NSScreen.screens.first { CGSCopyActiveMenuBarDisplayIdentifier(cgsMainConnectionId) == $0.uuid() }
+        return NSScreen.screens.first { CGSCopyActiveMenuBarDisplayIdentifier(CGS_CONNECTION) == $0.uuid() }
     }
 
     static func withMouse() -> NSScreen? {

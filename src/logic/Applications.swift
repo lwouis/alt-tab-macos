@@ -38,9 +38,9 @@ class Applications {
             let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
             if windowsOnlyOnOtherSpaces.count > 0 {
                 // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
-                CGSAddWindowsToSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
+                CGSAddWindowsToSpaces(CGS_CONNECTION, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
                 Applications.manuallyUpdateWindowsFor2s()
-                CGSRemoveWindowsFromSpaces(cgsMainConnectionId, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
+                CGSRemoveWindowsFromSpaces(CGS_CONNECTION, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
             }
         } else {
             Applications.manuallyUpdateWindows()
