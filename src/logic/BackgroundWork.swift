@@ -81,6 +81,9 @@ let backgroundWorkGlobalSemaphore = DispatchSemaphore(value: ProcessInfo.process
 
 extension DispatchQueue {
     static func globalConcurrent(_ label: String, _ qos: DispatchQoS) -> DispatchQueue {
+        // label is not reflected in Instruments because the target is .global
+        // if we want to see our custom labels, we need our private queue.
+        // However, we want to be efficient and use the OS thread pool, so we use .global
         DispatchQueue(label: label, attributes: .concurrent, target: .global(qos: qos.qosClass))
     }
 
