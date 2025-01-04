@@ -1,5 +1,19 @@
 # Release notes
 
+# [7.16.0](https://github.com/lwouis/alt-tab-macos/compare/v7.15.0...v7.16.0) (2025-01-04)
+
+
+### Bug Fixes
+
+* app badges could be incorrectly positioned on the very first launch ([c2ccccd](https://github.com/lwouis/alt-tab-macos/commit/c2ccccd))
+* app-icons wouldn't show when permissions were skipped ([837fa03](https://github.com/lwouis/alt-tab-macos/commit/837fa03))
+* screen recording warnings shouldn't appear with skipped permissions ([f027b47](https://github.com/lwouis/alt-tab-macos/commit/f027b47))
+
+
+### Features
+
+* improve performance by caching preferences better ([d653a54](https://github.com/lwouis/alt-tab-macos/commit/d653a54))
+
 # [7.15.0](https://github.com/lwouis/alt-tab-macos/compare/v7.14.1...v7.15.0) (2025-01-02)
 
 
