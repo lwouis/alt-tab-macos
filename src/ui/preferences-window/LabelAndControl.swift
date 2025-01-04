@@ -63,20 +63,20 @@ class LabelAndControl: NSObject {
     // periphery:ignore
     static func makeLabelWithImageRadioButtons(_ labelText: String,
                                                _ rawName: String,
-                                               _ values: [ImageMacroPreference],
+                                               _ macroPreferences: [ImageMacroPreference],
                                                extraAction: ActionClosure? = nil,
                                                buttonSpacing: CGFloat = 15) -> [NSView] {
-        let view = makeImageRadioButtons(rawName, values, extraAction: extraAction, buttonSpacing: buttonSpacing)
+        let view = makeImageRadioButtons(rawName, macroPreferences, extraAction: extraAction, buttonSpacing: buttonSpacing)
         return [makeLabel(labelText), view]
     }
 
     static func makeImageRadioButtons(_ rawName: String,
-                                      _ values: [ImageMacroPreference],
+                                      _ macroPreferences: [ImageMacroPreference],
                                       extraAction: ActionClosure? = nil,
                                       buttonSpacing: CGFloat = 15) -> NSStackView {
         var buttons = [ImageTextButtonView]()
-        let buttonViews = values.enumerated().map { (index, preference) -> ImageTextButtonView in
-            let state: NSControl.StateValue = UserDefaults.standard.int(rawName) == index ? .on : .off
+        let buttonViews = macroPreferences.enumerated().map { (index, preference) -> ImageTextButtonView in
+            let state: NSControl.StateValue = CachedUserDefaults.intFromMacroPref(rawName, macroPreferences) == index ? .on : .off
             let buttonView = ImageTextButtonView(title: preference.localizedString, rawName: rawName, image: preference.image, state: state)
             buttons.append(buttonView)
             buttonView.onClick = { control in
@@ -109,13 +109,13 @@ class LabelAndControl: NSObject {
     static func makeLabelWithCheckbox(_ labelText: String, _ rawName: String, extraAction: ActionClosure? = nil, labelPosition: LabelPosition = .leftWithSeparator) -> [NSView] {
         let checkbox = NSButton(checkboxWithTitle: labelPosition == .right ? labelText : " ", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
-        checkbox.state = UserDefaults.standard.bool(rawName) ? .on : .off
+        checkbox.state = CachedUserDefaults.bool(rawName) ? .on : .off
         let views = makeLabelWithProvidedControl(labelText, rawName, checkbox, labelPosition: labelPosition, extraAction: extraAction)
         return views
     }
 
     static func makeSwitch(_ rawName: String, extraAction: ActionClosure? = nil) -> Switch {
-        let button = Switch(UserDefaults.standard.bool(rawName))
+        let button = Switch(CachedUserDefaults.bool(rawName))
         _ = setupControl(button, rawName, extraAction: extraAction)
         return button
     }
@@ -124,7 +124,7 @@ class LabelAndControl: NSObject {
     static func makeCheckbox(_ rawName: String, extraAction: ActionClosure? = nil) -> NSButton {
         let checkbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
-        checkbox.state = UserDefaults.standard.bool(rawName) ? .on : .off
+        checkbox.state = CachedUserDefaults.bool(rawName) ? .on : .off
         _ = setupControl(checkbox, rawName, extraAction: extraAction)
         return checkbox
     }
@@ -179,7 +179,7 @@ class LabelAndControl: NSObject {
             extraAction?(textArea)
         }
         textArea.identifier = NSUserInterfaceItemIdentifier(rawName)
-        textArea.stringValue = UserDefaults.standard.string(rawName)
+        textArea.stringValue = CachedUserDefaults.string(rawName)
         return [textArea]
     }
 
@@ -188,7 +188,7 @@ class LabelAndControl: NSObject {
         popUp.addItems(withTitles: macroPreferences.map {
             $0.localizedString
         })
-        popUp.selectItem(at: UserDefaults.standard.int(rawName))
+        popUp.selectItem(at: CachedUserDefaults.intFromMacroPref(rawName, macroPreferences))
         return popUp
     }
 
@@ -218,7 +218,7 @@ class LabelAndControl: NSObject {
         return macroPreferences.map {
             let button = NSButton(radioButtonWithTitle: $0.localizedString, target: nil, action: nil)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.state = UserDefaults.standard.int(rawName) == i ? .on : .off
+            button.state = CachedUserDefaults.intFromMacroPref(rawName, macroPreferences) == i ? .on : .off
             _ = setupControl(button, rawName, String(i), extraAction: extraAction)
             i += 1
             return button
@@ -242,7 +242,7 @@ class LabelAndControl: NSObject {
                     button.setImage(symbolImage, forSegment: i)
                 }
             }
-            let selectedSegment = UserDefaults.standard.int(rawName)
+            let selectedSegment = CachedUserDefaults.intFromMacroPref(rawName, macroPreferences)
             if selectedSegment >= 0 && selectedSegment < macroPreferences.count {
                 button.selectedSegment = selectedSegment
             }
@@ -254,10 +254,10 @@ class LabelAndControl: NSObject {
     static func makeLabelWithSlider(_ labelText: String, _ rawName: String, _ minValue: Double, _ maxValue: Double,
                                     _ numberOfTickMarks: Int = 0, _ allowsTickMarkValuesOnly: Bool = false,
                                     _ unitText: String = "", width: CGFloat = 200, extraAction: ActionClosure? = nil) -> [NSView] {
-        let value = UserDefaults.standard.double(rawName)
+        let value = CachedUserDefaults.int(rawName)
         let formatter = MeasurementFormatter()
         formatter.numberFormatter = NumberFormatter()
-        let suffixText = formatter.string(from: Measurement(value: value, unit: Unit(symbol: unitText)))
+        let suffixText = formatter.string(from: Measurement(value: Double(value), unit: Unit(symbol: unitText)))
         let slider = NSSlider()
         slider.minValue = minValue
         slider.maxValue = maxValue
@@ -304,7 +304,7 @@ class LabelAndControl: NSObject {
 
     static func controlWasChanged(_ senderControl: NSControl, _ controlId: String?) {
         if let newValue = LabelAndControl.getControlValue(senderControl, controlId) {
-            if let oldValue = Preferences.getString(senderControl.identifier!.rawValue), newValue == oldValue {
+            if let oldValue = UserDefaults.standard.string(forKey: senderControl.identifier!.rawValue), newValue == oldValue {
                 return
             }
             if senderControl is NSSlider {

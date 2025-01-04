@@ -80,6 +80,7 @@
 		BF0C8052AE41B1B10E42BFCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C875C983226CB16DBD90F /* InfoPlist.strings */; };
 		BF0C8053A58DFB383A3E3351 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8E237569FA2A8FE20707 /* InfoPlist.strings */; };
 		BF0C807D26E465F467B066F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C849EBA5A547912BD8BB9 /* Localizable.strings */; };
+		BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */; };
 		BF0C80FCECC1386EB73B66E5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8E9B9EF1485A14AE3316 /* Localizable.strings */; };
 		BF0C812C068CD751CE9BFB67 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8D5993267A74D4875C1A /* Localizable.strings */; };
 		BF0C81480366BAD71BC9A158 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8ABA423E72218605CA4F /* InfoPlist.strings */; };
@@ -475,6 +476,7 @@
 		BF0C8EAF02309B9C489E65F4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BF0C8EC400A560FDF99F8C35 /* el */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = el; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8EE17F3ABD7A6D44BFFE /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesMigrations.swift; sourceTree = "<group>"; };
 		BF0C8FC083A2443F3EAF5DB7 /* preferences-blacklist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-blacklist.jpg"; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E6F409CA442F83B7BE71AD /* Pods_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1198,6 +1200,7 @@
 				BF0C8D606B53D315F2D9927B /* KeyRepeatTimer.swift */,
 				BF0C8D57C86AF492D43A576D /* AppearanceTestable.swift */,
 				BF0C8998862E0E04D60CACBC /* MacroPreferences.swift */,
+				BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -2321,6 +2324,7 @@
 				BF0C8A49891371E4027E0641 /* MacroPreferences.swift in Sources */,
 				BF0C8E366BC25171C0A3881C /* ApplicationServices.HIServices.framework.swift in Sources */,
 				BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */,
+				BF0C80C69EFEF93C18539925 /* PreferencesMigrations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

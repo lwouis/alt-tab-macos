@@ -208,7 +208,6 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         Windows.updateFocusedWindowIndex()
         guard appIsBeingUsed else { return }
-        print("updateItemsAndLayout")
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
