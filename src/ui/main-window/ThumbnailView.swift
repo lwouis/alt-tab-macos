@@ -446,12 +446,12 @@ class ThumbnailView: FlippedView {
             }
             windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height
         }
-        if !dockLabelIcon.isHidden {
-            let iconSize = ThumbnailView.iconSize()
-            dockLabelIcon.frame.origin.x = ((iconSize.width * 0.8) - (dockLabelIcon.fittingSize.width / 2)).rounded()
-            dockLabelIcon.frame.origin.y = ((iconSize.height * 0.8) - (dockLabelIcon.fittingSize.height / 2)).rounded()
-                - (Preferences.appearanceSize == .small ? 2 : 0)
-        }
+        // we set dockLabelIcon origin, without checking if .isHidden
+        // This is because its updated async. We needed it positioned correctly always
+        let iconSize = ThumbnailView.iconSize()
+        dockLabelIcon.frame.origin.x = ((iconSize.width * 0.8) - (dockLabelIcon.fittingSize.width / 2)).rounded()
+        dockLabelIcon.frame.origin.y = ((iconSize.height * 0.8) - (dockLabelIcon.fittingSize.height / 2)).rounded()
+            - (Preferences.appearanceSize == .small ? 2 : 0)
     }
 
     private func indicatorsSpace() -> CGFloat {
