@@ -2,8 +2,8 @@ import Cocoa
 
 // macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy
 class SystemPermissions {
-    static var accessibilityIsGranted = PermissionStatus.notGranted
-    static var screenRecordingIsGranted = PermissionStatus.notGranted
+    static var accessibilityPermission = PermissionStatus.notGranted
+    static var screenRecordingPermission = PermissionStatus.notGranted
     static var preStartupPermissionsPassed = false
     static var flakyCounter = 0
     static var timerPermissionsToUpdatePermissionsWindow: Timer?
@@ -44,14 +44,14 @@ class SystemPermissions {
 
     @discardableResult
     static func updateAccessibilityIsGranted() -> PermissionStatus {
-        accessibilityIsGranted = detectAccessibilityIsGranted()
-        return accessibilityIsGranted
+        accessibilityPermission = detectAccessibilityIsGranted()
+        return accessibilityPermission
     }
 
     @discardableResult
     static func updateScreenRecordingIsGranted() -> PermissionStatus {
-        screenRecordingIsGranted = detectScreenRecordingIsGranted()
-        return screenRecordingIsGranted
+        screenRecordingPermission = detectScreenRecordingIsGranted()
+        return screenRecordingPermission
     }
 
     private static func detectAccessibilityIsGranted() -> PermissionStatus {
@@ -72,12 +72,12 @@ class SystemPermissions {
     private static func checkPermissionsWhileAltTabIsRunning() {
         SystemPermissions.updateAccessibilityIsGranted()
         SystemPermissions.updateScreenRecordingIsGranted()
-        Logger.debug(accessibilityIsGranted, screenRecordingIsGranted, preStartupPermissionsPassed)
-        Menubar.togglePermissionCallout(screenRecordingIsGranted == .skipped)
-        if accessibilityIsGranted == .notGranted {
+        Logger.debug(accessibilityPermission, screenRecordingPermission, preStartupPermissionsPassed)
+        Menubar.togglePermissionCallout(screenRecordingPermission == .skipped)
+        if accessibilityPermission == .notGranted {
             App.app.restart()
         }
-        if screenRecordingIsGranted == .notGranted {
+        if screenRecordingPermission == .notGranted {
             // permission check may yield a false negative during wake-up
             // we restart after 2 negative checks
             if flakyCounter >= 2 {
@@ -93,22 +93,22 @@ class SystemPermissions {
     private static func checkPermissionsToUpdatePermissionsWindow(_ startupBlock: @escaping () -> Void) {
         updateAccessibilityIsGranted()
         updateScreenRecordingIsGranted()
-        Logger.debug(accessibilityIsGranted, screenRecordingIsGranted, preStartupPermissionsPassed)
-        Menubar.togglePermissionCallout(screenRecordingIsGranted == .skipped)
-        if accessibilityIsGranted != App.app.permissionsWindow?.accessibilityView?.permissionStatus {
-            App.app.permissionsWindow?.accessibilityView.updatePermissionStatus(accessibilityIsGranted)
+        Logger.debug(accessibilityPermission, screenRecordingPermission, preStartupPermissionsPassed)
+        Menubar.togglePermissionCallout(screenRecordingPermission == .skipped)
+        if accessibilityPermission != App.app.permissionsWindow?.accessibilityView?.permissionStatus {
+            App.app.permissionsWindow?.accessibilityView.updatePermissionStatus(accessibilityPermission)
         }
-        if #available(macOS 10.15, *), screenRecordingIsGranted != App.app.permissionsWindow?.screenRecordingView?.permissionStatus {
-            App.app.permissionsWindow?.screenRecordingView?.updatePermissionStatus(screenRecordingIsGranted)
+        if #available(macOS 10.15, *), screenRecordingPermission != App.app.permissionsWindow?.screenRecordingView?.permissionStatus {
+            App.app.permissionsWindow?.screenRecordingView?.updatePermissionStatus(screenRecordingPermission)
         }
         if !preStartupPermissionsPassed {
-            if accessibilityIsGranted != .notGranted && screenRecordingIsGranted != .notGranted {
+            if accessibilityPermission != .notGranted && screenRecordingPermission != .notGranted {
                 preStartupPermissionsPassed = true
                 App.app.permissionsWindow?.close()
                 startupBlock()
             }
         } else {
-            if accessibilityIsGranted == .notGranted || screenRecordingIsGranted == .notGranted {
+            if accessibilityPermission == .notGranted || screenRecordingPermission == .notGranted {
                 App.app.restart()
             }
         }
