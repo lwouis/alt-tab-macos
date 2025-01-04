@@ -169,8 +169,8 @@ class Window {
     }
 
     func focus() {
-        let bundleUrl = application.runningApplication.bundleURL
-        if bundleUrl == NSRunningApplication.current.bundleURL {
+        let bundleUrl = application.bundleURL
+        if bundleUrl == App.bundleURL {
             App.shared.activate(ignoringOtherApps: true)
             App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
             Windows.previewFocusedWindowIfNeeded()

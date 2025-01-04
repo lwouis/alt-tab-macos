@@ -8,8 +8,9 @@ class App: AppCenterApplication {
     /// periphery:ignore
     static let activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
         reason: "Prevent App Nap to preserve responsiveness")
+    static let bundleIdentifier = Bundle.main.bundleIdentifier!
+    static let bundleURL = Bundle.main.bundleURL
     static let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
-    static let id = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"

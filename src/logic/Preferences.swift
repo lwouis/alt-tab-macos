@@ -156,7 +156,7 @@ class Preferences {
     }
 
     static func resetAll() {
-        UserDefaults.standard.removePersistentDomain(forName: App.id)
+        UserDefaults.standard.removePersistentDomain(forName: App.bundleIdentifier)
     }
 
     static func registerDefaults() {
@@ -173,7 +173,7 @@ class Preferences {
         CachedUserDefaults.cache.removeValue(forKey: key)
     }
 
-    static var all: [String: Any] { UserDefaults.standard.persistentDomain(forName: App.id)! }
+    static var all: [String: Any] { UserDefaults.standard.persistentDomain(forName: App.bundleIdentifier)! }
 
     static func onlyShowApplications() -> Bool {
         return Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails

@@ -4,13 +4,13 @@ class GeneralTab {
     // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
     // docs: man launchd.plist
     private static let launchAgentPlist: NSDictionary = [
-        "Label": App.id,
+        "Label": App.bundleIdentifier,
         "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
         "RunAtLoad": true,
         "LimitLoadToSessionType": "Aqua",
         // starting from macOS 13, AssociatedBundleIdentifiers is required, otherwise the UI in
         // System Settings > General > Login Items, will show "Louis Pontoise" instead of "AltTab.app"
-        "AssociatedBundleIdentifiers": App.id,
+        "AssociatedBundleIdentifiers": App.bundleIdentifier,
         // "ProcessType: If left unspecified, the system will apply light resource limits to the job,
         //               throttling its CPU usage and I/O bandwidth"
         "ProcessType": "Interactive",
