@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.17.0](https://github.com/lwouis/alt-tab-macos/compare/v7.16.0...v7.17.0) (2025-01-05)
+
+
+### Bug Fixes
+
+* app icons could sometimes be at the wrong size ([d5d1311](https://github.com/lwouis/alt-tab-macos/commit/d5d1311))
+* more robust screen-recording permission detection ([d85ec7b](https://github.com/lwouis/alt-tab-macos/commit/d85ec7b))
+
+
+### Features
+
+* handle cli commands: --list and --focus=window_id ([0f2c0e7](https://github.com/lwouis/alt-tab-macos/commit/0f2c0e7))
+
 # [7.16.0](https://github.com/lwouis/alt-tab-macos/compare/v7.15.0...v7.16.0) (2025-01-04)
 
 
