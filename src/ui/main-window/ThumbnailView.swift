@@ -65,7 +65,7 @@ class ThumbnailView: FlippedView {
         dragAndDropTimer?.invalidate()
         dragAndDropTimer = nil
         let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as! [URL]
-        let appUrl = window_!.application.runningApplication.bundleURL!
+        let appUrl = window_!.application.bundleURL!
         let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
         App.app.hideUi()
         return open != nil
@@ -354,7 +354,7 @@ class ThumbnailView: FlippedView {
         let appIconChanged = updateAppIcon(element, title)
         let dockLabelChanged = updateDockLabelIcon(element.dockLabel)
         if appIconChanged || dockLabelChanged {
-            setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
+            setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
         }
         if element.isWindowlessApp && windowlessIcon.image != element.icon {
             windowlessIcon.image = element.icon?.copyToSeparateContexts()

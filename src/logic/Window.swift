@@ -51,21 +51,21 @@ class Window {
         creationOrder = Window.globalCreationCounter
         application.removeWindowslessAppWindow()
         checkIfFocused(application, wid)
-        Logger.debug("Adding window", cgWindowId ?? "nil", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        Logger.debug("Adding window", cgWindowId ?? "nil", title ?? "nil", application.bundleIdentifier ?? "nil")
         observeEvents()
     }
 
     init(_ application: Application) {
         isWindowlessApp = true
         self.application = application
-        title = application.runningApplication.localizedName
+        title = application.localizedName
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
-        Logger.debug(title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        Logger.debug(title ?? "nil", application.bundleIdentifier ?? "nil")
     }
 
     deinit {
-        Logger.debug(title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
+        Logger.debug(title ?? "nil", application.bundleIdentifier ?? "nil")
     }
 
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
@@ -230,7 +230,7 @@ class Window {
         if let cgWindowId = cgWindowId, let cgTitle = cgWindowId.title(), !cgTitle.isEmpty {
             return cgTitle
         }
-        return application.runningApplication.localizedName ?? ""
+        return application.localizedName ?? ""
     }
 
     func isOnScreen(_ screen: NSScreen) -> Bool {

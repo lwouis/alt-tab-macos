@@ -9,24 +9,28 @@ class Application: NSObject {
     var axObserver: AXObserver?
     var isReallyFinishedLaunching = false
     var localizedName: String?
+    var bundleIdentifier: String?
     var bundleURL: URL?
-    var isHidden: Bool!
-    var hasBeenActiveOnce: Bool!
+    var executableURL: URL?
+    var pid: pid_t
+    var isHidden: Bool
+    var hasBeenActiveOnce: Bool
     var icon: NSImage?
     var dockLabel: String?
-    var pid: pid_t!
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
 
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         pid = runningApplication.processIdentifier
-        super.init()
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
         icon = runningApplication.icon
         localizedName = runningApplication.localizedName
+        bundleIdentifier = runningApplication.bundleIdentifier
         bundleURL = runningApplication.bundleURL
+        executableURL = runningApplication.executableURL
+        super.init()
         observeEventsIfEligible()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
@@ -44,7 +48,7 @@ class Application: NSObject {
     }
 
     deinit {
-        Logger.debug("Deinit app", runningApplication.bundleIdentifier ?? runningApplication.bundleURL ?? "nil")
+        Logger.debug("Deinit app", bundleIdentifier ?? bundleURL ?? "nil")
     }
 
     func removeWindowslessAppWindow() {
@@ -58,7 +62,7 @@ class Application: NSObject {
         if runningApplication.activationPolicy != .prohibited && axUiElement == nil {
             axUiElement = AXUIElementCreateApplication(pid)
             AXObserverCreate(pid, axObserverCallback, &axObserver)
-            Logger.debug("Adding app", pid ?? "nil", runningApplication.bundleIdentifier ?? "nil")
+            Logger.debug("Adding app", pid, bundleIdentifier ?? "nil")
             observeEvents()
         }
     }
@@ -77,7 +81,7 @@ class Application: NSObject {
                         let role = try axWindow.role()
                         let size = try axWindow.size()
                         let level = try wid.level()
-                        if AXUIElement.isActualWindow(self.runningApplication, wid, level, title, subrole, role, size) {
+                        if AXUIElement.isActualWindow(self, wid, level, title, subrole, role, size) {
                             let isFullscreen = try axWindow.isFullscreen()
                             let isMinimized = try axWindow.isMinimized()
                             let position = try axWindow.position()
@@ -139,7 +143,7 @@ class Application: NSObject {
     }
 
     func canBeQuit() -> Bool {
-        return runningApplication.bundleIdentifier != "com.apple.finder" || Preferences.finderShowsQuitMenuItem
+        return bundleIdentifier != "com.apple.finder" || Preferences.finderShowsQuitMenuItem
     }
 
     func quit() {

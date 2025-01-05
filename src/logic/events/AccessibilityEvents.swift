@@ -71,9 +71,9 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
         let position = try element.position()
         let size = try element.size()
         DispatchQueue.main.async {
-            if let app = Applications.find(pid), let runningApp = NSRunningApplication(processIdentifier: pid) {
+            if let app = Applications.find(pid), NSRunningApplication(processIdentifier: pid) != nil {
                 if (!Windows.list.contains { $0.isEqualRobust(element, wid) }) &&
-                       AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size) {
+                       AXUIElement.isActualWindow(app, wid, level, axTitle, subrole, role, size) {
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
                     Windows.cycleFocusedWindowIndex(1)
@@ -99,15 +99,15 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
             let position = try element.position()
             let size = try element.size()
             DispatchQueue.main.async {
+                guard let app = Applications.find(pid) else { return }
                 // if the window is shown by alt-tab, we mark her as focused for this app
                 // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
                 if let w = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
-                    Applications.find(pid)?.focusedWindow = w
+                    app.focusedWindow = w
                 }
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows)
-                } else if AXUIElement.isActualWindow(runningApp, wid, level, axTitle, subrole, role, size),
-                          let app = Applications.find(pid) {
+                } else if AXUIElement.isActualWindow(app, wid, level, axTitle, subrole, role, size) {
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
                     App.app.refreshOpenUi([window])

@@ -49,10 +49,12 @@ class Applications {
 
     static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
         runningApps.forEach {
-            if $0.bundleIdentifier == "com.apple.dock" {
-                DockEvents.observe($0.processIdentifier)
+            let bundleIdentifier = $0.bundleIdentifier
+            let processIdentifier = $0.processIdentifier
+            if bundleIdentifier == "com.apple.dock" {
+                DockEvents.observe(processIdentifier)
             }
-            if isActualApplication($0) {
+            if isActualApplication(processIdentifier, bundleIdentifier) {
                 Applications.list.append(Application($0))
             }
         }
@@ -89,7 +91,7 @@ class Applications {
     static func refreshBadgesAsync() {
         if !App.app.appIsBeingUsed || Preferences.hideAppBadges { return }
         retryAxCallUntilTimeout {
-            if let dockPid = (list.first { $0.runningApplication.bundleIdentifier == "com.apple.dock" }?.pid),
+            if let dockPid = (list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid),
                let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == kAXListRole }),
                let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == kAXApplicationDockItemSubrole && ($0.appIsRunning() ?? false) }) {
                 let axAppDockItemUrlAndLabel = try axAppDockItem.map { try ($0.attribute(kAXURLAttribute, URL.self), $0.attribute(kAXStatusLabelAttribute, String.self)) }
@@ -118,29 +120,29 @@ class Applications {
         }
     }
 
-    private static func isActualApplication(_ app: NSRunningApplication) -> Bool {
+    private static func isActualApplication(_ processIdentifier: pid_t, _ bundleIdentifier: String?) -> Bool {
         // an app can start with .activationPolicy == .prohibited, then transition to != .prohibited later
         // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
-        return (isNotXpc(app) || isPasswords(app) || isAndroidEmulator(app)) && !app.processIdentifier.isZombie()
+        return (isNotXpc(processIdentifier) || isPasswords(bundleIdentifier) || isAndroidEmulator(bundleIdentifier, processIdentifier)) && !processIdentifier.isZombie()
     }
 
-    private static func isNotXpc(_ app: NSRunningApplication) -> Bool {
+    private static func isNotXpc(_ processIdentifier: pid_t) -> Bool {
         // these private APIs are more reliable than Bundle.init? as it can return nil (e.g. for com.apple.dock.etci)
         var psn = ProcessSerialNumber()
-        GetProcessForPID(app.processIdentifier, &psn)
+        GetProcessForPID(processIdentifier, &psn)
         var info = ProcessInfoRec()
         GetProcessInformation(&psn, &info)
         return String(info.processType) != "XPC!"
     }
 
-    private static func isPasswords(_ app: NSRunningApplication) -> Bool {
-        return app.bundleIdentifier == "com.apple.Passwords"
+    private static func isPasswords(_ bundleIdentifier: String?) -> Bool {
+        return bundleIdentifier == "com.apple.Passwords"
     }
 
-    static func isAndroidEmulator(_ app: NSRunningApplication) -> Bool {
+    static func isAndroidEmulator(_ bundleIdentifier: String?, _ processIdentifier: pid_t) -> Bool {
         // NSRunningApplication provides no way to identify the emulator; we pattern match on its KERN_PROCARGS
-        if app.bundleIdentifier == nil,
-           let executablePath = Sysctl.run([CTL_KERN, KERN_PROCARGS, app.processIdentifier]) {
+        if bundleIdentifier == nil,
+           let executablePath = Sysctl.run([CTL_KERN, KERN_PROCARGS, processIdentifier]) {
             // example path: ~/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64
             return executablePath.range(of: "qemu-system[^/]*$", options: .regularExpression, range: nil, locale: nil) != nil
         }

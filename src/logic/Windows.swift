@@ -64,7 +64,7 @@ class Windows {
     }
 
     private static func compareByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
-        let order = w1.application.runningApplication.localizedName.localizedStandardCompare(w2.application.runningApplication.localizedName)
+        let order = w1.application.localizedName.localizedStandardCompare(w2.application.localizedName)
         if order == .orderedSame {
             return w1.title.localizedStandardCompare(w2.title)
         }
@@ -355,13 +355,13 @@ class Windows {
 
     private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window) {
         window.shouldShowTheUser =
-            !(window.application.runningApplication.bundleIdentifier.flatMap { id in
+            !(window.application.bundleIdentifier.flatMap { id in
                 Preferences.blacklist.contains {
                     id.hasPrefix($0.bundleIdentifier) &&
                         ($0.hide == .always || (window.isWindowlessApp && $0.hide != .none))
                 }
             } ?? false) &&
-            !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.runningApplication.processIdentifier != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
+            !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.pid != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
             ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
                 !window.isWindowlessApp &&
