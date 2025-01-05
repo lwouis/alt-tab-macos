@@ -1,6 +1,10 @@
 import AppKit
 import Darwin
 
+if let command = CliClient.detectCommand() {
+    CliClient.sendCommandAndProcessResponse(command)
+}
+
 // - if the app is quit/force-quit from Activity Monitor, it will receive SIGTERM and applicationWillTerminate won't be called
 // - if the app crashes in swift code (e.g. unexpected nil object), SIGTRAP is sent
 // we intercept these signals, and do an emergency exit

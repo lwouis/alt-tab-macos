@@ -314,3 +314,14 @@ extension NSPoint {
         return NSPoint(x: lhs.x / Double(rhs), y: lhs.y / Double(rhs))
     }
 }
+
+extension Optional {
+    enum Error: Swift.Error {
+        case unexpectedNil
+    }
+
+    // useful call multiple statements that could fail, and have a unique do-catch block to handle failures
+    func unwrapOrThrow() throws -> Wrapped {
+        if let self { return self } else { throw Error.unexpectedNil }
+    }
+}

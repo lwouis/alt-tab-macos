@@ -317,7 +317,9 @@ extension App: NSApplicationDelegate {
             KeyboardEvents.addEventHandlers()
             MouseEvents.observe()
             TrackpadEvents.observe()
+            CliEvents.observe()
             self.preloadWindows()
+            Logger.info("AltTab ready")
             #if DEBUG
 //            self.showPreferencesWindow()
             #endif

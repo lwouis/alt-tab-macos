@@ -11,6 +11,7 @@ class BackgroundWork {
     static var systemPermissionsThread: BackgroundThreadWithRunLoop!
     static var repeatingKeyThread: BackgroundThreadWithRunLoop!
     static var missionControlThread: BackgroundThreadWithRunLoop!
+    static var cliEventsThread: BackgroundThreadWithRunLoop!
     static let screenshotsDispatchGroup = DispatchGroup()
 
     // swift static variables are lazy; we artificially force the threads to init
@@ -29,6 +30,8 @@ class BackgroundWork {
         repeatingKeyThread = BackgroundThreadWithRunLoop("repeatingKeyThread", .userInteractive)
         // we main Mission Control state on a background thread. We protect reads from main-thread with an NSLock
         missionControlThread = BackgroundThreadWithRunLoop("missionControlThread", .userInteractive)
+        // we listen to CLI commands (CFMessagePort events)
+        cliEventsThread = BackgroundThreadWithRunLoop("cliEventsThread", .userInteractive)
     }
 
     static func startCrashReportsQueue() {
