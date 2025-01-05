@@ -50,6 +50,15 @@ Change the shortcut keys, switch to a Windows theme and more, using the Preferen
 | [<img loading="lazy" src="public/demo/preferences-appearance.jpg" alt="Screenshot: Appearance preferences" width="672" height="735" style="width:100%; height:auto;" />](public/demo/preferences-appearance.jpg) | [<img loading="lazy" src="public/demo/preferences-appearance-details.jpg" alt="Screenshot: Appearance preferences (details)" width="672" height="934" style="width:100%; height:auto;" />](public/demo/preferences-appearance-details.jpg) |
 | [<img loading="lazy" src="public/demo/preferences-blacklist.jpg" alt="Screenshot: Blacklist preferences" width="672" height="655" style="width:100%; height:auto;" />](public/demo/preferences-blacklist.jpg) | [<img loading="lazy" src="public/demo/preferences-policies.jpg" alt="Screenshot: Policies preferences" width="672" height="353" style="width:100%; height:auto;" />](public/demo/preferences-policies.jpg) |
 
+## CLI usage
+
+You can run CLI commands directly on the executable inside the .app bundle (e.g. `/Applications/AltTab.app/Contents/MacOS/AltTab`)
+
+* `AltTab --list` will return the list of windows (ID and title) in JSON
+* `AltTab --focus=window_id` will focus the window with the specified window ID
+
+For this to work, you need AltTab.app to be running, to keep track of the state of windows, and execute the commands
+
 ## Alternatives
 
 Before building my own app, I looked around at similar apps. However, none was completely satisfactory so I rolled my own. Also, the almost-good-enough apps are not open-source.
