@@ -63,7 +63,7 @@ class SystemPermissions {
 
     private static func detectScreenRecordingIsGranted() -> PermissionStatus {
         if #available(macOS 10.15, *) {
-            return screenRecordingIsGranted_() ? .granted :
+            return screenRecordingIsGrantedOnSomeDisplay() ? .granted :
                 (Preferences.screenRecordingPermissionSkipped ? .skipped : .notGranted)
         }
         return .granted
@@ -117,9 +117,26 @@ class SystemPermissions {
     // workaround: public API CGPreflightScreenCaptureAccess and private API SLSRequestScreenCaptureAccess exist, but
     // their return value is not updated during the app lifetime
     // note: shows the system prompt if there's no permission
-    private static func screenRecordingIsGranted_() -> Bool {
+    private static func screenRecordingIsGrantedOnSomeDisplay() -> Bool {
+        let mainDisplayID = CGMainDisplayID()
+        if screenRecordingIsGrantedOnDisplay(mainDisplayID) {
+            return true
+        }
+        // maybe the main screen can't produce a CGDisplayStream, but another screen can
+        // a positive on any screen must mean that the permission is granted; we try on the other screens
+        for screen in NSScreen.screens {
+            if let id = screen.number(), id != mainDisplayID {
+                if screenRecordingIsGrantedOnDisplay(id) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    private static func screenRecordingIsGrantedOnDisplay(_ displayId: CGDirectDisplayID) -> Bool {
         return CGDisplayStream(
-            dispatchQueueDisplay: CGMainDisplayID(),
+            dispatchQueueDisplay: displayId,
             outputWidth: 1,
             outputHeight: 1,
             pixelFormat: Int32(kCVPixelFormatType_32BGRA),
