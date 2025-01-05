@@ -29,7 +29,7 @@ class PreviewPanel: NSPanel {
 
     func show(_ id: CGWindowID, _ preview: NSImage, _ position: CGPoint, _ size: CGSize) {
         if id != currentId {
-            previewView.image = preview
+            previewView.image = preview.copyToSeparateContexts()
             previewView.image!.size = size
             var frame = NSRect(origin: position, size: size)
             // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)

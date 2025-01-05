@@ -299,19 +299,14 @@ class ThumbnailView: FlippedView {
     }
 
     private func updateThumbnail(_ element: Window) {
-        // we need to reset the original size, otherwise it may be too small and not get resized
-        // this can happen when switching from one screen to another for example
-        if let screenshot = element.thumbnail, let thumbnailFullSize = element.thumbnailFullSize {
-            screenshot.size = thumbnailFullSize
-        }
         if !thumbnail.isHidden && thumbnail != element.thumbnail {
             if let screenshot = element.thumbnail {
-                thumbnail.image = screenshot
-            } else if let appIconFallback = element.icon {
+                thumbnail.image = screenshot.copyToSeparateContexts()
+            } else {
+                thumbnail.image = element.icon?.copyToSeparateContexts()
                 // if no thumbnail, show appIcon instead
                 // .icon is always 32x32 by default. We scale it so it can be "thumbnail-ed" down
-                appIconFallback.size = NSSize(width: 1024, height: 1024)
-                thumbnail.image = appIconFallback
+                thumbnail.setSize(NSSize(width: 1024, height: 1024))
             }
             // for Accessibility > "speak items under the pointer"
             thumbnail.setAccessibilityLabel(element.title)
@@ -321,7 +316,7 @@ class ThumbnailView: FlippedView {
     private func updateAppIcon(_ element: Window, _ title: String) -> Bool {
         let appIconChanged = appIcon.image != element.icon
         if appIconChanged {
-            appIcon.image = element.icon
+            appIcon.image = element.icon?.copyToSeparateContexts()
             appIcon.setAccessibilityLabel(title)
         }
         return appIconChanged
@@ -362,7 +357,7 @@ class ThumbnailView: FlippedView {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
         if element.isWindowlessApp && windowlessIcon.image != element.icon {
-            windowlessIcon.image = element.icon
+            windowlessIcon.image = element.icon?.copyToSeparateContexts()
         }
         windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(false)

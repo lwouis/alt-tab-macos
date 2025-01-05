@@ -195,12 +195,8 @@ extension DispatchQoS {
 
 extension NSImageView {
     func setSize(_ size: NSSize) {
+        image?.size = size
         frame.size = size
-        // TODO: NSImageView does some internal magic, and ends up with constraints. We need to add our own to force its size
-        // We can't update .image.size because we share the image between multiple NSImageViews
-        // I wish there was a better way to only set the frame.size
-        addOrUpdateConstraint(widthAnchor, size.width)
-        addOrUpdateConstraint(heightAnchor, size.height)
     }
 }
 
@@ -214,6 +210,12 @@ extension NSTextField {
 }
 
 extension NSImage {
+    /// if an image can be used in different contexts (e.g. multiple NSTextViews), it's safer to copy it
+    /// see https://www.noodlesoft.com/blog/2011/04/15/the-proper-care-and-feeding-of-nsimage/
+    func copyToSeparateContexts() -> NSImage {
+        return copy() as! NSImage
+    }
+
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
     static func initCopy(_ name: String) -> NSImage {
         return NSImage(named: name)!.copy() as! NSImage

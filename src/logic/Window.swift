@@ -104,10 +104,9 @@ class Window {
             if let index = (Windows.list.firstIndex { $0.cgWindowId == cgWindowId }) {
                 let view = ThumbnailsView.recycledViews[index]
                 if !view.thumbnail.isHidden {
-                    view.thumbnail.image = thumbnail
+                    view.thumbnail.image = thumbnail?.copyToSeparateContexts()
                     let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail, false)
-                    view.thumbnail.image?.size = thumbnailSize
-                    view.thumbnail.frame.size = thumbnailSize
+                    view.thumbnail.setSize(thumbnailSize)
                 }
             }
         }
