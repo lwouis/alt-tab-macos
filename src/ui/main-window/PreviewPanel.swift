@@ -28,7 +28,7 @@ class PreviewPanel: NSPanel {
     }
 
     func show(_ id: CGWindowID, _ preview: NSImage, _ position: CGPoint, _ size: CGSize) {
-        if id != currentId {
+        if previewView.image != preview {
             previewView.image = preview.copyToSeparateContexts()
             previewView.image!.size = size
             var frame = NSRect(origin: position, size: size)

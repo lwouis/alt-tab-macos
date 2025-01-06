@@ -77,7 +77,7 @@ private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
 class GestureDetector {
     static func convertEvent(_ cgEvent: CGEvent) -> NSEvent? {
         var nsEvent: NSEvent?
-        // convertion has to happen on the main-thread, or appkit will crash
+        // conversion has to happen on the main-thread, or appkit will crash
         DispatchQueue.main.sync {
             nsEvent = NSEvent(cgEvent: cgEvent)
         }

@@ -198,7 +198,9 @@ class App: AppCenterApplication {
     }
 
     func refreshOpenUi(_ windowsToScreenshot: [Window], skipUpdatesBeforeShowing: Bool = false, onlyUpdateScreenshots: Bool = false) {
-        if !Appearance.hideThumbnails && !windowsToScreenshot.isEmpty && SystemPermissions.screenRecordingPermission == .granted {
+        if !windowsToScreenshot.isEmpty && SystemPermissions.screenRecordingPermission == .granted
+               && !Preferences.onlyShowApplications()
+               && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) {
             Windows.refreshThumbnails(windowsToScreenshot, onlyUpdateScreenshots)
             return
         }
