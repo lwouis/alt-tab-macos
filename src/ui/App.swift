@@ -230,7 +230,7 @@ class App: AppCenterApplication {
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             if isVeryFirstSummon {
-                DispatchQueue.main.async { () -> () in Windows.sortByLevel() }
+                Windows.sortByLevel()
                 isVeryFirstSummon = false
             }
             isFirstSummon = false
