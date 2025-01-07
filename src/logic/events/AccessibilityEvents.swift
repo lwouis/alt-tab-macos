@@ -42,7 +42,7 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
             let window = (appFocusedWindow != nil && wid != nil) ? Windows.updateLastFocus(appFocusedWindow!, wid!)?.first : nil
             app.focusedWindow = window
             App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
-            App.app.refreshOpenUi(window != nil ? [window!] : [])
+            App.app.refreshOpenUi(window != nil ? [window!] : [], .refreshUiAfterExternalEvent)
         }
     }
 }
@@ -55,7 +55,11 @@ fileprivate func applicationHiddenOrShown(_ pid: pid_t, _ type: String) throws {
                 // for AXUIElement of apps, CFEqual or == don't work; looks like a Cocoa bug
                 return $0.application.pid == pid
             }
-            App.app.refreshOpenUi(windows)
+            // if we process the "shown" event too fast, the window won't be listed by CGSCopyWindowsWithOptionsAndTags
+            // it will thus be detected as isTabbed. We add a delay to work around this scenario
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+            }
         }
     }
 }
@@ -77,7 +81,7 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
                     Windows.cycleFocusedWindowIndex(1)
-                    App.app.refreshOpenUi([window])
+                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
                 }
             }
         }
@@ -106,11 +110,11 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                     app.focusedWindow = w
                 }
                 if let windows = Windows.updateLastFocus(element, wid) {
-                    App.app.refreshOpenUi(windows)
+                    App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
                 } else if AXUIElement.isActualWindow(app, wid, level, axTitle, subrole, role, size) {
                     let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
-                    App.app.refreshOpenUi([window])
+                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
                 }
             }
         }
@@ -142,7 +146,7 @@ fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
             }
             if Windows.list.count > 0 {
                 Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
-                App.app.refreshOpenUi([])
+                App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
             } else {
                 App.app.hideUi()
             }
@@ -155,7 +159,7 @@ fileprivate func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ ty
         DispatchQueue.main.async {
             if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
                 window.isMinimized = type == kAXWindowMiniaturizedNotification
-                App.app.refreshOpenUi([window])
+                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
             }
         }
     }
@@ -167,7 +171,7 @@ fileprivate func windowTitleChanged(_ element: AXUIElement) throws {
         DispatchQueue.main.async {
             if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), newTitle != window.title {
                 window.title = window.bestEffortTitle(newTitle)
-                App.app.refreshOpenUi([window])
+                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
             }
         }
     }
@@ -188,7 +192,7 @@ fileprivate func windowResizedOrMoved(_ element: AXUIElement) throws {
                     window.isFullscreen = isFullscreen
                     App.app.checkIfShortcutsShouldBeDisabled(window, nil)
                 }
-                App.app.refreshOpenUi([window])
+                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
             }
         }
     }

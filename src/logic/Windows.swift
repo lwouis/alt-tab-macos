@@ -273,7 +273,6 @@ class Windows {
         lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
         lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
         for window in list {
-            // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
             detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
             updatesWindowSpace(window)
             refreshIfWindowShouldBeShownToTheUser(window)
@@ -303,7 +302,7 @@ class Windows {
     }
 
     // dispatch screenshot requests off the main-thread, then wait for completion
-    static func refreshThumbnails(_ windows: [Window], _ onlyUpdateScreenshots: Bool) {
+    static func refreshThumbnails(_ windows: [Window], _ source: RefreshCausedBy) {
         var eligibleWindows = [Window]()
         for window in windows {
             if !window.isWindowlessApp, let cgWindowId = window.cgWindowId, cgWindowId != CGWindowID(bitPattern: -1) {
@@ -311,28 +310,20 @@ class Windows {
             }
         }
         if eligibleWindows.isEmpty { return }
-        screenshotEligibleWindowsAndRefreshUi(eligibleWindows, onlyUpdateScreenshots)
+        screenshotEligibleWindowsAndRefreshUi(eligibleWindows, source)
     }
 
-    private static func screenshotEligibleWindowsAndRefreshUi(_ eligibleWindows: [Window], _ onlyUpdateScreenshots: Bool) {
-        eligibleWindows.forEach { _ in BackgroundWork.screenshotsDispatchGroup.enter() }
+    private static func screenshotEligibleWindowsAndRefreshUi(_ eligibleWindows: [Window], _ source: RefreshCausedBy) {
         for window in eligibleWindows {
             BackgroundWork.screenshotsQueue.async { [weak window] in
-                backgroundWorkGlobalSemaphore.wait()
-                defer {
-                    backgroundWorkGlobalSemaphore.signal()
-                    BackgroundWork.screenshotsDispatchGroup.leave()
-                }
-                if let cgImage = window?.cgWindowId?.screenshot() {
+                if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
+                if let wid = window?.cgWindowId, let cgImage = wid.screenshot() {
+                    if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
                     DispatchQueue.main.async { [weak window] in
+                        if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
                         window?.refreshThumbnail(NSImage.fromCgImage(cgImage))
                     }
                 }
-            }
-        }
-        if !onlyUpdateScreenshots {
-            BackgroundWork.screenshotsDispatchGroup.notify(queue: DispatchQueue.main) {
-                App.app.refreshOpenUi([])
             }
         }
     }

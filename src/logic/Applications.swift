@@ -83,7 +83,7 @@ class Applications {
                 Windows.cycleFocusedWindowIndex(-windowsOnTheLeftOfFocusedWindow)
             }
             if !existingWindowstoRemove.isEmpty {
-                App.app.refreshOpenUi([])
+                App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
             }
         }
     }

@@ -12,16 +12,18 @@ class BackgroundWork {
     static var repeatingKeyThread: BackgroundThreadWithRunLoop!
     static var missionControlThread: BackgroundThreadWithRunLoop!
     static var cliEventsThread: BackgroundThreadWithRunLoop!
-    static let screenshotsDispatchGroup = DispatchGroup()
 
     // swift static variables are lazy; we artificially force the threads to init
     static func start() {
-        // screenshots are taken off the main thread, concurrently
-        screenshotsQueue = DispatchQueue.globalConcurrent("screenshotsQueue", .userInteractive)
+        // screenshots are taken on a serial DispatchQueue. They used to be taken on the .global() concurrent queue.
+        // it could hand the app the screenshot OS calls are slow. It would hang or crash with this error:
+        // >Processes reached dispatch thread soft limit (64)
+        screenshotsQueue = DispatchQueue.queue("screenshotsQueue", .userInteractive, false)
         // calls to act on windows (e.g. AXUIElementSetAttributeValue, AXUIElementPerformAction) are done off the main thread
-        accessibilityCommandsQueue = DispatchQueue.globalConcurrent("accessibilityCommandsQueue", .userInteractive)
-        // calls to the AX APIs are blocking. We dispatch those on a globalConcurrent queue
-        axCallsQueue = DispatchQueue.globalConcurrent("axCallsQueue", .userInteractive)
+        accessibilityCommandsQueue = DispatchQueue.queue("accessibilityCommandsQueue", .userInteractive, false)
+        // calls to the AX APIs can block for a long time (e.g. if an app is unresponsive)
+        // We can't use a serial queue. We use the global concurrent queue
+        axCallsQueue = DispatchQueue.queue("axCallsQueue", .userInteractive, true)
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
         // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
@@ -37,7 +39,7 @@ class BackgroundWork {
     static func startCrashReportsQueue() {
         if crashReportsQueue == nil {
             // crash reports can be sent off the main thread
-            crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
+            crashReportsQueue = DispatchQueue.queue("crashReportsQueue", .utility, false)
         }
     }
 
@@ -79,27 +81,14 @@ class BackgroundWork {
     }
 }
 
-// we cap concurrent tasks to .processorCount to avoid thread explosion on the .global queue
-let backgroundWorkGlobalSemaphore = DispatchSemaphore(value: ProcessInfo.processInfo.processorCount)
-
 extension DispatchQueue {
-    static func globalConcurrent(_ label: String, _ qos: DispatchQoS) -> DispatchQueue {
-        // label is not reflected in Instruments because the target is .global
-        // if we want to see our custom labels, we need our private queue.
-        // However, we want to be efficient and use the OS thread pool, so we use .global
-        DispatchQueue(label: label, attributes: .concurrent, target: .global(qos: qos.qosClass))
-    }
-
-    func asyncWithCap(_ deadline: DispatchTime? = nil, _ fn: @escaping () -> Void) {
-        let block = {
-            fn()
-            backgroundWorkGlobalSemaphore.signal()
+    static func queue(_ label: String, _ qos: DispatchQoS, _ globalParallel: Bool) -> DispatchQueue {
+        if globalParallel {
+            // label is not reflected in Instruments because the target is .global
+            // if we want to see our custom labels, we need our private queue.
+            // However, we want to be efficient and use the OS thread pool, so we use .global
+            return DispatchQueue(label: label, attributes: [.concurrent], target: .global(qos: qos.qosClass))
         }
-        backgroundWorkGlobalSemaphore.wait()
-        if let deadline = deadline {
-            asyncAfter(deadline: deadline, execute: block)
-        } else {
-            async(execute: block)
-        }
+        return DispatchQueue(label: label, qos: qos)
     }
 }

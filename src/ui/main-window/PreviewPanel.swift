@@ -27,6 +27,13 @@ class PreviewPanel: NSPanel {
         setAccessibilitySubrole(.unknown)
     }
 
+    func updateImageIfShowing(_ id: CGWindowID?,  _ preview: NSImage, _ size: CGSize) {
+        if id == currentId && previewView.image != preview {
+            previewView.image = preview.copyToSeparateContexts()
+            previewView.image!.size = size
+        }
+    }
+
     func show(_ id: CGWindowID, _ preview: NSImage, _ position: CGPoint, _ size: CGSize) {
         if previewView.image != preview {
             previewView.image = preview.copyToSeparateContexts()

@@ -197,15 +197,15 @@ class App: AppCenterApplication {
         CGWarpMouseCursorPosition(point)
     }
 
-    func refreshOpenUi(_ windowsToScreenshot: [Window], skipUpdatesBeforeShowing: Bool = false, onlyUpdateScreenshots: Bool = false) {
+    func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy) {
         if !windowsToScreenshot.isEmpty && SystemPermissions.screenRecordingPermission == .granted
                && !Preferences.onlyShowApplications()
                && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) {
-            Windows.refreshThumbnails(windowsToScreenshot, onlyUpdateScreenshots)
-            return
+            Windows.refreshThumbnails(windowsToScreenshot, source)
+            if source == .refreshOnlyThumbnailsAfterShowUi { return }
         }
         guard appIsBeingUsed else { return }
-        if !skipUpdatesBeforeShowing {
+        if source == .refreshUiAfterExternalEvent {
             if !Windows.updatesBeforeShowing() { hideUi(); return }
         }
         guard appIsBeingUsed else { return }
@@ -262,10 +262,10 @@ class App: AppCenterApplication {
         thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 screens make thumbnailPanel invisible
         KeyRepeatTimer.toggleRepeatingKeyNextWindow()
         guard appIsBeingUsed else { return }
-        refreshOpenUi([], skipUpdatesBeforeShowing: true) // first display with the data we have
+        refreshOpenUi([], .showUi)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
-        refreshOpenUi(Windows.list, skipUpdatesBeforeShowing: true, onlyUpdateScreenshots: true) // second refresh with fresh thumbnails
+        refreshOpenUi(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }
 
     func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: NSRunningApplication?) {
@@ -337,4 +337,11 @@ extension App: NSApplicationDelegate {
         // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
         setNativeCommandTabEnabled(true)
     }
+}
+
+enum RefreshCausedBy {
+    case showUi
+    case refreshOnlyThumbnailsAfterShowUi
+    case refreshUiAfterThumbnailsHaveBeenRefreshed
+    case refreshUiAfterExternalEvent
 }

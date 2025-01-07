@@ -54,7 +54,7 @@ class Application: NSObject {
     func removeWindowslessAppWindow() {
         if let windowlessAppWindow = (Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid }) {
             Windows.list.remove(at: windowlessAppWindow)
-            App.app.refreshOpenUi([])
+            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
         }
     }
 
@@ -72,9 +72,11 @@ class Application: NSObject {
         retryAxCallUntilTimeout(group, 5) { [weak self] in
             guard let self = self else { return }
             var atLeastOneActualWindow = false
-            if let axWindows_ = try self.axUiElement!.windows(), axWindows_.count > 0 {
+            if let axWindows_ = try self.axUiElement!.windows(), !axWindows_.isEmpty {
                 // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
-                try Array(Set(axWindows_)).forEach { axWindow in
+                let uniqueWindows = Array(Set(axWindows_))
+                if uniqueWindows.isEmpty { return }
+                for axWindow in uniqueWindows {
                     if let wid = try axWindow.cgWindowId() {
                         let title = try axWindow.title()
                         let subrole = try axWindow.subrole()
@@ -96,7 +98,7 @@ class Application: NSObject {
                                     window.position = position
                                 } else {
                                     let window = self.addWindow(axWindow, wid, title, isFullscreen, isMinimized, position, size)
-                                    App.app.refreshOpenUi([window])
+                                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
                                 }
                             }
                         }
@@ -107,7 +109,7 @@ class Application: NSObject {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     if self.addWindowlessWindowIfNeeded() != nil {
-                        App.app.refreshOpenUi([])
+                        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
                     }
                 }
                 // workaround: some apps launch but take a while to create their window(s)

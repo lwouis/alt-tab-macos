@@ -97,18 +97,17 @@ class Window {
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 
-    func refreshThumbnail(_ screenshot: NSImage?) {
+    func refreshThumbnail(_ screenshot: NSImage) {
         thumbnail = screenshot
-        thumbnailFullSize = screenshot?.size
-        if App.app.appIsBeingUsed && shouldShowTheUser {
-            if let index = (Windows.list.firstIndex { $0.cgWindowId == cgWindowId }) {
-                let view = ThumbnailsView.recycledViews[index]
-                if !view.thumbnail.isHidden {
-                    view.thumbnail.image = thumbnail?.copyToSeparateContexts()
-                    let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail, false)
-                    view.thumbnail.setSize(thumbnailSize)
-                }
+        thumbnailFullSize = screenshot.size
+        if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
+        if let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
+            if !view.thumbnail.isHidden {
+                view.thumbnail.image = thumbnail?.copyToSeparateContexts()
+                let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail, false)
+                view.thumbnail.setSize(thumbnailSize)
             }
+            App.app.previewPanel.updateImageIfShowing(cgWindowId, screenshot, screenshot.size)
         }
     }
 
@@ -121,7 +120,7 @@ class Window {
             NSSound.beep()
             return
         }
-        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+        BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
                 self.axUiElement.setAttribute(kAXFullscreenAttribute, false)
@@ -141,12 +140,12 @@ class Window {
             NSSound.beep()
             return
         }
-        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+        BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self = self else { return }
             if self.isFullscreen {
                 self.axUiElement.setAttribute(kAXFullscreenAttribute, false)
                 // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
-                BackgroundWork.accessibilityCommandsQueue.asyncWithCap(.now() + .seconds(1)) { [weak self] in
+                BackgroundWork.accessibilityCommandsQueue.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
                     guard let self = self else { return }
                     self.axUiElement.setAttribute(kAXMinimizedAttribute, true)
                 }
@@ -161,7 +160,7 @@ class Window {
             NSSound.beep()
             return
         }
-        BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+        BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self = self else { return }
             self.axUiElement.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
         }
@@ -186,7 +185,7 @@ class Window {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
-            BackgroundWork.accessibilityCommandsQueue.asyncWithCap { [weak self] in
+            BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
                 guard let self = self else { return }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
