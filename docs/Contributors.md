@@ -188,6 +188,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Nmolham
 * Nuriddin Islamov
 * Ori
+* Paul Przybyszewski
 * Paulius
 * Pehovorka
 * Peterkim0620
