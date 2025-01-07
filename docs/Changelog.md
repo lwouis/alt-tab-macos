@@ -1,5 +1,19 @@
 # Release notes
 
+# [7.18.0](https://github.com/lwouis/alt-tab-macos/compare/v7.17.0...v7.18.0) (2025-01-07)
+
+
+### Bug Fixes
+
+* various issues with the app freezing or being slowly ([121515c](https://github.com/lwouis/alt-tab-macos/commit/121515c))
+* window order on first display was wrong ([db5644e](https://github.com/lwouis/alt-tab-macos/commit/db5644e))
+* window preview was not showing in titles style ([684cc66](https://github.com/lwouis/alt-tab-macos/commit/684cc66))
+
+
+### Features
+
+* improve polish localization ([c712473](https://github.com/lwouis/alt-tab-macos/commit/c712473))
+
 # [7.17.0](https://github.com/lwouis/alt-tab-macos/compare/v7.16.0...v7.17.0) (2025-01-05)
 
 
