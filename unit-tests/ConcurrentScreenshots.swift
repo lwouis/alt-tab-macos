@@ -1,6 +1,7 @@
 //import XCTest
 //
 //import Cocoa
+//import ScreenCaptureKit
 //
 //@_silgen_name("CGSMainConnectionID")
 //func CGSMainConnectionID() -> CGSConnectionID
@@ -27,7 +28,41 @@
 //    static var startTime: UInt64!
 //    static var wid: CGWindowID!
 //    static let dispatchGroup = DispatchGroup()
-//    static let dispatchSemaphore = DispatchSemaphore(value: 8)
+//    static var window: SCWindow!
+//    static var config: SCStreamConfiguration!
+//
+//    static func cleanup(_ expectation: XCTestExpectation) {
+//        let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime) / 1_000_000_000
+//        print("cleanup", timePassedInSeconds)
+//        expectation.fulfill()
+//    }
+//
+//    static func start(_ expectation1: XCTestExpectation, _ expectation2: XCTestExpectation) {
+//        pickWindowToScreenshot()
+//        setup()
+//        startTime = DispatchTime.now().uptimeNanoseconds
+//        screenshotManyWindowsAsync(batchId, expectation1)
+//        batchId += 1
+//        screenshotManyWindowsAsync(batchId, expectation2)
+//        batchId += 1
+//    }
+//
+//    static func setup() {
+//        if #available(macOS 14.0, *) {
+//            SCShareableContent.getWithCompletionHandler { content, error in
+//                window = (content?.windows.first { $0.windowID == wid })!
+//            }
+//            config = SCStreamConfiguration()
+//            config.captureResolution = .best
+//        }
+//    }
+//
+//    static func pickWindowToScreenshot() {
+//        let windows = CGWindowListCopyWindowInfo([.excludeDesktopElements, .optionOnScreenOnly], kCGNullWindowID) as! [CGWindow]
+//        let window = windows.first { ($0[kCGWindowName] as? String) == "~" }
+//        wid = window?[kCGWindowNumber] as? CGWindowID
+//    }
+//
 //    // DispatchQueue.global()
 //    //     1: 21.4
 //    //     2: 11.2
@@ -51,62 +86,57 @@
 //    //     no-cap qos:.userInteractive autoreleaseFrequency:.never: 6.3
 //    // no second queue. Only 1 global() queue in dispatchTasksThenCleanup: 11 // 3.3
 //    // no second queue. Only 1 DispatchQueue (serial) in dispatchTasksThenCleanup: 12.2
-//
-//    static func dispatchTasksThenCleanup(_ batchId: Int,  _ expectation: XCTestExpectation) {
-//        DispatchQueue.init(label: "test").async {
-//            print("orchestrator start \(batchId)")
-//            for taskId in 0..<100 {
-////                dispatchSemaphore.wait()
-////                DispatchQueue.global().async {
-//                    defer {
-////                        dispatchSemaphore.signal()
-//                        dispatchGroup.leave()
-//                    }
-//                    dispatchGroup.enter()
-//                    print("task start \(batchId) \(taskId)")
-//                    task(batchId, taskId)
-//                    print("task stop \(batchId) \(taskId)")
-////                }
-//            }
-//            dispatchGroup.notify(queue: .main) {
-//                cleanup(expectation)
-//            }
-//            print("orchestrator stop \(batchId)")
+//    static func screenshotManyWindowsAsync(_ batchId: Int, _ expectation: XCTestExpectation) {
+//        (0..<100).forEach { _ in dispatchGroup.enter() }
+//        dispatchGroup.notify(queue: .main) {
+//            cleanup(expectation)
 //        }
+//        print("orchestrator start \(batchId)")
+//        for taskId in 0..<100 {
+//            DispatchQueue(label: "test", qos: .userInteractive).async {
+//                //                Task {
+//                print("task start \(batchId) \(taskId)")
+//                screenshot()
+//                print("task stop \(batchId) \(taskId)")
+//                //                }
+//            }
+//        }
+//        print("orchestrator stop \(batchId)")
 //    }
 //
-//    static func start(_ expectation1: XCTestExpectation, _ expectation2: XCTestExpectation) {
-//        let windows = CGWindowListCopyWindowInfo([.excludeDesktopElements, .optionOnScreenOnly], kCGNullWindowID) as! [CGWindow]
-//        let window = windows.first { ($0[kCGWindowName] as? String) == "~" }
-//        wid = window?[kCGWindowNumber] as? CGWindowID
-//        startTime = DispatchTime.now().uptimeNanoseconds
-//        dispatchTasksThenCleanup(batchId, expectation1)
-//        batchId += 1
-//        dispatchTasksThenCleanup(batchId, expectation2)
-//        batchId += 1
-//    }
-//
-//    static func task(_ batchId: Int, _ taskId: Int) {
-//        //Thread.sleep(forTimeInterval: 10)//Double(Int.random(in: 1...5)))
-//        let _ = screenshot()
-//    }
-//
-//    static func cleanup(_ expectation: XCTestExpectation) {
-//        let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime) / 1_000_000_000
-//        print("cleanup", timePassedInSeconds)
-//        expectation.fulfill()
-//    }
-//
-//    static func screenshot() -> CGImage? {
-//        print("CGSHWCaptureWindowList start")
+//    static func privateApi() {
 //        var windowId_ = wid!
 //        let list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution]).takeRetainedValue() as! [CGImage]
 //        print(list.first != nil)
-//        return list.first
-////        let windowId_ = wid!
-////        let image = CGWindowListCreateImage(.null, .optionIncludingWindow, windowId_, [.boundsIgnoreFraming, .bestResolution])
-////        print(image != nil)
-////        return image
+//        dispatchGroup.leave()
+//    }
+//
+//    static func publicApi() {
+//        let image = CGWindowListCreateImage(.null, .optionIncludingWindow, wid!, [.boundsIgnoreFraming, .bestResolution])
+//        print(image != nil)
+//        dispatchGroup.leave()
+//    }
+//
+//    static func screenCaptureKit() {
+//        let contentFilter = SCContentFilter(desktopIndependentWindow: window)
+//        config.width = Int(window.frame.width)
+//        config.height = Int(window.frame.height)
+//        if #available(macOS 14.0, *) {
+//            SCScreenshotManager.captureImage(contentFilter: contentFilter, configuration: config) { image, _ in
+//                print(image != nil)
+//                dispatchGroup.leave()
+//            }
+//        }
+//    }
+//
+//    // CGSHWCaptureWindowList: 1.9
+//    // CGWindowListCreateImage: 1.6
+//    // SCScreenshotManager.captureImage: 4.5
+//    static func screenshot() {
+//        //Thread.sleep(forTimeInterval: 10)//Double(Int.random(in: 1...5)))
+////        privateApi()
+////         publicApi()
+//        screenCaptureKit()
 //    }
 //}
 //
@@ -118,6 +148,7 @@
 //        let expectation1 = XCTestExpectation()
 //        let expectation2 = XCTestExpectation()
 //        Playground.start(expectation1, expectation2)
+////        fulfillment(of: [expectation1, expectation2], timeout: 100, enforceOrder: false)
 //        wait(for: [expectation1, expectation2], timeout: 100)
 ////    }
 //    }
