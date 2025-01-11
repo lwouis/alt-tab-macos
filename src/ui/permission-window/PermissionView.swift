@@ -31,7 +31,7 @@ class PermissionView: StackView {
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.alignment = .centerY
         var views = [titleStack, justification, buttonStack]
-        if let skipCheckbox = skipCheckbox {
+        if let skipCheckbox {
             views.append(skipCheckbox)
         }
         self.init(views, .vertical, top: GridView.interPadding, right: GridView.interPadding, bottom: GridView.interPadding, left: GridView.interPadding)

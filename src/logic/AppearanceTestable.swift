@@ -10,7 +10,7 @@ class AppearanceTestable {
     /// Let's clamp at 90% like Windows 11
     /// Let's clamp at 45% (value for the biggest, 60" screens)
     static func comfortableWidth(_ physicalWidth: Double?) -> Double {
-        if let physicalWidth = physicalWidth {
+        if let physicalWidth {
             return min(0.9, max(0.45, 600.0 / physicalWidth))
         }
         return 0.9

@@ -15,7 +15,7 @@ class PopupButtonLikeSystemSettings: NSPopUpButton {
     }
 
     override var intrinsicContentSize: NSSize {
-        if let selectedItem = selectedItem {
+        if let selectedItem {
             let fakePopUpButton = NSPopUpButton()
             fakePopUpButton.addItem(withTitle: title)
             fakePopUpButton.item(at: 0)!.image = selectedItem.image

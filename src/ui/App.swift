@@ -145,7 +145,7 @@ class App: AppCenterApplication {
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {
-        if let window = window {
+        if let window {
             NSScreen.updatePreferred()
             NSScreen.preferred.repositionPanel(window)
             App.shared.activate(ignoringOtherApps: true)
@@ -300,7 +300,7 @@ extension App: NSApplicationDelegate {
         BackgroundWork.startSystemPermissionThread()
         permissionsWindow = PermissionsWindow()
         SystemPermissions.ensurePermissionsAreGranted { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             BackgroundWork.start()
             NSScreen.updatePreferred()
             Appearance.update()

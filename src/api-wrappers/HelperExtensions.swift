@@ -161,7 +161,7 @@ extension NSControl {
             return nil
         }
         set {
-            if let newValue = newValue {
+            if let newValue {
                 let selectorWrapper = SelectorWrapper<NSControl>(withClosure: newValue)
                 objc_setAssociatedObject(self, &handle, selectorWrapper, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 action = selectorWrapper.selector

@@ -250,7 +250,7 @@ class ShowHideIllustratedView {
     }
 
     func setStateOnApplications(row: ShowHideRowInfo? = nil) {
-        if let row = row {
+        if let row {
             let isEnabled = !ShowHideIllustratedView.isDisabledOnApplications(row)
             row.rightViews.forEach { view in
                 if let view = view as? Switch {

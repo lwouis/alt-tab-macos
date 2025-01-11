@@ -11,7 +11,7 @@ class MouseEvents {
 
     static func toggle(_ enabled: Bool) {
         shouldBeEnabled = enabled
-        if let eventTap = eventTap {
+        if let eventTap {
             CGEvent.tapEnable(tap: eventTap, enable: enabled)
         }
     }
@@ -27,7 +27,7 @@ private func observe_() {
         eventsOfInterest: eventMask,
         callback: handleEvent,
         userInfo: nil)
-    if let eventTap = eventTap {
+    if let eventTap {
         MouseEvents.toggle(false)
         let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
         CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)

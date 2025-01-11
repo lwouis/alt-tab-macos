@@ -34,11 +34,11 @@ class Application: NSObject {
         observeEventsIfEligible()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.observeEventsIfEligible()
             },
             runningApplication.observe(\.activationPolicy, options: [.new]) { [weak self] _, _ in
-                guard let self = self else { return }
+                guard let self else { return }
                 if self.runningApplication.activationPolicy != .regular {
                     self.removeWindowslessAppWindow()
                 }
@@ -70,7 +70,7 @@ class Application: NSObject {
     func manuallyUpdateWindows(_ group: DispatchGroup? = nil) {
         // TODO: this method manually checks windows, but will not find windows on other Spaces
         retryAxCallUntilTimeout(group, 5) { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             var atLeastOneActualWindow = false
             if let axWindows_ = try self.axUiElement!.windows(), !axWindows_.isEmpty {
                 // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
@@ -89,7 +89,7 @@ class Application: NSObject {
                             let position = try axWindow.position()
                             atLeastOneActualWindow = true
                             DispatchQueue.main.async { [weak self] in
-                                guard let self = self else { return }
+                                guard let self else { return }
                                 if let window = (Windows.list.first { $0.isEqualRobust(axWindow, wid) }) {
                                     window.title = window.bestEffortTitle(title)
                                     window.size = size
@@ -107,7 +107,7 @@ class Application: NSObject {
             }
             if (!atLeastOneActualWindow) {
                 DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
+                    guard let self else { return }
                     if self.addWindowlessWindowIfNeeded() != nil {
                         App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
                     }
@@ -172,7 +172,7 @@ class Application: NSObject {
     }
 
     private func observeEvents() {
-        guard let axObserver = axObserver else { return }
+        guard let axObserver else { return }
         for notification in [
             kAXApplicationActivatedNotification,
             kAXMainWindowChangedNotification,
@@ -182,10 +182,10 @@ class Application: NSObject {
             kAXApplicationShownNotification,
         ] {
             retryAxCallUntilTimeout { [weak self] in
-                guard let self = self else { return }
+                guard let self else { return }
                 try self.axUiElement!.subscribeToNotification(axObserver, notification, {
                     DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
+                        guard let self else { return }
                         // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
                         // we consider them ready when the first subscription succeeds
                         // windows opened before that point won't send a notification, so check those windows manually here

@@ -18,7 +18,7 @@ class CliEvents {
 
 fileprivate func handleEvent(_: CFMessagePort?, _: Int32, _ data: CFData?, _: UnsafeMutableRawPointer?) -> Unmanaged<CFData>? {
     Logger.debug()
-    if let data = data,
+    if let data,
        let message = String(data: data as Data, encoding: .utf8) {
         Logger.info(message)
         let output = CliServer.executeCommandAndSendReponse(message)

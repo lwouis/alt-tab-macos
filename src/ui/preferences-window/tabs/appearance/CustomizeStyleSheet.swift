@@ -174,7 +174,7 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func adjustWindowHeight() {
-        guard let contentView = contentView else { return }
+        guard let contentView else { return }
         // Calculate the fitting height of the content view
         let fittingSize = contentView.fittingSize
         var windowFrame = frame

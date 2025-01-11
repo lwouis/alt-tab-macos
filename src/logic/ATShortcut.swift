@@ -19,7 +19,7 @@ class ATShortcut {
     }
 
     func matches(_ id: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?) -> Bool {
-        if let id = id, let shortcutState = shortcutState {
+        if let id, let shortcutState {
             let shortcutIndex = id
             let shortcutId = KeyboardEventsTestable.globalShortcutsIds.first { $0.value == shortcutIndex }!.key
             if shortcutId == self.id {
@@ -29,7 +29,7 @@ class ATShortcut {
                 }
             }
         }
-        if let modifiers = modifiers {
+        if let modifiers {
             let modifiersMatch_ = modifiersMatch(cocoaToCarbonFlags(modifiers))
             let newState: ShortcutState = ((shortcut.keyCode == .none || keyCode == shortcut.carbonKeyCode) && modifiersMatch_) ? .down : .up
             let flipped = state != newState

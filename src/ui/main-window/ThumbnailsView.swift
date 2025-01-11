@@ -293,12 +293,11 @@ class ScrollView: NSScrollView {
             while !(target is ThumbnailView) && target != nil {
                 target = target!.superview
             }
-            if let target = target, target is ThumbnailView {
+            if let target = target as? ThumbnailView {
                 if previousTarget != target {
                     previousTarget?.showOrHideWindowControls(false)
-                    previousTarget = target as? ThumbnailView
+                    previousTarget = target
                 }
-                let target = target as! ThumbnailView
                 target.mouseMoved()
             } else {
                 if !checkIfWithinInterPadding() {

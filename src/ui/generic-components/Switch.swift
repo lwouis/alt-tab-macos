@@ -62,7 +62,7 @@ class Switch: NSButton {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        if let switchButton = switchButton {
+        if let switchButton {
             switchButton.draw(dirtyRect)
         }
     }

@@ -54,8 +54,8 @@ class TableGroupSetView: NSStackView {
         // Ensure any remaining views are added
         addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
         addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, othersSpacing: othersSpacing, padding: padding, alignment: othersAlignment)
-        if let toolsView = toolsViews {
-            addToolsViewToSetViews(toolsView, views: &verticalViews, padding: padding, alignment: toolsAlignment)
+        if let toolsViews {
+            addToolsViewToSetViews(toolsViews, views: &verticalViews, padding: padding, alignment: toolsAlignment)
         }
         if let lastStackView = verticalViews.last {
             lastStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding).isActive = true
@@ -228,7 +228,7 @@ class TableGroupView: ClickHoverStackView {
         titleStackView.orientation = .vertical
         titleStackView.alignment = .leading
         titleStackView.spacing = TableGroupView.rowIntraSpacing
-        if let title = title {
+        if let title {
             titleLabel.stringValue = title
             titleLabel.font = NSFont.boldSystemFont(ofSize: 13)
             titleLabel.alignment = .natural
@@ -244,7 +244,7 @@ class TableGroupView: ClickHoverStackView {
         } else {
             titleLabel.isHidden = true
         }
-        if let subTitle = subTitle {
+        if let subTitle {
             subTitleLabel.stringValue = subTitle
             subTitleLabel.font = NSFont.systemFont(ofSize: 12)
             subTitleLabel.textColor = .gray
@@ -333,7 +333,7 @@ class TableGroupView: ClickHoverStackView {
         let leftViews = [TableGroupView.makeText(leftText)]
         let mainRow = createMainRow(leftViews: leftViews, rightViews: rightViews)
         setMainRow(mainRow, in: rowView)
-        if let subText = subText {
+        if let subText {
             let subLabel = createSubLabel(with: subText)
             setSecondaryRow([subLabel], rowView: rowView, mainRow: mainRow)
         } else {
@@ -361,7 +361,7 @@ class TableGroupView: ClickHoverStackView {
         let rowView = createRowView()
         let mainRow = createMainRow(leftViews: leftViews, rightViews: rightViews)
         setMainRow(mainRow, in: rowView)
-        if let secondaryViews = secondaryViews {
+        if let secondaryViews {
             setSecondaryRow(secondaryViews, rowView: rowView, mainRow: mainRow, orientation: secondaryViewsOrientation, alignment: secondaryViewsAlignment)
         } else {
             mainRow.bottomAnchor.constraint(equalTo: rowView.bottomAnchor, constant: -TableGroupView.padding).isActive = true
@@ -413,13 +413,13 @@ class TableGroupView: ClickHoverStackView {
         leftStackView.orientation = .horizontal
         leftStackView.alignment = .leading
         leftStackView.spacing = TableGroupView.spacing
-        if let leftViews = leftViews {
+        if let leftViews {
             leftStackView.setViews(leftViews, in: .leading)
         }
         let rightStackView = NSStackView()
         rightStackView.orientation = .horizontal
         rightStackView.spacing = TableGroupView.spacing
-        if let rightViews = rightViews {
+        if let rightViews {
             rightStackView.setViews(rightViews, in: .leading)
         }
         mainRow.addArrangedSubview(leftStackView)
@@ -465,7 +465,7 @@ class TableGroupView: ClickHoverStackView {
         secondaryRow.orientation = orientation
         secondaryRow.alignment = alignment
         secondaryRow.spacing = TableGroupView.rowIntraSpacing
-        if let secondaryRows = secondaryRows {
+        if let secondaryRows {
             secondaryRow.setViews(secondaryRows, in: .leading)
         }
         rowView.addSubview(secondaryRow)
@@ -513,7 +513,7 @@ class TableGroupView: ClickHoverStackView {
             onClick?(event, view)
         }
         rowView.onMouseEntered = { event, view in
-            if let onMouseEntered = onMouseEntered {
+            if let onMouseEntered {
                 self.rowInfoTables.forEach { table in
                     if let rowInfo = table.first(where: { $0.view === rowView }) {
                         self.addMouseEnteredEffects(rowInfo)
@@ -546,7 +546,7 @@ class TableGroupView: ClickHoverStackView {
 
     private func adjustSeparatorWidth(separator: NSView?, isMouseInside: Bool) {
         let width = isMouseInside ? width : (width - 2 * TableGroupView.padding)
-        if let separator = separator {
+        if let separator {
             separator.addOrUpdateConstraint(separator.widthAnchor, width)
         }
     }
