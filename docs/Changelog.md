@@ -1,5 +1,13 @@
 # Release notes
 
+## [7.18.1](https://github.com/lwouis/alt-tab-macos/compare/v7.18.0...v7.18.1) (2025-01-12)
+
+
+### Bug Fixes
+
+* don't check screen-recording permission if unnecessary ([f3b116e](https://github.com/lwouis/alt-tab-macos/commit/f3b116e)), closes [#4113](https://github.com/lwouis/alt-tab-macos/issues/4113)
+* show shadows around thumbnails (closes [#4068](https://github.com/lwouis/alt-tab-macos/issues/4068)) ([597b443](https://github.com/lwouis/alt-tab-macos/commit/597b443))
+
 # [7.18.0](https://github.com/lwouis/alt-tab-macos/compare/v7.17.0...v7.18.0) (2025-01-07)
 
 
