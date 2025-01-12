@@ -159,15 +159,17 @@ class ThumbnailView: FlippedView {
 
     private func setupSharedSubiews() {
         let shadow = ThumbnailView.makeShadow(Appearance.imageShadowColor)
-        thumbnail.imageScaling = .scaleProportionallyUpOrDown
+        thumbnailContainer.wantsLayer = true
+        thumbnailContainer.layer!.masksToBounds = false // let thumbnail shadows show
         thumbnail.shadow = shadow
+        windowlessIcon.shadow = shadow
+        appIcon.shadow = shadow
+        thumbnail.imageScaling = .scaleProportionallyUpOrDown
         windowlessIcon.translatesAutoresizingMaskIntoConstraints = false
         windowlessIcon.imageScaling = .scaleProportionallyUpOrDown
         windowlessIcon.toolTip = ThumbnailView.noOpenWindowToolTip
-        windowlessIcon.shadow = shadow
         appIcon.translatesAutoresizingMaskIntoConstraints = false
         appIcon.imageScaling = .scaleProportionallyUpOrDown
-        appIcon.shadow = shadow
         appIcon.setSubviewAbove(dockLabelIcon)
         label.fixHeight()
         vStackView.wantsLayer = true
