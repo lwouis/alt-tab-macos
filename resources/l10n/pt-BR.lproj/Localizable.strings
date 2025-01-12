@@ -211,6 +211,7 @@
 "Then release:" = "Ao soltar:";
 "This permission is needed to focus windows after you release the shortcut" = "Esta permissão é necessária para focar a janela após acionar o atalho";
 "This permission is needed to show screenshots and titles of open windows" = "Esta permissão é necessária para exibir pré-visualizações e títulos das janelas abertas";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Thumbnails";
 "Title" = "Title";
 "Title truncation" = "Title truncation";

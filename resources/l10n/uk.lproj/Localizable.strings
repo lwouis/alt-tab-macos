@@ -211,6 +211,7 @@
 "Then release:" = "Тоді випустити:";
 "This permission is needed to focus windows after you release the shortcut" = "Цей дозвіл потрібен для фокусування вікон після того, як ви відпустите ярлик";
 "This permission is needed to show screenshots and titles of open windows" = "Цей дозвіл потрібен для показу скриншотів і заголовків відкритих вікон";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Мініатюри";
 "Title" = "Title";
 "Title truncation" = "Зловмисна обрізка";

@@ -211,6 +211,7 @@
 "Then release:" = "Poi rilascia:";
 "This permission is needed to focus windows after you release the shortcut" = "Questo permesso è necessario per rendere attiva la finestra al rilascio del comando rapido";
 "This permission is needed to show screenshots and titles of open windows" = "Questo permesso è necessario per mostrare le anteprime e i titoli delle finestre.";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniature";
 "Title" = "Titolo";
 "Title truncation" = "Troncamento del titolo";

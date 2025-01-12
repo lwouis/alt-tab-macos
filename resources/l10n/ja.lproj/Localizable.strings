@@ -211,6 +211,7 @@
 "Then release:" = "離した時の動作：";
 "This permission is needed to focus windows after you release the shortcut" = "こちらの許可は、ショートカットキーを離した後、ウィンドウにフォーカスするのに必要です。";
 "This permission is needed to show screenshots and titles of open windows" = "こちらの許可は、スクリーンショットと開いているウィンドウを表示するのに必要です。";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "サムネイル";
 "Title" = "Title";
 "Title truncation" = "タイトルの切り捨て";

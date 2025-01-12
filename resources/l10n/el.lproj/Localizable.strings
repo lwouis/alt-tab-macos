@@ -211,6 +211,7 @@
 "Then release:" = "Έπειτα αφήστε:";
 "This permission is needed to focus windows after you release the shortcut" = "Αυτή η άδεια απαιτείται για να εστιάσετε τα παράθυρα μετά την απελευθέρωση της συντόμευσης";
 "This permission is needed to show screenshots and titles of open windows" = "Αυτή η άδεια απαιτείται για την εμφάνιση στιγμιότυπων και τίτλων ανοιχτών παραθύρων";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Μικρογραφίες";
 "Title" = "Title";
 "Title truncation" = "Περικοπή τίτλου";

@@ -211,6 +211,7 @@
 "Then release:" = "তারপর মুক্তি:";
 "This permission is needed to focus windows after you release the shortcut" = "আপনি শর্টকাট রিলিজ করার পর উইন্ডোজ ফোকাস করার জন্য এই অনুমতি প্রয়োজন";
 "This permission is needed to show screenshots and titles of open windows" = "খোলা উইন্ডোর স্ক্রিনশট এবং শিরোনাম দেখানোর জন্য এই অনুমতি প্রয়োজন";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "থাম্বনেইলস";
 "Title" = "Title";
 "Title truncation" = "শিরোনাম কাটা";

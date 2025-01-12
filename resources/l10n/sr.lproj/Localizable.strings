@@ -211,6 +211,7 @@
 "Then release:" = "Onda otpusti:";
 "This permission is needed to focus windows after you release the shortcut" = "Ova dozvola je neophodna da se fokusiraju prozori nakon što otpustite prečicu";
 "This permission is needed to show screenshots and titles of open windows" = "Ova dozvola je neophodna da se prikažu slike prozora i naslovi otvorenih aplikacija";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Сличице";
 "Title" = "Title";
 "Title truncation" = "Насловна скраћеница";

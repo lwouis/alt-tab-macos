@@ -211,6 +211,7 @@
 "Then release:" = "Затем отпустить:";
 "This permission is needed to focus windows after you release the shortcut" = "Это разрешение нужно для фокусировки окна после отпускания комбинации клавиш";
 "This permission is needed to show screenshots and titles of open windows" = "Это разрешение нужно для показа скриншотов и заголовков открытых окон";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Миниатюры";
 "Title" = "Title";
 "Title truncation" = "Обрезка заголовка";

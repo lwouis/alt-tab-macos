@@ -211,6 +211,7 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "Ushbu ruxsatni yorliqni chiqargandan so'ng, derazalarda bo'lish uchun kerak";
 "This permission is needed to show screenshots and titles of open windows" = "Ushbu ruxsatnomani ochiq derazalarning ekran rasmlari va unvonlarini ko'rsatish uchun kerak";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Eskiz";
 "Title" = "Title";
 "Title truncation" = "Sarlavha kemasi";

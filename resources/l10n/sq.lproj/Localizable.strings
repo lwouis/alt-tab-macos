@@ -211,6 +211,7 @@
 "Then release:" = "Pastaj lëshoni:";
 "This permission is needed to focus windows after you release the shortcut" = "Kjo leje është e nevojshme për të fokusuar dritaret pasi të lëshoni shkurtesën";
 "This permission is needed to show screenshots and titles of open windows" = "Kjo leje është e nevojshme për të shfaqur screenshots dhe titujt e dirtareve të hapura";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Thumba";
 "Title" = "Title";
 "Title truncation" = "Titulli i Titullit";

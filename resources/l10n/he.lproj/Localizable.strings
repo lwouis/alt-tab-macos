@@ -211,6 +211,7 @@
 "Then release:" = "ואז שחרר:";
 "This permission is needed to focus windows after you release the shortcut" = "הרשאה זו דרושה כדי להתמקד על החלון הנכון לאחר שחרור קיצור המקשים";
 "This permission is needed to show screenshots and titles of open windows" = "הרשאה זו דרושה כדי להציג תמונות ממוזערות וכותרות של החלונות הפתוחים";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "תמונות ממוזערות";
 "Title" = "Title";
 "Title truncation" = "גיזום כותרות";

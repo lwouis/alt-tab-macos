@@ -211,6 +211,7 @@
 "Then release:" = "Po uvoľnení kláves:";
 "This permission is needed to focus windows after you release the shortcut" = "Toto povolenie je potrebné na zobrazenie na konkrétne okno po uvoľnení skratky";
 "This permission is needed to show screenshots and titles of open windows" = "Toto povolenie je potrebné na zobrazovanie snímok obrazovky a názvov otvorených okien";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniatúra";
 "Title" = "Title";
 "Title truncation" = "Skrátenie názvu";

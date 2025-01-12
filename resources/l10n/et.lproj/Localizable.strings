@@ -211,6 +211,7 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "See luba on vaja Windowsi keskendumiseks pärast otsetee vabastamist";
 "This permission is needed to show screenshots and titles of open windows" = "Seda luba on vaja avatud akende ekraanipiltide ja pealkirjade kuvamiseks";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Pisipildid";
 "Title" = "Title";
 "Title truncation" = "Pealkirja kärpimine";

@@ -211,6 +211,7 @@
 "Then release:" = "그리고 놓으면:";
 "This permission is needed to focus windows after you release the shortcut" = "단축키 사용 후 창에 포커스하려면 이 권한이 필요합니다";
 "This permission is needed to show screenshots and titles of open windows" = "이 권한은 윈도우의 이미지와 제목을 띄울 수 있게 해줍니다";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "썸네일";
 "Title" = "제목";
 "Title truncation" = "제목 자리";

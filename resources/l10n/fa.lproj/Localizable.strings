@@ -211,6 +211,7 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "این مجوز برای تمرکز ویندوز پس از انتشار میانبر لازم است";
 "This permission is needed to show screenshots and titles of open windows" = "این مجوز برای نشان دادن تصاویر و عناوین ویندوز باز لازم است";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "ریز عکسها";
 "Title" = "Title";
 "Title truncation" = "کوتاه شدن عنوان";

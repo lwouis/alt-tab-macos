@@ -211,6 +211,7 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "Dës Erlaabnis gëtt gebraucht fir Windows ze fokusséieren nodeems Dir de Ofkierzung befollegt";
 "This permission is needed to show screenshots and titles of open windows" = "Dës Erlaabnis gëtt gebraucht fir Screenshots an Titelen vun oppenen Fensteren ze weisen";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniatur";
 "Title" = "Title";
 "Title truncation" = "Titel Truncation";

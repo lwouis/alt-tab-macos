@@ -211,6 +211,7 @@
 "Then release:" = "Pişre berde:";
 "This permission is needed to focus windows after you release the shortcut" = "Ev destûr ji bo gerûbûna paceyê pêwiste.";
 "This permission is needed to show screenshots and titles of open windows" = "Ev destûr hewce ye ku dîmen û sernavên pencereyên vekirî nîşan bide";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Thumbnails";
 "Title" = "Title";
 "Title truncation" = "Sernav Truncation";

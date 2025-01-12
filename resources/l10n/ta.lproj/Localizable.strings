@@ -211,6 +211,7 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "நீங்கள் குறுக்குவழியை வெளியிட்ட பிறகு சாளரங்களை மையப்படுத்த இந்த அனுமதி தேவை";
 "This permission is needed to show screenshots and titles of open windows" = "திறந்த சாளரங்களின் ஸ்கிரீன் ஷாட்கள் மற்றும் தலைப்புகளைக் காட்ட இந்த அனுமதி தேவை";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "சிறு உருவங்கள்";
 "Title" = "Title";
 "Title truncation" = "தலைப்பு துண்டிப்பு";

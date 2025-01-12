@@ -211,6 +211,7 @@
 "Then release:" = "然後放開：";
 "This permission is needed to focus windows after you release the shortcut" = "需要取得此權限，才能在放開快速鍵後聚焦視窗";
 "This permission is needed to show screenshots and titles of open windows" = "需要取得此權限，才能顯示已開啟視窗的截圖與標題資訊";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "縮圖";
 "Title" = "標題";
 "Title truncation" = "標題截斷";

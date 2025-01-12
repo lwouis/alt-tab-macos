@@ -211,6 +211,7 @@
 "Then release:" = "När kommando släpps:";
 "This permission is needed to focus windows after you release the shortcut" = "Denna behörighet behövs för att byta fönster när du släpper kommandot";
 "This permission is needed to show screenshots and titles of open windows" = "Denna behörighet behövs för att visa skärmdumpar och titlar för öppna fönster";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Tumnaglar";
 "Title" = "Title";
 "Title truncation" = "Titelavkortning";

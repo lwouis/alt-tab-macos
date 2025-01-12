@@ -211,6 +211,7 @@
 "Then release:" = "เมื่อปล่อย";
 "This permission is needed to focus windows after you release the shortcut" = "การอนุญาตนี้จำเป็นสำหรับการโฟกัส Windows หลังจากที่คุณปล่อยทางลัด";
 "This permission is needed to show screenshots and titles of open windows" = "การอนุญาตนี้จำเป็นต้องแสดงภาพหน้าจอและชื่อของ Windows Open";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "รูปขนาดย่อ";
 "Title" = "Title";
 "Title truncation" = "การตัดชื่อ";

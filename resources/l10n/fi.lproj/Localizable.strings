@@ -211,6 +211,7 @@
 "Then release:" = "Sitten päästä:";
 "This permission is needed to focus windows after you release the shortcut" = "Tarvitaan ikkunoiden valitsemiseksi";
 "This permission is needed to show screenshots and titles of open windows" = "Tarvitaan ikkunoiden otsikoiden ja pikkukuvien näyttämiseen";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Pikkukuvat";
 "Title" = "Title";
 "Title truncation" = "Otsikon lyhennys";

@@ -211,6 +211,7 @@
 "Then release:" = "Ansin scaoil:";
 "This permission is needed to focus windows after you release the shortcut" = "Tá an cead seo ag teastáil chun fuinneoga a dhíriú tar éis duit an t-aicearra a scaoileadh";
 "This permission is needed to show screenshots and titles of open windows" = "Tá an cead seo ag teastáil chun scáileáin scáileáin agus teidil fuinneoga oscailte a thaispeáint";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Mionsamhlacha";
 "Title" = "Teideal";
 "Title truncation" = "Teascadh teidil";

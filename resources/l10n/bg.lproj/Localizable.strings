@@ -211,6 +211,7 @@
 "Then release:" = "При пускане";
 "This permission is needed to focus windows after you release the shortcut" = "Това разрешение е необходимо, за да се отвори прозореца";
 "This permission is needed to show screenshots and titles of open windows" = "Това разрешение е необходимо, за да се покаже съдържанието на отворените прозорци";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Миниатюри";
 "Title" = "Title";
 "Title truncation" = "Отрязване на заглавието";

@@ -57,7 +57,7 @@ class PermissionsWindow: NSWindow {
             screenRecordingView = PermissionView(
                 "screen-recording",
                 NSLocalizedString("Screen Recording", comment: ""),
-                NSLocalizedString("This permission is needed to show screenshots and titles of open windows", comment: ""),
+                NSLocalizedString("This permission is needed to show thumbnails and preview of open windows", comment: ""),
                 NSLocalizedString("Open Screen Recording Preferences…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
                 SystemPermissions.updateScreenRecordingIsGranted,

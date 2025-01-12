@@ -211,6 +211,7 @@
 "Then release:" = "Så slepp:";
 "This permission is needed to focus windows after you release the shortcut" = "Dette løyvet er naudsynt for å kunna fokusera på vindauget når du slepp hurtigtasten";
 "This permission is needed to show screenshots and titles of open windows" = "Dette løyvet er naudsynt for å kunna visa skjermbilete og tittel på opne vindauge";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Thumbnails";
 "Title" = "Title";
 "Title truncation" = "Title truncation";

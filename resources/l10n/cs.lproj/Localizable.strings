@@ -211,6 +211,7 @@
 "Then release:" = "Potom uvolněte:";
 "This permission is needed to focus windows after you release the shortcut" = "Toto oprávnění je potřeba k přepnutí do okna po uvolnění klávesové zkratky";
 "This permission is needed to show screenshots and titles of open windows" = "Toto oprávnění je potřeba k zobrazení náhledů a titulků otevřených oken";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniatury";
 "Title" = "Title";
 "Title truncation" = "Zkrácení titulu";

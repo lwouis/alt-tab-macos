@@ -211,6 +211,7 @@
 "Then release:" = "Sau đó thả ra:";
 "This permission is needed to focus windows after you release the shortcut" = "Quyền này được dùng để chuyển tập trung vào cửa sổ sau khi bạn dùng phím tắt";
 "This permission is needed to show screenshots and titles of open windows" = "Quyền này được dùng để hiện ảnh xem trước và tiêu đề cửa sổ đang mở";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Hình thu nhỏ";
 "Title" = "Title";
 "Title truncation" = "Tiêu đề cắt ngắn";

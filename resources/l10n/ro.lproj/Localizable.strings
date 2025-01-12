@@ -211,6 +211,7 @@
 "Then release:" = "Apoi eliberați:";
 "This permission is needed to focus windows after you release the shortcut" = "Această permisiune este necesară pentru concetrarea ferestrei după ce lași scurtătura";
 "This permission is needed to show screenshots and titles of open windows" = "Această permisiune este necesară pentru a arăta capturile de ecran și titlul ferestrelor deschise";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniaturi";
 "Title" = "Title";
 "Title truncation" = "TRUNCAREA TIPULUI";

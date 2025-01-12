@@ -211,6 +211,7 @@
 "Then release:" = "Doe dan:";
 "This permission is needed to focus windows after you release the shortcut" = "Deze permissie is nodig om vensters te focussen na het uitvoeren van de snelkoppeling";
 "This permission is needed to show screenshots and titles of open windows" = "Deze permissie is nodig om screenshots en titels van geopende vensters te tonen";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniatuur";
 "Title" = "Title";
 "Title truncation" = "Titelintrekking";

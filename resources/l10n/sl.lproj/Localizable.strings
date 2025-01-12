@@ -211,6 +211,7 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "To dovoljenje je potrebno za osredotočanje Windows, ko izpustite bližnjico";
 "This permission is needed to show screenshots and titles of open windows" = "To dovoljenje je potrebno za prikaz posnetkov zaslona in naslovov odprtih oken";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Sličice";
 "Title" = "Title";
 "Title truncation" = "Nadzorna okvara";

@@ -211,6 +211,7 @@
 "Then release:" = "फिर छोड़ो:";
 "This permission is needed to focus windows after you release the shortcut" = "शॉर्टकट जारी करने के बाद खिड़कियाँ पर केंद्र करने के लिए इस अनुमति की आवश्यकता है";
 "This permission is needed to show screenshots and titles of open windows" = "खुली खिड़कियों के स्क्रीनशॉट और शीर्षक दिखाने के लिए इस अनुमति की आवश्यकता है";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "थंबनेल";
 "Title" = "Title";
 "Title truncation" = "हक";

@@ -211,6 +211,7 @@
 "Then release:" = "Majd engedje fel:";
 "This permission is needed to focus windows after you release the shortcut" = "Ez a jogosultság ahhoz szükséges hogy az ablak fókuszba kerüljön miután a parancsikont elengedte";
 "This permission is needed to show screenshots and titles of open windows" = "Ez a jogosultág az ablak előnézetéhez és címezéséhez szükséges.";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniatűrök";
 "Title" = "Title";
 "Title truncation" = "Rövidíés";

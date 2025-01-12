@@ -211,6 +211,7 @@
 "Then release:" = "Puis relâcher :";
 "This permission is needed to focus windows after you release the shortcut" = "Cette permission est nécessaire pour afficher la fenêtre après le relâchement du raccourci clavier";
 "This permission is needed to show screenshots and titles of open windows" = "Cette permission est nécessaire pour afficher les miniatures et titres des fenêtres ouvertes";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Vignettes";
 "Title" = "Titre";
 "Title truncation" = "Troncature du titre";

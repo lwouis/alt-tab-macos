@@ -211,6 +211,7 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "Þetta leyfi er þörf til að einbeita gluggum eftir að þú sleppir flýtileiðinni";
 "This permission is needed to show screenshots and titles of open windows" = "Þetta leyfi er þörf til að sýna skjámyndir og titla af opnum gluggum";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Smámyndir";
 "Title" = "Title";
 "Title truncation" = "Titill stytting";

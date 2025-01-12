@@ -211,6 +211,7 @@
 "Then release:" = "ثمّ اترك:";
 "This permission is needed to focus windows after you release the shortcut" = "هذا الإذن يسمح لنا بالتركيز على النوافذ بعد تفعيلك للإختصار";
 "This permission is needed to show screenshots and titles of open windows" = "هذا الإذن يسمح لنا بتصوير النوافذ والحصول على عناوينها";
+"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "الصورة المصغرة";
 "Title" = "Title";
 "Title truncation" = "اقتطاع العنوان";
