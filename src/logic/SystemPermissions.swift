@@ -70,17 +70,22 @@ class SystemPermissions {
     }
 
     private static func checkPermissionsWhileAltTabIsRunning() {
+        Logger.debug(accessibilityPermission, screenRecordingPermission, preStartupPermissionsPassed, screenRecordingPermission, Appearance.hideThumbnails, Preferences.previewFocusedWindow)
         SystemPermissions.updateAccessibilityIsGranted()
-        SystemPermissions.updateScreenRecordingIsGranted()
-        Logger.debug(accessibilityPermission, screenRecordingPermission, preStartupPermissionsPassed)
-        Menubar.togglePermissionCallout(screenRecordingPermission == .skipped)
+        Logger.debug(accessibilityPermission)
         if accessibilityPermission == .notGranted {
+            Logger.info("accessibilityPermission not granted; restarting")
             App.app.restart()
         }
+        if screenRecordingPermission == .skipped || (Appearance.hideThumbnails && !Preferences.previewFocusedWindow) { return }
+        SystemPermissions.updateScreenRecordingIsGranted()
+        Logger.debug(screenRecordingPermission)
+        Menubar.togglePermissionCallout(screenRecordingPermission == .skipped)
         if screenRecordingPermission == .notGranted {
             // permission check may yield a false negative during wake-up
             // we restart after 2 negative checks
             if flakyCounter >= 2 {
+                Logger.info("screenRecordingPermission not granted 3 times; restarting")
                 App.app.restart()
             } else {
                 flakyCounter += 1
