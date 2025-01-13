@@ -44,7 +44,9 @@ class ThumbnailView: FlippedView {
     override func isAccessibilityElement() -> Bool { true }
 
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        mouseMovedCallback()
+        if Preferences.mouseHoverEnabled && !isHighlighted {
+            mouseMovedCallback()
+        }
         return .link
     }
 
