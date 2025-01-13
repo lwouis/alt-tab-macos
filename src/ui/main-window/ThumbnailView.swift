@@ -80,7 +80,13 @@ class ThumbnailView: FlippedView {
     override func otherMouseUp(with event: NSEvent) {
         // middle-click
         if event.buttonNumber == 2 {
-            window_?.close()
+            if let window_ {
+                if window_.isWindowlessApp {
+                    window_.application.quit()
+                } else {
+                    window_.close()
+                }
+            }
         }
     }
 
