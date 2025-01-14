@@ -35,7 +35,6 @@
 "App is hidden" = "برنامه پنهان است";
 "App is running but has no open window" = "برنامه در حال اجرا است اما پنجره باز ندارد";
 "Apparition delay" = "تأخیر در ظاهر";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "تاخیر در ظاهر شدن";
 "Appearance" = "ظاهر";
 "Application Name" = "Application Name";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "انجام شده";
 "End" = "پایان";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "محو شدن انیمیشن";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "تمرکز پنجره انتخاب شده";
 "Fullscreen window" = "Fullscreen window";
@@ -214,7 +211,6 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "این مجوز برای تمرکز ویندوز پس از انتشار میانبر لازم است";
 "This permission is needed to show screenshots and titles of open windows" = "این مجوز برای نشان دادن تصاویر و عناوین ویندوز باز لازم است";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "ریز عکسها";
 "Title" = "Title";
 "Title truncation" = "کوتاه شدن عنوان";

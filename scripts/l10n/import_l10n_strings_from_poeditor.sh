@@ -10,11 +10,12 @@ function updateLanguageFile() {
     -d api_token="$readOnlyToken" \
     -d id="$projectId" \
     -d language="$1" \
+    -d fallback_language="en" \
     -d order="terms" \
     -d type="apple_strings")"
   fileUrl="$(jq -r '.result.url' <<<"$exportApiJson")"
   mkdir -p "resources/l10n/$1.lproj"
-  curl -s "$fileUrl" | sed -e '/\/\*.*\*\//d' -e '/^$/d' > "resources/l10n/$1.lproj/Localizable.strings"
+  curl -s "$fileUrl" | sed -e '/\/\*.*\*\//d' -e '/^$/d' -e '/ = "";$/d' > "resources/l10n/$1.lproj/Localizable.strings"
 }
 
 function getLanguagesOnPoeditor() {

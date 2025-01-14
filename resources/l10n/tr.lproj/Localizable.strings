@@ -35,7 +35,6 @@
 "App is hidden" = "Uygulama gizlendi";
 "App is running but has no open window" = "Uygulama çalışıyor ancak açık penceresi yok";
 "Apparition delay" = "Görünüş Gecikmesi";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Görünme gecikmesi:";
 "Appearance" = "Görünüm";
 "Application Name" = "Uygulama Adı";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Bu uygulamaya ait pencereleri gösterme";
 "Done" = "Tamamlamak";
 "End" = "Son";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade Out Animation";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Karartma animasyonu:";
 "Focus selected window" = "Seçilen pencereye odaklan";
 "Fullscreen window" = "Tam ekran penceresi";
@@ -214,7 +211,6 @@
 "Then release:" = "Sonra bırak:";
 "This permission is needed to focus windows after you release the shortcut" = "Bu izin, kestirmeye basmayı bıraktıktan sonra ilgili pencereyi açabilmeniz için gerekiyor";
 "This permission is needed to show screenshots and titles of open windows" = "Bu izin, açık pencerelerin başlıklarını ve önizlemeleri görebilmeniz için gerekiyor";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Küçük resimler";
 "Title" = "Title";
 "Title truncation" = "Başlık kesilmesi";

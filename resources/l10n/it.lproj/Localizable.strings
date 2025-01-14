@@ -35,7 +35,6 @@
 "App is hidden" = "L'app è nascosta";
 "App is running but has no open window" = "L'app è attiva ma senza finestre aperte";
 "Apparition delay" = "Ritardo comparsa";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Ritardo:";
 "Appearance" = "Aspetto";
 "Application Name" = "Nome dell'applicazione";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Non mostrare le finestre di queste app";
 "Done" = "Fatto";
 "End" = "Alla fine";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Dissolvenza in uscita";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Dissolvenza in uscita:";
 "Focus selected window" = "Passa alla finestra selezionata";
 "Fullscreen window" = "Finestra a schermo intero";
@@ -214,7 +211,6 @@
 "Then release:" = "Poi rilascia:";
 "This permission is needed to focus windows after you release the shortcut" = "Questo permesso è necessario per rendere attiva la finestra al rilascio del comando rapido";
 "This permission is needed to show screenshots and titles of open windows" = "Questo permesso è necessario per mostrare le anteprime e i titoli delle finestre.";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniature";
 "Title" = "Titolo";
 "Title truncation" = "Troncamento del titolo";

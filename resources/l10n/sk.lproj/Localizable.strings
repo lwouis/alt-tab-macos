@@ -35,7 +35,6 @@
 "App is hidden" = "Aplikácia je skrytá";
 "App is running but has no open window" = "Aplikácia je spustená, ale nemá otvorené okno";
 "Apparition delay" = "Oneskorenie";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Oneskorenie zobrazenia:";
 "Appearance" = "Vzhľad";
 "Application Name" = "Názov aplikácie";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Nezobrazovať okná z týchto aplikácií";
 "Done" = "hotový";
 "End" = "Koniec";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Vyblednúť animáciu";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animiácia do stratena:";
 "Focus selected window" = "Zobraz zvýraznené okno";
 "Fullscreen window" = "Fullscreen window";
@@ -214,7 +211,6 @@
 "Then release:" = "Po uvoľnení kláves:";
 "This permission is needed to focus windows after you release the shortcut" = "Toto povolenie je potrebné na zobrazenie na konkrétne okno po uvoľnení skratky";
 "This permission is needed to show screenshots and titles of open windows" = "Toto povolenie je potrebné na zobrazovanie snímok obrazovky a názvov otvorených okien";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniatúra";
 "Title" = "Title";
 "Title truncation" = "Skrátenie názvu";

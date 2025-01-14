@@ -35,7 +35,6 @@
 "App is hidden" = "অ্যাপটি লুকানো আছে";
 "App is running but has no open window" = "অ্যাপ চলছে কিন্তু কোন খোলা উইন্ডো নেই";
 "Apparition delay" = "প্রয়োগ বিলম্ব";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "আবির্ভাব বিলম্ব:";
 "Appearance" = "অলংকরণ";
 "Application Name" = "অ্যাপ্লিকেশন নাম";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "এই অ্যাপস থেকে উইন্ডো দেখাবেন না";
 "Done" = "সম্পন্ন";
 "End" = "শেষ";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "অ্যানিমেশন বিবর্ণ";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "ফেইড আউট অ্যানিমেশন:";
 "Focus selected window" = "নির্বাচিত উইন্ডোতে ফোকাস করুন";
 "Fullscreen window" = "ফুলস্ক্রিন উইন্ডো";
@@ -214,7 +211,6 @@
 "Then release:" = "তারপর মুক্তি:";
 "This permission is needed to focus windows after you release the shortcut" = "আপনি শর্টকাট রিলিজ করার পর উইন্ডোজ ফোকাস করার জন্য এই অনুমতি প্রয়োজন";
 "This permission is needed to show screenshots and titles of open windows" = "খোলা উইন্ডোর স্ক্রিনশট এবং শিরোনাম দেখানোর জন্য এই অনুমতি প্রয়োজন";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "থাম্বনেইলস";
 "Title" = "Title";
 "Title truncation" = "শিরোনাম কাটা";

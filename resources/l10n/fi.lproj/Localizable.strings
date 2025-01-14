@@ -35,7 +35,6 @@
 "App is hidden" = "Sovellus on piilotettu";
 "App is running but has no open window" = "Sovellus on käynnissä, mutta sillä ei ole ikkunoita";
 "Apparition delay" = "Ilmestysviive";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Ilmestymisviive:";
 "Appearance" = "Ulkoasu";
 "Application Name" = "Apin nimi";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Älä näytä ikkunoita näistä ohjelmista";
 "Done" = "Valmis";
 "End" = "Loppu";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Haihtumisen animaation";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Häipymisanimaatio:";
 "Focus selected window" = "Kohdenna valittu ikkuna";
 "Fullscreen window" = "Koko näytön ikkuna";
@@ -214,7 +211,6 @@
 "Then release:" = "Sitten päästä:";
 "This permission is needed to focus windows after you release the shortcut" = "Tarvitaan ikkunoiden valitsemiseksi";
 "This permission is needed to show screenshots and titles of open windows" = "Tarvitaan ikkunoiden otsikoiden ja pikkukuvien näyttämiseen";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Pikkukuvat";
 "Title" = "Title";
 "Title truncation" = "Otsikon lyhennys";

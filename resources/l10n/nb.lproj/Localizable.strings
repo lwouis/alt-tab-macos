@@ -35,7 +35,6 @@
 "App is hidden" = "App er skjult";
 "App is running but has no open window" = "App kjører uten åpne vinduer";
 "Apparition delay" = "Apparition delay";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Visningsforsinkelse:";
 "Appearance" = "Utseende";
 "Application Name" = "Application Name";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Ikke vis vinduer fra disse appene";
 "Done" = "Done";
 "End" = "Slutt";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade out animation";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade ut-animasjon:";
 "Focus selected window" = "Fokuser på valgt vindu";
 "Fullscreen window" = "Fullskjermsvindu";
@@ -214,7 +211,6 @@
 "Then release:" = "Så slipp:";
 "This permission is needed to focus windows after you release the shortcut" = "Denne tillatelsen er nødvendig for å kunne fokusere på vindu når du slipper hurtigtasten";
 "This permission is needed to show screenshots and titles of open windows" = "Denne tillatelsen er nødvendig for å kunne vise skjermbilde og tittel på åpne vinduer";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Thumbnails";
 "Title" = "Title";
 "Title truncation" = "Title truncation";

@@ -35,7 +35,6 @@
 "App is hidden" = "Aplikasi disembunyikan";
 "App is running but has no open window" = "Aplikasi sedang berjalan tetapi tidak memiliki jendela yang terbuka";
 "Apparition delay" = "Penundaan penampakan";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Penundaan penampakan:";
 "Appearance" = "Penampilan";
 "Application Name" = "Nama Aplikasi";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Jangan tampilkan jendela dari aplikasi ini";
 "Done" = "Selesai";
 "End" = "Akhiri";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade Out Animasi";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animasi fade out:";
 "Focus selected window" = "Fokus ke jendela yang dipilih";
 "Fullscreen window" = "Jendela layar penuh";
@@ -214,7 +211,6 @@
 "Then release:" = "Lalu lepaskan:";
 "This permission is needed to focus windows after you release the shortcut" = "Izin ini diperlukan untuk memfokuskan jendela setelah Anda melepaskan pintasan";
 "This permission is needed to show screenshots and titles of open windows" = "Izin ini diperlukan untuk menampilkan tangkapan layar dan judul jendela yang terbuka";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Thumbnails";
 "Title" = "Title";
 "Title truncation" = "Pemotongan judul";

@@ -35,7 +35,6 @@
 "App is hidden" = "แอปถูกซ่อน";
 "App is running but has no open window" = "แอปกําลังใช้งานแต่ไม่มีหน้าต่างเปิดอยู่";
 "Apparition delay" = "ความล่าช้าในการปรากฏตัว";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "หน่วงเวลา:";
 "Appearance" = "รูปแบบ";
 "Application Name" = "ชื่อแอปพลิเคชัน";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "ไม่ต้องแสดงหน้าต่างจากแอปเหล่านี้";
 "Done" = "เสร็จแล้ว";
 "End" = "ท้าย";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "อนิเมชั่นจางหายไป";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "แอนิเมชั่นจางหาย";
 "Focus selected window" = "โฟกัสหน้าต่างที่เลือก";
 "Fullscreen window" = "หน้าต่างโหมดเต็มหน้าจอ";
@@ -214,7 +211,6 @@
 "Then release:" = "เมื่อปล่อย";
 "This permission is needed to focus windows after you release the shortcut" = "การอนุญาตนี้จำเป็นสำหรับการโฟกัส Windows หลังจากที่คุณปล่อยทางลัด";
 "This permission is needed to show screenshots and titles of open windows" = "การอนุญาตนี้จำเป็นต้องแสดงภาพหน้าจอและชื่อของ Windows Open";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "รูปขนาดย่อ";
 "Title" = "Title";
 "Title truncation" = "การตัดชื่อ";

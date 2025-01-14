@@ -35,7 +35,6 @@
 "App is hidden" = "L'aplicació està oculta";
 "App is running but has no open window" = "L'aplicació no té finestres obertes";
 "Apparition delay" = "Retard de l'aparició";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Retard en aparèixer:";
 "Appearance" = "Aparença";
 "Application Name" = "Nom de l'aplicació";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "No mostrar les finestres de les següents aplicacions";
 "Done" = "Fer";
 "End" = "Final";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Esvair l'animació";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animació en desaparèixer:";
 "Focus selected window" = "Activar finestra seleccionada";
 "Fullscreen window" = "L'aplicació es veu a pantalla completa";
@@ -214,7 +211,6 @@
 "Then release:" = "En deixar anar:";
 "This permission is needed to focus windows after you release the shortcut" = "Aquest permís és necessari per activar una finestra amb una drecera";
 "This permission is needed to show screenshots and titles of open windows" = "Aquest permís és necessari per mostrar les miniatures i els títols de les finestres";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniatures";
 "Title" = "Títol";
 "Title truncation" = "Títol Truncation";

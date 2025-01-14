@@ -35,7 +35,6 @@
 "App is hidden" = "Η εφαρμογή είναι κρυμμένη";
 "App is running but has no open window" = "Η εφαρμογή εκτελείται αλλά δεν διαθέτει ανοιχτό παράθυρο";
 "Apparition delay" = "Καθυστέρηση εμφάνισης";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Καθυστέρηση εμφάνισης";
 "Appearance" = "Εμφάνιση";
 "Application Name" = "Όνομα εφαρμογής";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Απόκρυψη παραθύρων από αυτές τις εφαρμογές";
 "Done" = "Εντάξει";
 "End" = "Τέλος";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Εφέ ξεθωριάσματος";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Εφέ ξεθωριάσματος:";
 "Focus selected window" = "Εστίαση στο επιλεγμένο παράθυρο";
 "Fullscreen window" = "Πλήρης οθόνη";
@@ -214,7 +211,6 @@
 "Then release:" = "Έπειτα αφήστε:";
 "This permission is needed to focus windows after you release the shortcut" = "Αυτή η άδεια απαιτείται για να εστιάσετε τα παράθυρα μετά την απελευθέρωση της συντόμευσης";
 "This permission is needed to show screenshots and titles of open windows" = "Αυτή η άδεια απαιτείται για την εμφάνιση στιγμιότυπων και τίτλων ανοιχτών παραθύρων";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Μικρογραφίες";
 "Title" = "Title";
 "Title truncation" = "Περικοπή τίτλου";

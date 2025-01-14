@@ -35,7 +35,6 @@
 "App is hidden" = "Az alkalmazás rejtett";
 "App is running but has no open window" = "Az alkalmazás fut, de nincs nyitott ablaka";
 "Apparition delay" = "Megjelenés késleltetése";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Megjelenítés késleltetése:";
 "Appearance" = "Megjelenés";
 "Application Name" = "Alkalmazásnév";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Ablakok elrejtése ezekből az alkalmazásokból";
 "Done" = "Kész";
 "End" = "Végén";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Eltűnés animáció";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Eltűnési animáció:";
 "Focus selected window" = "A kiválasztott ablak előtérbe hozása";
 "Fullscreen window" = "Teljes Képernyős Ablak";
@@ -214,7 +211,6 @@
 "Then release:" = "Majd engedje fel:";
 "This permission is needed to focus windows after you release the shortcut" = "Ez a jogosultság ahhoz szükséges hogy az ablak fókuszba kerüljön miután a parancsikont elengedte";
 "This permission is needed to show screenshots and titles of open windows" = "Ez a jogosultág az ablak előnézetéhez és címezéséhez szükséges.";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Miniatűrök";
 "Title" = "Title";
 "Title truncation" = "Rövidíés";

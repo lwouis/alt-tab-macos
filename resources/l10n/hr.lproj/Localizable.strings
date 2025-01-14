@@ -35,7 +35,6 @@
 "App is hidden" = "Aplikacija je skrivena";
 "App is running but has no open window" = "Aplikacija se pokreće, ali nema otvorenog prozora";
 "Apparition delay" = "Kašnjenje ukazanja";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Odgoda prikazivanja:";
 "Appearance" = "Izgled";
 "Application Name" = "Naziv aplikacije";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "Završen";
 "End" = "Kraj";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Izblijedi animacija";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "Izabrani prozor fokus";
 "Fullscreen window" = "Fullscreen window";
@@ -214,7 +211,6 @@
 "Then release:" = "Then release:";
 "This permission is needed to focus windows after you release the shortcut" = "Ovo je dopuštenje potrebno da se usredotočite Windows nakon što objavite prečac";
 "This permission is needed to show screenshots and titles of open windows" = "Ovo je dopuštenje potrebno za prikazivanje snimki zaslona i naslova otvorenih sustava";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Minijatura";
 "Title" = "Title";
 "Title truncation" = "Skraćenje naslova";

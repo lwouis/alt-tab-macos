@@ -35,7 +35,6 @@
 "App is hidden" = "App veşartî ye";
 "App is running but has no open window" = "Serîlêdanê dimeşe lê pencereya vekirî tune";
 "Apparition delay" = "Derengiya diyarker";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Derengîya xuyabûnê:";
 "Appearance" = "Dîtbarî";
 "Application Name" = "Navê Serlêdanê";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Paceyên wan sepanan nîşan nede";
 "Done" = "Dank";
 "End" = "Dawî";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Animation Out Out";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animasyonan rake:";
 "Focus selected window" = "Focus Pencereya hilbijartî";
 "Fullscreen window" = "Fullscreen window";
@@ -214,7 +211,6 @@
 "Then release:" = "Pişre berde:";
 "This permission is needed to focus windows after you release the shortcut" = "Ev destûr ji bo gerûbûna paceyê pêwiste.";
 "This permission is needed to show screenshots and titles of open windows" = "Ev destûr hewce ye ku dîmen û sernavên pencereyên vekirî nîşan bide";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Thumbnails";
 "Title" = "Title";
 "Title truncation" = "Sernav Truncation";

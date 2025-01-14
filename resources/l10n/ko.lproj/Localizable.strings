@@ -35,7 +35,6 @@
 "App is hidden" = "앱이 숨겨져 있습니다";
 "App is running but has no open window" = "앱이 실행 중이지만 열린 윈도우가 없습니다";
 "Apparition delay" = "표시 지연 시간";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "나타나는 지연 시간:";
 "Appearance" = "모양";
 "Application Name" = "응용 프로그램 이름";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "다음 앱들의 윈도우가 보여지지 않습니다";
 "Done" = "완료";
 "End" = "끝";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "사라질 때 애니메이션";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "페이드 아웃 애니메이션:";
 "Focus selected window" = "선택한 윈도우로 이동";
 "Fullscreen window" = "윈도우를 전체 화면으로 전환";
@@ -214,7 +211,6 @@
 "Then release:" = "그리고 놓으면:";
 "This permission is needed to focus windows after you release the shortcut" = "단축키 사용 후 창에 포커스하려면 이 권한이 필요합니다";
 "This permission is needed to show screenshots and titles of open windows" = "이 권한은 윈도우의 이미지와 제목을 띄울 수 있게 해줍니다";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "썸네일";
 "Title" = "제목";
 "Title truncation" = "제목 자리";

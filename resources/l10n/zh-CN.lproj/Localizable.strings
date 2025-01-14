@@ -35,7 +35,6 @@
 "App is hidden" = "应用程序已隐藏";
 "App is running but has no open window" = "应用程序正在运行但没有打开的窗口";
 "Apparition delay" = "幻影延迟";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "切换窗口出现延迟：";
 "Appearance" = "外观";
 "Application Name" = "应用名称";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "不显示这些应用程序的窗口";
 "Done" = "完成";
 "End" = "结尾";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "淡出动画";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "淡出动画：";
 "Focus selected window" = "前置选中的窗口";
 "Fullscreen window" = "全屏窗口";
@@ -214,7 +211,6 @@
 "Then release:" = "然后松开：";
 "This permission is needed to focus windows after you release the shortcut" = "需要此权限以使用快捷键切换窗口";
 "This permission is needed to show screenshots and titles of open windows" = "需要此权限以显示窗口截屏与标题";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "缩略图";
 "Title" = "标题";
 "Title truncation" = "标题截断";

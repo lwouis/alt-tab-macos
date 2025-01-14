@@ -35,7 +35,6 @@
 "App is hidden" = "App er gøymd";
 "App is running but has no open window" = "App køyrer utan opne vindauge";
 "Apparition delay" = "Apparition delay";
-"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Visingsforseinking:";
 "Appearance" = "Utsjånad";
 "Application Name" = "Application Name";
@@ -70,9 +69,7 @@
 "Don’t show windows from these apps" = "Ikkje vis vindauge frå desse appane";
 "Done" = "Done";
 "End" = "Slutten";
-"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade out animation";
-"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Uttoningsanimasjon:";
 "Focus selected window" = "Fokuser på valt vindauge";
 "Fullscreen window" = "Fullskjermsvindauge";
@@ -214,7 +211,6 @@
 "Then release:" = "Så slepp:";
 "This permission is needed to focus windows after you release the shortcut" = "Dette løyvet er naudsynt for å kunna fokusera på vindauget når du slepp hurtigtasten";
 "This permission is needed to show screenshots and titles of open windows" = "Dette løyvet er naudsynt for å kunna visa skjermbilete og tittel på opne vindauge";
-"This permission is needed to show thumbnails and preview of open windows" = "";
 "Thumbnails" = "Thumbnails";
 "Title" = "Title";
 "Title truncation" = "Title truncation";
