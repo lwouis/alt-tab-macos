@@ -35,6 +35,7 @@
 "App is hidden" = "Forrit er falið";
 "App is running but has no open window" = "Forrit keyrir en hefur engan opin glugga";
 "Apparition delay" = "Seinkun á svip";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Birtingar töf:";
 "Appearance" = "Útlit";
 "Application Name" = "Nafn umsóknar";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "Gert";
 "End" = "Endir";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Dofna út fjör";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "Fókus valinn gluggi";
 "Fullscreen window" = "Fullscreen window";

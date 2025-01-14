@@ -35,6 +35,7 @@
 "App is hidden" = "ऐप छिपा हुआ है";
 "App is running but has no open window" = "ऐप चल रहा है, लेकिन कोई खुली खिड़की नहीं है";
 "Apparition delay" = "स्पष्टता विलंब";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "प्रेत देरी:";
 "Appearance" = "दिखावट";
 "Application Name" = "अनुप्रयोग नाम";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "इन ऐप्स से खिड़की न दिखाएं";
 "Done" = "हो गया";
 "End" = "अंत";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "एनीमेशन को फीका";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "फेड आउट एनीमेशन:";
 "Focus selected window" = "चयनित खिड़की पर केंद्र करें";
 "Fullscreen window" = "फुल्स्क्रीन विंडो";

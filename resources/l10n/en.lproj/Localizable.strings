@@ -35,6 +35,7 @@
 "App is hidden" = "App is hidden";
 "App is running but has no open window" = "App is running but has no open window";
 "Apparition delay" = "Apparition delay";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Apparition delay:";
 "Appearance" = "Appearance";
 "Application Name" = "Application Name";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "Done";
 "End" = "End";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade out animation";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "Focus selected window";
 "Fullscreen window" = "Fullscreen window";

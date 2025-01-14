@@ -35,6 +35,7 @@
 "App is hidden" = "Aplikacija je skrivena";
 "App is running but has no open window" = "Aplikacija radi ali nema otvorenih prozora";
 "Apparition delay" = "Кашњење";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Odlaganje priviđenja:";
 "Appearance" = "Izgled";
 "Application Name" = "Назив апликације";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Ne prikazuj prozore ovih aplikacija";
 "Done" = "Готово";
 "End" = "Kraj";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Избледи анимацију";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animacija gašenja:";
 "Focus selected window" = "Fokusiraj odabrani prozor";
 "Fullscreen window" = "Prozor preko celog ekrana";

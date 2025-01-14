@@ -35,6 +35,7 @@
 "App is hidden" = "アプリが隠されています";
 "App is running but has no open window" = "アプリは実行中ですが、開いているウィンドウがありません";
 "Apparition delay" = "表示ディレイ";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "表示を遅延：";
 "Appearance" = "外観";
 "Application Name" = "アプリケーション名";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "これらのアプリからウィンドウを表示しない";
 "Done" = "閉じる";
 "End" = "文末";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "フェードアウトアニメーション";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "フェードアウトアニメーション：";
 "Focus selected window" = "選択されたウィンドウを表示";
 "Fullscreen window" = "ウィンドウを全画面表示に切り替える";

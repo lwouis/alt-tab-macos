@@ -35,6 +35,7 @@
 "App is hidden" = "App is hidden";
 "App is running but has no open window" = "App is running but has no open window";
 "Apparition delay" = "Apparition delay";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "ಪ್ರತ್ಯಕ್ಷತೆ ವಿಳಂಬ:";
 "Appearance" = "ತೋರಿಕೆ";
 "Application Name" = "Application Name";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "ಈ ಆ್ಯಪ್ ಗಳ ವಿಂಡೋಗಳನ್ನು ತೋರಿಸಬೇಡಿ";
 "Done" = "Done";
 "End" = "ಮುಗಿಸಿ";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade out animation";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "ಅನಿಮೇಷನ್ ಮಸುಕು ಮಾಡಿ:";
 "Focus selected window" = "Focus selected window";
 "Fullscreen window" = "Fullscreen window";

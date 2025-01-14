@@ -66,6 +66,7 @@ class Preferences {
         "screensToShow3": ScreensToShowPreference.all.indexAsString,
         "screensToShow4": ScreensToShowPreference.all.indexAsString,
         "fadeOutAnimation": "false",
+        "previewFadeInAnimation": "true",
         "hideSpaceNumberLabels": "false",
         "hideStatusIcons": "false",
         "startAtLogin": "true",
@@ -111,6 +112,7 @@ class Preferences {
     static var hideColoredCircles: Bool { CachedUserDefaults.bool("hideColoredCircles") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(CachedUserDefaults.int("windowDisplayDelay")) }
     static var fadeOutAnimation: Bool { CachedUserDefaults.bool("fadeOutAnimation") }
+    static var previewFadeInAnimation: Bool { CachedUserDefaults.bool("previewFadeInAnimation") }
     static var hideSpaceNumberLabels: Bool { CachedUserDefaults.bool("hideSpaceNumberLabels") }
     static var hideStatusIcons: Bool { CachedUserDefaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { CachedUserDefaults.bool("hideAppBadges") }

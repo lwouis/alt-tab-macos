@@ -35,6 +35,7 @@
 "App is hidden" = "Aplicația este ascunsă";
 "App is running but has no open window" = "Aplicația rulează dar nu este nici-o fereastră deschisă";
 "Apparition delay" = "Întârziere de apariție";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Întârziere apariție:";
 "Appearance" = "Aspect";
 "Application Name" = "Numele aplicației";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Nu arăta ferestre din aceste aplicații";
 "Done" = "Terminat";
 "End" = "Sfârșit";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Estompează animația";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animație ieșire:";
 "Focus selected window" = "Focusează fereastra selectată";
 "Fullscreen window" = "Fereastră ecran complet";

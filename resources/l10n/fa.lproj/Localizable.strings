@@ -35,6 +35,7 @@
 "App is hidden" = "برنامه پنهان است";
 "App is running but has no open window" = "برنامه در حال اجرا است اما پنجره باز ندارد";
 "Apparition delay" = "تأخیر در ظاهر";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "تاخیر در ظاهر شدن";
 "Appearance" = "ظاهر";
 "Application Name" = "Application Name";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "انجام شده";
 "End" = "پایان";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "محو شدن انیمیشن";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "تمرکز پنجره انتخاب شده";
 "Fullscreen window" = "Fullscreen window";

@@ -35,6 +35,7 @@
 "App is hidden" = "Uygulama gizlendi";
 "App is running but has no open window" = "Uygulama çalışıyor ancak açık penceresi yok";
 "Apparition delay" = "Görünüş Gecikmesi";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Görünme gecikmesi:";
 "Appearance" = "Görünüm";
 "Application Name" = "Uygulama Adı";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Bu uygulamaya ait pencereleri gösterme";
 "Done" = "Tamamlamak";
 "End" = "Son";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade Out Animation";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Karartma animasyonu:";
 "Focus selected window" = "Seçilen pencereye odaklan";
 "Fullscreen window" = "Tam ekran penceresi";

@@ -35,6 +35,7 @@
 "App is hidden" = "L'aplicació està oculta";
 "App is running but has no open window" = "L'aplicació no té finestres obertes";
 "Apparition delay" = "Retard de l'aparició";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Retard en aparèixer:";
 "Appearance" = "Aparença";
 "Application Name" = "Nom de l'aplicació";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "No mostrar les finestres de les següents aplicacions";
 "Done" = "Fer";
 "End" = "Final";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Esvair l'animació";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animació en desaparèixer:";
 "Focus selected window" = "Activar finestra seleccionada";
 "Fullscreen window" = "L'aplicació es veu a pantalla completa";

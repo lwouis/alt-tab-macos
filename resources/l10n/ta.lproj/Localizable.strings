@@ -35,6 +35,7 @@
 "App is hidden" = "பயன்பாடு மறைக்கப்பட்டுள்ளது";
 "App is running but has no open window" = "பயன்பாடு இயங்குகிறது, ஆனால் திறந்த சாளரம் இல்லை";
 "Apparition delay" = "தோற்றம் தாமதம்";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "தோற்றம் தாமதம் :";
 "Appearance" = "தோற்றம்";
 "Application Name" = "பயன்பாட்டு பெயர்";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "முடிந்தது";
 "End" = "முடிவு";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "அனிமேஷனை மங்கச் செய்யுங்கள்";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "தேர்ந்தெடுக்கப்பட்ட சாளரத்தை கவனம் செலுத்துங்கள்";
 "Fullscreen window" = "Fullscreen window";

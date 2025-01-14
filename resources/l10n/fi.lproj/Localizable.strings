@@ -35,6 +35,7 @@
 "App is hidden" = "Sovellus on piilotettu";
 "App is running but has no open window" = "Sovellus on käynnissä, mutta sillä ei ole ikkunoita";
 "Apparition delay" = "Ilmestysviive";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Ilmestymisviive:";
 "Appearance" = "Ulkoasu";
 "Application Name" = "Apin nimi";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Älä näytä ikkunoita näistä ohjelmista";
 "Done" = "Valmis";
 "End" = "Loppu";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Haihtumisen animaation";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Häipymisanimaatio:";
 "Focus selected window" = "Kohdenna valittu ikkuna";
 "Fullscreen window" = "Koko näytön ikkuna";

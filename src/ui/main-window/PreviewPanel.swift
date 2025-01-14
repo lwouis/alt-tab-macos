@@ -45,10 +45,12 @@ class PreviewPanel: NSPanel {
             setFrame(frame, display: false)
         }
         if id != currentId || !isVisible {
-            alphaValue = 0
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 0.3
-                animator().alphaValue = 1
+            if Preferences.previewFadeInAnimation {
+                alphaValue = 0
+                NSAnimationContext.runAnimationGroup { context in
+                    context.duration = 0.3
+                    animator().alphaValue = 1
+                }
             }
             currentId = id
             order(.below, relativeTo: App.app.thumbnailsPanel.windowNumber)

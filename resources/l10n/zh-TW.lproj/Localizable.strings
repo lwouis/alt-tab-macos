@@ -35,6 +35,7 @@
 "App is hidden" = "應用程式已隱藏";
 "App is running but has no open window" = "程式在運行但沒有打開的視窗";
 "Apparition delay" = "顯示前的延遲";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "顯示前的延遲：";
 "Appearance" = "外觀";
 "Application Name" = "應用程式名稱";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "不要顯示這些程式的視窗";
 "Done" = "完成";
 "End" = "尾端";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "淡出動畫";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "淡出動畫：";
 "Focus selected window" = "聚焦選擇的視窗";
 "Fullscreen window" = "全螢幕視窗";

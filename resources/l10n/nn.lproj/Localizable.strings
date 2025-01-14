@@ -35,6 +35,7 @@
 "App is hidden" = "App er gøymd";
 "App is running but has no open window" = "App køyrer utan opne vindauge";
 "Apparition delay" = "Apparition delay";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Visingsforseinking:";
 "Appearance" = "Utsjånad";
 "Application Name" = "Application Name";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Ikkje vis vindauge frå desse appane";
 "Done" = "Done";
 "End" = "Slutten";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade out animation";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Uttoningsanimasjon:";
 "Focus selected window" = "Fokuser på valt vindauge";
 "Fullscreen window" = "Fullskjermsvindauge";

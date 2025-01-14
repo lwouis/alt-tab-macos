@@ -35,6 +35,7 @@
 "App is hidden" = "แอปถูกซ่อน";
 "App is running but has no open window" = "แอปกําลังใช้งานแต่ไม่มีหน้าต่างเปิดอยู่";
 "Apparition delay" = "ความล่าช้าในการปรากฏตัว";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "หน่วงเวลา:";
 "Appearance" = "รูปแบบ";
 "Application Name" = "ชื่อแอปพลิเคชัน";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "ไม่ต้องแสดงหน้าต่างจากแอปเหล่านี้";
 "Done" = "เสร็จแล้ว";
 "End" = "ท้าย";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "อนิเมชั่นจางหายไป";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "แอนิเมชั่นจางหาย";
 "Focus selected window" = "โฟกัสหน้าต่างที่เลือก";
 "Fullscreen window" = "หน้าต่างโหมดเต็มหน้าจอ";

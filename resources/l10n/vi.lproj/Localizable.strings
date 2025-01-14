@@ -35,6 +35,7 @@
 "App is hidden" = "Ứng dụng đang ẩn";
 "App is running but has no open window" = "Ứng dụng đang chạy nhưng không có cửa sổ được hiển thị";
 "Apparition delay" = "Sự chậm trễ xuất hiện";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Trì hoãn xuất hiện:";
 "Appearance" = "Giao diện";
 "Application Name" = "Tên ứng dụng";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Không hiện cửa sổ từ các ứng dụng này";
 "Done" = "Xong";
 "End" = "Đuôi";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade out hoạt hình";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Hoạt ảnh mờ đần:";
 "Focus selected window" = "Tiêu điểm cửa sổ được chọn";
 "Fullscreen window" = "Toàn màn hình";

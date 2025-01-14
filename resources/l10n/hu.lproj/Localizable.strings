@@ -35,6 +35,7 @@
 "App is hidden" = "Az alkalmazás rejtett";
 "App is running but has no open window" = "Az alkalmazás fut, de nincs nyitott ablaka";
 "Apparition delay" = "Megjelenés késleltetése";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Megjelenítés késleltetése:";
 "Appearance" = "Megjelenés";
 "Application Name" = "Alkalmazásnév";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Ablakok elrejtése ezekből az alkalmazásokból";
 "Done" = "Kész";
 "End" = "Végén";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Eltűnés animáció";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Eltűnési animáció:";
 "Focus selected window" = "A kiválasztott ablak előtérbe hozása";
 "Fullscreen window" = "Teljes Képernyős Ablak";

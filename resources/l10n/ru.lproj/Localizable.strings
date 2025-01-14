@@ -35,6 +35,7 @@
 "App is hidden" = "Приложение скрыто";
 "App is running but has no open window" = "Приложение запущено, но нет открытого окна";
 "Apparition delay" = "Задержка явления";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Задержка появления:";
 "Appearance" = "Внешний вид";
 "Application Name" = "Имя приложения";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Не показывать окна этих приложений";
 "Done" = "Готово";
 "End" = "Конец";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Анимация затухания";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Анимация затухания:";
 "Focus selected window" = "Фокус на выбранное окно";
 "Fullscreen window" = "Окно на весь экран";

@@ -35,6 +35,7 @@
 "App is hidden" = "Aplikacioni është i fshehur";
 "App is running but has no open window" = "Aplikacioni po funksionon, por nuk ka asnjë dritare të hapur";
 "Apparition delay" = "Vonesë në pamje";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Vonesa e shfaqjes";
 "Appearance" = "Pamja";
 "Application Name" = "Emrin e aplikimit";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Mos shfaq dritaret nga këto aplikacione";
 "Done" = "I mbaruar";
 "End" = "Fund";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade Out Animation";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animimi i zbehjes së jashtme:";
 "Focus selected window" = "Fokuso dritaret e zgjedhura";
 "Fullscreen window" = "Fullscreen window";

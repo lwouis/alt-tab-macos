@@ -35,6 +35,7 @@
 "App is hidden" = "היישום מוסתר";
 "App is running but has no open window" = "היישום פועל אך אין לו חלון פתוח";
 "Apparition delay" = "עיכוב הופעה";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "עיכוב הופעה:";
 "Appearance" = "מראה";
 "Application Name" = "שם יישום";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "אל תציג חלונות מיישומים אלה";
 "Done" = "בוצע";
 "End" = "סוף";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "דוהה אנימציה";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "אנימציית היעלמות:";
 "Focus selected window" = "התמקד בחלון שנבחר";
 "Fullscreen window" = "חלון במסך מלא";

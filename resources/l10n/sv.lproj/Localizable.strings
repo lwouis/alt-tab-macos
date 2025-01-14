@@ -35,6 +35,7 @@
 "App is hidden" = "Appen är dold";
 "App is running but has no open window" = "Appen körs men har inga öppna fönster";
 "Apparition delay" = "Fördröjning";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Visningsfördröjning:";
 "Appearance" = "Utseende";
 "Application Name" = "Applikationsnamn";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Visa inte fönster från dessa appar";
 "Done" = "Klar";
 "End" = "Slutet";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Tona ut";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Tona ut:";
 "Focus selected window" = "Byt till valt fönster";
 "Fullscreen window" = "Visa fönstret i helskärm";

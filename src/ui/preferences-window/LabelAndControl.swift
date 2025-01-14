@@ -273,8 +273,7 @@ class LabelAndControl: NSObject {
     }
 
     static func makeLabelWithProvidedControl(_ labelText: String, _ rawName: String, _ control: NSControl,
-                                             _ suffixText: String? = nil, _ suffixUrl: String? = nil,
-                                             labelPosition: LabelPosition = .leftWithSeparator,
+                                             _ suffixText: String? = nil, labelPosition: LabelPosition = .leftWithSeparator,
                                              extraAction: ActionClosure? = nil) -> [NSView] {
         _ = setupControl(control, rawName, extraAction: extraAction)
         if labelPosition == .right && control is NSButton {
@@ -283,12 +282,12 @@ class LabelAndControl: NSObject {
         let label = makeLabel(labelText)
         if labelPosition == .right {
             if let suffixText {
-                return [control, label, makeSuffix(rawName, suffixText, suffixUrl)]
+                return [control, label, makeSuffix(rawName, suffixText)]
             }
             return [control, label]
         }
         if let suffixText {
-            return [label, control, makeSuffix(rawName, suffixText, suffixUrl)]
+            return [label, control, makeSuffix(rawName, suffixText)]
         }
         return [label, control]
     }
@@ -332,13 +331,8 @@ class LabelAndControl: NSObject {
         return label
     }
 
-    private static func makeSuffix(_ controlName: String, _ text: String, _ url: String? = nil) -> NSTextField {
-        let suffix: NSTextField
-        if url == nil {
-            suffix = NSTextField(labelWithString: text)
-        } else {
-            suffix = HyperlinkLabel(text, url!)
-        }
+    private static func makeSuffix(_ controlName: String, _ text: String) -> NSTextField {
+        let suffix = NSTextField(labelWithString: text)
         suffix.textColor = .gray
         suffix.identifier = NSUserInterfaceItemIdentifier(controlName + ControlIdentifierDiscriminator.SUFFIX.rawValue)
         return suffix

@@ -35,6 +35,7 @@
 "App is hidden" = "التطبيق مخفي";
 "App is running but has no open window" = "التطبيق يعمل ولكن ليس له نافذة مفتوحة";
 "Apparition delay" = "تأخير الظهور";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "تأخر الوموض:";
 "Appearance" = "المظهر";
 "Application Name" = "اسم التطبيق";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "لا تُظهر نوافذ هذه التطبيقات";
 "Done" = "منتهي";
 "End" = "النهاية";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "الرسوم المتحركة للتلاشي";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "تأثير الإختفاء:";
 "Focus selected window" = "ركّز النافذة المختارة";
 "Fullscreen window" = "نافذة ملء الشاشة";

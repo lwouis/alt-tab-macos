@@ -35,6 +35,7 @@
 "App is hidden" = "App is hidden";
 "App is running but has no open window" = "Rakendus töötab, kuid sellel pole avatud akent";
 "Apparition delay" = "Ilmumisviivitus";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Apparition delay:";
 "Appearance" = "Välimus";
 "Application Name" = "Rakenduse nimi";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "Tehtud";
 "End" = "Lõpp";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Tuhmuma animatsiooni";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "Focus selected window";
 "Fullscreen window" = "Fullscreen window";

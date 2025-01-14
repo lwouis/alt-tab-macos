@@ -35,6 +35,7 @@
 "App is hidden" = "Ilova yashirin";
 "App is running but has no open window" = "Ilova ishlamoqda, ammo ochiq deraza yo'q";
 "Apparition delay" = "Ko'rish kechikishi";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Apparition delay:";
 "Appearance" = "Ko`rinish";
 "Application Name" = "Ilova nomi";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "Bajarildi";
 "End" = "Oxiri";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Yo'q animatsiya";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "Face Tanlangan oynani";
 "Fullscreen window" = "Fullscreen window";

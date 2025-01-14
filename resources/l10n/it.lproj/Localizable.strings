@@ -35,6 +35,7 @@
 "App is hidden" = "L'app è nascosta";
 "App is running but has no open window" = "L'app è attiva ma senza finestre aperte";
 "Apparition delay" = "Ritardo comparsa";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Ritardo:";
 "Appearance" = "Aspetto";
 "Application Name" = "Nome dell'applicazione";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Non mostrare le finestre di queste app";
 "Done" = "Fatto";
 "End" = "Alla fine";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Dissolvenza in uscita";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Dissolvenza in uscita:";
 "Focus selected window" = "Passa alla finestra selezionata";
 "Fullscreen window" = "Finestra a schermo intero";

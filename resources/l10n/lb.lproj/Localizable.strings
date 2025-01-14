@@ -35,6 +35,7 @@
 "App is hidden" = "App ass verstoppt";
 "App is running but has no open window" = "App leeft, awer huet keng oppe Fënster huet";
 "Apparition delay" = "Bewäertung Retard";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Apparition delay:";
 "Appearance" = "Ausgesinn";
 "Application Name" = "Uwendungsnumm";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Don’t show windows from these apps";
 "Done" = "Verdataktioun";
 "End" = "Schlisster";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Verschwannen Animatioun";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade out animation:";
 "Focus selected window" = "Fokusséiert ausgewielt Fënster";
 "Fullscreen window" = "Fullscreen window";

@@ -35,6 +35,7 @@
 "App is hidden" = "Η εφαρμογή είναι κρυμμένη";
 "App is running but has no open window" = "Η εφαρμογή εκτελείται αλλά δεν διαθέτει ανοιχτό παράθυρο";
 "Apparition delay" = "Καθυστέρηση εμφάνισης";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Καθυστέρηση εμφάνισης";
 "Appearance" = "Εμφάνιση";
 "Application Name" = "Όνομα εφαρμογής";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Απόκρυψη παραθύρων από αυτές τις εφαρμογές";
 "Done" = "Εντάξει";
 "End" = "Τέλος";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Εφέ ξεθωριάσματος";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Εφέ ξεθωριάσματος:";
 "Focus selected window" = "Εστίαση στο επιλεγμένο παράθυρο";
 "Fullscreen window" = "Πλήρης οθόνη";

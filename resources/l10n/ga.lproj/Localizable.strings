@@ -35,6 +35,7 @@
 "App is hidden" = "Tá an aip i bhfolach";
 "App is running but has no open window" = "Tá an aip ag rith ach níl aon fhuinneog oscailte aige";
 "Apparition delay" = "Moill ar chuma";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Moill ar chuma:";
 "Appearance" = "Dealramh";
 "Application Name" = "Ainm Feidhmchláir";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Ná taispeáin fuinneoga ó na haipeanna seo";
 "Done" = "Déanta";
 "End" = "Deireadh";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Céimnigh amach beochan";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Beochan céimnithe:";
 "Focus selected window" = "Fócas an fhuinneog roghnaithe";
 "Fullscreen window" = "Fuinneog lánscáileáin";

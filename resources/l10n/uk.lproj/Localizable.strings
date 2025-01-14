@@ -35,6 +35,7 @@
 "App is hidden" = "Прогама схована";
 "App is running but has no open window" = "Програма запущена, але без активного вікна";
 "Apparition delay" = "Затримка притулку";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Затримка вiдображення:";
 "Appearance" = "Вiдображення";
 "Application Name" = "Назва застосування";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Не відображати вікна ций програм";
 "Done" = "Зроблений";
 "End" = "Завершити";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "З'ятайте анімацію";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Анімація зникнення";
 "Focus selected window" = "Фокусуватись на обраному вікні";
 "Fullscreen window" = "На весь екран";

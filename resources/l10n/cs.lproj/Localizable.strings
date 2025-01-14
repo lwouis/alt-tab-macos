@@ -35,6 +35,7 @@
 "App is hidden" = "Aplikace je skrytá";
 "App is running but has no open window" = "Aplikace běží, ale nemá otevřené okno";
 "Apparition delay" = "Zpoždění zjevení";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Prodleva zobrazení:";
 "Appearance" = "Vzhled";
 "Application Name" = "Název aplikace";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Nezobrazovat okna těchto aplikací";
 "Done" = "Hotovo";
 "End" = "Na konci";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "Fade out animace";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Animace mizení";
 "Focus selected window" = "Přepnout do vybraného okna";
 "Fullscreen window" = "Fullscreen window";

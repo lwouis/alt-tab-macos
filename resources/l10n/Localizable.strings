@@ -92,7 +92,7 @@
 "App is running but has no open window" = "App is running but has no open window";
 
 /* No comment provided by engineer. */
-"Apparition delay" = "Apparition delay";
+"Apparition delay of Switcher" = "Apparition delay of Switcher";
 
 /* No comment provided by engineer. */
 "Appearance" = "Appearance";
@@ -185,7 +185,10 @@
 "End" = "End";
 
 /* No comment provided by engineer. */
-"Fade out animation" = "Fade out animation";
+"Fade in animation of Preview" = "Fade in animation of Preview";
+
+/* No comment provided by engineer. */
+"Fade out animation of Switcher" = "Fade out animation of Switcher";
 
 /* No comment provided by engineer. */
 "Focus selected window" = "Focus selected window";

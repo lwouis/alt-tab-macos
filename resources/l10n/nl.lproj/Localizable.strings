@@ -35,6 +35,7 @@
 "App is hidden" = "App is verborgen";
 "App is running but has no open window" = "App is open maar heeft geen tabbladen open";
 "Apparition delay" = "Verschijningsvertraging";
+"Apparition delay of Switcher" = "";
 "Apparition delay:" = "Tonen met vertraging:";
 "Appearance" = "Weergave";
 "Application Name" = "Applicatienaam";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Toon geen vensters van deze apps";
 "Done" = "Klaar";
 "End" = "Einde";
+"Fade in animation of Preview" = "";
 "Fade out animation" = "FADE OUT -animatie";
+"Fade out animation of Switcher" = "";
 "Fade out animation:" = "Fade-out animatie:";
 "Focus selected window" = "Focus geselecteerde venster";
 "Fullscreen window" = "Schermvullende venster";
