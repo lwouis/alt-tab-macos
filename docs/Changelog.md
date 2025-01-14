@@ -1,5 +1,12 @@
 # Release notes
 
+## [7.19.1](https://github.com/lwouis/alt-tab-macos/compare/v7.19.0...v7.19.1) (2025-01-14)
+
+
+### Bug Fixes
+
+* a few labels were not displaying (closes [#4127](https://github.com/lwouis/alt-tab-macos/issues/4127)) ([0a22547](https://github.com/lwouis/alt-tab-macos/commit/0a22547))
+
 # [7.19.0](https://github.com/lwouis/alt-tab-macos/compare/v7.18.1...v7.19.0) (2025-01-14)
 
 
