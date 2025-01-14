@@ -1,5 +1,13 @@
 # Release notes
 
+# [7.19.0](https://github.com/lwouis/alt-tab-macos/compare/v7.18.1...v7.19.0) (2025-01-14)
+
+
+### Features
+
+* add preference to toggle animation of preview (closes [#4118](https://github.com/lwouis/alt-tab-macos/issues/4118)) ([c10ca2a](https://github.com/lwouis/alt-tab-macos/commit/c10ca2a))
+* middle-click will now close windows and quit applications ([2f8c014](https://github.com/lwouis/alt-tab-macos/commit/2f8c014))
+
 ## [7.18.1](https://github.com/lwouis/alt-tab-macos/compare/v7.18.0...v7.18.1) (2025-01-12)
 
 
