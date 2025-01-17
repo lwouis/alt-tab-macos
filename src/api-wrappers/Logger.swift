@@ -4,6 +4,8 @@ import Foundation
 class Logger {
     private static let logger = SwiftyBeaver.self
     static let flag = "--logs="
+    static let longDateTimeFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+    static let shortDateTimeFormat = "HH:mm:ss"
 
     static func initialize() {
         let console = ConsoleDestination()
@@ -13,7 +15,7 @@ class Logger {
         console.levelString.info = "INFO"
         console.levelString.warning = "WARN"
         console.levelString.error = "ERRO"
-        console.format = "$C$DHH:mm:ss$d $L$c $N.swift:$l $F $M"
+        console.format = "$C$D\(longDateTimeFormat)$d $L$c $N.swift:$l $F $M"
         console.minLevel = decideLevel()
         logger.addDestination(console)
     }
