@@ -289,6 +289,8 @@ class Windows {
         // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
         if let cgWindowId = window.cgWindowId {
             let spaceIds = cgWindowId.spaces()
+            window.spaceIds = spaceIds
+            debugPrint("44|",window.cgWindowId!,spaceIds,window.spaceId,window.title!,Spaces.currentSpaceId)
             if spaceIds.count == 1 {
                 window.spaceId = spaceIds.first!
                 window.spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
@@ -298,6 +300,8 @@ class Windows {
                 window.spaceIndex = Spaces.currentSpaceIndex
                 window.isOnAllSpaces = true
             }
+            debugPrint("44|",window.cgWindowId!,spaceIds,window.spaceId,window.title!)
+            
         }
     }
 
@@ -345,14 +349,23 @@ class Windows {
     }
 
     private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window) {
-        window.shouldShowTheUser =
+        var isSameApp = false
+        if let a = window.application.runningApplication.bundleIdentifier{
+            if let b = NSWorkspace.shared.frontmostApplication?.bundleIdentifier{
+                if a.contains(b) || b.contains(a) {
+                    isSameApp = true
+                }
+            }
+        }
+        window.shouldShowTheUser = window.isNormal &&
             !(window.application.bundleIdentifier.flatMap { id in
                 Preferences.blacklist.contains {
                     id.hasPrefix($0.bundleIdentifier) &&
                         ($0.hide == .always || (window.isWindowlessApp && $0.hide != .none))
                 }
             } ?? false) &&
-            !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.pid != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
+            !(Preferences.appsToShow[App.app.shortcutIndex] == .active &&
+              (window.application.pid != NSWorkspace.shared.frontmostApplication?.processIdentifier && !isSameApp)) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
             ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
                 !window.isWindowlessApp &&

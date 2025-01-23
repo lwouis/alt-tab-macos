@@ -25,6 +25,9 @@ class Window {
     var application: Application
     var axObserver: AXObserver?
     var rowIndex: Int?
+    
+    var spaceIds = [UInt64]()
+    var isNormal = true
 
     static let notifications = [
         kAXUIElementDestroyedNotification,
@@ -36,10 +39,13 @@ class Window {
     ]
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) {
+        let subRole = try? axUiElement.subrole()
+        self.isNormal = subRole == "AXStandardWindow"
         // TODO: make a efficient batched AXUIElementCopyMultipleAttributeValues call once for each window, and store the values
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
+        debugPrint("33init")
         spaceId = Spaces.currentSpaceId
         spaceIndex = Spaces.currentSpaceIndex
         self.isFullscreen = isFullscreen
@@ -235,7 +241,16 @@ class Window {
     func isOnScreen(_ screen: NSScreen) -> Bool {
         if NSScreen.screensHaveSeparateSpaces {
             if let screenUuid = screen.uuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
-                return screenSpaces.contains { $0 == spaceId }
+                debugPrint("22|",spaceId,screen,screenSpaces,title!)
+                for v1 in screenSpaces {
+                    for v2 in spaceIds {
+                        if v1 == v2 {
+                            return true
+                        }
+                    }
+                }
+                return false
+//                return screenSpaces.contains { $0 == spaceId }
             }
         } else {
             let referenceWindow = referenceWindowForTabbedWindow()
