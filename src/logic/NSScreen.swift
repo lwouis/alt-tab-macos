@@ -5,6 +5,7 @@ extension NSScreen {
 
     static func updatePreferred() {
         preferred = detectPreferred() ?? NSScreen.screens.first!
+        debugPrint("11111111",preferred)
     }
 
     private static func detectPreferred() -> NSScreen? {

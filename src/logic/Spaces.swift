@@ -35,6 +35,7 @@ class Spaces {
         if let mainScreen = NSScreen.main,
            let uuid = mainScreen.uuid() {
             currentSpaceId = CGSManagedDisplayGetCurrentSpace(CGS_CONNECTION, uuid)
+            debugPrint("55|",currentSpaceId," ",mainScreen)
         }
         currentSpaceIndex = idsAndIndexes.first { (spaceId: CGSSpaceID, _) -> Bool in
             spaceId == currentSpaceId
