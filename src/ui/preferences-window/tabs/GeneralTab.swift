@@ -91,27 +91,29 @@ class GeneralTab {
             sender.state = .on
             LabelAndControl.controlWasChanged(sender, sender.identifier!.rawValue)
         }
-        var launchAgentsPath = (try? FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)) ?? URL.init(fileURLWithPath: "~/Library", isDirectory: true)
+        do {
+            try writePlistToDisk(sender)
+        } catch let error {
+            Logger.error("Failed to write plist file to disk", error)
+        }
+    }
+
+    private static func writePlistToDisk(_ sender: Switch) throws {
+        var launchAgentsPath = (try? FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)) ?? URL(fileURLWithPath: "~/Library", isDirectory: true)
         launchAgentsPath.appendPathComponent("LaunchAgents", isDirectory: true)
         if !FileManager.default.fileExists(atPath: launchAgentsPath.path) {
-            do {
-                try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
-            } catch let error {
-                Logger.error("Failed to create LaunchAgent directory at '\(launchAgentsPath.path)'", error)
-            }
+            try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
+            Logger.debug(launchAgentsPath.absoluteString + " created")
         }
         launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
         if sender.state == .on {
-            launchAgentPlist.write(to: launchAgentsPath, atomically: true)
+            let data = try PropertyListSerialization.data(fromPropertyList: launchAgentPlist, format: .xml, options: 0)
+            try data.write(to: launchAgentsPath, options: [.atomic])
             Logger.debug(launchAgentsPath.absoluteString + " written")
         } else {
             if FileManager.default.fileExists(atPath: launchAgentsPath.path) {
-                do {
-                    try FileManager.default.removeItem(at: launchAgentsPath)
-                    Logger.debug(launchAgentsPath.absoluteString + " deleted")
-                } catch let error {
-                    Logger.error("Failed to remove LaunchAgent", error)
-                }
+                try FileManager.default.removeItem(at: launchAgentsPath)
+                Logger.debug(launchAgentsPath.absoluteString + " removed")
             }
         }
     }
