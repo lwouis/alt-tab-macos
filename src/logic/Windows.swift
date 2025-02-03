@@ -51,7 +51,15 @@ class Windows {
                 order = compareByAppNameThenWindowTitle($0, $1)
             }
             if sortType == .space {
-                order = $0.spaceIndex.compare($1.spaceIndex)
+                if $0.isOnAllSpaces && $1.isOnAllSpaces {
+                    order = .orderedSame
+                } else if $0.isOnAllSpaces {
+                    order = .orderedAscending
+                }  else if $1.isOnAllSpaces {
+                    order = .orderedDescending
+                } else if let spaceIndex0 = $0.spaceIndexes.first, let spaceIndex1 = $1.spaceIndexes.first {
+                    order = spaceIndex0.compare(spaceIndex1)
+                }
                 if order == .orderedSame {
                     order = compareByAppNameThenWindowTitle($0, $1)
                 }
@@ -283,21 +291,15 @@ class Windows {
         return true
     }
 
-    private static func updatesWindowSpace(_ window: Window) {
+    static func updatesWindowSpace(_ window: Window) {
         // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
         // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
         // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
         if let cgWindowId = window.cgWindowId {
             let spaceIds = cgWindowId.spaces()
-            if spaceIds.count == 1 {
-                window.spaceId = spaceIds.first!
-                window.spaceIndex = Spaces.idsAndIndexes.first { $0.0 == spaceIds.first! }!.1
-                window.isOnAllSpaces = false
-            } else if spaceIds.count > 1 {
-                window.spaceId = Spaces.currentSpaceId
-                window.spaceIndex = Spaces.currentSpaceIndex
-                window.isOnAllSpaces = true
-            }
+            window.spaceIds = spaceIds
+            window.spaceIndexes = spaceIds.map { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }!.1 }
+            window.isOnAllSpaces = spaceIds.count > 1
         }
     }
 
@@ -358,7 +360,7 @@ class Windows {
                 !window.isWindowlessApp &&
                 !(!(Preferences.showFullscreenWindows[App.app.shortcutIndex] != .hide) && window.isFullscreen) &&
                 !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide) && window.isMinimized) &&
-                !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaces.contains(window.spaceId)) &&
+                !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaces.contains { visibleSpace in window.spaceIds.contains { $0 == visibleSpace } }) &&
                 !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(NSScreen.preferred)) &&
                 (Preferences.showTabsAsWindows || !window.isTabbed))
     }

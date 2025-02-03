@@ -351,12 +351,13 @@ class ThumbnailView: FlippedView {
         }
         label.updateTruncationModeIfNeeded()
         if !spaceIcon.isHidden {
-            if element.spaceIndex > 30 || element.isOnAllSpaces {
+            let spaceIndex = element.spaceIndexes.first
+            if element.isOnAllSpaces || (spaceIndex != nil && spaceIndex! > 30) {
                 spaceIcon.setStar()
                 spaceIcon.toolTip = NSLocalizedString("Window is on every Space", comment: "")
-            } else {
-                spaceIcon.setNumber(element.spaceIndex, false)
-                spaceIcon.toolTip = String(format: NSLocalizedString("Window is on Space %d", comment: ""), element.spaceIndex)
+            } else if let spaceIndex {
+                spaceIcon.setNumber(spaceIndex, false)
+                spaceIcon.toolTip = String(format: NSLocalizedString("Window is on Space %d", comment: ""), spaceIndex)
             }
         }
         let appIconChanged = updateAppIcon(element, title)

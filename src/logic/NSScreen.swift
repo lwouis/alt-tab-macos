@@ -24,6 +24,8 @@ extension NSScreen {
     static func active() -> NSScreen? {
         if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier) {
             if let focusedWindow = app.focusedWindow {
+                // on the very first summon, this window may not have its spaces updated, which may land the wrong active screen
+                Windows.updatesWindowSpace(focusedWindow)
                 return NSScreen.screens.first { focusedWindow.isOnScreen($0) }
             }
             return NSScreen.withActiveMenubar()

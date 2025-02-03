@@ -19,8 +19,8 @@ class Window {
     var isWindowlessApp = false
     var position: CGPoint?
     var size: CGSize?
-    var spaceId = CGSSpaceID.max
-    var spaceIndex = SpaceIndex.max
+    var spaceIds = [CGSSpaceID.max]
+    var spaceIndexes = [SpaceIndex.max]
     var axUiElement: AXUIElement!
     var application: Application
     var axObserver: AXObserver?
@@ -40,8 +40,7 @@ class Window {
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
-        spaceId = Spaces.currentSpaceId
-        spaceIndex = Spaces.currentSpaceIndex
+        Windows.updatesWindowSpace(self)
         self.isFullscreen = isFullscreen
         self.isMinimized = isMinimized
         self.position = position
@@ -232,10 +231,11 @@ class Window {
         return application.localizedName ?? ""
     }
 
+    /// window may not be visible on that screen (e.g. the window is not on the current Space)
     func isOnScreen(_ screen: NSScreen) -> Bool {
         if NSScreen.screensHaveSeparateSpaces {
             if let screenUuid = screen.uuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
-                return screenSpaces.contains { $0 == spaceId }
+                return screenSpaces.contains { screenSpace in spaceIds.contains { $0 == screenSpace } }
             }
         } else {
             let referenceWindow = referenceWindowForTabbedWindow()
