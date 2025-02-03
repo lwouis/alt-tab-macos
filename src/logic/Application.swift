@@ -67,39 +67,34 @@ class Application: NSObject {
         }
     }
 
-    func manuallyUpdateWindows(_ group: DispatchGroup? = nil) {
-        // TODO: this method manually checks windows, but will not find windows on other Spaces
-        retryAxCallUntilTimeout(group, 5) { [weak self] in
+    func manuallyUpdateWindows() {
+        retryAxCallUntilTimeout(5) { [weak self] in
             guard let self else { return }
             var atLeastOneActualWindow = false
-            if let axWindows_ = try self.axUiElement!.windows(), !axWindows_.isEmpty {
-                // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
-                let uniqueWindows = Array(Set(axWindows_))
-                if uniqueWindows.isEmpty { return }
-                for axWindow in uniqueWindows {
-                    if let wid = try axWindow.cgWindowId() {
-                        let title = try axWindow.title()
-                        let subrole = try axWindow.subrole()
-                        let role = try axWindow.role()
-                        let size = try axWindow.size()
-                        let level = try wid.level()
-                        if AXUIElement.isActualWindow(self, wid, level, title, subrole, role, size) {
-                            let isFullscreen = try axWindow.isFullscreen()
-                            let isMinimized = try axWindow.isMinimized()
-                            let position = try axWindow.position()
-                            atLeastOneActualWindow = true
-                            DispatchQueue.main.async { [weak self] in
-                                guard let self else { return }
-                                if let window = (Windows.list.first { $0.isEqualRobust(axWindow, wid) }) {
-                                    window.title = window.bestEffortTitle(title)
-                                    window.size = size
-                                    window.isFullscreen = isFullscreen
-                                    window.isMinimized = isMinimized
-                                    window.position = position
-                                } else {
-                                    let window = self.addWindow(axWindow, wid, title, isFullscreen, isMinimized, position, size)
-                                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
-                                }
+            let axWindows = try self.axUiElement!.allWindows(self.pid)
+            for axWindow in axWindows {
+                if let wid = try axWindow.cgWindowId() {
+                    let title = try axWindow.title()
+                    let subrole = try axWindow.subrole()
+                    let role = try axWindow.role()
+                    let size = try axWindow.size()
+                    let level = try wid.level()
+                    if AXUIElement.isActualWindow(self, wid, level, title, subrole, role, size) {
+                        let isFullscreen = try axWindow.isFullscreen()
+                        let isMinimized = try axWindow.isMinimized()
+                        let position = try axWindow.position()
+                        atLeastOneActualWindow = true
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self else { return }
+                            if let window = (Windows.list.first { $0.isEqualRobust(axWindow, wid) }) {
+                                window.title = window.bestEffortTitle(title)
+                                window.size = size
+                                window.isFullscreen = isFullscreen
+                                window.isMinimized = isMinimized
+                                window.position = position
+                            } else {
+                                let window = self.addWindow(axWindow, wid, title, isFullscreen, isMinimized, position, size)
+                                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
                             }
                         }
                     }

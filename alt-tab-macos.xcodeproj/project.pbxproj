@@ -127,6 +127,7 @@
 		BF0C8879F979414A87AB2958 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C89348E07FC05870FEE62 /* InfoPlist.strings */; };
 		BF0C88C371B5550E7D23E4F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8BF5835F97923BF3E8DA /* InfoPlist.strings */; };
 		BF0C88D7E209C788558BD943 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8CC9692E6E4A32846D72 /* InfoPlist.strings */; };
+		BF0C88FFEE7645A1966C7C4E /* AXUIElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C855CD9DBCAEFE48F9EA5 /* AXUIElementTests.swift */; };
 		BF0C894199BB262BDB2D8D37 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8221101CD179DB1121D5 /* InfoPlist.strings */; };
 		BF0C894325A54CF0B6B53464 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8B8B31D2F421AC258351 /* Localizable.strings */; };
 		BF0C896B5D08B7DA8F2024AC /* KeyRepeatTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8D606B53D315F2D9927B /* KeyRepeatTimer.swift */; };
@@ -386,6 +387,7 @@
 		BF0C84B9B7A41E4A4534E519 /* app-icons-style-full.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app-icons-style-full.jpg"; sourceTree = "<group>"; };
 		BF0C84E11784B3B0900D0963 /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = app.icns; sourceTree = "<group>"; };
 		BF0C850C46CCD8B978168CCD /* sv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sv; path = Localizable.strings; sourceTree = "<group>"; };
+		BF0C855CD9DBCAEFE48F9EA5 /* AXUIElementTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXUIElementTests.swift; sourceTree = "<group>"; };
 		BF0C85C20516C4210508F349 /* tsconfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tsconfig.json; sourceTree = "<group>"; };
 		BF0C861255F42BF7B23408EF /* sq */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sq; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C863EDD60D925950B223B /* convert_iconset_to_icns.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = convert_iconset_to_icns.sh; sourceTree = "<group>"; };
@@ -972,6 +974,7 @@
 				BF0C899905524253DC170B56 /* KeyboardEventsTests.swift */,
 				BF0C829EAA93A4C4ADB42CF8 /* Mocks.swift */,
 				BF0C8C6810FF50908E637A48 /* ConcurrentScreenshots.swift */,
+				BF0C855CD9DBCAEFE48F9EA5 /* AXUIElementTests.swift */,
 			);
 			path = "unit-tests";
 			sourceTree = "<group>";
@@ -2242,6 +2245,7 @@
 				BF0C875A28B98904F8F4A66A /* ATShortcut.swift in Sources */,
 				BF0C84E5AC1D423625ABF3E6 /* Mocks.swift in Sources */,
 				BF0C8CBED8D88DFBADE7EC03 /* ConcurrentScreenshots.swift in Sources */,
+				BF0C88FFEE7645A1966C7C4E /* AXUIElementTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

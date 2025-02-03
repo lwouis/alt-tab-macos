@@ -4,47 +4,13 @@ import ApplicationServices
 class Applications {
     static var list = [Application]()
 
-    static func manuallyUpdateWindowsFor2s() {
-        let group = DispatchGroup()
-        manuallyUpdateWindows(group)
-        _ = group.wait(wallTimeout: .now() + .seconds(2))
-    }
-
-    static func manuallyUpdateWindows(_ group: DispatchGroup? = nil) {
-        for app in list {
-            if app.runningApplication.isFinishedLaunching && app.runningApplication.activationPolicy != .prohibited {
-                app.manuallyUpdateWindows(group)
-            }
-        }
-    }
-
     static func initialDiscovery() {
         addInitialRunningApplications()
-        addInitialRunningApplicationsWindows()
         RunningApplicationsEvents.observe()
     }
 
     static func addInitialRunningApplications() {
         addRunningApplications(NSWorkspace.shared.runningApplications)
-    }
-
-    static func addInitialRunningApplicationsWindows() {
-        let otherSpaces = Spaces.otherSpaces()
-        // the CGSAddWindowsToSpaces trick stopped working starting with macOS 12.2
-        // see https://github.com/lwouis/alt-tab-macos/issues/1324
-        if otherSpaces.count > 0, #unavailable(macOS 12.2) {
-            let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId])
-            let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces)
-            let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
-            if windowsOnlyOnOtherSpaces.count > 0 {
-                // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space
-                CGSAddWindowsToSpaces(CGS_CONNECTION, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
-                Applications.manuallyUpdateWindowsFor2s()
-                CGSRemoveWindowsFromSpaces(CGS_CONNECTION, windowsOnlyOnOtherSpaces as NSArray, [Spaces.currentSpaceId])
-            }
-        } else {
-            Applications.manuallyUpdateWindows()
-        }
     }
 
     static func addRunningApplications(_ runningApps: [NSRunningApplication]) {

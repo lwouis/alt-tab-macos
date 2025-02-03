@@ -118,16 +118,6 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                 }
             }
         }
-        DispatchQueue.main.async {
-            if let app = Applications.find(pid) {
-                // work-around for apps started "hidden" like in Login Items with the "Hide" checkbox, or with `open -j`
-                // these apps report isHidden=false, don't generate windowCreated events initially, and have a delay before their windows are created
-                // our only recourse is to manually check their windows once they emit
-                if (!app.hasBeenActiveOnce) {
-                    app.manuallyUpdateWindows()
-                }
-            }
-        }
     } else {
         DispatchQueue.main.async {
             Applications.find(pid)?.focusedWindow = nil

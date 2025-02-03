@@ -26,8 +26,11 @@ extension CGWindow {
     }
 
     // periphery:ignore
-    func bounds() -> CFDictionary? {
-        return value(kCGWindowBounds, CFDictionary.self)
+    func bounds() -> NSRect? {
+        if let cfDictionary = value(kCGWindowBounds, CFDictionary.self) {
+            return NSRect(dictionaryRepresentation: cfDictionary)
+        }
+        return nil
     }
 
     // periphery:ignore

@@ -14,6 +14,6 @@ class SpacesEvents {
         // also, updating windows on Space transition works around an issue with Safari where its fullscreen windows spawn not in fullscreen.
         // resize/move events happen and the window is still not fullscreen. AltTab doesn't get informed that the window is later fullscreen.
         // updating on Space change helps correct the window to being fullscreen
-        Applications.manuallyUpdateWindows()
+        Applications.manuallyUpdateAllAppsWindows()
     }
 }

@@ -7,22 +7,20 @@ import ApplicationServices.HIServices.AXAttributeConstants
 import ApplicationServices.HIServices.AXActionConstants
 
 // if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-func retryAxCallUntilTimeout(_ group: DispatchGroup? = nil, _ timeoutInSeconds: Double = Double(AXUIElement.globalTimeoutInSeconds), _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
-    group?.enter()
+func retryAxCallUntilTimeout(_ timeoutInSeconds: Double = Double(AXUIElement.globalTimeoutInSeconds), _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
     BackgroundWork.axCallsQueue.async {
-        retryAxCallUntilTimeout_(group, timeoutInSeconds, fn, startTime)
+        retryAxCallUntilTimeout_(timeoutInSeconds, fn, startTime)
     }
 }
 
-func retryAxCallUntilTimeout_(_ group: DispatchGroup?, _ timeoutInSeconds: Double, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
+func retryAxCallUntilTimeout_(_ timeoutInSeconds: Double, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
     do {
         try fn()
-        group?.leave()
     } catch {
         let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
         if timePassedInSeconds < timeoutInSeconds {
             BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(AXUIElement.retryDelayInMilliseconds)) {
-                retryAxCallUntilTimeout_(group, timeoutInSeconds, fn, startTime)
+                retryAxCallUntilTimeout_(timeoutInSeconds, fn, startTime)
             }
         }
     }
@@ -48,6 +46,15 @@ extension AXUIElement {
             // for other errors it's pointless to retry
             default: return nil
         }
+    }
+
+    // periphery:ignore
+    func id() -> AXUIElementID? {
+        let pointer = UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque()).advanced(by: 0x20)
+        let cfDataPointer = pointer.load(as: CFData?.self)
+        let cfData = cfDataPointer
+        let bytePtr = CFDataGetBytePtr(cfData)
+        return bytePtr?.withMemoryRebound(to: AXUIElementID.self, capacity: 1) { $0.pointee }
     }
 
     func cgWindowId() throws -> CGWindowID? {
@@ -261,8 +268,49 @@ extension AXUIElement {
         return try attribute(kAXChildrenAttribute, [AXUIElement].self)
     }
 
-    func windows() throws -> [AXUIElement]? {
-        return try attribute(kAXWindowsAttribute, [AXUIElement].self)
+    /// we combine both the normal approach and brute-force to get all possible windows
+    /// with only normal approach: we miss other-Spaces windows
+    /// with only brute-force approach: we miss windows when the app launches (e.g. launch Note.app: first window is not found by brute-force)
+    func allWindows(_ pid: pid_t) throws -> [AXUIElement] {
+        let aWindows = try! windows()
+        let bWindows = AXUIElement.windowsByBruteForce(pid)
+        return Array(Set(aWindows + bWindows))
+    }
+
+    /// doesn't return windows on other Spaces
+    /// use windowsByBruteForce if you want those
+    func windows() throws -> [AXUIElement] {
+        let windows = try attribute(kAXWindowsAttribute, [AXUIElement].self)
+        if let windows,
+           !windows.isEmpty {
+            // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
+            let uniqueWindows = Array(Set(windows))
+            if !uniqueWindows.isEmpty {
+                return uniqueWindows
+            }
+        }
+        return []
+    }
+
+    /// brute-force getting the windows of a process by iterating over AXUIElementID one by one
+    private static func windowsByBruteForce(_ pid: pid_t) -> [AXUIElement] {
+        // we use this to call _AXUIElementCreateWithRemoteToken; we reuse the object for performance
+        // tests showed that this remoteToken is 20 bytes: 4 + 4 + 4 + 8; the order of bytes matters
+        var remoteToken = Data(count: 20)
+        remoteToken.replaceSubrange(0..<4, with: withUnsafeBytes(of: pid) { Data($0) })
+        remoteToken.replaceSubrange(4..<8, with: withUnsafeBytes(of: Int32(0)) { Data($0) })
+        remoteToken.replaceSubrange(8..<12, with: withUnsafeBytes(of: Int32(0x636f636f)) { Data($0) })
+        var axWindows = [AXUIElement]()
+        // we iterate to 1000 as a tradeoff between performance, and missing windows of long-lived processes
+        for axUiElementId: AXUIElementID in 0..<1000 {
+            remoteToken.replaceSubrange(12..<20, with: withUnsafeBytes(of: axUiElementId) { Data($0) })
+            if let axUiElement = _AXUIElementCreateWithRemoteToken(remoteToken as CFData)?.takeRetainedValue(),
+               let subrole = try? axUiElement.subrole(),
+               [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) {
+                axWindows.append(axUiElement)
+            }
+        }
+        return axWindows
     }
 
     func isMinimized() throws -> Bool {
@@ -318,3 +366,9 @@ extension AXUIElement {
 enum AxError: Error {
     case runtimeError
 }
+
+/// tests have shown that this ID has a range going from 0 to probably UInt.MAX
+/// it starts at 0 for each app, and increments over time, for each new UI element
+/// this means that long-lived apps (e.g. Finder) may have high IDs
+/// we don't know how high it can go, and if it wraps around
+typealias AXUIElementID = UInt
