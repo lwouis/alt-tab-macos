@@ -15,6 +15,8 @@ struct CGSWindowCaptureOptions: OptionSet {
     // on a retina display, 1px is spread on 4px, so nominalResolution is 1/4 of bestResolution
     static let nominalResolution = CGSWindowCaptureOptions(rawValue: 1 << 9)
     static let bestResolution = CGSWindowCaptureOptions(rawValue: 1 << 8)
+    // when Stage Manager is enabled, screenshots can become skewed. This param gets us full-size screenshots regardless
+    static let fullSize = CGSWindowCaptureOptions(rawValue: 1 << 19)
 }
 
 /// returns the connection to the WindowServer. This connection ID is required when calling other APIs
