@@ -15,7 +15,7 @@ class Application: NSObject {
     var pid: pid_t
     var isHidden: Bool
     var hasBeenActiveOnce: Bool
-    var icon: NSImage?
+    var icon: CGImage?
     var dockLabel: String?
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
@@ -25,7 +25,7 @@ class Application: NSObject {
         pid = runningApplication.processIdentifier
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
-        icon = runningApplication.icon
+        icon = runningApplication.icon?.cgImage(maxSize: NSSize(width: 1024, height: 1024))
         localizedName = runningApplication.localizedName
         bundleIdentifier = runningApplication.bundleIdentifier
         bundleURL = runningApplication.bundleURL

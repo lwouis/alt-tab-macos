@@ -15,6 +15,7 @@ class App: AppCenterApplication {
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static let website = "https://alt-tab-macos.netlify.app"
+    static let appIcon = CGImage.named("app.icns")
     static var app: App!
     var thumbnailsPanel: ThumbnailsPanel!
     var previewPanel: PreviewPanel!

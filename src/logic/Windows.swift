@@ -55,7 +55,7 @@ class Windows {
                     order = .orderedSame
                 } else if $0.isOnAllSpaces {
                     order = .orderedAscending
-                }  else if $1.isOnAllSpaces {
+                } else if $1.isOnAllSpaces {
                     order = .orderedDescending
                 } else if let spaceIndex0 = $0.spaceIndexes.first, let spaceIndex1 = $1.spaceIndexes.first {
                     order = spaceIndex0.compare(spaceIndex1)
@@ -323,7 +323,7 @@ class Windows {
                     if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
                     DispatchQueue.main.async { [weak window] in
                         if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
-                        window?.refreshThumbnail(NSImage.fromCgImage(cgImage))
+                        window?.refreshThumbnail(cgImage)
                     }
                 }
             }

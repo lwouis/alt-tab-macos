@@ -6,9 +6,8 @@ class Window {
     var lastFocusOrder = Int.zero
     var creationOrder = Int.zero
     var title: String!
-    var thumbnail: NSImage?
-    var thumbnailFullSize: NSSize?
-    var icon: NSImage? { get { application.icon } }
+    var thumbnail: CGImage?
+    var icon: CGImage? { get { application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
     var isHidden: Bool { get { application.isHidden } }
@@ -96,17 +95,16 @@ class Window {
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 
-    func refreshThumbnail(_ screenshot: NSImage) {
+    func refreshThumbnail(_ screenshot: CGImage) {
         thumbnail = screenshot
-        thumbnailFullSize = screenshot.size
         if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
-        if let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
+        if let size,
+           let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
-                view.thumbnail.image = thumbnail?.copyToSeparateContexts()
-                let thumbnailSize = ThumbnailView.thumbnailSize(thumbnail, false)
-                view.thumbnail.setSize(thumbnailSize)
+                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, false)
+                view.thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
             }
-            App.app.previewPanel.updateImageIfShowing(cgWindowId, screenshot, screenshot.size)
+            App.app.previewPanel.updateImageIfShowing(cgWindowId, screenshot, size)
         }
     }
 

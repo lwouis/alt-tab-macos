@@ -193,13 +193,6 @@ extension DispatchQoS {
     }
 }
 
-extension NSImageView {
-    func setSize(_ size: NSSize) {
-        image?.size = size
-        frame.size = size
-    }
-}
-
 extension NSTextField {
     func setWidth(_ width: CGFloat) {
         frame.size.width = width
@@ -210,36 +203,28 @@ extension NSTextField {
 }
 
 extension NSImage {
-    /// if an image can be used in different contexts (e.g. multiple NSTextViews), it's safer to copy it
-    /// see https://www.noodlesoft.com/blog/2011/04/15/the-proper-care-and-feeding-of-nsimage/
-    func copyToSeparateContexts() -> NSImage {
-        return copy() as! NSImage
+    func cgImage(maxSize: NSSize) -> CGImage {
+        // some images like NSRunningApp.icon are from icns. They hosts multiple representations and it's hard to know the highest resolution
+        // by setting a maxSize, the returned CGImage will be the biggest it can under that maxSize
+        var rect = NSRect(origin: .zero, size: maxSize)
+        return cgImage(forProposedRect: &rect, context: nil, hints: nil)!
     }
 
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
     static func initCopy(_ name: String) -> NSImage {
         return NSImage(named: name)!.copy() as! NSImage
     }
+}
 
-    static func initTemplateCopy(_ name: String) -> NSImage {
-        let image = initCopy(name)
-        image.isTemplate = true
-        return image
+extension CGImage {
+    func nsImage() -> NSImage {
+        return NSImage(cgImage: self, size: NSSize(width: width, height: height))
     }
 
-    // copy and resize an image using high quality interpolation
-    static func initResizedCopy(_ name: String, _ width: CGFloat, _ height: CGFloat) -> NSImage {
-        let original = initCopy(name)
-        let img = NSImage(size: CGSize(width: width, height: height))
-        img.lockFocus()
-        NSGraphicsContext.current?.imageInterpolation = .high
-        original.draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, original.size.width, original.size.height), operation: .copy, fraction: 1)
-        img.unlockFocus()
-        return img
-    }
-
-    static func fromCgImage(_ cgImage: CGImage) -> NSImage {
-        return NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
+    static func named(_ imageName: String) -> CGImage {
+        let imageURL = Bundle.main.url(forResource: imageName, withExtension: nil)!
+        let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, nil)!
+        return CGImageSourceCreateImageAtIndex(imageSource, 0, nil)!
     }
 }
 

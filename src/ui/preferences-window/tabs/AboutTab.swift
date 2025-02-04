@@ -2,8 +2,9 @@ import Cocoa
 
 class AboutTab {
     static func initTab() -> NSView {
-        let appIcon = NSImageView(image: NSImage.initResizedCopy("app", 256, 256))
-        appIcon.imageScaling = .scaleNone
+        let appIcon = LightImageView()
+        appIcon.updateWithResizedCopy(App.appIcon, NSSize(width: 256, height: 256), fixBitmapInfo: true)
+        appIcon.fit(256, 256)
         let appText = StackView([
             BoldLabel(App.name),
             NSTextField(wrappingLabelWithString: NSLocalizedString("Version", comment: "") + " " + App.version),
@@ -14,7 +15,8 @@ class AboutTab {
         appText.spacing = GridView.interPadding / 2
         let rowToSeparate = 3
         appText.views[rowToSeparate].topAnchor.constraint(equalTo: appText.views[rowToSeparate - 1].bottomAnchor, constant: GridView.interPadding).isActive = true
-        let appInfo = StackView([appIcon, appText])
+        let appInfo = NSStackView(views: [appIcon, appText])
+        appIcon.translatesAutoresizingMaskIntoConstraints = false
         appInfo.spacing = GridView.interPadding
         appInfo.alignment = .centerY
         let sendFeedback = NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: nil, action: #selector(App.app.showFeedbackPanel))

@@ -4,7 +4,7 @@ import Sparkle
 class BlacklistsTab {
     static func initTab() -> NSView {
         let blacklist = BlacklistView()
-        let add = NSSegmentedControl.init(images: [NSImage(named: NSImage.addTemplateName)!, NSImage(named: NSImage.removeTemplateName)!], trackingMode: .momentary, target: nil, action: nil)
+        let add = NSSegmentedControl(images: [NSImage(named: NSImage.addTemplateName)!, NSImage(named: NSImage.removeTemplateName)!], trackingMode: .momentary, target: nil, action: nil)
         add.onAction = {
             let tableView = blacklist.documentView as! TableView
             if ($0 as! NSSegmentedControl).selectedSegment == 0 {

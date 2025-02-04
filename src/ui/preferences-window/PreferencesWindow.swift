@@ -71,9 +71,10 @@ class PreferencesWindow: NSWindow {
             }
         }
         // it seems that new instances of NSToolbarItems have their image set to a 1x1 image
-        if item.image == nil || item.image!.size == .init(width: 1, height: 1) {
-            item.image = NSImage.initTemplateCopy(id)
-            item.maxSize = .init(width: 22, height: 22)
+        if item.image == nil || item.image!.size == NSSize(width: 1, height: 1) {
+            item.image = NSImage.initCopy(id)
+            item.image!.isTemplate = true
+            item.maxSize = NSSize(width: 22, height: 22)
         }
         item.target = self
         item.action = #selector(tabItemClicked)

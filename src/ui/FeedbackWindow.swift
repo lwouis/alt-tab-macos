@@ -28,14 +28,16 @@ class FeedbackWindow: NSWindow {
     }
 
     private func setupView() {
-        let appIcon = NSImageView(image: NSImage.initResizedCopy("app", 80, 80))
-        appIcon.imageScaling = .scaleNone
+        let appIcon = LightImageView()
+        appIcon.updateWithResizedCopy(App.appIcon, NSSize(width: 80, height: 80), fixBitmapInfo: true)
+        appIcon.fit(80, 80)
         let appText = StackView([
             BoldLabel(NSLocalizedString("Share improvement ideas, or report bugs", comment: "")),
             HyperlinkLabel(NSLocalizedString("View existing discussions", comment: ""), App.repository + "/issues"),
         ], .vertical)
         appText.spacing = GridView.interPadding / 2
         let header = NSStackView(views: [appIcon, appText])
+        header.translatesAutoresizingMaskIntoConstraints = false
         header.spacing = GridView.interPadding
         sendButton = NSButton(title: NSLocalizedString("Send", comment: ""), target: nil, action: #selector(sendCallback))
         sendButton.keyEquivalent = "\r"

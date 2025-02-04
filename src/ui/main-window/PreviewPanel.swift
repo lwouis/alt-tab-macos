@@ -1,7 +1,7 @@
 import Cocoa
 
 class PreviewPanel: NSPanel {
-    private let previewView = NSImageView()
+    private let previewView = LightImageView()
     private let borderView = BorderView()
     private var currentId: CGWindowID?
 
@@ -27,17 +27,15 @@ class PreviewPanel: NSPanel {
         setAccessibilitySubrole(.unknown)
     }
 
-    func updateImageIfShowing(_ id: CGWindowID?,  _ preview: NSImage, _ size: CGSize) {
-        if id == currentId && previewView.image != preview {
-            previewView.image = preview.copyToSeparateContexts()
-            previewView.image!.size = size
+    func updateImageIfShowing(_ id: CGWindowID?,  _ preview: CGImage, _ size: CGSize) {
+        if id == currentId {
+            previewView.updateWithResizedCopy(preview, size)
         }
     }
 
-    func show(_ id: CGWindowID, _ preview: NSImage, _ position: CGPoint, _ size: CGSize) {
-        if previewView.image != preview {
-            previewView.image = preview.copyToSeparateContexts()
-            previewView.image!.size = size
+    func show(_ id: CGWindowID, _ preview: CGImage, _ position: CGPoint, _ size: CGSize) {
+        if id != currentId {
+            previewView.updateWithResizedCopy(preview, size)
             var frame = NSRect(origin: position, size: size)
             // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)
             // Always use the primary screen as reference since all coordinates are relative to it

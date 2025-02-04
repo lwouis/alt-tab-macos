@@ -9,14 +9,14 @@ class TrafficLightButton: NSButton {
     var window_: Window?
 
     init(_ type: TrafficLightButtonType, _ tooltip: String) {
-        super.init(frame: .init(origin: .zero, size: .init(width: TrafficLightButton.size, height: TrafficLightButton.size)))
+        super.init(frame: NSRect(origin: .zero, size: NSSize(width: TrafficLightButton.size, height: TrafficLightButton.size)))
         self.type = type
         target = self
         action = #selector(onClick)
         fit(TrafficLightButton.size, TrafficLightButton.size)
         addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil))
         toolTip = tooltip
-        appearance = .init(named: .aqua)
+        appearance = NSAppearance(named: .aqua)
     }
 
     required init?(coder: NSCoder) {
