@@ -6,26 +6,6 @@ import ApplicationServices.HIServices.AXRoleConstants
 import ApplicationServices.HIServices.AXAttributeConstants
 import ApplicationServices.HIServices.AXActionConstants
 
-// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-func retryAxCallUntilTimeout(_ timeoutInSeconds: Double = Double(AXUIElement.globalTimeoutInSeconds), _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
-    BackgroundWork.axCallsQueue.async {
-        retryAxCallUntilTimeout_(timeoutInSeconds, fn, startTime)
-    }
-}
-
-func retryAxCallUntilTimeout_(_ timeoutInSeconds: Double, _ fn: @escaping () throws -> Void, _ startTime: DispatchTime = DispatchTime.now()) {
-    do {
-        try fn()
-    } catch {
-        let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
-        if timePassedInSeconds < timeoutInSeconds {
-            BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(AXUIElement.retryDelayInMilliseconds)) {
-                retryAxCallUntilTimeout_(timeoutInSeconds, fn, startTime)
-            }
-        }
-    }
-}
-
 extension AXUIElement {
     static let globalTimeoutInSeconds = Float(120)
     // 250ms is similar to human delay in processing changes on screen
@@ -36,6 +16,53 @@ extension AXUIElement {
     static func setGlobalTimeout() {
         // we add 5s to make sure to not do an extra retry
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), globalTimeoutInSeconds + 5)
+    }
+    static var windowResizedOrMovedMap = DebounceMap()
+    static var windowTitleChangedMap = DebounceMap()
+
+    typealias DebounceMap = [CGWindowID: DispatchWorkItem]
+
+    enum DebounceType {
+        case windowResizedOrMoved
+        case windowTitleChanged
+    }
+
+    /// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
+    static func retryAxCallUntilTimeout(after: DispatchTime = .now(), timeoutInSeconds: Double = Double(AXUIElement.globalTimeoutInSeconds), execute: @escaping () throws -> Void) {
+        BackgroundWork.axCallsQueue.asyncAfter(deadline: after) {
+            retryAxCallUntilTimeout_(timeoutInSeconds: timeoutInSeconds, after: after, execute: execute)
+        }
+    }
+
+    static func retryAxCallUntilTimeoutDebounced(_ debounceType: DebounceType, _ wid: CGWindowID, execute: @escaping () throws -> Void) {
+        let workItem = DispatchWorkItem {
+            retryAxCallUntilTimeout_(timeoutInSeconds: Double(globalTimeoutInSeconds), execute: execute)
+        }
+        // use .barrier to avoid accessing the DebounceMaps concurrently
+        BackgroundWork.axCallsQueue.async(flags: .barrier) {
+            switch debounceType {
+                case .windowResizedOrMoved:
+                    windowResizedOrMovedMap[wid]?.cancel()
+                    windowResizedOrMovedMap[wid] = workItem
+                case .windowTitleChanged:
+                    windowTitleChangedMap[wid]?.cancel()
+                    windowTitleChangedMap[wid] = workItem
+            }
+        }
+        BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(retryDelayInMilliseconds), execute: workItem)
+    }
+
+    private static func retryAxCallUntilTimeout_(timeoutInSeconds: Double, after: DispatchTime = DispatchTime.now(), execute: @escaping () throws -> Void) {
+        do {
+            try execute()
+        } catch {
+            let timePassedInSeconds = Double(DispatchTime.now().uptimeNanoseconds - after.uptimeNanoseconds) / 1_000_000_000
+            if timePassedInSeconds < timeoutInSeconds {
+                BackgroundWork.axCallsQueue.asyncAfter(deadline: .now() + .milliseconds(retryDelayInMilliseconds)) {
+                    retryAxCallUntilTimeout_(timeoutInSeconds: timeoutInSeconds, after: after, execute: execute)
+                }
+            }
+        }
     }
 
     func axCallWhichCanThrow<T>(_ result: AXError, _ successValue: inout T) throws -> T? {

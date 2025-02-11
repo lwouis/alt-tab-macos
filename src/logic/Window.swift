@@ -68,7 +68,7 @@ class Window {
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
     /// workaround: we check and possibly do it here
     func checkIfFocused(_ application: Application, _ wid: CGWindowID) {
-        retryAxCallUntilTimeout {
+        AXUIElement.retryAxCallUntilTimeout {
             let focusedWid = try application.axUiElement?.focusedWindow()?.cgWindowId()
             if wid == focusedWid {
                 application.focusedWindow = self
@@ -86,7 +86,7 @@ class Window {
         AXObserverCreate(application.pid, axObserverCallback, &axObserver)
         guard let axObserver else { return }
         for notification in Window.notifications {
-            retryAxCallUntilTimeout { [weak self] in
+            AXUIElement.retryAxCallUntilTimeout { [weak self] in
                 guard let self else { return }
                 try self.axUiElement!.subscribeToNotification(axObserver, notification, nil)
             }

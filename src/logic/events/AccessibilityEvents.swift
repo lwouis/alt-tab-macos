@@ -5,7 +5,7 @@ import ApplicationServices.HIServices.AXNotificationConstants
 let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
     let type = notificationName as String
     Logger.debug(type)
-    retryAxCallUntilTimeout { try handleEvent(type, element) }
+    AXUIElement.retryAxCallUntilTimeout { try handleEvent(type, element) }
 }
 
 fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
@@ -157,33 +157,39 @@ fileprivate func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ ty
 
 fileprivate func windowTitleChanged(_ element: AXUIElement) throws {
     if let wid = try element.cgWindowId() {
-        let newTitle = try element.title()
-        DispatchQueue.main.async {
-            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), newTitle != window.title {
-                window.title = window.bestEffortTitle(newTitle)
-                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+        AXUIElement.retryAxCallUntilTimeoutDebounced(.windowTitleChanged, wid) {
+            let newTitle = try element.title()
+            DispatchQueue.main.async {
+                if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), newTitle != window.title {
+                    window.title = window.bestEffortTitle(newTitle)
+                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+                }
             }
         }
     }
 }
 
 fileprivate func windowResizedOrMoved(_ element: AXUIElement) throws {
-    // TODO: only trigger this at the end of the resize, not on every tick
-    // currently resizing a window will lag AltTab as it triggers too much UI work
     if let wid = try element.cgWindowId() {
-        let isFullscreen = try element.isFullscreen()
-        let size = try element.size()
-        let position = try element.position()
-        DispatchQueue.main.async {
-            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
-                window.size = size
-                window.position = position
-                if window.isFullscreen != isFullscreen {
-                    window.isFullscreen = isFullscreen
-                    App.app.checkIfShortcutsShouldBeDisabled(window, nil)
-                }
-                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+        AXUIElement.retryAxCallUntilTimeoutDebounced(.windowResizedOrMoved, wid) {
+            try updateWindowSizeAndPositionAndFullscreen(element, wid, nil)
+        }
+    }
+}
+
+func updateWindowSizeAndPositionAndFullscreen(_ element: AXUIElement, _ wid: CGWindowID, _ window: Window?) throws {
+    let isFullscreen = try element.isFullscreen()
+    let size = try element.size()
+    let position = try element.position()
+    DispatchQueue.main.async {
+        if let window = (window != nil ? window : (Windows.list.first { $0.isEqualRobust(element, wid) })) {
+            window.size = size
+            window.position = position
+            if window.isFullscreen != isFullscreen {
+                window.isFullscreen = isFullscreen
+                App.app.checkIfShortcutsShouldBeDisabled(window, nil)
             }
+            App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
         }
     }
 }
