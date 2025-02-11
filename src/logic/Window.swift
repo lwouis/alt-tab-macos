@@ -15,12 +15,12 @@ class Window {
     var isFullscreen = false
     var isMinimized = false
     var isOnAllSpaces = false
-    var isWindowlessApp = false
+    var isWindowlessApp: Bool { get { cgWindowId == nil } }
     var position: CGPoint?
     var size: CGSize?
     var spaceIds = [CGSSpaceID.max]
     var spaceIndexes = [SpaceIndex.max]
-    var axUiElement: AXUIElement!
+    var axUiElement: AXUIElement?
     var application: Application
     var axObserver: AXObserver?
     var rowIndex: Int?
@@ -54,7 +54,6 @@ class Window {
     }
 
     init(_ application: Application) {
-        isWindowlessApp = true
         self.application = application
         title = application.localizedName
         Window.globalCreationCounter += 1
@@ -89,7 +88,7 @@ class Window {
         for notification in Window.notifications {
             retryAxCallUntilTimeout { [weak self] in
                 guard let self else { return }
-                try self.axUiElement.subscribeToNotification(axObserver, notification, nil)
+                try self.axUiElement!.subscribeToNotification(axObserver, notification, nil)
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
@@ -120,9 +119,9 @@ class Window {
         BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self else { return }
             if self.isFullscreen {
-                self.axUiElement.setAttribute(kAXFullscreenAttribute, false)
+                self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
             }
-            if let closeButton_ = try? self.axUiElement.closeButton() {
+            if let closeButton_ = try? self.axUiElement!.closeButton() {
                 closeButton_.performAction(kAXPressAction)
             }
         }
@@ -140,14 +139,14 @@ class Window {
         BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self else { return }
             if self.isFullscreen {
-                self.axUiElement.setAttribute(kAXFullscreenAttribute, false)
+                self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
                 // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
                 BackgroundWork.accessibilityCommandsQueue.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
                     guard let self else { return }
-                    self.axUiElement.setAttribute(kAXMinimizedAttribute, true)
+                    self.axUiElement!.setAttribute(kAXMinimizedAttribute, true)
                 }
             } else {
-                self.axUiElement.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
+                self.axUiElement!.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
             }
         }
     }
@@ -159,7 +158,7 @@ class Window {
         }
         BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self else { return }
-            self.axUiElement.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
+            self.axUiElement!.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
         }
     }
 
@@ -188,7 +187,7 @@ class Window {
                 GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(psn)
-                self.axUiElement.focusWindow()
+                self.axUiElement!.focusWindow()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
@@ -263,7 +262,7 @@ class Window {
                 if let mainWin = mainWindow as! AXUIElement? {
                     do {
                         let w1 = try mainWin.cgWindowId()
-                        let w2 = try axUiElement.cgWindowId()
+                        let w2 = try axUiElement!.cgWindowId()
                         if w1 == w2 {
                             return true
                         }
