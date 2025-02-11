@@ -10,10 +10,10 @@ class SpacesEvents {
         // if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
         App.app.refreshOpenUi(Windows.list, .refreshUiAfterExternalEvent)
         Logger.info("current space", Spaces.currentSpaceIndex, Spaces.currentSpaceId)
-        // from macos 12.2 beta onwards, we can't get other-space windows; grabbing windows when switching spaces mitigates the issue
-        // also, updating windows on Space transition works around an issue with Safari where its fullscreen windows spawn not in fullscreen.
-        // resize/move events happen and the window is still not fullscreen. AltTab doesn't get informed that the window is later fullscreen.
-        // updating on Space change helps correct the window to being fullscreen
-        Applications.manuallyUpdateAllAppsWindows()
+        // Workaround for Safari full-screen videos
+        // when full-screening a video, Safari spawns a second full-screen window called "Safari"
+        // this window doesn't emit resize/move events. It doesn't pass isActualWindow on creation. It's added on focusedWindowChanged
+        // for such cases, we refresh isFullscreen on Space change
+        Windows.updateIsFullscreenOnCurrentSpace()
     }
 }

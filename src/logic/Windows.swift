@@ -71,6 +71,16 @@ class Windows {
         }
     }
 
+    static func updateIsFullscreenOnCurrentSpace() {
+        let windowsOnCurrentSpace = Windows.list.filter { !$0.isWindowlessApp }
+        for window in windowsOnCurrentSpace {
+            AXUIElement.retryAxCallUntilTimeout(after: .now() + .milliseconds(AXUIElement.retryDelayInMilliseconds)) { [weak window] in
+                guard let window else { return }
+                try updateWindowSizeAndPositionAndFullscreen(window.axUiElement!, window.cgWindowId!, window)
+            }
+        }
+    }
+
     private static func compareByAppNameThenWindowTitle(_ w1: Window, _ w2: Window) -> ComparisonResult {
         let order = w1.application.localizedName.localizedStandardCompare(w2.application.localizedName)
         if order == .orderedSame {
