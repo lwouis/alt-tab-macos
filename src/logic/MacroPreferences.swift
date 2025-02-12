@@ -42,6 +42,7 @@ enum GesturePreference: CaseIterable, MacroPreference {
 enum LanguagePreference: CaseIterable, MacroPreference {
     case systemDefault
     case indonesian
+    case javanese
     case catalan
     case danish
     case german
@@ -144,6 +145,8 @@ enum LanguagePreference: CaseIterable, MacroPreference {
                 return "Italiano"
             case .japanese:
                 return "日本語"
+            case .javanese:
+                return "Basa Jawa"
             case .kannada:
                 return "ಕನ್ನಡ"
             case .korean:
@@ -251,6 +254,8 @@ enum LanguagePreference: CaseIterable, MacroPreference {
                 return "it"
             case .japanese:
                 return "ja"
+            case .javanese:
+                return "jv"
             case .kannada:
                 return "kn"
             case .korean:
