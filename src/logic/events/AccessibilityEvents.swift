@@ -65,20 +65,16 @@ fileprivate func applicationHiddenOrShown(_ pid: pid_t, _ type: String) throws {
 }
 
 fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
-    if let wid = try element.cgWindowId() {
-        let axTitle = try element.title()
-        let subrole = try element.subrole()
-        let role = try element.role()
-        let isFullscreen = try element.isFullscreen()
-        let isMinimized = try element.isMinimized()
-        let level = try wid.level()
+    if let wid = try element.cgWindowId(),
+       let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
         let position = try element.position()
         let size = try element.size()
+        let level = wid.level()
         DispatchQueue.main.async {
             if let app = Applications.find(pid), NSRunningApplication(processIdentifier: pid) != nil {
                 if (!Windows.list.contains { $0.isEqualRobust(element, wid) }) &&
-                       AXUIElement.isActualWindow(app, wid, level, axTitle, subrole, role, size) {
-                    let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
+                       AXUIElement.isActualWindow(app, wid, level, title, subrole, role, size) {
+                    let window = Window(element, app, wid, title, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
                     Windows.cycleFocusedWindowIndex(1)
                     App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
@@ -94,27 +90,31 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
         // photoshop will focus a window *after* you focus another app
         // we check that a focused window happens within an active app
         if runningApp.isActive {
-            let axTitle = try element.title()
-            let subrole = try element.subrole()
-            let role = try element.role()
-            let isFullscreen = try element.isFullscreen()
-            let isMinimized = try element.isMinimized()
-            let level = try wid.level()
-            let position = try element.position()
-            let size = try element.size()
             DispatchQueue.main.async {
                 guard let app = Applications.find(pid) else { return }
-                // if the window is shown by alt-tab, we mark her as focused for this app
+                // if the window is shown by alt-tab, we mark it as focused for this app
                 // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
                 if let w = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
                     app.focusedWindow = w
                 }
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
-                } else if AXUIElement.isActualWindow(app, wid, level, axTitle, subrole, role, size) {
-                    let window = Window(element, app, wid, axTitle, isFullscreen, isMinimized, position, size)
-                    Windows.appendAndUpdateFocus(window)
-                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+                } else {
+                    AXUIElement.retryAxCallUntilTimeout {
+                        if let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
+                            let position = try element.position()
+                            let size = try element.size()
+                            let level = wid.level()
+                            DispatchQueue.main.async {
+                                if (!Windows.list.contains { $0.isEqualRobust(element, wid) }),
+                                   AXUIElement.isActualWindow(app, wid, level, title, subrole, role, size) {
+                                    let window = Window(element, app, wid, title, isFullscreen, isMinimized, position, size)
+                                    Windows.appendAndUpdateFocus(window)
+                                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -158,11 +158,14 @@ fileprivate func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ ty
 fileprivate func windowTitleChanged(_ element: AXUIElement) throws {
     if let wid = try element.cgWindowId() {
         AXUIElement.retryAxCallUntilTimeoutDebounced(.windowTitleChanged, wid) {
-            let newTitle = try element.title()
-            DispatchQueue.main.async {
-                if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), newTitle != window.title {
-                    window.title = window.bestEffortTitle(newTitle)
-                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+            if let (title, _, _, isMinimized, isFullscreen) = try element.windowAttributes() {
+                DispatchQueue.main.async {
+                    if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), title != window.title {
+                        window.title = window.bestEffortTitle(title)
+                        window.isMinimized = isMinimized
+                        window.isFullscreen = isFullscreen
+                        App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+                    }
                 }
             }
         }
@@ -178,18 +181,21 @@ fileprivate func windowResizedOrMoved(_ element: AXUIElement) throws {
 }
 
 func updateWindowSizeAndPositionAndFullscreen(_ element: AXUIElement, _ wid: CGWindowID, _ window: Window?) throws {
-    let isFullscreen = try element.isFullscreen()
-    let size = try element.size()
-    let position = try element.position()
-    DispatchQueue.main.async {
-        if let window = (window != nil ? window : (Windows.list.first { $0.isEqualRobust(element, wid) })) {
-            window.size = size
-            window.position = position
-            if window.isFullscreen != isFullscreen {
-                window.isFullscreen = isFullscreen
-                App.app.checkIfShortcutsShouldBeDisabled(window, nil)
+    if let (title, _, _, isMinimized, isFullscreen) = try element.windowAttributes() {
+        let size = try element.size()
+        let position = try element.position()
+        DispatchQueue.main.async {
+            if let window = (window != nil ? window : (Windows.list.first { $0.isEqualRobust(element, wid) })) {
+                window.title = title
+                window.size = size
+                window.position = position
+                window.isMinimized = isMinimized
+                if window.isFullscreen != isFullscreen {
+                    window.isFullscreen = isFullscreen
+                    App.app.checkIfShortcutsShouldBeDisabled(window, nil)
+                }
+                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
             }
-            App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
         }
     }
 }

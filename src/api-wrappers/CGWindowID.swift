@@ -5,7 +5,7 @@ extension CGWindowID {
         cgProperty("kCGSWindowTitle", String.self)
     }
 
-    func level() throws -> CGWindowLevel {
+    func level() -> CGWindowLevel {
         var level = CGWindowLevel(0)
         CGSGetWindowLevel(CGS_CONNECTION, self, &level)
         return level

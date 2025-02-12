@@ -73,15 +73,11 @@ class Application: NSObject {
             var atLeastOneActualWindow = false
             let axWindows = try self.axUiElement!.allWindows(self.pid)
             for axWindow in axWindows {
-                if let wid = try axWindow.cgWindowId() {
-                    let title = try axWindow.title()
-                    let subrole = try axWindow.subrole()
-                    let role = try axWindow.role()
+                if let wid = try axWindow.cgWindowId(),
+                    let (title, role, subrole, isMinimized, isFullscreen) = try axWindow.windowAttributes() {
                     let size = try axWindow.size()
-                    let level = try wid.level()
+                    let level = wid.level()
                     if AXUIElement.isActualWindow(self, wid, level, title, subrole, role, size) {
-                        let isFullscreen = try axWindow.isFullscreen()
-                        let isMinimized = try axWindow.isMinimized()
                         let position = try axWindow.position()
                         atLeastOneActualWindow = true
                         DispatchQueue.main.async { [weak self] in

@@ -35,7 +35,6 @@ class Window {
     ]
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) {
-        // TODO: make a efficient batched AXUIElementCopyMultipleAttributeValues call once for each window, and store the values
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
