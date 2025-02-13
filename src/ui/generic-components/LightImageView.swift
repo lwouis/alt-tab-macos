@@ -20,7 +20,7 @@ class LightImageView: NSView {
         layer!.shouldRasterize = false
     }
 
-    func updateWithResizedCopy(_ image: CGImage?, _ size: NSSize, fixBitmapInfo: Bool = false) {
+    func updateWithResizedCopy(_ image: CGImage?, _ size: NSSize) {
         let scaleFactor = NSScreen.preferred.backingScaleFactor
         if let image {
             CATransaction.begin()
