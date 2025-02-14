@@ -32,7 +32,7 @@ func CGSMainConnectionID() -> CGSConnectionID
 /// * offscreen content: no
 /// * macOS 10.10+
 @_silgen_name("CGSHWCaptureWindowList")
-func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: inout CGWindowID, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> Unmanaged<CFArray>
+func CGSHWCaptureWindowList(_ cid: CGSConnectionID, _ windowList: UnsafeMutablePointer<CGWindowID>, _ windowCount: UInt32, _ options: CGSWindowCaptureOptions) -> Unmanaged<CFArray>
 
 /// returns an array of displays (as NSDictionary) -> each having an array of spaces (as NSDictionary) at the "Spaces" key; each having a space ID (as UInt64) at the "id64" key
 /// * macOS 10.10+
@@ -117,7 +117,7 @@ struct CGSCopyWindowsTags: OptionSet {
 /// the elements of the array are ordered by the z-index order of the windows in each space, with some exceptions where spaces mix
 /// * macOS 10.10+
 @_silgen_name("CGSCopyWindowsWithOptionsAndTags")
-func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: Int, _ spaces: CFArray, _ options: Int, _ setTags: inout Int, _ clearTags: inout Int) -> CFArray
+func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: Int, _ spaces: CFArray, _ options: Int, _ setTags: UnsafeMutablePointer<Int>, _ clearTags: UnsafeMutablePointer<Int>) -> CFArray
 
 /// returns the current space ID on the provided display UUID
 /// * macOS 10.10+
@@ -137,7 +137,7 @@ func CGSRemoveWindowsFromSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _ sp
 /// returns the provided CGWindow property for the provided CGWindowID
 /// * macOS 10.10+
 @_silgen_name("CGSCopyWindowProperty") @discardableResult
-func CGSCopyWindowProperty(_ cid: CGSConnectionID, _ wid: CGWindowID, _ property: CFString, _ value: inout CFTypeRef?) -> CGError
+func CGSCopyWindowProperty(_ cid: CGSConnectionID, _ wid: CGWindowID, _ property: CFString, _ value: UnsafeMutablePointer<CFTypeRef?>) -> CGError
 
 enum CGSSpaceMask: Int {
     case current = 5
@@ -153,7 +153,7 @@ func CGSCopySpacesForWindows(_ cid: CGSConnectionID, _ mask: CGSSpaceMask.RawVal
 /// returns window level (see definition in CGWindowLevel.h) of provided window
 /// * macOS 10.10+
 @_silgen_name("CGSGetWindowLevel") @discardableResult
-func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: inout CGWindowLevel) -> CGError
+func CGSGetWindowLevel(_ cid: CGSConnectionID, _ wid: CGWindowID, _ level: UnsafeMutablePointer<CGWindowLevel>) -> CGError
 
 /// returns status of the checkbox in System Preferences > Security & Privacy > Privacy > Screen Recording
 /// returns 1 if checked or 0 if unchecked; also prompts the user the first time if unchecked
@@ -192,10 +192,10 @@ enum SLPSMode: UInt32 {
 /// focuses the front process
 /// * macOS 10.12+
 @_silgen_name("_SLPSSetFrontProcessWithOptions") @discardableResult
-func _SLPSSetFrontProcessWithOptions(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID, _ mode: SLPSMode.RawValue) -> CGError
+func _SLPSSetFrontProcessWithOptions(_ psn: UnsafeMutablePointer<ProcessSerialNumber>, _ wid: CGWindowID, _ mode: SLPSMode.RawValue) -> CGError
 
 /// sends bytes to the WindowServer
 /// more context: https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
 /// * macOS 10.12+
 @_silgen_name("SLPSPostEventRecordTo") @discardableResult
-func SLPSPostEventRecordTo(_ psn: inout ProcessSerialNumber, _ bytes: inout UInt8) -> CGError
+func SLPSPostEventRecordTo(_ psn: UnsafeMutablePointer<ProcessSerialNumber>, _ bytes: UnsafeMutablePointer<UInt8>) -> CGError
