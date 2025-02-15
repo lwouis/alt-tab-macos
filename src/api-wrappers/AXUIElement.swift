@@ -17,6 +17,7 @@ extension AXUIElement {
         // we add 5s to make sure to not do an extra retry
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), globalTimeoutInSeconds + 5)
     }
+
     static var windowResizedOrMovedMap = DebounceMap()
     static var windowTitleChangedMap = DebounceMap()
 
@@ -423,4 +424,4 @@ enum AxError: Error {
 /// it starts at 0 for each app, and increments over time, for each new UI element
 /// this means that long-lived apps (e.g. Finder) may have high IDs
 /// we don't know how high it can go, and if it wraps around
-typealias AXUIElementID = UInt
+typealias AXUIElementID = UInt64

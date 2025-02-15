@@ -185,7 +185,7 @@ class Window {
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
-                self.makeKeyWindow(psn)
+                self.makeKeyWindow(&psn)
                 self.axUiElement!.focusWindow()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
@@ -195,25 +195,16 @@ class Window {
     }
 
     /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
-    func makeKeyWindow(_ psn: ProcessSerialNumber) -> Void {
-        var psn_ = psn
-        var bytes1 = [UInt8](repeating: 0, count: 0xf8)
-        bytes1[0x04] = 0xF8
-        bytes1[0x08] = 0x01
-        bytes1[0x3a] = 0x10
-        var bytes2 = [UInt8](repeating: 0, count: 0xf8)
-        bytes2[0x04] = 0xF8
-        bytes2[0x08] = 0x02
-        bytes2[0x3a] = 0x10
-        memcpy(&bytes1[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
-        memset(&bytes1[0x20], 0xFF, 0x10)
-        memcpy(&bytes2[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
-        memset(&bytes2[0x20], 0xFF, 0x10)
-        [bytes1, bytes2].forEach { bytes in
-            _ = bytes.withUnsafeBufferPointer { pointer in
-                SLPSPostEventRecordTo(&psn_, &UnsafeMutablePointer(mutating: pointer.baseAddress)!.pointee)
-            }
-        }
+    func makeKeyWindow(_ psn: inout ProcessSerialNumber) -> Void {
+        var bytes = [UInt8](repeating: 0, count: 0xf8)
+        bytes[0x04] = 0xf8
+        bytes[0x3a] = 0x10
+        memcpy(&bytes[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
+        memset(&bytes[0x20], 0xff, 0x10)
+        bytes[0x08] = 0x01
+        SLPSPostEventRecordTo(&psn, &bytes)
+        bytes[0x08] = 0x02
+        SLPSPostEventRecordTo(&psn, &bytes)
     }
 
     // for some windows (e.g. Slack), the AX API doesn't return a title; we try CG API; finally we resort to the app name
