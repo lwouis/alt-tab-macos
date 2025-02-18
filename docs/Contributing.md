@@ -2,7 +2,6 @@
 
 There are many ways to contribute:
 
-* Come discuss with us on the [Discord server](https://discord.gg/CVEPeDufJa).
 * [Suggest an enhancement or discuss an issue on github](https://github.com/lwouis/alt-tab-macos/issues), or use the feedback form in the app.
 * [Localize the app in your language](https://poeditor.com/join/project/8AOEZ0eAZE)
 

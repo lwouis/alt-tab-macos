@@ -212,7 +212,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Rodrigo Schneider
 * Ron Nuss
 * sa-ha
-* Sami Suleiman
 * sawtooth
 * Sebastian
 * Selcuk Dursun
