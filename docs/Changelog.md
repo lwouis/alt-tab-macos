@@ -1,5 +1,24 @@
 # Release notes
 
+# [7.20.0](https://github.com/lwouis/alt-tab-macos/compare/v7.19.1...v7.20.0) (2025-02-19)
+
+
+### Bug Fixes
+
+* better detect windows from other spaces (closes [#1324](https://github.com/lwouis/alt-tab-macos/issues/1324)) ([2cd8b96](https://github.com/lwouis/alt-tab-macos/commit/2cd8b96))
+* colored circles would go away on ui refresh (closes [#4151](https://github.com/lwouis/alt-tab-macos/issues/4151)) ([dcea005](https://github.com/lwouis/alt-tab-macos/commit/dcea005))
+* stage manager no longer skews the thumbnails (closes [#1731](https://github.com/lwouis/alt-tab-macos/issues/1731)) ([93defcd](https://github.com/lwouis/alt-tab-macos/commit/93defcd))
+* window might be noted to be on the wrong space ([5413372](https://github.com/lwouis/alt-tab-macos/commit/5413372))
+
+
+### Features
+
+* add javanese localization ([8564ed2](https://github.com/lwouis/alt-tab-macos/commit/8564ed2))
+* improve performance and lower resources consumption ([9d78700](https://github.com/lwouis/alt-tab-macos/commit/9d78700))
+* improve thumbnails quality and performance (closes [#4183](https://github.com/lwouis/alt-tab-macos/issues/4183)) ([9d6fc68](https://github.com/lwouis/alt-tab-macos/commit/9d6fc68))
+* improve window focusing action ([8dd63c7](https://github.com/lwouis/alt-tab-macos/commit/8dd63c7))
+* update fr, kn, pt-br, uk localizations ([fd0411b](https://github.com/lwouis/alt-tab-macos/commit/fd0411b))
+
 ## [7.19.1](https://github.com/lwouis/alt-tab-macos/compare/v7.19.0...v7.19.1) (2025-01-14)
 
 
