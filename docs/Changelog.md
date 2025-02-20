@@ -1,5 +1,12 @@
 # Release notes
 
+## [7.20.1](https://github.com/lwouis/alt-tab-macos/compare/v7.20.0...v7.20.1) (2025-02-20)
+
+
+### Bug Fixes
+
+* may crash when changing space or screen ([b62cec0](https://github.com/lwouis/alt-tab-macos/commit/b62cec0))
+
 # [7.20.0](https://github.com/lwouis/alt-tab-macos/compare/v7.19.1...v7.20.0) (2025-02-19)
 
 
