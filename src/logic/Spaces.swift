@@ -11,10 +11,6 @@ class Spaces {
         return idsAndIndexes.count == 1
     }
 
-    static func otherSpaces() -> [CGSSpaceID] {
-        return idsAndIndexes.filter { $0.0 != currentSpaceId }.map { $0.0 }
-    }
-
     static func windowsInSpaces(_ spaceIds: [CGSSpaceID], _ includeInvisible: Bool = true) -> [CGWindowID] {
         var set_tags = ([] as CGSCopyWindowsTags).rawValue
         var clear_tags = ([] as CGSCopyWindowsTags).rawValue
