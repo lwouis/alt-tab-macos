@@ -308,7 +308,7 @@ class Windows {
         if let cgWindowId = window.cgWindowId {
             let spaceIds = cgWindowId.spaces()
             window.spaceIds = spaceIds
-            window.spaceIndexes = spaceIds.map { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }!.1 }
+            window.spaceIndexes = spaceIds.compactMap { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1 }
             window.isOnAllSpaces = spaceIds.count > 1
         }
     }
