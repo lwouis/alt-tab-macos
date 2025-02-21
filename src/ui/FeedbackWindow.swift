@@ -87,7 +87,7 @@ class FeedbackWindow: NSWindow {
     func openTicket() {
         URLSession.shared.dataTask(with: prepareRequest(), completionHandler: { data, response, error in
             if error != nil || response == nil || (response as! HTTPURLResponse).statusCode != 201 {
-                Logger.error("HTTP call failed:", response ?? "nil", error ?? "nil")
+                Logger.error("HTTP call failed:", response, error, data.flatMap { String(data: $0, encoding: .utf8) })
             }
         }).resume()
         issueTitle.stringValue = ""
@@ -108,10 +108,9 @@ class FeedbackWindow: NSWindow {
     private func prepareRequest() -> URLRequest {
         var request = URLRequest(url: URL(string: "https://api.github.com/repos/lwouis/alt-tab-macos/issues")!)
         request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
         // access token of the alt-tab-macos-bot github account, with scope repo > public_repo
-        request.addValue("token " + FeedbackWindow.token, forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer " + FeedbackWindow.token, forHTTPHeaderField: "Authorization")
         request.httpBody = try! JSONSerialization.data(withJSONObject: [
             "title": issueTitle.stringValue,
             "body": assembleBody(),
