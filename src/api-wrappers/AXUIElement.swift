@@ -204,7 +204,7 @@ extension AXUIElement {
     /// with only normal approach: we miss other-Spaces windows
     /// with only brute-force approach: we miss windows when the app launches (e.g. launch Note.app: first window is not found by brute-force)
     func allWindows(_ pid: pid_t) throws -> [AXUIElement] {
-        let aWindows = try! windows()
+        let aWindows = try windows()
         let bWindows = AXUIElement.windowsByBruteForce(pid)
         return Array(Set(aWindows + bWindows))
     }
