@@ -55,6 +55,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     case croatian
     case italian
     case kurdish
+    case lithuanian
     case romanian
     case luxembourgish
     case hungarian
@@ -153,6 +154,8 @@ enum LanguagePreference: CaseIterable, MacroPreference {
                 return "한국어"
             case .kurdish:
                 return "Kurdî"
+            case .lithuanian:
+                return "Lietuvių kalba"
             case .luxembourgish:
                 return "Lëtzebuergesch"
             case .malayalam:
@@ -262,6 +265,8 @@ enum LanguagePreference: CaseIterable, MacroPreference {
                 return "ko"
             case .kurdish:
                 return "ku"
+            case .lithuanian:
+                return "lt"
             case .luxembourgish:
                 return "lb"
             case .malayalam:
