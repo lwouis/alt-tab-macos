@@ -86,6 +86,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Dzhuneyt
 * EDUARDO
 * edu_sombra
+* Eimantas
 * Eliezer Shpigelman
 * Eric WANTZ
 * Ersagun Kuruca
