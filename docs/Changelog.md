@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.21.0](https://github.com/lwouis/alt-tab-macos/compare/v7.20.1...v7.21.0) (2025-02-21)
+
+
+### Bug Fixes
+
+* app would sometimes crash (closes [#4244](https://github.com/lwouis/alt-tab-macos/issues/4244)) ([d543393](https://github.com/lwouis/alt-tab-macos/commit/d543393))
+
+
+### Features
+
+* add lithuanian localization ([bc95b90](https://github.com/lwouis/alt-tab-macos/commit/bc95b90))
+* improve chinese localization ([330ac54](https://github.com/lwouis/alt-tab-macos/commit/330ac54))
+
 ## [7.20.1](https://github.com/lwouis/alt-tab-macos/compare/v7.20.0...v7.20.1) (2025-02-20)
 
 
