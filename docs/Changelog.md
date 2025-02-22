@@ -1,5 +1,12 @@
 # Release notes
 
+## [7.21.1](https://github.com/lwouis/alt-tab-macos/compare/v7.21.0...v7.21.1) (2025-02-22)
+
+
+### Bug Fixes
+
+* update how feedback messages are sent ([647f900](https://github.com/lwouis/alt-tab-macos/commit/647f900))
+
 # [7.21.0](https://github.com/lwouis/alt-tab-macos/compare/v7.20.1...v7.21.0) (2025-02-21)
 
 
