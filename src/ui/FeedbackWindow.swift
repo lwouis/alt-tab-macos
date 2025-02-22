@@ -108,9 +108,10 @@ class FeedbackWindow: NSWindow {
     private func prepareRequest() -> URLRequest {
         var request = URLRequest(url: URL(string: "https://api.github.com/repos/lwouis/alt-tab-macos/issues")!)
         request.httpMethod = "POST"
-        request.addValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         // access token of the alt-tab-macos-bot github account, with scope repo > public_repo
-        request.addValue("Bearer " + FeedbackWindow.token, forHTTPHeaderField: "Authorization")
+        request.addValue("token " + FeedbackWindow.token, forHTTPHeaderField: "Authorization")
         request.httpBody = try! JSONSerialization.data(withJSONObject: [
             "title": issueTitle.stringValue,
             "body": assembleBody(),
