@@ -71,7 +71,7 @@ class Application: NSObject {
         AXUIElement.retryAxCallUntilTimeout(timeoutInSeconds: 5) { [weak self] in
             guard let self else { return }
             var atLeastOneActualWindow = false
-            let axWindows = try self.axUiElement!.allWindows(self.pid)
+            guard let axWindows = try self.axUiElement?.allWindows(self.pid) else { return }
             for axWindow in axWindows {
                 if let wid = try axWindow.cgWindowId(),
                     let (title, role, subrole, isMinimized, isFullscreen) = try axWindow.windowAttributes() {
