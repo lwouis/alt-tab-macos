@@ -182,16 +182,35 @@ class Window {
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
                 guard let self else { return }
+
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
+
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                DeprecatedAPIs.setFrontmost(psn)
+
+                self.axUiElement?.setAttribute(kAXFocusedAttribute, kCFBooleanTrue!)
+                self.axUiElement?.setAttribute(kAXFocusedWindowAttribute, kCFBooleanTrue!)
+
                 self.makeKeyWindow(&psn)
-                self.axUiElement!.focusWindow()
+                self.axUiElement?.focusWindow()
+                self.axUiElement?.setAttribute(kAXMainAttribute, true as CFTypeRef)
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
             }
         }
+    }
+
+    func unfocus() {
+        Logger.info("Unfocusing \(application.bundleURL.map { "\($0)" } ?? "nil") \(cgWindowId.map { "\($0)" } ?? "nil")")
+//        var psn = ProcessSerialNumber()
+//        GetProcessForPID(self.application.pid, &psn)
+//        self.axUiElement?.setAttribute(kAXFocusedAttribute, kCFBooleanFalse!)
+//        self.axUiElement?.setAttribute(kAXMainWindowAttribute, false as CFTypeRef)
+//        self.axUiElement?.setAttribute(kAXFocusedWindowAttribute, false as CFTypeRef)
+//        self.deactivateWindow(&psn)
     }
 
     /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
@@ -203,7 +222,21 @@ class Window {
         memset(&bytes[0x20], 0xff, 0x10)
         bytes[0x08] = 0x01
         SLPSPostEventRecordTo(&psn, &bytes)
+        usleep(10000)
         bytes[0x08] = 0x02
+        SLPSPostEventRecordTo(&psn, &bytes)
+    }
+
+    func deactivateWindow(_ psn: inout ProcessSerialNumber) -> Void {
+        var bytes = [UInt8](repeating: 0, count: 0xf8)
+        bytes[0x04] = 0xf8
+        bytes[0x08] = 0x0d
+        bytes[0x8a] = 0x02
+
+        memcpy(&bytes[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
+        SLPSPostEventRecordTo(&psn, &bytes)
+        usleep(10000)
+        bytes[0x8a] = 0x01
         SLPSPostEventRecordTo(&psn, &bytes)
     }
 
