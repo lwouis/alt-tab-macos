@@ -3,6 +3,7 @@ import Cocoa
 class Windows {
     static var list = [Window]()
     static var focusedWindowIndex = Int(0)
+    static var previousFocusedWindowIndex = Int(0)
     static var hoveredWindowIndex: Int?
     private static var lastWindowActivityType = WindowActivityType.none
 
@@ -92,6 +93,7 @@ class Windows {
     static func setInitialFocusedAndHoveredWindowIndex() {
         let oldIndex = focusedWindowIndex
         focusedWindowIndex = 0
+        previousFocusedWindowIndex = 0
         ThumbnailsView.highlight(oldIndex)
         if let oldIndex = hoveredWindowIndex {
             hoveredWindowIndex = nil
@@ -178,6 +180,7 @@ class Windows {
                && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
             let oldIndex = focusedWindowIndex
             focusedWindowIndex = newIndex
+            previousFocusedWindowIndex = oldIndex
             ThumbnailsView.highlight(oldIndex)
             previewFocusedWindowIfNeeded()
             index = focusedWindowIndex
@@ -219,6 +222,10 @@ class Windows {
 
     static func focusedWindow() -> Window? {
         return list.count > focusedWindowIndex ? list[focusedWindowIndex] : nil
+    }
+
+    static func previousFocusedWindow() -> Window? {
+        return list.count > previousFocusedWindowIndex ? list[previousFocusedWindowIndex] : nil
     }
 
     static func cycleFocusedWindowIndex(_ step: Int, allowWrap: Bool = true) {

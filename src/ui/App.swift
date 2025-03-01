@@ -121,8 +121,9 @@ class App: AppCenterApplication {
     func focusTarget() {
         guard appIsBeingUsed else { return } // already hidden
         let focusedWindow = Windows.focusedWindow()
-        Logger.info(focusedWindow?.cgWindowId.map { String(describing: $0) } ?? "nil", focusedWindow?.title ?? "nil", focusedWindow?.application.pid ?? "nil", focusedWindow?.application.bundleIdentifier ?? "nil")
-        focusSelectedWindow(focusedWindow)
+        let previousFocusedWindow = Windows.previousFocusedWindow()
+        Logger.info(focusedWindow?.cgWindowId.map { String(describing: $0) } ?? "nil", focusedWindow?.title ?? "nil", focusedWindow?.application.pid ?? "nil", focusedWindow?.application.bundleIdentifier ?? "nil", previousFocusedWindow?.application.bundleIdentifier ?? "nil")
+        focusSelectedWindow(focusedWindow, previousFocusedWindow)
     }
 
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
@@ -178,9 +179,11 @@ class App: AppCenterApplication {
         KeyRepeatTimer.toggleRepeatingKeyPreviousWindow()
     }
 
-    func focusSelectedWindow(_ selectedWindow: Window?) {
+    func focusSelectedWindow(_ selectedWindow: Window?, _ previousSelectedWindow: Window?) {
         guard appIsBeingUsed else { return } // already hidden
         hideUi(true)
+        previousSelectedWindow?.unfocus()
+        usleep(10000)
         if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
             window.focus()
             if Preferences.cursorFollowFocusEnabled {

@@ -35,14 +35,16 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
     let appFocusedWindow = try element.focusedWindow()
     let wid = try appFocusedWindow?.cgWindowId()
     DispatchQueue.main.async {
-        if let app = Applications.find(pid) {
-            if app.hasBeenActiveOnce != true {
-                app.hasBeenActiveOnce = true
+        if (wid != Windows.previousFocusedWindow()?.cgWindowId) {
+            if let app = Applications.find(pid) {
+                if app.hasBeenActiveOnce != true {
+                    app.hasBeenActiveOnce = true
+                }
+                let window = (appFocusedWindow != nil && wid != nil) ? Windows.updateLastFocus(appFocusedWindow!, wid!)?.first : nil
+                app.focusedWindow = window
+                App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
+                App.app.refreshOpenUi(window != nil ? [window!] : [], .refreshUiAfterExternalEvent)
             }
-            let window = (appFocusedWindow != nil && wid != nil) ? Windows.updateLastFocus(appFocusedWindow!, wid!)?.first : nil
-            app.focusedWindow = window
-            App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
-            App.app.refreshOpenUi(window != nil ? [window!] : [], .refreshUiAfterExternalEvent)
         }
     }
 }
@@ -89,7 +91,7 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
        let runningApp = NSRunningApplication(processIdentifier: pid) {
         // photoshop will focus a window *after* you focus another app
         // we check that a focused window happens within an active app
-        if runningApp.isActive {
+        if runningApp.isActive && wid != Windows.previousFocusedWindow()?.cgWindowId {
             DispatchQueue.main.async {
                 guard let app = Applications.find(pid) else { return }
                 // if the window is shown by alt-tab, we mark it as focused for this app

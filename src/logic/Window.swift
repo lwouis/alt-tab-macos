@@ -184,14 +184,27 @@ class Window {
                 guard let self else { return }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
+
+                self.deactivateWindow(&psn)
+
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(&psn)
-                self.axUiElement!.focusWindow()
+
+                usleep(10000)
+                self.axUiElement?.focusWindow()
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
             }
         }
+    }
+
+    func unfocus() {
+        Logger.info("Unfocusing \(application.bundleURL.map { "\($0)" } ?? "nil") \(cgWindowId.map { "\($0)" } ?? "nil")")
+        var psn = ProcessSerialNumber()
+        GetProcessForPID(self.application.pid, &psn)
+        self.deactivateWindow(&psn)
     }
 
     /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
@@ -203,7 +216,23 @@ class Window {
         memset(&bytes[0x20], 0xff, 0x10)
         bytes[0x08] = 0x01
         SLPSPostEventRecordTo(&psn, &bytes)
+        usleep(10000)
         bytes[0x08] = 0x02
+        SLPSPostEventRecordTo(&psn, &bytes)
+    }
+
+    func deactivateWindow(_ psn: inout ProcessSerialNumber) -> Void {
+        var bytes = [UInt8](repeating: 0, count: 0xf8)
+        bytes[0x04] = 0xf8
+        bytes[0x08] = 0x0d
+        bytes[0x8a] = 0x02
+
+        memcpy(&bytes[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
+        SLPSPostEventRecordTo(&psn, &bytes)
+
+        usleep(1000)
+
+        bytes[0x8a] = 0x01
         SLPSPostEventRecordTo(&psn, &bytes)
     }
 
