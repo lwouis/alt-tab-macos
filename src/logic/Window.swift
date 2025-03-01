@@ -182,16 +182,19 @@ class Window {
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
                 guard let self else { return }
+
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
 
-                self.deactivateWindow(&psn)
-
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
-                self.makeKeyWindow(&psn)
+                DeprecatedAPIs.setFrontmost(psn)
 
-                usleep(10000)
+                self.axUiElement?.setAttribute(kAXFocusedAttribute, kCFBooleanTrue!)
+                self.axUiElement?.setAttribute(kAXFocusedWindowAttribute, kCFBooleanTrue!)
+
+                self.makeKeyWindow(&psn)
                 self.axUiElement?.focusWindow()
+                self.axUiElement?.setAttribute(kAXMainAttribute, true as CFTypeRef)
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
@@ -202,9 +205,12 @@ class Window {
 
     func unfocus() {
         Logger.info("Unfocusing \(application.bundleURL.map { "\($0)" } ?? "nil") \(cgWindowId.map { "\($0)" } ?? "nil")")
-        var psn = ProcessSerialNumber()
-        GetProcessForPID(self.application.pid, &psn)
-        self.deactivateWindow(&psn)
+//        var psn = ProcessSerialNumber()
+//        GetProcessForPID(self.application.pid, &psn)
+//        self.axUiElement?.setAttribute(kAXFocusedAttribute, kCFBooleanFalse!)
+//        self.axUiElement?.setAttribute(kAXMainWindowAttribute, false as CFTypeRef)
+//        self.axUiElement?.setAttribute(kAXFocusedWindowAttribute, false as CFTypeRef)
+//        self.deactivateWindow(&psn)
     }
 
     /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
@@ -229,9 +235,7 @@ class Window {
 
         memcpy(&bytes[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
         SLPSPostEventRecordTo(&psn, &bytes)
-
-        usleep(1000)
-
+        usleep(10000)
         bytes[0x8a] = 0x01
         SLPSPostEventRecordTo(&psn, &bytes)
     }

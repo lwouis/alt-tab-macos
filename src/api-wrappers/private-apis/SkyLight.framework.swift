@@ -187,6 +187,7 @@ enum SLPSMode: UInt32 {
     case allWindows = 0x100
     case userGenerated = 0x200
     case noWindows = 0x400
+    case frontWindowOnly = 0x001
 }
 
 /// focuses the front process

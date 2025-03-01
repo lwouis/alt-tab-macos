@@ -36,6 +36,7 @@ fileprivate func applicationActivated(_ element: AXUIElement, _ pid: pid_t) thro
     let wid = try appFocusedWindow?.cgWindowId()
     DispatchQueue.main.async {
         if (wid != Windows.previousFocusedWindow()?.cgWindowId) {
+            Logger.info("WID doesn't match previous")
             if let app = Applications.find(pid) {
                 if app.hasBeenActiveOnce != true {
                     app.hasBeenActiveOnce = true
