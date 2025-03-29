@@ -238,8 +238,9 @@ extension AXUIElement {
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
         return wid != 0
             // Finder's file copy dialogs are wide but < 100 height (see https://github.com/lwouis/alt-tab-macos/issues/1466)
-            // Sonoma introduced a bug: a caps-lock indicator shows as a small window. We try to hide it by filtering out tiny windows
-            && size != nil && (size!.width > 100 || size!.height > 100) && (
+            // Sonoma introduced a bug: a caps-lock & language indicators shows as a small window.
+            // We try to hide it by filtering out tiny windows
+            && size != nil && (size!.width > 100 && size!.height > 50) && (
             (
                 books(app) ||
                     keynote(app) ||
