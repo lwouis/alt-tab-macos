@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.22.0](https://github.com/lwouis/alt-tab-macos/compare/v7.21.1...v7.22.0) (2025-03-30)
+
+
+### Bug Fixes
+
+* language switcher picked up as window ([f4f7d9a](https://github.com/lwouis/alt-tab-macos/commit/f4f7d9a))
+* prevent rare crash ([4e35f9f](https://github.com/lwouis/alt-tab-macos/commit/4e35f9f))
+
+
+### Features
+
+* update ca/de/fr/ko/ru/tw localizations ([9b3f936](https://github.com/lwouis/alt-tab-macos/commit/9b3f936))
+
 ## [7.21.1](https://github.com/lwouis/alt-tab-macos/compare/v7.21.0...v7.21.1) (2025-02-22)
 
 
