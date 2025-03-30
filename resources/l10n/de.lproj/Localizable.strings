@@ -101,7 +101,7 @@
 "I think the app could be improved with…" = "Ich denke, die Anwendung könnte wie folgt verbessert werden…";
 "Ignore shortcuts when active" = "Kurzbefehle ignorieren, wenn aktiv";
 "Ignore shortcuts while a window from these apps is active" = "Kurzbefehle ignorieren, wenn ein Fenster dieser App aktiv ist";
-"Language" = "Language";
+"Language" = "Sprache";
 "Language Change" = "Language Change";
 "Large" = "Groß";
 "Later" = "Later";
@@ -204,7 +204,7 @@
 "Swipe with Three Fingers" = "Swipe with Three Fingers";
 "Switch between 3 different styles. You can customize them." = "Wechseln Sie zwischen 3 verschiedenen Stilen. Sie können sie anpassen.";
 "System" = "System";
-"System Default" = "System Default";
+"System Default" = "Systemstandard";
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
 "Theme" = "Thema";
 "Theme:" = "Thema:";
