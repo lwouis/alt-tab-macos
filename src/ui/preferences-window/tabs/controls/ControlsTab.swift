@@ -193,11 +193,13 @@ class ControlsTab {
             }
         } else {
             let newValue = combineHoldAndNextWindow(controlId, sender)
-            if newValue.isEmpty {
+            let newShortcut = Shortcut(keyEquivalent: newValue)
+            if newValue.isEmpty || newShortcut == nil {
                 removeShortcutIfExists(controlId)
                 restrictModifiersOfHoldShortcut(controlId, [])
+                (sender as! CustomRecorderControl).objectValue = nil
             } else {
-                addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, Shortcut(keyEquivalent: newValue)!, controlId, nil)
+                addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, newShortcut!, controlId, nil)
                 restrictModifiersOfHoldShortcut(controlId, [(sender as! CustomRecorderControl).objectValue!.modifierFlags])
             }
         }
