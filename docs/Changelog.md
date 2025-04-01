@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.23.0](https://github.com/lwouis/alt-tab-macos/compare/v7.22.0...v7.23.0) (2025-04-01)
+
+
+### Bug Fixes
+
+* avoid crashing on uncommon keys in shortcuts (closes [#4379](https://github.com/lwouis/alt-tab-macos/issues/4379)) ([9d852ee](https://github.com/lwouis/alt-tab-macos/commit/9d852ee))
+* window name would sometimes be empty (closes [#4350](https://github.com/lwouis/alt-tab-macos/issues/4350)) ([911c3c1](https://github.com/lwouis/alt-tab-macos/commit/911c3c1))
+
+
+### Features
+
+* improve hindi localization ([dec0519](https://github.com/lwouis/alt-tab-macos/commit/dec0519))
+
 # [7.22.0](https://github.com/lwouis/alt-tab-macos/compare/v7.21.1...v7.22.0) (2025-03-30)
 
 
