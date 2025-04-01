@@ -186,7 +186,7 @@ func updateWindowSizeAndPositionAndFullscreen(_ element: AXUIElement, _ wid: CGW
         let position = try element.position()
         DispatchQueue.main.async {
             if let window = (window != nil ? window : (Windows.list.first { $0.isEqualRobust(element, wid) })) {
-                window.title = title
+                window.title = window.bestEffortTitle(title)
                 window.size = size
                 window.position = position
                 window.isMinimized = isMinimized

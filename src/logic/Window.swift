@@ -54,7 +54,7 @@ class Window {
 
     init(_ application: Application) {
         self.application = application
-        title = application.localizedName
+        title = bestEffortTitle(nil)
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
         Logger.debug(title ?? "nil", application.bundleIdentifier ?? "nil")
