@@ -37,6 +37,8 @@ class ThumbnailView: FlippedView {
     var windowControlIcons: [TrafficLightButton] { [quitIcon, closeIcon, minimizeIcon, maximizeIcon] }
     var windowIndicatorIcons: [ThumbnailFontIconView] { [hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon] }
 
+    var receivedMouseDown = false
+
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
     override var acceptsFirstResponder: Bool { true }
@@ -71,9 +73,16 @@ class ThumbnailView: FlippedView {
         return open != nil
     }
 
+    override func mouseDown(with event: NSEvent) {
+        receivedMouseDown = true
+    }
+
     override func mouseUp(with event: NSEvent) {
-        if event.clickCount >= 1 {
-            mouseUpCallback()
+        if receivedMouseDown {
+            if bounds.contains(convert(event.locationInWindow, from: nil)) {
+                mouseUpCallback()
+            }
+            receivedMouseDown = false
         }
     }
 
