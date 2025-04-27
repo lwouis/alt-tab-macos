@@ -127,9 +127,14 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
 
 fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
     let wid = try element.cgWindowId()
+    windowDestroyed_(wid, element, pid)
+}
+
+fileprivate func windowDestroyed_(_ wid: CGWindowID?, _ element: AXUIElement?, _ pid: pid_t?) {
     DispatchQueue.main.async {
-        if let index = (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) {
+        if let index = (Windows.list.firstIndex { element == nil ? $0.cgWindowId == wid : $0.isEqualRobust(element!, wid) }) {
             let window = Windows.list[index]
+            let pid = pid != nil ? pid : window.application.pid
             Windows.removeAndUpdateFocus(window)
             if window.application.addWindowlessWindowIfNeeded() != nil {
                 Applications.find(pid)?.focusedWindow = nil
@@ -197,5 +202,15 @@ func updateWindowSizeAndPositionAndFullscreen(_ element: AXUIElement, _ wid: CGW
                 App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
             }
         }
+    }
+}
+
+let notifyCallback: NotifyCallback = { type, data, dataLength, context, cid in
+    Logger.error("-----", type)
+    if type == 804, let data {
+//        var wid: UInt32
+//        memcpy(&wid, &data, MemoryLayout<UInt32>.size)
+        let wid = data.load(as: UInt32.self)
+        windowDestroyed_(wid, nil, nil)
     }
 }

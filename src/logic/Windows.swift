@@ -129,6 +129,9 @@ class Windows {
         if list.count > ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews.append(ThumbnailView())
         }
+        var windowIds = list.compactMap { $0.cgWindowId }
+        let cgError = SLSRequestNotificationsForWindows(CGS_CONNECTION, &windowIds, windowIds.count);
+        Logger.error(cgError.rawValue, windowIds)
     }
 
     static func removeAndUpdateFocus(_ window: Window) {

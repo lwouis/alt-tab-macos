@@ -326,6 +326,10 @@ extension App: NSApplicationDelegate {
             #if DEBUG
 //            self.showPreferencesWindow()
             #endif
+//            if (workspace_is_macos_sequoia()) {
+                let cgError = SLSRegisterConnectionNotifyProc(CGS_CONNECTION, notifyCallback, NotifyEvent.windowDestroyed.rawValue, nil)
+                Logger.error(cgError.rawValue)
+//            }
         }
     }
 
