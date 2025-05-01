@@ -85,6 +85,10 @@ class Preferences {
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
+        "showVisibleWindows": ShowVisibleWindowsPreference.show.indexAsString,
+        "showVisibleWindows2": ShowVisibleWindowsPreference.show.indexAsString,
+        "showVisibleWindows3": ShowVisibleWindowsPreference.show.indexAsString,
+        "showVisibleWindows4": ShowVisibleWindowsPreference.show.indexAsString,
     ]
 
     // system preferences
@@ -143,6 +147,7 @@ class Preferences {
     static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var showVisibleWindows: [ShowVisibleWindowsPreference] { ["showVisibleWindows"].map { CachedUserDefaults.macroPref($0, ShowVisibleWindowsPreference.allCases) } }
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4"].map { CachedUserDefaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4"].map { CachedUserDefaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { CachedUserDefaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
@@ -218,6 +223,22 @@ class Preferences {
         guard let number = name.last?.wholeNumberValue else { return 0 }
         return number - 1
     }
+
+    // static func load() {
+    //     showMinimizedWindows = load("showMinimizedWindows", ShowHowPreference.allCases)
+    //     showHiddenWindows = load("showHiddenWindows", ShowHowPreference.allCases)
+    //     showFullscreenWindows = load("showFullscreenWindows", ShowHowPreference.allCases)
+    //     showVisibleWindows = load("showVisibleWindows", ShowVisibleWindowsPreference.allCases)
+    //     windowOrder = load("windowOrder", WindowOrderPreference.allCases)
+    // }
+
+    // static func save() {
+    //     save("showMinimizedWindows", showMinimizedWindows)
+    //     save("showHiddenWindows", showHiddenWindows)
+    //     save("showFullscreenWindows", showFullscreenWindows)
+    //     save("showVisibleWindows", showVisibleWindows)
+    //     save("windowOrder", windowOrder)
+    // }
 }
 
 class CachedUserDefaults {
@@ -239,9 +260,9 @@ class CachedUserDefaults {
         if let cachedFinalValue = CachedUserDefaults.cache[key] {
             return cachedFinalValue as! String
         }
-        let finalValue = UserDefaults.standard.string(forKey: key)!
-        CachedUserDefaults.cache[key] = finalValue
-        return finalValue
+        let stringValue = UserDefaults.standard.string(forKey: key) ?? Preferences.defaultValues[key] ?? ""
+        CachedUserDefaults.cache[key] = stringValue
+        return stringValue
     }
 
     static func int(_ key: String) -> Int {
@@ -274,17 +295,21 @@ class CachedUserDefaults {
         if let cachedFinalValue = CachedUserDefaults.cache[key] {
             return cachedFinalValue as! T
         }
-        let stringValue = UserDefaults.standard.string(forKey: key)!
+        let stringValue = UserDefaults.standard.string(forKey: key) ?? Preferences.defaultValues[key] ?? ""
         if let finalValue = getterFn(stringValue) {
             CachedUserDefaults.cache[key] = finalValue
             return finalValue
         }
         // value couldn't be read properly; we remove it and work with the default
         UserDefaults.standard.removeObject(forKey: key)
-        let defaultStringValue = UserDefaults.standard.string(forKey: key)!
-        let defaultFinalValue = getterFn(defaultStringValue)!
-        CachedUserDefaults.cache[key] = defaultFinalValue
-        return defaultFinalValue
+        let defaultStringValue = Preferences.defaultValues[key] ?? ""
+        if let defaultFinalValue = getterFn(defaultStringValue) {
+            CachedUserDefaults.cache[key] = defaultFinalValue
+            return defaultFinalValue
+        }
+        // Se ainda assim não conseguir converter, retorna um valor seguro para o tipo
+        // Para tipos opcionais, pode retornar nil, para outros, pode lançar um erro ou retornar um valor padrão
+        fatalError("Não foi possível obter valor para a chave '\(key)' nem mesmo com o valor padrão.")
     }
 
     private static func jsonDecode<T>(_ value: String, _ type: T.Type) -> T? where T: Decodable {

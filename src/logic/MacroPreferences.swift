@@ -649,6 +649,18 @@ enum BlacklistIgnorePreference: String/* required for jsonEncode */, CaseIterabl
     }
 }
 
+enum ShowVisibleWindowsPreference: String/* required for jsonEncode */, CaseIterable, MacroPreference {
+    case show
+    case hide
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .show: return NSLocalizedString("Show", comment: "")
+            case .hide: return NSLocalizedString("Hide", comment: "")
+        }
+    }
+}
+
 // MacroPreference are collection of values derived from a single key
 // we don't want to store every value in UserDefaults as the user could change them and contradict the macro
 protocol MacroPreference {

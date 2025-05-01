@@ -16,6 +16,7 @@ class Window {
     var isMinimized = false
     var isOnAllSpaces = false
     var isWindowlessApp: Bool { get { cgWindowId == nil } }
+    var isVisible: Bool { get { !isMinimized && !isHidden && !isFullscreen } }
     var position: CGPoint?
     var size: CGSize?
     var spaceIds = [CGSSpaceID.max]
@@ -263,5 +264,23 @@ class Window {
             }
         }
         return false
+    }
+
+    // Propriedade computada para facilitar a checagem de interseção
+    var frame: CGRect? {
+        guard let position = self.position, let size = self.size else { return nil }
+        return CGRect(origin: position, size: size)
+    }
+
+    func isFullyVisible(comparedTo windows: [Window]) -> Bool {
+        guard let myFrame = self.frame, !self.isMinimized, !self.isHidden else { return false }
+        // Janelas acima têm lastFocusOrder < self.lastFocusOrder
+        let windowsAbove = windows.filter { $0.lastFocusOrder < self.lastFocusOrder && !$0.isMinimized && !$0.isHidden }
+        for win in windowsAbove {
+            if let frame = win.frame, frame.intersects(myFrame) {
+                return false // Está coberta
+            }
+        }
+        return true // Não está coberta por nenhuma outra
     }
 }
