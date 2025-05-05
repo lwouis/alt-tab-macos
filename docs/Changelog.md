@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.24.0](https://github.com/lwouis/alt-tab-macos/compare/v7.23.0...v7.24.0) (2025-05-05)
+
+
+### Features
+
+* clicking to focus windows/apps is now easier (closes [#4407](https://github.com/lwouis/alt-tab-macos/issues/4407)) ([397457c](https://github.com/lwouis/alt-tab-macos/commit/397457c))
+* improve ca/pt/ro localizations ([8b7d69c](https://github.com/lwouis/alt-tab-macos/commit/8b7d69c))
+
+
+### Performance Improvements
+
+* avoid updating preview if not necessary ([518f8b4](https://github.com/lwouis/alt-tab-macos/commit/518f8b4))
+
 # [7.23.0](https://github.com/lwouis/alt-tab-macos/compare/v7.22.0...v7.23.0) (2025-04-01)
 
 
