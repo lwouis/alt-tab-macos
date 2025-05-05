@@ -341,6 +341,12 @@ class Windows {
     }
 
     static func refreshWhichWindowsToShowTheUser() {
+        // Apply visibility based on preferences
+        for window in list {
+            window.shouldShowTheUser = Preferences.showVisibleWindows[App.app.shortcutIndex] == .show || !window.isFullyVisible(comparedTo: list)
+        }
+
+        // Then apply the onlyShowApplications logic
         if Preferences.onlyShowApplications() {
             // Group windows by application and select the optimal main window
             let windowsGroupedByApp = Dictionary(grouping: list) { $0.application.pid }
