@@ -28,7 +28,7 @@ class PreviewPanel: NSPanel {
     }
 
     func updateImageIfShowing(_ id: CGWindowID?,  _ preview: CGImage, _ size: CGSize) {
-        if id == currentId {
+        if isVisible && id == currentId {
             previewView.updateWithResizedCopy(preview, size)
         }
     }
