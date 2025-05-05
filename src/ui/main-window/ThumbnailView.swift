@@ -365,7 +365,7 @@ class ThumbnailView: FlippedView {
         }
         windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(isShowingWindowControls)
-        mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
+        mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element, Windows.previousFocusedWindow()) }
         mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
     }
 
