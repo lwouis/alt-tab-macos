@@ -182,6 +182,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Michael
 * Milos M
 * Mohammad Al Zouabi
+* mohma
 * Mr. axel. bock
 * MuDraconis
 * Muzhenstudent
