@@ -19,7 +19,7 @@ class Menubar {
         menu.addItem(NSMenuItem.separator())
         menu.addItem(
             withTitle: NSLocalizedString("Show", comment: "Menubar option"),
-            action: #selector(App.app.showUi),
+            action: #selector(App.app.showUiFromShortcut0),
             keyEquivalent: "")
         menu.addItem(
             withTitle: NSLocalizedString("Preferences…", comment: "Menubar option"),
@@ -67,7 +67,7 @@ class Menubar {
     @objc static func statusItemOnClick() {
         // NSApp.currentEvent == nil if the icon is "clicked" through VoiceOver
         if let type = NSApp.currentEvent?.type, type != .leftMouseDown {
-            App.app.showUi()
+            App.app.showUiFromShortcut0()
         } else {
             statusItem.popUpMenu(Menubar.menu)
         }

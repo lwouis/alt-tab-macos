@@ -57,7 +57,7 @@ class ATShortcut {
             if triggerPhase == .down && (!App.app.appIsBeingUsed || index == nil || index == App.app.shortcutIndex) {
                 return true
             }
-            if triggerPhase == .up && App.app.appIsBeingUsed && (index == nil || index == App.app.shortcutIndex) && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
+            if triggerPhase == .up && App.app.appIsBeingUsed && (index == nil || index == App.app.shortcutIndex) && !App.app.forceDoNothingOnRelease && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
                 return true
             }
         }
@@ -83,7 +83,7 @@ class ATShortcut {
         // Another issue is events being dropped by macOS, which we never receive
         // Knowing this, we handle these edge-cases by double checking if holdShortcut is UP, when any shortcut state is UP
         // If it is, then we trigger the holdShortcut action
-        if App.app.appIsBeingUsed && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
+        if App.app.appIsBeingUsed && !App.app.forceDoNothingOnRelease && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
             if let currentHoldShortcut = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)],
                id == currentHoldShortcut.id {
                 let currentModifiers = cocoaToCarbonFlags(ModifierFlags.current)

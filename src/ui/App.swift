@@ -23,6 +23,7 @@ class App: AppCenterApplication {
     var permissionsWindow: PermissionsWindow!
     var appIsBeingUsed = false
     var shortcutIndex = 0
+    var forceDoNothingOnRelease = false
     private var feedbackWindow: FeedbackWindow!
     private var isFirstSummon = true
     private var isVeryFirstSummon = true
@@ -73,6 +74,7 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return } // already hidden
         appIsBeingUsed = false
         isFirstSummon = true
+        forceDoNothingOnRelease = false
         MouseEvents.toggle(false)
         hideThumbnailPanelWithoutChangingKeyWindow()
         if !keepPreview {
@@ -156,8 +158,12 @@ class App: AppCenterApplication {
         }
     }
 
-    @objc func showUi() {
-        showUiOrCycleSelection(0)
+    func showUi(_ shortcutIndex: Int) {
+        showUiOrCycleSelection(shortcutIndex, true)
+    }
+
+    @objc func showUiFromShortcut0() {
+        showUi(0)
     }
 
     @objc func showAboutTab() {
@@ -226,7 +232,8 @@ class App: AppCenterApplication {
         Applications.refreshBadgesAsync()
     }
 
-    func showUiOrCycleSelection(_ shortcutIndex: Int) {
+    func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
+        forceDoNothingOnRelease = forceDoNothingOnRelease_
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {

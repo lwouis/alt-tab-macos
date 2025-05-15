@@ -4,6 +4,7 @@ class App {
     class AppMock {
         var appIsBeingUsed = false
         var shortcutIndex = 0
+        var forceDoNothingOnRelease = false
     }
     static let app = AppMock()
 }
