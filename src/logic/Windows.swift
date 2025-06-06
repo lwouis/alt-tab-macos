@@ -192,7 +192,7 @@ class Windows {
 
     static func previewFocusedWindowIfNeeded() {
         if App.app.appIsBeingUsed && SystemPermissions.screenRecordingPermission == .granted
-               && Preferences.previewFocusedWindow && !Preferences.onlyShowApplications()
+               && Preferences.previewFocusedWindow && !Preferences.onlyShowApplications(App.app.shortcutIndex)
                && App.app.thumbnailsPanel.isKeyWindow,
            let window = focusedWindow(),
            let id = window.cgWindowId,
@@ -341,7 +341,7 @@ class Windows {
     }
 
     static func refreshWhichWindowsToShowTheUser() {
-        if Preferences.onlyShowApplications() {
+        if Preferences.onlyShowApplications(App.app.shortcutIndex) {
             // Group windows by application and select the optimal main window
             let windowsGroupedByApp = Dictionary(grouping: list) { $0.application.pid }
             windowsGroupedByApp.forEach { (app, windows) in

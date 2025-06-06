@@ -246,7 +246,7 @@ class ShowHideIllustratedView {
 
     static func isDisabledOnApplications(_ row: ShowHideRowInfo) -> Bool {
         let contains = ["showTabsAsWindows", "previewFocusedWindow"].contains(where: { $0 == row.rowId })
-        return contains && Preferences.onlyShowApplications()
+        return contains && Preferences.onlyShowApplications(App.app.shortcutIndex)
     }
 
     func setStateOnApplications(row: ShowHideRowInfo? = nil) {

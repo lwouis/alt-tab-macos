@@ -9,7 +9,6 @@ class CustomizeStyleSheet: SheetWindow {
 
     var alignThumbnails: TableGroupView.Row!
     var titleTruncation: TableGroupView.Row!
-    var showAppsOrWindows: TableGroupView.Row!
     var showTitles: TableGroupView.Row!
     var showTitlesRowInfo: TableGroupView.RowInfo!
 
@@ -20,6 +19,7 @@ class CustomizeStyleSheet: SheetWindow {
     override func makeContentView() -> NSView {
         makeComponents()
         showHideView = showHideIllustratedView.makeView()
+
         if style == .thumbnails {
             advancedView = makeThumbnailsView()
         } else if style == .appIcons {
@@ -27,14 +27,24 @@ class CustomizeStyleSheet: SheetWindow {
         } else if style == .titles {
             advancedView = makeTitlesView()
         }
-        control = NSSegmentedControl(labels: [
-            NSLocalizedString("Show & Hide", comment: ""),
-            NSLocalizedString("Advanced", comment: "")
-        ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
+
+        control = NSSegmentedControl(
+            labels: [
+                NSLocalizedString("Show & Hide", comment: ""),
+                NSLocalizedString("Advanced", comment: "")
+            ],
+            trackingMode: .selectOne,
+            target: self,
+            action: #selector(switchTab(_:))
+        )
         control.selectedSegment = 0
         control.segmentStyle = .automatic
         control.widthAnchor.constraint(equalToConstant: CustomizeStyleSheet.width).isActive = true
-        let view = TableGroupSetView(originalViews: [illustratedImageView, control, showHideView, advancedView], padding: 0)
+
+        let view = TableGroupSetView(
+            originalViews: [illustratedImageView, control, showHideView, advancedView],
+            padding: 0
+        )
         return view
     }
 
@@ -46,48 +56,61 @@ class CustomizeStyleSheet: SheetWindow {
     private func makeComponents() {
         illustratedImageView = IllustratedImageThemeView(style, CustomizeStyleSheet.illustratedImageWidth)
         showHideIllustratedView = ShowHideIllustratedView(style, illustratedImageView)
-        alignThumbnails = TableGroupView.Row(leftTitle: NSLocalizedString("Align windows", comment: ""),
+
+        alignThumbnails = TableGroupView.Row(
+            leftTitle: NSLocalizedString("Align windows", comment: ""),
             rightViews: LabelAndControl.makeRadioButtons(
-                "alignThumbnails", AlignThumbnailsPreference.allCases, extraAction: { _ in
-                self.showAlignThumbnailsIllustratedImage()
-            }))
-        titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Title truncation", comment: ""),
-            rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
-        let showAppWindowsInfo = LabelAndControl.makeInfoButton(onMouseEntered: { (event, view) in
-            Popover.shared.show(event: event, positioningView: view,
-                message: NSLocalizedString("Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.", comment: ""))
-        }, onMouseExited: { (event, view) in
-            Popover.shared.hide()
-        })
-        showAppsOrWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
-            rightViews: LabelAndControl.makeRadioButtons("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { _ in
-                self.showHideIllustratedView.setStateOnApplications()
-                self.toggleAppNamesWindowTitles()
-                self.showAppsOrWindowsIllustratedImage()
-            }) + [showAppWindowsInfo])
-        showTitles = TableGroupView.Row(leftTitle: NSLocalizedString("Show titles", comment: ""),
-            rightViews: [LabelAndControl.makeDropdown(
-                "showTitles", ShowTitlesPreference.allCases, extraAction: { _ in
-                self.showAppsOrWindowsIllustratedImage()
-            })])
+                "alignThumbnails",
+                AlignThumbnailsPreference.allCases,
+                extraAction: { _ in self.showAlignThumbnailsIllustratedImage() }
+            )
+        )
+
+        titleTruncation = TableGroupView.Row(
+            leftTitle: NSLocalizedString("Title truncation", comment: ""),
+            rightViews: LabelAndControl.makeRadioButtons(
+                "titleTruncation",
+                TitleTruncationPreference.allCases
+            )
+        )
+
+        showTitles = TableGroupView.Row(
+            leftTitle: NSLocalizedString("Show titles", comment: ""),
+            rightViews: [
+                LabelAndControl.makeDropdown(
+                    "showTitles",
+                    ShowTitlesPreference.allCases,
+                    extraAction: { _ in self.showAlignThumbnailsIllustratedImage() }
+                )
+            ]
+        )
     }
 
     private func makeThumbnailsView() -> TableGroupSetView {
         let table = TableGroupView(width: CustomizeStyleSheet.width)
-        showTitlesRowInfo = table.addRow(showTitles, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-        })
+
+        showTitlesRowInfo = table.addRow(
+            showTitles,
+            onMouseEntered: { event, view in
+                self.showAlignThumbnailsIllustratedImage()
+            }
+        )
         table.addNewTable()
-        table.addRow(alignThumbnails, onMouseEntered: { event, view in
-            self.showAlignThumbnailsIllustratedImage()
-        }, onMouseExited: { event, view in
-            IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
-        })
+        table.addRow(
+            alignThumbnails,
+            onMouseEntered: { event, view in
+                self.showAlignThumbnailsIllustratedImage()
+            },
+            onMouseExited: { event, view in
+                IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
+            }
+        )
         table.addRow(titleTruncation)
         table.onMouseExited = { event, view in
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         table.fit()
+
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         return view
     }
@@ -95,13 +118,17 @@ class CustomizeStyleSheet: SheetWindow {
     private func makeAppIconsView() -> TableGroupSetView {
         let table = makeAppWindowTableGroupView()
         table.addNewTable()
-        table.addRow(alignThumbnails, onMouseEntered: { event, view in
-            self.showAlignThumbnailsIllustratedImage()
-        })
+        table.addRow(
+            alignThumbnails,
+            onMouseEntered: { event, view in
+                self.showAlignThumbnailsIllustratedImage()
+            }
+        )
         table.onMouseExited = { event, view in
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
         table.fit()
+
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         toggleAppNamesWindowTitles()
         return view
@@ -112,6 +139,7 @@ class CustomizeStyleSheet: SheetWindow {
         table.addNewTable()
         table.addRow(titleTruncation)
         table.fit()
+
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         toggleAppNamesWindowTitles()
         return view
@@ -119,13 +147,16 @@ class CustomizeStyleSheet: SheetWindow {
 
     private func makeAppWindowTableGroupView() -> TableGroupView {
         let view = TableGroupView(width: CustomizeStyleSheet.width)
-        view.addRow(showAppsOrWindows, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-        })
+
+        // Removed the old “Show in switcher” row entirely.
+
         view.addNewTable()
-        showTitlesRowInfo = view.addRow(showTitles, onMouseEntered: { event, view in
-            self.showAppsOrWindowsIllustratedImage()
-        })
+        showTitlesRowInfo = view.addRow(
+            showTitles,
+            onMouseEntered: { event, view in
+                self.showAlignThumbnailsIllustratedImage()
+            }
+        )
         view.onMouseExited = { event, view in
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
@@ -133,49 +164,39 @@ class CustomizeStyleSheet: SheetWindow {
     }
 
     private func toggleAppNamesWindowTitles() {
-        var isEnabled = false
-        if Preferences.showAppsOrWindows == .windows || Preferences.appearanceStyle == .thumbnails {
-            isEnabled = true
-        }
+        // Now read the per-shortcut “Show in switcher” value using the current index
+        let isEnabled = (Preferences.showAppsOrWindows[App.app.shortcutIndex] == .windows)
+                        || (Preferences.appearanceStyle == .thumbnails)
+
         showTitlesRowInfo.leftViews?.forEach { view in
-            if let view = view as? NSTextField {
-                view.textColor = isEnabled ? NSColor.textColor : NSColor.gray
+            if let tf = view as? NSTextField {
+                tf.textColor = isEnabled ? .textColor : .gray
             }
         }
         showTitlesRowInfo.rightViews?.forEach { view in
-            if let view = view as? NSControl {
-                view.isEnabled = isEnabled
+            if let ctrl = view as? NSControl {
+                ctrl.isEnabled = isEnabled
             }
         }
     }
 
     private func showAlignThumbnailsIllustratedImage() {
-        illustratedImageView.highlight(true, Preferences.alignThumbnails.image.name)
-    }
-
-    private func showAppsOrWindowsIllustratedImage() {
-        var imageName = Preferences.showTitles.image.name
-        if Preferences.onlyShowApplications() {
-            imageName = ShowTitlesPreference.appName.image.name
-        }
-        illustratedImageView.highlight(true, imageName)
+        illustratedImageView.highlight(
+            true,
+            Preferences.alignThumbnails.image.name
+        )
     }
 
     @objc func switchTab(_ sender: NSSegmentedControl) {
         let selectedIndex = sender.selectedSegment
         [showHideView, advancedView].enumerated().forEach { (index, view) in
-            if selectedIndex == index {
-                view!.isHidden = false
-            } else {
-                view!.isHidden = true
-            }
+            view!.isHidden = (index != selectedIndex)
         }
         adjustWindowHeight()
     }
 
     private func adjustWindowHeight() {
         guard let contentView else { return }
-        // Calculate the fitting height of the content view
         let fittingSize = contentView.fittingSize
         var windowFrame = frame
         windowFrame.size.height = fittingSize.height

@@ -51,7 +51,10 @@ class Preferences {
         "showOnScreen": ShowOnScreenPreference.active.indexAsString,
         "titleTruncation": TitleTruncationPreference.end.indexAsString,
         "alignThumbnails": AlignThumbnailsPreference.center.indexAsString,
-        "showAppsOrWindows": ShowAppsOrWindowsPreference.windows.indexAsString,
+        "showAppsOrWindows": ShowAppsOrWindowsPreference.applications.indexAsString,
+        "showAppsOrWindows2": ShowAppsOrWindowsPreference.windows.indexAsString,
+        "showAppsOrWindows3": ShowAppsOrWindowsPreference.windows.indexAsString,
+        "showAppsOrWindows4": ShowAppsOrWindowsPreference.windows.indexAsString,
         "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
         "appsToShow": AppsToShowPreference.all.indexAsString,
         "appsToShow2": AppsToShowPreference.active.indexAsString,
@@ -133,7 +136,16 @@ class Preferences {
     static var showOnScreen: ShowOnScreenPreference { CachedUserDefaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
     static var titleTruncation: TitleTruncationPreference { CachedUserDefaults.macroPref("titleTruncation", TitleTruncationPreference.allCases) }
     static var alignThumbnails: AlignThumbnailsPreference { CachedUserDefaults.macroPref("alignThumbnails", AlignThumbnailsPreference.allCases) }
-    static var showAppsOrWindows: ShowAppsOrWindowsPreference { CachedUserDefaults.macroPref("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases) }
+    static var showAppsOrWindows: [ShowAppsOrWindowsPreference] {
+        return [
+            "showAppsOrWindows",
+            "showAppsOrWindows2",
+            "showAppsOrWindows3",
+            "showAppsOrWindows4"
+        ].map { key in
+            CachedUserDefaults.macroPref(key, ShowAppsOrWindowsPreference.allCases)
+        }
+    }
     static var showTitles: ShowTitlesPreference { CachedUserDefaults.macroPref("showTitles", ShowTitlesPreference.allCases) }
     static var updatePolicy: UpdatePolicyPreference { CachedUserDefaults.macroPref("updatePolicy", UpdatePolicyPreference.allCases) }
     static var crashPolicy: CrashPolicyPreference { CachedUserDefaults.macroPref("crashPolicy", CrashPolicyPreference.allCases) }
@@ -177,8 +189,21 @@ class Preferences {
 
     static var all: [String: Any] { UserDefaults.standard.persistentDomain(forName: App.bundleIdentifier)! }
 
-    static func onlyShowApplications() -> Bool {
-        return Preferences.showAppsOrWindows == .applications && Preferences.appearanceStyle != .thumbnails
+    static func onlyShowApplications(_ index: Int) -> Bool {
+        Logger.info("Vitor 2")
+        Logger.info("index")
+        Logger.info(index)
+        Logger.info("index setting")
+        Logger.info(showAppsOrWindows[index])
+        Logger.info("style")
+        Logger.info(appearanceStyle)
+        
+        
+        Logger.info(showAppsOrWindows[index] == .applications
+                    && appearanceStyle != .thumbnails)
+        
+        return showAppsOrWindows[index] == .applications
+            && appearanceStyle != .thumbnails
     }
 
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards

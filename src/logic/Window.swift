@@ -167,7 +167,7 @@ class Window {
             App.shared.activate(ignoringOtherApps: true)
             App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
             Windows.previewFocusedWindowIfNeeded()
-        } else if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications() {
+        } else if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications(App.app.shortcutIndex) {
             if let bundleUrl, isWindowlessApp {
                 if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
                     application.runningApplication.activate(options: .activateAllWindows)
