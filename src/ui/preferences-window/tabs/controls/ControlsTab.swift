@@ -99,25 +99,105 @@ class ControlsTab {
     }
 
     private static func controlTab(_ index: Int, _ trigger: [NSView]) -> TableGroupView {
-        let appsToShow = LabelAndControl.makeDropdown(Preferences.indexToName("appsToShow", index), AppsToShowPreference.allCases)
-        let spacesToShow = LabelAndControl.makeDropdown(Preferences.indexToName("spacesToShow", index), SpacesToShowPreference.allCases)
-        let screensToShow = LabelAndControl.makeDropdown(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
-        let showMinimizedWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showMinimizedWindows", index), ShowHowPreference.allCases)
-        let showHiddenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showHiddenWindows", index), ShowHowPreference.allCases)
-        let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
-        let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
-        let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
+        let shortcutStyle = LabelAndControl.makeDropdown(
+            Preferences.indexToName("shortcutStyle", index),
+            ShortcutStylePreference.allCases
+        )
+
+        let showAppsOrWindows = LabelAndControl.makeDropdown(
+            Preferences.indexToName("showAppsOrWindows", index),
+            ShowAppsOrWindowsPreference.allCases
+        )
+
+        let appsToShow = LabelAndControl.makeDropdown(
+            Preferences.indexToName("appsToShow", index),
+            AppsToShowPreference.allCases
+        )
+
+        let spacesToShow = LabelAndControl.makeDropdown(
+            Preferences.indexToName("spacesToShow", index),
+            SpacesToShowPreference.allCases
+        )
+        let screensToShow = LabelAndControl.makeDropdown(
+            Preferences.indexToName("screensToShow", index),
+            ScreensToShowPreference.allCases
+        )
+        let showMinimizedWindows = LabelAndControl.makeDropdown(
+            Preferences.indexToName("showMinimizedWindows", index),
+            ShowHowPreference.allCases
+        )
+        let showHiddenWindows = LabelAndControl.makeDropdown(
+            Preferences.indexToName("showHiddenWindows", index),
+            ShowHowPreference.allCases
+        )
+        let showFullscreenWindows = LabelAndControl.makeDropdown(
+            Preferences.indexToName("showFullscreenWindows", index),
+            ShowHowPreference.allCases.filter { $0 != .showAtTheEnd }
+        )
+        let windowOrder = LabelAndControl.makeDropdown(
+            Preferences.indexToName("windowOrder", index),
+            WindowOrderPreference.allCases
+        )
+
         let table = TableGroupView(width: PreferencesWindow.width)
-        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger shortcut", comment: ""), rightViews: trigger))
-        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release", comment: ""), rightViews: [shortcutStyle]))
+
+        table.addRow(
+          TableGroupView.Row(
+            leftTitle: NSLocalizedString("Trigger shortcut", comment: ""),
+            rightViews: trigger
+          )
+        )
+        table.addRow(
+          TableGroupView.Row(
+            leftTitle: NSLocalizedString("After release", comment: ""),
+            rightViews: [shortcutStyle]
+          )
+        )
+
         table.addNewTable()
-        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: ""))], rightViews: [appsToShow])
-        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from Spaces", comment: ""))], rightViews: [spacesToShow])
-        table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from screens", comment: ""))], rightViews: [screensToShow])
-        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show minimized windows", comment: ""), rightViews: [showMinimizedWindows]))
-        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show hidden windows", comment: ""), rightViews: [showHiddenWindows]))
-        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
-        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Order windows by", comment: ""), rightViews: [windowOrder]))
+
+        table.addRow(
+          leftViews: [ TableGroupView.makeText(NSLocalizedString("Show in switcher", comment: "")) ],
+          rightViews: [ showAppsOrWindows ]
+        )
+
+        table.addRow(
+          leftViews: [ TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: "")) ],
+          rightViews: [ appsToShow ]
+        )
+        table.addRow(
+          leftViews: [ TableGroupView.makeText(NSLocalizedString("Show windows from Spaces", comment: "")) ],
+          rightViews: [ spacesToShow ]
+        )
+        table.addRow(
+          leftViews: [ TableGroupView.makeText(NSLocalizedString("Show windows from screens", comment: "")) ],
+          rightViews: [ screensToShow ]
+        )
+        table.addRow(
+          TableGroupView.Row(
+            leftTitle: NSLocalizedString("Show minimized windows", comment: ""),
+            rightViews: [ showMinimizedWindows ]
+          )
+        )
+        table.addRow(
+          TableGroupView.Row(
+            leftTitle: NSLocalizedString("Show hidden windows", comment: ""),
+            rightViews: [ showHiddenWindows ]
+          )
+        )
+        table.addRow(
+          TableGroupView.Row(
+            leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""),
+            rightViews: [ showFullscreenWindows ]
+          )
+        )
+        table.addRow(
+          TableGroupView.Row(
+            leftTitle: NSLocalizedString("Order windows by", comment: ""),
+            rightViews: [ windowOrder ]
+          )
+        )
+
         table.fit()
         return table
     }

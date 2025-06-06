@@ -200,7 +200,7 @@ class App: AppCenterApplication {
 
     func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy) {
         if !windowsToScreenshot.isEmpty && SystemPermissions.screenRecordingPermission == .granted
-               && !Preferences.onlyShowApplications()
+               && !Preferences.onlyShowApplications(self.shortcutIndex)
                && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) {
             Windows.refreshThumbnails(windowsToScreenshot, source)
             if source == .refreshOnlyThumbnailsAfterShowUi { return }
@@ -227,7 +227,6 @@ class App: AppCenterApplication {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
-        Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             if isVeryFirstSummon {
