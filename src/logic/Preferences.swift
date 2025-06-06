@@ -190,18 +190,6 @@ class Preferences {
     static var all: [String: Any] { UserDefaults.standard.persistentDomain(forName: App.bundleIdentifier)! }
 
     static func onlyShowApplications(_ index: Int) -> Bool {
-        Logger.info("Vitor 2")
-        Logger.info("index")
-        Logger.info(index)
-        Logger.info("index setting")
-        Logger.info(showAppsOrWindows[index])
-        Logger.info("style")
-        Logger.info(appearanceStyle)
-        
-        
-        Logger.info(showAppsOrWindows[index] == .applications
-                    && appearanceStyle != .thumbnails)
-        
         return showAppsOrWindows[index] == .applications
             && appearanceStyle != .thumbnails
     }

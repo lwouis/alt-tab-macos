@@ -99,20 +99,16 @@ class ControlsTab {
     }
 
     private static func controlTab(_ index: Int, _ trigger: [NSView]) -> TableGroupView {
-        // ───────────────────────────────────────────────────────────────────
-        // First, build each dropdown for this tab index “index”
         let shortcutStyle = LabelAndControl.makeDropdown(
             Preferences.indexToName("shortcutStyle", index),
             ShortcutStylePreference.allCases
         )
 
-        // NEW: “Show in switcher” dropdown (Applications vs Windows)
         let showAppsOrWindows = LabelAndControl.makeDropdown(
             Preferences.indexToName("showAppsOrWindows", index),
             ShowAppsOrWindowsPreference.allCases
         )
 
-        // The existing “Show windows from applications” (appsToShow) row:
         let appsToShow = LabelAndControl.makeDropdown(
             Preferences.indexToName("appsToShow", index),
             AppsToShowPreference.allCases
@@ -143,11 +139,8 @@ class ControlsTab {
             WindowOrderPreference.allCases
         )
 
-        // ───────────────────────────────────────────────────────────────────
-        // Now create the table itself and insert rows in this order:
         let table = TableGroupView(width: PreferencesWindow.width)
 
-        // 1) “Trigger shortcut” / “After release”
         table.addRow(
           TableGroupView.Row(
             leftTitle: NSLocalizedString("Trigger shortcut", comment: ""),
@@ -163,13 +156,11 @@ class ControlsTab {
 
         table.addNewTable()
 
-        // 2) **NEW** “Show in switcher” row
         table.addRow(
           leftViews: [ TableGroupView.makeText(NSLocalizedString("Show in switcher", comment: "")) ],
           rightViews: [ showAppsOrWindows ]
         )
 
-        // 3) The rest of the “Show windows …” rows
         table.addRow(
           leftViews: [ TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: "")) ],
           rightViews: [ appsToShow ]

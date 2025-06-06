@@ -227,8 +227,6 @@ class App: AppCenterApplication {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
-        Logger.info(shortcutIndex, self.shortcutIndex, isFirstSummon)
-        Logger.info("Vitor")
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             if isVeryFirstSummon {
