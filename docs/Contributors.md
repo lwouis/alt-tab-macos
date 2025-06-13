@@ -76,6 +76,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Christian Keilmann
 * Chun Fei Lung
 * codecantata
+* codingalone
 * Cong Tri
 * Dan
 * Dan84
@@ -163,6 +164,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * LostInCompilation
 * Lumaxis
 * lwouis
+* M
 * Malo
 * Maplevantablack
 * Marc Pla
@@ -199,7 +201,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Paul Pichaureau
 * Paul Przybyszewski
 * Paul. pichaureau
-* Paulius
 * Pehovorka
 * Peterkim0620
 * Petr Kolář
@@ -217,8 +218,10 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Roccobot
 * Rodrigo Schneider
 * Ron Nuss
+* Ryan Nardi
 * sa-ha
 * Sai Khant Zay Lynn Yaung
+* Saransh
 * sawtooth
 * Sebastian
 * Selcuk Dursun
