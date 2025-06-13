@@ -132,7 +132,7 @@ class ThumbnailView: FlippedView {
 
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
         let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !Appearance.hideThumbnails
-        if Preferences.appearanceStyle == .thumbnails, isShowingWindowControls != shouldShow {
+        if Preferences.appearanceStyle == .thumbnails {
             isShowingWindowControls = shouldShow
             for icon in windowControlIcons {
                 icon.isHidden = !shouldShow
