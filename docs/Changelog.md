@@ -1,5 +1,17 @@
 # Release notes
 
+# [7.25.0](https://github.com/lwouis/alt-tab-macos/compare/v7.24.0...v7.25.0) (2025-06-14)
+
+
+### Bug Fixes
+
+* icons on thumbnails could sometimes be incorrect ([b4bc0b0](https://github.com/lwouis/alt-tab-macos/commit/b4bc0b0))
+
+
+### Features
+
+* new cli commands: --show, --detailed-list (closes [#4489](https://github.com/lwouis/alt-tab-macos/issues/4489)) ([b0ce899](https://github.com/lwouis/alt-tab-macos/commit/b0ce899))
+
 # [7.24.0](https://github.com/lwouis/alt-tab-macos/compare/v7.23.0...v7.24.0) (2025-05-05)
 
 
