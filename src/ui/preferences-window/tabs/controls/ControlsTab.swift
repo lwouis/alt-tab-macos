@@ -9,9 +9,9 @@ class ControlsTab {
         "holdShortcut2": { App.app.focusTarget() },
         "holdShortcut3": { App.app.focusTarget() },
         "focusWindowShortcut": { App.app.focusTarget() },
-        "nextWindowShortcut": { App.app.showUiOrCycleSelection(0, false) },
-        "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1, false) },
-        "nextWindowShortcut3": { App.app.showUiOrCycleSelection(2, false) },
+        "nextWindowShortcut": { App.app.showUiOrCycleSelectionWithSource(0, false, .legacyAction) },
+        "nextWindowShortcut2": { App.app.showUiOrCycleSelectionWithSource(1, false, .legacyAction) },
+        "nextWindowShortcut3": { App.app.showUiOrCycleSelectionWithSource(2, false, .legacyAction) },
         "previousWindowShortcut": { App.app.previousWindowShortcutWithRepeatingKey() },
         "→": { App.app.cycleSelection(.right) },
         "←": { App.app.cycleSelection(.left) },
@@ -316,5 +316,18 @@ class ControlsTab {
 
     static func executeAction(_ action: String) {
         shortcutsActions[action]!()
+    }
+    
+    static func executeActionWithSource(_ action: String, _ eventSource: EventSource) {
+        Logger.debug("executeActionWithSource", action, "from", eventSource.rawValue)
+        
+        // For nextWindowShortcut actions, use the version with event source
+        if action.hasPrefix("nextWindowShortcut") {
+            let shortcutIndex = action == "nextWindowShortcut" ? 0 : 
+                               action == "nextWindowShortcut2" ? 1 : 2
+            App.app.showUiOrCycleSelectionWithSource(shortcutIndex, false, eventSource)
+        } else {
+            shortcutsActions[action]!()
+        }
     }
 }

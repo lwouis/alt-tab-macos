@@ -140,7 +140,7 @@ class TriggerSwipeDetector {
             let horizontal = Preferences.nextWindowGesture.isHorizontal()
             if (updateSwipeStillPossible(horizontal ? absY : absX) && (horizontal ? absX : absY) >= MIN_SWIPE_DISTANCE) {
                 reset()
-                DispatchQueue.main.async { App.app.showUiOrCycleSelection(Preferences.gestureIndex, false) }
+                DispatchQueue.main.async { App.app.showUiOrCycleSelectionWithSource(Preferences.gestureIndex, false, .trackpad) }
                 return true
             }
             return false

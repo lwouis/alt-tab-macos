@@ -31,6 +31,10 @@ class App: AppCenterApplication {
     private var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
     private var delayedDisplayScheduled = 0
+    // Atomic operation protection to prevent concurrent calls
+    private var isExecutingCycling = false
+    private let cyclingLock = NSLock()
+    private var firstCallTimestamp: Date?
 
     override init() {
         super.init()
@@ -159,7 +163,7 @@ class App: AppCenterApplication {
     }
 
     func showUi(_ shortcutIndex: Int) {
-        showUiOrCycleSelection(shortcutIndex, true)
+        showUiOrCycleSelectionWithSource(shortcutIndex, true, .showUI)
     }
 
     @objc func showUiFromShortcut0() {
@@ -233,33 +237,169 @@ class App: AppCenterApplication {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
+        showUiOrCycleSelectionWithSource(shortcutIndex, forceDoNothingOnRelease_, .unknown)
+    }
+    
+    func showUiOrCycleSelectionWithSource(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool, _ eventSource: EventSource) {
+        // Atomic operation protection - prevent concurrent calls
+        cyclingLock.lock()
+        defer { cyclingLock.unlock() }
+        
+        // Early exit if concurrent execution protection is active
+        if isExecutingCycling {
+            Logger.debug("showUiOrCycleSelection blocked by concurrent protection")
+            return
+        }
+        
+        // Initialize basic state
         forceDoNothingOnRelease = forceDoNothingOnRelease_
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
-        if isFirstSummon || shortcutIndex != self.shortcutIndex {
-            if isVeryFirstSummon {
-                Windows.sortByLevel()
-                isVeryFirstSummon = false
+        
+        // Determine if this is the first call and apply event source filtering
+        let isFirstCall = isFirstSummon || shortcutIndex != self.shortcutIndex
+        let now = Date()
+        
+        Logger.debug("showUiOrCycleSelection called from", eventSource.rawValue, "isFirstCall:", isFirstCall)
+        
+        // Apply event source based filtering for subsequent calls
+        if !isFirstCall && appIsBeingUsed {
+            if shouldBlockDuplicateEvent(eventSource: eventSource, currentTime: now) {
+                return
             }
-            isFirstSummon = false
-            self.shortcutIndex = shortcutIndex
-            NSScreen.updatePreferred()
-            if !Windows.updatesBeforeShowing() { hideUi(); return }
-            Windows.setInitialFocusedAndHoveredWindowIndex()
-            if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
-                buildUiAndShowPanel()
-            } else {
-                delayedDisplayScheduled += 1
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
-                    if self.delayedDisplayScheduled == 1 {
-                        self.buildUiAndShowPanel()
-                    }
-                    self.delayedDisplayScheduled -= 1
-                }
-            }
+        }
+        
+        // Update timestamp for first calls
+        if isFirstCall {
+            firstCallTimestamp = now
+        }
+        
+        // Set concurrent execution protection
+        setConcurrentProtection()
+        
+        // Execute the appropriate action based on whether this is first call or cycling
+        if isFirstCall {
+            handleFirstCall(shortcutIndex: shortcutIndex)
         } else {
-            cycleSelection(.leading)
-            KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+            handleCycling()
+        }
+    }
+    
+    /// Check if a duplicate event should be blocked based on event source and timing
+    private func shouldBlockDuplicateEvent(eventSource: EventSource, currentTime: Date) -> Bool {
+        guard let firstTime = firstCallTimestamp else { return false }
+        
+        let timeSinceFirst = currentTime.timeIntervalSince(firstTime)
+        
+        switch eventSource {
+        case .cgEventTap:
+            if timeSinceFirst < 0.3 {
+                Logger.debug("showUiOrCycleSelection blocked - CGEventTap delayed duplicate call")
+                return true
+            }
+            
+        case .nsEvent:
+            if timeSinceFirst < 0.1 {
+                Logger.debug("showUiOrCycleSelection blocked - NSEvent rapid duplicate call")
+                return true
+            }
+            
+        case .globalHotKey:
+            Logger.debug("showUiOrCycleSelection allowed - GlobalHotKey user action")
+            return false
+            
+        case .unknown, .legacyAction:
+            if timeSinceFirst < 0.3 {
+                Logger.debug("showUiOrCycleSelection blocked - Unknown/LegacyAction delayed duplicate call")
+                return true
+            }
+            
+        case .keyRepeat:
+            return shouldBlockKeyRepeatEvent(timeSinceFirst: timeSinceFirst)
+            
+        case .safetyMeasure:
+            if timeSinceFirst < 0.3 {
+                Logger.debug("showUiOrCycleSelection blocked - SafetyMeasure delayed duplicate call")
+                return true
+            }
+            
+        case .showUI, .trackpad:
+            // These sources are generally allowed through
+            return false
+        }
+        
+        return false
+    }
+    
+    /// Check if a KeyRepeat event should be blocked
+    private func shouldBlockKeyRepeatEvent(timeSinceFirst: TimeInterval) -> Bool {
+        // Check if KeyRepeat timer is inactive
+        if !KeyRepeatTimer.isActive {
+            Logger.debug("showUiOrCycleSelection blocked - KeyRepeat timer is inactive")
+            return true
+        }
+        
+        // Block KeyRepeat events during initialization period
+        if timeSinceFirst < 0.5 {
+            Logger.debug("showUiOrCycleSelection blocked - KeyRepeat during initialization")
+            return true
+        }
+        
+        return false
+    }
+    
+    /// Set concurrent execution protection with automatic cleanup
+    private func setConcurrentProtection() {
+        isExecutingCycling = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
+            self?.isExecutingCycling = false
+        }
+    }
+    
+    /// Handle the first call - initialize and show UI
+    private func handleFirstCall(shortcutIndex: Int) {
+        // Initialize on very first summon
+        if isVeryFirstSummon {
+            Windows.sortByLevel()
+            isVeryFirstSummon = false
+        }
+        
+        // Update state
+        isFirstSummon = false
+        self.shortcutIndex = shortcutIndex
+        
+        // Prepare UI
+        NSScreen.updatePreferred()
+        if !Windows.updatesBeforeShowing() { 
+            hideUi()
+            return 
+        }
+        
+        Windows.setInitialFocusedAndHoveredWindowIndex()
+        
+        // Show UI with appropriate delay
+        if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
+            buildUiAndShowPanel()
+        } else {
+            scheduleDelayedDisplay()
+        }
+    }
+    
+    /// Handle cycling through windows
+    private func handleCycling() {
+        cycleSelection(.leading)
+        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+    }
+    
+    /// Schedule delayed UI display
+    private func scheduleDelayedDisplay() {
+        delayedDisplayScheduled += 1
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { [weak self] in
+            guard let self = self else { return }
+            if self.delayedDisplayScheduled == 1 {
+                self.buildUiAndShowPanel()
+            }
+            self.delayedDisplayScheduled -= 1
         }
     }
 
@@ -352,4 +492,17 @@ enum RefreshCausedBy {
     case refreshOnlyThumbnailsAfterShowUi
     case refreshUiAfterThumbnailsHaveBeenRefreshed
     case refreshUiAfterExternalEvent
+}
+
+/// Event source enumeration - used to identify the source of triggered actions
+enum EventSource: String, CaseIterable {
+    case globalHotKey = "GlobalHotKey"          // InstallEventHandler - real user key press
+    case nsEvent = "NSEvent"                    // addLocalMonitorForEvents - key event monitoring
+    case cgEventTap = "CGEventTap"              // cgEventFlagsChangedHandler - modifier key changes
+    case keyRepeat = "KeyRepeat"                // KeyRepeatTimer - key repeat timer
+    case legacyAction = "LegacyAction"          // legacy action calls
+    case safetyMeasure = "SafetyMeasure"        // redundantSafetyMeasures - safety measure calls
+    case showUI = "ShowUI"                      // showUi method calls
+    case trackpad = "Trackpad"                  // trackpad gestures
+    case unknown = "Unknown"                    // unknown source (should be avoided)
 }

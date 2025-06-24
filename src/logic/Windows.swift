@@ -121,6 +121,18 @@ class Windows {
         return index
     }
 
+    /// Get the index of the second window that should be shown to the user
+    /// This is the standard behavior of switcher - select the second window (the first is usually the currently active window)
+    static func getSecondVisibleWindowIndex() -> Int? {
+        let visibleWindows = Windows.list.enumerated().filter { $0.element.shouldShowTheUser }
+        // If there's only one visible window, return the first; otherwise return the second
+        if visibleWindows.count <= 1 {
+            return visibleWindows.first?.offset
+        } else {
+            return visibleWindows[1].offset
+        }
+    }
+
     static func appendAndUpdateFocus(_ window: Window) {
         list.forEach {
             $0.lastFocusOrder += 1
@@ -254,12 +266,20 @@ class Windows {
     static func updateFocusedWindowIndex() {
         if let focusedWindow = focusedWindow() {
             if !focusedWindow.shouldShowTheUser {
-                cycleFocusedWindowIndex(windowIndexAfterCycling(1) > focusedWindowIndex ? 1 : -1)
+                if let secondVisibleIndex = getSecondVisibleWindowIndex(), secondVisibleIndex != focusedWindowIndex {
+                    updateFocusedAndHoveredWindowIndex(secondVisibleIndex)
+                } else {
+                    cycleFocusedWindowIndex(windowIndexAfterCycling(1) > focusedWindowIndex ? 1 : -1)
+                }
             } else {
                 previewFocusedWindowIfNeeded()
             }
         } else {
-            cycleFocusedWindowIndex(-1)
+            if let secondVisibleIndex = getSecondVisibleWindowIndex() {
+                updateFocusedAndHoveredWindowIndex(secondVisibleIndex)
+            } else {
+                cycleFocusedWindowIndex(-1)
+            }
         }
     }
 

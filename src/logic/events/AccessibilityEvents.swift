@@ -76,7 +76,9 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
                        AXUIElement.isActualWindow(app, wid, level, title, subrole, role, size) {
                     let window = Window(element, app, wid, title, isFullscreen, isMinimized, position, size)
                     Windows.appendAndUpdateFocus(window)
-                    Windows.cycleFocusedWindowIndex(1)
+                    if !App.app.appIsBeingUsed {
+                        Windows.cycleFocusedWindowIndex(1)
+                    }
                     App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
                 }
             }

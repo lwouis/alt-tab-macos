@@ -75,6 +75,12 @@ class ATShortcut {
         ControlsTab.executeAction(id)
     }
 
+    func executeActionWithSource(_ isARepeat: Bool, _ eventSource: EventSource) {
+        Logger.info("executeAction", id, "source:", eventSource.rawValue)
+        ATShortcut.lastEventIsARepeat = isARepeat
+        ControlsTab.executeActionWithSource(id, eventSource)
+    }
+
     /// keyboard events can be unreliable. They can arrive in the wrong order, or may never arrive
     /// this function acts as a safety net to improve the chances that some keyUp behaviors are enforced
     func redundantSafetyMeasures() {
@@ -89,7 +95,7 @@ class ATShortcut {
                 let currentModifiers = cocoaToCarbonFlags(ModifierFlags.current)
                 if currentModifiers != (currentModifiers | (currentHoldShortcut.shortcut.carbonModifierFlags)) {
                     currentHoldShortcut.state = .up
-                    ControlsTab.executeAction(currentHoldShortcut.id)
+                    ControlsTab.executeActionWithSource(currentHoldShortcut.id, .safetyMeasure)
                 }
             }
         }
