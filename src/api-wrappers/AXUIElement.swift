@@ -269,10 +269,16 @@ extension AXUIElement {
                 ) && (
                     mustHaveIfJetbrainApp(app, title, subrole, size!) &&
                         mustHaveIfSteam(app, title, role) &&
+                        mustHaveIfFusion360(app, title, role) &&
                         mustHaveIfColorSlurp(app, subrole)
                 )
             )
         )
+    }
+
+    private static func mustHaveIfFusion360(_ app: Application, _ title: String?, _ role: String?) -> Bool {
+        // filter out Autodesk Fusion side panels "Browser" and "Comments" with subrole AXDialog but with no title
+        return app.bundleIdentifier != "com.autodesk.fusion360" || (title != nil && title != "")
     }
 
     private static func mustHaveIfJetbrainApp(_ app: Application, _ title: String?, _ subrole: String?, _ size: NSSize) -> Bool {
