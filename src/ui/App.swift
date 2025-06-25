@@ -35,6 +35,7 @@ class App: AppCenterApplication {
     private var isExecutingCycling = false
     private let cyclingLock = NSLock()
     private var firstCallTimestamp: Date?
+    private var isInitializing = false
 
     override init() {
         super.init()
@@ -78,6 +79,7 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return } // already hidden
         appIsBeingUsed = false
         isFirstSummon = true
+        isInitializing = false // Clear initialization flag
         forceDoNothingOnRelease = false
         MouseEvents.toggle(false)
         hideThumbnailPanelWithoutChangingKeyWindow()
@@ -217,10 +219,18 @@ class App: AppCenterApplication {
         }
         guard appIsBeingUsed else { return }
         if source == .refreshUiAfterExternalEvent {
+            // Block external events during initialization to prevent focus drift
+            if isInitializing {
+                Logger.debug("refreshOpenUi blocked - External event during initialization")
+                return
+            }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
         }
         guard appIsBeingUsed else { return }
-        Windows.updateFocusedWindowIndex()
+        // Only update focused window index if not initializing to prevent drift
+        if !isInitializing || source != .refreshUiAfterExternalEvent {
+            Windows.updateFocusedWindowIndex()
+        }
         guard appIsBeingUsed else { return }
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout()
         guard appIsBeingUsed else { return }
@@ -358,6 +368,9 @@ class App: AppCenterApplication {
     
     /// Handle the first call - initialize and show UI
     private func handleFirstCall(shortcutIndex: Int) {
+        // Set initialization protection flag to prevent focus drift
+        isInitializing = true
+        
         // Initialize on very first summon
         if isVeryFirstSummon {
             Windows.sortByLevel()
@@ -371,6 +384,7 @@ class App: AppCenterApplication {
         // Prepare UI
         NSScreen.updatePreferred()
         if !Windows.updatesBeforeShowing() { 
+            isInitializing = false
             hideUi()
             return 
         }
@@ -380,6 +394,10 @@ class App: AppCenterApplication {
         // Show UI with appropriate delay
         if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
             buildUiAndShowPanel()
+            // Clear initialization flag after UI is built
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                self?.isInitializing = false
+            }
         } else {
             scheduleDelayedDisplay()
         }
@@ -398,6 +416,10 @@ class App: AppCenterApplication {
             guard let self = self else { return }
             if self.delayedDisplayScheduled == 1 {
                 self.buildUiAndShowPanel()
+                // Clear initialization flag after UI is built
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                    self?.isInitializing = false
+                }
             }
             self.delayedDisplayScheduled -= 1
         }
