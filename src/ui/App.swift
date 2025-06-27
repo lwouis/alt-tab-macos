@@ -31,11 +31,9 @@ class App: AppCenterApplication {
     private var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
     private var delayedDisplayScheduled = 0
-    // Atomic operation protection to prevent concurrent calls
-    private var isExecutingCycling = false
-    private let cyclingLock = NSLock()
     private var firstCallTimestamp: Date?
     private var isInitializing = false
+    private var lastKeyRepeatCallTime: Date?
 
     override init() {
         super.init()
@@ -81,6 +79,7 @@ class App: AppCenterApplication {
         isFirstSummon = true
         isInitializing = false // Clear initialization flag
         forceDoNothingOnRelease = false
+        lastKeyRepeatCallTime = nil // Reset key repeat call tracking
         MouseEvents.toggle(false)
         hideThumbnailPanelWithoutChangingKeyWindow()
         if !keepPreview {
@@ -251,16 +250,6 @@ class App: AppCenterApplication {
     }
     
     func showUiOrCycleSelectionWithSource(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool, _ eventSource: EventSource) {
-        // Atomic operation protection - prevent concurrent calls
-        cyclingLock.lock()
-        defer { cyclingLock.unlock() }
-        
-        // Early exit if concurrent execution protection is active
-        if isExecutingCycling {
-            Logger.debug("showUiOrCycleSelection blocked by concurrent protection")
-            return
-        }
-        
         // Initialize basic state
         forceDoNothingOnRelease = forceDoNothingOnRelease_
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
@@ -283,9 +272,6 @@ class App: AppCenterApplication {
         if isFirstCall {
             firstCallTimestamp = now
         }
-        
-        // Set concurrent execution protection
-        setConcurrentProtection()
         
         // Execute the appropriate action based on whether this is first call or cycling
         if isFirstCall {
@@ -349,21 +335,49 @@ class App: AppCenterApplication {
             return true
         }
         
-        // Block KeyRepeat events during initialization period
-        if timeSinceFirst < 0.5 {
-            Logger.debug("showUiOrCycleSelection blocked - KeyRepeat during initialization")
+        // Get system key repeat settings for dynamic threshold calculation
+        let systemKeyRepeatRate = getSystemKeyRepeatRate()
+        let initialDelayThreshold = getSystemInitialKeyRepeatDelay()
+        
+        // Block KeyRepeat events during initialization period with dynamic threshold
+        // Use the larger of either the system initial delay or a minimum threshold
+        let dynamicThreshold = max(initialDelayThreshold, 0.5)
+        
+        if timeSinceFirst < dynamicThreshold {
+            Logger.debug("showUiOrCycleSelection blocked - KeyRepeat during initialization", 
+                        "timeSinceFirst:", timeSinceFirst, "threshold:", dynamicThreshold)
             return true
         }
+        
+        // Additional frequency-based protection: detect rapid successive calls
+        if let lastCallTime = lastKeyRepeatCallTime {
+            let timeSinceLastCall = Date().timeIntervalSince(lastCallTime)
+            // Determine minimum allowed interval between key repeats
+            let minAllowedInterval = max(systemKeyRepeatRate, 0.06)
+            if timeSinceLastCall < minAllowedInterval {
+                Logger.debug("showUiOrCycleSelection blocked - KeyRepeat too frequent", 
+                            "timeSinceLastCall:", timeSinceLastCall, "minAllowedInterval:", minAllowedInterval)
+                return true
+            }
+        }
+        // Update last call timestamp
+        lastKeyRepeatCallTime = Date()
         
         return false
     }
     
-    /// Set concurrent execution protection with automatic cleanup
-    private func setConcurrentProtection() {
-        isExecutingCycling = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
-            self?.isExecutingCycling = false
-        }
+    /// Get system key repeat rate in seconds
+    private func getSystemKeyRepeatRate() -> TimeInterval {
+        let appleNumber = CachedUserDefaults.globalString("KeyRepeat") ?? "6"
+        // Apple uses ticks where 60 ticks = 1 second
+        return Double(appleNumber)! / 60.0
+    }
+    
+    /// Get system initial key repeat delay in seconds  
+    private func getSystemInitialKeyRepeatDelay() -> TimeInterval {
+        let appleNumber = CachedUserDefaults.globalString("InitialKeyRepeat") ?? "25"
+        // Apple uses ticks where 60 ticks = 1 second
+        return Double(appleNumber)! / 60.0
     }
     
     /// Handle the first call - initialize and show UI
