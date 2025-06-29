@@ -24,8 +24,11 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         return paragraphStyle
     }()
     var initialAttributedString: NSMutableAttributedString!
+    var baseSymbol: Symbols!
+    var offsetSymbol: Symbols!
 
-    convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Appearance.fontHeight, color: NSColor = Appearance.fontColor) {
+    convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Appearance.fontHeight, color: NSColor = Appearance.fontColor,
+                     tenSymbol: Symbols? = Symbols.circledNumber10) {
         // This helps SF symbols display vertically centered and not clipped at the top
         self.init(font: NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())!)
         initialAttributedString = NSMutableAttributedString(string: symbol.rawValue, attributes: [.paragraphStyle: ThumbnailFontIconView.paragraphStyle])
@@ -33,11 +36,13 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         textColor = color
         toolTip = tooltip
         addOrUpdateConstraint(widthAnchor, cell!.cellSize.width)
+        baseSymbol = symbol
+        offsetSymbol = tenSymbol
     }
 
     // number should be in the interval [0-50]
-    func setNumber(_ number: Int, _ filled: Bool) {
-        let (baseCharacter, offset) = baseCharacterAndOffset(number, filled)
+    func setNumber(_ number: Int) {
+        let (baseCharacter, offset) = baseCharacterAndOffset(number)
         replaceCharIfNeeded(String(UnicodeScalar(Int(baseCharacter.unicodeScalars.first!.value) + offset)!))
     }
 
@@ -56,12 +61,12 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         }
     }
 
-    private func baseCharacterAndOffset(_ number: Int, _ filled: Bool) -> (String, Int) {
+    private func baseCharacterAndOffset(_ number: Int) -> (String, Int) {
         if number <= 9 {
             // numbers alternate between empty and full circles; we skip the full circles
-            return ((filled ? Symbols.filledCircledNumber0 : Symbols.circledNumber0).rawValue, number * 2)
+            return (baseSymbol.rawValue, number * 2)
         } else {
-            return ((filled ? Symbols.filledCircledNumber10 : Symbols.circledNumber10).rawValue, number - 10)
+            return (offsetSymbol.rawValue, number - 10)
         }
     }
 }
