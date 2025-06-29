@@ -190,6 +190,11 @@ class Windows {
         voiceOverWindow(index)
     }
 
+    static func focusWindowByIndex(_ newIndex: Int) {
+        updateFocusedAndHoveredWindowIndex(newIndex)
+        App.app.focusSelectedWindow(focusedWindow())
+    }
+
     static func previewFocusedWindowIfNeeded() {
         if App.app.appIsBeingUsed && SystemPermissions.screenRecordingPermission == .granted
                && Preferences.previewFocusedWindow && !Preferences.onlyShowApplications()
