@@ -1,9 +1,27 @@
 import Cocoa
 
 class PreviewPanel: NSPanel {
-    private let visualEffectView = NSVisualEffectView()
-    private let previewView = LightImageView()
-    private let borderView = BorderView()
+    private let visualEffectView: NSView = {
+        if #available(macOS 26.0, *) {
+            return NSGlassEffectContainerView()
+        } else {
+            return NSVisualEffectView()
+        }
+    }()
+    private let previewView: NSView = {
+        if #available(macOS 26.0, *) {
+            return NSGlassEffectContainerView()
+        } else {
+            return LightImageView()
+        }
+    }()
+    private let borderView: NSView = {
+        if #available(macOS 26.0, *) {
+            return NSGlassEffectContainerView()
+        } else {
+            return BorderView()
+        }
+    }()
     private var currentId: CGWindowID?
 
     /// this allows the window to be above the menubar when its origin.y is set to 0
@@ -21,9 +39,9 @@ class PreviewPanel: NSPanel {
         backgroundColor = .clear
         
         // Setup visual effect view with Liquid Glass effect
-        visualEffectView.material = .hudWindow
-        visualEffectView.blendingMode = .behindWindow
-        visualEffectView.state = .active
+//        visualEffectView.material = .hudWindow
+//        visualEffectView.blendingMode = .behindWindow
+//        visualEffectView.state = .active
         visualEffectView.wantsLayer = true
         visualEffectView.frame = frame
         visualEffectView.autoresizingMask = [.width, .height]
@@ -51,7 +69,7 @@ class PreviewPanel: NSPanel {
 
     func updateImageIfShowing(_ id: CGWindowID?,  _ preview: CGImage, _ size: CGSize) {
         if isVisible && id == currentId {
-            previewView.updateWithResizedCopy(preview, size)
+//            previewView.updateWithResizedCopy(preview, size)
             visualEffectView.frame = frame
             previewView.frame = visualEffectView.bounds
         }
@@ -59,7 +77,7 @@ class PreviewPanel: NSPanel {
 
     func show(_ id: CGWindowID, _ preview: CGImage, _ position: CGPoint, _ size: CGSize) {
         if id != currentId {
-            previewView.updateWithResizedCopy(preview, size)
+//            previewView.updateWithResizedCopy(preview, size)
             var frame = NSRect(origin: position, size: size)
             // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)
             // Always use the primary screen as reference since all coordinates are relative to it

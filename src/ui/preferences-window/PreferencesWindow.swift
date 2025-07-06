@@ -38,7 +38,7 @@ class PreferencesWindow: NSWindow {
         // toolbar breaks with the new default style on macOS 11; we force the classic style (see #914)
         if #available(macOS 11.0, *) { toolbarStyle = .preference }
         toolbar!.displayMode = .iconAndLabel
-        toolbar!.showsBaselineSeparator = true
+//        toolbar!.showsBaselineSeparator = true
         [
             (0, NSLocalizedString("General", comment: ""), "general", "switch.2", GeneralTab.initTab()),
             (1, NSLocalizedString("Controls", comment: ""), "controls", "command", ControlsTab.initTab()),
@@ -78,7 +78,12 @@ class PreferencesWindow: NSWindow {
         }
         item.target = self
         item.action = #selector(tabItemClicked)
-        let wrapView = NSView(frame: .zero)
+        let wrapView: NSView
+        if #available(macOS 26.0, *) {
+            wrapView = NSGlassEffectContainerView(frame: .zero)
+        } else {
+            wrapView = NSView(frame: .zero)
+        }
         wrapView.translatesAutoresizingMaskIntoConstraints = false
         wrapView.subviews = [view]
         view.centerXAnchor.constraint(equalTo: wrapView.centerXAnchor).isActive = true

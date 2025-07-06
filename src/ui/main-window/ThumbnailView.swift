@@ -179,6 +179,7 @@ class ThumbnailView: FlippedView {
         let shadow = ThumbnailView.makeShadow(Appearance.imageShadowColor)
         thumbnailContainer.wantsLayer = true
         thumbnailContainer.layer!.masksToBounds = false // let thumbnail shadows show
+        thumbnailContainer.layer!.backgroundColor = .clear // Make transparent
         thumbnail.shadow = shadow
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
@@ -188,13 +189,15 @@ class ThumbnailView: FlippedView {
         appIcon.setSubviewAbove(dockLabelIcon)
         label.fixHeight()
         vStackView.wantsLayer = true
-        vStackView.layer!.backgroundColor = .clear
+        vStackView.layer!.backgroundColor = .clear // Make transparent
         vStackView.layer!.borderColor = .clear
         vStackView.layer!.cornerRadius = Appearance.cellCornerRadius
         vStackView.layer!.borderWidth = CGFloat(1)
         setSubviews([vStackView])
         vStackView.setSubviews([hStackView])
         hStackView.setSubviews([appIcon])
+        hStackView.wantsLayer = true
+        hStackView.layer!.backgroundColor = .clear // Make transparent
     }
 
     private func setupStyleSpecificSubviews() {
@@ -515,7 +518,7 @@ class ThumbnailView: FlippedView {
         let shadow = NSShadow()
         shadow.shadowColor = color
         shadow.shadowOffset = .zero
-        shadow.shadowBlurRadius = 1
+        // shadow.shadowBlurRadius = 1
         return shadow
     }
 

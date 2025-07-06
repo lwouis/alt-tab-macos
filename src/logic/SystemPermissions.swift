@@ -65,10 +65,12 @@ class SystemPermissions {
     }
 
     private static func detectScreenRecordingIsGranted() -> PermissionStatus {
-        if #available(macOS 10.15, *) {
+        // ScreenCaptureKit is available from macOS 12.0
+        if #available(macOS 12.0, *) {
             return screenRecordingIsGrantedOnSomeDisplay() ? .granted :
                 (Preferences.screenRecordingPermissionSkipped ? .skipped : .notGranted)
         }
+        // For macOS versions older than 12.0, assume granted
         return .granted
     }
 
@@ -126,6 +128,7 @@ class SystemPermissions {
     // their return value is not updated during the app lifetime
     // note: shows the system prompt if there's no permission
     private static func screenRecordingIsGrantedOnSomeDisplay() -> Bool {
+        // This function is only called if macOS 12.0 or later, so we can directly use ScreenCaptureKit
         let mainDisplayID = CGMainDisplayID()
         if screenRecordingIsGrantedOnDisplay(mainDisplayID) {
             return true
@@ -143,31 +146,18 @@ class SystemPermissions {
     }
 
     private static func screenRecordingIsGrantedOnDisplay(_ displayId: CGDirectDisplayID) -> Bool {
-        if #available(macOS 14.0, *) {
-            // Use ScreenCaptureKit
-            let semaphore = DispatchSemaphore(value: 0)
-            var isGranted = false
-            SCShareableContent.getWithCompletionHandler { content, error in
-                if let displays = content?.displays {
-                    isGranted = displays.contains(where: { $0.displayID == displayId })
-                }
-                semaphore.signal()
+        // ScreenCaptureKit is the only method to check screen recording permissions from macOS 12.0 onwards.
+        // This function is only called if macOS 12.0 or later, based on the `detectScreenRecordingIsGranted` check.
+        let semaphore = DispatchSemaphore(value: 0)
+        var isGranted = false
+        SCShareableContent.getWithCompletionHandler { content, error in
+            if let displays = content?.displays {
+                isGranted = displays.contains(where: { $0.displayID == displayId })
             }
-            semaphore.wait()
-            return isGranted
-        } else {
-            // Legacy method
-            return CGDisplayStream(
-                dispatchQueueDisplay: displayId,
-                outputWidth: 1,
-                outputHeight: 1,
-                pixelFormat: Int32(kCVPixelFormatType_32BGRA),
-                properties: nil,
-                queue: .global(),
-                handler: { _, _, _, _ in }
-            ) != nil
+            semaphore.signal()
         }
+        semaphore.wait()
+        return isGranted
     }
 }
 // Note: The new logic uses a synchronous semaphore wait, which is safe here since this function is only used for permission detection and the legacy path will remain for older systems.
-
