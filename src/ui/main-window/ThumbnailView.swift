@@ -1,4 +1,5 @@
 import Cocoa
+import UniformTypeIdentifiers
 
 class ThumbnailView: FlippedView {
     static let noOpenWindowToolTip = NSLocalizedString("App is running but has no open window", comment: "")
@@ -68,9 +69,14 @@ class ThumbnailView: FlippedView {
         dragAndDropTimer = nil
         let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as! [URL]
         let appUrl = window_!.application.bundleURL!
-        let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
+        let configuration = NSWorkspace.OpenConfiguration()
+        NSWorkspace.shared.open(urls, withApplicationAt: appUrl, configuration: configuration) { _, error in
+            if error != nil {
+                debugPrint("Error opening URLs:", error!.localizedDescription)
+            }
+        }
         App.app.hideUi()
-        return open != nil
+        return true
     }
 
     override func mouseDown(with event: NSEvent) {
@@ -493,7 +499,7 @@ class ThumbnailView: FlippedView {
         appIcon.unregisterDraggedTypes()
         windowlessIcon.unregisterDraggedTypes()
         // we only handle URLs (i.e. not text, image, or other draggable things)
-        registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeURL as String)])
+        registerForDraggedTypes([.URL])
     }
 
     static func dockLabelLabelSize() -> CGFloat {

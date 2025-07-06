@@ -47,7 +47,7 @@ class Menubar {
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        statusItem.target = self
+        statusItem.button!.target = self
         statusItem.button!.action = #selector(statusItemOnClick)
         statusItem.button!.sendAction(on: [.leftMouseDown, .rightMouseDown])
     }
@@ -69,7 +69,7 @@ class Menubar {
         if let type = NSApp.currentEvent?.type, type != .leftMouseDown {
             App.app.showUiFromShortcut0()
         } else {
-            statusItem.popUpMenu(Menubar.menu)
+            statusItem.menu = Menubar.menu
         }
     }
 

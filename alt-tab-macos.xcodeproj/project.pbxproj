@@ -1821,7 +1821,6 @@
 				BF0C8020E6B7E6829C8CDF14 /* kn.lproj */,
 				BF0C82D4A643500E81DB2965 /* ga.lproj */,
 				BF0C83AC6CE3D97E3B497C32 /* jv.lproj */,
-				BF0C88443DE3FA5B56B685A6,
 				BF0C85419FC7DC4CE275FA40 /* lt.lproj */,
 			);
 			path = l10n;
@@ -3374,6 +3373,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA62D5EACAAAD7BCD3E79 /* release.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 			};
 			name = Release;
 		};
@@ -3381,6 +3381,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 			};
 			name = Debug;
 		};

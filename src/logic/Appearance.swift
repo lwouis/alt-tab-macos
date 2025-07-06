@@ -19,12 +19,12 @@ class Appearance {
     static var maxHeightOnScreen = CGFloat(0.8)
 
     // theme
-    static var material = NSVisualEffectView.Material.dark
+    static var material = NSVisualEffectView.Material.windowBackground
     static var fontColor = NSColor.white
     static var indicatedIconShadowColor: NSColor? = .darkGray
     static var titleShadowColor: NSColor? = .darkGray
     static var imageShadowColor: NSColor? = .gray // for icon, thumbnail and windowless images
-    static var highlightMaterial = NSVisualEffectView.Material.selection
+    static var highlightMaterial = NSVisualEffectView.Material.contentBackground
     static var highlightFocusedAlphaValue = 1.0
     static var highlightHoveredAlphaValue = 0.8
     static var highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
@@ -42,7 +42,7 @@ class Appearance {
     private static var currentSize: AppearanceSizePreference { Preferences.appearanceSize }
     private static var currentTheme: AppearanceThemePreference {
         if Preferences.appearanceTheme == .system {
-            return NSAppearance.current.getThemeName()
+            return NSAppearance.currentDrawing().getThemeName()
         } else {
             return Preferences.appearanceTheme
         }
@@ -153,10 +153,10 @@ class Appearance {
         titleShadowColor = nil
         indicatedIconShadowColor = nil
         imageShadowColor = .lightGray.withAlphaComponent(0.4)
-        highlightMaterial = .mediumLight
+        highlightMaterial = .contentBackground
         switch currentVisibility {
             case .normal:
-                material = .light
+                material = .windowBackground
                 highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
                 highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
                 enablePanelShadow = false
@@ -167,7 +167,7 @@ class Appearance {
                 highlightBorderShadowColor = NSColor.clear
                 highlightBorderWidth = 0
             case .high:
-                material = .mediumLight
+                material = .contentBackground
                 highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.7)
                 highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.5)
                 enablePanelShadow = true
@@ -178,7 +178,7 @@ class Appearance {
                 highlightBorderShadowColor = .black.withAlphaComponent(0.5)
                 highlightBorderWidth = 1
             case .highest:
-                material = .mediumLight
+                material = .contentBackground
                 highlightFocusedBackgroundColor = .lightGray.withAlphaComponent(0.4)
                 highlightHoveredBackgroundColor = .lightGray.withAlphaComponent(0.3)
                 enablePanelShadow = true
@@ -195,10 +195,10 @@ class Appearance {
         fontColor = .white.withAlphaComponent(0.9)
         indicatedIconShadowColor = .darkGray
         titleShadowColor = .darkGray
-        highlightMaterial = .ultraDark
+        highlightMaterial = .underWindowBackground
         switch currentVisibility {
             case .normal:
-                material = .dark
+                material = .windowBackground
                 imageShadowColor = .gray.withAlphaComponent(0.8)
                 highlightFocusedBackgroundColor = .black.withAlphaComponent(0.6)
                 highlightHoveredBackgroundColor = .black.withAlphaComponent(0.5)
@@ -210,7 +210,7 @@ class Appearance {
                 highlightBorderShadowColor = NSColor.clear
                 highlightBorderWidth = 0
             case .high:
-                material = .ultraDark
+                material = .contentBackground
                 imageShadowColor = .gray.withAlphaComponent(0.4)
                 highlightFocusedBackgroundColor = .gray.withAlphaComponent(0.6)
                 highlightHoveredBackgroundColor = .gray.withAlphaComponent(0.4)
@@ -222,7 +222,7 @@ class Appearance {
                 highlightBorderShadowColor = .white.withAlphaComponent(0.5)
                 highlightBorderWidth = 1
             case .highest:
-                material = .ultraDark
+                material = .contentBackground
                 imageShadowColor = .gray.withAlphaComponent(0.4)
                 highlightFocusedBackgroundColor = .black.withAlphaComponent(0.4)
                 highlightHoveredBackgroundColor = .black.withAlphaComponent(0.2)
@@ -236,3 +236,4 @@ class Appearance {
         }
     }
 }
+

@@ -35,7 +35,7 @@ extension NSColor {
 
     class var tableBorderColor: NSColor {
         // #4b4b4b
-        if NSAppearance.current.getThemeName() == .dark {
+        if NSAppearance.currentDrawing().getThemeName() == .dark {
             return NSColor(srgbRed: 75 / 255, green: 75 / 255, blue: 75 / 255, alpha: 0.8)
         }
         // #e5e5e5
@@ -44,7 +44,7 @@ extension NSColor {
 
     class var tableBackgroundColor: NSColor {
         // #2b2b2b
-        if NSAppearance.current.getThemeName() == .dark {
+        if NSAppearance.currentDrawing().getThemeName() == .dark {
             return NSColor(srgbRed: 43 / 255, green: 43 / 255, blue: 43 / 255, alpha: 0.8)
         }
         // #f2f2f2
@@ -53,7 +53,7 @@ extension NSColor {
 
     class var tableSeparatorColor: NSColor {
         // #353535
-        if NSAppearance.current.getThemeName() == .dark {
+        if NSAppearance.currentDrawing().getThemeName() == .dark {
             return NSColor(srgbRed: 53 / 255, green: 53 / 255, blue: 53 / 255, alpha: 0.8)
         }
         // #e7e7e7
@@ -62,7 +62,7 @@ extension NSColor {
 
     class var tableHoverColor: NSColor {
         // #363636
-        if NSAppearance.current.getThemeName() == .dark {
+        if NSAppearance.currentDrawing().getThemeName() == .dark {
             return NSColor(srgbRed: 54 / 255, green: 54 / 255, blue: 54 / 255, alpha: 0.8)
         }
         // #ebebeb

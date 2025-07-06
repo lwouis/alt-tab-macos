@@ -74,7 +74,7 @@ class PreferencesWindow: NSWindow {
         if item.image == nil || item.image!.size == NSSize(width: 1, height: 1) {
             item.image = NSImage.initCopy(id)
             item.image!.isTemplate = true
-            item.maxSize = NSSize(width: 22, height: 22)
+            // Removed the line: item.maxSize = NSSize(width: 22, height: 22)
         }
         item.target = self
         item.action = #selector(tabItemClicked)

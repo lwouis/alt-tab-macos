@@ -1,6 +1,7 @@
 import Cocoa
 
 class PreviewPanel: NSPanel {
+    private let visualEffectView = NSVisualEffectView()
     private let previewView = LightImageView()
     private let borderView = BorderView()
     private var currentId: CGWindowID?
@@ -18,9 +19,30 @@ class PreviewPanel: NSPanel {
         titleVisibility = .hidden
         titlebarAppearsTransparent = true
         backgroundColor = .clear
-        contentView = previewView
+        
+        // Setup visual effect view with Liquid Glass effect
+        visualEffectView.material = .hudWindow
+        visualEffectView.blendingMode = .behindWindow
+        visualEffectView.state = .active
+        visualEffectView.wantsLayer = true
+        visualEffectView.frame = frame
+        visualEffectView.autoresizingMask = [.width, .height]
+        
+        // Add visual effect view as the content view
+        contentView = visualEffectView
+        
+        // Add preview view on top of the visual effect
+        previewView.wantsLayer = true
+        previewView.layer?.cornerRadius = 8
+        previewView.layer?.masksToBounds = true
+        visualEffectView.addSubview(previewView)
+        previewView.frame = visualEffectView.bounds
+        previewView.autoresizingMask = [.width, .height]
+        
+        // Add border view
         borderView.autoresizingMask = [.width, .height]
         previewView.addSubview(borderView)
+        
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
         // helps filter out this window from the thumbnails
@@ -30,6 +52,8 @@ class PreviewPanel: NSPanel {
     func updateImageIfShowing(_ id: CGWindowID?,  _ preview: CGImage, _ size: CGSize) {
         if isVisible && id == currentId {
             previewView.updateWithResizedCopy(preview, size)
+            visualEffectView.frame = frame
+            previewView.frame = visualEffectView.bounds
         }
     }
 
@@ -41,6 +65,8 @@ class PreviewPanel: NSPanel {
             // Always use the primary screen as reference since all coordinates are relative to it
             frame.origin.y = NSScreen.screens.first!.frame.maxY - frame.maxY
             setFrame(frame, display: false)
+            visualEffectView.frame = self.frame
+            previewView.frame = visualEffectView.bounds
         }
         if id != currentId || !isVisible {
             if Preferences.previewFadeInAnimation {
@@ -66,7 +92,7 @@ private class BorderView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         let path = NSBezierPath(rect: bounds)
         path.append(NSBezierPath(roundedRect: bounds.insetBy(dx: 5, dy: 5), xRadius: 5, yRadius: 5).reversed)
-        NSColor.systemAccentColor.withAlphaComponent(0.5).setFill()
+        NSColor.systemAccentColor.withAlphaComponent(0.3).setFill()
         path.fill()
     }
 }
