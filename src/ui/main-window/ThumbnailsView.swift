@@ -1,8 +1,8 @@
 import Cocoa
 
-@available(macOS 26.0, *)
-class ThumbnailsView: NSGlassEffectView {
+class ThumbnailsView: NSView {
     let scrollView = ScrollView()
+    let backgroundView = BackgroundView()
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
     static var thumbnailsWidth = CGFloat(0.0)
@@ -10,13 +10,15 @@ class ThumbnailsView: NSGlassEffectView {
 
     convenience init() {
         self.init(frame: .zero)
-        cornerRadius = 32
-//        material = Appearance.material
-//        blendingMode = .behindWindow
-//       state = .active
         wantsLayer = true
-        // layer?.backgroundColor = NSColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 1.0).cgColor // Solid red background
-        // layer?.isOpaque = true // Make sure it's fully opaque
+        addSubview(backgroundView)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
         updateRoundedCorners(Appearance.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
@@ -28,7 +30,7 @@ class ThumbnailsView: NSGlassEffectView {
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         NSScreen.updatePreferred()
         Appearance.update()
-//        material = Appearance.material
+        backgroundView.updateMaterial()
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }
@@ -43,23 +45,8 @@ class ThumbnailsView: NSGlassEffectView {
         }
     }
 
-    /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners
-    /// see https://stackoverflow.com/a/29386935/2249756
     func updateRoundedCorners(_ cornerRadius: CGFloat) {
-        if cornerRadius == 0 {
-//            maskImage = nil
-        } else {
-            let edgeLength = 2.0 * cornerRadius + 1.0
-            let mask = NSImage(size: NSSize(width: edgeLength, height: edgeLength), flipped: false) { rect in
-                let bezierPath = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
-                NSColor.black.set()
-                bezierPath.fill()
-                return true
-            }
-            mask.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
-            mask.resizingMode = .stretch
-//            maskImage = mask
-        }
+        backgroundView.updateRoundedCorners(cornerRadius)
     }
 
     func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [ThumbnailView]? {
@@ -248,7 +235,6 @@ class ThumbnailsView: NSGlassEffectView {
     }
 }
 
-
 class ScrollView: NSScrollView {
     // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
     override class var isCompatibleWithResponsiveScrolling: Bool { true }
@@ -285,8 +271,8 @@ class ScrollView: NSScrollView {
     private func resetHoveredWindow() {
         if let oldIndex = Windows.hoveredWindowIndex {
             Windows.hoveredWindowIndex = nil
-                            ThumbnailsView.highlight(oldIndex)
-                ThumbnailsView.recycledViews[oldIndex].showOrHideWindowControls(false)
+            ThumbnailsView.highlight(oldIndex)
+            ThumbnailsView.recycledViews[oldIndex].showOrHideWindowControls(false)
         }
     }
 
@@ -331,11 +317,11 @@ class ScrollView: NSScrollView {
                 width: 2 * Appearance.interCellPadding,
                 height: 2 * Appearance.interCellPadding)
             if let hoveredWindowIndex = Windows.hoveredWindowIndex {
-                                    let thumbnail = ThumbnailsView.recycledViews[hoveredWindowIndex]
-                    let mouseRectInView = thumbnail.convert(mouseRect, from: nil)
-                    if thumbnail.bounds.intersects(mouseRectInView) {
-                        return true
-                    }
+                let thumbnail = ThumbnailsView.recycledViews[hoveredWindowIndex]
+                let mouseRectInView = thumbnail.convert(mouseRect, from: nil)
+                if thumbnail.bounds.intersects(mouseRectInView) {
+                    return true
+                }
             }
         }
         return false
