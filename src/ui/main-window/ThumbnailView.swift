@@ -1,5 +1,4 @@
 import Cocoa
-import UniformTypeIdentifiers
 
 class ThumbnailView: FlippedView {
     static let noOpenWindowToolTip = NSLocalizedString("App is running but has no open window", comment: "")
@@ -69,14 +68,9 @@ class ThumbnailView: FlippedView {
         dragAndDropTimer = nil
         let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as! [URL]
         let appUrl = window_!.application.bundleURL!
-        let configuration = NSWorkspace.OpenConfiguration()
-        NSWorkspace.shared.open(urls, withApplicationAt: appUrl, configuration: configuration) { _, error in
-            if error != nil {
-                debugPrint("Error opening URLs:", error!.localizedDescription)
-            }
-        }
+        let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
         App.app.hideUi()
-        return true
+        return open != nil
     }
 
     override func mouseDown(with event: NSEvent) {
@@ -179,7 +173,6 @@ class ThumbnailView: FlippedView {
         let shadow = ThumbnailView.makeShadow(Appearance.imageShadowColor)
         thumbnailContainer.wantsLayer = true
         thumbnailContainer.layer!.masksToBounds = false // let thumbnail shadows show
-        thumbnailContainer.layer!.backgroundColor = .clear // Make transparent
         thumbnail.shadow = shadow
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
@@ -189,15 +182,13 @@ class ThumbnailView: FlippedView {
         appIcon.setSubviewAbove(dockLabelIcon)
         label.fixHeight()
         vStackView.wantsLayer = true
-        vStackView.layer!.backgroundColor = .clear // Make transparent
+        vStackView.layer!.backgroundColor = .clear
         vStackView.layer!.borderColor = .clear
         vStackView.layer!.cornerRadius = Appearance.cellCornerRadius
         vStackView.layer!.borderWidth = CGFloat(1)
         setSubviews([vStackView])
         vStackView.setSubviews([hStackView])
         hStackView.setSubviews([appIcon])
-        hStackView.wantsLayer = true
-        hStackView.layer!.backgroundColor = .clear // Make transparent
     }
 
     private func setupStyleSpecificSubviews() {
@@ -502,7 +493,7 @@ class ThumbnailView: FlippedView {
         appIcon.unregisterDraggedTypes()
         windowlessIcon.unregisterDraggedTypes()
         // we only handle URLs (i.e. not text, image, or other draggable things)
-        registerForDraggedTypes([.URL])
+        registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeURL as String)])
     }
 
     static func dockLabelLabelSize() -> CGFloat {
@@ -518,7 +509,7 @@ class ThumbnailView: FlippedView {
         let shadow = NSShadow()
         shadow.shadowColor = color
         shadow.shadowOffset = .zero
-        // shadow.shadowBlurRadius = 1
+        shadow.shadowBlurRadius = 1
         return shadow
     }
 

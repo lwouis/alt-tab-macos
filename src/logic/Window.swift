@@ -169,10 +169,8 @@ class Window {
             Windows.previewFocusedWindowIfNeeded()
         } else if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications() {
             if let bundleUrl, isWindowlessApp {
-                NSWorkspace.shared.openApplication(at: bundleUrl, configuration: NSWorkspace.OpenConfiguration()) { [weak self] app, error in
-                    if app == nil || error != nil {
-                        self?.application.runningApplication.activate(options: .activateAllWindows)
-                    }
+                if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
+                    application.runningApplication.activate(options: .activateAllWindows)
                 }
             } else {
                 application.runningApplication.activate(options: .activateAllWindows)
@@ -267,4 +265,3 @@ class Window {
         return false
     }
 }
-
