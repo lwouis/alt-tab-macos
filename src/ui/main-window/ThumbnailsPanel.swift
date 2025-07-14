@@ -13,7 +13,6 @@ class ThumbnailsPanel: NSPanel {
         hasShadow = Appearance.enablePanelShadow
         titleVisibility = .hidden
         backgroundColor = .clear
-        isOpaque = false // Make sure panel is not opaque
         contentView! = thumbnailsView
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
