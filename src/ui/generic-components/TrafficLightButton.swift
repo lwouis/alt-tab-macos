@@ -37,12 +37,12 @@ class TrafficLightButton: NSButton {
 
     override func mouseEntered(with event: NSEvent) {
         isMouseOver = true
-        needsDisplay = true
+        setNeedsDisplay()
     }
 
     override func mouseExited(with event: NSEvent) {
         isMouseOver = false
-        needsDisplay = true
+        setNeedsDisplay()
     }
 
     override func draw(_ dirtyRect: NSRect) {
