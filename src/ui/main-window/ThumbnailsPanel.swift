@@ -42,7 +42,7 @@ class ThumbnailsPanel: NSPanel {
         alphaValue = 1
         makeKeyAndOrderFront(nil)
         MouseEvents.toggle(true)
-//        thumbnailsView.scrollView.flashScrollers()
+        thumbnailsView.scrollView.flashScrollers()
     }
 
     static func maxThumbnailsWidth() -> CGFloat {
