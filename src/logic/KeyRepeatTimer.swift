@@ -4,6 +4,11 @@ import ShortcutRecorder
 class KeyRepeatTimer {
     static var timer: Timer?
     static var currentTimerShortcutName: String?
+    
+    /// Check if the timer is currently active
+    static var isActive: Bool {
+        return timer != nil && timer!.isValid
+    }
 
     static func toggleRepeatingKeyPreviousWindow() {
         if let shortcut = ControlsTab.shortcuts["previousWindowShortcut"],
@@ -18,7 +23,7 @@ class KeyRepeatTimer {
     static func toggleRepeatingKeyNextWindow() {
         if let shortcut = ControlsTab.shortcuts[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)] {
             activateTimerForRepeatingKey(shortcut) {
-                ControlsTab.executeAction(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
+                ControlsTab.executeActionWithSource(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex), .keyRepeat)
             }
         }
     }
