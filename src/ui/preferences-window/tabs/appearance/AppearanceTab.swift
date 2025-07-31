@@ -187,16 +187,6 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideColoredCircles.rowId)
         }))
         showHideRows.append(hideColoredCircles)
-        var hideWindowlessApps = ShowHideRowInfo()
-        hideWindowlessApps.rowId = "hideWindowlessApps"
-        hideWindowlessApps.uncheckedImage = "show_windowless_apps"
-        hideWindowlessApps.checkedImage = "hide_windowless_apps"
-        hideWindowlessApps.supportedStyles = [.thumbnails, .appIcons, .titles]
-        hideWindowlessApps.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide apps with no open window", comment: ""))]
-        hideWindowlessApps.rightViews.append(LabelAndControl.makeSwitch(hideWindowlessApps.rowId, extraAction: { sender in
-            self.onCheckboxClicked(sender: sender, rowId: hideWindowlessApps.rowId)
-        }))
-        showHideRows.append(hideWindowlessApps)
         let featureUnavailable = NSLocalizedString("AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows.", comment: "")
         var showTabsAsWindows = ShowHideRowInfo()
         showTabsAsWindows.rowId = "showTabsAsWindows"

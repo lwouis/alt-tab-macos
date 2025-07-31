@@ -343,6 +343,19 @@ enum ShowHowPreference: CaseIterable, MacroPreference {
     }
 }
 
+// we can't reuse ShowHowPreference because the order of cases matters for serialization
+enum ShowHowPreference2: CaseIterable, MacroPreference {
+    case showAtTheEnd
+    case hide
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .showAtTheEnd: return NSLocalizedString("Show at the end", comment: "")
+            case .hide: return NSLocalizedString("Hide", comment: "")
+        }
+    }
+}
+
 enum WindowOrderPreference: CaseIterable, MacroPreference {
     case recentlyFocused
     case recentlyCreated

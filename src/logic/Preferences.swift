@@ -36,6 +36,10 @@ class Preferences {
         "showFullscreenWindows2": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows3": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows4": ShowHowPreference.show.indexAsString,
+        "showWindowlessApps": ShowHowPreference2.showAtTheEnd.indexAsString,
+        "showWindowlessApps2": ShowHowPreference2.showAtTheEnd.indexAsString,
+        "showWindowlessApps3": ShowHowPreference2.showAtTheEnd.indexAsString,
+        "showWindowlessApps4": ShowHowPreference2.showAtTheEnd.indexAsString,
         "windowOrder": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder2": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder3": WindowOrderPreference.recentlyFocused.indexAsString,
@@ -81,7 +85,6 @@ class Preferences {
         "shortcutStyle3": ShortcutStylePreference.focusOnRelease.indexAsString,
         "shortcutStyle4": ShortcutStylePreference.focusOnRelease.indexAsString,
         "hideAppBadges": "false",
-        "hideWindowlessApps": "false",
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
@@ -116,7 +119,6 @@ class Preferences {
     static var hideSpaceNumberLabels: Bool { CachedUserDefaults.bool("hideSpaceNumberLabels") }
     static var hideStatusIcons: Bool { CachedUserDefaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { CachedUserDefaults.bool("hideAppBadges") }
-    static var hideWindowlessApps: Bool { CachedUserDefaults.bool("hideWindowlessApps") }
     // periphery:ignore
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
@@ -143,6 +145,7 @@ class Preferences {
     static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var showWindowlessApps: [ShowHowPreference2] { ["showWindowlessApps", "showWindowlessApps2", "showWindowlessApps3", "showWindowlessApps4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference2.allCases) } }
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4"].map { CachedUserDefaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4"].map { CachedUserDefaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { CachedUserDefaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }

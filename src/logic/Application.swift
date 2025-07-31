@@ -116,10 +116,8 @@ class Application: NSObject {
     }
 
     func addWindowlessWindowIfNeeded() -> Window? {
-        if !Preferences.hideWindowlessApps &&
-               runningApplication.activationPolicy == .regular &&
-               !runningApplication.isTerminated &&
-               (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
+        if runningApplication.activationPolicy == .regular && !runningApplication.isTerminated
+               && (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
             let window = Window(self)
             Windows.appendAndUpdateFocus(window)
             return window
