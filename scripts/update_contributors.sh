@@ -5,6 +5,10 @@ set -exu
 readOnlyToken="8170d6b4f0531ffd7f52edea374a3689"
 projectId="316051"
 
+function unicode_sort() {
+  python3 -c 'import sys, unicodedata; print("".join(sorted((line for line in sys.stdin if line.strip()), key=lambda s: unicodedata.normalize("NFKD", s.casefold()))), end="")'
+}
+
 (
   echo -e "# Contributors\n"
 
@@ -16,7 +20,7 @@ projectId="316051"
     -H "Authorization: token $GITHUB_TOKEN" |
     jq -r '.[]|("[" + .login + "](" + .html_url + ")")' |
     sed -e '/semantic-release-bot/d' |
-    LC_ALL=en_US.UTF-8 sort -f |
+    unicode_sort |
     sed -e 's/^/* /'
 
   echo -e "\nThey helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):\n"
@@ -28,6 +32,6 @@ projectId="316051"
       -d id="$projectId" |
       jq -r '.result.contributors[].name'
   ) |
-    LC_ALL=en_US.UTF-8 sort -f |
+    unicode_sort |
     sed -e 's/^/* /'
 ) >docs/Contributors.md

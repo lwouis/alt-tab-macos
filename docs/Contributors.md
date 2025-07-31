@@ -34,12 +34,6 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 
 They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 
-* Ивайло
-* Пустой
-* 林清
-* 橙梓
-* Андрій Кирбаба
-* Τσιλιμπότης Δημ.
 * 73
 * Aamirsuleman
 * Aarni Koskela
@@ -90,8 +84,8 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Darius Rosendahl
 * Darko
 * David R
-* Dékány Martin
 * Denis
+* Dékány Martin
 * dibas-np
 * Didier Deschrijver
 * Dzhuneyt
@@ -121,8 +115,8 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Guillaume
 * Gumpanath Puttarassu
 * hann-solo
-* Hao豪
 * Haoshuai Xu
+* Hao豪
 * Hjörtur Hjartarson
 * Hokuto Kato
 * Huandngoc
@@ -167,8 +161,8 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lcwhhh
 * Lester
 * Logan Boissy
-* Loïc 
 * Loic. peron
+* Loïc 
 * LostInCompilation
 * Lumaxis
 * lwouis
@@ -272,3 +266,9 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * yumechan
 * Yusuf Caliskan
 * Zuhaib Syed
+* Τσιλιμπότης Δημ.
+* Андрій Кирбаба
+* Ивайло
+* Пустой
+* 林清
+* 橙梓
