@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.26.0](https://github.com/lwouis/alt-tab-macos/compare/v7.25.0...v7.26.0) (2025-07-31)
+
+
+### Bug Fixes
+
+* ignore autodesk fusion internal panels (closes [#4578](https://github.com/lwouis/alt-tab-macos/issues/4578)) ([f67d182](https://github.com/lwouis/alt-tab-macos/commit/f67d182))
+
+
+### Features
+
+* improve da/fi/ga localizations ([f376529](https://github.com/lwouis/alt-tab-macos/commit/f376529))
+* improve preference to show-apps-with-open-window (closes [#4485](https://github.com/lwouis/alt-tab-macos/issues/4485)) ([67f5098](https://github.com/lwouis/alt-tab-macos/commit/67f5098))
+
 # [7.25.0](https://github.com/lwouis/alt-tab-macos/compare/v7.24.0...v7.25.0) (2025-06-14)
 
 
