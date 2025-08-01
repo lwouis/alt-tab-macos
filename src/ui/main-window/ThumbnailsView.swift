@@ -1,7 +1,8 @@
 import Cocoa
 
-class ThumbnailsView: NSVisualEffectView {
+class ThumbnailsView: NSView {
     let scrollView = ScrollView()
+    let backgroundView = BackgroundView()
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
     static var thumbnailsWidth = CGFloat(0.0)
@@ -9,10 +10,15 @@ class ThumbnailsView: NSVisualEffectView {
 
     convenience init() {
         self.init(frame: .zero)
-        material = Appearance.material
-        blendingMode = .behindWindow
-        state = .active
         wantsLayer = true
+        addSubview(backgroundView)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
         updateRoundedCorners(Appearance.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
@@ -24,7 +30,7 @@ class ThumbnailsView: NSVisualEffectView {
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         NSScreen.updatePreferred()
         Appearance.update()
-        material = Appearance.material
+        backgroundView.updateMaterial()
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }
@@ -39,23 +45,8 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
-    /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners
-    /// see https://stackoverflow.com/a/29386935/2249756
     func updateRoundedCorners(_ cornerRadius: CGFloat) {
-        if cornerRadius == 0 {
-            maskImage = nil
-        } else {
-            let edgeLength = 2.0 * cornerRadius + 1.0
-            let mask = NSImage(size: NSSize(width: edgeLength, height: edgeLength), flipped: false) { rect in
-                let bezierPath = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
-                NSColor.black.set()
-                bezierPath.fill()
-                return true
-            }
-            mask.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
-            mask.resizingMode = .stretch
-            maskImage = mask
-        }
+        backgroundView.updateRoundedCorners(cornerRadius)
     }
 
     func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [ThumbnailView]? {
