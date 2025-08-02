@@ -83,12 +83,12 @@ class Appearance {
         switch currentSize {
             case .small:
                 rowsCount = isHorizontalScreen ? 5 : 8
-                iconSize = 20
-                fontHeight = 12
+                iconSize = 23
+                fontHeight = 13
             case .medium:
                 rowsCount = isHorizontalScreen ? 4 : 7
-                iconSize = 30
-                fontHeight = 13
+                iconSize = 28
+                fontHeight = 14
             case .large:
                 rowsCount = isHorizontalScreen ? 3 : 6
                 iconSize = 32
@@ -117,11 +117,11 @@ class Appearance {
                 fontHeight = 13
             case .medium:
                 iconSize = 128
-                fontHeight = 15
+                fontHeight = 14
             case .large:
                 windowPadding = 28
                 iconSize = 168
-                fontHeight = 17
+                fontHeight = 16
         }
     }
 
@@ -137,10 +137,10 @@ class Appearance {
         rowsCount = 1
         switch currentSize {
             case .small:
-                iconSize = 20
+                iconSize = 23
                 fontHeight = 13
             case .medium:
-                iconSize = 26
+                iconSize = 28
                 fontHeight = 14
             case .large:
                 iconSize = 32
