@@ -29,7 +29,7 @@ class Windows {
     private static func sort() {
         list.sort {
             // separate buckets for these types of windows
-            if $0.isWindowlessApp != $1.isWindowlessApp {
+            if Preferences.showWindowlessApps[App.app.shortcutIndex] == .showAtTheEnd && $0.isWindowlessApp != $1.isWindowlessApp {
                 return $1.isWindowlessApp
             }
             if Preferences.showHiddenWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isHidden != $1.isHidden {
