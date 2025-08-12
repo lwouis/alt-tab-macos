@@ -31,6 +31,9 @@ class App: AppCenterApplication {
     private var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
     private var delayedDisplayScheduled = 0
+    private var firstCallTimestamp: Date?
+    private var isInitializing = false
+    private var lastKeyRepeatCallTime: Date?
 
     override init() {
         super.init()
@@ -74,7 +77,9 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return } // already hidden
         appIsBeingUsed = false
         isFirstSummon = true
+        isInitializing = false // Clear initialization flag
         forceDoNothingOnRelease = false
+        lastKeyRepeatCallTime = nil // Reset key repeat call tracking
         MouseEvents.toggle(false)
         hideThumbnailPanelWithoutChangingKeyWindow()
         if !keepPreview {
@@ -159,7 +164,7 @@ class App: AppCenterApplication {
     }
 
     func showUi(_ shortcutIndex: Int) {
-        showUiOrCycleSelection(shortcutIndex, true)
+        showUiOrCycleSelectionWithSource(shortcutIndex, true, .showUI)
     }
 
     @objc func showUiFromShortcut0() {
@@ -213,10 +218,18 @@ class App: AppCenterApplication {
         }
         guard appIsBeingUsed else { return }
         if source == .refreshUiAfterExternalEvent {
+            // Block external events during initialization to prevent focus drift
+            if isInitializing {
+                Logger.debug("refreshOpenUi blocked - External event during initialization")
+                return
+            }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
         }
         guard appIsBeingUsed else { return }
-        Windows.updateFocusedWindowIndex()
+        // Only update focused window index if not initializing to prevent drift
+        if !isInitializing || source != .refreshUiAfterExternalEvent {
+            Windows.updateFocusedWindowIndex()
+        }
         guard appIsBeingUsed else { return }
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout()
         guard appIsBeingUsed else { return }
@@ -233,33 +246,196 @@ class App: AppCenterApplication {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
+        showUiOrCycleSelectionWithSource(shortcutIndex, forceDoNothingOnRelease_, .unknown)
+    }
+    
+    func showUiOrCycleSelectionWithSource(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool, _ eventSource: EventSource) {
+        // Initialize basic state
         forceDoNothingOnRelease = forceDoNothingOnRelease_
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
-        if isFirstSummon || shortcutIndex != self.shortcutIndex {
-            if isVeryFirstSummon {
-                Windows.sortByLevel()
-                isVeryFirstSummon = false
+        
+        // Determine if this is the first call and apply event source filtering
+        let isFirstCall = isFirstSummon || shortcutIndex != self.shortcutIndex
+        let now = Date()
+        
+        Logger.debug("showUiOrCycleSelection called from", eventSource.rawValue, "isFirstCall:", isFirstCall)
+        
+        // Apply event source based filtering for subsequent calls
+        if !isFirstCall && appIsBeingUsed {
+            if shouldBlockDuplicateEvent(eventSource: eventSource, currentTime: now) {
+                return
             }
-            isFirstSummon = false
-            self.shortcutIndex = shortcutIndex
-            NSScreen.updatePreferred()
-            if !Windows.updatesBeforeShowing() { hideUi(); return }
-            Windows.setInitialFocusedAndHoveredWindowIndex()
-            if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
-                buildUiAndShowPanel()
-            } else {
-                delayedDisplayScheduled += 1
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
-                    if self.delayedDisplayScheduled == 1 {
-                        self.buildUiAndShowPanel()
-                    }
-                    self.delayedDisplayScheduled -= 1
-                }
+        }
+        
+        // Update timestamp for first calls
+        if isFirstCall {
+            firstCallTimestamp = now
+        }
+        
+        // Execute the appropriate action based on whether this is first call or cycling
+        if isFirstCall {
+            handleFirstCall(shortcutIndex: shortcutIndex)
+        } else {
+            handleCycling()
+        }
+    }
+    
+    /// Check if a duplicate event should be blocked based on event source and timing
+    private func shouldBlockDuplicateEvent(eventSource: EventSource, currentTime: Date) -> Bool {
+        guard let firstTime = firstCallTimestamp else { return false }
+        
+        let timeSinceFirst = currentTime.timeIntervalSince(firstTime)
+        
+        switch eventSource {
+        case .cgEventTap:
+            if timeSinceFirst < 0.3 {
+                Logger.debug("showUiOrCycleSelection blocked - CGEventTap delayed duplicate call")
+                return true
+            }
+            
+        case .nsEvent:
+            if timeSinceFirst < 0.1 {
+                Logger.debug("showUiOrCycleSelection blocked - NSEvent rapid duplicate call")
+                return true
+            }
+            
+        case .globalHotKey:
+            Logger.debug("showUiOrCycleSelection allowed - GlobalHotKey user action")
+            return false
+            
+        case .unknown, .legacyAction:
+            if timeSinceFirst < 0.3 {
+                Logger.debug("showUiOrCycleSelection blocked - Unknown/LegacyAction delayed duplicate call")
+                return true
+            }
+            
+        case .keyRepeat:
+            return shouldBlockKeyRepeatEvent(timeSinceFirst: timeSinceFirst)
+            
+        case .safetyMeasure:
+            if timeSinceFirst < 0.3 {
+                Logger.debug("showUiOrCycleSelection blocked - SafetyMeasure delayed duplicate call")
+                return true
+            }
+            
+        case .showUI, .trackpad:
+            // These sources are generally allowed through
+            return false
+        }
+        
+        return false
+    }
+    
+    /// Check if a KeyRepeat event should be blocked
+    private func shouldBlockKeyRepeatEvent(timeSinceFirst: TimeInterval) -> Bool {
+        // Check if KeyRepeat timer is inactive
+        if !KeyRepeatTimer.isActive {
+            Logger.debug("showUiOrCycleSelection blocked - KeyRepeat timer is inactive")
+            return true
+        }
+        
+        // Get system key repeat settings for dynamic threshold calculation
+        let systemKeyRepeatRate = getSystemKeyRepeatRate()
+        let initialDelayThreshold = getSystemInitialKeyRepeatDelay()
+        
+        // Block KeyRepeat events during initialization period with dynamic threshold
+        // Use the larger of either the system initial delay or a minimum threshold
+        let dynamicThreshold = max(initialDelayThreshold, 0.5)
+        
+        if timeSinceFirst < dynamicThreshold {
+            Logger.debug("showUiOrCycleSelection blocked - KeyRepeat during initialization", 
+                        "timeSinceFirst:", timeSinceFirst, "threshold:", dynamicThreshold)
+            return true
+        }
+        
+        // Additional frequency-based protection: detect rapid successive calls
+        if let lastCallTime = lastKeyRepeatCallTime {
+            let timeSinceLastCall = Date().timeIntervalSince(lastCallTime)
+            // Determine minimum allowed interval between key repeats
+            let minAllowedInterval = max(systemKeyRepeatRate, 0.06)
+            if timeSinceLastCall < minAllowedInterval {
+                Logger.debug("showUiOrCycleSelection blocked - KeyRepeat too frequent", 
+                            "timeSinceLastCall:", timeSinceLastCall, "minAllowedInterval:", minAllowedInterval)
+                return true
+            }
+        }
+        // Update last call timestamp
+        lastKeyRepeatCallTime = Date()
+        
+        return false
+    }
+    
+    /// Get system key repeat rate in seconds
+    private func getSystemKeyRepeatRate() -> TimeInterval {
+        let appleNumber = CachedUserDefaults.globalString("KeyRepeat") ?? "6"
+        // Apple uses ticks where 60 ticks = 1 second
+        return Double(appleNumber)! / 60.0
+    }
+    
+    /// Get system initial key repeat delay in seconds  
+    private func getSystemInitialKeyRepeatDelay() -> TimeInterval {
+        let appleNumber = CachedUserDefaults.globalString("InitialKeyRepeat") ?? "25"
+        // Apple uses ticks where 60 ticks = 1 second
+        return Double(appleNumber)! / 60.0
+    }
+    
+    /// Handle the first call - initialize and show UI
+    private func handleFirstCall(shortcutIndex: Int) {
+        // Set initialization protection flag to prevent focus drift
+        isInitializing = true
+        
+        // Initialize on very first summon
+        if isVeryFirstSummon {
+            Windows.sortByLevel()
+            isVeryFirstSummon = false
+        }
+        
+        // Update state
+        isFirstSummon = false
+        self.shortcutIndex = shortcutIndex
+        
+        // Prepare UI
+        NSScreen.updatePreferred()
+        if !Windows.updatesBeforeShowing() { 
+            isInitializing = false
+            hideUi()
+            return 
+        }
+        
+        Windows.setInitialFocusedAndHoveredWindowIndex()
+        
+        // Show UI with appropriate delay
+        if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
+            buildUiAndShowPanel()
+            // Clear initialization flag after UI is built
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                self?.isInitializing = false
             }
         } else {
-            cycleSelection(.leading)
-            KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+            scheduleDelayedDisplay()
+        }
+    }
+    
+    /// Handle cycling through windows
+    private func handleCycling() {
+        cycleSelection(.leading)
+        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+    }
+    
+    /// Schedule delayed UI display
+    private func scheduleDelayedDisplay() {
+        delayedDisplayScheduled += 1
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { [weak self] in
+            guard let self = self else { return }
+            if self.delayedDisplayScheduled == 1 {
+                self.buildUiAndShowPanel()
+                // Clear initialization flag after UI is built
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                    self?.isInitializing = false
+                }
+            }
+            self.delayedDisplayScheduled -= 1
         }
     }
 
@@ -352,4 +528,17 @@ enum RefreshCausedBy {
     case refreshOnlyThumbnailsAfterShowUi
     case refreshUiAfterThumbnailsHaveBeenRefreshed
     case refreshUiAfterExternalEvent
+}
+
+/// Event source enumeration - used to identify the source of triggered actions
+enum EventSource: String, CaseIterable {
+    case globalHotKey = "GlobalHotKey"          // InstallEventHandler - real user key press
+    case nsEvent = "NSEvent"                    // addLocalMonitorForEvents - key event monitoring
+    case cgEventTap = "CGEventTap"              // cgEventFlagsChangedHandler - modifier key changes
+    case keyRepeat = "KeyRepeat"                // KeyRepeatTimer - key repeat timer
+    case legacyAction = "LegacyAction"          // legacy action calls
+    case safetyMeasure = "SafetyMeasure"        // redundantSafetyMeasures - safety measure calls
+    case showUI = "ShowUI"                      // showUi method calls
+    case trackpad = "Trackpad"                  // trackpad gestures
+    case unknown = "Unknown"                    // unknown source (should be avoided)
 }

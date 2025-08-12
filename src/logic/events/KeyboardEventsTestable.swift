@@ -13,11 +13,24 @@ class KeyboardEventsTestable {
 
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool) -> Bool {
-    Logger.debug(globalId, shortcutState, keyCode, modifiers, isARepeat, NSEvent.modifierFlags)
+    // Identify event source
+    let eventSource: EventSource
+    if globalId != nil && shortcutState != nil {
+        eventSource = .globalHotKey  // InstallEventHandler
+    } else if keyCode != nil {
+        eventSource = .nsEvent       // NSEvent.addLocalMonitorForEvents
+    } else if modifiers != nil {
+        eventSource = .cgEventTap    // cgEventFlagsChangedHandler
+    } else {
+        eventSource = .unknown
+    }
+    
+    Logger.debug("Event Source:", eventSource, "globalId:", globalId, "state:", shortcutState, "keyCode:", keyCode, "modifiers:", modifiers, "isRepeat:", isARepeat, "currentModifiers:", NSEvent.modifierFlags)
+    
     var someShortcutTriggered = false
     for shortcut in ControlsTab.shortcuts.values {
         if shortcut.matches(globalId, shortcutState, keyCode, modifiers) && shortcut.shouldTrigger() {
-            shortcut.executeAction(isARepeat)
+            shortcut.executeActionWithSource(isARepeat, eventSource)
             // we want to pass-through alt-up to the active app, since it saw alt-down previously
             if !shortcut.id.starts(with: "holdShortcut") {
                 someShortcutTriggered = true
