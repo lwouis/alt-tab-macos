@@ -153,8 +153,8 @@ class ControlsTab {
         shortcuts[controlId] = atShortcut
         if scope == .global {
             KeyboardEvents.addGlobalShortcut(controlId, atShortcut.shortcut)
+            ControlsTab.toggleNativeCommandTabIfNeeded()
         }
-        toggleNativeCommandTabIfNeeded()
     }
 
     /// commandTab and commandKeyAboveTab are self-contained in the "nextWindowShortcut" shortcuts
@@ -168,10 +168,10 @@ class ControlsTab {
         }
     }
 
-    private static func toggleNativeCommandTabIfNeeded() {
+    static func toggleNativeCommandTabIfNeeded() {
         let nativeHotkeys: [CGSSymbolicHotKey: (Shortcut) -> Bool] = [
-            .commandTab: { (shortcut) in shortcut.carbonKeyCode == kVK_Tab && shortcut.carbonModifierFlags == cmdKey },
-            .commandShiftTab: { (shortcut) in shortcut.carbonKeyCode == kVK_Tab && combinedModifiersMatch(shortcut.carbonModifierFlags, UInt32(cmdKey | shiftKey)) },
+            .commandTab: { (shortcut) in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_Tab },
+            .commandShiftTab: { (shortcut) in combinedModifiersMatch(shortcut.carbonModifierFlags, UInt32(cmdKey | shiftKey)) && shortcut.carbonKeyCode == kVK_Tab },
             .commandKeyAboveTab: { (shortcut) in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_ANSI_Grave },
         ]
         var overlappingHotkeys = shortcuts.values.compactMap { (atShortcut) in nativeHotkeys.first { $1(atShortcut.shortcut) }?.key }
@@ -304,6 +304,9 @@ class ControlsTab {
                 KeyboardEvents.removeGlobalShortcut(controlId, atShortcut.shortcut)
             }
             shortcuts.removeValue(forKey: controlId)
+            if atShortcut.scope == .global {
+                ControlsTab.toggleNativeCommandTabIfNeeded()
+            }
         }
     }
 
