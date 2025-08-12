@@ -190,6 +190,33 @@ class Window {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                    if let bundleId = self.application.bundleIdentifier {
+                        // Try 'activate' first
+                        let activateScript = "tell application id \"\(bundleId)\" to activate"
+                        var error: NSDictionary?
+                        if let scriptObject = NSAppleScript(source: activateScript) {
+                            scriptObject.executeAndReturnError(&error)
+                        }
+                        if let error = error {
+                            Logger.error("AppleScript 'activate' fallback error:", error)
+                        } else {
+                            Logger.debug("AppleScript 'activate' fallback executed for", bundleId)
+                        }
+                        // Then try 'reopen'
+                        let reopenScript = "tell application id \"\(bundleId)\" to reopen"
+                        var reopenError: NSDictionary?
+                        if let scriptObject = NSAppleScript(source: reopenScript) {
+                            scriptObject.executeAndReturnError(&reopenError)
+                        }
+                        if let reopenError = reopenError {
+                            Logger.error("AppleScript 'reopen' fallback error:", reopenError)
+                        } else {
+                            Logger.debug("AppleScript 'reopen' fallback executed for", bundleId)
+                        }
+                    }
+                }
             }
         }
     }
