@@ -1,5 +1,18 @@
 # Release notes
 
+# [7.27.0](https://github.com/lwouis/alt-tab-macos/compare/v7.26.0...v7.27.0) (2025-08-12)
+
+
+### Bug Fixes
+
+* restore default command+tab if shortcut is unbound (closes [#4642](https://github.com/lwouis/alt-tab-macos/issues/4642)) ([f66c92a](https://github.com/lwouis/alt-tab-macos/commit/f66c92a))
+
+
+### Features
+
+* improve cs/th localizations ([aa46a62](https://github.com/lwouis/alt-tab-macos/commit/aa46a62))
+* windowless apps can now be shown in focus-order (closes [#4653](https://github.com/lwouis/alt-tab-macos/issues/4653)) ([5db53b5](https://github.com/lwouis/alt-tab-macos/commit/5db53b5))
+
 # [7.26.0](https://github.com/lwouis/alt-tab-macos/compare/v7.25.0...v7.26.0) (2025-07-31)
 
 
