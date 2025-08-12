@@ -6,7 +6,9 @@ class RunningApplicationsEvents {
 
     static func observe() {
         previousValueOfRunningApps = Set(NSWorkspace.shared.runningApplications)
-        appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: handleEvent)
+        appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: { workspace, change in
+            Self.handleEvent(workspace, change)
+        })
     }
 
     // TODO: handle this on a separate thread?
