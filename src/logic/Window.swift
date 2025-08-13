@@ -117,11 +117,20 @@ class Window {
         }
         BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self else { return }
-            if self.isFullscreen {
-                self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
+            
+            let workItem = DispatchWorkItem { [weak self] in
+                guard let self else { return }
+                if self.isFullscreen {
+                    self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
+                }
+                if let closeButton_ = try? self.axUiElement!.closeButton() {
+                    closeButton_.performAction(kAXPressAction)
+                }
             }
-            if let closeButton_ = try? self.axUiElement!.closeButton() {
-                closeButton_.performAction(kAXPressAction)
+            
+            DispatchQueue.global(qos: .userInteractive).async(execute: workItem)
+            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(200)) {
+                workItem.cancel()
             }
         }
     }
@@ -137,15 +146,31 @@ class Window {
         }
         BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self else { return }
-            if self.isFullscreen {
-                self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
-                // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
-                BackgroundWork.accessibilityCommandsQueue.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
-                    guard let self else { return }
-                    self.axUiElement!.setAttribute(kAXMinimizedAttribute, true)
+            
+            let workItem = DispatchWorkItem { [weak self] in
+                guard let self else { return }
+                if self.isFullscreen {
+                    self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
+                    // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
+                    BackgroundWork.accessibilityCommandsQueue.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
+                        guard let self else { return }
+                        let minimizeWork = DispatchWorkItem { [weak self] in
+                            guard let self else { return }
+                            self.axUiElement!.setAttribute(kAXMinimizedAttribute, true)
+                        }
+                        DispatchQueue.global(qos: .userInteractive).async(execute: minimizeWork)
+                        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(200)) {
+                            minimizeWork.cancel()
+                        }
+                    }
+                } else {
+                    self.axUiElement!.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
                 }
-            } else {
-                self.axUiElement!.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
+            }
+            
+            DispatchQueue.global(qos: .userInteractive).async(execute: workItem)
+            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(200)) {
+                workItem.cancel()
             }
         }
     }
@@ -157,7 +182,16 @@ class Window {
         }
         BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
             guard let self else { return }
-            self.axUiElement!.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
+            
+            let workItem = DispatchWorkItem { [weak self] in
+                guard let self else { return }
+                self.axUiElement!.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
+            }
+            
+            DispatchQueue.global(qos: .userInteractive).async(execute: workItem)
+            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(200)) {
+                workItem.cancel()
+            }
         }
     }
 
@@ -182,12 +216,27 @@ class Window {
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
             BackgroundWork.accessibilityCommandsQueue.async { [weak self] in
                 guard let self else { return }
-                var psn = ProcessSerialNumber()
-                GetProcessForPID(self.application.pid, &psn)
-                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
-                self.makeKeyWindow(&psn)
-                self.axUiElement!.focusWindow()
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                
+                // Create a timeout work item to prevent blocking on frozen apps
+                let workItem = DispatchWorkItem { [weak self] in
+                    guard let self else { return }
+                    var psn = ProcessSerialNumber()
+                    GetProcessForPID(self.application.pid, &psn)
+                    _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                    self.makeKeyWindow(&psn)
+                    self.axUiElement!.focusWindow()
+                }
+                
+                // Execute with timeout
+                DispatchQueue.global(qos: .userInteractive).async(execute: workItem)
+                
+                // Cancel if it takes too long (200ms timeout for frozen apps)
+                DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(200)) {
+                    workItem.cancel()
+                }
+                
+                // Always try to preview after a short delay, regardless of success
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
             }
