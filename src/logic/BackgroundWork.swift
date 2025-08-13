@@ -20,7 +20,8 @@ class BackgroundWork {
         // >Processes reached dispatch thread soft limit (64)
         screenshotsQueue = DispatchQueue.queue("screenshotsQueue", .userInteractive, false)
         // calls to act on windows (e.g. AXUIElementSetAttributeValue, AXUIElementPerformAction) are done off the main thread
-        accessibilityCommandsQueue = DispatchQueue.queue("accessibilityCommandsQueue", .userInteractive, false)
+        // Using concurrent queue to prevent one frozen app from blocking all window switching operations
+        accessibilityCommandsQueue = DispatchQueue.queue("accessibilityCommandsQueue", .userInteractive, true)
         // calls to the AX APIs can block for a long time (e.g. if an app is unresponsive)
         // We can't use a serial queue. We use the global concurrent queue
         axCallsQueue = DispatchQueue.queue("axCallsQueue", .userInteractive, true)
