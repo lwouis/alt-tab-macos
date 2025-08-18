@@ -101,7 +101,10 @@ class ThumbnailView: FlippedView {
 
     func mouseMoved() {
         showOrHideWindowControls(true)
-        mouseMovedCallback()
+        // If mouse action is "disable", we ignore the mouse move
+        if Preferences.mouseAction != .disable {
+            mouseMovedCallback()
+        }
     }
 
     convenience init() {
@@ -365,8 +368,18 @@ class ThumbnailView: FlippedView {
         }
         windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(isShowingWindowControls)
-        mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
-        mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
+        mouseUpCallback = { () -> Void in 
+            // If mouse action is "disable", we ignore the mouse click
+            if Preferences.mouseAction != .disable {
+                App.app.focusSelectedWindow(element)
+            }
+        }
+        mouseMovedCallback = { () -> Void in 
+            // If mouse action is "disable", we ignore the mouse move
+            if Preferences.mouseAction != .disable {
+                Windows.updateFocusedAndHoveredWindowIndex(index, true)
+            }
+        }
     }
 
     private func updateSizes(_ newHeight: CGFloat) {

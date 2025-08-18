@@ -166,15 +166,21 @@ class Windows {
     static func updateFocusedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
         var index: Int?
         if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
-            let oldIndex = hoveredWindowIndex
-            hoveredWindowIndex = newIndex
-            if let oldIndex {
-                ThumbnailsView.highlight(oldIndex)
+            // For all mouse actions except "disable", we update the hovered window index
+            // This ensures the secondary selection (hovered window) is shown
+            if Preferences.mouseAction != .disable {
+                let oldIndex = hoveredWindowIndex
+                hoveredWindowIndex = newIndex
+                if let oldIndex {
+                    ThumbnailsView.highlight(oldIndex)
+                }
+                index = hoveredWindowIndex
+                lastWindowActivityType = .hover
             }
-            index = hoveredWindowIndex
-            lastWindowActivityType = .hover
         }
-        if (!fromMouse || Preferences.mouseHoverEnabled)
+        // For "select on hover", we immediately focus the window
+        // For "activate on click" and "disable", we don't focus the window on hover
+        if (!fromMouse || Preferences.mouseAction == .selectOnHover)
                && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
             let oldIndex = focusedWindowIndex
             focusedWindowIndex = newIndex

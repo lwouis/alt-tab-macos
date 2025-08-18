@@ -23,6 +23,7 @@ class Preferences {
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
         "mouseHoverEnabled": "false",
+        "mouseAction": MouseActionPreference.selectOnHover.indexAsString,
         "cursorFollowFocusEnabled": "false",
         "showMinimizedWindows": ShowHowPreference.show.indexAsString,
         "showMinimizedWindows2": ShowHowPreference.show.indexAsString,
@@ -110,6 +111,18 @@ class Preferences {
     // periphery:ignore
     static var vimKeysEnabled: Bool { CachedUserDefaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { CachedUserDefaults.bool("mouseHoverEnabled") }
+    static var mouseAction: MouseActionPreference { 
+        // For backward compatibility, we convert the old boolean value to the new enum
+        // If mouseHoverEnabled was true, it means "select on hover"
+        // If mouseHoverEnabled was false, it means "activate on click"
+        if UserDefaults.standard.string(forKey: "mouseAction") != nil {
+            // New preference exists, use it
+            return CachedUserDefaults.macroPref("mouseAction", MouseActionPreference.allCases)
+        } else {
+            // Backward compatibility: convert old boolean to new enum
+            return CachedUserDefaults.bool("mouseHoverEnabled") ? .selectOnHover : .activateOnClick
+        }
+    }
     static var cursorFollowFocusEnabled: Bool { CachedUserDefaults.bool("cursorFollowFocusEnabled") }
     static var showTabsAsWindows: Bool { CachedUserDefaults.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { CachedUserDefaults.bool("hideColoredCircles") }

@@ -368,7 +368,16 @@
 "Select previous window" = "Select previous window";
 
 /* No comment provided by engineer. */
+"Mouse action" = "Mouse action";
+
+/* No comment provided by engineer. */
 "Select windows on mouse hover" = "Select windows on mouse hover";
+
+/* No comment provided by engineer. */
+"Activate windows on mouse click" = "Activate windows on mouse click";
+
+/* No comment provided by engineer. */
+"Disable mouse interaction" = "Disable mouse interaction";
 
 /* No comment provided by engineer. */
 "Select windows using arrow keys" = "Select windows using arrow keys";

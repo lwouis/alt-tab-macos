@@ -157,7 +157,10 @@
 "Screen showing AltTab" = "Écran affichant AltTab";
 "Select next window" = "Sélectionner la fenêtre suivante";
 "Select previous window" = "Sélectionner la fenêtre précédente";
+"Mouse action" = "Action de la souris";
 "Select windows on mouse hover" = "Sélectionner au survol de la souris";
+"Activate windows on mouse click" = "Activer les fenêtres en cliquant avec la souris";
+"Disable mouse interaction" = "Désactiver l'interaction avec la souris";
 "Select windows using arrow keys" = "Sélectionner à l'aide de touches flèches";
 "Select windows using vim keys" = "Sélectionner à l'aide des touches VIM";
 "Send" = "Envoyer";

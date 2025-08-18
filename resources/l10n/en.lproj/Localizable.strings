@@ -154,7 +154,10 @@
 "Screen showing AltTab" = "Screen showing AltTab";
 "Select next window" = "Select next window";
 "Select previous window" = "Select previous window";
+"Mouse action" = "Mouse action";
 "Select windows on mouse hover" = "Select windows on mouse hover";
+"Activate windows on mouse click" = "Activate windows on mouse click";
+"Disable mouse interaction" = "Disable mouse interaction";
 "Select windows using arrow keys" = "Select windows using arrow keys";
 "Select windows using vim keys" = "Select windows using vim keys";
 "Send" = "Send";

@@ -59,6 +59,7 @@
 		1C961F9CF4F1BEDF04ACAEE0 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C96189273B7482124C36F4C /* Switch.swift */; };
 		1C961FA2D2D99AE54EBECA67 /* titles_show_running_windows_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C9610B2E76F1E429C8D3660 /* titles_show_running_windows_light@2x.jpg */; };
 		1C961FB59566B8314771F58E /* thumbnails_show_preview_focused_window_light@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C961EF84B061A68FD9AEC46 /* thumbnails_show_preview_focused_window_light@2x.jpg */; };
+		264B2B822E533E7B00F9B869 /* MouseActionPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264B2B812E533E7B00F9B869 /* MouseActionPreference.swift */; };
 		442E26DB1F7DA80AF794CCB6 /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6F409CA442F83B7BE71AD /* Pods_unit_tests.framework */; };
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
@@ -336,6 +337,7 @@
 		1C961F5740647DBFA0540789 /* thumbnails_show_tabs_as_windows_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnails_show_tabs_as_windows_light@2x.jpg"; sourceTree = "<group>"; };
 		1C961F68C77AAE38E5A2E046 /* app_icons_show_running_applications_light@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app_icons_show_running_applications_light@2x.jpg"; sourceTree = "<group>"; };
 		1C961FB3DCF4906FEEF4A23D /* TableGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableGroupView.swift; sourceTree = "<group>"; };
+		264B2B812E533E7B00F9B869 /* MouseActionPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseActionPreference.swift; sourceTree = "<group>"; };
 		4807A6C523A9CD190052A53E /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
 		481FE54624D2D387001032F1 /* alt-tab-macos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "alt-tab-macos-Bridging-Header.h"; sourceTree = "<group>"; };
 		5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadEvents.swift; sourceTree = "<group>"; };
@@ -1238,6 +1240,7 @@
 		D04BA0D80B24E72B9B981A1D /* logic */ = {
 			isa = PBXGroup;
 			children = (
+				264B2B812E533E7B00F9B869 /* MouseActionPreference.swift */,
 				D04BACD976030676FD0761D5 /* Windows.swift */,
 				D04BA9B93823398A542FF7A0 /* Preferences.swift */,
 				D04BA68C2561D9EE4FD851B8 /* NSScreen.swift */,
@@ -2314,6 +2317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D04BAFBC862BA5FE0294EA7A /* AXUIElement.swift in Sources */,
+				264B2B822E533E7B00F9B869 /* MouseActionPreference.swift in Sources */,
 				D04BA73E90EFEF8247A5105D /* CGWindow.swift in Sources */,
 				D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */,
 				D04BABED81800E18732912CC /* CGWindowID.swift in Sources */,

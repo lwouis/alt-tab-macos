@@ -6,8 +6,14 @@ class AdditionalControlsSheet: SheetWindow {
             rightViews: [LabelAndControl.makeSwitch("arrowKeysEnabled", extraAction: ControlsTab.arrowKeysEnabledCallback)])
         let enableVimKeys = TableGroupView.Row(leftTitle: NSLocalizedString("Select windows using vim keys", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("vimKeysEnabled", extraAction: ControlsTab.vimKeysEnabledCallback)])
-        let enableMouse = TableGroupView.Row(leftTitle: NSLocalizedString("Select windows on mouse hover", comment: ""),
-            rightViews: [LabelAndControl.makeSwitch("mouseHoverEnabled")])
+        let enableMouse = TableGroupView.Row(leftTitle: NSLocalizedString("Mouse action", comment: ""),
+            rightViews: [LabelAndControl.makeDropdown("mouseAction", MouseActionPreference.allCases, extraAction: { control in
+                // Update the old mouseHoverEnabled preference for backward compatibility
+                if let popupButton = control as? NSPopUpButton {
+                    let mouseAction = MouseActionPreference.allCases[popupButton.indexOfSelectedItem]
+                    Preferences.set("mouseHoverEnabled", mouseAction == .selectOnHover ? "true" : "false")
+                }
+            })])
         let enableCursorFollowFocus = TableGroupView.Row(leftTitle: NSLocalizedString("Cursor follows focus", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("cursorFollowFocusEnabled")])
         ControlsTab.arrowKeysCheckbox = enableArrows.rightViews[0] as? Switch
