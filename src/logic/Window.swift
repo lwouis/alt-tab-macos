@@ -24,6 +24,7 @@ class Window {
     var application: Application
     var axObserver: AXObserver?
     var rowIndex: Int?
+    var displayNumber: Int = 0 // Display number (1, 2, 3, etc.)
 
     static let notifications = [
         kAXUIElementDestroyedNotification,
@@ -49,6 +50,7 @@ class Window {
         application.removeWindowslessAppWindow()
         checkIfFocused(application, wid)
         Logger.debug("Adding window", cgWindowId ?? "nil", title ?? "nil", application.bundleIdentifier ?? "nil")
+        updateDisplayNumber() // Update display number when window is created
         observeEvents()
     }
 
@@ -104,6 +106,8 @@ class Window {
             }
             App.app.previewPanel.updateImageIfShowing(cgWindowId, screenshot, size)
         }
+        // Update display number when refreshing thumbnail
+        updateDisplayNumber()
     }
 
     func canBeClosed() -> Bool {
@@ -234,6 +238,39 @@ class Window {
             }
         }
         return true
+    }
+    
+    /// Determines which display this window is on based on its position
+    func updateDisplayNumber() {
+        // For windowless apps, we can't determine a display number
+        if isWindowlessApp || position == nil {
+            displayNumber = 0
+            return
+        }
+        
+        // Get all screens sorted by their global x coordinate (left to right)
+        let screens = NSScreen.screens.sorted { screen1, screen2 in
+            return screen1.frame.origin.x < screen2.frame.origin.x
+        }
+        
+        // Find which screen this window is on based on its position
+        for (index, screen) in screens.enumerated() {
+            // Convert window position to screen coordinates
+            var screenFrameInQuartzCoordinates = screen.frame
+            screenFrameInQuartzCoordinates.origin.y = NSMaxY(NSScreen.screens[0].frame) - NSMaxY(screen.frame)
+            
+            // Check if window position is within this screen
+            if let windowPosition = position {
+                let windowRect = CGRect(origin: windowPosition, size: size ?? CGSize(width: 0, height: 0))
+                if windowRect.intersects(screenFrameInQuartzCoordinates) {
+                    displayNumber = index + 1 // 1-based indexing
+                    return
+                }
+            }
+        }
+        
+        // Default to 0 if we couldn't determine the display
+        displayNumber = 0
     }
 
     func referenceWindowForTabbedWindow() -> Window? {

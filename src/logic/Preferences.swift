@@ -87,6 +87,7 @@ class Preferences {
         "hideAppBadges": "false",
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
+        "showScreenNumbers": "false",
         "screenRecordingPermissionSkipped": "false",
     ]
 
@@ -123,6 +124,7 @@ class Preferences {
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
     static var previewFocusedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
+    static var showScreenNumbers: Bool { CachedUserDefaults.bool("showScreenNumbers") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
 
     // macro values

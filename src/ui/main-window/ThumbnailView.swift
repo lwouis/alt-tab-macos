@@ -12,6 +12,7 @@ class ThumbnailView: FlippedView {
     var minimizedIcon = ThumbnailFontIconView(symbol: .circledMinusSign, tooltip: NSLocalizedString("Window is minimized", comment: ""))
     var hiddenIcon = ThumbnailFontIconView(symbol: .circledSlashSign, tooltip: NSLocalizedString("App is hidden", comment: ""))
     var spaceIcon = ThumbnailFontIconView(symbol: .circledNumber0)
+    var displayNumberIconView = DisplayNumberIconView()
     var dockLabelIcon = ThumbnailFilledFontIconView(
         ThumbnailFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(), color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), shadow: nil),
         backgroundColor: NSColor.white, size: dockLabelLabelSize())
@@ -180,6 +181,7 @@ class ThumbnailView: FlippedView {
         windowlessIcon.toolTip = ThumbnailView.noOpenWindowToolTip
         appIcon.translatesAutoresizingMaskIntoConstraints = false
         appIcon.setSubviewAbove(dockLabelIcon)
+        appIcon.setSubviewAbove(displayNumberIconView)
         label.fixHeight()
         vStackView.wantsLayer = true
         vStackView.layer!.backgroundColor = .clear
@@ -201,6 +203,7 @@ class ThumbnailView: FlippedView {
             vStackView.addSubviews([thumbnailContainer])
             thumbnailContainer.setSubviews([thumbnail, windowlessIcon])
             thumbnailContainer.setSubviewAbove(windowlessAppIndicator)
+            thumbnailContainer.setSubviewAbove(displayNumberIconView) // Add display number icon to thumbnail container
             for icon in windowControlIcons {
                 thumbnailContainer.setSubviewAbove(icon)
                 icon.isHidden = true
@@ -327,6 +330,18 @@ class ThumbnailView: FlippedView {
                 NSScreen.screens.count < 2 || Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
             )
         ))
+        // Update display number icon visibility and value
+        // Only show display number if the preference is enabled and it's different from the first window's display number
+        let shouldShowDisplayNumber = Preferences.showScreenNumbers && 
+            element.displayNumber > 0 && 
+            (Windows.list.first?.displayNumber != element.displayNumber)
+        
+        if shouldShowDisplayNumber {
+            displayNumberIconView.setDisplayNumber(element.displayNumber)
+            assignIfDifferent(&displayNumberIconView.isHidden, false)
+        } else {
+            assignIfDifferent(&displayNumberIconView.isHidden, true)
+        }
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
                 let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, false)
@@ -433,12 +448,17 @@ class ThumbnailView: FlippedView {
             }
             windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height
         }
+        // Position display number icon in bottom right corner of thumbnail
         // we set dockLabelIcon origin, without checking if .isHidden
         // This is because its updated async. We needed it positioned correctly always
         let iconSize = ThumbnailView.iconSize()
         dockLabelIcon.frame.origin.x = ((iconSize.width * 0.8) - (dockLabelIcon.fittingSize.width / 2)).rounded()
         dockLabelIcon.frame.origin.y = ((iconSize.height * 0.8) - (dockLabelIcon.fittingSize.height / 2)).rounded()
             - (Preferences.appearanceSize == .small ? 2 : 0)
+        if !displayNumberIconView.isHidden {
+            displayNumberIconView.frame.origin.x = iconSize.width - displayNumberIconView.frame.width
+            displayNumberIconView.frame.origin.y = 0
+        }
     }
 
     private func indicatorsSpace() -> CGFloat {

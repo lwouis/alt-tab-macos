@@ -408,6 +408,8 @@ class AppearanceTab: NSObject {
         let table = TableGroupView(title: NSLocalizedString("Multiple screens", comment: ""), width: PreferencesWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on", comment: ""),
             rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
+        _ = table.addRow(leftText: NSLocalizedString("Show Screen Numbers", comment: ""),
+            rightViews: [LabelAndControl.makeSwitch("showScreenNumbers")])
         table.fit()
         return table
     }
