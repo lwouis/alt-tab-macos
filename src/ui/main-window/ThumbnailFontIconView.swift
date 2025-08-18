@@ -82,3 +82,62 @@ class ThumbnailFilledFontIconView: NSView {
         heightAnchor.constraint(equalTo: thumbnailFontIconView.heightAnchor).isActive = true
     }
 }
+
+class DisplayNumberIconView: NSView {
+    private let backgroundView = NSView()
+    private let numberLabel = NSTextField()
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        wantsLayer = true
+        
+        // Setup background with darker blue color
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.wantsLayer = true
+        backgroundView.layer?.backgroundColor = NSColor(srgbRed: 0.1, green: 0.3, blue: 0.8, alpha: 0.9).cgColor // Darker blue
+        backgroundView.layer?.cornerRadius = 8 // Larger corner radius for bigger circle
+        addSubview(backgroundView)
+        
+        // Setup label
+        numberLabel.translatesAutoresizingMaskIntoConstraints = false
+        numberLabel.isEditable = false
+        numberLabel.isBordered = false
+        numberLabel.isBezeled = false
+        numberLabel.drawsBackground = false
+        numberLabel.isSelectable = false
+        numberLabel.textColor = NSColor.white
+        numberLabel.font = NSFont.systemFont(ofSize: 14, weight: .medium) // Larger font
+        numberLabel.alignment = .center
+        numberLabel.stringValue = "1"
+        addSubview(numberLabel)
+        
+        // Constraints for larger circle (24x24 instead of 16x16)
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            numberLabel.topAnchor.constraint(equalTo: topAnchor, constant: 2),
+            numberLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
+            numberLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
+            numberLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2),
+            
+            widthAnchor.constraint(equalToConstant: 24), // Larger width
+            heightAnchor.constraint(equalToConstant: 24) // Larger height
+        ])
+    }
+    
+    func setDisplayNumber(_ number: Int) {
+        numberLabel.stringValue = "\(number)"
+    }
+}

@@ -27,6 +27,11 @@ class Windows {
 
     /// reordered list based on preferences, keeping the original index
     private static func sort() {
+        // Update display numbers for all windows
+        for window in list {
+            window.updateDisplayNumber()
+        }
+        
         list.sort {
             // separate buckets for these types of windows
             if Preferences.showWindowlessApps[App.app.shortcutIndex] == .showAtTheEnd && $0.isWindowlessApp != $1.isWindowlessApp {
