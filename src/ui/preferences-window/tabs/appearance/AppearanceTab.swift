@@ -405,10 +405,11 @@ class AppearanceTab: NSObject {
     }
 
     private static func makeMultipleScreensView() -> NSView {
-        let table = TableGroupView(title: NSLocalizedString("Multiple screens", comment: ""), width: PreferencesWindow.width)
+        let table = TableGroupView(title: NSLocalizedString("Multiple screens", comment: ""),
+            width: PreferencesWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on", comment: ""),
             rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
-        _ = table.addRow(leftText: NSLocalizedString("Show Screen Numbers", comment: ""),
+        _ = table.addRow(leftText: NSLocalizedString("Show screen numbers", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("showScreenNumbers")])
         table.fit()
         return table
