@@ -68,13 +68,13 @@ class Application: NSObject {
     }
 
     func manuallyUpdateWindows() {
-        AXUIElement.retryAxCallUntilTimeout(timeoutInSeconds: 5) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: "\(bundleIdentifier ?? bundleURL?.absoluteString ?? localizedName ?? String(describing: pid))") { [weak self] in
             guard let self else { return }
             var atLeastOneActualWindow = false
             guard let axWindows = try self.axUiElement?.allWindows(self.pid) else { return }
             for axWindow in axWindows {
-                if let wid = try axWindow.cgWindowId(),
-                    let (title, role, subrole, isMinimized, isFullscreen) = try axWindow.windowAttributes() {
+                let wid = try axWindow.cgWindowId()
+                if let (title, role, subrole, isMinimized, isFullscreen) = try axWindow.windowAttributes() {
                     let size = try axWindow.size()
                     let level = wid.level()
                     if AXUIElement.isActualWindow(self, wid, level, title, subrole, role, size) {
@@ -170,7 +170,7 @@ class Application: NSObject {
             kAXApplicationHiddenNotification,
             kAXApplicationShownNotification,
         ] {
-            AXUIElement.retryAxCallUntilTimeout { [weak self] in
+            AXUIElement.retryAxCallUntilTimeout(context: "\(bundleIdentifier ?? bundleURL?.absoluteString ?? localizedName ?? String(describing: pid))") { [weak self] in
                 guard let self else { return }
                 try self.axUiElement!.subscribeToNotification(axObserver, notification, {
                     DispatchQueue.main.async { [weak self] in

@@ -312,3 +312,15 @@ extension Optional {
         if let self { return self } else { throw Error.unexpectedNil }
     }
 }
+
+extension DispatchTimeInterval {
+    var toMilliseconds: Int {
+        switch self {
+            case .seconds(let s): return s / 1000
+            case .milliseconds(let ms): return ms
+            case .microseconds(let us): return us * 1000
+            case .nanoseconds(let ns): return ns * 1_000_000
+            default: return .max
+        }
+    }
+}

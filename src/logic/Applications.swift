@@ -20,7 +20,8 @@ class Applications {
             if bundleIdentifier == "com.apple.dock" {
                 DockEvents.observe(processIdentifier)
             }
-            if isActualApplication(processIdentifier, bundleIdentifier) {
+            // com.apple.universalcontrol always fails subscribeToNotification. We blacklist it to save resources on everyone's machines
+            if bundleIdentifier != "com.apple.universalcontrol" && isActualApplication(processIdentifier, bundleIdentifier) {
                 Applications.list.append(Application($0))
             }
         }

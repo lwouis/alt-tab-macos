@@ -10,8 +10,8 @@ let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ i
 
 fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
     // events are handled concurrently, thus we check that the app is still running
-    if let pid = try element.pid(),
-       try pid != ProcessInfo.processInfo.processIdentifier || (element.subrole() != kAXUnknownSubrole) {
+    let pid = try element.pid()
+    if try pid != ProcessInfo.processInfo.processIdentifier || (element.subrole() != kAXUnknownSubrole) {
         Logger.info(type, pid, try element.title() ?? "nil")
         switch type {
             case kAXApplicationActivatedNotification: try applicationActivated(element, pid)
@@ -65,8 +65,8 @@ fileprivate func applicationHiddenOrShown(_ pid: pid_t, _ type: String) throws {
 }
 
 fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
-    if let wid = try element.cgWindowId(),
-       let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
+    let wid = try element.cgWindowId()
+    if let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
         let position = try element.position()
         let size = try element.size()
         let level = wid.level()
@@ -85,8 +85,8 @@ fileprivate func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
 }
 
 fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-    if let wid = try element.cgWindowId(),
-       let runningApp = NSRunningApplication(processIdentifier: pid) {
+    let wid = try element.cgWindowId()
+    if let runningApp = NSRunningApplication(processIdentifier: pid) {
         // photoshop will focus a window *after* you focus another app
         // we check that a focused window happens within an active app
         if runningApp.isActive {
@@ -100,7 +100,7 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
                 } else {
-                    AXUIElement.retryAxCallUntilTimeout {
+                    AXUIElement.retryAxCallUntilTimeout(context: "wid:\(wid) pid:\(pid)") {
                         if let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
                             let position = try element.position()
                             let size = try element.size()
@@ -145,27 +145,25 @@ fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
 }
 
 fileprivate func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ type: String) throws {
-    if let wid = try element.cgWindowId() {
-        DispatchQueue.main.async {
-            if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
-                window.isMinimized = type == kAXWindowMiniaturizedNotification
-                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
-            }
+    let wid = try element.cgWindowId()
+    DispatchQueue.main.async {
+        if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+            window.isMinimized = type == kAXWindowMiniaturizedNotification
+            App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
         }
     }
 }
 
 fileprivate func windowTitleChanged(_ element: AXUIElement) throws {
-    if let wid = try element.cgWindowId() {
-        AXUIElement.retryAxCallUntilTimeoutDebounced(.windowTitleChanged, wid) {
-            if let (title, _, _, isMinimized, isFullscreen) = try element.windowAttributes() {
-                DispatchQueue.main.async {
-                    if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), title != window.title {
-                        window.title = window.bestEffortTitle(title)
-                        window.isMinimized = isMinimized
-                        window.isFullscreen = isFullscreen
-                        App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
-                    }
+    let wid = try element.cgWindowId()
+    AXUIElement.retryAxCallUntilTimeout(context: "\(wid)", debounceType: .windowTitleChanged, wid: wid) {
+        if let (title, _, _, isMinimized, isFullscreen) = try element.windowAttributes() {
+            DispatchQueue.main.async {
+                if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), title != window.title {
+                    window.title = window.bestEffortTitle(title)
+                    window.isMinimized = isMinimized
+                    window.isFullscreen = isFullscreen
+                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
                 }
             }
         }
@@ -173,10 +171,9 @@ fileprivate func windowTitleChanged(_ element: AXUIElement) throws {
 }
 
 fileprivate func windowResizedOrMoved(_ element: AXUIElement) throws {
-    if let wid = try element.cgWindowId() {
-        AXUIElement.retryAxCallUntilTimeoutDebounced(.windowResizedOrMoved, wid) {
-            try updateWindowSizeAndPositionAndFullscreen(element, wid, nil)
-        }
+    let wid = try element.cgWindowId()
+    AXUIElement.retryAxCallUntilTimeout(context: "\(wid)", debounceType: .windowResizedOrMoved, wid: wid) {
+        try updateWindowSizeAndPositionAndFullscreen(element, wid, nil)
     }
 }
 

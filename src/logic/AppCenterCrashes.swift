@@ -29,7 +29,7 @@ class AppCenterCrash: NSObject {
         initNecessaryFacilities()
         let shouldSend = checkIfShouldSend()
         BackgroundWork.startCrashReportsQueue()
-        BackgroundWork.crashReportsQueue.async {
+        BackgroundWork.crashReportsQueue.addOperation {
             AppCenter.networkRequestsAllowed = shouldSend
             Crashes.notify(with: shouldSend ? .send : .dontSend)
             AppCenter.networkRequestsAllowed = false

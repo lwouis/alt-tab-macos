@@ -29,7 +29,7 @@ private func observe_() {
         userInfo: nil)
     if let eventTap {
         let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-        CFRunLoopAddSource(BackgroundWork.keyboardEventsThread.runLoop, runLoopSource, .commonModes)
+        CFRunLoopAddSource(BackgroundWork.keyboardAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
     } else {
         App.app.restart()
     }
