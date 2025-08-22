@@ -442,8 +442,8 @@ NSString *const SRShortcutCharactersIgnoringModifiers = SRShortcutKeyCharactersI
 
 - (UInt32)carbonKeyCode
 {
-    if (self.keyCode == SRKeyCodeNone)
-        os_trace_error("#Critical SRKeyCodeNone has no representation in Carbon");
+//    if (self.keyCode == SRKeyCodeNone)
+//        os_trace_error("#Critical SRKeyCodeNone has no representation in Carbon");
 
     return self.keyCode;
 }

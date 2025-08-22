@@ -34,7 +34,7 @@ CHECKOUT OPTIONS:
     :commit: 7abf4daed1a25218f2b52f2dfd190aee5a50071c
     :git: https://github.com/lwouis/LetsMove.git
   ShortcutRecorder:
-    :commit: 5bb32febdab48038ce1762bf14f5ce8024b11fe7
+    :commit: 594b360e07a8a368ffec2567f77e465477b9994f
     :git: https://github.com/lwouis/ShortcutRecorder.git
 
 SPEC CHECKSUMS:
