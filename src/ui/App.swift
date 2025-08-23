@@ -237,13 +237,14 @@ class App: AppCenterApplication {
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
+            NSScreen.updatePreferred()
+            Applications.manuallyRefreshAllWindows()
             if isVeryFirstSummon {
                 Windows.sortByLevel()
                 isVeryFirstSummon = false
             }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
-            NSScreen.updatePreferred()
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {

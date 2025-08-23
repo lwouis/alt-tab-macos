@@ -9,37 +9,35 @@ import ApplicationServices.HIServices.AXActionConstants
 extension AXUIElement {
     // default timeout for AX calls is 6s
     // we reduce to 1s to avoid AX calls blocking threads, thus too many threads getting created to make the next AX calls
-    static let globalMessagingTimeoutInSeconds = Float(1)
-    // we retry for 2 minutes at most
-    static let retryAXCallQuickQueueTimeoutInSeconds = Float(6)
-    static let retryAXCallSlowQueueTimeoutInSeconds = Float(120)
-    // 250ms is similar to human delay in processing changes on screen
-    // See https://humanbenchmark.com/tests/reactiontime
-    static let retryDelayInMilliseconds = DispatchTimeInterval.milliseconds(250)
+    private static let globalMessagingTimeoutInSeconds = Float(1)
+    // if an app times out our AX calls, we retry for 6s then give up
+    private static let axCallsRetriesQueueTimeoutInSeconds = Float(6)
+    // once an app is unresponsive, let's ignore other AX calls for it to avoid congestion
+    private static var axCallsRetriesQueueUnresponsiveAppsMap = ConcurrentMap<pid_t, UInt64>()
+    // some events like window resizing trigger in quick succession. We debounce those
+    private static var eventsDebounceMap = ConcurrentMap<String, DispatchWorkItem>()
 
     static func setGlobalTimeout() {
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), globalMessagingTimeoutInSeconds)
     }
 
-    private static var debounceMap = DebounceMap()
-
     /// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-    static func retryAxCallUntilTimeout(file: String = #file, function: String = #function, line: Int = #line, context: String = "", after: DispatchTime? = nil, debounceType: DebounceType? = nil, wid: CGWindowID? = nil, slowQueue: Bool = false, startTimeInNanoseconds: UInt64 = DispatchTime.now().uptimeNanoseconds, block: @escaping () throws -> Void) {
-        let closure = { retryAxCallUntilTimeout_(file: file, function: function, line: line, context: context, after: after, debounceType: debounceType, wid: wid, slowQueue: slowQueue, startTimeInNanoseconds: startTimeInNanoseconds, block: block) }
-        let queue = slowQueue ? BackgroundWork.axCallsSlowQueue : BackgroundWork.axCallsQuickQueue
+    static func retryAxCallUntilTimeout(file: String = #file, function: String = #function, line: Int = #line, context: String = "", after: DispatchTime? = nil, debounceType: DebounceType? = nil, pid: pid_t? = nil, wid: CGWindowID? = nil, retriesQueue: Bool = false, startTimeInNanoseconds: UInt64 = DispatchTime.now().uptimeNanoseconds, block: @escaping () throws -> Void) {
+        let closure = { retryAxCallUntilTimeout_(file: file, function: function, line: line, context: context, after: after, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: retriesQueue, startTimeInNanoseconds: startTimeInNanoseconds, block: block) }
+        let queue = retriesQueue ? BackgroundWork.axCallsRetriesQueue : BackgroundWork.axCallsFirstAttemptQueue
         if let after {
             queue!.addOperationAfter(deadline: after, block: closure)
         } else if let debounceType, let wid {
             let debounceMapKey = "\(debounceType.rawValue)\(wid)"
             let workItem = DispatchWorkItem {
                 closure()
-                debounceMap.withLock { $0[debounceMapKey] = nil }
+                eventsDebounceMap.withLock { $0[debounceMapKey] = nil }
             }
-            debounceMap.withLock {
+            eventsDebounceMap.withLock {
                 $0[debounceMapKey]?.cancel()
                 $0[debounceMapKey] = workItem
             }
-            queue!.addOperationAfter(deadline: .now() + retryDelayInMilliseconds) {
+            queue!.addOperationAfter(deadline: .now() + humanPerceptionDelay) {
                 workItem.perform()
             }
         } else {
@@ -47,24 +45,43 @@ extension AXUIElement {
         }
     }
 
-    private static func retryAxCallUntilTimeout_(file: String, function: String, line: Int, context: String, after: DispatchTime?, debounceType: DebounceType?, wid: CGWindowID?, slowQueue: Bool, startTimeInNanoseconds: UInt64, block: @escaping () throws -> Void) {
+    private static func retryAxCallUntilTimeout_(file: String, function: String, line: Int, context: String, after: DispatchTime?, debounceType: DebounceType?, pid: pid_t?, wid: CGWindowID?, retriesQueue: Bool, startTimeInNanoseconds: UInt64, block: @escaping () throws -> Void) {
+        // attempt the AX call
         if (try? block()) != nil {
             return
         }
+        // do we already have ongoing retries for this pid?
+        if let pid {
+            axCallsRetriesQueueUnresponsiveAppsMap.lock.lock()
+            let time = axCallsRetriesQueueUnresponsiveAppsMap.map[pid]
+            axCallsRetriesQueueUnresponsiveAppsMap.lock.unlock()
+            if let time {
+                if startTimeInNanoseconds > time {
+                    // new most recent call; replace and retry
+                    axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0[pid] = startTimeInNanoseconds }
+                } else if startTimeInNanoseconds == time {
+                    // most recent call; retry
+                } else {
+                    // old call which has been replaced; ignore
+                    return
+                }
+            } else {
+                // first call; set and retry
+                axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0[pid] = startTimeInNanoseconds }
+            }
+        }
+        // should we give up?
         let timePassedInSeconds = Float(DispatchTime.now().uptimeNanoseconds - startTimeInNanoseconds) / 1_000_000_000
-        if timePassedInSeconds >= retryAXCallSlowQueueTimeoutInSeconds {
-            Logger.info("AX call failed for more than \(Int(retryAXCallSlowQueueTimeoutInSeconds))s. Giving up on it", logFromContext(file, function, line, context))
-            // if we keep the "fix: improve detection of windows" commit, we need to blacklist such apps (or windows?) for the runtime of AltTab to avoid trying over and over
+        if timePassedInSeconds >= axCallsRetriesQueueTimeoutInSeconds {
+            Logger.info("AX call failed for more than \(Int(axCallsRetriesQueueTimeoutInSeconds))s. Giving up on it", logFromContext(file, function, line, context))
+            if let pid {
+                axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0.removeValue(forKey: pid) }
+            }
             return
         }
-        if timePassedInSeconds >= retryAXCallQuickQueueTimeoutInSeconds {
-            Logger.info(logFromContext(file, function, line, context))
-            retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + .seconds(1), debounceType: debounceType, wid: wid, slowQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, block: block)
-            return
-        }
+        // retry
         Logger.info(logFromContext(file, function, line, context))
-        retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + retryDelayInMilliseconds, debounceType: debounceType, wid: wid, slowQueue: false, startTimeInNanoseconds: startTimeInNanoseconds, block: block)
-
+        retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + humanPerceptionDelay, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, block: block)
     }
 
     private static func logFromContext(_ file: String, _ function: String, _ line: Int, _ context: String) -> String {
@@ -450,12 +467,12 @@ enum DebounceType: Int {
     case windowTitleChanged = 1
 }
 
-class DebounceMap {
-    typealias DebounceMapType = [String: DispatchWorkItem]
-    private var map: DebounceMapType = [:]
-    private let lock = NSLock()
+class ConcurrentMap<K: Hashable, V> {
+    var map = [K: V]()
+    let lock = NSLock()
 
-    func withLock<T>(_ block: (inout DebounceMapType) -> T) -> T {
+    @discardableResult
+    func withLock<T>(_ block: (inout [K: V]) -> T) -> T {
         lock.lock()
         defer { lock.unlock() }
         return block(&map)

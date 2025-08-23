@@ -69,7 +69,7 @@ class Application: NSObject {
     }
 
     func manuallyUpdateWindows() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid) { [weak self] in
             guard let self else { return }
             var atLeastOneActualWindow = false
             guard let axWindows = try self.axUiElement?.allWindows(self.pid) else { return }
@@ -171,7 +171,7 @@ class Application: NSObject {
             kAXApplicationHiddenNotification,
             kAXApplicationShownNotification,
         ] {
-            AXUIElement.retryAxCallUntilTimeout(context: debugId) { [weak self] in
+            AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid) { [weak self] in
                 guard let self else { return }
                 if try self.axUiElement!.subscribeToNotification(axObserver, notification) {
                     if notification == kAXApplicationActivatedNotification {

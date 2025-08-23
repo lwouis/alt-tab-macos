@@ -13,6 +13,12 @@ class Applications {
         addRunningApplications(NSWorkspace.shared.runningApplications)
     }
 
+    static func manuallyRefreshAllWindows() {
+        for app in list {
+            app.manuallyUpdateWindows()
+        }
+    }
+
     static func addRunningApplications(_ runningApps: [NSRunningApplication]) {
         runningApps.forEach {
             let bundleIdentifier = $0.bundleIdentifier

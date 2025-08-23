@@ -5,8 +5,8 @@ class BackgroundWork {
     // we use an OperationQueue tied to the global DispatchQueue to call blocking APIs in parallel
     static var screenshotsQueue: LabeledOperationQueue!
     static var accessibilityCommandsQueue: LabeledOperationQueue!
-    static var axCallsQuickQueue: LabeledOperationQueue!
-    static var axCallsSlowQueue: LabeledOperationQueue!
+    static var axCallsFirstAttemptQueue: LabeledOperationQueue!
+    static var axCallsRetriesQueue: LabeledOperationQueue!
     static var crashReportsQueue: LabeledOperationQueue!
     // we use Threads to observe events in sequence
     static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
@@ -27,9 +27,9 @@ class BackgroundWork {
         // They are tried once and if they timeout we don't retry. The OS seems to still execute them even if the call timed out
         accessibilityCommandsQueue = LabeledOperationQueue("accessibilityCommandsQueue", .userInteractive, 4)
         // calls to the AX APIs can block for a long time (e.g. if an app is unresponsive)
-        // We first try the AX calls on the Quick queue. If we get a timeout, we move to the Slow queue and retry for a while there
-        axCallsQuickQueue = LabeledOperationQueue("axCallsQuickQueue", .userInteractive, 8)
-        axCallsSlowQueue = LabeledOperationQueue("axCallsSlowQueue", .userInteractive, 8)
+        // We first try the AX calls on axCallsFirstAttemptQueue. If we get a timeout, we move to axCallsRetriesQueue and retry there for a while
+        axCallsFirstAttemptQueue = LabeledOperationQueue("axCallsFirstAttemptQueue", .userInteractive, 8)
+        axCallsRetriesQueue = LabeledOperationQueue("axCallsRetriesQueue", .userInteractive, 8)
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
         // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
@@ -70,7 +70,7 @@ class BackgroundWork {
     }
 
     private static func logQueues() -> Void {
-        let queues = [screenshotsQueue, accessibilityCommandsQueue, axCallsQuickQueue, axCallsSlowQueue, crashReportsQueue].compactMap { $0 }
+        let queues = [screenshotsQueue, accessibilityCommandsQueue, axCallsFirstAttemptQueue, axCallsRetriesQueue, crashReportsQueue].compactMap { $0 }
         var map = [String:Int]()
         for queue in queues {
             map[queue.underlyingQueue!.label] = queue.operations.reduce(0) { $1.isExecuting ? $0 + 1 : $0 }
