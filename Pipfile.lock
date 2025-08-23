@@ -1,10 +1,12 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "00c7c75d00988a027e56c90f3a0bbba05aec3b41b2f7fd9be24f3cb27bf15eaf"
+            "sha256": "3646221352b85667ac21f1b528dc8b29f56ff1e24cb97e7eaba79b5040c78e21"
         },
         "pipfile-spec": 6,
-        "requires": {},
+        "requires": {
+            "python_version": "3.6"
+        },
         "sources": [
             {
                 "name": "pypi",
@@ -16,11 +18,11 @@
     "default": {
         "certifi": {
             "hashes": [
-                "sha256:922820b53db7a7257ffbda3f597266d435245903d80737e34f8a45ff3e3230d8",
-                "sha256:bec941d2aa8195e248a60b31ff9f0558284cf01a52591ceda73ea9afffd69fd9"
+                "sha256:e564105f78ded564e3ae7c923924435e1daa7463faeab5bb932bc53ffae63407",
+                "sha256:f6c12493cfb1b06ba2ff328595af9350c65d6644968e5d3a2ffd78699af217a5"
             ],
-            "markers": "python_version >= '3.6'",
-            "version": "==2024.8.30"
+            "markers": "python_version >= '3.7'",
+            "version": "==2025.8.3"
         },
         "chardet": {
             "hashes": [
@@ -68,11 +70,11 @@
         },
         "hstspreload": {
             "hashes": [
-                "sha256:2ab4518495a132c4ae430c474afffd12938852c6eec68ce1368c8f7858dc3076",
-                "sha256:9c1b2d0313899d3ff9dac03ab39d53fed95c32eef9862e7eabee8dc07dfd589c"
+                "sha256:02bd5b0885b62f0d5239ca6c6876ffcad8d9c08dc97cee54292598141a16e9dc",
+                "sha256:346552a807b3a1762376de8ecce097544e7fcd64fb64231b4652da52f86fa6f1"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==2024.9.1"
+            "version": "==2025.1.1"
         },
         "httpcore": {
             "hashes": [

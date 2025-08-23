@@ -7,6 +7,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [akx](https://github.com/akx)
 * [Allsochen](https://github.com/Allsochen)
 * [ayroblu](https://github.com/ayroblu)
+* [britalmeida](https://github.com/britalmeida)
 * [Calinou](https://github.com/Calinou)
 * [damonpam](https://github.com/damonpam)
 * [decodism](https://github.com/decodism)
@@ -25,7 +26,6 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 * [phungtuanhoang1996](https://github.com/phungtuanhoang1996)
 * [rbnis](https://github.com/rbnis)
 * [Rjevski](https://github.com/Rjevski)
-* [samdenty](https://github.com/samdenty)
 * [ShlomoCode](https://github.com/ShlomoCode)
 * [skolj](https://github.com/skolj)
 * [stopdesign](https://github.com/stopdesign)
@@ -157,7 +157,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Kristófer Fannar Björnsson
 * Kushnee5
 * Kuuchi
-* L
 * Lakshman Kolappan
 * Lasse Mattila
 * Lcwhhh
@@ -210,8 +209,10 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Petar Shomov
 * Peterkim0620
 * Petr Kolář
+* Petter Johan Olsen
 * Piotr Budny
 * Quentin. douarre
+* Rajesh Kaswala
 * Rami Elsawy
 * Raphaël
 * Rasmus

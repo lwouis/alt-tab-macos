@@ -14,4 +14,4 @@ python_version = "3.6"
 
 [scripts]
 font2png = "scripts/convert_font_to_png.sh"
-translate = "python scripts/translate_i18n_tools.py resources/l10n --retry_translate"
+translate = "python scripts/l10n/google_translate_all_terms_locally.py resources/l10n --retry_translate"

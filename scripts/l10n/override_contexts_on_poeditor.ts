@@ -8,7 +8,7 @@ function compareLocalAndRemote(localTerms: Term[], remoteTerms: Term[]): Term[] 
         if (matchingTerm === undefined) {
             throw `term ${localTerm.term} doesn't exist on poeditor`
         }
-        if (localTerm.new_context !== matchingTerm.context) {
+        if (localTerm.new_context && localTerm.new_context !== matchingTerm.context) {
             result.push({
                 term: localTerm.term,
                 new_context: localTerm.new_context,

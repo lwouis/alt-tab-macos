@@ -6,7 +6,11 @@ function addContextToTerms(termsWithVersionTags: Term[], remoteTerms: Term[]) {
     for (const term of termsWithVersionTags) {
         const matchingTerm = remoteTerms.find(x => x.term === term.term)
         if (matchingTerm) {
-            if (matchingTerm.tags?.[0] !== term.tags?.[0] || matchingTerm.tags?.[1] !== term.tags?.[1]) {
+            const remoteFrom = matchingTerm.tags?.find(x => x.startsWith('from_'))
+            const remoteTo = matchingTerm.tags?.find(x => x.startsWith('to_'))
+            const localFrom = term.tags?.find(x => x.startsWith('from_'))
+            const localTo = term.tags?.find(x => x.startsWith('to_'))
+            if (remoteFrom !== localFrom || remoteTo !== localTo) {
                 const r: Term = {term: term.term, tags: term.tags};
                 if (matchingTerm.context !== '') {
                     r.context = matchingTerm.context
