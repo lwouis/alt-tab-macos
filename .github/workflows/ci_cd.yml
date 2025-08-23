@@ -55,6 +55,7 @@ jobs:
       - run: scripts/run_tests.sh
       - run: scripts/build_app.sh
       - run: scripts/package_and_notarize_release.sh
+      - run: scripts/upload_symbols_to_appcenter.sh
       - run: scripts/update_appcast.sh
       - run: npx semantic-release
       - id: set_tag_name
