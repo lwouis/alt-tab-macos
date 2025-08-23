@@ -362,11 +362,13 @@ enum WindowOrderPreference: CaseIterable, MacroPreference {
 enum AppsToShowPreference: CaseIterable, MacroPreference {
     case all
     case active
+    case nonActive
 
     var localizedString: LocalizedString {
         switch self {
             case .all: return NSLocalizedString("All apps", comment: "")
             case .active: return NSLocalizedString("Active app", comment: "")
+            case .nonActive: return NSLocalizedString("Non-active apps", comment: "")
         }
     }
 }

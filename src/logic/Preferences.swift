@@ -59,7 +59,7 @@ class Preferences {
         "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
         "appsToShow": AppsToShowPreference.all.indexAsString,
         "appsToShow2": AppsToShowPreference.active.indexAsString,
-        "appsToShow3": AppsToShowPreference.all.indexAsString,
+        "appsToShow3": AppsToShowPreference.nonActive.indexAsString,
         "appsToShow4": AppsToShowPreference.all.indexAsString,
         "spacesToShow": SpacesToShowPreference.all.indexAsString,
         "spacesToShow2": SpacesToShowPreference.all.indexAsString,
