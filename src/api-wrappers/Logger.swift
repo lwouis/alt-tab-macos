@@ -52,6 +52,17 @@ class Logger {
 
     private static func custom(_ level: SwiftyBeaver.Level, _ items: [Any?], file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
         let message = items.map { "\($0 ?? "nil")" }.joined(separator: " ")
-        logger.custom(level: level, message: message, file: file, function: function, line: line, context: context)
+        logger.custom(level: level, message: "[\(threadName())] \(message)", file: file, function: function, line: line, context: context)
+    }
+
+    private static func threadName() -> String {
+        if Thread.isMainThread {
+            return "main"
+        } else if let name = Thread.current.name, !name.isEmpty {
+            return name
+        } else {
+            let name = __dispatch_queue_get_label(nil)
+            return String(cString: name, encoding: .utf8) ?? Thread.current.description
+        }
     }
 }

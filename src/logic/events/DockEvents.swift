@@ -11,7 +11,11 @@ class DockEvents {
             // are we sure we always get a non-nil axObserver?
             for notification in MissionControlState.allCases {
                 AXUIElement.retryAxCallUntilTimeout {
-                    try axUiElement!.subscribeToNotification(axObserver!, notification.rawValue, nil)
+                    if try axUiElement!.subscribeToNotification(axObserver!, notification.rawValue, nil) {
+                        if notification == MissionControlState.showDesktop {
+                            Logger.debug("Subscribed to Dock")
+                        }
+                    }
                 }
             }
             CFRunLoopAddSource(BackgroundWork.missionControlThread.runLoop, AXObserverGetRunLoopSource(axObserver!), .commonModes)

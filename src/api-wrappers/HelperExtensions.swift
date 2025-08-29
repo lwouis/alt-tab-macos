@@ -324,3 +324,7 @@ extension DispatchTimeInterval {
         }
     }
 }
+
+extension NSRunningApplication {
+    var id: String { "pid:\(String(describing: processIdentifier)) app:\(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil")"  }
+}

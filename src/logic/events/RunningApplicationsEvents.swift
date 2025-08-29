@@ -13,7 +13,7 @@ class RunningApplicationsEvents {
         let workspaceApps = Set(NSWorkspace.shared.runningApplications)
         let added = workspaceApps.subtracting(previousValueOfRunningApps)
         let removed = previousValueOfRunningApps.subtracting(workspaceApps)
-        Logger.error("added:", added.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") }, "removed:", removed.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") })
+        Logger.info("added:", added.map { $0.id }, "removed:", removed.map { $0.id })
         if !added.isEmpty {
             Applications.addRunningApplications(Array(added))
         }

@@ -74,7 +74,7 @@ class Windows {
     static func updateIsFullscreenOnCurrentSpace() {
         let windowsOnCurrentSpace = Windows.list.filter { !$0.isWindowlessApp }
         for window in windowsOnCurrentSpace {
-            AXUIElement.retryAxCallUntilTimeout(context: "title:\(window.title ?? "") wid:\(String(describing: window.cgWindowId))", after: .now() + AXUIElement.retryDelayInMilliseconds) { [weak window] in
+            AXUIElement.retryAxCallUntilTimeout(context: window.debugId, after: .now() + AXUIElement.retryDelayInMilliseconds) { [weak window] in
                 guard let window else { return }
                 try updateWindowSizeAndPositionAndFullscreen(window.axUiElement!, window.cgWindowId!, window)
             }

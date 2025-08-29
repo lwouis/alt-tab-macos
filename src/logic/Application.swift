@@ -19,6 +19,7 @@ class Application: NSObject {
     var dockLabel: String?
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
+    var debugId: String { "(pid:\(String(describing: pid)) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil"))" }
 
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
@@ -31,6 +32,7 @@ class Application: NSObject {
         bundleURL = runningApplication.bundleURL
         executableURL = runningApplication.executableURL
         super.init()
+        Logger.debug(debugId)
         observeEventsIfEligible()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
@@ -48,7 +50,7 @@ class Application: NSObject {
     }
 
     deinit {
-        Logger.debug("Deinit app", bundleIdentifier ?? bundleURL ?? "nil")
+        Logger.debug("Deinit app", debugId)
     }
 
     func removeWindowslessAppWindow() {
@@ -62,13 +64,12 @@ class Application: NSObject {
         if runningApplication.activationPolicy != .prohibited && axUiElement == nil {
             axUiElement = AXUIElementCreateApplication(pid)
             AXObserverCreate(pid, axObserverCallback, &axObserver)
-            Logger.debug("Adding app", pid, bundleIdentifier ?? "nil")
             observeEvents()
         }
     }
 
     func manuallyUpdateWindows() {
-        AXUIElement.retryAxCallUntilTimeout(context: "\(bundleIdentifier ?? bundleURL?.absoluteString ?? localizedName ?? String(describing: pid))") { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId) { [weak self] in
             guard let self else { return }
             var atLeastOneActualWindow = false
             guard let axWindows = try self.axUiElement?.allWindows(self.pid) else { return }
@@ -170,9 +171,12 @@ class Application: NSObject {
             kAXApplicationHiddenNotification,
             kAXApplicationShownNotification,
         ] {
-            AXUIElement.retryAxCallUntilTimeout(context: "\(bundleIdentifier ?? bundleURL?.absoluteString ?? localizedName ?? String(describing: pid))") { [weak self] in
+            AXUIElement.retryAxCallUntilTimeout(context: debugId) { [weak self] in
                 guard let self else { return }
-                try self.axUiElement!.subscribeToNotification(axObserver, notification, {
+                if try self.axUiElement!.subscribeToNotification(axObserver, notification) {
+                    if notification == kAXApplicationActivatedNotification {
+                        Logger.debug("Subscribed to app", self.debugId)
+                    }
                     DispatchQueue.main.async { [weak self] in
                         guard let self else { return }
                         // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
@@ -183,7 +187,7 @@ class Application: NSObject {
                             self.manuallyUpdateWindows()
                         }
                     }
-                })
+                }
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)

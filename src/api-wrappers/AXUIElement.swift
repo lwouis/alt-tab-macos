@@ -53,15 +53,16 @@ extension AXUIElement {
         }
         let timePassedInSeconds = Float(DispatchTime.now().uptimeNanoseconds - startTimeInNanoseconds) / 1_000_000_000
         if timePassedInSeconds >= retryAXCallSlowQueueTimeoutInSeconds {
-            Logger.info("AX call failed for more than \(Int(retryAXCallSlowQueueTimeoutInSeconds))s. Giving up on it", slowQueue, logFromContext(file, function, line, context))
+            Logger.info("AX call failed for more than \(Int(retryAXCallSlowQueueTimeoutInSeconds))s. Giving up on it", logFromContext(file, function, line, context))
+            // if we keep the "fix: improve detection of windows" commit, we need to blacklist such apps (or windows?) for the runtime of AltTab to avoid trying over and over
             return
         }
         if timePassedInSeconds >= retryAXCallQuickQueueTimeoutInSeconds {
-            Logger.info("AX call failed for more than \(Int(retryAXCallQuickQueueTimeoutInSeconds))s. Retrying on to the slow queue in 1s", slowQueue, logFromContext(file, function, line, context))
+            Logger.info(logFromContext(file, function, line, context))
             retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + .seconds(1), debounceType: debounceType, wid: wid, slowQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, block: block)
             return
         }
-        Logger.info("AX call failed. Retrying on the quick queue in \(retryDelayInMilliseconds.toMilliseconds)ms", slowQueue, logFromContext(file, function, line, context))
+        Logger.info(logFromContext(file, function, line, context))
         retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + retryDelayInMilliseconds, debounceType: debounceType, wid: wid, slowQueue: false, startTimeInNanoseconds: startTimeInNanoseconds, block: block)
 
     }
@@ -419,13 +420,18 @@ extension AXUIElement {
         try throwIfNotSuccess(AXUIElementPerformAction(self, action as CFString))
     }
 
-    func subscribeToNotification(_ axObserver: AXObserver, _ notification: String, _ callback: (() -> Void)? = nil) throws {
+    @discardableResult
+    func subscribeToNotification(_ axObserver: AXObserver, _ notification: String, _ callback: (() -> Void)? = nil) throws -> Bool {
         let result = AXObserverAddNotification(axObserver, self, notification as CFString, nil)
         if result == .success || result == .notificationAlreadyRegistered {
-            callback?()
-        } else if result != .notificationUnsupported && result != .notImplemented {
-            throw AxError.runtimeError
+            return true
         }
+        if result == .notificationUnsupported || result == .notImplemented {
+            // subscription will never succeed
+            return false
+        }
+        // temporary issue; subscription may succeed if retried
+        throw AxError.runtimeError
     }
 }
 

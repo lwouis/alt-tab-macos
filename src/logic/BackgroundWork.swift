@@ -76,7 +76,7 @@ class BackgroundWork {
             map[queue.underlyingQueue!.label] = queue.operations.reduce(0) { $1.isExecuting ? $0 + 1 : $0 }
         }
         let prettyPrintMap = map.sorted { $0.key < $1.key }.map { "\($0.key): \($0.value)" }.joined(separator: ", ")
-        debugPrint(prettyPrintMap)
+        Logger.debug(prettyPrintMap)
     }
 
     private static func logThreads() -> Void {
@@ -152,7 +152,6 @@ class BackgroundWork {
         }
 
         override func addOperation(_ block: @escaping () -> ()) {
-            Logger.debug("task", strongUnderlyingQueue.label)
             super.addOperation(block)
         }
 

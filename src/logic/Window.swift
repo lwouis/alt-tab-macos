@@ -24,6 +24,7 @@ class Window {
     var application: Application
     var axObserver: AXObserver?
     var rowIndex: Int?
+    var debugId: String { "(wid:\(cgWindowId.map { String(describing: $0) } ?? "nil")) \(title ?? "nil")) \(application.debugId)" }
 
     static let notifications = [
         kAXUIElementDestroyedNotification,
@@ -48,7 +49,7 @@ class Window {
         creationOrder = Window.globalCreationCounter
         application.removeWindowslessAppWindow()
         checkIfFocused(application, wid)
-        Logger.debug("Adding window", cgWindowId ?? "nil", title ?? "nil", application.bundleIdentifier ?? "nil")
+        Logger.debug(debugId)
         observeEvents()
     }
 
@@ -57,17 +58,17 @@ class Window {
         title = bestEffortTitle(nil)
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
-        Logger.debug(title ?? "nil", application.bundleIdentifier ?? "nil")
+        Logger.debug(debugId)
     }
 
     deinit {
-        Logger.debug(title ?? "nil", application.bundleIdentifier ?? "nil")
+        Logger.debug(debugId)
     }
 
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
     /// workaround: we check and possibly do it here
     func checkIfFocused(_ application: Application, _ wid: CGWindowID) {
-        AXUIElement.retryAxCallUntilTimeout(context: "app:\(application.bundleIdentifier ?? application.bundleURL?.absoluteString ?? application.localizedName ?? String(application.pid)) wid:\(wid) title:\(title ?? "")") {
+        AXUIElement.retryAxCallUntilTimeout(context: debugId) {
             let focusedWid = try application.axUiElement?.focusedWindow()?.cgWindowId()
             if wid == focusedWid {
                 application.focusedWindow = self
@@ -85,9 +86,13 @@ class Window {
         AXObserverCreate(application.pid, axObserverCallback, &axObserver)
         guard let axObserver else { return }
         for notification in Window.notifications {
-            AXUIElement.retryAxCallUntilTimeout(context: "app:\(application.bundleIdentifier ?? application.bundleURL?.absoluteString ?? application.localizedName ?? String(application.pid)) wid:\(String(describing: cgWindowId)) title:\(title ?? "")") { [weak self] in
+            AXUIElement.retryAxCallUntilTimeout(context: debugId) { [weak self] in
                 guard let self else { return }
-                try self.axUiElement!.subscribeToNotification(axObserver, notification, nil)
+                if try self.axUiElement!.subscribeToNotification(axObserver, notification) {
+                    if notification == kAXUIElementDestroyedNotification {
+                        Logger.debug("Subscribed to window", self.debugId)
+                    }
+                }
             }
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)

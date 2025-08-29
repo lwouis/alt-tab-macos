@@ -123,7 +123,7 @@ class App: AppCenterApplication {
     func focusTarget() {
         guard appIsBeingUsed else { return } // already hidden
         let focusedWindow = Windows.focusedWindow()
-        Logger.info(focusedWindow?.cgWindowId.map { String(describing: $0) } ?? "nil", focusedWindow?.title ?? "nil", focusedWindow?.application.pid ?? "nil", focusedWindow?.application.bundleIdentifier ?? "nil")
+        Logger.info(focusedWindow?.debugId)
         focusSelectedWindow(focusedWindow)
     }
 
