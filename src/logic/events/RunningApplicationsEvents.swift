@@ -9,16 +9,16 @@ class RunningApplicationsEvents {
         appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: handleEvent)
     }
 
-    // TODO: handle this on a separate thread?
     private static func handleEvent<A>(_: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
         let workspaceApps = Set(NSWorkspace.shared.runningApplications)
-        // TODO: symmetricDifference has bad performance
-        let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
-        Logger.debug(diff.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") })
-        if change.kind == .insertion {
-            Applications.addRunningApplications(diff)
-        } else if change.kind == .removal {
-            Applications.removeRunningApplications(diff)
+        let added = workspaceApps.subtracting(previousValueOfRunningApps)
+        let removed = previousValueOfRunningApps.subtracting(workspaceApps)
+        Logger.error("added:", added.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") }, "removed:", removed.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") })
+        if !added.isEmpty {
+            Applications.addRunningApplications(Array(added))
+        }
+        if !removed.isEmpty {
+            Applications.removeRunningApplications(Array(removed))
         }
         previousValueOfRunningApps = workspaceApps
     }
