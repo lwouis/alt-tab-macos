@@ -190,6 +190,11 @@ class App: AppCenterApplication {
         if let window = selectedWindow, MissionControl.state() == .inactive || MissionControl.state() == .showDesktop {
             window.focus()
             if Preferences.cursorFollowFocusEnabled {
+                if Preferences.cursorFollowFocusBehavior == .differentScreen && window.isOnScreen(NSScreen.preferred) {
+                    // skip if we only want cursor to move to a different screen,
+                    // and the screen preference stays unchanged (selected window is on same screen)
+                    return
+                }
                 moveCursorToSelectedWindow(window)
             }
         } else {
