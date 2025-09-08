@@ -437,6 +437,20 @@ enum ShowAppsOrWindowsPreference: CaseIterable, MacroPreference {
     }
 }
 
+enum CursorFollowFocus: CaseIterable, MacroPreference {
+    case never
+    case always
+    case differentScreen
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .never: return NSLocalizedString("Never", comment: "")
+            case .always: return NSLocalizedString("Always", comment: "")
+            case .differentScreen: return NSLocalizedString("Only on different screen", comment: "")
+        }
+    }
+}
+
 enum ShowTitlesPreference: CaseIterable, MacroPreference {
     case windowTitle
     case appName

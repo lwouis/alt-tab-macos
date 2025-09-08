@@ -287,6 +287,9 @@
 "Multiple screens" = "Multiple screens";
 
 /* No comment provided by engineer. */
+"Never" = "Never";
+
+/* No comment provided by engineer. */
 "Never send crash reports" = "Never send crash reports";
 
 /* No comment provided by engineer. */
@@ -297,6 +300,9 @@
 
 /* No comment provided by engineer. */
 "Not allowed" = "Not allowed";
+
+/* No comment provided by engineer. */
+"Only on different screen" = "Only on different screen";
 
 /* No comment provided by engineer. */
 "Open Accessibility Preferences…" = "Open Accessibility Preferences…";
