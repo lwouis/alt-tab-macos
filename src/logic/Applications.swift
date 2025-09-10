@@ -3,6 +3,8 @@ import ApplicationServices
 
 class Applications {
     static var list = [Application]()
+    // Set of canonical names (localizedName) that appear more than once among running apps
+    static var duplicateCanonicalNames = Set<String>()
 
     static func initialDiscovery() {
         addInitialRunningApplications()
@@ -24,6 +26,7 @@ class Applications {
                 Applications.list.append(Application($0))
             }
         }
+        recomputeDuplicateNamesAndRefreshIfChanged()
     }
 
     static func removeRunningApplications(_ terminatingApps: [NSRunningApplication]) {
@@ -52,6 +55,7 @@ class Applications {
                 App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
             }
         }
+        recomputeDuplicateNamesAndRefreshIfChanged()
     }
 
     static func refreshBadgesAsync() {
@@ -117,5 +121,18 @@ class Applications {
 
     static func find(_ pid: pid_t?) -> Application? {
         return list.first { $0.pid == pid }
+    }
+
+    private static func recomputeDuplicateNamesAndRefreshIfChanged() {
+        let names = list.compactMap { $0.localizedName }.filter { !$0.isEmpty }
+        var counts = [String: Int]()
+        for n in names { counts[n, default: 0] += 1 }
+        let newSet = Set(counts.filter { $0.value > 1 }.map { $0.key })
+        if newSet != duplicateCanonicalNames {
+            duplicateCanonicalNames = newSet
+            DispatchQueue.main.async {
+                App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+            }
+        }
     }
 }

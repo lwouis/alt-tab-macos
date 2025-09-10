@@ -51,6 +51,23 @@ class Application: NSObject {
         Logger.debug("Deinit app", bundleIdentifier ?? bundleURL ?? "nil")
     }
 
+    // Display name shown in AltTab UI.
+    // Smart rule (Option B):
+    // - If multiple running apps share the same canonical name (localizedName),
+    //   disambiguate by using the .app filename (without .app extension).
+    // - Otherwise, keep the canonical (localized) name.
+    var displayName: String {
+        if let localized = localizedName, !localized.isEmpty,
+           !Applications.duplicateCanonicalNames.contains(localized) {
+            return localized
+        }
+        // Disambiguate (or fallback) using the bundle filename without extension
+        if let name = bundleURL?.deletingPathExtension().lastPathComponent, !name.isEmpty {
+            return name
+        }
+        return localizedName ?? ""
+    }
+
     func removeWindowslessAppWindow() {
         if let windowlessAppWindow = (Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid }) {
             Windows.list.remove(at: windowlessAppWindow)

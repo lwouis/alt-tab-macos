@@ -12,3 +12,6 @@ codesign.conf
 codesign.crt
 codesign.key
 codesign.p12
+# BMAD (local only)
+.bmad-core/
+.bmad-*/

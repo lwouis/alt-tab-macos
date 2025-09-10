@@ -215,7 +215,7 @@ class Window {
         if let cgWindowId, let cgTitle = cgWindowId.title(), !cgTitle.isEmpty {
             return cgTitle
         }
-        return application.localizedName ?? ""
+        return application.displayName
     }
 
     /// window may not be visible on that screen (e.g. the window is not on the current Space)

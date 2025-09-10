@@ -17,7 +17,10 @@
   },
   "scripts": {
     "format": "node scripts/swiftformat.js",
-    "format:check": "node scripts/swiftformat.js --lint"
+    "format:check": "node scripts/swiftformat.js --lint",
+    "bmad:refresh": "bmad-method install -f -i codex",
+    "bmad:list": "bmad-method list:agents",
+    "bmad:validate": "bmad-method validate"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",

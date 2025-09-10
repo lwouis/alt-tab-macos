@@ -358,7 +358,7 @@ class ThumbnailView: FlippedView {
         }
         updateAppIcon(element, title)
         updateDockLabelIcon(element.dockLabel)
-        setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
+        setAccessibilityHelp(getAccessibilityHelp(element.application.displayName, element.dockLabel))
         if !windowlessIcon.isHidden {
             let windowlessIconSize = ThumbnailView.thumbnailSize(element.icon, true)
             windowlessIcon.updateWithResizedCopy(element.icon, windowlessIconSize)
@@ -447,7 +447,7 @@ class ThumbnailView: FlippedView {
     }
 
     private func getAppOrAndWindowTitle() -> String {
-        let appName = window_?.application.localizedName
+        let appName = window_?.application.displayName
         let windowTitle = window_?.title
         if Preferences.onlyShowApplications(App.app.shortcutIndex) || Preferences.showTitles == .appName {
             return appName ?? ""
