@@ -125,6 +125,7 @@
 "Mouse hover" = "Ainlíonn luch";
 "Multiple screens" = "Scáileáin iolracha";
 "Never send crash reports" = "Ná seol tuairiscí tuairteála riamh";
+"Non-active apps" = "Aipeanna neamhghníomhacha";
 "Normal" = "Gnáth";
 "Not allowed" = "Ní cheadaítear";
 "NSHumanReadableCopyright" = "Ceadúnas GPL-3.0";
@@ -178,6 +179,7 @@
 "Show" = "Taispeáin";
 "Show & Hide" = "Taispeáin & Folaigh";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Taispeáin mír sa lascóir do gach fuinneog, nó do gach feidhmchlár. Díreofar Windows, ach cuirfear feidhmchláir i ngníomh.";
+"Show apps with no open window" = "Taispeáin aipeanna gan aon fhuinneog oscailte";
 "Show at the end" = "Taispeáin ag an deireadh";
 "Show fullscreen windows" = "Taispeáin fuinneoga lánscáileáin";
 "Show hidden windows" = "Taispeáin fuinneoga ceilte";

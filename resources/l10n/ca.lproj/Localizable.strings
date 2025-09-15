@@ -125,6 +125,7 @@
 "Mouse hover" = "En passar el cursor";
 "Multiple screens" = "Múltiples pantalles";
 "Never send crash reports" = "No enviar mai";
+"Non-active apps" = "Apps inactives";
 "Normal" = "Normal";
 "Not allowed" = "No permès";
 "NSHumanReadableCopyright" = "Llicència GPL-3.0";
@@ -178,6 +179,7 @@
 "Show" = "Mostrar";
 "Show & Hide" = "Elements mostrats";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Mostrar element al selector per a cada finestra o per a cada aplicació. Les finestres estaran seleccionades, mentre que les aplicacions estaran actives.";
+"Show apps with no open window" = "Mostrar apps sense finestres obertes";
 "Show at the end" = "Mostrar al final";
 "Show fullscreen windows" = "Mostra finestres a pantalla completa";
 "Show hidden windows" = "Mostrar finestres ocultes";

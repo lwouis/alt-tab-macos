@@ -122,7 +122,9 @@
 		BF0C863526C260F4155F9D2C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C852BFEEFB55B6E4EF18D /* Localizable.strings */; };
 		BF0C8658CC748011E57691B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C84F4B25A7C26A88ADE92 /* Localizable.strings */; };
 		BF0C865E3C3F3B353A7A7CBC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C86FFF1C801761B7CE363 /* Localizable.strings */; };
+		BF0C8668A861AD9E42D26842 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C833142DB4D7FFAB5A693 /* InfoPlist.strings */; };
 		BF0C866DE5D740AF7756CDCF /* ImageScalingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C854910CCD4FB493C3A5D /* ImageScalingTests.swift */; };
+		BF0C86B26D16AFC588C88DB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C824B8E96CBEA7A757FC3 /* Localizable.strings */; };
 		BF0C86BB79E417163E813179 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C80851C26EDB3DB98556C /* InfoPlist.strings */; };
 		BF0C875A28B98904F8F4A66A /* ATShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8BA452332236D972C60E /* ATShortcut.swift */; };
 		BF0C87732A6E660899D13BFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C886B1D6E707E9E6BE46C /* InfoPlist.strings */; };
@@ -432,6 +434,7 @@
 		BF0C888D912E73D88919899A /* uk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = uk; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C889529FF19620EDAC295 /* accessibility@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accessibility@2x.png"; sourceTree = "<group>"; };
 		BF0C8898ADB2A1B49312E87B /* cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = cs; path = InfoPlist.strings; sourceTree = "<group>"; };
+		BF0C88B52EDB82E1CCA1468A /* zh-hk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-hk"; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C88BF67CF4D71002A60EB /* menubar-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar-0@2x.png"; sourceTree = "<group>"; };
 		BF0C88C4940CA76FA801B881 /* preferences-appearance-details.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-appearance-details.jpg"; sourceTree = "<group>"; };
 		BF0C890AF36F3EFD5CC4D114 /* bg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = bg; path = Localizable.strings; sourceTree = "<group>"; };
@@ -505,6 +508,7 @@
 		BF0C8EC400A560FDF99F8C35 /* el */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = el; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8EE17F3ABD7A6D44BFFE /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesMigrations.swift; sourceTree = "<group>"; };
+		BF0C8FB9777EE9BE74EF542B /* zh-hk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-hk"; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8FC083A2443F3EAF5DB7 /* preferences-blacklist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-blacklist.jpg"; sourceTree = "<group>"; };
 		BF0C8FEE46E9A73F617EF679 /* gu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = gu; path = Localizable.strings; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1231,6 +1235,15 @@
 			path = assets;
 			sourceTree = "<group>";
 		};
+		BF0C8FCE296B077BE38472F9 /* zh-hk.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				BF0C824B8E96CBEA7A757FC3 /* Localizable.strings */,
+				BF0C833142DB4D7FFAB5A693 /* InfoPlist.strings */,
+			);
+			path = "zh-hk.lproj";
+			sourceTree = "<group>";
+		};
 		BF0C8FD80F721FEF69D609F2 /* bn.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -1832,6 +1845,7 @@
 				BF0C83AC6CE3D97E3B497C32 /* jv.lproj */,
 				BF0C85419FC7DC4CE275FA40 /* lt.lproj */,
 				BF0C8423ED9D50604AACF184 /* gu.lproj */,
+				BF0C8FCE296B077BE38472F9 /* zh-hk.lproj */,
 			);
 			path = l10n;
 			sourceTree = "<group>";
@@ -2001,6 +2015,7 @@
 				jv,
 				lt,
 				gu,
+				"zh-HK",
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
@@ -2197,6 +2212,8 @@
 				BF0C8CE3AE04A98400B9962F /* InfoPlist.strings in Resources */,
 				BF0C8610E3416890DED16C36 /* Localizable.strings in Resources */,
 				BF0C827C61136E83F43C6436 /* InfoPlist.strings in Resources */,
+				BF0C86B26D16AFC588C88DB4 /* Localizable.strings in Resources */,
+				BF0C8668A861AD9E42D26842 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2511,6 +2528,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		BF0C824B8E96CBEA7A757FC3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF0C8FB9777EE9BE74EF542B /* zh-hk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		BF0C82992C31AA542EF9E638 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2555,6 +2580,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				BF0C8E94CDFB672663333546 /* lt */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BF0C833142DB4D7FFAB5A693 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF0C88B52EDB82E1CCA1468A /* zh-hk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

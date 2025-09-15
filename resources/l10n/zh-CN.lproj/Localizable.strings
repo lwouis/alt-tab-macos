@@ -125,6 +125,7 @@
 "Mouse hover" = "鼠标悬停";
 "Multiple screens" = "多个屏幕";
 "Never send crash reports" = "从不发送崩溃报告";
+"Non-active apps" = "非活跃应用";
 "Normal" = "正常";
 "Not allowed" = "未允许";
 "NSHumanReadableCopyright" = "GPL-3.0 协议";
@@ -178,6 +179,7 @@
 "Show" = "显示";
 "Show & Hide" = "显示与隐藏";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "在窗口切换器中，把每个窗口或应用程序显示为一个项目。窗口将会被聚焦，而应用程序将会被激活。";
+"Show apps with no open window" = "显示没有打开窗口的应用";
 "Show at the end" = "在最后显示";
 "Show fullscreen windows" = "显示全屏窗口";
 "Show hidden windows" = "显示隐藏的窗口";

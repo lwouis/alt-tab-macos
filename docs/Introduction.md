@@ -33,7 +33,7 @@ Alternative Styles
 
 ## Localization
 
-AltTab is available in many languages: Bahasa Indonesia, Basa Jawa, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Gaeilge, Galego, Hrvatski, Italiano, Kurdî, Lietuvių kalba, Limba română, Lëtzebuergesch, Magyar, Nederlands, Norsk Bokmål, Norsk Nynorsk, Oʻzbekcha, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Íslenska, Čeština, Ελληνικά, Български, Русский, Српски / Srpski, Українська, עִבְרִית, العربية, فارسی, हिन्दी, বাংলা, ગુજરાતી, தமிழ், ಕನ್ನಡ, മലയാളം, ภาษาไทย, 日本語, 简体中文, 繁體中文, 한국어
+AltTab is available in many languages: Bahasa Indonesia, Basa Jawa, Català, Čeština, Dansk, Deutsch, Eesti keel, English, Español, Français, Gaeilge, Galego, Hrvatski, Íslenska, Italiano, Kurdî, Lietuvių, Lëtzebuergesch, Magyar, Nederlands, Norsk Bokmål, Norsk Nynorsk, Oʻzbekcha, Polski, Português, Português (Brasil), Română, Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Български, Русский, Српски, Українська, Ελληνικά, עִבְרִית, العربية, فارسی, हिन्दी, বাংলা, ગુજરાતી, தமிழ், ಕನ್ನಡ, മലയാളം, ภาษาไทย, 日本語, 简体中文, 繁體中文, 繁體中文 (香港), 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 

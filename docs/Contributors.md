@@ -70,10 +70,12 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * bluefirex
 * bovirus
 * Bruno Norrå
+* Bufo
 * BV Joshi
 * caduellery
 * Caner İlhan
 * catcore
+* changanmoon
 * Christian Keilmann
 * Chun Fei Lung
 * codecantata
@@ -93,6 +95,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * EDUARDO
 * Eimantas
 * Eliezer Shpigelman
+* Emir H. KAYNAK
 * EP45
 * Eric WANTZ
 * Ersagun Kuruca
@@ -188,6 +191,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Milos M
 * Mohammad Al Zouabi
 * mohma
+* Mohsin Rahman
 * Mr. axel. bock
 * mrtbts
 * MuDraconis
@@ -234,6 +238,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Sebastian
 * Selcuk Dursun
 * Sergey
+* Serhii Alekseev
 * Seyedparsa Mirtaheri
 * Shameem Reza
 * SheNeVmerla
