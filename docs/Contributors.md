@@ -163,6 +163,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Lakshman Kolappan
 * Lasse Mattila
 * Lcwhhh
+* Leo
 * Lester
 * Logan Boissy
 * Loic. peron
