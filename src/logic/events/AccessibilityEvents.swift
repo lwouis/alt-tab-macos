@@ -5,7 +5,7 @@ import ApplicationServices.HIServices.AXNotificationConstants
 let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
     let type = notificationName as String
     Logger.debug(type)
-    AXUIElement.retryAxCallUntilTimeout { try handleEvent(type, element) }
+    AXUIElement.retryAxCallUntilTimeout(callType: .axEventEntrypoint) { try handleEvent(type, element) }
 }
 
 fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
@@ -100,7 +100,7 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                 if let windows = Windows.updateLastFocus(element, wid) {
                     App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
                 } else {
-                    AXUIElement.retryAxCallUntilTimeout(context: "wid:\(wid) pid:\(pid)", pid: pid) {
+                    AXUIElement.retryAxCallUntilTimeout(context: "wid:\(wid) pid:\(pid)", pid: pid, callType: .updateWindow) {
                         if let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
                             let position = try element.position()
                             let size = try element.size()
@@ -156,7 +156,7 @@ fileprivate func windowMiniaturizedOrDeminiaturized(_ element: AXUIElement, _ ty
 
 fileprivate func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws {
     let wid = try element.cgWindowId()
-    AXUIElement.retryAxCallUntilTimeout(context: "\(wid)", debounceType: .windowTitleChanged, pid: pid, wid: wid) {
+    AXUIElement.retryAxCallUntilTimeout(context: "\(wid)", debounceType: .windowTitleChanged, pid: pid, wid: wid, callType: .updateWindow) {
         if let (title, _, _, isMinimized, isFullscreen) = try element.windowAttributes() {
             DispatchQueue.main.async {
                 if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), title != window.title {
@@ -172,7 +172,7 @@ fileprivate func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws
 
 fileprivate func windowResizedOrMoved(_ element: AXUIElement, _ pid: pid_t) throws {
     let wid = try element.cgWindowId()
-    AXUIElement.retryAxCallUntilTimeout(context: "\(wid)", debounceType: .windowResizedOrMoved, pid: pid, wid: wid) {
+    AXUIElement.retryAxCallUntilTimeout(context: "\(wid)", debounceType: .windowResizedOrMoved, pid: pid, wid: wid, callType: .updateWindow) {
         try updateWindowSizeAndPositionAndFullscreen(element, wid, nil)
     }
 }

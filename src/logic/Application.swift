@@ -21,6 +21,15 @@ class Application: NSObject {
     var alreadyRequestedToQuit = false
     var debugId: String { "(pid:\(String(describing: pid)) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil"))" }
 
+    static let notifications = [
+        kAXApplicationActivatedNotification,
+        kAXMainWindowChangedNotification,
+        kAXFocusedWindowChangedNotification,
+        kAXWindowCreatedNotification,
+        kAXApplicationHiddenNotification,
+        kAXApplicationShownNotification,
+    ]
+
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         pid = runningApplication.processIdentifier
@@ -61,15 +70,19 @@ class Application: NSObject {
     }
 
     func observeEventsIfEligible() {
-        if runningApplication.activationPolicy != .prohibited && axUiElement == nil {
-            axUiElement = AXUIElementCreateApplication(pid)
-            AXObserverCreate(pid, axObserverCallback, &axObserver)
+        if runningApplication.activationPolicy != .prohibited && !isReallyFinishedLaunching {
+            if axUiElement == nil {
+                axUiElement = AXUIElementCreateApplication(pid)
+            }
+            if axObserver == nil {
+                AXObserverCreate(pid, axObserverCallback, &axObserver)
+            }
             observeEvents()
         }
     }
 
     func manuallyUpdateWindows() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .updateAppWindows) { [weak self] in
             guard let self else { return }
             var atLeastOneActualWindow = false
             guard let axWindows = try self.axUiElement?.allWindows(self.pid) else { return }
@@ -163,29 +176,23 @@ class Application: NSObject {
 
     private func observeEvents() {
         guard let axObserver else { return }
-        for notification in [
-            kAXApplicationActivatedNotification,
-            kAXMainWindowChangedNotification,
-            kAXFocusedWindowChangedNotification,
-            kAXWindowCreatedNotification,
-            kAXApplicationHiddenNotification,
-            kAXApplicationShownNotification,
-        ] {
-            AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid) { [weak self] in
-                guard let self else { return }
-                if try self.axUiElement!.subscribeToNotification(axObserver, notification) {
-                    if notification == kAXApplicationActivatedNotification {
-                        Logger.debug("Subscribed to app", self.debugId)
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .subscribeToAppNotification) { [weak self] in
+            guard let self else { return }
+            if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
+                Logger.debug("Subscribed to app", self.debugId)
+                for notification in Application.notifications.dropFirst() {
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
+                        try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                     }
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self else { return }
-                        // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
-                        // we consider them ready when the first subscription succeeds
-                        // windows opened before that point won't send a notification, so check those windows manually here
-                        if !self.isReallyFinishedLaunching {
-                            self.isReallyFinishedLaunching = true
-                            self.manuallyUpdateWindows()
-                        }
+                }
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
+                    // we consider them ready when the first subscription succeeds
+                    // windows opened before that point won't send a notification, so check those windows manually here
+                    if !self.isReallyFinishedLaunching {
+                        self.isReallyFinishedLaunching = true
+                        self.manuallyUpdateWindows()
                     }
                 }
             }

@@ -63,7 +63,7 @@ class Applications {
 
     static func refreshBadgesAsync() {
         if !App.app.appIsBeingUsed || Preferences.hideAppBadges { return }
-        AXUIElement.retryAxCallUntilTimeout {
+        AXUIElement.retryAxCallUntilTimeout(callType: .updateDockBadges) {
             if let dockPid = (list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid),
                let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == kAXListRole }),
                let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == kAXApplicationDockItemSubrole && ($0.appIsRunning() ?? false) }) {

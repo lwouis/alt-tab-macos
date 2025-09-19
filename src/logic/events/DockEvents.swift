@@ -10,7 +10,7 @@ class DockEvents {
             AXObserverCreate(dockPid, handleEvent, &axObserver)
             // are we sure we always get a non-nil axObserver?
             for notification in MissionControlState.allCases {
-                AXUIElement.retryAxCallUntilTimeout {
+                AXUIElement.retryAxCallUntilTimeout(callType: .subscribeToDockNotification) {
                     if try axUiElement!.subscribeToNotification(axObserver!, notification.rawValue, nil) {
                         if notification == MissionControlState.showDesktop {
                             Logger.debug("Subscribed to Dock")

@@ -48,6 +48,9 @@ class Window {
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
         application.removeWindowslessAppWindow()
+        // the app may have timed out trying to subscribe to app notifications
+        // It may be responsive now since it has a window; we attempt again
+        application.observeEventsIfEligible()
         checkIfFocused(application, wid)
         Logger.debug(debugId)
         observeEvents()
@@ -68,7 +71,7 @@ class Window {
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
     /// workaround: we check and possibly do it here
     func checkIfFocused(_ application: Application, _ wid: CGWindowID) {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid) {
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .updateWindow) {
             let focusedWid = try application.axUiElement?.focusedWindow()?.cgWindowId()
             if wid == focusedWid {
                 application.focusedWindow = self
@@ -85,12 +88,13 @@ class Window {
     private func observeEvents() {
         AXObserverCreate(application.pid, axObserverCallback, &axObserver)
         guard let axObserver else { return }
-        for notification in Window.notifications {
-            AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid) { [weak self] in
-                guard let self else { return }
-                if try self.axUiElement!.subscribeToNotification(axObserver, notification) {
-                    if notification == kAXUIElementDestroyedNotification {
-                        Logger.debug("Subscribed to window", self.debugId)
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+            guard let self else { return }
+            if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!) {
+                Logger.debug("Subscribed to window", self.debugId)
+                for notification in Window.notifications.dropFirst() {
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+                        try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                     }
                 }
             }

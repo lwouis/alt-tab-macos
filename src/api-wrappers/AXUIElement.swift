@@ -21,9 +21,19 @@ extension AXUIElement {
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), globalMessagingTimeoutInSeconds)
     }
 
+    enum AXCallType {
+        case subscribeToAppNotification
+        case subscribeToWindowNotification
+        case subscribeToDockNotification
+        case updateWindow
+        case updateAppWindows
+        case updateDockBadges
+        case axEventEntrypoint
+    }
+
     /// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
-    static func retryAxCallUntilTimeout(file: String = #file, function: String = #function, line: Int = #line, context: String = "", after: DispatchTime? = nil, debounceType: DebounceType? = nil, pid: pid_t? = nil, wid: CGWindowID? = nil, retriesQueue: Bool = false, startTimeInNanoseconds: UInt64 = DispatchTime.now().uptimeNanoseconds, block: @escaping () throws -> Void) {
-        let closure = { retryAxCallUntilTimeout_(file: file, function: function, line: line, context: context, after: after, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: retriesQueue, startTimeInNanoseconds: startTimeInNanoseconds, block: block) }
+    static func retryAxCallUntilTimeout(file: String = #file, function: String = #function, line: Int = #line, context: String = "", after: DispatchTime? = nil, debounceType: DebounceType? = nil, pid: pid_t? = nil, wid: CGWindowID? = nil, retriesQueue: Bool = false, startTimeInNanoseconds: UInt64 = DispatchTime.now().uptimeNanoseconds, callType: AXCallType, block: @escaping () throws -> Void) {
+        let closure = { retryAxCallUntilTimeout_(file: file, function: function, line: line, context: context, after: after, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: retriesQueue, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block) }
         let queue = retriesQueue ? BackgroundWork.axCallsRetriesQueue : BackgroundWork.axCallsFirstAttemptQueue
         if let after {
             queue!.addOperationAfter(deadline: after, block: closure)
@@ -45,13 +55,14 @@ extension AXUIElement {
         }
     }
 
-    private static func retryAxCallUntilTimeout_(file: String, function: String, line: Int, context: String, after: DispatchTime?, debounceType: DebounceType?, pid: pid_t?, wid: CGWindowID?, retriesQueue: Bool, startTimeInNanoseconds: UInt64, block: @escaping () throws -> Void) {
+    private static func retryAxCallUntilTimeout_(file: String, function: String, line: Int, context: String, after: DispatchTime?, debounceType: DebounceType?, pid: pid_t?, wid: CGWindowID?, retriesQueue: Bool, startTimeInNanoseconds: UInt64, callType: AXCallType, block: @escaping () throws -> Void) {
         // attempt the AX call
         if (try? block()) != nil {
             return
         }
-        // do we already have ongoing retries for this pid?
-        if let pid {
+        // do we already have ongoing retries for this pid? The app is likely unresponsive
+        // if their are common updates, we avoid congestion by only retrying the latest update
+        if let pid, callType == .updateWindow || callType == .updateAppWindows {
             axCallsRetriesQueueUnresponsiveAppsMap.lock.lock()
             let time = axCallsRetriesQueueUnresponsiveAppsMap.map[pid]
             axCallsRetriesQueueUnresponsiveAppsMap.lock.unlock()
@@ -81,7 +92,7 @@ extension AXUIElement {
         }
         // retry
         Logger.info(logFromContext(file, function, line, context))
-        retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + humanPerceptionDelay, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, block: block)
+        retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + humanPerceptionDelay, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block)
     }
 
     private static func logFromContext(_ file: String, _ function: String, _ line: Int, _ context: String) -> String {
