@@ -1,5 +1,17 @@
 # Release notes
 
+# [7.29.0](https://github.com/lwouis/alt-tab-macos/compare/v7.28.0...v7.29.0) (2025-09-20)
+
+
+### Bug Fixes
+
+* windows order was not updating correctly (closes [#4754](https://github.com/lwouis/alt-tab-macos/issues/4754)) ([1316eb2](https://github.com/lwouis/alt-tab-macos/commit/1316eb2))
+
+
+### Features
+
+* improve fr/ja languages ([c5286c3](https://github.com/lwouis/alt-tab-macos/commit/c5286c3))
+
 # [7.28.0](https://github.com/lwouis/alt-tab-macos/compare/v7.27.0...v7.28.0) (2025-09-15)
 
 
