@@ -35,6 +35,7 @@ They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/con
 They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 
 * 73
+* A
 * Aamirsuleman
 * Aarni Koskela
 * Abdulelah
@@ -69,7 +70,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * blanorama
 * bluefirex
 * bovirus
-* Bruno Norrå
 * Bufo
 * BV Joshi
 * caduellery
@@ -161,6 +161,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Kushnee5
 * Kuuchi
 * Lakshman Kolappan
+* Lars
 * Lasse Mattila
 * Lcwhhh
 * Leo

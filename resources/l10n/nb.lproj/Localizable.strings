@@ -1,7 +1,7 @@
 "About" = "Om";
 "About %@" = "Om %@";
 "Accessibility" = "Tilgjengelighet";
-"Acknowledgments" = "Anerkjennelser";
+"Acknowledgments" = "Bidragsytere";
 "Active app" = "Aktiv app";
 "Active screen" = "Aktiv skjerm";
 "Active Space" = "Aktivt område";
@@ -12,7 +12,7 @@
 "Align windows" = "Juster vindusplassering";
 "Align windows:" = "Juster vindusplassering:";
 "All apps" = "Alle apper";
-"All data from this form will be made public, as a ticket on github.com" = "Alle data fra dette skjema vil bli offentlig, som en ticket på github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Alle data fra dette skjemaet vil bli offentlig, som en ticket på github.com";
 "All screens" = "Alle skjermer";
 "All Spaces" = "Alle områder";
 "Allowed" = "Tillatt";
@@ -28,8 +28,8 @@
 "Always send crash reports" = "Send alltid krasjrapporter";
 "and press" = "og trykk";
 "and press:" = "og trykk:";
-"Animations" = "Animations";
-"Animations…" = "Animations…";
+"Animations" = "Animasjoner";
+"Animations…" = "Animasjoner…";
 "App (BundleID starting with)" = "App (BundleId starter med)";
 "App Icons" = "App-ikoner";
 "App is hidden" = "App er skjult";
@@ -44,7 +44,7 @@
 "Are you sure you don’t want a response?" = "Er du sikker på at du ikke vil ha en tilbakemelding?";
 "Arrow keys" = "Piltaster";
 "Ask whether to send crash reports" = "Spør om det skal sendes krasjrapporter";
-"Auto-install updates periodically" = "Installér jevnlige oppdateringer automatisk";
+"Auto-install updates periodically" = "Installer oppdateringer automatisk";
 "Blacklists" = "Svartelister";
 "Cancel" = "Avbryt";
 "Cancel and hide" = "Avbryt og skjul";
@@ -54,7 +54,7 @@
 "Check for updates…" = "Se etter oppdateringer…";
 "Check permissions…" = "Sjekk tillatelsene…";
 "Close window" = "Lukk vindu";
-"Conflicting shortcut" = "Motstridende snarvei";
+"Conflicting shortcut" = "Motstridende hurtigtast";
 "Controls" = "Kontroller";
 "Crash reports policy" = "Krasjrapportpolicy";
 "Crash reports policy:" = "Krasjrapportpolicy:";
@@ -111,7 +111,7 @@
 "Latest releases" = "Siste versjoner";
 "Leading" = "Venstrejustert";
 "Left" = "Venstre";
-"Light" = "Light";
+"Light" = "Lys";
 "Max height on screen:" = "Maks høyde på skjerm:";
 "Max width on screen:" = "Maks bredde på skjerm:";
 "Medium" = "Middels";
@@ -125,6 +125,7 @@
 "Mouse hover" = "Holde musa over";
 "Multiple screens" = "Flere skjermer";
 "Never send crash reports" = "Send aldri krasjrapporter";
+"Non-active apps" = "Ikke-aktive apper";
 "Normal" = "Normal";
 "Not allowed" = "Ikke tillatt";
 "NSHumanReadableCopyright" = "GPL-3.0-lisens";
@@ -133,12 +134,12 @@
 "Open Screen Recording Preferences…" = "Åpne skjermopptaksinnstillinger…";
 "Open Trackpad Preferences…" = "Åpne styreflateinnstillinger";
 "Optional: email (if you want a reply)" = "Valgfritt: e-post (hvis du ønsker svar)";
-"Order windows by" = "Vis vinduer etter";
+"Order windows by" = "Sorter vinduer";
 "Policies" = "Policyer";
 "Preferences…" = "Valg…";
 "Preview selected window" = "Forhåndsvis valgt vindu";
 "Preview selected window:" = "Forhåndsvis valgt vindu:";
-"Preview the selected window." = "Preview the selected window.";
+"Preview the selected window." = "Forhåndsvis det valgte vinduet.";
 "Quit" = "Avslutt";
 "Quit %@" = "Avslutt %@";
 "Quit app" = "Avslutt app";
@@ -157,7 +158,7 @@
 "Screen showing AltTab" = "Skjerm som viser AltTab";
 "Select next window" = "Velg neste vindu";
 "Select previous window" = "Velg forrige vindu";
-"Select windows on mouse hover" = "Velg vinduer når muspekere er over dem";
+"Select windows on mouse hover" = "Velg vinduer når muspekeren er over dem";
 "Select windows using arrow keys" = "Velg vinduer med piltaster";
 "Select windows using vim keys" = "Velg vinduer med vim-taster";
 "Send" = "Send";
@@ -178,6 +179,7 @@
 "Show" = "Vis";
 "Show & Hide" = "Vis & skjul";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Vis oppføring i switcher for hvert vindu, eller for hver applikasjon. Vinduer vil få fokus, mens applikasjoner vil bli aktivert.";
+"Show apps with no open window" = "Vis apper uten åpne vinduer";
 "Show at the end" = "Vis på slutten";
 "Show fullscreen windows" = "Vis fullskjermvinduer";
 "Show hidden windows" = "Vis skjulte vinduer";
@@ -212,8 +214,8 @@
 "Theme" = "Tema";
 "Theme:" = "Tema:";
 "Then release:" = "Så slipp:";
-"This permission is needed to focus windows after you release the shortcut" = "Denne tillatelsen er nødvendig for å kunne fokusere på vindu når du slipper hurtigtasten";
-"This permission is needed to show screenshots and titles of open windows" = "Denne tillatelsen er nødvendig for å kunne vise skjermbilde og tittel på åpne vinduer";
+"This permission is needed to focus windows after you release the shortcut" = "Denne tillatelsen er nødvendig for å fokusere på vindu når du slipper hurtigtasten";
+"This permission is needed to show screenshots and titles of open windows" = "Denne tillatelsen er nødvendig for å vise skjermbilde og tittel på åpne vinduer";
 "This permission is needed to show thumbnails and preview of open windows" = "Denne tillatelsen er nødvendig for å vise miniatyrbilder og forhåndsvisninger av åpne vinduer";
 "Thumbnails" = "Miniatyrbilder";
 "Title" = "Tittel";
