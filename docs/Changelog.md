@@ -1,5 +1,17 @@
 # Release notes
 
+# [7.30.0](https://github.com/lwouis/alt-tab-macos/compare/v7.29.0...v7.30.0) (2025-09-23)
+
+
+### Bug Fixes
+
+* bring back pre-v7.28 performance (closes [#4805](https://github.com/lwouis/alt-tab-macos/issues/4805)) ([fb6110d](https://github.com/lwouis/alt-tab-macos/commit/fb6110d))
+
+
+### Features
+
+* improve nb/nl/zh-tw localizations ([a9cb03c](https://github.com/lwouis/alt-tab-macos/commit/a9cb03c))
+
 # [7.29.0](https://github.com/lwouis/alt-tab-macos/compare/v7.28.0...v7.29.0) (2025-09-20)
 
 
