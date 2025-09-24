@@ -83,9 +83,9 @@ class Application: NSObject {
 
     func manuallyUpdateWindows() {
         AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .updateAppWindows) { [weak self] in
-            guard let self else { return }
+            guard let self, let axUiElement = self.axUiElement else { return }
             var atLeastOneActualWindow = false
-            guard let axWindows = try self.axUiElement?.allWindows(self.pid) else { return }
+            let axWindows = try axUiElement.allWindows(self.pid)
             for axWindow in axWindows {
                 let wid = try axWindow.cgWindowId()
                 if let (title, role, subrole, isMinimized, isFullscreen) = try axWindow.windowAttributes() {
@@ -121,8 +121,8 @@ class Application: NSObject {
                 // initial windows don't trigger a windowCreated notification, so we won't get notified
                 // it's very unlikely an app would launch with no initial window
                 // so we retry until timeout, in those rare cases (e.g. Bear.app)
-                // we only do this for active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
-                if self.runningApplication.isActive {
+                // we only do this for regular, active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
+                if self.runningApplication.isActive && self.runningApplication.activationPolicy == .regular {
                     throw AxError.runtimeError
                 }
             }
