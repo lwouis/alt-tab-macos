@@ -13,7 +13,7 @@ extension AXUIElement {
     // if an app times out our AX calls, we retry for 6s then give up
     private static let axCallsRetriesQueueTimeoutInSeconds = Float(6)
     // once an app is unresponsive, let's ignore other AX calls for it to avoid congestion
-    private static var axCallsRetriesQueueUnresponsiveAppsMap = ConcurrentMap<pid_t, UInt64>()
+    private static var axCallsRetriesQueueUnresponsiveAppsMap = ConcurrentMap<String, UInt64>()
     // some events like window resizing trigger in quick succession. We debounce those
     private static var eventsDebounceMap = ConcurrentMap<String, DispatchWorkItem>()
 
@@ -21,7 +21,7 @@ extension AXUIElement {
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), globalMessagingTimeoutInSeconds)
     }
 
-    enum AXCallType {
+    enum AXCallType: Int {
         case subscribeToAppNotification
         case subscribeToWindowNotification
         case subscribeToDockNotification
@@ -34,7 +34,7 @@ extension AXUIElement {
     /// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
     static func retryAxCallUntilTimeout(file: String = #file, function: String = #function, line: Int = #line, context: String = "", after: DispatchTime? = nil, debounceType: DebounceType? = nil, pid: pid_t? = nil, wid: CGWindowID? = nil, retriesQueue: Bool = false, startTimeInNanoseconds: UInt64 = DispatchTime.now().uptimeNanoseconds, callType: AXCallType, block: @escaping () throws -> Void) {
         let closure = { retryAxCallUntilTimeout_(file: file, function: function, line: line, context: context, after: after, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: retriesQueue, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block) }
-        let queue = retriesQueue ? BackgroundWork.axCallsRetriesQueue : BackgroundWork.axCallsFirstAttemptQueue
+        let queue = callType == .updateAppWindows ? BackgroundWork.axCallsManualDiscoveryQueue : (retriesQueue ? BackgroundWork.axCallsRetriesQueue : BackgroundWork.axCallsFirstAttemptQueue)
         if let after {
             queue!.addOperationAfter(deadline: after, block: closure)
         } else if let debounceType, let wid {
@@ -63,13 +63,14 @@ extension AXUIElement {
         // do we already have ongoing retries for this pid? The app is likely unresponsive
         // if their are common updates, we avoid congestion by only retrying the latest update
         if let pid, callType == .updateWindow || callType == .updateAppWindows {
+            let unresponsiveAppsMapKey = "\(callType.rawValue)\(pid)"
             axCallsRetriesQueueUnresponsiveAppsMap.lock.lock()
-            let time = axCallsRetriesQueueUnresponsiveAppsMap.map[pid]
+            let time = axCallsRetriesQueueUnresponsiveAppsMap.map[unresponsiveAppsMapKey]
             axCallsRetriesQueueUnresponsiveAppsMap.lock.unlock()
             if let time {
                 if startTimeInNanoseconds > time {
                     // new most recent call; replace and retry
-                    axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0[pid] = startTimeInNanoseconds }
+                    axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0[unresponsiveAppsMapKey] = startTimeInNanoseconds }
                 } else if startTimeInNanoseconds == time {
                     // most recent call; retry
                 } else {
@@ -78,15 +79,16 @@ extension AXUIElement {
                 }
             } else {
                 // first call; set and retry
-                axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0[pid] = startTimeInNanoseconds }
+                axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0[unresponsiveAppsMapKey] = startTimeInNanoseconds }
             }
         }
         // should we give up?
         let timePassedInSeconds = Float(DispatchTime.now().uptimeNanoseconds - startTimeInNanoseconds) / 1_000_000_000
         if timePassedInSeconds >= axCallsRetriesQueueTimeoutInSeconds {
             Logger.info("AX call failed for more than \(Int(axCallsRetriesQueueTimeoutInSeconds))s. Giving up on it", logFromContext(file, function, line, context))
-            if let pid {
-                axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0.removeValue(forKey: pid) }
+            if let pid, callType == .updateWindow || callType == .updateAppWindows {
+                let unresponsiveAppsMapKey = "\(callType.rawValue)\(pid)"
+                axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0.removeValue(forKey: unresponsiveAppsMapKey) }
             }
             return
         }
@@ -254,12 +256,17 @@ extension AXUIElement {
         remoteToken.replaceSubrange(8..<12, with: withUnsafeBytes(of: Int32(0x636f636f)) { Data($0) })
         var axWindows = [AXUIElement]()
         // we iterate to 1000 as a tradeoff between performance, and missing windows of long-lived processes
+        // different apps can take widely different time for this to complete. We stop iterating if we time out
+        let timer = LightweightTimer()
         for axUiElementId: AXUIElementID in 0..<1000 {
             remoteToken.replaceSubrange(12..<20, with: withUnsafeBytes(of: axUiElementId) { Data($0) })
             if let axUiElement = _AXUIElementCreateWithRemoteToken(remoteToken as CFData)?.takeRetainedValue(),
                let subrole = try? axUiElement.subrole(),
                [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) {
                 axWindows.append(axUiElement)
+            }
+            if timer.hasElapsed(milliseconds: 100) {
+                return axWindows
             }
         }
         return axWindows
@@ -474,8 +481,8 @@ enum AxError: Error {
 typealias AXUIElementID = UInt64
 
 enum DebounceType: Int {
-    case windowResizedOrMoved = 0
-    case windowTitleChanged = 1
+    case windowResizedOrMoved
+    case windowTitleChanged
 }
 
 class ConcurrentMap<K: Hashable, V> {

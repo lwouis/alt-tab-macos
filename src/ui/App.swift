@@ -239,6 +239,7 @@ class App: AppCenterApplication {
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             NSScreen.updatePreferred()
+            Applications.manuallyRefreshAllWindows()
             if isVeryFirstSummon {
                 Windows.sortByLevel()
                 isVeryFirstSummon = false

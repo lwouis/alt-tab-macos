@@ -7,6 +7,7 @@ class BackgroundWork {
     static var accessibilityCommandsQueue: LabeledOperationQueue!
     static var axCallsFirstAttemptQueue: LabeledOperationQueue!
     static var axCallsRetriesQueue: LabeledOperationQueue!
+    static var axCallsManualDiscoveryQueue: LabeledOperationQueue!
     static var crashReportsQueue: LabeledOperationQueue!
     // we use Threads to observe events in sequence
     static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
@@ -19,9 +20,6 @@ class BackgroundWork {
     private static var totalPotentialThreadCount = 0
 
     static func start() {
-        // screenshots are taken on a serial DispatchQueue. They used to be taken on the .global() concurrent queue.
-        // it could hang the app since the screenshot OS calls are slow. It would hang or crash with this error:
-        // >Processes reached dispatch thread soft limit (64)
         screenshotsQueue = LabeledOperationQueue("screenshotsQueue", .userInteractive, 8)
         // calls to focus/close/minimize/etc windows
         // They are tried once and if they timeout we don't retry. The OS seems to still execute them even if the call timed out
@@ -30,6 +28,8 @@ class BackgroundWork {
         // We first try the AX calls on axCallsFirstAttemptQueue. If we get a timeout, we move to axCallsRetriesQueue and retry there for a while
         axCallsFirstAttemptQueue = LabeledOperationQueue("axCallsFirstAttemptQueue", .userInteractive, 8)
         axCallsRetriesQueue = LabeledOperationQueue("axCallsRetriesQueue", .userInteractive, 8)
+        // we separate calls to manuallyUpdateWindows since those can be very heavy and numerous
+        axCallsManualDiscoveryQueue = LabeledOperationQueue("axCallsManualDiscoveryQueue", .userInteractive, 8)
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
         // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
@@ -58,7 +58,7 @@ class BackgroundWork {
     static func addPotentialThreadCount(_ additionalCount: Int) {
         totalPotentialThreadCount += additionalCount
         // a macos process has a soft limit of 64 threads. We need to be careful to don't spawn too many threads through DispatchQueues
-        assert(totalPotentialThreadCount <= 36)
+        assert(totalPotentialThreadCount <= 43)
     }
 
     // useful during development to inspect how many threads are used by AltTab

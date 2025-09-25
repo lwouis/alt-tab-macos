@@ -177,22 +177,21 @@ class Application: NSObject {
     private func observeEvents() {
         guard let axObserver else { return }
         AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .subscribeToAppNotification) { [weak self] in
-            guard let self else { return }
+            guard let self, !self.isReallyFinishedLaunching else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
                 Logger.debug("Subscribed to app", self.debugId)
-                for notification in Application.notifications.dropFirst() {
-                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
-                        try self?.axUiElement!.subscribeToNotification(axObserver, notification)
-                    }
-                }
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
+                if !self.isReallyFinishedLaunching {
                     // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
                     // we consider them ready when the first subscription succeeds
                     // windows opened before that point won't send a notification, so check those windows manually here
-                    if !self.isReallyFinishedLaunching {
-                        self.isReallyFinishedLaunching = true
-                        self.manuallyUpdateWindows()
+                    self.isReallyFinishedLaunching = true
+                    for notification in Application.notifications.dropFirst() {
+                        AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
+                            try self?.axUiElement!.subscribeToNotification(axObserver, notification)
+                        }
+                    }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.manuallyUpdateWindows()
                     }
                 }
             }
