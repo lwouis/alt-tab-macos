@@ -9,6 +9,7 @@ class RunningApplicationsEvents {
         appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: handleEvent)
     }
 
+    @Sendable
     private static func handleEvent<A>(_: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
         let workspaceApps = Set(NSWorkspace.shared.runningApplications)
         let added = workspaceApps.subtracting(previousValueOfRunningApps)

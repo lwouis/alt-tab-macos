@@ -140,7 +140,7 @@ class BackgroundWork {
         }
     }
 
-    class LabeledOperationQueue: OperationQueue {
+    class LabeledOperationQueue: OperationQueue, @unchecked Sendable {
         private let strongUnderlyingQueue: DispatchQueue
 
         init(_ label: String, _ qos: DispatchQoS, _ maxConcurrentOperationCount: Int) {

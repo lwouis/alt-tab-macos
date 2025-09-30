@@ -294,6 +294,18 @@ enum ScreensToShowPreference: CaseIterable, MacroPreference {
     }
 }
 
+enum WindowTabsShowPreference: CaseIterable, MacroPreference {
+    case always
+    case never
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .always: return NSLocalizedString("Always", comment: "")
+            case .never: return NSLocalizedString("Never", comment: "")
+        }
+    }
+}
+
 enum ShowOnScreenPreference: CaseIterable, MacroPreference {
     case active
     case includingMouse

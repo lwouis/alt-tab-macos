@@ -373,7 +373,7 @@ class Windows {
                 !(!(Preferences.showMinimizedWindows[App.app.shortcutIndex] != .hide) && window.isMinimized) &&
                 !(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !Spaces.visibleSpaces.contains { visibleSpace in window.spaceIds.contains { $0 == visibleSpace } }) &&
                 !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab && !window.isOnScreen(NSScreen.preferred)) &&
-                (Preferences.showTabsAsWindows || !window.isTabbed))
+             (Preferences.showTabsAsWindows || !window.isTabbed || Preferences.tabsToShow[App.app.shortcutIndex] == .always))
     }
 
     /// Selects the most appropriate main window from a given list of windows.

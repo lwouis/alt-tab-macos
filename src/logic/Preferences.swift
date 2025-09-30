@@ -69,6 +69,10 @@ class Preferences {
         "screensToShow2": ScreensToShowPreference.all.indexAsString,
         "screensToShow3": ScreensToShowPreference.all.indexAsString,
         "screensToShow4": ScreensToShowPreference.all.indexAsString,
+        "tabsToShow": WindowTabsShowPreference.never.indexAsString,
+        "tabsToShow2": WindowTabsShowPreference.always.indexAsString,
+        "tabsToShow3": WindowTabsShowPreference.never.indexAsString,
+        "tabsToShow4": WindowTabsShowPreference.never.indexAsString,
         "fadeOutAnimation": "false",
         "previewFadeInAnimation": "true",
         "hideSpaceNumberLabels": "false",
@@ -142,6 +146,7 @@ class Preferences {
     static var appsToShow: [AppsToShowPreference] { ["appsToShow", "appsToShow2", "appsToShow3", "appsToShow4"].map { CachedUserDefaults.macroPref($0, AppsToShowPreference.allCases) } }
     static var spacesToShow: [SpacesToShowPreference] { ["spacesToShow", "spacesToShow2", "spacesToShow3", "spacesToShow4"].map { CachedUserDefaults.macroPref($0, SpacesToShowPreference.allCases) } }
     static var screensToShow: [ScreensToShowPreference] { ["screensToShow", "screensToShow2", "screensToShow3", "screensToShow4"].map { CachedUserDefaults.macroPref($0, ScreensToShowPreference.allCases) } }
+    static var tabsToShow: [WindowTabsShowPreference] { ["tabsToShow", "tabsToShow2", "tabsToShow3", "tabsToShow4"].map { CachedUserDefaults.macroPref($0, WindowTabsShowPreference.allCases) } }
     static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
