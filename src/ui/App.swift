@@ -299,6 +299,7 @@ extension App: NSApplicationDelegate {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
         Logger.initialize()
+        Logger.info("Launching AltTab \(App.version)")
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -311,6 +312,7 @@ extension App: NSApplicationDelegate {
         permissionsWindow = PermissionsWindow()
         SystemPermissions.ensurePermissionsAreGranted { [weak self] in
             guard let self else { return }
+            Logger.info("System Permissions are granted")
             BackgroundWork.start()
             NSScreen.updatePreferred()
             Appearance.update()
@@ -331,7 +333,7 @@ extension App: NSApplicationDelegate {
             TrackpadEvents.observe()
             CliEvents.observe()
             self.preloadWindows()
-            Logger.info("AltTab ready")
+            Logger.info("AltTab finished launching")
             #if DEBUG
 //            self.showPreferencesWindow()
             #endif
