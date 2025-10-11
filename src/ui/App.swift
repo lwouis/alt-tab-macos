@@ -48,14 +48,6 @@ class App: AppCenterApplication {
         thumbnailsPanel.orderOut(nil)
     }
 
-    /// keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
-    /// see https://stackoverflow.com/a/3746058/2249756
-    private func loadMainMenuXib() {
-        var menuObjects: NSArray?
-        Bundle.main.loadNibNamed("MainMenu", owner: self, topLevelObjects: &menuObjects)
-        menu = menuObjects?.first { $0 is NSMenu } as? NSMenu
-    }
-
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
         thumbnailsPanel.thumbnailsView.reset()
@@ -81,6 +73,7 @@ class App: AppCenterApplication {
             previewPanel.orderOut(nil)
         }
         hideAllTooltips()
+        MainMenu.toggle(enabled: true)
     }
 
     /// some tooltips may not be hidden when the main window is hidden; we force it through a private API
@@ -238,6 +231,7 @@ class App: AppCenterApplication {
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
+            MainMenu.toggle(enabled: false)
             NSScreen.updatePreferred()
             Applications.manuallyRefreshAllWindows()
             if isVeryFirstSummon {
@@ -317,7 +311,7 @@ extension App: NSApplicationDelegate {
             NSScreen.updatePreferred()
             Appearance.update()
             Menubar.initialize()
-            self.loadMainMenuXib()
+            MainMenu.loadFromXib()
             self.thumbnailsPanel = ThumbnailsPanel()
             self.previewPanel = PreviewPanel()
             Spaces.refresh()
