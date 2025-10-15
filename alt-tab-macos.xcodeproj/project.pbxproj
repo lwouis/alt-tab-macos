@@ -353,6 +353,7 @@
 		5F21C9E72C6E96A00091F72F /* SheetWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetWindow.swift; sourceTree = "<group>"; };
 		5F706EBD2BA448B1004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localizable.strings; sourceTree = "<group>"; };
 		5F706EC22BA448D8004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = InfoPlist.strings; sourceTree = "<group>"; };
+		5F9F965C2EAE731200E25498 /* jetbrains.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = jetbrains.svg; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
 		7451B8433E47C444A6F489FF /* Pods-unit-tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit-tests.debug.xcconfig"; path = "Target Support Files/Pods-unit-tests/Pods-unit-tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA974BA829B7D84C0099A29E /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
@@ -1431,6 +1432,7 @@
 		D04BA33CFD58A1E9D35A2DFB /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				5F9F965C2EAE731200E25498 /* jetbrains.svg */,
 				D04BA67D904743A293768CB1 /* frontpage.jpg */,
 				BF0C8C4E74DCA631A049492A /* preferences-policies.jpg */,
 				BF0C894E0457C89DA3688F6A /* preferences-appearance.jpg */,
