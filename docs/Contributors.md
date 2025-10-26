@@ -202,6 +202,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Naseeb Naushad
 * Nathancodes
 * Navekar Vishal
+* NIKHIL S
 * Nikola Rajić
 * Nils Fahldieck
 * Nilton Souza
@@ -235,6 +236,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Ryan Nardi
 * sa-ha
 * Sai Khant Zay Lynn Yaung
+* Sami Suleiman
 * Saransh
 * sawtooth
 * Sebastian

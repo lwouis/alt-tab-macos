@@ -179,6 +179,7 @@
 "Show" = "Afficher";
 "Show & Hide" = "Afficher / Masquer";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Afficher un élément dans le commutateur pour chaque fenêtre ou pour chaque application.Les fenêtres seront concentrées, tandis que les applications seront activées.";
+"Show apps with no open window" = "Afficher les Apps sans fenêtre";
 "Show at the end" = "Mettre à la fin";
 "Show fullscreen windows" = "Afficher les fenêtres en écran plein";
 "Show hidden windows" = "Afficher les fenêtres masquées :";

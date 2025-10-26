@@ -125,6 +125,7 @@
 "Mouse hover" = "Наведение мышью";
 "Multiple screens" = "Несколько экранов";
 "Never send crash reports" = "Никогда не отправлять отчеты";
+"Non-active apps" = "Неактивные приложения";
 "Normal" = "Обычный";
 "Not allowed" = "Не разрешено";
 "NSHumanReadableCopyright" = "Лицензия GPL-3.0";
@@ -178,6 +179,7 @@
 "Show" = "Показать";
 "Show & Hide" = "Показать/Скрыть";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Показать элемент в переключателе для каждого окна отдельно или для каждого приложения. Окна будут в фокусе, тогда как приложения будут активированы.";
+"Show apps with no open window" = "Показывать приложения без открытых окон";
 "Show at the end" = "Показывать в конце";
 "Show fullscreen windows" = "Показать полноэкранные окна";
 "Show hidden windows" = "Показать скрытые окна";
