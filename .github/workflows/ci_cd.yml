@@ -21,7 +21,7 @@ env:
   APP_NAME: AltTab
 jobs:
   build:
-    runs-on: macos-13 # Intel VM; see https://github.com/actions/runner-images/tree/main
+    runs-on: macos-15 # all options: https://github.com/actions/runner-images/tree/main
     environment: production
     steps:
 #      - env:
@@ -44,7 +44,7 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-      - run: sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer
+      - run: sudo xcode-select -s /Applications/Xcode_26.0.1.app/Contents/Developer
       - run: scripts/print_env.sh
       - run: npm ci
       - run: npx commitlint --from "$GITHUB_EVENT_BEFORE" --to "$GITHUB_EVENT_AFTER" --verbose
