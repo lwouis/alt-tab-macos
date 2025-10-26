@@ -1,5 +1,21 @@
 # Release notes
 
+# [7.31.0](https://github.com/lwouis/alt-tab-macos/compare/v7.30.0...v7.31.0) (2025-10-26)
+
+
+### Bug Fixes
+
+* cmd+q would quit alt-tab instead of the selected app (closes [#4867](https://github.com/lwouis/alt-tab-macos/issues/4867)) ([247f635](https://github.com/lwouis/alt-tab-macos/commit/247f635)), closes [#4891](https://github.com/lwouis/alt-tab-macos/issues/4891)
+* title was truncated in app-icons appearance (closes [#4860](https://github.com/lwouis/alt-tab-macos/issues/4860)) ([a1cfd1d](https://github.com/lwouis/alt-tab-macos/commit/a1cfd1d))
+
+
+### Features
+
+* improve ar/de/fr/kn/ru/zh-tw localizations ([173bc97](https://github.com/lwouis/alt-tab-macos/commit/173bc97))
+* improve windows detection ([cab591e](https://github.com/lwouis/alt-tab-macos/commit/cab591e))
+* new cli command to focus a window using focus order (closes [#4610](https://github.com/lwouis/alt-tab-macos/issues/4610)) ([84166ab](https://github.com/lwouis/alt-tab-macos/commit/84166ab))
+* save resources trying to detect certain windows ([33e5acf](https://github.com/lwouis/alt-tab-macos/commit/33e5acf))
+
 # [7.30.0](https://github.com/lwouis/alt-tab-macos/compare/v7.29.0...v7.30.0) (2025-09-23)
 
 
