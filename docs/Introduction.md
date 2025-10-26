@@ -55,7 +55,10 @@ Change the shortcut keys, switch to a Windows theme and more, using the Preferen
 You can run CLI commands directly on the executable inside the .app bundle (e.g. `/Applications/AltTab.app/Contents/MacOS/AltTab`)
 
 * `AltTab --list` will return the list of windows (ID and title) in JSON
-* `AltTab --focus=window_id` will focus the window with the specified window ID
+* `AltTab --detailed-list` will return the list of windows (lots of info) in JSON
+* `AltTab --show=shortcut_index` will show AltTab UI, as if the corresponding shortcut was pressed
+* `AltTab --focus=window_id` will focus the window with the specified ID (get it from --list)
+* `AltTab --focusUsingLastFocusOrder=focus_order` will focus the window with the specified focus-order (get it from --detailed-list)
 
 For this to work, you need AltTab.app to be running, to keep track of the state of windows, and execute the commands
 
