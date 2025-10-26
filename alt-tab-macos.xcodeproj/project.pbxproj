@@ -354,6 +354,7 @@
 		5F706EBD2BA448B1004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localizable.strings; sourceTree = "<group>"; };
 		5F706EC22BA448D8004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = InfoPlist.strings; sourceTree = "<group>"; };
 		5F9F965C2EAE731200E25498 /* jetbrains.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = jetbrains.svg; sourceTree = "<group>"; };
+		5FE2AF752EAE849F004A4AC5 /* xcbeautify */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xcbeautify; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
 		7451B8433E47C444A6F489FF /* Pods-unit-tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit-tests.debug.xcconfig"; path = "Target Support Files/Pods-unit-tests/Pods-unit-tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA974BA829B7D84C0099A29E /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
@@ -423,7 +424,6 @@
 		BF0C86E06A44AC151FEA4903 /* sv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sv; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C870C14C20C936BA4AF40 /* DockEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DockEvents.swift; sourceTree = "<group>"; };
 		BF0C87320241EAE01E38EF53 /* .periphery.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .periphery.yml; sourceTree = "<group>"; };
-		BF0C873357DBF7008830E73F /* xcbeautify */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xcbeautify; sourceTree = "<group>"; };
 		BF0C8745D93561D24058B6DE /* createicns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = createicns; sourceTree = "<group>"; };
 		BF0C87897C24638DDE4A9889 /* app-icons-style.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app-icons-style.jpg"; sourceTree = "<group>"; };
 		BF0C87B913292EE53EDE4220 /* menubar-0.svg */ = {isa = PBXFileReference; lastKnownFileType = file.svg; path = "menubar-0.svg"; sourceTree = "<group>"; };
@@ -1589,6 +1589,7 @@
 		D04BA703DCD38D9757093312 /* scripts */ = {
 			isa = PBXGroup;
 			children = (
+				5FE2AF752EAE849F004A4AC5 /* xcbeautify */,
 				D04BA4B5292629AA6B560216 /* package_and_notarize_release.sh */,
 				D04BAC6AFC7F06D1A567F27A /* replace_environment_variables_in_app.sh */,
 				D04BA0AAAE82C72855DBBA26 /* update_appcast.sh */,
@@ -1604,7 +1605,6 @@
 				BF0C8C0FF1B21F5F7CE16B79 /* print_env.sh */,
 				BF0C89D7F23D82A3FF442E0B /* build_app.sh */,
 				BF0C8A261AAA42191426A587 /* run_tests.sh */,
-				BF0C873357DBF7008830E73F /* xcbeautify */,
 				BF0C8398D6064E4C37F58EB3 /* utils */,
 				BF0C84D1311C50D757DC5C2C /* l10n */,
 				BF0C8FBA2DFA42DB832AA027 /* assets */,
