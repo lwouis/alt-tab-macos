@@ -16,6 +16,7 @@ class BackgroundWork {
     static var repeatingKeyThread: BackgroundThreadWithRunLoop!
     static var missionControlThread: BackgroundThreadWithRunLoop!
     static var cliEventsThread: BackgroundThreadWithRunLoop!
+    static var debugMenu: DebugMenu!
 
     private static var totalPotentialThreadCount = 0
 
@@ -63,10 +64,15 @@ class BackgroundWork {
 
     // useful during development to inspect how many threads are used by AltTab
     private static func logThreadsAndQueuesOnRepeat() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            logThreads()
-            logQueues()
-        }
+        // if Logger.decideLevel() == .debug {
+            debugMenu = DebugMenu([screenshotsQueue, accessibilityCommandsQueue, axCallsFirstAttemptQueue, axCallsRetriesQueue, axCallsManualDiscoveryQueue])
+            debugMenu.orderFront(nil)
+            debugMenu.start()
+            // Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            //     logThreads()
+            //     logQueues()
+            // }
+        // }
     }
 
     private static func logQueues() -> Void {
@@ -139,26 +145,26 @@ class BackgroundWork {
             CFRunLoopAddSource(runLoop, source, .commonModes)
         }
     }
+}
 
-    class LabeledOperationQueue: OperationQueue, @unchecked Sendable {
-        private let strongUnderlyingQueue: DispatchQueue
+class LabeledOperationQueue: OperationQueue, @unchecked Sendable {
+    let strongUnderlyingQueue: DispatchQueue
 
-        init(_ label: String, _ qos: DispatchQoS, _ maxConcurrentOperationCount: Int) {
-            strongUnderlyingQueue = DispatchQueue(label: label, attributes: [.concurrent])
-            super.init()
-            self.maxConcurrentOperationCount = maxConcurrentOperationCount
-            addPotentialThreadCount(maxConcurrentOperationCount)
-            self.underlyingQueue = strongUnderlyingQueue
-        }
+    init(_ label: String, _ qos: DispatchQoS, _ maxConcurrentOperationCount: Int) {
+        strongUnderlyingQueue = DispatchQueue(label: label, attributes: [.concurrent])
+        super.init()
+        self.maxConcurrentOperationCount = maxConcurrentOperationCount
+        BackgroundWork.addPotentialThreadCount(maxConcurrentOperationCount)
+        self.underlyingQueue = strongUnderlyingQueue
+    }
 
-        override func addOperation(_ block: @escaping () -> ()) {
-            super.addOperation(block)
-        }
+    override func addOperation(_ block: @escaping () -> ()) {
+        super.addOperation(block)
+    }
 
-        func addOperationAfter(deadline: DispatchTime, block: @escaping @convention(block) () -> Void) {
-            strongUnderlyingQueue.asyncAfter(deadline: deadline) { [weak self] in
-                self?.addOperation(block)
-            }
+    func addOperationAfter(deadline: DispatchTime, block: @escaping @convention(block) () -> Void) {
+        strongUnderlyingQueue.asyncAfter(deadline: deadline) { [weak self] in
+            self?.addOperation(block)
         }
     }
 }
