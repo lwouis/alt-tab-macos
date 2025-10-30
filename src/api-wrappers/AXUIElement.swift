@@ -85,7 +85,7 @@ extension AXUIElement {
         // should we give up?
         let timePassedInSeconds = Float(DispatchTime.now().uptimeNanoseconds - startTimeInNanoseconds) / 1_000_000_000
         if timePassedInSeconds >= axCallsRetriesQueueTimeoutInSeconds {
-            Logger.info("AX call failed for more than \(Int(axCallsRetriesQueueTimeoutInSeconds))s. Giving up on it", logFromContext(file, function, line, context))
+            Logger.info("AX call failed for more than \(Int(axCallsRetriesQueueTimeoutInSeconds))s. Giving up on it", logFromContext(file, function, line, context, callType))
             if let pid, callType == .updateWindow || callType == .updateAppWindows {
                 let unresponsiveAppsMapKey = "\(callType.rawValue)\(pid)"
                 axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0.removeValue(forKey: unresponsiveAppsMapKey) }
@@ -93,12 +93,12 @@ extension AXUIElement {
             return
         }
         // retry
-        Logger.info(logFromContext(file, function, line, context))
+        Logger.info(logFromContext(file, function, line, context, callType))
         retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + humanPerceptionDelay, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block)
     }
 
-    private static func logFromContext(_ file: String, _ function: String, _ line: Int, _ context: String) -> String {
-        return "Context: \((file as NSString).lastPathComponent):\(line) \(function) \(context)"
+    private static func logFromContext(_ file: String, _ function: String, _ line: Int, _ context: String, _ callType: AXCallType) -> String {
+        return "Context: \((file as NSString).lastPathComponent):\(line) \(function) \(String(describing: callType)) \(context)"
     }
 
     func throwIfNotSuccess(_ result: AXError) throws -> Void {
