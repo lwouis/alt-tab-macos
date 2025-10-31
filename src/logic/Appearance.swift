@@ -131,7 +131,18 @@ class Appearance {
         cellCornerRadius = 10
         windowCornerRadius = 23
         edgeInsetsSize = 7
-        maxWidthOnScreen = isHorizontalScreen ? 0.6 : 0.8
+        // Apply Titles-specific adjustment for ultrawides
+        // The comfortableWidth formula works well for thumbnails (visual scanning)
+        // but titles (text reading) benefit from narrower widths on ultrawides
+        let aspectRatio = NSScreen.preferred.ratio()
+        if aspectRatio >= 3.0 {
+            // Super ultrawide: Apply reduction while respecting physical size lower bound
+            maxWidthOnScreen = max(0.3, maxWidthOnScreen * 0.65)
+        } else if aspectRatio >= 2.3 {
+            // Regular ultrawide: Modest reduction for text readability
+            maxWidthOnScreen = max(0.45, maxWidthOnScreen * 0.85)
+        }
+        // else: use comfortableWidth value as-is for normal screens
         windowMinWidthInRow = 0.6
         windowMaxWidthInRow = 0.9
         rowsCount = 1
