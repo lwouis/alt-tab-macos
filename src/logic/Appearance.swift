@@ -141,8 +141,10 @@ class Appearance {
         } else if aspectRatio >= 2.3 {
             // Regular ultrawide: Modest reduction for text readability
             maxWidthOnScreen = max(0.45, maxWidthOnScreen * 0.85)
+        } else {
+            // Normal screens: preserve original behavior
+            maxWidthOnScreen = isHorizontalScreen ? 0.6 : 0.8
         }
-        // else: use comfortableWidth value as-is for normal screens
         windowMinWidthInRow = 0.6
         windowMaxWidthInRow = 0.9
         rowsCount = 1
