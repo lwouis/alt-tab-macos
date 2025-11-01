@@ -6,7 +6,7 @@
 
 [Find out more on the official website](https://alt-tab-macos.netlify.app/)
 
-<div style="text-align:center; float:right;">
+<div align="right">
   <p>Project supported by</p>
   <a href="https://jb.gg/OpenSource">
     <img src="docs/public/demo/jetbrains.svg" alt="Jetbrains" width="149" height="32">
