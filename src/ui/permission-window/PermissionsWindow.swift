@@ -3,6 +3,8 @@ import Cocoa
 class PermissionsWindow: NSWindow {
     var accessibilityView: PermissionView!
     var screenRecordingView: PermissionView!
+    var canBecomeKey_ = true
+    override var canBecomeKey: Bool { canBecomeKey_ }
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)

@@ -86,11 +86,15 @@ class App: AppCenterApplication {
 
     /// we don't want another window to become key when the thumbnailPanel is hidden
     func hideThumbnailPanelWithoutChangingKeyWindow() {
-        preferencesWindow.canBecomeKey_ = false
-        feedbackWindow.canBecomeKey_ = false
+        allSecondaryWindowsCanBecomeKey(false)
         thumbnailsPanel.orderOut(nil)
-        preferencesWindow.canBecomeKey_ = true
-        feedbackWindow.canBecomeKey_ = true
+        allSecondaryWindowsCanBecomeKey(true)
+    }
+
+    private func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
+        preferencesWindow.canBecomeKey_ = canBecomeKey_
+        feedbackWindow.canBecomeKey_ = canBecomeKey_
+        permissionsWindow.canBecomeKey_ = canBecomeKey_
     }
 
     func closeSelectedWindow() {
