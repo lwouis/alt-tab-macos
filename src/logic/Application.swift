@@ -30,12 +30,24 @@ class Application: NSObject {
         kAXApplicationShownNotification,
     ]
 
+    static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
+        guard let icon else { return nil }
+        // we can render the icon quite big (e.g. windowless app icon), so we store it high-res
+        let iconSize = CGFloat(1024)
+        // NSRunningApplication.icon returns icons with padding; we remove it manually
+        let paddingToRemove = CGFloat(84)
+        let croppedSize = iconSize - paddingToRemove * 2
+        return icon
+            .cgImage(maxSize: NSSize(width: iconSize, height: iconSize))
+            .cropping(to: CGRect(x: paddingToRemove, y: paddingToRemove, width: croppedSize, height: croppedSize).integral)!
+    }
+
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         pid = runningApplication.processIdentifier
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
-        icon = runningApplication.icon?.cgImage(maxSize: NSSize(width: 1024, height: 1024))
+        icon = Application.appIconWithoutPadding(runningApplication.icon)
         localizedName = runningApplication.localizedName
         bundleIdentifier = runningApplication.bundleIdentifier
         bundleURL = runningApplication.bundleURL

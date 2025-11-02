@@ -2,29 +2,30 @@ import Cocoa
 
 class Appearance {
     // size
-    static var windowPadding = CGFloat(18)
-    static var interCellPadding = CGFloat(1)
-    static var intraCellPadding = CGFloat(5)
-    static var appIconLabelSpacing = CGFloat(2)
-    static var edgeInsetsSize = CGFloat(5)
-    static var cellCornerRadius = CGFloat(10)
-    static var windowCornerRadius = CGFloat(23)
     static var hideThumbnails = Bool(false)
+    static var windowPadding = CGFloat(18)
+    static var windowCornerRadius = CGFloat(23)
+    static var cellCornerRadius = CGFloat(10)
+    static var edgeInsetsSize = CGFloat(5)
+    static var maxWidthOnScreen = CGFloat(0.8)
     static var rowsCount = CGFloat(0)
-    static var windowMinWidthInRow = CGFloat(0)
-    static var windowMaxWidthInRow = CGFloat(0)
     static var iconSize = CGFloat(0)
     static var fontHeight = CGFloat(0)
-    static var maxWidthOnScreen = CGFloat(0.8)
-    static var maxHeightOnScreen = CGFloat(0.8)
+    static var windowMinWidthInRow = CGFloat(0)
+    static var windowMaxWidthInRow = CGFloat(0)
+    // size: constants
+    static let maxHeightOnScreen = CGFloat(0.8)
+    static let interCellPadding = CGFloat(1)
+    static let intraCellPadding = CGFloat(5)
+    static let appIconLabelSpacing = CGFloat(2)
 
     // theme
-    static var material = NSVisualEffectView.Material.dark
     static var fontColor = NSColor.white
     static var indicatedIconShadowColor: NSColor? = .darkGray
     static var titleShadowColor: NSColor? = .darkGray
-    static var imageShadowColor: NSColor? = .gray // for icon, thumbnail and windowless images
     static var highlightMaterial = NSVisualEffectView.Material.selection
+    static var material = NSVisualEffectView.Material.dark
+    static var imageShadowColor: NSColor? = .gray // for icon, thumbnail and windowless images
     static var highlightFocusedAlphaValue = 1.0
     static var highlightHoveredAlphaValue = 0.8
     static var highlightFocusedBackgroundColor = NSColor.black.withAlphaComponent(0.5)
@@ -36,7 +37,12 @@ class Appearance {
     static var enablePanelShadow = false
 
     // derived
-    static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
+    static var font: NSFont {
+        if #available(macOS 26.0, *) {
+            return NSFont.systemFont(ofSize: fontHeight, weight: .medium)
+        }
+        return NSFont.systemFont(ofSize: fontHeight)
+    }
 
     private static var currentStyle: AppearanceStylePreference { Preferences.appearanceStyle }
     private static var currentSize: AppearanceSizePreference { Preferences.appearanceSize }
@@ -72,14 +78,24 @@ class Appearance {
         } else {
             lightTheme()
         }
+        // for Liquid Glass, we don't want a shadow around the panel
+        if #available(macOS 26.0, *), currentStyle == .appIcons && LiquidGlassEffectView.canUsePrivateLiquidGlassLook() {
+            enablePanelShadow = false
+        }
     }
 
     private static func thumbnailsSize(_ isHorizontalScreen: Bool) {
         hideThumbnails = false
         windowPadding = 18
-        cellCornerRadius = 10
         windowCornerRadius = 23
+        cellCornerRadius = 10
         edgeInsetsSize = 12
+        maxWidthOnScreen = 0.8
+        if #available(macOS 26.0, *) {
+            windowPadding = 28
+            windowCornerRadius = 43
+            cellCornerRadius = 18
+        }
         switch currentSize {
             case .small:
                 rowsCount = isHorizontalScreen ? 5 : 8
@@ -105,9 +121,13 @@ class Appearance {
     private static func appIconsSize() {
         hideThumbnails = true
         windowPadding = 25
-        cellCornerRadius = 10
         windowCornerRadius = 23
+        cellCornerRadius = 10
         edgeInsetsSize = 5
+        if #available(macOS 26.0, *) {
+            edgeInsetsSize = 6
+        }
+        maxWidthOnScreen = 0.8
         windowMinWidthInRow = 0.04
         windowMaxWidthInRow = 0.3
         rowsCount = 1
@@ -115,21 +135,33 @@ class Appearance {
             case .small:
                 iconSize = 88
                 fontHeight = 13
+                if #available(macOS 26.0, *) {
+                    windowCornerRadius = 50
+                    cellCornerRadius = 28
+                }
             case .medium:
                 iconSize = 128
                 fontHeight = 15
+                if #available(macOS 26.0, *) {
+                    windowCornerRadius = 55
+                    cellCornerRadius = 38
+                }
             case .large:
                 windowPadding = 28
                 iconSize = 168
                 fontHeight = 17
+                if #available(macOS 26.0, *) {
+                    windowCornerRadius = 75
+                    cellCornerRadius = 48
+                }
         }
     }
 
     private static func titlesSize(_ isHorizontalScreen: Bool) {
         hideThumbnails = true
         windowPadding = 18
-        cellCornerRadius = 10
         windowCornerRadius = 23
+        cellCornerRadius = 10
         edgeInsetsSize = 7
         maxWidthOnScreen = isHorizontalScreen ? 0.6 : 0.8
         windowMinWidthInRow = 0.6
@@ -150,10 +182,10 @@ class Appearance {
 
     private static func lightTheme() {
         fontColor = .black.withAlphaComponent(0.8)
-        titleShadowColor = nil
         indicatedIconShadowColor = nil
-        imageShadowColor = .lightGray.withAlphaComponent(0.4)
+        titleShadowColor = nil
         highlightMaterial = .mediumLight
+        imageShadowColor = .lightGray.withAlphaComponent(0.4)
         switch currentVisibility {
             case .normal:
                 material = .light

@@ -214,7 +214,7 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         thumbnailsPanel.thumbnailsView.updateItemsAndLayout()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
+        thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.contentView.frame.size)
         thumbnailsPanel.display()
         guard appIsBeingUsed else { return }
         NSScreen.preferred.repositionPanel(thumbnailsPanel)

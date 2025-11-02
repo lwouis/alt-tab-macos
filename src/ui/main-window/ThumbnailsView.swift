@@ -1,22 +1,26 @@
 import Cocoa
 
-class ThumbnailsView: NSVisualEffectView {
+class ThumbnailsView {
     let scrollView = ScrollView()
+    var contentView: EffectView!
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
 
-    convenience init() {
-        self.init(frame: .zero)
-        material = Appearance.material
-        blendingMode = .behindWindow
-        state = .active
-        wantsLayer = true
-        updateRoundedCorners(Appearance.windowCornerRadius)
-        addSubview(scrollView)
+    init() {
+        contentView = makeAppropriateEffectView()
+        contentView.addSubview(scrollView)
         // TODO: think about this optimization more
         (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+    }
+
+    func updateBackgroundView() {
+        let newEffectView = makeAppropriateEffectView()
+        scrollView.removeFromSuperview()
+        newEffectView.addSubview(scrollView)
+        contentView.superview?.replaceSubview(contentView, with: newEffectView)
+        contentView = newEffectView
     }
 
     func reset() {
@@ -24,11 +28,10 @@ class ThumbnailsView: NSVisualEffectView {
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         NSScreen.updatePreferred()
         Appearance.update()
-        material = Appearance.material
+        updateBackgroundView()
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }
-        updateRoundedCorners(Appearance.windowCornerRadius)
     }
 
     static func highlight(_ indexInRecycledViews: Int) {
@@ -36,25 +39,6 @@ class ThumbnailsView: NSVisualEffectView {
         view.indexInRecycledViews = indexInRecycledViews
         if view.frame != NSRect.zero {
             view.drawHighlight()
-        }
-    }
-
-    /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners
-    /// see https://stackoverflow.com/a/29386935/2249756
-    func updateRoundedCorners(_ cornerRadius: CGFloat) {
-        if cornerRadius == 0 {
-            maskImage = nil
-        } else {
-            let edgeLength = 2.0 * cornerRadius + 1.0
-            let mask = NSImage(size: NSSize(width: edgeLength, height: edgeLength), flipped: false) { rect in
-                let bezierPath = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
-                NSColor.black.set()
-                bezierPath.fill()
-                return true
-            }
-            mask.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
-            mask.resizingMode = .stretch
-            maskImage = mask
         }
     }
 
@@ -88,7 +72,7 @@ class ThumbnailsView: NSVisualEffectView {
         let focusedViewFrame = ThumbnailsView.recycledViews[Windows.focusedWindowIndex].frame
         let originCenter = NSMidX(focusedViewFrame)
         if let targetRow = nextRow(direction, allowWrap: allowWrap) {
-            let leftSide = originCenter < NSMidX(frame)
+            let leftSide = originCenter < NSMidX(contentView.frame)
             let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
             let iterable = leadingSide ? targetRow : targetRow.reversed()
             let targetView = iterable.first {
@@ -191,7 +175,7 @@ class ThumbnailsView: NSVisualEffectView {
             frameHeight = frameHeight - Appearance.intraCellPadding - labelHeight
             originY = originY - Appearance.intraCellPadding - labelHeight
         }
-        frame.size = NSSize(width: frameWidth, height: frameHeight)
+        contentView.frame.size = NSSize(width: frameWidth, height: frameHeight)
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
         scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size

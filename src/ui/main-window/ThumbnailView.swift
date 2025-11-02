@@ -176,11 +176,11 @@ class ThumbnailView: FlippedView {
         setAccessibilityChildren([])
         wantsLayer = true
         layer!.masksToBounds = false // without this, label will be clipped in app-icons style since its larger than its parentView
-        setupSharedSubiews()
+        setupSharedSubviews()
         setupStyleSpecificSubviews()
     }
 
-    private func setupSharedSubiews() {
+    private func setupSharedSubviews() {
         let shadow = ThumbnailView.makeShadow(Appearance.imageShadowColor)
         thumbnailContainer.wantsLayer = true
         thumbnailContainer.layer!.masksToBounds = false // let thumbnail shadows show
@@ -442,7 +442,7 @@ class ThumbnailView: FlippedView {
                 windowlessAppIndicator.frame.origin.x = ((appIcon.frame.width / 2) - (windowlessAppIndicator.frame.width / 2)).rounded()
                     + (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : appIcon.frame.origin.x)
             }
-            windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height
+            windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height + 5
         }
         // we set dockLabelIcon origin, without checking if .isHidden
         // This is because its updated async. We needed it positioned correctly always
