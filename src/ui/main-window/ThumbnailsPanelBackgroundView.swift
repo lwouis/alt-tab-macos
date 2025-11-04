@@ -8,10 +8,14 @@ class LiquidGlassEffectView: NSGlassEffectView, EffectView {
         return method != nil
     }
 
-    convenience init(_: Int?) {
+    convenience init(_ clear: Bool) {
         self.init()
-        style = .clear
-        safeSetVariant(3)
+        if clear {
+            style = .clear
+            safeSetVariant(3)
+        } else {
+            style = .regular
+        }
         updateAppearance()
         wantsLayer = true
         // without this, there are weird shadows around the corners
@@ -70,16 +74,19 @@ protocol EffectView: NSView {
 }
 
 func makeAppropriateEffectView() -> EffectView {
-    if #available(macOS 26.0, *), Preferences.appearanceStyle == .appIcons, LiquidGlassEffectView.canUsePrivateLiquidGlassLook() {
-        Logger.error("liquid")
-        return LiquidGlassEffectView(nil)
-    } else {
-        if #available(macOS 26.0, *), Preferences.appearanceStyle == .appIcons {
+    if #available(macOS 26.0, *) {
+        if Preferences.appearanceStyle == .appIcons {
+            if LiquidGlassEffectView.canUsePrivateLiquidGlassLook() {
+                Logger.debug("Using LiquidGlassEffectView(true)")
+                return LiquidGlassEffectView(true)
+            }
             let os = ProcessInfo.processInfo.operatingSystemVersion
             let version = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
             Logger.error("Private API set_variant is no longer available. macOS version: \(version))")
         }
-        Logger.error("frosted")
-        return FrostedGlassEffectView(nil)
+        Logger.debug("Using LiquidGlassEffectView(false)")
+        return LiquidGlassEffectView(false)
     }
+    Logger.debug("Using FrostedGlassEffectView(nil)")
+    return FrostedGlassEffectView(nil)
 }

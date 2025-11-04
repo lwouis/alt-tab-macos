@@ -1,11 +1,10 @@
 import Cocoa
 
 class ThumbnailTitleView: NSTextField {
-    convenience init(shadow: NSShadow?, font: NSFont) {
+    convenience init(font: NSFont) {
         self.init(labelWithString: "")
         self.font = font
         textColor = Appearance.fontColor
-        self.shadow = shadow
         allowsDefaultTighteningForTruncation = false
         translatesAutoresizingMaskIntoConstraints = false
     }

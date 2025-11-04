@@ -10,7 +10,6 @@ class ThumbnailsPanel: NSPanel {
         isFloatingPanel = true
         animationBehavior = .none
         hidesOnDeactivate = false
-        hasShadow = Appearance.enablePanelShadow
         titleVisibility = .hidden
         backgroundColor = .clear
         contentView! = thumbnailsView.contentView
@@ -23,6 +22,12 @@ class ThumbnailsPanel: NSPanel {
         setAccessibilitySubrole(.unknown)
         // for VoiceOver
         setAccessibilityLabel(App.name)
+        updateAppearance()
+    }
+
+    func updateAppearance() {
+        hasShadow = Appearance.enablePanelShadow
+        appearance = NSAppearance(named: Appearance.currentTheme == .dark ? .vibrantDark : .vibrantLight)
     }
 
     override func orderOut(_ sender: Any?) {
@@ -37,7 +42,7 @@ class ThumbnailsPanel: NSPanel {
     }
 
     func show() {
-        hasShadow = Appearance.enablePanelShadow
+        updateAppearance()
         alphaValue = 1
         makeKeyAndOrderFront(nil)
         MouseEvents.toggle(true)

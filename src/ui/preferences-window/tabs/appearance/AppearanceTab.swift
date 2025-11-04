@@ -397,8 +397,6 @@ class AppearanceTab: NSObject {
             rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])
         table.addRow(leftText: NSLocalizedString("Theme", comment: ""),
             rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
-        table.addRow(leftText: NSLocalizedString("Visibility", comment: ""),
-            rightViews: [LabelAndControl.makeSegmentedControl("appearanceVisibility", AppearanceVisibilityPreference.allCases, segmentWidth: 100)])
         table.addRow(rightViews: customizeStyleButton)
         table.fit()
         return table

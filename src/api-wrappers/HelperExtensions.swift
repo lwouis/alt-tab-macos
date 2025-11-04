@@ -203,27 +203,9 @@ extension NSTextField {
 }
 
 extension NSImage {
-    func cgImage(maxSize: NSSize) -> CGImage {
-        // some images like NSRunningApp.icon are from icns. They hosts multiple representations and it's hard to know the highest resolution
-        // by setting a maxSize, the returned CGImage will be the biggest it can under that maxSize
-        let ctx = CGContext(
-            data: nil,
-            width: Int(maxSize.width),
-            height: Int(maxSize.height),
-            bitsPerComponent: 8,
-            bytesPerRow: 0,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        )!
-        NSGraphicsContext.current = NSGraphicsContext(cgContext: ctx, flipped: false)
-        self.draw(
-            in: CGRect(origin: .zero, size: maxSize),
-            from: .zero,
-            operation: .copy,
-            fraction: 1.0
-        )
-        NSGraphicsContext.current = nil
-        return ctx.makeImage()!
+    func appIconFixedSize(_ size: NSSize) -> CGImage? {
+        var rect = NSRect(origin: .zero, size: size)
+        return cgImage(forProposedRect: &rect, context: nil, hints: nil)
     }
 
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()

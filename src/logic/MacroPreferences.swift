@@ -484,28 +484,6 @@ enum AppearanceThemePreference: CaseIterable, SfSymbolMacroPreference {
     }
 }
 
-enum AppearanceVisibilityPreference: CaseIterable, SfSymbolMacroPreference {
-    case normal
-    case high
-    case highest
-
-    var localizedString: LocalizedString {
-        switch self {
-            case .normal: return NSLocalizedString("Normal", comment: "")
-            case .high: return NSLocalizedString("High", comment: "")
-            case .highest: return NSLocalizedString("Highest", comment: "")
-        }
-    }
-
-    var symbolName: String {
-        switch self {
-            case .normal: return "eye"
-            case .high: return "eyeglasses"
-            case .highest: return "binoculars.fill"
-        }
-    }
-}
-
 enum UpdatePolicyPreference: CaseIterable, MacroPreference {
     case manual
     case autoCheck

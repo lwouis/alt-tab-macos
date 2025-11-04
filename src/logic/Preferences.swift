@@ -50,7 +50,6 @@ class Preferences {
         "appearanceStyle": AppearanceStylePreference.thumbnails.indexAsString,
         "appearanceSize": AppearanceSizePreference.medium.indexAsString,
         "appearanceTheme": AppearanceThemePreference.system.indexAsString,
-        "appearanceVisibility": AppearanceVisibilityPreference.normal.indexAsString,
         "theme": ThemePreference.macOs.indexAsString,
         "showOnScreen": ShowOnScreenPreference.active.indexAsString,
         "titleTruncation": TitleTruncationPreference.end.indexAsString,
@@ -129,7 +128,6 @@ class Preferences {
     static var appearanceStyle: AppearanceStylePreference { CachedUserDefaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
     static var appearanceSize: AppearanceSizePreference { CachedUserDefaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
     static var appearanceTheme: AppearanceThemePreference { CachedUserDefaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
-    static var appearanceVisibility: AppearanceVisibilityPreference { CachedUserDefaults.macroPref("appearanceVisibility", AppearanceVisibilityPreference.allCases) }
     // periphery:ignore
     static var theme: ThemePreference { ThemePreference.macOs/*CachedUserDefaults.macroPref("theme", ThemePreference.allCases)*/ }
     static var showOnScreen: ShowOnScreenPreference { CachedUserDefaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
