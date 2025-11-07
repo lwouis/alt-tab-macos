@@ -117,7 +117,21 @@ class ThumbnailView: FlippedView {
         // Toggle focus search/selection with Tab and exit on Esc
         let key = Int(event.keyCode)
         if key == kVK_Tab && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
-            App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
+            if Preferences.showSearchBar {
+                App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
+            } else {
+                super.keyDown(with: event)
+            }
+            return
+        }
+        if (key == kVK_Return || key == kVK_ANSI_KeypadEnter) && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
+            // Enter should open the currently selected window
+            App.app.focusSelectedWindow(Windows.focusedWindow())
+            return
+        }
+        if (key == kVK_Space) && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
+            // Space also opens the currently selected window; do not change selection
+            App.app.focusSelectedWindow(Windows.focusedWindow())
             return
         }
         if key == kVK_Escape && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {

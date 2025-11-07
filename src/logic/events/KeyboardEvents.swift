@@ -85,12 +85,13 @@ class KeyboardEvents {
                App.app.appIsBeingUsed,
                App.app.thumbnailsPanel != nil,
                App.app.thumbnailsPanel.isKeyWindow,
+               Preferences.showSearchBar,
                App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() == nil {
                 // Auto-focus search if user starts typing text (supports IME by focusing before delivery)
                 let mods = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
                 let onlyShift = mods.subtracting([.shift]).isEmpty
                 let keyCode = event.keyCode
-                let isNonTextControl = (keyCode == kVK_Escape || keyCode == kVK_Tab || keyCode == kVK_Return || keyCode == kVK_ForwardDelete || keyCode == kVK_Delete || keyCode == kVK_LeftArrow || keyCode == kVK_RightArrow || keyCode == kVK_UpArrow || keyCode == kVK_DownArrow || keyCode == kVK_Home || keyCode == kVK_End || keyCode == kVK_PageUp || keyCode == kVK_PageDown || keyCode == kVK_Help || keyCode == kVK_F1 || keyCode == kVK_F2 || keyCode == kVK_F3 || keyCode == kVK_F4 || keyCode == kVK_F5 || keyCode == kVK_F6 || keyCode == kVK_F7 || keyCode == kVK_F8 || keyCode == kVK_F9 || keyCode == kVK_F10 || keyCode == kVK_F11 || keyCode == kVK_F12)
+                let isNonTextControl = (keyCode == kVK_Escape || keyCode == kVK_Tab || keyCode == kVK_Return || keyCode == kVK_Space || keyCode == kVK_ForwardDelete || keyCode == kVK_Delete || keyCode == kVK_LeftArrow || keyCode == kVK_RightArrow || keyCode == kVK_UpArrow || keyCode == kVK_DownArrow || keyCode == kVK_Home || keyCode == kVK_End || keyCode == kVK_PageUp || keyCode == kVK_PageDown || keyCode == kVK_Help || keyCode == kVK_F1 || keyCode == kVK_F2 || keyCode == kVK_F3 || keyCode == kVK_F4 || keyCode == kVK_F5 || keyCode == kVK_F6 || keyCode == kVK_F7 || keyCode == kVK_F8 || keyCode == kVK_F9 || keyCode == kVK_F10 || keyCode == kVK_F11 || keyCode == kVK_F12)
                 // Consider text input if there's any characters ignoring modifiers and only Shift is held (or no mods)
                 if !isNonTextControl, onlyShift, let chars = event.charactersIgnoringModifiers, !chars.isEmpty {
                     App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
