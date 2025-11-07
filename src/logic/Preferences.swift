@@ -87,6 +87,8 @@ class Preferences {
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
+        // Search settings
+        "showSearchBar": "true",
     ]
 
     // system preferences
@@ -149,6 +151,7 @@ class Preferences {
     static var menubarIcon: MenubarIconPreference { CachedUserDefaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
     static var menubarIconShown: Bool { CachedUserDefaults.bool("menubarIconShown") }
     static var language: LanguagePreference { CachedUserDefaults.macroPref("language", LanguagePreference.allCases) }
+    static var showSearchBar: Bool { CachedUserDefaults.bool("showSearchBar") }
 
     static let gestureIndex = 3
 
