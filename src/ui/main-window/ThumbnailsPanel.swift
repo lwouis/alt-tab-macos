@@ -30,6 +30,17 @@ class ThumbnailsPanel: NSPanel {
         appearance = NSAppearance(named: Appearance.currentTheme == .dark ? .vibrantDark : .vibrantLight)
     }
 
+    func updateContents() {
+        CATransaction.begin()
+        defer { CATransaction.commit() }
+        CATransaction.setDisableActions(true)
+        thumbnailsView.updateItemsAndLayout()
+        guard App.app.appIsBeingUsed else { return }
+        setContentSize(thumbnailsView.contentView.frame.size)
+        guard App.app.appIsBeingUsed else { return }
+        NSScreen.preferred.repositionPanel(self)
+    }
+
     override func orderOut(_ sender: Any?) {
         if Preferences.fadeOutAnimation {
             NSAnimationContext.runAnimationGroup(

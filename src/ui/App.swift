@@ -206,7 +206,7 @@ class App: AppCenterApplication {
         if !windowsToScreenshot.isEmpty && SystemPermissions.screenRecordingPermission == .granted
                && !Preferences.onlyShowApplications()
                && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) {
-            Windows.refreshThumbnails(windowsToScreenshot, source)
+            Windows.refreshThumbnailsAsync(windowsToScreenshot, source)
             if source == .refreshOnlyThumbnailsAfterShowUi { return }
         }
         guard appIsBeingUsed else { return }
@@ -216,12 +216,7 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         Windows.updateFocusedWindowIndex()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.thumbnailsView.updateItemsAndLayout()
-        guard appIsBeingUsed else { return }
-        thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.contentView.frame.size)
-        thumbnailsPanel.display()
-        guard appIsBeingUsed else { return }
-        NSScreen.preferred.repositionPanel(thumbnailsPanel)
+        thumbnailsPanel.updateContents()
         guard appIsBeingUsed else { return }
         Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
         guard appIsBeingUsed else { return }
@@ -267,12 +262,10 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         Appearance.update()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 screens make thumbnailPanel invisible
-        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
-        guard appIsBeingUsed else { return }
         refreshOpenUi([], .showUi)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
+        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
         refreshOpenUi(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }
 
