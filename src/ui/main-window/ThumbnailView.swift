@@ -1,4 +1,5 @@
 import Cocoa
+import Carbon.HIToolbox.Events
 
 class ThumbnailView: FlippedView {
     static let noOpenWindowToolTip = NSLocalizedString("App is running but has no open window", comment: "")
@@ -110,6 +111,20 @@ class ThumbnailView: FlippedView {
                 }
             }
         }
+    }
+
+    override func keyDown(with event: NSEvent) {
+        // Toggle focus search/selection with Tab and exit on Esc
+        let key = Int(event.keyCode)
+        if key == kVK_Tab && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
+            App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
+            return
+        }
+        if key == kVK_Escape && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
+            App.app.hideUi()
+            return
+        }
+        super.keyDown(with: event)
     }
 
     func mouseMoved() {

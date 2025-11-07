@@ -5,6 +5,34 @@ class Windows {
     static var focusedWindowIndex = Int(0)
     static var hoveredWindowIndex: Int?
     private static var lastWindowActivityType = WindowActivityType.none
+    static var searchQuery: String = ""
+
+    static func matchesSearch(_ window: Window) -> Bool {
+        if searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return true }
+        let appName = window.application.localizedName ?? ""
+        return fuzzyMatches(searchQuery, in: appName) || fuzzyMatches(searchQuery, in: window.title ?? "")
+    }
+
+    static func shouldDisplay(_ window: Window) -> Bool {
+        return window.shouldShowTheUser && matchesSearch(window)
+    }
+
+    /// Simple subsequence fuzzy match, case-insensitive.
+    private static func fuzzyMatches(_ query: String, in target: String) -> Bool {
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty { return true }
+        let q = trimmed.lowercased()
+        let t = target.lowercased()
+        var qi = q.startIndex
+        var ti = t.startIndex
+        while qi < q.endIndex && ti < t.endIndex {
+            if q[qi] == t[ti] {
+                qi = q.index(after: qi)
+            }
+            ti = t.index(after: ti)
+        }
+        return qi == q.endIndex
+    }
 
     /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
     /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
@@ -221,6 +249,8 @@ class Windows {
 
     static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {
         guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
+        // Do not steal focus from the search field while user is typing
+        if App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil { return }
         // it seems that sometimes makeFirstResponder is called before the view is visible
         // and it creates a delay in showing the main window; calling it with some delay seems to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
@@ -255,7 +285,7 @@ class Windows {
             let next = (targetIndex + step) % list.count
             targetIndex = next < 0 ? list.count + next : next
             iterations += 1
-        } while !list[targetIndex].shouldShowTheUser && iterations <= list.count
+        } while !shouldDisplay(list[targetIndex]) && iterations <= list.count
         return targetIndex
     }
 
@@ -267,7 +297,7 @@ class Windows {
 
     static func updateFocusedWindowIndex() {
         if let focusedWindow = focusedWindow() {
-            if !focusedWindow.shouldShowTheUser {
+            if !shouldDisplay(focusedWindow) {
                 cycleFocusedWindowIndex(windowIndexAfterCycling(1) > focusedWindowIndex ? 1 : -1)
             } else {
                 previewFocusedWindowIfNeeded()

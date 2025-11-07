@@ -228,6 +228,9 @@ class App: AppCenterApplication {
             }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
+            // Reset search on every summon so the list starts unfiltered
+            Windows.searchQuery = ""
+            thumbnailsPanel?.thumbnailsView.searchField.stringValue = ""
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
@@ -250,6 +253,9 @@ class App: AppCenterApplication {
     func buildUiAndShowPanel() {
         guard appIsBeingUsed else { return }
         Appearance.update()
+        // Update screen recording permission right before showing UI
+        let previous = SystemPermissions.screenRecordingPermission
+        SystemPermissions.updateScreenRecordingIsGranted()
         guard appIsBeingUsed else { return }
         refreshOpenUi([], .showUi)
         guard appIsBeingUsed else { return }

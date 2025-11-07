@@ -1,3 +1,4 @@
+import Cocoa
 import ShortcutRecorder
 
 class KeyboardEventsTestable {
@@ -25,6 +26,14 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
             let keyCodeAsString = keyCode.flatMap { SymbolicKeyCodeTransformer.shared.transformedValue(NSNumber(value: $0)) }
             return "keys:\(modifiersAsString ?? "")\(keyCodeAsString ?? "") isARepeat:\(isARepeat)"
         }
+    }
+    // When typing in the search field, do not trigger shortcuts; let text input work.
+    if App.app != nil,
+       App.app.appIsBeingUsed,
+       App.app.thumbnailsPanel != nil,
+       App.app.thumbnailsPanel.isKeyWindow,
+       App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+        return false
     }
     var someShortcutTriggered = false
     for shortcut in ControlsTab.shortcuts.values {
