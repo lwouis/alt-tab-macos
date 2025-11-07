@@ -3,6 +3,7 @@ import Cocoa
 class ThumbnailsView {
     let scrollView = ScrollView()
     var contentView: EffectView!
+    let searchField = NSSearchField(frame: .zero)
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
     static var thumbnailsWidth = CGFloat(0.0)
@@ -10,6 +11,8 @@ class ThumbnailsView {
 
     init() {
         contentView = makeAppropriateEffectView()
+        configureSearchField()
+        contentView.addSubview(searchField)
         contentView.addSubview(scrollView)
         // TODO: think about this optimization more
         (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
@@ -18,9 +21,47 @@ class ThumbnailsView {
     func updateBackgroundView() {
         let newEffectView = makeAppropriateEffectView()
         scrollView.removeFromSuperview()
+        searchField.removeFromSuperview()
+        newEffectView.addSubview(searchField)
         newEffectView.addSubview(scrollView)
         contentView.superview?.replaceSubview(contentView, with: newEffectView)
         contentView = newEffectView
+    }
+
+    private func configureSearchField() {
+        searchField.placeholderString = NSLocalizedString("Search windows", comment: "Search placeholder")
+        searchField.sendsSearchStringImmediately = true
+        searchField.sendsWholeSearchString = true
+        searchField.target = self
+        searchField.action = #selector(searchFieldChanged)
+        searchField.cell?.controlSize = .regular
+        searchField.delegate = self
+        searchField.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    @objc private func searchFieldChanged() {
+        Windows.searchQuery = searchField.stringValue
+        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+    }
+
+    func focusSearchField() {
+        // Make the search field first responder to allow immediate typing
+        App.app.thumbnailsPanel.makeFirstResponder(searchField)
+        // While searching, suppress cycling/repeat to avoid unintended navigation
+        App.app.forceDoNothingOnRelease = true
+        KeyRepeatTimer.deactivateTimerForRepeatingKey(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
+        KeyRepeatTimer.deactivateTimerForRepeatingKey("previousWindowShortcut")
+    }
+
+    private func openFirstFilteredWindow() {
+        if let idx = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+            // Stop cycling repeat before focusing a window to avoid re-opening or cycling
+            let nextName = Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)
+            KeyRepeatTimer.deactivateTimerForRepeatingKey(nextName)
+            KeyRepeatTimer.deactivateTimerForRepeatingKey("previousWindowShortcut")
+            let window = Windows.list[idx]
+            App.app.focusSelectedWindow(window)
+        }
     }
 
     func reset() {
@@ -119,7 +160,7 @@ class ThumbnailsView {
         rows.append([ThumbnailView]())
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return nil }
-            guard window.shouldShowTheUser else { continue }
+            guard Windows.shouldDisplay(window) else { continue }
             let view = ThumbnailsView.recycledViews[index]
             view.updateRecycledCellWithNewContent(window, index, height)
             let width = view.frame.size.width
@@ -164,10 +205,16 @@ class ThumbnailsView {
 
     private func layoutParentViews(_ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
         let heightMax = ThumbnailsPanel.maxThumbnailsHeight()
+        // Reserve space for the search bar at the top
+        let searchHeight: CGFloat = 28
+        let searchBottomPadding: CGFloat = 8
+        let searchTotalHeight = searchHeight + searchBottomPadding
         ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
-        ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
+        // Limit the thumbnails area height by reserving space for search
+        let thumbnailsAreaHeight = min(maxY, max(0, heightMax - searchTotalHeight))
+        ThumbnailsView.thumbnailsHeight = thumbnailsAreaHeight
         let frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
-        var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2
+        var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2 + searchTotalHeight
         let originX = Appearance.windowPadding
         var originY = Appearance.windowPadding
         if Preferences.appearanceStyle == .appIcons {
@@ -176,9 +223,13 @@ class ThumbnailsView {
             originY = originY - Appearance.intraCellPadding - labelHeight
         }
         contentView.frame.size = NSSize(width: frameWidth, height: frameHeight)
-        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
+        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: thumbnailsAreaHeight)
         scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size
+        // Position search field at the top, inside padding
+        searchField.isHidden = false
+        searchField.frame.size = NSSize(width: min(maxX, widthMax), height: searchHeight)
+        searchField.frame.origin = CGPoint(x: originX, y: frameHeight - Appearance.windowPadding - searchHeight)
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
@@ -197,7 +248,7 @@ class ThumbnailsView {
         var rowY = Appearance.interCellPadding
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return }
-            guard window.shouldShowTheUser else { continue }
+            guard Windows.shouldDisplay(window) else { continue }
             let view = ThumbnailsView.recycledViews[index]
             if view.frame.origin.y == rowY {
                 rowWidth += view.frame.size.width + Appearance.interCellPadding
@@ -225,6 +276,37 @@ class ThumbnailsView {
                 ThumbnailsView.recycledViews[i].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
             }
         }
+    }
+}
+
+extension ThumbnailsView: NSSearchFieldDelegate {
+    func controlTextDidChange(_ obj: Notification) {
+        guard obj.object as? NSSearchField === searchField else { return }
+        Windows.searchQuery = searchField.stringValue
+        // On any text change, stop any repeat cycling
+        KeyRepeatTimer.deactivateTimerForRepeatingKey(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
+        KeyRepeatTimer.deactivateTimerForRepeatingKey("previousWindowShortcut")
+        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+    }
+
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+            openFirstFilteredWindow()
+            return true
+        } else if commandSelector == #selector(NSResponder.insertTab(_:)) || commandSelector == #selector(NSResponder.insertBacktab(_:)) {
+            // Move focus from search to selection (current focused thumbnail)
+            App.app.forceDoNothingOnRelease = false
+            let index = Windows.focusedWindowIndex
+            if index < ThumbnailsView.recycledViews.count {
+                App.app.thumbnailsPanel.makeFirstResponder(ThumbnailsView.recycledViews[index])
+            }
+            return true
+        } else if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
+            // ESC exits the panel even when search has focus
+            App.app.hideUi()
+            return true
+        }
+        return false
     }
 }
 
