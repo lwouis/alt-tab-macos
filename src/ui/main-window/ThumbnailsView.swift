@@ -106,7 +106,7 @@ class ThumbnailsView {
     }
 
     private func layoutThumbnailViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat)? {
-        let labelHeight = ThumbnailsView.recycledViews.first!.label.cell!.cellSize.height
+        let labelHeight = ThumbnailsView.recycledViews.first!.label.fittingSize.height
         let height = ThumbnailView.height(labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
         let startingX = isLeftToRight ? Appearance.interCellPadding : widthMax - Appearance.interCellPadding

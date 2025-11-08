@@ -307,7 +307,7 @@ class ThumbnailView: FlippedView {
             }
         }
         let xPosition = -leftOffset
-        let height = view.label.cell!.cellSize.height
+        let height = view.label.fittingSize.height
         let yPosition = view.hStackView.frame.origin.y + view.hStackView.frame.height + Appearance.intraCellPadding * 2
         view.label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
         view.label.setWidth(effectiveLabelWidth)
@@ -381,7 +381,7 @@ class ThumbnailView: FlippedView {
             hStackView.frame.size = NSSize(width: appIcon.frame.width, height: appIcon.frame.height)
         } else {
             vStackView.frame.size = NSSize(width: frame.width, height: frame.height)
-            hStackView.frame.size = NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, label.cell!.cellSize.height))
+            hStackView.frame.size = NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, label.fittingSize.height))
             let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorsSpace()
             label.setWidth(labelWidth)
         }
@@ -397,7 +397,7 @@ class ThumbnailView: FlippedView {
             appIcon.frame.origin.x = App.shared.userInterfaceLayoutDirection == .leftToRight
                 ? 0
                 : hStackView.frame.width - appIcon.frame.width
-            let iconWidth = windowIndicatorIcons.first!.cell!.cellSize.width
+            let iconWidth = windowIndicatorIcons.first!.fittingSize.width
             var indicatorSpace = CGFloat(0)
             for icon in windowIndicatorIcons {
                 if !icon.isHidden {
@@ -472,7 +472,7 @@ class ThumbnailView: FlippedView {
     }
 
     private func indicatorsSpace() -> CGFloat {
-        let iconWidth = windowIndicatorIcons.first!.cell!.cellSize.width
+        let iconWidth = windowIndicatorIcons.first!.fittingSize.width
         return CGFloat(windowIndicatorIcons.filter { !$0.isHidden }.count) * iconWidth
     }
 

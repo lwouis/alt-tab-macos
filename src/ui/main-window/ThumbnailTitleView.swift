@@ -10,7 +10,7 @@ class ThumbnailTitleView: NSTextField {
     }
 
     func fixHeight() {
-        heightAnchor.constraint(equalToConstant: cell!.cellSize.height).isActive = true
+        heightAnchor.constraint(equalToConstant: fittingSize.height).isActive = true
     }
 
     override func mouseMoved(with event: NSEvent) {

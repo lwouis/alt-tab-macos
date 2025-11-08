@@ -92,8 +92,8 @@ extension NSView {
     }
 
     func centerFrameInParent(x: Bool = false, y: Bool = false) {
-        let selfSize = (self is NSTextField) ? (self as! NSTextField).cell!.cellSize : frame.size
-        let superviewSize = (superview! is NSTextField) ? (superview! as! NSTextField).cell!.cellSize : superview!.frame.size
+        let selfSize = (self is NSTextField) ? (self as! NSTextField).fittingSize : frame.size
+        let superviewSize = (superview! is NSTextField) ? (superview! as! NSTextField).fittingSize : superview!.frame.size
         if (x) {
             frame.origin.x = ((superviewSize.width - selfSize.width) / 2).rounded()
         }
