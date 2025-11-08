@@ -253,9 +253,6 @@ class App: AppCenterApplication {
     func buildUiAndShowPanel() {
         guard appIsBeingUsed else { return }
         Appearance.update()
-        // Update screen recording permission right before showing UI
-        let previous = SystemPermissions.screenRecordingPermission
-        SystemPermissions.updateScreenRecordingIsGranted()
         guard appIsBeingUsed else { return }
         refreshOpenUi([], .showUi)
         guard appIsBeingUsed else { return }
