@@ -315,6 +315,9 @@ class Windows {
 
     // dispatch screenshot requests off the main-thread, then wait for completion
     static func refreshThumbnailsAsync(_ windows: [Window], _ source: RefreshCausedBy) {
+        guard !windows.isEmpty && SystemPermissions.screenRecordingPermission == .granted
+               && !Preferences.onlyShowApplications()
+               && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) else { return }
         var eligibleWindows = [Window]()
         for window in windows {
             if !window.isWindowlessApp, let cgWindowId = window.cgWindowId, cgWindowId != CGWindowID(bitPattern: -1) {

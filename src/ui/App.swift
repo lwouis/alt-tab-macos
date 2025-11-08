@@ -42,12 +42,6 @@ class App: AppCenterApplication {
         fatalError("Class only supports programmatic initialization")
     }
 
-    /// pre-load some windows so they are faster on first display
-    private func preloadWindows() {
-        thumbnailsPanel.orderFront(nil)
-        thumbnailsPanel.orderOut(nil)
-    }
-
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
         thumbnailsPanel.thumbnailsView.reset()
@@ -203,12 +197,7 @@ class App: AppCenterApplication {
     }
 
     func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy) {
-        if !windowsToScreenshot.isEmpty && SystemPermissions.screenRecordingPermission == .granted
-               && !Preferences.onlyShowApplications()
-               && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) {
-            Windows.refreshThumbnailsAsync(windowsToScreenshot, source)
-            if source == .refreshOnlyThumbnailsAfterShowUi { return }
-        }
+        Windows.refreshThumbnailsAsync(windowsToScreenshot, source)
         guard appIsBeingUsed else { return }
         if source == .refreshUiAfterExternalEvent {
             if !Windows.updatesBeforeShowing() { hideUi(); return }
@@ -266,7 +255,7 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
         KeyRepeatTimer.toggleRepeatingKeyNextWindow()
-        refreshOpenUi(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
+        Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }
 
     func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: NSRunningApplication?) {
@@ -323,7 +312,6 @@ extension App: NSApplicationDelegate {
             MouseEvents.observe()
             TrackpadEvents.observe()
             CliEvents.observe()
-            self.preloadWindows()
             Logger.info("AltTab finished launching")
             #if DEBUG
 //            self.showPreferencesWindow()
