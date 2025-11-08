@@ -89,6 +89,9 @@ class Preferences {
         "screenRecordingPermissionSkipped": "false",
         // Search settings
         "showSearchBar": "true",
+        "anyKeyToSearchEnabled": "false",
+        // Local shortcut to focus search (when the switcher is active)
+        "searchFocusShortcut": "⇥",
     ]
 
     // system preferences
@@ -152,6 +155,8 @@ class Preferences {
     static var menubarIconShown: Bool { CachedUserDefaults.bool("menubarIconShown") }
     static var language: LanguagePreference { CachedUserDefaults.macroPref("language", LanguagePreference.allCases) }
     static var showSearchBar: Bool { CachedUserDefaults.bool("showSearchBar") }
+    static var anyKeyToSearchEnabled: Bool { CachedUserDefaults.bool("anyKeyToSearchEnabled") }
+    static var searchFocusShortcut: String { CachedUserDefaults.string("searchFocusShortcut") }
 
     static let gestureIndex = 3
 
