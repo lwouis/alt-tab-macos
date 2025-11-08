@@ -70,12 +70,12 @@ class Appearance {
     }
 
     private static func updateTheme() {
+        highlightBorderWidth = currentStyle == .titles ? 2 : 3
         if currentTheme == .dark {
             darkTheme()
         } else {
             lightTheme()
         }
-        highlightBorderWidth = currentStyle == .titles ? 2 : 3
         // // for Liquid Glass, we don't want a shadow around the panel
         // if #available(macOS 26.0, *), currentStyle == .appIcons && LiquidGlassEffectView.canUsePrivateLiquidGlassLook() {
         //     enablePanelShadow = false
