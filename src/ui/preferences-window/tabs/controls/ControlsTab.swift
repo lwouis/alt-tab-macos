@@ -28,6 +28,7 @@ class ControlsTab {
         "toggleFullscreenWindowShortcut": { App.app.toggleFullscreenSelectedWindow() },
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
+        "searchFocusShortcut": { App.app.thumbnailsPanel.thumbnailsView.focusSearchField() },
     ]
     static var arrowKeysCheckbox: Switch!
     static var vimKeysCheckbox: Switch!
@@ -251,7 +252,9 @@ class ControlsTab {
         var conflicts = [String: String]()
         shortcuts.forEach {
             let keymap = $1.shortcut.characters
-            if keymap != nil && vimKeys.contains(keymap!) {
+            // Consider conflict only when the exact key + modifiers combination would overlap.
+            // Vim keys we assign have no modifiers; do not flag conflicts when existing shortcuts use modifiers.
+            if keymap != nil && vimKeys.contains(keymap!) && $1.shortcut.carbonModifierFlags == 0 {
                 let control_id = $1.id
                 conflicts[control_id] = shortcutControls[control_id]!.1
             }

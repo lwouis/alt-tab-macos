@@ -49,6 +49,9 @@ class CustomRecorderControl: RecorderControl {
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         }
+        if !id.starts(with: "holdShortcut") {
+            alert.addButton(withTitle: NSLocalizedString("Proceed regardless", comment: ""))
+        }
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
         if id.starts(with: "holdShortcut") {
@@ -67,7 +70,14 @@ class CustomRecorderControl: RecorderControl {
             } else {
                 updateShortcut(existingShortcut.0, nil, existingShortcut.0, shortcutAlreadyAssigned)
             }
-            updateShortcut(ControlsTab.shortcutControls[id]!.0, candidateShortcut, self, id)
+            ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
+            ControlsTab.shortcutChangedCallback(self)
+            LabelAndControl.controlWasChanged(self, id)
+        } else if !id.starts(with: "holdShortcut") && userChoice == .alertSecondButtonReturn {
+            // Proceed regardless: keep both assignments; search/handlers will arbitrate at runtime
+            ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
+            ControlsTab.shortcutChangedCallback(self)
+            LabelAndControl.controlWasChanged(self, id)
         }
     }
 
@@ -133,5 +143,3 @@ extension CustomRecorderControl: RecorderControlDelegate {
         return true
     }
 }
-
-

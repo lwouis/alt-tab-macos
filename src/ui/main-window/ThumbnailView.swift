@@ -117,11 +117,11 @@ class ThumbnailView: FlippedView {
         // Toggle focus search/selection with Tab and exit on Esc
         let key = Int(event.keyCode)
         if key == kVK_Tab && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
-            if Preferences.showSearchBar {
+            if Preferences.showSearchBar || Preferences.anyKeyToSearchEnabled {
                 App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
-            } else {
-                super.keyDown(with: event)
+                return
             }
+            super.keyDown(with: event)
             return
         }
         if (key == kVK_Return || key == kVK_ANSI_KeypadEnter) && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
@@ -386,6 +386,8 @@ class ThumbnailView: FlippedView {
             label.stringValue = title
             setAccessibilityLabel(title)
         }
+        // Highlight matched search text in light yellow when a search is active.
+        applySearchHighlight(title)
         label.updateTruncationModeIfNeeded()
         if !spaceIcon.isHidden {
             let spaceIndex = element.spaceIndexes.first
@@ -408,6 +410,96 @@ class ThumbnailView: FlippedView {
         showOrHideWindowControls(isShowingWindowControls)
         mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
+    }
+
+    /// Applies a light-yellow background highlight to characters that match the current search query.
+    /// The fuzzy match is applied independently to app name and window title, and both can be highlighted when present.
+    private func applySearchHighlight(_ fullTitle: String) {
+        let query = Windows.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+        if query.isEmpty {
+            // Restore plain styling (keep color/font consistent with theme)
+            let attrs: [NSAttributedString.Key: Any] = [
+                .foregroundColor: Appearance.fontColor,
+                .font: Appearance.font,
+            ]
+            label.attributedStringValue = NSAttributedString(string: fullTitle, attributes: attrs)
+            return
+        }
+
+        // Compute highlight indices for the visible title parts
+        var highlightRanges = [NSRange]()
+        if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
+            if let indices = fuzzyMatchIndices(query, in: window_?.application.localizedName ?? "") {
+                highlightRanges.append(contentsOf: contiguousRanges(fromIndices: indices))
+            }
+        } else if Preferences.showTitles == .appNameAndWindowTitle {
+            let appName = window_?.application.localizedName ?? ""
+            let windowTitle = window_?.title ?? ""
+            let separator = " - "
+            if let indices = fuzzyMatchIndices(query, in: appName) {
+                highlightRanges.append(contentsOf: contiguousRanges(fromIndices: indices))
+            }
+            if let indices = fuzzyMatchIndices(query, in: windowTitle) {
+                let offset = (appName + separator).count
+                let shifted = indices.map { $0 + offset }
+                highlightRanges.append(contentsOf: contiguousRanges(fromIndices: shifted))
+            }
+        } else {
+            if let indices = fuzzyMatchIndices(query, in: window_?.title ?? "") {
+                highlightRanges.append(contentsOf: contiguousRanges(fromIndices: indices))
+            }
+        }
+
+        let baseAttrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: Appearance.fontColor,
+            .font: Appearance.font,
+        ]
+        let attributed = NSMutableAttributedString(string: fullTitle, attributes: baseAttrs)
+        for range in highlightRanges {
+            if range.location >= 0 && range.location + range.length <= attributed.length && range.length > 0 {
+                attributed.addAttribute(.backgroundColor, value: Appearance.searchMatchHighlightColor, range: range)
+            }
+        }
+        label.attributedStringValue = attributed
+    }
+
+    /// Creates contiguous ranges from an array of sorted character indices.
+    private func contiguousRanges(fromIndices indices: [Int]) -> [NSRange] {
+        if indices.isEmpty { return [] }
+        var ranges = [NSRange]()
+        var start = indices[0]
+        var prev = indices[0]
+        for i in 1..<indices.count {
+            if indices[i] == prev + 1 {
+                prev = indices[i]
+            } else {
+                ranges.append(NSRange(location: start, length: prev - start + 1))
+                start = indices[i]
+                prev = indices[i]
+            }
+        }
+        ranges.append(NSRange(location: start, length: prev - start + 1))
+        return ranges
+    }
+
+    /// Local fuzzy subsequence matcher returning matched indices (case-insensitive).
+    private func fuzzyMatchIndices(_ query: String, in target: String) -> [Int]? {
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty { return [] }
+        let qLower = trimmed.lowercased()
+        let tLower = target.lowercased()
+        var qi = qLower.startIndex
+        var ti = tLower.startIndex
+        var indices = [Int]()
+        while qi < qLower.endIndex && ti < tLower.endIndex {
+            if qLower[qi] == tLower[ti] {
+                let dist = tLower.distance(from: tLower.startIndex, to: ti)
+                indices.append(dist)
+                qi = qLower.index(after: qi)
+            }
+            ti = tLower.index(after: ti)
+        }
+        return qi == qLower.endIndex ? indices : nil
     }
 
     private func updateSizes(_ newHeight: CGFloat) {

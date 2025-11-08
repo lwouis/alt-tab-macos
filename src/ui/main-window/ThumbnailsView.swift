@@ -4,6 +4,8 @@ class ThumbnailsView {
     var scrollView: ScrollView!
     var contentView: EffectView!
     let searchField = NSSearchField(frame: .zero)
+    // The search bar is only shown after the user initiates search (Tab or any key)
+    var searchBarVisible = false
     var rows = [[ThumbnailView]]()
     static var recycledViews = [ThumbnailView]()
     static var thumbnailsWidth = CGFloat(0.0)
@@ -47,7 +49,13 @@ class ThumbnailsView {
 
     func focusSearchField() {
         // Make the search field first responder to allow immediate typing
-        App.app.thumbnailsPanel.makeFirstResponder(searchField)
+        guard Preferences.showSearchBar || Preferences.anyKeyToSearchEnabled else { return }
+        if !searchBarVisible {
+            searchBarVisible = true
+            // Re-layout to reserve space for the search bar before focusing it
+            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        }
+        window?.makeFirstResponder(searchField)
         // While searching, suppress cycling/repeat to avoid unintended navigation
         App.app.forceDoNothingOnRelease = true
         KeyRepeatTimer.deactivateTimerForRepeatingKey(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
@@ -142,7 +150,8 @@ class ThumbnailsView {
         if let (maxX, maxY, labelHeight) = layoutThumbnailViews(widthMax) {
             layoutParentViews(maxX, widthMax, maxY, labelHeight)
             if Preferences.alignThumbnails == .center {
-                centerRows(maxX)
+                // Center against the effective content width in use (may be clamped to a minimum while filtering)
+                centerRows(ThumbnailsView.thumbnailsWidth)
             }
             for row in rows {
                 for (j, view) in row.enumerated() {
@@ -225,16 +234,21 @@ class ThumbnailsView {
 
     private func layoutParentViews(_ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
         let heightMax = ThumbnailsPanel.maxThumbnailsHeight()
-        // Reserve space for the search bar at the top (always visible)
+        // Reserve space for the search bar at the top when enabled and visible
         let searchHeight: CGFloat = 28
         let searchBottomPadding: CGFloat = 8
-        let searchTotalHeight = searchHeight + searchBottomPadding
-        ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
+        let searchEnabled = (Preferences.showSearchBar || Preferences.anyKeyToSearchEnabled) && searchBarVisible
+        let searchTotalHeight = searchEnabled ? (searchHeight + searchBottomPadding) : 0
+        let isFiltering = !Windows.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        // Effective content width/height: apply minimums while filtering
+        let effectiveContentWidth = max(min(maxX, widthMax), isFiltering ? Appearance.minSearchPanelContentWidth : 0)
+        let contentAreaHeightMax = max(0, heightMax - searchTotalHeight)
+        let effectiveContentHeight = max(min(maxY, contentAreaHeightMax), isFiltering ? Appearance.minSearchPanelContentHeight : 0)
+        ThumbnailsView.thumbnailsWidth = effectiveContentWidth
         // Limit the thumbnails area height by reserving space for search
-        let thumbnailsAreaHeight = min(maxY, max(0, heightMax - searchTotalHeight))
-        ThumbnailsView.thumbnailsHeight = thumbnailsAreaHeight
-        let frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
-        var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2 + searchTotalHeight
+        ThumbnailsView.thumbnailsHeight = effectiveContentHeight
+        let frameWidth = effectiveContentWidth + Appearance.windowPadding * 2
+        var frameHeight = effectiveContentHeight + Appearance.windowPadding * 2 + searchTotalHeight
         let originX = Appearance.windowPadding
         var originY = Appearance.windowPadding
         if Preferences.appearanceStyle == .appIcons {
@@ -243,13 +257,15 @@ class ThumbnailsView {
             originY = originY - Appearance.intraCellPadding - labelHeight
         }
         contentView.frame.size = NSSize(width: frameWidth, height: frameHeight)
-        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: thumbnailsAreaHeight)
+        scrollView.frame.size = NSSize(width: effectiveContentWidth, height: effectiveContentHeight)
         scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size
         // Position search field at the top, inside padding
-        searchField.isHidden = false
-        searchField.frame.size = NSSize(width: min(maxX, widthMax), height: searchHeight)
-        searchField.frame.origin = CGPoint(x: originX, y: frameHeight - Appearance.windowPadding - searchHeight)
+        searchField.isHidden = !searchEnabled
+        if searchEnabled {
+            searchField.frame.size = NSSize(width: effectiveContentWidth, height: searchHeight)
+            searchField.frame.origin = CGPoint(x: originX, y: frameHeight - Appearance.windowPadding - searchHeight)
+        }
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
