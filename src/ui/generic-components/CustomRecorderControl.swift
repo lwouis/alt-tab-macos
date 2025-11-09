@@ -37,6 +37,14 @@ class CustomRecorderControl: RecorderControl {
     }
 
     func alertIfSameShortcutAlreadyAssigned(_ shortcut: Shortcut, _ shortcutAlreadyAssigned: ATShortcut) {
+        // Special-case: allow Enter Search and Exit Search to share the same shortcut without conflict.
+        if (id == "searchEnterShortcut" && shortcutAlreadyAssigned.id == "searchExitShortcut")
+               || (id == "searchExitShortcut" && shortcutAlreadyAssigned.id == "searchEnterShortcut") {
+            ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
+            ControlsTab.shortcutChangedCallback(self)
+            LabelAndControl.controlWasChanged(self, id)
+            return
+        }
         let isArrowKeys = ["←", "→", "↑", "↓"].contains(shortcutAlreadyAssigned.id)
         let isVimKeys = shortcutAlreadyAssigned.id.starts(with: "vimCycle")
         let existingShortcutLabel = ControlsTab.shortcutControls[shortcutAlreadyAssigned.id]

@@ -14,12 +14,20 @@ class KeyboardEventsTestable {
 
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool) -> Bool {
-    // When typing in the search field, do not trigger shortcuts; let text input work.
+    // Special case: while typing in the search field, allow only the configurable
+    // "Exit search" shortcut to be handled; all other shortcuts should be ignored
+    // so that text input works as expected.
     if App.app != nil,
        App.app.appIsBeingUsed,
        App.app.thumbnailsPanel != nil,
-       App.app.thumbnailsPanel.isKeyWindow,
-       App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+        App.app.thumbnailsPanel.isKeyWindow,
+        App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+        if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
+           exitShortcut.matches(globalId, shortcutState, keyCode, modifiers) && exitShortcut.shouldTrigger() {
+            exitShortcut.executeAction(isARepeat)
+            exitShortcut.redundantSafetyMeasures()
+            return true
+        }
         return false
     }
     Logger.debug(globalId, shortcutState, keyCode, modifiers, isARepeat, NSEvent.modifierFlags)

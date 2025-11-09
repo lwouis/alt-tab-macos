@@ -90,9 +90,11 @@ class Preferences {
         // Search settings
         "showSearchBar": "true",
         "anyKeyToSearchEnabled": "false",
-        // Local shortcut to focus search (when the switcher is active)
-        "searchFocusShortcut": "⇥",
-    ]
+        // Local shortcuts when the switcher is active
+        // Split Focus Search into Enter/Exit (default to Tab for both)
+        "searchEnterShortcut": "⇥",
+        "searchExitShortcut": "⇥",
+        ]
 
     // system preferences
     static var finderShowsQuitMenuItem: Bool { UserDefaults(suiteName: "com.apple.Finder")?.bool(forKey: "QuitMenuItem") ?? false }
@@ -156,7 +158,8 @@ class Preferences {
     static var language: LanguagePreference { CachedUserDefaults.macroPref("language", LanguagePreference.allCases) }
     static var showSearchBar: Bool { CachedUserDefaults.bool("showSearchBar") }
     static var anyKeyToSearchEnabled: Bool { CachedUserDefaults.bool("anyKeyToSearchEnabled") }
-    static var searchFocusShortcut: String { CachedUserDefaults.string("searchFocusShortcut") }
+    static var searchEnterShortcut: String { CachedUserDefaults.string("searchEnterShortcut") }
+    static var searchExitShortcut: String { CachedUserDefaults.string("searchExitShortcut") }
 
     static let gestureIndex = 3
 
