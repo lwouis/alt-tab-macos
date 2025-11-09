@@ -69,21 +69,21 @@ class ThumbnailsView {
     }
 
     func navigateUpOrDown(_ direction: Direction, allowWrap: Bool = true) {
+        guard Windows.focusedWindowIndex < ThumbnailsView.recycledViews.count else { return }
         let focusedViewFrame = ThumbnailsView.recycledViews[Windows.focusedWindowIndex].frame
         let originCenter = NSMidX(focusedViewFrame)
-        if let targetRow = nextRow(direction, allowWrap: allowWrap) {
-            let leftSide = originCenter < NSMidX(contentView.frame)
-            let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
-            let iterable = leadingSide ? targetRow : targetRow.reversed()
-            let targetView = iterable.first {
-                if App.shared.userInterfaceLayoutDirection == .leftToRight {
-                    return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
-                }
-                return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
-            } ?? iterable.last!
-            let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
-            Windows.updateFocusedAndHoveredWindowIndex(targetIndex)
-        }
+        guard let targetRow = nextRow(direction, allowWrap: allowWrap), !targetRow.isEmpty else { return }
+        let leftSide = originCenter < NSMidX(contentView.frame)
+        let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
+        let iterable = leadingSide ? targetRow : targetRow.reversed()
+        guard let targetView = iterable.first(where: {
+            if App.shared.userInterfaceLayoutDirection == .leftToRight {
+                return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
+            }
+            return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
+        }) ?? iterable.last else { return }
+        guard let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView) else { return }
+        Windows.updateFocusedAndHoveredWindowIndex(targetIndex)
     }
 
     func updateItemsAndLayout() {
