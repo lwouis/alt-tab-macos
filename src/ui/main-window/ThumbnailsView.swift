@@ -1,4 +1,5 @@
 import Cocoa
+import Carbon.HIToolbox.Events
 
 class ThumbnailsView {
     var scrollView: ScrollView!
@@ -340,13 +341,19 @@ extension ThumbnailsView: NSSearchFieldDelegate {
             openFirstFilteredWindow()
             return true
         } else if commandSelector == #selector(NSResponder.insertTab(_:)) || commandSelector == #selector(NSResponder.insertBacktab(_:)) {
-            // Let the user exit search with Tab/Backtab only when the Exit Search shortcut is set to Tab/Backtab.
-            // Otherwise, the configurable shortcut will be handled by the keyboard monitor.
-            let exitShortcut = Preferences.searchExitShortcut
-            if (commandSelector == #selector(NSResponder.insertTab(_:)) && exitShortcut == "⇥")
-                   || (commandSelector == #selector(NSResponder.insertBacktab(_:)) && exitShortcut == "⇧⇥") {
-                exitSearchFocus()
-                return true
+            // Let the user exit search with Tab/Backtab only when the Exit Search
+            // shortcut is actually set to Tab/Backtab. Compare on keyCode/modifiers
+            // to avoid brittle string glyph comparisons.
+            if let atShortcut = ControlsTab.shortcuts["searchExitShortcut"]?.shortcut {
+                // kVK_Tab and optional Shift for backtab
+                if atShortcut.carbonKeyCode == kVK_Tab {
+                    let hasShift = (atShortcut.carbonModifierFlags & UInt32(shiftKey)) != 0
+                    let isBacktab = commandSelector == #selector(NSResponder.insertBacktab(_:))
+                    if isBacktab == hasShift {
+                        exitSearchFocus()
+                        return true
+                    }
+                }
             }
             return false
         } else if commandSelector == #selector(NSResponder.cancelOperation(_:)) {

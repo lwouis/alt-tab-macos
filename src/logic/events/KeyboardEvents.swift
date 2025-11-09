@@ -90,7 +90,13 @@ class KeyboardEvents {
                 // Highest-priority: focus search on any key if enabled (except Escape to allow cancel)
                 if Preferences.anyKeyToSearchEnabled {
                     let keyCode = event.keyCode
-                    if keyCode != kVK_Escape {
+                    // Exclude Escape (to allow cancel) and arrow keys (to keep navigation working)
+                    let excluded: Set<UInt16> = [
+                        UInt16(kVK_Escape),
+                        UInt16(kVK_LeftArrow), UInt16(kVK_RightArrow),
+                        UInt16(kVK_UpArrow), UInt16(kVK_DownArrow)
+                    ]
+                    if !excluded.contains(keyCode) {
                         App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
                         // Deliver the event to the search field and bypass shortcut handling for this event
                         bypassShortcutsForThisEvent = true
