@@ -37,7 +37,7 @@ class Appearance {
     // derived
     static var font: NSFont {
         if #available(macOS 26.0, *) {
-            return NSFont.systemFont(ofSize: fontHeight, weight: .semibold)
+            return NSFont.systemFont(ofSize: fontHeight, weight: currentStyle == .appIcons ? .semibold : .medium)
         }
         return NSFont.systemFont(ofSize: fontHeight)
     }
@@ -155,7 +155,6 @@ class Appearance {
         windowCornerRadius = 23
         cellCornerRadius = 10
         edgeInsetsSize = 7
-        maxWidthOnScreen = isHorizontalScreen ? 0.6 : 0.8
         windowMinWidthInRow = 0.6
         windowMaxWidthInRow = 0.9
         rowsCount = 1

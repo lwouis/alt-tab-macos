@@ -2,6 +2,8 @@ import Cocoa
 
 class ThumbnailView: FlippedView {
     static let noOpenWindowToolTip = NSLocalizedString("App is running but has no open window", comment: "")
+    // when calculating the width of a nstextfield, somehow we need to add this suffix to get the correct width
+    static let extraTextForPadding = "lmnopqrstuvw"
     var window_: Window?
     var thumbnail = LightImageView()
     var windowlessIcon = LightImageView()
@@ -276,20 +278,19 @@ class ThumbnailView: FlippedView {
         let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
         let totalWidth = availableLeftWidth + availableRightWidth + viewWidth
         let maxLabelWidth = min(totalWidth, maxAllowedWidth)
-        return maxLabelWidth - Appearance.intraCellPadding * 4
+        return maxLabelWidth - Appearance.intraCellPadding * 2
     }
 
     private func updateAppIconsLabelFrame(_ view: ThumbnailView) {
         let viewWidth = view.frame.width
-        let labelWidth = view.label.fittingSize.width
+        let labelWidth = view.label.cell!.cellSize.width
         let maxAllowedLabelWidth = getMaxAllowedLabelWidth(view)
         let effectiveLabelWidth = max(min(labelWidth, maxAllowedLabelWidth), viewWidth)
-        var leftOffset = CGFloat(0)
-        var effectiveLabelWidth = max(min(labelWidth, maxAllowedLabelWidth), viewWidth)
+            - (view.isFirstInRow && view.isLastInRow ? 4 : (view.isFirstInRow || view.isLastInRow ? 2 : 0)) * Appearance.intraCellPadding
         var leftOffset = -Appearance.intraCellPadding * 2
         if view.isFirstInRow && view.isLastInRow {
             leftOffset = -Appearance.intraCellPadding * 2
-            effectiveLabelWidth -= Appearance.intraCellPadding * 4
+
         } else if view.isLastInRow {
             leftOffset = max(0, effectiveLabelWidth - viewWidth + Appearance.intraCellPadding * 2)
         } else if !view.isFirstInRow && !view.isLastInRow {
@@ -545,6 +546,28 @@ class ThumbnailView: FlippedView {
 
     static func maxThumbnailWidth() -> CGFloat {
         return ThumbnailsPanel.maxThumbnailsWidth() * Appearance.windowMaxWidthInRow - Appearance.interCellPadding * 2
+    }
+
+    static func widthOfComfortableReadability() -> CGFloat? {
+        let labTitleView = ThumbnailTitleView(font: Appearance.font)
+        labTitleView.stringValue = "abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijk" + extraTextForPadding
+        Logger.error(labTitleView.font)
+        return labTitleView.fittingSize.width
+    }
+
+    static func widthOfLongestTitle() -> CGFloat? {
+        let labTitleView = ThumbnailTitleView(font: Appearance.font)
+        var maxWidth = CGFloat(0)
+        for window in Windows.list {
+            guard window.shouldShowTheUser else { continue }
+            labTitleView.stringValue = window.title + extraTextForPadding
+            let width = labTitleView.fittingSize.width
+            if width > maxWidth {
+                maxWidth = width
+            }
+        }
+        guard maxWidth > 0 else { return nil }
+        return maxWidth
     }
 
     static func minThumbnailWidth() -> CGFloat {

@@ -193,15 +193,6 @@ extension DispatchQoS {
     }
 }
 
-extension NSTextField {
-    func setWidth(_ width: CGFloat) {
-        frame.size.width = width
-        // TODO: NSTextField does some internal magic, and ends up with constraints. We need to add our own to force its size
-        // I wish there was a better way to only set the frame.size
-        addOrUpdateConstraint(widthAnchor, width)
-    }
-}
-
 extension NSImage {
     func appIconFixedSize(_ size: NSSize) -> CGImage? {
         var rect = NSRect(origin: .zero, size: size)
