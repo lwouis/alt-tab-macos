@@ -28,7 +28,13 @@ class ControlsTab {
         "toggleFullscreenWindowShortcut": { App.app.toggleFullscreenSelectedWindow() },
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
-        "searchFocusShortcut": { App.app.thumbnailsPanel.thumbnailsView.focusSearchField() },
+        // Search: enter/exit
+        "searchEnterShortcut": { App.app.thumbnailsPanel.thumbnailsView.focusSearchField() },
+        "searchExitShortcut": {
+            if App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+                App.app.thumbnailsPanel.thumbnailsView.exitSearchFocus()
+            }
+        },
     ]
     static var arrowKeysCheckbox: Switch!
     static var vimKeysCheckbox: Switch!

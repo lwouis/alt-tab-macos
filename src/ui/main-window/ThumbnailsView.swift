@@ -55,11 +55,21 @@ class ThumbnailsView {
             // Re-layout to reserve space for the search bar before focusing it
             App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
         }
-        window?.makeFirstResponder(searchField)
+        App.app.thumbnailsPanel.makeFirstResponder(searchField)
         // While searching, suppress cycling/repeat to avoid unintended navigation
         App.app.forceDoNothingOnRelease = true
         KeyRepeatTimer.deactivateTimerForRepeatingKey(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
         KeyRepeatTimer.deactivateTimerForRepeatingKey("previousWindowShortcut")
+    }
+
+    /// Move focus from the search field back to the current selection (thumbnail).
+    /// Also re-enable cycling on key release.
+    func exitSearchFocus() {
+        App.app.forceDoNothingOnRelease = false
+        let index = Windows.focusedWindowIndex
+        if index < ThumbnailsView.recycledViews.count {
+            App.app.thumbnailsPanel.makeFirstResponder(ThumbnailsView.recycledViews[index])
+        }
     }
 
     private func openFirstFilteredWindow() {
@@ -326,27 +336,20 @@ extension ThumbnailsView: NSSearchFieldDelegate {
     }
 
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        // Use configured shortcuts while the search field is focused
-        if control === searchField, let event = NSApp.currentEvent, event.type == .keyDown {
-            let keyCode = UInt32(event.keyCode)
-            let modifiers = event.modifierFlags
-            // Focus window (default Space), only if we have a visible match
-            if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
-               focusShortcut.matches(nil, nil, keyCode, modifiers) && focusShortcut.shouldTrigger() {
-                if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
-                    ControlsTab.executeAction("focusWindowShortcut")
-                }
+        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+            openFirstFilteredWindow()
+            return true
+        } else if commandSelector == #selector(NSResponder.insertTab(_:)) || commandSelector == #selector(NSResponder.insertBacktab(_:)) {
+            // Let the user exit search with Tab/Backtab only when the Exit Search shortcut is set to Tab/Backtab.
+            // Otherwise, the configurable shortcut will be handled by the keyboard monitor.
+            let exitShortcut = Preferences.searchExitShortcut
+            if (commandSelector == #selector(NSResponder.insertTab(_:)) && exitShortcut == "⇥")
+                   || (commandSelector == #selector(NSResponder.insertBacktab(_:)) && exitShortcut == "⇧⇥") {
+                exitSearchFocus()
                 return true
             }
-            // Exit search (default Tab)
-            if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
-               exitShortcut.matches(nil, nil, keyCode, modifiers) && exitShortcut.shouldTrigger() {
-                App.app.thumbnailsPanel.makeFirstResponder(ThumbnailsView.recycledViews[Windows.focusedWindowIndex])
-                App.app.forceDoNothingOnRelease = false
-                return true
-            }
-        }
-        if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
+            return false
+        } else if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
             // ESC exits the panel even when search has focus
             App.app.hideUi()
             return true
