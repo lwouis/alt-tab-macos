@@ -227,12 +227,6 @@
 "Hide/Show app" = "Hide/Show app";
 
 /* No comment provided by engineer. */
-"High" = "High";
-
-/* No comment provided by engineer. */
-"Highest" = "Highest";
-
-/* No comment provided by engineer. */
 "Hold" = "Hold";
 
 /* No comment provided by engineer. */
@@ -294,9 +288,6 @@
 
 /* No comment provided by engineer. */
 "Non-active apps" = "Non-active apps";
-
-/* No comment provided by engineer. */
-"Normal" = "Normal";
 
 /* No comment provided by engineer. */
 "Not allowed" = "Not allowed";
@@ -555,9 +546,6 @@
 
 /* No comment provided by engineer. */
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
-
-/* No comment provided by engineer. */
-"Visibility" = "Visibility";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";

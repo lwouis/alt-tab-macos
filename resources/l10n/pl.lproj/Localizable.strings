@@ -8,11 +8,11 @@
 "Additional controls" = "Dodatkowe elementy sterujące";
 "Additional controls…" = "Dodatkowe elementy sterujące…";
 "Advanced" = "Zaawansowany";
-"After release" = "Po wydaniu";
-"Align windows" = "Wyrównać okna";
+"After release" = "Po odpuszeniu klawisza";
+"Align windows" = "Wyrównaj okna";
 "Align windows:" = "Wyrównaj okna:";
 "All apps" = "Wszystkich aplikacji";
-"All data from this form will be made public, as a ticket on github.com" = "Wszystkie dane z tej ankiety zostaną upublicznione jako kwitek na github.com";
+"All data from this form will be made public, as a ticket on github.com" = "Wszystkie dane z tego formularza zostaną upublicznione jako zgłoszenie na github.com";
 "All screens" = "Wszystkich ekranów";
 "All Spaces" = "Wszystkich przestrzeni";
 "Allowed" = "Dozwolone";
@@ -35,6 +35,7 @@
 "App is hidden" = "Aplikacja jest ukryta";
 "App is running but has no open window" = "Aplikacja jest uruchomiona, ale nie ma otwartego okna";
 "Apparition delay" = "Opóźnienie objawienia";
+"Apparition delay of Switcher" = "Opóźnienie w pokazaniu";
 "Apparition delay:" = "Opóźnienie pojawiania się:";
 "Appearance" = "Wygląd";
 "Application Name" = "Nazwa aplikacji";
@@ -69,7 +70,9 @@
 "Don’t show windows from these apps" = "Nie pokazuj okien z tych aplikacji";
 "Done" = "Zrobione";
 "End" = "Na końcu";
+"Fade in animation of Preview" = "Animacja pojawiania się";
 "Fade out animation" = "Zniknąć animację";
+"Fade out animation of Switcher" = "Animacja zanikania";
 "Fade out animation:" = "Animacja zanikania:";
 "Focus selected window" = "Skup się na wybranym oknie";
 "Fullscreen window" = "Okno pełnoekranowe";
@@ -122,6 +125,7 @@
 "Mouse hover" = "Najechania myszką";
 "Multiple screens" = "Wiele ekranów";
 "Never send crash reports" = "Nigdy nie wysyłaj raportów crashów";
+"Non-active apps" = "Nieaktywne aplikacje";
 "Normal" = "Normalna";
 "Not allowed" = "Nie dozwolone";
 "NSHumanReadableCopyright" = "Licencja GPL-3.0";
@@ -175,6 +179,7 @@
 "Show" = "Pokaż";
 "Show & Hide" = "Pokaż i ukryj";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Pokaż element w przełączniku dla każdego okna lub dla każdej aplikacji. Okna zostaną wybrane, podczas gdy aplikacje będą aktywowane.";
+"Show apps with no open window" = "Pokaż aplikacje bez otwartych okien";
 "Show at the end" = "Pokazuj na końcu";
 "Show fullscreen windows" = "Pokaż okna na pełnym ekranie";
 "Show hidden windows" = "Pokaż ukryte okna";
@@ -211,11 +216,12 @@
 "Then release:" = "Po puszczeniu:";
 "This permission is needed to focus windows after you release the shortcut" = "To uprawnienie jest potrzebne, aby aktywować okna po zwolnieniu skrótu";
 "This permission is needed to show screenshots and titles of open windows" = "To uprawnienie jest potrzebne do wyświetlania zrzutów ekranu i tytułów otwartych okien";
+"This permission is needed to show thumbnails and preview of open windows" = "To pozwolenie jest potrzebne aby pokazać nagłówki i podgląd otwartych okien";
 "Thumbnails" = "Miniatury";
 "Title" = "Tytuł";
 "Title truncation" = "Obcięcie tytułu";
 "Titles" = "Tytuły";
-"Trigger shortcut" = "Skrót spust";
+"Trigger shortcut" = "Skrót klawiszowy";
 "Unassign existing shortcut and continue" = "Anuluj przypisanie istniejącego skrótu i kontynuuj";
 "Updates policy" = "Zasady aktualizacji";
 "Updates policy:" = "Zasady aktualizacji:";

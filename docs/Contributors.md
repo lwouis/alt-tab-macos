@@ -213,6 +213,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Paul Przybyszewski
 * Paul. pichaureau
 * Pehovorka
+* Pendolino
 * Petar Shomov
 * Peterkim0620
 * Petr Kolář
