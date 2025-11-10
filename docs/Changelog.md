@@ -1,5 +1,27 @@
 # Release notes
 
+# [7.32.0](https://github.com/lwouis/alt-tab-macos/compare/v7.31.0...v7.32.0) (2025-11-10)
+
+
+### Bug Fixes
+
+* alt-tab could crash if asked to close one of its own window ([f46372b](https://github.com/lwouis/alt-tab-macos/commit/f46372b))
+* could sometimes crash when navigating up or down (closes [#4110](https://github.com/lwouis/alt-tab-macos/issues/4110)) ([d2220c6](https://github.com/lwouis/alt-tab-macos/commit/d2220c6))
+
+
+### Features
+
+* improve pl/zh-hk localizations ([786e752](https://github.com/lwouis/alt-tab-macos/commit/786e752))
+* improve responsiveness of showing the switcher ([689adc0](https://github.com/lwouis/alt-tab-macos/commit/689adc0))
+* new look for tahoe and liquid glass (closes [#4658](https://github.com/lwouis/alt-tab-macos/issues/4658)) ([fab9d7c](https://github.com/lwouis/alt-tab-macos/commit/fab9d7c))
+* titles appearance now resizes for better readability ([26d40e1](https://github.com/lwouis/alt-tab-macos/commit/26d40e1)), closes [#3882](https://github.com/lwouis/alt-tab-macos/issues/3882)
+* update visuals for macos tahoe and liquid glass ([33c6615](https://github.com/lwouis/alt-tab-macos/commit/33c6615))
+
+
+### Performance Improvements
+
+* improve rendering performance by doing less work ([ec55ae8](https://github.com/lwouis/alt-tab-macos/commit/ec55ae8))
+
 # [7.31.0](https://github.com/lwouis/alt-tab-macos/compare/v7.30.0...v7.31.0) (2025-10-26)
 
 
