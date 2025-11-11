@@ -249,11 +249,15 @@ class Windows {
 
     static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {
         guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
-        // Do not steal focus from the search field while user is typing
+        // Do not steal focus from the search field while user is typing.
+        // Check now and again right before focusing the thumbnail to avoid races
+        // with code that focuses the search field shortly after a UI refresh.
         if App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil { return }
         // it seems that sometimes makeFirstResponder is called before the view is visible
         // and it creates a delay in showing the main window; calling it with some delay seems to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            // If the user entered search in the meantime, keep focus there.
+            if App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil { return }
             let window = ThumbnailsView.recycledViews[windowIndex]
             if window.window_ != nil && window.window != nil {
                 App.app.thumbnailsPanel.makeFirstResponder(window)

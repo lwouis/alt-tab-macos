@@ -91,11 +91,19 @@ class KeyboardEvents {
                 if Preferences.anyKeyToSearchEnabled {
                     let keyCode = event.keyCode
                     // Exclude Escape (to allow cancel) and arrow keys (to keep navigation working)
-                    let excluded: Set<UInt16> = [
+                    // Also exclude the configured Enter/Exit Search keys so those paths go
+                    // through the normal shortcut machinery with defined priority.
+                    var excluded: Set<UInt16> = [
                         UInt16(kVK_Escape),
                         UInt16(kVK_LeftArrow), UInt16(kVK_RightArrow),
                         UInt16(kVK_UpArrow), UInt16(kVK_DownArrow)
                     ]
+                    if let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut {
+                        excluded.insert(UInt16(enter.carbonKeyCode))
+                    }
+                    if let exit = ControlsTab.shortcuts["searchExitShortcut"]?.shortcut {
+                        excluded.insert(UInt16(exit.carbonKeyCode))
+                    }
                     if !excluded.contains(keyCode) {
                         App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
                         // Deliver the event to the search field and bypass shortcut handling for this event

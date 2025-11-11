@@ -12,6 +12,14 @@ class KeyboardEventsTestable {
     ]
 }
 
+/// Simple priority: ensure search-enter outranks search-exit and others when not editing.
+private func shortcutPriority(_ id: String) -> Int {
+    if id == "searchEnterShortcut" { return 0 }
+    if id == "searchExitShortcut" { return 1 }
+    // Keep everything else at a lower priority; ties resolved by id for determinism
+    return 10
+}
+
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool) -> Bool {
     if let globalId, let shortcutState {
@@ -44,14 +52,22 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
         return false
     }
     var someShortcutTriggered = false
-    for shortcut in ControlsTab.shortcuts.values {
-        if shortcut.matches(globalId, shortcutState, keyCode, modifiers) && shortcut.shouldTrigger() {
+    // Deterministic ordering: by priority then id; execute only the first match.
+    let orderedShortcuts = ControlsTab.shortcuts.values.sorted { (a, b) -> Bool in
+        let pa = shortcutPriority(a.id)
+        let pb = shortcutPriority(b.id)
+        return pa == pb ? a.id < b.id : pa < pb
+    }
+    for shortcut in orderedShortcuts {
+        let isMatch = shortcut.matches(globalId, shortcutState, keyCode, modifiers)
+        if isMatch && shortcut.shouldTrigger() && !someShortcutTriggered {
             shortcut.executeAction(isARepeat)
             // we want to pass-through alt-up to the active app, since it saw alt-down previously
             if !shortcut.id.starts(with: "holdShortcut") {
                 someShortcutTriggered = true
             }
         }
+        // Always run safety to keep timers/state consistent even if not executed
         shortcut.redundantSafetyMeasures()
     }
     // TODO if we manage to move all keyboard listening to the background thread, we'll have issues returning this boolean
