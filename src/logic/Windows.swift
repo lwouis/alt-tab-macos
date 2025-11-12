@@ -118,6 +118,7 @@ class Windows {
     }
 
     static func setInitialFocusedAndHoveredWindowIndex() {
+        // Reset state and clear previous highlights/hover
         let oldIndex = focusedWindowIndex
         focusedWindowIndex = 0
         ThumbnailsView.highlight(oldIndex)
@@ -125,15 +126,13 @@ class Windows {
             hoveredWindowIndex = nil
             ThumbnailsView.highlight(oldIndex)
         }
-        if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
-           (app.focusedWindow == nil || Preferences.windowOrder[App.app.shortcutIndex] != .recentlyFocused),
-           let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
-            updateFocusedAndHoveredWindowIndex(lastFocusedWindowIndex)
+
+        // New behavior: when the UI opens, select the first visible window in the current order.
+        // This avoids auto-selecting the 2nd window by cycling forward.
+        if let firstVisible = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+            updateFocusedAndHoveredWindowIndex(firstVisible)
         } else {
-            cycleFocusedWindowIndex(1)
-            if focusedWindowIndex == 0 {
-                updateFocusedAndHoveredWindowIndex(0)
-            }
+            updateFocusedAndHoveredWindowIndex(0)
         }
     }
 
@@ -302,12 +301,22 @@ class Windows {
     static func updateFocusedWindowIndex() {
         if let focusedWindow = focusedWindow() {
             if !shouldDisplay(focusedWindow) {
-                cycleFocusedWindowIndex(windowIndexAfterCycling(1) > focusedWindowIndex ? 1 : -1)
+                // Keep selection stable while filtering. If the current selection
+                // is no longer visible, select the first visible window instead
+                // of moving to an adjacent one.
+                if let firstVisible = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+                    updateFocusedAndHoveredWindowIndex(firstVisible)
+                }
             } else {
                 previewFocusedWindowIfNeeded()
             }
         } else {
-            cycleFocusedWindowIndex(-1)
+            // Fallback: if no window is currently focused, try selecting the first visible
+            if let firstVisible = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+                updateFocusedAndHoveredWindowIndex(firstVisible)
+            } else {
+                cycleFocusedWindowIndex(-1)
+            }
         }
     }
 
