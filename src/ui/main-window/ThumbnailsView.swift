@@ -5,8 +5,6 @@ class ThumbnailsView: NSObject {
     let scrollView = ScrollView()
     var contentView: EffectView!
     let searchField = NSSearchField(frame: .zero)
-    // The search bar is only shown after the user initiates search (Tab or any key)
-    var searchBarVisible = false
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
     static var thumbnailsWidth = CGFloat(0.0)
@@ -50,11 +48,6 @@ class ThumbnailsView: NSObject {
 
     func focusSearchField() {
         // Make the search field first responder to allow immediate typing
-        if !searchBarVisible {
-            searchBarVisible = true
-            // Re-layout to reserve space for the search bar before focusing it
-            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
-        }
         App.app.thumbnailsPanel.makeFirstResponder(searchField)
         // While searching, suppress cycling/repeat to avoid unintended navigation
         App.app.forceDoNothingOnRelease = true
@@ -314,6 +307,11 @@ extension ThumbnailsView: NSSearchFieldDelegate {
     }
 
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        // Enter should focus the selected window while searching
+        if control === searchField, commandSelector == #selector(NSResponder.insertNewline(_:)) {
+            ControlsTab.executeAction("focusWindowShortcut")
+            return true
+        }
         // Use configured shortcuts while the search field has focus; avoid hardcoded keys
         if control === searchField, let event = NSApp.currentEvent, event.type == .keyDown {
             let keyCode = UInt32(event.keyCode)
