@@ -307,20 +307,26 @@ class Windows {
 
     static func updateFocusedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
         var index: Int?
-        if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
-            let oldIndex = hoveredWindowIndex
+        // Update hover highlight only if mouse hover feature is enabled
+        if fromMouse && Preferences.mouseHoverEnabled && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
+            let oldHovered = hoveredWindowIndex
             hoveredWindowIndex = newIndex
-            if let oldIndex {
-                ThumbnailsView.highlight(oldIndex)
-            }
+            if let oldHovered { ThumbnailsView.highlight(oldHovered) }
             index = hoveredWindowIndex
             lastWindowActivityType = .hover
         }
+        // Update focused index. When changing focus via keyboard (or programmatically),
+        // clear any stale hover highlight to ensure only one selected item is visible.
         if (!fromMouse || Preferences.mouseHoverEnabled)
                && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
-            let oldIndex = focusedWindowIndex
+            let oldFocused = focusedWindowIndex
+            let oldHovered = hoveredWindowIndex
+            if !fromMouse, oldHovered != nil { // clear hover when focus comes from non-mouse interaction
+                hoveredWindowIndex = nil
+                ThumbnailsView.highlight(oldHovered!)
+            }
             focusedWindowIndex = newIndex
-            ThumbnailsView.highlight(oldIndex)
+            ThumbnailsView.highlight(oldFocused)
             previewFocusedWindowIfNeeded()
             index = focusedWindowIndex
             lastWindowActivityType = .focus
