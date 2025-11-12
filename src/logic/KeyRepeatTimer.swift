@@ -31,7 +31,20 @@ class KeyRepeatTimer {
         }
     }
 
+    private static func isSearchEditing() -> Bool {
+        if App.app == nil { return false }
+        if let panel = App.app.thumbnailsPanel, panel.isKeyWindow {
+            return panel.thumbnailsView.searchField.currentEditor() != nil
+        }
+        return false
+    }
+
     private static func activateTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
+        if isSearchEditing() {
+            // Don't start repeat timers while user is typing in search
+            deactivateTimerForRepeatingKey(atShortcut.id)
+            return
+        }
         if ((timer == nil || !timer!.isValid) && atShortcut.state != .up) {
             let repeatRate = ticksToSeconds(CachedUserDefaults.globalString("KeyRepeat") ?? "6")
             let initialDelay = ticksToSeconds(CachedUserDefaults.globalString("InitialKeyRepeat") ?? "25")
@@ -46,6 +59,10 @@ class KeyRepeatTimer {
 
     private static func handleEvent(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         DispatchQueue.main.async {
+            if isSearchEditing() {
+                deactivateTimerForRepeatingKey(atShortcut.id)
+                return
+            }
             if atShortcut.state == .up {
                 deactivateTimerForRepeatingKey(atShortcut.id)
             } else {

@@ -228,6 +228,10 @@ class App: AppCenterApplication {
             }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
+            // Reset search on every summon so the list starts unfiltered
+            Windows.searchQuery = ""
+            thumbnailsPanel?.thumbnailsView.searchField.stringValue = ""
+            thumbnailsPanel?.thumbnailsView.searchBarVisible = false
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
@@ -254,7 +258,11 @@ class App: AppCenterApplication {
         refreshOpenUi([], .showUi)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
-        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+        // Start cycling only if not editing search
+        if thumbnailsPanel.thumbnailsView.searchField.currentEditor() == nil {
+            KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+        }
+        // Refresh thumbnails after showing UI
         Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }
 
