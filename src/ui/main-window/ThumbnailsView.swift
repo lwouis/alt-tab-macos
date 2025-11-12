@@ -1,8 +1,8 @@
 import Cocoa
 import Carbon.HIToolbox.Events
 
-class ThumbnailsView {
-    var scrollView: ScrollView!
+class ThumbnailsView: NSObject {
+    let scrollView = ScrollView()
     var contentView: EffectView!
     let searchField = NSSearchField(frame: .zero)
     // The search bar is only shown after the user initiates search (Tab or any key)
@@ -12,8 +12,8 @@ class ThumbnailsView {
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
 
-    init() {
-        scrollView = ScrollView()
+    override init() {
+        super.init()
         contentView = makeAppropriateEffectView()
         configureSearchField()
         contentView.addSubview(searchField)
