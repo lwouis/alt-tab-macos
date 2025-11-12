@@ -313,12 +313,11 @@ extension ThumbnailsView: NSSearchFieldDelegate {
     }
 
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-<<<<<<< HEAD
-        // Use configured shortcuts while the search field is focused
+        // Use configured shortcuts while the search field has focus; avoid hardcoded keys
         if control === searchField, let event = NSApp.currentEvent, event.type == .keyDown {
             let keyCode = UInt32(event.keyCode)
             let modifiers = event.modifierFlags
-            // Focus window (default Space), only if we have a visible match
+            // Focus window shortcut (e.g., Space by default)
             if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
                focusShortcut.matches(nil, nil, keyCode, modifiers) && focusShortcut.shouldTrigger() {
                 if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
@@ -326,41 +325,32 @@ extension ThumbnailsView: NSSearchFieldDelegate {
                 }
                 return true
             }
-            // Exit search (default Tab)
+            // Exit search mode shortcut (e.g., Tab by default)
             if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
                exitShortcut.matches(nil, nil, keyCode, modifiers) && exitShortcut.shouldTrigger() {
-                App.app.thumbnailsPanel.makeFirstResponder(ThumbnailsView.recycledViews[Windows.focusedWindowIndex])
-                App.app.forceDoNothingOnRelease = false
+                exitSearchFocus()
                 return true
             }
         }
         if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
-=======
-        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
-            // Enter while searching should open the currently selected window.
-            // If there are no matches, do nothing.
-            if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
-                App.app.focusSelectedWindow(Windows.focusedWindow())
-            }
+            // ESC exits the panel even when search has focus
+            App.app.hideUi()
             return true
-        } else if commandSelector == #selector(NSResponder.insertTab(_:)) || commandSelector == #selector(NSResponder.insertBacktab(_:)) {
-            // Let the user exit search with Tab/Backtab only when the Exit Search
-            // shortcut is actually set to Tab/Backtab. Compare on keyCode/modifiers
-            // to avoid brittle string glyph comparisons.
-            if let atShortcut = ControlsTab.shortcuts["searchExitShortcut"]?.shortcut {
-                // kVK_Tab and optional Shift for backtab
-                if atShortcut.carbonKeyCode == kVK_Tab {
-                    let hasShift = (atShortcut.carbonModifierFlags & UInt32(shiftKey)) != 0
-                    let isBacktab = commandSelector == #selector(NSResponder.insertBacktab(_:))
-                    if isBacktab == hasShift {
-                        exitSearchFocus()
-                        return true
-                    }
-                }
-            }
-            return false
+        }
+        return false
+    }alse
         } else if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
 >>>>>>> 80abd4a (feat: implement enter/exit search shortcuts and update related functionality)
+=======
+            // Exit search mode shortcut (e.g., Tab by default)
+            if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
+               exitShortcut.matches(nil, nil, keyCode, modifiers) && exitShortcut.shouldTrigger() {
+                exitSearchFocus()
+                return true
+            }
+        }
+        if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
+>>>>>>> 472613a (feat: enhance search field behavior by implementing user-defined shortcuts for focusing windows and exiting search)
             // ESC exits the panel even when search has focus
             App.app.hideUi()
             return true
