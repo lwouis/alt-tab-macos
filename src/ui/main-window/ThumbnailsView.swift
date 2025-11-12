@@ -5,8 +5,6 @@ class ThumbnailsView: NSObject {
     let scrollView = ScrollView()
     var contentView: EffectView!
     let searchField = NSSearchField(frame: .zero)
-    // The search bar is only shown after the user initiates search (Tab or any key)
-    var searchBarVisible = false
     var rows = [[ThumbnailView]]()
     static var recycledViews = [ThumbnailView]()
     static var thumbnailsWidth = CGFloat(0.0)
@@ -50,11 +48,6 @@ class ThumbnailsView: NSObject {
 
     func focusSearchField() {
         // Make the search field first responder to allow immediate typing
-        if !searchBarVisible {
-            searchBarVisible = true
-            // Re-layout to reserve space for the search bar before focusing it
-            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
-        }
         App.app.thumbnailsPanel.makeFirstResponder(searchField)
         // While searching, suppress cycling/repeat to avoid unintended navigation
         App.app.forceDoNothingOnRelease = true
@@ -247,7 +240,7 @@ class ThumbnailsView: NSObject {
         // Reserve space for the search bar at the top when enabled and visible
         let searchHeight: CGFloat = 28
         let searchBottomPadding: CGFloat = 8
-        let searchEnabled = searchBarVisible
+        let searchEnabled = true
         let searchTotalHeight = searchHeight + searchBottomPadding
         let isFiltering = !Windows.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         // Effective content width/height: apply minimums while filtering
@@ -271,11 +264,9 @@ class ThumbnailsView: NSObject {
         scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size
         // Position search field at the top, inside padding
-        searchField.isHidden = !searchEnabled
-        if searchEnabled {
-            searchField.frame.size = NSSize(width: effectiveContentWidth, height: searchHeight)
-            searchField.frame.origin = CGPoint(x: originX, y: frameHeight - Appearance.windowPadding - searchHeight)
-        }
+        searchField.isHidden = false
+        searchField.frame.size = NSSize(width: effectiveContentWidth, height: searchHeight)
+        searchField.frame.origin = CGPoint(x: originX, y: frameHeight - Appearance.windowPadding - searchHeight)
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
@@ -336,6 +327,11 @@ extension ThumbnailsView: NSSearchFieldDelegate {
     }
 
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        // Enter should focus the selected window while searching.
+        if control === searchField, commandSelector == #selector(NSResponder.insertNewline(_:)) {
+            ControlsTab.executeAction("focusWindowShortcut")
+            return true
+        }
         // Use configured shortcuts while the search field has focus.
         if control === searchField, let event = NSApp.currentEvent, event.type == .keyDown {
             let keyCode = UInt32(event.keyCode)
@@ -354,10 +350,7 @@ extension ThumbnailsView: NSSearchFieldDelegate {
             }
         }
 
-        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
-            openFirstFilteredWindow()
-            return true
-        } else if commandSelector == #selector(NSResponder.insertTab(_:)) || commandSelector == #selector(NSResponder.insertBacktab(_:)) {
+        if commandSelector == #selector(NSResponder.insertTab(_:)) || commandSelector == #selector(NSResponder.insertBacktab(_:)) {
             // Exit search on Tab/Backtab only when configured to do so.
             let exitShortcut = Preferences.searchExitShortcut
             if (commandSelector == #selector(NSResponder.insertTab(_:)) && exitShortcut == "⇥")

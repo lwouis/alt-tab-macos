@@ -42,3 +42,4 @@ struct Fuzzy {
         return qi == qLower.endIndex ? indices : nil
     }
 }
+

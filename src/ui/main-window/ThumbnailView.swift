@@ -410,8 +410,8 @@ class ThumbnailView: FlippedView {
         mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
     }
 
-    /// Applies a light-yellow background highlight to characters that match the current search query.
-    /// The fuzzy match is applied independently to app name and window title, and both can be highlighted when present.
+    /// Applies background highlight using Smith–Waterman local alignment between query and visible title.
+    /// If both app name and window title are shown, both parts are aligned independently and highlighted.
     private func applySearchHighlight(_ fullTitle: String) {
         let query = Windows.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         if query.isEmpty {
@@ -423,28 +423,32 @@ class ThumbnailView: FlippedView {
             label.attributedStringValue = NSAttributedString(string: fullTitle, attributes: attrs)
             return
         }
-
-        // Compute highlight indices for the visible title parts
-        var highlightRanges = [NSRange]()
+        var spanRanges: [NSRange] = []
+        var exactRanges: [NSRange] = []
         if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
-            if let indices = fuzzyMatchIndices(query, in: window_?.application.localizedName ?? "") {
-                highlightRanges.append(contentsOf: contiguousRanges(fromIndices: indices))
+            let appName = window_?.application.localizedName ?? ""
+            if let res = smithWatermanHighlights(query: query, text: appName, topK: 1).first {
+                spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
+                for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }
         } else if Preferences.showTitles == .appNameAndWindowTitle {
             let appName = window_?.application.localizedName ?? ""
             let windowTitle = window_?.title ?? ""
             let separator = " - "
-            if let indices = fuzzyMatchIndices(query, in: appName) {
-                highlightRanges.append(contentsOf: contiguousRanges(fromIndices: indices))
+            if let res = smithWatermanHighlights(query: query, text: appName, topK: 1).first {
+                spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
+                for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }
-            if let indices = fuzzyMatchIndices(query, in: windowTitle) {
+            if let res = smithWatermanHighlights(query: query, text: windowTitle, topK: 1).first {
                 let offset = (appName + separator).count
-                let shifted = indices.map { $0 + offset }
-                highlightRanges.append(contentsOf: contiguousRanges(fromIndices: shifted))
+                spanRanges.append(NSRange(location: offset + res.span.lowerBound, length: res.span.count))
+                for r in res.subspans { exactRanges.append(NSRange(location: offset + r.lowerBound, length: r.count)) }
             }
         } else {
-            if let indices = fuzzyMatchIndices(query, in: window_?.title ?? "") {
-                highlightRanges.append(contentsOf: contiguousRanges(fromIndices: indices))
+            let windowTitle = window_?.title ?? ""
+            if let res = smithWatermanHighlights(query: query, text: windowTitle, topK: 1).first {
+                spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
+                for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }
         }
 
@@ -453,9 +457,15 @@ class ThumbnailView: FlippedView {
             .font: Appearance.font,
         ]
         let attributed = NSMutableAttributedString(string: fullTitle, attributes: baseAttrs)
-        for range in highlightRanges {
+        for range in spanRanges {
             if range.location >= 0 && range.location + range.length <= attributed.length && range.length > 0 {
                 attributed.addAttribute(.backgroundColor, value: Appearance.searchMatchHighlightColor, range: range)
+            }
+        }
+        // Emphasize exact subspans (underline) within the highlighted region
+        for r in exactRanges {
+            if r.location >= 0 && r.location + r.length <= attributed.length && r.length > 0 {
+                attributed.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: r)
             }
         }
         label.attributedStringValue = attributed
@@ -480,25 +490,7 @@ class ThumbnailView: FlippedView {
         return ranges
     }
 
-    /// Local fuzzy subsequence matcher returning matched indices (case-insensitive).
-    private func fuzzyMatchIndices(_ query: String, in target: String) -> [Int]? {
-        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmed.isEmpty { return [] }
-        let qLower = trimmed.lowercased()
-        let tLower = target.lowercased()
-        var qi = qLower.startIndex
-        var ti = tLower.startIndex
-        var indices = [Int]()
-        while qi < qLower.endIndex && ti < tLower.endIndex {
-            if qLower[qi] == tLower[ti] {
-                let dist = tLower.distance(from: tLower.startIndex, to: ti)
-                indices.append(dist)
-                qi = qLower.index(after: qi)
-            }
-            ti = tLower.index(after: ti)
-        }
-        return qi == qLower.endIndex ? indices : nil
-    }
+    // Removed old fuzzy subsequence matcher in favor of Smith–Waterman alignment
 
     private func updateSizes(_ newHeight: CGFloat) {
         setFrameWidthHeight(newHeight)
