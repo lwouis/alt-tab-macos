@@ -2,11 +2,13 @@ import Cocoa
 import Carbon.HIToolbox.Events
 
 // SelectionStyle controls the visual selection state per tile.
-// - focus: selection highlight (keyboard-focused item)
+// - hover: selected visually via cursor hover (takes precedence when present)
+// - focus: selected visually via keyboard focus
 // - none: not selected
 enum SelectionStyle {
     case none
     case focus
+    case hover
 }
 
 class ThumbnailsView: NSObject {
@@ -28,9 +30,13 @@ class ThumbnailsView: NSObject {
         configureSearchField()
         contentView.addSubview(searchField)
         contentView.addSubview(scrollView)
-        // Default selection logic: selection == focus (explicit), search == filtering (separate).
-        // Hover does not produce a selected state by default.
+        // Default selection-highlight logic:
+        // - Hover participates in selection highlight and takes precedence over focus
+        // - Otherwise, selection highlight follows focus
         selectionAccessor = { index in
+            if Preferences.mouseHoverEnabled, let h = Windows.hoveredWindowIndex {
+                return h == index ? .hover : .none
+            }
             return Windows.focusedWindowIndex == index ? .focus : .none
         }
         // TODO: think about this optimization more
