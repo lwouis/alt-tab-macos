@@ -337,7 +337,11 @@ extension ThumbnailsView: NSSearchFieldDelegate {
         if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
 =======
         if commandSelector == #selector(NSResponder.insertNewline(_:)) {
-            openFirstFilteredWindow()
+            // Enter while searching should open the currently selected window.
+            // If there are no matches, do nothing.
+            if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
+                App.app.focusSelectedWindow(Windows.focusedWindow())
+            }
             return true
         } else if commandSelector == #selector(NSResponder.insertTab(_:)) || commandSelector == #selector(NSResponder.insertBacktab(_:)) {
             // Let the user exit search with Tab/Backtab only when the Exit Search
