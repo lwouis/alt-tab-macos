@@ -1,7 +1,7 @@
 import Cocoa
 import Carbon.HIToolbox.Events
 
-class ThumbnailsView {
+class ThumbnailsView: NSObject {
     let scrollView = ScrollView()
     var contentView: EffectView!
     let searchField = NSSearchField(frame: .zero)
@@ -12,7 +12,8 @@ class ThumbnailsView {
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
 
-    init() {
+    override init() {
+        super.init()
         contentView = makeAppropriateEffectView()
         configureSearchField()
         contentView.addSubview(searchField)
