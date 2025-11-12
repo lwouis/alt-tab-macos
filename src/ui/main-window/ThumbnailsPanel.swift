@@ -114,6 +114,15 @@ class ThumbnailsPanel: NSPanel {
         }
         maxPossibleAppIconSize = NSSize(width: w.rounded(), height: h.rounded())
     }
+
+    // Allow callers to customize how selection (focus) is determined for each index.
+    // The accessor returns whether an index should show a selection highlight (focused) or not.
+    func setSelectionAccessor(_ accessor: @escaping (Int) -> SelectionStyle) {
+        thumbnailsView.selectionAccessor = accessor
+        // Refresh the current highlights with the new accessor
+        let current = Windows.hoveredWindowIndex ?? Windows.focusedWindowIndex
+        ThumbnailsView.highlight(current)
+    }
 }
 
 extension ThumbnailsPanel: NSWindowDelegate {

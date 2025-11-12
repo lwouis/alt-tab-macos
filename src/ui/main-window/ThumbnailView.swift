@@ -31,6 +31,9 @@ class ThumbnailView: FlippedView {
     var dragAndDropTimer: Timer?
     var indexInRecycledViews: Int!
     var isShowingWindowControls = false
+    // Selection accessor injected by the parent view.
+    // Selection == focus (keyboard-focused). Hover never changes selection.
+    var selectionAccessor: ((Int) -> SelectionStyle)?
 
     var isFirstInRow = false
     var isLastInRow = false
@@ -114,14 +117,8 @@ class ThumbnailView: FlippedView {
     }
 
     override func keyDown(with event: NSEvent) {
-        // Toggle focus search/selection with Tab and exit on Esc
+        // Do not hardcode Tab to enter search; use configured shortcuts only
         let key = Int(event.keyCode)
-        if key == kVK_Tab && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
-            // Enter search mode on Tab regardless of a toggle; actual availability
-            // and behavior are controlled by shortcuts and other search settings.
-            App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
-            return
-        }
         if (key == kVK_Return || key == kVK_ANSI_KeypadEnter) && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
             // Enter should open the currently selected window
             App.app.focusSelectedWindow(Windows.focusedWindow())
@@ -152,6 +149,8 @@ class ThumbnailView: FlippedView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
         window_ = element
+        // Keep the index in sync for proper highlight logic
+        indexInRecycledViews = index
         updateValues(element, index, newHeight)
         updateSizes(newHeight)
         updatePositions(newHeight)
@@ -159,13 +158,14 @@ class ThumbnailView: FlippedView {
     }
 
     func drawHighlight() {
-        let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
-        let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
-        setBackground(isFocused: isFocused, isHovered: isHovered)
-        setBorder(isFocused: isFocused, isHovered: isHovered)
+        let style = selectionAccessor?(indexInRecycledViews) ?? .none
+        let isFocusedPaint = style == .focus
+        setBackground(isFocused: isFocusedPaint, isHovered: false)
+        setBorder(isFocused: isFocusedPaint, isHovered: false)
         if Preferences.appearanceStyle == .appIcons {
-            label.isHidden = !(isFocused || isHovered)
-            updateAppIconsLabel(isFocused: isFocused, isHovered: isHovered)
+            // Show label only for the selected style
+            label.isHidden = (style == .none)
+            updateAppIconsLabel(isFocused: isFocusedPaint, isHovered: false)
         }
     }
 
@@ -286,22 +286,14 @@ class ThumbnailView: FlippedView {
     }
 
     private func updateAppIconsLabel(isFocused: Bool, isHovered: Bool) {
-        let focusedView = ThumbnailsView.recycledViews[Windows.focusedWindowIndex]
-        var hoveredView: ThumbnailView? = nil
-        if Windows.hoveredWindowIndex != nil {
-            hoveredView = ThumbnailsView.recycledViews[Windows.hoveredWindowIndex!]
-        }
-        if isFocused || (!isFocused && !isHovered) {
-            hoveredView?.label.isHidden = true
-            focusedView.label.isHidden = false
-            updateAppIconsLabelFrame(focusedView)
-        } else if isHovered {
-            hoveredView?.label.isHidden = false
-            focusedView.label.isHidden = true
-            if let hoveredView {
-                updateAppIconsLabelFrame(hoveredView)
+        // App Icons: hide every label except the focused one
+        for (i, v) in ThumbnailsView.recycledViews.enumerated() {
+            if v.superview != nil { // only if currently visible
+                let style = v.selectionAccessor?(i) ?? .none
+                v.label.isHidden = style == .none
             }
         }
+        updateAppIconsLabelFrame(self)
     }
 
     private func getMaxAllowedLabelWidth(_ view: ThumbnailView) -> CGFloat {
@@ -425,28 +417,26 @@ class ThumbnailView: FlippedView {
         }
         var spanRanges: [NSRange] = []
         var exactRanges: [NSRange] = []
+        // Reuse cached alignment results computed during filtering/sorting.
         if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
-            let appName = window_?.application.localizedName ?? ""
-            if let res = smithWatermanHighlights(query: query, text: appName, topK: 1).first {
+            if let res = window_?.swAppResult {
                 spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
                 for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }
         } else if Preferences.showTitles == .appNameAndWindowTitle {
             let appName = window_?.application.localizedName ?? ""
-            let windowTitle = window_?.title ?? ""
             let separator = " - "
-            if let res = smithWatermanHighlights(query: query, text: appName, topK: 1).first {
+            if let res = window_?.swAppResult {
                 spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
                 for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }
-            if let res = smithWatermanHighlights(query: query, text: windowTitle, topK: 1).first {
+            if let res = window_?.swTitleResult {
                 let offset = (appName + separator).count
                 spanRanges.append(NSRange(location: offset + res.span.lowerBound, length: res.span.count))
                 for r in res.subspans { exactRanges.append(NSRange(location: offset + r.lowerBound, length: r.count)) }
             }
         } else {
-            let windowTitle = window_?.title ?? ""
-            if let res = smithWatermanHighlights(query: query, text: windowTitle, topK: 1).first {
+            if let res = window_?.swTitleResult {
                 spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
                 for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }

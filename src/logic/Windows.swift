@@ -1,21 +1,29 @@
 import Cocoa
 
+// Windows manages the list of windows, search (filtering), and selection (focus).
+// Terminology:
+// - Search: editing the search bar text; it filters visibility but does not itself define selection.
+// - Selection: the focused window (keyboard arrows/programmatic focus).
+// - Selection highlight: the visual style applied to the selected (focused) window.
+// - Hover: cursor hover; does not affect selection or selection highlight.
 class Windows {
     static var list = [Window]()
+    // Selection (focus): index of the keyboard-focused window
     static var focusedWindowIndex = Int(0)
+    // Hover state: last index under the cursor (does not affect selection highlight)
     static var hoveredWindowIndex: Int?
-    private static var lastWindowActivityType = WindowActivityType.none
+    // Tracks last activity (hover/focus) to limit side-effects (e.g. scroll only on focus changes)
+    static var lastWindowActivityType = WindowActivityType.none
     static var searchQuery: String = ""
+    // When true, the next UI refresh will force selection to the first visible window
+    // When true, the next refresh will focus the first visible window (set on search bar changes)
+    static var forceFocusFirstVisibleOnSearchChange: Bool = false
 
     static func matchesSearch(_ window: Window) -> Bool {
         let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmed.isEmpty { return true }
-        let appName = window.application.localizedName ?? ""
-        let title = window.title ?? ""
-        // Consider a match if there is at least one local alignment with positive score
-        if let _ = smithWatermanHighlights(query: trimmed, text: appName, topK: 1, minScore: 1).first { return true }
-        if let _ = smithWatermanHighlights(query: trimmed, text: title, topK: 1, minScore: 1).first { return true }
-        return false
+        ensureSearchCache(for: window, query: trimmed)
+        return window.swAppResult != nil || window.swTitleResult != nil
     }
 
     static func shouldDisplay(_ window: Window) -> Bool {
@@ -48,13 +56,9 @@ class Windows {
     private static func searchRelevance(_ window: Window) -> Double {
         let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmed.isEmpty { return 0.0 }
-        // Compute normalized similarity using Smith–Waterman on app name and window title; take the best, small boost for app name
-        let appName = window.application.localizedName ?? ""
-        let title = window.title ?? ""
-        let nameSim = smithWatermanSimilarity(query: trimmed, text: appName)
-        let titleSim = smithWatermanSimilarity(query: trimmed, text: title)
-        // slight boost to app-name matches
-        return max(nameSim * 1.02, titleSim)
+        // Ensure cache populated and reuse computed result for ranking
+        ensureSearchCache(for: window, query: trimmed)
+        return window.swBestSimilarity
     }
 
     /// reordered list based on preferences, keeping the original index
@@ -223,36 +227,33 @@ class Windows {
     }
 
     static func updateFocusedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
-        var index: Int?
-        // Update hover highlight only if mouse hover feature is enabled
+        var oldFocused: Int? = nil
+        var oldHovered: Int? = nil
+        // Update hover state (optional feature). Hover never changes selection.
         if fromMouse && Preferences.mouseHoverEnabled && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
-            let oldHovered = hoveredWindowIndex
+            oldHovered = hoveredWindowIndex
             hoveredWindowIndex = newIndex
-            if let oldHovered { ThumbnailsView.highlight(oldHovered) }
-            index = hoveredWindowIndex
             lastWindowActivityType = .hover
         }
-        // Update focused index. When changing focus via keyboard (or programmatically),
-        // clear any stale hover highlight to ensure only one selected item is visible.
-        if (!fromMouse || Preferences.mouseHoverEnabled)
-               && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
-            let oldFocused = focusedWindowIndex
-            let oldHovered = hoveredWindowIndex
-            if !fromMouse, oldHovered != nil { // clear hover when focus comes from non-mouse interaction
-                hoveredWindowIndex = nil
-                ThumbnailsView.highlight(oldHovered!)
-            }
+        // Update selection (focus) only when not coming from the mouse.
+        if !fromMouse && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
+            oldFocused = focusedWindowIndex
+            if hoveredWindowIndex != nil { oldHovered = hoveredWindowIndex; hoveredWindowIndex = nil }
             focusedWindowIndex = newIndex
-            ThumbnailsView.highlight(oldFocused)
             previewFocusedWindowIfNeeded()
-            index = focusedWindowIndex
             lastWindowActivityType = .focus
         }
-        guard let index else { return }
-        ThumbnailsView.highlight(index)
-        let focusedView = ThumbnailsView.recycledViews[index]
-        App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
-        voiceOverWindow(index)
+        // Repaint changed indices and the current selected (focused) index
+        if let of = oldFocused { ThumbnailsView.highlight(of) }
+        if let oh = oldHovered { ThumbnailsView.highlight(oh) }
+        ThumbnailsView.highlight(hoveredWindowIndex ?? focusedWindowIndex)
+        // Only auto-scroll and voice over on focus changes
+        if lastWindowActivityType == .focus {
+            let index = focusedWindowIndex
+            let focusedView = ThumbnailsView.recycledViews[index]
+            App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+            voiceOverWindow(index)
+        }
     }
 
     static func previewFocusedWindowIfNeeded() {
@@ -323,6 +324,14 @@ class Windows {
     }
 
     static func updateFocusedWindowIndex() {
+        // If a search keystroke updated the query, force selection to the first visible result
+        if forceFocusFirstVisibleOnSearchChange {
+            if let firstVisible = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+                updateFocusedAndHoveredWindowIndex(firstVisible)
+            }
+            forceFocusFirstVisibleOnSearchChange = false
+            return
+        }
         if let focusedWindow = focusedWindow() {
             if !shouldDisplay(focusedWindow) {
                 // Keep selection stable while filtering. If the current selection
@@ -612,4 +621,32 @@ func smithWatermanHighlights(query: String,
 
 func smithWatermanSimilarity(query: String, text: String) -> Double {
     return smithWatermanHighlights(query: query, text: text, topK: 1).first?.similarity ?? 0.0
+}
+
+// MARK: - Search cache helpers
+
+extension Windows {
+    /// Computes and caches Smith–Waterman results for the given window and query,
+    /// reusing previous values if the query hasn't changed.
+    fileprivate static func ensureSearchCache(for window: Window, query: String) {
+        if window.lastSearchQuery == query { return }
+        if query.isEmpty {
+            window.lastSearchQuery = query
+            window.swAppResult = nil
+            window.swTitleResult = nil
+            window.swBestSimilarity = 0
+            return
+        }
+        let appName = window.application.localizedName ?? ""
+        let title = window.title ?? ""
+        let appRes = smithWatermanHighlights(query: query, text: appName, topK: 1).first
+        let titleRes = smithWatermanHighlights(query: query, text: title, topK: 1).first
+        window.swAppResult = appRes
+        window.swTitleResult = titleRes
+        let nameSim = appRes?.similarity ?? 0.0
+        let titleSim = titleRes?.similarity ?? 0.0
+        // slight boost to app-name matches to prefer whole-app hits
+        window.swBestSimilarity = max(nameSim * 1.02, titleSim)
+        window.lastSearchQuery = query
+    }
 }
