@@ -337,34 +337,41 @@ extension ThumbnailsView: NSSearchFieldDelegate {
     }
 
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
-            // Enter while searching should open the currently selected window.
-            // If there are no matches, do nothing.
-            if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
-                App.app.focusSelectedWindow(Windows.focusedWindow())
+        // Use configured shortcuts while the search field has focus.
+        if control === searchField, let event = NSApp.currentEvent, event.type == .keyDown {
+            let keyCode = UInt32(event.keyCode)
+            let modifiers = event.modifierFlags
+            if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
+               focusShortcut.matches(nil, nil, keyCode, modifiers) && focusShortcut.shouldTrigger() {
+                if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
+                    ControlsTab.executeAction("focusWindowShortcut")
+                }
+                return true
             }
+            if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
+               exitShortcut.matches(nil, nil, keyCode, modifiers) && exitShortcut.shouldTrigger() {
+                exitSearchFocus()
+                return true
+            }
+        }
+
+        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+            openFirstFilteredWindow()
             return true
         } else if commandSelector == #selector(NSResponder.insertTab(_:)) || commandSelector == #selector(NSResponder.insertBacktab(_:)) {
-            // Let the user exit search with Tab/Backtab only when the Exit Search
-            // shortcut is actually set to Tab/Backtab. Compare on keyCode/modifiers
-            // to avoid brittle string glyph comparisons.
-            if let atShortcut = ControlsTab.shortcuts["searchExitShortcut"]?.shortcut {
-                // kVK_Tab and optional Shift for backtab
-                if atShortcut.carbonKeyCode == kVK_Tab {
-                    let hasShift = (atShortcut.carbonModifierFlags & UInt32(shiftKey)) != 0
-                    let isBacktab = commandSelector == #selector(NSResponder.insertBacktab(_:))
-                    if isBacktab == hasShift {
-                        exitSearchFocus()
-                        return true
-                    }
-                }
+            // Exit search on Tab/Backtab only when configured to do so.
+            let exitShortcut = Preferences.searchExitShortcut
+            if (commandSelector == #selector(NSResponder.insertTab(_:)) && exitShortcut == "⇥")
+                   || (commandSelector == #selector(NSResponder.insertBacktab(_:)) && exitShortcut == "⇧⇥") {
+                exitSearchFocus()
+                return true
             }
             return false
         } else if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
-            // ESC exits the panel even when search has focus
             App.app.hideUi()
             return true
         }
+
         return false
     }
 }
