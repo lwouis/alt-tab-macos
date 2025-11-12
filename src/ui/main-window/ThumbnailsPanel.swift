@@ -78,6 +78,15 @@ class ThumbnailsPanel: NSPanel {
     static func maxThumbnailsHeight() -> CGFloat {
         return (NSScreen.preferred.frame.height * Appearance.maxHeightOnScreen - Appearance.windowPadding * 2).rounded()
     }
+
+    // Allow callers to customize how selection (focus) is determined for each index.
+    // The accessor returns whether an index should show a selection highlight (focused) or not.
+    func setSelectionAccessor(_ accessor: @escaping (Int) -> SelectionStyle) {
+        thumbnailsView.selectionAccessor = accessor
+        // Refresh the current highlights with the new accessor
+        let current = Windows.hoveredWindowIndex ?? Windows.focusedWindowIndex
+        ThumbnailsView.highlight(current)
+    }
 }
 
 extension ThumbnailsPanel: NSWindowDelegate {

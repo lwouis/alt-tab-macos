@@ -35,6 +35,13 @@ class Window {
     var rowIndex: Int?
     var debugId: String { "(wid:\(cgWindowId.map { String(describing: $0) } ?? "nil")) \(title ?? "nil")) \(application.debugId)" }
 
+    // Cached search data for the current query to avoid recomputing alignment/highlights.
+    // These are reset whenever the active search query changes.
+    var lastSearchQuery: String?
+    var swAppResult: SWResult?
+    var swTitleResult: SWResult?
+    var swBestSimilarity: Double = 0.0
+
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) {
         self.axUiElement = axUiElement
         self.application = application
