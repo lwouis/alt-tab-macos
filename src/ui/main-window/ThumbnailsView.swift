@@ -227,12 +227,7 @@ class ThumbnailsView {
         // Reserve space for the search bar at the top (always visible)
         let searchHeight: CGFloat = 28
         let searchBottomPadding: CGFloat = 8
-<<<<<<< HEAD
         let searchTotalHeight = searchHeight + searchBottomPadding
-=======
-        let searchEnabled = searchBarVisible
-        let searchTotalHeight = searchEnabled ? (searchHeight + searchBottomPadding) : 0
->>>>>>> ca3266b (feat: remove showSearchBar preference and simplify search field focus logic)
         let isFiltering = !Windows.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         // Effective content width/height: apply minimums while filtering
         let effectiveContentWidth = max(min(maxX, widthMax), isFiltering ? Appearance.minSearchPanelContentWidth : 0)
