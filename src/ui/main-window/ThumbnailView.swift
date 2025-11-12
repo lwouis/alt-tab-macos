@@ -158,15 +158,22 @@ class ThumbnailView: FlippedView {
     }
 
     func drawHighlight() {
-        let style = selectionAccessor?(indexInRecycledViews) ?? .none
+        // Query selection style from accessor at render time (single source of truth)
+        let style = currentSelectionStyle()
         let isFocusedPaint = style == .focus
-        setBackground(isFocused: isFocusedPaint, isHovered: false)
-        setBorder(isFocused: isFocusedPaint, isHovered: false)
+        let isHoverPaint = style == .hover
+        setBackground(isFocused: isFocusedPaint, isHovered: isHoverPaint)
+        setBorder(isFocused: isFocusedPaint, isHovered: isHoverPaint)
         if Preferences.appearanceStyle == .appIcons {
             // Show label only for the selected style
             label.isHidden = (style == .none)
-            updateAppIconsLabel(isFocused: isFocusedPaint, isHovered: false)
+            updateAppIconsLabel(isFocused: isFocusedPaint, isHovered: isHoverPaint)
         }
+    }
+
+    /// Returns the current selection style for this tile based on the injected accessor.
+    private func currentSelectionStyle() -> SelectionStyle {
+        return selectionAccessor?(indexInRecycledViews) ?? .none
     }
 
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
