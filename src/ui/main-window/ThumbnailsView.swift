@@ -227,7 +227,12 @@ class ThumbnailsView {
         // Reserve space for the search bar at the top (always visible)
         let searchHeight: CGFloat = 28
         let searchBottomPadding: CGFloat = 8
+<<<<<<< HEAD
         let searchTotalHeight = searchHeight + searchBottomPadding
+=======
+        let searchEnabled = searchBarVisible
+        let searchTotalHeight = searchEnabled ? (searchHeight + searchBottomPadding) : 0
+>>>>>>> ca3266b (feat: remove showSearchBar preference and simplify search field focus logic)
         let isFiltering = !Windows.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         // Effective content width/height: apply minimums while filtering
         let effectiveContentWidth = max(min(maxX, widthMax), isFiltering ? Appearance.minSearchPanelContentWidth : 0)
@@ -338,27 +343,8 @@ extension ThumbnailsView: NSSearchFieldDelegate {
             return true
         }
         return false
-    }alse
-        } else if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
->>>>>>> 80abd4a (feat: implement enter/exit search shortcuts and update related functionality)
-=======
-            // Exit search mode shortcut (e.g., Tab by default)
-            if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
-               exitShortcut.matches(nil, nil, keyCode, modifiers) && exitShortcut.shouldTrigger() {
-                exitSearchFocus()
-                return true
-            }
-        }
-        if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
->>>>>>> 472613a (feat: enhance search field behavior by implementing user-defined shortcuts for focusing windows and exiting search)
-            // ESC exits the panel even when search has focus
-            App.app.hideUi()
-            return true
-        }
-        return false
     }
 }
-
 class ScrollView: NSScrollView {
     // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
     override class var isCompatibleWithResponsiveScrolling: Bool { true }
