@@ -117,11 +117,9 @@ class ThumbnailView: FlippedView {
         // Toggle focus search/selection with Tab and exit on Esc
         let key = Int(event.keyCode)
         if key == kVK_Tab && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
-            if Preferences.showSearchBar || Preferences.anyKeyToSearchEnabled {
-                App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
-                return
-            }
-            super.keyDown(with: event)
+            // Enter search mode on Tab regardless of a toggle; actual availability
+            // and behavior are controlled by shortcuts and other search settings.
+            App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
             return
         }
         if (key == kVK_Return || key == kVK_ANSI_KeypadEnter) && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {

@@ -50,7 +50,6 @@ class ThumbnailsView {
 
     func focusSearchField() {
         // Make the search field first responder to allow immediate typing
-        guard Preferences.showSearchBar || Preferences.anyKeyToSearchEnabled else { return }
         if !searchBarVisible {
             searchBarVisible = true
             // Re-layout to reserve space for the search bar before focusing it
@@ -248,7 +247,7 @@ class ThumbnailsView {
         // Reserve space for the search bar at the top when enabled and visible
         let searchHeight: CGFloat = 28
         let searchBottomPadding: CGFloat = 8
-        let searchEnabled = (Preferences.showSearchBar || Preferences.anyKeyToSearchEnabled) && searchBarVisible
+        let searchEnabled = searchBarVisible
         let searchTotalHeight = searchEnabled ? (searchHeight + searchBottomPadding) : 0
         let isFiltering = !Windows.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         // Effective content width/height: apply minimums while filtering
@@ -371,11 +370,9 @@ extension ThumbnailsView: NSSearchFieldDelegate {
             App.app.hideUi()
             return true
         }
-
         return false
     }
 }
-
 class ScrollView: NSScrollView {
     // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
     override class var isCompatibleWithResponsiveScrolling: Bool { true }

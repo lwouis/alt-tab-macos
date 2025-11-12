@@ -53,12 +53,7 @@ class GeneralTab {
         table.addRow(menubarIcon)
         table.addNewTable()
         table.addRow(language)
-        // Search options
-        let showSearchBarRow = TableGroupView.Row(
-            leftTitle: NSLocalizedString("Show search bar", comment: ""),
-            rightViews: [LabelAndControl.makeSwitch("showSearchBar")])
-        table.addNewTable()
-        table.addRow(showSearchBarRow)
+        // Search bar is always available; no toggle needed
         let view = TableGroupSetView(originalViews: [table], toolsViews: [resetPreferences], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
