@@ -53,8 +53,97 @@ class Windows {
             }
     }
 
+    /// Computes a relevance score for `window` given the current `searchQuery`.
+    /// Higher is better. Prefers contiguous/whole-word matches over scattered
+    /// subsequence matches, and boosts app-name matches slightly over title matches.
+    private static func searchRelevance(_ window: Window) -> Int {
+        let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty { return 0 }
+        let query = trimmed.lowercased()
+        let appName = (window.application.localizedName ?? "").lowercased()
+        let title = (window.title ?? "").lowercased()
+
+        func contiguousScore(_ target: String) -> Int? {
+            guard let range = target.range(of: query) else { return nil }
+            let start = target.distance(from: target.startIndex, to: range.lowerBound)
+            let isAtStart = start == 0
+            // Treat common word boundaries as a bonus (space/underscore/dash/period)
+            let beforeIdx = range.lowerBound
+            var atWordBoundary = isAtStart
+            if !isAtStart {
+                let prev = target[target.index(before: beforeIdx)]
+                atWordBoundary = !prev.unicodeScalars.allSatisfy { CharacterSet.alphanumerics.contains($0) }
+            }
+            // Highest priority: exact string equality
+            if range.lowerBound == target.startIndex && range.upperBound == target.endIndex {
+                return 1_000_000
+            }
+            // Next: contiguous match with boundary/prefix preference
+            var score = 800_000
+            if atWordBoundary { score += 50_000 }
+            if isAtStart { score += 25_000 }
+            // Earlier occurrences slightly better
+            score -= min(start, 500) * 20
+            return score
+        }
+
+        func subsequenceScore(_ target: String) -> Int? {
+            // Return nil if not a subsequence
+            var ti = target.startIndex
+            var firstPos: Int? = nil
+            var lastPos: Int = -1
+            var prevIndexPos: Int = -2
+            var gaps = 0
+            var consecutive = 0
+            var matched = 0
+            for qc in query {
+                // Find qc in target at/after ti
+                var found = false
+                while ti < target.endIndex {
+                    if target[ti] == qc {
+                        let pos = target.distance(from: target.startIndex, to: ti)
+                        if firstPos == nil { firstPos = pos }
+                        if pos == prevIndexPos + 1 { consecutive += 1 } else if lastPos >= 0 { gaps += pos - lastPos - 1 }
+                        prevIndexPos = pos
+                        lastPos = pos
+                        ti = target.index(after: ti)
+                        matched += 1
+                        found = true
+                        break
+                    }
+                    ti = target.index(after: ti)
+                }
+                if !found { return nil }
+            }
+            guard let first = firstPos else { return nil }
+            let span = lastPos - first
+            var score = 500_000
+            // Fewer gaps and tighter span are better
+            score -= min(gaps, 1000) * 50
+            score -= min(max(span - (query.count - 1), 0), 1000) * 30
+            // Earlier start is better
+            score -= min(first, 1000) * 10
+            // Reward consecutive runs
+            score += min(consecutive, 1000) * 40
+            return score
+        }
+
+        func bestScore(_ target: String, fieldBoost: Int) -> Int {
+            if let c = contiguousScore(target) { return c + fieldBoost }
+            if let s = subsequenceScore(target) { return s + fieldBoost }
+            return 0
+        }
+
+        // Slightly prefer matches in the app name to matches in the title
+        let nameScore = bestScore(appName, fieldBoost: 1_000)
+        let titleScore = bestScore(title, fieldBoost: 0)
+        return max(nameScore, titleScore)
+    }
+
     /// reordered list based on preferences, keeping the original index
     private static func sort() {
+        // Remember the currently selected window instance to preserve selection across reorders
+        let previouslySelected = focusedWindow()
         list.sort {
             // separate buckets for these types of windows
             if Preferences.showWindowlessApps[App.app.shortcutIndex] == .showAtTheEnd && $0.isWindowlessApp != $1.isWindowlessApp {
@@ -65,6 +154,13 @@ class Windows {
             }
             if Preferences.showMinimizedWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isMinimized != $1.isMinimized {
                 return $1.isMinimized
+            }
+            // While searching, prioritize by fuzzy relevance score
+            let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmed.isEmpty {
+                let s0 = searchRelevance($0)
+                let s1 = searchRelevance($1)
+                if s0 != s1 { return s0 > s1 }
             }
             // sort within each buckets
             let sortType = Preferences.windowOrder[App.app.shortcutIndex]
@@ -96,6 +192,11 @@ class Windows {
                 order = $0.lastFocusOrder.compare($1.lastFocusOrder)
             }
             return order == .orderedAscending
+        }
+        // Preserve selection after reordering (e.g., when search changes order)
+        if let previouslySelected,
+           let newIndex = list.firstIndex(where: { $0 === previouslySelected }) {
+            focusedWindowIndex = newIndex
         }
     }
 
