@@ -53,7 +53,7 @@ private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
     if touches.count == 0 { return false } // sometimes the os sends events with no touches
     let activeTouches = touches.filter { !$0.isResting && ($0.phase == .began || $0.phase == .moved || $0.phase == .stationary) }
     let requiredFingers = Preferences.nextWindowGesture.isThreeFinger() ? 3 : 4
-    if touches.count != requiredFingers {
+    if (!App.app.appIsBeingUsed && touches.count != requiredFingers) || (App.app.appIsBeingUsed && touches.count < 2) {
         TriggerSwipeDetector.reset()
         NavigationSwipeDetector.reset()
         return GestureDetector.checkForFingersUp(activeTouches, requiredFingers)
@@ -111,6 +111,14 @@ class GestureDetector {
         }
         return totalDelta / activeTouches.count
     }
+    
+    static func computeDistance(_ activeTouches: Set<NSTouch>, _ startPositions: [String: NSPoint]) -> Array<NSPoint> {
+        var deltas: Array<NSPoint> = []
+        for touch in activeTouches {
+            deltas.append(touch.normalizedPosition - startPositions["\(touch.identity)"]!)
+        }
+        return deltas
+    }
 
     static func blockOngoingScrolling() {
         if #available(macOS 10.13, *) {
@@ -135,15 +143,17 @@ class TriggerSwipeDetector {
 
     static func check(_ activeTouches: Set<NSTouch>) -> Bool? {
         if !App.app.appIsBeingUsed && swipeStillPossible {
-            let averageDistance = GestureDetector.computeAverageDistance(activeTouches, startPositions)
-            let (absX, absY) = (abs(averageDistance.x), abs(averageDistance.y))
-            let horizontal = Preferences.nextWindowGesture.isHorizontal()
-            if (updateSwipeStillPossible(horizontal ? absY : absX) && (horizontal ? absX : absY) >= MIN_SWIPE_DISTANCE) {
-                reset()
-                DispatchQueue.main.async { App.app.showUiOrCycleSelection(Preferences.gestureIndex, false) }
-                return true
+            let distances = GestureDetector.computeDistance(activeTouches, startPositions)
+            for distance in distances {
+                let (absX, absY) = (abs(distance.x), abs(distance.y))
+                let horizontal = Preferences.nextWindowGesture.isHorizontal()
+                if (!(updateSwipeStillPossible(horizontal ? absY : absX) && (horizontal ? absX : absY) >= MIN_SWIPE_DISTANCE )) {
+                    return false
+                }
             }
-            return false
+            reset()
+            DispatchQueue.main.async { App.app.showUiOrCycleSelection(Preferences.gestureIndex, false) }
+            return true
         }
         return nil
     }
@@ -160,9 +170,7 @@ class TriggerSwipeDetector {
 }
 
 class NavigationSwipeDetector {
-    // TODO: replace this approach with a "virtual cursor" approach
-    //  Instead of detecting swipes, we would track coordinate, and check which thumbnail is under that cursor
-    static let MIN_SWIPE_DISTANCE: Double = 0.045 // % of trackpad surface traveled
+    static let MIN_SWIPE_DISTANCE: Double = 0.03 // % of trackpad surface traveled
 
     static var startPositions: [String: NSPoint] = [:]
 
