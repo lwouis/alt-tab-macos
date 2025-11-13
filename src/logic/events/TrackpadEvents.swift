@@ -111,6 +111,14 @@ class GestureDetector {
         }
         return totalDelta / activeTouches.count
     }
+    
+    static func computeDistance(_ activeTouches: Set<NSTouch>, _ startPositions: [String: NSPoint]) -> Array<NSPoint> {
+        var deltas: Array<NSPoint> = []
+        for touch in activeTouches {
+            deltas.append(touch.normalizedPosition - startPositions["\(touch.identity)"]!)
+        }
+        return deltas
+    }
 
     static func blockOngoingScrolling() {
         if #available(macOS 10.13, *) {
@@ -125,7 +133,7 @@ class GestureDetector {
 class TriggerSwipeDetector {
     // when the native using 3-finger swipe to shift Space, macOS will wait that a small distance is traveled before acting
     // We imitate this behavior
-    static let MIN_SWIPE_DISTANCE: Double = 0.015 // % of trackpad surface traveled
+    static let MIN_SWIPE_DISTANCE: Double = 0.1 // % of trackpad surface traveled
     // when the native using 3-finger swipe to shift Space, macOS will prevent a swipe until the fingers are raised,
     // if the user moves too much in the vertical direction. We imitate this behavior
     static let MAX_SWIPE_DISTANCE_IN_WRONG_DIRECTION: Double = 0.1 // % of trackpad surface traveled
@@ -135,15 +143,17 @@ class TriggerSwipeDetector {
 
     static func check(_ activeTouches: Set<NSTouch>) -> Bool? {
         if !App.app.appIsBeingUsed && swipeStillPossible {
-            let averageDistance = GestureDetector.computeAverageDistance(activeTouches, startPositions)
-            let (absX, absY) = (abs(averageDistance.x), abs(averageDistance.y))
-            let horizontal = Preferences.nextWindowGesture.isHorizontal()
-            if (updateSwipeStillPossible(horizontal ? absY : absX) && (horizontal ? absX : absY) >= MIN_SWIPE_DISTANCE) {
-                reset()
-                DispatchQueue.main.async { App.app.showUiOrCycleSelection(Preferences.gestureIndex, false) }
-                return true
+            let distances = GestureDetector.computeDistance(activeTouches, startPositions)
+            for distance in distances {
+                let (absX, absY) = (abs(distance.x), abs(distance.y))
+                let horizontal = Preferences.nextWindowGesture.isHorizontal()
+                if (!(updateSwipeStillPossible(horizontal ? absY : absX) && (horizontal ? absX : absY) >= MIN_SWIPE_DISTANCE )) {
+                    return false
+                }
             }
-            return false
+            reset()
+            DispatchQueue.main.async { App.app.showUiOrCycleSelection(Preferences.gestureIndex, false) }
+            return true
         }
         return nil
     }
