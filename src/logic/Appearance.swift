@@ -28,10 +28,18 @@ class Appearance {
 
     // theme: constants
     static let enablePanelShadow = true
-    static let highlightFocusedBackgroundColor = NSColor.systemAccentColor.withAlphaComponent(0.2)
-    static let highlightHoveredBackgroundColor = NSColor.systemAccentColor.withAlphaComponent(0.1)
-    static let highlightFocusedBorderColor = NSColor.systemAccentColor
-    static let highlightHoveredBorderColor = NSColor.systemAccentColor.withAlphaComponent(0.7)
+    static var highlightFocusedBackgroundColor: NSColor {
+        NSColor.systemAccentColor.withAlphaComponent(0.2)
+    }
+    static var highlightHoveredBackgroundColor: NSColor {
+        NSColor.systemAccentColor.withAlphaComponent(0.1)
+    }
+    static var highlightFocusedBorderColor: NSColor {
+        NSColor.systemAccentColor
+    }
+    static var highlightHoveredBorderColor: NSColor {
+        NSColor.systemAccentColor.withAlphaComponent(0.7)
+    }
 
 
     // derived
