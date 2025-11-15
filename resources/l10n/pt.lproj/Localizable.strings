@@ -125,6 +125,7 @@
 "Mouse hover" = "Ao passar o rato";
 "Multiple screens" = "Vários ecrãs";
 "Never send crash reports" = "Nunca enviar relatórios de falha";
+"Non-active apps" = "Aplicações não nativas";
 "Normal" = "Normal";
 "Not allowed" = "Não permitido";
 "NSHumanReadableCopyright" = "Licença GPL-3.0";
@@ -178,6 +179,7 @@
 "Show" = "Mostrar";
 "Show & Hide" = "Mostrar/Ocultar";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Mostre um item no comutador para cada janela ou para cada aplicação. As janelas focar-se-ão quando as aplicações estiverem activas.";
+"Show apps with no open window" = "Mostrar aplicações sem janelas abertas";
 "Show at the end" = "Mostrar no fim";
 "Show fullscreen windows" = "Mostrar janelas de ecrã inteiro";
 "Show hidden windows" = "Mostrar janelas escondidas";

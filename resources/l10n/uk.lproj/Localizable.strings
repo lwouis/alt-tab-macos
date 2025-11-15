@@ -125,6 +125,7 @@
 "Mouse hover" = "Наведення миші";
 "Multiple screens" = "Кілька екранів";
 "Never send crash reports" = "Ніколи не надсилати звіти про збої";
+"Non-active apps" = "Неактивні програми";
 "Normal" = "Нормальний";
 "Not allowed" = "Заборонено";
 "NSHumanReadableCopyright" = "GPL-3.0 лiцензiя";
@@ -178,6 +179,7 @@
 "Show" = "Показати";
 "Show & Hide" = "Показ та приховування";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Показати у перемикачі кожне вікно або кожну програму. Вікно буде сфокусовано, тоді як програму буде активовано.";
+"Show apps with no open window" = "Показувати програми без відкритих вікон";
 "Show at the end" = "Відобразити в кінці";
 "Show fullscreen windows" = "Показувати повноекранні вікна";
 "Show hidden windows" = "Показувати приховані вікна";
