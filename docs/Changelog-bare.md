@@ -2,41 +2,18 @@
 layout: bare
 ---
 
+<h1><a style="
+        position: fixed;
+        top: 1.5em;
+        right: 10px;
+        border-radius: 0.5em;
+        padding: 0.15em 0.9em;
+        font-size: 0.7em;
+        background: #ffdbd5;
+        /*background: #f91675;*/
+        color: #950020;
+        /*color: white;*/
+        font-weight: normal;
+    " href="https://alt-tab-macos.netlify.app/support">Support this project ❤️</a></h1>
+
 {% include_relative Changelog.md %}
-
-<style>#google_translate_element,.skiptranslate{display:none;}body{top:0!important;}</style>
-<div id="google_translate_element"></div>
-<script>
-    function getUserLanguage() {
-        if (navigator.languages && navigator.languages.length > 0) {
-            // Chinese is the only exception where google translate needs the full code
-            // see https://sites.google.com/site/opti365/translate_codes
-            const l = navigator.languages[0]
-            if (l.length > 2 && l !== "zh-CN" && l !== "zh-TW") {
-              return l.slice(0, 2)
-            }
-            return l
-        }
-        return "en"
-    }
-
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en', 
-            includedLanguages: getUserLanguage(),
-             autoDisplay: false
-         }, 'google_translate_element')
-        setTimeout(() => {
-            var a = document.querySelector("#google_translate_element select")
-            a.selectedIndex = 1
-            a.dispatchEvent(new Event('change'))
-        }, 1000)
-    }
-    
-    const userLanguage = getUserLanguage()
-    if (userLanguage !== "en") {
-        let script = document.createElement("script")  
-        script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-        document.head.appendChild(script)
-    }
-</script>
