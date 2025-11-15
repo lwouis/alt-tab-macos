@@ -78,6 +78,7 @@ nav {
       padding: 5px 10px;
       border-radius: 15px;
       color: #468ed8;
+      margin-right: 5px;
 
       span {
         padding-bottom: 1px;
@@ -96,12 +97,28 @@ nav {
       }
     }
 
+    a.support {
+      color: #c10029;
+
+      span {
+        border-bottom: #c10029 solid 1px;
+      }
+
+      &:hover, &.active {
+        background: #ffd5ce;
+        color: #c10029;
+
+        span {
+          border-bottom: none;
+        }
+      }
+    }
+
     a.rainbow {
       background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
       animation: animatedgradient 5s linear alternate infinite;
       background-size: 300% 300%;
       text-decoration: none;
-      margin-right: 10px;
       color: #fff;
       //box-shadow: #222 0px 1px;
 
