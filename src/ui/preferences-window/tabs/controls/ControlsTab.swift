@@ -1,4 +1,5 @@
 import Cocoa
+import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
 class ControlsTab {
@@ -157,21 +158,10 @@ class ControlsTab {
         }
     }
 
-    /// commandTab and commandKeyAboveTab are self-contained in the "nextWindowShortcut" shortcuts
-    /// but the keys of commandShiftTab can be spread between holdShortcut and a local shortcut
-    static func combinedModifiersMatch(_ modifiers1: UInt32, _ modifiers2: UInt32) -> Bool {
-        return (0..<Preferences.holdShortcut.count).contains {
-            if let holdShortcut = shortcuts[Preferences.indexToName("holdShortcut", $0)] {
-                return (holdShortcut.shortcut.carbonModifierFlags | modifiers1) == (holdShortcut.shortcut.carbonModifierFlags | modifiers2)
-            }
-            return false
-        }
-    }
-
     static func toggleNativeCommandTabIfNeeded() {
         let nativeHotkeys: [CGSSymbolicHotKey: (Shortcut) -> Bool] = [
             .commandTab: { (shortcut) in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_Tab },
-            .commandShiftTab: { (shortcut) in combinedModifiersMatch(shortcut.carbonModifierFlags, UInt32(cmdKey | shiftKey)) && shortcut.carbonKeyCode == kVK_Tab },
+            .commandShiftTab: { (shortcut) in CustomRecorderControlTestable.combinedModifiersMatch(shortcut.carbonModifierFlags, UInt32(cmdKey | shiftKey)) && shortcut.carbonKeyCode == kVK_Tab },
             .commandKeyAboveTab: { (shortcut) in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_ANSI_Grave },
         ]
         var overlappingHotkeys = shortcuts.values.compactMap { (atShortcut) in nativeHotkeys.first { $1(atShortcut.shortcut) }?.key }
