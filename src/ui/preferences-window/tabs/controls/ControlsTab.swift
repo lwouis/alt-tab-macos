@@ -82,7 +82,7 @@ class ControlsTab {
 
     private static func gestureTab(_ index: Int) -> TableGroupView {
         let label = NSLocalizedString("You may need to disable some conflicting system gestures", comment: "")
-        let button = NSButton(title: NSLocalizedString("Open Trackpad Preferences…", comment: ""), target: self, action: #selector(openSystemGestures(_:)))
+        let button = NSButton(title: NSLocalizedString("Open Trackpad Settings…", comment: ""), target: self, action: #selector(openSystemGestures(_:)))
         let infoBtn = LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
             Popover.shared.show(event: event, positioningView: view, message: label, extraView: button)
         })

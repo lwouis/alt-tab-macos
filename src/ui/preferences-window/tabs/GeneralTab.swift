@@ -33,7 +33,7 @@ class GeneralTab {
             ])
         let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
             rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
-        let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
+        let resetPreferences = NSButton(title: NSLocalizedString("Reset settings and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
         if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
         for i in 0..<MenubarIconPreference.allCases.count {
             let image = NSImage.initCopy("menubar-\(i)")
@@ -74,7 +74,7 @@ class GeneralTab {
         alert.messageText = ""
         alert.informativeText = NSLocalizedString("You can’t undo this action.", comment: "")
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        let resetButton = alert.addButton(withTitle: NSLocalizedString("Reset preferences and restart", comment: ""))
+        let resetButton = alert.addButton(withTitle: NSLocalizedString("Reset settings and restart", comment: ""))
         if #available(macOS 11.0, *) { resetButton.hasDestructiveAction = true }
         if alert.runModal() == .alertSecondButtonReturn {
             Preferences.resetAll()

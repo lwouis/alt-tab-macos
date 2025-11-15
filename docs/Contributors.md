@@ -69,6 +69,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Ash
 * blanorama
 * bluefirex
+* BO the Man
 * bovirus
 * Bufo
 * BV Joshi
@@ -199,7 +200,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * MuDraconis
 * Muzhenstudent
 * Mwolfinspace
-* Naseeb Naushad
 * Nathancodes
 * Navekar Vishal
 * NIKHIL S

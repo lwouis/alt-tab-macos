@@ -49,7 +49,7 @@ class PermissionsWindow: NSWindow {
             "accessibility",
             NSLocalizedString("Accessibility", comment: ""),
             NSLocalizedString("This permission is needed to focus windows after you release the shortcut", comment: ""),
-            NSLocalizedString("Open Accessibility Preferences…", comment: ""),
+            NSLocalizedString("Open Accessibility Settings…", comment: ""),
             "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
             SystemPermissions.updateAccessibilityIsGranted
         )
@@ -62,7 +62,7 @@ class PermissionsWindow: NSWindow {
                 "screen-recording",
                 NSLocalizedString("Screen Recording", comment: ""),
                 NSLocalizedString("This permission is needed to show thumbnails and preview of open windows", comment: ""),
-                NSLocalizedString("Open Screen Recording Preferences…", comment: ""),
+                NSLocalizedString("Open Screen Recording Settings…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
                 SystemPermissions.updateScreenRecordingIsGranted,
                 StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
@@ -81,7 +81,7 @@ extension PermissionsWindow: NSWindowDelegate {
         Logger.debug(SystemPermissions.preStartupPermissionsPassed)
         if !SystemPermissions.preStartupPermissionsPassed {
             if SystemPermissions.updateAccessibilityIsGranted() == .notGranted || SystemPermissions.updateScreenRecordingIsGranted() == .notGranted {
-                Logger.error("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
+                Logger.error("Before using this app, you need to give permission in System Settings > Privacy & Security > Accessibility.",
                     "Please authorize and re-launch.",
                     "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
                 App.shared.terminate(self)

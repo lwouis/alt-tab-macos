@@ -296,13 +296,13 @@
 "Only on different screen" = "Only on different screen";
 
 /* No comment provided by engineer. */
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Settings…" = "Open Accessibility Settings…";
 
 /* No comment provided by engineer. */
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Settings…" = "Open Screen Recording Settings…";
 
 /* No comment provided by engineer. */
-"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
+"Open Trackpad Settings…" = "Open Trackpad Settings…";
 
 /* No comment provided by engineer. */
 "Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
@@ -311,10 +311,10 @@
 "Order windows by" = "Order windows by";
 
 /* No comment provided by engineer. */
-"Policies" = "Policies";
+"Please fill in the form" = "Please fill in the form";
 
-/* Menubar option */
-"Preferences…" = "Preferences…";
+/* No comment provided by engineer. */
+"Policies" = "Policies";
 
 /* No comment provided by engineer. */
 "Preview selected window" = "Preview selected window";
@@ -341,10 +341,10 @@
 "Remember my choice" = "Remember my choice";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset settings and restart" = "Reset settings and restart";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset settings and restart…" = "Reset settings and restart…";
 
 /* No comment provided by engineer. */
 "Restart Now" = "Restart Now";
@@ -393,6 +393,9 @@
 
 /* Menubar option */
 "Send feedback…" = "Send feedback…";
+
+/* Menubar option */
+"Settings…" = "Settings…";
 
 /* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
@@ -485,7 +488,7 @@
 "Start at login" = "Start at login";
 
 /* Menubar option */
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project" = "Support this project";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
@@ -498,6 +501,9 @@
 
 /* No comment provided by engineer. */
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+
+/* No comment provided by engineer. */
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
 
 /* No comment provided by engineer. */
 "Theme" = "Theme";

@@ -551,7 +551,6 @@ class ThumbnailView: FlippedView {
     static func widthOfComfortableReadability() -> CGFloat? {
         let labTitleView = ThumbnailTitleView(font: Appearance.font)
         labTitleView.stringValue = "abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijk" + extraTextForPadding
-        Logger.error(labTitleView.font)
         return labTitleView.fittingSize.width
     }
 

@@ -41,7 +41,6 @@ class FeedbackWindow: NSWindow {
         header.spacing = GridView.interPadding
         sendButton = NSButton(title: NSLocalizedString("Send", comment: ""), target: nil, action: #selector(sendCallback))
         sendButton.keyEquivalent = "\r"
-        sendButton.isEnabled = false
         let buttons = StackView([
             NSButton(title: NSLocalizedString("Cancel", comment: ""), target: nil, action: #selector(cancel)),
             sendButton,
@@ -52,24 +51,26 @@ class FeedbackWindow: NSWindow {
         email = TextArea(80, 1, NSLocalizedString("Optional: email (if you want a reply)", comment: ""))
         debugProfile = NSButton(checkboxWithTitle: NSLocalizedString("Send debug profile (CPU, memory, etc)", comment: ""), target: nil, action: nil)
         debugProfile.state = .on
-        let warning = BoldLabel(NSLocalizedString("All data from this form will be made public, as a ticket on github.com", comment: ""))
+        let warning = BoldLabel("ℹ️ " + NSLocalizedString("All data from this form will be made public, as a ticket on github.com", comment: ""))
         let view = GridView([
             [header],
+            [NSView()],
+            [warning],
             [issueTitle],
             [body],
             [email],
             [debugProfile],
             [buttons],
-            [warning],
         ])
-        view.cell(atColumnIndex: 0, rowIndex: 4).xPlacement = .trailing
-        view.cell(atColumnIndex: 0, rowIndex: 5).xPlacement = .trailing
+        view.cell(atColumnIndex: 0, rowIndex: 7).xPlacement = .trailing
         setContentSize(view.fittingSize)
         contentView = view
+        checkEmptyFields()
     }
 
     func checkEmptyFields() {
         sendButton.isEnabled = !body.stringValue.isEmpty && !issueTitle.stringValue.isEmpty
+        sendButton.toolTip = sendButton.isEnabled ? "" : NSLocalizedString("Please fill in the form", comment: "")
     }
 
     // allow to close with the escape key

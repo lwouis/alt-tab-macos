@@ -5,6 +5,16 @@ class Menubar {
     static var menu: NSMenu!
     static var permissionCalloutMenuItems: [NSMenuItem]?
 
+    static func addMenuItem(_ title: String, _ action: Selector, _ keyEquivalent: String, _ symbolName: String?, _ color: NSColor? = nil) {
+        let item = menu.addItem(withTitle: title, action: action, keyEquivalent: keyEquivalent)
+        if #available(macOS 26.0, *), let symbolName {
+            item.image = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
+            if let color {
+                item.image = item.image?.withSymbolConfiguration(.init(paletteColors: [color]))
+            }
+        }
+    }
+
     static func initialize() {
         menu = NSMenu()
         menu.title = App.name // perf: prevent going through expensive code-path within appkit
@@ -12,40 +22,17 @@ class Menubar {
         permissionCalloutMenuItem.view = PermissionCallout()
         let calloutSeparator = NSMenuItem.separator()
         permissionCalloutMenuItems = [permissionCalloutMenuItem, calloutSeparator]
-        menu.addItem(
-            withTitle: String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name),
-            action: #selector(App.app.showAboutTab),
-            keyEquivalent: "")
+        addMenuItem(NSLocalizedString("Show", comment: "Menubar option"), #selector(App.app.showUiFromShortcut0), "", "eye")
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(
-            withTitle: NSLocalizedString("Show", comment: "Menubar option"),
-            action: #selector(App.app.showUiFromShortcut0),
-            keyEquivalent: "")
-        menu.addItem(
-            withTitle: NSLocalizedString("Preferences…", comment: "Menubar option"),
-            action: #selector(App.app.showPreferencesWindow),
-            keyEquivalent: ",")
-        menu.addItem(
-            withTitle: NSLocalizedString("Check for updates…", comment: "Menubar option"),
-            action: #selector(App.app.checkForUpdatesNow),
-            keyEquivalent: "")
-        menu.addItem(
-            withTitle: NSLocalizedString("Check permissions…", comment: "Menubar option"),
-            action: #selector(App.app.checkPermissions),
-            keyEquivalent: "")
-        menu.addItem(
-            withTitle: NSLocalizedString("Send feedback…", comment: "Menubar option"),
-            action: #selector(App.app.showFeedbackPanel),
-            keyEquivalent: "")
-        menu.addItem(
-            withTitle: NSLocalizedString("Support this project ❤️", comment: "Menubar option"),
-            action: #selector(App.app.supportProject),
-            keyEquivalent: "")
+        addMenuItem(NSLocalizedString("Settings…", comment: "Menubar option"), #selector(App.app.showPreferencesWindow), ",", "gear")
+        addMenuItem(NSLocalizedString("Check for updates…", comment: "Menubar option"), #selector(App.app.checkForUpdatesNow), "", "checkmark.arrow.trianglehead.clockwise")
+        addMenuItem(NSLocalizedString("Check permissions…", comment: "Menubar option"), #selector(App.app.checkPermissions), "", "hand.raised")
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(
-            withTitle: String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name),
-            action: #selector(NSApplication.terminate(_:)),
-            keyEquivalent: "q")
+        addMenuItem(String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(App.app.showAboutTab), "", "info.circle")
+        addMenuItem(NSLocalizedString("Send feedback…", comment: "Menubar option"), #selector(App.app.showFeedbackPanel), "", "bubble.left.and.text.bubble.right")
+        addMenuItem(NSLocalizedString("Support this project", comment: "Menubar option"), #selector(App.app.supportProject), "", "heart.fill", .red)
+        menu.addItem(NSMenuItem.separator())
+        addMenuItem(String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(NSApplication.terminate(_:)), "q", nil) // "xmark.rectangle" is not necessary; macos automatically recognizes Quit
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         statusItem.target = self
         statusItem.button!.action = #selector(statusItemOnClick)
