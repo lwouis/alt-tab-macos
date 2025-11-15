@@ -62,13 +62,12 @@ class ThumbnailsPanel: NSPanel {
 
     static func maxThumbnailsWidth() -> CGFloat {
         if Preferences.appearanceStyle == .titles,
-           let readableWidth = ThumbnailView.widthOfComfortableReadability(),
-           let widthOfLongestTitle = ThumbnailView.widthOfLongestTitle() {
+           let readableWidth = ThumbnailView.widthOfComfortableReadability() {
             return (
                 min(
                     NSScreen.preferred.frame.width * Appearance.maxWidthOnScreen,
-                    readableWidth + Appearance.intraCellPadding * 2 + Appearance.appIconLabelSpacing + Appearance.iconSize,
-                    widthOfLongestTitle + Appearance.intraCellPadding * 2 + Appearance.appIconLabelSpacing + Appearance.iconSize
+                    readableWidth + Appearance.intraCellPadding * 2 + Appearance.appIconLabelSpacing + Appearance.iconSize
+                    // widthOfLongestTitle + Appearance.intraCellPadding * 2 + Appearance.appIconLabelSpacing + Appearance.iconSize
                 ) - Appearance.windowPadding * 2
             ).rounded()
         }
