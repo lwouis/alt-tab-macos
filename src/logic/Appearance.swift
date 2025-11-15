@@ -165,7 +165,7 @@ class Appearance {
                 iconSize = 24
                 fontHeight = 14
             case .large:
-                iconSize = 22
+                iconSize = 30
                 fontHeight = 16
         }
     }
