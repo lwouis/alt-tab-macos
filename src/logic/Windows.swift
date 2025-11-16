@@ -23,7 +23,7 @@ class Windows {
         let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmed.isEmpty { return true }
         ensureSearchCache(for: window, query: trimmed)
-        return window.swAppResult != nil || window.swTitleResult != nil
+        return !window.swAppResults.isEmpty || !window.swTitleResults.isEmpty
     }
 
     static func shouldDisplay(_ window: Window) -> Bool {
@@ -632,19 +632,22 @@ extension Windows {
         if window.lastSearchQuery == query { return }
         if query.isEmpty {
             window.lastSearchQuery = query
-            window.swAppResult = nil
-            window.swTitleResult = nil
+            window.swAppResults = []
+            window.swTitleResults = []
             window.swBestSimilarity = 0
             return
         }
         let appName = window.application.localizedName ?? ""
         let title = window.title ?? ""
-        let appRes = smithWatermanHighlights(query: query, text: appName, topK: 1).first
-        let titleRes = smithWatermanHighlights(query: query, text: title, topK: 1).first
-        window.swAppResult = appRes
-        window.swTitleResult = titleRes
-        let nameSim = appRes?.similarity ?? 0.0
-        let titleSim = titleRes?.similarity ?? 0.0
+        // Capture multiple non-overlapping high-scoring local alignments so we can
+        // highlight discontinuous parts. Keep topK small for performance.
+        let topK = 3
+        let appResList = smithWatermanHighlights(query: query, text: appName, topK: topK, allowOverlaps: false)
+        let titleResList = smithWatermanHighlights(query: query, text: title, topK: topK, allowOverlaps: false)
+        window.swAppResults = appResList
+        window.swTitleResults = titleResList
+        let nameSim = appResList.first?.similarity ?? 0.0
+        let titleSim = titleResList.first?.similarity ?? 0.0
         // slight boost to app-name matches to prefer whole-app hits
         window.swBestSimilarity = max(nameSim * 1.02, titleSim)
         window.lastSearchQuery = query

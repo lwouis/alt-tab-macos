@@ -426,24 +426,24 @@ class ThumbnailView: FlippedView {
         var exactRanges: [NSRange] = []
         // Reuse cached alignment results computed during filtering/sorting.
         if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
-            if let res = window_?.swAppResult {
+            for res in window_?.swAppResults ?? [] {
                 spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
                 for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }
         } else if Preferences.showTitles == .appNameAndWindowTitle {
             let appName = window_?.application.localizedName ?? ""
             let separator = " - "
-            if let res = window_?.swAppResult {
+            for res in window_?.swAppResults ?? [] {
                 spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
                 for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }
-            if let res = window_?.swTitleResult {
-                let offset = (appName + separator).count
+            let offset = (appName + separator).count
+            for res in window_?.swTitleResults ?? [] {
                 spanRanges.append(NSRange(location: offset + res.span.lowerBound, length: res.span.count))
                 for r in res.subspans { exactRanges.append(NSRange(location: offset + r.lowerBound, length: r.count)) }
             }
         } else {
-            if let res = window_?.swTitleResult {
+            for res in window_?.swTitleResults ?? [] {
                 spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
                 for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
             }
