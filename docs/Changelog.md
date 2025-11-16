@@ -1,3 +1,20 @@
+# [7.33.0](https://github.com/lwouis/alt-tab-macos/compare/v7.32.0...v7.33.0) (2025-11-16)
+
+
+### Bug Fixes
+
+* app icon was too small in titles-appearance large-size ([ffd0c75](https://github.com/lwouis/alt-tab-macos/commit/ffd0c75))
+* take into account accent-color immediatly (closes [#4984](https://github.com/lwouis/alt-tab-macos/issues/4984)) ([011fdba](https://github.com/lwouis/alt-tab-macos/commit/011fdba))
+
+
+### Features
+
+* improve dealing with reserved/conflicting shortcuts ([fdf3134](https://github.com/lwouis/alt-tab-macos/commit/fdf3134)), closes [#3190](https://github.com/lwouis/alt-tab-macos/issues/3190) [#3288](https://github.com/lwouis/alt-tab-macos/issues/3288) [#1835](https://github.com/lwouis/alt-tab-macos/issues/1835) [#3826](https://github.com/lwouis/alt-tab-macos/issues/3826)
+* improve nl/pl/uk localizations ([96caad4](https://github.com/lwouis/alt-tab-macos/commit/96caad4))
+* improve trackpad multi-fingers swiping (closes [#4765](https://github.com/lwouis/alt-tab-macos/issues/4765)) ([d6196ec](https://github.com/lwouis/alt-tab-macos/commit/d6196ec))
+* improve ux for titles-appearance (closes [#4975](https://github.com/lwouis/alt-tab-macos/issues/4975)) ([c352591](https://github.com/lwouis/alt-tab-macos/commit/c352591))
+* macos tahoe improvements: menubar menu, feedback form, wording ([309cae3](https://github.com/lwouis/alt-tab-macos/commit/309cae3)), closes [#4986](https://github.com/lwouis/alt-tab-macos/issues/4986)
+
 # Release notes
 
 # [7.32.0](https://github.com/lwouis/alt-tab-macos/compare/v7.31.0...v7.32.0) (2025-11-10)
