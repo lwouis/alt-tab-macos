@@ -8,6 +8,12 @@ class ShortcutsWhenActiveSheet: SheetWindow {
             rightViews: [LabelAndControl.makeLabelWithRecorder("", "previousWindowShortcut", Preferences.previousWindowShortcut, labelPosition: .right)[0]])
         let cancelShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Cancel and hide", comment: ""),
             rightViews: [LabelAndControl.makeLabelWithRecorder("", "cancelShortcut", Preferences.cancelShortcut, labelPosition: .right)[0]])
+        let enterSearchShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Enter search", comment: ""),
+            rightViews: [LabelAndControl.makeLabelWithRecorder("", "searchEnterShortcut", Preferences.searchEnterShortcut, labelPosition: .right)[0]])
+        let exitSearchShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Exit search", comment: ""),
+            rightViews: [LabelAndControl.makeLabelWithRecorder("", "searchExitShortcut", Preferences.searchExitShortcut, labelPosition: .right)[0]])
+        let anyKeyToSearchRow = TableGroupView.Row(leftTitle: NSLocalizedString("Press any key to search (highest priority)", comment: ""),
+            rightViews: [LabelAndControl.makeSwitch("anyKeyToSearchEnabled")])
         let closeWindowShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Close window", comment: ""),
             rightViews: [LabelAndControl.makeLabelWithRecorder("", "closeWindowShortcut", Preferences.closeWindowShortcut, labelPosition: .right)[0]])
         let minDeminWindowShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Minimize/Deminimize window", comment: ""),
@@ -22,6 +28,9 @@ class ShortcutsWhenActiveSheet: SheetWindow {
         _ = table.addRow(focusWindowShortcut)
         _ = table.addRow(previousWindowShortcut)
         _ = table.addRow(cancelShortcut)
+        _ = table.addRow(enterSearchShortcut)
+        _ = table.addRow(exitSearchShortcut)
+        _ = table.addRow(anyKeyToSearchRow)
         _ = table.addRow(closeWindowShortcut)
         _ = table.addRow(minDeminWindowShortcut)
         _ = table.addRow(toggleFullscreenWindowShortcut)

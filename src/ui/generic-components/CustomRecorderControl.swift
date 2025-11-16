@@ -37,6 +37,14 @@ class CustomRecorderControl: RecorderControl {
     }
 
     func alertIfSameShortcutAlreadyAssigned(_ shortcut: Shortcut, _ shortcutAlreadyAssigned: ATShortcut) {
+        // Special-case: allow Enter Search and Exit Search to share the same shortcut without conflict.
+        if (id == "searchEnterShortcut" && shortcutAlreadyAssigned.id == "searchExitShortcut")
+               || (id == "searchExitShortcut" && shortcutAlreadyAssigned.id == "searchEnterShortcut") {
+            ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
+            ControlsTab.shortcutChangedCallback(self)
+            LabelAndControl.controlWasChanged(self, id)
+            return
+        }
         let isArrowKeys = ["←", "→", "↑", "↓"].contains(shortcutAlreadyAssigned.id)
         let isVimKeys = shortcutAlreadyAssigned.id.starts(with: "vimCycle")
         let existingShortcutLabel = ControlsTab.shortcutControls[shortcutAlreadyAssigned.id]
@@ -47,6 +55,9 @@ class CustomRecorderControl: RecorderControl {
             (isArrowKeys ? "Arrow keys" : (isVimKeys ? "Vim keys" : existingShortcutLabel!.1)).replacingOccurrences(of: " ", with: "\u{00A0}"))
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
+        }
+        if !id.starts(with: "holdShortcut") {
+            alert.addButton(withTitle: NSLocalizedString("Proceed regardless", comment: ""))
         }
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
@@ -68,6 +79,11 @@ class CustomRecorderControl: RecorderControl {
                 ControlsTab.shortcutChangedCallback(existingShortcutLabel!.0)
                 LabelAndControl.controlWasChanged(existingShortcutLabel!.0, shortcutAlreadyAssigned.id)
             }
+            ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
+            ControlsTab.shortcutChangedCallback(self)
+            LabelAndControl.controlWasChanged(self, id)
+        } else if !id.starts(with: "holdShortcut") && userChoice == .alertSecondButtonReturn {
+            // Proceed regardless: keep both assignments; search/handlers will arbitrate at runtime
             ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
             ControlsTab.shortcutChangedCallback(self)
             LabelAndControl.controlWasChanged(self, id)

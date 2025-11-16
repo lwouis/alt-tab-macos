@@ -52,6 +52,7 @@ class GeneralTab {
         table.addRow(menubarIcon)
         table.addNewTable()
         table.addRow(language)
+        // Search bar is always available; no toggle needed
         let view = TableGroupSetView(originalViews: [table], toolsViews: [resetPreferences], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
