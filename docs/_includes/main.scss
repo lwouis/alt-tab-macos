@@ -235,4 +235,109 @@ nav {
       text-decoration: underline;
     }
   }
+
+  /* Button row */
+  .support-buttons {
+    display: flex;
+    justify-content: center;
+    column-gap: 40px;
+    row-gap: 55px;
+    flex-wrap: wrap;
+    margin-bottom: 70px;
+
+    /* Wrapper: each button keeps its mascot */
+    .support-button-wrapper {
+      position: relative;
+      display: inline-block;
+      height: 120px; /* ensures space for mascot below */
+    }
+
+    /* Button shape + style */
+    .support-button {
+      width: 130px;
+      height: 50px;
+      border-radius: 22px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      background: linear-gradient(145deg, #ffffff, #dce8ff);
+      box-shadow:
+              4px 4px 10px rgba(0,0,0,0.15),
+              -4px -4px 10px rgba(255,255,255,0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Shine streak */
+    .support-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+                      120deg,
+                      rgba(255,255,255,0) 0%,
+                      rgba(255,255,255,0.55) 50%,
+                      rgba(255,255,255,0) 100%
+      );
+      transform: skewX(-20deg);
+      opacity: 0;
+    }
+
+    .support-button:hover::before {
+      animation: shine-sweep 0.8s forwards;
+      opacity: 1;
+    }
+
+    @keyframes shine-sweep {
+      0% { left: -150%; }
+      100% { left: 200%; }
+    }
+
+    /* Button image */
+    .support-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    /* Hover lift */
+    .support-button:hover {
+      transform: scale(1.08);
+      box-shadow:
+              6px 6px 15px rgba(0,0,0,0.18),
+              -6px -6px 15px rgba(255,255,255,0.8);
+    }
+
+    /* Mascots */
+    .mascot {
+      position: absolute;
+      width: 60px;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(0);
+      transition: transform 0.3s;
+      pointer-events: none;
+    }
+
+    .rabbit { width: 50px } /* long ears '^^ /*
+
+        /* Hover reactions */
+    .support-button-wrapper:hover .cat { transform: translateX(-50%) translateY(-20px) rotate(-15deg); }
+    .support-button-wrapper:hover .dog { transform: translateX(-50%) translateY(-20px) scaleX(-1); }
+    .support-button-wrapper:hover .squirrel { transform: translateX(-50%) translateY(-20px) rotate(15deg); }
+    .support-button-wrapper:hover .rabbit { transform: translateX(-50%) translateY(-20px) rotate(-10deg); }
+
+    .support-button img.paypal { width: 60%; margin-top: 6px; }
+    .support-button img.github-sponsors { width: 110%; margin-top: 6px; }
+    .support-button img.stripe { width: 51%; margin-top: 4px; }
+  }
 }

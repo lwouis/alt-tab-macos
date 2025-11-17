@@ -221,6 +221,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Piotr Budny
 * Quentin. douarre
 * Rajesh Kaswala
+* rajuneon
 * Rami Elsawy
 * Raphaël
 * Rasmus
