@@ -508,6 +508,13 @@ struct SWResult {
     let ops: [SWOp]
 }
 
+/// Computes Smith–Waterman local alignment between `query` and `text`.
+///
+/// Notes:
+/// - Default matching is case-insensitive to better match typical search behavior.
+///   This only affects character equality checks; indices returned still refer to the
+///   original `text` character positions since lowercasing does not change the
+///   character count for common scripts we display.
 func smithWatermanHighlights(query: String,
                              text: String,
                              match: Int = 2,
@@ -515,9 +522,12 @@ func smithWatermanHighlights(query: String,
                              gap: Int = -2,
                              topK: Int = 1,
                              minScore: Int = 1,
-                             allowOverlaps: Bool = false) -> [SWResult] {
-    let qArr = Array(query)
-    let tArr = Array(text)
+                             allowOverlaps: Bool = false,
+                             caseInsensitive: Bool = true) -> [SWResult] {
+    // For case-insensitive matching, operate on lowercased copies for equality checks.
+    // We still use indices against the original strings, which have the same Character count.
+    let qArr = Array(caseInsensitive ? query.lowercased() : query)
+    let tArr = Array(caseInsensitive ? text.lowercased() : text)
     let n = qArr.count
     let m = tArr.count
     if n == 0 || m == 0 { return [] }
