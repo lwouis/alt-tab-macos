@@ -15,8 +15,6 @@
 * improve ux for titles-appearance (closes [#4975](https://github.com/lwouis/alt-tab-macos/issues/4975)) ([c352591](https://github.com/lwouis/alt-tab-macos/commit/c352591))
 * macos tahoe improvements: menubar menu, feedback form, wording ([309cae3](https://github.com/lwouis/alt-tab-macos/commit/309cae3)), closes [#4986](https://github.com/lwouis/alt-tab-macos/issues/4986)
 
-# Release notes
-
 # [7.32.0](https://github.com/lwouis/alt-tab-macos/compare/v7.31.0...v7.32.0) (2025-11-10)
 
 
