@@ -19,15 +19,10 @@ class Windows {
     // When true, the next refresh will focus the first visible window (set on search bar changes)
     static var forceFocusFirstVisibleOnSearchChange: Bool = false
 
-    static func matchesSearch(_ window: Window) -> Bool {
-        let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmed.isEmpty { return true }
-        ensureSearchCache(for: window, query: trimmed)
-        return !window.swAppResults.isEmpty || !window.swTitleResults.isEmpty
-    }
+    // Search helpers are implemented in src/logic/search/
 
     static func shouldDisplay(_ window: Window) -> Bool {
-        return window.shouldShowTheUser && matchesSearch(window)
+        return window.shouldShowTheUser && Search.matches(window, query: searchQuery)
     }
 
 
@@ -50,16 +45,7 @@ class Windows {
             }
     }
 
-    /// Computes a relevance score for `window` given the current `searchQuery`.
-    /// Higher is better. Prefers contiguous/whole-word matches over scattered
-    /// subsequence matches, and boosts app-name matches slightly over title matches.
-    private static func searchRelevance(_ window: Window) -> Double {
-        let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmed.isEmpty { return 0.0 }
-        // Ensure cache populated and reuse computed result for ranking
-        ensureSearchCache(for: window, query: trimmed)
-        return window.swBestSimilarity
-    }
+    // Relevance computation is implemented in src/logic/search/
 
     /// reordered list based on preferences, keeping the original index
     private static func sort() {
@@ -79,8 +65,8 @@ class Windows {
             // While searching, prioritize by Smith–Waterman similarity score
             let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
             if !trimmed.isEmpty {
-                let s0 = searchRelevance($0)
-                let s1 = searchRelevance($1)
+                let s0 = Search.relevance(for: $0, query: trimmed)
+                let s1 = Search.relevance(for: $1, query: trimmed)
                 if s0 != s1 { return s0 > s1 }
             }
             // sort within each buckets
@@ -492,174 +478,6 @@ enum WindowActivityType: Int {
     case focus = 2
 }
 
-// MARK: - Smith–Waterman local alignment (linear gap)
-
-struct SWOp {
-    let op: Character // 'M' match, 'S' substitute, 'I' insertion, 'D' deletion
-    let qi: Int       // index in query (if applicable)
-    let tj: Int       // index in text (if applicable)
-}
-
-struct SWResult {
-    let score: Int
-    let similarity: Double
-    let span: Range<Int>      // [start, end) in text
-    let subspans: [Range<Int>]// exact-match subspans within span
-    let ops: [SWOp]
-}
-
-/// Computes Smith–Waterman local alignment between `query` and `text`.
-///
-/// Notes:
-/// - Default matching is case-insensitive to better match typical search behavior.
-///   This only affects character equality checks; indices returned still refer to the
-///   original `text` character positions since lowercasing does not change the
-///   character count for common scripts we display.
-func smithWatermanHighlights(query: String,
-                             text: String,
-                             match: Int = 2,
-                             mismatch: Int = -1,
-                             gap: Int = -2,
-                             topK: Int = 1,
-                             minScore: Int = 1,
-                             allowOverlaps: Bool = false,
-                             caseInsensitive: Bool = true) -> [SWResult] {
-    // For case-insensitive matching, operate on lowercased copies for equality checks.
-    // We still use indices against the original strings, which have the same Character count.
-    let qArr = Array(caseInsensitive ? query.lowercased() : query)
-    let tArr = Array(caseInsensitive ? text.lowercased() : text)
-    let n = qArr.count
-    let m = tArr.count
-    if n == 0 || m == 0 { return [] }
-
-    var H = Array(repeating: Array(repeating: 0, count: m + 1), count: n + 1)
-    var bt = Array(repeating: Array(repeating: Character("\0"), count: m + 1), count: n + 1)
-
-    for i in 1...n {
-        for j in 1...m {
-            let sDiag = H[i-1][j-1] + (qArr[i-1] == tArr[j-1] ? match : mismatch)
-            let sUp   = H[i-1][j] + gap
-            let sLeft = H[i][j-1] + gap
-            var val = sDiag
-            var ptr: Character = "D"
-            if sUp > val { val = sUp; ptr = "U" }
-            if sLeft > val { val = sLeft; ptr = "L" }
-            if val < 0 { val = 0; ptr = "\0" }
-            H[i][j] = val
-            bt[i][j] = ptr
-        }
-    }
-
-    var candidates: [(score: Int, i: Int, j: Int)] = []
-    for i in 1...n {
-        for j in 1...m {
-            let s = H[i][j]
-            if s > 0 { candidates.append((s, i, j)) }
-        }
-    }
-    if candidates.isEmpty { return [] }
-    candidates.sort { (a, b) in a.score > b.score }
-
-    var results: [SWResult] = []
-    var usedSpans: [Range<Int>] = []
-
-    func rangesOverlap(_ a: Range<Int>, _ b: Range<Int>) -> Bool {
-        return a.lowerBound < b.upperBound && b.lowerBound < a.upperBound
-    }
-
-    func backtrack(_ iStart: Int, _ jStart: Int) -> (ops: [SWOp], span: Range<Int>, subspans: [Range<Int>], score: Int) {
-        var opsRev: [SWOp] = []
-        var consumedJ: [Int] = []
-        var i = iStart
-        var j = jStart
-        while i > 0 && j > 0 && H[i][j] > 0 {
-            let p = bt[i][j]
-            if p == "D" {
-                opsRev.append(SWOp(op: qArr[i-1] == tArr[j-1] ? "M" : "S", qi: i-1, tj: j-1))
-                consumedJ.append(j-1)
-                i -= 1; j -= 1
-            } else if p == "U" {
-                opsRev.append(SWOp(op: "D", qi: i-1, tj: j))
-                i -= 1
-            } else if p == "L" {
-                opsRev.append(SWOp(op: "I", qi: i, tj: j-1))
-                consumedJ.append(j-1)
-                j -= 1
-            } else {
-                break
-            }
-        }
-        let ops = opsRev.reversed()
-        let jStartIdx = consumedJ.min() ?? jStart
-        let jEndIdx = (consumedJ.max() ?? (jStart-1)) + 1
-        let span = jStartIdx..<jEndIdx
-        var subs: [Range<Int>] = []
-        var runStart: Int? = nil
-        var jCursor = jStartIdx
-        for op in ops {
-            switch op.op {
-            case "M":
-                if runStart == nil { runStart = jCursor }
-                jCursor += 1
-            case "S":
-                if let rs = runStart { subs.append(rs..<jCursor); runStart = nil }
-                jCursor += 1
-            case "I":
-                if let rs = runStart { subs.append(rs..<jCursor); runStart = nil }
-                jCursor += 1
-            case "D":
-                if let rs = runStart { subs.append(rs..<jCursor); runStart = nil }
-            default:
-                break
-            }
-        }
-        if let rs = runStart { subs.append(rs..<jCursor) }
-        return (Array(ops), span, subs, H[iStart][jStart])
-    }
-
-    for (score, i, j) in candidates {
-        if results.count >= topK { break }
-        if score < minScore { break }
-        let res = backtrack(i, j)
-        if !allowOverlaps && usedSpans.contains(where: { rangesOverlap($0, res.span) }) { continue }
-        let sim = Double(res.score) / Double(max(1, match * n))
-        results.append(SWResult(score: res.score, similarity: sim, span: res.span, subspans: res.subspans, ops: res.ops))
-        usedSpans.append(res.span)
-    }
-    return results
-}
-
-func smithWatermanSimilarity(query: String, text: String) -> Double {
-    return smithWatermanHighlights(query: query, text: text, topK: 1).first?.similarity ?? 0.0
-}
-
-// MARK: - Search cache helpers
-
-extension Windows {
-    /// Computes and caches Smith–Waterman results for the given window and query,
-    /// reusing previous values if the query hasn't changed.
-    fileprivate static func ensureSearchCache(for window: Window, query: String) {
-        if window.lastSearchQuery == query { return }
-        if query.isEmpty {
-            window.lastSearchQuery = query
-            window.swAppResults = []
-            window.swTitleResults = []
-            window.swBestSimilarity = 0
-            return
-        }
-        let appName = window.application.localizedName ?? ""
-        let title = window.title ?? ""
-        // Capture multiple non-overlapping high-scoring local alignments so we can
-        // highlight discontinuous parts. Keep topK small for performance.
-        let topK = 3
-        let appResList = smithWatermanHighlights(query: query, text: appName, topK: topK, allowOverlaps: false)
-        let titleResList = smithWatermanHighlights(query: query, text: title, topK: topK, allowOverlaps: false)
-        window.swAppResults = appResList
-        window.swTitleResults = titleResList
-        let nameSim = appResList.first?.similarity ?? 0.0
-        let titleSim = titleResList.first?.similarity ?? 0.0
-        // slight boost to app-name matches to prefer whole-app hits
-        window.swBestSimilarity = max(nameSim * 1.02, titleSim)
-        window.lastSearchQuery = query
-    }
-}
+// Fuzzy search alignment and cache helpers moved to:
+// - src/logic/search/SearchAlignment.swift
+// - src/logic/search/Search.swift

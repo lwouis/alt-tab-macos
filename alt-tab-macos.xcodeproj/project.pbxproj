@@ -290,6 +290,8 @@
 		D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BACD976030676FD0761D5 /* Windows.swift */; };
 		D04BAFBC862BA5FE0294EA7A /* AXUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6F823BC0EDA9AA4B80A /* AXUIElement.swift */; };
 		D04BAFF30A98CF287F85DA1E /* BlacklistsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA27695D9A5824720BD7B /* BlacklistsTab.swift */; };
+		F00DCAFE0000000000001001 /* SearchAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000001 /* SearchAlignment.swift */; };
+		F00DCAFE0000000000001002 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00DCAFE0000000000000002 /* Search.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -704,6 +706,8 @@
 		D04BAF6F617FCA44D1F75B60 /* alt_tab_macos.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = alt_tab_macos.entitlements; sourceTree = "<group>"; };
 		D04BAFA20F13FB588F6CCB81 /* bug_report.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = bug_report.md; sourceTree = "<group>"; };
 		D04BAFDA9E2623E21CBD6CEF /* zh-TW */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-TW"; path = InfoPlist.strings; sourceTree = "<group>"; };
+		F00DCAFE0000000000000001 /* SearchAlignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = search/SearchAlignment.swift; sourceTree = "<group>"; };
+		F00DCAFE0000000000000002 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = search/Search.swift; sourceTree = "<group>"; };
 		E20104DD2C3DE10E7CCC5B5A /* Pods-unit-tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit-tests.release.xcconfig"; path = "Target Support Files/Pods-unit-tests/Pods-unit-tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1307,6 +1311,8 @@
 				BF0C8D57C86AF492D43A576D /* AppearanceTestable.swift */,
 				BF0C8998862E0E04D60CACBC /* MacroPreferences.swift */,
 				BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */,
+				F00DCAFE0000000000000001 /* SearchAlignment.swift */,
+				F00DCAFE0000000000000002 /* Search.swift */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -1988,6 +1994,11 @@
 			attributes = {
 				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = lwouis;
+				TargetAttributes = {
+					D04BA5E73DAF232ADE11C97A = {
+						DevelopmentTeam = 2MD3BS7FZP;
+					};
+				};
 			};
 			buildConfigurationList = D04BA83C9495F252D87CDF0F /* Build configuration list for PBXProject "alt-tab-macos" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2476,6 +2487,8 @@
 				BF0C8E5F4E4D5F7DAEE07C20 /* ThumbnailsPanelBackgroundView.swift in Sources */,
 				BF0C8AD478399D2E97AE3FB4 /* CustomRecorderControlTestable.swift in Sources */,
 				BF0C8A5FA46C5E74A071FF4C /* ScrollwheelEvents.swift in Sources */,
+				F00DCAFE0000000000001001 /* SearchAlignment.swift in Sources */,
+				F00DCAFE0000000000001002 /* Search.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3477,7 +3490,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA62D5EACAAAD7BCD3E79 /* release.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 2MD3BS7FZP;
 			};
 			name = Release;
 		};
@@ -3485,7 +3500,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 2MD3BS7FZP;
 			};
 			name = Debug;
 		};
