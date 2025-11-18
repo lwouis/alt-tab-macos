@@ -63,8 +63,10 @@ class PreferencesMigrations {
                     }
                 }
             }
+            }
         }
     }
+    
 
     // cursorFollowFocus was a toggle. It's now a dropdown
     // before: cursorFollowFocusEnabled: true/false
