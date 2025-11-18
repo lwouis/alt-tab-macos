@@ -400,6 +400,12 @@ extension ThumbnailsView: NSSearchFieldDelegate {
             }
             if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
                exitShortcut.matches(nil, nil, keyCode, modifiers) && exitShortcut.shouldTrigger() {
+                // If Enter and Exit share the exact same key/modifiers, suppress exit while typing
+                if let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut,
+                   enter.carbonKeyCode == exitShortcut.shortcut.carbonKeyCode,
+                   ControlsTab.combinedModifiersMatch(enter.carbonModifierFlags, exitShortcut.shortcut.carbonModifierFlags) {
+                    return false
+                }
                 exitSearchFocus()
                 return true
             }

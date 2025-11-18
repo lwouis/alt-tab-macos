@@ -45,6 +45,14 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
        App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
         if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
            exitShortcut.matches(globalId, shortcutState, keyCode, modifiers) && exitShortcut.shouldTrigger() {
+            // If Enter and Exit share the exact same key and modifiers,
+            // do NOT treat this keypress as "exit" while typing; let it input text.
+            if let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut {
+                if enter.carbonKeyCode == exitShortcut.shortcut.carbonKeyCode &&
+                   ControlsTab.combinedModifiersMatch(enter.carbonModifierFlags, exitShortcut.shortcut.carbonModifierFlags) {
+                    return false
+                }
+            }
             exitShortcut.executeAction(isARepeat)
             exitShortcut.redundantSafetyMeasures()
             return true
