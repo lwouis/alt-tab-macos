@@ -35,9 +35,10 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
             return "keys:\(modifiersAsString ?? "")\(keyCodeAsString ?? "") isARepeat:\(isARepeat)"
         }
     }
-    // Special case: while typing in the search field, allow only the configurable
-    // "Exit search" shortcut to be handled; all other shortcuts should be ignored
-    // so that text input works as expected.
+    // While typing in the search field, allow a small, explicit set of shortcuts:
+    // - Exit search (with safety: suppressed if same key as Enter Search)
+    // - Focus selected window (e.g., Space by default)
+    // - Cancel (e.g., Escape by default)
     if App.app != nil,
        App.app.appIsBeingUsed,
        App.app.thumbnailsPanel != nil,
@@ -49,6 +50,20 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
             if !allowSearchExitWhileTyping() { return false }
             exitShortcut.executeAction(isARepeat)
             exitShortcut.redundantSafetyMeasures()
+            return true
+        }
+        if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
+           focusShortcut.matches(globalId, shortcutState, keyCode, modifiers) && focusShortcut.shouldTrigger() {
+            if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
+                focusShortcut.executeAction(isARepeat)
+            }
+            focusShortcut.redundantSafetyMeasures()
+            return true
+        }
+        if let cancelShortcut = ControlsTab.shortcuts["cancelShortcut"],
+           cancelShortcut.matches(globalId, shortcutState, keyCode, modifiers) && cancelShortcut.shouldTrigger() {
+            cancelShortcut.executeAction(isARepeat)
+            cancelShortcut.redundantSafetyMeasures()
             return true
         }
         return false

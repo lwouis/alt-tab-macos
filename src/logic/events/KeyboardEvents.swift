@@ -82,6 +82,26 @@ class KeyboardEvents {
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
             var bypassShortcutsForThisEvent = false  // focus search and let the key become input
             var consumeEventForSearchEntry = false   // focus search but do NOT insert this key
+            // When search is already focused, handle a few special keys directly
+            if event.type == .keyDown,
+               App.app != nil,
+               App.app.appIsBeingUsed,
+               App.app.thumbnailsPanel != nil,
+               App.app.thumbnailsPanel.isKeyWindow,
+               App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+                let keyCode = event.keyCode
+                if keyCode == UInt16(kVK_Return) || keyCode == UInt16(kVK_ANSI_KeypadEnter) {
+                    if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
+                        ControlsTab.executeAction("focusWindowShortcut")
+                    }
+                    return nil
+                }
+                if keyCode == UInt16(kVK_Escape) {
+                    // ESC exits the panel even when search has focus (legacy behavior)
+                    App.app.hideUi()
+                    return nil
+                }
+            }
             if event.type == .keyDown,
                App.app != nil,
                App.app.appIsBeingUsed,
