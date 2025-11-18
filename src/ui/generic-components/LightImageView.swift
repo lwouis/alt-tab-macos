@@ -55,4 +55,8 @@ class LightImageView: NSView {
             }
         }
     }
+
+    func releaseImage() {
+        layer!.contents = nil
+    }
 }

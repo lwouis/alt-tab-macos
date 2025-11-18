@@ -117,28 +117,38 @@ class ThumbnailsView {
         var newViews = [ThumbnailView]()
         rows.removeAll(keepingCapacity: true)
         rows.append([ThumbnailView]())
-        for (index, window) in Windows.list.enumerated() {
+        var index = 0
+        while index < ThumbnailsView.recycledViews.count {
             guard App.app.appIsBeingUsed else { return nil }
-            guard window.shouldShowTheUser else { continue }
+            defer { index = index + 1 }
             let view = ThumbnailsView.recycledViews[index]
-            view.updateRecycledCellWithNewContent(window, index, height)
-            let width = view.frame.size.width
-            let projectedX = projectedWidth(currentX, width).rounded(.down)
-            if needNewLine(projectedX, widthMax) {
-                currentX = startingX
-                currentY = (currentY + height + Appearance.interCellPadding).rounded(.down)
-                view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
-                currentX = projectedWidth(currentX, width).rounded(.down)
-                maxY = max(currentY + height + Appearance.interCellPadding, maxY)
-                rows.append([ThumbnailView]())
+            if index < Windows.list.count {
+                let window = Windows.list[index]
+                guard window.shouldShowTheUser else { continue }
+                view.updateRecycledCellWithNewContent(window, index, height)
+                let width = view.frame.size.width
+                let projectedX = projectedWidth(currentX, width).rounded(.down)
+                if needNewLine(projectedX, widthMax) {
+                    currentX = startingX
+                    currentY = (currentY + height + Appearance.interCellPadding).rounded(.down)
+                    view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
+                    currentX = projectedWidth(currentX, width).rounded(.down)
+                    maxY = max(currentY + height + Appearance.interCellPadding, maxY)
+                    rows.append([ThumbnailView]())
+                } else {
+                    view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
+                    currentX = projectedX
+                    maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
+                }
+                rows[rows.count - 1].append(view)
+                newViews.append(view)
+                window.rowIndex = rows.count - 1
             } else {
-                view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
-                currentX = projectedX
-                maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
+                // release images from unused recycledViews; they take lots of RAM
+                view.thumbnail.releaseImage()
+                view.appIcon.releaseImage()
+                view.windowlessIcon.releaseImage()
             }
-            rows[rows.count - 1].append(view)
-            newViews.append(view)
-            window.rowIndex = rows.count - 1
         }
         scrollView.documentView!.subviews = newViews
         return (maxX, maxY, labelHeight)
