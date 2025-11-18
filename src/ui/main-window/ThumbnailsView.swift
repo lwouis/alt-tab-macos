@@ -361,41 +361,6 @@ extension ThumbnailsView: NSSearchFieldDelegate {
         KeyRepeatTimer.deactivateTimerForRepeatingKey("previousWindowShortcut")
         App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
     }
-
-    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        // Enter should focus the selected window while searching
-        if control === searchField, commandSelector == #selector(NSResponder.insertNewline(_:)) {
-            ControlsTab.executeAction("focusWindowShortcut")
-            return true
-        }
-        // Use configured shortcuts while the search field has focus; avoid hardcoded keys
-        if control === searchField, let event = NSApp.currentEvent, event.type == .keyDown {
-            let keyCode = UInt32(event.keyCode)
-            let modifiers = event.modifierFlags
-            // Focus window shortcut (e.g., Space by default)
-            if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
-               focusShortcut.matches(nil, nil, keyCode, modifiers) && focusShortcut.shouldTrigger() {
-                if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
-                    ControlsTab.executeAction("focusWindowShortcut")
-                }
-                return true
-            }
-            // Exit search mode shortcut (e.g., Tab by default)
-            if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
-               exitShortcut.matches(nil, nil, keyCode, modifiers) && exitShortcut.shouldTrigger() {
-                // Centralized rule in KeyboardEventsTestable
-                if !allowSearchExitWhileTyping() { return false }
-                exitSearchFocus()
-                return true
-            }
-        }
-        if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
-            // ESC exits the panel even when search has focus
-            App.app.hideUi()
-            return true
-        }
-        return false
-    }
 }
 class ScrollView: NSScrollView {
     // overriding scrollWheel() turns this false; we force it to be true to enable responsive scrolling
