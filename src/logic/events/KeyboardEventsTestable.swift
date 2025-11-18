@@ -45,14 +45,8 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
        App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
         if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
            exitShortcut.matches(globalId, shortcutState, keyCode, modifiers) && exitShortcut.shouldTrigger() {
-            // If Enter and Exit share the exact same key and modifiers,
-            // do NOT treat this keypress as "exit" while typing; let it input text.
-            if let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut {
-                if enter.carbonKeyCode == exitShortcut.shortcut.carbonKeyCode &&
-                   ControlsTab.combinedModifiersMatch(enter.carbonModifierFlags, exitShortcut.shortcut.carbonModifierFlags) {
-                    return false
-                }
-            }
+            // Centralized rule: suppress exit if Enter and Exit share same key while typing
+            if !allowSearchExitWhileTyping() { return false }
             exitShortcut.executeAction(isARepeat)
             exitShortcut.redundantSafetyMeasures()
             return true
@@ -83,4 +77,16 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
     // we'll have to rework this whole approach. Today we rely on somewhat in-order events/actions
     // special attention should be given to App.app.appIsBeingUsed which is being set to true when executing the nextWindowShortcut action
     return someShortcutTriggered
+}
+
+/// Policy: whether exiting search is allowed while the search field is actively being edited.
+/// We suppress exit if Enter and Exit share the same key and modifiers to avoid prematurely leaving search.
+func allowSearchExitWhileTyping() -> Bool {
+    guard let exit = ControlsTab.shortcuts["searchExitShortcut"]?.shortcut,
+          let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut else { return true }
+    if enter.carbonKeyCode == exit.carbonKeyCode &&
+       ControlsTab.combinedModifiersMatch(enter.carbonModifierFlags, exit.carbonModifierFlags) {
+        return false
+    }
+    return true
 }
