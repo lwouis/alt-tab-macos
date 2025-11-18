@@ -3,6 +3,7 @@ import Cocoa
 class ThumbnailsPanel: NSPanel {
     var thumbnailsView = ThumbnailsView()
     override var canBecomeKey: Bool { true }
+    private var didDisplayOnce = false
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
@@ -42,6 +43,7 @@ class ThumbnailsPanel: NSPanel {
     }
 
     override func orderOut(_ sender: Any?) {
+        didDisplayOnce = false
         if Preferences.fadeOutAnimation {
             NSAnimationContext.runAnimationGroup(
                 { _ in animator().alphaValue = 0 },
@@ -49,6 +51,16 @@ class ThumbnailsPanel: NSPanel {
             )
         } else {
             super.orderOut(sender)
+        }
+    }
+
+    override func displayIfNeeded() {
+        super.displayIfNeeded()
+        if !didDisplayOnce {
+            didDisplayOnce = true
+            DispatchQueue.main.async {
+                Applications.manuallyRefreshAllWindows()
+            }
         }
     }
 

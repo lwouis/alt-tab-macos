@@ -221,7 +221,6 @@ class App: AppCenterApplication {
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             MainMenu.toggle(enabled: false)
             NSScreen.updatePreferred()
-            Applications.manuallyRefreshAllWindows()
             if isVeryFirstSummon {
                 Windows.sortByLevel()
                 isVeryFirstSummon = false
