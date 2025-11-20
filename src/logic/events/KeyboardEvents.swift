@@ -108,12 +108,19 @@ class KeyboardEvents {
                App.app.thumbnailsPanel != nil,
                App.app.thumbnailsPanel.isKeyWindow,
                App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() == nil {
-                // Compute a common exclusion list for navigation/escape and configured search keys
+                // If Enter is pressed while thumbnails have focus, focus the selected window.
+                // Avoid entering search on Enter which could reset selection.
                 let keyCode = event.keyCode
+                if keyCode == UInt16(kVK_Return) || keyCode == UInt16(kVK_ANSI_KeypadEnter) {
+                    ControlsTab.executeAction("focusWindowShortcut")
+                    return nil
+                }
+                // Compute a common exclusion list for navigation/escape and configured search keys
                 var excluded: Set<UInt16> = [
                     UInt16(kVK_Escape),
                     UInt16(kVK_LeftArrow), UInt16(kVK_RightArrow),
-                    UInt16(kVK_UpArrow), UInt16(kVK_DownArrow)
+                    UInt16(kVK_UpArrow), UInt16(kVK_DownArrow),
+                    UInt16(kVK_Return), UInt16(kVK_ANSI_KeypadEnter)
                 ]
                 if let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut {
                     excluded.insert(UInt16(enter.carbonKeyCode))
