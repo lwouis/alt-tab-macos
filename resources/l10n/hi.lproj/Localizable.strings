@@ -62,7 +62,6 @@
 "Customize Thumbnails style…" = "थंबनेल शैली को अनुकूलित करें ...";
 "Customize Titles style…" = "टाइटल स्टाइल को कस्टमाइज़ करें ...";
 "Dark" = "अँधेरा";
-"Disabled" = "Disabled";
 "Do nothing" = "कुछ मत करो";
 "Don’t check for updates periodically" = "समय-समय पर अपडेट चेक मत करो";
 "Don’t send" = "मत भेजो";
@@ -76,7 +75,6 @@
 "Fullscreen windows:" = "पूर्ण स्क्रीन खिड़कियाँ:";
 "Fullscreen/Defullscreen window" = "FullScreen/defulscreen विंडो";
 "General" = "सामान्य";
-"Gesture" = "Gesture";
 "Grant permission" = "अनुमति दें।";
 "Hidden windows:" = "छिपा हुआ खिड़कियाँ:";
 "Hide" = "छुपाएं";
@@ -96,8 +94,6 @@
 "High" = "उच्च";
 "Highest" = "उच्चतम";
 "Hold" = "दबाए रखें";
-"Horizontal Swipe with Four Fingers" = "Horizontal Swipe with Four Fingers";
-"Horizontal Swipe with Three Fingers" = "Horizontal Swipe with Three Fingers";
 "I think the app could be improved with…" = "मुझे लगता है कि इससे ऐप को बेहतर बनाया जा सकता है...";
 "Ignore shortcuts when active" = "सक्रिय होने पर शॉर्टकट को अनदेखा करें";
 "Ignore shortcuts while a window from these apps is active" = "इन ऐप्स की खिड़की सक्रिय होने पर शॉर्टकट पर ध्यान न दें";
@@ -128,7 +124,6 @@
 "Only if the window is fullscreen" = "खिड़की फ़ुलस्क्रीन होने पर ही";
 "Open Accessibility Preferences…" = "अभिगम्यता पसंद खोलें...";
 "Open Screen Recording Preferences…" = "स्क्रीन रिकॉर्डिंग पसंद खोलें...";
-"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 "Optional: email (if you want a reply)" = "ऐच्छिक: ईमेल (अगर आप जवाब देना चाहते हैं)";
 "Order windows by" = "द्वारा विंडोज ऑर्डर करें";
 "Policies" = "नियम";
@@ -146,7 +141,6 @@
 "Remember my choice" = "मेरी पसंद याद रखो";
 "Reset preferences and restart" = "वरीयताओं को रीसेट करें और पुनरारंभ करें";
 "Reset preferences and restart…" = "वरीयताओं को रीसेट करें और पुनरारंभ करें ...";
-"Restart Now" = "Restart Now";
 "Rows of thumbnails:" = "थंबनेल की पंक्तियाँ:";
 "Screen including menu bar" = "मेनू बार सहित स्क्रीन";
 "Screen including mouse" = "स्क्रीन जिसमे माउस हो";
@@ -190,7 +184,6 @@
 "Show windows from Spaces" = "रिक्त स्थान से खिड़कियां दिखाएं";
 "Show windows from:" = "यहां से खिड़कियाँ दिखाएं:";
 "Size" = "आकार";
-"Skipped" = "Skipped";
 "Small" = "छोटा";
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "फाइंडर या प्रीव्यू जैसे कुछ ऐप मानक टैब का उपयोग करते हैं जो स्वतंत्र विंडो की तरह काम करते हैं।वेब ब्राउज़र जैसे कुछ अन्य ऐप कस्टम टैब का उपयोग करते हैं जो अद्वितीय तरीकों से कार्य करते हैं और वास्तविक विंडो नहीं हैं।AltTab उन अलग -अलग सूचीबद्ध नहीं कर सकता है।";
 "Source code repository" = "स्रोत कोड भंडार";
@@ -204,7 +197,6 @@
 "Swipe with Three Fingers" = "तीन अंगुलियों से स्वाइप करें";
 "Switch between 3 different styles. You can customize them." = "3 अलग -अलग शैलियों के बीच स्विच करें।आप उन्हें अनुकूलित कर सकते हैं।";
 "System" = "प्रणाली";
-"System Default" = "System Default";
 "The application needs to restart to apply the language change." = "भाषा परिवर्तन लागू करने के लिए एप्लिकेशन को पुनः प्रारंभ करने की आवश्यकता है।";
 "Theme" = "विषय";
 "Theme:" = "अंदाज:";
@@ -222,8 +214,6 @@
 "Updates policy:" = "अपडेट नीति:";
 "Use the app without this permission. Thumbnails won’t show." = "इस अनुमति के बिना ऐप का उपयोग करें। थंबनेल नहीं दिखेंगे।";
 "Version" = "संस्करण";
-"Vertical Swipe with Four Fingers" = "Vertical Swipe with Four Fingers";
-"Vertical Swipe with Three Fingers" = "Vertical Swipe with Three Fingers";
 "View existing discussions" = "मौजूदा वाद-विवाद दिखाओ";
 "Vim keys" = "विम कीयों";
 "Vim keys already assigned to other actions:\n%@" = "Vim कीज़ पहले से ही अन्य कार्यों को सौंपा गया: \\ n%@";
@@ -246,4 +236,3 @@
 "Windows" = "खिड़कियाँ";
 "You can’t undo this action." = "आप इस कार्रवाई को पूर्ववत नहीं कर सकते।";
 "You didn’t write your email, thus can’t receive any response." = "आपने अपना ईमेल नहीं लिखा, इसलिए कोई जवाब नहीं मिल सकता ।";
-"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

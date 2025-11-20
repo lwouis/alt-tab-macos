@@ -21,7 +21,6 @@
 "Also select windows using:" = "Chọn cửa sổ thông qua:";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab gặp sự cố ở lần sử dụng gần đây. Gửi báo cáo sự cố sẽ giúp giải quyết các vấn đề này";
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab hiện đang được thiết lập để hiển thị các ứng dụng.Cài đặt này chỉ khả dụng khi AltTab được đặt để hiển thị Windows.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 "AltTab needs some permissions" = "AltTab cần một vài quyền truy cập";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab sẽ hiển thị nếu cửa sổ hiện đang được giảm thiểu hoặc toàn màn hình với biểu tượng trạng thái.";
 "Always" = "Luôn luôn";
@@ -62,7 +61,6 @@
 "Customize Thumbnails style…" = "Tùy chỉnh phong cách hình thu nhỏ";
 "Customize Titles style…" = "Tùy chỉnh phong cách tiêu đề…";
 "Dark" = "Tối tăm";
-"Disabled" = "Disabled";
 "Do nothing" = "Không làm gì";
 "Don’t check for updates periodically" = "Không kiểm tra cập nhật theo chu kì";
 "Don’t send" = "Không gửi";
@@ -76,8 +74,6 @@
 "Fullscreen windows:" = "Cửa sổ toàn màn hình:";
 "Fullscreen/Defullscreen window" = "Toàn màn hình/Thoát toàn màn hình";
 "General" = "Tổng quát";
-"Gesture" = "Gesture";
-"Grant permission" = "Grant permission";
 "Hidden windows:" = "Cửa sổ ẩn:";
 "Hide" = "Ẩn";
 "Hide app badges" = "Ẩn biểu tượng ứng dụng";
@@ -96,15 +92,10 @@
 "High" = "Cao";
 "Highest" = "Cao nhất";
 "Hold" = "Giữ";
-"Horizontal Swipe with Four Fingers" = "Horizontal Swipe with Four Fingers";
-"Horizontal Swipe with Three Fingers" = "Horizontal Swipe with Three Fingers";
 "I think the app could be improved with…" = "Tôi nghĩ app có thể được cải thiện về mặt...";
 "Ignore shortcuts when active" = "Bỏ qua phím tắt khi hoạt động";
 "Ignore shortcuts while a window from these apps is active" = "Bỏ qua phím tắt khi một cửa sổ trong các ứng dụng sau đang bật";
-"Language" = "Language";
-"Language Change" = "Language Change";
 "Large" = "Lớn";
-"Later" = "Later";
 "Latest releases" = "Phiên bản gần nhất";
 "Leading" = "Dẫn đầu";
 "Left" = "Trái";
@@ -117,7 +108,6 @@
 "Middle" = "Giữa";
 "Minimize/Deminimize window" = "Thu nhỏ/Phóng to cửa sổ";
 "Minimized windows:" = "Cửa sổ đã thu nhỏ:";
-"Miscellaneous" = "Miscellaneous";
 "Miscellaneous:" = "Khác";
 "Mouse hover" = "Di chuột lên";
 "Multiple screens" = "Nhiều màn hình";
@@ -128,7 +118,6 @@
 "Only if the window is fullscreen" = "Chỉ khi cửa sổ phóng to toàn màn hình";
 "Open Accessibility Preferences…" = "Mở Acessibitity Preferences";
 "Open Screen Recording Preferences…" = "Mở Screen Recording Preferences";
-"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 "Optional: email (if you want a reply)" = "Tuỳ chọn: email (nếu bạn muốn nhận hồi âm)";
 "Order windows by" = "Đặt hàng Windows By";
 "Policies" = "Điều khoản";
@@ -146,7 +135,6 @@
 "Remember my choice" = "Ghi nhớ lựa chọn của tôi";
 "Reset preferences and restart" = "Đặt lại tuỳ chọn và khởi động";
 "Reset preferences and restart…" = "Xoá cài đặt hiện tại và khởi động lại";
-"Restart Now" = "Restart Now";
 "Rows of thumbnails:" = "Số hàng ảnh chụp:";
 "Screen including menu bar" = "Màn hình có thanh menu";
 "Screen including mouse" = "Màn hình có con trỏ chuột";
@@ -190,7 +178,6 @@
 "Show windows from Spaces" = "Hiển thị cửa sổ từ không gian";
 "Show windows from:" = "Hiện cửa sổ từ:";
 "Size" = "Kích cỡ";
-"Skipped" = "Skipped";
 "Small" = "Bé nhỏ";
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Một số ứng dụng như Finder hoặc Preview sử dụng các tab tiêu chuẩn hoạt động như Windows độc lập.Một số ứng dụng khác như trình duyệt web sử dụng các tab tùy chỉnh hoạt động theo những cách độc đáo và không phải là cửa sổ thực tế.Alttab không thể liệt kê những người riêng biệt.";
 "Source code repository" = "Kho quản lý mã nguồn";
@@ -200,29 +187,21 @@
 "Start at login" = "Bắt đầu tại Đăng nhập";
 "Start at login:" = "Khởi động khi đăng nhập:";
 "Support this project" = "Ủng hộ dự án này";
-"Swipe with Four Fingers" = "Swipe with Four Fingers";
-"Swipe with Three Fingers" = "Swipe with Three Fingers";
 "Switch between 3 different styles. You can customize them." = "Chuyển đổi giữa 3 kiểu khác nhau.Bạn có thể tùy chỉnh chúng.";
 "System" = "Hệ thống";
-"System Default" = "System Default";
-"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
 "Theme" = "Chủ đề";
 "Theme:" = "Chủ đề:";
 "Then release:" = "Sau đó thả ra:";
 "This permission is needed to focus windows after you release the shortcut" = "Quyền này được dùng để chuyển tập trung vào cửa sổ sau khi bạn dùng phím tắt";
 "This permission is needed to show screenshots and titles of open windows" = "Quyền này được dùng để hiện ảnh xem trước và tiêu đề cửa sổ đang mở";
 "Thumbnails" = "Hình thu nhỏ";
-"Title" = "Title";
 "Title truncation" = "Tiêu đề cắt ngắn";
 "Titles" = "Tiêu đề";
 "Trigger shortcut" = "Phím tắt kích hoạt";
 "Unassign existing shortcut and continue" = "Huỷ gán phím tắt và tiếp tục";
 "Updates policy" = "Cập nhật chính sách";
 "Updates policy:" = "Các chính sách cập nhật:";
-"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 "Version" = "Phiên bản";
-"Vertical Swipe with Four Fingers" = "Vertical Swipe with Four Fingers";
-"Vertical Swipe with Three Fingers" = "Vertical Swipe with Three Fingers";
 "View existing discussions" = "Xem các cuộc thảo luận đã có";
 "Vim keys" = "Tổ hợp phím Vim";
 "Vim keys already assigned to other actions:\n%@" = "Tổ hợp phím Vim đã được đặt cho hành động khác: \n%@";
@@ -245,4 +224,3 @@
 "Windows" = "các cửa sổ";
 "You can’t undo this action." = "Bạn không thể hoàn tác hành động này.";
 "You didn’t write your email, thus can’t receive any response." = "Bạn không điền email nên sẽ không nhận được phản hồi.";
-"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";

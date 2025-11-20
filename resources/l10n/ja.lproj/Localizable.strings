@@ -63,7 +63,6 @@
 "Customize Thumbnails style…" = "サムネイルスタイルをカスタマイズする…";
 "Customize Titles style…" = "タイトルスタイルをカスタマイズする…";
 "Dark" = "ダーク";
-"Disabled" = "Disabled";
 "Do nothing" = "何もしない";
 "Don’t check for updates periodically" = "定期的に更新を確認しない";
 "Don’t send" = "送信しない";
@@ -195,7 +194,6 @@
 "Show windows from Spaces" = "スペースからウィンドウを表示する";
 "Show windows from:" = "次からウィンドウを表示：";
 "Size" = "サイズ";
-"Skipped" = "Skipped";
 "Small" = "小さい";
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "FinderやPreviewなどのアプリは、独立したウィンドウのように機能する標準タブを使用しています。Webブラウザのような他のアプリの一部は、独自の方法で機能し、実際のWindowsではないカスタムタブを使用します。AltTabはそれらを個別にリストすることはできません。";
 "Source code repository" = "ソースコードレポジトリ";
@@ -218,7 +216,6 @@
 "This permission is needed to show screenshots and titles of open windows" = "こちらの許可は、スクリーンショットと開いているウィンドウを表示するのに必要です。";
 "This permission is needed to show thumbnails and preview of open windows" = "こちらの許可は、サムネイルの表示および開いているウィンドウのプレビューの表示のために必要です。";
 "Thumbnails" = "サムネイル";
-"Title" = "Title";
 "Title truncation" = "タイトルの切り捨て";
 "Titles" = "タイトル";
 "Trigger shortcut" = "起動ショートカット";

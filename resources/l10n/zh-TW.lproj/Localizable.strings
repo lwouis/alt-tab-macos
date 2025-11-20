@@ -24,7 +24,7 @@
 "AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "現在 AltTab 在沒螢幕錄影的權限下運作。所以無法顯示縮圖。";
 "AltTab needs some permissions" = "AltTab 需要取得權限";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTab 將顯示狀態圖示表示目前視窗是最小化或是最大化。";
-"Always" = "總是";
+"Always" = "永遠";
 "Always send crash reports" = "總是送出當機報告";
 "and press" = "然後按";
 "and press:" = "然後按下：";
@@ -49,7 +49,7 @@
 "Cancel" = "取消";
 "Cancel and hide" = "取消並隱藏";
 "Center" = "置中";
-"Check for updates now…" = "現在檢查更新⋯";
+"Check for updates now…" = "立刻檢查更新⋯";
 "Check for updates periodically" = "定期自動檢查更新";
 "Check for updates…" = "檢查更新⋯";
 "Check permissions…" = "檢查權限⋯";
@@ -124,17 +124,23 @@
 "Miscellaneous:" = "其他設定：";
 "Mouse hover" = "滑鼠懸停";
 "Multiple screens" = "多個顯示器";
+"Never" = "永不";
 "Never send crash reports" = "永不送出當機報告";
 "Non-active apps" = "非活躍應用程式";
 "Normal" = "一般";
 "Not allowed" = "不允許";
 "NSHumanReadableCopyright" = "GPL-3.0 授權";
 "Only if the window is fullscreen" = "只在視窗全螢幕顯示時啟用";
+"Only on different screen" = "只有在不同的顯示器";
 "Open Accessibility Preferences…" = "開啟補助使用⋯";
+"Open Accessibility Settings…" = "開啟補助使用⋯";
 "Open Screen Recording Preferences…" = "打開螢幕錄影偏好設定⋯";
+"Open Screen Recording Settings…" = "開啟螢幕與系統錄音設定⋯";
 "Open Trackpad Preferences…" = "開啟觸控式軌跡板設定";
+"Open Trackpad Settings…" = "開啟觸控式軌跡板設定⋯";
 "Optional: email (if you want a reply)" = "電子信箱（選填，如果你想要收到回覆）";
 "Order windows by" = "視窗排序";
+"Please fill in the form" = "請填寫表單";
 "Policies" = "策略";
 "Preferences…" = "偏好設定⋯";
 "Preview selected window" = "預覽選定的視窗";
@@ -150,6 +156,8 @@
 "Remember my choice" = "記住我的設定";
 "Reset preferences and restart" = "重設偏好設定並重新啟動";
 "Reset preferences and restart…" = "重設偏好設定並重新啟動⋯⋯";
+"Reset settings and restart" = "清除設定並重新啟動";
+"Reset settings and restart…" = "清除設定並重新啟動⋯";
 "Restart Now" = "重新啟動";
 "Rows of thumbnails:" = "縮圖列數：";
 "Screen including menu bar" = "包含選單列的顯示器";
@@ -167,6 +175,7 @@
 "Send debug profile (CPU, memory, etc)" = "送出 debug 資訊（包括處理器、記憶體⋯等）";
 "Send feedback" = "送出回饋";
 "Send feedback…" = "送出回饋⋯";
+"Settings…" = "設定⋯";
 "Share improvement ideas, or report bugs" = "分享建議，或是回報問題";
 "Shortcut 1" = "快速鍵 1";
 "Shortcut 2" = "快速鍵 2";
@@ -210,6 +219,7 @@
 "Switch between 3 different styles. You can customize them." = "在 3 種不同樣式之間切換。您可以客製化它們。";
 "System" = "系統";
 "System Default" = "系統預設";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (Escape) 鍵已被部分 macOS 系統快捷鍵保留使用。 (例如 ⌘⌥⎋ 會顯示強制結束程式視窗。）\n若您想使用 ⎋ 鍵，請確保長按輔助鍵設定的組合不是下列任一：\n⌘⌥、⌘⌥⇧ 或 ⌘⌥⇧⌃。";
 "The application needs to restart to apply the language change." = "應用程式需要重新啟動來套用語言設定。";
 "Theme" = "主題";
 "Theme:" = "主題：";

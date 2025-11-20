@@ -21,7 +21,6 @@
 "Also select windows using:" = "Επιπλέον, επιλογή παραθύρων με:";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "Το Alttab συνετρίβη την τελευταία φορά που το χρησιμοποιήσατε. Η αποστολή μιας αναφοράς συντριβής θα βοηθήσει να διορθωθεί το ζήτημα";
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Το Alttab έχει οριστεί επί του παρόντος να εμφανίζει Εφαρμογές. Αυτή η ρύθμιση είναι διαθέσιμη μόνο όταν το alttab έχει ρυθμιστεί να εμφανίζει Παράθυρα.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
 "AltTab needs some permissions" = "Το AltTab χρειάζεται κάποιες άδειες";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "Το alttab θα δείχνει εάν το παράθυρο είναι ελαχιστοποιημένο ή σε πλήρη οθόνη με εικονίδιο κατάστασης.";
 "Always" = "Πάντοτε";
@@ -62,7 +61,6 @@
 "Customize Thumbnails style…" = "Προσαρμογή στυλ μικρογραφιών…";
 "Customize Titles style…" = "Προσαρμογή στυλ τίτλων…";
 "Dark" = "Σκοτεινό";
-"Disabled" = "Disabled";
 "Do nothing" = "Μην κάνεις τίποτα";
 "Don’t check for updates periodically" = "Να μη γίνεται έλεγχος για ενημερώσεις";
 "Don’t send" = "Να μην σταλεί";
@@ -76,8 +74,6 @@
 "Fullscreen windows:" = "Παράθυρα σε πλήρη οθόνη:";
 "Fullscreen/Defullscreen window" = "Πλήρης οθόνη/επαναφορά μεγέθους";
 "General" = "Γενικά";
-"Gesture" = "Gesture";
-"Grant permission" = "Grant permission";
 "Hidden windows:" = "Κρυμμένα παράθυρα:";
 "Hide" = "Απόκρυψη";
 "Hide app badges" = "Απόκρυψη ενδείξεων ειδοποιήσεων εφαρμογών";
@@ -96,15 +92,10 @@
 "High" = "Υψηλή";
 "Highest" = "Μέγιστη";
 "Hold" = "Κρατήστε πατημένο";
-"Horizontal Swipe with Four Fingers" = "Horizontal Swipe with Four Fingers";
-"Horizontal Swipe with Three Fingers" = "Horizontal Swipe with Three Fingers";
 "I think the app could be improved with…" = "Πιστεύω ότι η εφαρμογή θα μπορούσε να βελτιωθεί με...";
 "Ignore shortcuts when active" = "Αγνόησε τις συντομεύσεις όταν ενεργό";
 "Ignore shortcuts while a window from these apps is active" = "Να αγνοούνται οι συντομεύσεις ενόσω κάποιο παράθυρο από αυτές τις εφαρμογές είναι ενεργό";
-"Language" = "Language";
-"Language Change" = "Language Change";
 "Large" = "Μεγάλο";
-"Later" = "Later";
 "Latest releases" = "Προηγούμενες εκδόσεις";
 "Leading" = "Αριστερά";
 "Left" = "Αριστερά";
@@ -117,7 +108,6 @@
 "Middle" = "Μέσο";
 "Minimize/Deminimize window" = "Ελαχιστοποίηση/Επαναφορά παραθύρου";
 "Minimized windows:" = "Ελαχιστοποιημένα παράθυρα:";
-"Miscellaneous" = "Miscellaneous";
 "Miscellaneous:" = "Διάφορα:";
 "Mouse hover" = "Αιώρηση ποντικιού";
 "Multiple screens" = "Πολλαπλές οθόνες";
@@ -128,7 +118,6 @@
 "Only if the window is fullscreen" = "Μόνο αν το παράθυρο βρίσκεται σε πλήρη οθόνη";
 "Open Accessibility Preferences…" = "Άνοιγμα Επιλογών Προσβασιμότητας...";
 "Open Screen Recording Preferences…" = "Άνοιγμα Επιλογών Καταγραφής Οθόνης...";
-"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
 "Optional: email (if you want a reply)" = "Προαιρετικό: email (αν επιθυμείτε απάντηση)";
 "Order windows by" = "Ταξινόμηση παραθύρων κατά";
 "Policies" = "Πολιτικές";
@@ -146,7 +135,6 @@
 "Remember my choice" = "Θυμήσου την επιλογή μου";
 "Reset preferences and restart" = "Επαναφορά προτιμήσεων και επανεκκίνηση";
 "Reset preferences and restart…" = "Επαναφορά προτιμήσεων και επανεκκίνηση…";
-"Restart Now" = "Restart Now";
 "Rows of thumbnails:" = "Σειρές μικρογραφιών:";
 "Screen including menu bar" = "Οθόνη όπου βρίσκεται η γραμμή μενού";
 "Screen including mouse" = "Οθόνη όπου βρίσκεται το ποντίκι";
@@ -190,7 +178,6 @@
 "Show windows from Spaces" = "Εμφάνιση παραθύρων από Γραφεία εργασίας";
 "Show windows from:" = "Εμφάνιση παραθύρων από:";
 "Size" = "Μέγεθος";
-"Skipped" = "Skipped";
 "Small" = "Μικρό";
 "Some apps like Finder or Preview use standard tabs which act like independent windows. Some other apps like web browsers use custom tabs which act in unique ways and are not actual windows. AltTab can't list those separately." = "Ορισμένες εφαρμογές όπως ο Finder ή η Προεπισκόπηση χρησιμοποιούν τυπικές καρτέλες που λειτουργούν σαν ανεξάρτητα παράθυρα. Ορισμένες άλλες εφαρμογές όπως τα προγράμματα περιήγησης ιστού χρησιμοποιούν προσαρμοσμένες καρτέλες που λειτουργούν με μοναδικούς τρόπους και δεν είναι πραγματικά παράθυρα. Το Alttab δεν μπορεί να τα εμφανίσει χωριστά.";
 "Source code repository" = "Αποθετήριο πηγαίου κώδικα";
@@ -200,29 +187,21 @@
 "Start at login" = "Άνοιγμα κατά την είσοδο";
 "Start at login:" = "Άνοιγμα κατά την είσοδο:";
 "Support this project" = "Υποστηρίξτε αυτό το έργο";
-"Swipe with Four Fingers" = "Swipe with Four Fingers";
-"Swipe with Three Fingers" = "Swipe with Three Fingers";
 "Switch between 3 different styles. You can customize them." = "Εναλλαγή μεταξύ 3 διαφορετικών στυλ. Μπορείτε να τα προσαρμόσετε.";
 "System" = "Σύστημα";
-"System Default" = "System Default";
-"The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
 "Theme" = "Θέμα";
 "Theme:" = "Θέμα:";
 "Then release:" = "Έπειτα αφήστε:";
 "This permission is needed to focus windows after you release the shortcut" = "Αυτή η άδεια απαιτείται για να εστιάσετε τα παράθυρα μετά την απελευθέρωση της συντόμευσης";
 "This permission is needed to show screenshots and titles of open windows" = "Αυτή η άδεια απαιτείται για την εμφάνιση στιγμιότυπων και τίτλων ανοιχτών παραθύρων";
 "Thumbnails" = "Μικρογραφίες";
-"Title" = "Title";
 "Title truncation" = "Περικοπή τίτλου";
 "Titles" = "Τίτλοι";
 "Trigger shortcut" = "Συντόμευση";
 "Unassign existing shortcut and continue" = "Απόρριψη υπάρχουσας συντόμευσης και συνέχεια";
 "Updates policy" = "Πολιτική ενημερώσεων";
 "Updates policy:" = "Πολιτική ενημερώσεων:";
-"Use the app without this permission. Thumbnails won’t show." = "Use the app without this permission. Thumbnails won’t show.";
 "Version" = "Έκδοση";
-"Vertical Swipe with Four Fingers" = "Vertical Swipe with Four Fingers";
-"Vertical Swipe with Three Fingers" = "Vertical Swipe with Three Fingers";
 "View existing discussions" = "Εμφάνιση υπαρχουσών συζητήσεων";
 "Vim keys" = "Vim keys";
 "Vim keys already assigned to other actions:\n%@" = "Vim keys που έχουν ήδη ανατεθεί σε άλλες ενέργειες: \\ n%@";
@@ -245,4 +224,3 @@
 "Windows" = "Παράθυρα";
 "You can’t undo this action." = "Αυτή η ενέργεια δεν είναι αναστρέψιμη.";
 "You didn’t write your email, thus can’t receive any response." = "Δεν γράψατε το email σας, επομένως δεν μπορείτε να λάβετε καμία απάντηση.";
-"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
