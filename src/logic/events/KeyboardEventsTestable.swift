@@ -36,7 +36,7 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
         }
     }
     // While typing in the search field, allow a small, explicit set of shortcuts:
-    // - Exit search (with safety: suppressed if same key as Enter Search)
+    // - Exit search (takes precedence if it matches)
     // - Focus selected window (e.g., Space by default)
     // - Cancel (e.g., Escape by default)
     if App.app != nil,
@@ -46,8 +46,6 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
        App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
         if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
            exitShortcut.matches(globalId, shortcutState, keyCode, modifiers) && exitShortcut.shouldTrigger() {
-            // Centralized rule: suppress exit if Enter and Exit share same key while typing
-            if !allowSearchExitWhileTyping() { return false }
             exitShortcut.executeAction(isARepeat)
             exitShortcut.redundantSafetyMeasures()
             return true
@@ -94,14 +92,3 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
     return someShortcutTriggered
 }
 
-/// Policy: whether exiting search is allowed while the search field is actively being edited.
-/// We suppress exit if Enter and Exit share the same key and modifiers to avoid prematurely leaving search.
-func allowSearchExitWhileTyping() -> Bool {
-    guard let exit = ControlsTab.shortcuts["searchExitShortcut"]?.shortcut,
-          let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut else { return true }
-    if enter.carbonKeyCode == exit.carbonKeyCode &&
-       ControlsTab.combinedModifiersMatch(enter.carbonModifierFlags, exit.carbonModifierFlags) {
-        return false
-    }
-    return true
-}
