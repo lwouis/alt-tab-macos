@@ -129,10 +129,6 @@ class ThumbnailView: FlippedView {
             App.app.focusSelectedWindow(Windows.focusedWindow())
             return
         }
-        if key == kVK_Escape && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
-            App.app.hideUi()
-            return
-        }
         super.keyDown(with: event)
     }
 
