@@ -8,9 +8,11 @@ class TrackpadEvents {
     static func observe() {
         observe_()
         TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
+        ScrollwheelEvents.observe()
     }
 
     static func toggle(_ enabled: Bool) {
+        guard enabled != shouldBeEnabled else { return }
         shouldBeEnabled = enabled
         if let eventTap {
             CGEvent.tapEnable(tap: eventTap, enable: enabled)
@@ -48,27 +50,28 @@ private let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
 
 private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
     guard let nsEvent = GestureDetector.convertEvent(cgEvent) else { return false }
-    // if the finger count doesn't match, we reset tracking data, and may trigger fingersUp
     let touches = nsEvent.allTouches()
-    if touches.count == 0 { return false } // sometimes the os sends events with no touches
+    // sometimes the os sends events with no touches; we ignore these as they could break our gesture logic
+    if touches.count == 0 { return false }
     let activeTouches = touches.filter { !$0.isResting && ($0.phase == .began || $0.phase == .moved || $0.phase == .stationary) }
+    // Logger.error("---", "activeTouches:", activeTouches.count, "all:", touches.map { $0.phase.readable })
     let requiredFingers = Preferences.nextWindowGesture.isThreeFinger() ? 3 : 4
-    if (!App.app.appIsBeingUsed && touches.count != requiredFingers) || (App.app.appIsBeingUsed && touches.count < 2) {
+    // not enough fingers are down
+    if (!App.app.appIsBeingUsed && activeTouches.count != requiredFingers) || (App.app.appIsBeingUsed && activeTouches.count < 2) {
+        DispatchQueue.main.async { ScrollwheelEvents.toggle(false) }
         TriggerSwipeDetector.reset()
         NavigationSwipeDetector.reset()
-        return GestureDetector.checkForFingersUp(activeTouches, requiredFingers)
+        return GestureDetector.checkForFingersUp(activeTouches.count, requiredFingers)
     }
-    // when the native using 3-finger swipe to shift Space, macOS will block scrolling in the background
-    // We imitate this behavior by sending a synthetic scrollWheel event
-    GestureDetector.blockOngoingScrolling()
-    // trigger actions if conditions are met
+    // enough fingers are down
     if App.app.appIsBeingUsed {
-        if !GestureDetector.updateStartPositions(touches, &NavigationSwipeDetector.startPositions) {
-            if let r = NavigationSwipeDetector.check(touches) { return r }
+        DispatchQueue.main.async { ScrollwheelEvents.toggle(true) }
+        if !GestureDetector.updateStartPositions(activeTouches, &NavigationSwipeDetector.startPositions) {
+            if let r = NavigationSwipeDetector.check(activeTouches) { return r }
         }
     } else {
-        if !GestureDetector.updateStartPositions(touches, &TriggerSwipeDetector.startPositions) {
-            if let r = TriggerSwipeDetector.check(touches) { return r }
+        if !GestureDetector.updateStartPositions(activeTouches, &TriggerSwipeDetector.startPositions) {
+            if let r = TriggerSwipeDetector.check(activeTouches) { return r }
         }
     }
     return false
@@ -84,8 +87,8 @@ class GestureDetector {
         return nsEvent
     }
 
-    static func checkForFingersUp(_ touches: Set<NSTouch>, _ requiredFingers: Int) -> Bool {
-        if App.app.appIsBeingUsed && touches.count < requiredFingers && App.app.shortcutIndex == Preferences.gestureIndex
+    static func checkForFingersUp(_ fingersDown: Int, _ requiredFingers: Int) -> Bool {
+        if App.app.appIsBeingUsed && fingersDown < requiredFingers && App.app.shortcutIndex == Preferences.gestureIndex
                && !App.app.forceDoNothingOnRelease && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
             DispatchQueue.main.async { App.app.focusTarget() }
             return true
@@ -152,7 +155,10 @@ class TriggerSwipeDetector {
                 }
             }
             reset()
-            DispatchQueue.main.async { App.app.showUiOrCycleSelection(Preferences.gestureIndex, false) }
+            DispatchQueue.main.async {
+                ScrollwheelEvents.toggle(true)
+                App.app.showUiOrCycleSelection(Preferences.gestureIndex, false)
+            }
             return true
         }
         return nil
@@ -174,12 +180,12 @@ class NavigationSwipeDetector {
 
     static var startPositions: [String: NSPoint] = [:]
 
-    static func check(_ touches: Set<NSTouch>) -> Bool? {
-        let averageDistance = GestureDetector.computeAverageDistance(touches, startPositions)
+    static func check(_ activeTouches: Set<NSTouch>) -> Bool? {
+        let averageDistance = GestureDetector.computeAverageDistance(activeTouches, startPositions)
         let (absX, absY) = (abs(averageDistance.x), abs(averageDistance.y))
         let maxIsX = absX >= absY
         if (maxIsX ? absX : absY) > MIN_SWIPE_DISTANCE {
-            maxIsX ? resetX(touches) : resetY(touches)
+            maxIsX ? resetX(activeTouches) : resetY(activeTouches)
             let direction: Direction = maxIsX ? (averageDistance.x < 0 ? .left : .right) : (averageDistance.y < 0 ? .down : .up)
             DispatchQueue.main.async { App.app.cycleSelection(direction, allowWrap: false) }
             return true

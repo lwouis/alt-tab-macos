@@ -62,6 +62,7 @@ class App: AppCenterApplication {
         isFirstSummon = true
         forceDoNothingOnRelease = false
         MouseEvents.toggle(false)
+        ScrollwheelEvents.toggle(false)
         hideThumbnailPanelWithoutChangingKeyWindow()
         if !keepPreview {
             previewPanel.orderOut(nil)

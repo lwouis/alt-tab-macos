@@ -321,3 +321,16 @@ extension NSRunningApplication {
 // 250ms is similar to human delay in processing changes on screen
 // See https://humanbenchmark.com/tests/reactiontime
 let humanPerceptionDelay = DispatchTimeInterval.milliseconds(250)
+
+extension NSTouch.Phase {
+    var readable: String {
+        switch self {
+        case .began:      "began"
+        case .moved:      "moved"
+        case .stationary: "stationary"
+        case .ended:      "ended"
+        case .cancelled:  "cancelled"
+        default:          "unknown"
+        }
+    }
+}
