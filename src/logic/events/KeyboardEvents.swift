@@ -96,11 +96,6 @@ class KeyboardEvents {
                     }
                     return nil
                 }
-                if keyCode == UInt16(kVK_Escape) {
-                    // ESC exits the panel even when search has focus (legacy behavior)
-                    App.app.hideUi()
-                    return nil
-                }
             }
             if event.type == .keyDown,
                App.app != nil,
@@ -115,13 +110,17 @@ class KeyboardEvents {
                     ControlsTab.executeAction("focusWindowShortcut")
                     return nil
                 }
-                // Compute a common exclusion list for navigation/escape and configured search keys
+                // Compute a common exclusion list for navigation, cancel, and configured search keys
                 var excluded: Set<UInt16> = [
-                    UInt16(kVK_Escape),
                     UInt16(kVK_LeftArrow), UInt16(kVK_RightArrow),
                     UInt16(kVK_UpArrow), UInt16(kVK_DownArrow),
                     UInt16(kVK_Return), UInt16(kVK_ANSI_KeypadEnter)
                 ]
+                // Also exclude the configured cancel shortcut key so it never
+                // becomes the first search character or triggers search entry.
+                if let cancel = ControlsTab.shortcuts["cancelShortcut"]?.shortcut {
+                    excluded.insert(UInt16(cancel.carbonKeyCode))
+                }
                 if let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut {
                     excluded.insert(UInt16(enter.carbonKeyCode))
                 }
