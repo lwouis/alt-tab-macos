@@ -19,7 +19,7 @@ class AboutTab {
         appIcon.translatesAutoresizingMaskIntoConstraints = false
         appInfo.spacing = GridView.interPadding
         appInfo.alignment = .centerY
-        let sendFeedback = makeButtonWithIcon(NSLocalizedString("Send feedback…", comment: ""), #selector(App.app.showFeedbackPanel), "bubble.left.and.text.bubble.right")
+        let sendFeedback = makeButtonWithIcon(NSLocalizedString("Send feedback…", comment: ""), #selector(App.app.showFeedbackPanel), "text.bubble")
         let supportProject = makeButtonWithIcon(NSLocalizedString("Support this project", comment: ""), #selector(App.app.supportProject), "heart.fill", .red)
         let grid = GridView([
             [appInfo],
