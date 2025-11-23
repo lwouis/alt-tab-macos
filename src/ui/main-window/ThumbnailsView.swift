@@ -1,7 +1,7 @@
 import Cocoa
 
 class ThumbnailsView {
-    let scrollView = ScrollView()
+    var scrollView: ScrollView!
     var contentView: EffectView!
     static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
@@ -9,18 +9,15 @@ class ThumbnailsView {
     static var thumbnailsHeight = CGFloat(0.0)
 
     init() {
-        contentView = makeAppropriateEffectView()
-        contentView.addSubview(scrollView)
+        updateBackgroundView()
         // TODO: think about this optimization more
         (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
     }
 
     func updateBackgroundView() {
-        let newEffectView = makeAppropriateEffectView()
-        scrollView.removeFromSuperview()
-        newEffectView.addSubview(scrollView)
-        contentView.superview?.replaceSubview(contentView, with: newEffectView)
-        contentView = newEffectView
+        contentView = makeAppropriateEffectView()
+        scrollView = ScrollView()
+        contentView.addSubview(scrollView)
     }
 
     func reset() {
