@@ -1,3 +1,19 @@
+# [7.35.0](https://github.com/lwouis/alt-tab-macos/compare/v7.34.0...v7.35.0) (2025-11-24)
+
+
+### Bug Fixes
+
+* app would sometimes crash on macos monterey (closes [#5051](https://github.com/lwouis/alt-tab-macos/issues/5051)) ([29e1cff](https://github.com/lwouis/alt-tab-macos/commit/29e1cff))
+* better gesture recognition (closes [#5039](https://github.com/lwouis/alt-tab-macos/issues/5039)) ([1689954](https://github.com/lwouis/alt-tab-macos/commit/1689954))
+* closing fullscreen window would glitch it (closes [#5029](https://github.com/lwouis/alt-tab-macos/issues/5029)) ([ee436cc](https://github.com/lwouis/alt-tab-macos/commit/ee436cc))
+
+
+### Features
+
+* add trackpad haptic feedback for better navigation (closes [#4763](https://github.com/lwouis/alt-tab-macos/issues/4763)) ([fb5dfc4](https://github.com/lwouis/alt-tab-macos/commit/fb5dfc4))
+* better icon for feedback form (closes [#5013](https://github.com/lwouis/alt-tab-macos/issues/5013)) ([2c3373a](https://github.com/lwouis/alt-tab-macos/commit/2c3373a))
+* improve portuguese localization ([c294ad0](https://github.com/lwouis/alt-tab-macos/commit/c294ad0))
+
 # [7.34.0](https://github.com/lwouis/alt-tab-macos/compare/v7.33.0...v7.34.0) (2025-11-20)
 
 
