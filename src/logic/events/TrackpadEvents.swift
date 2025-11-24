@@ -157,6 +157,7 @@ class TriggerSwipeDetector {
             reset()
             DispatchQueue.main.async {
                 ScrollwheelEvents.toggle(true)
+                performHapticFeedback()
                 App.app.showUiOrCycleSelection(Preferences.gestureIndex, false)
             }
             return true
@@ -187,7 +188,10 @@ class NavigationSwipeDetector {
         if (maxIsX ? absX : absY) > MIN_SWIPE_DISTANCE {
             maxIsX ? resetX(activeTouches) : resetY(activeTouches)
             let direction: Direction = maxIsX ? (averageDistance.x < 0 ? .left : .right) : (averageDistance.y < 0 ? .down : .up)
-            DispatchQueue.main.async { App.app.cycleSelection(direction, allowWrap: false) }
+            DispatchQueue.main.async {
+                performHapticFeedback()
+                App.app.cycleSelection(direction, allowWrap: false)
+            }
             return true
         }
         return nil
@@ -207,5 +211,11 @@ class NavigationSwipeDetector {
         for touch in activeTouches {
             startPositions["\(touch.identity)"]!.y = touch.normalizedPosition.y
         }
+    }
+}
+
+func performHapticFeedback() {
+    if Preferences.trackpadHapticFeedbackEnabled {
+        NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .default)
     }
 }
