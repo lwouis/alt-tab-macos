@@ -3,8 +3,8 @@ import Cocoa
 class ThumbnailsView {
     var scrollView: ScrollView!
     var contentView: EffectView!
-    static var recycledViews = [ThumbnailView]()
     var rows = [[ThumbnailView]]()
+    static var recycledViews = [ThumbnailView]()
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
 
@@ -26,6 +26,7 @@ class ThumbnailsView {
         NSScreen.updatePreferred()
         Appearance.update()
         updateBackgroundView()
+        App.app.thumbnailsPanel.contentView = contentView
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }
