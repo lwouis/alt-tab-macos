@@ -1,3 +1,15 @@
+# [7.36.0](https://github.com/lwouis/alt-tab-macos/compare/v7.35.0...v7.36.0) (2025-11-25)
+
+
+### Bug Fixes
+
+* switcher could become broken after changing appearance ([d377b3d](https://github.com/lwouis/alt-tab-macos/commit/d377b3d)), closes [#5061](https://github.com/lwouis/alt-tab-macos/issues/5061)
+
+
+### Features
+
+* improve portuguese localization ([435a310](https://github.com/lwouis/alt-tab-macos/commit/435a310))
+
 # [7.35.0](https://github.com/lwouis/alt-tab-macos/compare/v7.34.0...v7.35.0) (2025-11-24)
 
 
