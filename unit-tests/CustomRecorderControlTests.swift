@@ -2,20 +2,32 @@ import XCTest
 import ShortcutRecorder
 
 final class CustomRecorderControlTests: XCTestCase {
-    func testIsShortcutAcceptable() {
-        // .accepted
-        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .accepted)
+    func testIsShortcutAcceptable_accepted() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⇧⇥")!), .accepted)
         ControlsTab.shortcuts["holdShortcut"] = ATShortcut(Shortcut(keyEquivalent: "⌘⌥")!, "holdShortcut", .global, .up)
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌥")!), .accepted)
         ControlsTab.shortcuts = ControlsTab.defaultShortcuts
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌥")!), .accepted)
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⇧")!), .accepted)
+        ControlsTab.shortcuts["previousWindowShortcut"] = nil
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⇧")!), .accepted)
+        ControlsTab.shortcuts = ControlsTab.defaultShortcuts
+    }
 
-        // .modifiersOnlyButContainsKeycode
+    func testIsShortcutAcceptable_modifiersOnlyButContainsKeycode() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘⇧")!), .accepted)
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘e")!), .modifiersOnlyButContainsKeycode)
+    }
 
-        // .reservedByMacos
-        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .accepted) // ⌘⎋
+    func testIsShortcutAcceptable_conflictWithExistingShortcut() {
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("vimCycleRight", Shortcut(keyEquivalent: "l")!), .accepted)
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut2", Shortcut(keyEquivalent: "⇧⇥")!), .accepted)
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("vimCycleLeft", Shortcut(keyEquivalent: "h")!), .conflictWithExistingShortcut(shortcutAlreadyAssigned: "hideShowAppShortcut"))
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut2", Shortcut(keyEquivalent: "⇥")!), .conflictWithExistingShortcut(shortcutAlreadyAssigned: "nextWindowShortcut"))
+        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: "⇧")!), .conflictWithExistingShortcut(shortcutAlreadyAssigned: "previousWindowShortcut"))
+    }
+
+    func testIsShortcutAcceptable_reservedByMacos() {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⌘⇧")!), .accepted) // ⌘⎋
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("previousWindowShortcut", Shortcut(keyEquivalent: "⌘⌃⇧")!), .accepted) // ⌘⎋
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘⌥")!), .reservedByMacos(shortcutUsingEscape: "cancelShortcut")) // ⌘⌥⎋
@@ -24,13 +36,6 @@ final class CustomRecorderControlTests: XCTestCase {
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("cancelShortcut", Shortcut(keyEquivalent: "⌘⇧⎋")!), .reservedByMacos(shortcutUsingEscape: "cancelShortcut")) // ⌘⌥⇧⎋
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("cancelShortcut", Shortcut(keyEquivalent: "⌘⇧⌃⎋")!), .reservedByMacos(shortcutUsingEscape: "cancelShortcut")) // ⌘⌥⇧⌃⎋
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("cancelShortcut", Shortcut(keyEquivalent: "⌘⎋")!), .reservedByMacos(shortcutUsingEscape: "cancelShortcut")) // ⌘⌥⎋
-
-        // .conflictWithExistingShortcut
-        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("vimCycleRight", Shortcut(keyEquivalent: "l")!), .accepted)
-        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut2", Shortcut(keyEquivalent: "⇧⇥")!), .accepted)
-        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("vimCycleLeft", Shortcut(keyEquivalent: "h")!), .conflictWithExistingShortcut(shortcutAlreadyAssigned: "hideShowAppShortcut"))
-        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut2", Shortcut(keyEquivalent: "⇥")!), .conflictWithExistingShortcut(shortcutAlreadyAssigned: "nextWindowShortcut"))
-        XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: "⇧")!), .conflictWithExistingShortcut(shortcutAlreadyAssigned: "previousWindowShortcut"))
 
         // alt + shift+tab / alt+shift + tab => pressing tab is ambiguous which one should trigger
         ControlsTab.shortcuts["previousWindowShortcut"] = ATShortcut(Shortcut(keyEquivalent: "p")!, "previousWindowShortcut", .local, .down)
@@ -59,5 +64,13 @@ final class CustomRecorderControlTests: XCTestCase {
         ControlsTab.shortcuts["nextWindowShortcut2"] = ATShortcut(Shortcut(keyEquivalent: "⇥")!, "nextWindowShortcut2", .global, .down)
         XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("nextWindowShortcut", Shortcut(keyEquivalent: "⇥")!), .accepted)
         ControlsTab.shortcuts = ControlsTab.defaultShortcuts
+    }
+
+    func testIsShortcutAcceptable_usedByGameOverlay() {
+        if #available(macOS 26.0, *) {
+            XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .usedByGameOverlay(shortcutUsingGameOverlay: "cancelShortcut"))
+        } else {
+            XCTAssertEqual(CustomRecorderControlTestable.isShortcutAcceptable("holdShortcut", Shortcut(keyEquivalent: "⌘")!), .accepted)
+        }
     }
 }

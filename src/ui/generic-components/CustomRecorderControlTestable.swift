@@ -4,6 +4,10 @@ import ShortcutRecorder
 
 class CustomRecorderControlTestable {
     static func isShortcutAcceptable(_ candidateId: String, _ candidateShortcut: Shortcut) -> ShortcutAcceptance {
+        if let currentShortcutWithSameId = ControlsTab.shortcuts[candidateId]?.shortcut,
+           candidateShortcut.carbonKeyCode == currentShortcutWithSameId.carbonKeyCode && candidateShortcut.carbonModifierFlags == currentShortcutWithSameId.carbonModifierFlags {
+            return .accepted
+        }
         if candidateId.starts(with: "holdShortcut") && candidateShortcut.keyCode != .none {
             return .modifiersOnlyButContainsKeycode
         }
@@ -16,6 +20,9 @@ class CustomRecorderControlTestable {
         }
         if let shortcutUsingEscape = isReservedByMacos(newCombos) {
             return .reservedByMacos(shortcutUsingEscape: shortcutUsingEscape)
+        }
+        if let shortcutUsingGameOverlay = isUsedByGameOverlay(newCombos) {
+            return .usedByGameOverlay(shortcutUsingGameOverlay: shortcutUsingGameOverlay)
         }
         return .accepted
     }
@@ -42,8 +49,8 @@ class CustomRecorderControlTestable {
                 }
             // candidate is a local shortcut
             } else {
-                // combine with everything except a nextWindowShortcut
-                if !atShortcut.id.starts(with: "nextWindowShortcut") {
+                // combine with every holdShortcut
+                if atShortcut.id.starts(with: "holdShortcut") {
                     combos.append((candidateId, Shortcut(code: candidateShortcut.keyCode, modifierFlags: [candidateShortcut.modifierFlags, atShortcut.shortcut.modifierFlags], characters: nil, charactersIgnoringModifiers: nil)))
                 }
             }
@@ -71,6 +78,18 @@ class CustomRecorderControlTestable {
             }
         }
         return combos
+    }
+
+    static func isUsedByGameOverlay(_ newCombinationsFromCandidate: [(String, Shortcut)] ) -> String? {
+        if #available(macOS 26.0, *) {
+            let go = MacOsShortcuts.gameOverlay
+            for c in newCombinationsFromCandidate {
+                if c.1.carbonKeyCode == go.carbonKeyCode && c.1.carbonModifierFlags == go.carbonModifierFlags {
+                    return c.0
+                }
+            }
+        }
+        return nil
     }
 
     static func isReservedByMacos(_ newCombinationsFromCandidate: [(String, Shortcut)] ) -> String? {
@@ -116,18 +135,28 @@ enum ShortcutAcceptance: Equatable {
     case modifiersOnlyButContainsKeycode
     case conflictWithExistingShortcut(shortcutAlreadyAssigned: String)
     case reservedByMacos(shortcutUsingEscape: String)
+    case usedByGameOverlay(shortcutUsingGameOverlay: String)
 
     static func == (lhs: ShortcutAcceptance, rhs: ShortcutAcceptance) -> Bool {
         switch (lhs, rhs) {
         case (.accepted, .accepted),
              (.modifiersOnlyButContainsKeycode, .modifiersOnlyButContainsKeycode),
              (.reservedByMacos, .reservedByMacos),
+             (.usedByGameOverlay, .usedByGameOverlay),
              (.conflictWithExistingShortcut, .conflictWithExistingShortcut):
             return true
         default:
             return false
         }
     }
+}
+struct MacOsShortcuts {
+    // Introduced in macOS 26. Can be toggled in System Settings
+    static let gameOverlay = Shortcut(code: KeyCode.escape, modifierFlags: [.command], characters: nil, charactersIgnoringModifiers: nil)
+    // Ancient shortcuts. Hard-set by the OS; can't be toggled by the user
+    static let forceQuitApplicationsDialog = Shortcut(code: KeyCode.escape, modifierFlags: [.command, .option], characters: nil, charactersIgnoringModifiers: nil)
+    static let forceQuitActiveApp = Shortcut(code: KeyCode.escape, modifierFlags: [.command, .option, .shift], characters: nil, charactersIgnoringModifiers: nil)
+    static let reservedForUnknownReason = Shortcut(code: KeyCode.escape, modifierFlags: [.command, .option, .shift, .control], characters: nil, charactersIgnoringModifiers: nil)
 }
 
 enum ReservedMacosShortcut: CaseIterable {
@@ -137,9 +166,9 @@ enum ReservedMacosShortcut: CaseIterable {
 
     var basicShortcut: Shortcut {
         switch self {
-        case .forceQuitApplicationsDialog: return Shortcut(code: KeyCode.escape, modifierFlags: [.command, .option], characters: nil, charactersIgnoringModifiers: nil)
-        case .forceQuitActiveApp: return Shortcut(code: KeyCode.escape, modifierFlags: [.command, .option, .shift], characters: nil, charactersIgnoringModifiers: nil)
-        case .reservedForUnknownReason: return Shortcut(code: KeyCode.escape, modifierFlags: [.command, .option, .shift, .control], characters: nil, charactersIgnoringModifiers: nil)
+        case .forceQuitApplicationsDialog: return MacOsShortcuts.forceQuitApplicationsDialog
+        case .forceQuitActiveApp: return MacOsShortcuts.forceQuitActiveApp
+        case .reservedForUnknownReason: return MacOsShortcuts.reservedForUnknownReason
         }
     }
 }

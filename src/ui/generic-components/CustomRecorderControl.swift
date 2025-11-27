@@ -37,7 +37,7 @@ class CustomRecorderControl: RecorderControl {
         set(allowedModifierFlags: CustomRecorderControl.allowedModifiers.subtracting(restrictedModifiers), requiredModifierFlags: [], allowsEmptyModifierFlags: true)
     }
 
-    func alertIfSameShortcutAlreadyAssigned(_ candidateId: String, _ candidateShortcut: Shortcut, _ shortcutAlreadyAssigned: String) {
+    func alertIfSameShortcutAlreadyAssigned(_ candidateShortcut: Shortcut, _ shortcutAlreadyAssigned: String) {
         let isArrowKeys = ["←", "→", "↑", "↓"].contains(shortcutAlreadyAssigned)
         let isVimKeys = shortcutAlreadyAssigned.starts(with: "vimCycle")
         let existingShortcut = ControlsTab.shortcutControls[shortcutAlreadyAssigned]!
@@ -46,16 +46,16 @@ class CustomRecorderControl: RecorderControl {
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
         alert.informativeText = String(format: NSLocalizedString("Shortcut already assigned to another action: %@", comment: ""),
                                        (isArrowKeys ? "Arrow keys" : (isVimKeys ? "Vim keys" : existingShortcut.1)).replacingOccurrences(of: " ", with: "\u{00A0}"))
-        if !candidateId.starts(with: "holdShortcut") {
+        if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
         }
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
-        if candidateId.starts(with: "holdShortcut") {
+        if id.starts(with: "holdShortcut") {
             cancelButton.setAccessibilityFocused(true)
         }
         let userChoice = alert.runModal()
-        if !candidateId.starts(with: "holdShortcut") && userChoice == .alertFirstButtonReturn {
+        if !id.starts(with: "holdShortcut") && userChoice == .alertFirstButtonReturn {
             if isArrowKeys {
                 ControlsTab.arrowKeysCheckbox.state = .off
                 ControlsTab.arrowKeysEnabledCallback(ControlsTab.arrowKeysCheckbox)
@@ -65,46 +65,70 @@ class CustomRecorderControl: RecorderControl {
                 ControlsTab.vimKeysEnabledCallback(ControlsTab.vimKeysCheckbox)
                 LabelAndControl.controlWasChanged(ControlsTab.vimKeysCheckbox, nil)
             } else {
-                existingShortcut.0.objectValue = nil
-                ControlsTab.shortcutChangedCallback(existingShortcut.0)
-                LabelAndControl.controlWasChanged(existingShortcut.0, shortcutAlreadyAssigned)
+                updateShortcut(existingShortcut.0, nil, existingShortcut.0, shortcutAlreadyAssigned)
             }
-            ControlsTab.shortcutControls[candidateId]!.0.objectValue = candidateShortcut
-            ControlsTab.shortcutChangedCallback(self)
-            LabelAndControl.controlWasChanged(self, candidateId)
+            updateShortcut(ControlsTab.shortcutControls[id]!.0, candidateShortcut, self, id)
         }
     }
 
-    func alertIfShortcutReservedByMacos(_ candidateId: String, _ candidateShortcut: Shortcut, _ shortcutUsingEscape: String) {
+    func updateShortcut(_ control: CustomRecorderControl, _ objectValue: Shortcut?, _ senderControl: NSControl, _ id: String) {
+        control.objectValue = objectValue
+        LabelAndControl.controlWasChanged(senderControl, id)
+        ControlsTab.shortcutChangedCallback(senderControl)
+    }
+
+    func alertIfShortcutReservedByMacos(_ candidateShortcut: Shortcut, _ shortcutReservedByMacos: String) {
+        let existingShortcutLabel = ControlsTab.shortcutControls[shortcutReservedByMacos]!.1
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
-        alert.informativeText = NSLocalizedString("The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃", comment: "")
+        alert.informativeText = String(format: NSLocalizedString("The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃", comment: ""), existingShortcutLabel)
         alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: ""))
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
         cancelButton.setAccessibilityFocused(true)
         let userChoice = alert.runModal()
         if userChoice == .alertFirstButtonReturn {
-            guard candidateId != shortcutUsingEscape else { return }
-            let existingShortcut = ControlsTab.shortcutControls[shortcutUsingEscape]!
-            existingShortcut.0.objectValue = nil
-            ControlsTab.shortcutChangedCallback(existingShortcut.0)
-            LabelAndControl.controlWasChanged(existingShortcut.0, shortcutUsingEscape)
-            ControlsTab.shortcutControls[candidateId]!.0.objectValue = candidateShortcut
-            ControlsTab.shortcutChangedCallback(self)
-            LabelAndControl.controlWasChanged(self, candidateId)
+            guard id != shortcutReservedByMacos else { return }
+            let existingShortcut = ControlsTab.shortcutControls[shortcutReservedByMacos]!
+            updateShortcut(existingShortcut.0, nil, existingShortcut.0, shortcutReservedByMacos)
+            updateShortcut(ControlsTab.shortcutControls[id]!.0, candidateShortcut, self, id)
         }
+    }
+
+    // @available(macOS 26.0, *)
+    func alertIfShortcutUsedByGameOverlay(_ candidateShortcut: Shortcut, _ shortcutUsingGameOverlay: String) {
+        let existingShortcutLabel = ControlsTab.shortcutControls[shortcutUsingGameOverlay]!.1
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = NSLocalizedString("Conflicting shortcut", comment: "")
+        alert.informativeText = String(format: NSLocalizedString("The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled.", comment: ""), existingShortcutLabel)
+        alert.addButton(withTitle: NSLocalizedString("Open System Settings to confirm, and continue", comment: ""))
+        let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        cancelButton.keyEquivalent = "\u{1b}"
+        cancelButton.setAccessibilityFocused(true)
+        let userChoice = alert.runModal()
+        if userChoice == .alertFirstButtonReturn {
+            NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.keyboard?Shortcuts")!)
+            updateShortcut(ControlsTab.shortcutControls[id]!.0, candidateShortcut, self, id)
+        }
+    }
+
+    func save(_ candidateShortcut: Shortcut) {
+        LabelAndControl.controlWasChanged(self, id)
+        // shortcutChangedCallback is called automatically here
+        // setting objectValue also happens automatically
     }
 }
 
 extension CustomRecorderControl: RecorderControlDelegate {
     func recorderControl(_ control: RecorderControl, canRecord shortcut: Shortcut) -> Bool {
         switch CustomRecorderControlTestable.isShortcutAcceptable(id, shortcut) {
-        case .accepted: return true
+        case .accepted: save(shortcut)
         case .modifiersOnlyButContainsKeycode: return false
-        case .conflictWithExistingShortcut(let s): alertIfSameShortcutAlreadyAssigned(id, shortcut, s)
-        case .reservedByMacos(let s): alertIfShortcutReservedByMacos(id, shortcut, s)
+        case .conflictWithExistingShortcut(let s): alertIfSameShortcutAlreadyAssigned(shortcut, s)
+        case .reservedByMacos(let s): alertIfShortcutReservedByMacos(shortcut, s)
+        case .usedByGameOverlay(let s): alertIfShortcutUsedByGameOverlay(shortcut, s)
         }
         return true
     }
