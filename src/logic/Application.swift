@@ -30,16 +30,28 @@ class Application: NSObject {
         kAXApplicationShownNotification,
     ]
 
-    static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
+    private static let appIconPadding: CGFloat = {
+        // Tahoe redesigned app icons. Keeping their rounded look, and reducing their size; we trim that padding
+        if #available(macOS 26.0, *) {
+            return 84
+        }
+        // Big Sur redesigned app icons. A big change from square icons to rounded icons, and reducing their size; we trim that padding
+        if #available(macOS 11.0, *) {
+            return 24
+        }
+        return 0
+    }()
+
+    private static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
         guard let icon else { return nil }
         // we can render the icon quite big (e.g. windowless app icon), so we store it high-res
         let iconWidth = CGFloat(1024)
         // NSRunningApplication.icon returns icons with padding; we remove it manually
-        let paddingToRemove = CGFloat(84)
-        let croppedSize = iconWidth - paddingToRemove * 2
+
+        let croppedSize = iconWidth - appIconPadding * 2
         return icon
             .appIconFixedSize(NSSize(width: iconWidth, height: iconWidth))?
-            .cropping(to: CGRect(x: paddingToRemove, y: paddingToRemove, width: croppedSize, height: croppedSize).integral)
+            .cropping(to: CGRect(x: appIconPadding, y: appIconPadding, width: croppedSize, height: croppedSize).integral)
     }
 
     init(_ runningApplication: NSRunningApplication) {
