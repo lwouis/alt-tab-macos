@@ -1,3 +1,16 @@
+# [7.37.0](https://github.com/lwouis/alt-tab-macos/compare/v7.36.0...v7.37.0) (2025-11-28)
+
+
+### Bug Fixes
+
+* better crop app icons on macos < 26 (closes [#5080](https://github.com/lwouis/alt-tab-macos/issues/5080)) ([237bb1e](https://github.com/lwouis/alt-tab-macos/commit/237bb1e))
+
+
+### Features
+
+* improve portuguese localization ([3994429](https://github.com/lwouis/alt-tab-macos/commit/3994429))
+* warn tahoe users of shortcut conflict with macos game-overlay ([911aad4](https://github.com/lwouis/alt-tab-macos/commit/911aad4)), closes [#5018](https://github.com/lwouis/alt-tab-macos/issues/5018)
+
 # [7.36.0](https://github.com/lwouis/alt-tab-macos/compare/v7.35.0...v7.36.0) (2025-11-25)
 
 
