@@ -139,7 +139,7 @@
 "Open Trackpad Preferences…" = "Abrir Preferências do Trackpad…";
 "Open Trackpad Settings…" = "Abrir Definições do Trackpad";
 "Optional: email (if you want a reply)" = "Opcional: e-mail (se desejar resposta)";
-"Order windows by" = "Ordernar janelas por";
+"Order windows by" = "Ordenar janelas por";
 "Please fill in the form" = "Preencha o formulário por favor";
 "Policies" = "Políticas";
 "Preferences…" = "Preferências…";
@@ -166,7 +166,7 @@
 "Screen showing AltTab" = "Ecrã onde o AltTab está activo";
 "Select next window" = "Seleccionar próxima janela";
 "Select previous window" = "Seleccionar janela anterior";
-"Select windows on mouse hover" = "Seleccione janelas com o rato em cima";
+"Select windows on mouse hover" = "Seleccionar janelas com o rato em cima";
 "Select windows using arrow keys" = "Seleccione janelas utilzando as setas do teclado";
 "Select windows using vim keys" = "Seleccione janelas utilizando as teclas do Vim";
 "Send" = "Enviar";
@@ -235,7 +235,7 @@
 "Trigger shortcut" = "Atalho de gatilho";
 "Unassign existing shortcut and continue" = "Eliminar atalho e continuar";
 "Updates policy" = "Política de Actualizações";
-"Updates policy:" = "Políticas de actualização:";
+"Updates policy:" = "Política de Actualizações:";
 "Use the app without this permission. Thumbnails won’t show." = "Utilize a aplicação sem esta permissão. As miniaturas não serão apresentadas.";
 "Version" = "Versão";
 "Vertical Swipe with Four Fingers" = "Deslizar verticalmente com quatro dedos";
@@ -261,5 +261,5 @@
 "Window title truncation:" = "Truncamento do título da janela:";
 "Windows" = "Janelas";
 "You can’t undo this action." = "Não pode desfazer esta acção.";
-"You didn’t write your email, thus can’t receive any response." = "Não escreveu o seu endereço de email, logo não é possível enviar resposta";
+"You didn’t write your email, thus can’t receive any response." = "Não escreveu o seu endereço de email pelo que não é possível receber uma resposta.";
 "You may need to disable some conflicting system gestures" = "Poderá ser necessário desactivar alguns gestos em conflito";
