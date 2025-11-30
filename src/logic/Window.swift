@@ -75,7 +75,7 @@ class Window {
     }
 
     private func observeEvents() {
-        AXObserverCreate(application.pid, axObserverCallback, &axObserver)
+        AXObserverCreate(application.pid, AccessibilityEvents.axObserverCallback, &axObserver)
         guard let axObserver else { return }
         AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
             guard let self else { return }

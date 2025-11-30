@@ -76,7 +76,7 @@ class Windows {
         for window in windowsOnCurrentSpace {
             AXUIElement.retryAxCallUntilTimeout(context: window.debugId, after: .now() + humanPerceptionDelay, callType: .updateWindow) { [weak window] in
                 guard let window else { return }
-                try updateWindowSizeAndPositionAndFullscreen(window.axUiElement!, window.cgWindowId!, window)
+                try AccessibilityEvents.updateWindowSizeAndPositionAndFullscreen(window.axUiElement!, window.cgWindowId!, window)
             }
         }
     }

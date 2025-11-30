@@ -14,20 +14,20 @@ class CliEvents {
             // There is also the case of multiple instances at login
         }
     }
-}
 
-fileprivate func handleEvent(_: CFMessagePort?, _: Int32, _ data: CFData?, _: UnsafeMutableRawPointer?) -> Unmanaged<CFData>? {
-    Logger.debug()
-    if let data,
-       let message = String(data: data as Data, encoding: .utf8) {
-        Logger.info(message)
-        let output = CliServer.executeCommandAndSendReponse(message)
-        if let responseData = try? CliServer.jsonEncoder.encode(output) as CFData {
-            return Unmanaged.passRetained(responseData)
+    private static let handleEvent: CFMessagePortCallBack = { (_: CFMessagePort?, _: Int32, _ data: CFData?, _: UnsafeMutableRawPointer?) in
+        Logger.debug()
+        if let data,
+           let message = String(data: data as Data, encoding: .utf8) {
+            Logger.info(message)
+            let output = CliServer.executeCommandAndSendReponse(message)
+            if let responseData = try? CliServer.jsonEncoder.encode(output) as CFData {
+                return Unmanaged.passRetained(responseData)
+            }
         }
+        Logger.error("Failed to decode message")
+        return nil
     }
-    Logger.error("Failed to decode message")
-    return nil
 }
 
 class CliServer {
@@ -90,37 +90,37 @@ class CliServer {
         }
         return error
     }
-}
 
-struct JsonWindowList: Codable {
-    var windows: [JsonWindow]
-}
+    private struct JsonWindowList: Codable {
+        var windows: [JsonWindow]
+    }
 
-struct JsonWindow: Codable {
-    var id: CGWindowID?
-    var title: String
-}
+    private struct JsonWindow: Codable {
+        var id: CGWindowID?
+        var title: String
+    }
 
-struct JsonWindowFullList: Codable {
-    var windows: [JsonWindowFull]
-}
+    private struct JsonWindowFullList: Codable {
+        var windows: [JsonWindowFull]
+    }
 
-struct JsonWindowFull: Codable {
-    var id: CGWindowID?
-    var title: String
-    // -- additional properties
-    var appName: String?
-    var appBundleId: String?
-    var spaceIndexes: [SpaceIndex]
-    var lastFocusOrder: Int
-    var creationOrder: Int
-    var isTabbed: Bool
-    var isHidden: Bool
-    var isFullscreen: Bool
-    var isMinimized: Bool
-    var isOnAllSpaces: Bool
-    var position: CGPoint?
-    var size: CGSize?
+    private struct JsonWindowFull: Codable {
+        var id: CGWindowID?
+        var title: String
+        // -- additional properties
+        var appName: String?
+        var appBundleId: String?
+        var spaceIndexes: [SpaceIndex]
+        var lastFocusOrder: Int
+        var creationOrder: Int
+        var isTabbed: Bool
+        var isHidden: Bool
+        var isFullscreen: Bool
+        var isMinimized: Bool
+        var isOnAllSpaces: Bool
+        var position: CGPoint?
+        var size: CGSize?
+    }
 }
 
 class CliClient {

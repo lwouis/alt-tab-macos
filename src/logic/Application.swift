@@ -99,7 +99,7 @@ class Application: NSObject {
                 axUiElement = AXUIElementCreateApplication(pid)
             }
             if axObserver == nil {
-                AXObserverCreate(pid, axObserverCallback, &axObserver)
+                AXObserverCreate(pid, AccessibilityEvents.axObserverCallback, &axObserver)
             }
             observeEvents()
         }

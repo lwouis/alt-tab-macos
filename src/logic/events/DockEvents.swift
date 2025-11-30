@@ -27,9 +27,9 @@ class DockEvents {
             // when found, mission control is not active anymore
         }
     }
-}
 
-fileprivate let handleEvent: AXObserverCallback = { _, _, notificationName, _ in
-    Logger.debug(notificationName)
-    MissionControl.setState(MissionControlState(rawValue: notificationName as String)!)
+    private static let handleEvent: AXObserverCallback = { _, _, notificationName, _ in
+        Logger.debug(notificationName)
+        MissionControl.setState(MissionControlState(rawValue: notificationName as String)!)
+    }
 }
