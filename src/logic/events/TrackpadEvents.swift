@@ -1,10 +1,10 @@
 import Cocoa
 
-fileprivate var eventTap: CFMachPort!
-fileprivate var shouldBeEnabled: Bool!
-
 // TODO: underlying content scrolls if both Mission Control and App Expose use 4-finger swipes or are off in Trackpad settings. It doesn't scroll if any of them use 3-finger swipe though.
 class TrackpadEvents {
+    private static var eventTap: CFMachPort!
+    private static var shouldBeEnabled: Bool!
+
     static func observe() {
         observe_()
         TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
@@ -18,63 +18,63 @@ class TrackpadEvents {
             CGEvent.tapEnable(tap: eventTap, enable: enabled)
         }
     }
-}
 
-private func observe_() {
-    // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
-    eventTap = CGEvent.tapCreate(
-        tap: .cghidEventTap, // we need raw data
-        place: .headInsertEventTap,
-        options: .defaultTap,
-        eventsOfInterest: NSEvent.EventTypeMask.gesture.rawValue,
-        callback: handleEvent,
-        userInfo: nil)
-    if let eventTap {
-        let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-        CFRunLoopAddSource(BackgroundWork.keyboardAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
-    } else {
-        App.app.restart()
-    }
-}
-
-private let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
-    if type.rawValue == NSEvent.EventType.gesture.rawValue {
-        if touchEventHandler(cgEvent) {
-            return nil // focused app won't receive the event
-        }
-    } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
-        CGEvent.tapEnable(tap: eventTap!, enable: true)
-    }
-    return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
-}
-
-private func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
-    guard let nsEvent = GestureDetector.convertEvent(cgEvent) else { return false }
-    let touches = nsEvent.allTouches()
-    // sometimes the os sends events with no touches; we ignore these as they could break our gesture logic
-    if touches.count == 0 { return false }
-    let activeTouches = touches.filter { !$0.isResting && ($0.phase == .began || $0.phase == .moved || $0.phase == .stationary) }
-    // Logger.error("---", "activeTouches:", activeTouches.count, "all:", touches.map { $0.phase.readable })
-    let requiredFingers = Preferences.nextWindowGesture.isThreeFinger() ? 3 : 4
-    // not enough fingers are down
-    if (!App.app.appIsBeingUsed && activeTouches.count != requiredFingers) || (App.app.appIsBeingUsed && activeTouches.count < 2) {
-        DispatchQueue.main.async { ScrollwheelEvents.toggle(false) }
-        TriggerSwipeDetector.reset()
-        NavigationSwipeDetector.reset()
-        return GestureDetector.checkForFingersUp(activeTouches.count, requiredFingers)
-    }
-    // enough fingers are down
-    if App.app.appIsBeingUsed {
-        DispatchQueue.main.async { ScrollwheelEvents.toggle(true) }
-        if !GestureDetector.updateStartPositions(activeTouches, &NavigationSwipeDetector.startPositions) {
-            if let r = NavigationSwipeDetector.check(activeTouches) { return r }
-        }
-    } else {
-        if !GestureDetector.updateStartPositions(activeTouches, &TriggerSwipeDetector.startPositions) {
-            if let r = TriggerSwipeDetector.check(activeTouches) { return r }
+    private static func observe_() {
+        // CGEvent.tapCreate returns null if ensureAccessibilityCheckboxIsChecked() didn't pass
+        eventTap = CGEvent.tapCreate(
+            tap: .cghidEventTap, // we need raw data
+            place: .headInsertEventTap,
+            options: .defaultTap,
+            eventsOfInterest: NSEvent.EventTypeMask.gesture.rawValue,
+            callback: handleEvent,
+            userInfo: nil)
+        if let eventTap {
+            let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
+            CFRunLoopAddSource(BackgroundWork.keyboardAndTrackpadEventsThread.runLoop, runLoopSource, .commonModes)
+        } else {
+            App.app.restart()
         }
     }
-    return false
+
+    private static let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
+        if type.rawValue == NSEvent.EventType.gesture.rawValue {
+            if touchEventHandler(cgEvent) {
+                return nil // focused app won't receive the event
+            }
+        } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
+            CGEvent.tapEnable(tap: eventTap!, enable: true)
+        }
+        return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
+    }
+
+    private static func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
+        guard let nsEvent = GestureDetector.convertEvent(cgEvent) else { return false }
+        let touches = nsEvent.allTouches()
+        // sometimes the os sends events with no touches; we ignore these as they could break our gesture logic
+        if touches.count == 0 { return false }
+        let activeTouches = touches.filter { !$0.isResting && ($0.phase == .began || $0.phase == .moved || $0.phase == .stationary) }
+        // Logger.error("---", "activeTouches:", activeTouches.count, "all:", touches.map { $0.phase.readable })
+        let requiredFingers = Preferences.nextWindowGesture.isThreeFinger() ? 3 : 4
+        // not enough fingers are down
+        if (!App.app.appIsBeingUsed && activeTouches.count != requiredFingers) || (App.app.appIsBeingUsed && activeTouches.count < 2) {
+            DispatchQueue.main.async { ScrollwheelEvents.toggle(false) }
+            TriggerSwipeDetector.reset()
+            NavigationSwipeDetector.reset()
+            return GestureDetector.checkForFingersUp(activeTouches.count, requiredFingers)
+        }
+        // enough fingers are down
+        if App.app.appIsBeingUsed {
+            DispatchQueue.main.async { ScrollwheelEvents.toggle(true) }
+            if !GestureDetector.updateStartPositions(activeTouches, &NavigationSwipeDetector.startPositions) {
+                if let r = NavigationSwipeDetector.check(activeTouches) { return r }
+            }
+        } else {
+            if !GestureDetector.updateStartPositions(activeTouches, &TriggerSwipeDetector.startPositions) {
+                if let r = TriggerSwipeDetector.check(activeTouches) { return r }
+            }
+        }
+        return false
+    }
 }
 
 class GestureDetector {
