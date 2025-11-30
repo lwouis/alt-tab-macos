@@ -107,9 +107,9 @@ class DebugProfile {
 
     static func inputSource() -> String {
         if let inputSource = TISCopyCurrentKeyboardInputSource()?.takeUnretainedValue(),
-           let cfName = TISGetInputSourceProperty(inputSource, kTISPropertyLocalizedName) {
-            let name = Unmanaged<CFString>.fromOpaque(cfName).takeUnretainedValue() as String
-            return name
+            let localizedNamePointer = TISGetInputSourceProperty(inputSource, kTISPropertyLocalizedName) {
+            let localizedName = Unmanaged<AnyObject>.fromOpaque(localizedNamePointer).takeUnretainedValue()
+            return localizedName as? String ?? ""
         }
         return ""
     }
