@@ -1,4 +1,5 @@
 import Cocoa
+import ScreenCaptureKit.SCShareableContent
 
 // macOS has some privacy restrictions. The user needs to grant certain permissions, app by app, in System Preferences > Security & Privacy
 class SystemPermissions {
@@ -32,16 +33,6 @@ class SystemPermissions {
         CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsToUpdatePermissionsWindow!, .commonModes)
     }
 
-    static func pollPermissionsRemovedWhileAltTabIsRunning() {
-        timerPermissionsRemovedWhileAltTabIsRunning = Timer(timeInterval: 5, repeats: true) { _ in
-            DispatchQueue.main.async {
-                checkPermissionsWhileAltTabIsRunning()
-            }
-        }
-        timerPermissionsRemovedWhileAltTabIsRunning!.tolerance = 1
-        CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsRemovedWhileAltTabIsRunning!, .commonModes)
-    }
-
     @discardableResult
     static func updateAccessibilityIsGranted() -> PermissionStatus {
         accessibilityPermission = detectAccessibilityIsGranted()
@@ -52,6 +43,16 @@ class SystemPermissions {
     static func updateScreenRecordingIsGranted() -> PermissionStatus {
         screenRecordingPermission = detectScreenRecordingIsGranted()
         return screenRecordingPermission
+    }
+
+    private static func pollPermissionsRemovedWhileAltTabIsRunning() {
+        timerPermissionsRemovedWhileAltTabIsRunning = Timer(timeInterval: 5, repeats: true) { _ in
+            DispatchQueue.main.async {
+                checkPermissionsWhileAltTabIsRunning()
+            }
+        }
+        timerPermissionsRemovedWhileAltTabIsRunning!.tolerance = 1
+        CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsRemovedWhileAltTabIsRunning!, .commonModes)
     }
 
     private static func detectAccessibilityIsGranted() -> PermissionStatus {
@@ -123,31 +124,66 @@ class SystemPermissions {
     // their return value is not updated during the app lifetime
     // note: shows the system prompt if there's no permission
     private static func screenRecordingIsGrantedOnSomeDisplay() -> Bool {
-        let mainDisplayID = CGMainDisplayID()
-        if screenRecordingIsGrantedOnDisplay(mainDisplayID) {
-            return true
-        }
-        // maybe the main screen can't produce a CGDisplayStream, but another screen can
-        // a positive on any screen must mean that the permission is granted; we try on the other screens
-        for screen in NSScreen.screens {
-            if let id = screen.number(), id != mainDisplayID {
-                if screenRecordingIsGrantedOnDisplay(id) {
-                    return true
+        if #available(macOS 12.3, *) {
+            return checkWithSCShareableContent()
+        } else {
+            let mainDisplayID = CGMainDisplayID()
+            if checkWithCGDisplayStream(mainDisplayID) {
+                return true
+            }
+            // maybe the main screen can't produce a CGDisplayStream, but another screen can
+            // a positive on any screen must mean that the permission is granted; we try on the other screens
+            for screen in NSScreen.screens {
+                if let id = screen.number(), id != mainDisplayID {
+                    if checkWithCGDisplayStream(id) {
+                        return true
+                    }
                 }
             }
+            return false
         }
-        return false
     }
 
-    private static func screenRecordingIsGrantedOnDisplay(_ displayId: CGDirectDisplayID) -> Bool {
-        return CGDisplayStream(
-            dispatchQueueDisplay: displayId,
-            outputWidth: 1,
-            outputHeight: 1,
-            pixelFormat: Int32(kCVPixelFormatType_32BGRA),
-            properties: nil,
-            queue: .global(),
-            handler: { _, _, _, _ in }
-        ) != nil
+    @available(macOS 12.3, *)
+    private static func checkWithSCShareableContent() -> Bool {
+        return runWithTimeout { completion in
+            SCShareableContent.getWithCompletionHandler { shareableContent, error in
+                completion(error != nil ? false : (shareableContent != nil))
+            }
+        }
+    }
+
+    private static func checkWithCGDisplayStream(_ id: CGDirectDisplayID) -> Bool {
+        return runWithTimeout { completion in
+            // this initializer can actually block for a while
+            // it's undocumented but has been proven by spindumps shared by AltTab users
+            let displayStream = CGDisplayStream(
+                dispatchQueueDisplay: id,
+                outputWidth: 1,
+                outputHeight: 1,
+                pixelFormat: Int32(kCVPixelFormatType_32BGRA),
+                properties: nil,
+                queue: .global()
+            ) { _, _, _, _ in }
+            completion(displayStream != nil)
+        }
+    }
+
+    private static func runWithTimeout(_ block: @escaping (@escaping (Bool) -> Void) -> Void) -> Bool{
+        let semaphore = DispatchSemaphore(value: 0)
+        var result = false
+        block { r in
+            result = r
+            semaphore.signal()
+        }
+        let timeoutResult = semaphore.wait(timeout: .now() + 1)
+        if timeoutResult == .timedOut {
+            return false
+        }
+        return result
+    }
+
+    private enum TimeoutError: Error {
+        case timedOut
     }
 }
