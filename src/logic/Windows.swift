@@ -191,7 +191,7 @@ class Windows {
     }
 
     static func previewFocusedWindowIfNeeded() {
-        if App.app.appIsBeingUsed && SystemPermissions.screenRecordingPermission == .granted
+        if App.app.appIsBeingUsed && ScreenRecordingPermission.status == .granted
                && Preferences.previewFocusedWindow && !Preferences.onlyShowApplications()
                && App.app.thumbnailsPanel.isKeyWindow,
            let window = focusedWindow(),
@@ -315,7 +315,7 @@ class Windows {
 
     // dispatch screenshot requests off the main-thread, then wait for completion
     static func refreshThumbnailsAsync(_ windows: [Window], _ source: RefreshCausedBy) {
-        guard !windows.isEmpty && SystemPermissions.screenRecordingPermission == .granted
+        guard !windows.isEmpty && ScreenRecordingPermission.status == .granted
                && !Preferences.onlyShowApplications()
                && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) else { return }
         var eligibleWindows = [Window]()

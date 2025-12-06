@@ -38,7 +38,6 @@ class PermissionView: StackView {
         self.status = status
         wantsLayer = true
         layer!.cornerRadius = GridView.interPadding / 2
-        updatePermissionStatus(checkFunction())
     }
 
     func updatePermissionStatus(_ permissionStatus: PermissionStatus) {
