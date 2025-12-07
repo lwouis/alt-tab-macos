@@ -1,3 +1,17 @@
+# [7.38.0](https://github.com/lwouis/alt-tab-macos/compare/v7.37.0...v7.38.0) (2025-12-07)
+
+
+### Bug Fixes
+
+* could sometimes freeze upon launch (closes [#5079](https://github.com/lwouis/alt-tab-macos/issues/5079)) ([ee27df7](https://github.com/lwouis/alt-tab-macos/commit/ee27df7))
+* sending feedback with a debug-profile could sometimes crash ([e0ae29d](https://github.com/lwouis/alt-tab-macos/commit/e0ae29d))
+
+
+### Features
+
+* improve ca/es/ga/pt/pt-br/uk localizations ([8a98b4e](https://github.com/lwouis/alt-tab-macos/commit/8a98b4e))
+* prevent mouse-hover when using trackpad swipes (closes [#5071](https://github.com/lwouis/alt-tab-macos/issues/5071)) ([b8ecd58](https://github.com/lwouis/alt-tab-macos/commit/b8ecd58))
+
 # [7.37.0](https://github.com/lwouis/alt-tab-macos/compare/v7.36.0...v7.37.0) (2025-11-28)
 
 
