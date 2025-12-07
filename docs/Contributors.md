@@ -121,6 +121,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * hann-solo
 * Haoshuai Xu
 * Hao豪
+* Heramb Lonkar
 * Hjörtur Hjartarson
 * Hokuto Kato
 * Huandngoc
@@ -274,6 +275,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Webmaster
 * Wesley Matos
 * Whatsmine-HaoshuaiXu
+* White Vogel
 * Wilhelm Wolfgang Gärtner
 * Yongsung Yoon
 * Yorben
