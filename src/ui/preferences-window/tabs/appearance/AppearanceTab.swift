@@ -177,6 +177,16 @@ class ShowHideIllustratedView {
             self.onCheckboxClicked(sender: sender, rowId: hideSpaceNumberLabels.rowId)
         }))
         showHideRows.append(hideSpaceNumberLabels)
+        var hideIndexLabels = ShowHideRowInfo()
+        hideIndexLabels.rowId = "hideIndexLabels"
+        hideIndexLabels.uncheckedImage = "show_index_labels"
+        hideIndexLabels.checkedImage = "hide_index_labels"
+        hideIndexLabels.supportedStyles = [.thumbnails, .titles]
+        hideIndexLabels.leftViews = [TableGroupView.makeText(NSLocalizedString("Hide window indices", comment: ""))]
+        hideIndexLabels.rightViews.append(LabelAndControl.makeSwitch(hideIndexLabels.rowId, extraAction: { sender in
+            self.onCheckboxClicked(sender: sender, rowId: hideIndexLabels.rowId)
+        }))
+        showHideRows.append(hideIndexLabels)
         var hideColoredCircles = ShowHideRowInfo()
         hideColoredCircles.rowId = "hideColoredCircles"
         hideColoredCircles.uncheckedImage = "show_colored_circles"
