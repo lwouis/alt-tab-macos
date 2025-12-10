@@ -88,6 +88,12 @@ class Preferences {
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
         "trackpadHapticFeedbackEnabled": "true",
+        "minWindowWidth": "0",
+        "maxWindowWidth": "0",
+        "minWindowX": "0",
+        "maxWindowX": "0",
+        "minWindowY": "0",
+        "maxWindowY": "0",
     ]
 
     // system preferences
@@ -125,6 +131,12 @@ class Preferences {
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
     static var previewFocusedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
+    static var minWindowWidth: Int { CachedUserDefaults.int("minWindowWidth") }
+    static var maxWindowWidth: Int { CachedUserDefaults.int("maxWindowWidth") }
+    static var minWindowX: Int { CachedUserDefaults.int("minWindowX") }
+    static var maxWindowX: Int { CachedUserDefaults.int("maxWindowX") }
+    static var minWindowY: Int { CachedUserDefaults.int("minWindowY") }
+    static var maxWindowY: Int { CachedUserDefaults.int("maxWindowY") }
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { CachedUserDefaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
