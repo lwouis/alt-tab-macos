@@ -183,6 +183,56 @@ class LabelAndControl: NSObject {
         return [textArea]
     }
 
+    static func makeNumberField(_ rawName: String, _ placeholder: String = "0", extraAction: ActionClosure? = nil) -> NSTextField {
+        let textField = NSTextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholderString = placeholder
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.allowsFloats = false
+        formatter.minimum = 0
+        if let storedValue = UserDefaults.standard.string(forKey: rawName), !storedValue.isEmpty, formatter.number(from: storedValue) != nil {
+            textField.stringValue = storedValue
+        } else {
+            textField.stringValue = placeholder
+        }
+        textField.formatter = formatter
+        textField.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        textField.identifier = NSUserInterfaceItemIdentifier(rawName)
+        let delegate = NumberFieldDelegate(rawName: rawName, extraAction: extraAction)
+        textField.delegate = delegate
+        // Retain the delegate using associated objects
+        objc_setAssociatedObject(textField, &numberFieldDelegateKey, delegate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        return textField
+    }
+    
+    private static var numberFieldDelegateKey: UInt8 = 0
+    
+    private class NumberFieldDelegate: NSObject, NSTextFieldDelegate {
+        let rawName: String
+        let extraAction: ActionClosure?
+        
+        init(rawName: String, extraAction: ActionClosure?) {
+            self.rawName = rawName
+            self.extraAction = extraAction
+        }
+        
+        func controlTextDidEndEditing(_ notification: Notification) {
+            if let textField = notification.object as? NSTextField {
+                var newValue = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                if newValue.isEmpty {
+                    newValue = "0"
+                    textField.stringValue = "0"
+                }
+                if let oldValue = UserDefaults.standard.string(forKey: rawName), newValue == oldValue {
+                    return
+                }
+                Preferences.set(rawName, newValue)
+                extraAction?(textField)
+            }
+        }
+    }
+
     static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
         let popUp = PopupButtonLikeSystemSettings()
         popUp.addItems(withTitles: macroPreferences.map {
