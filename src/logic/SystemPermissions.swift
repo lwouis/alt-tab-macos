@@ -22,9 +22,7 @@ class SystemPermissions {
 
     static func pollPermissionsToUpdatePermissionsWindow(_ startupBlock: @escaping () -> Void) {
         timerPermissionsToUpdatePermissionsWindow = Timer(timeInterval: 0.1, repeats: true) { _ in
-            DispatchQueue.main.async {
-                checkPermissionsToUpdatePermissionsWindow(startupBlock)
-            }
+            checkPermissionsToUpdatePermissionsWindow(startupBlock)
         }
         timerPermissionsToUpdatePermissionsWindow!.tolerance = 0.1
         CFRunLoopAddTimer(BackgroundWork.systemPermissionsThread.runLoop, timerPermissionsToUpdatePermissionsWindow!, .commonModes)
@@ -70,22 +68,24 @@ class SystemPermissions {
         AccessibilityPermission.update()
         ScreenRecordingPermission.update()
         Logger.debug(AccessibilityPermission.status, ScreenRecordingPermission.status, preStartupPermissionsPassed)
-        Menubar.togglePermissionCallout(ScreenRecordingPermission.status == .skipped)
-        if AccessibilityPermission.status != App.app.permissionsWindow?.accessibilityView?.permissionStatus {
-            App.app.permissionsWindow?.accessibilityView.updatePermissionStatus(AccessibilityPermission.status)
-        }
-        if #available(macOS 10.15, *), ScreenRecordingPermission.status != App.app.permissionsWindow?.screenRecordingView?.permissionStatus {
-            App.app.permissionsWindow?.screenRecordingView?.updatePermissionStatus(ScreenRecordingPermission.status)
-        }
-        if !preStartupPermissionsPassed {
-            if AccessibilityPermission.status != .notGranted && ScreenRecordingPermission.status != .notGranted {
-                preStartupPermissionsPassed = true
-                App.app.permissionsWindow?.close()
-                startupBlock()
+        DispatchQueue.main.async {
+            Menubar.togglePermissionCallout(ScreenRecordingPermission.status == .skipped)
+            if AccessibilityPermission.status != App.app.permissionsWindow?.accessibilityView?.permissionStatus {
+                App.app.permissionsWindow?.accessibilityView.updatePermissionStatus(AccessibilityPermission.status)
             }
-        } else {
-            if AccessibilityPermission.status == .notGranted || ScreenRecordingPermission.status == .notGranted {
-                App.app.restart()
+            if #available(macOS 10.15, *), ScreenRecordingPermission.status != App.app.permissionsWindow?.screenRecordingView?.permissionStatus {
+                App.app.permissionsWindow?.screenRecordingView?.updatePermissionStatus(ScreenRecordingPermission.status)
+            }
+            if !preStartupPermissionsPassed {
+                if AccessibilityPermission.status != .notGranted && ScreenRecordingPermission.status != .notGranted {
+                    preStartupPermissionsPassed = true
+                    App.app.permissionsWindow?.close()
+                    startupBlock()
+                }
+            } else {
+                if AccessibilityPermission.status == .notGranted || ScreenRecordingPermission.status == .notGranted {
+                    App.app.restart()
+                }
             }
         }
     }
@@ -151,6 +151,7 @@ class ScreenRecordingPermission {
     private static func checkWithSCShareableContent() -> Bool {
         return runWithTimeout { completion in
             SCShareableContent.getWithCompletionHandler { shareableContent, error in
+                // this callback runs on a GCD queue, not on the thread that called getWithCompletionHandler
                 completion(error != nil ? false : (shareableContent != nil))
             }
         }
@@ -172,7 +173,7 @@ class ScreenRecordingPermission {
         }
     }
 
-    private static func runWithTimeout(_ block: @escaping (@escaping (Bool) -> Void) -> Void) -> Bool{
+    private static func runWithTimeout(_ block: @escaping (@escaping (Bool) -> Void) -> Void) -> Bool {
         let semaphore = DispatchSemaphore(value: 0)
         var result = false
         block { r in

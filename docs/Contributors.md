@@ -36,6 +36,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 
 * 73
 * A
+* a774 nn
 * Aamirsuleman
 * Aarni Koskela
 * Abdulelah
@@ -267,7 +268,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Trevor
 * Tsilimpotis Dimitrios
 * Umutakkaya1996
-* User23483
 * Vadym
 * Vijayant Saini
 * Vincent Orback
