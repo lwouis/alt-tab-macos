@@ -3,8 +3,6 @@ import Cocoa
 /// this is a lightweight view which displays an image using its CALayer
 /// it is an alternative to NSImageView, which doesn't have internal complexities and performance costs
 class LightImageView: NSView {
-    var image: CGImage? { get { layer!.contents as! CGImage? } }
-
     required init?(coder: NSCoder) {
         fatalError("Class only supports programmatic initialization")
     }
@@ -29,37 +27,40 @@ class LightImageView: NSView {
         layerContentsRedrawPolicy = .never
     }
 
-    func updateWithResizedCopy(_ image: CGImage?, _ size: NSSize) {
+    func updateWithResizedCopy(_ caLayerContents: CALayerContents, _ size: NSSize) {
         let scaleFactor = NSScreen.preferred.backingScaleFactor
-        if let image {
-            // alternatively, we could set layer!.contentsGravity to .center, and use the lines bellow to resize ourselves
-            //     let scaledSize = NSSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
-            //     layer!.contents = image.resizedCopyWithCoreGraphics(scaledSize, fixBitmapInfo)
-            // it would produce subjectively better quality, but the resizing would be done on the CPU so poor performance
+        // alternatively, we could set layer!.contentsGravity to .center, and use the lines bellow to resize ourselves
+        //     let scaledSize = NSSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
+        //     layer!.contents = image.resizedCopyWithCoreGraphics(scaledSize, fixBitmapInfo)
+        // it would produce subjectively better quality, but the resizing would be done on the CPU so poor performance
+        switch caLayerContents {
+        case .cgImage(let image?):
             layer!.contents = image
-            layer!.contentsScale = scaleFactor
+        case .pixelBuffer(let pixelBuffer?):
+            layer!.contents = CVPixelBufferGetIOSurface(pixelBuffer)?.takeUnretainedValue()
+        default: break
         }
+        layer!.contentsScale = scaleFactor
         if frame.size != size {
             frame.size = size
         }
     }
 
-    /// this schedules the image update for the next cycle
-    /// The Panel will show with previous pictures, then they each will get updated quickly. It's a trade-off of getting AltTab interactive faster at the price of wrong data being shown
-    /// I feel the UX is better without it. I may reconsider
-    func updateWithResizedCopyAsync(_ image: CGImage?, _ size: NSSize) {
-        layer!.contentsScale = NSScreen.preferred.backingScaleFactor
-        frame.size = size
-        if let image {
-            // set image on another cycle so it doesn't block initial rendering
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                self.layer!.contents = image
-            }
-        }
-    }
-
     func releaseImage() {
         layer!.contents = nil
+    }
+}
+
+enum CALayerContents {
+    case cgImage(CGImage?)
+    case pixelBuffer(CVPixelBuffer?)
+
+    func size() -> NSSize? {
+        switch self {
+        case .cgImage(let image):
+            return image?.size()
+        case .pixelBuffer(let pixelBuffer):
+            return pixelBuffer?.size()
+        }
     }
 }

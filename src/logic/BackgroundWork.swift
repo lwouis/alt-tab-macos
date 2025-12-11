@@ -51,7 +51,7 @@ class BackgroundWork {
         missionControlThread = BackgroundThreadWithRunLoop("missionControl", .userInteractive)
         // we listen to CLI commands (CFMessagePort events)
         cliEventsThread = BackgroundThreadWithRunLoop("cliMessages", .userInteractive)
-//        logThreadsAndQueuesOnRepeat()
+       // logThreadsAndQueuesOnRepeat()
     }
 
     static func startCrashReportsQueue() {
@@ -154,6 +154,10 @@ class BackgroundWork {
 
 class LabeledOperationQueue: OperationQueue, @unchecked Sendable {
     let strongUnderlyingQueue: DispatchQueue
+    private var _activeCallbacks: Int32 = 0
+    var activeCallbacks: Int {
+        Int(OSAtomicAdd32(0, &_activeCallbacks))
+    }
 
     init(_ label: String, _ qos: DispatchQoS, _ maxConcurrentOperationCount: Int) {
         strongUnderlyingQueue = DispatchQueue(label: label, attributes: [.concurrent])
@@ -171,5 +175,14 @@ class LabeledOperationQueue: OperationQueue, @unchecked Sendable {
         strongUnderlyingQueue.asyncAfter(deadline: deadline) { [weak self] in
             self?.addOperation(block)
         }
+    }
+}
+
+extension LabeledOperationQueue {
+    @inline(__always)
+    func trackCallbacks<T>(_ body: () throws -> T) rethrows -> T {
+        OSAtomicIncrement32(&_activeCallbacks)
+        defer { OSAtomicDecrement32(&_activeCallbacks) }
+        return try body()
     }
 }

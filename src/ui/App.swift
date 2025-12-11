@@ -69,6 +69,9 @@ class App: AppCenterApplication {
         }
         hideAllTooltips()
         MainMenu.toggle(enabled: true)
+        if #available(macOS 12.3, *), Preferences.videoThumbnailsAndPreview {
+            WindowCaptureEvents.toggleOff()
+        }
     }
 
     /// some tooltips may not be hidden when the main window is hidden; we force it through a private API

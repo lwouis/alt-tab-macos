@@ -339,20 +339,15 @@ class Windows {
             }
         }
         guard (!eligibleWindows.isEmpty || windowRemoved) else { return }
-        screenshotEligibleWindowsAndUpdateUi(eligibleWindows, source)
-    }
-
-    private static func screenshotEligibleWindowsAndUpdateUi(_ eligibleWindows: [Window], _ source: RefreshCausedBy) {
-        for window in eligibleWindows {
-            BackgroundWork.screenshotsQueue.addOperation { [weak window] in
-                if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
-                if let wid = window?.cgWindowId, let cgImage = wid.screenshot() {
-                    if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
-                    DispatchQueue.main.async { [weak window] in
-                        if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
-                        window?.refreshThumbnail(cgImage)
-                    }
-                }
+        if Preferences.videoThumbnailsAndPreview {
+            if App.app.appIsBeingUsed, #available(macOS 12.3, *) {
+                WindowCaptureEvents.toggleOn(source != .refreshOnlyThumbnailsAfterShowUi ? eligibleWindows : [])
+            }
+        } else {
+            if #available(macOS 14.0, *) {
+                WindowCapture.oneTimeScreenshots(eligibleWindows, source)
+            } else {
+                WindowCapture.oneTimeScreenshotsPrivateApi(eligibleWindows, source)
             }
         }
     }

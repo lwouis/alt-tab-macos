@@ -323,7 +323,7 @@ class ThumbnailView: FlippedView {
 
     private func updateAppIcon(_ element: Window, _ title: String) {
         let appIconSize = ThumbnailView.iconSize()
-        appIcon.updateWithResizedCopy(element.icon, appIconSize)
+        appIcon.updateWithResizedCopy(.cgImage(element.icon), appIconSize)
         appIcon.setAccessibilityLabel(title)
     }
 
@@ -341,12 +341,12 @@ class ThumbnailView: FlippedView {
         ))
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
-                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, false)
+                let thumbnailSize = ThumbnailView.thumbnailSize(element.size, false)
                 thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
             } else {
                 // if no thumbnail, show appIcon instead
-                let thumbnailSize = ThumbnailView.thumbnailSize(element.icon, true)
-                thumbnail.updateWithResizedCopy(element.icon, thumbnailSize)
+                let thumbnailSize = ThumbnailView.thumbnailSize(element.icon?.size(), true)
+                thumbnail.updateWithResizedCopy(.cgImage(element.icon), thumbnailSize)
             }
             // for Accessibility > "speak items under the pointer"
             thumbnail.setAccessibilityLabel(element.title)
@@ -372,8 +372,8 @@ class ThumbnailView: FlippedView {
         updateDockLabelIcon(element.dockLabel)
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
         if !windowlessIcon.isHidden {
-            let windowlessIconSize = ThumbnailView.thumbnailSize(element.icon, true)
-            windowlessIcon.updateWithResizedCopy(element.icon, windowlessIconSize)
+            let windowlessIconSize = ThumbnailView.thumbnailSize(element.icon?.size(), true)
+            windowlessIcon.updateWithResizedCopy(.cgImage(element.icon), windowlessIconSize)
         }
         windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(isShowingWindowControls)
@@ -586,10 +586,10 @@ class ThumbnailView: FlippedView {
         return ((ThumbnailsPanel.maxThumbnailsHeight() - Appearance.interCellPadding) / Appearance.rowsCount - Appearance.interCellPadding).rounded()
     }
 
-    static func thumbnailSize(_ image: CGImage?, _ isWindowlessApp: Bool) -> NSSize {
-        guard let image else { return NSSize(width: 0, height: 0) }
-        let imageWidth = CGFloat(image.width)
-        let imageHeight = CGFloat(image.height)
+    static func thumbnailSize(_ imageSize: NSSize?, _ isWindowlessApp: Bool) -> NSSize {
+        guard let imageSize else { return NSSize(width: 0, height: 0) }
+        let imageWidth = imageSize.width
+        let imageHeight = imageSize.height
         let thumbnailHeightMax = ThumbnailView.maxThumbnailHeight()
             - Appearance.edgeInsetsSize * 2
             - Appearance.intraCellPadding
@@ -598,7 +598,7 @@ class ThumbnailView: FlippedView {
             - Appearance.edgeInsetsSize * 2
         // don't stretch very small windows; keep them 1:1 in the switcher
         if !isWindowlessApp && imageWidth < thumbnailWidthMax && imageHeight < thumbnailHeightMax {
-            return NSSize(width: imageWidth, height: imageHeight)
+            return imageSize
         }
         let thumbnailHeight = min(imageHeight, thumbnailHeightMax)
         let thumbnailWidth = min(imageWidth, thumbnailWidthMax)

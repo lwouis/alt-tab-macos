@@ -364,6 +364,7 @@ extension Popover: NSPopoverDelegate {
 }
 
 class AppearanceTab: NSObject {
+    static var livePreviewOptionRows = [TableGroupView.RowInfo]()
     static var customizeStyleButton: NSButton!
     static var animationsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!
@@ -380,7 +381,8 @@ class AppearanceTab: NSObject {
     private static func makeView() -> NSStackView {
         let appearanceView = makeAppearanceView()
         let multipleScreensView = makeMultipleScreensView()
-        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, animationsButton])
+        let livePreviewView = makeLivePreviewView()
+        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, livePreviewView, animationsButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
@@ -406,6 +408,17 @@ class AppearanceTab: NSObject {
         let table = TableGroupView(title: NSLocalizedString("Multiple screens", comment: ""), width: PreferencesWindow.width)
         _ = table.addRow(leftText: NSLocalizedString("Show on", comment: ""),
             rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
+        table.fit()
+        return table
+    }
+
+    private static func makeLivePreviewView() -> NSView {
+        livePreviewOptionRows.removeAll()
+        let table = TableGroupView(title: NSLocalizedString("Video thumbnails and preview", comment: ""),
+            width: PreferencesWindow.width)
+        let enableSwitch = LabelAndControl.makeSwitch("videoThumbnailsAndPreview")
+        _ = table.addRow(leftText: NSLocalizedString("Enable for video. Disable for image", comment: ""),
+            rightViews: [enableSwitch])
         table.fit()
         return table
     }

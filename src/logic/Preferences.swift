@@ -88,6 +88,7 @@ class Preferences {
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
         "trackpadHapticFeedbackEnabled": "true",
+        "videoThumbnailsAndPreview": "true",
     ]
 
     // system preferences
@@ -125,6 +126,7 @@ class Preferences {
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
     static var previewFocusedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
+    static var videoThumbnailsAndPreview: Bool { CachedUserDefaults.bool("videoThumbnailsAndPreview") }
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { CachedUserDefaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
