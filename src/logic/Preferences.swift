@@ -88,6 +88,11 @@ class Preferences {
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
         "trackpadHapticFeedbackEnabled": "true",
+        "enableLivePreview": "false",
+        "livePreviewQuality": LivePreviewQualityPreference.native.indexAsString,
+        "livePreviewFrameRate": LivePreviewFrameRatePreference.fps15.indexAsString,
+        "livePreviewScope": LivePreviewScopePreference.allWindows.indexAsString,
+        "livePreviewStreamKeepAlive": "0",
     ]
 
     // system preferences
@@ -125,6 +130,13 @@ class Preferences {
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
     static var previewFocusedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
+
+    // Live preview settings
+    static var enableLivePreview: Bool { CachedUserDefaults.bool("enableLivePreview") }
+    static var livePreviewQuality: LivePreviewQualityPreference { CachedUserDefaults.macroPref("livePreviewQuality", LivePreviewQualityPreference.allCases) }
+    static var livePreviewFrameRate: LivePreviewFrameRatePreference { CachedUserDefaults.macroPref("livePreviewFrameRate", LivePreviewFrameRatePreference.allCases) }
+    static var livePreviewScope: LivePreviewScopePreference { CachedUserDefaults.macroPref("livePreviewScope", LivePreviewScopePreference.allCases) }
+    static var livePreviewStreamKeepAlive: Int { CachedUserDefaults.int("livePreviewStreamKeepAlive") } // seconds (-1 = forever, 0 = immediate)
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { CachedUserDefaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
