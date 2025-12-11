@@ -574,3 +574,98 @@ struct ThemeParameters {
 }
 
 typealias LocalizedString = String
+
+// MARK: - Live Preview Preferences
+
+enum LivePreviewQualityPreference: CaseIterable, MacroPreference {
+    case thumbnail
+    case low
+    case standard
+    case high
+    case retina
+    case native
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .thumbnail: return NSLocalizedString("Thumbnail (320px)", comment: "")
+            case .low: return NSLocalizedString("Low (480px)", comment: "")
+            case .standard: return NSLocalizedString("Standard (640px)", comment: "")
+            case .high: return NSLocalizedString("High (960px)", comment: "")
+            case .retina: return NSLocalizedString("Retina (1280px)", comment: "")
+            case .native: return NSLocalizedString("Native (Best)", comment: "")
+        }
+    }
+
+    var scaleFactor: Int {
+        switch self {
+            case .thumbnail, .low, .standard, .high: return 1
+            case .retina, .native: return 2
+        }
+    }
+
+    var useFullResolution: Bool {
+        switch self {
+            case .thumbnail, .low: return false
+            case .standard, .high, .retina, .native: return true
+        }
+    }
+
+    var maxDimension: Int {
+        switch self {
+            case .thumbnail: return 320
+            case .low: return 480
+            case .standard: return 640
+            case .high: return 960
+            case .retina: return 1280
+            case .native: return 0 // No limit
+        }
+    }
+}
+
+enum LivePreviewFrameRatePreference: CaseIterable, MacroPreference {
+    case fps5
+    case fps10
+    case fps15
+    case fps24
+    case fps30
+    case fps60
+    case fps120
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .fps5: return NSLocalizedString("5 FPS", comment: "")
+            case .fps10: return NSLocalizedString("10 FPS", comment: "")
+            case .fps15: return NSLocalizedString("15 FPS", comment: "")
+            case .fps24: return NSLocalizedString("24 FPS", comment: "")
+            case .fps30: return NSLocalizedString("30 FPS", comment: "")
+            case .fps60: return NSLocalizedString("60 FPS", comment: "")
+            case .fps120: return NSLocalizedString("120 FPS (ProMotion)", comment: "")
+        }
+    }
+
+    var frameRate: Int32 {
+        switch self {
+            case .fps5: return 5
+            case .fps10: return 10
+            case .fps15: return 15
+            case .fps24: return 24
+            case .fps30: return 30
+            case .fps60: return 60
+            case .fps120: return 120
+        }
+    }
+}
+
+enum LivePreviewScopePreference: CaseIterable, MacroPreference {
+    case selectedWindowOnly
+    case selectedAppWindows
+    case allWindows
+
+    var localizedString: LocalizedString {
+        switch self {
+            case .selectedWindowOnly: return NSLocalizedString("Selected Window Only", comment: "")
+            case .selectedAppWindows: return NSLocalizedString("Selected App's Windows", comment: "")
+            case .allWindows: return NSLocalizedString("All Windows", comment: "")
+        }
+    }
+}
