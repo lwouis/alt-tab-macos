@@ -69,6 +69,9 @@ class App: AppCenterApplication {
         }
         hideAllTooltips()
         MainMenu.toggle(enabled: true)
+        if #available(macOS 12.3, *), Preferences.videoThumbnailsAndPreview {
+            WindowCaptureEvents.toggleOff()
+        }
     }
 
     /// some tooltips may not be hidden when the main window is hidden; we force it through a private API
@@ -197,8 +200,8 @@ class App: AppCenterApplication {
         CGWarpMouseCursorPosition(point)
     }
 
-    func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy) {
-        Windows.refreshThumbnailsAsync(windowsToScreenshot, source)
+    func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
+        Windows.refreshThumbnailsAsync(windowsToScreenshot, source, windowRemoved: windowRemoved)
         guard appIsBeingUsed else { return }
         if source == .refreshUiAfterExternalEvent {
             if !Windows.updatesBeforeShowing() { hideUi(); return }

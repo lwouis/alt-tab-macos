@@ -139,7 +139,7 @@ class Windows {
         }
         if Windows.list.count > 0 {
             moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
-            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent, windowRemoved: true)
         } else {
             App.app.hideUi()
         }
@@ -328,8 +328,8 @@ class Windows {
     }
 
     // dispatch screenshot requests off the main-thread, then wait for completion
-    static func refreshThumbnailsAsync(_ windows: [Window], _ source: RefreshCausedBy) {
-        guard !windows.isEmpty && ScreenRecordingPermission.status == .granted
+    static func refreshThumbnailsAsync(_ windows: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
+        guard (!windows.isEmpty || windowRemoved) && ScreenRecordingPermission.status == .granted
                && !Preferences.onlyShowApplications()
                && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) else { return }
         var eligibleWindows = [Window]()
@@ -338,23 +338,16 @@ class Windows {
                 eligibleWindows.append(window)
             }
         }
-        if eligibleWindows.isEmpty { return }
-        screenshotEligibleWindowsAndUpdateUi(eligibleWindows, source)
-    }
-
-    private static func screenshotEligibleWindowsAndUpdateUi(_ eligibleWindows: [Window], _ source: RefreshCausedBy) {
-        for window in eligibleWindows {
-            BackgroundWork.screenshotsQueue.addOperation { [weak window] in
-                if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
-                if let wid = window?.cgWindowId, let cgImage = wid.screenshot() {
-                    if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
-                    DispatchQueue.main.async { [weak window] in
-                        if source == .refreshOnlyThumbnailsAfterShowUi && !App.app.appIsBeingUsed { return }
-                        window?.refreshThumbnail(cgImage)
-                    }
-                }
-            }
+        guard (!eligibleWindows.isEmpty || windowRemoved) else { return }
+        if Preferences.videoThumbnailsAndPreview && App.app.appIsBeingUsed, #available(macOS 12.3, *)  {
+            WindowCaptureEvents.toggleOn(source != .refreshOnlyThumbnailsAfterShowUi ? eligibleWindows : [])
+            return
         }
+        if !Preferences.videoThumbnailsAndPreview, #available(macOS 14.0, *) {
+            WindowCapture.oneTimeScreenshots(eligibleWindows, source)
+            return
+        }
+        WindowCapture.oneTimeScreenshotsPrivateApi(eligibleWindows, source)
     }
 
     static func refreshWhichWindowsToShowTheUser() {
