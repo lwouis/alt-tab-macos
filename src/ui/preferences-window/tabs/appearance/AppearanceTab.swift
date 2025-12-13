@@ -1,5 +1,11 @@
 import Cocoa
 
+class IBeamTextField: NSTextField {
+    override func resetCursorRects() {
+        addCursorRect(bounds, cursor: NSCursor.iBeam)
+    }
+}
+
 struct ShowHideRowInfo {
     var rowId: String!
     var uncheckedImage: String!
@@ -364,6 +370,7 @@ extension Popover: NSPopoverDelegate {
 }
 
 class AppearanceTab: NSObject {
+    static var livePreviewOptionRows = [TableGroupView.RowInfo]()
     static var customizeStyleButton: NSButton!
     static var animationsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!
@@ -380,7 +387,8 @@ class AppearanceTab: NSObject {
     private static func makeView() -> NSStackView {
         let appearanceView = makeAppearanceView()
         let multipleScreensView = makeMultipleScreensView()
-        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, animationsButton])
+        let livePreviewView = makeLivePreviewView()
+        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, livePreviewView, animationsButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
@@ -408,6 +416,206 @@ class AppearanceTab: NSObject {
             rightViews: LabelAndControl.makeDropdown("showOnScreen", ShowOnScreenPreference.allCases))
         table.fit()
         return table
+    }
+
+    private static func makeLivePreviewView() -> NSView {
+        livePreviewOptionRows.removeAll()
+        let table = TableGroupView(title: NSLocalizedString("Live Preview", comment: ""),
+            subTitle: NSLocalizedString("Higher quality and frame rate use more CPU/GPU resources. Use lower settings if you experience lag.", comment: ""),
+            width: PreferencesWindow.width)
+
+        let enableSwitch = LabelAndControl.makeSwitch("enableLivePreview", extraAction: { sender in
+            toggleLivePreviewOptions()
+            if !Preferences.enableLivePreview {
+                if #available(macOS 12.3, *) {
+                    Task {
+                        await LiveWindowCapture.shared.stopAllCaptures()
+                    }
+                }
+            }
+        })
+
+        _ = table.addRow(leftText: NSLocalizedString("Enable live preview", comment: ""),
+            rightViews: [enableSwitch])
+
+        let qualityDropdown = LabelAndControl.makeDropdown("livePreviewQuality", LivePreviewQualityPreference.allCases)
+        livePreviewOptionRows.append(table.addRow(leftText: NSLocalizedString("Quality", comment: ""),
+            rightViews: [qualityDropdown]))
+
+        let frameRateDropdown = LabelAndControl.makeDropdown("livePreviewFrameRate", LivePreviewFrameRatePreference.allCases)
+        livePreviewOptionRows.append(table.addRow(leftText: NSLocalizedString("Frame rate", comment: ""),
+            rightViews: [frameRateDropdown]))
+
+        let scopeDropdown = LabelAndControl.makeDropdown("livePreviewScope", LivePreviewScopePreference.allCases)
+        livePreviewOptionRows.append(table.addRow(leftText: NSLocalizedString("Scope", comment: ""),
+            rightViews: [scopeDropdown]))
+
+        let keepAliveControl = makeStreamKeepAliveControl()
+        livePreviewOptionRows.append(table.addRow(leftText: NSLocalizedString("Stream keep-alive", comment: ""),
+            rightViews: [keepAliveControl]))
+
+        table.fit()
+        toggleLivePreviewOptions()
+        return table
+    }
+
+    private static func makeStreamKeepAliveControl() -> NSView {
+        let mainContainer = NSStackView()
+        mainContainer.orientation = .vertical
+        mainContainer.alignment = .leading
+        mainContainer.spacing = 8
+
+        let value = Preferences.livePreviewStreamKeepAlive
+        let isImmediate = value == 0
+        let isForever = value == -1
+        let isCustom = value > 0
+
+        let immediateRadio = NSButton(radioButtonWithTitle: NSLocalizedString("Immediately close", comment: ""), target: self, action: #selector(keepAliveImmediateClicked))
+        immediateRadio.identifier = NSUserInterfaceItemIdentifier("keepAliveImmediate")
+        immediateRadio.state = isImmediate ? .on : .off
+
+        let foreverRadio = NSButton(radioButtonWithTitle: NSLocalizedString("Keep open forever", comment: ""), target: self, action: #selector(keepAliveForeverClicked))
+        foreverRadio.identifier = NSUserInterfaceItemIdentifier("keepAliveForever")
+        foreverRadio.state = isForever ? .on : .off
+
+        let customRadio = NSButton(radioButtonWithTitle: NSLocalizedString("Close after", comment: ""), target: self, action: #selector(keepAliveCustomClicked))
+        customRadio.identifier = NSUserInterfaceItemIdentifier("keepAliveCustom")
+        customRadio.state = isCustom ? .on : .off
+
+        let customRow = NSStackView()
+        customRow.orientation = .horizontal
+        customRow.spacing = 6
+        customRow.alignment = .centerY
+        customRow.identifier = NSUserInterfaceItemIdentifier("keepAliveCustomRow")
+
+        let textField = IBeamTextField()
+        textField.identifier = NSUserInterfaceItemIdentifier("livePreviewStreamKeepAlive")
+        textField.stringValue = isCustom ? String(value) : "3"
+        textField.isEnabled = isCustom
+        textField.formatter = NumberFormatter()
+        textField.alignment = .center
+        textField.placeholderString = "3"
+        textField.isEditable = true
+        textField.isSelectable = true
+        textField.isBezeled = true
+        textField.bezelStyle = .roundedBezel
+        textField.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        textField.target = self
+        textField.action = #selector(keepAliveTextFieldChanged(_:))
+        NotificationCenter.default.addObserver(self, selector: #selector(keepAliveTextDidChange(_:)),
+            name: NSControl.textDidChangeNotification, object: textField)
+
+        let secondsLabel = NSTextField(labelWithString: NSLocalizedString("seconds", comment: ""))
+        secondsLabel.textColor = .secondaryLabelColor
+
+        customRow.addArrangedSubview(customRadio)
+        customRow.addArrangedSubview(textField)
+        customRow.addArrangedSubview(secondsLabel)
+
+        let descriptionLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("How long to keep video streams active after closing the switcher. Longer duration means faster reopening but uses more resources.", comment: ""))
+        descriptionLabel.textColor = .secondaryLabelColor
+        descriptionLabel.font = NSFont.systemFont(ofSize: 11)
+        descriptionLabel.preferredMaxLayoutWidth = 400
+
+        mainContainer.addArrangedSubview(immediateRadio)
+        mainContainer.addArrangedSubview(foreverRadio)
+        mainContainer.addArrangedSubview(customRow)
+        mainContainer.addArrangedSubview(descriptionLabel)
+
+        return mainContainer
+    }
+
+    @objc private static func keepAliveImmediateClicked() {
+        Preferences.set("livePreviewStreamKeepAlive", 0)
+        updateKeepAliveButtonStates()
+    }
+
+    @objc private static func keepAliveForeverClicked() {
+        Preferences.set("livePreviewStreamKeepAlive", -1)
+        updateKeepAliveButtonStates()
+    }
+
+    @objc private static func keepAliveCustomClicked() {
+        let currentValue = Preferences.livePreviewStreamKeepAlive
+        let newValue = currentValue > 0 ? currentValue : 3
+        Preferences.set("livePreviewStreamKeepAlive", newValue)
+        updateKeepAliveButtonStates()
+    }
+
+    @objc private static func keepAliveTextFieldChanged(_ sender: NSTextField) {
+        let value = max(1, Int(sender.stringValue) ?? 3)
+        Preferences.set("livePreviewStreamKeepAlive", value)
+        sender.stringValue = String(value)
+        updateKeepAliveButtonStates()
+    }
+
+    @objc private static func keepAliveTextDidChange(_ notification: Notification) {
+        guard let textField = notification.object as? NSTextField else { return }
+        if let value = Int(textField.stringValue), value > 0 {
+            Preferences.set("livePreviewStreamKeepAlive", value)
+            findViewRecursive(identifier: "keepAliveImmediate", as: NSButton.self)?.state = .off
+            findViewRecursive(identifier: "keepAliveForever", as: NSButton.self)?.state = .off
+            findViewRecursive(identifier: "keepAliveCustom", as: NSButton.self)?.state = .on
+        }
+    }
+
+    private static func updateKeepAliveButtonStates() {
+        let value = Preferences.livePreviewStreamKeepAlive
+        let isImmediate = value == 0
+        let isForever = value == -1
+        let isCustom = value > 0
+
+        findViewRecursive(identifier: "keepAliveImmediate", as: NSButton.self)?.state = isImmediate ? .on : .off
+        findViewRecursive(identifier: "keepAliveForever", as: NSButton.self)?.state = isForever ? .on : .off
+        findViewRecursive(identifier: "keepAliveCustom", as: NSButton.self)?.state = isCustom ? .on : .off
+
+        if let textField = findViewRecursive(identifier: "livePreviewStreamKeepAlive", as: NSTextField.self) {
+            textField.isEnabled = isCustom
+            if isCustom {
+                textField.stringValue = String(value)
+            }
+        }
+    }
+
+    private static func findViewRecursive<T: NSView>(identifier: String, as type: T.Type) -> T? {
+        guard let contentView = App.app.preferencesWindow?.contentView else { return nil }
+        return findInView(contentView, identifier: identifier, as: type)
+    }
+
+    private static func findInView<T: NSView>(_ view: NSView, identifier: String, as type: T.Type) -> T? {
+        if let typedView = view as? T, typedView.identifier?.rawValue == identifier {
+            return typedView
+        }
+        for subview in view.subviews {
+            if let found = findInView(subview, identifier: identifier, as: type) {
+                return found
+            }
+        }
+        return nil
+    }
+
+    private static func toggleLivePreviewOptions() {
+        let isEnabled = Preferences.enableLivePreview
+
+        for rowInfo in livePreviewOptionRows {
+            for subview in rowInfo.view.subviews {
+                setEnabledRecursive(subview, isEnabled)
+            }
+            rowInfo.view.alphaValue = isEnabled ? 1.0 : 0.4
+        }
+
+        if isEnabled {
+            updateKeepAliveButtonStates()
+        }
+    }
+
+    private static func setEnabledRecursive(_ view: NSView, _ enabled: Bool) {
+        if let control = view as? NSControl {
+            control.isEnabled = enabled
+        }
+        for subview in view.subviews {
+            setEnabledRecursive(subview, enabled)
+        }
     }
 
     private static func getCustomizeStyleButtonTitle() -> String {

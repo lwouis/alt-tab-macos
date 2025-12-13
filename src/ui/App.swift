@@ -69,6 +69,8 @@ class App: AppCenterApplication {
         }
         hideAllTooltips()
         MainMenu.toggle(enabled: true)
+        // Stop live capture when UI is hidden
+        Windows.stopLiveCapture()
     }
 
     /// some tooltips may not be hidden when the main window is hidden; we force it through a private API

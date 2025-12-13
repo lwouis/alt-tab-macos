@@ -325,7 +325,58 @@ class Windows {
             }
         }
         if eligibleWindows.isEmpty { return }
-        screenshotEligibleWindowsAndUpdateUi(eligibleWindows, source)
+
+        // Use live capture if enabled AND UI is visible, otherwise use static screenshots
+        if Preferences.enableLivePreview && App.app.appIsBeingUsed {
+            startLiveCapture(for: eligibleWindows)
+        } else {
+            screenshotEligibleWindowsAndUpdateUi(eligibleWindows, source)
+        }
+    }
+
+    /// Start live capture for all windows - scope filtering happens at display level
+    static func startLiveCapture(for windows: [Window]) {
+        guard #available(macOS 12.3, *) else { return }
+        guard App.app.appIsBeingUsed else { return } // Only capture when UI is visible
+
+        let windowIDs = windows.compactMap { $0.cgWindowId }
+        Task { @MainActor in
+            guard App.app.appIsBeingUsed else { return } // Double check before starting
+            // Set up frame update callback BEFORE starting capture so we don't miss any frames
+            LiveWindowCapture.shared.onFrameUpdate = { windowID, image in
+                guard App.app.appIsBeingUsed else { return }
+                guard let window = windows.first(where: { $0.cgWindowId == windowID }) else { return }
+
+                // Check if this window should receive live preview based on scope
+                let shouldUpdate: Bool
+                switch Preferences.livePreviewScope {
+                case .selectedWindowOnly:
+                    shouldUpdate = window.cgWindowId == focusedWindow()?.cgWindowId
+                case .selectedAppWindows:
+                    if let focused = focusedWindow() {
+                        shouldUpdate = window.application == focused.application
+                    } else {
+                        shouldUpdate = false
+                    }
+                case .allWindows:
+                    shouldUpdate = true
+                }
+
+                if shouldUpdate {
+                    window.refreshThumbnail(image)
+                }
+            }
+            // Start capture AFTER callback is set up
+            await LiveWindowCapture.shared.startCapture(windowIDs: windowIDs)
+        }
+    }
+
+    /// Stop all live captures
+    static func stopLiveCapture() {
+        guard #available(macOS 12.3, *) else { return }
+        Task { @MainActor in
+            await LiveWindowCapture.shared.stopAllCaptures()
+        }
     }
 
     private static func screenshotEligibleWindowsAndUpdateUi(_ eligibleWindows: [Window], _ source: RefreshCausedBy) {
