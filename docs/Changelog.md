@@ -1,3 +1,11 @@
+## [7.38.1](https://github.com/lwouis/alt-tab-macos/compare/v7.38.0...v7.38.1) (2025-12-13)
+
+
+### Bug Fixes
+
+* could sometimes freeze on the permission window ([43838e1](https://github.com/lwouis/alt-tab-macos/commit/43838e1)), closes [#5112](https://github.com/lwouis/alt-tab-macos/issues/5112)
+* prevent crash when sending a debug profile ([741e790](https://github.com/lwouis/alt-tab-macos/commit/741e790))
+
 # [7.38.0](https://github.com/lwouis/alt-tab-macos/compare/v7.37.0...v7.38.0) (2025-12-07)
 
 
