@@ -18,9 +18,10 @@ final class Search {
     }
 
     private static func ensureCache(for window: Window, query: String) {
-        if window.lastSearchQuery == query { return }
+        let cacheKey = query + "|" + (Preferences.acronymSearchEnabled ? "1" : "0")
+        if window.lastSearchQuery == cacheKey { return }
         if query.isEmpty {
-            window.lastSearchQuery = query
+            window.lastSearchQuery = cacheKey
             window.swAppResults = []
             window.swTitleResults = []
             window.swBestSimilarity = 0
@@ -35,8 +36,11 @@ final class Search {
         window.swTitleResults = titleResList
         let nameSim = appResList.first?.similarity ?? 0.0
         let titleSim = titleResList.first?.similarity ?? 0.0
-        window.swBestSimilarity = max(nameSim * 1.02, titleSim)
-        window.lastSearchQuery = query
+        var similarity = max(nameSim * 1.02, titleSim)
+        if Preferences.acronymSearchEnabled {
+            similarity += max(SearchTestable.acronymBonus(query: query, text: appName), SearchTestable.acronymBonus(query: query, text: title))
+        }
+        window.swBestSimilarity = similarity
+        window.lastSearchQuery = cacheKey
     }
 }
-
