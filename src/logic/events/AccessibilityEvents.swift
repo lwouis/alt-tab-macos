@@ -150,17 +150,7 @@ class AccessibilityEvents {
         let wid = try element.cgWindowId()
         DispatchQueue.main.async {
             if let index = (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) {
-                let window = Windows.list[index]
-                Windows.removeAndUpdateFocus(window)
-                if window.application.addWindowlessWindowIfNeeded() != nil {
-                    Applications.find(pid)?.focusedWindow = nil
-                }
-                if Windows.list.count > 0 {
-                    Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
-                    App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
-                } else {
-                    App.app.hideUi()
-                }
+                Windows.removeWindow(index, pid)
             }
         }
     }

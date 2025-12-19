@@ -131,7 +131,21 @@ class Windows {
         }
     }
 
-    static func removeAndUpdateFocus(_ window: Window) {
+    static func removeWindow(_ index: Int, _ pid: pid_t) {
+        let window = Windows.list[index]
+        removeAndUpdateFocus(window)
+        if window.application.addWindowlessWindowIfNeeded() != nil {
+            Applications.find(pid)?.focusedWindow = nil
+        }
+        if Windows.list.count > 0 {
+            moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
+            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        } else {
+            App.app.hideUi()
+        }
+    }
+
+    private static func removeAndUpdateFocus(_ window: Window) {
         let removedWindowOldFocusOrder = window.lastFocusOrder
         list.removeAll {
             if $0.lastFocusOrder == removedWindowOldFocusOrder {
@@ -245,7 +259,7 @@ class Windows {
         return targetIndex
     }
 
-    static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ index: Int) {
+    private static func moveFocusedWindowIndexAfterWindowDestroyedInBackground(_ index: Int) {
         if index < focusedWindowIndex {
             cycleFocusedWindowIndex(-1)
         }

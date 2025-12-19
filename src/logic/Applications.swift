@@ -14,8 +14,44 @@ class Applications {
     }
 
     static func manuallyRefreshAllWindows() {
+        removeZombieWindows()
+        addMissingWindows()
+    }
+
+    /// we may not receive a window-created event in some cases:
+    /// * we can't subscribe to the app
+    /// * we couldn't subscribe to the app before the window was created
+    /// * weird cases like apps launching at startup with "restaure windows"
+    /// this manually queries the system for windows, and keeps our list in-sync with the actual system
+    static func addMissingWindows() {
         for app in list {
             app.manuallyUpdateWindows()
+        }
+    }
+
+    /// we may not receive a window-destroyed event in some cases:
+    /// * Sequoia bug: https://github.com/lwouis/alt-tab-macos/issues/3589
+    /// * Logic Pro bug: https://github.com/lwouis/alt-tab-macos/issues/4924
+    /// this acts as a garbage-collector for windows, to keep our list in-sync with the actual system
+    static func removeZombieWindows() {
+        let wIds = Windows.list.compactMap { $0.cgWindowId }
+        guard !wIds.isEmpty else { return }
+        let values = UnsafeMutablePointer<UnsafeRawPointer?>.allocate(capacity: wIds.count)
+        for (i, id) in wIds.enumerated() {
+            values[i] = UnsafeRawPointer(bitPattern: UInt(id))
+        }
+        let rawIds = CFArrayCreate(kCFAllocatorDefault, values, wIds.count, nil)
+        let descriptions = (CGWindowListCreateDescriptionFromArray(rawIds) as? [[CFString: Any]])
+        let existingWids = descriptions?.compactMap { $0[kCGWindowNumber] } as? [CGWindowID]
+        guard let existingWids else { return }
+        let believedAlive = Set(wIds)
+        let confirmedAlive = Set(existingWids)
+        let zombies = believedAlive.subtracting(confirmedAlive)
+        for (index, window) in Windows.list.enumerated().reversed() {
+            if let wid = window.cgWindowId, zombies.contains(wid) {
+                Logger.error("----", window.title, window.application.bundleIdentifier)
+                Windows.removeWindow(index, window.application.pid)
+            }
         }
     }
 
