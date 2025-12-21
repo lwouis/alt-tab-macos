@@ -52,8 +52,25 @@ class Appearance {
     }
 
     static func update() {
+        let previousStyle = currentStyle
+        let previousSize = currentSize
         updateSize()
         updateTheme()
+        // Manage icon resolution based on appearance changes
+        updateIconResolution(previousStyle: previousStyle, previousSize: previousSize)
+    }
+    
+    private static func updateIconResolution(previousStyle: AppearanceStylePreference, previousSize: AppearanceSizePreference) {
+        let needsHighRes = currentStyle == .appIcons && currentSize == .large
+        let previousNeedsHighRes = previousStyle == .appIcons && previousSize == .large
+        
+        if needsHighRes && !previousNeedsHighRes {
+            // Upgrade to high resolution
+            Applications.list.forEach { $0.upgradeIconIfNeeded() }
+        } else if !needsHighRes && previousNeedsHighRes {
+            // Downgrade to save memory
+            Applications.list.forEach { $0.downgradeIcon() }
+        }
     }
 
     private static func updateSize() {

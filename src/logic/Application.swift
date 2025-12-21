@@ -42,10 +42,10 @@ class Application: NSObject {
         return 0
     }()
 
-    private static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
+    private static func appIconWithoutPadding(_ icon: NSImage?, _ size: IconSize = .default) -> CGImage? {
         guard let icon else { return nil }
-        // we can render the icon quite big (e.g. windowless app icon), so we store it high-res
-        let iconWidth = CGFloat(1024)
+        // Dynamic icon sizing: use smaller icons by default, upgrade only when needed
+        let iconWidth = size.width
         // NSRunningApplication.icon returns icons with padding; we remove it manually
 
         let croppedSize = iconWidth - appIconPadding * 2
@@ -53,13 +53,41 @@ class Application: NSObject {
             .appIconFixedSize(NSSize(width: iconWidth, height: iconWidth))?
             .cropping(to: CGRect(x: appIconPadding, y: appIconPadding, width: croppedSize, height: croppedSize).integral)
     }
+    
+    enum IconSize {
+        case `default`  // 256x256 - for most cases
+        case large      // 512x512 - for app icons style with large size
+        
+        var width: CGFloat {
+            switch self {
+            case .default: return 256
+            case .large: return 512
+            }
+        }
+    }
+    
+    func upgradeIconIfNeeded() {
+        // Upgrade to higher resolution if showing app icons style at large size
+        if Preferences.appearanceStyle == .appIcons && Preferences.appearanceSize == .large {
+            if let newIcon = Application.appIconWithoutPadding(runningApplication.icon, .large) {
+                icon = newIcon
+            }
+        }
+    }
+    
+    func downgradeIcon() {
+        // Downgrade to default resolution to save memory
+        if let newIcon = Application.appIconWithoutPadding(runningApplication.icon, .default) {
+            icon = newIcon
+        }
+    }
 
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         pid = runningApplication.processIdentifier
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
-        icon = Application.appIconWithoutPadding(runningApplication.icon)
+        icon = Application.appIconWithoutPadding(runningApplication.icon, .default)
         localizedName = runningApplication.localizedName
         bundleIdentifier = runningApplication.bundleIdentifier
         bundleURL = runningApplication.bundleURL
