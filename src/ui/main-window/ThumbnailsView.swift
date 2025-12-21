@@ -10,8 +10,7 @@ class ThumbnailsView {
 
     init() {
         updateBackgroundView()
-        // TODO: think about this optimization more
-        (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+        // Views are created on-demand in layoutThumbnailViews() to reduce memory usage
     }
 
     func updateBackgroundView() {
@@ -116,9 +115,13 @@ class ThumbnailsView {
         rows.removeAll(keepingCapacity: true)
         rows.append([ThumbnailView]())
         var index = 0
-        while index < ThumbnailsView.recycledViews.count {
+        while index < Windows.list.count {
             guard App.app.appIsBeingUsed else { return nil }
             defer { index = index + 1 }
+            // Create views on-demand if needed
+            if index >= ThumbnailsView.recycledViews.count {
+                ThumbnailsView.recycledViews.append(ThumbnailView())
+            }
             let view = ThumbnailsView.recycledViews[index]
             if index < Windows.list.count {
                 let window = Windows.list[index]
@@ -141,12 +144,14 @@ class ThumbnailsView {
                 rows[rows.count - 1].append(view)
                 newViews.append(view)
                 window.rowIndex = rows.count - 1
-            } else {
-                // release images from unused recycledViews; they take lots of RAM
-                view.thumbnail.releaseImage()
-                view.appIcon.releaseImage()
-                view.windowlessIcon.releaseImage()
             }
+        }
+        // Release images from unused recycled views beyond the window count
+        for i in Windows.list.count..<ThumbnailsView.recycledViews.count {
+            let view = ThumbnailsView.recycledViews[i]
+            view.thumbnail.releaseImage()
+            view.appIcon.releaseImage()
+            view.windowlessIcon.releaseImage()
         }
         scrollView.documentView!.subviews = newViews
         return (maxX, maxY, labelHeight)
