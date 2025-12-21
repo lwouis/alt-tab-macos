@@ -14,7 +14,7 @@ class LightImageView: NSView {
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         // configure the layer for efficient GPU-scaling
-        layer!.contentsGravity = .resize
+        layer!.contentsGravity = .center
         layer!.magnificationFilter = .trilinear
         layer!.minificationFilter = .trilinear
         layer!.minificationFilterBias = 0.0
@@ -31,11 +31,10 @@ class LightImageView: NSView {
     func updateWithResizedCopy(_ image: CGImage?, _ size: NSSize) {
         let scaleFactor = NSScreen.preferred.backingScaleFactor
         if let image {
-            // alternatively, we could set layer!.contentsGravity to .center, and use the lines bellow to resize ourselves
-            //     let scaledSize = NSSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
-            //     layer!.contents = image.resizedCopyWithCoreGraphics(scaledSize, fixBitmapInfo)
-            // it would produce subjectively better quality, but the resizing would be done on the CPU so poor performance
-            layer!.contents = image
+            // resize images to display size to reduce memory usage
+            // this trades CPU performance (one-time resize) for memory savings (store at display size)
+            let scaledSize = NSSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
+            layer!.contents = image.resizedCopyWithCoreGraphics(scaledSize, true)
             layer!.contentsScale = scaleFactor
         }
         frame.size = size
