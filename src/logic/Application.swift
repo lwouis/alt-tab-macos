@@ -45,7 +45,7 @@ class Application: NSObject {
     private static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
         guard let icon else { return nil }
         // we can render the icon quite big (e.g. windowless app icon), so we store it high-res
-        let iconWidth = CGFloat(1024)
+        let iconWidth = CGFloat(256)
         // NSRunningApplication.icon returns icons with padding; we remove it manually
 
         let croppedSize = iconWidth - appIconPadding * 2
