@@ -8,6 +8,9 @@ class ScreensEvents {
     @objc private static func handleEvent(_ notification: Notification) {
         Logger.debug(notification.name.rawValue)
         Spaces.refresh()
+        // Invalidate icon size cache when monitor configuration changes
+        // This ensures icons are recalculated for the new display setup
+        IconSizeCalculator.invalidateCache()
         // a screen added or removed, or screen resolution change can mess up layout; we reset components
         App.app.resetPreferencesDependentComponents()
         // a screen added or removed can shuffle windows around Spaces; we refresh them

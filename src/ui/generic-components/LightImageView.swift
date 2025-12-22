@@ -31,10 +31,18 @@ class LightImageView: NSView {
     func updateWithResizedCopy(_ image: CGImage?, _ size: NSSize) {
         let scaleFactor = NSScreen.preferred.backingScaleFactor
         if let image {
-            // resize images to display size to reduce memory usage
-            // this trades CPU performance (one-time resize) for memory savings (store at display size)
-            let scaledSize = NSSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
-            layer!.contents = image.resizedCopyWithCoreGraphics(scaledSize, true)
+            // Only compress icons when NOT in App Icons appearance mode
+            // App Icons mode requires high-resolution for best visual quality
+            if Preferences.appearanceStyle == .appIcons {
+                // Keep high-resolution for App Icons mode (GPU scaling)
+                layer!.contentsGravity = .resize
+                layer!.contents = image
+            } else {
+                // Compress to optimal size for other modes (CPU resizing, memory savings)
+                // Calculate optimal size based on all connected monitors
+                let optimalSize = IconSizeCalculator.optimalIconSize(for: size, scaleFactor: scaleFactor)
+                layer!.contents = image.resizedCopyWithCoreGraphics(optimalSize, true)
+            }
             layer!.contentsScale = scaleFactor
         }
         frame.size = size
