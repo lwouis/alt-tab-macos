@@ -220,7 +220,6 @@ class App: AppCenterApplication {
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
-            MainMenu.toggle(enabled: false)
             NSScreen.updatePreferred()
             if isVeryFirstSummon {
                 Windows.sortByLevel()

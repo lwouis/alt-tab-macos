@@ -99,6 +99,15 @@ extension ThumbnailsPanel: NSWindowDelegate {
             if App.app.appIsBeingUsed {
                 App.app.thumbnailsPanel.makeKeyAndOrderFront(nil)
             }
+            MainMenu.toggle(enabled: true)
+        }
+    }
+
+    func windowDidBecomeKey(_ notification: Notification) {
+        // we toggle the mainMenu off when showing the main window
+        // this avoids command+q from quitting AltTab itself, or command+p from printing
+        DispatchQueue.main.async {
+            MainMenu.toggle(enabled: false)
         }
     }
 }
