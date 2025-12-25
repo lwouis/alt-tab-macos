@@ -197,14 +197,43 @@ class Window {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
+            //
+            // For some apps (e.g. Teams, Telegram, and other Electron-based apps), the low-level SkyLight
+            // API calls alone are not sufficient to properly focus the window. We need to also call
+            // NSRunningApplication.activate() to ensure the app is properly activated.
+            // See: https://github.com/lwouis/alt-tab-macos/issues/4192
+            let wasMinimized = isMinimized
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
                 guard let self else { return }
+                // First, unminimize the window if it's minimized
+                // This must happen before any focus attempt, otherwise the focus will fail
+                if wasMinimized {
+                    try? self.axUiElement!.setAttribute(kAXMinimizedAttribute, false)
+                    // Give the window time to unminimize before focusing
+                    Thread.sleep(forTimeInterval: 0.1)
+                }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(&psn)
                 try? self.axUiElement!.focusWindow()
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                // For some apps (e.g. Teams, Telegram), the low-level SkyLight API calls above
+                // are not sufficient to properly focus the window. We call activate() as a
+                // fallback to ensure the app comes to the foreground.
+                // We dispatch to main thread since NSRunningApplication is not thread-safe.
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    // Use activateIgnoringOtherApps to forcefully bring the app to front,
+                    // similar to what happens when clicking on an app in the Dock
+                    self.application.runningApplication.activate(options: .activateIgnoringOtherApps)
+                    // After activation, retry the AX raise action to ensure the correct window is focused.
+                    // This is needed because activate() might focus a different window than intended.
+                    BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
+                        guard let self else { return }
+                        try? self.axUiElement!.focusWindow()
+                    }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
             }
