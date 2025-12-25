@@ -197,15 +197,33 @@ class Window {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
-            BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
+            // Some apps (e.g. Microsoft Teams) require the application to be activated first before the window can be focused
+            // We activate the app first, then use private APIs to focus the specific window
+            Logger.info("Focusing window", debugId, "- activating app first")
+            application.runningApplication.activate(options: .activateAllWindows)
+            // Small delay to allow the app to become active, especially important for Electron apps like Teams
+            BackgroundWork.accessibilityCommandsQueue.addOperationAfter(deadline: .now() + .milliseconds(50)) { [weak self] in
                 guard let self else { return }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(&psn)
-                try? self.axUiElement!.focusWindow()
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                let focusSucceeded = (try? self.axUiElement!.focusWindow()) != nil
+                Logger.info("Focus attempt for", self.debugId, "- AX focus result:", focusSucceeded ? "success" : "failed")
+                // Verify that the window actually received focus
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
+                    guard let self else { return }
                     Windows.previewFocusedWindowIfNeeded()
+                    // Verify focus was successful by checking if this window is now the focused window
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, callType: .updateWindow) {
+                        if let appAxUiElement = self.application.axUiElement,
+                           let focusedWid = try? appAxUiElement.focusedWindow()?.cgWindowId(),
+                           focusedWid == self.cgWindowId {
+                            Logger.info("Focus verification SUCCESS for", self.debugId)
+                        } else {
+                            Logger.warning("Focus verification: window may not have received focus", self.debugId)
+                        }
+                    }
                 }
             }
         }
