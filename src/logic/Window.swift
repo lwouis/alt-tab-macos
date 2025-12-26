@@ -197,31 +197,42 @@ class Window {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
-            // Some apps (e.g. Microsoft Teams) require the application to be activated first before the window can be focused
-            // We activate the app first, then use private APIs to focus the specific window
-            Logger.info("Focusing window", debugId, "- activating app first")
-            application.runningApplication.activate(options: .activateAllWindows)
-            // Small delay to allow the app to become active, especially important for Electron apps like Teams
-            BackgroundWork.accessibilityCommandsQueue.addOperationAfter(deadline: .now() + .milliseconds(50)) { [weak self] in
-                guard let self else { return }
+            // We always try private APIs first to focus a *specific* window without globally activating the app.
+            // Only fallback to app activation if private APIs fail (e.g. when CGWindowID is invalid).
+            BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
+                guard let self, let wid = self.cgWindowId else {
+                    // No window ID available - fallback to app activation
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self else { return }
+                        Logger.info("Falling back to app activation - no CGWindowID", self.debugId)
+                        self.application.runningApplication.activate(options: .activateAllWindows)
+                        Windows.previewFocusedWindowIfNeeded()
+                    }
+                    return
+                }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
-                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                let privateApiResult = _SLPSSetFrontProcessWithOptions(&psn, wid, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(&psn)
-                let focusSucceeded = (try? self.axUiElement!.focusWindow()) != nil
-                Logger.info("Focus attempt for", self.debugId, "- AX focus result:", focusSucceeded ? "success" : "failed")
-                // Verify that the window actually received focus
+                let axResult = try? self.axUiElement!.focusWindow()
+                // Verify if focus actually worked by checking if window received focus
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
                     guard let self else { return }
                     Windows.previewFocusedWindowIfNeeded()
-                    // Verify focus was successful by checking if this window is now the focused window
+                    // Check if focus succeeded
                     AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, callType: .updateWindow) {
                         if let appAxUiElement = self.application.axUiElement,
                            let focusedWid = try? appAxUiElement.focusedWindow()?.cgWindowId(),
-                           focusedWid == self.cgWindowId {
-                            Logger.info("Focus verification SUCCESS for", self.debugId)
+                           focusedWid == wid {
+                            // Focus succeeded via private APIs
+                            return
                         } else {
-                            Logger.warning("Focus verification: window may not have received focus", self.debugId)
+                            // Private APIs failed - fallback to app activation
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self else { return }
+                                Logger.info("Falling back to app activation - private APIs failed", self.debugId)
+                                self.application.runningApplication.activate(options: .activateAllWindows)
+                            }
                         }
                     }
                 }
