@@ -27,7 +27,7 @@ class Appearance {
     static var highlightBorderWidth = CGFloat(3)
 
     // theme: constants
-    static let enablePanelShadow = true
+    static var enablePanelShadow = true
     static var highlightFocusedBackgroundColor: NSColor { get { NSColor.systemAccentColor.withAlphaComponent(0.2) } }
     static var highlightHoveredBackgroundColor: NSColor { get { NSColor.systemAccentColor.withAlphaComponent(0.1) } }
     static var highlightFocusedBorderColor: NSColor { get { NSColor.systemAccentColor } }
@@ -75,10 +75,12 @@ class Appearance {
         } else {
             lightTheme()
         }
-        // // for Liquid Glass, we don't want a shadow around the panel
-        // if #available(macOS 26.0, *), currentStyle == .appIcons && LiquidGlassEffectView.canUsePrivateLiquidGlassLook() {
-        //     enablePanelShadow = false
-        // }
+        // for Liquid Glass, we don't want a shadow around the panel
+        if #available(macOS 26.0, *), currentStyle == .appIcons && LiquidGlassEffectView.canUsePrivateLiquidGlassLook() {
+            enablePanelShadow = false
+        } else {
+            enablePanelShadow = true
+        }
     }
 
     private static func thumbnailsSize(_ isHorizontalScreen: Bool) {
