@@ -148,14 +148,35 @@ class Windows {
         if let focusedWindow = (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) }) {
             let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
             var windowsToRefresh = [focusedWindow]
-            list.forEach {
-                if $0.lastFocusOrder == focusedWindowOldFocusOrder {
-                    $0.lastFocusOrder = 0
-                } else if $0.lastFocusOrder < focusedWindowOldFocusOrder {
-                    $0.lastFocusOrder += 1
+            
+            if Preferences.showBrowserTabsAsWindows,
+               BrowserTabManager.isSupportedBrowser(focusedWindow.application.bundleIdentifier),
+               !focusedWindow.isBrowserTab {
+                if let activeTabWindow = list.first(where: { 
+                    $0.isBrowserTab && 
+                    $0.browserTabInfo?.bundleIdentifier == focusedWindow.application.bundleIdentifier &&
+                    $0.browserTabInfo?.isActive == true
+                }) {
+                    let activeTabOldOrder = activeTabWindow.lastFocusOrder
+                    list.forEach {
+                        if $0 === activeTabWindow {
+                            $0.lastFocusOrder = 0
+                        } else if $0.lastFocusOrder < activeTabOldOrder {
+                            $0.lastFocusOrder += 1
+                        }
+                    }
+                    windowsToRefresh.append(activeTabWindow)
                 }
-                if $0.lastFocusOrder == 0 {
-                    windowsToRefresh.append($0)
+            } else {
+                list.forEach {
+                    if $0 === focusedWindow {
+                        $0.lastFocusOrder = 0
+                    } else if $0.lastFocusOrder < focusedWindowOldFocusOrder {
+                        $0.lastFocusOrder += 1
+                    }
+                    if $0.lastFocusOrder == 0 {
+                        windowsToRefresh.append($0)
+                    }
                 }
             }
             return windowsToRefresh
@@ -191,14 +212,26 @@ class Windows {
     }
 
     static func previewFocusedWindowIfNeeded() {
-        if App.app.appIsBeingUsed && ScreenRecordingPermission.status == .granted
+        guard App.app.appIsBeingUsed && ScreenRecordingPermission.status == .granted
                && Preferences.previewFocusedWindow && !Preferences.onlyShowApplications()
                && App.app.thumbnailsPanel.isKeyWindow,
-           let window = focusedWindow(),
-           let id = window.cgWindowId,
-           let thumbnail = window.thumbnail,
-           let position = window.position,
-           let size = window.size {
+              let window = focusedWindow() else {
+            App.app.previewPanel.orderOut(nil)
+            return
+        }
+        
+        if window.isBrowserTab {
+            if let url = window.browserTabInfo?.url,
+               let cached = BrowserTabManager.getCachedPreview(for: url) {
+                let pseudoId = CGWindowID(url.hashValue & 0x7FFFFFFF)
+                App.app.previewPanel.show(pseudoId, cached.screenshot, cached.position, cached.size)
+            } else {
+                App.app.previewPanel.orderOut(nil)
+            }
+        } else if let id = window.cgWindowId,
+                  let thumbnail = window.thumbnail,
+                  let position = window.position,
+                  let size = window.size {
             App.app.previewPanel.show(id, thumbnail, position, size)
         } else {
             App.app.previewPanel.orderOut(nil)
@@ -290,15 +323,76 @@ class Windows {
         let spaceIdsAndIndexes = Spaces.idsAndIndexes.map { $0.0 }
         lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
         lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
+        if Preferences.showBrowserTabsAsWindows {
+            syncBrowserTabs()
+        } else {
+            removeBrowserTabs()
+        }
         for window in list {
-            detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
-            updatesWindowSpace(window)
+            if !window.isBrowserTab {
+                detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
+                updatesWindowSpace(window)
+            }
             refreshIfWindowShouldBeShownToTheUser(window)
         }
         refreshWhichWindowsToShowTheUser()
         sort()
         if (!list.contains { $0.shouldShowTheUser }) { return false }
         return true
+    }
+    
+    private static func removeBrowserTabs() {
+        list.removeAll { $0.isBrowserTab }
+    }
+    
+    private static func syncBrowserTabs() {
+        let browserApps = Applications.list.filter { BrowserTabManager.isSupportedBrowser($0.bundleIdentifier) }
+        
+        for app in browserApps {
+            guard let bundleId = app.bundleIdentifier else { continue }
+            let currentTabs = BrowserTabManager.getAllTabs(bundleIdentifier: bundleId)
+            
+            let existingTabWindows = list.filter { $0.isBrowserTab && $0.browserTabInfo?.bundleIdentifier == bundleId }
+            var existingTabsByUrl = [String: Window]()
+            for tabWindow in existingTabWindows {
+                if let url = tabWindow.browserTabInfo?.url {
+                    existingTabsByUrl[url] = tabWindow
+                }
+            }
+            
+            let currentUrls = Set(currentTabs.map { $0.url })
+            list.removeAll { window in
+                guard window.isBrowserTab, let url = window.browserTabInfo?.url,
+                      window.browserTabInfo?.bundleIdentifier == bundleId else { return false }
+                return !currentUrls.contains(url)
+            }
+            
+            let maxOrder = list.map { $0.lastFocusOrder }.max() ?? 0
+            for tab in currentTabs {
+                if let existingWindow = existingTabsByUrl[tab.url] {
+                    existingWindow.browserTabInfo = tab
+                    existingWindow.title = tab.displayTitle
+                } else {
+                    let window = Window(app, tab)
+                    window.lastFocusOrder = maxOrder + 1 + list.filter { $0.isBrowserTab }.count
+                    list.append(window)
+                    if list.count > ThumbnailsView.recycledViews.count {
+                        ThumbnailsView.recycledViews.append(ThumbnailView())
+                    }
+                }
+            }
+        }
+    }
+    
+    static func updateFocusOrderForTab(_ tab: Window) {
+        let oldOrder = tab.lastFocusOrder
+        list.forEach {
+            if $0 === tab {
+                $0.lastFocusOrder = 0
+            } else if $0.lastFocusOrder < oldOrder {
+                $0.lastFocusOrder += 1
+            }
+        }
     }
 
     static func updatesWindowSpace(_ window: Window) {
@@ -345,11 +439,11 @@ class Windows {
 
     static func refreshWhichWindowsToShowTheUser() {
         if Preferences.onlyShowApplications() {
-            // Group windows by application and select the optimal main window
             let windowsGroupedByApp = Dictionary(grouping: list) { $0.application.pid }
             windowsGroupedByApp.forEach { (app, windows) in
-                if windows.count > 1, let mainWindow = selectMainWindow(windows) {
-                    windows.forEach { window in
+                let nonBrowserTabWindows = windows.filter { !$0.isBrowserTab }
+                if nonBrowserTabWindows.count > 1, let mainWindow = selectMainWindow(nonBrowserTabWindows) {
+                    nonBrowserTabWindows.forEach { window in
                         if window.cgWindowId != mainWindow.cgWindowId {
                             window.shouldShowTheUser = false
                         }
@@ -360,6 +454,14 @@ class Windows {
     }
 
     private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window) {
+        if window.isBrowserTab {
+            window.shouldShowTheUser = true
+            return
+        }
+        if Preferences.showBrowserTabsAsWindows && BrowserTabManager.isSupportedBrowser(window.application.bundleIdentifier) {
+            window.shouldShowTheUser = false
+            return
+        }
         window.shouldShowTheUser =
             !(window.application.bundleIdentifier.flatMap { id in
                 Preferences.blacklist.contains {

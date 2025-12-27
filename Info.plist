@@ -52,5 +52,7 @@
 	<string>2e9SQOBoaKElchSa/4QDli/nvYkyuDNfynfzBF6vJK4=</string>
 	<key>SUScheduledCheckInterval</key>
 	<string>604800</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>AltTab needs this permission to show browser tabs from Chrome, Brave, Edge, and other browsers as separate windows in the switcher.</string>
 </dict>
 </plist>

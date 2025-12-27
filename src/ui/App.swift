@@ -306,6 +306,11 @@ extension App: NSApplicationDelegate {
             SystemAppearanceEvents.observe()
             SystemScrollerStyleEvents.observe()
             Applications.initialDiscovery()
+            if Preferences.showBrowserTabsAsWindows {
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1.0) {
+                    BrowserTabManager.refreshCacheInBackground()
+                }
+            }
             self.preferencesWindow = PreferencesWindow()
             self.feedbackWindow = FeedbackWindow()
             KeyboardEvents.addEventHandlers()

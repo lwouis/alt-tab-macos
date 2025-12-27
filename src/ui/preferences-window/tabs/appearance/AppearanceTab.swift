@@ -210,6 +210,28 @@ class ShowHideIllustratedView {
             }
         }))
         showHideRows.append(showTabsAsWindows)
+        var showBrowserTabsAsWindows = ShowHideRowInfo()
+        showBrowserTabsAsWindows.rowId = "showBrowserTabsAsWindows"
+        showBrowserTabsAsWindows.uncheckedImage = "hide_tabs_as_windows"
+        showBrowserTabsAsWindows.checkedImage = "show_tabs_as_windows"
+        showBrowserTabsAsWindows.supportedStyles = [.thumbnails, .appIcons, .titles]
+        showBrowserTabsAsWindows.leftViews = [TableGroupView.makeText(NSLocalizedString("Show browser tabs as windows", comment: ""))]
+        showBrowserTabsAsWindows.subTitle = NSLocalizedString("Show individual browser tabs from Chrome, Brave, Edge, Arc, and other Chromium browsers as separate windows in the switcher. You'll be prompted to grant Automation permission for each browser.", comment: "")
+        showBrowserTabsAsWindows.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
+            if ShowHideIllustratedView.isDisabledOnApplications(showBrowserTabsAsWindows) {
+                Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)
+            } else {
+                Popover.shared.show(event: event, positioningView: view, message: showBrowserTabsAsWindows.subTitle!)
+            }
+        }, onMouseExited: { event, view in
+            Popover.shared.hide()
+        }))
+        showBrowserTabsAsWindows.rightViews.append(LabelAndControl.makeSwitch(showBrowserTabsAsWindows.rowId, extraAction: { sender in
+            if !ShowHideIllustratedView.isDisabledOnApplications(showBrowserTabsAsWindows) {
+                self.onCheckboxClicked(sender: sender, rowId: showBrowserTabsAsWindows.rowId)
+            }
+        }))
+        showHideRows.append(showBrowserTabsAsWindows)
         var previewFocusedWindow = ShowHideRowInfo()
         previewFocusedWindow.rowId = "previewFocusedWindow"
         previewFocusedWindow.uncheckedImage = "hide_preview_focused_window"
@@ -235,7 +257,7 @@ class ShowHideIllustratedView {
     }
 
     static func isDisabledOnApplications(_ row: ShowHideRowInfo) -> Bool {
-        let contains = ["showTabsAsWindows", "previewFocusedWindow"].contains(where: { $0 == row.rowId })
+        let contains = ["showTabsAsWindows", "showBrowserTabsAsWindows", "previewFocusedWindow"].contains(where: { $0 == row.rowId })
         return contains && Preferences.onlyShowApplications()
     }
 

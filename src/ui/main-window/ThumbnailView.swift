@@ -335,7 +335,7 @@ class ThumbnailView: FlippedView {
         ))
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
-                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, false)
+                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, element.isBrowserTab)
                 thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
             } else {
                 // if no thumbnail, show appIcon instead

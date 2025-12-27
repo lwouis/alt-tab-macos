@@ -15,8 +15,18 @@ class Window {
     var lastFocusOrder = Int.zero
     var creationOrder = Int.zero
     var title: String!
-    var thumbnail: CGImage?
-    var icon: CGImage? { get { application.icon } }
+    private var _thumbnail: CGImage?
+    var thumbnail: CGImage? {
+        get {
+            if isBrowserTab, let url = browserTabInfo?.url,
+               let cached = BrowserTabManager.getCachedPreview(for: url) {
+                return cached.screenshot
+            }
+            return _thumbnail
+        }
+        set { _thumbnail = newValue }
+    }
+    var icon: CGImage? { get { isBrowserTab ? (_thumbnail ?? application.icon) : application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
     var isHidden: Bool { get { application.isHidden } }
@@ -24,9 +34,31 @@ class Window {
     var isFullscreen = false
     var isMinimized = false
     var isOnAllSpaces = false
-    var isWindowlessApp: Bool { get { cgWindowId == nil } }
-    var position: CGPoint?
-    var size: CGSize?
+    var isWindowlessApp: Bool { get { cgWindowId == nil && !isBrowserTab } }
+    var isBrowserTab: Bool = false
+    var browserTabInfo: BrowserTabInfo?
+    private var _position: CGPoint?
+    var position: CGPoint? {
+        get {
+            if isBrowserTab, let url = browserTabInfo?.url,
+               let cached = BrowserTabManager.getCachedPreview(for: url) {
+                return cached.position
+            }
+            return _position
+        }
+        set { _position = newValue }
+    }
+    private var _size: CGSize?
+    var size: CGSize? {
+        get {
+            if isBrowserTab, let url = browserTabInfo?.url,
+               let cached = BrowserTabManager.getCachedPreview(for: url) {
+                return cached.size
+            }
+            return _size
+        }
+        set { _size = newValue }
+    }
     var spaceIds = [CGSSpaceID.max]
     var spaceIndexes = [SpaceIndex.max]
     var axUiElement: AXUIElement?
@@ -42,8 +74,8 @@ class Window {
         Windows.updatesWindowSpace(self)
         self.isFullscreen = isFullscreen
         self.isMinimized = isMinimized
-        self.position = position
-        self.size = size
+        self._position = position
+        self._size = size
         title = bestEffortTitle(axTitle)
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
@@ -62,6 +94,24 @@ class Window {
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
         Logger.debug(debugId)
+    }
+
+    init(_ application: Application, _ tabInfo: BrowserTabInfo) {
+        self.application = application
+        self.isBrowserTab = true
+        self.browserTabInfo = tabInfo
+        self.title = tabInfo.displayTitle
+        Window.globalCreationCounter += 1
+        creationOrder = Window.globalCreationCounter
+        if let cachedFavicon = BrowserTabManager.getFavicon(for: tabInfo.url) {
+            self._thumbnail = cachedFavicon
+        } else {
+            BrowserTabManager.fetchFavicon(for: tabInfo) { [weak self] favicon in
+                DispatchQueue.main.async {
+                    self?._thumbnail = favicon
+                }
+            }
+        }
     }
 
     deinit {
@@ -180,6 +230,17 @@ class Window {
     }
 
     func focus() {
+        if isBrowserTab, let tabInfo = browserTabInfo {
+            _ = BrowserTabManager.activateTab(
+                bundleIdentifier: tabInfo.bundleIdentifier,
+                windowIndex: tabInfo.windowIndex,
+                tabIndex: tabInfo.tabIndex
+            )
+            Windows.updateFocusOrderForTab(self)
+            captureTabPreviewAfterDelay(tabInfo: tabInfo)
+            App.app.previewPanel.orderOut(nil)
+            return
+        }
         if let altTabWindow = altTabWindow() {
             App.shared.activate(ignoringOtherApps: true)
             altTabWindow.makeKeyAndOrderFront(nil)
@@ -206,6 +267,26 @@ class Window {
                 try? self.axUiElement!.focusWindow()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
+                }
+            }
+        }
+    }
+    
+    private func captureTabPreviewAfterDelay(tabInfo: BrowserTabInfo) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+            let browserWindows = Windows.list.filter { 
+                !$0.isBrowserTab && $0.application.bundleIdentifier == tabInfo.bundleIdentifier 
+            }
+            guard let browserWindow = browserWindows.first,
+                  let wid = browserWindow.cgWindowId,
+                  let position = browserWindow.position,
+                  let size = browserWindow.size else { return }
+            
+            BackgroundWork.screenshotsQueue.addOperation {
+                if let screenshot = wid.screenshot() {
+                    DispatchQueue.main.async {
+                        BrowserTabManager.cachePreview(for: tabInfo.url, screenshot: screenshot, position: position, size: size)
+                    }
                 }
             }
         }
