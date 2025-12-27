@@ -233,8 +233,7 @@ class Window {
         if isBrowserTab, let tabInfo = browserTabInfo {
             _ = BrowserTabManager.activateTab(
                 bundleIdentifier: tabInfo.bundleIdentifier,
-                windowIndex: tabInfo.windowIndex,
-                tabIndex: tabInfo.tabIndex
+                tabUrl: tabInfo.url
             )
             Windows.updateFocusOrderForTab(self)
             captureTabPreviewAfterDelay(tabInfo: tabInfo)
@@ -277,6 +276,7 @@ class Window {
             let browserWindows = Windows.list.filter { 
                 !$0.isBrowserTab && $0.application.bundleIdentifier == tabInfo.bundleIdentifier 
             }
+            
             guard let browserWindow = browserWindows.first,
                   let wid = browserWindow.cgWindowId,
                   let position = browserWindow.position,

@@ -24,6 +24,7 @@ import ScriptingBridge
     @objc optional var activeTabIndex: Int { get }
     @objc optional var mode: String { get }
     @objc optional func setActiveTabIndex(_ activeTabIndex: Int)
+    @objc optional func setIndex(_ index: Int)
 }
 
 @objc public protocol ChromiumBrowserTab {
@@ -239,7 +240,7 @@ class BrowserTabManager {
         return allTabs
     }
     
-    static func activateTab(bundleIdentifier: String, windowIndex: Int, tabIndex: Int) -> Bool {
+    static func activateTab(bundleIdentifier: String, tabUrl: String) -> Bool {
         guard let browser: ChromiumBrowserApplication = SBApplication(bundleIdentifier: bundleIdentifier) else {
             return false
         }
@@ -249,16 +250,23 @@ class BrowserTabManager {
         guard let windows = browser.windows?() else {
             return false
         }
-        guard windowIndex < windows.count else {
-            return false
+        
+        for windowObj in windows {
+            guard let window = windowObj as? ChromiumBrowserWindow,
+                  let tabs = window.tabs?() else { continue }
+            
+            for (tabIndex, tabObj) in tabs.enumerated() {
+                guard let tab = tabObj as? ChromiumBrowserTab,
+                      tab.URL == tabUrl else { continue }
+                
+                window.setActiveTabIndex?(tabIndex + 1)
+                window.setIndex?(1)
+                browser.activate?()
+                lastRefresh = .distantPast
+                return true
+            }
         }
-        guard let window = windows.object(at: windowIndex) as? ChromiumBrowserWindow else {
-            return false
-        }
-        window.setActiveTabIndex?(tabIndex + 1)
-        browser.activate?()
-        lastRefresh = .distantPast
-        return true
+        return false
     }
     
     static func getNonActiveTabsForApplication(_ application: Application) -> [BrowserTabInfo] {

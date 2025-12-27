@@ -97,8 +97,14 @@ class Windows {
             hoveredWindowIndex = nil
             ThumbnailsView.highlight(oldIndex)
         }
-        if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
-           (app.focusedWindow == nil || Preferences.windowOrder[App.app.shortcutIndex] != .recentlyFocused),
+        let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier)
+        let appFocusedWindow = app?.focusedWindow
+        let windowOrder = Preferences.windowOrder[App.app.shortcutIndex]
+        let isBrowserShowingTabs = Preferences.showBrowserTabsAsWindows && 
+            BrowserTabManager.isSupportedBrowser(app?.bundleIdentifier)
+        if app != nil,
+           !isBrowserShowingTabs,
+           (appFocusedWindow == nil || windowOrder != .recentlyFocused),
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
             updateFocusedAndHoveredWindowIndex(lastFocusedWindowIndex)
         } else {
@@ -152,21 +158,7 @@ class Windows {
             if Preferences.showBrowserTabsAsWindows,
                BrowserTabManager.isSupportedBrowser(focusedWindow.application.bundleIdentifier),
                !focusedWindow.isBrowserTab {
-                if let activeTabWindow = list.first(where: { 
-                    $0.isBrowserTab && 
-                    $0.browserTabInfo?.bundleIdentifier == focusedWindow.application.bundleIdentifier &&
-                    $0.browserTabInfo?.isActive == true
-                }) {
-                    let activeTabOldOrder = activeTabWindow.lastFocusOrder
-                    list.forEach {
-                        if $0 === activeTabWindow {
-                            $0.lastFocusOrder = 0
-                        } else if $0.lastFocusOrder < activeTabOldOrder {
-                            $0.lastFocusOrder += 1
-                        }
-                    }
-                    windowsToRefresh.append(activeTabWindow)
-                }
+                return nil
             } else {
                 list.forEach {
                     if $0 === focusedWindow {
@@ -256,10 +248,8 @@ class Windows {
 
     static func cycleFocusedWindowIndex(_ step: Int, allowWrap: Bool = true) {
         let nextIndex = windowIndexAfterCycling(step)
-        // don't wrap-around at the end, if key-repeat
         if (((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
             (!allowWrap || ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false))
-               // don't cycle to another row, if !allowWrap
                || (!allowWrap && list[nextIndex].rowIndex != list[focusedWindowIndex].rowIndex) {
             return
         }
@@ -385,11 +375,10 @@ class Windows {
     }
     
     static func updateFocusOrderForTab(_ tab: Window) {
-        let oldOrder = tab.lastFocusOrder
         list.forEach {
             if $0 === tab {
                 $0.lastFocusOrder = 0
-            } else if $0.lastFocusOrder < oldOrder {
+            } else {
                 $0.lastFocusOrder += 1
             }
         }
