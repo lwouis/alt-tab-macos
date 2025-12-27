@@ -292,8 +292,7 @@ extension AXUIElement {
                     crossoverWindow(app, role, subrole, level) ||
                     isAlwaysOnTopScrcpy(app, level, role, subrole)
             ) || (
-                // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
-                level == CGWindow.normalLevel && (
+                 (
                     [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
                         openBoard(app) ||
                         adobeAudition(app, subrole) ||
