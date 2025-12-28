@@ -278,4 +278,27 @@ class BrowserTabManager {
         let allTabs = getAllTabs(bundleIdentifier: bundleId)
         return allTabs.filter { !$0.isActive }
     }
+    
+    static func getActiveTabUrl(bundleIdentifier: String) -> String? {
+        guard let browser: ChromiumBrowserApplication = SBApplication(bundleIdentifier: bundleIdentifier) else {
+            return nil
+        }
+        guard browser.isRunning == true else {
+            return nil
+        }
+        guard let windows = browser.windows?(),
+              let firstWindow = windows.firstObject as? ChromiumBrowserWindow else {
+            return nil
+        }
+        
+        let activeTabIndex = firstWindow.activeTabIndex ?? 0
+        guard activeTabIndex > 0,
+              let tabs = firstWindow.tabs?(),
+              activeTabIndex <= tabs.count,
+              let activeTab = tabs[activeTabIndex - 1] as? ChromiumBrowserTab else {
+            return nil
+        }
+        
+        return activeTab.URL
+    }
 }

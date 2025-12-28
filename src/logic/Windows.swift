@@ -156,8 +156,14 @@ class Windows {
             var windowsToRefresh = [focusedWindow]
             
             if Preferences.showBrowserTabsAsWindows,
-               BrowserTabManager.isSupportedBrowser(focusedWindow.application.bundleIdentifier),
+               let bundleId = focusedWindow.application.bundleIdentifier,
+               BrowserTabManager.isSupportedBrowser(bundleId),
                !focusedWindow.isBrowserTab {
+                if let activeTabUrl = BrowserTabManager.getActiveTabUrl(bundleIdentifier: bundleId),
+                   let activeTabWindow = list.first(where: { $0.isBrowserTab && $0.browserTabInfo?.url == activeTabUrl }) {
+                    updateFocusOrderForTab(activeTabWindow)
+                    return [activeTabWindow]
+                }
                 return nil
             } else {
                 list.forEach {
