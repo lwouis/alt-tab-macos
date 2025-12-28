@@ -30,6 +30,7 @@ class MouseEvents {
         if let eventTap {
             MouseEvents.toggle(false)
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
+            // we run on main-thread directly since all we do is check UI coordinates, which we must do on main-thread
             CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
         } else {
             App.app.restart()
