@@ -159,8 +159,8 @@ class Windows {
                let bundleId = focusedWindow.application.bundleIdentifier,
                BrowserTabManager.isSupportedBrowser(bundleId),
                !focusedWindow.isBrowserTab {
-                if let activeTabUrl = BrowserTabManager.getActiveTabUrl(bundleIdentifier: bundleId),
-                   let activeTabWindow = list.first(where: { $0.isBrowserTab && $0.browserTabInfo?.url == activeTabUrl }) {
+                if let activeTabId = BrowserTabManager.getActiveTabId(bundleIdentifier: bundleId),
+                   let activeTabWindow = list.first(where: { $0.isBrowserTab && $0.browserTabInfo?.tabId == activeTabId }) {
                     updateFocusOrderForTab(activeTabWindow)
                     return [activeTabWindow]
                 }
@@ -349,23 +349,23 @@ class Windows {
             let currentTabs = BrowserTabManager.getAllTabs(bundleIdentifier: bundleId)
             
             let existingTabWindows = list.filter { $0.isBrowserTab && $0.browserTabInfo?.bundleIdentifier == bundleId }
-            var existingTabsByUrl = [String: Window]()
+            var existingTabsById = [String: Window]()
             for tabWindow in existingTabWindows {
-                if let url = tabWindow.browserTabInfo?.url {
-                    existingTabsByUrl[url] = tabWindow
+                if let tabInfo = tabWindow.browserTabInfo {
+                    existingTabsById[tabInfo.uniqueId] = tabWindow
                 }
             }
             
-            let currentUrls = Set(currentTabs.map { $0.url })
+            let currentIds = Set(currentTabs.map { $0.uniqueId })
             list.removeAll { window in
-                guard window.isBrowserTab, let url = window.browserTabInfo?.url,
-                      window.browserTabInfo?.bundleIdentifier == bundleId else { return false }
-                return !currentUrls.contains(url)
+                guard window.isBrowserTab, let tabInfo = window.browserTabInfo,
+                      tabInfo.bundleIdentifier == bundleId else { return false }
+                return !currentIds.contains(tabInfo.uniqueId)
             }
             
             let maxOrder = list.map { $0.lastFocusOrder }.max() ?? 0
             for tab in currentTabs {
-                if let existingWindow = existingTabsByUrl[tab.url] {
+                if let existingWindow = existingTabsById[tab.uniqueId] {
                     existingWindow.browserTabInfo = tab
                     existingWindow.title = tab.displayTitle
                 } else {
@@ -386,6 +386,41 @@ class Windows {
                 $0.lastFocusOrder = 0
             } else {
                 $0.lastFocusOrder += 1
+            }
+        }
+    }
+    
+    static func syncBrowserTabsFromTitleChange(bundleId: String) {
+        guard let app = Applications.list.first(where: { $0.bundleIdentifier == bundleId }) else { return }
+        let currentTabs = BrowserTabManager.getAllTabs(bundleIdentifier: bundleId)
+        
+        let existingTabWindows = list.filter { $0.isBrowserTab && $0.browserTabInfo?.bundleIdentifier == bundleId }
+        var existingTabsById = [String: Window]()
+        for tabWindow in existingTabWindows {
+            if let tabInfo = tabWindow.browserTabInfo {
+                existingTabsById[tabInfo.uniqueId] = tabWindow
+            }
+        }
+        
+        let currentIds = Set(currentTabs.map { $0.uniqueId })
+        list.removeAll { window in
+            guard window.isBrowserTab, let tabInfo = window.browserTabInfo,
+                  tabInfo.bundleIdentifier == bundleId else { return false }
+            return !currentIds.contains(tabInfo.uniqueId)
+        }
+        
+        let maxOrder = list.map { $0.lastFocusOrder }.max() ?? 0
+        for tab in currentTabs {
+            if let existingWindow = existingTabsById[tab.uniqueId] {
+                existingWindow.browserTabInfo = tab
+                existingWindow.title = tab.displayTitle
+            } else {
+                let window = Window(app, tab)
+                window.lastFocusOrder = maxOrder + 1 + list.filter { $0.isBrowserTab }.count
+                list.append(window)
+                if list.count > ThumbnailsView.recycledViews.count {
+                    ThumbnailsView.recycledViews.append(ThumbnailView())
+                }
             }
         }
     }

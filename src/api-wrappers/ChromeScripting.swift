@@ -40,6 +40,7 @@ extension SBObject: ChromiumBrowserWindow, ChromiumBrowserTab {}
 // MARK: - Browser Tab Info
 
 struct BrowserTabInfo {
+    let tabId: Int
     let windowIndex: Int
     let tabIndex: Int
     let title: String
@@ -47,6 +48,10 @@ struct BrowserTabInfo {
     let isActive: Bool
     let isIncognito: Bool
     let bundleIdentifier: String
+    
+    var uniqueId: String {
+        return "\(bundleIdentifier):\(tabId)"
+    }
     
     var displayTitle: String {
         if !title.isEmpty {
@@ -224,8 +229,10 @@ class BrowserTabManager {
             guard let tabs = window.tabs?() else { continue }
             for (tabIndex, tabObj) in tabs.enumerated() {
                 guard let tab = tabObj as? ChromiumBrowserTab else { continue }
+                let tabId = tab.id?() ?? 0
                 let isActive = tabIndex == activeTabIndex - 1
                 let tabInfo = BrowserTabInfo(
+                    tabId: tabId,
                     windowIndex: windowIndex,
                     tabIndex: tabIndex,
                     title: tab.title ?? "",
@@ -240,7 +247,7 @@ class BrowserTabManager {
         return allTabs
     }
     
-    static func activateTab(bundleIdentifier: String, tabUrl: String) -> Bool {
+    static func activateTab(bundleIdentifier: String, tabId: Int) -> Bool {
         guard let browser: ChromiumBrowserApplication = SBApplication(bundleIdentifier: bundleIdentifier) else {
             return false
         }
@@ -257,7 +264,7 @@ class BrowserTabManager {
             
             for (tabIndex, tabObj) in tabs.enumerated() {
                 guard let tab = tabObj as? ChromiumBrowserTab,
-                      tab.URL == tabUrl else { continue }
+                      tab.id?() == tabId else { continue }
                 
                 window.setActiveTabIndex?(tabIndex + 1)
                 window.setIndex?(1)
@@ -279,7 +286,7 @@ class BrowserTabManager {
         return allTabs.filter { !$0.isActive }
     }
     
-    static func getActiveTabUrl(bundleIdentifier: String) -> String? {
+    static func getActiveTabId(bundleIdentifier: String) -> Int? {
         guard let browser: ChromiumBrowserApplication = SBApplication(bundleIdentifier: bundleIdentifier) else {
             return nil
         }
@@ -299,6 +306,6 @@ class BrowserTabManager {
             return nil
         }
         
-        return activeTab.URL
+        return activeTab.id?()
     }
 }

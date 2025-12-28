@@ -231,13 +231,17 @@ class Window {
 
     func focus() {
         if isBrowserTab, let tabInfo = browserTabInfo {
-            _ = BrowserTabManager.activateTab(
-                bundleIdentifier: tabInfo.bundleIdentifier,
-                tabUrl: tabInfo.url
-            )
-            Windows.updateFocusOrderForTab(self)
-            captureTabPreviewAfterDelay(tabInfo: tabInfo)
             App.app.previewPanel.orderOut(nil)
+            Windows.updateFocusOrderForTab(self)
+            BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
+                _ = BrowserTabManager.activateTab(
+                    bundleIdentifier: tabInfo.bundleIdentifier,
+                    tabId: tabInfo.tabId
+                )
+                DispatchQueue.main.async {
+                    self?.captureTabPreviewAfterDelay(tabInfo: tabInfo)
+                }
+            }
             return
         }
         if let altTabWindow = altTabWindow() {

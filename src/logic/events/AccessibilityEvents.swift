@@ -187,10 +187,24 @@ class AccessibilityEvents {
                         
                         if Preferences.showBrowserTabsAsWindows,
                            let bundleId = window.application.bundleIdentifier,
-                           BrowserTabManager.isSupportedBrowser(bundleId),
-                           let activeTabUrl = BrowserTabManager.getActiveTabUrl(bundleIdentifier: bundleId),
-                           let activeTabWindow = Windows.list.first(where: { $0.isBrowserTab && $0.browserTabInfo?.url == activeTabUrl }) {
-                            Windows.updateFocusOrderForTab(activeTabWindow)
+                           let windowTitle = title,
+                           BrowserTabManager.isSupportedBrowser(bundleId) {
+                            if let activeTabWindow = Windows.list.first(where: {
+                                $0.isBrowserTab &&
+                                $0.browserTabInfo?.bundleIdentifier == bundleId &&
+                                windowTitle.contains($0.browserTabInfo?.title ?? "")
+                            }) {
+                                Windows.updateFocusOrderForTab(activeTabWindow)
+                            } else {
+                                Windows.syncBrowserTabsFromTitleChange(bundleId: bundleId)
+                                if let activeTabWindow = Windows.list.first(where: {
+                                    $0.isBrowserTab &&
+                                    $0.browserTabInfo?.bundleIdentifier == bundleId &&
+                                    windowTitle.contains($0.browserTabInfo?.title ?? "")
+                                }) {
+                                    Windows.updateFocusOrderForTab(activeTabWindow)
+                                }
+                            }
                         }
                         
                         App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
