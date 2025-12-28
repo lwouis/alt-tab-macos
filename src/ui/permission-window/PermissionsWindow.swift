@@ -76,6 +76,11 @@ class PermissionsWindow: NSWindow {
         setContentSize(view.fittingSize)
         contentView = view
     }
+
+    override func close() {
+        hideAppIfLastWindowIsClosed()
+        super.close()
+    }
 }
 
 extension PermissionsWindow: NSWindowDelegate {
