@@ -69,6 +69,8 @@ class PermissionsWindow: NSWindow {
             )
             rows.append([screenRecordingView])
         }
+        let widestRowWidth = rows.reduce(0) { max($0, $1[0]!.fittingSize.width) }
+        rows.forEach { $0[0]!.fit(widestRowWidth, $0[0]!.fittingSize.height) }
         let view = GridView(rows as! [[NSView]])
         view.fit()
         setContentSize(view.fittingSize)
