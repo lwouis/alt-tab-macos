@@ -67,6 +67,7 @@ class BrowserTabManager {
         ChromiumBrowserAdapter.self,
         DiaBrowserAdapter.self,
         ArcBrowserAdapter.self,
+        SafariBrowserAdapter.self,
     ]
     
     private static var tabCache: [String: [BrowserTabInfo]] = [:]

@@ -291,6 +291,7 @@
 		BRWA02234567890ABCDEF1 /* BrowserAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRWA01234567890ABCDEF1 /* BrowserAdapter.swift */; };
 		DIAB02234567890ABCDEF1 /* DiaBrowserAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DIAB01234567890ABCDEF1 /* DiaBrowserAdapter.swift */; };
 		ARCB02234567890ABCDEF1 /* ArcBrowserAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ARCB01234567890ABCDEF1 /* ArcBrowserAdapter.swift */; };
+		SAFB02234567890ABCDEF1 /* SafariBrowserAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = SAFB01234567890ABCDEF1 /* SafariBrowserAdapter.swift */; };
 		D04BAFBC862BA5FE0294EA7A /* AXUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA6F823BC0EDA9AA4B80A /* AXUIElement.swift */; };
 		D04BAFF30A98CF287F85DA1E /* BlacklistsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA27695D9A5824720BD7B /* BlacklistsTab.swift */; };
 /* End PBXBuildFile section */
@@ -615,6 +616,7 @@
 		BRWA01234567890ABCDEF1 /* BrowserAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserAdapter.swift; sourceTree = "<group>"; };
 		DIAB01234567890ABCDEF1 /* DiaBrowserAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaBrowserAdapter.swift; sourceTree = "<group>"; };
 		ARCB01234567890ABCDEF1 /* ArcBrowserAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcBrowserAdapter.swift; sourceTree = "<group>"; };
+		SAFB01234567890ABCDEF1 /* SafariBrowserAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariBrowserAdapter.swift; sourceTree = "<group>"; };
 		D04BA6F823BC0EDA9AA4B80A /* AXUIElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXUIElement.swift; sourceTree = "<group>"; };
 		D04BA70746DEEC3D30B43F81 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D04BA72AC9B57A1673C28B2E /* android-chrome-256x256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "android-chrome-256x256.png"; sourceTree = "<group>"; };
@@ -1539,6 +1541,7 @@
 				BRWA01234567890ABCDEF1 /* BrowserAdapter.swift */,
 				DIAB01234567890ABCDEF1 /* DiaBrowserAdapter.swift */,
 				ARCB01234567890ABCDEF1 /* ArcBrowserAdapter.swift */,
+				SAFB01234567890ABCDEF1 /* SafariBrowserAdapter.swift */,
 				D04BAC34CFD42A7F6F1F01C0 /* CGWindow.swift */,
 				D04BAD91161791D42FEC4A60 /* HelperExtensions.swift */,
 				D04BA03200F5A8FC0CD03607 /* CGWindowID.swift */,
@@ -2395,6 +2398,7 @@
 				BRWA02234567890ABCDEF1 /* BrowserAdapter.swift in Sources */,
 				DIAB02234567890ABCDEF1 /* DiaBrowserAdapter.swift in Sources */,
 				ARCB02234567890ABCDEF1 /* ArcBrowserAdapter.swift in Sources */,
+				SAFB02234567890ABCDEF1 /* SafariBrowserAdapter.swift in Sources */,
 				D04BA73E90EFEF8247A5105D /* CGWindow.swift in Sources */,
 				D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */,
 				D04BABED81800E18732912CC /* CGWindowID.swift in Sources */,
