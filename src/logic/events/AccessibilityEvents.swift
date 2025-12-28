@@ -184,6 +184,15 @@ class AccessibilityEvents {
                         window.title = window.bestEffortTitle(title)
                         window.isMinimized = isMinimized
                         window.isFullscreen = isFullscreen
+                        
+                        if Preferences.showBrowserTabsAsWindows,
+                           let bundleId = window.application.bundleIdentifier,
+                           BrowserTabManager.isSupportedBrowser(bundleId),
+                           let activeTabUrl = BrowserTabManager.getActiveTabUrl(bundleIdentifier: bundleId),
+                           let activeTabWindow = Windows.list.first(where: { $0.isBrowserTab && $0.browserTabInfo?.url == activeTabUrl }) {
+                            Windows.updateFocusOrderForTab(activeTabWindow)
+                        }
+                        
                         App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
                     }
                 }
