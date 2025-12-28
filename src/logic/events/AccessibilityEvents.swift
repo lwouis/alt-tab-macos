@@ -187,21 +187,22 @@ class AccessibilityEvents {
                         
                         if Preferences.showBrowserTabsAsWindows,
                            let bundleId = window.application.bundleIdentifier,
-                           let windowTitle = title,
                            BrowserTabManager.isSupportedBrowser(bundleId) {
-                            if let activeTabWindow = Windows.list.first(where: {
-                                $0.isBrowserTab &&
-                                $0.browserTabInfo?.bundleIdentifier == bundleId &&
-                                windowTitle.contains($0.browserTabInfo?.title ?? "")
-                            }) {
+                            if let activeTabId = BrowserTabManager.getActiveTabId(bundleIdentifier: bundleId),
+                               let activeTabWindow = Windows.list.first(where: {
+                                   $0.isBrowserTab &&
+                                   $0.browserTabInfo?.bundleIdentifier == bundleId &&
+                                   $0.browserTabInfo?.tabId == activeTabId
+                               }) {
                                 Windows.updateFocusOrderForTab(activeTabWindow)
                             } else {
                                 Windows.syncBrowserTabsFromTitleChange(bundleId: bundleId)
-                                if let activeTabWindow = Windows.list.first(where: {
-                                    $0.isBrowserTab &&
-                                    $0.browserTabInfo?.bundleIdentifier == bundleId &&
-                                    windowTitle.contains($0.browserTabInfo?.title ?? "")
-                                }) {
+                                if let activeTabId = BrowserTabManager.getActiveTabId(bundleIdentifier: bundleId),
+                                   let activeTabWindow = Windows.list.first(where: {
+                                       $0.isBrowserTab &&
+                                       $0.browserTabInfo?.bundleIdentifier == bundleId &&
+                                       $0.browserTabInfo?.tabId == activeTabId
+                                   }) {
                                     Windows.updateFocusOrderForTab(activeTabWindow)
                                 }
                             }
