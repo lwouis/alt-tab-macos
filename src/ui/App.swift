@@ -124,7 +124,7 @@ class App: AppCenterApplication {
     }
 
     @objc func checkPermissions(_ sender: NSMenuItem) {
-        permissionsWindow.show({})
+        permissionsWindow.show()
     }
 
     @objc func supportProject() {
@@ -287,35 +287,36 @@ extension App: NSApplicationDelegate {
         #endif
         AXUIElement.setGlobalTimeout()
         Preferences.initialize()
-        BackgroundWork.startSystemPermissionThread()
         permissionsWindow = PermissionsWindow()
-        SystemPermissions.ensurePermissionsAreGranted { [weak self] in
-            guard let self else { return }
-            Logger.info("System Permissions are granted")
-            BackgroundWork.start()
-            NSScreen.updatePreferred()
-            Appearance.update()
-            Menubar.initialize()
-            MainMenu.loadFromXib()
-            self.thumbnailsPanel = ThumbnailsPanel()
-            self.previewPanel = PreviewPanel()
-            Spaces.refresh()
-            SpacesEvents.observe()
-            ScreensEvents.observe()
-            SystemAppearanceEvents.observe()
-            SystemScrollerStyleEvents.observe()
-            Applications.initialDiscovery()
-            self.preferencesWindow = PreferencesWindow()
-            self.feedbackWindow = FeedbackWindow()
-            KeyboardEvents.addEventHandlers()
-            MouseEvents.observe()
-            TrackpadEvents.observe()
-            CliEvents.observe()
-            Logger.info("AltTab finished launching")
-            #if DEBUG
+        BackgroundWork.preStart()
+        SystemPermissions.ensurePermissionsAreGranted()
+    }
+
+    func continueAppLaunchAfterPermissionsAreGranted() {
+        Logger.info("system permissions are granted")
+        BackgroundWork.start()
+        NSScreen.updatePreferred()
+        Appearance.update()
+        Menubar.initialize()
+        MainMenu.loadFromXib()
+        self.thumbnailsPanel = ThumbnailsPanel()
+        self.previewPanel = PreviewPanel()
+        Spaces.refresh()
+        SpacesEvents.observe()
+        ScreensEvents.observe()
+        SystemAppearanceEvents.observe()
+        SystemScrollerStyleEvents.observe()
+        Applications.initialDiscovery()
+        self.preferencesWindow = PreferencesWindow()
+        self.feedbackWindow = FeedbackWindow()
+        KeyboardEvents.addEventHandlers()
+        MouseEvents.observe()
+        TrackpadEvents.observe()
+        CliEvents.observe()
+        Logger.info("AltTab finished launching")
+        #if DEBUG
 //            self.showPreferencesWindow()
-            #endif
-        }
+        #endif
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

@@ -12,7 +12,7 @@ class IOKitPrototype {
             kIOHIDDeviceUsageKey: kHIDUsage_GD_Keyboard
         ] as CFDictionary)
         IOHIDManagerRegisterInputValueCallback(manager, keyboardEventHandler, nil)
-        IOHIDManagerScheduleWithRunLoop(manager, BackgroundWork.keyboardAndTrackpadEventsThread.runLoop!, CFRunLoopMode.commonModes.rawValue)
+        IOHIDManagerScheduleWithRunLoop(manager, BackgroundWork.keyboardAndMouseAndTrackpadEventsThread.runLoop!, CFRunLoopMode.commonModes.rawValue)
         IOHIDManagerOpen(manager, IOOptionBits(kIOHIDOptionsTypeNone))
     }
 }
