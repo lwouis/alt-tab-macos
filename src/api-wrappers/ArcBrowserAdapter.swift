@@ -59,11 +59,11 @@ class ArcBrowserAdapter: BrowserAdapter {
                 let tabId = tab.id?() ?? ""
                 let isActive = tabId == activeTabId
                 let tabInfo = BrowserTabInfo(
-                    tabId: tabId,
+                    tabId: String(tabId),
                     windowIndex: windowIndex,
                     tabIndex: tabIndex,
-                    title: tab.title ?? "",
-                    url: tab.URL ?? "",
+                    title: String(tab.title ?? ""),
+                    url: String(tab.URL ?? ""),
                     isActive: isActive,
                     isIncognito: isIncognito,
                     bundleIdentifier: bundleIdentifier

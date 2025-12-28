@@ -56,13 +56,13 @@ class DiaBrowserAdapter: BrowserAdapter {
                 let tabId = tab.id?() ?? ""
                 let isActive = tab.isFocused ?? false
                 let tabInfo = BrowserTabInfo(
-                    tabId: tabId,
+                    tabId: String(tabId),
                     windowIndex: windowIndex,
                     tabIndex: tabIndex,
-                    title: tab.title ?? "",
-                    url: tab.URL ?? "",
+                    title: String(tab.title ?? ""),
+                    url: String(tab.URL ?? ""),
                     isActive: isActive,
-                    isIncognito: false, // Dia doesn't expose incognito state via AppleScript
+                    isIncognito: false,
                     bundleIdentifier: bundleIdentifier
                 )
                 allTabs.append(tabInfo)

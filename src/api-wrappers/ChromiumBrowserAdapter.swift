@@ -79,8 +79,8 @@ class ChromiumBrowserAdapter: BrowserAdapter {
                     tabId: String(tabId),
                     windowIndex: windowIndex,
                     tabIndex: tabIndex,
-                    title: tab.title ?? "",
-                    url: tab.URL ?? "",
+                    title: String(tab.title ?? ""),
+                    url: String(tab.URL ?? ""),
                     isActive: isActive,
                     isIncognito: isIncognito,
                     bundleIdentifier: bundleIdentifier

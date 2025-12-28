@@ -81,8 +81,8 @@ class SafariBrowserAdapter: BrowserAdapter {
                     tabId: tabId,
                     windowIndex: windowIndex,
                     tabIndex: tabIndex,
-                    title: tab.name ?? "",
-                    url: tab.URL ?? "",
+                    title: String(tab.name ?? ""),
+                    url: String(tab.URL ?? ""),
                     isActive: isActive,
                     isIncognito: false,
                     bundleIdentifier: bundleIdentifier
