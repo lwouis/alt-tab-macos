@@ -2,7 +2,8 @@ import Cocoa
 import ShortcutRecorder
 
 class KeyRepeatTimer {
-    static var timer: Timer?
+    static var timer = DispatchSource.makeTimerSource(queue: BackgroundWork.repeatingKeyQueue.strongUnderlyingQueue)
+    static var timerIsSuspended = true
     static var currentTimerShortcutName: String?
 
     static func toggleRepeatingKeyPreviousWindow() {
@@ -27,21 +28,21 @@ class KeyRepeatTimer {
         if shortcutName == currentTimerShortcutName {
             Logger.debug(shortcutName)
             currentTimerShortcutName = nil
-            timer?.invalidate()
+            timer.suspend()
+            timerIsSuspended = true
         }
     }
 
     private static func activateTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
-        if ((timer == nil || !timer!.isValid) && atShortcut.state != .up) {
-            let repeatRate = ticksToSeconds(CachedUserDefaults.globalString("KeyRepeat") ?? "6")
-            let initialDelay = ticksToSeconds(CachedUserDefaults.globalString("InitialKeyRepeat") ?? "25")
-            timer = Timer(fire: Date(timeIntervalSinceNow: initialDelay), interval: repeatRate, repeats: true) { _ in
-                handleEvent(atShortcut, block)
-            }
-            timer!.tolerance = repeatRate * 0.1
-            CFRunLoopAddTimer(BackgroundWork.repeatingKeyThread.runLoop, timer!, .commonModes)
-            currentTimerShortcutName = atShortcut.id
-        }
+        guard timerIsSuspended && atShortcut.state != .up else { return }
+        currentTimerShortcutName = atShortcut.id
+        // reading these user defaults every time guarantees we have the latest value, if the user has updated those
+        let repeatRate = ticksToSeconds(CachedUserDefaults.globalString("KeyRepeat") ?? "6")
+        let initialDelay = ticksToSeconds(CachedUserDefaults.globalString("InitialKeyRepeat") ?? "25")
+        timer.schedule(deadline: .now() + initialDelay, repeating: repeatRate, leeway: .milliseconds(Int(repeatRate * 1000 / 10)))
+        timer.setEventHandler { handleEvent(atShortcut, block) }
+        timer.resume()
+        timerIsSuspended = false
     }
 
     private static func handleEvent(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
