@@ -239,7 +239,7 @@ class Windows {
         let nextIndex = windowIndexAfterCycling(step)
         // don't wrap-around at the end, if key-repeat
         if (((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
-            (!allowWrap || ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false))
+            (!allowWrap || ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended))
                // don't cycle to another row, if !allowWrap
                || (!allowWrap && list[nextIndex].rowIndex != list[focusedWindowIndex].rowIndex) {
             return

@@ -9,10 +9,8 @@ class BackgroundWork {
     static var missionControlThread: BackgroundThreadWithRunLoop!
     static var cliEventsThread: BackgroundThreadWithRunLoop!
 
-    // TODO: use OperationQueue instead of thread
-    static var repeatingKeyThread: BackgroundThreadWithRunLoop!
-
     // we use an OperationQueue for most tasks, especially when we need to call blocking APIs in parallel
+    static var repeatingKeyQueue: LabeledOperationQueue!
     static var screenshotsQueue: LabeledOperationQueue!
     static var accessibilityCommandsQueue: LabeledOperationQueue!
     static var axCallsFirstAttemptQueue: LabeledOperationQueue!
@@ -43,12 +41,12 @@ class BackgroundWork {
         axCallsRetriesQueue = LabeledOperationQueue("axCallsRetriesQueue", .userInteractive, 8)
         // we separate calls to manuallyUpdateWindows since those can be very heavy and numerous
         axCallsManualDiscoveryQueue = LabeledOperationQueue("axCallsManualDiscoveryQueue", .userInteractive, 8)
+        // we time key repeat on a background queue. We handle their consequence on the main-thread
+        repeatingKeyQueue = LabeledOperationQueue("repeatingKeyQueue", .userInteractive, 1)
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
         // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
         keyboardAndMouseAndTrackpadEventsThread = BackgroundThreadWithRunLoop("keyboardAndMouseAndTrackpadEventsThread", .userInteractive)
-        // we time key repeat on a background thread for precision. We handle their consequence on the main-thread
-        repeatingKeyThread = BackgroundThreadWithRunLoop("repeatingKeyThread", .userInteractive)
         // we main Mission Control state on a background thread. We protect reads from main-thread with an NSLock
         missionControlThread = BackgroundThreadWithRunLoop("missionControlThread", .userInteractive)
         // we listen to CLI commands (CFMessagePort events)
