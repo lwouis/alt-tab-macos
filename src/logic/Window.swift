@@ -155,7 +155,7 @@ class Window {
     }
 
     func canBeClosed() -> Bool {
-        return !isWindowlessApp
+        return !isWindowlessApp && !isBrowserTab
     }
 
     func close() {
@@ -187,7 +187,7 @@ class Window {
     }
 
     func canBeMinDeminOrFullscreened() -> Bool {
-        return !isWindowlessApp && !isTabbed
+        return !isWindowlessApp && !isTabbed && !isBrowserTab
     }
 
     func minDemin() {
@@ -348,13 +348,14 @@ class Window {
 
     // Determines if this window is the main application window
     func isAppMainWindow() -> Bool {
+        guard !isBrowserTab, let axUiElement else { return false }
         if let element = application.axUiElement {
             var mainWindow: AnyObject?
             if AXUIElementCopyAttributeValue(element, kAXMainWindowAttribute as CFString, &mainWindow) == .success {
                 if let mainWin = mainWindow as! AXUIElement? {
                     do {
                         let w1 = try mainWin.cgWindowId()
-                        let w2 = try axUiElement!.cgWindowId()
+                        let w2 = try axUiElement.cgWindowId()
                         if w1 == w2 {
                             return true
                         }

@@ -72,11 +72,11 @@ class Windows {
     }
 
     static func updateIsFullscreenOnCurrentSpace() {
-        let windowsOnCurrentSpace = Windows.list.filter { !$0.isWindowlessApp }
+        let windowsOnCurrentSpace = Windows.list.filter { !$0.isWindowlessApp && !$0.isBrowserTab }
         for window in windowsOnCurrentSpace {
             AXUIElement.retryAxCallUntilTimeout(context: window.debugId, after: .now() + humanPerceptionDelay, callType: .updateWindow) { [weak window] in
-                guard let window else { return }
-                try AccessibilityEvents.updateWindowSizeAndPositionAndFullscreen(window.axUiElement!, window.cgWindowId!, window)
+                guard let window, let axUiElement = window.axUiElement, let cgWindowId = window.cgWindowId else { return }
+                try AccessibilityEvents.updateWindowSizeAndPositionAndFullscreen(axUiElement, cgWindowId, window)
             }
         }
     }
