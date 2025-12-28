@@ -2,23 +2,35 @@ import Foundation
 
 // queues and dedicated threads to observe background events such as keyboard inputs, or accessibility events
 class BackgroundWork {
-    // we use an OperationQueue tied to the global DispatchQueue to call blocking APIs in parallel
+    // we use Threads when the APIs we observe require a RunLoop (e.g. CGEvent.tapCreate, AXObserverGetRunLoopSource, CFMessagePortCreateRunLoopSource)
+    // when possible, we prefer OperationQueues
+    static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
+    static var keyboardAndMouseAndTrackpadEventsThread: BackgroundThreadWithRunLoop!
+    static var missionControlThread: BackgroundThreadWithRunLoop!
+    static var cliEventsThread: BackgroundThreadWithRunLoop!
+
+    // TODO: use OperationQueue instead of thread
+    static var repeatingKeyThread: BackgroundThreadWithRunLoop!
+
+    // we use an OperationQueue for most tasks, especially when we need to call blocking APIs in parallel
     static var screenshotsQueue: LabeledOperationQueue!
     static var accessibilityCommandsQueue: LabeledOperationQueue!
     static var axCallsFirstAttemptQueue: LabeledOperationQueue!
     static var axCallsRetriesQueue: LabeledOperationQueue!
     static var axCallsManualDiscoveryQueue: LabeledOperationQueue!
     static var crashReportsQueue: LabeledOperationQueue!
-    // we use Threads to observe events in sequence
-    static var accessibilityEventsThread: BackgroundThreadWithRunLoop!
-    static var keyboardAndTrackpadEventsThread: BackgroundThreadWithRunLoop!
-    static var systemPermissionsThread: BackgroundThreadWithRunLoop!
-    static var repeatingKeyThread: BackgroundThreadWithRunLoop!
-    static var missionControlThread: BackgroundThreadWithRunLoop!
-    static var cliEventsThread: BackgroundThreadWithRunLoop!
-    static var debugMenu: DebugMenu!
+    static var systemPermissionsCheckOnTimerQueue: LabeledOperationQueue!
+    static var systemPermissionsSystemCallsQueue: LabeledOperationQueue!
 
+    private static var debugMenu: DebugMenu!
     private static var totalPotentialThreadCount = 0
+
+    static func preStart() {
+        // we make calls to the system permissions API to know if permissions are granted. We do this on a timer
+        systemPermissionsCheckOnTimerQueue = LabeledOperationQueue("systemPermissionsCheckOnTimerQueue", .userInteractive, 1)
+        // if macOS is overwhelmed, let's reduce the pressure on it by calling permission APIs one at a time
+        systemPermissionsSystemCallsQueue = LabeledOperationQueue("systemPermissionsSystemCallsQueue", .userInteractive, 1)
+    }
 
     static func start() {
         screenshotsQueue = LabeledOperationQueue("screenshotsQueue", .userInteractive, 8)
@@ -34,7 +46,7 @@ class BackgroundWork {
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
         accessibilityEventsThread = BackgroundThreadWithRunLoop("accessibilityEventsThread", .userInteractive)
         // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
-        keyboardAndTrackpadEventsThread = BackgroundThreadWithRunLoop("keyboardAndTrackpadEventsThread", .userInteractive)
+        keyboardAndMouseAndTrackpadEventsThread = BackgroundThreadWithRunLoop("keyboardAndMouseAndTrackpadEventsThread", .userInteractive)
         // we time key repeat on a background thread for precision. We handle their consequence on the main-thread
         repeatingKeyThread = BackgroundThreadWithRunLoop("repeatingKeyThread", .userInteractive)
         // we main Mission Control state on a background thread. We protect reads from main-thread with an NSLock
@@ -51,15 +63,10 @@ class BackgroundWork {
         }
     }
 
-    static func startSystemPermissionThread() {
-        // not 100% sure this shouldn't be on the main-thread; it doesn't do anything except dispatch to main.async
-        systemPermissionsThread = BackgroundThreadWithRunLoop("systemPermissionsThread", .utility)
-    }
-
     static func addPotentialThreadCount(_ additionalCount: Int) {
         totalPotentialThreadCount += additionalCount
         // a macos process has a soft limit of 64 threads. We need to be careful to don't spawn too many threads through DispatchQueues
-        assert(totalPotentialThreadCount <= 43)
+        assert(totalPotentialThreadCount <= 45)
     }
 
     // useful during development to inspect how many threads are used by AltTab

@@ -13,19 +13,22 @@ class PermissionsWindow: NSWindow {
         setupView()
     }
 
-    func show(_ startupBlock: @escaping () -> Void) {
-        accessibilityView.updatePermissionStatus(AccessibilityPermission.update())
-        if #available(macOS 10.15, *) {
-            screenRecordingView.updatePermissionStatus(ScreenRecordingPermission.update())
-        }
+    func show() {
+        guard !isVisible else { return }
+        Logger.debug()
+        SystemPermissions.setFrequentTimer()
+        updatePermissionViews()
         center()
         App.shared.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
-        if #available(macOS 10.15, *), !SystemPermissions.preStartupPermissionsPassed {
-            // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
-            SLSRequestScreenCaptureAccess()
+    }
+
+    func updatePermissionViews() {
+        guard isVisible else { return }
+        accessibilityView.updatePermissionStatus(AccessibilityPermission.status)
+        if #available(macOS 10.15, *) {
+            screenRecordingView.updatePermissionStatus(ScreenRecordingPermission.status)
         }
-        SystemPermissions.pollPermissionsToUpdatePermissionsWindow(startupBlock)
     }
 
     private func setupWindow() {
@@ -84,17 +87,18 @@ class PermissionsWindow: NSWindow {
 }
 
 extension PermissionsWindow: NSWindowDelegate {
-    func windowWillClose(_ notification: Notification) {
-        Logger.debug(SystemPermissions.preStartupPermissionsPassed)
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        Logger.debug("preStartupPermissionsPassed:\(SystemPermissions.preStartupPermissionsPassed), accessibility:\(AccessibilityPermission.status), screen-recording:\(ScreenRecordingPermission.status)")
         if !SystemPermissions.preStartupPermissionsPassed {
-            if AccessibilityPermission.update() == .notGranted || ScreenRecordingPermission.update() == .notGranted {
+            if AccessibilityPermission.status == .notGranted || ScreenRecordingPermission.status == .notGranted {
                 Logger.error("Before using this app, you need to give permission in System Settings > Privacy & Security > Accessibility.",
                     "Please authorize and re-launch.",
                     "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
                 App.shared.terminate(self)
+                return false // prevent the close; termination will close everything once
             }
-        } else {
-            SystemPermissions.timerPermissionsToUpdatePermissionsWindow?.invalidate()
         }
+        SystemPermissions.setInfrequentTimer()
+        return true
     }
 }

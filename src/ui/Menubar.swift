@@ -4,6 +4,7 @@ class Menubar {
     static var statusItem: NSStatusItem!
     static var menu: NSMenu!
     static var permissionCalloutMenuItems: [NSMenuItem]?
+    static var isShowingPermissionCallout = false
 
     static func addMenuItem(_ title: String, _ action: Selector, _ keyEquivalent: String, _ symbolName: String?, _ color: NSColor? = nil) {
         let item = menu.addItem(withTitle: title, action: action, keyEquivalent: keyEquivalent)
@@ -41,6 +42,8 @@ class Menubar {
 
     // NSMenuItem.isHidden isn't reliable with custom views. We add/remove to hide/show these items
     static func togglePermissionCallout(_ show: Bool) {
+        guard isShowingPermissionCallout != show else { return }
+        isShowingPermissionCallout = show
         permissionCalloutMenuItems?.enumerated().forEach { offset, element in
             if show && !menu.items.contains(element) {
                 menu.insertItem(element, at: offset)

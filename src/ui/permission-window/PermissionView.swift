@@ -43,6 +43,7 @@ class PermissionView: StackView {
     }
 
     func updatePermissionStatus(_ permissionStatus: PermissionStatus) {
+        guard status.stringValue.isEmpty || permissionStatus != self.permissionStatus else { return }
         self.permissionStatus = permissionStatus
         var color: NSColor
         var label: String
