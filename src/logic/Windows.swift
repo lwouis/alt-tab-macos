@@ -390,6 +390,24 @@ class Windows {
         }
     }
     
+    static func captureActiveTabPreview(for tabWindow: Window, browserWindow: Window) {
+        guard let tabInfo = tabWindow.browserTabInfo,
+              let wid = browserWindow.cgWindowId,
+              let position = browserWindow.position,
+              let size = browserWindow.size else { return }
+        
+        // Small delay to let the browser render the tab content
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            BackgroundWork.screenshotsQueue.addOperation {
+                if let screenshot = wid.screenshot() {
+                    DispatchQueue.main.async {
+                        BrowserTabManager.cachePreview(for: tabInfo.url, screenshot: screenshot, position: position, size: size)
+                    }
+                }
+            }
+        }
+    }
+    
     static func syncBrowserTabsFromTitleChange(bundleId: String) {
         guard let app = Applications.list.first(where: { $0.bundleIdentifier == bundleId }) else { return }
         let currentTabs = BrowserTabManager.getAllTabs(bundleIdentifier: bundleId)

@@ -195,6 +195,7 @@ class AccessibilityEvents {
                                    $0.browserTabInfo?.tabId == activeTabId
                                }) {
                                 Windows.updateFocusOrderForTab(activeTabWindow)
+                                Windows.captureActiveTabPreview(for: activeTabWindow, browserWindow: window)
                             } else {
                                 Windows.syncBrowserTabsFromTitleChange(bundleId: bundleId)
                                 if let activeTabId = BrowserTabManager.getActiveTabId(bundleIdentifier: bundleId),
@@ -204,6 +205,7 @@ class AccessibilityEvents {
                                        $0.browserTabInfo?.tabId == activeTabId
                                    }) {
                                     Windows.updateFocusOrderForTab(activeTabWindow)
+                                    Windows.captureActiveTabPreview(for: activeTabWindow, browserWindow: window)
                                 }
                             }
                         }
