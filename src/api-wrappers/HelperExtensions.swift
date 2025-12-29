@@ -315,7 +315,7 @@ extension DispatchTimeInterval {
 }
 
 extension NSRunningApplication {
-    var id: String { "pid:\(String(describing: processIdentifier)) app:\(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil")"  }
+    func debugId() -> String { "pid:\(String(describing: processIdentifier)) app:\(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil")"  }
 }
 
 // 250ms is similar to human delay in processing changes on screen
