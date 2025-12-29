@@ -313,6 +313,8 @@ extension App: NSApplicationDelegate {
         MouseEvents.observe()
         TrackpadEvents.observe()
         CliEvents.observe()
+        // login item and plist updates can be done a bit later, to accelerate launch
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { GeneralTab.startAtLoginCallback() }
         Logger.info("AltTab finished launching")
         #if DEBUG
 //            self.showPreferencesWindow()
