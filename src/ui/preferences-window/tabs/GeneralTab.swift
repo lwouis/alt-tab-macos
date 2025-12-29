@@ -20,6 +20,7 @@ class GeneralTab {
     ]
     static var menubarIconDropdown: NSPopUpButton?
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
+    private static var startAtLoginToggle: NSControl?
 
     static func initTab() -> NSView {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
@@ -44,7 +45,7 @@ class GeneralTab {
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
-        startAtLoginCallback(startAtLogin.rightViews[0] as! NSControl)
+        startAtLoginToggle = startAtLogin.rightViews[0] as? NSControl
         Menubar.menubarIconCallback(nil)
         enableDraggingOffMenubarIcon(menuIconShownToggle)
         let table = TableGroupView(width: PreferencesWindow.width)
@@ -83,8 +84,8 @@ class GeneralTab {
     }
 
     /// add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
-    static func startAtLoginCallback(_ sender: NSControl) {
-        let sender = sender as! Switch
+    static func startAtLoginCallback(_: NSControl? = nil) {
+        let sender = startAtLoginToggle as! Switch
         // if the user has added AltTab manually as a LoginItem, we remove it, and add AltTab as a LaunchAgent
         // LaunchAgent are the recommended method for open-at-login in recent versions of macos
         if (GeneralTab.self as AvoidDeprecationWarnings.Type).removeLoginItemIfPresent() && sender.state == .off {
