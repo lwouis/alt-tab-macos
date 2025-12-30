@@ -15,7 +15,7 @@ class PermissionsWindow: NSWindow {
 
     func show() {
         guard !isVisible else { return }
-        Logger.debug()
+        Logger.debug { "" }
         SystemPermissions.setFrequentTimer()
         updatePermissionViews()
         center()
@@ -88,12 +88,16 @@ class PermissionsWindow: NSWindow {
 
 extension PermissionsWindow: NSWindowDelegate {
     func windowShouldClose(_ sender: NSWindow) -> Bool {
-        Logger.debug("preStartupPermissionsPassed:\(SystemPermissions.preStartupPermissionsPassed), accessibility:\(AccessibilityPermission.status), screen-recording:\(ScreenRecordingPermission.status)")
+        Logger.debug { "preStartupPermissionsPassed:\(SystemPermissions.preStartupPermissionsPassed), accessibility:\(AccessibilityPermission.status), screenRecording:\(ScreenRecordingPermission.status)" }
         if !SystemPermissions.preStartupPermissionsPassed {
             if AccessibilityPermission.status == .notGranted || ScreenRecordingPermission.status == .notGranted {
-                Logger.error("Before using this app, you need to give permission in System Settings > Privacy & Security > Accessibility.",
-                    "Please authorize and re-launch.",
-                    "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
+                Logger.error {
+                    """
+                    Before using this app, you need to give permission in System Settings > Privacy & Security > Accessibility.
+                    Please authorize and re-launch.
+                    See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx
+                    """
+                }
                 App.shared.terminate(self)
                 return false // prevent the close; termination will close everything once
             }

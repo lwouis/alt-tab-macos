@@ -7,7 +7,7 @@ class SystemPermissions {
     private static var timer: DispatchSourceTimer!
 
     static func ensurePermissionsAreGranted() {
-        timer = DispatchSource.makeTimerSource(queue: BackgroundWork.systemPermissionsCheckOnTimerQueue.strongUnderlyingQueue)
+        timer = DispatchSource.makeTimerSource(queue: BackgroundWork.permissionsCheckOnTimerQueue.strongUnderlyingQueue)
         timer.setEventHandler(handler: checkPermissionsOnTimer)
         setImmediateTimer()
         timer.resume()
@@ -28,7 +28,7 @@ class SystemPermissions {
     }
 
     private static func checkPermissionsPreStartup() {
-        Logger.info("accessibility:\(AccessibilityPermission.status), screen-recording:\(ScreenRecordingPermission.status)")
+        Logger.info { "accessibility:\(AccessibilityPermission.status) screenRecording:\(ScreenRecordingPermission.status)" }
         if AccessibilityPermission.status != .notGranted && ScreenRecordingPermission.status != .notGranted {
             DispatchQueue.main.async {
                 preStartupPermissionsPassed = true
@@ -44,15 +44,15 @@ class SystemPermissions {
     }
 
     private static func checkPermissionsPostStartup() {
-        Logger.debug("accessibility:\(AccessibilityPermission.status), screen-recording:\(ScreenRecordingPermission.status)")
+        Logger.debug { "accessibility:\(AccessibilityPermission.status) screenRecording:\(ScreenRecordingPermission.status)" }
         if AccessibilityPermission.status == .notGranted {
-            Logger.error("accessibility permission revoked while AltTab was running; restarting")
+            Logger.error { "Accessibility permission revoked while AltTab was running; restarting" }
             DispatchQueue.main.async { App.app.restart() }
         }
         if ScreenRecordingPermission.status == .notGranted {
             // permission check may yield a false negative during wake-up; we restart after 2 negative checks
             if ScreenRecordingPermission.flakyCounter >= 2 {
-                Logger.error("screen-recording permission revoked while AltTab was running (checked 2 times); restarting")
+                Logger.error { "Screen-recording permission revoked while AltTab was running (checked 2 times); restarting" }
                 DispatchQueue.main.async { App.app.restart() }
             } else {
                 ScreenRecordingPermission.flakyCounter += 1
@@ -166,7 +166,7 @@ class ScreenRecordingPermission {
     private static func runWithTimeout(_ block: @escaping (@escaping (Bool) -> Void) -> Void) -> Bool {
         let semaphore = DispatchSemaphore(value: 0)
         var result = false
-        BackgroundWork.systemPermissionsSystemCallsQueue.addOperation {
+        BackgroundWork.permissionsSystemCallsQueue.addOperation {
             block { r in
                 result = r
                 semaphore.signal()
@@ -174,7 +174,7 @@ class ScreenRecordingPermission {
         }
         let timeoutResult = semaphore.wait(timeout: .now() + 6)
         if timeoutResult == .timedOut {
-            Logger.error("screen-recording permission call timed out after 6s")
+            Logger.error { "Screen-recording permission call timed out after 6s" }
             return false
         }
         return result

@@ -315,7 +315,7 @@ extension DispatchTimeInterval {
 }
 
 extension NSRunningApplication {
-    func debugId() -> String { "pid:\(String(describing: processIdentifier)) app:\(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil")"  }
+    func debugId() -> String { "(pid:\(processIdentifier) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))" }
 }
 
 // 250ms is similar to human delay in processing changes on screen
@@ -331,6 +331,19 @@ extension NSTouch.Phase {
         case .ended:      "ended"
         case .cancelled:  "cancelled"
         default:          "unknown"
+        }
+    }
+}
+
+/// this changes the behavior of interpolating optional values (e.g. "\(optionalValue)")
+/// default is to return a compiler warning "string interpolation produces a debug description for an optional value; did you mean to make this explicit?"
+/// instead, we either print the value, or print "nil"
+extension String.StringInterpolation {
+    mutating func appendInterpolation<T>(_ value: T?) {
+        if let value {
+            appendInterpolation(value)
+        } else {
+            appendLiteral("nil")
         }
     }
 }

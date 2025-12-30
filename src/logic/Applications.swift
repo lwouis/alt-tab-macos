@@ -49,7 +49,7 @@ class Applications {
         let zombies = believedAlive.subtracting(confirmedAlive)
         for (index, window) in Windows.list.enumerated().reversed() {
             if let wid = window.cgWindowId, zombies.contains(wid) {
-                Logger.error("----", window.title, window.application.bundleIdentifier)
+                Logger.debug { window.debugId() }
                 Windows.removeWindow(index, window.application.pid)
             }
         }

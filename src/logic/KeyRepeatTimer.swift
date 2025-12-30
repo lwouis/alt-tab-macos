@@ -26,7 +26,7 @@ class KeyRepeatTimer {
 
     static func deactivateTimerForRepeatingKey(_ shortcutName: String) {
         if shortcutName == currentTimerShortcutName {
-            Logger.debug(shortcutName)
+            Logger.debug { shortcutName }
             currentTimerShortcutName = nil
             timer.suspend()
             timerIsSuspended = true

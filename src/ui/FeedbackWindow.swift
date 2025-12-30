@@ -88,7 +88,7 @@ class FeedbackWindow: NSWindow {
     func openTicket() {
         URLSession.shared.dataTask(with: prepareRequest(), completionHandler: { data, response, error in
             if error != nil || response == nil || (response as! HTTPURLResponse).statusCode != 201 {
-                Logger.error("HTTP call failed:", response, error, data.flatMap { String(data: $0, encoding: .utf8) })
+                Logger.error { "HTTP call failed. response:\(response) error:\(error) data:\(data.flatMap { String(data: $0, encoding: .utf8) })" }
             }
         }).resume()
         issueTitle.stringValue = ""

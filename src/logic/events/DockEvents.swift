@@ -13,7 +13,7 @@ class DockEvents {
                 AXUIElement.retryAxCallUntilTimeout(callType: .subscribeToDockNotification) {
                     if try axUiElement!.subscribeToNotification(axObserver!, notification.rawValue, nil) {
                         if notification == MissionControlState.showDesktop {
-                            Logger.debug("Subscribed to Dock")
+                            Logger.debug { "Subscribed to Dock" }
                         }
                     }
                 }
@@ -29,7 +29,7 @@ class DockEvents {
     }
 
     private static let handleEvent: AXObserverCallback = { _, _, notificationName, _ in
-        Logger.debug(notificationName)
+        Logger.debug { notificationName }
         MissionControl.setState(MissionControlState(rawValue: notificationName as String)!)
     }
 }

@@ -46,7 +46,7 @@ class KeyboardEvents {
                     fn(shortcutId, shortcut)
                 }
             }
-            Logger.info("toggleGlobalShortcuts", shouldDisable)
+            Logger.info { "disabled:\(shouldDisable)" }
             globalShortcutsAreDisabled = shouldDisable
         }
     }

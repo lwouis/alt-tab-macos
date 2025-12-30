@@ -70,7 +70,7 @@ class ATShortcut {
     }
 
     func executeAction(_ isARepeat: Bool) {
-        Logger.info("executeAction", id)
+        Logger.info { self.id }
         ATShortcut.lastEventIsARepeat = isARepeat
         ControlsTab.executeAction(id)
     }

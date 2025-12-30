@@ -34,26 +34,26 @@ class Logger {
         return .error
     }
 
-    static func debug(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
-        custom(.debug, items, file: file, function: function, line: line, context: context)
+    static func debug(_ message: @escaping () -> Any?, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        custom(level: .debug, file: file, function: function, line: line, context: context, message)
     }
 
-    static func info(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
-        custom(.info, items, file: file, function: function, line: line, context: context)
+    static func info(_ message: @escaping () -> Any?, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        custom(level: .info, file: file, function: function, line: line, context: context, message)
     }
 
-    static func warning(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
-        custom(.warning, items, file: file, function: function, line: line, context: context)
+    static func warning(_ message: @escaping () -> Any?, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        custom(level: .warning, file: file, function: function, line: line, context: context, message)
     }
 
-    static func error(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
-        custom(.error, items, file: file, function: function, line: line, context: context)
+    static func error(_ message: @escaping () -> Any?, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
+        custom(level: .error, file: file, function: function, line: line, context: context, message)
     }
 
-    private static func custom(_ level: SwiftyBeaver.Level, _ items: [Any?], file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
-        let message = items.map { "\($0 ?? "nil")" }.joined(separator: " ")
-        logger.custom(level: level, message: "[\(threadName())] \(message)", file: file, function: function, line: line, context: context)
+    private static func custom(level: SwiftyBeaver.Level, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil, _ message: @escaping () -> Any?) {
+        logger.custom(level: level, message: { "[\(threadName())] \(message())" }(), file: file, function: function, line: line, context: context)
     }
+
 
     private static func threadName() -> String {
         if Thread.isMainThread {

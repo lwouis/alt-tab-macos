@@ -7,7 +7,7 @@ class CliEvents {
            let source = CFMessagePortCreateRunLoopSource(nil, messagePort, 0) {
             CFRunLoopAddSource(BackgroundWork.cliEventsThread.runLoop, source, .commonModes)
         } else {
-            Logger.error("Can't listen on message port. Is another AltTab already running?")
+            Logger.error { "Can't listen on message port. Is another AltTab already running?" }
             // TODO: should we quit or restart here?
             // It's complex since AltTab can be restarted sometimes,
             // and the new instance may coexist with the old for some duration
@@ -16,16 +16,16 @@ class CliEvents {
     }
 
     private static let handleEvent: CFMessagePortCallBack = { (_: CFMessagePort?, _: Int32, _ data: CFData?, _: UnsafeMutableRawPointer?) in
-        Logger.debug()
+        Logger.debug { "" }
         if let data,
            let message = String(data: data as Data, encoding: .utf8) {
-            Logger.info(message)
+            Logger.info { message }
             let output = CliServer.executeCommandAndSendReponse(message)
             if let responseData = try? CliServer.jsonEncoder.encode(output) as CFData {
                 return Unmanaged.passRetained(responseData)
             }
         }
-        Logger.error("Failed to decode message")
+        Logger.error { "Failed to decode message" }
         return nil
     }
 }

@@ -19,7 +19,10 @@ class Application: NSObject {
     var dockLabel: String?
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
-    var debugId: String { "(pid:\(String(describing: pid)) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil"))" }
+
+    func debugId() -> String {
+        return "(pid:\(pid) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))"
+    }
 
     static let notifications = [
         kAXApplicationActivatedNotification,
@@ -65,7 +68,7 @@ class Application: NSObject {
         bundleURL = runningApplication.bundleURL
         executableURL = runningApplication.executableURL
         super.init()
-        Logger.debug(debugId)
+        Logger.debug { self.debugId() }
         observeEventsIfEligible()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
@@ -83,7 +86,7 @@ class Application: NSObject {
     }
 
     deinit {
-        Logger.debug("Deinit app", debugId)
+        Logger.debug { self.debugId() }
     }
 
     func removeWindowslessAppWindow() {
@@ -106,7 +109,7 @@ class Application: NSObject {
     }
 
     func manuallyUpdateWindows() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .updateAppWindows) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: pid, callType: .updateAppWindows) { [weak self] in
             guard let self, let axUiElement = self.axUiElement else { return }
             var atLeastOneActualWindow = false
             let axWindows = try axUiElement.allWindows(self.pid)
@@ -200,17 +203,17 @@ class Application: NSObject {
 
     private func observeEvents() {
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .subscribeToAppNotification) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: pid, callType: .subscribeToAppNotification) { [weak self] in
             guard let self, !self.isReallyFinishedLaunching else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
-                Logger.debug("Subscribed to app", self.debugId)
+                Logger.debug { "Subscribed to app: \(self.debugId())" }
                 if !self.isReallyFinishedLaunching {
                     // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
                     // we consider them ready when the first subscription succeeds
                     // windows opened before that point won't send a notification, so check those windows manually here
                     self.isReallyFinishedLaunching = true
                     for notification in Application.notifications.dropFirst() {
-                        AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
+                        AXUIElement.retryAxCallUntilTimeout(context: self.debugId(), pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
                             try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                         }
                     }

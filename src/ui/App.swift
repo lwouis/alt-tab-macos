@@ -56,7 +56,7 @@ class App: AppCenterApplication {
     }
 
     func hideUi(_ keepPreview: Bool = false) {
-        Logger.info(appIsBeingUsed)
+        Logger.info { "appIsBeingUsed:\(self.appIsBeingUsed)" }
         guard appIsBeingUsed else { return } // already hidden
         appIsBeingUsed = false
         isFirstSummon = true
@@ -115,7 +115,7 @@ class App: AppCenterApplication {
     func focusTarget() {
         guard appIsBeingUsed else { return } // already hidden
         let focusedWindow = Windows.focusedWindow()
-        Logger.info(focusedWindow?.debugId)
+        Logger.info { focusedWindow?.debugId() }
         focusSelectedWindow(focusedWindow)
     }
 
@@ -217,7 +217,7 @@ class App: AppCenterApplication {
 
     func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
         forceDoNothingOnRelease = forceDoNothingOnRelease_
-        Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
+        Logger.debug { "isFirstSummon:\(self.isFirstSummon) shortcutIndex:\(shortcutIndex)" }
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             NSScreen.updatePreferred()
@@ -278,7 +278,7 @@ extension App: NSApplicationDelegate {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
         Logger.initialize()
-        Logger.info("Launching AltTab \(App.version)")
+        Logger.info { "Launching AltTab \(App.version)" }
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -293,7 +293,7 @@ extension App: NSApplicationDelegate {
     }
 
     func continueAppLaunchAfterPermissionsAreGranted() {
-        Logger.info("system permissions are granted")
+        Logger.info { "System permissions are granted; continuing launch" }
         BackgroundWork.start()
         NSScreen.updatePreferred()
         Appearance.update()
@@ -315,7 +315,7 @@ extension App: NSApplicationDelegate {
         CliEvents.observe()
         // login item and plist updates can be done a bit later, to accelerate launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { GeneralTab.startAtLoginCallback() }
-        Logger.info("AltTab finished launching")
+        Logger.info { "Finished launching AltTab" }
         #if DEBUG
 //            self.showPreferencesWindow()
         #endif
