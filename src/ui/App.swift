@@ -173,7 +173,7 @@ class App: AppCenterApplication {
 
     func previousWindowShortcutWithRepeatingKey() {
         cycleSelection(.trailing)
-        KeyRepeatTimer.toggleRepeatingKeyPreviousWindow()
+        KeyRepeatTimer.startRepeatingKeyPreviousWindow()
     }
 
     func focusSelectedWindow(_ selectedWindow: Window?) {
@@ -197,8 +197,8 @@ class App: AppCenterApplication {
         CGWarpMouseCursorPosition(point)
     }
 
-    func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy) {
-        Windows.refreshThumbnailsAsync(windowsToScreenshot, source)
+    func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
+        Windows.refreshThumbnailsAsync(windowsToScreenshot, source, windowRemoved: windowRemoved)
         guard appIsBeingUsed else { return }
         if source == .refreshUiAfterExternalEvent {
             if !Windows.updatesBeforeShowing() { hideUi(); return }
@@ -242,7 +242,7 @@ class App: AppCenterApplication {
             }
         } else {
             cycleSelection(.leading)
-            KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+            KeyRepeatTimer.startRepeatingKeyNextWindow()
         }
     }
 
@@ -253,7 +253,7 @@ class App: AppCenterApplication {
         refreshOpenUi([], .showUi)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
-        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+        KeyRepeatTimer.startRepeatingKeyNextWindow()
         Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }
 

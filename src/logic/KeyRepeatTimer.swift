@@ -6,25 +6,25 @@ class KeyRepeatTimer {
     static var timerIsSuspended = true
     static var currentTimerShortcutName: String?
 
-    static func toggleRepeatingKeyPreviousWindow() {
+    static func startRepeatingKeyPreviousWindow() {
         if let shortcut = ControlsTab.shortcuts["previousWindowShortcut"],
            // events already repeat when using a shortcut with a keycode; no need for artificial repeat
            shortcut.shortcut.keyCode == .none {
-            activateTimerForRepeatingKey(shortcut) {
+            startTimerForRepeatingKey(shortcut) {
                 App.app.previousWindowShortcutWithRepeatingKey()
             }
         }
     }
 
-    static func toggleRepeatingKeyNextWindow() {
+    static func startRepeatingKeyNextWindow() {
         if let shortcut = ControlsTab.shortcuts[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)] {
-            activateTimerForRepeatingKey(shortcut) {
+            startTimerForRepeatingKey(shortcut) {
                 ControlsTab.executeAction(Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex))
             }
         }
     }
 
-    static func deactivateTimerForRepeatingKey(_ shortcutName: String) {
+    static func stopTimerForRepeatingKey(_ shortcutName: String) {
         if shortcutName == currentTimerShortcutName {
             Logger.debug { shortcutName }
             currentTimerShortcutName = nil
@@ -33,12 +33,13 @@ class KeyRepeatTimer {
         }
     }
 
-    private static func activateTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
+    private static func startTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         guard timerIsSuspended && atShortcut.state != .up else { return }
         currentTimerShortcutName = atShortcut.id
         // reading these user defaults every time guarantees we have the latest value, if the user has updated those
         let repeatRate = ticksToSeconds(CachedUserDefaults.globalString("KeyRepeat") ?? "6")
         let initialDelay = ticksToSeconds(CachedUserDefaults.globalString("InitialKeyRepeat") ?? "25")
+        Logger.debug { "\(currentTimerShortcutName) repeatRate:\(repeatRate)s initialDelay:\(initialDelay)s" }
         timer.schedule(deadline: .now() + initialDelay, repeating: repeatRate, leeway: .milliseconds(Int(repeatRate * 1000 / 10)))
         timer.setEventHandler { handleEvent(atShortcut, block) }
         timer.resume()
@@ -48,7 +49,7 @@ class KeyRepeatTimer {
     private static func handleEvent(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         DispatchQueue.main.async {
             if atShortcut.state == .up {
-                deactivateTimerForRepeatingKey(atShortcut.id)
+                stopTimerForRepeatingKey(atShortcut.id)
             } else {
                 block()
             }

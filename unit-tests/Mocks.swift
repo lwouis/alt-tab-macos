@@ -50,7 +50,7 @@ class ControlsTab {
 }
 
 class KeyRepeatTimer {
-    static func deactivateTimerForRepeatingKey(_ shortcutName: String) {
+    static func stopTimerForRepeatingKey(_ shortcutName: String) {
     }
 }
 
