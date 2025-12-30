@@ -6,7 +6,7 @@ class AccessibilityEvents {
     static let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
         let type = notificationName as String
         Logger.debug { type }
-        AXUIElement.retryAxCallUntilTimeout(callType: .axEventEntrypoint) { try handleEvent(type, element) }
+        AXUIElement.retryAxCallUntilTimeout(context: "(type:\(type)", callType: .axEventEntrypoint) { try handleEvent(type, element) }
     }
 
     static func updateWindowSizeAndPositionAndFullscreen(_ element: AXUIElement, _ wid: CGWindowID, _ window: Window?) throws {

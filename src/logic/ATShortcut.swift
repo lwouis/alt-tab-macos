@@ -95,7 +95,7 @@ class ATShortcut {
         }
         if state == .up {
             // ensure timers don't keep running if their shortcut is UP
-            KeyRepeatTimer.deactivateTimerForRepeatingKey(id)
+            KeyRepeatTimer.stopTimerForRepeatingKey(id)
         }
     }
 }

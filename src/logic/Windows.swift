@@ -139,7 +139,7 @@ class Windows {
         }
         if Windows.list.count > 0 {
             moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
-            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent, windowRemoved: true)
         } else {
             App.app.hideUi()
         }
@@ -328,8 +328,8 @@ class Windows {
     }
 
     // dispatch screenshot requests off the main-thread, then wait for completion
-    static func refreshThumbnailsAsync(_ windows: [Window], _ source: RefreshCausedBy) {
-        guard !windows.isEmpty && ScreenRecordingPermission.status == .granted
+    static func refreshThumbnailsAsync(_ windows: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
+        guard (!windows.isEmpty || windowRemoved) && ScreenRecordingPermission.status == .granted
                && !Preferences.onlyShowApplications()
                && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) else { return }
         var eligibleWindows = [Window]()
@@ -338,7 +338,7 @@ class Windows {
                 eligibleWindows.append(window)
             }
         }
-        if eligibleWindows.isEmpty { return }
+        guard (!eligibleWindows.isEmpty || windowRemoved) else { return }
         screenshotEligibleWindowsAndUpdateUi(eligibleWindows, source)
     }
 
