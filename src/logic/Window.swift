@@ -33,7 +33,10 @@ class Window {
     var application: Application
     var axObserver: AXObserver?
     var rowIndex: Int?
-    var debugId: String { "(wid:\(cgWindowId.map { String(describing: $0) } ?? "nil")) \(title ?? "nil")) \(application.debugId)" }
+
+    func debugId() -> String {
+        return "\(application.debugId()) (wid:\(cgWindowId) title:\(title))"
+    }
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) {
         self.axUiElement = axUiElement
@@ -52,7 +55,7 @@ class Window {
         // It may be responsive now since it has a window; we attempt again
         application.observeEventsIfEligible()
         checkIfFocused(application, wid)
-        Logger.debug(debugId)
+        Logger.debug { self.debugId() }
         observeEvents()
     }
 
@@ -61,11 +64,11 @@ class Window {
         title = bestEffortTitle(nil)
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
-        Logger.debug(debugId)
+        Logger.debug { self.debugId() }
     }
 
     deinit {
-        Logger.debug(debugId)
+        Logger.debug { self.debugId() }
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
@@ -77,12 +80,12 @@ class Window {
     private func observeEvents() {
         AXObserverCreate(application.pid, AccessibilityEvents.axObserverCallback, &axObserver)
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
             guard let self else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!) {
-                Logger.debug("Subscribed to window", self.debugId)
+                Logger.debug { "Subscribed to window: \(self.debugId())" }
                 for notification in Window.notifications.dropFirst() {
-                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId(), pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
                         try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                     }
                 }
@@ -292,7 +295,7 @@ class Window {
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
     /// workaround: we check and possibly do it here
     private func checkIfFocused(_ application: Application, _ wid: CGWindowID) {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .updateWindow) {
+        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: application.pid, callType: .updateWindow) {
             let focusedWid = try application.axUiElement?.focusedWindow()?.cgWindowId()
             if wid == focusedWid {
                 application.focusedWindow = self

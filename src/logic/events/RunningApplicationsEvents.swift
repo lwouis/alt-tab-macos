@@ -10,14 +10,15 @@ class RunningApplicationsEvents {
     }
 
     private static func handleEvent(_ change: NSKeyValueObservedChange<[NSRunningApplication]>) {
-        let added = change.newValue
-        let removed = change.oldValue
-        Logger.debug("added:", added?.map { $0.debugId() }, "removed:", removed?.map { $0.debugId() })
-        if let added {
-            Applications.addRunningApplications(added)
+        let launched = change.newValue
+        let quit = change.oldValue
+        if let launched {
+            Logger.debug { "launched:\(launched.map { $0.debugId() })" }
+            Applications.addRunningApplications(launched)
         }
-        if let removed {
-            Applications.removeRunningApplications(removed)
+        if let quit {
+            Logger.debug { "quit:\(quit.map { $0.debugId() })" }
+            Applications.removeRunningApplications(quit)
         }
     }
 }

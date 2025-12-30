@@ -13,7 +13,7 @@ if #available(macOS 13.1, *) {
     }
 }
 let windows = CGWindowListCopyWindowInfo([.excludeDesktopElements, .optionOnScreenOnly], kCGNullWindowID) as! [CGWindow]
-Logger.error("CGWindowListCopyWindowInfo extra", windows.sorted { $0.id()! < $1.id()! }.map { ($0.id()!, $0.title() ?? "nil") })
+Logger.error("CGWindowListCopyWindowInfo extra", windows.sorted { $0.id()! < $1.id()! }.map { ($0.id()!, $0.title()) })
 Logger.error("CGWindowListCopyWindowInfo", windows.sorted { $0.id()! < $1.id()! }.map { $0.id()! })
 Spaces.refresh()
 let spaceIdsAndIndexes = Spaces.idsAndIndexes.map { $0.0 }

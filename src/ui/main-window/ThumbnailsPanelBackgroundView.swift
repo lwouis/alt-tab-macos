@@ -77,16 +77,18 @@ func makeAppropriateEffectView() -> EffectView {
     if #available(macOS 26.0, *) {
         if Preferences.appearanceStyle == .appIcons {
             if LiquidGlassEffectView.canUsePrivateLiquidGlassLook() {
-                Logger.debug("Using LiquidGlassEffectView(true)")
+                Logger.debug { "Using LiquidGlassEffectView(true)" }
                 return LiquidGlassEffectView(true)
             }
-            let os = ProcessInfo.processInfo.operatingSystemVersion
-            let version = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
-            Logger.error("Private API set_variant is no longer available. macOS version: \(version))")
+            Logger.error {
+                let os = ProcessInfo.processInfo.operatingSystemVersion
+                let version = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
+                return "Private API set_variant is no longer available. macOS version: \(version))"
+            }
         }
-        Logger.debug("Using LiquidGlassEffectView(false)")
+        Logger.debug { "Using LiquidGlassEffectView(false)" }
         return LiquidGlassEffectView(false)
     }
-    Logger.debug("Using FrostedGlassEffectView(nil)")
+    Logger.debug { "Using FrostedGlassEffectView(nil)" }
     return FrostedGlassEffectView(nil)
 }

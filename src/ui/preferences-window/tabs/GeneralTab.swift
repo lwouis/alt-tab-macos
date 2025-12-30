@@ -95,7 +95,7 @@ class GeneralTab {
         do {
             try writePlistToDisk(sender)
         } catch let error {
-            Logger.error("Failed to write plist file to disk", error)
+            Logger.error { "Failed to write plist file to disk. error:\(error)" }
         }
     }
 
@@ -104,17 +104,17 @@ class GeneralTab {
         launchAgentsPath.appendPathComponent("LaunchAgents", isDirectory: true)
         if !FileManager.default.fileExists(atPath: launchAgentsPath.path) {
             try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
-            Logger.debug(launchAgentsPath.absoluteString + " created")
+            Logger.debug { launchAgentsPath.absoluteString + " created" }
         }
         launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
         if sender.state == .on {
             let data = try PropertyListSerialization.data(fromPropertyList: launchAgentPlist, format: .xml, options: 0)
             try data.write(to: launchAgentsPath, options: [.atomic])
-            Logger.debug(launchAgentsPath.absoluteString + " written")
+            Logger.debug { launchAgentsPath.absoluteString + " written" }
         } else {
             if FileManager.default.fileExists(atPath: launchAgentsPath.path) {
                 try FileManager.default.removeItem(at: launchAgentsPath)
-                Logger.debug(launchAgentsPath.absoluteString + " removed")
+                Logger.debug { launchAgentsPath.absoluteString + " removed" }
             }
         }
     }

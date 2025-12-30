@@ -5,7 +5,7 @@ import ApplicationServices.HIServices.AXNotificationConstants
 class AccessibilityEvents {
     static let axObserverCallback: AXObserverCallback = { _, element, notificationName, _ in
         let type = notificationName as String
-        Logger.debug(type)
+        Logger.debug { type }
         AXUIElement.retryAxCallUntilTimeout(callType: .axEventEntrypoint) { try handleEvent(type, element) }
     }
 
@@ -33,7 +33,7 @@ class AccessibilityEvents {
         // events are handled concurrently, thus we check that the app is still running
         let pid = try element.pid()
         if try pid != ProcessInfo.processInfo.processIdentifier || (element.subrole() != kAXUnknownSubrole) {
-            Logger.info(type, pid, try element.title() ?? "nil")
+            Logger.info { "\(type) (pid:\(pid) title:\(try? element.title()))" }
             switch type {
             case kAXApplicationActivatedNotification: try applicationActivated(element, pid)
             case kAXApplicationHiddenNotification,
@@ -121,7 +121,7 @@ class AccessibilityEvents {
                     if let windows = Windows.updateLastFocus(element, wid) {
                         App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
                     } else {
-                        AXUIElement.retryAxCallUntilTimeout(context: "wid:\(wid) pid:\(pid)", pid: pid, callType: .updateWindow) {
+                        AXUIElement.retryAxCallUntilTimeout(context: "(wid:\(wid) pid:\(pid))", pid: pid, callType: .updateWindow) {
                             if let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
                                 let position = try element.position()
                                 let size = try element.size()
@@ -167,7 +167,7 @@ class AccessibilityEvents {
 
     private static func windowTitleChanged(_ element: AXUIElement, _ pid: pid_t) throws {
         let wid = try element.cgWindowId()
-        AXUIElement.retryAxCallUntilTimeout(context: "\(wid)", debounceType: .windowTitleChanged, pid: pid, wid: wid, callType: .updateWindow) {
+        AXUIElement.retryAxCallUntilTimeout(context: "(wid:\(wid) pid:\(pid))", debounceType: .windowTitleChanged, pid: pid, wid: wid, callType: .updateWindow) {
             if let (title, _, _, isMinimized, isFullscreen) = try element.windowAttributes() {
                 DispatchQueue.main.async {
                     if let window = (Windows.list.first { $0.isEqualRobust(element, wid) }), title != window.title {
@@ -183,7 +183,7 @@ class AccessibilityEvents {
 
     private static func windowResizedOrMoved(_ element: AXUIElement, _ pid: pid_t) throws {
         let wid = try element.cgWindowId()
-        AXUIElement.retryAxCallUntilTimeout(context: "\(wid)", debounceType: .windowResizedOrMoved, pid: pid, wid: wid, callType: .updateWindow) {
+        AXUIElement.retryAxCallUntilTimeout(context: "(wid:\(wid) pid:\(pid))", debounceType: .windowResizedOrMoved, pid: pid, wid: wid, callType: .updateWindow) {
             try updateWindowSizeAndPositionAndFullscreen(element, wid, nil)
         }
     }
