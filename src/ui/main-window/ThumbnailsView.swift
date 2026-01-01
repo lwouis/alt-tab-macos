@@ -277,33 +277,38 @@ class ScrollView: NSScrollView {
         }
     }
 
+    override func mouseExited(with event: NSEvent) {
+        previousTarget = nil
+        resetHoveredWindow()
+    }
+
     override func mouseMoved(with event: NSEvent) {
-        // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
-        // also disable it when ScrollwheelEvents is enabled, as it indicates that a multi-finder gesture is in progress
-        if isCurrentlyScrolling || ScrollwheelEvents.shouldBeEnabled { return }
-        if let hit = hitTest(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream) {
-            var target: NSView? = hit
-            while !(target is ThumbnailView) && target != nil {
-                target = target!.superview
-            }
-            if let target = target as? ThumbnailView {
-                if previousTarget != target {
-                    previousTarget?.showOrHideWindowControls(false)
-                    previousTarget = target
-                }
-                target.mouseMoved()
-            } else {
-                if !checkIfWithinInterPadding() {
-                    resetHoveredWindow()
-                }
-            }
+        guard let documentView, !isCurrentlyScrolling && !ScrollwheelEvents.shouldBeEnabled else { return }
+        let location = documentView.convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
+        let newTarget = findTarget(location)
+        guard newTarget !== previousTarget else { return }
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        if let newTarget {
+            previousTarget?.showOrHideWindowControls(false)
+            newTarget.mouseMoved()
         } else {
             resetHoveredWindow()
         }
+        previousTarget = newTarget
+        CATransaction.commit()
     }
 
-    override func mouseExited(with event: NSEvent) {
-        resetHoveredWindow()
+    private func findTarget(_ location: NSPoint) -> ThumbnailView? {
+        for i in 0..<Windows.list.count {
+            let view = ThumbnailsView.recycledViews[i]
+            let frame = view.frame
+            let expandedFrame = CGRect(x: frame.minX - (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : 1), y: frame.minY, width: frame.width + 1, height: frame.height + 1)
+            if expandedFrame.contains(location) {
+                return view
+            }
+        }
+        return nil
     }
 
     /// Checks whether the mouse pointer is within the padding area around a thumbnail.

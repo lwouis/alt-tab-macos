@@ -143,20 +143,26 @@ class ThumbnailView: FlippedView {
     }
 
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
+        guard Preferences.appearanceStyle == .thumbnails else { return }
         let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !Appearance.hideThumbnails
-        if Preferences.appearanceStyle == .thumbnails {
-            isShowingWindowControls = shouldShow
-            for icon in windowControlIcons {
-                icon.isHidden = !shouldShow
-                    || (icon.type == .quit && !(window_?.application.canBeQuit() ?? true))
-                    || (icon.type == .close && !(window_?.canBeClosed() ?? true))
-                    || ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
-                // Force the icons to redraw; otherwise after clicking the fullscreen button,
-                // it will still appear to be in fullscreen mode.
-                icon.display()
+        guard isShowingWindowControls != shouldShow else { return }
+        isShowingWindowControls = shouldShow
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        for icon in windowControlIcons {
+            let shouldHide = !shouldShow
+                || (icon.type == .quit && !(window_?.application.canBeQuit() ?? true))
+                || (icon.type == .close && !(window_?.canBeClosed() ?? true))
+                || ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
+
+            if icon.isHidden != shouldHide {
+                icon.isHidden = shouldHide
+                icon.needsDisplay = true
             }
         }
+        CATransaction.commit()
     }
+
 
     func updateDockLabelIcon(_ dockLabel: String?) {
         assignIfDifferent(&dockLabelIcon.isHidden, dockLabel == nil || Preferences.hideAppBadges || Appearance.iconSize == 0)

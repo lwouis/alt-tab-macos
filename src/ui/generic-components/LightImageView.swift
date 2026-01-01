@@ -26,6 +26,7 @@ class LightImageView: NSView {
             "position": NSNull(),
             "contentsScale": NSNull()
         ]
+        layerContentsRedrawPolicy = .never
     }
 
     func updateWithResizedCopy(_ image: CGImage?, _ size: NSSize) {
@@ -38,7 +39,9 @@ class LightImageView: NSView {
             layer!.contents = image
             layer!.contentsScale = scaleFactor
         }
-        frame.size = size
+        if frame.size != size {
+            frame.size = size
+        }
     }
 
     /// this schedules the image update for the next cycle
