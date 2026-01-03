@@ -203,7 +203,6 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Muzhenstudent
 * Mwolfinspace
 * Nathancodes
-* Navekar Vishal
 * NIKHIL S
 * Nikola Rajić
 * Nils Fahldieck
@@ -241,6 +240,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * sa-ha
 * Sai Khant Zay Lynn Yaung
 * Sami Suleiman
+* Samimkel00
 * Saransh
 * sawtooth
 * Sebastian
