@@ -3,6 +3,7 @@ import Cocoa
 class ThumbnailsView {
     var scrollView: ScrollView!
     var contentView: EffectView!
+    var metalView: MetalThumbnailsView!
     var rows = [[ThumbnailView]]()
     static var recycledViews = [ThumbnailView]()
     static var thumbnailsWidth = CGFloat(0.0)
@@ -10,6 +11,7 @@ class ThumbnailsView {
 
     init() {
         updateBackgroundView()
+        metalView = MetalThumbnailsView()
         // TODO: think about this optimization more
         (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
     }
@@ -141,6 +143,11 @@ class ThumbnailsView {
                 rows[rows.count - 1].append(view)
                 newViews.append(view)
                 window.rowIndex = rows.count - 1
+                if let wid = window.cgWindowId {
+                    App.app.thumbnailsPanel.thumbnailsView.metalView.thumbnailRects[wid] = NSRect.init(
+                        origin: view.frame.origin,
+                        size: view.thumbnail.frame.size)
+                }
             } else {
                 // release images from unused recycledViews; they take lots of RAM
                 view.thumbnail.releaseImage()
@@ -197,6 +204,8 @@ class ThumbnailsView {
         }
         scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds,
             options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
+        scrollView.documentView!.addSubview(metalView, positioned: .below, relativeTo: nil)
+        metalView.frame.size = scrollView.frame.size
     }
 
     func centerRows(_ maxX: CGFloat) {

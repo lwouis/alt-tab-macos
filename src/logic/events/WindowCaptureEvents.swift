@@ -108,12 +108,16 @@ class WindowCaptureEvents {
             BackgroundWork.screenshotsQueue.trackCallbacks {
                 if sampleBuffer.isValid,
                    let pixelBuffer = sampleBuffer.pixelBuffer() {
-                    let wid_ = wid
-                    DispatchQueue.main.async {
-                        if let window = (Windows.list.first { $0.cgWindowId == wid_ }) {
-                            window.refreshThumbnail(.pixelBuffer(pixelBuffer))
-                        }
-                    }
+                    let pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+                    App.app.thumbnailsPanel.thumbnailsView.metalView.enqueue(pixelBuffer, pts, for: self.wid)
+
+                    // TODO: if static thumbnails then we need to draw the metal view on-event, instead of 60hz
+
+                    // DispatchQueue.main.async { [wid = self.wid] in
+                    //     if let window = (Windows.list.first { $0.cgWindowId == wid }) {
+                    //         window.refreshThumbnail(.pixelBuffer(pixelBuffer))
+                    //     }
+                    // }
                 }
             }
         }
@@ -167,6 +171,19 @@ extension CMSampleBuffer {
             return imageBuffer
         }
         return nil
+    }
+
+    @available(macOS 12.3, *)
+    func metalTexture(_ device: MTLDevice) -> MTLTexture? {
+        guard let pixelBuffer = pixelBuffer(),
+            let surface = CVPixelBufferGetIOSurface(pixelBuffer)?.takeUnretainedValue() else { return nil }
+        let desc = MTLTextureDescriptor.texture2DDescriptor(
+            pixelFormat: .bgra8Unorm,
+            width: CVPixelBufferGetWidth(pixelBuffer),
+            height: CVPixelBufferGetHeight(pixelBuffer),
+            mipmapped: false
+        )
+        return device.makeTexture(descriptor: desc, iosurface: surface, plane: 0)
     }
 }
 

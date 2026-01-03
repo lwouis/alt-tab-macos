@@ -191,6 +191,7 @@ class ThumbnailView: FlippedView {
         let shadow = ThumbnailView.makeShadow(Appearance.imagesShadowColor)
         thumbnailContainer.wantsLayer = true
         thumbnailContainer.layer!.masksToBounds = false // let thumbnail shadows show
+        thumbnail.layer!.opacity = 0
         thumbnail.shadow = shadow
         windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
