@@ -32,7 +32,7 @@ jobs:
           COMMITS: ${{ toJson(github.event.commits) }}
         run: |
           if [[ "${{ github.event_name }}" == "push" ]]; then
-            COUNT=$(( $(echo "$COMMITS" | jq length) + 1 ))
+            COUNT=$(( $(echo "$COMMITS" | jq length) + 5 ))
           else
             COUNT=1
           fi
