@@ -101,7 +101,12 @@ class Window {
            let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
                 let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, false)
+                let newSize = thumbnailSize.width != view.thumbnail.frame.width || thumbnailSize.height != view.thumbnail.frame.height
                 view.thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
+                // if the thumbnail size has changed, we need to refresh the open UI
+                if newSize {
+                    App.app.refreshOpenUi([], .refreshOnlyThumbnailsAfterShowUi)
+                }
             }
             App.app.previewPanel.updateIfShowing(cgWindowId, screenshot, position, size)
         }
