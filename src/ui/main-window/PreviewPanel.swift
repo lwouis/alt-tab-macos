@@ -27,20 +27,10 @@ class PreviewPanel: NSPanel {
         setAccessibilitySubrole(.unknown)
     }
 
-    func updateImageIfShowing(_ id: CGWindowID?,  _ preview: CGImage, _ size: CGSize) {
-        if isVisible && id == currentId {
-            previewView.updateWithResizedCopy(preview, size)
-        }
-    }
-
-    func show(_ id: CGWindowID, _ preview: CGImage, _ position: CGPoint, _ size: CGSize) {
+    func show(_ id: CGWindowID, _ image: CGImage, _ position: CGPoint, _ size: CGSize) {
         if id != currentId {
-            previewView.updateWithResizedCopy(preview, size)
-            var frame = NSRect(origin: position, size: size)
-            // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)
-            // Always use the primary screen as reference since all coordinates are relative to it
-            frame.origin.y = NSScreen.screens.first!.frame.maxY - frame.maxY
-            setFrame(frame, display: false)
+            repositionAndResize(position, size)
+            previewView.updateWithResizedCopy(image, size)
         }
         if id != currentId || !isVisible {
             if Preferences.previewFadeInAnimation {
@@ -59,6 +49,21 @@ class PreviewPanel: NSPanel {
             // Simply using order(.below) is not sufficient to prevent this brief flicker. We explicitly set the preview panel's window level to be one below the thumbnails panel
             level = NSWindow.Level(rawValue: App.app.thumbnailsPanel.level.rawValue - 1)
         }
+    }
+
+    func updateIfShowing(_ id: CGWindowID?,  _ image: CGImage, _ position: CGPoint, _ size: CGSize) {
+        if isVisible && id == currentId {
+            repositionAndResize(position, size)
+            previewView.updateWithResizedCopy(image, size)
+        }
+    }
+
+    private func repositionAndResize( _ position: CGPoint, _ size: CGSize) {
+        var frame = NSRect(origin: position, size: size)
+        // Flip Y coordinate from Quartz (0,0 at bottom-left) to Cocoa coordinates (0,0 at top-left)
+        // Always use the primary screen as reference since all coordinates are relative to it
+        frame.origin.y = NSScreen.screens.first!.frame.maxY - frame.maxY
+        setFrame(frame, display: false)
     }
 }
 

@@ -97,13 +97,13 @@ class Window {
     func refreshThumbnail(_ screenshot: CGImage) {
         thumbnail = screenshot
         if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
-        if let size,
+        if let position, let size,
            let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
                 let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, false)
                 view.thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
             }
-            App.app.previewPanel.updateImageIfShowing(cgWindowId, screenshot, size)
+            App.app.previewPanel.updateIfShowing(cgWindowId, screenshot, position, size)
         }
     }
 
