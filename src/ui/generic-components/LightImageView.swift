@@ -3,8 +3,6 @@ import Cocoa
 /// this is a lightweight view which displays an image using its CALayer
 /// it is an alternative to NSImageView, which doesn't have internal complexities and performance costs
 class LightImageView: NSView {
-    var image: CGImage? { get { layer!.contents as! CGImage? } }
-
     required init?(coder: NSCoder) {
         fatalError("Class only supports programmatic initialization")
     }

@@ -64,9 +64,7 @@ extension AXUIElement {
         // if their are common updates, we avoid congestion by only retrying the latest update
         if let pid, callType == .updateWindow || callType == .updateAppWindows {
             let unresponsiveAppsMapKey = "\(callType.rawValue)\(pid)"
-            axCallsRetriesQueueUnresponsiveAppsMap.lock.lock()
-            let time = axCallsRetriesQueueUnresponsiveAppsMap.map[unresponsiveAppsMapKey]
-            axCallsRetriesQueueUnresponsiveAppsMap.lock.unlock()
+            let time = axCallsRetriesQueueUnresponsiveAppsMap.withLock { $0[unresponsiveAppsMapKey] }
             if let time {
                 if startTimeInNanoseconds > time {
                     // new most recent call; replace and retry
@@ -484,9 +482,9 @@ enum DebounceType: Int {
     case windowTitleChanged
 }
 
-class ConcurrentMap<K: Hashable, V> {
-    var map = [K: V]()
-    let lock = NSLock()
+final class ConcurrentMap<K: Hashable, V> {
+    private var map = [K: V]()
+    private let lock = NSLock()
 
     @discardableResult
     func withLock<T>(_ block: (inout [K: V]) -> T) -> T {

@@ -207,13 +207,17 @@ extension NSImage {
 
 extension CGImage {
     func nsImage() -> NSImage {
-        return NSImage(cgImage: self, size: NSSize(width: width, height: height))
+        return NSImage(cgImage: self, size: size())
     }
 
     static func named(_ imageName: String) -> CGImage {
         let imageURL = Bundle.main.url(forResource: imageName, withExtension: nil)!
         let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, nil)!
         return CGImageSourceCreateImageAtIndex(imageSource, 0, nil)!
+    }
+
+    func size() -> NSSize {
+        return NSSize(width: width, height: height)
     }
 }
 

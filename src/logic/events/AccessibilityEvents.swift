@@ -13,7 +13,7 @@ class AccessibilityEvents {
         if let (title, _, _, isMinimized, isFullscreen) = try element.windowAttributes() {
             let size = try element.size()
             let position = try element.position()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak window] in
                 if let window = (window != nil ? window : (Windows.list.first { $0.isEqualRobust(element, wid) })) {
                     window.title = window.bestEffortTitle(title)
                     window.size = size
