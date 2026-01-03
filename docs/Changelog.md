@@ -1,3 +1,30 @@
+# [7.39.0](https://github.com/lwouis/alt-tab-macos/compare/v7.38.1...v7.39.0) (2026-01-03)
+
+
+### Bug Fixes
+
+* avoid showing closed windows (closes [#3589](https://github.com/lwouis/alt-tab-macos/issues/3589)) ([894a69d](https://github.com/lwouis/alt-tab-macos/commit/894a69d)), closes [#4924](https://github.com/lwouis/alt-tab-macos/issues/4924)
+* permission checks might freeze or restart the app (closes [#5112](https://github.com/lwouis/alt-tab-macos/issues/5112)) ([7906d63](https://github.com/lwouis/alt-tab-macos/commit/7906d63))
+* permission window could steal focus (see [#3577](https://github.com/lwouis/alt-tab-macos/issues/3577)) ([2f875b3](https://github.com/lwouis/alt-tab-macos/commit/2f875b3))
+* permissions window could look wrong in some languages like chinese ([914f91f](https://github.com/lwouis/alt-tab-macos/commit/914f91f)), closes [/github.com/lwouis/alt-tab-macos/issues/5112#issuecomment-3692769341](https://github.com//github.com/lwouis/alt-tab-macos/issues/5112/issues/issuecomment-3692769341)
+* preview could sometimes be incorrectly positioned ([edc2f00](https://github.com/lwouis/alt-tab-macos/commit/edc2f00))
+* show some hovering windows (e.g. zoom.app) (closes [#5140](https://github.com/lwouis/alt-tab-macos/issues/5140)) ([fcc6651](https://github.com/lwouis/alt-tab-macos/commit/fcc6651))
+* thumbnails could sometimes have the wrong size ([55f3f59](https://github.com/lwouis/alt-tab-macos/commit/55f3f59))
+
+
+### Features
+
+* avoid occasional delays in showing the switcher (closes [#5109](https://github.com/lwouis/alt-tab-macos/issues/5109)) ([3c04a4c](https://github.com/lwouis/alt-tab-macos/commit/3c04a4c))
+* improve nb/tr localizations ([5e842d5](https://github.com/lwouis/alt-tab-macos/commit/5e842d5))
+* remove shadow around app icon appearance ([dda612c](https://github.com/lwouis/alt-tab-macos/commit/dda612c))
+
+
+### Performance Improvements
+
+* do login item and plist updates later to accelerate launch ([2f72c5d](https://github.com/lwouis/alt-tab-macos/commit/2f72c5d))
+* don't compute diffs of running-apps; directly get new/old ([7ded01c](https://github.com/lwouis/alt-tab-macos/commit/7ded01c))
+* improve mouse hover algo and core-animation side ([6103785](https://github.com/lwouis/alt-tab-macos/commit/6103785))
+
 ## [7.38.1](https://github.com/lwouis/alt-tab-macos/compare/v7.38.0...v7.38.1) (2025-12-13)
 
 
