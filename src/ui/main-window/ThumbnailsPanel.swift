@@ -4,6 +4,7 @@ class ThumbnailsPanel: NSPanel {
     var thumbnailsView = ThumbnailsView()
     override var canBecomeKey: Bool { true }
     private var didDisplayOnce = false
+    static var maxPossibleThumbnailSize = NSSize.zero
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
@@ -72,22 +73,30 @@ class ThumbnailsPanel: NSPanel {
         thumbnailsView.scrollView.flashScrollers()
     }
 
-    static func maxThumbnailsWidth() -> CGFloat {
+    static func maxThumbnailsWidth(_ screen: NSScreen = NSScreen.preferred) -> CGFloat {
         if Preferences.appearanceStyle == .titles,
            let readableWidth = ThumbnailView.widthOfComfortableReadability() {
             return (
                 min(
-                    NSScreen.preferred.frame.width * Appearance.maxWidthOnScreen,
+                    screen.frame.width * Appearance.maxWidthOnScreen,
                     readableWidth + Appearance.intraCellPadding * 2 + Appearance.appIconLabelSpacing + Appearance.iconSize
                     // widthOfLongestTitle + Appearance.intraCellPadding * 2 + Appearance.appIconLabelSpacing + Appearance.iconSize
                 ) - Appearance.windowPadding * 2
             ).rounded()
         }
-        return (NSScreen.preferred.frame.width * Appearance.maxWidthOnScreen - Appearance.windowPadding * 2).rounded()
+        return (screen.frame.width * Appearance.maxWidthOnScreen - Appearance.windowPadding * 2).rounded()
     }
 
-    static func maxThumbnailsHeight() -> CGFloat {
-        return (NSScreen.preferred.frame.height * Appearance.maxHeightOnScreen - Appearance.windowPadding * 2).rounded()
+    static func maxThumbnailsHeight(_ screen: NSScreen = NSScreen.preferred) -> CGFloat {
+        return (screen.frame.height * Appearance.maxHeightOnScreen - Appearance.windowPadding * 2).rounded()
+    }
+
+    static func updateMaxPossibleThumbnailSize() {
+        let (w, h) = NSScreen.screens.reduce((CGFloat.zero, CGFloat.zero)) { acc, screen in
+            (max(acc.0, ThumbnailView.maxThumbnailWidth(screen) * screen.backingScaleFactor),
+            max(acc.1, ThumbnailView.maxThumbnailHeight(screen) * screen.backingScaleFactor))
+        }
+        maxPossibleThumbnailSize = NSSize(width: w, height: h)
     }
 }
 

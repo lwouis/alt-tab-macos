@@ -15,7 +15,7 @@ class Window {
     var lastFocusOrder = Int.zero
     var creationOrder = Int.zero
     var title: String!
-    var thumbnail: CGImage?
+    var thumbnail: CALayerContents?
     var icon: CGImage? { get { application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
@@ -94,13 +94,13 @@ class Window {
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 
-    func refreshThumbnail(_ screenshot: CGImage) {
+    func refreshThumbnail(_ screenshot: CALayerContents) {
         thumbnail = screenshot
         if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
         if let position, let size,
            let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
-                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, false)
+                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot.size(), false)
                 let newSize = thumbnailSize.width != view.thumbnail.frame.width || thumbnailSize.height != view.thumbnail.frame.height
                 view.thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
                 // if the thumbnail size has changed, we need to refresh the open UI

@@ -24,6 +24,7 @@ class ThumbnailsView {
         // it would be nicer to remove this whole "reset" logic, and instead update each component to check Appearance properties before showing
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         NSScreen.updatePreferred()
+        ThumbnailsPanel.updateMaxPossibleThumbnailSize()
         Appearance.update()
         updateBackgroundView()
         App.app.thumbnailsPanel.contentView = contentView

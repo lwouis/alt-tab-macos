@@ -15,6 +15,7 @@ class AccessibilityEvents {
             let position = try element.position()
             DispatchQueue.main.async { [weak window] in
                 if let window = (window != nil ? window : (Windows.list.first { $0.isEqualRobust(element, wid) })) {
+                    let needsRefresh = window.size != size || window.position != position || window.isMinimized != isMinimized || window.isFullscreen != isFullscreen
                     window.title = window.bestEffortTitle(title)
                     window.size = size
                     window.position = position
@@ -23,7 +24,9 @@ class AccessibilityEvents {
                         window.isFullscreen = isFullscreen
                         App.app.checkIfShortcutsShouldBeDisabled(window, nil)
                     }
-                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+                    if needsRefresh {
+                        App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+                    }
                 }
             }
         }

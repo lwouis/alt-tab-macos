@@ -35,7 +35,7 @@ final class DebugMenu: NSPanel {
             while self.running {
                 var sample: [String: Double] = [:]
                 for queue in self.queues {
-                    sample[queue.strongUnderlyingQueue.label] = Double(queue.operationCount)
+                    sample[queue.strongUnderlyingQueue.label] = Double(queue.operationCount + queue.activeCallbacks)
                 }
                 DispatchQueue.main.async { self.graphView.addData(sample) }
                 Thread.sleep(forTimeInterval: 0.1)

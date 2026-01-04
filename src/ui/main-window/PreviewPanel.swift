@@ -27,10 +27,10 @@ class PreviewPanel: NSPanel {
         setAccessibilitySubrole(.unknown)
     }
 
-    func show(_ id: CGWindowID, _ image: CGImage, _ position: CGPoint, _ size: CGSize) {
+    func show(_ id: CGWindowID, _ preview: CALayerContents, _ position: CGPoint, _ size: CGSize) {
         if id != currentId {
             repositionAndResize(position, size)
-            previewView.updateWithResizedCopy(image, size)
+            previewView.updateWithResizedCopy(preview, size)
         }
         if id != currentId || !isVisible {
             if Preferences.previewFadeInAnimation {
@@ -51,10 +51,10 @@ class PreviewPanel: NSPanel {
         }
     }
 
-    func updateIfShowing(_ id: CGWindowID?,  _ image: CGImage, _ position: CGPoint, _ size: CGSize) {
+    func updateIfShowing(_ id: CGWindowID?,  _ preview: CALayerContents, _ position: CGPoint, _ size: CGSize) {
         if isVisible && id == currentId {
             repositionAndResize(position, size)
-            previewView.updateWithResizedCopy(image, size)
+            previewView.updateWithResizedCopy(preview, size)
         }
     }
 

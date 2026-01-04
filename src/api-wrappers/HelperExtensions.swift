@@ -221,6 +221,15 @@ extension CGImage {
     }
 }
 
+extension CVPixelBuffer {
+    func size() -> NSSize {
+        NSSize(
+            width: CVPixelBufferGetWidth(self),
+            height: CVPixelBufferGetHeight(self)
+        )
+    }
+}
+
 extension pid_t {
     func isZombie() -> Bool {
         var kinfo = kinfo_proc()
