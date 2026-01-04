@@ -8,7 +8,7 @@ layout: bare
         right: 10px;
         border-radius: 0.5em;
         padding: 0.15em 0.9em;
-        font-size: 0.7em;
+        font-size: 0.5em;
         background: #ffdbd5;
         /*background: #f91675;*/
         color: #950020;
