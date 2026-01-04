@@ -17,6 +17,7 @@ class App: AppCenterApplication {
     static let website = "https://alt-tab-macos.netlify.app"
     static let appIcon = CGImage.named("app.icns")
     static var app: App!
+    var isTerminating = false
     var thumbnailsPanel: ThumbnailsPanel!
     var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
@@ -330,6 +331,12 @@ extension App: NSApplicationDelegate {
     func applicationWillTerminate(_ notification: Notification) {
         // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
         setNativeCommandTabEnabled(true)
+    }
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        Logger.info { "" }
+        makeSureAllCapturesAreFinished()
+        return .terminateNow
     }
 }
 

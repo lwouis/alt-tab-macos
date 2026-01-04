@@ -56,11 +56,12 @@ class WindowCaptureScreenshots {
     }
 
     private static func oneTimeCapture(_ scWindow: SCWindow, _ source: RefreshCausedBy) {
+        guard !App.app.isTerminating else { return }
         let config = SCStreamConfiguration.forWindow(scWindow, false)
         let filter = SCContentFilter(desktopIndependentWindow: scWindow)
-        SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { sampleBuffer, error in
-            guard let sampleBuffer, error == nil else { Logger.error { "\(sampleBuffer == nil) \(error)" }; return }
+        ActiveWindowCaptures.increment()
         SCScreenshotManager.captureImage(contentFilter: filter, configuration: config) { cgImage, error in
+            ActiveWindowCaptures.decrement()
             guard let cgImage, error == nil else { Logger.error { "\(cgImage == nil) \(error)" }; return }
             guard source != .refreshOnlyThumbnailsAfterShowUi || App.app.appIsBeingUsed else { return }
             DispatchQueue.main.async {
@@ -89,9 +90,12 @@ class WindowCaptureScreenshotsPrivateApi {
     }
 
     private static func oneTimeCapture(_ wid: CGWindowID) -> CGImage? {
+        guard !App.app.isTerminating else { return nil }
         // we use CGSHWCaptureWindowList because it can screenshot minimized windows, which CGWindowListCreateImage can't
         var windowId_ = wid
+        ActiveWindowCaptures.increment()
         let list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution, .fullSize]).takeRetainedValue() as! [CGImage]
+        ActiveWindowCaptures.decrement()
         return list.first
     }
 }
@@ -280,5 +284,29 @@ extension CMSampleBuffer {
             mipmapped: false
         )
         return device.makeTexture(descriptor: desc, iosurface: surface, plane: 0)
+    }
+}
+
+class ActiveWindowCaptures {
+    private static var count: Int = 0
+    private static let semaphore = DispatchSemaphore(value: 1)
+
+    static func increment() {
+        semaphore.wait()
+        count += 1
+        semaphore.signal()
+    }
+
+    static func decrement() {
+        semaphore.wait()
+        count -= 1
+        semaphore.signal()
+    }
+
+    static func value() -> Int {
+        semaphore.wait()
+        let current = count
+        semaphore.signal()
+        return current
     }
 }
