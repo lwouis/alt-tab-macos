@@ -185,6 +185,10 @@ class Window {
             NSSound.beep()
             return
         }
+        if let altTabWindow = altTabWindow() {
+            altTabWindow.close()
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
             guard let self else { return }
             if self.isFullscreen {
@@ -203,6 +207,10 @@ class Window {
     func toggleFullscreen() {
         if !canBeMinDeminOrFullscreened() {
             NSSound.beep()
+            return
+        }
+        if let altTabWindow = altTabWindow() {
+            altTabWindow.close()
             return
         }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
