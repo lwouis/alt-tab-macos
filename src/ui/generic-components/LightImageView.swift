@@ -27,12 +27,7 @@ class LightImageView: NSView {
         layerContentsRedrawPolicy = .never
     }
 
-    func updateWithResizedCopy(_ caLayerContents: CALayerContents, _ size: NSSize) {
-        let scaleFactor = NSScreen.preferred.backingScaleFactor
-        // alternatively, we could set layer!.contentsGravity to .center, and use the lines bellow to resize ourselves
-        //     let scaledSize = NSSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
-        //     layer!.contents = image.resizedCopyWithCoreGraphics(scaledSize, fixBitmapInfo)
-        // it would produce subjectively better quality, but the resizing would be done on the CPU so poor performance
+    func updateContents(_ caLayerContents: CALayerContents, _ size: NSSize) {
         switch caLayerContents {
         case .cgImage(let image?):
             layer!.contents = image
@@ -40,7 +35,6 @@ class LightImageView: NSView {
             layer!.contents = CVPixelBufferGetIOSurface(pixelBuffer)?.takeUnretainedValue()
         default: break
         }
-        layer!.contentsScale = scaleFactor
         if frame.size != size {
             frame.size = size
         }

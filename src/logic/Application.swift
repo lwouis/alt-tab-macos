@@ -45,16 +45,19 @@ class Application: NSObject {
         return 0
     }()
 
-    private static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
+    static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
         guard let icon else { return nil }
-        // we can render the icon quite big (e.g. windowless app icon), so we store it high-res
-        let iconWidth = CGFloat(1024)
-        // NSRunningApplication.icon returns icons with padding; we remove it manually
-
-        let croppedSize = iconWidth - appIconPadding * 2
-        return icon
-            .appIconFixedSize(NSSize(width: iconWidth, height: iconWidth))?
-            .cropping(to: CGRect(x: appIconPadding, y: appIconPadding, width: croppedSize, height: croppedSize).integral)
+        let finalWidth = max(ThumbnailsPanel.maxPossibleAppIconSize.width, ThumbnailsPanel.maxPossibleAppIconSize.height)
+        let padding = appIconPadding * (finalWidth / (1024 - appIconPadding * 2))
+        let sourceWidth = finalWidth + padding * 2
+        guard let context = CGContext(data: nil, width: Int(finalWidth), height: Int(finalWidth), bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+        context.interpolationQuality = .high
+        let drawRect = CGRect(x: -padding, y: -padding, width: sourceWidth, height: sourceWidth)
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current = NSGraphicsContext(cgContext: context, flipped: false)
+        icon.draw(in: drawRect, from: .zero, operation: .copy, fraction: 1.0, respectFlipped: false, hints: nil)
+        NSGraphicsContext.restoreGraphicsState()
+        return context.makeImage()
     }
 
     init(_ runningApplication: NSRunningApplication) {

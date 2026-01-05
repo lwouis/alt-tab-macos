@@ -24,8 +24,15 @@ class ThumbnailsView {
         // it would be nicer to remove this whole "reset" logic, and instead update each component to check Appearance properties before showing
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         NSScreen.updatePreferred()
-        ThumbnailsPanel.updateMaxPossibleThumbnailSize()
         Appearance.update()
+        // thumbnails are captured continuously. They will pick up the new size on the next cycle
+        ThumbnailsPanel.updateMaxPossibleThumbnailSize()
+        // app icons are captured once at launch; we need to manually update them if needed
+        let old = ThumbnailsPanel.maxPossibleAppIconSize.width
+        ThumbnailsPanel.updateMaxPossibleAppIconSize()
+        if old != ThumbnailsPanel.maxPossibleAppIconSize.width {
+            Applications.updateAppIcons()
+        }
         updateBackgroundView()
         App.app.thumbnailsPanel.contentView = contentView
         for i in 0..<ThumbnailsView.recycledViews.count {

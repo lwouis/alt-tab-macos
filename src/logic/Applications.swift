@@ -161,4 +161,16 @@ class Applications {
     static func find(_ pid: pid_t?) -> Application? {
         return list.first { $0.pid == pid }
     }
+
+    static func updateAppIcons() {
+        for app in list {
+            BackgroundWork.screenshotsQueue.addOperation { [weak app] in
+                guard let app else { return }
+                let r = Application.appIconWithoutPadding(app.runningApplication.icon)
+                DispatchQueue.main.async { [weak app] in
+                    app?.icon = r
+                }
+            }
+        }
+    }
 }

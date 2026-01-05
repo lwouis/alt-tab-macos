@@ -8,7 +8,6 @@ class SpacesEvents {
     @objc private static func handleEvent(_ notification: Notification) {
         ScreensEvents.debouncerScreenAndSpace.debounce(.spaceEvent) {
             Logger.debug { notification.name.rawValue }
-            ThumbnailsPanel.updateMaxPossibleThumbnailSize()
             // Workaround for Safari full-screen videos
             // when full-screening a video, Safari spawns a second full-screen window called "Safari"
             // this window doesn't emit resize/move events. It doesn't pass isActualWindow on creation. It's added on focusedWindowChanged

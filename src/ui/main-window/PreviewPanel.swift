@@ -30,7 +30,7 @@ class PreviewPanel: NSPanel {
     func show(_ id: CGWindowID, _ preview: CALayerContents, _ position: CGPoint, _ size: CGSize) {
         if id != currentId {
             repositionAndResize(position, size)
-            previewView.updateWithResizedCopy(preview, size)
+            previewView.updateContents(preview, size)
         }
         if id != currentId || !isVisible {
             if Preferences.previewFadeInAnimation {
@@ -54,7 +54,7 @@ class PreviewPanel: NSPanel {
     func updateIfShowing(_ id: CGWindowID?,  _ preview: CALayerContents, _ position: CGPoint, _ size: CGSize) {
         if isVisible && id == currentId {
             repositionAndResize(position, size)
-            previewView.updateWithResizedCopy(preview, size)
+            previewView.updateContents(preview, size)
         }
     }
 

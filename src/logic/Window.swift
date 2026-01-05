@@ -102,7 +102,7 @@ class Window {
             if !view.thumbnail.isHidden {
                 let thumbnailSize = ThumbnailView.thumbnailSize(screenshot.size(), false)
                 let newSize = thumbnailSize.width != view.thumbnail.frame.width || thumbnailSize.height != view.thumbnail.frame.height
-                view.thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
+                view.thumbnail.updateContents(screenshot, thumbnailSize)
                 // if the thumbnail size has changed, we need to refresh the open UI
                 if newSize {
                     App.app.refreshOpenUi([], .refreshOnlyThumbnailsAfterShowUi)

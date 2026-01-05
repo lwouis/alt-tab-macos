@@ -5,6 +5,7 @@ class ThumbnailsPanel: NSPanel {
     override var canBecomeKey: Bool { true }
     private var didDisplayOnce = false
     static var maxPossibleThumbnailSize = NSSize.zero
+    static var maxPossibleAppIconSize = NSSize.zero
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
@@ -96,7 +97,22 @@ class ThumbnailsPanel: NSPanel {
             (max(acc.0, ThumbnailView.maxThumbnailWidth(screen) * screen.backingScaleFactor),
             max(acc.1, ThumbnailView.maxThumbnailHeight(screen) * screen.backingScaleFactor))
         }
-        maxPossibleThumbnailSize = NSSize(width: w, height: h)
+        maxPossibleThumbnailSize = NSSize(width: w.rounded(), height: h.rounded())
+    }
+
+    static func updateMaxPossibleAppIconSize() {
+        let (w, h) = NSScreen.screens.reduce((CGFloat.zero, CGFloat.zero)) { acc, screen in
+            // in Thumbnails Appearance, AppIcons can be used for windowless apps, thus much bigger than the app icon near the title
+            if Preferences.appearanceStyle == .thumbnails {
+                return (max(acc.0, ThumbnailView.maxThumbnailWidth(screen) * screen.backingScaleFactor),
+                    max(acc.1, ThumbnailView.maxThumbnailHeight(screen) * screen.backingScaleFactor))
+            } else {
+                let size = ThumbnailView.iconSize(screen)
+                return (max(acc.0, size.width * screen.backingScaleFactor),
+                    max(acc.1, size.height * screen.backingScaleFactor))
+            }
+        }
+        maxPossibleAppIconSize = NSSize(width: w.rounded(), height: h.rounded())
     }
 }
 

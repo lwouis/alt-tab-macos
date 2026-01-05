@@ -323,7 +323,7 @@ class ThumbnailView: FlippedView {
 
     private func updateAppIcon(_ element: Window, _ title: String) {
         let appIconSize = ThumbnailView.iconSize()
-        appIcon.updateWithResizedCopy(.cgImage(element.icon), appIconSize)
+        appIcon.updateContents(.cgImage(element.icon), appIconSize)
         appIcon.setAccessibilityLabel(title)
     }
 
@@ -342,11 +342,11 @@ class ThumbnailView: FlippedView {
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.size, false)
-                thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
+                thumbnail.updateContents(screenshot, thumbnailSize)
             } else {
                 // if no thumbnail, show appIcon instead
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.icon?.size(), true)
-                thumbnail.updateWithResizedCopy(.cgImage(element.icon), thumbnailSize)
+                thumbnail.updateContents(.cgImage(element.icon), thumbnailSize)
             }
             // for Accessibility > "speak items under the pointer"
             thumbnail.setAccessibilityLabel(element.title)
@@ -373,7 +373,7 @@ class ThumbnailView: FlippedView {
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
         if !windowlessIcon.isHidden {
             let windowlessIconSize = ThumbnailView.thumbnailSize(element.icon?.size(), true)
-            windowlessIcon.updateWithResizedCopy(.cgImage(element.icon), windowlessIconSize)
+            windowlessIcon.updateContents(.cgImage(element.icon), windowlessIconSize)
         }
         windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(isShowingWindowControls)
@@ -575,8 +575,8 @@ class ThumbnailView: FlippedView {
         return maxWidth
     }
 
-    static func minThumbnailWidth() -> CGFloat {
-        return ThumbnailsPanel.maxThumbnailsWidth() * Appearance.windowMinWidthInRow - Appearance.interCellPadding * 2
+    static func minThumbnailWidth(_ screen: NSScreen = NSScreen.preferred) -> CGFloat {
+        return ThumbnailsPanel.maxThumbnailsWidth(screen) * Appearance.windowMinWidthInRow - Appearance.interCellPadding * 2
     }
 
     /// The maximum height that a thumbnail can be drawn
@@ -622,9 +622,9 @@ class ThumbnailView: FlippedView {
         return NSSize(width: width.rounded(), height: height.rounded())
     }
 
-    static func iconSize() -> NSSize {
+    static func iconSize(_ screen: NSScreen = NSScreen.preferred) -> NSSize {
         if Preferences.appearanceStyle == .appIcons {
-            let widthMin = ThumbnailView.minThumbnailWidth()
+            let widthMin = ThumbnailView.minThumbnailWidth(screen)
             let contentWidth = Appearance.iconSize
             let frameWidth = contentWidth + Appearance.edgeInsetsSize * 2
             let width = max(frameWidth, widthMin).rounded()

@@ -306,6 +306,7 @@ extension App: NSApplicationDelegate {
         SpacesEvents.observe()
         ScreensEvents.observe()
         ThumbnailsPanel.updateMaxPossibleThumbnailSize()
+        ThumbnailsPanel.updateMaxPossibleAppIconSize()
         SystemAppearanceEvents.observe()
         SystemScrollerStyleEvents.observe()
         Applications.initialDiscovery()

@@ -40,7 +40,7 @@ class PermissionsWindow: NSWindow {
 
     private func setupView() {
         let appIcon = LightImageView()
-        appIcon.updateWithResizedCopy(.cgImage(App.appIcon), NSSize(width: 80, height: 80))
+        appIcon.updateContents(.cgImage(App.appIcon), NSSize(width: 80, height: 80))
         appIcon.fit(80, 80)
         let appText = TitleLabel(NSLocalizedString("AltTab needs some permissions", comment: ""))
         appText.preferredMaxLayoutWidth = 380
