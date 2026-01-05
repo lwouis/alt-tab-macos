@@ -186,7 +186,7 @@ class Window {
             return
         }
         if let altTabWindow = altTabWindow() {
-            altTabWindow.close()
+            isMinimized ? altTabWindow.deminiaturize(nil) : altTabWindow.miniaturize(nil)
             return
         }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
@@ -210,7 +210,7 @@ class Window {
             return
         }
         if let altTabWindow = altTabWindow() {
-            altTabWindow.close()
+            altTabWindow.toggleFullScreen(nil)
             return
         }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
