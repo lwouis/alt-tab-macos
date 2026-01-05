@@ -153,13 +153,25 @@ class Window {
             NSSound.beep()
             return
         }
+        if let altTabWindow = altTabWindow() {
+            altTabWindow.close()
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
             guard let self else { return }
             if self.isFullscreen {
                 try? self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
-            }
-            if let closeButton_ = try? self.axUiElement!.closeButton() {
-                try? closeButton_.performAction(kAXPressAction)
+                // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
+                BackgroundWork.accessibilityCommandsQueue.addOperationAfter(deadline: .now() + .seconds(1)) { [weak self] in
+                    guard let self else { return }
+                    if let closeButton_ = try? self.axUiElement!.closeButton() {
+                        try? closeButton_.performAction(kAXPressAction)
+                    }
+                }
+            } else {
+                if let closeButton_ = try? self.axUiElement!.closeButton() {
+                    try? closeButton_.performAction(kAXPressAction)
+                }
             }
         }
     }
