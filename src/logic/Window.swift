@@ -44,7 +44,7 @@ class Window {
             let currentPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
             if currentPid != pid {
                 #if DEBUG
-                Logger.debug("finalAssert[\(label)]: re-activating pid \(pid) (frontmost was: \(String(describing: currentPid)))")
+                Logger.debug { "finalAssert[\(label)]: re-activating pid \(pid) (frontmost was: \(String(describing: currentPid)))" }
                 #endif
                 application.runningApplication.activate(options: .activateIgnoringOtherApps)
             }
@@ -101,17 +101,6 @@ class Window {
 
     deinit {
         Logger.debug { self.debugId() }
-    }
-
-    /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
-    /// workaround: we check and possibly do it here
-    func checkIfFocused(_ application: Application, _ wid: CGWindowID) {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .updateWindow) {
-            let focusedWid = try application.axUiElement?.focusedWindow()?.cgWindowId()
-            if wid == focusedWid {
-                application.focusedWindow = self
-            }
-        }
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
@@ -352,3 +341,4 @@ class Window {
         }
     }
 }
+
