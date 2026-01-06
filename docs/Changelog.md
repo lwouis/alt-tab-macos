@@ -1,3 +1,27 @@
+# [8.0.0](https://github.com/lwouis/alt-tab-macos/compare/v7.39.0...v8.0.0) (2026-01-06)
+
+
+### Bug Fixes
+
+* avoid macos bug where many permission dialogs pop (closes [#5106](https://github.com/lwouis/alt-tab-macos/issues/5106)) ([5c4199e](https://github.com/lwouis/alt-tab-macos/commit/5c4199e))
+
+
+### Features
+
+* improve memory image of showing app icons (closes [#5144](https://github.com/lwouis/alt-tab-macos/issues/5144)) ([bf58335](https://github.com/lwouis/alt-tab-macos/commit/bf58335))
+* improve ta localization ([989b344](https://github.com/lwouis/alt-tab-macos/commit/989b344))
+* improve thumbnails with screen-capture kit ([7821d7c](https://github.com/lwouis/alt-tab-macos/commit/7821d7c)), closes [#4255](https://github.com/lwouis/alt-tab-macos/issues/4255) [#3652](https://github.com/lwouis/alt-tab-macos/issues/3652)
+
+
+### Performance Improvements
+
+* debounce screen/space events to minimize work ([e2b4779](https://github.com/lwouis/alt-tab-macos/commit/e2b4779))
+
+
+### BREAKING CHANGES
+
+* Better thumbnails with ScreenCaptureKit for users on macOS >= 14
+
 # [7.39.0](https://github.com/lwouis/alt-tab-macos/compare/v7.38.1...v7.39.0) (2026-01-03)
 
 
