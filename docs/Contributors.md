@@ -260,6 +260,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Stefan
 * Stefan Lange
 * Svetoslav Stefanov
+* Tamilselvan0x0
 * Thebennue
 * Thomas Wölk
 * Thorsten
