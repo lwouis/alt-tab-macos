@@ -92,6 +92,7 @@
 "Hide in %@" = "Hide in %@";
 "Hide Space number labels" = "Hide Space number labels";
 "Hide Space number labels:" = "Hide Space number labels:";
+"Hide window indices" = "Hide window indices";
 "Hide status icons" = "Hide status icons";
 "Hide status icons:" = "Hide status icons:";
 "Hide window thumbnails:" = "Hide window thumbnails:";
@@ -164,6 +165,15 @@
 "Screen including mouse" = "Screen including mouse";
 "Screen Recording" = "Screen Recording";
 "Screen showing AltTab" = "Screen showing AltTab";
+"Select Window 1" = "Select Window 1";
+"Select Window 2" = "Select Window 2";
+"Select Window 3" = "Select Window 3";
+"Select Window 4" = "Select Window 4";
+"Select Window 5" = "Select Window 5";
+"Select Window 6" = "Select Window 6";
+"Select Window 7" = "Select Window 7";
+"Select Window 8" = "Select Window 8";
+"Select Window 9" = "Select Window 9";
 "Select next window" = "Select next window";
 "Select previous window" = "Select previous window";
 "Select windows on mouse hover" = "Select windows on mouse hover";

@@ -20,6 +20,16 @@ class Preferences {
         "toggleFullscreenWindowShortcut": "F",
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
+        "window1Shortcut" : "1",
+        "window2Shortcut" : "2",
+        "window3Shortcut" : "3",
+        "window4Shortcut" : "4",
+        "window5Shortcut" : "5",
+        "window6Shortcut" : "6",
+        "window7Shortcut" : "7",
+        "window8Shortcut" : "8",
+        "window9Shortcut" : "9",
+        "window10Shortcut" : "0",
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
         "mouseHoverEnabled": "false",
@@ -71,6 +81,7 @@ class Preferences {
         "fadeOutAnimation": "false",
         "previewFadeInAnimation": "true",
         "hideSpaceNumberLabels": "false",
+        "hideIndexLabels": "false",
         "hideStatusIcons": "false",
         "startAtLogin": "true",
         "menubarIcon": MenubarIconPreference.outlined.indexAsString,
@@ -105,6 +116,16 @@ class Preferences {
     static var toggleFullscreenWindowShortcut: String { CachedUserDefaults.string("toggleFullscreenWindowShortcut") }
     static var quitAppShortcut: String { CachedUserDefaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { CachedUserDefaults.string("hideShowAppShortcut") }
+    static var window1Shortcut: String { CachedUserDefaults.string("window1Shortcut") }
+    static var window2Shortcut: String { CachedUserDefaults.string("window2Shortcut") }
+    static var window3Shortcut: String { CachedUserDefaults.string("window3Shortcut") }
+    static var window4Shortcut: String { CachedUserDefaults.string("window4Shortcut") }
+    static var window5Shortcut: String { CachedUserDefaults.string("window5Shortcut") }
+    static var window6Shortcut: String { CachedUserDefaults.string("window6Shortcut") }
+    static var window7Shortcut: String { CachedUserDefaults.string("window7Shortcut") }
+    static var window8Shortcut: String { CachedUserDefaults.string("window8Shortcut") }
+    static var window9Shortcut: String { CachedUserDefaults.string("window9Shortcut") }
+    static var window10Shortcut: String { CachedUserDefaults.string("window10Shortcut") }
     // periphery:ignore
     static var arrowKeysEnabled: Bool { CachedUserDefaults.bool("arrowKeysEnabled") }
     // periphery:ignore
@@ -118,6 +139,7 @@ class Preferences {
     static var fadeOutAnimation: Bool { CachedUserDefaults.bool("fadeOutAnimation") }
     static var previewFadeInAnimation: Bool { CachedUserDefaults.bool("previewFadeInAnimation") }
     static var hideSpaceNumberLabels: Bool { CachedUserDefaults.bool("hideSpaceNumberLabels") }
+    static var hideIndexLabels: Bool { CachedUserDefaults.bool("hideIndexLabels") }
     static var hideStatusIcons: Bool { CachedUserDefaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { CachedUserDefaults.bool("hideAppBadges") }
     // periphery:ignore

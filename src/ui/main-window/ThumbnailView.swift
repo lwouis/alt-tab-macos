@@ -13,9 +13,10 @@ class ThumbnailView: FlippedView {
     var fullscreenIcon = ThumbnailFontIconView(symbol: .circledPlusSign, tooltip: NSLocalizedString("Window is fullscreen", comment: ""))
     var minimizedIcon = ThumbnailFontIconView(symbol: .circledMinusSign, tooltip: NSLocalizedString("Window is minimized", comment: ""))
     var hiddenIcon = ThumbnailFontIconView(symbol: .circledSlashSign, tooltip: NSLocalizedString("App is hidden", comment: ""))
-    var spaceIcon = ThumbnailFontIconView(symbol: .circledNumber0)
+    var spaceIcon = ThumbnailFontIconView(symbol: .circledNumber0, tenSymbol: .circledNumber10)
+    var indexIcon = ThumbnailFontIconView(symbol: .squareNumber0, tenSymbol: .squareNumber10)
     var dockLabelIcon = ThumbnailFilledFontIconView(
-        ThumbnailFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(), color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1)),
+        ThumbnailFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(), color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1), tenSymbol: .filledCircledNumber10),
         backgroundColor: NSColor.white, size: dockLabelLabelSize())
     var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""))
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""))
@@ -37,7 +38,7 @@ class ThumbnailView: FlippedView {
     var numberOfViewsInRow = 0
 
     var windowControlIcons: [TrafficLightButton] { [quitIcon, closeIcon, minimizeIcon, maximizeIcon] }
-    var windowIndicatorIcons: [ThumbnailFontIconView] { [hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon] }
+    var windowIndicatorIcons: [ThumbnailFontIconView] { [hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon, indexIcon] }
 
     var receivedMouseDown = false
 
@@ -172,7 +173,7 @@ class ThumbnailView: FlippedView {
             if dockLabelInt == nil || dockLabelInt! > 30 {
                 view.setFilledStar()
             } else {
-                view.setNumber(dockLabelInt!, true)
+                view.setNumber(dockLabelInt!)
             }
             view.setAccessibilityLabel(getAccessibilityTextForBadge(dockLabel))
         }
@@ -339,6 +340,7 @@ class ThumbnailView: FlippedView {
                 NSScreen.screens.count < 2 || Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
             )
         ))
+        assignIfDifferent(&indexIcon.isHidden, index > 9 || Preferences.hideIndexLabels)
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.size, false)
@@ -364,9 +366,13 @@ class ThumbnailView: FlippedView {
                 spaceIcon.setStar()
                 spaceIcon.toolTip = NSLocalizedString("Window is on every Space", comment: "")
             } else if let spaceIndex {
-                spaceIcon.setNumber(spaceIndex, false)
+                spaceIcon.setNumber(spaceIndex)
                 spaceIcon.toolTip = String(format: NSLocalizedString("Window is on Space %d", comment: ""), spaceIndex)
             }
+        }
+        if !indexIcon.isHidden {
+            indexIcon.setNumber(index + 1)
+            indexIcon.toolTip = String(format: NSLocalizedString("Window can be selected by pressing %d", comment: ""), index)
         }
         updateAppIcon(element, title)
         updateDockLabelIcon(element.dockLabel)

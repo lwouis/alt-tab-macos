@@ -28,6 +28,16 @@ class ControlsTab {
         "toggleFullscreenWindowShortcut": { App.app.toggleFullscreenSelectedWindow() },
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
+        "window1Shortcut": {Windows.focusWindowByIndex(0)},
+        "window2Shortcut": {Windows.focusWindowByIndex(1)},
+        "window3Shortcut": {Windows.focusWindowByIndex(2)},
+        "window4Shortcut": {Windows.focusWindowByIndex(3)},
+        "window5Shortcut": {Windows.focusWindowByIndex(4)},
+        "window6Shortcut": {Windows.focusWindowByIndex(5)},
+        "window7Shortcut": {Windows.focusWindowByIndex(6)},
+        "window8Shortcut": {Windows.focusWindowByIndex(7)},
+        "window9Shortcut": {Windows.focusWindowByIndex(8)},
+        "window10Shortcut": {Windows.focusWindowByIndex(9)},
     ]
     static var arrowKeysCheckbox: Switch!
     static var vimKeysCheckbox: Switch!
