@@ -153,7 +153,6 @@ class ThumbnailsView {
                 // release images from unused recycledViews; they take lots of RAM
                 view.thumbnail.releaseImage()
                 view.appIcon.releaseImage()
-                view.windowlessIcon.releaseImage()
             }
         }
         scrollView.documentView!.subviews = newViews

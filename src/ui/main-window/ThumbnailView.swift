@@ -6,8 +6,6 @@ class ThumbnailView: FlippedView {
     static let extraTextForPadding = "lmnopqrstuvw"
     var window_: Window?
     var thumbnail = LightImageView()
-    var windowlessIcon = LightImageView()
-    let thumbnailContainer = FlippedView()
     var appIcon = LightImageView()
     var label = ThumbnailTitleView(font: Appearance.font)
     var fullscreenIcon = ThumbnailFontIconView(symbol: .circledPlusSign, tooltip: NSLocalizedString("Window is fullscreen", comment: ""))
@@ -189,14 +187,10 @@ class ThumbnailView: FlippedView {
 
     private func setupSharedSubviews() {
         let shadow = ThumbnailView.makeShadow(Appearance.imagesShadowColor)
-        thumbnailContainer.wantsLayer = true
-        thumbnailContainer.layer!.masksToBounds = false // let thumbnail shadows show
+        thumbnail.layer!.masksToBounds = false // let thumbnail shadows show
         thumbnail.shadow = shadow
-        windowlessIcon.shadow = shadow
         appIcon.shadow = shadow
         dockLabelIcon.shadow = shadow
-        windowlessIcon.translatesAutoresizingMaskIntoConstraints = false
-        windowlessIcon.toolTip = ThumbnailView.noOpenWindowToolTip
         appIcon.translatesAutoresizingMaskIntoConstraints = false
         appIcon.setSubviewAbove(dockLabelIcon)
         label.fixHeight()
@@ -217,11 +211,10 @@ class ThumbnailView: FlippedView {
             label.alignment = .center
             label.isHidden = true
         } else if Preferences.appearanceStyle == .thumbnails {
-            vStackView.addSubviews([thumbnailContainer])
-            thumbnailContainer.setSubviews([thumbnail, windowlessIcon])
-            thumbnailContainer.setSubviewAbove(windowlessAppIndicator)
+            vStackView.addSubviews([thumbnail])
+            thumbnail.setSubviewAbove(windowlessAppIndicator)
             for icon in windowControlIcons {
-                thumbnailContainer.setSubviewAbove(icon)
+                thumbnail.setSubviewAbove(icon)
                 icon.isHidden = true
             }
             hStackView.addSubviews([label] + windowIndicatorIcons)
@@ -328,8 +321,6 @@ class ThumbnailView: FlippedView {
     }
 
     private func updateValues(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
-        assignIfDifferent(&thumbnail.isHidden, Appearance.hideThumbnails || element.isWindowlessApp)
-        assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Appearance.hideThumbnails)
         assignIfDifferent(&windowlessAppIndicator.isHidden, !element.isWindowlessApp)
         assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden || Preferences.hideStatusIcons)
         assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
@@ -339,6 +330,7 @@ class ThumbnailView: FlippedView {
                 NSScreen.screens.count < 2 || Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
             )
         ))
+        thumbnail.toolTip = element.isWindowlessApp ? ThumbnailView.noOpenWindowToolTip : nil
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.size, false)
@@ -371,10 +363,6 @@ class ThumbnailView: FlippedView {
         updateAppIcon(element, title)
         updateDockLabelIcon(element.dockLabel)
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
-        if !windowlessIcon.isHidden {
-            let windowlessIconSize = ThumbnailView.thumbnailSize(element.icon?.size(), true)
-            windowlessIcon.updateContents(.cgImage(element.icon), windowlessIconSize)
-        }
         windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(isShowingWindowControls)
         mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
@@ -393,8 +381,7 @@ class ThumbnailView: FlippedView {
             label.setWidth(labelWidth)
         }
         if Preferences.appearanceStyle == .thumbnails {
-            let content = !windowlessIcon.isHidden ? windowlessIcon : thumbnail
-            thumbnailContainer.frame.size = NSSize(width: hStackView.frame.width, height: content.frame.height)
+            thumbnail.frame.size = NSSize(width: hStackView.frame.width, height: thumbnail.frame.height)
         }
     }
 
@@ -422,15 +409,14 @@ class ThumbnailView: FlippedView {
             label.centerFrameInParent(y: true)
         }
         if Preferences.appearanceStyle == .thumbnails {
-            let content = !windowlessIcon.isHidden ? windowlessIcon : thumbnail
-            thumbnailContainer.frame.origin = NSPoint(x: Appearance.edgeInsetsSize, y: hStackView.frame.maxY + Appearance.intraCellPadding)
-            content.centerFrameInParent(x: true)
+            thumbnail.frame.origin = NSPoint(x: Appearance.edgeInsetsSize, y: hStackView.frame.maxY + Appearance.intraCellPadding)
+            thumbnail.centerFrameInParent(x: true)
             var xOffset = CGFloat(3)
-            var yOffset = CGFloat(2)
+            var yOffset = thumbnail.frame.height - CGFloat(2)
             for icon in windowControlIcons {
-                icon.frame.origin = NSPoint(x: xOffset, y: yOffset)
+                icon.frame.origin = NSPoint(x: xOffset, y: yOffset - TrafficLightButton.size)
                 xOffset += TrafficLightButton.size + TrafficLightButton.spacing
-                if xOffset + TrafficLightButton.size > thumbnailContainer.frame.width {
+                if xOffset + TrafficLightButton.size > thumbnail.frame.width {
                     xOffset = 3 + Appearance.edgeInsetsSize
                     yOffset += TrafficLightButton.size + TrafficLightButton.spacing
                 }
@@ -498,7 +484,7 @@ class ThumbnailView: FlippedView {
         var contentWidth = CGFloat(0)
         if Preferences.appearanceStyle == .thumbnails {
             // Preferred to the width of the image, and the minimum width may be set to be large.
-            contentWidth = (!windowlessIcon.isHidden ? windowlessIcon : thumbnail).frame.size.width
+            contentWidth = thumbnail.frame.size.width
         } else if Preferences.appearanceStyle == .titles {
             contentWidth = ThumbnailView.maxThumbnailWidth() - Appearance.edgeInsetsSize * 2
         } else {
@@ -528,7 +514,6 @@ class ThumbnailView: FlippedView {
         // NSImageView instances are registered to drag-and-drop by default
         thumbnail.unregisterDraggedTypes()
         appIcon.unregisterDraggedTypes()
-        windowlessIcon.unregisterDraggedTypes()
         // we only handle URLs (i.e. not text, image, or other draggable things)
         registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeURL as String)])
     }
