@@ -198,6 +198,15 @@ extension NSImage {
     static func initCopy(_ name: String) -> NSImage {
         return NSImage(named: name)!.copy() as! NSImage
     }
+
+    func tinted(_ color: NSColor) -> NSImage {
+        NSImage(size: size, flipped: false) { rect in
+            color.set()
+            rect.fill()
+            self.draw(in: rect, from: NSRect(origin: .zero, size: self.size), operation: .destinationIn, fraction: 1.0)
+            return true
+        }
+    }
 }
 
 extension CGImage {
@@ -213,6 +222,23 @@ extension CGImage {
 
     func size() -> NSSize {
         return NSSize(width: width, height: height)
+    }
+
+    func iFullyTransparent() -> Bool {
+        guard ![.none, .noneSkipFirst, .noneSkipLast].contains(alphaInfo),
+              let provider = dataProvider, let data = provider.data, let ptr = CFDataGetBytePtr(data)
+        else { return false }
+        // Assumes: kCGImageAlphaPremultipliedFirst | kCGImageByteOrder32Little
+        // Layout: [B, G, R, A]
+        let length = CFDataGetLength(data)
+        var i = 3
+        while i < length {
+            if ptr[i] != 0 {
+                return false
+            }
+            i += 4
+        }
+        return true
     }
 }
 
