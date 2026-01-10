@@ -4,6 +4,7 @@ import Cocoa
 class TrackpadEvents {
     private static var eventTap: CFMachPort!
     private static var shouldBeEnabled: Bool!
+    private static var cursorMovedDistance = CGFloat(0.0)
 
     static func observe() {
         observe_()
@@ -48,15 +49,15 @@ class TrackpadEvents {
     }
 
     private static func touchEventHandler(_ cgEvent: CGEvent) -> Bool {
-        guard let nsEvent = convertEvent(cgEvent) else { return false } // don't absorb the touch event
+        guard let nsEvent = cgEvent.toNSEvent() else { return false } // don't absorb the touch event
         let touches = nsEvent.allTouches()
+        // Logger.error { (touches.count, touches.map { $0.phase.readable}) }
         // sometimes the os sends events with no touches; we ignore these as they could break our gesture logic
         if touches.count == 0 {
             return false
         }
         let activeTouches = touches.filter { !$0.isResting && ($0.phase == .began || $0.phase == .moved || $0.phase == .stationary) }
         let requiredFingers = Preferences.nextWindowGesture.isThreeFinger() ? 3 : 4
-        // Logger.error("---", "activeTouches:", activeTouches.count, "all:", touches.map { $0.phase.readable }, requiredFingers)
         if App.app.appIsBeingUsed {
             handleEventIfAppIsBeingUsed(activeTouches, requiredFingers)
             return true // absorb the touch event
@@ -74,6 +75,7 @@ class TrackpadEvents {
                 }
             }
         } else if activeTouches.count > 1 {
+            CursorEvents.deadZoneInitialPosition = nil
             NavigationSwipeDetector.hasDetected(activeTouches)
         } else {
             // if activeTouches.count == 1, ignore (finger is in pointer-mode)
@@ -231,13 +233,4 @@ fileprivate func performHapticFeedback() {
     if Preferences.trackpadHapticFeedbackEnabled {
         NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .default)
     }
-}
-
-fileprivate func convertEvent(_ cgEvent: CGEvent) -> NSEvent? {
-    var nsEvent: NSEvent?
-    // conversion has to happen on the main-thread, or appkit will crash
-    DispatchQueue.main.sync {
-        nsEvent = NSEvent(cgEvent: cgEvent)
-    }
-    return nsEvent
 }

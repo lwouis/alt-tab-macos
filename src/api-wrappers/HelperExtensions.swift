@@ -381,3 +381,17 @@ extension String.StringInterpolation {
         }
     }
 }
+
+extension CGEvent {
+    func toNSEvent() -> NSEvent? {
+        if Thread.isMainThread {
+            return NSEvent(cgEvent: self)
+        }
+        // conversion has to happen on the main-thread, or appkit will crash
+        var nsEvent: NSEvent?
+        DispatchQueue.main.sync {
+            nsEvent = NSEvent(cgEvent: self)
+        }
+        return nsEvent
+    }
+}

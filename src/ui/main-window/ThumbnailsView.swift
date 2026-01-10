@@ -290,7 +290,7 @@ class ScrollView: NSScrollView {
     }
 
     override func mouseMoved(with event: NSEvent) {
-        guard let documentView, !isCurrentlyScrolling && !ScrollwheelEvents.shouldBeEnabled else { return }
+        guard let documentView, !isCurrentlyScrolling && CursorEvents.isAllowedToMouseHover else { return }
         let location = documentView.convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
         let newTarget = findTarget(location)
         guard newTarget !== previousTarget else { return }
