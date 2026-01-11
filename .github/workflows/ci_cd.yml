@@ -57,6 +57,7 @@ jobs:
       - run: scripts/package_and_notarize_release.sh
       - run: scripts/upload_symbols_to_appcenter.sh
       - run: scripts/update_appcast.sh
+      - run: scripts/update_readme_and_website.sh
       - run: npx semantic-release
       - id: set_tag_name
         run: echo "tag_name=v"$(cat $VERSION_FILE)"" >> "$GITHUB_OUTPUT"

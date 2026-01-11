@@ -20,7 +20,9 @@ module.exports = {
         ['@semantic-release/git', {
             'assets': [
                 'docs/Changelog.md',
-                'appcast.xml'
+                'appcast.xml',
+                'README.md',
+                'docs/_layouts/default.html'
             ],
         }],
     ],

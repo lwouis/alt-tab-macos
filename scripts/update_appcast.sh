@@ -2,7 +2,7 @@
 
 set -exu
 
-version="$(cat $VERSION_FILE)"
+version="$(cat "$VERSION_FILE")"
 date="$(date +'%a, %d %b %Y %H:%M:%S %z')"
 minimumSystemVersion="$(awk -F ' = ' '/MACOSX_DEPLOYMENT_TARGET/ { print $2; }' < config/base.xcconfig)"
 zipName="$APP_NAME-$version.zip"

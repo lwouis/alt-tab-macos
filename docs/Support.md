@@ -1,4 +1,4 @@
-# Support this project ❤️
+<h1 style="text-align:center">Support this project ❤️</h1>
 
 <div class="support-buttons">
     <div class="support-button-wrapper">

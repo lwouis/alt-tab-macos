@@ -365,6 +365,7 @@
 		5F706EBD2BA448B1004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localizable.strings; sourceTree = "<group>"; };
 		5F706EC22BA448D8004D542D /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = InfoPlist.strings; sourceTree = "<group>"; };
 		5F9F965C2EAE731200E25498 /* jetbrains.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = jetbrains.svg; sourceTree = "<group>"; };
+		5FAE000A2F13B49800FE6246 /* update_readme_and_website.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update_readme_and_website.sh; sourceTree = "<group>"; };
 		5FE2AF752EAE849F004A4AC5 /* xcbeautify */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xcbeautify; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
 		7451B8433E47C444A6F489FF /* Pods-unit-tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit-tests.debug.xcconfig"; path = "Target Support Files/Pods-unit-tests/Pods-unit-tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -646,7 +647,6 @@
 		D04BAA1A00449C0C6434AB95 /* id */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = id; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BAA265462999602D1DDE7 /* id */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = id; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BAA4442D0CE3A4972937F /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = InfoPlist.strings; sourceTree = "<group>"; };
-		D04BAA5ECAE8BB8F8656DEDF /* update_contributors.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_contributors.sh; sourceTree = "<group>"; };
 		D04BAA6E43F1E6EB81F953AF /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BAA998119CAA8B70A2B67 /* ThumbnailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailsView.swift; sourceTree = "<group>"; };
 		D04BAA9E0539EE620D08F63F /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fr; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -1613,12 +1613,12 @@
 		D04BA703DCD38D9757093312 /* scripts */ = {
 			isa = PBXGroup;
 			children = (
+				5FAE000A2F13B49800FE6246 /* update_readme_and_website.sh */,
 				5FE2AF752EAE849F004A4AC5 /* xcbeautify */,
 				D04BA4B5292629AA6B560216 /* package_and_notarize_release.sh */,
 				D04BAC6AFC7F06D1A567F27A /* replace_environment_variables_in_app.sh */,
 				D04BA0AAAE82C72855DBBA26 /* update_appcast.sh */,
 				D04BA4FB0047656BEA21F1BE /* codesign */,
-				D04BAA5ECAE8BB8F8656DEDF /* update_contributors.sh */,
 				D04BAD65AA870A49D2F89DBC /* ensure_generated_files_are_up_to_date.sh */,
 				D04BA4D5DF349429527824A2 /* determine_next_version.sh */,
 				D04BAAE6E6823304D66B74F8 /* update_website.sh */,

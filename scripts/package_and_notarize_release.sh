@@ -2,7 +2,7 @@
 
 set -exu
 
-version="$(cat $VERSION_FILE)"
+version="$(cat "$VERSION_FILE")"
 appFile="$APP_NAME.app"
 zipName="$APP_NAME-$version.zip"
 oldPwd="$PWD"

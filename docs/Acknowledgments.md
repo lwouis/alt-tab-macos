@@ -1,4 +1,4 @@
-# Acknowledgments
+## Acknowledgments
 
 These third-party libraries are used:
 

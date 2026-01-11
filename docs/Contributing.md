@@ -1,5 +1,3 @@
-# Contributing
-
 There are many ways to contribute:
 
 * [Suggest an enhancement or discuss an issue on github](https://github.com/lwouis/alt-tab-macos/issues), or use the feedback form in the app.
@@ -9,18 +7,14 @@ There are many ways to contribute:
 
 This document gives a technical overview of the project, for newcomers who want to contribute.
 
-## Building the project locally
+## Building the project
 
 This project has minimal dependency on Xcode-only features (e.g. InterfaceBuilder, Playgrounds). You can build it by doing:
 
 * `scripts/codesign/setup_local.sh` to generate a local self-signed certificate, to avoid having to re-check the `System Preferences > Security & Privacy` permissions on every build
 * Either open `alt-tab-macos.xcworkspace` with XCode, or use the cli: `xcodebuild -workspace alt-tab-macos.xcworkspace -scheme Debug` to build the .app with the `Debug` build configuration
 
-## Raising a pull-request
-
-If you want to contribute a PR, please run `npm install` once. It will add the pre-commit hook to ensure that your commits follow the convention and will pass the PR.
-
-## Mac development ecosystem
+## Mac development
 
 Mac development ecosystem is pretty terrible in general. They keep piling on the tech stacks on top of each other, so you have C APIs, ObjC APIs, Swift APIs, Interface builder, Playgrounds, Swift UI, Mac Catalyst. All these are bridging with each other with a bunch of macros, SDKs glue, compiler flags, compatibility mode, XCode legacy build system, etc. For alt-tab, we are on Swift 5.0. Note that swift just recently started being stable, but overall any change of version breaks a lot of stuff. Swift itself is the mainstream language with the worst governance I’ve seen in modern times.
 
@@ -32,7 +26,7 @@ Dependencies were historically never handled by Apple. The community came up wit
 
 OS APIs are quite limited for the kind of low-level, system-wide app AltTab is. This means often we just don’t have an API to do something. For instance, there is no API to ask the OS “how many Spaces does the user have?” or “Can you focus the window on Space 2?”. There are however, retro-engineered private APIs which you can call. These are not documented at all, not guaranteed to be there in future macOS releases, and prevent us from releasing AltTab on the Mac AppStore. We have tried our best to [document the ones we are using](https://github.com/lwouis/alt-tab-macos/blob/master/src/api-wrappers/private-apis/README.md), as well as [the ones we investigated](https://github.com/lwouis/alt-tab-macos/blob/master/src/experimentations/PrivateApis.swift) in the past.
 
-## This project specifically
+## Project architecture
 
 To mitigate the issues listed above, we took some measures.
 
