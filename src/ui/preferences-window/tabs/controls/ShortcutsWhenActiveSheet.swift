@@ -12,6 +12,8 @@ class ShortcutsWhenActiveSheet: SheetWindow {
             rightViews: [LabelAndControl.makeLabelWithRecorder("", "searchEnterShortcut", Preferences.searchEnterShortcut, labelPosition: .right)[0]])
         let exitSearchShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Exit search", comment: ""),
             rightViews: [LabelAndControl.makeLabelWithRecorder("", "searchExitShortcut", Preferences.searchExitShortcut, labelPosition: .right)[0]])
+        let searchArrowsNavigateRow = TableGroupView.Row(leftTitle: NSLocalizedString("Arrow keys navigate selection while searching", comment: ""),
+            rightViews: [LabelAndControl.makeSwitch("searchArrowKeysNavigate")])
         let anyKeyToSearchRow = TableGroupView.Row(leftTitle: NSLocalizedString("Press any key to search (highest priority)", comment: ""),
             rightViews: [LabelAndControl.makeSwitch("anyKeyToSearchEnabled")])
         let closeWindowShortcut = TableGroupView.Row(leftTitle: NSLocalizedString("Close window", comment: ""),
@@ -30,6 +32,7 @@ class ShortcutsWhenActiveSheet: SheetWindow {
         _ = table.addRow(cancelShortcut)
         _ = table.addRow(enterSearchShortcut)
         _ = table.addRow(exitSearchShortcut)
+        _ = table.addRow(searchArrowsNavigateRow)
         _ = table.addRow(anyKeyToSearchRow)
         _ = table.addRow(closeWindowShortcut)
         _ = table.addRow(minDeminWindowShortcut)
