@@ -1,4 +1,5 @@
 import Cocoa
+import Carbon.HIToolbox.Events
 
 class ThumbnailView: FlippedView {
     static let noOpenWindowToolTip = NSLocalizedString("App is running but has no open window", comment: "")
@@ -30,6 +31,9 @@ class ThumbnailView: FlippedView {
     var dragAndDropTimer: Timer?
     var indexInRecycledViews: Int!
     var isShowingWindowControls = false
+    // Selection accessor injected by the parent view.
+    // Selection == focus (keyboard-focused). Hover never changes selection.
+    var selectionAccessor: ((Int) -> SelectionStyle)?
 
     var isFirstInRow = false
     var isLastInRow = false
@@ -112,6 +116,22 @@ class ThumbnailView: FlippedView {
         }
     }
 
+    override func keyDown(with event: NSEvent) {
+        // Do not hardcode Tab to enter search; use configured shortcuts only
+        let key = Int(event.keyCode)
+        if (key == kVK_Return || key == kVK_ANSI_KeypadEnter) && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
+            // Enter should open the currently selected window
+            App.app.focusSelectedWindow(Windows.focusedWindow())
+            return
+        }
+        if (key == kVK_Space) && event.modifierFlags.intersection(.deviceIndependentFlagsMask).isEmpty {
+            // Space also opens the currently selected window; do not change selection
+            App.app.focusSelectedWindow(Windows.focusedWindow())
+            return
+        }
+        super.keyDown(with: event)
+    }
+
     func mouseMoved() {
         showOrHideWindowControls(true)
         mouseMovedCallback()
@@ -125,6 +145,8 @@ class ThumbnailView: FlippedView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
         window_ = element
+        // Keep the index in sync for proper highlight logic
+        indexInRecycledViews = index
         updateValues(element, index, newHeight)
         updateSizes(newHeight)
         updatePositions(newHeight)
@@ -132,14 +154,22 @@ class ThumbnailView: FlippedView {
     }
 
     func drawHighlight() {
-        let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
-        let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
-        setBackground(isFocused: isFocused, isHovered: isHovered)
-        setBorder(isFocused: isFocused, isHovered: isHovered)
+        // Query selection style from accessor at render time (single source of truth)
+        let style = currentSelectionStyle()
+        let isFocusedPaint = style == .focus
+        let isHoverPaint = style == .hover
+        setBackground(isFocused: isFocusedPaint, isHovered: isHoverPaint)
+        setBorder(isFocused: isFocusedPaint, isHovered: isHoverPaint)
         if Preferences.appearanceStyle == .appIcons {
-            label.isHidden = !(isFocused || isHovered)
-            updateAppIconsLabel(isFocused: isFocused, isHovered: isHovered)
+            // Show label only for the selected style
+            label.isHidden = (style == .none)
+            updateAppIconsLabel(isFocused: isFocusedPaint, isHovered: isHoverPaint)
         }
+    }
+
+    /// Returns the current selection style for this tile based on the injected accessor.
+    private func currentSelectionStyle() -> SelectionStyle {
+        return selectionAccessor?(indexInRecycledViews) ?? .none
     }
 
     func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
@@ -259,22 +289,14 @@ class ThumbnailView: FlippedView {
     }
 
     private func updateAppIconsLabel(isFocused: Bool, isHovered: Bool) {
-        let focusedView = ThumbnailsView.recycledViews[Windows.focusedWindowIndex]
-        var hoveredView: ThumbnailView? = nil
-        if Windows.hoveredWindowIndex != nil {
-            hoveredView = ThumbnailsView.recycledViews[Windows.hoveredWindowIndex!]
-        }
-        if isFocused || (!isFocused && !isHovered) {
-            hoveredView?.label.isHidden = true
-            focusedView.label.isHidden = false
-            updateAppIconsLabelFrame(focusedView)
-        } else if isHovered {
-            hoveredView?.label.isHidden = false
-            focusedView.label.isHidden = true
-            if let hoveredView {
-                updateAppIconsLabelFrame(hoveredView)
+        // App Icons: hide every label except the focused one
+        for (i, v) in ThumbnailsView.recycledViews.enumerated() {
+            if v.superview != nil { // only if currently visible
+                let style = v.selectionAccessor?(i) ?? .none
+                v.label.isHidden = style == .none
             }
         }
+        updateAppIconsLabelFrame(self)
     }
 
     private func getMaxAllowedLabelWidth(_ view: ThumbnailView) -> CGFloat {
@@ -357,6 +379,8 @@ class ThumbnailView: FlippedView {
             label.stringValue = title
             setAccessibilityLabel(title)
         }
+        // Highlight matched search text in light yellow when a search is active.
+        applySearchHighlight(title)
         label.updateTruncationModeIfNeeded()
         if !spaceIcon.isHidden {
             let spaceIndex = element.spaceIndexes.first
@@ -380,6 +404,86 @@ class ThumbnailView: FlippedView {
         mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
     }
+
+    /// Applies background highlight using Smith–Waterman local alignment between query and visible title.
+    /// If both app name and window title are shown, both parts are aligned independently and highlighted.
+    private func applySearchHighlight(_ fullTitle: String) {
+        let query = Windows.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+        if query.isEmpty {
+            // Restore plain styling (keep color/font consistent with theme)
+            let attrs: [NSAttributedString.Key: Any] = [
+                .foregroundColor: Appearance.fontColor,
+                .font: Appearance.font,
+            ]
+            label.attributedStringValue = NSAttributedString(string: fullTitle, attributes: attrs)
+            return
+        }
+        var spanRanges: [NSRange] = []
+        var exactRanges: [NSRange] = []
+        // Reuse cached alignment results computed during filtering/sorting.
+        if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
+            for res in window_?.swAppResults ?? [] {
+                spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
+                for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
+            }
+        } else if Preferences.showTitles == .appNameAndWindowTitle {
+            let appName = window_?.application.localizedName ?? ""
+            let separator = " - "
+            for res in window_?.swAppResults ?? [] {
+                spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
+                for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
+            }
+            let offset = (appName + separator).count
+            for res in window_?.swTitleResults ?? [] {
+                spanRanges.append(NSRange(location: offset + res.span.lowerBound, length: res.span.count))
+                for r in res.subspans { exactRanges.append(NSRange(location: offset + r.lowerBound, length: r.count)) }
+            }
+        } else {
+            for res in window_?.swTitleResults ?? [] {
+                spanRanges.append(NSRange(location: res.span.lowerBound, length: res.span.count))
+                for r in res.subspans { exactRanges.append(NSRange(location: r.lowerBound, length: r.count)) }
+            }
+        }
+
+        let baseAttrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: Appearance.fontColor,
+            .font: Appearance.font,
+        ]
+        let attributed = NSMutableAttributedString(string: fullTitle, attributes: baseAttrs)
+        for range in spanRanges {
+            if range.location >= 0 && range.location + range.length <= attributed.length && range.length > 0 {
+                attributed.addAttribute(.backgroundColor, value: Appearance.searchMatchHighlightColor, range: range)
+            }
+        }
+        // Emphasize exact subspans (underline) within the highlighted region
+        for r in exactRanges {
+            if r.location >= 0 && r.location + r.length <= attributed.length && r.length > 0 {
+                attributed.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: r)
+            }
+        }
+        label.attributedStringValue = attributed
+    }
+
+    /// Creates contiguous ranges from an array of sorted character indices.
+    private func contiguousRanges(fromIndices indices: [Int]) -> [NSRange] {
+        if indices.isEmpty { return [] }
+        var ranges = [NSRange]()
+        var start = indices[0]
+        var prev = indices[0]
+        for i in 1..<indices.count {
+            if indices[i] == prev + 1 {
+                prev = indices[i]
+            } else {
+                ranges.append(NSRange(location: start, length: prev - start + 1))
+                start = indices[i]
+                prev = indices[i]
+            }
+        }
+        ranges.append(NSRange(location: start, length: prev - start + 1))
+        return ranges
+    }
+
+    // Removed old fuzzy subsequence matcher in favor of Smith–Waterman alignment
 
     private func updateSizes(_ newHeight: CGFloat) {
         setFrameWidthHeight(newHeight)

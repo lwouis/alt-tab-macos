@@ -33,8 +33,21 @@ class KeyRepeatTimer {
         }
     }
 
+    static func deactivateTimerForRepeatingKey(_ shortcutName: String) {
+        stopTimerForRepeatingKey(shortcutName)
+    }
+
+    private static func isSearchEditing() -> Bool {
+        if App.app == nil { return false }
+        if let panel = App.app.thumbnailsPanel, panel.isKeyWindow {
+            return panel.thumbnailsView.searchField.currentEditor() != nil
+        }
+        return false
+    }
+
     private static func startTimerForRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         guard timerIsSuspended && atShortcut.state != .up else { return }
+        if isSearchEditing() { return }
         currentTimerShortcutName = atShortcut.id
         // reading these user defaults every time guarantees we have the latest value, if the user has updated those
         let repeatRate = ticksToSeconds(CachedUserDefaults.globalString("KeyRepeat") ?? "6")
@@ -48,6 +61,10 @@ class KeyRepeatTimer {
 
     private static func handleEvent(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
         DispatchQueue.main.async {
+            if isSearchEditing() {
+                stopTimerForRepeatingKey(atShortcut.id)
+                return
+            }
             if atShortcut.state == .up {
                 stopTimerForRepeatingKey(atShortcut.id)
             } else {

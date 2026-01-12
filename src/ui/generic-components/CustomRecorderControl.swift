@@ -37,7 +37,15 @@ class CustomRecorderControl: RecorderControl {
         set(allowedModifierFlags: CustomRecorderControl.allowedModifiers.subtracting(restrictedModifiers), requiredModifierFlags: [], allowsEmptyModifierFlags: true)
     }
 
-    func alertIfSameShortcutAlreadyAssigned(_ candidateShortcut: Shortcut, _ shortcutAlreadyAssigned: String) {
+    func alertIfSameShortcutAlreadyAssigned(_ shortcut: Shortcut, _ shortcutAlreadyAssigned: String) {
+        // Special-case: allow Enter Search and Exit Search to share the same shortcut without conflict.
+        if (id == "searchEnterShortcut" && shortcutAlreadyAssigned == "searchExitShortcut")
+               || (id == "searchExitShortcut" && shortcutAlreadyAssigned == "searchEnterShortcut") {
+            ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
+            ControlsTab.shortcutChangedCallback(self)
+            LabelAndControl.controlWasChanged(self, id)
+            return
+        }
         let isArrowKeys = ["←", "→", "↑", "↓"].contains(shortcutAlreadyAssigned)
         let isVimKeys = shortcutAlreadyAssigned.starts(with: "vimCycle")
         let existingShortcut = ControlsTab.shortcutControls[shortcutAlreadyAssigned]!
@@ -48,6 +56,9 @@ class CustomRecorderControl: RecorderControl {
                                        (isArrowKeys ? "Arrow keys" : (isVimKeys ? "Vim keys" : existingShortcut.1)).replacingOccurrences(of: " ", with: "\u{00A0}"))
         if !id.starts(with: "holdShortcut") {
             alert.addButton(withTitle: NSLocalizedString("Unassign existing shortcut and continue", comment: "")).setAccessibilityFocused(true)
+        }
+        if !id.starts(with: "holdShortcut") {
+            alert.addButton(withTitle: NSLocalizedString("Proceed regardless", comment: ""))
         }
         let cancelButton = alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         cancelButton.keyEquivalent = "\u{1b}"
@@ -67,7 +78,14 @@ class CustomRecorderControl: RecorderControl {
             } else {
                 updateShortcut(existingShortcut.0, nil, existingShortcut.0, shortcutAlreadyAssigned)
             }
-            updateShortcut(ControlsTab.shortcutControls[id]!.0, candidateShortcut, self, id)
+            ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
+            ControlsTab.shortcutChangedCallback(self)
+            LabelAndControl.controlWasChanged(self, id)
+        } else if !id.starts(with: "holdShortcut") && userChoice == .alertSecondButtonReturn {
+            // Proceed regardless: keep both assignments; search/handlers will arbitrate at runtime
+            ControlsTab.shortcutControls[id]!.0.objectValue = shortcut
+            ControlsTab.shortcutChangedCallback(self)
+            LabelAndControl.controlWasChanged(self, id)
         }
     }
 
@@ -133,5 +151,3 @@ extension CustomRecorderControl: RecorderControlDelegate {
         return true
     }
 }
-
-

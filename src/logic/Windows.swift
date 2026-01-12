@@ -1,10 +1,30 @@
 import Cocoa
 
+// Windows manages the list of windows, search (filtering), and selection (focus).
+// Terminology:
+// - Search: editing the search bar text; it filters visibility but does not itself define selection.
+// - Selection: the focused window (keyboard arrows/programmatic focus).
+// - Selection highlight: the visual style applied to the selected (focused) window.
+// - Hover: cursor hover; does not affect selection or selection highlight.
 class Windows {
     static var list = [Window]()
+    // Selection (focus): index of the keyboard-focused window
     static var focusedWindowIndex = Int(0)
+    // Hover state: last index under the cursor (does not affect selection highlight)
     static var hoveredWindowIndex: Int?
-    private static var lastWindowActivityType = WindowActivityType.none
+    // Tracks last activity (hover/focus) to limit side-effects (e.g. scroll only on focus changes)
+    static var lastWindowActivityType = WindowActivityType.none
+    static var searchQuery: String = ""
+    // When true, the next UI refresh will force selection to the first visible window
+    // When true, the next refresh will focus the first visible window (set on search bar changes)
+    static var forceFocusFirstVisibleOnSearchChange: Bool = false
+
+    // Search helpers are implemented in src/logic/search/
+
+    static func shouldDisplay(_ window: Window) -> Bool {
+        return window.shouldShowTheUser && Search.matches(window, query: searchQuery)
+    }
+
 
     /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
     /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
@@ -25,8 +45,12 @@ class Windows {
             }
     }
 
+    // Relevance computation is implemented in src/logic/search/
+
     /// reordered list based on preferences, keeping the original index
     private static func sort() {
+        // Remember the currently selected window instance to preserve selection across reorders
+        let previouslySelected = focusedWindow()
         list.sort {
             // separate buckets for these types of windows
             if Preferences.showWindowlessApps[App.app.shortcutIndex] == .showAtTheEnd && $0.isWindowlessApp != $1.isWindowlessApp {
@@ -37,6 +61,13 @@ class Windows {
             }
             if Preferences.showMinimizedWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isMinimized != $1.isMinimized {
                 return $1.isMinimized
+            }
+            // While searching, prioritize by Smith–Waterman similarity score
+            let trimmed = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmed.isEmpty {
+                let s0 = Search.relevance(for: $0, query: trimmed)
+                let s1 = Search.relevance(for: $1, query: trimmed)
+                if s0 != s1 { return s0 > s1 }
             }
             // sort within each buckets
             let sortType = Preferences.windowOrder[App.app.shortcutIndex]
@@ -69,6 +100,11 @@ class Windows {
             }
             return order == .orderedAscending
         }
+        // Preserve selection after reordering (e.g., when search changes order)
+        if let previouslySelected,
+           let newIndex = list.firstIndex(where: { $0 === previouslySelected }) {
+            focusedWindowIndex = newIndex
+        }
     }
 
     static func updateIsFullscreenOnCurrentSpace() {
@@ -90,6 +126,7 @@ class Windows {
     }
 
     static func setInitialFocusedAndHoveredWindowIndex() {
+        // Reset state and clear previous highlights/hover
         let oldIndex = focusedWindowIndex
         focusedWindowIndex = 0
         ThumbnailsView.highlight(oldIndex)
@@ -97,15 +134,13 @@ class Windows {
             hoveredWindowIndex = nil
             ThumbnailsView.highlight(oldIndex)
         }
-        if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
-           (app.focusedWindow == nil || Preferences.windowOrder[App.app.shortcutIndex] != .recentlyFocused),
-           let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
-            updateFocusedAndHoveredWindowIndex(lastFocusedWindowIndex)
+
+        // New behavior: when the UI opens, select the first visible window in the current order.
+        // This avoids auto-selecting the 2nd window by cycling forward.
+        if let firstVisible = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+            updateFocusedAndHoveredWindowIndex(firstVisible)
         } else {
-            cycleFocusedWindowIndex(1)
-            if focusedWindowIndex == 0 {
-                updateFocusedAndHoveredWindowIndex(0)
-            }
+            updateFocusedAndHoveredWindowIndex(0)
         }
     }
 
@@ -178,30 +213,33 @@ class Windows {
     }
 
     static func updateFocusedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
-        var index: Int?
-        if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
-            let oldIndex = hoveredWindowIndex
+        var oldFocused: Int? = nil
+        var oldHovered: Int? = nil
+        // Update hover state (optional feature). Hover never changes selection.
+        if fromMouse && Preferences.mouseHoverEnabled && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
+            oldHovered = hoveredWindowIndex
             hoveredWindowIndex = newIndex
-            if let oldIndex {
-                ThumbnailsView.highlight(oldIndex)
-            }
-            index = hoveredWindowIndex
             lastWindowActivityType = .hover
         }
-        if (!fromMouse || Preferences.mouseHoverEnabled)
-               && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
-            let oldIndex = focusedWindowIndex
+        // Update selection (focus) only when not coming from the mouse.
+        if !fromMouse && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
+            oldFocused = focusedWindowIndex
+            if hoveredWindowIndex != nil { oldHovered = hoveredWindowIndex; hoveredWindowIndex = nil }
             focusedWindowIndex = newIndex
-            ThumbnailsView.highlight(oldIndex)
             previewFocusedWindowIfNeeded()
-            index = focusedWindowIndex
             lastWindowActivityType = .focus
         }
-        guard let index else { return }
-        ThumbnailsView.highlight(index)
-        let focusedView = ThumbnailsView.recycledViews[index]
-        App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
-        voiceOverWindow(index)
+        // Repaint changed indices and the current selected (focused) index
+        if let of = oldFocused { ThumbnailsView.highlight(of) }
+        if let oh = oldHovered { ThumbnailsView.highlight(oh) }
+        ThumbnailsView.highlight(hoveredWindowIndex ?? focusedWindowIndex)
+        // Only auto-scroll and voice over on focus changes
+        if lastWindowActivityType == .focus {
+            let index = focusedWindowIndex
+            let focusedView = ThumbnailsView.recycledViews[index]
+            App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+            voiceOverWindow(index)
+        }
     }
 
     static func previewFocusedWindowIfNeeded() {
@@ -221,9 +259,15 @@ class Windows {
 
     static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {
         guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
+        // Do not steal focus from the search field while user is typing.
+        // Check now and again right before focusing the thumbnail to avoid races
+        // with code that focuses the search field shortly after a UI refresh.
+        if App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil { return }
         // it seems that sometimes makeFirstResponder is called before the view is visible
         // and it creates a delay in showing the main window; calling it with some delay seems to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            // If the user entered search in the meantime, keep focus there.
+            if App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil { return }
             let window = ThumbnailsView.recycledViews[windowIndex]
             if window.window_ != nil && window.window != nil {
                 App.app.thumbnailsPanel.makeFirstResponder(window)
@@ -255,7 +299,7 @@ class Windows {
             let next = (targetIndex + step) % list.count
             targetIndex = next < 0 ? list.count + next : next
             iterations += 1
-        } while !list[targetIndex].shouldShowTheUser && iterations <= list.count
+        } while !shouldDisplay(list[targetIndex]) && iterations <= list.count
         return targetIndex
     }
 
@@ -266,14 +310,32 @@ class Windows {
     }
 
     static func updateFocusedWindowIndex() {
+        // If a search keystroke updated the query, force selection to the first visible result
+        if forceFocusFirstVisibleOnSearchChange {
+            if let firstVisible = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+                updateFocusedAndHoveredWindowIndex(firstVisible)
+            }
+            forceFocusFirstVisibleOnSearchChange = false
+            return
+        }
         if let focusedWindow = focusedWindow() {
-            if !focusedWindow.shouldShowTheUser {
-                cycleFocusedWindowIndex(windowIndexAfterCycling(1) > focusedWindowIndex ? 1 : -1)
+            if !shouldDisplay(focusedWindow) {
+                // Keep selection stable while filtering. If the current selection
+                // is no longer visible, select the first visible window instead
+                // of moving to an adjacent one.
+                if let firstVisible = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+                    updateFocusedAndHoveredWindowIndex(firstVisible)
+                }
             } else {
                 previewFocusedWindowIfNeeded()
             }
         } else {
-            cycleFocusedWindowIndex(-1)
+            // Fallback: if no window is currently focused, try selecting the first visible
+            if let firstVisible = Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) {
+                updateFocusedAndHoveredWindowIndex(firstVisible)
+            } else {
+                cycleFocusedWindowIndex(-1)
+            }
         }
     }
 
@@ -415,3 +477,7 @@ enum WindowActivityType: Int {
     case hover = 1
     case focus = 2
 }
+
+// Fuzzy search alignment and cache helpers moved to:
+// - src/logic/search/SearchAlignment.swift
+// - src/logic/search/Search.swift

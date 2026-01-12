@@ -228,6 +228,10 @@ class App: AppCenterApplication {
             }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
+            // Reset search on every summon so the list starts unfiltered
+            Windows.searchQuery = ""
+            thumbnailsPanel?.thumbnailsView.searchField.stringValue = ""
+            thumbnailsPanel?.thumbnailsView.searchBarVisible = false
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialFocusedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {

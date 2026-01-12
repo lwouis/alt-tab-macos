@@ -1,12 +1,32 @@
 import ShortcutRecorder
+import Cocoa
 
 class App {
     class AppMock {
         var appIsBeingUsed = false
         var shortcutIndex = 0
         var forceDoNothingOnRelease = false
+        var thumbnailsPanel: ThumbnailsPanel!
+
+        init() {
+            thumbnailsPanel = ThumbnailsPanel()
+        }
     }
-    static let app = AppMock()
+    static var app: AppMock! = AppMock()
+}
+
+class ThumbnailsPanel {
+    var thumbnailsView = ThumbnailsView()
+    var isKeyWindow = true
+}
+
+class ThumbnailsView {
+    var searchField = NSSearchField()
+}
+
+class Windows {
+    static var list: [Any] = []
+    static func shouldDisplay(_: Any) -> Bool { true }
 }
 
 class ControlsTab {
@@ -64,6 +84,7 @@ class Logger {
 class Preferences {
     static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]
     static var holdShortcut = ["⌥", "⌥", "⌥"]
+    static var acronymSearchEnabled = true
 
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))

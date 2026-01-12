@@ -38,6 +38,14 @@ class Window {
         return "\(application.debugId()) (wid:\(cgWindowId) title:\(title))"
     }
 
+    // Cached search data for the current query to avoid recomputing alignment/highlights.
+    // These are reset whenever the active search query changes.
+    var lastSearchQuery: String?
+    // Multiple non-overlapping local alignments (multi-part highlighting support)
+    var swAppResults: [SWResult] = []
+    var swTitleResults: [SWResult] = []
+    var swBestSimilarity: Double = 0.0
+
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) {
         self.axUiElement = axUiElement
         self.application = application

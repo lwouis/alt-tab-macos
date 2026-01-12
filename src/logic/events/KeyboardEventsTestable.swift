@@ -1,3 +1,5 @@
+import Cocoa
+import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
 class KeyboardEventsTestable {
@@ -9,6 +11,14 @@ class KeyboardEventsTestable {
         "holdShortcut2": 6,
         "holdShortcut3": 7,
     ]
+}
+
+/// Simple priority: ensure search-enter outranks search-exit and others when not editing.
+private func shortcutPriority(_ id: String) -> Int {
+    if id == "searchEnterShortcut" { return 0 }
+    if id == "searchExitShortcut" { return 1 }
+    // Keep everything else at a lower priority; ties resolved by id for determinism
+    return 10
 }
 
 @discardableResult
@@ -26,15 +36,74 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
             return "keys:\(modifiersAsString ?? "")\(keyCodeAsString ?? "") isARepeat:\(isARepeat)"
         }
     }
+    // While typing in the search field, allow a small, explicit set of shortcuts:
+    // - Exit search (takes precedence if it matches)
+    // - Focus selected window (e.g., Space by default)
+    // - Cancel (e.g., Escape by default)
+    if App.app != nil,
+       App.app.appIsBeingUsed,
+       App.app.thumbnailsPanel != nil,
+       App.app.thumbnailsPanel.isKeyWindow,
+       App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+        if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
+           exitShortcut.matches(globalId, shortcutState, keyCode, modifiers) && exitShortcut.shouldTrigger() {
+            exitShortcut.executeAction(isARepeat)
+            exitShortcut.redundantSafetyMeasures()
+            return true
+        }
+        if Preferences.searchArrowKeysNavigate,
+           let keyCode,
+           modifiers?.intersection([.command, .control, .option]).isEmpty ?? true {
+            switch keyCode {
+            case UInt32(kVK_LeftArrow):
+                App.app.cycleSelection(.left)
+                return true
+            case UInt32(kVK_RightArrow):
+                App.app.cycleSelection(.right)
+                return true
+            case UInt32(kVK_UpArrow):
+                App.app.cycleSelection(.up)
+                return true
+            case UInt32(kVK_DownArrow):
+                App.app.cycleSelection(.down)
+                return true
+            default:
+                break
+            }
+        }
+        if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
+           focusShortcut.matches(globalId, shortcutState, keyCode, modifiers) && focusShortcut.shouldTrigger() {
+            if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
+                focusShortcut.executeAction(isARepeat)
+            }
+            focusShortcut.redundantSafetyMeasures()
+            return true
+        }
+        if let cancelShortcut = ControlsTab.shortcuts["cancelShortcut"],
+           cancelShortcut.matches(globalId, shortcutState, keyCode, modifiers) && cancelShortcut.shouldTrigger() {
+            cancelShortcut.executeAction(isARepeat)
+            cancelShortcut.redundantSafetyMeasures()
+            return true
+        }
+        return false
+    }
     var someShortcutTriggered = false
-    for shortcut in ControlsTab.shortcuts.values {
-        if shortcut.matches(globalId, shortcutState, keyCode, modifiers) && shortcut.shouldTrigger() {
+    // Deterministic ordering: by priority then id; execute only the first match.
+    let orderedShortcuts = ControlsTab.shortcuts.values.sorted { (a, b) -> Bool in
+        let pa = shortcutPriority(a.id)
+        let pb = shortcutPriority(b.id)
+        return pa == pb ? a.id < b.id : pa < pb
+    }
+    for shortcut in orderedShortcuts {
+        let isMatch = shortcut.matches(globalId, shortcutState, keyCode, modifiers)
+        if isMatch && shortcut.shouldTrigger() && !someShortcutTriggered {
             shortcut.executeAction(isARepeat)
             // we want to pass-through alt-up to the active app, since it saw alt-down previously
             if !shortcut.id.starts(with: "holdShortcut") {
                 someShortcutTriggered = true
             }
         }
+        // Always run safety to keep timers/state consistent even if not executed
         shortcut.redundantSafetyMeasures()
     }
     // TODO if we manage to move all keyboard listening to the background thread, we'll have issues returning this boolean

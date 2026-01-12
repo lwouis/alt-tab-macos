@@ -1,5 +1,6 @@
 import Cocoa
 import ShortcutRecorder
+import Carbon.HIToolbox.Events
 
 class KeyboardEvents {
     private static let signature = "altt".utf16.reduce(0) { ($0 << 8) + OSType($1) }
@@ -79,6 +80,76 @@ class KeyboardEvents {
     // TODO: handle this on a background thread?
     private static func addLocalMonitorForKeyDownAndKeyUp() {
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
+            var bypassShortcutsForThisEvent = false  // focus search and let the key become input
+            var consumeEventForSearchEntry = false   // focus search but do NOT insert this key
+            // When search is already focused, handle a few special keys directly
+            if event.type == .keyDown,
+               App.app != nil,
+               App.app.appIsBeingUsed,
+               App.app.thumbnailsPanel != nil,
+               App.app.thumbnailsPanel.isKeyWindow,
+               App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+                let keyCode = event.keyCode
+                if keyCode == UInt16(kVK_Return) || keyCode == UInt16(kVK_ANSI_KeypadEnter) {
+                    if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
+                        ControlsTab.executeAction("focusWindowShortcut")
+                    }
+                    return nil
+                }
+            }
+            if event.type == .keyDown,
+               App.app != nil,
+               App.app.appIsBeingUsed,
+               App.app.thumbnailsPanel != nil,
+               App.app.thumbnailsPanel.isKeyWindow,
+               App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() == nil {
+                // If Enter is pressed while thumbnails have focus, focus the selected window.
+                // Avoid entering search on Enter which could reset selection.
+                let keyCode = event.keyCode
+                if keyCode == UInt16(kVK_Return) || keyCode == UInt16(kVK_ANSI_KeypadEnter) {
+                    ControlsTab.executeAction("focusWindowShortcut")
+                    return nil
+                }
+                // Compute a common exclusion list for navigation, cancel, and configured search keys
+                var excluded: Set<UInt16> = [
+                    UInt16(kVK_LeftArrow), UInt16(kVK_RightArrow),
+                    UInt16(kVK_UpArrow), UInt16(kVK_DownArrow),
+                    UInt16(kVK_Return), UInt16(kVK_ANSI_KeypadEnter)
+                ]
+                // Also exclude the configured cancel shortcut key so it never
+                // becomes the first search character or triggers search entry.
+                if let cancel = ControlsTab.shortcuts["cancelShortcut"]?.shortcut {
+                    excluded.insert(UInt16(cancel.carbonKeyCode))
+                }
+                if let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut {
+                    excluded.insert(UInt16(enter.carbonKeyCode))
+                }
+                if let exit = ControlsTab.shortcuts["searchExitShortcut"]?.shortcut {
+                    excluded.insert(UInt16(exit.carbonKeyCode))
+                }
+                if Preferences.anyKeyToSearchEnabled {
+                    // Enter search and deliver this key to the search field
+                    if !excluded.contains(keyCode) {
+                        App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
+                        bypassShortcutsForThisEvent = true
+                    }
+                } else {
+                    // Enter search but do NOT insert the first key.
+                    // Allow only character-typing keys (no command/control/option), and exclude Space to avoid
+                    // clashing with the default focus action.
+                    let disallowedModifiers: NSEvent.ModifierFlags = [.command, .control, .option]
+                    if event.modifierFlags.intersection(disallowedModifiers).isEmpty,
+                       !excluded.contains(keyCode),
+                       keyCode != UInt16(kVK_Space) {
+                        App.app.thumbnailsPanel.thumbnailsView.focusSearchField()
+                        consumeEventForSearchEntry = true
+                    }
+                }
+            }
+            // Suppress this key so it doesn't become the first search character
+            if consumeEventForSearchEntry { return nil }
+            // Deliver the key to the search field and skip shortcut handling
+            if bypassShortcutsForThisEvent { return event }
             let someShortcutTriggered = handleKeyboardEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, event.modifierFlags, event.type == .keyDown ? event.isARepeat : false)
             return someShortcutTriggered ? nil : event
         }
