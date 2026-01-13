@@ -64,7 +64,7 @@ class App: AppCenterApplication {
         forceDoNothingOnRelease = false
         MouseEvents.toggle(false)
         CursorEvents.toggle(false)
-        ScrollwheelEvents.toggle(false)
+        TrackpadEvents.reset()
         hideThumbnailPanelWithoutChangingKeyWindow()
         if !keepPreview {
             previewPanel.orderOut(nil)
