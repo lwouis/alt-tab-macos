@@ -29,6 +29,7 @@ class Window {
     var size: CGSize?
     var spaceIds = [CGSSpaceID.max]
     var spaceIndexes = [SpaceIndex.max]
+    var screenId: ScreenUuid?
     var axUiElement: AXUIElement?
     var application: Application
     var axObserver: AXObserver?
@@ -42,7 +43,7 @@ class Window {
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
-        Windows.updatesWindowSpace(self)
+        self.updateSpacesAndScreen()
         self.isFullscreen = isFullscreen
         self.isMinimized = isMinimized
         self.position = position
@@ -241,6 +242,26 @@ class Window {
             return cgTitle
         }
         return application.localizedName ?? ""
+    }
+
+    func updateSpacesAndScreen() {
+        // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
+        // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
+        // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
+        updateSpaces()
+        updateScreenId()
+    }
+
+    private func updateSpaces() {
+        guard let cgWindowId else { return }
+        let spaceIds = cgWindowId.spaces()
+        self.spaceIds = spaceIds
+        self.spaceIndexes = spaceIds.compactMap { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1 }
+        self.isOnAllSpaces = spaceIds.count > 1
+    }
+
+    private func updateScreenId() {
+        screenId = NSScreen.screens.first { isOnScreen($0) }?.uuid()
     }
 
     /// window may not be visible on that screen (e.g. the window is not on the current Space)

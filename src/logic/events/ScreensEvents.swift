@@ -13,6 +13,7 @@ class ScreensEvents {
         debouncerScreenAndSpace.debounce(.screenEvent) {
             Logger.debug { notification.name.rawValue }
             Spaces.refresh()
+            Screens.refresh()
             // a screen added or removed, or screen resolution change can mess up layout; we reset components
             App.app.resetPreferencesDependentComponents()
         }

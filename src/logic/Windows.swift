@@ -159,22 +159,20 @@ class Windows {
     }
 
     static func updateLastFocus(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID) -> [Window]? {
-        if let focusedWindow = (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) }) {
-            let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
-            var windowsToRefresh = [focusedWindow]
-            list.forEach {
-                if $0.lastFocusOrder == focusedWindowOldFocusOrder {
-                    $0.lastFocusOrder = 0
-                } else if $0.lastFocusOrder < focusedWindowOldFocusOrder {
-                    $0.lastFocusOrder += 1
-                }
-                if $0.lastFocusOrder == 0 {
-                    windowsToRefresh.append($0)
-                }
+        guard let focusedWindow = (list.first { $0.isEqualRobust(otherWindowAxUiElement, otherWindowWid) }) else { return nil }
+        // no need to update the list is the window is already lastFocusOrder 0
+        guard focusedWindow.lastFocusOrder != 0 && list.count > 1, let previousFocus = (list.first { $0.lastFocusOrder == 0 }) else { return [focusedWindow] }
+        // 2 windows have recently changed: the one which got focused, and the one who just lost focus
+        let windowsToRefresh = [focusedWindow, previousFocus]
+        let focusedWindowOldFocusOrder = focusedWindow.lastFocusOrder
+        list.forEach {
+            if $0.lastFocusOrder == focusedWindowOldFocusOrder {
+                $0.lastFocusOrder = 0
+            } else if $0.lastFocusOrder < focusedWindowOldFocusOrder {
+                $0.lastFocusOrder += 1
             }
-            return windowsToRefresh
         }
-        return nil
+        return windowsToRefresh
     }
 
     static func updateFocusedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
@@ -306,25 +304,13 @@ class Windows {
         lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
         for window in list {
             detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
-            updatesWindowSpace(window)
+            window.updateSpacesAndScreen()
             refreshIfWindowShouldBeShownToTheUser(window)
         }
         refreshWhichWindowsToShowTheUser()
         sort()
         if (!list.contains { $0.shouldShowTheUser }) { return false }
         return true
-    }
-
-    static func updatesWindowSpace(_ window: Window) {
-        // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
-        // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
-        // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
-        if let cgWindowId = window.cgWindowId {
-            let spaceIds = cgWindowId.spaces()
-            window.spaceIds = spaceIds
-            window.spaceIndexes = spaceIds.compactMap { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1 }
-            window.isOnAllSpaces = spaceIds.count > 1
-        }
     }
 
     // dispatch screenshot requests off the main-thread, then wait for completion

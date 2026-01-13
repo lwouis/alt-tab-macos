@@ -304,6 +304,7 @@ extension App: NSApplicationDelegate {
         self.thumbnailsPanel = ThumbnailsPanel()
         self.previewPanel = PreviewPanel()
         Spaces.refresh()
+        Screens.refresh()
         SpacesEvents.observe()
         ScreensEvents.observe()
         ThumbnailsPanel.updateMaxPossibleThumbnailSize()
