@@ -63,7 +63,6 @@ class CursorEvents {
         let deltaX = event.locationInWindow.x - deadZoneInitialPosition.x
         let deltaY = event.locationInWindow.y - deadZoneInitialPosition.y
         let d = hypot(deltaX, deltaY)
-        Logger.error { d }
         isAllowedToMouseHover = d > 25
     }
 }

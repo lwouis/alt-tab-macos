@@ -1,5 +1,6 @@
 import Cocoa
 import Darwin
+import Carbon.HIToolbox.Events
 
 extension NSAppearance {
     func getThemeName() -> AppearanceThemePreference {
