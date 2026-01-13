@@ -307,8 +307,7 @@ class ScrollView: NSScrollView {
     }
 
     private func findTarget(_ location: NSPoint) -> ThumbnailView? {
-        for i in 0..<Windows.list.count {
-            let view = ThumbnailsView.recycledViews[i]
+        for case let view as ThumbnailView in documentView!.subviews {
             let frame = view.frame
             let expandedFrame = CGRect(x: frame.minX - (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : 1), y: frame.minY, width: frame.width + 1, height: frame.height + 1)
             if expandedFrame.contains(location) {
