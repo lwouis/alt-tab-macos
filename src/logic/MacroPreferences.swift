@@ -76,6 +76,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     case icelandic
     case czech
     case greek
+    case belarusian
     case bulgarian
     case russian
     case serbian
@@ -99,6 +100,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
         switch self {
             case .systemDefault: return NSLocalizedString("System Default", comment: "")
             case .arabic: return "العربية"
+            case .belarusian: return "Беларуская мова"
             case .bulgarian: return "Български"
             case .bengali: return "বাংলা"
             case .catalan: return "Català"
@@ -158,6 +160,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
         switch self {
             case .systemDefault: return nil
             case .arabic: return "ar"
+            case .belarusian: return "be"
             case .bulgarian: return "bg"
             case .bengali: return "bn"
             case .catalan: return "ca"

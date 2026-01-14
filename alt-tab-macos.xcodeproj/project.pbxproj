@@ -74,6 +74,8 @@
 		5F706EC32BA448D8004D542D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F706EC12BA448D8004D542D /* InfoPlist.strings */; };
 		5F882F382EC3C63400110A9F /* CustomRecorderControlTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8DC2A355E29516DD2FAF /* CustomRecorderControlTestable.swift */; };
 		5F906A342F16A18500B99924 /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F906A332F16A18000B99924 /* Screens.swift */; };
+		5FEFDF2F2F181E120065BAA3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5FEFDF2D2F181E120065BAA3 /* Localizable.strings */; };
+		5FEFDF322F181E250065BAA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5FEFDF312F181E250065BAA3 /* InfoPlist.strings */; };
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
 		AA974BA929B7D84C0099A29E /* PreviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA974BA829B7D84C0099A29E /* PreviewPanel.swift */; };
 		BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */; };
@@ -376,6 +378,8 @@
 		5F9F965C2EAE731200E25498 /* jetbrains.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = jetbrains.svg; sourceTree = "<group>"; };
 		5FAE000A2F13B49800FE6246 /* update_readme_and_website.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update_readme_and_website.sh; sourceTree = "<group>"; };
 		5FE2AF752EAE849F004A4AC5 /* xcbeautify */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xcbeautify; sourceTree = "<group>"; };
+		5FEFDF2C2F181E120065BAA3 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = Localizable.strings; sourceTree = "<group>"; };
+		5FEFDF302F181E250065BAA3 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
 		7451B8433E47C444A6F489FF /* Pods-unit-tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit-tests.debug.xcconfig"; path = "Target Support Files/Pods-unit-tests/Pods-unit-tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA974BA829B7D84C0099A29E /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
@@ -855,6 +859,15 @@
 				5F706EBE2BA448B1004D542D /* Localizable.strings */,
 			);
 			path = is.lproj;
+			sourceTree = "<group>";
+		};
+		5FEFDF2E2F181E120065BAA3 /* be.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				5FEFDF312F181E250065BAA3 /* InfoPlist.strings */,
+				5FEFDF2D2F181E120065BAA3 /* Localizable.strings */,
+			);
+			path = be.lproj;
 			sourceTree = "<group>";
 		};
 		A638921971E99EC1D9EC383D /* Pods */ = {
@@ -1851,6 +1864,7 @@
 		D04BAC2B70BC798C57B0B492 /* l10n */ = {
 			isa = PBXGroup;
 			children = (
+				5FEFDF2E2F181E120065BAA3 /* be.lproj */,
 				5F706EBF2BA448B1004D542D /* is.lproj */,
 				D04BA2641C1A385861945B7C /* en.lproj */,
 				D04BA61DD16A622D398FED3E /* fr.lproj */,
@@ -2079,6 +2093,7 @@
 				lt,
 				gu,
 				"zh-HK",
+				be,
 			);
 			mainGroup = D04BA1463D2A17038222BB84;
 			productRefGroup = D04BA1A461BBB5A9BE15E015 /* Products */;
@@ -2114,6 +2129,7 @@
 				D04BAC3169D54014CBA9ACE5 /* Localizable.strings in Resources */,
 				D04BA100BD0F47828EB649FF /* InfoPlist.strings in Resources */,
 				D04BA3C24F4F644EA91DE38C /* Localizable.strings in Resources */,
+				5FEFDF2F2F181E120065BAA3 /* Localizable.strings in Resources */,
 				D04BA03B560B681AF96E4610 /* InfoPlist.strings in Resources */,
 				D04BA1C85041FB043FD43E65 /* Localizable.strings in Resources */,
 				D04BA9557A6C9E192D228150 /* InfoPlist.strings in Resources */,
@@ -2272,6 +2288,7 @@
 				BF0C836CC0D9CEE5026B8EF4 /* InfoPlist.strings in Resources */,
 				BF0C8BD4410A3D597409C328 /* InfoPlist.strings in Resources */,
 				BF0C8167D415F503D2390065 /* InfoPlist.strings in Resources */,
+				5FEFDF322F181E250065BAA3 /* InfoPlist.strings in Resources */,
 				BF0C8CE3AE04A98400B9962F /* InfoPlist.strings in Resources */,
 				BF0C8610E3416890DED16C36 /* Localizable.strings in Resources */,
 				BF0C827C61136E83F43C6436 /* InfoPlist.strings in Resources */,
@@ -2526,6 +2543,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				5F706EC22BA448D8004D542D /* is */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		5FEFDF2D2F181E120065BAA3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FEFDF2C2F181E120065BAA3 /* be */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5FEFDF312F181E250065BAA3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FEFDF302F181E250065BAA3 /* InfoPlist.strings */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
