@@ -1,3 +1,23 @@
+# [8.1.0](https://github.com/lwouis/alt-tab-macos/compare/v8.0.0...v8.1.0) (2026-01-14)
+
+
+### Bug Fixes
+
+* allow f-keys as shortcuts-when-active (closes [#5166](https://github.com/lwouis/alt-tab-macos/issues/5166)) ([a0c9fee](https://github.com/lwouis/alt-tab-macos/commit/a0c9fee))
+* avoid unintentional trackpad trigger (closes [#4278](https://github.com/lwouis/alt-tab-macos/issues/4278)) ([0539a3a](https://github.com/lwouis/alt-tab-macos/commit/0539a3a))
+* better handle palm/fingers resting on the trackpad (closes [#5191](https://github.com/lwouis/alt-tab-macos/issues/5191)) ([9ed8a19](https://github.com/lwouis/alt-tab-macos/commit/9ed8a19))
+* mitigate macos 15 bugs with screencapture-kit (closes [#5190](https://github.com/lwouis/alt-tab-macos/issues/5190)) ([b2f5c6c](https://github.com/lwouis/alt-tab-macos/commit/b2f5c6c))
+* mouse hover detection for hidden/windowless apps ([7c64864](https://github.com/lwouis/alt-tab-macos/commit/7c64864))
+* thumbnails could sometimes be the wrong size ([9d0b947](https://github.com/lwouis/alt-tab-macos/commit/9d0b947))
+
+
+### Features
+
+* add belarusian localization ([0fe722b](https://github.com/lwouis/alt-tab-macos/commit/0fe722b))
+* improve accidental cursor movement ([74b5a11](https://github.com/lwouis/alt-tab-macos/commit/74b5a11)), closes [/github.com/lwouis/alt-tab-macos/issues/4278#issuecomment-3733280737](https://github.com//github.com/lwouis/alt-tab-macos/issues/4278/issues/issuecomment-3733280737)
+* improve pl localization ([3b53ce7](https://github.com/lwouis/alt-tab-macos/commit/3b53ce7))
+* show outline of windows hidden for privacy reasons (closes [#5172](https://github.com/lwouis/alt-tab-macos/issues/5172)) ([1090acf](https://github.com/lwouis/alt-tab-macos/commit/1090acf))
+
 # [8.0.0](https://github.com/lwouis/alt-tab-macos/compare/v7.39.0...v8.0.0) (2026-01-06)
 
 
