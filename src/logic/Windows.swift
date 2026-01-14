@@ -325,7 +325,9 @@ class Windows {
             }
         }
         guard (!eligibleWindows.isEmpty || windowRemoved) else { return }
-        if #available(macOS 14.0, *) {
+        if #available(macOS 14.0, *),
+           // mitigate macOS 15 bugs with ScreenCapture Kit (see https://github.com/lwouis/alt-tab-macos/issues/5190)
+           ProcessInfo.processInfo.operatingSystemVersion.majorVersion != 15 {
             WindowCaptureScreenshots.oneTimeScreenshots(eligibleWindows, source)
         } else {
             WindowCaptureScreenshotsPrivateApi.oneTimeScreenshots(eligibleWindows, source)
