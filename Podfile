@@ -1,3 +1,6 @@
+# disable warnings coming from pods, which are always noise from our perspective
+inhibit_all_warnings!
+
 def deployment_target_from_xcconfig()
     xcconfig_path = 'config/base.xcconfig'
     File.foreach(xcconfig_path) do |line|
