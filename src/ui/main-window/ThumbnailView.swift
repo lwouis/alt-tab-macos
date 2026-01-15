@@ -380,9 +380,6 @@ class ThumbnailView: FlippedView {
             let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorsSpace()
             label.setWidth(labelWidth)
         }
-        if Preferences.appearanceStyle == .thumbnails {
-            thumbnail.frame.size = NSSize(width: hStackView.frame.width, height: thumbnail.frame.height)
-        }
     }
 
     private func updatePositions(_ newHeight: CGFloat) {
@@ -417,8 +414,8 @@ class ThumbnailView: FlippedView {
                 icon.frame.origin = NSPoint(x: xOffset, y: yOffset - TrafficLightButton.size)
                 xOffset += TrafficLightButton.size + TrafficLightButton.spacing
                 if xOffset + TrafficLightButton.size > thumbnail.frame.width {
-                    xOffset = 3 + Appearance.edgeInsetsSize
-                    yOffset += TrafficLightButton.size + TrafficLightButton.spacing
+                    xOffset = 3
+                    yOffset -= TrafficLightButton.size + TrafficLightButton.spacing
                 }
             }
         }
