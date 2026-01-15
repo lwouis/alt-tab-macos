@@ -586,7 +586,7 @@
 		D04BA2E8D5D5CC23456BC8F7 /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = Localizable.strings; sourceTree = "<group>"; };
 		D04BA32F25860B686DFE818A /* 3 windows - 1 line.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "3 windows - 1 line.jpg"; sourceTree = "<group>"; };
 		D04BA3632A2EB5C64A3FEE59 /* hu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hu; path = InfoPlist.strings; sourceTree = "<group>"; };
-		D04BA369B4D9FD6A13936F53 /* bare.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = bare.html; sourceTree = "<group>"; };
+		D04BA369B4D9FD6A13936F53 /* changelog-bare.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "changelog-bare.html"; sourceTree = "<group>"; };
 		D04BA3C951614ADC408312CB /* pt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pt; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA3EF6656955B0B29C2CD /* other.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = other.md; sourceTree = "<group>"; };
 		D04BA3FF376BC2757D25A2AD /* controls@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "controls@2x.png"; sourceTree = "<group>"; };
@@ -1759,7 +1759,7 @@
 			isa = PBXGroup;
 			children = (
 				D04BAE298D0D87E4E69A2054 /* default.html */,
-				D04BA369B4D9FD6A13936F53 /* bare.html */,
+				D04BA369B4D9FD6A13936F53 /* changelog-bare.html */,
 			);
 			path = _layouts;
 			sourceTree = "<group>";

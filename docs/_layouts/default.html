@@ -95,7 +95,7 @@
         </aside>
 
         <main class="content">
-            <div>
+            <div{% if page.name == 'Changelog.md' %} id="changelog"{% endif %}>
                 {{ content }}
             </div>
         </main>

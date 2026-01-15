@@ -305,15 +305,6 @@ ul.submenu {
   }
 }
 
-.section {
-  background: #ddd;
-  border: 2px dashed #aaa;
-  padding: 24px;
-  margin-bottom: 24px;
-  height: 300px;
-  font-size: 14px;
-}
-
 /* ---------- Mobile ---------- */
 #menu-toggle {
   display: none;
@@ -537,4 +528,42 @@ ul.submenu {
   .support-button img.paypal { width: 60%; margin-top: 6px; }
   .support-button img.github-sponsors { width: 110%; margin-top: 6px; }
   .support-button img.stripe { width: 51%; margin-top: 4px; }
+}
+
+#changelog {
+  margin-top: -20px;
+  padding: 15px;
+
+  #support-link {
+    margin: 0;
+    position: fixed;
+    top: 15px;
+    right: 10px;
+    border-radius: 0.5em;
+    padding: 0.15em 0.9em;
+    font-size: 13px;
+    background: #ffdbd5;
+    /*background: #f91675;*/
+    color: #950020;
+    /*color: white;*/
+    font-weight: normal;
+  }
+
+  h1, h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    background-color: #f1f7ff;
+    display: inline-block;
+  }
+
+  h3 {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  ul {
+    margin: 0 0 5px 0;
+  }
 }

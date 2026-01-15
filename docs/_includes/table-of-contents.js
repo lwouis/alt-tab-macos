@@ -39,24 +39,17 @@ function buildTOC() {
 
     const hash = window.location.hash;
     if (!hash) return;
+    // remove existing .active, if exists
+    const existingLink = document.querySelector(`.submenu a.active`);
+    if (existingLink) {
+        existingLink.classList.remove('active');
+    }
+    // add new .active, if exists
     const link = document.querySelector(`a[href="${hash}"]`);
     if (link) {
         link.classList.add('active');
     }
 }
 
-function refreshActiveLink() {
-    const hash = window.location.hash;
-    if (!hash) return;
-    const existingLink = document.querySelector(`.submenu a.active`);
-    if (existingLink) {
-        existingLink.classList.remove('active');
-    }
-}
-
-// Run on first load
-document.addEventListener('DOMContentLoaded', buildTOC);
-// Run on Turbolinks page change
 document.addEventListener('turbolinks:load', buildTOC);
-
-window.addEventListener('hashchange', refreshActiveLink);
+window.addEventListener('hashchange', buildTOC);
