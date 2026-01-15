@@ -1,3 +1,15 @@
+# [8.2.0](https://github.com/lwouis/alt-tab-macos/compare/v8.1.0...v8.2.0) (2026-01-15)
+
+
+### Bug Fixes
+
+* thumbnails could sometimes be stretched (closes [#5204](https://github.com/lwouis/alt-tab-macos/issues/5204)) ([ac24d6d](https://github.com/lwouis/alt-tab-macos/commit/ac24d6d))
+
+
+### Features
+
+* stop checking screen-recording permission after launch ([#5202](https://github.com/lwouis/alt-tab-macos/issues/5202)) ([f481d22](https://github.com/lwouis/alt-tab-macos/commit/f481d22))
+
 # [8.1.0](https://github.com/lwouis/alt-tab-macos/compare/v8.0.0...v8.1.0) (2026-01-14)
 
 
