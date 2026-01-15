@@ -17,14 +17,12 @@ class PermissionsWindow: NSWindow {
         guard !isVisible else { return }
         Logger.debug { "" }
         SystemPermissions.setFrequentTimer()
-        updatePermissionViews()
         center()
         App.shared.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
     }
 
     func updatePermissionViews() {
-        guard isVisible else { return }
         accessibilityView.updatePermissionStatus(AccessibilityPermission.status)
         if #available(macOS 10.15, *) {
             screenRecordingView.updatePermissionStatus(ScreenRecordingPermission.status)
