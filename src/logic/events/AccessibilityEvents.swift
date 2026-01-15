@@ -54,17 +54,61 @@ class AccessibilityEvents {
     }
 
     private static func applicationActivated(_ element: AXUIElement, _ pid: pid_t) throws {
-        let appFocusedWindow = try element.focusedWindow()
-        let wid = try appFocusedWindow?.cgWindowId()
-        DispatchQueue.main.async {
-            if let app = Applications.find(pid) {
-                if app.hasBeenActiveOnce != true {
-                    app.hasBeenActiveOnce = true
+        let initialFocusedWindow = try element.focusedWindow()
+        let initialWid = try initialFocusedWindow?.cgWindowId()
+
+        func applyFocusBump(_ axWindow: AXUIElement?, _ wid: CGWindowID?) {
+            DispatchQueue.main.async {
+                if let app = Applications.find(pid) {
+                    if app.hasBeenActiveOnce != true {
+                        app.hasBeenActiveOnce = true
+                    }
+                    app.isHidden = false
+
+                    var window: Window? = nil
+                    if let axWindow, let wid {
+                        // Try to update recency immediately if we can identify the window
+                        window = Windows.updateLastFocus(axWindow, wid)?.first
+
+                        // If the window isn't tracked yet, mirror the focusedWindowChanged fallback to create it
+                        if window == nil {
+                            AXUIElement.retryAxCallUntilTimeout(context: "activation wid:\(wid) pid:\(pid)", pid: pid, callType: .updateWindow) {
+                                if let (title, role, subrole, isMinimized, isFullscreen) = try axWindow.windowAttributes() {
+                                    let position = try axWindow.position()
+                                    let size = try axWindow.size()
+                                    let level = wid.level()
+                                    DispatchQueue.main.async {
+                                        if let app2 = Applications.find(pid),
+                                           (!Windows.list.contains { $0.isEqualRobust(axWindow, wid) }),
+                                           AXUIElement.isActualWindow(app2, wid, level, title, subrole, role, size) {
+                                            let w = Window(axWindow, app2, wid, title, isFullscreen, isMinimized, position, size)
+                                            Windows.appendAndUpdateFocus(w)
+                                            App.app.refreshOpenUi([w], .refreshUiAfterExternalEvent)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    app.focusedWindow = window
+                    App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
+                    App.app.refreshOpenUi(window != nil ? [window!] : [], .refreshUiAfterExternalEvent)
                 }
-                let window = (appFocusedWindow != nil && wid != nil) ? Windows.updateLastFocus(appFocusedWindow!, wid!)?.first : nil
-                app.focusedWindow = window
-                App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
-                App.app.refreshOpenUi(window != nil ? [window!] : [], .refreshUiAfterExternalEvent)
+            }
+        }
+
+        // First attempt: bump using whatever focused window we can get immediately
+        applyFocusBump(initialFocusedWindow, initialWid)
+
+        // If activation happened before a stable focused window exists, retry shortly after
+        if initialFocusedWindow == nil || initialWid == nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(120)) {
+                AXUIElement.retryAxCallUntilTimeout(context: "activationRetry pid:\(pid)", pid: pid, callType: .updateWindow) {
+                    let retryFocused = try element.focusedWindow()
+                    let retryWid = try retryFocused?.cgWindowId()
+                    applyFocusBump(retryFocused, retryWid)
+                }
             }
         }
     }
@@ -88,61 +132,37 @@ class AccessibilityEvents {
 
     private static func windowCreated(_ element: AXUIElement, _ pid: pid_t) throws {
         let wid = try element.cgWindowId()
-        if let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
-            let position = try element.position()
-            let size = try element.size()
-            let level = wid.level()
-            DispatchQueue.main.async {
-                if let app = Applications.find(pid), NSRunningApplication(processIdentifier: pid) != nil {
-                    if (!Windows.list.contains { $0.isEqualRobust(element, wid) }) &&
-                           AXUIElement.isActualWindow(app, wid, level, title, subrole, role, size) {
-                        let window = Window(element, app, wid, title, isFullscreen, isMinimized, position, size)
-                        Windows.appendAndUpdateFocus(window)
-                        Windows.cycleFocusedWindowIndex(1)
-                        App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
-                    }
-                }
+        DispatchQueue.main.async {
+            guard let app = Applications.find(pid) else { return }
+            app.isHidden = false
+            // if the window is shown by alt-tab, we mark it as focused for this app
+            // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
+            if let w = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+                app.focusedWindow = w
             }
-        }
-    }
-
-    private static func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
-        let wid = try element.cgWindowId()
-        if let runningApp = NSRunningApplication(processIdentifier: pid) {
-            // photoshop will focus a window *after* you focus another app
-            // we check that a focused window happens within an active app
-            if runningApp.isActive {
-                DispatchQueue.main.async {
-                    guard let app = Applications.find(pid) else { return }
-                    // if the window is shown by alt-tab, we mark it as focused for this app
-                    // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
-                    if let w = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
-                        app.focusedWindow = w
-                    }
-                    if let windows = Windows.updateLastFocus(element, wid) {
-                        App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
-                    } else {
-                        AXUIElement.retryAxCallUntilTimeout(context: "(wid:\(wid) pid:\(pid))", pid: pid, callType: .updateWindow) {
-                            if let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
-                                let position = try element.position()
-                                let size = try element.size()
-                                let level = wid.level()
-                                DispatchQueue.main.async {
-                                    if (!Windows.list.contains { $0.isEqualRobust(element, wid) }),
-                                       AXUIElement.isActualWindow(app, wid, level, title, subrole, role, size) {
-                                        let window = Window(element, app, wid, title, isFullscreen, isMinimized, position, size)
-                                        Windows.appendAndUpdateFocus(window)
-                                        App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
-                                    }
+            Windows.updateLastFocusDebounced(element, wid, pid: pid, debounce: 60, requireFrontmost: false)
+            
+            // Also schedule a fallback to create the window if it doesn't exist yet after a short delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(120)) {
+                // If the window still isn't tracked, try to create it
+                if (Windows.list.first { $0.isEqualRobust(element, wid) }) == nil {
+                    AXUIElement.retryAxCallUntilTimeout(context: "wid:\(wid) pid:\(pid)", pid: pid, callType: .updateWindow) {
+                        if let (title, role, subrole, isMinimized, isFullscreen) = try element.windowAttributes() {
+                            let position = try element.position()
+                            let size = try element.size()
+                            let level = wid.level()
+                            DispatchQueue.main.async {
+                                if let app = Applications.find(pid),
+                                   (!Windows.list.contains { $0.isEqualRobust(element, wid) }),
+                                   AXUIElement.isActualWindow(app, wid, level, title, subrole, role, size) {
+                                    let window = Window(element, app, wid, title, isFullscreen, isMinimized, position, size)
+                                    Windows.appendAndUpdateFocus(window)
+                                    App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
                                 }
                             }
                         }
                     }
                 }
-            }
-        } else {
-            DispatchQueue.main.async {
-                Applications.find(pid)?.focusedWindow = nil
             }
         }
     }
@@ -186,6 +206,17 @@ class AccessibilityEvents {
         let wid = try element.cgWindowId()
         AXUIElement.retryAxCallUntilTimeout(context: "(wid:\(wid) pid:\(pid))", debounceType: .windowResizedOrMoved, pid: pid, wid: wid, callType: .updateWindow) {
             try updateWindowSizeAndPositionAndFullscreen(element, wid, nil)
+        }
+    }
+
+    private static func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) throws {
+        let wid = try element.cgWindowId()
+        DispatchQueue.main.async {
+            if let window = Windows.updateLastFocus(element, wid)?.first, let app = Applications.find(pid) {
+                app.focusedWindow = window
+                App.app.checkIfShortcutsShouldBeDisabled(window, app.runningApplication)
+                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+            }
         }
     }
 }

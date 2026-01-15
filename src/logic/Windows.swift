@@ -5,6 +5,9 @@ class Windows {
     static var focusedWindowIndex = Int(0)
     static var hoveredWindowIndex: Int?
     private static var lastWindowActivityType = WindowActivityType.none
+    static var activationEpoch: Int = 0
+    static func nextActivationEpoch() -> Int { activationEpoch &+= 1; return activationEpoch }
+    private static var pendingFocusUpdates = [pid_t: DispatchWorkItem]()
 
     /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
     /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
@@ -156,6 +159,23 @@ class Windows {
             }
             return false
         }
+    }
+
+    static func updateLastFocusDebounced(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID, pid: pid_t, debounce: Int = 100, requireFrontmost: Bool = true) {
+        // Cancel any pending update for this pid
+        pendingFocusUpdates[pid]?.cancel()
+
+        let work = DispatchWorkItem {
+            // Re-validate the frontmost app if required, otherwise proceed
+            if !requireFrontmost || NSWorkspace.shared.frontmostApplication?.processIdentifier == pid {
+                if let windowsToRefresh = updateLastFocus(otherWindowAxUiElement, otherWindowWid) {
+                    refreshThumbnailsAsync(windowsToRefresh, .refreshUiAfterExternalEvent)
+                }
+            }
+        }
+
+        pendingFocusUpdates[pid] = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(debounce), execute: work)
     }
 
     static func updateLastFocus(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID) -> [Window]? {

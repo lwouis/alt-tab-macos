@@ -1,16 +1,7 @@
 import Cocoa
 
 class Window {
-    private static let notifications = [
-        kAXUIElementDestroyedNotification,
-        kAXTitleChangedNotification,
-        kAXWindowMiniaturizedNotification,
-        kAXWindowDeminiaturizedNotification,
-        kAXWindowResizedNotification,
-        kAXWindowMovedNotification,
-    ]
-    private static var globalCreationCounter = Int.zero
-
+    static var globalCreationCounter = Int.zero
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
     var creationOrder = Int.zero
@@ -38,6 +29,47 @@ class Window {
     func debugId() -> String {
         return "\(application.debugId()) (wid:\(cgWindowId) title:\(title))"
     }
+    
+    // Token to cancel stale post-focus callbacks (prevents snap-back during rapid switching)
+    private static var focusCommitSeq: UInt = 0
+    @inline(__always) private static func nextFocusCommitToken() -> UInt {
+        focusCommitSeq &+= 1
+        return focusCommitSeq
+    }
+    @inline(__always) private static func currentFocusCommitToken() -> UInt { focusCommitSeq }
+    
+    // Final assert: if another app steals focus right after we commit, reclaim it politely.
+    private func scheduleFinalAssert(token: UInt, pid: pid_t) {
+        // Check at ~100ms and ~160ms; bail if a newer commit happened or the panel is still key.
+        func tryReclaim(label: String) {
+            let currentPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
+            if currentPid != pid {
+                #if DEBUG
+                Logger.debug { "finalAssert[\(label)]: re-activating pid \(pid) (frontmost was: \(String(describing: currentPid)))" }
+                #endif
+                application.runningApplication.activate(options: .activateIgnoringOtherApps)
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
+            guard self != nil else { return }
+            if token != Window.currentFocusCommitToken() || App.app.thumbnailsPanel.isKeyWindow { return }
+            tryReclaim(label: "100ms")
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(160)) { [weak self] in
+            guard self != nil else { return }
+            if token != Window.currentFocusCommitToken() || App.app.thumbnailsPanel.isKeyWindow { return }
+            tryReclaim(label: "160ms")
+        }
+    }
+
+    static let notifications = [
+        kAXUIElementDestroyedNotification,
+        kAXTitleChangedNotification,
+        kAXWindowMiniaturizedNotification,
+        kAXWindowDeminiaturizedNotification,
+        kAXWindowResizedNotification,
+        kAXWindowMovedNotification,
+    ]
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) {
         self.axUiElement = axUiElement
@@ -188,20 +220,34 @@ class Window {
         }
     }
 
+    // Poke the WindowServer: reading the on-screen window list can help settle focus/stacking state.
+    private func settleWindowServer() {
+        let opts: CGWindowListOption = [.optionOnScreenOnly, .excludeDesktopElements]
+        _ = CGWindowListCopyWindowInfo(opts, kCGNullWindowID)
+    }
+
     func focus() {
-        if let altTabWindow = altTabWindow() {
+        let commitToken = Window.nextFocusCommitToken()
+        let bundleUrl = application.bundleURL
+        if bundleUrl == App.bundleURL {
             App.shared.activate(ignoringOtherApps: true)
-            altTabWindow.makeKeyAndOrderFront(nil)
+            App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
             Windows.previewFocusedWindowIfNeeded()
         } else if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications() {
-            if let bundleUrl = application.bundleURL, isWindowlessApp {
-                if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
-                    application.runningApplication.activate(options: .activateAllWindows)
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.settleWindowServer()
+                if let bundleUrl = self.application.bundleURL, self.isWindowlessApp {
+                    if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
+                        self.application.runningApplication.activate(options: [.activateIgnoringOtherApps, .activateAllWindows])
+                    }
+                } else {
+                    self.application.runningApplication.activate(options: [.activateIgnoringOtherApps, .activateAllWindows])
                 }
-            } else {
-                application.runningApplication.activate(options: .activateAllWindows)
+                // NEW: reclaim if Unite (or similar) steals focus right after commit
+                self.scheduleFinalAssert(token: commitToken, pid: self.application.pid)
+                Windows.previewFocusedWindowIfNeeded()
             }
-            Windows.previewFocusedWindowIfNeeded()
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
@@ -213,6 +259,13 @@ class Window {
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(&psn)
                 try? self.axUiElement!.focusWindow()
+                if let ax = self.axUiElement {
+                    AXUIElementPerformAction(ax, kAXRaiseAction as CFString)
+                }
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.scheduleFinalAssert(token: commitToken, pid: self.application.pid)
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
                     Windows.previewFocusedWindowIfNeeded()
                 }
@@ -221,7 +274,7 @@ class Window {
     }
 
     /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
-    private func makeKeyWindow(_ psn: inout ProcessSerialNumber) -> Void {
+    func makeKeyWindow(_ psn: inout ProcessSerialNumber) -> Void {
         var bytes = [UInt8](repeating: 0, count: 0xf8)
         bytes[0x04] = 0xf8
         bytes[0x3a] = 0x10
@@ -329,3 +382,4 @@ class Window {
         }
     }
 }
+

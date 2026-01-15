@@ -167,8 +167,8 @@ class ThumbnailView: FlippedView {
         if !dockLabelIcon.isHidden, let dockLabel {
             let view = dockLabelIcon.subviews[1] as! ThumbnailFontIconView
             let dockLabelInt = Int(dockLabel)
-            if dockLabelInt == nil || dockLabelInt! > 30 {
-                view.setFilledStar()
+            if dockLabelInt == nil {
+                view.setFilledDot()
             } else {
                 view.setNumber(dockLabelInt!, true)
             }
