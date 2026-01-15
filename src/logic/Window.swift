@@ -206,15 +206,44 @@ class Window {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
             // You can reproduce this buggy behaviour by clicking on the dock icon, proving it's an OS bug
+            // We always try private APIs first to focus a *specific* window without globally activating the app.
+            // Only fallback to app activation if private APIs fail (e.g. when CGWindowID is invalid).
             BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
-                guard let self else { return }
+                guard let self, let wid = self.cgWindowId else {
+                    // No window ID available - fallback to app activation
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self else { return }
+                        Logger.info("Falling back to app activation - no CGWindowID", self.debugId)
+                        self.application.runningApplication.activate(options: .activateAllWindows)
+                        Windows.previewFocusedWindowIfNeeded()
+                    }
+                    return
+                }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
-                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                let privateApiResult = _SLPSSetFrontProcessWithOptions(&psn, wid, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(&psn)
-                try? self.axUiElement!.focusWindow()
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                let axResult = try? self.axUiElement!.focusWindow()
+                // Verify if focus actually worked by checking if window received focus
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
+                    guard let self else { return }
                     Windows.previewFocusedWindowIfNeeded()
+                    // Check if focus succeeded
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, callType: .updateWindow) {
+                        if let appAxUiElement = self.application.axUiElement,
+                           let focusedWid = try? appAxUiElement.focusedWindow()?.cgWindowId(),
+                           focusedWid == wid {
+                            // Focus succeeded via private APIs
+                            return
+                        } else {
+                            // Private APIs failed - fallback to app activation
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self else { return }
+                                Logger.info("Falling back to app activation - private APIs failed", self.debugId)
+                                self.application.runningApplication.activate(options: .activateAllWindows)
+                            }
+                        }
+                    }
                 }
             }
         }
