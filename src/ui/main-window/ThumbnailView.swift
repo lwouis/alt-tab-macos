@@ -426,7 +426,11 @@ class ThumbnailView: FlippedView {
                 windowlessAppIndicator.frame.origin.x = ((appIcon.frame.width / 2) - (windowlessAppIndicator.frame.width / 2)).rounded()
                     + (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : appIcon.frame.origin.x)
             }
-            windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height + 5
+            if Preferences.appearanceStyle != .thumbnails {
+                windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height + 5
+            } else {
+                windowlessAppIndicator.frame.origin.y = -5
+            }
         }
         // we set dockLabelIcon origin, without checking if .isHidden
         // This is because its updated async. We need it positioned correctly always
