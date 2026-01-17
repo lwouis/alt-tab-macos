@@ -34,8 +34,9 @@ extension NSScreen {
     ///   * if NSScreen.screensHaveSeparateSpaces == false, and key window is on another screen than screens[0], it still returns screens[0]
     /// we find the screen with the key window ourselves manually
     static func active() -> NSScreen? {
-        guard let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier) else { return nil }
-        guard let focusedWindow = app.focusedWindow else { return NSScreen.withActiveMenubar() }
+        guard let frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier,
+              let frontmostApp = Applications.findOrCreate(frontmostPid) else { return nil }
+        guard let focusedWindow = frontmostApp.focusedWindow else { return NSScreen.withActiveMenubar() }
         // on the very first summon, this window may not have its spaces updated, which may land the wrong active screen
         focusedWindow.updateSpacesAndScreen()
         guard let screenId = focusedWindow.screenId else { return nil }

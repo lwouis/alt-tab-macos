@@ -95,30 +95,30 @@ class App: AppCenterApplication {
     }
 
     func closeSelectedWindow() {
-        Windows.focusedWindow()?.close()
+        Windows.selectedWindow()?.close()
     }
 
     func minDeminSelectedWindow() {
-        Windows.focusedWindow()?.minDemin()
+        Windows.selectedWindow()?.minDemin()
     }
 
     func toggleFullscreenSelectedWindow() {
-        Windows.focusedWindow()?.toggleFullscreen()
+        Windows.selectedWindow()?.toggleFullscreen()
     }
 
     func quitSelectedApp() {
-        Windows.focusedWindow()?.application.quit()
+        Windows.selectedWindow()?.application.quit()
     }
 
     func hideShowSelectedApp() {
-        Windows.focusedWindow()?.application.hideOrShow()
+        Windows.selectedWindow()?.application.hideOrShow()
     }
 
     func focusTarget() {
         guard appIsBeingUsed else { return } // already hidden
-        let focusedWindow = Windows.focusedWindow()
-        Logger.info { focusedWindow?.debugId() }
-        focusSelectedWindow(focusedWindow)
+        let selectedWindow = Windows.selectedWindow()
+        Logger.info { selectedWindow?.debugId() }
+        focusSelectedWindow(selectedWindow)
     }
 
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
@@ -169,7 +169,7 @@ class App: AppCenterApplication {
         if direction == .up || direction == .down {
             thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
-            Windows.cycleFocusedWindowIndex(direction.step(), allowWrap: allowWrap)
+            Windows.cycleSelectedWindowIndex(direction.step(), allowWrap: allowWrap)
         }
     }
 
@@ -206,13 +206,13 @@ class App: AppCenterApplication {
             if !Windows.updatesBeforeShowing() { hideUi(); return }
         }
         guard appIsBeingUsed else { return }
-        Windows.updateFocusedWindowIndex()
+        Windows.updateSelectedWindow()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.updateContents()
         guard appIsBeingUsed else { return }
         Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
         guard appIsBeingUsed else { return }
-        Windows.previewFocusedWindowIfNeeded()
+        Windows.previewSelectedWindowIfNeeded()
         guard appIsBeingUsed else { return }
         Applications.refreshBadgesAsync()
     }
@@ -230,7 +230,7 @@ class App: AppCenterApplication {
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
             if !Windows.updatesBeforeShowing() { hideUi(); return }
-            Windows.setInitialFocusedAndHoveredWindowIndex()
+            Windows.setInitialSelectedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
                 buildUiAndShowPanel()
             } else {

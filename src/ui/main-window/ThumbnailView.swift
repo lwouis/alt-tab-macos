@@ -62,7 +62,7 @@ class ThumbnailView: FlippedView {
         dragAndDropTimer?.invalidate()
         dragAndDropTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
             // the user can tab to focus the next thumbnail, while still dragging. We don't want to perform drag then
-            if Windows.focusedWindowIndex == Windows.hoveredWindowIndex {
+            if Windows.selectedWindowIndex == Windows.hoveredWindowIndex {
                 self.mouseUpCallback()
             }
         })
@@ -130,7 +130,7 @@ class ThumbnailView: FlippedView {
     }
 
     func drawHighlight() {
-        let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
+        let isFocused = indexInRecycledViews == Windows.selectedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         setBackground(isFocused: isFocused, isHovered: isHovered)
         setBorder(isFocused: isFocused, isHovered: isHovered)
@@ -252,7 +252,7 @@ class ThumbnailView: FlippedView {
     }
 
     private func updateAppIconsLabel(isFocused: Bool, isHovered: Bool) {
-        let focusedView = ThumbnailsView.recycledViews[Windows.focusedWindowIndex]
+        let focusedView = ThumbnailsView.recycledViews[Windows.selectedWindowIndex]
         var hoveredView: ThumbnailView? = nil
         if Windows.hoveredWindowIndex != nil {
             hoveredView = ThumbnailsView.recycledViews[Windows.hoveredWindowIndex!]
@@ -366,7 +366,7 @@ class ThumbnailView: FlippedView {
         windowControlIcons.forEach { $0.window_ = element }
         showOrHideWindowControls(isShowingWindowControls)
         mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
-        mouseMovedCallback = { () -> Void in Windows.updateFocusedAndHoveredWindowIndex(index, true) }
+        mouseMovedCallback = { () -> Void in Windows.updateSelectedAndHoveredWindowIndex(index, true) }
     }
 
     private func updateSizes(_ newHeight: CGFloat) {

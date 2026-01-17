@@ -6,6 +6,7 @@ import ApplicationServices.HIServices.AXRoleConstants
 import ApplicationServices.HIServices.AXAttributeConstants
 import ApplicationServices.HIServices.AXActionConstants
 
+/// common, subscriptions, concurrency
 extension AXUIElement {
     // default timeout for AX calls is 6s
     // we reduce to 1s to avoid AX calls blocking threads, thus too many threads getting created to make the next AX calls
@@ -21,14 +22,12 @@ extension AXUIElement {
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), globalMessagingTimeoutInSeconds)
     }
 
-    enum AXCallType: Int {
-        case subscribeToAppNotification
-        case subscribeToWindowNotification
-        case subscribeToDockNotification
-        case updateWindow
-        case updateAppWindows
-        case updateDockBadges
-        case axEventEntrypoint
+    private func throwIfNotSuccess(_ result: AXError) throws -> Void {
+        // .cannotComplete can happen if the app is unresponsive
+        if result == .cannotComplete {
+            throw AxError.runtimeError
+        }
+        // for success or other errors we don't throw
     }
 
     /// if the window server is busy, it may not reply to AX calls. We retry right before the call times-out and returns a bogus value
@@ -99,14 +98,45 @@ extension AXUIElement {
         return "Context: \((file as NSString).lastPathComponent):\(line) \(function) \(String(describing: callType)) \(context)"
     }
 
-    func throwIfNotSuccess(_ result: AXError) throws -> Void {
-        // .cannotComplete can happen if the app is unresponsive
-        if result == .cannotComplete {
-            throw AxError.runtimeError
+    @discardableResult
+    func subscribeToNotification(_ axObserver: AXObserver, _ notification: String, _ callback: (() -> Void)? = nil) throws -> Bool {
+        let result = AXObserverAddNotification(axObserver, self, notification as CFString, nil)
+        if result == .success || result == .notificationAlreadyRegistered {
+            return true
         }
-        // for success or other errors we don't throw
+        if result == .notificationUnsupported || result == .notImplemented {
+            // subscription will never succeed
+            return false
+        }
+        // temporary issue; subscription may succeed if retried
+        throw AxError.runtimeError
     }
 
+    enum AXCallType: Int {
+        case subscribeToAppNotification
+        case subscribeToWindowNotification
+        case subscribeToDockNotification
+        case updateWindow
+        case updateAppWindows
+        case updateDockBadges
+        case axEventEntrypoint
+    }
+
+    final class ConcurrentMap<K: Hashable, V> {
+        private var map = [K: V]()
+        private let lock = NSLock()
+
+        @discardableResult
+        func withLock<T>(_ block: (inout [K: V]) -> T) -> T {
+            lock.lock()
+            defer { lock.unlock() }
+            return block(&map)
+        }
+    }
+}
+
+/// Attributes
+extension AXUIElement {
     // periphery:ignore
     func id() -> AXUIElementID? {
         let pointer = UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque()).advanced(by: 0x20)
@@ -128,94 +158,62 @@ extension AXUIElement {
         return pid
     }
 
-    func attribute<T>(_ key: String, _ _: T.Type) throws -> T? {
-        var attributeValue: AnyObject?
-        try throwIfNotSuccess(AXUIElementCopyAttributeValue(self, key as CFString, &attributeValue))
-        return attributeValue as? T
-    }
-
-    func windowAttributes() throws -> (String?, String?, String?, Bool, Bool)? {
-        let attributes = [
-            kAXTitleAttribute,
-            kAXRoleAttribute,
-            kAXSubroleAttribute,
-            kAXMinimizedAttribute,
-            kAXFullscreenAttribute,
-        ]
+    func attributes(_ keys: [String]) throws -> AXAttributes {
         var values: CFArray?
-        try throwIfNotSuccess(AXUIElementCopyMultipleAttributeValues(self, attributes as CFArray, [], &values))
-        if let array = (values as? Array<Any>) {
-            return (
-                array[0] as? String,
-                array[1] as? String,
-                array[2] as? String,
-                // if the value is nil, we return false. This avoid returning Bool?; simplifies things
-                (array[3] as? Bool) ?? false,
-                // if the value is nil, we return false. This avoid returning Bool?; simplifies things
-                (array[4] as? Bool) ?? false
-            )
-        }
-        return nil
-    }
-
-    private func value<T>(_ key: String, _ target: T, _ type: AXValueType) throws -> T? {
-        if let a = try attribute(key, AXValue.self) {
-            var value = target
-            _ = withUnsafePointer(to: &value) {
-                AXValueGetValue(a, type, UnsafeMutableRawPointer(mutating: $0))
+        // without .stopOnError, AXUIElementCopyMultipleAttributeValues always returns an array. it contains placeholder values.
+        // This makes it very hard to know what's real. For example, it can return a MainWindow that's not nil, but has its attributes zero'd
+        try throwIfNotSuccess(AXUIElementCopyMultipleAttributeValues(self, keys as CFArray, [.stopOnError], &values))
+        let array = values as? [Any] ?? []
+        var result = AXAttributes()
+        for (index, key) in keys.enumerated() {
+            guard index < array.count else { continue }
+            let value = array[index]
+            switch key {
+            case kAXTitleAttribute: result.title = value as? String
+            case kAXRoleAttribute: result.role = value as? String
+            case kAXSubroleAttribute: result.subrole = value as? String
+            case kAXStatusLabelAttribute: result.statusLabel = value as? String
+            case kAXMinimizedAttribute: result.isMinimized = value as? Bool
+            case kAXFullscreenAttribute: result.isFullscreen = value as? Bool
+            case kAXIsApplicationRunningAttribute: result.appIsRunning = value as? Bool
+            case kAXURLAttribute: result.url = value as? URL
+            case kAXParentAttribute: result.parent = unsafeDowncast(value as CFTypeRef, to: AXUIElement.self)
+            case kAXFocusedWindowAttribute: result.focusedWindow = unsafeDowncast(value as CFTypeRef, to: AXUIElement.self)
+            case kAXMainWindowAttribute: result.mainWindow = unsafeDowncast(value as CFTypeRef, to: AXUIElement.self)
+            case kAXCloseButtonAttribute: result.closeButton = unsafeDowncast(value as CFTypeRef, to: AXUIElement.self)
+            case kAXChildrenAttribute: result.children = unsafeDowncast(value as CFTypeRef, to: CFArray.self) as? [AXUIElement]
+            case kAXWindowsAttribute: result.windows = unsafeDowncast(value as CFTypeRef, to: CFArray.self) as? [AXUIElement]
+            case kAXPositionAttribute: result.position = unboxAxValue(value, .cgPoint)
+            case kAXSizeAttribute: result.size = unboxAxValue(value, .cgSize)
+            default: Logger.error { "key:\(key) value:\(value)" }
             }
-            return value
         }
-        return nil
+        return result
     }
 
-    func title() throws -> String? {
-        return try attribute(kAXTitleAttribute, String.self)
+    func unboxAxValue<T>(_ attributeValue: Any, _ axType: AXValueType, as _: T.Type = T.self) -> T? {
+        let axValue = unsafeDowncast(attributeValue as CFTypeRef, to: AXValue.self)
+        let result = UnsafeMutablePointer<T>.allocate(capacity: 1)
+        defer { result.deallocate() }
+        guard AXValueGetValue(axValue, axType, result) else {
+            return nil
+        }
+        return result.pointee
     }
 
-    // periphery:ignore
-    func parent() throws -> AXUIElement? {
-        return try attribute(kAXParentAttribute, AXUIElement.self)
-    }
-
-    func children() throws -> [AXUIElement]? {
-        return try attribute(kAXChildrenAttribute, [AXUIElement].self)
-    }
-
-    func isMinimized() throws -> Bool {
-        // if the AX call doesn't return, we return false. This avoid returning Bool?; simplifies things
-        return try attribute(kAXMinimizedAttribute, Bool.self) == true
-    }
-
-    func isFullscreen() throws -> Bool {
-        // if the AX call doesn't return, we return false. This avoid returning Bool?; simplifies things
-        return try attribute(kAXFullscreenAttribute, Bool.self) == true
-    }
-
-    func focusedWindow() throws -> AXUIElement? {
-        return try attribute(kAXFocusedWindowAttribute, AXUIElement.self)
-    }
-
-    func role() throws -> String? {
-        return try attribute(kAXRoleAttribute, String.self)
-    }
-
-    func subrole() throws -> String? {
-        return try attribute(kAXSubroleAttribute, String.self)
-    }
-
-    func closeButton() throws -> AXUIElement? {
-        return try attribute(kAXCloseButtonAttribute, AXUIElement.self)
-    }
-
-    func appIsRunning() throws -> Bool? {
-        return try attribute(kAXIsApplicationRunningAttribute, Bool.self)
+    /// we combine both the normal approach and brute-force to get all possible windows
+    /// with only normal approach: we miss other-Spaces windows
+    /// with only brute-force approach: we miss windows when the app launches (e.g. launch Note.app: first window is not found by brute-force)
+    func allWindows(_ pid: pid_t) throws -> [AXUIElement] {
+        let aWindows = try windows()
+        let bWindows = Self.windowsByBruteForce(pid)
+        return Array(Set(aWindows + bWindows))
     }
 
     /// doesn't return windows on other Spaces
     /// use windowsByBruteForce if you want those
-    func windows() throws -> [AXUIElement] {
-        let windows = try attribute(kAXWindowsAttribute, [AXUIElement].self)
+    private func windows() throws -> [AXUIElement] {
+        let windows = try attributes([kAXWindowsAttribute]).windows
         if let windows,
            !windows.isEmpty {
             // bug in macOS: sometimes the OS returns multiple duplicate windows (e.g. Mail.app starting at login)
@@ -225,23 +223,6 @@ extension AXUIElement {
             }
         }
         return []
-    }
-
-    func position() throws -> CGPoint? {
-        return try value(kAXPositionAttribute, CGPoint.zero, .cgPoint)
-    }
-
-    func size() throws -> CGSize? {
-        return try value(kAXSizeAttribute, CGSize.zero, .cgSize)
-    }
-
-    /// we combine both the normal approach and brute-force to get all possible windows
-    /// with only normal approach: we miss other-Spaces windows
-    /// with only brute-force approach: we miss windows when the app launches (e.g. launch Note.app: first window is not found by brute-force)
-    func allWindows(_ pid: pid_t) throws -> [AXUIElement] {
-        let aWindows = try windows()
-        let bWindows = AXUIElement.windowsByBruteForce(pid)
-        return Array(Set(aWindows + bWindows))
     }
 
     /// brute-force getting the windows of a process by iterating over AXUIElementID one by one
@@ -259,7 +240,7 @@ extension AXUIElement {
         for axUiElementId: AXUIElementID in 0..<1000 {
             remoteToken.replaceSubrange(12..<20, with: withUnsafeBytes(of: axUiElementId) { Data($0) })
             if let axUiElement = _AXUIElementCreateWithRemoteToken(remoteToken as CFData)?.takeRetainedValue(),
-               let subrole = try? axUiElement.subrole(),
+               let subrole = try? axUiElement.attributes([kAXSubroleAttribute]).subrole,
                [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) {
                 axWindows.append(axUiElement)
             }
@@ -269,177 +250,10 @@ extension AXUIElement {
         }
         return axWindows
     }
+}
 
-    static func isActualWindow(_ app: Application, _ wid: CGWindowID, _ level: CGWindowLevel, _ title: String?, _ subrole: String?, _ role: String?, _ size: CGSize?) -> Bool {
-        // Some non-windows have title: nil (e.g. some OS elements)
-        // Some non-windows have subrole: nil (e.g. some OS elements), "AXUnknown" (e.g. Bartender), "AXSystemDialog" (e.g. Intellij tooltips)
-        // Minimized windows or windows of a hidden app have subrole "AXDialog"
-        // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
-        // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
-        return wid != 0
-            // Finder's file copy dialogs are wide but < 100 height (see https://github.com/lwouis/alt-tab-macos/issues/1466)
-            // Sonoma introduced a bug: a caps-lock & language indicators shows as a small window.
-            // We try to hide it by filtering out tiny windows
-            && size != nil && (size!.width > 100 && size!.height > 50) && (
-            (
-                books(app) ||
-                    keynote(app) ||
-                    preview(app, subrole) ||
-                    iina(app) ||
-                    openFlStudio(app, title) ||
-                    crossoverWindow(app, role, subrole, level) ||
-                    isAlwaysOnTopScrcpy(app, level, role, subrole)
-            ) || (
-                 (
-                    [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
-                        openBoard(app) ||
-                        adobeAudition(app, subrole) ||
-                        adobeAfterEffects(app, subrole) ||
-                        steam(app, title, role) ||
-                        worldOfWarcraft(app, role) ||
-                        battleNetBootstrapper(app, role) ||
-                        firefox(app, role, size) ||
-                        vlcFullscreenVideo(app, role) ||
-                        sanGuoShaAirWD(app) ||
-                        dvdFab(app) ||
-                        drBetotte(app) ||
-                        androidEmulator(app, title) ||
-                        autocad(app, subrole)
-                ) && (
-                    mustHaveIfJetbrainApp(app, title, subrole, size!) &&
-                        mustHaveIfSteam(app, title, role) &&
-                        mustHaveIfFusion360(app, title, role) &&
-                        mustHaveIfColorSlurp(app, subrole)
-                )
-            )
-        )
-    }
-
-    private static func mustHaveIfFusion360(_ app: Application, _ title: String?, _ role: String?) -> Bool {
-        // filter out Autodesk Fusion side panels "Browser" and "Comments" with subrole AXDialog but with no title
-        return app.bundleIdentifier != "com.autodesk.fusion360" || (title != nil && title != "")
-    }
-
-    private static func mustHaveIfJetbrainApp(_ app: Application, _ title: String?, _ subrole: String?, _ size: NSSize) -> Bool {
-        // jetbrain apps sometimes generate non-windows that pass all checks in isActualWindow
-        // they have no title, so we can filter them out based on that
-        // we also hide windows too small
-        return app.bundleIdentifier?.range(of: "^com\\.(jetbrains\\.|google\\.android\\.studio).*?$", options: .regularExpression) == nil || (
-            (subrole == kAXStandardWindowSubrole || (title != nil && title != "")) &&
-                size.width > 100 && size.height > 100
-        )
-    }
-
-    private static func mustHaveIfColorSlurp(_ app: Application, _ subrole: String?) -> Bool {
-        return app.bundleIdentifier != "com.IdeaPunch.ColorSlurp" || subrole == kAXStandardWindowSubrole
-    }
-
-    private static func iina(_ app: Application) -> Bool {
-        // IINA.app can have videos float (level == 2 instead of 0)
-        // there is also complex animations during which we may or may not consider the window not a window
-        return app.bundleIdentifier == "com.colliderli.iina"
-    }
-
-    private static func keynote(_ app: Application) -> Bool {
-        // apple Keynote has a fake fullscreen window when in presentation mode
-        // it covers the screen with a AXUnknown window instead of using standard fullscreen mode
-        return app.bundleIdentifier == "com.apple.iWork.Keynote"
-    }
-
-    private static func preview(_ app: Application, _ subrole: String?) -> Bool {
-        // when opening multiple documents at once with apple Preview,
-        // one of the window will have level == 1 for some reason
-        return app.bundleIdentifier == "com.apple.Preview" && [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole)
-    }
-
-    private static func openFlStudio(_ app: Application, _ title: String?) -> Bool {
-        // OpenBoard is a ported app which doesn't use standard macOS windows
-        return app.bundleIdentifier == "com.image-line.flstudio" && (title != nil && title != "")
-    }
-
-    private static func openBoard(_ app: Application) -> Bool {
-        // OpenBoard is a ported app which doesn't use standard macOS windows
-        return app.bundleIdentifier == "org.oe-f.OpenBoard"
-    }
-
-    private static func adobeAudition(_ app: Application, _ subrole: String?) -> Bool {
-        return app.bundleIdentifier == "com.adobe.Audition" && subrole == kAXFloatingWindowSubrole
-    }
-
-    private static func adobeAfterEffects(_ app: Application, _ subrole: String?) -> Bool {
-        return app.bundleIdentifier == "com.adobe.AfterEffects" && subrole == kAXFloatingWindowSubrole
-    }
-
-    private static func books(_ app: Application) -> Bool {
-        // Books.app has animations on window creation. This means windows are originally created with subrole == AXUnknown or isOnNormalLevel == false
-        return app.bundleIdentifier == "com.apple.iBooksX"
-    }
-
-    private static func worldOfWarcraft(_ app: Application, _ role: String?) -> Bool {
-        return app.bundleIdentifier == "com.blizzard.worldofwarcraft" && role == kAXWindowRole
-    }
-
-    private static func battleNetBootstrapper(_ app: Application, _ role: String?) -> Bool {
-        // Battlenet bootstrapper windows have subrole == AXUnknown
-        return app.bundleIdentifier == "net.battle.bootstrapper" && role == kAXWindowRole
-    }
-
-    private static func drBetotte(_ app: Application) -> Bool {
-        return app.bundleIdentifier == "com.ssworks.drbetotte"
-    }
-
-    private static func dvdFab(_ app: Application) -> Bool {
-        return app.bundleIdentifier == "com.goland.dvdfab.macos"
-    }
-
-    private static func sanGuoShaAirWD(_ app: Application) -> Bool {
-        return app.bundleIdentifier == "SanGuoShaAirWD"
-    }
-
-    private static func steam(_ app: Application, _ title: String?, _ role: String?) -> Bool {
-        // All Steam windows have subrole == AXUnknown
-        // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
-        return app.bundleIdentifier == "com.valvesoftware.steam" && (title != nil && title != "" && role != nil)
-    }
-
-    private static func mustHaveIfSteam(_ app: Application, _ title: String?, _ role: String?) -> Bool {
-        // All Steam windows have subrole == AXUnknown
-        // some dropdown menus are not desirable; they have title == "", or sometimes role == nil when switching between menus quickly
-        return app.bundleIdentifier != "com.valvesoftware.steam" || (title != nil && title != "" && role != nil)
-    }
-
-    private static func firefox(_ app: Application, _ role: String?, _ size: CGSize?) -> Bool {
-        // Firefox fullscreen video have subrole == AXUnknown if fullscreen'ed when the base window is not fullscreen
-        // Firefox tooltips are implemented as windows with subrole == AXUnknown
-        return (app.bundleIdentifier?.hasPrefix("org.mozilla.firefox") ?? false) && role == kAXWindowRole && size?.height != nil && size!.height > 400
-    }
-
-    private static func vlcFullscreenVideo(_ app: Application, _ role: String?) -> Bool {
-        // VLC fullscreen video have subrole == AXUnknown if fullscreen'ed
-        return (app.bundleIdentifier?.hasPrefix("org.videolan.vlc") ?? false) && role == kAXWindowRole
-    }
-
-    private static func androidEmulator(_ app: Application, _ title: String?) -> Bool {
-        // android emulator small vertical menu is a "window" with empty title; we exclude it
-        return title != "" && Applications.isAndroidEmulator(app.bundleIdentifier, app.pid)
-    }
-
-    private static func crossoverWindow(_ app: Application, _ role: String?, _ subrole: String?, _ level: CGWindowLevel) -> Bool {
-        return app.bundleIdentifier == nil && role == kAXWindowRole && subrole == kAXUnknownSubrole && level == CGWindow.normalLevel
-            && (app.localizedName == "wine64-preloader" || app.executableURL?.absoluteString.contains("/winetemp-") ?? false)
-    }
-
-    private static func isAlwaysOnTopScrcpy(_ app: Application, _ level: CGWindowLevel, _ role: String?, _ subrole: String?) -> Bool {
-        // scrcpy presents as a floating window when "Always on top" is enabled, so it doesn't get picked up normally.
-        // It also doesn't have a bundle ID, so we need to match using the localized name, which should always be the same.
-        return app.localizedName == "scrcpy" && level == CGWindow.floatingWindow && role == kAXWindowRole && subrole == kAXStandardWindowSubrole
-    }
-
-    private static func autocad(_ app: Application, _ subrole: String?) -> Bool {
-        // AutoCAD uses the undocumented "AXDocumentWindow" subrole
-        return (app.bundleIdentifier?.hasPrefix("com.autodesk.AutoCAD") ?? false) && subrole == kAXDocumentWindowSubrole
-    }
-
+/// Actions
+extension AXUIElement {
     func focusWindow() throws {
         try performAction(kAXRaiseAction)
     }
@@ -451,24 +265,6 @@ extension AXUIElement {
     func performAction(_ action: String) throws {
         try throwIfNotSuccess(AXUIElementPerformAction(self, action as CFString))
     }
-
-    @discardableResult
-    func subscribeToNotification(_ axObserver: AXObserver, _ notification: String, _ callback: (() -> Void)? = nil) throws -> Bool {
-        let result = AXObserverAddNotification(axObserver, self, notification as CFString, nil)
-        if result == .success || result == .notificationAlreadyRegistered {
-            return true
-        }
-        if result == .notificationUnsupported || result == .notImplemented {
-            // subscription will never succeed
-            return false
-        }
-        // temporary issue; subscription may succeed if retried
-        throw AxError.runtimeError
-    }
-}
-
-enum AxError: Error {
-    case runtimeError
 }
 
 /// tests have shown that this ID has a range going from 0 to probably UInt.MAX
@@ -477,19 +273,30 @@ enum AxError: Error {
 /// we don't know how high it can go, and if it wraps around
 typealias AXUIElementID = UInt64
 
+enum AxError: Error {
+    case runtimeError
+}
+
+struct AXAttributes {
+    var title: String?
+    var role: String?
+    var subrole: String?
+    var isMinimized: Bool?
+    var isFullscreen: Bool?
+    var parent: AXUIElement?
+    var children: [AXUIElement]?
+    var focusedWindow: AXUIElement?
+    var mainWindow: AXUIElement?
+    var closeButton: AXUIElement?
+    var appIsRunning: Bool?
+    var url: URL?
+    var statusLabel: String?
+    var windows: [AXUIElement]?
+    var position: CGPoint?
+    var size: CGSize?
+}
+
 enum DebounceType: Int {
     case windowResizedOrMoved
     case windowTitleChanged
-}
-
-final class ConcurrentMap<K: Hashable, V> {
-    private var map = [K: V]()
-    private let lock = NSLock()
-
-    @discardableResult
-    func withLock<T>(_ block: (inout [K: V]) -> T) -> T {
-        lock.lock()
-        defer { lock.unlock() }
-        return block(&map)
-    }
 }

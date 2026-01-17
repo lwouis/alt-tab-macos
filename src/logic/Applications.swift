@@ -47,10 +47,10 @@ class Applications {
         let believedAlive = Set(wIds)
         let confirmedAlive = Set(existingWids)
         let zombies = believedAlive.subtracting(confirmedAlive)
-        for (index, window) in Windows.list.enumerated().reversed() {
+        for window in Windows.list.reversed() {
             if let wid = window.cgWindowId, zombies.contains(wid) {
                 Logger.debug { window.debugId() }
-                Windows.removeWindow(index, window.application.pid)
+                Windows.removeWindows([window], true)
             }
         }
     }
@@ -63,8 +63,8 @@ class Applications {
                 DockEvents.observe(processIdentifier)
             }
             // com.apple.universalcontrol always fails subscribeToNotification. We blacklist it to save resources on everyone's machines
-            if bundleIdentifier != "com.apple.universalcontrol" && isActualApplication(processIdentifier, bundleIdentifier) {
-                Applications.list.append(Application($0))
+            if bundleIdentifier != "com.apple.universalcontrol" {
+                findOrCreate(processIdentifier)
             }
         }
     }
@@ -73,49 +73,38 @@ class Applications {
         let existingAppsToRemove = list.filter { app in terminatingApps.contains { tApp in app.runningApplication.isEqual(tApp) } }
         let existingWindowstoRemove = Windows.list.filter { window in terminatingApps.contains { tApp in window.application.runningApplication.isEqual(tApp) } }
         if existingAppsToRemove.isEmpty && existingWindowstoRemove.isEmpty { return }
-        var windowsOnTheLeftOfFocusedWindow = 0
         for tApp in terminatingApps {
-            for (index, window) in Windows.list.enumerated() {
-                if window.application.runningApplication.isEqual(tApp)
-                       && index < Windows.focusedWindowIndex && window.shouldShowTheUser {
-                    windowsOnTheLeftOfFocusedWindow += 1
-                }
-            }
+            Windows.removeWindows(Windows.list.filter { $0.application.runningApplication.isEqual(tApp) }, false)
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
-            Applications.list.removeAll { $0.runningApplication.isEqual(tApp) }
-            Windows.list.removeAll { $0.application.runningApplication.isEqual(tApp) }
+            list.removeAll { $0.runningApplication.isEqual(tApp) }
         }
-        if Windows.list.count == 0 {
-            App.app.hideUi()
-        } else {
-            if windowsOnTheLeftOfFocusedWindow > 0 {
-                Windows.cycleFocusedWindowIndex(-windowsOnTheLeftOfFocusedWindow)
-            }
-            if !existingWindowstoRemove.isEmpty {
-                App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
-            }
-        }
+        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
     }
 
     static func refreshBadgesAsync() {
-        if !App.app.appIsBeingUsed || Preferences.hideAppBadges { return }
+        guard App.app.appIsBeingUsed && !Preferences.hideAppBadges else { return }
         AXUIElement.retryAxCallUntilTimeout(callType: .updateDockBadges) {
-            if let dockPid = (list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid),
-               let axList = (try AXUIElementCreateApplication(dockPid).children()?.first { try $0.role() == kAXListRole }),
-               let axAppDockItem = (try axList.children()?.filter { try $0.subrole() == kAXApplicationDockItemSubrole && ($0.appIsRunning() ?? false) }) {
-                let axAppDockItemUrlAndLabel = try axAppDockItem.map { try ($0.attribute(kAXURLAttribute, URL.self), $0.attribute(kAXStatusLabelAttribute, String.self)) }
-                DispatchQueue.main.async {
-                    refreshBadges_(axAppDockItemUrlAndLabel)
-                }
+            guard let dockPid = (list.first { $0.bundleIdentifier == "com.apple.dock" }?.pid),
+                let axDockChildren = try AXUIElementCreateApplication(dockPid).attributes([kAXChildrenAttribute]).children,
+                let axList = try (axDockChildren.first { try $0.attributes([kAXRoleAttribute]).role == kAXListRole }),
+                let axListChildren = try axList.attributes([kAXChildrenAttribute]).children else { return }
+            let axAppDockItemUrlAndLabel: [(URL?, String?)] = try axListChildren.compactMap {
+                let a = try $0.attributes([kAXSubroleAttribute, kAXIsApplicationRunningAttribute, kAXURLAttribute, kAXStatusLabelAttribute])
+                guard a.subrole == kAXApplicationDockItemSubrole && (a.appIsRunning ?? false) else { return nil }
+                return (a.url, a.statusLabel)
+            }
+            guard !axAppDockItemUrlAndLabel.isEmpty else { return }
+            DispatchQueue.main.async {
+                guard App.app.appIsBeingUsed && !Preferences.hideAppBadges else { return }
+                refreshBadges_(axAppDockItemUrlAndLabel)
             }
         }
     }
 
     static func refreshBadges_(_ items: [(URL?, String?)]) {
         Windows.list.enumerated().forEach { (i, window) in
-            if !App.app.appIsBeingUsed { return }
             let view = ThumbnailsView.recycledViews[i]
-            if let app = Applications.find(window.application.pid) {
+            if let app = findOrCreate(window.application.pid) {
                 if app.runningApplication.activationPolicy == .regular,
                    let matchingItem = (items.first { $0.0 == app.bundleURL }),
                    let label = matchingItem.1 {
@@ -129,37 +118,16 @@ class Applications {
         }
     }
 
-    private static func isActualApplication(_ processIdentifier: pid_t, _ bundleIdentifier: String?) -> Bool {
-        // an app can start with .activationPolicy == .prohibited, then transition to != .prohibited later
-        // an app can be both activationPolicy == .accessory and XPC (e.g. com.apple.dock.etci)
-        return (isNotXpc(processIdentifier) || isPasswords(bundleIdentifier) || isAndroidEmulator(bundleIdentifier, processIdentifier)) && !processIdentifier.isZombie()
-    }
-
-    private static func isNotXpc(_ processIdentifier: pid_t) -> Bool {
-        // these private APIs are more reliable than Bundle.init? as it can return nil (e.g. for com.apple.dock.etci)
-        var psn = ProcessSerialNumber()
-        GetProcessForPID(processIdentifier, &psn)
-        var info = ProcessInfoRec()
-        GetProcessInformation(&psn, &info)
-        return String(info.processType) != "XPC!"
-    }
-
-    private static func isPasswords(_ bundleIdentifier: String?) -> Bool {
-        return bundleIdentifier == "com.apple.Passwords"
-    }
-
-    static func isAndroidEmulator(_ bundleIdentifier: String?, _ processIdentifier: pid_t) -> Bool {
-        // NSRunningApplication provides no way to identify the emulator; we pattern match on its KERN_PROCARGS
-        if bundleIdentifier == nil,
-           let executablePath = Sysctl.run([CTL_KERN, KERN_PROCARGS, processIdentifier]) {
-            // example path: ~/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64
-            return executablePath.range(of: "qemu-system[^/]*$", options: .regularExpression, range: nil, locale: nil) != nil
+    @discardableResult
+    static func findOrCreate(_ pid: pid_t) -> Application? {
+        if let app = (list.first { $0.pid == pid }) {
+            return app
         }
-        return false
-    }
-
-    static func find(_ pid: pid_t?) -> Application? {
-        return list.first { $0.pid == pid }
+        guard let runningApp = NSRunningApplication(processIdentifier: pid) else { return nil }
+        guard ApplicationDiscriminator.isActualApplication(pid, runningApp.bundleIdentifier) else { return nil }
+        let app = Application(runningApp)
+        list.append(app)
+        return app
     }
 
     static func updateAppIcons() {

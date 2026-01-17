@@ -123,7 +123,7 @@ class Preferences {
     // periphery:ignore
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
-    static var previewFocusedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
+    static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
 
     // macro values

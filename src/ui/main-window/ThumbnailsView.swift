@@ -50,7 +50,7 @@ class ThumbnailsView {
 
     func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [ThumbnailView]? {
         let step = direction == .down ? 1 : -1
-        if let currentRow = Windows.focusedWindow()?.rowIndex {
+        if let currentRow = Windows.selectedWindow()?.rowIndex {
             var nextRow = currentRow + step
             if nextRow >= rows.count {
                 if allowWrap {
@@ -75,8 +75,8 @@ class ThumbnailsView {
     }
 
     func navigateUpOrDown(_ direction: Direction, allowWrap: Bool = true) {
-        guard Windows.focusedWindowIndex < ThumbnailsView.recycledViews.count else { return }
-        let focusedViewFrame = ThumbnailsView.recycledViews[Windows.focusedWindowIndex].frame
+        guard Windows.selectedWindowIndex < ThumbnailsView.recycledViews.count else { return }
+        let focusedViewFrame = ThumbnailsView.recycledViews[Windows.selectedWindowIndex].frame
         let originCenter = NSMidX(focusedViewFrame)
         guard let targetRow = nextRow(direction, allowWrap: allowWrap), !targetRow.isEmpty else { return }
         let leftSide = originCenter < NSMidX(contentView.frame)
@@ -89,7 +89,7 @@ class ThumbnailsView {
             return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
         }) ?? iterable.last else { return }
         guard let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView) else { return }
-        Windows.updateFocusedAndHoveredWindowIndex(targetIndex)
+        Windows.updateSelectedAndHoveredWindowIndex(targetIndex)
     }
 
     func updateItemsAndLayout() {
@@ -227,7 +227,7 @@ class ThumbnailsView {
     }
 
     private func highlightStartView() {
-        ThumbnailsView.highlight(Windows.focusedWindowIndex)
+        ThumbnailsView.highlight(Windows.selectedWindowIndex)
         if let hoveredWindowIndex = Windows.hoveredWindowIndex {
             ThumbnailsView.highlight(hoveredWindowIndex)
         }
