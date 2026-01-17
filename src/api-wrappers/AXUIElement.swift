@@ -193,12 +193,10 @@ extension AXUIElement {
 
     func unboxAxValue<T>(_ attributeValue: Any, _ axType: AXValueType, as _: T.Type = T.self) -> T? {
         let axValue = unsafeDowncast(attributeValue as CFTypeRef, to: AXValue.self)
-        let result = UnsafeMutablePointer<T>.allocate(capacity: 1)
-        defer { result.deallocate() }
-        guard AXValueGetValue(axValue, axType, result) else {
-            return nil
+        return withUnsafeTemporaryAllocation(of: T.self, capacity: 1) { buffer in
+            guard AXValueGetValue(axValue, axType, buffer.baseAddress!) else { return nil }
+            return buffer[0]
         }
-        return result.pointee
     }
 
     /// we combine both the normal approach and brute-force to get all possible windows

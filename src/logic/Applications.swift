@@ -36,12 +36,10 @@ class Applications {
     static func removeZombieWindows() {
         let wIds = Windows.list.compactMap { $0.cgWindowId }
         guard !wIds.isEmpty else { return }
-        let values = UnsafeMutablePointer<UnsafeRawPointer?>.allocate(capacity: wIds.count)
-        for (i, id) in wIds.enumerated() {
-            values[i] = UnsafeRawPointer(bitPattern: UInt(id))
+        let rawIds: CFArray = wIds.map { UnsafeRawPointer(bitPattern: UInt($0)) }.withUnsafeBufferPointer {
+            CFArrayCreate(nil, UnsafeMutablePointer(mutating: $0.baseAddress), $0.count, nil)
         }
-        let rawIds = CFArrayCreate(kCFAllocatorDefault, values, wIds.count, nil)
-        let descriptions = (CGWindowListCreateDescriptionFromArray(rawIds) as? [[CFString: Any]])
+        let descriptions = CGWindowListCreateDescriptionFromArray(rawIds) as? [[CFString: Any]]
         let existingWids = descriptions?.compactMap { $0[kCGWindowNumber] } as? [CGWindowID]
         guard let existingWids else { return }
         let believedAlive = Set(wIds)
