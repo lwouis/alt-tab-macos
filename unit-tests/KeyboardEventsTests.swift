@@ -111,6 +111,38 @@ final class KeyboardEventsUtilsTests: XCTestCase {
         XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, ["nextWindowShortcut", "closeWindowShortcut", "holdShortcut"])
     }
 
+    // alt-down > tab-down > tab-up > enter-down
+    // Enter key should focus the selected window (like Space)
+    func testEnterKeyFocusesWindow() throws {
+        resetState()
+        ModifierFlags.current = [.option]
+        handleKeyboardEvent(nil, nil, nil, [.option], false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, [])
+        handleKeyboardEvent(KeyboardEventsTestable.globalShortcutsIds["nextWindowShortcut"], .down, nil, nil, false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, ["nextWindowShortcut"])
+        handleKeyboardEvent(KeyboardEventsTestable.globalShortcutsIds["nextWindowShortcut"], .up, nil, nil, false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, ["nextWindowShortcut"])
+        // Enter key should trigger focusWindowShortcut action
+        handleKeyboardEvent(nil, nil, enterKeyCode, [.option], false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, ["nextWindowShortcut", "enterFocusShortcut"])
+    }
+
+    // alt-down > tab-down > tab-up > numpad-enter-down
+    // Numpad Enter key should focus the selected window (like Space)
+    func testNumpadEnterKeyFocusesWindow() throws {
+        resetState()
+        ModifierFlags.current = [.option]
+        handleKeyboardEvent(nil, nil, nil, [.option], false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, [])
+        handleKeyboardEvent(KeyboardEventsTestable.globalShortcutsIds["nextWindowShortcut"], .down, nil, nil, false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, ["nextWindowShortcut"])
+        handleKeyboardEvent(KeyboardEventsTestable.globalShortcutsIds["nextWindowShortcut"], .up, nil, nil, false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, ["nextWindowShortcut"])
+        // Numpad Enter key should trigger focusWindowShortcut action
+        handleKeyboardEvent(nil, nil, numpadEnterKeyCode, [.option], false)
+        XCTAssertEqual(ControlsTab.shortcutsActionsTriggered, ["nextWindowShortcut", "numpadEnterFocusShortcut"])
+    }
+
     func testOnReleaseDoNothing() throws {
         resetState()
         Preferences.shortcutStyle[0] = .doNothingOnRelease
@@ -169,4 +201,7 @@ final class KeyboardEventsUtilsTests: XCTestCase {
         "\\": 0x2A, ",": 0x2B, "/": 0x2C, "n": 0x2D,
         "m": 0x2E, ".": 0x2F, "`": 0x32, " ": 0x31
     ]
+
+    private let enterKeyCode: UInt32 = 0x24        // main keyboard Enter/Return
+    private let numpadEnterKeyCode: UInt32 = 0x4C  // numpad Enter
 }

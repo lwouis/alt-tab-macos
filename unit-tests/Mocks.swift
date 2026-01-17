@@ -25,6 +25,12 @@ class ControlsTab {
 //        "vimCycleUp": ATShortcut(Shortcut(keyEquivalent: "k")!, "vimCycleUp", .local, .down),
 //        "vimCycleDown": ATShortcut(Shortcut(keyEquivalent: "j")!, "vimCycleDown", .local, .down),
         "focusWindowShortcut": ATShortcut(Shortcut(keyEquivalent: " ")!, "focusWindowShortcut", .local, .down),
+        "enterFocusShortcut": ATShortcut(
+            Shortcut(code: .return, modifierFlags: [], characters: nil, charactersIgnoringModifiers: nil),
+            "enterFocusShortcut", .local, .down),
+        "numpadEnterFocusShortcut": ATShortcut(
+            Shortcut(code: .ansiKeypadEnter, modifierFlags: [], characters: nil, charactersIgnoringModifiers: nil),
+            "numpadEnterFocusShortcut", .local, .down),
         "previousWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "⇧")!, "previousWindowShortcut", .local, .down),
         "cancelShortcut": ATShortcut(Shortcut(keyEquivalent: "⎋")!, "cancelShortcut", .local, .down),
         "closeWindowShortcut": ATShortcut(Shortcut(keyEquivalent: "w")!, "closeWindowShortcut", .local, .down),

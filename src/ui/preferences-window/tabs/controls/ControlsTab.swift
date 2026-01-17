@@ -10,6 +10,8 @@ class ControlsTab {
         "holdShortcut2": { App.app.focusTarget() },
         "holdShortcut3": { App.app.focusTarget() },
         "focusWindowShortcut": { App.app.focusTarget() },
+        "enterFocusShortcut": { App.app.focusTarget() },
+        "numpadEnterFocusShortcut": { App.app.focusTarget() },
         "nextWindowShortcut": { App.app.showUiOrCycleSelection(0, false) },
         "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1, false) },
         "nextWindowShortcut3": { App.app.showUiOrCycleSelection(2, false) },
@@ -67,6 +69,7 @@ class ControlsTab {
         view.translatesAutoresizingMaskIntoConstraints = false
         shortcutsWhenActiveSheet = ShortcutsWhenActiveSheet()
         additionalControlsSheet = AdditionalControlsSheet()
+        registerEnterKeyShortcuts()
         ControlsTab.switchIndexTab(0)
         view.fit()
         return view
@@ -225,6 +228,14 @@ class ControlsTab {
         } else {
             keys.forEach { removeShortcutIfExists($0) }
         }
+    }
+
+    static func registerEnterKeyShortcuts() {
+        let enter = Shortcut(code: .return, modifierFlags: [], characters: nil, charactersIgnoringModifiers: nil)
+        let numpadEnter = Shortcut(code: .ansiKeypadEnter, modifierFlags: [], characters: nil,
+            charactersIgnoringModifiers: nil)
+        addShortcut(.down, .local, enter, "enterFocusShortcut", nil)
+        addShortcut(.down, .local, numpadEnter, "numpadEnterFocusShortcut", nil)
     }
 
     @objc static func vimKeysEnabledCallback(_ sender: NSControl) {
