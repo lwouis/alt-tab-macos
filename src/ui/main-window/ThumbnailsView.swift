@@ -4,6 +4,9 @@ class ThumbnailsView {
     var scrollView: ScrollView!
     var contentView: EffectView!
     var rows = [[ThumbnailView]]()
+    private var searchField = SearchFieldView()
+    private let searchFieldVerticalPadding = CGFloat(10)
+    private let searchFieldHorizontalInset = CGFloat(12)
     static var recycledViews = [ThumbnailView]()
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
@@ -18,6 +21,43 @@ class ThumbnailsView {
         contentView = makeAppropriateEffectView()
         scrollView = ScrollView()
         contentView.addSubview(scrollView)
+        setupSearchField()
+    }
+
+    private func setupSearchField() {
+        searchField = SearchFieldView()
+        contentView.addSubview(searchField)
+    }
+
+    private func updateSearchField() {
+        let isActivationRequired = Windows.requiresSearchActivation && !Windows.isSearchModeActive
+        let placeholder = isActivationRequired
+            ? NSLocalizedString("Press S to filter", comment: "")
+            : NSLocalizedString("Type to filter", comment: "")
+        let isActive = Windows.isSearchModeActive || !Windows.requiresSearchActivation
+        searchField.update(text: Windows.searchQueryDisplayText, placeholder: placeholder, isActive: isActive)
+    }
+
+    private func searchFieldTopPadding() -> CGFloat {
+        let basePadding = Appearance.windowPadding
+        let areaHeight = searchField.preferredHeight + searchFieldVerticalPadding * 2
+        return max(basePadding, areaHeight)
+    }
+
+    private func adjustedMaxXForSearchField(_ maxX: CGFloat, _ widthMax: CGFloat) -> CGFloat {
+        let maxWidth = max(widthMax - searchFieldHorizontalInset * 2, 0)
+        let fieldWidth = searchField.desiredWidth(maxWidth: maxWidth) + searchFieldHorizontalInset * 2
+        return max(maxX, fieldWidth)
+    }
+
+    private func layoutSearchField(_ originX: CGFloat, _ availableWidth: CGFloat, _ topPadding: CGFloat) {
+        let fieldHeight = searchField.preferredHeight
+        let offset = max((topPadding - fieldHeight) / 2, 0)
+        let y = contentView.frame.height - topPadding + offset
+        let maxWidth = max(availableWidth - searchFieldHorizontalInset * 2, 0)
+        let fieldWidth = searchField.desiredWidth(maxWidth: maxWidth)
+        let x = originX + searchFieldHorizontalInset
+        searchField.frame = NSRect(x: x, y: y, width: fieldWidth, height: fieldHeight)
     }
 
     func reset() {
@@ -93,11 +133,13 @@ class ThumbnailsView {
     }
 
     func updateItemsAndLayout() {
+        updateSearchField()
         let widthMax = ThumbnailsPanel.maxThumbnailsWidth().rounded()
         if let (maxX, maxY, labelHeight) = layoutThumbnailViews(widthMax) {
-            layoutParentViews(maxX, widthMax, maxY, labelHeight)
+            let adjustedMaxX = adjustedMaxXForSearchField(maxX, widthMax)
+            layoutParentViews(adjustedMaxX, widthMax, maxY, labelHeight)
             if Preferences.alignThumbnails == .center {
-                centerRows(maxX)
+                centerRows(adjustedMaxX)
             }
             for row in rows {
                 for (j, view) in row.enumerated() {
@@ -178,20 +220,23 @@ class ThumbnailsView {
     }
 
     private func layoutParentViews(_ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
-        let heightMax = ThumbnailsPanel.maxThumbnailsHeight()
+        let basePadding = Appearance.windowPadding
+        let topPadding = searchFieldTopPadding()
+        let extraTopPadding = max(0, topPadding - basePadding)
+        let heightMax = max(ThumbnailsPanel.maxThumbnailsHeight() - extraTopPadding, 0)
         ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
         ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
-        let frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
-        var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2
-        let originX = Appearance.windowPadding
-        var originY = Appearance.windowPadding
+        let frameWidth = ThumbnailsView.thumbnailsWidth + basePadding * 2
+        var frameHeight = ThumbnailsView.thumbnailsHeight + basePadding + topPadding
+        let originX = basePadding
+        var originY = basePadding
         if Preferences.appearanceStyle == .appIcons {
             // If there is title under the icon on the last line, the height of the title needs to be subtracted.
             frameHeight = frameHeight - Appearance.intraCellPadding - labelHeight
             originY = originY - Appearance.intraCellPadding - labelHeight
         }
         contentView.frame.size = NSSize(width: frameWidth, height: frameHeight)
-        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
+        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: ThumbnailsView.thumbnailsHeight)
         scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
@@ -199,6 +244,7 @@ class ThumbnailsView {
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
         }
         scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
+        layoutSearchField(originX, ThumbnailsView.thumbnailsWidth, topPadding)
         if let existingTrackingArea = scrollView.trackingAreas.first {
             scrollView.removeTrackingArea(existingTrackingArea)
         }
@@ -240,6 +286,123 @@ class ThumbnailsView {
                 ThumbnailsView.recycledViews[i].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
             }
         }
+    }
+}
+
+class SearchFieldView: NSView {
+    private let iconView = NSImageView()
+    private let textLabel = TextField("")
+    private let placeholderLabel = TextField("")
+    private let horizontalPadding = CGFloat(10)
+    private let iconSpacing = CGFloat(6)
+    private let minWidth = CGFloat(160)
+    private let minHeight = CGFloat(22)
+
+    var preferredHeight: CGFloat {
+        max(minHeight, Appearance.fontHeight + 12)
+    }
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    private func setup() {
+        wantsLayer = true
+        layer?.borderWidth = 1
+        layer?.masksToBounds = false
+        iconView.imageScaling = .scaleProportionallyDown
+        if #available(macOS 11.0, *) {
+            if let image = NSImage(systemSymbolName: "magnifyingglass", accessibilityDescription: nil) {
+                iconView.image = image
+            } else {
+                iconView.isHidden = true
+            }
+        } else {
+            iconView.isHidden = true
+        }
+        textLabel.usesSingleLineMode = true
+        textLabel.lineBreakMode = .byTruncatingTail
+        placeholderLabel.usesSingleLineMode = true
+        placeholderLabel.lineBreakMode = .byTruncatingTail
+        addSubview(iconView)
+        addSubview(placeholderLabel)
+        addSubview(textLabel)
+    }
+
+    func update(text: String, placeholder: String, isActive: Bool) {
+        textLabel.stringValue = text
+        placeholderLabel.stringValue = placeholder
+        let hasText = !text.isEmpty
+        textLabel.isHidden = !hasText
+        placeholderLabel.isHidden = hasText
+        updateAppearance(isActive: isActive)
+        needsLayout = true
+    }
+
+    func desiredWidth(maxWidth: CGFloat) -> CGFloat {
+        let textWidth = max(textLabel.fittingSize.width, placeholderLabel.fittingSize.width)
+        let iconWidth = iconSize(for: preferredHeight).width
+        let effectiveIconWidth = iconView.isHidden ? 0 : iconWidth + iconSpacing
+        let width = horizontalPadding * 2 + effectiveIconWidth + textWidth
+        return min(maxWidth, max(width, minWidth))
+    }
+
+    override func layout() {
+        super.layout()
+        let iconSize = iconSize(for: bounds.height)
+        let iconWidth = iconView.isHidden ? 0 : iconSize.width
+        let contentStartX = horizontalPadding + (iconWidth > 0 ? iconWidth + iconSpacing : 0)
+        let textWidth = max(bounds.width - contentStartX - horizontalPadding, 0)
+        let textHeight = max(textLabel.fittingSize.height, placeholderLabel.fittingSize.height)
+        let textY = max((bounds.height - textHeight) / 2, 0)
+        textLabel.frame = NSRect(x: contentStartX, y: textY, width: textWidth, height: textHeight)
+        placeholderLabel.frame = textLabel.frame
+        if iconWidth > 0 {
+            let iconY = max((bounds.height - iconSize.height) / 2, 0)
+            iconView.frame = NSRect(x: horizontalPadding, y: iconY, width: iconSize.width, height: iconSize.height)
+        } else {
+            iconView.frame = .zero
+        }
+        layer?.cornerRadius = bounds.height / 2
+    }
+
+    private func updateAppearance(isActive: Bool) {
+        let backgroundColor = Appearance.currentTheme == .dark
+            ? NSColor.white.withAlphaComponent(0.08)
+            : NSColor.black.withAlphaComponent(0.06)
+        let borderColor = isActive
+            ? NSColor.systemAccentColor.withAlphaComponent(0.6)
+            : Appearance.fontColor.withAlphaComponent(0.25)
+        layer?.backgroundColor = backgroundColor.cgColor
+        layer?.borderColor = borderColor.cgColor
+        let shadowColor = Appearance.currentTheme == .dark
+            ? NSColor.black.withAlphaComponent(0.6)
+            : NSColor.black.withAlphaComponent(0.2)
+        layer?.shadowColor = shadowColor.cgColor
+        layer?.shadowOpacity = isActive ? 0.18 : 0.12
+        layer?.shadowRadius = 8
+        layer?.shadowOffset = CGSize(width: 0, height: -1)
+        let alignment: NSTextAlignment = App.shared.userInterfaceLayoutDirection == .leftToRight ? .left : .right
+        textLabel.font = Appearance.font
+        textLabel.textColor = Appearance.fontColor
+        textLabel.alignment = alignment
+        placeholderLabel.font = Appearance.font
+        placeholderLabel.textColor = Appearance.fontColor.withAlphaComponent(0.45)
+        placeholderLabel.alignment = alignment
+        if #available(macOS 10.14, *) {
+            iconView.contentTintColor = Appearance.fontColor.withAlphaComponent(0.6)
+        }
+    }
+
+    private func iconSize(for height: CGFloat) -> NSSize {
+        let size = max(min(height - 6, Appearance.fontHeight + 2), 0)
+        return NSSize(width: size, height: size)
     }
 }
 

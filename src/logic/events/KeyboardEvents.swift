@@ -1,4 +1,5 @@
 import Cocoa
+import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
 class KeyboardEvents {
@@ -80,8 +81,64 @@ class KeyboardEvents {
     private static func addLocalMonitorForKeyDownAndKeyUp() {
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
             let someShortcutTriggered = handleKeyboardEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, event.modifierFlags, event.type == .keyDown ? event.isARepeat : false)
+            if handleSearchInputIfNeeded(event, shortcutTriggered: someShortcutTriggered) {
+                return nil
+            }
             return someShortcutTriggered ? nil : event
         }
+    }
+
+    private static func handleSearchInputIfNeeded(_ event: NSEvent, shortcutTriggered: Bool) -> Bool {
+        guard App.app.appIsBeingUsed, event.type == .keyDown, !shortcutTriggered else { return false }
+        let cleanedModifiers = event.modifierFlags.cleaned()
+        guard isAllowedSearchModifiers(cleanedModifiers) else { return false }
+        if Windows.requiresSearchActivation && !Windows.isSearchModeActive {
+            if isSearchActivationKey(event) {
+                return Windows.activateSearchMode()
+            }
+            return false
+        }
+        if event.keyCode == kVK_Delete || event.keyCode == kVK_ForwardDelete {
+            return Windows.removeLastSearchCharacter()
+        }
+        guard let text = event.charactersIgnoringModifiers, !text.isEmpty else { return false }
+        if !isSearchableText(text) { return false }
+        if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !Windows.isSearchQueryActive {
+            return false
+        }
+        return Windows.appendSearchQuery(text)
+    }
+
+    private static func isSearchableText(_ text: String) -> Bool {
+        let blocked = CharacterSet.searchInputBlockedCharacters
+        return text.unicodeScalars.allSatisfy { !blocked.contains($0) }
+    }
+
+    private static func isSearchActivationKey(_ event: NSEvent) -> Bool {
+        guard let chars = event.charactersIgnoringModifiers, chars.count == 1 else { return false }
+        return chars.lowercased() == "s"
+    }
+
+    private static func isAllowedSearchModifiers(_ modifiers: NSEvent.ModifierFlags) -> Bool {
+        if modifiers.isEmpty {
+            return true
+        }
+        guard let holdModifiers = currentHoldShortcutModifiers() else { return false }
+        let allowedTyping: NSEvent.ModifierFlags = [.shift, .capsLock]
+        let allowed = holdModifiers.union(allowedTyping)
+        return modifiers.isSubset(of: allowed)
+    }
+
+    private static func currentHoldShortcutModifiers() -> NSEvent.ModifierFlags? {
+        let shortcutIndex = App.app.shortcutIndex
+        let holdId = Preferences.indexToName("holdShortcut", shortcutIndex)
+        if let holdShortcut = ControlsTab.shortcuts[holdId]?.shortcut {
+            return holdShortcut.modifierFlags.cleaned()
+        }
+        if let fallback = Shortcut(keyEquivalent: Preferences.holdShortcut[shortcutIndex]) {
+            return fallback.modifierFlags.cleaned()
+        }
+        return nil
     }
 
     private static func addCgEventTapForModifierFlags() {
@@ -133,5 +190,27 @@ class KeyboardEvents {
             RemoveEventHandler(hotKeyReleasedEventHandler_)
             hotKeyReleasedEventHandler = nil
         }
+    }
+}
+
+private extension CharacterSet {
+    static var searchInputBlockedCharacters: CharacterSet = {
+        var set = CharacterSet.controlCharacters.union(.illegalCharacters)
+        set.formUnion(privateUseCharactersCompat)
+        return set
+    }()
+
+    static var privateUseCharactersCompat: CharacterSet {
+        var set = CharacterSet()
+        if let start = UnicodeScalar(0xE000), let end = UnicodeScalar(0xF8FF) {
+            set.insert(charactersIn: start...end)
+        }
+        if let start = UnicodeScalar(0xF0000), let end = UnicodeScalar(0xFFFFD) {
+            set.insert(charactersIn: start...end)
+        }
+        if let start = UnicodeScalar(0x100000), let end = UnicodeScalar(0x10FFFD) {
+            set.insert(charactersIn: start...end)
+        }
+        return set
     }
 }

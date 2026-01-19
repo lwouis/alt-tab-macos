@@ -5,6 +5,20 @@ class Windows {
     static var focusedWindowIndex = Int(0)
     static var hoveredWindowIndex: Int?
     private static var lastWindowActivityType = WindowActivityType.none
+    static var searchQuery = ""
+    static var isSearchModeActive = false
+
+    static var searchQueryDisplayText: String {
+        searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    static var isSearchQueryActive: Bool {
+        !searchQueryDisplayText.isEmpty
+    }
+
+    static var requiresSearchActivation: Bool {
+        Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease
+    }
 
     /// Updates windows "lastFocusOrder" to ensure unique values based on window z-order.
     /// Windows are ordered by their position in Spaces.windowsInSpaces() results,
@@ -87,6 +101,94 @@ class Windows {
             return w1.title.localizedStandardCompare(w2.title)
         }
         return order
+    }
+
+    static func resetSearchQuery() {
+        searchQuery = ""
+        isSearchModeActive = false
+    }
+
+    @discardableResult
+    static func activateSearchMode() -> Bool {
+        guard !isSearchModeActive else { return false }
+        isSearchModeActive = true
+        if App.app.appIsBeingUsed {
+            App.app.forceDoNothingOnRelease = true
+            App.app.refreshOpenUiAfterSearchChange()
+        }
+        return true
+    }
+
+    @discardableResult
+    static func appendSearchQuery(_ text: String) -> Bool {
+        guard !text.isEmpty else { return false }
+        return setSearchQuery(searchQuery + text)
+    }
+
+    @discardableResult
+    static func removeLastSearchCharacter() -> Bool {
+        guard !searchQuery.isEmpty else { return false }
+        searchQuery.removeLast()
+        refreshUiAfterSearchChange()
+        return true
+    }
+
+    @discardableResult
+    static func setSearchQuery(_ query: String) -> Bool {
+        guard searchQuery != query else { return false }
+        searchQuery = query
+        if !searchQueryDisplayText.isEmpty {
+            isSearchModeActive = true
+            if App.app.appIsBeingUsed {
+                App.app.forceDoNothingOnRelease = true
+            }
+        }
+        refreshUiAfterSearchChange()
+        return true
+    }
+
+    private static func refreshUiAfterSearchChange() {
+        guard App.app.appIsBeingUsed else { return }
+        refreshVisibilityForSearch()
+        App.app.refreshOpenUiAfterSearchChange()
+    }
+
+    static func refreshVisibilityForSearch() {
+        for window in list {
+            refreshIfWindowShouldBeShownToTheUser(window)
+        }
+        refreshWhichWindowsToShowTheUser()
+        applySearchFilter()
+        sort()
+    }
+
+    private static func applySearchFilter() {
+        let tokens = searchTokens()
+        guard !tokens.isEmpty else { return }
+        for window in list where window.shouldShowTheUser {
+            window.shouldShowTheUser = matchesSearch(window, tokens)
+        }
+    }
+
+    private static func searchTokens() -> [String] {
+        let trimmed = searchQueryDisplayText
+        guard !trimmed.isEmpty else { return [] }
+        return trimmed.split(whereSeparator: { $0.isWhitespace }).map { normalizeSearchString(String($0)) }
+    }
+
+    private static func matchesSearch(_ window: Window, _ tokens: [String]) -> Bool {
+        let haystack = normalizedSearchText(window)
+        return tokens.allSatisfy { haystack.contains($0) }
+    }
+
+    private static func normalizedSearchText(_ window: Window) -> String {
+        let appName = window.application.localizedName ?? ""
+        let windowTitle = window.title ?? ""
+        return normalizeSearchString("\(appName) \(windowTitle)")
+    }
+
+    private static func normalizeSearchString(_ value: String) -> String {
+        value.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
     }
 
     static func setInitialFocusedAndHoveredWindowIndex() {
@@ -308,8 +410,11 @@ class Windows {
             refreshIfWindowShouldBeShownToTheUser(window)
         }
         refreshWhichWindowsToShowTheUser()
+        applySearchFilter()
         sort()
-        if (!list.contains { $0.shouldShowTheUser }) { return false }
+        if (!list.contains { $0.shouldShowTheUser }) {
+            return !isSearchQueryActive
+        }
         return true
     }
 
