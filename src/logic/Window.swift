@@ -54,7 +54,7 @@ class Window {
         // It may be responsive now since it has a window; we attempt again
         application.observeEventsIfEligible()
         checkIfFocused()
-        Logger.debug { self.debugId() }
+        Logger.info { self.debugId() }
         observeEvents()
     }
 
@@ -68,7 +68,7 @@ class Window {
     }
 
     deinit {
-        Logger.debug { self.debugId() }
+        Logger.info { self.debugId() }
     }
 
     func updateFromAxAttributes(_ title: String?, _ size: CGSize?, _ position: CGPoint?, _ isFullscreen: Bool?, _ isMinimized: Bool?) {

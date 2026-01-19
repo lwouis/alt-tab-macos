@@ -81,7 +81,7 @@ class AccessibilityEvents {
         let a = try element.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
         DispatchQueue.main.async {
             guard let app = Applications.findOrCreate(pid) else { return }
-            Logger.debug { "\(type) wid:\(wid) app:\(app.debugId())" }
+            Logger.info { "\(type) wid:\(wid) app:\(app.debugId())" }
             if type == kAXUIElementDestroyedNotification {
                 windowDestroyed(element, pid, wid)
                 return

@@ -71,7 +71,7 @@ class Application: NSObject {
         bundleURL = runningApplication.bundleURL
         executableURL = runningApplication.executableURL
         super.init()
-        Logger.debug { self.debugId() }
+        Logger.info { self.debugId() }
         observeEventsIfEligible()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
@@ -89,7 +89,7 @@ class Application: NSObject {
     }
 
     deinit {
-        Logger.debug { self.debugId() }
+        Logger.info { self.debugId() }
     }
 
 

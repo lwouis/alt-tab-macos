@@ -90,7 +90,7 @@ extension AXUIElement {
             return
         }
         // retry
-        Logger.info { "(pid:\(pid) wid:\(wid)) \(logFromContext(file, function, line, context, callType))" }
+        Logger.debug { "(pid:\(pid) wid:\(wid)) \(logFromContext(file, function, line, context, callType))" }
         retryAxCallUntilTimeout(file: file, function: function, line: line, context: context, after: .now() + humanPerceptionDelay, debounceType: debounceType, pid: pid, wid: wid, retriesQueue: true, startTimeInNanoseconds: startTimeInNanoseconds, callType: callType, block: block)
     }
 
