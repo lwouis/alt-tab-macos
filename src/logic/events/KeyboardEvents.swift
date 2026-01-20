@@ -80,16 +80,16 @@ class KeyboardEvents {
     // TODO: handle this on a background thread?
     private static func addLocalMonitorForKeyDownAndKeyUp() {
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
-            let someShortcutTriggered = handleKeyboardEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, event.modifierFlags, event.type == .keyDown ? event.isARepeat : false)
-            if handleSearchInputIfNeeded(event, shortcutTriggered: someShortcutTriggered) {
+            if handleSearchInputIfNeeded(event) {
                 return nil
             }
+            let someShortcutTriggered = handleKeyboardEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, event.modifierFlags, event.type == .keyDown ? event.isARepeat : false)
             return someShortcutTriggered ? nil : event
         }
     }
 
-    private static func handleSearchInputIfNeeded(_ event: NSEvent, shortcutTriggered: Bool) -> Bool {
-        guard App.app.appIsBeingUsed, event.type == .keyDown, !shortcutTriggered else { return false }
+    private static func handleSearchInputIfNeeded(_ event: NSEvent) -> Bool {
+        guard App.app.appIsBeingUsed, event.type == .keyDown else { return false }
         let cleanedModifiers = event.modifierFlags.cleaned()
         guard isAllowedSearchModifiers(cleanedModifiers) else { return false }
         if Windows.requiresSearchActivation && !Windows.isSearchModeActive {
