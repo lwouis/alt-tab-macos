@@ -412,6 +412,12 @@ class Windows {
         refreshWhichWindowsToShowTheUser()
         applySearchFilter()
         sort()
+        // When no windows are eligible to be shown:
+        // - If there is an active search query, return false so the caller can treat this
+        //   as a "no search results" state and dismiss/close the UI.
+        // - If there is no active search query, return true so the UI can remain visible
+        //   even with an empty window list (e.g. after windows were closed), matching
+        //   the intended behavior change from the previous unconditional `false`.
         if (!list.contains { $0.shouldShowTheUser }) {
             return !isSearchQueryActive
         }
