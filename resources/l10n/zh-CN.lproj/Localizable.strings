@@ -252,3 +252,5 @@
 "You can’t undo this action." = "您无法撤消此操作";
 "You didn’t write your email, thus can’t receive any response." = "您未填写电子邮箱地址，将无法收到回复。";
 "You may need to disable some conflicting system gestures" = "您可能需要禁用一些有冲突的系统手势";
+"Type to filter" = "输入以过滤";
+"Press S to filter" = "按 S 启用过滤";

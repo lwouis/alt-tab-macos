@@ -62,6 +62,7 @@ class App: AppCenterApplication {
         appIsBeingUsed = false
         isFirstSummon = true
         forceDoNothingOnRelease = false
+        Windows.resetSearchQuery()
         MouseEvents.toggle(false)
         CursorEvents.toggle(false)
         TrackpadEvents.reset()
@@ -217,11 +218,25 @@ class App: AppCenterApplication {
         Applications.refreshBadgesAsync()
     }
 
+    func refreshOpenUiAfterSearchChange() {
+        guard appIsBeingUsed else { return }
+        if !Windows.list.contains(where: { $0.shouldShowTheUser }) {
+            thumbnailsPanel.updateContents()
+            previewPanel.orderOut(nil)
+            return
+        }
+        Windows.updateFocusedWindowIndex()
+        thumbnailsPanel.updateContents()
+        Windows.voiceOverWindow()
+        Windows.previewFocusedWindowIfNeeded()
+    }
+
     func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
         forceDoNothingOnRelease = forceDoNothingOnRelease_
         Logger.debug { "isFirstSummon:\(self.isFirstSummon) shortcutIndex:\(shortcutIndex)" }
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
+            Windows.resetSearchQuery()
             NSScreen.updatePreferred()
             if isVeryFirstSummon {
                 Windows.sortByLevel()
