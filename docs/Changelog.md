@@ -1,3 +1,17 @@
+# [8.3.0](https://github.com/lwouis/alt-tab-macos/compare/v8.2.0...v8.3.0) (2026-01-20)
+
+
+### Bug Fixes
+
+* position of windowless indicator in thumbnails appearance ([d1fd1fd](https://github.com/lwouis/alt-tab-macos/commit/d1fd1fd))
+* small memory leak when opening the switcher (closes [#4255](https://github.com/lwouis/alt-tab-macos/issues/4255)) ([0a6485e](https://github.com/lwouis/alt-tab-macos/commit/0a6485e))
+* windows would sometimes not update their order (closes [#5207](https://github.com/lwouis/alt-tab-macos/issues/5207)) ([a3f2a54](https://github.com/lwouis/alt-tab-macos/commit/a3f2a54))
+
+
+### Features
+
+* increase apparition delay granularity (closes [#5210](https://github.com/lwouis/alt-tab-macos/issues/5210)) ([5b0df6b](https://github.com/lwouis/alt-tab-macos/commit/5b0df6b))
+
 # [8.2.0](https://github.com/lwouis/alt-tab-macos/compare/v8.1.0...v8.2.0) (2026-01-15)
 
 
