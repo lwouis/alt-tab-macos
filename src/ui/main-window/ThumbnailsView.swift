@@ -293,10 +293,13 @@ class SearchFieldView: NSView {
     private let iconView = NSImageView()
     private let textLabel = TextField("")
     private let placeholderLabel = TextField("")
+    private let caretView = NSView()
     private let horizontalPadding = CGFloat(10)
     private let iconSpacing = CGFloat(6)
     private let minWidth = CGFloat(160)
     private let minHeight = CGFloat(22)
+    private let caretWidth = CGFloat(2)
+    private var isActive = false
 
     var preferredHeight: CGFloat {
         max(minHeight, Appearance.fontHeight + 12)
@@ -330,18 +333,23 @@ class SearchFieldView: NSView {
         textLabel.lineBreakMode = .byTruncatingTail
         placeholderLabel.usesSingleLineMode = true
         placeholderLabel.lineBreakMode = .byTruncatingTail
+        caretView.wantsLayer = true
+        caretView.isHidden = true
         addSubview(iconView)
         addSubview(placeholderLabel)
         addSubview(textLabel)
+        addSubview(caretView)
     }
 
     func update(text: String, placeholder: String, isActive: Bool) {
+        self.isActive = isActive
         textLabel.stringValue = text
         placeholderLabel.stringValue = placeholder
         let hasText = !text.isEmpty
         textLabel.isHidden = !hasText
         placeholderLabel.isHidden = hasText
         updateAppearance(isActive: isActive)
+        updateCaretBlinking(isActive: isActive)
         needsLayout = true
     }
 
@@ -363,6 +371,20 @@ class SearchFieldView: NSView {
         let textY = max((bounds.height - textHeight) / 2, 0)
         textLabel.frame = NSRect(x: contentStartX, y: textY, width: textWidth, height: textHeight)
         placeholderLabel.frame = textLabel.frame
+        let caretHeight = max(min(bounds.height - 6, max(textHeight, Appearance.fontHeight)), 0)
+        let caretY = max((bounds.height - caretHeight) / 2, 0)
+        let textWidthForCaret = textLabel.fittingSize.width
+        let minCaretX = textLabel.frame.minX
+        let maxCaretX = bounds.width - horizontalPadding - caretWidth
+        let caretX: CGFloat
+        if App.shared.userInterfaceLayoutDirection == .rightToLeft {
+            let desiredX = textLabel.frame.maxX - textWidthForCaret - 1
+            caretX = max(min(desiredX, maxCaretX), minCaretX)
+        } else {
+            let desiredX = textLabel.frame.minX + textWidthForCaret + 1
+            caretX = min(max(desiredX, minCaretX), maxCaretX)
+        }
+        caretView.frame = NSRect(x: caretX, y: caretY, width: caretWidth, height: caretHeight)
         if iconWidth > 0 {
             let iconY = max((bounds.height - iconSize.height) / 2, 0)
             iconView.frame = NSRect(x: horizontalPadding, y: iconY, width: iconSize.width, height: iconSize.height)
@@ -398,11 +420,30 @@ class SearchFieldView: NSView {
         if #available(macOS 10.14, *) {
             iconView.contentTintColor = Appearance.fontColor.withAlphaComponent(0.6)
         }
+        caretView.layer?.backgroundColor = Appearance.fontColor.withAlphaComponent(isActive ? 0.9 : 0.0).cgColor
     }
 
     private func iconSize(for height: CGFloat) -> NSSize {
         let size = max(min(height - 6, Appearance.fontHeight + 2), 0)
         return NSSize(width: size, height: size)
+    }
+
+    private func updateCaretBlinking(isActive: Bool) {
+        caretView.isHidden = !isActive
+        guard let layer = caretView.layer else { return }
+        if isActive {
+            if layer.animation(forKey: "blink") == nil {
+                let animation = CABasicAnimation(keyPath: "opacity")
+                animation.fromValue = 1
+                animation.toValue = 0
+                animation.duration = 0.9
+                animation.autoreverses = true
+                animation.repeatCount = .infinity
+                layer.add(animation, forKey: "blink")
+            }
+        } else {
+            layer.removeAnimation(forKey: "blink")
+        }
     }
 }
 

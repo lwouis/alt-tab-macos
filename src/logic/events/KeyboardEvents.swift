@@ -98,12 +98,24 @@ class KeyboardEvents {
             }
             return false
         }
+        if isSearchSelectionKey(event) {
+            if Windows.isSearchModeActive || Windows.isSearchQueryActive {
+                App.app.focusTarget()
+                return true
+            }
+        }
         if event.keyCode == kVK_Delete || event.keyCode == kVK_ForwardDelete {
             return Windows.removeLastSearchCharacter()
         }
         guard let text = event.charactersIgnoringModifiers, !text.isEmpty else { return false }
         if !isSearchableText(text) { return false }
-        if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !Windows.isSearchQueryActive {
+        if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            if Windows.isSearchQueryActive {
+                return Windows.appendSearchQuery(text)
+            }
+            if Windows.isSearchModeActive {
+                return true
+            }
             return false
         }
         return Windows.appendSearchQuery(text)
@@ -117,6 +129,10 @@ class KeyboardEvents {
     private static func isSearchActivationKey(_ event: NSEvent) -> Bool {
         guard let chars = event.charactersIgnoringModifiers, chars.count == 1 else { return false }
         return chars.lowercased() == "s"
+    }
+
+    private static func isSearchSelectionKey(_ event: NSEvent) -> Bool {
+        return event.keyCode == kVK_Return || event.keyCode == kVK_ANSI_KeypadEnter
     }
 
     private static func isAllowedSearchModifiers(_ modifiers: NSEvent.ModifierFlags) -> Bool {
