@@ -259,10 +259,10 @@ class App: AppCenterApplication {
         Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }
 
-    func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: NSRunningApplication?) {
-        let app = activeWindow?.application.runningApplication ?? activeApp
+    func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: Application?) {
+        let app = activeWindow?.application ?? activeApp!
         let shortcutsShouldBeDisabled = Preferences.blacklist.contains { blacklistedId in
-            if let id = app?.bundleIdentifier {
+            if let id = app.bundleIdentifier {
                 return id.hasPrefix(blacklistedId.bundleIdentifier) &&
                     (blacklistedId.ignore == .always || (blacklistedId.ignore == .whenFullscreen && (activeWindow?.isFullscreen ?? false)))
             }

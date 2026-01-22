@@ -43,9 +43,12 @@ class AccessibilityEvents {
             AXUIElement.retryAxCallUntilTimeout(context: "(type:\(type)", callType: .axEventEntrypoint) {
                 try handleEventWindowWithDebounceIfNecessary(kAXFocusedWindowChangedNotification, pid, appFocusedWindow)
             }
-        } else if let windowless = (Windows.list.first { $0.isWindowlessApp && $0.application.pid == pid }) {
-            if let windows = Windows.updateLastFocusOrder(windowless) {
-                App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+        } else {
+            App.app.checkIfShortcutsShouldBeDisabled(nil, app)
+            if let windowless = (Windows.list.first { $0.isWindowlessApp && $0.application.pid == pid }) {
+                if let windows = Windows.updateLastFocusOrder(windowless) {
+                    App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+                }
             }
         }
     }
@@ -117,7 +120,7 @@ class AccessibilityEvents {
         // if the window is shown by alt-tab, we mark it as focused for this app
         // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
         window.application.focusedWindow = window
-        App.app.checkIfShortcutsShouldBeDisabled(window, window.application.runningApplication)
+        App.app.checkIfShortcutsShouldBeDisabled(window, nil)
         if let windows = Windows.updateLastFocusOrder(window) {
             App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
         }
@@ -125,7 +128,6 @@ class AccessibilityEvents {
 
     private static func windowResizedOrMoved(_ window: Window) {
         window.updateSpacesAndScreen()
-        App.app.checkIfShortcutsShouldBeDisabled(window, nil)
         App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
     }
 }
