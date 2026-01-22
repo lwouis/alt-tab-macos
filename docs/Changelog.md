@@ -1,3 +1,10 @@
+## [8.3.2](https://github.com/lwouis/alt-tab-macos/compare/v8.3.1...v8.3.2) (2026-01-22)
+
+
+### Bug Fixes
+
+* blacklisting fullscreen windows was not working (closes [#5228](https://github.com/lwouis/alt-tab-macos/issues/5228)) ([53815e0](https://github.com/lwouis/alt-tab-macos/commit/53815e0))
+
 ## [8.3.1](https://github.com/lwouis/alt-tab-macos/compare/v8.3.0...v8.3.1) (2026-01-22)
 
 
