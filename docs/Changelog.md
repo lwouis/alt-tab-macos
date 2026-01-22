@@ -1,3 +1,10 @@
+## [8.3.1](https://github.com/lwouis/alt-tab-macos/compare/v8.3.0...v8.3.1) (2026-01-22)
+
+
+### Bug Fixes
+
+* chrome apps windows would not show in the switcher (closes [#5227](https://github.com/lwouis/alt-tab-macos/issues/5227)) ([bf3fa67](https://github.com/lwouis/alt-tab-macos/commit/bf3fa67))
+
 # [8.3.0](https://github.com/lwouis/alt-tab-macos/compare/v8.2.0...v8.3.0) (2026-01-20)
 
 
