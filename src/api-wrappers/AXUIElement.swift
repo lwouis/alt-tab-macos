@@ -160,42 +160,65 @@ extension AXUIElement {
 
     func attributes(_ keys: [String]) throws -> AXAttributes {
         var values: CFArray?
-        // without .stopOnError, AXUIElementCopyMultipleAttributeValues always returns an array. it contains placeholder values.
-        // This makes it very hard to know what's real. For example, it can return a MainWindow that's not nil, but has its attributes zero'd
-        try throwIfNotSuccess(AXUIElementCopyMultipleAttributeValues(self, keys as CFArray, [.stopOnError], &values))
-        let array = values as? [Any] ?? []
+        try throwIfNotSuccess(AXUIElementCopyMultipleAttributeValues(self, keys as CFArray, [], &values))
+        let array = values as? [CFTypeRef] ?? []
         var result = AXAttributes()
         for (index, key) in keys.enumerated() {
             guard index < array.count else { continue }
             let value = array[index]
             switch key {
-            case kAXTitleAttribute: result.title = value as? String
-            case kAXRoleAttribute: result.role = value as? String
-            case kAXSubroleAttribute: result.subrole = value as? String
-            case kAXStatusLabelAttribute: result.statusLabel = value as? String
-            case kAXMinimizedAttribute: result.isMinimized = value as? Bool
-            case kAXFullscreenAttribute: result.isFullscreen = value as? Bool
-            case kAXIsApplicationRunningAttribute: result.appIsRunning = value as? Bool
-            case kAXURLAttribute: result.url = value as? URL
-            case kAXParentAttribute: result.parent = unsafeDowncast(value as CFTypeRef, to: AXUIElement.self)
-            case kAXFocusedWindowAttribute: result.focusedWindow = unsafeDowncast(value as CFTypeRef, to: AXUIElement.self)
-            case kAXMainWindowAttribute: result.mainWindow = unsafeDowncast(value as CFTypeRef, to: AXUIElement.self)
-            case kAXCloseButtonAttribute: result.closeButton = unsafeDowncast(value as CFTypeRef, to: AXUIElement.self)
-            case kAXChildrenAttribute: result.children = unsafeDowncast(value as CFTypeRef, to: CFArray.self) as? [AXUIElement]
-            case kAXWindowsAttribute: result.windows = unsafeDowncast(value as CFTypeRef, to: CFArray.self) as? [AXUIElement]
-            case kAXPositionAttribute: result.position = unboxAxValue(value, .cgPoint)
-            case kAXSizeAttribute: result.size = unboxAxValue(value, .cgSize)
+            case kAXTitleAttribute: result.title = castSafely(value)
+            case kAXRoleAttribute: result.role = castSafely(value)
+            case kAXSubroleAttribute: result.subrole = castSafely(value)
+            case kAXStatusLabelAttribute: result.statusLabel = castSafely(value)
+            case kAXMinimizedAttribute: result.isMinimized = castSafely(value)
+            case kAXFullscreenAttribute: result.isFullscreen = castSafely(value)
+            case kAXIsApplicationRunningAttribute: result.appIsRunning = castSafely(value)
+            case kAXURLAttribute: result.url = castSafely(value)
+            case kAXParentAttribute: result.parent = castSafely(value)
+            case kAXFocusedWindowAttribute: result.focusedWindow = castSafely(value)
+            case kAXMainWindowAttribute: result.mainWindow = castSafely(value)
+            case kAXCloseButtonAttribute: result.closeButton = castSafely(value)
+            case kAXChildrenAttribute: result.children = castSafely(value)
+            case kAXWindowsAttribute: result.windows = castSafely(value)
+            case kAXPositionAttribute: result.position = castSafely(value)
+            case kAXSizeAttribute: result.size = castSafely(value)
             default: Logger.error { "key:\(key) value:\(value)" }
             }
         }
         return result
     }
 
-    func unboxAxValue<T>(_ attributeValue: Any, _ axType: AXValueType, as _: T.Type = T.self) -> T? {
-        let axValue = unsafeDowncast(attributeValue as CFTypeRef, to: AXValue.self)
-        return withUnsafeTemporaryAllocation(of: T.self, capacity: 1) { buffer in
-            guard AXValueGetValue(axValue, axType, buffer.baseAddress!) else { return nil }
-            return buffer[0]
+    func castSafely<T>(_ value: CFTypeRef) -> T? {
+        switch CFGetTypeID(value) {
+        case AXValueGetTypeID():
+            let axValue = value as! AXValue
+            switch AXValueGetType(axValue) {
+            case .axError:
+                // without .stopOnError, AXUIElementCopyMultipleAttributeValues always returns an array. it contains placeholder values.
+                // This makes it very hard to know what's real. For example, if an app has no MainWindow, it will return .axError. If we cast it to AXUIElement, it will succeed, but the object will have its attributes zero'd
+                // we have to check for .axError, which we map to nil values
+                return nil
+            case .cgSize:
+                var size = CGSize.zero
+                AXValueGetValue(axValue, .cgSize, &size)
+                return size as? T
+            case .cgPoint:
+                var point = CGPoint.zero
+                AXValueGetValue(axValue, .cgPoint, &point)
+                return point as? T
+            case let unknownAXValueType:
+                Logger.error { unknownAXValueType }
+                return nil
+            }
+        case AXUIElementGetTypeID(): return value as? T
+        case CFArrayGetTypeID(): return value as? T
+        case CFURLGetTypeID(): return value as? T
+        case CFStringGetTypeID(): return value as? T
+        case CFBooleanGetTypeID(): return value as? T
+        case let unknownCFTypeID:
+            Logger.error { unknownCFTypeID }
+            return nil
         }
     }
 
