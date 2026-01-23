@@ -117,7 +117,7 @@ class NonFreshGestureDetector {
     static func hasDetected(_ activeTouches: Set<NSTouch>,_ requiredFingers: Int) -> Bool {
         guard !userHasDoneAnotherGesture else { return true }
         let new = gestureTracker.isNewGesture(activeTouches)
-        guard activeTouches.count != requiredFingers && !new else { return false }
+        guard activeTouches.count > requiredFingers && !new else { return false }
         let distances = gestureTracker.computeDistance(activeTouches)
         userHasDoneAnotherGesture = distances.contains(where: { abs($0.x) >= TriggerSwipeDetector.MIN_SWIPE_DISTANCE || abs($0.y) >= TriggerSwipeDetector.MIN_SWIPE_DISTANCE })
         return userHasDoneAnotherGesture
