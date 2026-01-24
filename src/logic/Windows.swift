@@ -336,10 +336,10 @@ class Windows {
     static func getLastFocusedOrderWindowIndex() -> Int? {
         var index: Int? = nil
         var lastFocusOrderMin = Int.max
-        list.enumerated().forEach {
-            if !$0.element.isWindowlessApp && $0.element.lastFocusOrder < lastFocusOrderMin {
-                lastFocusOrderMin = $0.element.lastFocusOrder
-                index = $0.offset
+        for (offset, w) in list.enumerated() {
+            if !w.isWindowlessApp && w.shouldShowTheUser && w.lastFocusOrder < lastFocusOrderMin {
+                lastFocusOrderMin = w.lastFocusOrder
+                index = offset
             }
         }
         return index
