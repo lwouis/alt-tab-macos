@@ -73,6 +73,10 @@
                     <ul class="submenu"></ul>
                 </li>
                 <li class="menu-item">
+                    <a class="menu-label button {% if page.name == 'FAQ.md' %}active{% endif %}" href="{{ site.baseurl }}faq"><span>FAQ</span></a>
+                    <ul class="submenu faq"></ul>
+                </li>
+                <li class="menu-item">
                     <a class="menu-label button {% if page.name == 'Changelog.md' %}active{% endif %}" href="{{ site.baseurl }}changelog"><span>Release notes</span></a>
                     <ul class="submenu changelog"></ul>
                 </li>

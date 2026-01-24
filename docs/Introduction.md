@@ -52,7 +52,7 @@ AltTab has been designed to take as few resources as possible on the user comput
 
 ## Configuration
 
-Change the shortcut keys, switch to a Windows theme and more, using the Preferences window:
+Change the shortcut keys, switch to a Windows theme and more, using the Settings window:
 
 <div class="can-extend" style="display:flex; align-items:center; flex-wrap: wrap;">
     <a href="public/demo/preferences-general.jpg"><img loading="lazy" src="public/demo/preferences-general.jpg" alt="Screenshot: General preferences" width="672" height="354" style="width:100%; height:auto; max-width:330px;" /></a>
