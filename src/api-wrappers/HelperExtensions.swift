@@ -100,9 +100,7 @@ extension NSView {
         }
         if (y) {
             let diff = superviewSize.height - selfSize.height
-            // if there is no perfect centering, we biais top, as it's more aesthetic for ThumbnailView.label
-            let diffWithBiasTop = diff.truncatingRemainder(dividingBy: 2) == 0 ? diff : diff - 1
-            frame.origin.y = (diffWithBiasTop / 2).rounded()
+            frame.origin.y = (diff / 2).rounded()
         }
     }
 
