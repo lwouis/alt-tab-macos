@@ -260,42 +260,47 @@ class ThumbnailView: FlippedView {
         if isFocused || (!isFocused && !isHovered) {
             hoveredView?.label.isHidden = true
             focusedView.label.isHidden = false
-            updateAppIconsLabelFrame(focusedView)
+            focusedView.updateAppIconsLabelFrame()
         } else if isHovered {
             hoveredView?.label.isHidden = false
             focusedView.label.isHidden = true
             if let hoveredView {
-                updateAppIconsLabelFrame(hoveredView)
+                hoveredView.updateAppIconsLabelFrame()
             }
         }
     }
 
-    private func getMaxAllowedLabelWidth(_ view: ThumbnailView) -> CGFloat {
-        let viewWidth = view.frame.width
+    private func getMaxAllowedLabelWidth() -> CGFloat {
+        let viewWidth = frame.width
         let maxAllowedWidth = min(viewWidth * 2, ThumbnailsView.thumbnailsWidth)
-        let availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
-        let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
+        let availableLeftWidth = isFirstInRow ? 0 : CGFloat(indexInRow) * viewWidth
+        let availableRightWidth = isLastInRow ? 0 : CGFloat(numberOfViewsInRow - 1 - indexInRow) * viewWidth
         let totalWidth = availableLeftWidth + availableRightWidth + viewWidth
         let maxLabelWidth = min(totalWidth, maxAllowedWidth)
         return maxLabelWidth - Appearance.intraCellPadding * 2
     }
 
-    private func updateAppIconsLabelFrame(_ view: ThumbnailView) {
-        let viewWidth = view.frame.width
-        let labelWidth = view.label.cell!.cellSize.width
-        let maxAllowedLabelWidth = getMaxAllowedLabelWidth(view)
-        let effectiveLabelWidth = max(min(labelWidth, maxAllowedLabelWidth), viewWidth)
-            - (view.isFirstInRow && view.isLastInRow ? 4 : (view.isFirstInRow || view.isLastInRow ? 2 : 0)) * Appearance.intraCellPadding
-        var leftOffset = -Appearance.intraCellPadding * 2
-        if view.isFirstInRow && view.isLastInRow {
-            leftOffset = -Appearance.intraCellPadding * 2
-
-        } else if view.isLastInRow {
-            leftOffset = max(0, effectiveLabelWidth - viewWidth + Appearance.intraCellPadding * 2)
-        } else if !view.isFirstInRow && !view.isLastInRow {
+    private func updateAppIconsLabelFrame() {
+        let viewWidth = frame.width
+        let labelWidth = label.cell!.cellSize.width
+        let padding = (Preferences.appearanceSize == .small ? 0 : ( Preferences.appearanceSize == .medium ? 1 : 2)) * Appearance.intraCellPadding
+        let maxAllowedLabelWidth = getMaxAllowedLabelWidth()
+        let sidesToOffset: CGFloat = (isFirstInRow ? 1 : 0) + (isLastInRow ? 1 : 0)
+        let paddingForOffset = sidesToOffset * padding
+        var effectiveLabelWidth = max(min(labelWidth, maxAllowedLabelWidth), viewWidth) - paddingForOffset
+        // if the label is small, and with an offset only on one side, we reduce its width to center its text
+        if sidesToOffset == 1 && labelWidth <= (effectiveLabelWidth - paddingForOffset) {
+            effectiveLabelWidth -= paddingForOffset
+        }
+        var leftOffset = CGFloat(0)
+        if isFirstInRow {
+            leftOffset = -padding
+        } else if isLastInRow {
+            leftOffset = effectiveLabelWidth - viewWidth + padding
+        } else {
             let halfNeededOffset = max(0, (effectiveLabelWidth - viewWidth) / 2)
-            let availableLeftWidth = view.isFirstInRow ? 0 : CGFloat(view.indexInRow) * viewWidth
-            let availableRightWidth = view.isLastInRow ? 0 : CGFloat(view.numberOfViewsInRow - 1 - view.indexInRow) * viewWidth
+            let availableLeftWidth = isFirstInRow ? 0 : CGFloat(indexInRow) * viewWidth
+            let availableRightWidth = isLastInRow ? 0 : CGFloat(numberOfViewsInRow - 1 - indexInRow) * viewWidth
             if availableLeftWidth >= halfNeededOffset && availableRightWidth >= halfNeededOffset {
                 leftOffset = halfNeededOffset
             } else if availableLeftWidth <= halfNeededOffset && availableRightWidth <= halfNeededOffset {
@@ -307,11 +312,11 @@ class ThumbnailView: FlippedView {
             }
         }
         let xPosition = -leftOffset
-        let height = view.label.fittingSize.height
-        let yPosition = view.hStackView.frame.origin.y + view.hStackView.frame.height + Appearance.intraCellPadding * 2
-        view.label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
-        view.label.setWidth(effectiveLabelWidth)
-        view.label.toolTip = view.label.cell!.cellSize.width >= view.label.frame.size.width ? view.label.stringValue : nil
+        let height = label.fittingSize.height
+        let yPosition = hStackView.frame.origin.y + hStackView.frame.height + Appearance.intraCellPadding * 2
+        label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
+        label.setWidth(effectiveLabelWidth)
+        label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
     }
 
     private func updateAppIcon(_ element: Window, _ title: String) {
