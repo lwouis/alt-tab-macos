@@ -45,18 +45,29 @@ class Application: NSObject {
         return 0
     }()
 
+    /// Converting NSImage to CGImage may seem simple, but it's actually very tricky. Lots of time has been put to make it work robustly
+    /// The RunningApplication.icon can have store bitmaps or vectors. We have to rasterize into pixels. This is not easy as there are many APIs:
+    ///   * icon.cgImage(forProposedRect:) > context.draw -> only API which works
+    ///   * icon.cgImage(forProposedRect:) > cgImage.draw -> returns nil for some users (could never reproduce it locally)
+    ///   * icon.draw() -> returns nil for some users (could never reproduce it locally)
+    ///   * icon.bestRepresentation() > bestRep.draw(in:) -> returns nil for some users (could never reproduce it locally)
+    /// MacOS Big Sur also introduced a constant padding around app icons. It was later increased with Tahoe. We have to crop it
     static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
         guard let icon else { return nil }
         let finalWidth = max(ThumbnailsPanel.maxPossibleAppIconSize.width, ThumbnailsPanel.maxPossibleAppIconSize.height)
+        // we hardcode cropping values based on a reference 1024 icon, and depending on the macOS version
         let padding = appIconPadding * (finalWidth / (1024 - appIconPadding * 2))
+        // we need a bigger image size, since we'll crop to reach finalWidth
         let sourceWidth = finalWidth + padding * 2
-        guard let context = CGContext(data: nil, width: Int(finalWidth), height: Int(finalWidth), bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+        // we ask the NSImage for the closest image it has to our desired size. It's likely to return a 1024x1024 or 512x512 image; whichever is closest
+        var proposedRect = CGRect(origin: .zero, size: NSSize(width: sourceWidth, height: sourceWidth))
+        guard let cgImage = icon.cgImage(forProposedRect: &proposedRect, context: nil, hints: [.interpolation: NSImageInterpolation.high]) else { return nil }
+        // we have to crop this image; let's scale our intended padding, given the image size we got
+        let paddingScaled = padding * (CGFloat(cgImage.width) / sourceWidth)
+        guard let image = cgImage.cropping(to: CGRect(x: paddingScaled, y: paddingScaled, width: CGFloat(cgImage.width) - paddingScaled * 2, height: CGFloat(cgImage.height) - paddingScaled * 2).integral),
+              let context = CGContext(data: nil, width: Int(finalWidth), height: Int(finalWidth), bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).union(.byteOrder32Little).rawValue) else { return nil }
         context.interpolationQuality = .high
-        let drawRect = CGRect(x: -padding, y: -padding, width: sourceWidth, height: sourceWidth)
-        NSGraphicsContext.saveGraphicsState()
-        NSGraphicsContext.current = NSGraphicsContext(cgContext: context, flipped: false)
-        icon.draw(in: drawRect, from: .zero, operation: .copy, fraction: 1.0, respectFlipped: false, hints: nil)
-        NSGraphicsContext.restoreGraphicsState()
+        context.draw(image, in: CGRect(origin: .zero, size: NSSize(width: finalWidth, height: finalWidth)))
         return context.makeImage()
     }
 

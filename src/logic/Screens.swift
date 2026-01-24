@@ -13,7 +13,7 @@ class Screens {
 }
 
 extension NSScreen {
-    static var preferred: NSScreen = detectPreferred() ?? NSScreen.screens.first!
+    static var preferred = NSScreen.screens.first!
 
     static func updatePreferred() {
         preferred = detectPreferred() ?? NSScreen.screens.first!
@@ -35,7 +35,9 @@ extension NSScreen {
     /// we find the screen with the key window ourselves manually
     static func active() -> NSScreen? {
         guard let frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier,
-              let frontmostApp = Applications.findOrCreate(frontmostPid) else { return nil }
+              // we avoid Applications.findOrCreate() here, because it active() is called very early during launch
+              // we are not ready to create applications yet
+              let frontmostApp = (Applications.list.first { $0.pid == frontmostPid }) else { return nil }
         guard let focusedWindow = frontmostApp.focusedWindow else { return NSScreen.withActiveMenubar() }
         // on the very first summon, this window may not have its spaces updated, which may land the wrong active screen
         focusedWindow.updateSpacesAndScreen()
