@@ -1,3 +1,13 @@
+## [8.3.3](https://github.com/lwouis/alt-tab-macos/compare/v8.3.2...v8.3.3) (2026-01-25)
+
+
+### Bug Fixes
+
+* app icons could sometimes be invisible (closes [#5226](https://github.com/lwouis/alt-tab-macos/issues/5226)) ([23fbc01](https://github.com/lwouis/alt-tab-macos/commit/23fbc01))
+* improve trackpad gesture detection (closes [#5203](https://github.com/lwouis/alt-tab-macos/issues/5203)) ([9b5e43e](https://github.com/lwouis/alt-tab-macos/commit/9b5e43e))
+* switcher could sometimes show with no window pre-selected ([3e95f77](https://github.com/lwouis/alt-tab-macos/commit/3e95f77))
+* title could be off-center in app-icons appearance (closes [#5235](https://github.com/lwouis/alt-tab-macos/issues/5235)) ([7fdfe4a](https://github.com/lwouis/alt-tab-macos/commit/7fdfe4a))
+
 ## [8.3.2](https://github.com/lwouis/alt-tab-macos/compare/v8.3.1...v8.3.2) (2026-01-22)
 
 
