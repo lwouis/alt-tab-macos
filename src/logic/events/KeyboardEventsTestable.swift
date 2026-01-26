@@ -20,6 +20,50 @@ private func shortcutPriority(_ id: String) -> Int {
     return 10
 }
 
+private func isNonPrintableKeyCode(_ keyCode: UInt32) -> Bool {
+    switch keyCode {
+    case UInt32(kVK_Return),
+         UInt32(kVK_ANSI_KeypadEnter),
+         UInt32(kVK_Tab),
+         UInt32(kVK_Escape),
+         UInt32(kVK_Delete),
+         UInt32(kVK_ForwardDelete),
+         UInt32(kVK_Home),
+         UInt32(kVK_End),
+         UInt32(kVK_PageUp),
+         UInt32(kVK_PageDown),
+         UInt32(kVK_LeftArrow),
+         UInt32(kVK_RightArrow),
+         UInt32(kVK_UpArrow),
+         UInt32(kVK_DownArrow),
+         UInt32(kVK_Help),
+         UInt32(kVK_Function),
+         UInt32(kVK_F1),
+         UInt32(kVK_F2),
+         UInt32(kVK_F3),
+         UInt32(kVK_F4),
+         UInt32(kVK_F5),
+         UInt32(kVK_F6),
+         UInt32(kVK_F7),
+         UInt32(kVK_F8),
+         UInt32(kVK_F9),
+         UInt32(kVK_F10),
+         UInt32(kVK_F11),
+         UInt32(kVK_F12),
+         UInt32(kVK_F13),
+         UInt32(kVK_F14),
+         UInt32(kVK_F15),
+         UInt32(kVK_F16),
+         UInt32(kVK_F17),
+         UInt32(kVK_F18),
+         UInt32(kVK_F19),
+         UInt32(kVK_F20):
+        return true
+    default:
+        return false
+    }
+}
+
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool) -> Bool {
     if let globalId, let shortcutState {
@@ -37,31 +81,36 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
     }
     // While typing in the search field, allow a small, explicit set of shortcuts:
     // - Toggle search (takes precedence if it matches)
-    // - Focus selected window (e.g., Space by default)
-    // - Cancel (e.g., Escape by default)
+    // - Focus selected window (e.g., Enter)
+    // - Escape always exits search
     if App.app != nil,
        App.app.appIsBeingUsed,
        App.app.thumbnailsPanel != nil,
        App.app.thumbnailsPanel.isKeyWindow,
        App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+        if let keyCode, keyCode == UInt32(kVK_Escape) {
+            App.app.thumbnailsPanel.thumbnailsView.exitSearchFocus()
+            return true
+        }
         if let toggleShortcut = ControlsTab.shortcuts["searchToggleShortcut"],
            toggleShortcut.matches(globalId, shortcutState, keyCode, modifiers) && toggleShortcut.shouldTrigger() {
-            toggleShortcut.executeAction(isARepeat)
-            toggleShortcut.redundantSafetyMeasures()
-            return true
+            if let keyCode, isNonPrintableKeyCode(keyCode) {
+                toggleShortcut.executeAction(isARepeat)
+                toggleShortcut.redundantSafetyMeasures()
+                return true
+            }
+            return false
         }
         if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
            focusShortcut.matches(globalId, shortcutState, keyCode, modifiers) && focusShortcut.shouldTrigger() {
             if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
-                focusShortcut.executeAction(isARepeat)
+                if let keyCode, isNonPrintableKeyCode(keyCode) {
+                    focusShortcut.executeAction(isARepeat)
+                } else {
+                    return false
+                }
             }
             focusShortcut.redundantSafetyMeasures()
-            return true
-        }
-        if let cancelShortcut = ControlsTab.shortcuts["cancelShortcut"],
-           cancelShortcut.matches(globalId, shortcutState, keyCode, modifiers) && cancelShortcut.shouldTrigger() {
-            cancelShortcut.executeAction(isARepeat)
-            cancelShortcut.redundantSafetyMeasures()
             return true
         }
         return false

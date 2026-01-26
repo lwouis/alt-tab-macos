@@ -22,6 +22,9 @@ class ThumbnailsPanel {
 
 class ThumbnailsView {
     var searchField = NSSearchField()
+
+    func exitSearchFocus() {
+    }
 }
 
 class Windows {

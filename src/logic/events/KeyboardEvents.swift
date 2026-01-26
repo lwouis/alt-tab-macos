@@ -90,11 +90,19 @@ class KeyboardEvents {
                App.app.thumbnailsPanel.isKeyWindow,
                App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
                 let keyCode = event.keyCode
+                if keyCode == UInt16(kVK_Escape) {
+                    App.app.thumbnailsPanel.thumbnailsView.exitSearchFocus()
+                    return nil
+                }
                 if keyCode == UInt16(kVK_Return) || keyCode == UInt16(kVK_ANSI_KeypadEnter) {
                     if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
                         ControlsTab.executeAction("focusWindowShortcut")
                     }
                     return nil
+                }
+                if keyCode == UInt16(kVK_Tab) {
+                    let matchedToggle = ControlsTab.shortcuts["searchToggleShortcut"]?.matches(nil, nil, UInt32(keyCode), event.modifierFlags) ?? false
+                    if !matchedToggle { return nil }
                 }
             }
             if event.type == .keyDown,
