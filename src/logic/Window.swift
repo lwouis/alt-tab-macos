@@ -11,7 +11,7 @@ class Window {
     ]
     private static var globalCreationCounter = Int.zero
 
-    var id: String!
+    var id: String
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
     var creationOrder = Int.zero
@@ -35,10 +35,7 @@ class Window {
     var application: Application
     var axObserver: AXObserver?
     var rowIndex: Int?
-
-    func debugId() -> String {
-        return "\(application.debugId()) (wid:\(cgWindowId) title:\(title))"
-    }
+    var debugId: String!
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
         id = "\(wid)"
@@ -47,6 +44,7 @@ class Window {
         cgWindowId = wid
         self.updateSpacesAndScreen()
         updateFromAxAttributes(title, size, position, isFullscreen, isMinimized)
+        debugId = "\(self.application.debugId) (wid:\(cgWindowId) title:\(self.title))"
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
         application.removeWindowlessAppWindow()
@@ -54,7 +52,7 @@ class Window {
         // It may be responsive now since it has a window; we attempt again
         application.observeEventsIfEligible()
         checkIfFocused()
-        Logger.info { self.debugId() }
+        Logger.info { self.debugId }
         observeEvents()
     }
 
@@ -64,11 +62,12 @@ class Window {
         title = bestEffortTitle(nil)
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
-        Logger.debug { self.debugId() }
+        debugId = "\(application.debugId) (title:\(title))"
+        Logger.debug { self.debugId }
     }
 
     deinit {
-        Logger.info { self.debugId() }
+        Logger.info { self.debugId }
     }
 
     func updateFromAxAttributes(_ title: String?, _ size: CGSize?, _ position: CGPoint?, _ isFullscreen: Bool?, _ isMinimized: Bool?) {
@@ -88,12 +87,12 @@ class Window {
     private func observeEvents() {
         AXObserverCreate(application.pid, AccessibilityEvents.axObserverCallback, &axObserver)
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
             guard let self else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!) {
-                Logger.debug { "Subscribed to window: \(self.debugId())" }
+                Logger.debug { "Subscribed to window: \(self.debugId)" }
                 for notification in Window.notifications.dropFirst() {
-                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId(), pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
                         try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                     }
                 }
@@ -316,7 +315,7 @@ class Window {
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
     /// workaround: we check and possibly do it here
     private func checkIfFocused() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: application.pid, callType: .updateWindow) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .updateWindow) { [weak self] in
             guard let self,
                   let focusedWindow = try self.application.axUiElement?.attributes([kAXFocusedWindowAttribute]).focusedWindow,
                   let window = try (Windows.list.first { $0.isEqualRobust(focusedWindow, (try focusedWindow.cgWindowId())) }) else { return }

@@ -25,7 +25,7 @@ class AccessibilityEvents {
         let appFocusedWindow = try element.attributes([kAXFocusedWindowAttribute]).focusedWindow
         DispatchQueue.main.async {
             guard let app = Applications.findOrCreate(pid) else { return }
-            Logger.info { "\(type) app:\(app.debugId())" }
+            Logger.info { "\(type) app:\(app.debugId)" }
             if type == kAXApplicationActivatedNotification {
                 applicationActivated(app, pid, type, appFocusedWindow)
             } else if type == kAXApplicationHiddenNotification || type == kAXApplicationShownNotification {
@@ -84,7 +84,7 @@ class AccessibilityEvents {
         let a = try element.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
         DispatchQueue.main.async {
             guard let app = Applications.findOrCreate(pid) else { return }
-            Logger.info { "\(type) wid:\(wid) app:\(app.debugId())" }
+            Logger.info { "\(type) wid:\(wid) app:\(app.debugId)" }
             if type == kAXUIElementDestroyedNotification {
                 windowDestroyed(element, pid, wid)
                 return
@@ -96,7 +96,7 @@ class AccessibilityEvents {
                 }
                 return
             }
-            Logger.debug { "\(type) win:\(window.debugId())" }
+            Logger.debug { "\(type) win:\(window.debugId)" }
             if type == kAXMainWindowChangedNotification || type == kAXFocusedWindowChangedNotification {
                 focusedWindowChanged(window)
             } else if type == kAXWindowResizedNotification || type == kAXWindowMovedNotification {

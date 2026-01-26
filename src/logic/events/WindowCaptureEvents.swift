@@ -62,7 +62,7 @@ class WindowCaptureScreenshots {
         ActiveWindowCaptures.increment()
         SCScreenshotManager.captureImage(contentFilter: filter, configuration: config) { cgImage, error in
             ActiveWindowCaptures.decrement()
-            guard let cgImage, error == nil else { Logger.error { "\(window.debugId()) \(cgImage == nil) \(error)" }; return }
+            guard let cgImage, error == nil else { Logger.error { "\(window.debugId) \(cgImage == nil) \(error)" }; return }
             guard source != .refreshOnlyThumbnailsAfterShowUi || App.app.appIsBeingUsed else { return }
             DispatchQueue.main.async {
                 guard source != .refreshOnlyThumbnailsAfterShowUi || App.app.appIsBeingUsed else { return }
