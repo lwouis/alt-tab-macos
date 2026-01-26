@@ -94,11 +94,24 @@ class KeyboardEvents {
                     App.app.thumbnailsPanel.thumbnailsView.exitSearchFocus()
                     return nil
                 }
+                let isNavigationKey =
+                    keyCode == UInt16(kVK_LeftArrow)
+                    || keyCode == UInt16(kVK_RightArrow)
+                    || keyCode == UInt16(kVK_UpArrow)
+                    || keyCode == UInt16(kVK_DownArrow)
+                    || keyCode == UInt16(kVK_Home)
+                    || keyCode == UInt16(kVK_End)
+                    || keyCode == UInt16(kVK_PageUp)
+                    || keyCode == UInt16(kVK_PageDown)
                 if keyCode == UInt16(kVK_Return) || keyCode == UInt16(kVK_ANSI_KeypadEnter) {
                     if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
                         ControlsTab.executeAction("focusWindowShortcut")
                     }
                     return nil
+                }
+                if isNavigationKey {
+                    let matchedToggle = ControlsTab.shortcuts["searchToggleShortcut"]?.matches(nil, nil, UInt32(keyCode), event.modifierFlags) ?? false
+                    if !matchedToggle { return nil }
                 }
                 if keyCode == UInt16(kVK_Tab) {
                     let matchedToggle = ControlsTab.shortcuts["searchToggleShortcut"]?.matches(nil, nil, UInt32(keyCode), event.modifierFlags) ?? false

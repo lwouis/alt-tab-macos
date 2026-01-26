@@ -92,6 +92,21 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
             App.app.thumbnailsPanel.thumbnailsView.exitSearchFocus()
             return true
         }
+        if let keyCode {
+            let isNavigationKey =
+                keyCode == UInt32(kVK_LeftArrow)
+                || keyCode == UInt32(kVK_RightArrow)
+                || keyCode == UInt32(kVK_UpArrow)
+                || keyCode == UInt32(kVK_DownArrow)
+                || keyCode == UInt32(kVK_Home)
+                || keyCode == UInt32(kVK_End)
+                || keyCode == UInt32(kVK_PageUp)
+                || keyCode == UInt32(kVK_PageDown)
+            if isNavigationKey {
+                let matchedToggle = ControlsTab.shortcuts["searchToggleShortcut"]?.matches(globalId, shortcutState, keyCode, modifiers) ?? false
+                if !matchedToggle { return true }
+            }
+        }
         if let toggleShortcut = ControlsTab.shortcuts["searchToggleShortcut"],
            toggleShortcut.matches(globalId, shortcutState, keyCode, modifiers) && toggleShortcut.shouldTrigger() {
             if let keyCode, isNonPrintableKeyCode(keyCode) {
