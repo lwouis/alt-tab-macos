@@ -217,11 +217,13 @@ enum LanguagePreference: CaseIterable, MacroPreference {
 enum ShortcutStylePreference: CaseIterable, MacroPreference {
     case focusOnRelease
     case doNothingOnRelease
+    case enterSearchOnRelease
 
     var localizedString: LocalizedString {
         switch self {
             case .focusOnRelease: return NSLocalizedString("Focus selected window", comment: "")
             case .doNothingOnRelease: return NSLocalizedString("Do nothing", comment: "")
+            case .enterSearchOnRelease: return NSLocalizedString("Enter search", comment: "")
         }
     }
 }

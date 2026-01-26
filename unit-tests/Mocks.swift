@@ -98,6 +98,7 @@ class Preferences {
 enum ShortcutStylePreference: CaseIterable {
     case focusOnRelease
     case doNothingOnRelease
+    case enterSearchOnRelease
 }
 
 class ModifierFlags {

@@ -121,13 +121,11 @@ class KeyboardEvents {
                 if let cancel = ControlsTab.shortcuts["cancelShortcut"]?.shortcut {
                     excluded.insert(UInt16(cancel.carbonKeyCode))
                 }
-                if let enter = ControlsTab.shortcuts["searchEnterShortcut"]?.shortcut {
-                    excluded.insert(UInt16(enter.carbonKeyCode))
+                if let toggleSearch = ControlsTab.shortcuts["searchToggleShortcut"]?.shortcut {
+                    excluded.insert(UInt16(toggleSearch.carbonKeyCode))
                 }
-                if let exit = ControlsTab.shortcuts["searchExitShortcut"]?.shortcut {
-                    excluded.insert(UInt16(exit.carbonKeyCode))
-                }
-                if Preferences.anyKeyToSearchEnabled {
+                let anyKeyEntersSearch = Preferences.shortcutStyle[App.app.shortcutIndex] == .enterSearchOnRelease
+                if anyKeyEntersSearch {
                     // Enter search and deliver this key to the search field
                     if !excluded.contains(keyCode) {
                         App.app.thumbnailsPanel.thumbnailsView.focusSearchField()

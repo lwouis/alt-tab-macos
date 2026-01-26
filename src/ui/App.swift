@@ -120,6 +120,27 @@ class App: AppCenterApplication {
         focusSelectedWindow(focusedWindow)
     }
 
+    func toggleSearchFocus() {
+        if thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
+            thumbnailsPanel.thumbnailsView.exitSearchFocus()
+        } else {
+            thumbnailsPanel.thumbnailsView.focusSearchField()
+        }
+    }
+
+    func handleHoldShortcutRelease(_ id: String) {
+        guard appIsBeingUsed else { return } // already hidden
+        let index = Preferences.nameToIndex(id)
+        switch Preferences.shortcutStyle[index] {
+        case .focusOnRelease:
+            focusTarget()
+        case .doNothingOnRelease:
+            break
+        case .enterSearchOnRelease:
+            thumbnailsPanel.thumbnailsView.focusSearchField()
+        }
+    }
+
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
         PoliciesTab.checkForUpdatesNow(sender)
     }

@@ -89,11 +89,8 @@ class Preferences {
         "screenRecordingPermissionSkipped": "false",
         "trackpadHapticFeedbackEnabled": "true",
         // Search settings
-        "anyKeyToSearchEnabled": "false",
         // Local shortcuts when the switcher is active
-        // Split Focus Search into Enter/Exit (default to Tab for both)
-        "searchEnterShortcut": "⇥",
-        "searchExitShortcut": "⇥",
+        "searchToggleShortcut": "S",
         ]
 
     // system preferences
@@ -157,9 +154,7 @@ class Preferences {
     static var menubarIcon: MenubarIconPreference { CachedUserDefaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
     static var menubarIconShown: Bool { CachedUserDefaults.bool("menubarIconShown") }
     static var language: LanguagePreference { CachedUserDefaults.macroPref("language", LanguagePreference.allCases) }
-    static var anyKeyToSearchEnabled: Bool { CachedUserDefaults.bool("anyKeyToSearchEnabled") }
-    static var searchEnterShortcut: String { CachedUserDefaults.string("searchEnterShortcut") }
-    static var searchExitShortcut: String { CachedUserDefaults.string("searchExitShortcut") }
+    static var searchToggleShortcut: String { CachedUserDefaults.string("searchToggleShortcut") }
 
     static let gestureIndex = 3
 

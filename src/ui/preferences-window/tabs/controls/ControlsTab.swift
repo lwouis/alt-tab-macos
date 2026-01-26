@@ -6,9 +6,9 @@ class ControlsTab {
     static var shortcuts = [String: ATShortcut]()
     static var shortcutControls = [String: (CustomRecorderControl, String)]()
     static var shortcutsActions = [
-        "holdShortcut": { App.app.focusTarget() },
-        "holdShortcut2": { App.app.focusTarget() },
-        "holdShortcut3": { App.app.focusTarget() },
+        "holdShortcut": { App.app.handleHoldShortcutRelease("holdShortcut") },
+        "holdShortcut2": { App.app.handleHoldShortcutRelease("holdShortcut2") },
+        "holdShortcut3": { App.app.handleHoldShortcutRelease("holdShortcut3") },
         "focusWindowShortcut": { App.app.focusTarget() },
         "nextWindowShortcut": { App.app.showUiOrCycleSelection(0, false) },
         "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1, false) },
@@ -28,13 +28,8 @@ class ControlsTab {
         "toggleFullscreenWindowShortcut": { App.app.toggleFullscreenSelectedWindow() },
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
-        // Search: enter/exit
-        "searchEnterShortcut": { App.app.thumbnailsPanel.thumbnailsView.focusSearchField() },
-        "searchExitShortcut": {
-            if App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
-                App.app.thumbnailsPanel.thumbnailsView.exitSearchFocus()
-            }
-        },
+        // Search: toggle
+        "searchToggleShortcut": { App.app.toggleSearchFocus() },
     ]
     static var arrowKeysCheckbox: Switch!
     static var vimKeysCheckbox: Switch!

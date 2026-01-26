@@ -89,9 +89,12 @@ class GestureDetector {
 
     static func checkForFingersUp(_ fingersDown: Int, _ requiredFingers: Int) -> Bool {
         if App.app.appIsBeingUsed && fingersDown < requiredFingers && App.app.shortcutIndex == Preferences.gestureIndex
-               && !App.app.forceDoNothingOnRelease && Preferences.shortcutStyle[App.app.shortcutIndex] == .focusOnRelease {
-            DispatchQueue.main.async { App.app.focusTarget() }
+               && !App.app.forceDoNothingOnRelease {
+            let style = Preferences.shortcutStyle[App.app.shortcutIndex]
+            if style == .focusOnRelease || style == .enterSearchOnRelease {
+            DispatchQueue.main.async { App.app.handleHoldShortcutRelease(Preferences.indexToName("holdShortcut", App.app.shortcutIndex)) }
             return true
+            }
         }
         return false
     }

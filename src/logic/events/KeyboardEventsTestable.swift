@@ -15,8 +15,7 @@ class KeyboardEventsTestable {
 
 /// Simple priority: ensure search-enter outranks search-exit and others when not editing.
 private func shortcutPriority(_ id: String) -> Int {
-    if id == "searchEnterShortcut" { return 0 }
-    if id == "searchExitShortcut" { return 1 }
+    if id == "searchToggleShortcut" { return 0 }
     // Keep everything else at a lower priority; ties resolved by id for determinism
     return 10
 }
@@ -37,7 +36,7 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
         }
     }
     // While typing in the search field, allow a small, explicit set of shortcuts:
-    // - Exit search (takes precedence if it matches)
+    // - Toggle search (takes precedence if it matches)
     // - Focus selected window (e.g., Space by default)
     // - Cancel (e.g., Escape by default)
     if App.app != nil,
@@ -45,10 +44,10 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
        App.app.thumbnailsPanel != nil,
        App.app.thumbnailsPanel.isKeyWindow,
        App.app.thumbnailsPanel.thumbnailsView.searchField.currentEditor() != nil {
-        if let exitShortcut = ControlsTab.shortcuts["searchExitShortcut"],
-           exitShortcut.matches(globalId, shortcutState, keyCode, modifiers) && exitShortcut.shouldTrigger() {
-            exitShortcut.executeAction(isARepeat)
-            exitShortcut.redundantSafetyMeasures()
+        if let toggleShortcut = ControlsTab.shortcuts["searchToggleShortcut"],
+           toggleShortcut.matches(globalId, shortcutState, keyCode, modifiers) && toggleShortcut.shouldTrigger() {
+            toggleShortcut.executeAction(isARepeat)
+            toggleShortcut.redundantSafetyMeasures()
             return true
         }
         if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
