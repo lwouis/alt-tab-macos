@@ -90,7 +90,6 @@ class Preferences {
         "trackpadHapticFeedbackEnabled": "true",
         // Search settings
         "anyKeyToSearchEnabled": "false",
-        "searchArrowKeysNavigate": "true",
         "acronymSearchEnabled": "true",
         // Local shortcuts when the switcher is active
         // Split Focus Search into Enter/Exit (default to Tab for both)
@@ -160,7 +159,6 @@ class Preferences {
     static var menubarIconShown: Bool { CachedUserDefaults.bool("menubarIconShown") }
     static var language: LanguagePreference { CachedUserDefaults.macroPref("language", LanguagePreference.allCases) }
     static var anyKeyToSearchEnabled: Bool { CachedUserDefaults.bool("anyKeyToSearchEnabled") }
-    static var searchArrowKeysNavigate: Bool { CachedUserDefaults.bool("searchArrowKeysNavigate") }
     static var acronymSearchEnabled: Bool { CachedUserDefaults.bool("acronymSearchEnabled") }
     static var searchEnterShortcut: String { CachedUserDefaults.string("searchEnterShortcut") }
     static var searchExitShortcut: String { CachedUserDefaults.string("searchExitShortcut") }

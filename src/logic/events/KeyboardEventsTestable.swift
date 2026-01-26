@@ -51,26 +51,6 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
             exitShortcut.redundantSafetyMeasures()
             return true
         }
-        if Preferences.searchArrowKeysNavigate,
-           let keyCode,
-           modifiers?.intersection([.command, .control, .option]).isEmpty ?? true {
-            switch keyCode {
-            case UInt32(kVK_LeftArrow):
-                App.app.cycleSelection(.left)
-                return true
-            case UInt32(kVK_RightArrow):
-                App.app.cycleSelection(.right)
-                return true
-            case UInt32(kVK_UpArrow):
-                App.app.cycleSelection(.up)
-                return true
-            case UInt32(kVK_DownArrow):
-                App.app.cycleSelection(.down)
-                return true
-            default:
-                break
-            }
-        }
         if let focusShortcut = ControlsTab.shortcuts["focusWindowShortcut"],
            focusShortcut.matches(globalId, shortcutState, keyCode, modifiers) && focusShortcut.shouldTrigger() {
             if Windows.list.firstIndex(where: { Windows.shouldDisplay($0) }) != nil {
