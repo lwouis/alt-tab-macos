@@ -34,8 +34,6 @@ class GeneralTab {
             ])
         let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
             rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
-        let acronymSearch = TableGroupView.Row(leftTitle: NSLocalizedString("Prefer acronym matches while searching", comment: ""),
-            rightViews: [LabelAndControl.makeSwitch("acronymSearchEnabled")])
         let resetPreferences = NSButton(title: NSLocalizedString("Reset settings and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
         if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
         for i in 0..<MenubarIconPreference.allCases.count {
@@ -55,7 +53,6 @@ class GeneralTab {
         table.addRow(menubarIcon)
         table.addNewTable()
         table.addRow(language)
-        table.addRow(acronymSearch)
         // Search bar is always available; no toggle needed
         let view = TableGroupSetView(originalViews: [table], toolsViews: [resetPreferences], toolsAlignment: .trailing)
         view.translatesAutoresizingMaskIntoConstraints = false

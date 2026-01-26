@@ -84,7 +84,6 @@ class Logger {
 class Preferences {
     static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]
     static var holdShortcut = ["⌥", "⌥", "⌥"]
-    static var acronymSearchEnabled = true
 
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))
