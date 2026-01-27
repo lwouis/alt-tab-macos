@@ -205,11 +205,17 @@ class Windows {
     }
 
     static func updateSelectedWindow() {
-        guard let index = (list.firstIndex { $0.id == selectedWindowTarget }) else {
-            setInitialSelectedAndHoveredWindowIndex()
+        // selectedWindowTarget still exists: we select its new index
+        if let index = (list.firstIndex { $0.id == selectedWindowTarget }) {
+            updateSelectedAndHoveredWindowIndex(index)
             return
         }
-        updateSelectedAndHoveredWindowIndex(index)
+        // list has reduced (e.g. app was quit). Selection should be at the end, so users can for example quit many apps in a sequence
+        let lastIndex = list.filter { $0.shouldShowTheUser }.count - 1
+        if selectedWindowIndex > lastIndex {
+            updateSelectedAndHoveredWindowIndex(lastIndex)
+        }
+        // selectedWindowIndex is undisturbed: do nothing
     }
 
     static func updateSelectedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
