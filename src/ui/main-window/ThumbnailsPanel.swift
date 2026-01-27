@@ -33,7 +33,20 @@ class ThumbnailsPanel: NSPanel {
         appearance = NSAppearance(named: Appearance.currentTheme == .dark ? .vibrantDark : .vibrantLight)
     }
 
+    private var lastLayoutTime: DispatchTime = .now()
+    
     func updateContents() {
+        // Workaround for macOS 15+ hang: throttle full layout passes during rapid interaction
+        // External events (window title changes, moves) can trigger expensive layouts while cycling
+        // Skip if we just did a layout less than 100ms ago
+        // see https://github.com/lwouis/alt-tab-macos/issues/5177
+        let now = DispatchTime.now()
+        let timeSinceLastLayout = now.uptimeNanoseconds - lastLayoutTime.uptimeNanoseconds
+        if timeSinceLastLayout < 100_000_000 { // 100ms in nanoseconds
+            return
+        }
+        lastLayoutTime = now
+        
         CATransaction.begin()
         defer { CATransaction.commit() }
         CATransaction.setDisableActions(true)

@@ -72,21 +72,47 @@ class Windows {
     }
 
     static func updatesBeforeShowing() -> Bool {
+        let overallStart = DispatchTime.now()
+        PerfLogger.log("===== updatesBeforeShowing START =====")
+        
         if list.count == 0 || MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
+        
+        PerfLogger.log("updatesBeforeShowing: Processing \(list.count) windows")
+        
         // TODO: find a way to update space info when spaces are changed, instead of on every trigger
         // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
         // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
+        var stepStart = DispatchTime.now()
         Spaces.refresh()
+        var elapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("updatesBeforeShowing: Spaces.refresh took \(String(format: "%.2f", elapsed))ms")
+        
         let spaceIdsAndIndexes = Spaces.idsAndIndexes.map { $0.0 }
         lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
         lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
+        
+        stepStart = DispatchTime.now()
         for window in list {
             detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
             window.updateSpacesAndScreen()
             refreshIfWindowShouldBeShownToTheUser(window)
         }
+        elapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("updatesBeforeShowing: Window loop took \(String(format: "%.2f", elapsed))ms")
+        
+        stepStart = DispatchTime.now()
         refreshWhichWindowsToShowTheUser()
+        elapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("updatesBeforeShowing: refreshWhichWindowsToShowTheUser took \(String(format: "%.2f", elapsed))ms")
+        
+        stepStart = DispatchTime.now()
         sort()
+        elapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("updatesBeforeShowing: sort took \(String(format: "%.2f", elapsed))ms")
+        
+        let overallElapsed = Double(DispatchTime.now().uptimeNanoseconds - overallStart.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("===== updatesBeforeShowing TOTAL: \(String(format: "%.2f", overallElapsed))ms =====")
+        
         if (!list.contains { $0.shouldShowTheUser }) { return false }
         return true
     }
@@ -213,6 +239,9 @@ class Windows {
     }
 
     static func updateSelectedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
+        let start = DispatchTime.now()
+        PerfLogger.log("updateSelectedAndHoveredWindowIndex: START")
+        
         var index: Int?
         if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
             let oldIndex = hoveredWindowIndex
@@ -228,19 +257,47 @@ class Windows {
             let oldIndex = selectedWindowIndex
             selectedWindowIndex = newIndex
             selectedWindowTarget = list[newIndex].id
+            
+            var stepStart = DispatchTime.now()
             ThumbnailsView.highlight(oldIndex)
+            var stepElapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+            PerfLogger.log("updateSelected: highlight(old) took \(String(format: "%.2f", stepElapsed))ms")
+            
+            stepStart = DispatchTime.now()
             previewSelectedWindowIfNeeded()
+            stepElapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+            PerfLogger.log("updateSelected: previewSelectedWindowIfNeeded took \(String(format: "%.2f", stepElapsed))ms")
+            
             index = selectedWindowIndex
             lastWindowActivityType = .focus
         }
         guard let index else { return }
+        
+        var stepStart = DispatchTime.now()
         ThumbnailsView.highlight(index)
+        var stepElapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("updateSelected: highlight(new) took \(String(format: "%.2f", stepElapsed))ms")
+        
         let focusedView = ThumbnailsView.recycledViews[index]
+        
+        stepStart = DispatchTime.now()
         App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+        stepElapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("updateSelected: scrollToVisible took \(String(format: "%.2f", stepElapsed))ms")
+        
+        stepStart = DispatchTime.now()
         voiceOverWindow(index)
+        stepElapsed = Double(DispatchTime.now().uptimeNanoseconds - stepStart.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("updateSelected: voiceOverWindow took \(String(format: "%.2f", stepElapsed))ms")
+        
+        let totalElapsed = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("updateSelectedAndHoveredWindowIndex TOTAL: \(String(format: "%.2f", totalElapsed))ms")
     }
 
     static func cycleSelectedWindowIndex(_ step: Int, allowWrap: Bool = true) {
+        let start = DispatchTime.now()
+        PerfLogger.log("===== cycleSelectedWindowIndex: Tab pressed, step=\(step) =====")
+        
         guard App.app.appIsBeingUsed else { return }
         let nextIndex = selectedWindowIndexAfterCycling(step)
         // don't wrap-around at the end, if key-repeat
@@ -248,9 +305,13 @@ class Windows {
             (!allowWrap || ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended))
                // don't cycle to another row, if !allowWrap
                || (!allowWrap && list[nextIndex].rowIndex != list[selectedWindowIndex].rowIndex) {
+            PerfLogger.log("cycleSelectedWindowIndex: Skipped (constraints)")
             return
         }
         updateSelectedAndHoveredWindowIndex(nextIndex)
+        
+        let elapsed = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
+        PerfLogger.log("===== cycleSelectedWindowIndex TOTAL: \(String(format: "%.2f", elapsed))ms =====")
     }
 
     static func selectedWindowIndexAfterCycling(_ step: Int) -> Int {

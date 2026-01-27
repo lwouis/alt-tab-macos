@@ -19,6 +19,15 @@ class ThumbnailView: FlippedView {
     var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""))
     var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""))
     var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""))
+    
+    // Cache for performance - avoid redundant image updates
+    // see https://github.com/lwouis/alt-tab-macos/issues/5177
+    private var cachedThumbnailImage: CGImage?
+    private var cachedAppIconImage: CGImage?
+    private var cachedLabelFrame: NSRect = .zero
+    private var cachedBackgroundColor: NSColor?
+    private var cachedBorderColor: NSColor?
+    private var cachedBorderWidth: CGFloat = 0
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: ThumbnailView.noOpenWindowToolTip)
 
     let hStackView = FlippedView()
@@ -126,7 +135,9 @@ class ThumbnailView: FlippedView {
         updateValues(element, index, newHeight)
         updateSizes(newHeight)
         updatePositions(newHeight)
-        label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
+        // Workaround for macOS 15+ hang: avoid expensive cell!.cellSize calculation
+        // Use cached fittingSize instead - see https://github.com/lwouis/alt-tab-macos/issues/5177
+        label.toolTip = label.fittingSize.width >= label.frame.size.width ? label.stringValue : nil
     }
 
     func drawHighlight() {
@@ -135,8 +146,14 @@ class ThumbnailView: FlippedView {
         setBackground(isFocused: isFocused, isHovered: isHovered)
         setBorder(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
-            label.isHidden = !(isFocused || isHovered)
-            updateAppIconsLabel(isFocused: isFocused, isHovered: isHovered)
+            // Workaround for macOS 15+ hang: skip if label visibility hasn't changed
+            // Setting isHidden can trigger layout recalculation
+            // see https://github.com/lwouis/alt-tab-macos/issues/5177
+            let shouldShow = isFocused || isHovered
+            if label.isHidden == shouldShow {
+                label.isHidden = !shouldShow
+                updateAppIconsLabel(isFocused: isFocused, isHovered: isHovered)
+            }
         }
     }
 
@@ -235,19 +252,37 @@ class ThumbnailView: FlippedView {
     }
 
     private func setBackground(isFocused: Bool, isHovered: Bool) {
-        vStackView.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
+        let newColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered)
+        // Workaround for macOS 15+ hang: skip if color hasn't changed
+        // see https://github.com/lwouis/alt-tab-macos/issues/5177
+        if cachedBackgroundColor != newColor {
+            cachedBackgroundColor = newColor
+            vStackView.layer!.backgroundColor = newColor.cgColor
+        }
     }
 
     private func setBorder(isFocused: Bool, isHovered: Bool) {
+        let newBorderColor: NSColor
+        let newBorderWidth: CGFloat
+        
         if isFocused {
-            vStackView.layer!.borderColor = Appearance.highlightFocusedBorderColor.cgColor
-            vStackView.layer!.borderWidth = Appearance.highlightBorderWidth
+            newBorderColor = Appearance.highlightFocusedBorderColor
+            newBorderWidth = Appearance.highlightBorderWidth
         } else if isHovered {
-            vStackView.layer!.borderColor = Appearance.highlightHoveredBorderColor.cgColor
-            vStackView.layer!.borderWidth = Appearance.highlightBorderWidth
+            newBorderColor = Appearance.highlightHoveredBorderColor
+            newBorderWidth = Appearance.highlightBorderWidth
         } else {
-            vStackView.layer!.borderColor = NSColor.clear.cgColor
-            vStackView.layer!.borderWidth = 0
+            newBorderColor = NSColor.clear
+            newBorderWidth = 0
+        }
+        
+        // Workaround for macOS 15+ hang: skip if border hasn't changed
+        // see https://github.com/lwouis/alt-tab-macos/issues/5177
+        if cachedBorderColor != newBorderColor || cachedBorderWidth != newBorderWidth {
+            cachedBorderColor = newBorderColor
+            cachedBorderWidth = newBorderWidth
+            vStackView.layer!.borderColor = newBorderColor.cgColor
+            vStackView.layer!.borderWidth = newBorderWidth
         }
     }
 
@@ -282,7 +317,9 @@ class ThumbnailView: FlippedView {
 
     private func updateAppIconsLabelFrame() {
         let viewWidth = frame.width
-        let labelWidth = label.cell!.cellSize.width
+        // Workaround for macOS 15+ hang: avoid expensive cell!.cellSize calculation
+        // Use cached fittingSize instead - see https://github.com/lwouis/alt-tab-macos/issues/5177
+        let labelWidth = label.fittingSize.width
         let padding = (Preferences.appearanceSize == .small ? 0 : ( Preferences.appearanceSize == .medium ? 1 : 2)) * Appearance.intraCellPadding
         let maxAllowedLabelWidth = getMaxAllowedLabelWidth()
         let sidesToOffset: CGFloat = (isFirstInRow ? 1 : 0) + (isLastInRow ? 1 : 0)
@@ -314,14 +351,32 @@ class ThumbnailView: FlippedView {
         let xPosition = -leftOffset
         let height = label.fittingSize.height
         let yPosition = hStackView.frame.origin.y + hStackView.frame.height + Appearance.intraCellPadding * 2
-        label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
+        let newFrame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
+        
+        // Workaround for macOS 15+ hang: skip if frame hasn't changed (happens during hover/selection)
+        // see https://github.com/lwouis/alt-tab-macos/issues/5177
+        if cachedLabelFrame == newFrame {
+            return
+        }
+        cachedLabelFrame = newFrame
+        
+        label.frame = newFrame
         label.setWidth(effectiveLabelWidth)
-        label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
+        // Workaround for macOS 15+ hang: avoid expensive cell!.cellSize calculation
+        // Use cached fittingSize instead - see https://github.com/lwouis/alt-tab-macos/issues/5177
+        label.toolTip = label.fittingSize.width >= label.frame.size.width ? label.stringValue : nil
     }
 
     private func updateAppIcon(_ element: Window, _ title: String) {
         let appIconSize = ThumbnailView.iconSize()
-        appIcon.updateContents(.cgImage(element.icon), appIconSize)
+        // Workaround for macOS 15+ hang: avoid redundant image updates
+        // see https://github.com/lwouis/alt-tab-macos/issues/5177
+        if cachedAppIconImage !== element.icon {
+            cachedAppIconImage = element.icon
+            appIcon.updateContents(.cgImage(element.icon), appIconSize)
+        } else if appIcon.frame.size != appIconSize {
+            appIcon.frame.size = appIconSize
+        }
         appIcon.setAccessibilityLabel(title)
     }
 
@@ -339,11 +394,29 @@ class ThumbnailView: FlippedView {
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.size, false)
-                thumbnail.updateContents(screenshot, thumbnailSize)
+                // Workaround for macOS 15+ hang: avoid redundant image updates
+                // see https://github.com/lwouis/alt-tab-macos/issues/5177
+                let newImage: CGImage? = {
+                    switch screenshot {
+                    case .cgImage(let img): return img
+                    case .pixelBuffer: return nil
+                    }
+                }()
+                if cachedThumbnailImage !== newImage {
+                    cachedThumbnailImage = newImage
+                    thumbnail.updateContents(screenshot, thumbnailSize)
+                } else if thumbnail.frame.size != thumbnailSize {
+                    thumbnail.frame.size = thumbnailSize
+                }
             } else {
                 // if no thumbnail, show appIcon instead
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.icon?.size(), true)
-                thumbnail.updateContents(.cgImage(element.icon), thumbnailSize)
+                if cachedThumbnailImage !== element.icon {
+                    cachedThumbnailImage = element.icon
+                    thumbnail.updateContents(.cgImage(element.icon), thumbnailSize)
+                } else if thumbnail.frame.size != thumbnailSize {
+                    thumbnail.frame.size = thumbnailSize
+                }
             }
             // for Accessibility > "speak items under the pointer"
             thumbnail.setAccessibilityLabel(element.title)

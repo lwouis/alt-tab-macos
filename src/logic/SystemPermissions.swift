@@ -81,9 +81,21 @@ class AccessibilityPermission {
 
 class ScreenRecordingPermission {
     static var status = PermissionStatus.notGranted
+    private static var lastCheckTime: DispatchTime = .now() - .seconds(61)
+    private static let recheckInterval: TimeInterval = 60 // Only recheck every 60s once granted
 
     @discardableResult
     static func update() -> PermissionStatus {
+        // Once granted, skip expensive checks for 60 seconds
+        // This prevents the blocking semaphore wait from causing hangs
+        if status == .granted {
+            let timeSinceLastCheck = Double(DispatchTime.now().uptimeNanoseconds - lastCheckTime.uptimeNanoseconds) / 1_000_000_000
+            if timeSinceLastCheck < recheckInterval {
+                return status
+            }
+        }
+        
+        lastCheckTime = .now()
         status = detect()
         return status
     }

@@ -4,6 +4,7 @@ class PreviewPanel: NSPanel {
     private let previewView = LightImageView()
     private let borderView = BorderView()
     private var currentId: CGWindowID?
+    private var cachedFrame: NSRect = .zero
 
     /// this allows the window to be above the menubar when its origin.y is set to 0
     override func constrainFrameRect(_ frameRect: NSRect, to screen: NSScreen?) -> NSRect {
@@ -28,12 +29,24 @@ class PreviewPanel: NSPanel {
     }
 
     func show(_ id: CGWindowID, _ preview: CALayerContents, _ position: CGPoint, _ size: CGSize) {
-        if id != currentId {
-            repositionAndResize(position, size)
-            previewView.updateContents(preview, size)
+        // Workaround for macOS 15+ hang: cache and skip redundant updates
+        // see https://github.com/lwouis/alt-tab-macos/issues/5177
+        let newFrame = NSRect(origin: position, size: size)
+        let frameChanged = newFrame != cachedFrame
+        let idChanged = id != currentId
+        
+        if idChanged || frameChanged {
+            if frameChanged {
+                cachedFrame = newFrame
+                repositionAndResize(position, size)
+            }
+            if idChanged {
+                previewView.updateContents(preview, size)
+            }
         }
-        if id != currentId || !isVisible {
-            if Preferences.previewFadeInAnimation {
+        
+        if idChanged || !isVisible {
+            if Preferences.previewFadeInAnimation && !isVisible {
                 alphaValue = 0
                 NSAnimationContext.runAnimationGroup { context in
                     context.duration = 0.3
