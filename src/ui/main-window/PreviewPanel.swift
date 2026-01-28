@@ -29,8 +29,7 @@ class PreviewPanel: NSPanel {
     }
 
     func show(_ id: CGWindowID, _ preview: CALayerContents, _ position: CGPoint, _ size: CGSize) {
-        // Workaround for macOS 15+ hang: cache and skip redundant updates
-        // see https://github.com/lwouis/alt-tab-macos/issues/5177
+        // Cache and skip redundant updates for performance
         let newFrame = NSRect(origin: position, size: size)
         let frameChanged = newFrame != cachedFrame
         let idChanged = id != currentId

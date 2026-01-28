@@ -338,8 +338,6 @@ class ThumbnailView: FlippedView {
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.size, false)
-                // Workaround for macOS 15+ hang: avoid redundant image updates
-                // see https://github.com/lwouis/alt-tab-macos/issues/5177
                 thumbnail.updateContents(screenshot, thumbnailSize)
             } else {
                 // if no thumbnail, show appIcon instead
