@@ -366,21 +366,26 @@ extension Popover: NSPopoverDelegate {
 class AppearanceTab: NSObject {
     static var customizeStyleButton: NSButton!
     static var animationsButton: NSButton!
+    static var taskbarSettingsButton: NSButton!
     static var customizeStyleSheet: CustomizeStyleSheet!
     static var animationsSheet: AnimationsSheet!
+    static var taskbarSettingsSheet: TaskbarSettingsSheet!
 
     static func initTab() -> NSView {
         customizeStyleButton = NSButton(title: getCustomizeStyleButtonTitle(), target: self, action: #selector(showCustomizeStyleSheet))
         animationsButton = NSButton(title: NSLocalizedString("Animations…", comment: ""), target: self, action: #selector(showAnimationsSheet))
+        taskbarSettingsButton = NSButton(title: NSLocalizedString("Taskbar settings…", comment: ""), target: self, action: #selector(showTaskbarSettingsSheet))
         customizeStyleSheet = CustomizeStyleSheet()
         animationsSheet = AnimationsSheet()
+        taskbarSettingsSheet = TaskbarSettingsSheet()
         return makeView()
     }
 
     private static func makeView() -> NSStackView {
         let appearanceView = makeAppearanceView()
         let multipleScreensView = makeMultipleScreensView()
-        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, animationsButton])
+        let taskbarView = makeTaskbarView()
+        let view = TableGroupSetView(originalViews: [appearanceView, multipleScreensView, taskbarView, animationsButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
@@ -410,6 +415,21 @@ class AppearanceTab: NSObject {
         return table
     }
 
+    private static func makeTaskbarView() -> NSView {
+        let table = TableGroupView(title: NSLocalizedString("Taskbar", comment: ""), width: PreferencesWindow.width)
+        table.addRow(leftText: NSLocalizedString("Enable taskbar", comment: ""),
+            rightViews: LabelAndControl.makeSwitch("taskbarEnabled", extraAction: { _ in
+                if Preferences.taskbarEnabled {
+                    TaskbarManager.shared.enable()
+                } else {
+                    TaskbarManager.shared.disable()
+                }
+            }))
+        table.addRow(rightViews: taskbarSettingsButton)
+        table.fit()
+        return table
+    }
+
     private static func getCustomizeStyleButtonTitle() -> String {
         if Preferences.appearanceStyle == .thumbnails {
             return NSLocalizedString("Customize Thumbnails style…", comment: "")
@@ -435,5 +455,9 @@ class AppearanceTab: NSObject {
 
     @objc static func showAnimationsSheet() {
         App.app.preferencesWindow.beginSheet(animationsSheet)
+    }
+
+    @objc static func showTaskbarSettingsSheet() {
+        App.app.preferencesWindow.beginSheet(taskbarSettingsSheet)
     }
 }

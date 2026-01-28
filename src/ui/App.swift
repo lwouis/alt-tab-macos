@@ -201,6 +201,8 @@ class App: AppCenterApplication {
 
     func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
         Windows.refreshThumbnailsAsync(windowsToScreenshot, source, windowRemoved: windowRemoved)
+        // update taskbar regardless of Alt-Tab UI state
+        TaskbarManager.shared.updateContents()
         guard appIsBeingUsed else { return }
         if source == .refreshUiAfterExternalEvent {
             if !Windows.updatesBeforeShowing() { hideUi(); return }
@@ -319,6 +321,8 @@ extension App: NSApplicationDelegate {
         CursorEvents.observe()
         TrackpadEvents.observe()
         CliEvents.observe()
+        // enable taskbar
+        TaskbarManager.shared.enable()
         // login item and plist updates can be done a bit later, to accelerate launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { GeneralTab.startAtLoginCallback() }
         Logger.info { "Finished launching AltTab" }
