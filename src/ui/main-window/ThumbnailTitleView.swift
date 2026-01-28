@@ -1,9 +1,6 @@
 import Cocoa
 
 class ThumbnailTitleView: NSTextField {
-    private var cachedWidth: CGFloat = 0
-    private var widthConstraint: NSLayoutConstraint?
-    
     convenience init(font: NSFont) {
         self.init(labelWithString: "")
         self.font = font
@@ -19,27 +16,16 @@ class ThumbnailTitleView: NSTextField {
     }
 
     func setWidth(_ width: CGFloat) {
-        // Workaround for macOS 15+ hang: avoid recreating constraints if width hasn't changed
-        // see https://github.com/lwouis/alt-tab-macos/issues/5177
-        guard cachedWidth != width else { return }
-        cachedWidth = width
-        
         frame.size.width = width
-        
-        // Workaround for macOS 15+ hang: reuse existing constraint instead of removing/recreating
-        // Updating constraint.constant is much cheaper than removeConstraint + new constraint
-        if let existingConstraint = widthConstraint {
-            existingConstraint.constant = width
-        } else {
-            // First time: remove any existing width constraints and create our tracked one
-            let toRemove = constraints.filter {
-                ($0.firstItem as? NSView) === self && $0.firstAttribute == .width ||
-                    ($0.secondItem as? NSView) === self && $0.secondAttribute == .width
-            }
-            toRemove.forEach { removeConstraint($0) }
-            widthConstraint = widthAnchor.constraint(equalToConstant: width)
-            widthConstraint!.isActive = true
+        // TODO: NSTextField does some internal magic, and ends up with constraints.
+        // we can't use addOrUpdateConstraint for some reason, otherwise it will only actually apply after the UI is shown twice
+        // i tried everything and ended up removing all constraints then adding a fresh one. This seems to work
+        let toRemove = constraints.filter {
+            ($0.firstItem as? NSView) === self && $0.firstAttribute == .width ||
+                ($0.secondItem as? NSView) === self && $0.secondAttribute == .width
         }
+        toRemove.forEach { removeConstraint($0) }
+        widthAnchor.constraint(equalToConstant: width).isActive = true
     }
 
     override func mouseMoved(with event: NSEvent) {

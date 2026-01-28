@@ -14,3 +14,7 @@ codesign.conf
 codesign.crt
 codesign.key
 codesign.p12
+logs/*.log
+config/local.xcconfig
+*.xcconfig.local
+.envrc

@@ -201,52 +201,32 @@ class App: AppCenterApplication {
 
     private var lastExternalEventRefreshTime: DispatchTime?
     private let externalEventRefreshThrottle: TimeInterval = 0.15 // 150ms
-    private let externalEventQueue = DispatchQueue(label: "com.lwouis.alt-tab-macos.externalEventQueue")
-    
+
     func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
-        PerfLogger.log("===== refreshOpenUi called, source: \(source) =====")
+        Logger.perf("===== refreshOpenUi called, source: \(source) =====")
         Windows.refreshThumbnailsAsync(windowsToScreenshot, source, windowRemoved: windowRemoved)
         guard appIsBeingUsed else { return }
-        
+
         if source == .refreshUiAfterExternalEvent {
-            // Dispatch to serial queue to prevent concurrent execution + race conditions
-            // This fixes the macOS 15.2 hang during rapid Tab presses caused by
-            // external accessibility events triggering hundreds of concurrent window list updates
-            externalEventQueue.async { [weak self] in
-                guard let self = self, self.appIsBeingUsed else { return }
-                
-                // Thread-safe throttle: limit window list updates to once per 150ms
-                let now = DispatchTime.now()
-                if let lastRefresh = self.lastExternalEventRefreshTime {
-                    let timeSinceLastRefresh = Double(now.uptimeNanoseconds - lastRefresh.uptimeNanoseconds) / 1_000_000_000
-                    if timeSinceLastRefresh < self.externalEventRefreshThrottle {
-                        PerfLogger.log("refreshOpenUi: THROTTLED updatesBeforeShowing (last \(String(format: "%.0f", timeSinceLastRefresh * 1000))ms ago)")
-                        return
-                    }
-                }
-                self.lastExternalEventRefreshTime = now
-                
-                // Execute on main thread
-                DispatchQueue.main.async {
-                    guard self.appIsBeingUsed else { return }
-                    PerfLogger.log("refreshOpenUi: calling updatesBeforeShowing due to external event")
-                    if !Windows.updatesBeforeShowing() { self.hideUi(); return }
-                    guard self.appIsBeingUsed else { return }
-                    Windows.updateSelectedWindow()
-                    guard self.appIsBeingUsed else { return }
-                    self.thumbnailsPanel.updateContents()
-                    guard self.appIsBeingUsed else { return }
-                    Windows.voiceOverWindow()
-                    guard self.appIsBeingUsed else { return }
-                    Windows.previewSelectedWindowIfNeeded()
-                    guard self.appIsBeingUsed else { return }
-                    Applications.refreshBadgesAsync()
+            // Throttle external events to prevent macOS 15.2 hang during rapid Tab presses
+            // caused by external accessibility events triggering hundreds of window list updates
+            // Note: refreshOpenUi is guaranteed to run on main thread, no queue needed
+            let now = DispatchTime.now()
+            if let lastRefresh = lastExternalEventRefreshTime {
+                let timeSinceLastRefresh = Double(now.uptimeNanoseconds - lastRefresh.uptimeNanoseconds) / 1_000_000_000
+                if timeSinceLastRefresh < externalEventRefreshThrottle {
+                    Logger.perf("refreshOpenUi: THROTTLED updatesBeforeShowing (last \(String(format: "%.0f", timeSinceLastRefresh * 1000))ms ago)")
+                    return
                 }
             }
-            return
+            lastExternalEventRefreshTime = now
+
+            Logger.perf("refreshOpenUi: calling updatesBeforeShowing due to external event")
+            if !Windows.updatesBeforeShowing() { hideUi(); return }
+            guard appIsBeingUsed else { return }
         }
-        
-        // Non-external event path continues synchronously
+
+        // Update UI (runs for both external events and user-triggered events)
         Windows.updateSelectedWindow()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.updateContents()

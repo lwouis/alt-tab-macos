@@ -3,6 +3,21 @@
 set -e
 
 # Install script for local AltTab.app builds
+#
+# This script automates the test-after-build workflow:
+# - Finds the build in DerivedData (no manual path specification needed)
+# - Quits running instance gracefully (with fallback to killall)
+# - Backs up existing version (timestamped, for rollback if needed)
+# - Clears quarantine attribute (so macOS doesn't block local builds)
+# - Optionally launches the installed version
+#
+# Enables rapid development iteration without manual Xcode/Finder interaction,
+# which is essential for AI-assisted development where the AI can:
+# 1. Make code changes
+# 2. Build with ./scripts/build_app.sh Debug --install --launch
+# 3. Verify the changes work
+# 4. Iterate based on results
+#
 # Usage: ./scripts/install_local_build.sh [Debug|Release] [--launch|-l]
 # Default: Debug
 # Options:

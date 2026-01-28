@@ -62,6 +62,7 @@
 		442E26DB1F7DA80AF794CCB6 /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6F409CA442F83B7BE71AD /* Pods_unit_tests.framework */; };
 		4807A6C623A9CD190052A53E /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4807A6C523A9CD190052A53E /* SkyLight.framework */; };
 		48F3E16224EC0D8800A1C64B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BABDA79F8EF76E3ACDD5F /* Localizable.strings */; };
+		53F582A12F2ABCF000D67E05 /* BaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3F85DDC86A4079B99AC104 /* BaseLogger.swift */; };
 		5883F0A829A5182C0071DB65 /* TrackpadEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */; };
 		5F04852E2F09AC9700235D4A /* WindowCaptureEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F04852D2F09AC9700235D4A /* WindowCaptureEvents.swift */; };
 		5F17452E2F1A908D00128EF8 /* WindowDiscriminator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F17452D2F1A907800128EF8 /* WindowDiscriminator.swift */; };
@@ -79,6 +80,7 @@
 		5FEFDF2F2F181E120065BAA3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5FEFDF2D2F181E120065BAA3 /* Localizable.strings */; };
 		5FEFDF322F181E250065BAA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5FEFDF312F181E250065BAA3 /* InfoPlist.strings */; };
 		76D02BB22BFE7C9E0056008D /* Pods_alt_tab_macos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */; };
+		970DBC5EEA5A4D3385E748AB /* BaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3F85DDC86A4079B99AC104 /* BaseLogger.swift */; };
 		AA974BA929B7D84C0099A29E /* PreviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA974BA829B7D84C0099A29E /* PreviewPanel.swift */; };
 		BF0C803A13C409E7F01FBCAB /* SkyLight.framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */; };
 		BF0C80484AA63306D0DB4DB2 /* SpacesEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8DF008F1EB5F23291A13 /* SpacesEvents.swift */; };
@@ -124,7 +126,6 @@
 		BF0C8592CCF5B552C47162AB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C84A4227CB16617C26977 /* Localizable.strings */; };
 		BF0C8596DA6C64428F99AB08 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C89540808EE3680CB786D /* Localizable.strings */; };
 		BF0C85C128940DC95B88E78E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8EB96BA052944CCDC2A7 /* InfoPlist.strings */; };
-		522FF759600D43F5A9748CE8 /* PerfLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B1C43C571D414899D4E65F /* PerfLogger.swift */; };
 		BF0C85DA2D285400801C514A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8B841E890CA0D68FFD86 /* Logger.swift */; };
 		BF0C8603F7BA6D1ED7B9E624 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C8DC4F163F11248C637CE /* Localizable.strings */; };
 		BF0C860F1779DDE8C0171EA0 /* WindowlessAppIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C896FD4907CD85D62C124 /* WindowlessAppIndicator.swift */; };
@@ -386,6 +387,7 @@
 		5FEFDF2C2F181E120065BAA3 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = Localizable.strings; sourceTree = "<group>"; };
 		5FEFDF302F181E250065BAA3 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		672F94799CC7C90282AEB3EA /* Pods-alt-tab-macos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alt-tab-macos.debug.xcconfig"; path = "Target Support Files/Pods-alt-tab-macos/Pods-alt-tab-macos.debug.xcconfig"; sourceTree = "<group>"; };
+		6C3F85DDC86A4079B99AC104 /* BaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLogger.swift; sourceTree = "<group>"; };
 		7451B8433E47C444A6F489FF /* Pods-unit-tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit-tests.debug.xcconfig"; path = "Target Support Files/Pods-unit-tests/Pods-unit-tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA974BA829B7D84C0099A29E /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
 		BF0C800363086A5ED019FE11 /* google_translate_all_terms_locally.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = google_translate_all_terms_locally.py; sourceTree = "<group>"; };
@@ -506,7 +508,6 @@
 		BF0C8B2C057099EDABE46779 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		BF0C8B2EA9269BA0B79A525F /* sk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sk; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8B5D1A9658E64F8ECB56 /* SystemScrollerStyleEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemScrollerStyleEvents.swift; sourceTree = "<group>"; };
-		32B1C43C571D414899D4E65F /* PerfLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerfLogger.swift; sourceTree = "<group>"; };
 		BF0C8B841E890CA0D68FFD86 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BF0C8B94D7994AB9007F6391 /* SkyLight.framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyLight.framework.swift; sourceTree = "<group>"; };
 		BF0C8BA452332236D972C60E /* ATShortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATShortcut.swift; sourceTree = "<group>"; };
@@ -1581,6 +1582,7 @@
 		D04BA5BB6FB4E7D8F7AD357C /* api-wrappers */ = {
 			isa = PBXGroup;
 			children = (
+				6C3F85DDC86A4079B99AC104 /* BaseLogger.swift */,
 				D04BA6F823BC0EDA9AA4B80A /* AXUIElement.swift */,
 				D04BAC34CFD42A7F6F1F01C0 /* CGWindow.swift */,
 				D04BAD91161791D42FEC4A60 /* HelperExtensions.swift */,
@@ -1588,7 +1590,6 @@
 				D04BA8DB8AA7E5570DAC568A /* Sysctl.swift */,
 				D04BA514F1C4B475B3CA6EB6 /* Bash.swift */,
 				BF0C82E4DE5A28800F1DA6E6 /* MissionControl.swift */,
-				32B1C43C571D414899D4E65F /* PerfLogger.swift */,
 				BF0C8B841E890CA0D68FFD86 /* Logger.swift */,
 				BF0C8353097840D7DB1E0E2E /* Markdown.swift */,
 				BF0C88D101728C6798C7FC07 /* private-apis */,
@@ -2045,8 +2046,10 @@
 				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = lwouis;
 				TargetAttributes = {
+					BF0C873EC188A7EBBCF4310D = {
+						ProvisioningStyle = Automatic;
+					};
 					D04BA5E73DAF232ADE11C97A = {
-						DevelopmentTeam = 4XSSSBSFDJ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2428,6 +2431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53F582A12F2ABCF000D67E05 /* BaseLogger.swift in Sources */,
 				5F882F382EC3C63400110A9F /* CustomRecorderControlTestable.swift in Sources */,
 				BF0C81FA62D810342F59291A /* AppearanceTests.swift in Sources */,
 				5F4753072CEE5A2E002C6C5E /* AppearanceTestable.swift in Sources */,
@@ -2448,6 +2452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				970DBC5EEA5A4D3385E748AB /* BaseLogger.swift in Sources */,
 				D04BAFBC862BA5FE0294EA7A /* AXUIElement.swift in Sources */,
 				D04BA73E90EFEF8247A5105D /* CGWindow.swift in Sources */,
 				D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */,
@@ -2528,7 +2533,6 @@
 				BF0C827A169F0DE86C8F12AD /* SystemScrollerStyleEvents.swift in Sources */,
 				BF0C8846AFEE2FFF93FAB36F /* AppearanceTestable.swift in Sources */,
 				BF0C88449007A09F1D175029 /* KeyboardEventsTestable.swift in Sources */,
-				522FF759600D43F5A9748CE8 /* PerfLogger.swift in Sources */,
 				BF0C85DA2D285400801C514A /* Logger.swift in Sources */,
 				BF0C89B4B17D7843C32A102E /* Markdown.swift in Sources */,
 				BF0C8A49891371E4027E0641 /* MacroPreferences.swift in Sources */,
@@ -3466,10 +3470,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3524,10 +3529,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3562,10 +3568,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA62D5EACAAAD7BCD3E79 /* release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4XSSSBSFDJ;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -3573,10 +3578,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4XSSSBSFDJ;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
