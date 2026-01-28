@@ -33,7 +33,7 @@ class PreviewPanel: NSPanel {
         let newFrame = NSRect(origin: position, size: size)
         let frameChanged = newFrame != cachedFrame
         let idChanged = id != currentId
-        
+
         if idChanged || frameChanged {
             if frameChanged {
                 cachedFrame = newFrame
@@ -43,7 +43,7 @@ class PreviewPanel: NSPanel {
                 previewView.updateContents(preview, size)
             }
         }
-        
+
         if idChanged || !isVisible {
             if Preferences.previewFadeInAnimation && !isVisible {
                 alphaValue = 0

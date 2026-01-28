@@ -24,6 +24,25 @@ class Spaces {
         return CGSCopyWindowsWithOptionsAndTags(CGS_CONNECTION, 0, spaceIds as CFArray, options.rawValue, &set_tags, &clear_tags) as! [CGWindowID]
     }
 
+    /// Build a reverse mapping from window ID to space IDs
+    /// This is much faster than calling cgWindowId.spaces() for each window individually
+    /// Makes O(number of spaces) WindowServer calls instead of O(number of windows)
+    static func buildWindowToSpacesMap() -> [CGWindowID: [CGSSpaceID]] {
+        var windowToSpaces: [CGWindowID: [CGSSpaceID]] = [:]
+
+        // For each space, get all windows in that space
+        for (spaceId, _) in idsAndIndexes {
+            let windowsInThisSpace = windowsInSpaces([spaceId], true)
+
+            // Add this space to each window's space list
+            for windowId in windowsInThisSpace {
+                windowToSpaces[windowId, default: []].append(spaceId)
+            }
+        }
+
+        return windowToSpaces
+    }
+
     static func refresh() {
         let now = DispatchTime.now()
         let timeSinceLastRefresh = Double(now.uptimeNanoseconds - lastRefreshTime.uptimeNanoseconds) / 1_000_000_000

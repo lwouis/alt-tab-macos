@@ -251,17 +251,25 @@ class Window {
         return application.localizedName ?? ""
     }
 
-    func updateSpacesAndScreen() {
+    func updateSpacesAndScreen(windowToSpacesMap: [CGWindowID: [CGSSpaceID]]? = nil) {
         // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
         // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
         // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
-        updateSpaces()
+        updateSpaces(windowToSpacesMap: windowToSpacesMap)
         updateScreenId()
     }
 
-    private func updateSpaces() {
+    private func updateSpaces(windowToSpacesMap: [CGWindowID: [CGSSpaceID]]? = nil) {
         guard let cgWindowId else { return }
-        let spaceIds = cgWindowId.spaces()
+
+        // Use pre-computed mapping if available (much faster), otherwise fall back to individual API call
+        let spaceIds: [CGSSpaceID]
+        if let map = windowToSpacesMap, let cachedSpaceIds = map[cgWindowId] {
+            spaceIds = cachedSpaceIds
+        } else {
+            spaceIds = cgWindowId.spaces()
+        }
+
         self.spaceIds = spaceIds
         self.spaceIndexes = spaceIds.compactMap { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1 }
         self.isOnAllSpaces = spaceIds.count > 1

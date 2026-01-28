@@ -88,12 +88,35 @@ class Windows {
             lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
             lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
 
+            // Build window→spaces mapping once instead of querying each window individually
+            // This makes O(number of spaces) API calls instead of O(number of windows)
+            // Typically 2-10 spaces vs 64 windows = 6-30x fewer WindowServer API calls!
+            let windowToSpacesMap = section.step("Build window→spaces map") {
+                return Spaces.buildWindowToSpacesMap()
+            }
+
             section.step("Window loop") {
+                var detectTabbedTime: Double = 0
+                var updateSpacesTime: Double = 0
+                var refreshShouldShowTime: Double = 0
+
                 for window in list {
+                    let start1 = BaseLogger.preciseTimestamp()
                     detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
-                    window.updateSpacesAndScreen()
+                    detectTabbedTime += BaseLogger.elapsedMilliseconds(from: start1)
+
+                    let start2 = BaseLogger.preciseTimestamp()
+                    window.updateSpacesAndScreen(windowToSpacesMap: windowToSpacesMap)
+                    updateSpacesTime += BaseLogger.elapsedMilliseconds(from: start2)
+
+                    let start3 = BaseLogger.preciseTimestamp()
                     refreshIfWindowShouldBeShownToTheUser(window)
+                    refreshShouldShowTime += BaseLogger.elapsedMilliseconds(from: start3)
                 }
+
+                section.log("  - detectTabbedWindows total: \(String(format: "%.2f", detectTabbedTime))ms")
+                section.log("  - updateSpacesAndScreen total: \(String(format: "%.2f", updateSpacesTime))ms")
+                section.log("  - refreshIfWindowShouldBeShownToTheUser total: \(String(format: "%.2f", refreshShouldShowTime))ms")
             }
 
             section.step("refreshWhichWindowsToShowTheUser") {
