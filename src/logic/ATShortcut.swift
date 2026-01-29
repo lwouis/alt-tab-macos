@@ -42,14 +42,16 @@ class ATShortcut {
         return false
     }
 
-    private func modifiersMatch(_ modifiers: UInt32) -> Bool {
+    private func modifiersMatch(_ modifiers: CarbonModifierFlags) -> Bool {
+        let modifiersCleaned = modifiers.cleaned()
+        let shortcutModifiersCleaned = shortcut.carbonModifierFlags.cleaned()
         // holdShortcut: contains at least
         if id.hasPrefix("holdShortcut") {
-            return modifiers == (modifiers | shortcut.carbonModifierFlags)
+            return modifiersCleaned == (modifiersCleaned | shortcutModifiersCleaned)
         }
         // other shortcuts: contains exactly or exactly + holdShortcut modifiers
-        let holdModifiers = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)]?.shortcut.carbonModifierFlags ?? 0
-        return modifiers == shortcut.carbonModifierFlags || modifiers == (shortcut.carbonModifierFlags | holdModifiers)
+        let holdModifiersCleaned = ControlsTab.shortcuts[Preferences.indexToName("holdShortcut", App.app.shortcutIndex)]?.shortcut.carbonModifierFlags.cleaned() ?? 0
+        return modifiersCleaned == shortcutModifiersCleaned || modifiersCleaned == (shortcutModifiersCleaned | holdModifiersCleaned)
     }
 
     func shouldTrigger() -> Bool {
@@ -70,7 +72,7 @@ class ATShortcut {
     }
 
     func executeAction(_ isARepeat: Bool) {
-        Logger.info("executeAction", id)
+        Logger.info { self.id }
         ATShortcut.lastEventIsARepeat = isARepeat
         ControlsTab.executeAction(id)
     }
@@ -95,7 +97,7 @@ class ATShortcut {
         }
         if state == .up {
             // ensure timers don't keep running if their shortcut is UP
-            KeyRepeatTimer.deactivateTimerForRepeatingKey(id)
+            KeyRepeatTimer.stopTimerForRepeatingKey(id)
         }
     }
 }
@@ -113,4 +115,22 @@ enum ShortcutState {
 enum ShortcutScope {
     case global
     case local
+}
+
+extension NSEvent.ModifierFlags {
+    // NSEvent.addLocalMonitorForEvents may return events with broken modifiers (e.g. [.NSEventModifierFlagOption, .NSEventModifierFlagFunction, 0x120])
+    // we filter modifiers to only include valid modifiers; which doesn't include fn as we don't support it as a modifier
+    func cleaned() -> Self {
+        return self.intersection([.command, .shift, .option, .control, .capsLock])
+    }
+}
+
+typealias CarbonModifierFlags = UInt32
+
+extension CarbonModifierFlags {
+    // cocoaToCarbonFlags may remove NSEventModifierFlagFunction
+    // we filter modifiers to only include valid modifiers; which doesn't include fn as we don't support it as a modifier
+    func cleaned() -> Self {
+        return self & (UInt32(cmdKey) | UInt32(shiftKey) | UInt32(optionKey) | UInt32(controlKey) | UInt32(alphaLock))
+    }
 }

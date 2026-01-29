@@ -13,7 +13,19 @@ class KeyboardEventsTestable {
 
 @discardableResult
 func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: NSEvent.ModifierFlags?, _ isARepeat: Bool) -> Bool {
-    Logger.debug(globalId, shortcutState, keyCode, modifiers, isARepeat, NSEvent.modifierFlags)
+    if let globalId, let shortcutState {
+        Logger.debug {
+            let shortcut = KeyboardEventsTestable.globalShortcutsIds.first { $0.value == globalId }
+            return "globalShortcut:\(shortcut?.key ?? "") state:\(shortcutState)"
+        }
+    } else {
+        // TODO: use proper pattern from SwiftBeaver to not compute SymbolicModifierFlagsTransformer when logs are off
+        Logger.debug {
+            let modifiersAsString = modifiers.flatMap { SymbolicModifierFlagsTransformer.shared.transformedValue(NSNumber(value: $0.rawValue)) }
+            let keyCodeAsString = keyCode.flatMap { SymbolicKeyCodeTransformer.shared.transformedValue(NSNumber(value: $0)) }
+            return "keys:\(modifiersAsString ?? "")\(keyCodeAsString ?? "") isARepeat:\(isARepeat)"
+        }
+    }
     var someShortcutTriggered = false
     for shortcut in ControlsTab.shortcuts.values {
         if shortcut.matches(globalId, shortcutState, keyCode, modifiers) && shortcut.shouldTrigger() {

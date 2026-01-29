@@ -188,7 +188,7 @@
 "Show standard tabs as windows" = "표준 탭을 윈도우로 보이기";
 "Show standard tabs as windows:" = "표준 탭을 윈도우로 보여주기:";
 "Show titles" = "제목 표시";
-"Show windows from applications" = "윈도우을 표시할 앱";
+"Show windows from applications" = "윈도우를 표시할 앱";
 "Show windows from screens" = "윈도우를 표시할 화면";
 "Show windows from Spaces" = "윈도우를 표시할 Space";
 "Show windows from:" = "창을 표시할 항목:";
@@ -202,7 +202,7 @@
 "Start" = "처음";
 "Start at login" = "로그인 시 시작";
 "Start at login:" = "로그인 시 자동 실행:";
-"Support this project ❤️" = "이 프로젝트 후원하기 ❤️";
+"Support this project" = "이 프로젝트 후원하기";
 "Swipe with Four Fingers" = "네 손가락으로 쓸어넘기기";
 "Swipe with Three Fingers" = "세 손가락으로 쓸어넘기기";
 "Switch between 3 different styles. You can customize them." = "서로 다른 세 스타일 중에서 고르세요. 사용자 지정할 수도 있습니다.";

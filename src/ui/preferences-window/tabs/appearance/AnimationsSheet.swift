@@ -3,7 +3,7 @@ import Cocoa
 class AnimationsSheet: SheetWindow {
     override func makeContentView() -> NSView {
         let table = TableGroupView(title: NSLocalizedString("Animations", comment: ""), width: SheetWindow.width)
-        let slider = LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 900, 10, true, "ms", width: 180)
+        let slider = LabelAndControl.makeLabelWithSlider("", "windowDisplayDelay", 0, 900, 19, true, "ms", width: 180)
         let rule = slider[1]
         let indicator = slider[2] as! NSTextField
         indicator.alignment = .right

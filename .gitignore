@@ -1,5 +1,7 @@
 /.idea/
 xcuserdata/
+/.vscode/
+/buildServer.json
 WorkspaceSettings.xcsettings
 IDEWorkspaceChecks.plist
 /node_modules/

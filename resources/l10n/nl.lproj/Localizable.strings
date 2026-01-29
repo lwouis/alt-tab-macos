@@ -6,10 +6,10 @@
 "Active screen" = "Actieve scherm";
 "Active Space" = "Actieve space";
 "Additional controls" = "Aanvullende bedieningselementen";
-"Additional controls…" = "Extra bedieningsels ...";
+"Additional controls…" = "Extra bedieningselementen";
 "Advanced" = "Geavanceerd";
 "After release" = "Na vrijlating";
-"Align windows" = "Lijn Windows uit";
+"Align windows" = "Lijn vensters uit";
 "Align windows:" = "Lijn vensters uit:";
 "All apps" = "Alle programma’s";
 "All data from this form will be made public, as a ticket on github.com" = "Alle informatie ingevuld in dit formulier wordt openbaar gemaakt in een ticket op github.com";
@@ -21,7 +21,7 @@
 "Also select windows using:" = "Selecteer ook vensters met:";
 "AltTab crashed last time you used it. Sending a crash report will help get the issue fixed" = "AltTab is de vorige keer gecrasht. Je kunt ons helpen door een crashrapportage te versturen";
 "AltTab is currently set to show Applications. This setting is only available when AltTab is set to show Windows." = "Alttab is momenteel ingesteld om applicaties te tonen.Deze instelling is alleen beschikbaar wanneer Alttab is ingesteld om Windows te tonen.";
-"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is running without Screen Recording permissions. Thumbnails won’t show.";
+"AltTab is running without Screen Recording permissions. Thumbnails won’t show." = "AltTab is actief zonder Schermopname permissies. Miniatuurweergaven worden niet getoond.";
 "AltTab needs some permissions" = "AltTab heeft wat permissies nodig";
 "AltTab will show if the window is currently minimized or fullscreen with a status icon." = "AltTAB zal laten zien of het venster momenteel wordt geminimaliseerd of volledig is met een statuspictogram.";
 "Always" = "Altijd";
@@ -69,7 +69,9 @@
 "Don’t show windows from these apps" = "Toon geen vensters van deze apps";
 "Done" = "Klaar";
 "End" = "Einde";
+"Fade in animation of Preview" = "Fade-in animatie van de voorvertoning";
 "Fade out animation" = "FADE OUT -animatie";
+"Fade out animation of Switcher" = "Fade-out animatie van Switcher";
 "Fade out animation:" = "Fade-out animatie:";
 "Focus selected window" = "Focus geselecteerde venster";
 "Fullscreen window" = "Schermvullende venster";
@@ -102,7 +104,7 @@
 "Ignore shortcuts when active" = "Negeer snelkoppeling wanneer actief";
 "Ignore shortcuts while a window from these apps is active" = "Negeer snelkoppeling als één van deze vensters actief is";
 "Language" = "Taal";
-"Language Change" = "Language Change";
+"Language Change" = "Taal aanpassen";
 "Large" = "Groot";
 "Later" = "Later";
 "Latest releases" = "Laatste versies";
@@ -122,6 +124,7 @@
 "Mouse hover" = "Muisbeweging";
 "Multiple screens" = "Meerdere schermen";
 "Never send crash reports" = "Verstuurt nooit crashrapportages";
+"Non-active apps" = "Niet-actieve apps";
 "Normal" = "Normaal";
 "Not allowed" = "Niet toegestaan";
 "NSHumanReadableCopyright" = "GPL 3.0-licentie";
@@ -175,6 +178,7 @@
 "Show" = "Toon";
 "Show & Hide" = "Laten zien verbergen";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Toon een item in de switcher voor elk venster of voor elke toepassing.Windows zal worden gefocust, terwijl applicaties worden geactiveerd.";
+"Show apps with no open window" = "Laat apps zien zonder actief scherm";
 "Show at the end" = "Toon aan het einde";
 "Show fullscreen windows" = "Toon fullscreen ramen";
 "Show hidden windows" = "Toon verborgen ramen";
@@ -199,7 +203,7 @@
 "Start" = "Start";
 "Start at login" = "Begin bij inloggen";
 "Start at login:" = "Start bij inloggen:";
-"Support this project ❤️" = "Steun dit project ❤️";
+"Support this project" = "Steun dit project";
 "Swipe with Four Fingers" = "Veeg met 4 vingers";
 "Swipe with Three Fingers" = "Veeg met 3 vingers";
 "Switch between 3 different styles. You can customize them." = "Schakel tussen 3 verschillende stijlen.U kunt ze aanpassen.";
@@ -211,6 +215,7 @@
 "Then release:" = "Doe dan:";
 "This permission is needed to focus windows after you release the shortcut" = "Deze permissie is nodig om vensters te focussen na het uitvoeren van de snelkoppeling";
 "This permission is needed to show screenshots and titles of open windows" = "Deze permissie is nodig om screenshots en titels van geopende vensters te tonen";
+"This permission is needed to show thumbnails and preview of open windows" = "Deze toestemming is nodig om miniaturen en voorbeelden van geopende vensters weer te geven";
 "Thumbnails" = "Miniatuur";
 "Title" = "Titel";
 "Title truncation" = "Titelintrekking";
@@ -221,8 +226,8 @@
 "Updates policy:" = "Updatebeleid:";
 "Use the app without this permission. Thumbnails won’t show." = "Gebruik de app zonder deze toestemming. Miniaturen worden niet weergegeven.";
 "Version" = "Versie";
-"Vertical Swipe with Four Fingers" = "Vertical Swipe with Four Fingers";
-"Vertical Swipe with Three Fingers" = "Vertical Swipe with Three Fingers";
+"Vertical Swipe with Four Fingers" = "Swipe Verticaal met Vier Vingers";
+"Vertical Swipe with Three Fingers" = "Swipe Verticaal met Drie Vingers";
 "View existing discussions" = "Bekijk bestaande discussies";
 "Vim keys" = "Vim toetsen";
 "Vim keys already assigned to other actions:\n%@" = "Vim toetsen al toegewezen aan andere acties:\n%@";
@@ -245,4 +250,4 @@
 "Windows" = "ramen";
 "You can’t undo this action." = "Je kan deze actie niet ongedaan maken.";
 "You didn’t write your email, thus can’t receive any response." = "Je hebt geen e-mail ingevoerd en kunt dus geen reactie ontvangen.";
-"You may need to disable some conflicting system gestures" = "You may need to disable some conflicting system gestures";
+"You may need to disable some conflicting system gestures" = "Mogelijk moet u enkele conflicterende systeemgebaren uitschakelen";

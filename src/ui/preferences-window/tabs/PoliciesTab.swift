@@ -28,7 +28,7 @@ class PoliciesTab {
         return view
     }
 
-    @objc static func checkForUpdatesNow(_ sender: Any) {
+    @objc static func checkForUpdatesNow(_ sender: Any?) {
         SUUpdater.shared().checkForUpdates(sender)
     }
 }

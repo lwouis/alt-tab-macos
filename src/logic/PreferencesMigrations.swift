@@ -19,6 +19,7 @@ class PreferencesMigrations {
     }
 
     private static func updateToNewPreferences(_ versionInPlist: String) {
+        Logger.debug { "App-version:\(App.version), Plist-version:\(versionInPlist)" }
         // x.compare(y) is .orderedDescending if x > y
         if versionInPlist.compare("7.27.0", options: .numeric) != .orderedDescending {
             migrateCursorFollowFocus()

@@ -3,7 +3,7 @@ import Cocoa
 class AboutTab {
     static func initTab() -> NSView {
         let appIcon = LightImageView()
-        appIcon.updateWithResizedCopy(App.appIcon, NSSize(width: 256, height: 256))
+        appIcon.updateContents(.cgImage(App.appIcon), NSSize(width: 256, height: 256))
         appIcon.fit(256, 256)
         let appText = StackView([
             BoldLabel(App.name),
@@ -19,8 +19,8 @@ class AboutTab {
         appIcon.translatesAutoresizingMaskIntoConstraints = false
         appInfo.spacing = GridView.interPadding
         appInfo.alignment = .centerY
-        let sendFeedback = NSButton(title: NSLocalizedString("Send feedback…", comment: ""), target: nil, action: #selector(App.app.showFeedbackPanel))
-        let supportProject = NSButton(title: NSLocalizedString("Support this project ❤️", comment: ""), target: nil, action: #selector(App.app.supportProject))
+        let sendFeedback = makeButtonWithIcon(NSLocalizedString("Send feedback…", comment: ""), #selector(App.app.showFeedbackPanel), "text.bubble")
+        let supportProject = makeButtonWithIcon(NSLocalizedString("Support this project", comment: ""), #selector(App.app.supportProject), "heart.fill", .red)
         let grid = GridView([
             [appInfo],
             [sendFeedback],
@@ -33,5 +33,17 @@ class AboutTab {
         supportProjectCell.xPlacement = .center
         grid.fit()
         return grid
+    }
+
+    private static func makeButtonWithIcon(_ title: String, _ selector: Selector, _ symbolName: String?, _ color: NSColor? = nil) -> NSButton {
+        let button = NSButton(title: title, target: nil, action: selector)
+        if #available(macOS 26.0, *), let symbolName {
+            button.image = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
+            button.imagePosition = .imageLeading
+            if let color {
+                button.image = button.image?.withSymbolConfiguration(.init(paletteColors: [color]))
+            }
+        }
+        return button
     }
 }

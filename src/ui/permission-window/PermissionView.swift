@@ -38,10 +38,12 @@ class PermissionView: StackView {
         self.status = status
         wantsLayer = true
         layer!.cornerRadius = GridView.interPadding / 2
-        updatePermissionStatus(checkFunction())
+        setContentHuggingPriority(.required, for: .horizontal)
+        setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     func updatePermissionStatus(_ permissionStatus: PermissionStatus) {
+        guard status.stringValue.isEmpty || permissionStatus != self.permissionStatus else { return }
         self.permissionStatus = permissionStatus
         var color: NSColor
         var label: String

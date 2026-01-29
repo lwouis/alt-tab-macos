@@ -3,6 +3,8 @@ import Cocoa
 class PermissionsWindow: NSWindow {
     var accessibilityView: PermissionView!
     var screenRecordingView: PermissionView!
+    var canBecomeKey_ = true
+    override var canBecomeKey: Bool { canBecomeKey_ }
 
     convenience init() {
         self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
@@ -11,19 +13,20 @@ class PermissionsWindow: NSWindow {
         setupView()
     }
 
-    func show(_ startupBlock: @escaping () -> Void) {
-        accessibilityView.updatePermissionStatus(SystemPermissions.updateAccessibilityIsGranted())
-        if #available(macOS 10.15, *) {
-            screenRecordingView.updatePermissionStatus(SystemPermissions.updateScreenRecordingIsGranted())
-        }
+    func show() {
+        guard !isVisible else { return }
+        Logger.debug { "" }
+        SystemPermissions.setFrequentTimer()
         center()
         App.shared.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
-        if #available(macOS 10.15, *), !SystemPermissions.preStartupPermissionsPassed {
-            // this call triggers the permission prompt, however it's the only way to force the app to be listed with a checkbox
-            SLSRequestScreenCaptureAccess()
+    }
+
+    func updatePermissionViews() {
+        accessibilityView.updatePermissionStatus(AccessibilityPermission.status)
+        if #available(macOS 10.15, *) {
+            screenRecordingView.updatePermissionStatus(ScreenRecordingPermission.status)
         }
-        SystemPermissions.pollPermissionsToUpdatePermissionsWindow(startupBlock)
     }
 
     private func setupWindow() {
@@ -35,7 +38,7 @@ class PermissionsWindow: NSWindow {
 
     private func setupView() {
         let appIcon = LightImageView()
-        appIcon.updateWithResizedCopy(App.appIcon, NSSize(width: 80, height: 80))
+        appIcon.updateContents(.cgImage(App.appIcon), NSSize(width: 80, height: 80))
         appIcon.fit(80, 80)
         let appText = TitleLabel(NSLocalizedString("AltTab needs some permissions", comment: ""))
         appText.preferredMaxLayoutWidth = 380
@@ -47,9 +50,9 @@ class PermissionsWindow: NSWindow {
             "accessibility",
             NSLocalizedString("Accessibility", comment: ""),
             NSLocalizedString("This permission is needed to focus windows after you release the shortcut", comment: ""),
-            NSLocalizedString("Open Accessibility Preferences…", comment: ""),
+            NSLocalizedString("Open Accessibility Settings…", comment: ""),
             "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
-            SystemPermissions.updateAccessibilityIsGranted
+            AccessibilityPermission.update
         )
         var rows = [
             [header],
@@ -60,32 +63,44 @@ class PermissionsWindow: NSWindow {
                 "screen-recording",
                 NSLocalizedString("Screen Recording", comment: ""),
                 NSLocalizedString("This permission is needed to show thumbnails and preview of open windows", comment: ""),
-                NSLocalizedString("Open Screen Recording Preferences…", comment: ""),
+                NSLocalizedString("Open Screen Recording Settings…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
-                SystemPermissions.updateScreenRecordingIsGranted,
+                ScreenRecordingPermission.update,
                 StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
             )
             rows.append([screenRecordingView])
         }
+        let widestRowWidth = rows.reduce(0) { max($0, $1[0]!.fittingSize.width) }
+        rows.forEach { $0[0]!.fit(widestRowWidth, $0[0]!.fittingSize.height) }
         let view = GridView(rows as! [[NSView]])
         view.fit()
         setContentSize(view.fittingSize)
         contentView = view
     }
+
+    override func close() {
+        hideAppIfLastWindowIsClosed()
+        super.close()
+    }
 }
 
 extension PermissionsWindow: NSWindowDelegate {
-    func windowWillClose(_ notification: Notification) {
-        Logger.debug(SystemPermissions.preStartupPermissionsPassed)
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        Logger.debug { "preStartupPermissionsPassed:\(SystemPermissions.preStartupPermissionsPassed), accessibility:\(AccessibilityPermission.status), screenRecording:\(ScreenRecordingPermission.status)" }
         if !SystemPermissions.preStartupPermissionsPassed {
-            if SystemPermissions.updateAccessibilityIsGranted() == .notGranted || SystemPermissions.updateScreenRecordingIsGranted() == .notGranted {
-                Logger.error("Before using this app, you need to give permission in System Preferences > Security & Privacy > Privacy > Accessibility.",
-                    "Please authorize and re-launch.",
-                    "See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx")
+            if AccessibilityPermission.status == .notGranted || ScreenRecordingPermission.status == .notGranted {
+                Logger.error {
+                    """
+                    Before using this app, you need to give permission in System Settings > Privacy & Security > Accessibility.
+                    Please authorize and re-launch.
+                    See https://help.rescuetime.com/article/59-how-do-i-enable-accessibility-permissions-on-mac-osx
+                    """
+                }
                 App.shared.terminate(self)
+                return false // prevent the close; termination will close everything once
             }
-        } else {
-            SystemPermissions.timerPermissionsToUpdatePermissionsWindow?.invalidate()
         }
+        SystemPermissions.setInfrequentTimer()
+        return true
     }
 }

@@ -50,7 +50,6 @@ class Preferences {
         "appearanceStyle": AppearanceStylePreference.thumbnails.indexAsString,
         "appearanceSize": AppearanceSizePreference.medium.indexAsString,
         "appearanceTheme": AppearanceThemePreference.system.indexAsString,
-        "appearanceVisibility": AppearanceVisibilityPreference.normal.indexAsString,
         "theme": ThemePreference.macOs.indexAsString,
         "showOnScreen": ShowOnScreenPreference.active.indexAsString,
         "titleTruncation": TitleTruncationPreference.end.indexAsString,
@@ -92,6 +91,7 @@ class Preferences {
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
+        "trackpadHapticFeedbackEnabled": "true",
     ]
 
     // system preferences
@@ -115,6 +115,7 @@ class Preferences {
     static var vimKeysEnabled: Bool { CachedUserDefaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { CachedUserDefaults.bool("mouseHoverEnabled") }
     static var cursorFollowFocus: CursorFollowFocus { CachedUserDefaults.macroPref("cursorFollowFocus", CursorFollowFocus.allCases) }
+    static var trackpadHapticFeedbackEnabled: Bool { CachedUserDefaults.bool("trackpadHapticFeedbackEnabled") }
     static var showTabsAsWindows: Bool { CachedUserDefaults.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { CachedUserDefaults.bool("hideColoredCircles") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(CachedUserDefaults.int("windowDisplayDelay")) }
@@ -126,14 +127,13 @@ class Preferences {
     // periphery:ignore
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
-    static var previewFocusedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
+    static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { CachedUserDefaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
     static var appearanceSize: AppearanceSizePreference { CachedUserDefaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
     static var appearanceTheme: AppearanceThemePreference { CachedUserDefaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
-    static var appearanceVisibility: AppearanceVisibilityPreference { CachedUserDefaults.macroPref("appearanceVisibility", AppearanceVisibilityPreference.allCases) }
     // periphery:ignore
     static var theme: ThemePreference { ThemePreference.macOs/*CachedUserDefaults.macroPref("theme", ThemePreference.allCases)*/ }
     static var showOnScreen: ShowOnScreenPreference { CachedUserDefaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }

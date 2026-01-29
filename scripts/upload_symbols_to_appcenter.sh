@@ -5,7 +5,7 @@ set -exu
 ownerName="alt-tab-macos"
 appName="alt-tab-macos"
 url="https://api.appcenter.ms/v0.1/apps/$ownerName/$appName"
-version="$(cat $VERSION_FILE)"
+version="$(cat "$VERSION_FILE")"
 symbolFile="$APP_NAME.app.dSYM"
 
 function firstCall() {

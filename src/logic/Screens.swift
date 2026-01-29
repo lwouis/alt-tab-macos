@@ -1,7 +1,19 @@
 import Cocoa
 
+class Screens {
+    static var all = [ScreenUuid: NSScreen]()
+
+    static func refresh() {
+        all.removeAll()
+        for screen in NSScreen.screens {
+            guard let uuid = screen.uuid() else { continue }
+            all[uuid] = screen
+        }
+    }
+}
+
 extension NSScreen {
-    static var preferred: NSScreen = detectPreferred() ?? NSScreen.screens.first!
+    static var preferred = NSScreen.screens.first!
 
     static func updatePreferred() {
         preferred = detectPreferred() ?? NSScreen.screens.first!
@@ -22,15 +34,15 @@ extension NSScreen {
     ///   * if NSScreen.screensHaveSeparateSpaces == false, and key window is on another screen than screens[0], it still returns screens[0]
     /// we find the screen with the key window ourselves manually
     static func active() -> NSScreen? {
-        if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier) {
-            if let focusedWindow = app.focusedWindow {
-                // on the very first summon, this window may not have its spaces updated, which may land the wrong active screen
-                Windows.updatesWindowSpace(focusedWindow)
-                return NSScreen.screens.first { focusedWindow.isOnScreen($0) }
-            }
-            return NSScreen.withActiveMenubar()
-        }
-        return nil
+        guard let frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier,
+              // we avoid Applications.findOrCreate() here, because it active() is called very early during launch
+              // we are not ready to create applications yet
+              let frontmostApp = (Applications.list.first { $0.pid == frontmostPid }) else { return nil }
+        guard let focusedWindow = frontmostApp.focusedWindow else { return NSScreen.withActiveMenubar() }
+        // on the very first summon, this window may not have its spaces updated, which may land the wrong active screen
+        focusedWindow.updateSpacesAndScreen()
+        guard let screenId = focusedWindow.screenId else { return nil }
+        return Screens.all[screenId]
     }
 
     /// there is only 1 active menubar. Other screens will show their menubar dimmed
@@ -55,13 +67,11 @@ extension NSScreen {
     }
 
     func uuid() -> ScreenUuid? {
-        if let screenNumber = number(),
-           // these APIs implicitly unwrap their return values, but it can actually be nil thus we check
-           let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber),
-           let uuid = CFUUIDCreateString(nil, screenUuid.takeRetainedValue()) {
-            return uuid
-        }
-        return nil
+        guard let screenNumber = number(),
+        // these APIs implicitly unwrap their return values, but it can actually be nil thus we check
+        let screenUuid = CGDisplayCreateUUIDFromDisplayID(screenNumber),
+        let uuid = CFUUIDCreateString(nil, screenUuid.takeRetainedValue()) else { return nil }
+        return uuid
     }
 
     // periphery:ignore
@@ -92,3 +102,4 @@ extension NSScreen {
 }
 
 typealias ScreenUuid = CFString
+

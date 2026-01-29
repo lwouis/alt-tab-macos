@@ -133,7 +133,7 @@ class LabelAndControl: NSObject {
                                onClick: EventClosure? = nil,
                                onMouseEntered: EventClosure? = nil,
                                onMouseExited: EventClosure? = nil) -> ClickHoverImageView {
-        let imageView = ThumbnailFontIconView(symbol: .circledInfo, size: size, color: .labelColor, shadow: nil)
+        let imageView = ThumbnailFontIconView(symbol: .circledInfo, size: size, color: .labelColor)
         let view = ClickHoverImageView(infoCircle: imageView)
         view.onClick = onClick
         view.onMouseEntered = onMouseEntered
@@ -225,7 +225,7 @@ class LabelAndControl: NSObject {
         }
     }
 
-    static func makeSegmentedControl(_ rawName: String, _ macroPreferences: [MacroPreference], extraAction: ActionClosure? = nil, segmentWidth: CGFloat = -1) -> NSSegmentedControl {
+    static func makeSegmentedControl(_ rawName: String, _ macroPreferences: [MacroPreference], segmentWidth: CGFloat = -1, extraAction: ActionClosure? = nil) -> NSSegmentedControl {
         let button = NSSegmentedControl(labels: macroPreferences.map {
             $0.localizedString
         }, trackingMode: .selectOne, target: nil, action: nil)
@@ -313,7 +313,7 @@ class LabelAndControl: NSObject {
         }
         // some preferences require re-creating some components
         if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-               (["appearanceStyle", "appearanceSize", "appearanceTheme", "appearanceVisibility", "showOnScreen", "showAppsOrWindows"].contains { (pref: String) -> Bool in
+               (["appearanceStyle", "appearanceSize", "appearanceTheme", "showOnScreen", "showAppsOrWindows"].contains { (pref: String) -> Bool in
                    pref == senderControl.identifier!.rawValue
                }) {
             (App.shared as! App).resetPreferencesDependentComponents()

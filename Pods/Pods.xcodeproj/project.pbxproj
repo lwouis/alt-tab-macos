@@ -37,6 +37,7 @@
 		0765C83AC970A3DF92240522AA840B8D /* mk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0F6C871680F7ADB5F2FC20CC7503E1D8 /* mk.lproj */; };
 		09FFDD6CA7A2ABBF7B9FFFE19225E928 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 7425B4F0B8D7AE68419113CF81BA0C7B /* ru.lproj */; };
 		0C31E740CC9DB225A896A552381ECE04 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E78A0125E6667191F7F73CFBF20D66DF /* de.lproj */; };
+		13C9B11E8154877B29450AF358FB693F /* SRModifierFlagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 34AFF6C2A3A41CF8FA59DE072FA9DEE9 /* SRModifierFlagsTransformer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		19141E2D6ADC5ECB21C8117627E8996F /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D30717BA0B03330C1EFCBE8ABC28853D /* sv.lproj */; };
 		1AFBAB297C62C0075822E90ABF72C2FB /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B23657FAF453892E8512C341C06F535A /* es.lproj */; };
 		1AFCEC66ACC98F5DBE56CC5EF1D977EE /* SRCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DF73A3728A24BBEB0E57795E54BF515 /* SRCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -44,8 +45,6 @@
 		1D60678C50E742175FCDD7932A31EEDB /* AES256CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143CC11B54B607623E08EB6D8AC9CB2F /* AES256CBC.swift */; };
 		1DD93AEF2D487A349DB2564E5C7DEB0F /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5CDACA1C9F549AD7106D831671F01405 /* sk.lproj */; };
 		1E4357F20077F9939C6D8CB274A0926A /* sk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F81CAA272C54ABD1FD722A84E2C57CDA /* sk.lproj */; };
-		1F149276AF739AC833BCADDCC1C83B73 /* SRShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D3BC562CDE59ABCC3A47E25C395D0 /* SRShortcut.m */; };
-		22D0C539333677DC4DD8C357A2EE8074 /* SRModifierFlagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 34AFF6C2A3A41CF8FA59DE072FA9DEE9 /* SRModifierFlagsTransformer.m */; };
 		24B9F193FBF42D709E80CEEC2C57038E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586D767FDAC3D2ABE60B85F8C0D6C2F0 /* Extensions.swift */; };
 		258995C74CA2831F16B4059B139C361F /* zh_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63B668B3C596AA84093C7CCD7E13A74C /* zh_CN.lproj */; };
 		267D03ED297081CA66DBE1C422624F1D /* Pods-alt-tab-macos-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 616E070B17DAA048BA8AC1C696E23614 /* Pods-alt-tab-macos-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,28 +54,26 @@
 		2D35EBA08F0AFBB42E94C2C03474881E /* LetsMove-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7555526F49F9B017E9091D0D41EDE96F /* LetsMove-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F01365A2E8F2D3651C994BFA7A35849 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8A91DE636206786A97ADB7217687D550 /* nl.lproj */; };
 		323571A800C800D57D1D344EE6B4A076 /* LetsMove.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CA84714B5B5E3373CEE2C55DED79A6C /* LetsMove.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		343BFE43B781B05ED85224B009844203 /* SRShortcutValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA566C5D6C5E62075BCD60635153279 /* SRShortcutValidator.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		35919AACC1E0D4C9C83E73D991F74EB6 /* GoogleCloudDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = D224927D3D690751292E77B2DA55FE5A /* GoogleCloudDestination.swift */; };
-		3ADF27FE54F59EC60116432676BA1937 /* SRShortcutFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E7D7B1123E54F78F297ECC787C32E /* SRShortcutFormatter.m */; };
 		3E030C055335A4F9895BB69099B86180 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA604A31A1DD4CA42C4B531C2266FC9 /* Cocoa.framework */; };
-		474FFA8B855EC6CDC9168F3AD7467275 /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE895BA41B15EEB276D5D22AA642B863 /* SRKeyCodeTransformer.m */; };
+		3EC20EE1C2D46CECA7FFDA0BE8CBA7DC /* SRShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D3BC562CDE59ABCC3A47E25C395D0 /* SRShortcut.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		418DED74DF783AA497A3DA8BD8185C7F /* SRRecorderControlStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6927C6D93BFE217C63FF9775CF2AD4 /* SRRecorderControlStyle.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4AC61BCCEB37DAFC0A3FDCCCAFF5D908 /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5FFFBEF12F4BC80B11118348EA112DC5 /* ko.lproj */; };
 		4C69AC49D9DED6174293A5D534AB2C86 /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F74E63D29FB691AA5276039BE623459B /* el.lproj */; };
 		4EA71F45A1D8B5523FD6C4F329E78E9D /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3CE082BB2F892678911A89F5229D18BF /* pl.lproj */; };
 		521D5A75EF858C43B907C85DB81DF9D2 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F60833BA468BF0982A7757A0B4C7B6FA /* ru.lproj */; };
 		52266B6AB44FB51066899ADB78B40E98 /* SRModifierFlagsTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = D2AA7143845FAE5DA9AF2C73B7FA4935 /* SRModifierFlagsTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56FD19D6AAFDA1359D7BEC1C08BF5A36 /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE895BA41B15EEB276D5D22AA642B863 /* SRKeyCodeTransformer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		574E2E99EDB4E5B0EF66E82D94307529 /* SRRecorderControl.h in Headers */ = {isa = PBXBuildFile; fileRef = AFD2D0990D11CBEC7920984F43CF4E47 /* SRRecorderControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		59432AF7193CDF335E064696E90D0385 /* sr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 9C5DA155F26AE9B5C6A9C2702A876C89 /* sr.lproj */; };
 		5A2989F6DBAC28DD784739513E3C8652 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1C1F51902DE7F002D230A8A831954814 /* tr.lproj */; };
-		5C79484B0FE7E3B5624E5269DF989261 /* SRShortcutValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA566C5D6C5E62075BCD60635153279 /* SRShortcutValidator.m */; };
 		5D6E0B408CE31ADD19BED5F3500BF70C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D5BE035F0ABA1DC114CF2B9C7CE0F8 /* Carbon.framework */; };
-		5DE2ACCCCDBE0B5F9615B8A6D4884C99 /* ShortcutRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C77518D43E11C5EAE891E833481E5B16 /* ShortcutRecorder-dummy.m */; };
-		5ECC5662B52C59C90487CFEE4446BAC2 /* SRShortcutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442A770F956E37A443249CEA3A9210F7 /* SRShortcutController.m */; };
 		63A7D9C525A17174AB336A3C0A7BB20C /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 87A36116B795431CF9FC0EA190EEF84A /* pt.lproj */; };
 		67FFF76E5A537563D5953849AD7A5CA7 /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 7C08865CA7260B55C8CC908004086026 /* fr.lproj */; };
 		68D0E7A7A86B678B37F1756DA6EF5C91 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA604A31A1DD4CA42C4B531C2266FC9 /* Cocoa.framework */; };
 		6EF965BFBEC5C5151F6642E2A12B62B9 /* SwiftyBeaver-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A6BC13B92452B467C398EABB021F3EC /* SwiftyBeaver-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDA577C500F9FA1F3D63B2407CBEAE5 /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CA601F9CF83636BE52B583599FA5209B /* cs.lproj */; };
-		74114B8B8983E90BDC9C85B231D00E40 /* SRKeyBindingTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 160A98F0E3604055FD8181545A88D923 /* SRKeyBindingTransformer.m */; };
 		744027C06DF5E758A00BAD444EE8C07E /* cs.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B68B6A2B5480C2F24C2275C21DC7DDA8 /* cs.lproj */; };
 		746FCD6781093D2F95C59845CD7442E7 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D036B90B8FF6FF26C12246D02A9098BB /* pt.lproj */; };
 		7488632181922E3AA679BE0F3EDA29BD /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E981E3BC91278FFE08924186992EF0D3 /* ko.lproj */; };
@@ -96,43 +93,46 @@
 		8F7F7232F41DDBD65894ED524B29866C /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8147D04AB10DF0A4759F373F4845F263 /* Filter.swift */; };
 		9074A4EFDC6E60EC0AFDDF30087D12AF /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 980E66E6BD817DEE7FACEC63303C3480 /* ja.lproj */; };
 		9632B9EDC92F450C8D59F640C7914E31 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 97196A76CE2F7069C712AA7090F2C480 /* nb.lproj */; };
-		99BF20014D3DBC64D0D3D83C349C8635 /* SRKeyEquivalentModifierMaskTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7EC660F798E3AAB637764C0D80F415 /* SRKeyEquivalentModifierMaskTransformer.m */; };
 		9A788410B4054A20EDA58C44A66CD231 /* pt_BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E8E8B1EAA027DF908391EFA8F2BC95A3 /* pt_BR.lproj */; };
 		9C2FB5039E7EE9D8718A5A7BE69B0C73 /* SRShortcutAction.h in Headers */ = {isa = PBXBuildFile; fileRef = E6CD62F0F895E48DFEB9BFEC03F80A36 /* SRShortcutAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D008D1F91FF0793D96DF23969F1C833 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DBBE4379BC8B189957E290B799916676 /* it.lproj */; };
+		A7201CEEAA2E87A8AD27D46A4B641F9F /* ShortcutRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C77518D43E11C5EAE891E833481E5B16 /* ShortcutRecorder-dummy.m */; };
 		AAD8450861DBF14FBF5F6B50182C2009 /* FilterValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45791B624ED5DF1E5AB8B421356D1951 /* FilterValidator.swift */; };
+		B26825BD19B6771D0E83F6BEF2B63E4E /* SRRecorderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A80746C85C0961ECD2D88522052778 /* SRRecorderControl.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B2D04BB67E61139E7A776D62C9A11517 /* zh_TW.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BB3B637A46A573FE010E685A71372472 /* zh_TW.lproj */; };
 		B3DEE2DF2FB4D54D798B2B700191B437 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BCEB7130F82E5D0B9B5C083745D98000 /* nb.lproj */; };
 		B8272B8C758AC4B34320429669CAD237 /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = ABB8A0EACBC6538EB722D52A448D0116 /* pl.lproj */; };
-		BB5D9FAD90FCE79DACC52E74E32ADFB2 /* SRShortcutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF5D98729528C41061C6F934C7C0046 /* SRShortcutAction.m */; };
 		BBE98B64AA4DA59E5D9B8B1D791BE4A2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BA604A31A1DD4CA42C4B531C2266FC9 /* Cocoa.framework */; };
-		BC38EDEAA1B42FB0F78A453C7E0BD2AF /* SRRecorderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A80746C85C0961ECD2D88522052778 /* SRRecorderControl.m */; };
 		BD49046DC2930FC0EECD106C89AF5ABF /* LetsMove-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C76BFF42A2A39F6CF4CD48868B2DD498 /* LetsMove-dummy.m */; };
 		BEA14B70BC975F119FCB2FBE4318B584 /* SRKeyCodeTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E73F446254094F81DB66CBA926FD579 /* SRKeyCodeTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BFC163D8D2E3122425E885875D72BE33 /* SRShortcutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442A770F956E37A443249CEA3A9210F7 /* SRShortcutController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C0BA6ED3823D0D086EC874E635FB52D5 /* SRShortcutFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49914EEFD471ABD74DAC3FFCC9000CCF /* SRShortcutFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C12B5C5AF97E56A60349FBE6BBD539E3 /* Pods-unit-tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C8F24C8CB39D43FB35BD742199C674 /* Pods-unit-tests-dummy.m */; };
 		CB49894234FDAA4BFA548BB1B6E61815 /* ShortcutRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A06D0E4AF7999EC0D2E1CC2C8229546A /* ShortcutRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCD6BC054C680BFE72F539C97B92091 /* Pods-alt-tab-macos-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A96DE61E902885AB0F28DD9789DF0B /* Pods-alt-tab-macos-dummy.m */; };
-		D1F4B0F6593581EA53A8A02CD81ECD8C /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C0A84ADBFBC853AF7F2CB1F53D3321 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CEF0371E3359B0951DD138807A8A1F5A /* SRKeyEquivalentModifierMaskTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7EC660F798E3AAB637764C0D80F415 /* SRKeyEquivalentModifierMaskTransformer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D191964986E1403DF882312E694517C4 /* SRKeyEquivalentTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E4DADA6B920C1BA2FFE9869EFD356E /* SRKeyEquivalentTransformer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D1D8A8FCB583AE7AB5E03DA82B27EDF5 /* SRKeyBindingTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 160A98F0E3604055FD8181545A88D923 /* SRKeyBindingTransformer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D44087AED8D32C993A585D77D7F6CC33 /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = E064E22C9DC958413827A901AB895A60 /* Base64.swift */; };
+		D837B3034B324427E867B12A52843A34 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B996471D454304C221B2F40EB33DFCF5 /* SRCommon.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D99528B10FAEEBCA5033785E2A30B958 /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E493CCB665E33B784972BCBD33FB6A35 /* sv.lproj */; };
 		D9FDDFBDA583D8A2618B67A54667322C /* SRShortcutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 216167185C2F81F90E2B9E2E672F2D25 /* SRShortcutController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAC7D497B1BB4561414F87631FE581D2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED3F4BE3AEC041EEB45B74377D4425C8 /* Images.xcassets */; };
 		DB23A943B5830ACA4DB0CC3CEE229DBF /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BE424034018D08C7AC53E6FC58317FE3 /* es.lproj */; };
-		E3AD888D6605C568E027C3339B7B6AC5 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B996471D454304C221B2F40EB33DFCF5 /* SRCommon.m */; };
+		E123BC90074F47220454CAE5500627BF /* SRShortcutFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E7D7B1123E54F78F297ECC787C32E /* SRShortcutFormatter.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E73C5479E237E5996D71307E266ECA9A /* pt-BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 7708AB164DB7C805FFB9869A1729C9BD /* pt-BR.lproj */; };
 		EA4B63319C3F12B1B7E62F5F6D0868DF /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C627C17301E88898D6958A0729815ABC /* ca.lproj */; };
 		EC01EB47CD745508C1061BC9C41160F1 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 468F310276D58AB2873A36636350DC85 /* it.lproj */; };
+		EC03CCA55DAFD9C9A13533FBAC2398DE /* PFMoveApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C0A84ADBFBC853AF7F2CB1F53D3321 /* PFMoveApplication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EC4AB36F93A3DABDBDAA6EF533FEA96F /* BaseDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B80718C9FB63C4AC0F29FD9E47875D /* BaseDestination.swift */; };
 		EC71569499666FA7370A8EA237225223 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5CBA66F8E4E81C9EB0BDA858C07B7DD1 /* ca.lproj */; };
 		EF18844124567DCD55BCF37B4CFE0A3E /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8A92863FB68A70A86C9B7717DBD53F27 /* ja.lproj */; };
 		F2E8E8C95F044A9704E291C1CB23C65E /* FileDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330A6BF3DA1253629D58E09A1534E182 /* FileDestination.swift */; };
-		F40E6412D0E5D977D56EF8AFEE78164A /* SRRecorderControlStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6927C6D93BFE217C63FF9775CF2AD4 /* SRRecorderControlStyle.m */; };
 		F4158BBFB86D066D1244630E551CF6A5 /* SRShortcut.h in Headers */ = {isa = PBXBuildFile; fileRef = BFA51136A7D709B4E5DE7ED9252EC299 /* SRShortcut.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F60389C5482DB5DD534EBCEB7F43082E /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5B09AE646A0A349EF211067540E1E9FA /* en.lproj */; };
 		F669B18B45B50886227DA3B2D844D49F /* Pods-unit-tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 34F38470D7148741213714EAF323F61B /* Pods-unit-tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA6B63611FDBBD5042B0D1F5903835F4 /* SRShortcutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF5D98729528C41061C6F934C7C0046 /* SRShortcutAction.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		FB2A76B1CAA1ED20A642A39817C561D0 /* SRKeyEquivalentModifierMaskTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B0C575DF53390930D949CD9061E019A /* SRKeyEquivalentModifierMaskTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FD8983B259D0C9AEB1AAFB23870FC33E /* SRKeyEquivalentTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E4DADA6B920C1BA2FFE9869EFD356E /* SRKeyEquivalentTransformer.m */; };
 		FE9CED4F39EDD76BE679F222881F2D45 /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 99951189D3BB8AE762F1DA57E8847F56 /* zh-Hans.lproj */; };
 /* End PBXBuildFile section */
 
@@ -848,7 +848,7 @@
 			buildConfigurationList = 16D998FF7F1FCC3F400F5F965C90BCBB /* Build configuration list for PBXNativeTarget "ShortcutRecorder" */;
 			buildPhases = (
 				B2746300F1D3CD842DDE7285E5CD1159 /* Headers */,
-				CFB5E26132F12D60F10D08809CDB86F4 /* Sources */,
+				315C29AFB6DB056FE4A7360297E0CAE5 /* Sources */,
 				257D5576E6D30FB5B6FB248AF13C95B9 /* Frameworks */,
 				A97F80695A1C0E1C629EA33CAD10C904 /* Resources */,
 			);
@@ -1130,6 +1130,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		315C29AFB6DB056FE4A7360297E0CAE5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7201CEEAA2E87A8AD27D46A4B641F9F /* ShortcutRecorder-dummy.m in Sources */,
+				D837B3034B324427E867B12A52843A34 /* SRCommon.m in Sources */,
+				D1D8A8FCB583AE7AB5E03DA82B27EDF5 /* SRKeyBindingTransformer.m in Sources */,
+				56FD19D6AAFDA1359D7BEC1C08BF5A36 /* SRKeyCodeTransformer.m in Sources */,
+				CEF0371E3359B0951DD138807A8A1F5A /* SRKeyEquivalentModifierMaskTransformer.m in Sources */,
+				D191964986E1403DF882312E694517C4 /* SRKeyEquivalentTransformer.m in Sources */,
+				13C9B11E8154877B29450AF358FB693F /* SRModifierFlagsTransformer.m in Sources */,
+				B26825BD19B6771D0E83F6BEF2B63E4E /* SRRecorderControl.m in Sources */,
+				418DED74DF783AA497A3DA8BD8185C7F /* SRRecorderControlStyle.m in Sources */,
+				3EC20EE1C2D46CECA7FFDA0BE8CBA7DC /* SRShortcut.m in Sources */,
+				FA6B63611FDBBD5042B0D1F5903835F4 /* SRShortcutAction.m in Sources */,
+				BFC163D8D2E3122425E885875D72BE33 /* SRShortcutController.m in Sources */,
+				E123BC90074F47220454CAE5500627BF /* SRShortcutFormatter.m in Sources */,
+				343BFE43B781B05ED85224B009844203 /* SRShortcutValidator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		630948035BBAB26A1B98C9EAB2A4862E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1151,28 +1172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD49046DC2930FC0EECD106C89AF5ABF /* LetsMove-dummy.m in Sources */,
-				D1F4B0F6593581EA53A8A02CD81ECD8C /* PFMoveApplication.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CFB5E26132F12D60F10D08809CDB86F4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5DE2ACCCCDBE0B5F9615B8A6D4884C99 /* ShortcutRecorder-dummy.m in Sources */,
-				E3AD888D6605C568E027C3339B7B6AC5 /* SRCommon.m in Sources */,
-				74114B8B8983E90BDC9C85B231D00E40 /* SRKeyBindingTransformer.m in Sources */,
-				474FFA8B855EC6CDC9168F3AD7467275 /* SRKeyCodeTransformer.m in Sources */,
-				99BF20014D3DBC64D0D3D83C349C8635 /* SRKeyEquivalentModifierMaskTransformer.m in Sources */,
-				FD8983B259D0C9AEB1AAFB23870FC33E /* SRKeyEquivalentTransformer.m in Sources */,
-				22D0C539333677DC4DD8C357A2EE8074 /* SRModifierFlagsTransformer.m in Sources */,
-				BC38EDEAA1B42FB0F78A453C7E0BD2AF /* SRRecorderControl.m in Sources */,
-				F40E6412D0E5D977D56EF8AFEE78164A /* SRRecorderControlStyle.m in Sources */,
-				1F149276AF739AC833BCADDCC1C83B73 /* SRShortcut.m in Sources */,
-				BB5D9FAD90FCE79DACC52E74E32ADFB2 /* SRShortcutAction.m in Sources */,
-				5ECC5662B52C59C90487CFEE4446BAC2 /* SRShortcutController.m in Sources */,
-				3ADF27FE54F59EC60116432676BA1937 /* SRShortcutFormatter.m in Sources */,
-				5C79484B0FE7E3B5624E5269DF989261 /* SRShortcutValidator.m in Sources */,
+				EC03CCA55DAFD9C9A13533FBAC2398DE /* PFMoveApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1230,7 +1230,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1247,7 +1247,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1264,7 +1264,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1293,7 +1293,7 @@
 				INFOPLIST_FILE = "Target Support Files/LetsMove/LetsMove-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/LetsMove/LetsMove.modulemap";
 				PRODUCT_MODULE_NAME = LetsMove;
 				PRODUCT_NAME = LetsMove;
@@ -1331,7 +1331,7 @@
 				INFOPLIST_FILE = "Target Support Files/LetsMove/LetsMove-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/LetsMove/LetsMove.modulemap";
 				PRODUCT_MODULE_NAME = LetsMove;
 				PRODUCT_NAME = LetsMove;
@@ -1369,7 +1369,7 @@
 				INFOPLIST_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver.modulemap";
 				PRODUCT_MODULE_NAME = SwiftyBeaver;
 				PRODUCT_NAME = SwiftyBeaver;
@@ -1549,7 +1549,7 @@
 				INFOPLIST_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver.modulemap";
 				PRODUCT_MODULE_NAME = SwiftyBeaver;
 				PRODUCT_NAME = SwiftyBeaver;
@@ -1575,7 +1575,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1604,7 +1604,7 @@
 				INFOPLIST_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kulakov.ShortcutRecorder;
 				PRODUCT_MODULE_NAME = ShortcutRecorder;
@@ -1643,7 +1643,7 @@
 				INFOPLIST_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/ShortcutRecorder/ShortcutRecorder.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kulakov.ShortcutRecorder;
 				PRODUCT_MODULE_NAME = ShortcutRecorder;

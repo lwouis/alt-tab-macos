@@ -17,6 +17,7 @@ class App: AppCenterApplication {
     static let website = "https://alt-tab-macos.netlify.app"
     static let appIcon = CGImage.named("app.icns")
     static var app: App!
+    var isTerminating = false
     var thumbnailsPanel: ThumbnailsPanel!
     var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
@@ -42,20 +43,6 @@ class App: AppCenterApplication {
         fatalError("Class only supports programmatic initialization")
     }
 
-    /// pre-load some windows so they are faster on first display
-    private func preloadWindows() {
-        thumbnailsPanel.orderFront(nil)
-        thumbnailsPanel.orderOut(nil)
-    }
-
-    /// keyboard shortcuts are broken without a menu. We generated the default menu from XCode and load it
-    /// see https://stackoverflow.com/a/3746058/2249756
-    private func loadMainMenuXib() {
-        var menuObjects: NSArray?
-        Bundle.main.loadNibNamed("MainMenu", owner: self, topLevelObjects: &menuObjects)
-        menu = menuObjects?.first { $0 is NSMenu } as? NSMenu
-    }
-
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
         thumbnailsPanel.thumbnailsView.reset()
@@ -70,17 +57,20 @@ class App: AppCenterApplication {
     }
 
     func hideUi(_ keepPreview: Bool = false) {
-        Logger.info(appIsBeingUsed)
+        Logger.info { "appIsBeingUsed:\(self.appIsBeingUsed)" }
         guard appIsBeingUsed else { return } // already hidden
         appIsBeingUsed = false
         isFirstSummon = true
         forceDoNothingOnRelease = false
         MouseEvents.toggle(false)
+        CursorEvents.toggle(false)
+        TrackpadEvents.reset()
         hideThumbnailPanelWithoutChangingKeyWindow()
         if !keepPreview {
             previewPanel.orderOut(nil)
         }
         hideAllTooltips()
+        MainMenu.toggle(enabled: true)
     }
 
     /// some tooltips may not be hidden when the main window is hidden; we force it through a private API
@@ -93,38 +83,42 @@ class App: AppCenterApplication {
 
     /// we don't want another window to become key when the thumbnailPanel is hidden
     func hideThumbnailPanelWithoutChangingKeyWindow() {
-        preferencesWindow.canBecomeKey_ = false
-        feedbackWindow.canBecomeKey_ = false
+        allSecondaryWindowsCanBecomeKey(false)
         thumbnailsPanel.orderOut(nil)
-        preferencesWindow.canBecomeKey_ = true
-        feedbackWindow.canBecomeKey_ = true
+        allSecondaryWindowsCanBecomeKey(true)
+    }
+
+    private func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
+        preferencesWindow.canBecomeKey_ = canBecomeKey_
+        feedbackWindow.canBecomeKey_ = canBecomeKey_
+        permissionsWindow.canBecomeKey_ = canBecomeKey_
     }
 
     func closeSelectedWindow() {
-        Windows.focusedWindow()?.close()
+        Windows.selectedWindow()?.close()
     }
 
     func minDeminSelectedWindow() {
-        Windows.focusedWindow()?.minDemin()
+        Windows.selectedWindow()?.minDemin()
     }
 
     func toggleFullscreenSelectedWindow() {
-        Windows.focusedWindow()?.toggleFullscreen()
+        Windows.selectedWindow()?.toggleFullscreen()
     }
 
     func quitSelectedApp() {
-        Windows.focusedWindow()?.application.quit()
+        Windows.selectedWindow()?.application.quit()
     }
 
     func hideShowSelectedApp() {
-        Windows.focusedWindow()?.application.hideOrShow()
+        Windows.selectedWindow()?.application.hideOrShow()
     }
 
     func focusTarget() {
         guard appIsBeingUsed else { return } // already hidden
-        let focusedWindow = Windows.focusedWindow()
-        Logger.info(focusedWindow?.debugId)
-        focusSelectedWindow(focusedWindow)
+        let selectedWindow = Windows.selectedWindow()
+        Logger.info { selectedWindow?.debugId() }
+        focusSelectedWindow(selectedWindow)
     }
 
     @objc func checkForUpdatesNow(_ sender: NSMenuItem) {
@@ -132,7 +126,7 @@ class App: AppCenterApplication {
     }
 
     @objc func checkPermissions(_ sender: NSMenuItem) {
-        permissionsWindow.show({})
+        permissionsWindow.show()
     }
 
     @objc func supportProject() {
@@ -175,13 +169,13 @@ class App: AppCenterApplication {
         if direction == .up || direction == .down {
             thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
-            Windows.cycleFocusedWindowIndex(direction.step(), allowWrap: allowWrap)
+            Windows.cycleSelectedWindowIndex(direction.step(), allowWrap: allowWrap)
         }
     }
 
     func previousWindowShortcutWithRepeatingKey() {
         cycleSelection(.trailing)
-        KeyRepeatTimer.toggleRepeatingKeyPreviousWindow()
+        KeyRepeatTimer.startRepeatingKeyPreviousWindow()
     }
 
     func focusSelectedWindow(_ selectedWindow: Window?) {
@@ -205,37 +199,27 @@ class App: AppCenterApplication {
         CGWarpMouseCursorPosition(point)
     }
 
-    func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy) {
-        if !windowsToScreenshot.isEmpty && SystemPermissions.screenRecordingPermission == .granted
-               && !Preferences.onlyShowApplications()
-               && (!Appearance.hideThumbnails || Preferences.previewFocusedWindow) {
-            Windows.refreshThumbnails(windowsToScreenshot, source)
-            if source == .refreshOnlyThumbnailsAfterShowUi { return }
-        }
+    func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
+        Windows.refreshThumbnailsAsync(windowsToScreenshot, source, windowRemoved: windowRemoved)
         guard appIsBeingUsed else { return }
         if source == .refreshUiAfterExternalEvent {
             if !Windows.updatesBeforeShowing() { hideUi(); return }
         }
         guard appIsBeingUsed else { return }
-        Windows.updateFocusedWindowIndex()
+        Windows.updateSelectedWindow()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.thumbnailsView.updateItemsAndLayout()
-        guard appIsBeingUsed else { return }
-        thumbnailsPanel.setContentSize(thumbnailsPanel.thumbnailsView.frame.size)
-        thumbnailsPanel.display()
-        guard appIsBeingUsed else { return }
-        NSScreen.preferred.repositionPanel(thumbnailsPanel)
+        thumbnailsPanel.updateContents()
         guard appIsBeingUsed else { return }
         Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
         guard appIsBeingUsed else { return }
-        Windows.previewFocusedWindowIfNeeded()
+        Windows.previewSelectedWindowIfNeeded()
         guard appIsBeingUsed else { return }
         Applications.refreshBadgesAsync()
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
         forceDoNothingOnRelease = forceDoNothingOnRelease_
-        Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
+        Logger.debug { "isFirstSummon:\(self.isFirstSummon) shortcutIndex:\(shortcutIndex)" }
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             NSScreen.updatePreferred()
@@ -246,7 +230,7 @@ class App: AppCenterApplication {
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
             if !Windows.updatesBeforeShowing() { hideUi(); return }
-            Windows.setInitialFocusedAndHoveredWindowIndex()
+            Windows.setInitialSelectedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
                 buildUiAndShowPanel()
             } else {
@@ -260,7 +244,7 @@ class App: AppCenterApplication {
             }
         } else {
             cycleSelection(.leading)
-            KeyRepeatTimer.toggleRepeatingKeyNextWindow()
+            KeyRepeatTimer.startRepeatingKeyNextWindow()
         }
     }
 
@@ -268,19 +252,17 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         Appearance.update()
         guard appIsBeingUsed else { return }
-        thumbnailsPanel.makeKeyAndOrderFront(nil) // workaround: without this, switching between 2 screens make thumbnailPanel invisible
-        KeyRepeatTimer.toggleRepeatingKeyNextWindow()
-        guard appIsBeingUsed else { return }
         refreshOpenUi([], .showUi)
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
-        refreshOpenUi(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
+        KeyRepeatTimer.startRepeatingKeyNextWindow()
+        Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }
 
-    func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: NSRunningApplication?) {
-        let app = activeWindow?.application.runningApplication ?? activeApp
+    func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: Application?) {
+        let app = activeWindow?.application ?? activeApp!
         let shortcutsShouldBeDisabled = Preferences.blacklist.contains { blacklistedId in
-            if let id = app?.bundleIdentifier {
+            if let id = app.bundleIdentifier {
                 return id.hasPrefix(blacklistedId.bundleIdentifier) &&
                     (blacklistedId.ignore == .always || (blacklistedId.ignore == .whenFullscreen && (activeWindow?.isFullscreen ?? false)))
             }
@@ -298,6 +280,7 @@ extension App: NSApplicationDelegate {
         appCenterDelegate = AppCenterCrash()
         App.shared.disableRelaunchOnLogin()
         Logger.initialize()
+        Logger.info { "Launching AltTab \(App.version)" }
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
@@ -306,35 +289,42 @@ extension App: NSApplicationDelegate {
         #endif
         AXUIElement.setGlobalTimeout()
         Preferences.initialize()
-        BackgroundWork.startSystemPermissionThread()
         permissionsWindow = PermissionsWindow()
-        SystemPermissions.ensurePermissionsAreGranted { [weak self] in
-            guard let self else { return }
-            BackgroundWork.start()
-            NSScreen.updatePreferred()
-            Appearance.update()
-            Menubar.initialize()
-            self.loadMainMenuXib()
-            self.thumbnailsPanel = ThumbnailsPanel()
-            self.previewPanel = PreviewPanel()
-            Spaces.refresh()
-            SpacesEvents.observe()
-            ScreensEvents.observe()
-            SystemAppearanceEvents.observe()
-            SystemScrollerStyleEvents.observe()
-            Applications.initialDiscovery()
-            self.preferencesWindow = PreferencesWindow()
-            self.feedbackWindow = FeedbackWindow()
-            KeyboardEvents.addEventHandlers()
-            MouseEvents.observe()
-            TrackpadEvents.observe()
-            CliEvents.observe()
-            self.preloadWindows()
-            Logger.info("AltTab ready")
-            #if DEBUG
+        BackgroundWork.preStart()
+        SystemPermissions.ensurePermissionsAreGranted()
+    }
+
+    func continueAppLaunchAfterPermissionsAreGranted() {
+        Logger.info { "System permissions are granted; continuing launch" }
+        BackgroundWork.start()
+        NSScreen.updatePreferred()
+        Appearance.update()
+        ThumbnailsPanel.updateMaxPossibleThumbnailSize()
+        ThumbnailsPanel.updateMaxPossibleAppIconSize()
+        Menubar.initialize()
+        MainMenu.loadFromXib()
+        self.thumbnailsPanel = ThumbnailsPanel()
+        self.previewPanel = PreviewPanel()
+        Spaces.refresh()
+        Screens.refresh()
+        SpacesEvents.observe()
+        ScreensEvents.observe()
+        SystemAppearanceEvents.observe()
+        SystemScrollerStyleEvents.observe()
+        Applications.initialDiscovery()
+        self.preferencesWindow = PreferencesWindow()
+        self.feedbackWindow = FeedbackWindow()
+        KeyboardEvents.addEventHandlers()
+        MouseEvents.observe()
+        CursorEvents.observe()
+        TrackpadEvents.observe()
+        CliEvents.observe()
+        // login item and plist updates can be done a bit later, to accelerate launch
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { GeneralTab.startAtLoginCallback() }
+        Logger.info { "Finished launching AltTab" }
+        #if DEBUG
 //            self.showPreferencesWindow()
-            #endif
-        }
+        #endif
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -345,6 +335,12 @@ extension App: NSApplicationDelegate {
     func applicationWillTerminate(_ notification: Notification) {
         // symbolic hotkeys state persist after the app is quit; we restore this shortcut before quitting
         setNativeCommandTabEnabled(true)
+    }
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        Logger.info { "" }
+        makeSureAllCapturesAreFinished()
+        return .terminateNow
     }
 }
 

@@ -76,6 +76,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
     case icelandic
     case czech
     case greek
+    case belarusian
     case bulgarian
     case russian
     case serbian
@@ -99,6 +100,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
         switch self {
             case .systemDefault: return NSLocalizedString("System Default", comment: "")
             case .arabic: return "العربية"
+            case .belarusian: return "Беларуская мова"
             case .bulgarian: return "Български"
             case .bengali: return "বাংলা"
             case .catalan: return "Català"
@@ -158,6 +160,7 @@ enum LanguagePreference: CaseIterable, MacroPreference {
         switch self {
             case .systemDefault: return nil
             case .arabic: return "ar"
+            case .belarusian: return "be"
             case .bulgarian: return "bg"
             case .bengali: return "bn"
             case .catalan: return "ca"
@@ -492,28 +495,6 @@ enum AppearanceThemePreference: CaseIterable, SfSymbolMacroPreference {
             case .light: return "sun.max"
             case .dark: return "moon.fill"
             case .system: return "laptopcomputer"
-        }
-    }
-}
-
-enum AppearanceVisibilityPreference: CaseIterable, SfSymbolMacroPreference {
-    case normal
-    case high
-    case highest
-
-    var localizedString: LocalizedString {
-        switch self {
-            case .normal: return NSLocalizedString("Normal", comment: "")
-            case .high: return NSLocalizedString("High", comment: "")
-            case .highest: return NSLocalizedString("Highest", comment: "")
-        }
-    }
-
-    var symbolName: String {
-        switch self {
-            case .normal: return "eye"
-            case .high: return "eyeglasses"
-            case .highest: return "binoculars.fill"
         }
     }
 }

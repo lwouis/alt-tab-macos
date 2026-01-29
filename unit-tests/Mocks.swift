@@ -10,7 +10,7 @@ class App {
 }
 
 class ControlsTab {
-    static let shortcuts = [
+    static let defaultShortcuts = [
         "holdShortcut": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut", .global, .up, 0),
         "holdShortcut2": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut2", .global, .up, 1),
         "holdShortcut3": ATShortcut(Shortcut(keyEquivalent: "⌥")!, "holdShortcut3", .global, .up, 2),
@@ -33,6 +33,7 @@ class ControlsTab {
         "quitAppShortcut": ATShortcut(Shortcut(keyEquivalent: "q")!, "quitAppShortcut", .local, .down),
         "hideShowAppShortcut": ATShortcut(Shortcut(keyEquivalent: "h")!, "hideShowAppShortcut", .local, .down),
     ]
+    static var shortcuts = defaultShortcuts
 
     static func executeAction(_ action: String) {
         shortcutsActionsTriggered.append(action)
@@ -49,19 +50,20 @@ class ControlsTab {
 }
 
 class KeyRepeatTimer {
-    static func deactivateTimerForRepeatingKey(_ shortcutName: String) {
+    static func stopTimerForRepeatingKey(_ shortcutName: String) {
     }
 }
 
 class Logger {
-    static func debug(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
-    static func info(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
-    static func warning(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
-    static func error(_ items: Any?..., file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
+    static func debug(_ message: @escaping () -> Any?, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
+    static func info(_ message: @escaping () -> Any?, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
+    static func warning(_ message: @escaping () -> Any?, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
+    static func error(_ message: @escaping () -> Any?, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {}
 }
 
 class Preferences {
     static var shortcutStyle: [ShortcutStylePreference] = [.focusOnRelease, .focusOnRelease, .focusOnRelease, .focusOnRelease]
+    static var holdShortcut = ["⌥", "⌥", "⌥"]
 
     static func indexToName(_ baseName: String, _ index: Int) -> String {
         return baseName + (index == 0 ? "" : String(index + 1))

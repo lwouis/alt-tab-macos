@@ -1,5 +1,6 @@
 import Cocoa
 import Darwin
+import Carbon.HIToolbox.Events
 
 extension NSAppearance {
     func getThemeName() -> AppearanceThemePreference {
@@ -92,16 +93,14 @@ extension NSView {
     }
 
     func centerFrameInParent(x: Bool = false, y: Bool = false) {
-        let selfSize = (self is NSTextField) ? (self as! NSTextField).cell!.cellSize : frame.size
-        let superviewSize = (superview! is NSTextField) ? (superview! as! NSTextField).cell!.cellSize : superview!.frame.size
+        let selfSize = (self is NSTextField) ? (self as! NSTextField).fittingSize : frame.size
+        let superviewSize = (superview! is NSTextField) ? (superview! as! NSTextField).fittingSize : superview!.frame.size
         if (x) {
             frame.origin.x = ((superviewSize.width - selfSize.width) / 2).rounded()
         }
         if (y) {
             let diff = superviewSize.height - selfSize.height
-            // if there is no perfect centering, we biais top, as it's more aesthetic for ThumbnailView.label
-            let diffWithBiasTop = diff.truncatingRemainder(dividingBy: 2) == 0 ? diff : diff - 1
-            frame.origin.y = (diffWithBiasTop / 2).rounded()
+            frame.origin.y = (diff / 2).rounded()
         }
     }
 
@@ -193,38 +192,61 @@ extension DispatchQoS {
     }
 }
 
-extension NSTextField {
-    func setWidth(_ width: CGFloat) {
-        frame.size.width = width
-        // TODO: NSTextField does some internal magic, and ends up with constraints. We need to add our own to force its size
-        // I wish there was a better way to only set the frame.size
-        addOrUpdateConstraint(widthAnchor, width)
-    }
-}
-
 extension NSImage {
-    func cgImage(maxSize: NSSize) -> CGImage {
-        // some images like NSRunningApp.icon are from icns. They hosts multiple representations and it's hard to know the highest resolution
-        // by setting a maxSize, the returned CGImage will be the biggest it can under that maxSize
-        var rect = NSRect(origin: .zero, size: maxSize)
-        return cgImage(forProposedRect: &rect, context: nil, hints: nil)!
-    }
-
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
     static func initCopy(_ name: String) -> NSImage {
         return NSImage(named: name)!.copy() as! NSImage
+    }
+
+    func tinted(_ color: NSColor) -> NSImage {
+        NSImage(size: size, flipped: false) { rect in
+            color.set()
+            rect.fill()
+            self.draw(in: rect, from: NSRect(origin: .zero, size: self.size), operation: .destinationIn, fraction: 1.0)
+            return true
+        }
     }
 }
 
 extension CGImage {
     func nsImage() -> NSImage {
-        return NSImage(cgImage: self, size: NSSize(width: width, height: height))
+        return NSImage(cgImage: self, size: size())
     }
 
     static func named(_ imageName: String) -> CGImage {
         let imageURL = Bundle.main.url(forResource: imageName, withExtension: nil)!
         let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, nil)!
         return CGImageSourceCreateImageAtIndex(imageSource, 0, nil)!
+    }
+
+    func size() -> NSSize {
+        return NSSize(width: width, height: height)
+    }
+
+    func iFullyTransparent() -> Bool {
+        guard ![.none, .noneSkipFirst, .noneSkipLast].contains(alphaInfo),
+              let provider = dataProvider, let data = provider.data, let ptr = CFDataGetBytePtr(data)
+        else { return false }
+        // Assumes: kCGImageAlphaPremultipliedFirst | kCGImageByteOrder32Little
+        // Layout: [B, G, R, A]
+        let length = CFDataGetLength(data)
+        var i = 3
+        while i < length {
+            if ptr[i] != 0 {
+                return false
+            }
+            i += 4
+        }
+        return true
+    }
+}
+
+extension CVPixelBuffer {
+    func size() -> NSSize {
+        NSSize(
+            width: CVPixelBufferGetWidth(self),
+            height: CVPixelBufferGetHeight(self)
+        )
     }
 }
 
@@ -326,9 +348,49 @@ extension DispatchTimeInterval {
 }
 
 extension NSRunningApplication {
-    var id: String { "pid:\(String(describing: processIdentifier)) app:\(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil")"  }
+    func debugId() -> String { "(pid:\(processIdentifier) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))" }
 }
 
 // 250ms is similar to human delay in processing changes on screen
 // See https://humanbenchmark.com/tests/reactiontime
 let humanPerceptionDelay = DispatchTimeInterval.milliseconds(250)
+
+extension NSTouch.Phase {
+    var readable: String {
+        switch self {
+        case .began:      "began"
+        case .moved:      "moved"
+        case .stationary: "stationary"
+        case .ended:      "ended"
+        case .cancelled:  "cancelled"
+        default:          "unknown"
+        }
+    }
+}
+
+/// this changes the behavior of interpolating optional values (e.g. "\(optionalValue)")
+/// default is to return a compiler warning "string interpolation produces a debug description for an optional value; did you mean to make this explicit?"
+/// instead, we either print the value, or print "nil"
+extension String.StringInterpolation {
+    mutating func appendInterpolation<T>(_ value: T?) {
+        if let value {
+            appendInterpolation(value)
+        } else {
+            appendLiteral("nil")
+        }
+    }
+}
+
+extension CGEvent {
+    func toNSEvent() -> NSEvent? {
+        if Thread.isMainThread {
+            return NSEvent(cgEvent: self)
+        }
+        // conversion has to happen on the main-thread, or appkit will crash
+        var nsEvent: NSEvent?
+        DispatchQueue.main.sync {
+            nsEvent = NSEvent(cgEvent: self)
+        }
+        return nsEvent
+    }
+}

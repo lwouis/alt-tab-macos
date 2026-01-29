@@ -210,28 +210,28 @@ class ShowHideIllustratedView {
             }
         }))
         showHideRows.append(showTabsAsWindows)
-        var previewFocusedWindow = ShowHideRowInfo()
-        previewFocusedWindow.rowId = "previewFocusedWindow"
-        previewFocusedWindow.uncheckedImage = "hide_preview_focused_window"
-        previewFocusedWindow.checkedImage = "show_preview_focused_window"
-        previewFocusedWindow.supportedStyles = [.thumbnails, .appIcons, .titles]
-        previewFocusedWindow.leftViews = [TableGroupView.makeText(NSLocalizedString("Preview selected window", comment: ""))]
-        previewFocusedWindow.subTitle = NSLocalizedString("Preview the selected window.", comment: "")
-        previewFocusedWindow.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
-            if ShowHideIllustratedView.isDisabledOnApplications(previewFocusedWindow) {
+        var previewSelectedWindow = ShowHideRowInfo()
+        previewSelectedWindow.rowId = "previewFocusedWindow"
+        previewSelectedWindow.uncheckedImage = "hide_preview_focused_window"
+        previewSelectedWindow.checkedImage = "show_preview_focused_window"
+        previewSelectedWindow.supportedStyles = [.thumbnails, .appIcons, .titles]
+        previewSelectedWindow.leftViews = [TableGroupView.makeText(NSLocalizedString("Preview selected window", comment: ""))]
+        previewSelectedWindow.subTitle = NSLocalizedString("Preview the selected window.", comment: "")
+        previewSelectedWindow.rightViews.append(LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
+            if ShowHideIllustratedView.isDisabledOnApplications(previewSelectedWindow) {
                 Popover.shared.show(event: event, positioningView: view, message: featureUnavailable)
             } else {
-                Popover.shared.show(event: event, positioningView: view, message: previewFocusedWindow.subTitle!)
+                Popover.shared.show(event: event, positioningView: view, message: previewSelectedWindow.subTitle!)
             }
         }, onMouseExited: { event, view in
             Popover.shared.hide()
         }))
-        previewFocusedWindow.rightViews.append(LabelAndControl.makeSwitch(previewFocusedWindow.rowId, extraAction: { sender in
-            if !ShowHideIllustratedView.isDisabledOnApplications(previewFocusedWindow) {
-                self.onCheckboxClicked(sender: sender, rowId: previewFocusedWindow.rowId)
+        previewSelectedWindow.rightViews.append(LabelAndControl.makeSwitch(previewSelectedWindow.rowId, extraAction: { sender in
+            if !ShowHideIllustratedView.isDisabledOnApplications(previewSelectedWindow) {
+                self.onCheckboxClicked(sender: sender, rowId: previewSelectedWindow.rowId)
             }
         }))
-        showHideRows.append(previewFocusedWindow)
+        showHideRows.append(previewSelectedWindow)
     }
 
     static func isDisabledOnApplications(_ row: ShowHideRowInfo) -> Bool {
@@ -397,8 +397,6 @@ class AppearanceTab: NSObject {
             rightViews: [LabelAndControl.makeSegmentedControl("appearanceSize", AppearanceSizePreference.allCases, segmentWidth: 100)])
         table.addRow(leftText: NSLocalizedString("Theme", comment: ""),
             rightViews: [LabelAndControl.makeSegmentedControl("appearanceTheme", AppearanceThemePreference.allCases, segmentWidth: 100)])
-        table.addRow(leftText: NSLocalizedString("Visibility", comment: ""),
-            rightViews: [LabelAndControl.makeSegmentedControl("appearanceVisibility", AppearanceVisibilityPreference.allCases, segmentWidth: 100)])
         table.addRow(rightViews: customizeStyleButton)
         table.fit()
         return table

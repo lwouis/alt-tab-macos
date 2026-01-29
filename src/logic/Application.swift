@@ -19,7 +19,10 @@ class Application: NSObject {
     var dockLabel: String?
     var focusedWindow: Window? = nil
     var alreadyRequestedToQuit = false
-    var debugId: String { "(pid:\(String(describing: pid)) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName ?? "nil"))" }
+
+    func debugId() -> String {
+        return "(pid:\(pid) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))"
+    }
 
     static let notifications = [
         kAXApplicationActivatedNotification,
@@ -30,18 +33,56 @@ class Application: NSObject {
         kAXApplicationShownNotification,
     ]
 
+    private static let appIconPadding: CGFloat = {
+        // Tahoe redesigned app icons. Keeping their rounded look, and reducing their size; we trim that padding
+        if #available(macOS 26.0, *) {
+            return 84
+        }
+        // Big Sur redesigned app icons. A big change from square icons to rounded icons, and reducing their size; we trim that padding
+        if #available(macOS 11.0, *) {
+            return 24
+        }
+        return 0
+    }()
+
+    /// Converting NSImage to CGImage may seem simple, but it's actually very tricky. Lots of time has been put to make it work robustly
+    /// The RunningApplication.icon can have store bitmaps or vectors. We have to rasterize into pixels. This is not easy as there are many APIs:
+    ///   * icon.cgImage(forProposedRect:) > context.draw -> only API which works
+    ///   * icon.cgImage(forProposedRect:) > cgImage.draw -> returns nil for some users (could never reproduce it locally)
+    ///   * icon.draw() -> returns nil for some users (could never reproduce it locally)
+    ///   * icon.bestRepresentation() > bestRep.draw(in:) -> returns nil for some users (could never reproduce it locally)
+    /// MacOS Big Sur also introduced a constant padding around app icons. It was later increased with Tahoe. We have to crop it
+    static func appIconWithoutPadding(_ icon: NSImage?) -> CGImage? {
+        guard let icon else { return nil }
+        let finalWidth = max(ThumbnailsPanel.maxPossibleAppIconSize.width, ThumbnailsPanel.maxPossibleAppIconSize.height)
+        // we hardcode cropping values based on a reference 1024 icon, and depending on the macOS version
+        let padding = appIconPadding * (finalWidth / (1024 - appIconPadding * 2))
+        // we need a bigger image size, since we'll crop to reach finalWidth
+        let sourceWidth = finalWidth + padding * 2
+        // we ask the NSImage for the closest image it has to our desired size. It's likely to return a 1024x1024 or 512x512 image; whichever is closest
+        var proposedRect = CGRect(origin: .zero, size: NSSize(width: sourceWidth, height: sourceWidth))
+        guard let cgImage = icon.cgImage(forProposedRect: &proposedRect, context: nil, hints: [.interpolation: NSImageInterpolation.high]) else { return nil }
+        // we have to crop this image; let's scale our intended padding, given the image size we got
+        let paddingScaled = padding * (CGFloat(cgImage.width) / sourceWidth)
+        guard let image = cgImage.cropping(to: CGRect(x: paddingScaled, y: paddingScaled, width: CGFloat(cgImage.width) - paddingScaled * 2, height: CGFloat(cgImage.height) - paddingScaled * 2).integral),
+              let context = CGContext(data: nil, width: Int(finalWidth), height: Int(finalWidth), bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).union(.byteOrder32Little).rawValue) else { return nil }
+        context.interpolationQuality = .high
+        context.draw(image, in: CGRect(origin: .zero, size: NSSize(width: finalWidth, height: finalWidth)))
+        return context.makeImage()
+    }
+
     init(_ runningApplication: NSRunningApplication) {
         self.runningApplication = runningApplication
         pid = runningApplication.processIdentifier
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
-        icon = runningApplication.icon?.cgImage(maxSize: NSSize(width: 1024, height: 1024))
+        icon = Application.appIconWithoutPadding(runningApplication.icon)
         localizedName = runningApplication.localizedName
         bundleIdentifier = runningApplication.bundleIdentifier
         bundleURL = runningApplication.bundleURL
         executableURL = runningApplication.executableURL
         super.init()
-        Logger.debug(debugId)
+        Logger.info { self.debugId() }
         observeEventsIfEligible()
         kvObservers = [
             runningApplication.observe(\.isFinishedLaunching, options: [.new]) { [weak self] _, _ in
@@ -51,7 +92,7 @@ class Application: NSObject {
             runningApplication.observe(\.activationPolicy, options: [.new]) { [weak self] _, _ in
                 guard let self else { return }
                 if self.runningApplication.activationPolicy != .regular {
-                    self.removeWindowslessAppWindow()
+                    self.removeWindowlessAppWindow()
                 }
                 self.observeEventsIfEligible()
             },
@@ -59,15 +100,9 @@ class Application: NSObject {
     }
 
     deinit {
-        Logger.debug("Deinit app", debugId)
+        Logger.info { self.debugId() }
     }
 
-    func removeWindowslessAppWindow() {
-        if let windowlessAppWindow = (Windows.list.firstIndex { $0.isWindowlessApp == true && $0.application.pid == pid }) {
-            Windows.list.remove(at: windowlessAppWindow)
-            App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
-        }
-    }
 
     func observeEventsIfEligible() {
         if runningApplication.activationPolicy != .prohibited && !isReallyFinishedLaunching {
@@ -75,42 +110,42 @@ class Application: NSObject {
                 axUiElement = AXUIElementCreateApplication(pid)
             }
             if axObserver == nil {
-                AXObserverCreate(pid, axObserverCallback, &axObserver)
+                AXObserverCreate(pid, AccessibilityEvents.axObserverCallback, &axObserver)
             }
             observeEvents()
         }
     }
 
-    func manuallyUpdateWindows() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .updateAppWindows) { [weak self] in
-            guard let self else { return }
-            var atLeastOneActualWindow = false
-            guard let axWindows = try self.axUiElement?.allWindows(self.pid) else { return }
-            for axWindow in axWindows {
-                let wid = try axWindow.cgWindowId()
-                if let (title, role, subrole, isMinimized, isFullscreen) = try axWindow.windowAttributes() {
-                    let size = try axWindow.size()
-                    let level = wid.level()
-                    if AXUIElement.isActualWindow(self, wid, level, title, subrole, role, size) {
-                        let position = try axWindow.position()
-                        atLeastOneActualWindow = true
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self else { return }
-                            if let window = (Windows.list.first { $0.isEqualRobust(axWindow, wid) }) {
-                                window.title = window.bestEffortTitle(title)
-                                window.size = size
-                                window.isFullscreen = isFullscreen
-                                window.isMinimized = isMinimized
-                                window.position = position
-                            } else {
-                                let window = self.addWindow(axWindow, wid, title, isFullscreen, isMinimized, position, size)
-                                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
-                            }
+    private func observeEvents() {
+        guard let axObserver else { return }
+        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: pid, callType: .subscribeToAppNotification) { [weak self] in
+            guard let self, !self.isReallyFinishedLaunching else { return }
+            if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
+                Logger.debug { "Subscribed to app: \(self.debugId())" }
+                if !self.isReallyFinishedLaunching {
+                    // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
+                    // we consider them ready when the first subscription succeeds
+                    // windows opened before that point won't send a notification, so check those windows manually here
+                    self.isReallyFinishedLaunching = true
+                    for notification in Application.notifications.dropFirst() {
+                        AXUIElement.retryAxCallUntilTimeout(context: self.debugId(), pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
+                            try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                         }
+                    }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.manuallyUpdateWindows()
                     }
                 }
             }
-            if (!atLeastOneActualWindow) {
+        }
+        CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
+    }
+
+    func manuallyUpdateWindows() {
+        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: pid, callType: .updateAppWindows) { [weak self] in
+            guard let self, let axUiElement = self.axUiElement else { return }
+            let axWindows = try axUiElement.allWindows(self.pid)
+            guard !axWindows.isEmpty else {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     if self.addWindowlessWindowIfNeeded() != nil {
@@ -121,22 +156,35 @@ class Application: NSObject {
                 // initial windows don't trigger a windowCreated notification, so we won't get notified
                 // it's very unlikely an app would launch with no initial window
                 // so we retry until timeout, in those rare cases (e.g. Bear.app)
-                // we only do this for active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
-                if self.runningApplication.isActive {
+                // we only do this for regular, active app, to avoid wasting CPU, with the trade-off of maybe missing some windows
+                if self.runningApplication.isActive && self.runningApplication.activationPolicy == .regular {
                     throw AxError.runtimeError
                 }
+                return
+            }
+            for axWindow in axWindows {
+                let wid = try axWindow.cgWindowId()
+                guard wid != 0 else { continue } // some bogus "windows" have wid 0
+                try AccessibilityEvents.handleEventWindow(kAXWindowCreatedNotification, wid, pid, axWindow)
             }
         }
     }
 
+    @discardableResult
     func addWindowlessWindowIfNeeded() -> Window? {
-        if runningApplication.activationPolicy == .regular && !runningApplication.isTerminated
-               && (Windows.list.firstIndex { $0.application.pid == pid }) == nil {
-            let window = Window(self)
-            Windows.appendAndUpdateFocus(window)
-            return window
-        }
-        return nil
+        guard runningApplication.activationPolicy == .regular && !runningApplication.isTerminated
+               && !(Windows.list.contains { $0.application.pid == pid }) else { return nil }
+        let window = Window(self)
+        Windows.appendWindow(window)
+        focusedWindow = nil
+        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        return window
+    }
+
+    func removeWindowlessAppWindow() {
+        guard let windowlessAppWindow = (Windows.list.first { $0.isWindowlessApp == true && $0.application.pid == pid }) else { return }
+        Windows.removeWindows([windowlessAppWindow], false)
+        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
     }
 
     func hideOrShow() {
@@ -163,40 +211,5 @@ class Application: NSObject {
             runningApplication.terminate()
             alreadyRequestedToQuit = true
         }
-    }
-
-    private func addWindow(_ axUiElement: AXUIElement, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) -> Window {
-        let window = Window(axUiElement, self, wid, axTitle, isFullscreen, isMinimized, position, size)
-        Windows.appendAndUpdateFocus(window)
-        if App.app.appIsBeingUsed {
-            Windows.cycleFocusedWindowIndex(1)
-        }
-        return window
-    }
-
-    private func observeEvents() {
-        guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: pid, callType: .subscribeToAppNotification) { [weak self] in
-            guard let self else { return }
-            if try self.axUiElement!.subscribeToNotification(axObserver, Application.notifications.first!) {
-                Logger.debug("Subscribed to app", self.debugId)
-                for notification in Application.notifications.dropFirst() {
-                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.pid, callType: .subscribeToAppNotification) { [weak self] in
-                        try self?.axUiElement!.subscribeToNotification(axObserver, notification)
-                    }
-                }
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
-                    // some apps have `isFinishedLaunching == true` but are actually not finished, and will return .cannotComplete
-                    // we consider them ready when the first subscription succeeds
-                    // windows opened before that point won't send a notification, so check those windows manually here
-                    if !self.isReallyFinishedLaunching {
-                        self.isReallyFinishedLaunching = true
-                        self.manuallyUpdateWindows()
-                    }
-                }
-            }
-        }
-        CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 }

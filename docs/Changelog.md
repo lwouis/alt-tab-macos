@@ -1,4 +1,254 @@
-# Release notes
+## [8.3.3](https://github.com/lwouis/alt-tab-macos/compare/v8.3.2...v8.3.3) (2026-01-25)
+
+
+### Bug Fixes
+
+* app icons could sometimes be invisible (closes [#5226](https://github.com/lwouis/alt-tab-macos/issues/5226)) ([23fbc01](https://github.com/lwouis/alt-tab-macos/commit/23fbc01))
+* improve trackpad gesture detection (closes [#5203](https://github.com/lwouis/alt-tab-macos/issues/5203)) ([9b5e43e](https://github.com/lwouis/alt-tab-macos/commit/9b5e43e))
+* switcher could sometimes show with no window pre-selected ([3e95f77](https://github.com/lwouis/alt-tab-macos/commit/3e95f77))
+* title could be off-center in app-icons appearance (closes [#5235](https://github.com/lwouis/alt-tab-macos/issues/5235)) ([7fdfe4a](https://github.com/lwouis/alt-tab-macos/commit/7fdfe4a))
+
+## [8.3.2](https://github.com/lwouis/alt-tab-macos/compare/v8.3.1...v8.3.2) (2026-01-22)
+
+
+### Bug Fixes
+
+* blacklisting fullscreen windows was not working (closes [#5228](https://github.com/lwouis/alt-tab-macos/issues/5228)) ([53815e0](https://github.com/lwouis/alt-tab-macos/commit/53815e0))
+
+## [8.3.1](https://github.com/lwouis/alt-tab-macos/compare/v8.3.0...v8.3.1) (2026-01-22)
+
+
+### Bug Fixes
+
+* chrome apps windows would not show in the switcher (closes [#5227](https://github.com/lwouis/alt-tab-macos/issues/5227)) ([bf3fa67](https://github.com/lwouis/alt-tab-macos/commit/bf3fa67))
+
+# [8.3.0](https://github.com/lwouis/alt-tab-macos/compare/v8.2.0...v8.3.0) (2026-01-20)
+
+
+### Bug Fixes
+
+* position of windowless indicator in thumbnails appearance ([d1fd1fd](https://github.com/lwouis/alt-tab-macos/commit/d1fd1fd))
+* small memory leak when opening the switcher (closes [#4255](https://github.com/lwouis/alt-tab-macos/issues/4255)) ([0a6485e](https://github.com/lwouis/alt-tab-macos/commit/0a6485e))
+* windows would sometimes not update their order (closes [#5207](https://github.com/lwouis/alt-tab-macos/issues/5207)) ([a3f2a54](https://github.com/lwouis/alt-tab-macos/commit/a3f2a54))
+
+
+### Features
+
+* increase apparition delay granularity (closes [#5210](https://github.com/lwouis/alt-tab-macos/issues/5210)) ([5b0df6b](https://github.com/lwouis/alt-tab-macos/commit/5b0df6b))
+
+# [8.2.0](https://github.com/lwouis/alt-tab-macos/compare/v8.1.0...v8.2.0) (2026-01-15)
+
+
+### Bug Fixes
+
+* thumbnails could sometimes be stretched (closes [#5204](https://github.com/lwouis/alt-tab-macos/issues/5204)) ([ac24d6d](https://github.com/lwouis/alt-tab-macos/commit/ac24d6d))
+
+
+### Features
+
+* stop checking screen-recording permission after launch ([#5202](https://github.com/lwouis/alt-tab-macos/issues/5202)) ([f481d22](https://github.com/lwouis/alt-tab-macos/commit/f481d22))
+
+# [8.1.0](https://github.com/lwouis/alt-tab-macos/compare/v8.0.0...v8.1.0) (2026-01-14)
+
+
+### Bug Fixes
+
+* allow f-keys as shortcuts-when-active (closes [#5166](https://github.com/lwouis/alt-tab-macos/issues/5166)) ([a0c9fee](https://github.com/lwouis/alt-tab-macos/commit/a0c9fee))
+* avoid unintentional trackpad trigger (closes [#4278](https://github.com/lwouis/alt-tab-macos/issues/4278)) ([0539a3a](https://github.com/lwouis/alt-tab-macos/commit/0539a3a))
+* better handle palm/fingers resting on the trackpad (closes [#5191](https://github.com/lwouis/alt-tab-macos/issues/5191)) ([9ed8a19](https://github.com/lwouis/alt-tab-macos/commit/9ed8a19))
+* mitigate macos 15 bugs with screencapture-kit (closes [#5190](https://github.com/lwouis/alt-tab-macos/issues/5190)) ([b2f5c6c](https://github.com/lwouis/alt-tab-macos/commit/b2f5c6c))
+* mouse hover detection for hidden/windowless apps ([7c64864](https://github.com/lwouis/alt-tab-macos/commit/7c64864))
+* thumbnails could sometimes be the wrong size ([9d0b947](https://github.com/lwouis/alt-tab-macos/commit/9d0b947))
+
+
+### Features
+
+* add belarusian localization ([0fe722b](https://github.com/lwouis/alt-tab-macos/commit/0fe722b))
+* improve accidental cursor movement ([74b5a11](https://github.com/lwouis/alt-tab-macos/commit/74b5a11)), closes [/github.com/lwouis/alt-tab-macos/issues/4278#issuecomment-3733280737](https://github.com//github.com/lwouis/alt-tab-macos/issues/4278/issues/issuecomment-3733280737)
+* improve pl localization ([3b53ce7](https://github.com/lwouis/alt-tab-macos/commit/3b53ce7))
+* show outline of windows hidden for privacy reasons (closes [#5172](https://github.com/lwouis/alt-tab-macos/issues/5172)) ([1090acf](https://github.com/lwouis/alt-tab-macos/commit/1090acf))
+
+# [8.0.0](https://github.com/lwouis/alt-tab-macos/compare/v7.39.0...v8.0.0) (2026-01-06)
+
+
+### Bug Fixes
+
+* avoid macos bug where many permission dialogs pop (closes [#5106](https://github.com/lwouis/alt-tab-macos/issues/5106)) ([5c4199e](https://github.com/lwouis/alt-tab-macos/commit/5c4199e))
+
+
+### Features
+
+* improve memory image of showing app icons (closes [#5144](https://github.com/lwouis/alt-tab-macos/issues/5144)) ([bf58335](https://github.com/lwouis/alt-tab-macos/commit/bf58335))
+* improve ta localization ([989b344](https://github.com/lwouis/alt-tab-macos/commit/989b344))
+* improve thumbnails with screen-capture kit ([7821d7c](https://github.com/lwouis/alt-tab-macos/commit/7821d7c)), closes [#4255](https://github.com/lwouis/alt-tab-macos/issues/4255) [#3652](https://github.com/lwouis/alt-tab-macos/issues/3652)
+
+
+### Performance Improvements
+
+* debounce screen/space events to minimize work ([e2b4779](https://github.com/lwouis/alt-tab-macos/commit/e2b4779))
+
+
+### BREAKING CHANGES
+
+* Better thumbnails with ScreenCaptureKit for users on macOS >= 14
+
+# [7.39.0](https://github.com/lwouis/alt-tab-macos/compare/v7.38.1...v7.39.0) (2026-01-03)
+
+
+### Bug Fixes
+
+* avoid showing closed windows (closes [#3589](https://github.com/lwouis/alt-tab-macos/issues/3589)) ([894a69d](https://github.com/lwouis/alt-tab-macos/commit/894a69d)), closes [#4924](https://github.com/lwouis/alt-tab-macos/issues/4924)
+* permission checks might freeze or restart the app (closes [#5112](https://github.com/lwouis/alt-tab-macos/issues/5112)) ([7906d63](https://github.com/lwouis/alt-tab-macos/commit/7906d63))
+* permission window could steal focus (see [#3577](https://github.com/lwouis/alt-tab-macos/issues/3577)) ([2f875b3](https://github.com/lwouis/alt-tab-macos/commit/2f875b3))
+* permissions window could look wrong in some languages like chinese ([914f91f](https://github.com/lwouis/alt-tab-macos/commit/914f91f)), closes [/github.com/lwouis/alt-tab-macos/issues/5112#issuecomment-3692769341](https://github.com//github.com/lwouis/alt-tab-macos/issues/5112/issues/issuecomment-3692769341)
+* preview could sometimes be incorrectly positioned ([edc2f00](https://github.com/lwouis/alt-tab-macos/commit/edc2f00))
+* show some hovering windows (e.g. zoom.app) (closes [#5140](https://github.com/lwouis/alt-tab-macos/issues/5140)) ([fcc6651](https://github.com/lwouis/alt-tab-macos/commit/fcc6651))
+* thumbnails could sometimes have the wrong size ([55f3f59](https://github.com/lwouis/alt-tab-macos/commit/55f3f59))
+
+
+### Features
+
+* avoid occasional delays in showing the switcher (closes [#5109](https://github.com/lwouis/alt-tab-macos/issues/5109)) ([3c04a4c](https://github.com/lwouis/alt-tab-macos/commit/3c04a4c))
+* improve nb/tr localizations ([5e842d5](https://github.com/lwouis/alt-tab-macos/commit/5e842d5))
+* remove shadow around app icon appearance ([dda612c](https://github.com/lwouis/alt-tab-macos/commit/dda612c))
+
+
+### Performance Improvements
+
+* do login item and plist updates later to accelerate launch ([2f72c5d](https://github.com/lwouis/alt-tab-macos/commit/2f72c5d))
+* don't compute diffs of running-apps; directly get new/old ([7ded01c](https://github.com/lwouis/alt-tab-macos/commit/7ded01c))
+* improve mouse hover algo and core-animation side ([6103785](https://github.com/lwouis/alt-tab-macos/commit/6103785))
+
+## [7.38.1](https://github.com/lwouis/alt-tab-macos/compare/v7.38.0...v7.38.1) (2025-12-13)
+
+
+### Bug Fixes
+
+* could sometimes freeze on the permission window ([43838e1](https://github.com/lwouis/alt-tab-macos/commit/43838e1)), closes [#5112](https://github.com/lwouis/alt-tab-macos/issues/5112)
+* prevent crash when sending a debug profile ([741e790](https://github.com/lwouis/alt-tab-macos/commit/741e790))
+
+# [7.38.0](https://github.com/lwouis/alt-tab-macos/compare/v7.37.0...v7.38.0) (2025-12-07)
+
+
+### Bug Fixes
+
+* could sometimes freeze upon launch (closes [#5079](https://github.com/lwouis/alt-tab-macos/issues/5079)) ([ee27df7](https://github.com/lwouis/alt-tab-macos/commit/ee27df7))
+* sending feedback with a debug-profile could sometimes crash ([e0ae29d](https://github.com/lwouis/alt-tab-macos/commit/e0ae29d))
+
+
+### Features
+
+* improve ca/es/ga/pt/pt-br/uk localizations ([8a98b4e](https://github.com/lwouis/alt-tab-macos/commit/8a98b4e))
+* prevent mouse-hover when using trackpad swipes (closes [#5071](https://github.com/lwouis/alt-tab-macos/issues/5071)) ([b8ecd58](https://github.com/lwouis/alt-tab-macos/commit/b8ecd58))
+
+# [7.37.0](https://github.com/lwouis/alt-tab-macos/compare/v7.36.0...v7.37.0) (2025-11-28)
+
+
+### Bug Fixes
+
+* better crop app icons on macos < 26 (closes [#5080](https://github.com/lwouis/alt-tab-macos/issues/5080)) ([237bb1e](https://github.com/lwouis/alt-tab-macos/commit/237bb1e))
+
+
+### Features
+
+* improve portuguese localization ([3994429](https://github.com/lwouis/alt-tab-macos/commit/3994429))
+* warn tahoe users of shortcut conflict with macos game-overlay ([911aad4](https://github.com/lwouis/alt-tab-macos/commit/911aad4)), closes [#5018](https://github.com/lwouis/alt-tab-macos/issues/5018)
+
+# [7.36.0](https://github.com/lwouis/alt-tab-macos/compare/v7.35.0...v7.36.0) (2025-11-25)
+
+
+### Bug Fixes
+
+* switcher could become broken after changing appearance ([d377b3d](https://github.com/lwouis/alt-tab-macos/commit/d377b3d)), closes [#5061](https://github.com/lwouis/alt-tab-macos/issues/5061)
+
+
+### Features
+
+* improve portuguese localization ([435a310](https://github.com/lwouis/alt-tab-macos/commit/435a310))
+
+# [7.35.0](https://github.com/lwouis/alt-tab-macos/compare/v7.34.0...v7.35.0) (2025-11-24)
+
+
+### Bug Fixes
+
+* app would sometimes crash on macos monterey (closes [#5051](https://github.com/lwouis/alt-tab-macos/issues/5051)) ([29e1cff](https://github.com/lwouis/alt-tab-macos/commit/29e1cff))
+* better gesture recognition (closes [#5039](https://github.com/lwouis/alt-tab-macos/issues/5039)) ([1689954](https://github.com/lwouis/alt-tab-macos/commit/1689954))
+* closing fullscreen window would glitch it (closes [#5029](https://github.com/lwouis/alt-tab-macos/issues/5029)) ([ee436cc](https://github.com/lwouis/alt-tab-macos/commit/ee436cc))
+
+
+### Features
+
+* add trackpad haptic feedback for better navigation (closes [#4763](https://github.com/lwouis/alt-tab-macos/issues/4763)) ([fb5dfc4](https://github.com/lwouis/alt-tab-macos/commit/fb5dfc4))
+* better icon for feedback form (closes [#5013](https://github.com/lwouis/alt-tab-macos/issues/5013)) ([2c3373a](https://github.com/lwouis/alt-tab-macos/commit/2c3373a))
+* improve portuguese localization ([c294ad0](https://github.com/lwouis/alt-tab-macos/commit/c294ad0))
+
+# [7.34.0](https://github.com/lwouis/alt-tab-macos/compare/v7.33.0...v7.34.0) (2025-11-20)
+
+
+### Bug Fixes
+
+* reduce memory footprint after running for a while (closes [#4255](https://github.com/lwouis/alt-tab-macos/issues/4255)) ([938b735](https://github.com/lwouis/alt-tab-macos/commit/938b735))
+
+
+### Features
+
+* improve localizations ([516329a](https://github.com/lwouis/alt-tab-macos/commit/516329a))
+* improve responsiveness in showing switcher (closes [#4959](https://github.com/lwouis/alt-tab-macos/issues/4959)) ([a80721b](https://github.com/lwouis/alt-tab-macos/commit/a80721b))
+
+# [7.33.0](https://github.com/lwouis/alt-tab-macos/compare/v7.32.0...v7.33.0) (2025-11-16)
+
+
+### Bug Fixes
+
+* app icon was too small in titles-appearance large-size ([ffd0c75](https://github.com/lwouis/alt-tab-macos/commit/ffd0c75))
+* take into account accent-color immediatly (closes [#4984](https://github.com/lwouis/alt-tab-macos/issues/4984)) ([011fdba](https://github.com/lwouis/alt-tab-macos/commit/011fdba))
+
+
+### Features
+
+* improve dealing with reserved/conflicting shortcuts ([fdf3134](https://github.com/lwouis/alt-tab-macos/commit/fdf3134)), closes [#3190](https://github.com/lwouis/alt-tab-macos/issues/3190) [#3288](https://github.com/lwouis/alt-tab-macos/issues/3288) [#1835](https://github.com/lwouis/alt-tab-macos/issues/1835) [#3826](https://github.com/lwouis/alt-tab-macos/issues/3826)
+* improve nl/pl/uk localizations ([96caad4](https://github.com/lwouis/alt-tab-macos/commit/96caad4))
+* improve trackpad multi-fingers swiping (closes [#4765](https://github.com/lwouis/alt-tab-macos/issues/4765)) ([d6196ec](https://github.com/lwouis/alt-tab-macos/commit/d6196ec))
+* improve ux for titles-appearance (closes [#4975](https://github.com/lwouis/alt-tab-macos/issues/4975)) ([c352591](https://github.com/lwouis/alt-tab-macos/commit/c352591))
+* macos tahoe improvements: menubar menu, feedback form, wording ([309cae3](https://github.com/lwouis/alt-tab-macos/commit/309cae3)), closes [#4986](https://github.com/lwouis/alt-tab-macos/issues/4986)
+
+# [7.32.0](https://github.com/lwouis/alt-tab-macos/compare/v7.31.0...v7.32.0) (2025-11-10)
+
+
+### Bug Fixes
+
+* alt-tab could crash if asked to close one of its own window ([f46372b](https://github.com/lwouis/alt-tab-macos/commit/f46372b))
+* could sometimes crash when navigating up or down (closes [#4110](https://github.com/lwouis/alt-tab-macos/issues/4110)) ([d2220c6](https://github.com/lwouis/alt-tab-macos/commit/d2220c6))
+
+
+### Features
+
+* improve pl/zh-hk localizations ([786e752](https://github.com/lwouis/alt-tab-macos/commit/786e752))
+* improve responsiveness of showing the switcher ([689adc0](https://github.com/lwouis/alt-tab-macos/commit/689adc0))
+* new look for tahoe and liquid glass (closes [#4658](https://github.com/lwouis/alt-tab-macos/issues/4658)) ([fab9d7c](https://github.com/lwouis/alt-tab-macos/commit/fab9d7c))
+* titles appearance now resizes for better readability ([26d40e1](https://github.com/lwouis/alt-tab-macos/commit/26d40e1)), closes [#3882](https://github.com/lwouis/alt-tab-macos/issues/3882)
+* update visuals for macos tahoe and liquid glass ([33c6615](https://github.com/lwouis/alt-tab-macos/commit/33c6615))
+
+
+### Performance Improvements
+
+* improve rendering performance by doing less work ([ec55ae8](https://github.com/lwouis/alt-tab-macos/commit/ec55ae8))
+
+# [7.31.0](https://github.com/lwouis/alt-tab-macos/compare/v7.30.0...v7.31.0) (2025-10-26)
+
+
+### Bug Fixes
+
+* cmd+q would quit alt-tab instead of the selected app (closes [#4867](https://github.com/lwouis/alt-tab-macos/issues/4867)) ([247f635](https://github.com/lwouis/alt-tab-macos/commit/247f635)), closes [#4891](https://github.com/lwouis/alt-tab-macos/issues/4891)
+* title was truncated in app-icons appearance (closes [#4860](https://github.com/lwouis/alt-tab-macos/issues/4860)) ([a1cfd1d](https://github.com/lwouis/alt-tab-macos/commit/a1cfd1d))
+
+
+### Features
+
+* improve ar/de/fr/kn/ru/zh-tw localizations ([173bc97](https://github.com/lwouis/alt-tab-macos/commit/173bc97))
+* improve windows detection ([cab591e](https://github.com/lwouis/alt-tab-macos/commit/cab591e))
+* new cli command to focus a window using focus order (closes [#4610](https://github.com/lwouis/alt-tab-macos/issues/4610)) ([84166ab](https://github.com/lwouis/alt-tab-macos/commit/84166ab))
+* save resources trying to detect certain windows ([33e5acf](https://github.com/lwouis/alt-tab-macos/commit/33e5acf))
 
 # [7.30.0](https://github.com/lwouis/alt-tab-macos/compare/v7.29.0...v7.30.0) (2025-09-23)
 

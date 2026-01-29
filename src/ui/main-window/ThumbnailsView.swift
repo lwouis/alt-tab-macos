@@ -1,22 +1,23 @@
 import Cocoa
 
-class ThumbnailsView: NSVisualEffectView {
-    let scrollView = ScrollView()
-    static var recycledViews = [ThumbnailView]()
+class ThumbnailsView {
+    var scrollView: ScrollView!
+    var contentView: EffectView!
     var rows = [[ThumbnailView]]()
+    static var recycledViews = [ThumbnailView]()
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
 
-    convenience init() {
-        self.init(frame: .zero)
-        material = Appearance.material
-        blendingMode = .behindWindow
-        state = .active
-        wantsLayer = true
-        updateRoundedCorners(Appearance.windowCornerRadius)
-        addSubview(scrollView)
+    init() {
+        updateBackgroundView()
         // TODO: think about this optimization more
         (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+    }
+
+    func updateBackgroundView() {
+        contentView = makeAppropriateEffectView()
+        scrollView = ScrollView()
+        contentView.addSubview(scrollView)
     }
 
     func reset() {
@@ -24,11 +25,19 @@ class ThumbnailsView: NSVisualEffectView {
         // Maybe in some Appkit willDraw() function that triggers before drawing it
         NSScreen.updatePreferred()
         Appearance.update()
-        material = Appearance.material
+        // thumbnails are captured continuously. They will pick up the new size on the next cycle
+        ThumbnailsPanel.updateMaxPossibleThumbnailSize()
+        // app icons are captured once at launch; we need to manually update them if needed
+        let old = ThumbnailsPanel.maxPossibleAppIconSize.width
+        ThumbnailsPanel.updateMaxPossibleAppIconSize()
+        if old != ThumbnailsPanel.maxPossibleAppIconSize.width {
+            Applications.updateAppIcons()
+        }
+        updateBackgroundView()
+        App.app.thumbnailsPanel.contentView = contentView
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }
-        updateRoundedCorners(Appearance.windowCornerRadius)
     }
 
     static func highlight(_ indexInRecycledViews: Int) {
@@ -39,28 +48,9 @@ class ThumbnailsView: NSVisualEffectView {
         }
     }
 
-    /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners
-    /// see https://stackoverflow.com/a/29386935/2249756
-    func updateRoundedCorners(_ cornerRadius: CGFloat) {
-        if cornerRadius == 0 {
-            maskImage = nil
-        } else {
-            let edgeLength = 2.0 * cornerRadius + 1.0
-            let mask = NSImage(size: NSSize(width: edgeLength, height: edgeLength), flipped: false) { rect in
-                let bezierPath = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
-                NSColor.black.set()
-                bezierPath.fill()
-                return true
-            }
-            mask.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
-            mask.resizingMode = .stretch
-            maskImage = mask
-        }
-    }
-
     func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [ThumbnailView]? {
         let step = direction == .down ? 1 : -1
-        if let currentRow = Windows.focusedWindow()?.rowIndex {
+        if let currentRow = Windows.selectedWindow()?.rowIndex {
             var nextRow = currentRow + step
             if nextRow >= rows.count {
                 if allowWrap {
@@ -76,7 +66,7 @@ class ThumbnailsView: NSVisualEffectView {
                 }
             }
             if ((step > 0 && nextRow < currentRow) || (step < 0 && nextRow > currentRow)) &&
-                   (ATShortcut.lastEventIsARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
+                   (ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended) {
                 return nil
             }
             return rows[nextRow]
@@ -85,21 +75,21 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     func navigateUpOrDown(_ direction: Direction, allowWrap: Bool = true) {
-        let focusedViewFrame = ThumbnailsView.recycledViews[Windows.focusedWindowIndex].frame
+        guard Windows.selectedWindowIndex < ThumbnailsView.recycledViews.count else { return }
+        let focusedViewFrame = ThumbnailsView.recycledViews[Windows.selectedWindowIndex].frame
         let originCenter = NSMidX(focusedViewFrame)
-        if let targetRow = nextRow(direction, allowWrap: allowWrap) {
-            let leftSide = originCenter < NSMidX(frame)
-            let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
-            let iterable = leadingSide ? targetRow : targetRow.reversed()
-            let targetView = iterable.first {
-                if App.shared.userInterfaceLayoutDirection == .leftToRight {
-                    return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
-                }
-                return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
-            } ?? iterable.last!
-            let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
-            Windows.updateFocusedAndHoveredWindowIndex(targetIndex)
-        }
+        guard let targetRow = nextRow(direction, allowWrap: allowWrap), !targetRow.isEmpty else { return }
+        let leftSide = originCenter < NSMidX(contentView.frame)
+        let leadingSide = App.shared.userInterfaceLayoutDirection == .leftToRight ? leftSide : !leftSide
+        let iterable = leadingSide ? targetRow : targetRow.reversed()
+        guard let targetView = iterable.first(where: {
+            if App.shared.userInterfaceLayoutDirection == .leftToRight {
+                return leadingSide ? NSMaxX($0.frame) > originCenter : NSMinX($0.frame) < originCenter
+            }
+            return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
+        }) ?? iterable.last else { return }
+        guard let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView) else { return }
+        Windows.updateSelectedAndHoveredWindowIndex(targetIndex)
     }
 
     func updateItemsAndLayout() {
@@ -122,7 +112,7 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     private func layoutThumbnailViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat)? {
-        let labelHeight = ThumbnailsView.recycledViews.first!.label.cell!.cellSize.height
+        let labelHeight = ThumbnailsView.recycledViews.first!.label.fittingSize.height
         let height = ThumbnailView.height(labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
         let startingX = isLeftToRight ? Appearance.interCellPadding : widthMax - Appearance.interCellPadding
@@ -133,28 +123,37 @@ class ThumbnailsView: NSVisualEffectView {
         var newViews = [ThumbnailView]()
         rows.removeAll(keepingCapacity: true)
         rows.append([ThumbnailView]())
-        for (index, window) in Windows.list.enumerated() {
+        var index = 0
+        while index < ThumbnailsView.recycledViews.count {
             guard App.app.appIsBeingUsed else { return nil }
-            guard window.shouldShowTheUser else { continue }
+            defer { index = index + 1 }
             let view = ThumbnailsView.recycledViews[index]
-            view.updateRecycledCellWithNewContent(window, index, height)
-            let width = view.frame.size.width
-            let projectedX = projectedWidth(currentX, width).rounded(.down)
-            if needNewLine(projectedX, widthMax) {
-                currentX = startingX
-                currentY = (currentY + height + Appearance.interCellPadding).rounded(.down)
-                view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
-                currentX = projectedWidth(currentX, width).rounded(.down)
-                maxY = max(currentY + height + Appearance.interCellPadding, maxY)
-                rows.append([ThumbnailView]())
+            if index < Windows.list.count {
+                let window = Windows.list[index]
+                guard window.shouldShowTheUser else { continue }
+                view.updateRecycledCellWithNewContent(window, index, height)
+                let width = view.frame.size.width
+                let projectedX = projectedWidth(currentX, width).rounded(.down)
+                if needNewLine(projectedX, widthMax) {
+                    currentX = startingX
+                    currentY = (currentY + height + Appearance.interCellPadding).rounded(.down)
+                    view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
+                    currentX = projectedWidth(currentX, width).rounded(.down)
+                    maxY = max(currentY + height + Appearance.interCellPadding, maxY)
+                    rows.append([ThumbnailView]())
+                } else {
+                    view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
+                    currentX = projectedX
+                    maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
+                }
+                rows[rows.count - 1].append(view)
+                newViews.append(view)
+                window.rowIndex = rows.count - 1
             } else {
-                view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
-                currentX = projectedX
-                maxX = max(isLeftToRight ? currentX : widthMax - currentX, maxX)
+                // release images from unused recycledViews; they take lots of RAM
+                view.thumbnail.releaseImage()
+                view.appIcon.releaseImage()
             }
-            rows[rows.count - 1].append(view)
-            newViews.append(view)
-            window.rowIndex = rows.count - 1
         }
         scrollView.documentView!.subviews = newViews
         return (maxX, maxY, labelHeight)
@@ -191,7 +190,7 @@ class ThumbnailsView: NSVisualEffectView {
             frameHeight = frameHeight - Appearance.intraCellPadding - labelHeight
             originY = originY - Appearance.intraCellPadding - labelHeight
         }
-        frame.size = NSSize(width: frameWidth, height: frameHeight)
+        contentView.frame.size = NSSize(width: frameWidth, height: frameHeight)
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
         scrollView.frame.origin = CGPoint(x: originX, y: originY)
         scrollView.contentView.frame.size = scrollView.frame.size
@@ -228,7 +227,7 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     private func highlightStartView() {
-        ThumbnailsView.highlight(Windows.focusedWindowIndex)
+        ThumbnailsView.highlight(Windows.selectedWindowIndex)
         if let hoveredWindowIndex = Windows.hoveredWindowIndex {
             ThumbnailsView.highlight(hoveredWindowIndex)
         }
@@ -285,32 +284,37 @@ class ScrollView: NSScrollView {
         }
     }
 
+    override func mouseExited(with event: NSEvent) {
+        previousTarget = nil
+        resetHoveredWindow()
+    }
+
     override func mouseMoved(with event: NSEvent) {
-        // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
-        if isCurrentlyScrolling { return }
-        if let hit = hitTest(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream) {
-            var target: NSView? = hit
-            while !(target is ThumbnailView) && target != nil {
-                target = target!.superview
-            }
-            if let target = target as? ThumbnailView {
-                if previousTarget != target {
-                    previousTarget?.showOrHideWindowControls(false)
-                    previousTarget = target
-                }
-                target.mouseMoved()
-            } else {
-                if !checkIfWithinInterPadding() {
-                    resetHoveredWindow()
-                }
-            }
+        guard let documentView, !isCurrentlyScrolling && CursorEvents.isAllowedToMouseHover else { return }
+        let location = documentView.convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
+        let newTarget = findTarget(location)
+        guard newTarget !== previousTarget else { return }
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        if let newTarget {
+            previousTarget?.showOrHideWindowControls(false)
+            newTarget.mouseMoved()
         } else {
             resetHoveredWindow()
         }
+        previousTarget = newTarget
+        CATransaction.commit()
     }
 
-    override func mouseExited(with event: NSEvent) {
-        resetHoveredWindow()
+    private func findTarget(_ location: NSPoint) -> ThumbnailView? {
+        for case let view as ThumbnailView in documentView!.subviews {
+            let frame = view.frame
+            let expandedFrame = CGRect(x: frame.minX - (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : 1), y: frame.minY, width: frame.width + 1, height: frame.height + 1)
+            if expandedFrame.contains(location) {
+                return view
+            }
+        }
+        return nil
     }
 
     /// Checks whether the mouse pointer is within the padding area around a thumbnail.

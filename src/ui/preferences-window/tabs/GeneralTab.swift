@@ -20,6 +20,7 @@ class GeneralTab {
     ]
     static var menubarIconDropdown: NSPopUpButton?
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
+    private static var startAtLoginToggle: NSControl?
 
     static func initTab() -> NSView {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
@@ -33,7 +34,7 @@ class GeneralTab {
             ])
         let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
             rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
-        let resetPreferences = NSButton(title: NSLocalizedString("Reset preferences and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
+        let resetPreferences = NSButton(title: NSLocalizedString("Reset settings and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
         if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
         for i in 0..<MenubarIconPreference.allCases.count {
             let image = NSImage.initCopy("menubar-\(i)")
@@ -44,7 +45,7 @@ class GeneralTab {
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
-        startAtLoginCallback(startAtLogin.rightViews[0] as! NSControl)
+        startAtLoginToggle = startAtLogin.rightViews[0] as? NSControl
         Menubar.menubarIconCallback(nil)
         enableDraggingOffMenubarIcon(menuIconShownToggle)
         let table = TableGroupView(width: PreferencesWindow.width)
@@ -74,7 +75,7 @@ class GeneralTab {
         alert.messageText = ""
         alert.informativeText = NSLocalizedString("You can’t undo this action.", comment: "")
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        let resetButton = alert.addButton(withTitle: NSLocalizedString("Reset preferences and restart", comment: ""))
+        let resetButton = alert.addButton(withTitle: NSLocalizedString("Reset settings and restart", comment: ""))
         if #available(macOS 11.0, *) { resetButton.hasDestructiveAction = true }
         if alert.runModal() == .alertSecondButtonReturn {
             Preferences.resetAll()
@@ -83,8 +84,8 @@ class GeneralTab {
     }
 
     /// add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
-    static func startAtLoginCallback(_ sender: NSControl) {
-        let sender = sender as! Switch
+    static func startAtLoginCallback(_: NSControl? = nil) {
+        let sender = startAtLoginToggle as! Switch
         // if the user has added AltTab manually as a LoginItem, we remove it, and add AltTab as a LaunchAgent
         // LaunchAgent are the recommended method for open-at-login in recent versions of macos
         if (GeneralTab.self as AvoidDeprecationWarnings.Type).removeLoginItemIfPresent() && sender.state == .off {
@@ -94,7 +95,7 @@ class GeneralTab {
         do {
             try writePlistToDisk(sender)
         } catch let error {
-            Logger.error("Failed to write plist file to disk", error)
+            Logger.error { "Failed to write plist file to disk. error:\(error)" }
         }
     }
 
@@ -103,17 +104,17 @@ class GeneralTab {
         launchAgentsPath.appendPathComponent("LaunchAgents", isDirectory: true)
         if !FileManager.default.fileExists(atPath: launchAgentsPath.path) {
             try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
-            Logger.debug(launchAgentsPath.absoluteString + " created")
+            Logger.debug { launchAgentsPath.absoluteString + " created" }
         }
         launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
         if sender.state == .on {
             let data = try PropertyListSerialization.data(fromPropertyList: launchAgentPlist, format: .xml, options: 0)
             try data.write(to: launchAgentsPath, options: [.atomic])
-            Logger.debug(launchAgentsPath.absoluteString + " written")
+            Logger.debug { launchAgentsPath.absoluteString + " written" }
         } else {
             if FileManager.default.fileExists(atPath: launchAgentsPath.path) {
                 try FileManager.default.removeItem(at: launchAgentsPath)
-                Logger.debug(launchAgentsPath.absoluteString + " removed")
+                Logger.debug { launchAgentsPath.absoluteString + " removed" }
             }
         }
     }

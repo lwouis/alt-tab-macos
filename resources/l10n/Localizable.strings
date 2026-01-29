@@ -227,12 +227,6 @@
 "Hide/Show app" = "Hide/Show app";
 
 /* No comment provided by engineer. */
-"High" = "High";
-
-/* No comment provided by engineer. */
-"Highest" = "Highest";
-
-/* No comment provided by engineer. */
 "Hold" = "Hold";
 
 /* No comment provided by engineer. */
@@ -296,22 +290,22 @@
 "Non-active apps" = "Non-active apps";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
-
-/* No comment provided by engineer. */
 "Not allowed" = "Not allowed";
 
 /* No comment provided by engineer. */
 "Only on different screen" = "Only on different screen";
 
 /* No comment provided by engineer. */
-"Open Accessibility Preferences…" = "Open Accessibility Preferences…";
+"Open Accessibility Settings…" = "Open Accessibility Settings…";
 
 /* No comment provided by engineer. */
-"Open Screen Recording Preferences…" = "Open Screen Recording Preferences…";
+"Open Screen Recording Settings…" = "Open Screen Recording Settings…";
 
 /* No comment provided by engineer. */
-"Open Trackpad Preferences…" = "Open Trackpad Preferences…";
+"Open System Settings to confirm, and continue" = "Open System Settings to confirm, and continue";
+
+/* No comment provided by engineer. */
+"Open Trackpad Settings…" = "Open Trackpad Settings…";
 
 /* No comment provided by engineer. */
 "Optional: email (if you want a reply)" = "Optional: email (if you want a reply)";
@@ -320,10 +314,10 @@
 "Order windows by" = "Order windows by";
 
 /* No comment provided by engineer. */
-"Policies" = "Policies";
+"Please fill in the form" = "Please fill in the form";
 
-/* Menubar option */
-"Preferences…" = "Preferences…";
+/* No comment provided by engineer. */
+"Policies" = "Policies";
 
 /* No comment provided by engineer. */
 "Preview selected window" = "Preview selected window";
@@ -350,10 +344,10 @@
 "Remember my choice" = "Remember my choice";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart" = "Reset preferences and restart";
+"Reset settings and restart" = "Reset settings and restart";
 
 /* No comment provided by engineer. */
-"Reset preferences and restart…" = "Reset preferences and restart…";
+"Reset settings and restart…" = "Reset settings and restart…";
 
 /* No comment provided by engineer. */
 "Restart Now" = "Restart Now";
@@ -402,6 +396,9 @@
 
 /* Menubar option */
 "Send feedback…" = "Send feedback…";
+
+/* Menubar option */
+"Settings…" = "Settings…";
 
 /* No comment provided by engineer. */
 "Share improvement ideas, or report bugs" = "Share improvement ideas, or report bugs";
@@ -494,7 +491,7 @@
 "Start at login" = "Start at login";
 
 /* Menubar option */
-"Support this project ❤️" = "Support this project ❤️";
+"Support this project" = "Support this project";
 
 /* No comment provided by engineer. */
 "Switch between 3 different styles. You can customize them." = "Switch between 3 different styles. You can customize them.";
@@ -507,6 +504,12 @@
 
 /* No comment provided by engineer. */
 "The application needs to restart to apply the language change." = "The application needs to restart to apply the language change.";
+
+/* No comment provided by engineer. */
+"The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled.";
+
+/* No comment provided by engineer. */
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
 
 /* No comment provided by engineer. */
 "Theme" = "Theme";
@@ -528,6 +531,9 @@
 
 /* No comment provided by engineer. */
 "Titles" = "Titles";
+
+/* No comment provided by engineer. */
+"Trackpad haptic feedback" = "Trackpad haptic feedback";
 
 /* No comment provided by engineer. */
 "Trigger shortcut" = "Trigger shortcut";
@@ -555,9 +561,6 @@
 
 /* No comment provided by engineer. */
 "Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
-
-/* No comment provided by engineer. */
-"Visibility" = "Visibility";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";

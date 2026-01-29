@@ -1,5 +1,6 @@
 import Cocoa
 import Darwin
+import Carbon.HIToolbox.TextInputSources
 
 class DebugProfile {
     static let intraSeparator = ": "
@@ -18,6 +19,7 @@ class DebugProfile {
             ("OS version", ProcessInfo.processInfo.operatingSystemVersionString),
             ("OS architecture", Sysctl.run("hw.machine")),
             ("Locale", Locale.current.debugDescription),
+            ("InputSource", inputSource()),
             ("Spaces", String(Spaces.idsAndIndexes.count)),
             ("Dark mode", UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light"),
             ("\"Displays have separate Spaces\"", NSScreen.screensHaveSeparateSpaces ? "checked" : "unchecked"),
@@ -101,5 +103,17 @@ class DebugProfile {
             ].joined(separator: nestedSeparator)
         }
         return ""
+    }
+
+    static func inputSource() -> String {
+        let r = DispatchQueue.main.sync {
+            if let inputSource = TISCopyCurrentKeyboardInputSource()?.takeUnretainedValue(),
+                let localizedNamePointer = TISGetInputSourceProperty(inputSource, kTISPropertyLocalizedName) {
+                let localizedName = Unmanaged<AnyObject>.fromOpaque(localizedNamePointer).takeUnretainedValue()
+                return localizedName as? String ?? ""
+            }
+            return ""
+        }
+        return r
     }
 }

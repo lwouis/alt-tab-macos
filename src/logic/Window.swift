@@ -1,12 +1,22 @@
 import Cocoa
 
 class Window {
-    static var globalCreationCounter = Int.zero
+    private static let notifications = [
+        kAXUIElementDestroyedNotification,
+        kAXTitleChangedNotification,
+        kAXWindowMiniaturizedNotification,
+        kAXWindowDeminiaturizedNotification,
+        kAXWindowResizedNotification,
+        kAXWindowMovedNotification,
+    ]
+    private static var globalCreationCounter = Int.zero
+
+    var id: String!
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
     var creationOrder = Int.zero
     var title: String!
-    var thumbnail: CGImage?
+    var thumbnail: CALayerContents?
     var icon: CGImage? { get { application.icon } }
     var shouldShowTheUser = true
     var isTabbed: Bool = false
@@ -20,63 +30,53 @@ class Window {
     var size: CGSize?
     var spaceIds = [CGSSpaceID.max]
     var spaceIndexes = [SpaceIndex.max]
+    var screenId: ScreenUuid?
     var axUiElement: AXUIElement?
     var application: Application
     var axObserver: AXObserver?
     var rowIndex: Int?
-    var debugId: String { "(wid:\(cgWindowId.map { String(describing: $0) } ?? "nil")) \(title ?? "nil")) \(application.debugId)" }
 
-    static let notifications = [
-        kAXUIElementDestroyedNotification,
-        kAXTitleChangedNotification,
-        kAXWindowMiniaturizedNotification,
-        kAXWindowDeminiaturizedNotification,
-        kAXWindowResizedNotification,
-        kAXWindowMovedNotification,
-    ]
+    func debugId() -> String {
+        return "\(application.debugId()) (wid:\(cgWindowId) title:\(title))"
+    }
 
-    init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ axTitle: String?, _ isFullscreen: Bool, _ isMinimized: Bool, _ position: CGPoint?, _ size: CGSize?) {
+    init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
+        id = "\(wid)"
         self.axUiElement = axUiElement
         self.application = application
         cgWindowId = wid
-        Windows.updatesWindowSpace(self)
-        self.isFullscreen = isFullscreen
-        self.isMinimized = isMinimized
-        self.position = position
-        self.size = size
-        title = bestEffortTitle(axTitle)
+        self.updateSpacesAndScreen()
+        updateFromAxAttributes(title, size, position, isFullscreen, isMinimized)
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
-        application.removeWindowslessAppWindow()
+        application.removeWindowlessAppWindow()
         // the app may have timed out trying to subscribe to app notifications
         // It may be responsive now since it has a window; we attempt again
         application.observeEventsIfEligible()
-        checkIfFocused(application, wid)
-        Logger.debug(debugId)
+        checkIfFocused()
+        Logger.info { self.debugId() }
         observeEvents()
     }
 
     init(_ application: Application) {
+        id = "\(application.pid)"
         self.application = application
         title = bestEffortTitle(nil)
         Window.globalCreationCounter += 1
         creationOrder = Window.globalCreationCounter
-        Logger.debug(debugId)
+        Logger.debug { self.debugId() }
     }
 
     deinit {
-        Logger.debug(debugId)
+        Logger.info { self.debugId() }
     }
 
-    /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
-    /// workaround: we check and possibly do it here
-    func checkIfFocused(_ application: Application, _ wid: CGWindowID) {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .updateWindow) {
-            let focusedWid = try application.axUiElement?.focusedWindow()?.cgWindowId()
-            if wid == focusedWid {
-                application.focusedWindow = self
-            }
-        }
+    func updateFromAxAttributes(_ title: String?, _ size: CGSize?, _ position: CGPoint?, _ isFullscreen: Bool?, _ isMinimized: Bool?) {
+        self.title = bestEffortTitle(title)
+        self.size = size
+        self.position = position
+        self.isFullscreen = isFullscreen ?? false
+        self.isMinimized = isMinimized ?? false
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {
@@ -86,14 +86,14 @@ class Window {
     }
 
     private func observeEvents() {
-        AXObserverCreate(application.pid, axObserverCallback, &axObserver)
+        AXObserverCreate(application.pid, AccessibilityEvents.axObserverCallback, &axObserver)
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
             guard let self else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!) {
-                Logger.debug("Subscribed to window", self.debugId)
+                Logger.debug { "Subscribed to window: \(self.debugId())" }
                 for notification in Window.notifications.dropFirst() {
-                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId(), pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
                         try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                     }
                 }
@@ -102,16 +102,21 @@ class Window {
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .commonModes)
     }
 
-    func refreshThumbnail(_ screenshot: CGImage) {
+    func refreshThumbnail(_ screenshot: CALayerContents) {
         thumbnail = screenshot
         if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
-        if let size,
+        if let position, let size,
            let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
-                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot, false)
-                view.thumbnail.updateWithResizedCopy(screenshot, thumbnailSize)
+                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot.size(), false)
+                let newSize = thumbnailSize.width != view.thumbnail.frame.width || thumbnailSize.height != view.thumbnail.frame.height
+                view.thumbnail.updateContents(screenshot, thumbnailSize)
+                // if the thumbnail size has changed, we need to refresh the open UI
+                if newSize {
+                    App.app.refreshOpenUi([], .refreshOnlyThumbnailsAfterShowUi)
+                }
             }
-            App.app.previewPanel.updateImageIfShowing(cgWindowId, screenshot, size)
+            App.app.previewPanel.updateIfShowing(cgWindowId, screenshot, position, size)
         }
     }
 
@@ -124,13 +129,25 @@ class Window {
             NSSound.beep()
             return
         }
+        if let altTabWindow = altTabWindow() {
+            altTabWindow.close()
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
             guard let self else { return }
             if self.isFullscreen {
                 try? self.axUiElement!.setAttribute(kAXFullscreenAttribute, false)
-            }
-            if let closeButton_ = try? self.axUiElement!.closeButton() {
-                try? closeButton_.performAction(kAXPressAction)
+                // minimizing is ignored if sent immediatly; we wait for the de-fullscreen animation to be over
+                BackgroundWork.accessibilityCommandsQueue.addOperationAfter(deadline: .now() + .seconds(1)) { [weak self] in
+                    guard let self else { return }
+                    if let closeButton_ = try? self.axUiElement!.attributes([kAXCloseButtonAttribute]).closeButton {
+                        try? closeButton_.performAction(kAXPressAction)
+                    }
+                }
+            } else {
+                if let closeButton_ = try? self.axUiElement!.attributes([kAXCloseButtonAttribute]).closeButton  {
+                    try? closeButton_.performAction(kAXPressAction)
+                }
             }
         }
     }
@@ -142,6 +159,10 @@ class Window {
     func minDemin() {
         if !canBeMinDeminOrFullscreened() {
             NSSound.beep()
+            return
+        }
+        if let altTabWindow = altTabWindow() {
+            isMinimized ? altTabWindow.deminiaturize(nil) : altTabWindow.miniaturize(nil)
             return
         }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
@@ -164,6 +185,10 @@ class Window {
             NSSound.beep()
             return
         }
+        if let altTabWindow = altTabWindow() {
+            altTabWindow.toggleFullScreen(nil)
+            return
+        }
         BackgroundWork.accessibilityCommandsQueue.addOperation { [weak self] in
             guard let self else { return }
             try? self.axUiElement!.setAttribute(kAXFullscreenAttribute, !self.isFullscreen)
@@ -171,20 +196,19 @@ class Window {
     }
 
     func focus() {
-        let bundleUrl = application.bundleURL
-        if bundleUrl == App.bundleURL {
+        if let altTabWindow = altTabWindow() {
             App.shared.activate(ignoringOtherApps: true)
-            App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
-            Windows.previewFocusedWindowIfNeeded()
+            altTabWindow.makeKeyAndOrderFront(nil)
+            Windows.previewSelectedWindowIfNeeded()
         } else if isWindowlessApp || cgWindowId == nil || Preferences.onlyShowApplications() {
-            if let bundleUrl, isWindowlessApp {
+            if let bundleUrl = application.bundleURL, isWindowlessApp {
                 if (try? NSWorkspace.shared.launchApplication(at: bundleUrl, configuration: [:])) == nil {
                     application.runningApplication.activate(options: .activateAllWindows)
                 }
             } else {
                 application.runningApplication.activate(options: .activateAllWindows)
             }
-            Windows.previewFocusedWindowIfNeeded()
+            Windows.previewSelectedWindowIfNeeded()
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
@@ -197,14 +221,14 @@ class Window {
                 self.makeKeyWindow(&psn)
                 try? self.axUiElement!.focusWindow()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-                    Windows.previewFocusedWindowIfNeeded()
+                    Windows.previewSelectedWindowIfNeeded()
                 }
             }
         }
     }
 
     /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
-    func makeKeyWindow(_ psn: inout ProcessSerialNumber) -> Void {
+    private func makeKeyWindow(_ psn: inout ProcessSerialNumber) -> Void {
         var bytes = [UInt8](repeating: 0, count: 0xf8)
         bytes[0x04] = 0xf8
         bytes[0x3a] = 0x10
@@ -225,6 +249,26 @@ class Window {
             return cgTitle
         }
         return application.localizedName ?? ""
+    }
+
+    func updateSpacesAndScreen() {
+        // macOS bug: if you tab a window, then move the tab group to another space, other tabs from the tab group will stay on the current space
+        // you can use the Dock to focus one of the other tabs and it will teleport that tab in the current space, proving that it's a macOS bug
+        // note: for some reason, it behaves differently if you minimize the tab group after moving it to another space
+        updateSpaces()
+        updateScreenId()
+    }
+
+    private func updateSpaces() {
+        guard let cgWindowId else { return }
+        let spaceIds = cgWindowId.spaces()
+        self.spaceIds = spaceIds
+        self.spaceIndexes = spaceIds.compactMap { spaceId in Spaces.idsAndIndexes.first { $0.0 == spaceId }?.1 }
+        self.isOnAllSpaces = spaceIds.count > 1
+    }
+
+    private func updateScreenId() {
+        screenId = NSScreen.screens.first { isOnScreen($0) }?.uuid()
     }
 
     /// window may not be visible on that screen (e.g. the window is not on the current Space)
@@ -255,22 +299,28 @@ class Window {
 
     // Determines if this window is the main application window
     func isAppMainWindow() -> Bool {
-        if let element = application.axUiElement {
-            var mainWindow: AnyObject?
-            if AXUIElementCopyAttributeValue(element, kAXMainWindowAttribute as CFString, &mainWindow) == .success {
-                if let mainWin = mainWindow as! AXUIElement? {
-                    do {
-                        let w1 = try mainWin.cgWindowId()
-                        let w2 = try axUiElement!.cgWindowId()
-                        if w1 == w2 {
-                            return true
-                        }
-                    } catch {
-                        return false
-                    }
-                }
-            }
+        // AX calls done on main thread. They can block thus freeze the UI
+        // TODO: find a better approach
+        guard let appAxUiElement = application.axUiElement,
+              let mainWindow = try? appAxUiElement.attributes([kAXMainWindowAttribute]).mainWindow else { return false }
+        return (try? mainWindow.cgWindowId()) == cgWindowId
+    }
+
+    private func altTabWindow() -> NSWindow? {
+        if application.bundleURL == App.bundleURL, let cgWindowId {
+            return App.app.window(withWindowNumber: Int(cgWindowId))
         }
-        return false
+        return nil
+    }
+
+    /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
+    /// workaround: we check and possibly do it here
+    private func checkIfFocused() {
+        AXUIElement.retryAxCallUntilTimeout(context: debugId(), pid: application.pid, callType: .updateWindow) { [weak self] in
+            guard let self,
+                  let focusedWindow = try self.application.axUiElement?.attributes([kAXFocusedWindowAttribute]).focusedWindow,
+                  let window = try (Windows.list.first { $0.isEqualRobust(focusedWindow, (try focusedWindow.cgWindowId())) }) else { return }
+            self.application.focusedWindow = window
+        }
     }
 }

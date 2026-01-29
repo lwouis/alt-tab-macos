@@ -3,6 +3,7 @@ FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ShortcutR
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ShortcutRecorder/ShortcutRecorder.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/../Frameworks'
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_CONFIGURATION_BUILD_DIR}/ShortcutRecorder/ShortcutRecorder.framework/Headers" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/ShortcutRecorder"
 OTHER_LDFLAGS = $(inherited) -framework "Carbon" -framework "Cocoa" -framework "ShortcutRecorder"
 OTHER_MODULE_VERIFIER_FLAGS = $(inherited) "-F${PODS_CONFIGURATION_BUILD_DIR}/ShortcutRecorder"
 PODS_BUILD_DIR = ${BUILD_DIR}
