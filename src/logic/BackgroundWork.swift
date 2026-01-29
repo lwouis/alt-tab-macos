@@ -25,9 +25,11 @@ class BackgroundWork {
 
     static func preStart() {
         // we make calls to the system permissions API to know if permissions are granted. We do this on a timer
-        permissionsCheckOnTimerQueue = LabeledOperationQueue("permissionsCheckOnTimer", .userInteractive, 1)
+        permissionsCheckOnTimerQueue = LabeledOperationQueue(
+            "permissionsCheckOnTimer", .userInteractive, 1)
         // if macOS is overwhelmed, let's reduce the pressure on it by calling permission APIs one at a time
-        permissionsSystemCallsQueue = LabeledOperationQueue("permissionsSystemCalls", .userInteractive, 1)
+        permissionsSystemCallsQueue = LabeledOperationQueue(
+            "permissionsSystemCalls", .userInteractive, 1)
     }
 
     static func start() {
@@ -46,12 +48,13 @@ class BackgroundWork {
         // we observe app and windows notifications. They arrive on this thread, and are handled off the main thread initially
         accessibilityEventsThread = BackgroundThreadWithRunLoop("axEvents", .userInteractive)
         // we listen to as any keyboard events as possible on a background thread, as it's more available/reliable than the main thread
-        keyboardAndMouseAndTrackpadEventsThread = BackgroundThreadWithRunLoop("inputDevices", .userInteractive)
+        keyboardAndMouseAndTrackpadEventsThread = BackgroundThreadWithRunLoop(
+            "inputDevices", .userInteractive)
         // we main Mission Control state on a background thread. We protect reads from main-thread with an NSLock
         missionControlThread = BackgroundThreadWithRunLoop("missionControl", .userInteractive)
         // we listen to CLI commands (CFMessagePort events)
         cliEventsThread = BackgroundThreadWithRunLoop("cliMessages", .userInteractive)
-       // logThreadsAndQueuesOnRepeat()
+        // logThreadsAndQueuesOnRepeat()
     }
 
     static func startCrashReportsQueue() {
@@ -70,27 +73,36 @@ class BackgroundWork {
     // useful during development to inspect how many threads are used by AltTab
     private static func logThreadsAndQueuesOnRepeat() {
         // if Logger.decideLevel() == .debug {
-            debugMenu = DebugMenu([screenshotsQueue, accessibilityCommandsQueue, axCallsFirstAttemptQueue, axCallsRetriesQueue, axCallsManualDiscoveryQueue])
-            debugMenu.orderFront(nil)
-            debugMenu.start()
-            // Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            //     logThreads()
-            //     logQueues()
-            // }
+        debugMenu = DebugMenu([
+            screenshotsQueue, accessibilityCommandsQueue, axCallsFirstAttemptQueue,
+            axCallsRetriesQueue, axCallsManualDiscoveryQueue,
+        ])
+        debugMenu.orderFront(nil)
+        debugMenu.start()
+        // Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+        //     logThreads()
+        //     logQueues()
+        // }
         // }
     }
 
-    private static func logQueues() -> Void {
-        let queues = [screenshotsQueue, accessibilityCommandsQueue, axCallsFirstAttemptQueue, axCallsRetriesQueue, crashReportsQueue].compactMap { $0 }
-        var map = [String:Int]()
+    private static func logQueues() {
+        let queues = [
+            screenshotsQueue, accessibilityCommandsQueue, axCallsFirstAttemptQueue,
+            axCallsRetriesQueue, crashReportsQueue,
+        ].compactMap { $0 }
+        var map = [String: Int]()
         for queue in queues {
-            map[queue.underlyingQueue!.label] = queue.operations.reduce(0) { $1.isExecuting ? $0 + 1 : $0 }
+            map[queue.underlyingQueue!.label] = queue.operations.reduce(0) {
+                $1.isExecuting ? $0 + 1 : $0
+            }
         }
-        let prettyPrintMap = map.sorted { $0.key < $1.key }.map { "\($0.key): \($0.value)" }.joined(separator: ", ")
+        let prettyPrintMap = map.sorted { $0.key < $1.key }.map { "\($0.key): \($0.value)" }.joined(
+            separator: ", ")
         Logger.debug { prettyPrintMap }
     }
 
-    private static func logThreads() -> Void {
+    private static func logThreads() {
         var count: mach_msg_type_number_t = 0
         var threadList: thread_act_array_t?
         let kr = task_threads(mach_task_self_, &threadList, &count)
@@ -111,7 +123,8 @@ class BackgroundWork {
                 }
             }
         }
-        vm_deallocate(mach_task_self_,
+        vm_deallocate(
+            mach_task_self_,
             vm_address_t(bitPattern: threads),
             vm_size_t(count) * vm_size_t(MemoryLayout<thread_t>.size))
         Logger.info { "\(namedThreads.count) named threads:\(namedThreads.sorted())" }
@@ -167,7 +180,7 @@ class LabeledOperationQueue: OperationQueue, @unchecked Sendable {
         self.underlyingQueue = strongUnderlyingQueue
     }
 
-    override func addOperation(_ block: @escaping () -> ()) {
+    override func addOperation(_ block: @escaping () -> Void) {
         super.addOperation(block)
     }
 

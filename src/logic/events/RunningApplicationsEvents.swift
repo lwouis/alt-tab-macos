@@ -6,7 +6,9 @@ class RunningApplicationsEvents {
     static func observe() {
         // we can't observe NSWorkspace.didLaunchApplicationNotification or NSWorkspace.didTerminateApplicationNotification
         // these only trigger for some apps, mostly GUI app. We need to track all processes as any could spawn a window
-        appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: { (_, change) in handleEvent(change) })
+        appsObserver = NSWorkspace.shared.observe(
+            \.runningApplications, options: [.old, .new],
+            changeHandler: { (_, change) in handleEvent(change) })
     }
 
     private static func handleEvent(_ change: NSKeyValueObservedChange<[NSRunningApplication]>) {
