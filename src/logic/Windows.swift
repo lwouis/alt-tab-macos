@@ -102,7 +102,7 @@ class Windows {
         }
         refreshWhichWindowsToShowTheUser()
         sort()
-        if !list.contains { $0.shouldShowTheUser } { return false }
+        if !list.contains(where: { $0.shouldShowTheUser }) { return false }
         return true
     }
 
@@ -179,7 +179,8 @@ class Windows {
                         })
                     && !(Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
                         && !window.isOnScreen(NSScreen.preferred))
-                    && (Preferences.showTabsAsWindows || !window.isTabbed))
+                    && (Preferences.tabsToShow[App.app.shortcutIndex] == .always
+                        || !window.isTabbed))
     }
 
     /// Selects the most appropriate main window from a given list of windows.
