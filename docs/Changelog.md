@@ -1,3 +1,11 @@
+## [8.3.4](https://github.com/lwouis/alt-tab-macos/compare/v8.3.3...v8.3.4) (2026-01-31)
+
+
+### Bug Fixes
+
+* app could sometimes crash in the background ([ab704dc](https://github.com/lwouis/alt-tab-macos/commit/ab704dc)), closes [#5260](https://github.com/lwouis/alt-tab-macos/issues/5260)
+* quitting apps by pressing q multiple times (closes [#5247](https://github.com/lwouis/alt-tab-macos/issues/5247)) ([21aeafd](https://github.com/lwouis/alt-tab-macos/commit/21aeafd))
+
 ## [8.3.3](https://github.com/lwouis/alt-tab-macos/compare/v8.3.2...v8.3.3) (2026-01-25)
 
 
