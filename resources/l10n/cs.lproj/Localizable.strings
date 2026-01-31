@@ -124,16 +124,24 @@
 "Miscellaneous:" = "Různé:";
 "Mouse hover" = "Najetí myši";
 "Multiple screens" = "Více obrazovek";
+"Never" = "Nikdy";
 "Never send crash reports" = "Nikdy neposílat hlášení o pádu";
+"Non-active apps" = "Neaktivní appky";
 "Normal" = "Normální";
 "Not allowed" = "Nepovoleno";
 "NSHumanReadableCopyright" = "Licence GPL-3.0";
 "Only if the window is fullscreen" = "Jen pokud je okno na celou obrazovku";
+"Only on different screen" = "Pouze na jiné obrazovce";
 "Open Accessibility Preferences…" = "Otevřít volby Zpřístupnění…";
+"Open Accessibility Settings…" = "Otevřít nastavení přístupnosti…";
 "Open Screen Recording Preferences…" = "Otevřít nastavení oprávnění nahrávání obrazovky…";
+"Open Screen Recording Settings…" = "Otevřít nastavení nahrávání obrazovky…";
+"Open System Settings to confirm, and continue" = "Otevřít Systémová Nastavení pro potvrzení, a pokračovat";
 "Open Trackpad Preferences…" = "Otevřít předvolby trackpadu…";
+"Open Trackpad Settings…" = "Otevřít nastavení trackpadu…";
 "Optional: email (if you want a reply)" = "Volitelně: e-mail (pokud chcete odpověď)";
 "Order windows by" = "Seřadit okna podle";
+"Please fill in the form" = "Prosím vyplňte formulář";
 "Policies" = "Zásady";
 "Preferences…" = "Nastavení…";
 "Preview selected window" = "Zobrazit náhled vybraného okna";
@@ -149,6 +157,8 @@
 "Remember my choice" = "Zapamatovat si mou volbu";
 "Reset preferences and restart" = "Obnovit předvolby a restartovat";
 "Reset preferences and restart…" = "Obnovit předvolby a restartovat…";
+"Reset settings and restart" = "Obnovit nastavení a restartovat";
+"Reset settings and restart…" = "Obnovit nastavení a restartovat…";
 "Restart Now" = "Restartovat nyní";
 "Rows of thumbnails:" = "Řádky náhledů:";
 "Screen including menu bar" = "Obrazovka včetně panelu nabídek";
@@ -166,6 +176,7 @@
 "Send debug profile (CPU, memory, etc)" = "Odeslat diagnostická data (CPU, paměť atd.)";
 "Send feedback" = "Odeslat zpětnou vazbu";
 "Send feedback…" = "Odeslat zpětnou vazbu…";
+"Settings…" = "Nastavení";
 "Share improvement ideas, or report bugs" = "Navrhněte vylepšení nebo nahlaste chybu";
 "Shortcut 1" = "Zkratka 1";
 "Shortcut 2" = "Zkratka 2";
@@ -178,6 +189,7 @@
 "Show" = "Zobrazit";
 "Show & Hide" = "Zobrazit a skrýt";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "Zobrazit položku v přepínači pro každé okno, nebo pro každou aplikaci. Okna budou aktivována jako zaměřená, zatímco aplikace budou spouštěny.";
+"Show apps with no open window" = "Zobrazit appky bez otevřeného okna";
 "Show at the end" = "Zobrazit na konci";
 "Show fullscreen windows" = "Zobrazit okna na celé obrazovce";
 "Show hidden windows" = "Zobrazit skrytá okna";
@@ -208,6 +220,9 @@
 "Switch between 3 different styles. You can customize them." = "Přepínejte mezi 3 různými styly. Můžete si je upravit.";
 "System" = "Systém";
 "System Default" = "Výchozí nastavení systému";
+"The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "Zkratka ⌘⎋ (command+escape) může být použita macOS pro GameOverlay.\n\nVaŠe změna jí nastaví na : %@.\n\nPro pokračování, se ujistěte, že zkratka GameOverlay je vypnuta.\nDbejte také, že macOS hlásí chyby kdy zkratka GameOverlay může stále ovlivňovat chování i při jejím vypnutí.";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Klávesa ⎋ (escape) je rezervována některými macOS zkratkami (např. ⌘⌥⎋ zobrazí okno vynuceného ukončení aplikací).\n\nPokud chcete použít ⎋, ujistěte se, že modifikátory Přidržení nejsou: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "Klávesa ⎋ (escape) je rezervována některými macOS zkratkami (např. ⌘⌥⎋ zobrazí okno vynuceného ukončení aplikací).\n\nVaŠe změna jí nastaví na : %@.\n\nPokud chcete použít ⎋, ujistěte se, že modifikátory Přidržení nejsou: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃";
 "The application needs to restart to apply the language change." = "Aplikace se musí restartovat, aby se změna jazyka projevila.";
 "Theme" = "Motiv";
 "Theme:" = "Motiv:";
@@ -219,6 +234,7 @@
 "Title" = "Název";
 "Title truncation" = "Zkrácení názvu";
 "Titles" = "Názvy";
+"Trackpad haptic feedback" = "Haptická zpětná vazba trackpadu";
 "Trigger shortcut" = "Spouštěcí zkratka";
 "Unassign existing shortcut and continue" = "Odebrat existující zkratku a pokračovat";
 "Updates policy" = "Zásady aktualizací";
