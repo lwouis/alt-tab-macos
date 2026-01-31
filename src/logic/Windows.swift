@@ -73,22 +73,63 @@ class Windows {
 
     static func updatesBeforeShowing() -> Bool {
         if list.count == 0 || MissionControl.state() == .showAllWindows || MissionControl.state() == .showFrontWindows { return false }
-        // TODO: find a way to update space info when spaces are changed, instead of on every trigger
-        // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
-        // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
-        Spaces.refresh()
-        let spaceIdsAndIndexes = Spaces.idsAndIndexes.map { $0.0 }
-        lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
-        lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
-        for window in list {
-            detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
-            window.updateSpacesAndScreen()
-            refreshIfWindowShouldBeShownToTheUser(window)
+
+        return Logger.section("updatesBeforeShowing") { section in
+            section.log("Processing \(list.count) windows")
+
+            // TODO: find a way to update space info when spaces are changed, instead of on every trigger
+            // workaround: when Preferences > Mission Control > "Displays have separate Spaces" is unchecked,
+            // switching between displays doesn't trigger .activeSpaceDidChangeNotification; we get the latest manually
+            section.step("Spaces.refresh") {
+                Spaces.refresh()
+            }
+
+            let spaceIdsAndIndexes = Spaces.idsAndIndexes.map { $0.0 }
+            lazy var cgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes)
+            lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
+
+            // Build window→spaces mapping once instead of querying each window individually
+            // This makes O(number of spaces) API calls instead of O(number of windows)
+            // Typically 2-10 spaces vs 64 windows = 6-30x fewer WindowServer API calls!
+            let windowToSpacesMap = section.step("Build window→spaces map") {
+                return Spaces.buildWindowToSpacesMap()
+            }
+
+            section.step("Window loop") {
+                var detectTabbedTime: Double = 0
+                var updateSpacesTime: Double = 0
+                var refreshShouldShowTime: Double = 0
+
+                for window in list {
+                    let start1 = BaseLogger.preciseTimestamp()
+                    detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
+                    detectTabbedTime += BaseLogger.elapsedMilliseconds(from: start1)
+
+                    let start2 = BaseLogger.preciseTimestamp()
+                    window.updateSpacesAndScreen(windowToSpacesMap: windowToSpacesMap)
+                    updateSpacesTime += BaseLogger.elapsedMilliseconds(from: start2)
+
+                    let start3 = BaseLogger.preciseTimestamp()
+                    refreshIfWindowShouldBeShownToTheUser(window)
+                    refreshShouldShowTime += BaseLogger.elapsedMilliseconds(from: start3)
+                }
+
+                section.log("  - detectTabbedWindows total: \(String(format: "%.2f", detectTabbedTime))ms")
+                section.log("  - updateSpacesAndScreen total: \(String(format: "%.2f", updateSpacesTime))ms")
+                section.log("  - refreshIfWindowShouldBeShownToTheUser total: \(String(format: "%.2f", refreshShouldShowTime))ms")
+            }
+
+            section.step("refreshWhichWindowsToShowTheUser") {
+                refreshWhichWindowsToShowTheUser()
+            }
+
+            section.step("sort") {
+                sort()
+            }
+
+            if (!list.contains { $0.shouldShowTheUser }) { return false }
+            return true
         }
-        refreshWhichWindowsToShowTheUser()
-        sort()
-        if (!list.contains { $0.shouldShowTheUser }) { return false }
-        return true
     }
 
     // dispatch screenshot requests off the main-thread, then wait for completion
@@ -219,44 +260,68 @@ class Windows {
     }
 
     static func updateSelectedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
-        var index: Int?
-        if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
-            let oldIndex = hoveredWindowIndex
-            hoveredWindowIndex = newIndex
-            if let oldIndex {
-                ThumbnailsView.highlight(oldIndex)
+        Logger.section("updateSelectedAndHoveredWindowIndex") { section in
+            var index: Int?
+            if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
+                let oldIndex = hoveredWindowIndex
+                hoveredWindowIndex = newIndex
+                if let oldIndex {
+                    ThumbnailsView.highlight(oldIndex)
+                }
+                index = hoveredWindowIndex
+                lastWindowActivityType = .hover
             }
-            index = hoveredWindowIndex
-            lastWindowActivityType = .hover
+            if (!fromMouse || Preferences.mouseHoverEnabled)
+                   && (newIndex != selectedWindowIndex || lastWindowActivityType == .hover) {
+                let oldIndex = selectedWindowIndex
+                selectedWindowIndex = newIndex
+                selectedWindowTarget = list[newIndex].id
+
+                section.step("highlight(old)") {
+                    ThumbnailsView.highlight(oldIndex)
+                }
+
+                section.step("previewSelectedWindowIfNeeded") {
+                    previewSelectedWindowIfNeeded()
+                }
+
+                index = selectedWindowIndex
+                lastWindowActivityType = .focus
+            }
+            guard let index else { return }
+
+            section.step("highlight(new)") {
+                ThumbnailsView.highlight(index)
+            }
+
+            let focusedView = ThumbnailsView.recycledViews[index]
+
+            section.step("scrollToVisible") {
+                App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+            }
+
+            section.step("voiceOverWindow") {
+                voiceOverWindow(index)
+            }
         }
-        if (!fromMouse || Preferences.mouseHoverEnabled)
-               && (newIndex != selectedWindowIndex || lastWindowActivityType == .hover) {
-            let oldIndex = selectedWindowIndex
-            selectedWindowIndex = newIndex
-            selectedWindowTarget = list[newIndex].id
-            ThumbnailsView.highlight(oldIndex)
-            previewSelectedWindowIfNeeded()
-            index = selectedWindowIndex
-            lastWindowActivityType = .focus
-        }
-        guard let index else { return }
-        ThumbnailsView.highlight(index)
-        let focusedView = ThumbnailsView.recycledViews[index]
-        App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
-        voiceOverWindow(index)
     }
 
     static func cycleSelectedWindowIndex(_ step: Int, allowWrap: Bool = true) {
-        guard App.app.appIsBeingUsed else { return }
-        let nextIndex = selectedWindowIndexAfterCycling(step)
-        // don't wrap-around at the end, if key-repeat
-        if (((step > 0 && nextIndex < selectedWindowIndex) || (step < 0 && nextIndex > selectedWindowIndex)) &&
-            (!allowWrap || ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended))
-               // don't cycle to another row, if !allowWrap
-               || (!allowWrap && list[nextIndex].rowIndex != list[selectedWindowIndex].rowIndex) {
-            return
+        Logger.section("cycleSelectedWindowIndex") { section in
+            section.log("Tab pressed, step=\(step)")
+
+            guard App.app.appIsBeingUsed else { return }
+            let nextIndex = selectedWindowIndexAfterCycling(step)
+            // don't wrap-around at the end, if key-repeat
+            if (((step > 0 && nextIndex < selectedWindowIndex) || (step < 0 && nextIndex > selectedWindowIndex)) &&
+                (!allowWrap || ATShortcut.lastEventIsARepeat || !KeyRepeatTimer.timerIsSuspended))
+                   // don't cycle to another row, if !allowWrap
+                   || (!allowWrap && list[nextIndex].rowIndex != list[selectedWindowIndex].rowIndex) {
+                section.log("Skipped (constraints)")
+                return
+            }
+            updateSelectedAndHoveredWindowIndex(nextIndex)
         }
-        updateSelectedAndHoveredWindowIndex(nextIndex)
     }
 
     static func selectedWindowIndexAfterCycling(_ step: Int) -> Int {

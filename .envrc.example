@@ -1,0 +1,17 @@
+# Example environment variables for local development
+# Copy this file to .envrc (git-ignored) and fill in your values
+#
+# If using direnv (https://direnv.net/):
+#   cp .envrc.example .envrc
+#   # Edit .envrc with your values
+#   direnv allow
+#
+# Or add to your ~/.zshrc:
+#   export DEVELOPMENT_TEAM="XXXXXXXXXX"
+
+# Your Apple Developer Team ID
+# Find it at: https://developer.apple.com/account → Membership
+export DEVELOPMENT_TEAM="XXXXXXXXXX"
+
+# Optional: Code signing identity (usually not needed, automatic signing will pick the right one)
+# export CODE_SIGN_IDENTITY="Apple Development"

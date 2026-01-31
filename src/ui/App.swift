@@ -199,13 +199,34 @@ class App: AppCenterApplication {
         CGWarpMouseCursorPosition(point)
     }
 
+    private var lastExternalEventRefreshTime: DispatchTime?
+    private let externalEventRefreshThrottle: TimeInterval = 0.15 // 150ms
+
     func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
+        Logger.perf("===== refreshOpenUi called, source: \(source) =====")
         Windows.refreshThumbnailsAsync(windowsToScreenshot, source, windowRemoved: windowRemoved)
         guard appIsBeingUsed else { return }
+
         if source == .refreshUiAfterExternalEvent {
+            // Throttle external events to prevent macOS 15.2 hang during rapid Tab presses
+            // caused by external accessibility events triggering hundreds of window list updates
+            // Note: refreshOpenUi is guaranteed to run on main thread, no queue needed
+            let now = DispatchTime.now()
+            if let lastRefresh = lastExternalEventRefreshTime {
+                let timeSinceLastRefresh = Double(now.uptimeNanoseconds - lastRefresh.uptimeNanoseconds) / 1_000_000_000
+                if timeSinceLastRefresh < externalEventRefreshThrottle {
+                    Logger.perf("refreshOpenUi: THROTTLED updatesBeforeShowing (last \(String(format: "%.0f", timeSinceLastRefresh * 1000))ms ago)")
+                    return
+                }
+            }
+            lastExternalEventRefreshTime = now
+
+            Logger.perf("refreshOpenUi: calling updatesBeforeShowing due to external event")
             if !Windows.updatesBeforeShowing() { hideUi(); return }
+            guard appIsBeingUsed else { return }
         }
-        guard appIsBeingUsed else { return }
+
+        // Update UI (runs for both external events and user-triggered events)
         Windows.updateSelectedWindow()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.updateContents()

@@ -320,8 +320,7 @@ class ThumbnailView: FlippedView {
     }
 
     private func updateAppIcon(_ element: Window, _ title: String) {
-        let appIconSize = ThumbnailView.iconSize()
-        appIcon.updateContents(.cgImage(element.icon), appIconSize)
+        appIcon.updateContents(.cgImage(element.icon), ThumbnailView.iconSize())
         appIcon.setAccessibilityLabel(title)
     }
 
@@ -342,8 +341,7 @@ class ThumbnailView: FlippedView {
                 thumbnail.updateContents(screenshot, thumbnailSize)
             } else {
                 // if no thumbnail, show appIcon instead
-                let thumbnailSize = ThumbnailView.thumbnailSize(element.icon?.size(), true)
-                thumbnail.updateContents(.cgImage(element.icon), thumbnailSize)
+                thumbnail.updateContents(.cgImage(element.icon), ThumbnailView.thumbnailSize(element.icon?.size(), true))
             }
             // for Accessibility > "speak items under the pointer"
             thumbnail.setAccessibilityLabel(element.title)
