@@ -62,8 +62,16 @@ class FrostedGlassEffectView: NSVisualEffectView, EffectView {
                 bezierPath.fill()
                 return true
             }
-            mask.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
-            mask.resizingMode = .stretch
+            if #available(macOS 10.14, *) {
+                mask.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
+                mask.resizingMode = .stretch
+            } else {
+                // workaround for an macOS 10.13 bug (see https://github.com/lwouis/alt-tab-macos/issues/5255#issuecomment-3825993340)
+                let insets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
+                let value = NSValue(edgeInsets: insets)
+                mask.setValue(value, forKey: "capInsets")
+                mask.setValue(NSImage.ResizingMode.stretch.rawValue, forKey: "resizingMode")
+            }
             maskImage = mask
         }
     }
