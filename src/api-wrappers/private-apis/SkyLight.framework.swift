@@ -199,3 +199,9 @@ func _SLPSSetFrontProcessWithOptions(_ psn: UnsafeMutablePointer<ProcessSerialNu
 /// * macOS 10.12+
 @_silgen_name("SLPSPostEventRecordTo") @discardableResult
 func SLPSPostEventRecordTo(_ psn: UnsafeMutablePointer<ProcessSerialNumber>, _ bytes: UnsafeMutablePointer<UInt8>) -> CGError
+
+/// returns windows associated with the provided window
+/// used for apps where the visible "main" window is part of a window group (child windows)
+/// * macOS 10.12+
+@_silgen_name("SLSCopyAssociatedWindows")
+func SLSCopyAssociatedWindows(_ cid: CGSConnectionID, _ wid: CGWindowID) -> CFArray
