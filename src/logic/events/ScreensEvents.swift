@@ -38,7 +38,7 @@ final class Debouncer {
             }
             // ScreensEvents: a screen added or removed can shuffle windows around Spaces; we refresh them
             // SpacesEvents: if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
-            App.app.refreshOpenUi(Windows.list, .refreshUiAfterExternalEvent)
+            App.app.refreshOpenUiAfterExternalEvent(Windows.list)
             Logger.info { "screens:\(NSScreen.screens.map { ($0.uuid() ?? "nil" as CFString, $0.frame) })" }
             Logger.info { "currentSpace:\(Spaces.currentSpaceIndex) (id:\(Spaces.currentSpaceId)) spaces:\(Spaces.screenSpacesMap)" }
         })

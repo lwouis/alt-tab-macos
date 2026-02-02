@@ -112,7 +112,7 @@ class Window {
                 view.thumbnail.updateContents(screenshot, thumbnailSize)
                 // if the thumbnail size has changed, we need to refresh the open UI
                 if newSize {
-                    App.app.refreshOpenUi([], .refreshOnlyThumbnailsAfterShowUi)
+                    App.app.refreshOpenUiAfterExternalEvent([])
                 }
             }
             App.app.previewPanel.updateIfShowing(cgWindowId, screenshot, position, size)

@@ -76,7 +76,7 @@ class Applications {
             // comparing pid here can fail here, as it can be already nil; we use isEqual here to avoid the issue
             list.removeAll { $0.runningApplication.isEqual(tApp) }
         }
-        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        App.app.refreshOpenUiAfterExternalEvent([])
     }
 
     static func refreshBadgesAsync() {

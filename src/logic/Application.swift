@@ -147,7 +147,7 @@ class Application: NSObject {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     if self.addWindowlessWindowIfNeeded() != nil {
-                        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+                        App.app.refreshOpenUiAfterExternalEvent([])
                     }
                 }
                 // workaround: some apps launch but take a while to create their window(s)
@@ -175,14 +175,14 @@ class Application: NSObject {
         let window = Window(self)
         Windows.appendWindow(window)
         focusedWindow = nil
-        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        App.app.refreshOpenUiAfterExternalEvent([])
         return window
     }
 
     func removeWindowlessAppWindow() {
         guard let windowlessAppWindow = (Windows.list.first { $0.isWindowlessApp == true && $0.application.pid == pid }) else { return }
         Windows.removeWindows([windowlessAppWindow], false)
-        App.app.refreshOpenUi([], .refreshUiAfterExternalEvent)
+        App.app.refreshOpenUiAfterExternalEvent([])
     }
 
     func hideOrShow() {

@@ -47,7 +47,7 @@ class AccessibilityEvents {
             App.app.checkIfShortcutsShouldBeDisabled(nil, app)
             if let windowless = (Windows.list.first { $0.isWindowlessApp && $0.application.pid == pid }) {
                 if let windows = Windows.updateLastFocusOrder(windowless) {
-                    App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+                    App.app.refreshOpenUiAfterExternalEvent(windows)
                 }
             }
         }
@@ -62,7 +62,7 @@ class AccessibilityEvents {
         // if we process the "shown" event too fast, the window won't be listed by CGSCopyWindowsWithOptionsAndTags
         // it will thus be detected as isTabbed. We add a delay to work around this scenario
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-            App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+            App.app.refreshOpenUiAfterExternalEvent(windows)
         }
     }
 
@@ -102,7 +102,7 @@ class AccessibilityEvents {
             } else if type == kAXWindowResizedNotification || type == kAXWindowMovedNotification {
                 windowResizedOrMoved(window)
             } else {
-                App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+                App.app.refreshOpenUiAfterExternalEvent([window])
             }
         }
     }
@@ -122,12 +122,12 @@ class AccessibilityEvents {
         window.application.focusedWindow = window
         App.app.checkIfShortcutsShouldBeDisabled(window, nil)
         if let windows = Windows.updateLastFocusOrder(window) {
-            App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+            App.app.refreshOpenUiAfterExternalEvent(windows)
         }
     }
 
     private static func windowResizedOrMoved(_ window: Window) {
         window.updateSpacesAndScreen()
-        App.app.refreshOpenUi([window], .refreshUiAfterExternalEvent)
+        App.app.refreshOpenUiAfterExternalEvent([window])
     }
 }
