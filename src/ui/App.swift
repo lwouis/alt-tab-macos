@@ -32,6 +32,8 @@ class App: AppCenterApplication {
     private var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
     private var delayedDisplayScheduled = 0
+    private var lastRefreshTimeInNanoseconds = DispatchTime.now().uptimeNanoseconds
+    private var nextRefreshScheduled = false
 
     override init() {
         super.init()
@@ -201,20 +203,37 @@ class App: AppCenterApplication {
 
     func refreshOpenUi(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
         Windows.refreshThumbnailsAsync(windowsToScreenshot, source, windowRemoved: windowRemoved)
-        guard appIsBeingUsed else { return }
-        if source == .refreshUiAfterExternalEvent {
-            if !Windows.updatesBeforeShowing() { hideUi(); return }
+        refreshOpenUiWithThrottling {
+            guard self.appIsBeingUsed else { return }
+            if source == .refreshUiAfterExternalEvent {
+                if !Windows.updatesBeforeShowing() { self.hideUi(); return }
+            }
+            guard self.appIsBeingUsed else { return }
+            Windows.updateSelectedWindow()
+            guard self.appIsBeingUsed else { return }
+            self.thumbnailsPanel.updateContents()
+            guard self.appIsBeingUsed else { return }
+            Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
+            guard self.appIsBeingUsed else { return }
+            Windows.previewSelectedWindowIfNeeded()
+            guard self.appIsBeingUsed else { return }
+            Applications.refreshBadgesAsync()
         }
-        guard appIsBeingUsed else { return }
-        Windows.updateSelectedWindow()
-        guard appIsBeingUsed else { return }
-        thumbnailsPanel.updateContents()
-        guard appIsBeingUsed else { return }
-        Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
-        guard appIsBeingUsed else { return }
-        Windows.previewSelectedWindowIfNeeded()
-        guard appIsBeingUsed else { return }
-        Applications.refreshBadgesAsync()
+    }
+
+    func refreshOpenUiWithThrottling( _ block: @escaping () -> Void) {
+        let timeSinceLastRefreshInSeconds = Float(DispatchTime.now().uptimeNanoseconds - lastRefreshTimeInNanoseconds) / 1_000_000
+        if timeSinceLastRefreshInSeconds >= 200 {
+            lastRefreshTimeInNanoseconds = DispatchTime.now().uptimeNanoseconds
+            block()
+            return
+        }
+        guard !nextRefreshScheduled else { return }
+        nextRefreshScheduled = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.210) {
+            self.nextRefreshScheduled = false
+            self.refreshOpenUiWithThrottling(block)
+        }
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int, _ forceDoNothingOnRelease_: Bool) {
@@ -347,6 +366,5 @@ extension App: NSApplicationDelegate {
 enum RefreshCausedBy {
     case showUi
     case refreshOnlyThumbnailsAfterShowUi
-    case refreshUiAfterThumbnailsHaveBeenRefreshed
     case refreshUiAfterExternalEvent
 }

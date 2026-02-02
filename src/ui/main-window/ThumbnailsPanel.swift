@@ -3,7 +3,6 @@ import Cocoa
 class ThumbnailsPanel: NSPanel {
     var thumbnailsView = ThumbnailsView()
     override var canBecomeKey: Bool { true }
-    private var didDisplayOnce = false
     static var maxPossibleThumbnailSize = NSSize.zero
     static var maxPossibleAppIconSize = NSSize.zero
 
@@ -45,7 +44,6 @@ class ThumbnailsPanel: NSPanel {
     }
 
     override func orderOut(_ sender: Any?) {
-        didDisplayOnce = false
         if Preferences.fadeOutAnimation {
             NSAnimationContext.runAnimationGroup(
                 { _ in animator().alphaValue = 0 },
@@ -53,16 +51,6 @@ class ThumbnailsPanel: NSPanel {
             )
         } else {
             super.orderOut(sender)
-        }
-    }
-
-    override func displayIfNeeded() {
-        super.displayIfNeeded()
-        if !didDisplayOnce {
-            didDisplayOnce = true
-            DispatchQueue.main.async {
-                Applications.manuallyRefreshAllWindows()
-            }
         }
     }
 
@@ -134,6 +122,7 @@ extension ThumbnailsPanel: NSWindowDelegate {
         // this avoids command+q from quitting AltTab itself, or command+p from printing
         DispatchQueue.main.async {
             MainMenu.toggle(enabled: false)
+            Applications.manuallyRefreshAllWindows()
         }
     }
 }
