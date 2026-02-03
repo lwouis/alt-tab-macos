@@ -122,6 +122,8 @@ extension ThumbnailsPanel: NSWindowDelegate {
         // this avoids command+q from quitting AltTab itself, or command+p from printing
         DispatchQueue.main.async {
             MainMenu.toggle(enabled: false)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             Applications.manuallyRefreshAllWindows()
         }
     }
