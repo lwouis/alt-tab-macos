@@ -89,7 +89,8 @@ class AccessibilityEvents {
                 windowDestroyed(element, pid, wid)
                 return
             }
-            guard let window = Windows.findOrCreate(element, wid, app, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized) else {
+            let findOrCreate = Windows.findOrCreate(element, wid, app, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
+            guard let window = findOrCreate.0 else {
                 // we don't know this window, but it got focused, so let's update app.focusedWindow with nil
                 if type == kAXFocusedWindowChangedNotification {
                     app.focusedWindow = nil

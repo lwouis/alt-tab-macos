@@ -162,8 +162,18 @@ class Application: NSObject {
             }
             for axWindow in axWindows {
                 let wid = try axWindow.cgWindowId()
-                guard wid != 0 else { continue } // some bogus "windows" have wid 0
-                try AccessibilityEvents.handleEventWindow(kAXWindowCreatedNotification, wid, pid, axWindow)
+                guard wid != 0 && wid != App.app.thumbnailsPanel.windowNumber  else { continue } // some bogus "windows" have wid 0
+                let level = wid.level()
+                let a = try axWindow.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    let findOrCreate = Windows.findOrCreate(axWindow, wid, self, level, a.title, a.subrole, a.role, a.size, a.position, a.isFullscreen, a.isMinimized)
+                    guard let window = findOrCreate.0 else { return }
+                    if findOrCreate.1 {
+                        Logger.info { "manuallyUpdateWindows found a new window:\(window.debugId)" }
+                        App.app.refreshOpenUiAfterExternalEvent([window])
+                    }
+                }
             }
         }
     }
