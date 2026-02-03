@@ -33,6 +33,7 @@ class ThumbnailView: FlippedView {
     var isLastInRow = false
     var indexInRow = 0
     var numberOfViewsInRow = 0
+    private var lastLabelWidth: CGFloat = -1
 
     var windowControlIcons: [TrafficLightButton] { [quitIcon, closeIcon, minimizeIcon, maximizeIcon] }
     var windowIndicatorIcons: [ThumbnailFontIconView] { [hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon] }
@@ -377,46 +378,46 @@ class ThumbnailView: FlippedView {
     private func updateSizes(_ newHeight: CGFloat) {
         setFrameWidthHeight(newHeight)
         if Preferences.appearanceStyle == .appIcons {
-            vStackView.frame.size = NSSize(width: frame.width, height: appIcon.frame.height + Appearance.edgeInsetsSize * 2)
-            hStackView.frame.size = NSSize(width: appIcon.frame.width, height: appIcon.frame.height)
+            assignIfDifferent(&vStackView.frame.size, NSSize(width: frame.width, height: appIcon.frame.height + Appearance.edgeInsetsSize * 2))
+            assignIfDifferent(&hStackView.frame.size, NSSize(width: appIcon.frame.width, height: appIcon.frame.height))
         } else {
-            vStackView.frame.size = NSSize(width: frame.width, height: frame.height)
-            hStackView.frame.size = NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, label.fittingSize.height))
+            assignIfDifferent(&vStackView.frame.size, NSSize(width: frame.width, height: frame.height))
+            assignIfDifferent(&hStackView.frame.size, NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, label.fittingSize.height)))
             let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorsSpace()
             label.setWidth(labelWidth)
         }
     }
 
     private func updatePositions(_ newHeight: CGFloat) {
-        hStackView.frame.origin = NSPoint(x: Appearance.edgeInsetsSize, y: Appearance.edgeInsetsSize)
+        assignIfDifferent(&hStackView.frame.origin, NSPoint(x: Appearance.edgeInsetsSize, y: Appearance.edgeInsetsSize))
         if Preferences.appearanceStyle != .appIcons {
-            appIcon.frame.origin.x = App.shared.userInterfaceLayoutDirection == .leftToRight
+            assignIfDifferent(&appIcon.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
                 ? 0
-                : hStackView.frame.width - appIcon.frame.width
+                : hStackView.frame.width - appIcon.frame.width)
             let iconWidth = windowIndicatorIcons.first!.fittingSize.width
             var indicatorSpace = CGFloat(0)
             for icon in windowIndicatorIcons {
                 if !icon.isHidden {
                     indicatorSpace += iconWidth
                     icon.centerFrameInParent(y: true)
-                    icon.frame.origin.x = App.shared.userInterfaceLayoutDirection == .leftToRight
+                    assignIfDifferent(&icon.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
                         ? hStackView.frame.width - indicatorSpace
-                        : indicatorSpace - iconWidth
+                        : indicatorSpace - iconWidth)
                 }
             }
             let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorSpace
-            label.frame.origin.x = App.shared.userInterfaceLayoutDirection == .leftToRight
+            assignIfDifferent(&label.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
                 ? appIcon.frame.maxX + Appearance.appIconLabelSpacing
-                : hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth
+                : hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth)
             label.centerFrameInParent(y: true)
         }
         if Preferences.appearanceStyle == .thumbnails {
-            thumbnail.frame.origin = NSPoint(x: Appearance.edgeInsetsSize, y: hStackView.frame.maxY + Appearance.intraCellPadding)
+            assignIfDifferent(&thumbnail.frame.origin, NSPoint(x: Appearance.edgeInsetsSize, y: hStackView.frame.maxY + Appearance.intraCellPadding))
             thumbnail.centerFrameInParent(x: true)
             var xOffset = CGFloat(3)
             var yOffset = thumbnail.frame.height - CGFloat(2)
             for icon in windowControlIcons {
-                icon.frame.origin = NSPoint(x: xOffset, y: yOffset - TrafficLightButton.size)
+                assignIfDifferent(&icon.frame.origin, NSPoint(x: xOffset, y: yOffset - TrafficLightButton.size))
                 xOffset += TrafficLightButton.size + TrafficLightButton.spacing
                 if xOffset + TrafficLightButton.size > thumbnail.frame.width {
                     xOffset = 3
@@ -440,8 +441,8 @@ class ThumbnailView: FlippedView {
         // we set dockLabelIcon origin, without checking if .isHidden
         // This is because its updated async. We need it positioned correctly always
         let (offsetX, offsetY) = dockLabelOffset()
-        dockLabelIcon.frame.origin.x = appIcon.frame.maxX - (dockLabelIcon.fittingSize.width * offsetX).rounded()
-        dockLabelIcon.frame.origin.y = appIcon.frame.maxY - (dockLabelIcon.fittingSize.height * offsetY).rounded()
+        assignIfDifferent(&dockLabelIcon.frame.origin.x, appIcon.frame.maxX - (dockLabelIcon.fittingSize.width * offsetX).rounded())
+        assignIfDifferent(&dockLabelIcon.frame.origin.y, appIcon.frame.maxY - (dockLabelIcon.fittingSize.height * offsetY).rounded())
     }
 
     /// positioning the dock label is messy because it's an NSTextField so it's visual size doesn't match what we can through APIs

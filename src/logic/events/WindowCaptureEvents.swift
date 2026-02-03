@@ -9,10 +9,13 @@ class WindowCaptureScreenshots {
     static func oneTimeScreenshots(_ windowsToScreenshot: [Window], _ source: RefreshCausedBy) {
         let windows = windowsToScreenshot.compactMap { $0.cgWindowId }
         guard !windows.isEmpty else { return }
-        let (cachedWindows, notCachedWindows) = sortCachedAndNotCached(windows)
-        Logger.debug { "cached:\(cachedWindows.map { $0.windowID }) notCached:\(notCachedWindows)" }
-        handleCachedWindows(cachedWindows, source)
-        handleNotCachedWindows(notCachedWindows, source)
+        BackgroundWork.screenshotsQueue.addOperation {
+            guard source != .refreshOnlyThumbnailsAfterShowUi || App.app.appIsBeingUsed else { return }
+            let (cachedWindows, notCachedWindows) = sortCachedAndNotCached(windows)
+            Logger.debug { "cached:\(cachedWindows.map { $0.windowID }) notCached:\(notCachedWindows)" }
+            handleCachedWindows(cachedWindows, source)
+            handleNotCachedWindows(notCachedWindows, source)
+        }
     }
 
     private static func handleCachedWindows(_ cachedWindows: [SCWindow], _ source: RefreshCausedBy) {
@@ -28,7 +31,7 @@ class WindowCaptureScreenshots {
             guard let shareableContent, error == nil else { Logger.error { "\(shareableContent == nil) \(error)" }; return }
             guard source != .refreshOnlyThumbnailsAfterShowUi || App.app.appIsBeingUsed else { return }
             // this callback is executed on an undetermined queue; we move execution to main-thread
-            DispatchQueue.main.async {
+            BackgroundWork.screenshotsQueue.addOperation {
                 cachedSCWindows = shareableContent.windows
                 guard source != .refreshOnlyThumbnailsAfterShowUi || App.app.appIsBeingUsed else { return }
                 for notCachedWindow in notCachedWindows {

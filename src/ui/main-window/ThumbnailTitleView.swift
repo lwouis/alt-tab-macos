@@ -1,6 +1,8 @@
 import Cocoa
 
 class ThumbnailTitleView: NSTextField {
+    private var currentWidth: CGFloat = -1
+
     convenience init(font: NSFont) {
         self.init(labelWithString: "")
         self.font = font
@@ -16,6 +18,8 @@ class ThumbnailTitleView: NSTextField {
     }
 
     func setWidth(_ width: CGFloat) {
+        guard currentWidth != width else { return }
+        currentWidth = width
         frame.size.width = width
         // TODO: NSTextField does some internal magic, and ends up with constraints.
         // we can't use addOrUpdateConstraint for some reason, otherwise it will only actually apply after the UI is shown twice

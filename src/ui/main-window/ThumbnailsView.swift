@@ -4,6 +4,7 @@ class ThumbnailsView {
     var scrollView: ScrollView!
     var contentView: EffectView!
     var rows = [[ThumbnailView]]()
+    private var lastRowSignature = [Int]()
     static var recycledViews = [ThumbnailView]()
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
@@ -94,24 +95,27 @@ class ThumbnailsView {
 
     func updateItemsAndLayout() {
         let widthMax = ThumbnailsPanel.maxThumbnailsWidth().rounded()
-        if let (maxX, maxY, labelHeight) = layoutThumbnailViews(widthMax) {
+        if let (maxX, maxY, labelHeight, rowSignature) = layoutThumbnailViews(widthMax) {
             layoutParentViews(maxX, widthMax, maxY, labelHeight)
             if Preferences.alignThumbnails == .center {
                 centerRows(maxX)
             }
-            for row in rows {
-                for (j, view) in row.enumerated() {
-                    view.numberOfViewsInRow = row.count
-                    view.isFirstInRow = j == 0
-                    view.isLastInRow = j == row.count - 1
-                    view.indexInRow = j
+            if rowSignature != lastRowSignature {
+                for row in rows {
+                    for (j, view) in row.enumerated() {
+                        view.numberOfViewsInRow = row.count
+                        view.isFirstInRow = j == 0
+                        view.isLastInRow = j == row.count - 1
+                        view.indexInRow = j
+                    }
                 }
+                lastRowSignature = rowSignature
             }
             highlightStartView()
         }
     }
 
-    private func layoutThumbnailViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat)? {
+    private func layoutThumbnailViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat, [Int])? {
         let labelHeight = ThumbnailsView.recycledViews.first!.label.fittingSize.height
         let height = ThumbnailView.height(labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
@@ -121,6 +125,7 @@ class ThumbnailsView {
         var maxX = CGFloat(0)
         var maxY = currentY + height + Appearance.interCellPadding
         var newViews = [ThumbnailView]()
+        var rowSignature = [Int]()
         rows.removeAll(keepingCapacity: true)
         rows.append([ThumbnailView]())
         var index = 0
@@ -148,6 +153,7 @@ class ThumbnailsView {
                 }
                 rows[rows.count - 1].append(view)
                 newViews.append(view)
+                rowSignature.append(index)
                 window.rowIndex = rows.count - 1
             } else {
                 // release images from unused recycledViews; they take lots of RAM
@@ -156,7 +162,7 @@ class ThumbnailsView {
             }
         }
         scrollView.documentView!.subviews = newViews
-        return (maxX, maxY, labelHeight)
+        return (maxX, maxY, labelHeight, rowSignature)
     }
 
     private func needNewLine(_ projectedX: CGFloat, _ widthMax: CGFloat) -> Bool {

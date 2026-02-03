@@ -126,7 +126,7 @@ class ScreenRecordingPermission {
             SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { shareableContent, error in
                 // this callback runs on a GCD queue, not on the thread that called getWithCompletionHandler
                 if #available(macOS 14.0, *), let shareableContent, error == nil {
-                    DispatchQueue.main.async {
+                    BackgroundWork.screenshotsQueue.addOperation {
                         WindowCaptureScreenshots.cachedSCWindows = shareableContent.windows
                     }
                 }
