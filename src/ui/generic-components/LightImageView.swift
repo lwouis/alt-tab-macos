@@ -5,12 +5,14 @@ import Cocoa
 class LightImageView: NSView {
     private var outlineLayer: CAShapeLayer!
     private var handRaisedLayer: CALayer!
+    private let withTransparencyChecks: Bool
 
     required init?(coder: NSCoder) {
         fatalError("Class only supports programmatic initialization")
     }
 
-    override init(frame frameRect: NSRect) {
+    init(frame frameRect: NSRect = .zero, withTransparencyChecks: Bool = false) {
+        self.withTransparencyChecks = withTransparencyChecks
         super.init(frame: frameRect)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
@@ -88,7 +90,9 @@ class LightImageView: NSView {
         switch caLayerContents {
         case .cgImage(let image?):
             layer!.contents = image
-            fullyTransparent = image.iFullyTransparent()
+            if withTransparencyChecks {
+                fullyTransparent = image.isFullyTransparent()
+            }
         case .pixelBuffer(let pixelBuffer?):
             layer!.contents = CVPixelBufferGetIOSurface(pixelBuffer)?.takeUnretainedValue()
         default: break
@@ -96,8 +100,10 @@ class LightImageView: NSView {
         if frame.size != size {
             frame.size = size
         }
-        updateOutlineLayer(fullyTransparent)
-        updateHandRaisedLayer(fullyTransparent)
+        if withTransparencyChecks {
+            updateOutlineLayer(fullyTransparent)
+            updateHandRaisedLayer(fullyTransparent)
+        }
     }
 
     func releaseImage() {

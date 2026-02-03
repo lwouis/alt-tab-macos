@@ -5,7 +5,7 @@ class ThumbnailView: FlippedView {
     // when calculating the width of a nstextfield, somehow we need to add this suffix to get the correct width
     static let extraTextForPadding = "lmnopqrstuvw"
     var window_: Window?
-    var thumbnail = LightImageView()
+    var thumbnail = LightImageView(withTransparencyChecks: true)
     var appIcon = LightImageView()
     var label = ThumbnailTitleView(font: Appearance.font)
     var fullscreenIcon = ThumbnailFontIconView(symbol: .circledPlusSign, tooltip: NSLocalizedString("Window is fullscreen", comment: ""))

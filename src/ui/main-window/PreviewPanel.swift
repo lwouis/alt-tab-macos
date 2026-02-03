@@ -1,7 +1,7 @@
 import Cocoa
 
 class PreviewPanel: NSPanel {
-    private let previewView = LightImageView()
+    private let previewView = LightImageView(withTransparencyChecks: true)
     private let borderView = BorderView()
     private var currentId: CGWindowID?
 

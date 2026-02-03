@@ -223,7 +223,7 @@ extension CGImage {
         return NSSize(width: width, height: height)
     }
 
-    func iFullyTransparent() -> Bool {
+    func isFullyTransparent() -> Bool {
         guard ![.none, .noneSkipFirst, .noneSkipLast].contains(alphaInfo),
               let provider = dataProvider, let data = provider.data, let ptr = CFDataGetBytePtr(data)
         else { return false }
