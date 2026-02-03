@@ -73,13 +73,19 @@ class Application: NSObject {
         pid = runningApplication.processIdentifier
         isHidden = runningApplication.isHidden
         hasBeenActiveOnce = runningApplication.isActive
-        icon = Application.appIconWithoutPadding(runningApplication.icon)
         localizedName = runningApplication.localizedName
         bundleIdentifier = runningApplication.bundleIdentifier
         bundleURL = runningApplication.bundleURL
         executableURL = runningApplication.executableURL
         debugId = "(pid:\(pid) \(bundleIdentifier ?? bundleURL?.absoluteString ?? executableURL?.absoluteString ?? localizedName))"
         super.init()
+        BackgroundWork.screenshotsQueue.addOperation { [weak self] in
+            guard let self else { return }
+            let r = Application.appIconWithoutPadding(runningApplication.icon)
+            DispatchQueue.main.async { [weak self] in
+                self?.icon = r
+            }
+        }
         Logger.info { self.debugId }
         observeEventsIfEligible()
         kvObservers = [
