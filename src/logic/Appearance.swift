@@ -10,7 +10,8 @@ class Appearance {
     static var maxWidthOnScreen = CGFloat(1000)
     static var rowsCount = CGFloat(1000)
     static var iconSize = CGFloat(1000)
-    static var fontHeight = CGFloat(1000)
+    static var fontHeight = CGFloat(3)
+    static var font = NSFont.systemFont(ofSize: fontHeight)
     static var windowMinWidthInRow = CGFloat(1000)
     static var windowMaxWidthInRow = CGFloat(1000)
 
@@ -32,14 +33,6 @@ class Appearance {
     static var highlightHoveredBackgroundColor: NSColor { get { NSColor.systemAccentColor.withAlphaComponent(0.1) } }
     static var highlightFocusedBorderColor: NSColor { get { NSColor.systemAccentColor } }
     static var highlightHoveredBorderColor: NSColor { get { NSColor.systemAccentColor.withAlphaComponent(0.7) } }
-
-    // derived
-    static var font: NSFont {
-        if #available(macOS 26.0, *) {
-            return NSFont.systemFont(ofSize: fontHeight, weight: currentStyle == .appIcons ? .semibold : .medium)
-        }
-        return NSFont.systemFont(ofSize: fontHeight)
-    }
 
     private static var currentStyle: AppearanceStylePreference { Preferences.appearanceStyle }
     private static var currentSize: AppearanceSizePreference { Preferences.appearanceSize }
@@ -66,6 +59,7 @@ class Appearance {
         } else {
             thumbnailsSize(isHorizontalScreen)
         }
+        updateFont()
     }
 
     private static func updateTheme() {
@@ -169,6 +163,14 @@ class Appearance {
             case .large:
                 iconSize = 30
                 fontHeight = 16
+        }
+    }
+
+    private static func updateFont() {
+        if #available(macOS 26.0, *) {
+            font = NSFont.systemFont(ofSize: fontHeight, weight: currentStyle == .appIcons ? .semibold : .medium)
+        } else {
+            font = NSFont.systemFont(ofSize: fontHeight)
         }
     }
 
