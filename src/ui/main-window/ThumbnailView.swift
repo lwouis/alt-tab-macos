@@ -6,8 +6,8 @@ class ThumbnailView: FlippedView {
     static let extraTextForPadding = "lmnopqrstuvw"
 
     var window_: Window?
-    var thumbnail = LightImageView(withTransparencyChecks: true)
-    var appIcon = LightImageView()
+    var thumbnail = LightImageLayer(withTransparencyChecks: true)
+    var appIcon = LightImageLayer()
     var label = ThumbnailTitleView(font: Appearance.font)
     var statusIcons = StatusIconsView()
     var dockLabelIcon = ThumbnailFilledFontIconView(
@@ -165,13 +165,13 @@ class ThumbnailView: FlippedView {
 
     private func setupSharedSubviews() {
         let shadow = ThumbnailView.makeShadow(Appearance.imagesShadowColor)
-        thumbnail.layer!.masksToBounds = false // let thumbnail shadows show
-        thumbnail.shadow = shadow
-        appIcon.shadow = shadow
+        thumbnail.masksToBounds = false // let thumbnail shadows show
+        thumbnail.applyShadow(shadow)
+        appIcon.applyShadow(shadow)
         dockLabelIcon.shadow = shadow
-        appIcon.setSubviewAbove(dockLabelIcon)
+        layer!.addSublayer(appIcon)
+        addSubview(dockLabelIcon)
         label.fixHeight()
-        setSubviews([appIcon])
     }
 
     private func setupStyleSpecificSubviews() {
@@ -181,8 +181,9 @@ class ThumbnailView: FlippedView {
             label.alignment = .center
             label.isHidden = true
         } else if Preferences.appearanceStyle == .thumbnails {
-            addSubviews([thumbnail, label, statusIcons])
-            thumbnail.setSubviewAbove(windowlessAppIndicator)
+            layer!.addSublayer(thumbnail)
+            addSubviews([label, statusIcons])
+            setSubviewAbove(windowlessAppIndicator)
         } else {
             setSubviewAbove(windowlessAppIndicator)
             addSubviews([label, statusIcons])
@@ -260,7 +261,6 @@ class ThumbnailView: FlippedView {
     private func updateAppIcon(_ element: Window, _ title: String) {
         let appIconSize = ThumbnailView.iconSize()
         appIcon.updateContents(.cgImage(element.icon), appIconSize)
-        appIcon.setAccessibilityLabel(title)
     }
 
     private func updateValues(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
@@ -275,7 +275,6 @@ class ThumbnailView: FlippedView {
                 )
             ))
         )
-        thumbnail.toolTip = element.isWindowlessApp ? ThumbnailView.noOpenWindowToolTip : nil
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.size, false)
@@ -285,8 +284,6 @@ class ThumbnailView: FlippedView {
                 let thumbnailSize = ThumbnailView.thumbnailSize(element.icon?.size(), true)
                 thumbnail.updateContents(.cgImage(element.icon), thumbnailSize)
             }
-            // for Accessibility > "speak items under the pointer"
-            thumbnail.setAccessibilityLabel(element.title)
         }
         let title = getAppOrAndWindowTitle()
         let labelChanged = label.stringValue != title
@@ -342,10 +339,12 @@ class ThumbnailView: FlippedView {
         if Preferences.appearanceStyle == .thumbnails {
             let hHeight = max(appIcon.frame.height, ThumbnailsView.layoutCache.labelHeight)
             assignIfDifferent(&thumbnail.frame.origin, NSPoint(x: edgeInsets, y: edgeInsets + hHeight + Appearance.intraCellPadding))
-            thumbnail.centerFrameInParent(x: true)
+            thumbnail.centerInSuperlayer(x: true)
         }
         if !windowlessAppIndicator.isHidden {
-            if Preferences.appearanceStyle != .titles {
+            if Preferences.appearanceStyle == .thumbnails {
+                windowlessAppIndicator.frame.origin.x = thumbnail.frame.origin.x + ((thumbnail.frame.width - windowlessAppIndicator.frame.width) / 2).rounded()
+            } else if Preferences.appearanceStyle != .titles {
                 windowlessAppIndicator.centerFrameInParent(x: true)
             } else {
                 windowlessAppIndicator.frame.origin.x = ((appIcon.frame.width / 2) - (windowlessAppIndicator.frame.width / 2)).rounded()
@@ -354,7 +353,7 @@ class ThumbnailView: FlippedView {
             if Preferences.appearanceStyle != .thumbnails {
                 windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height + 5
             } else {
-                windowlessAppIndicator.frame.origin.y = -5
+                windowlessAppIndicator.frame.origin.y = thumbnail.frame.origin.y - 5
             }
         }
         // we set dockLabelIcon origin, without checking if .isHidden
@@ -432,9 +431,6 @@ class ThumbnailView: FlippedView {
     }
 
     private func observeDragAndDrop() {
-        // NSImageView instances are registered to drag-and-drop by default
-        thumbnail.unregisterDraggedTypes()
-        appIcon.unregisterDraggedTypes()
         // we only handle URLs (i.e. not text, image, or other draggable things)
         registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeURL as String)])
     }

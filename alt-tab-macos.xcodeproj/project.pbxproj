@@ -154,6 +154,7 @@
 		BF0C8973EC078169170F2634 /* CliEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8C69316EAAF6DC9AE391 /* CliEvents.swift */; };
 		BF0C898511686611E4D7D81E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8B2C057099EDABE46779 /* Button.swift */; };
 		BF0C8991399A3277A9A02FFA /* LightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8E63BE7394A6591E74E0 /* LightImageView.swift */; };
+		BF0C8992399A3277A9A02FFB /* LightImageLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8E64BE7394A6591E74E1 /* LightImageLayer.swift */; };
 		BF0C89B4B17D7843C32A102E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C8353097840D7DB1E0E2E /* Markdown.swift */; };
 		BF0C89C49CFBAAB4646BB8CB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C82A8848224E76B880A83 /* InfoPlist.strings */; };
 		BF0C89F0632E0A2EC52D9168 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C87749F1A64E2D3305181 /* InfoPlist.strings */; };
@@ -547,6 +548,7 @@
 		BF0C8E54658B4DAEA0528200 /* menubar-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar-2@2x.png"; sourceTree = "<group>"; };
 		BF0C8E5D2BD5F7F93DF77DF5 /* sk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sk; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8E63BE7394A6591E74E0 /* LightImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightImageView.swift; sourceTree = "<group>"; };
+		BF0C8E64BE7394A6591E74E1 /* LightImageLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightImageLayer.swift; sourceTree = "<group>"; };
 		BF0C8E7B087DCC97A454C0AE /* uk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = uk; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8E94CDFB672663333546 /* lt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = lt; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BF0C8E9D0B36A8872D5B7653 /* nb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nb; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -1503,6 +1505,7 @@
 				1C9617C5839903D752070CF2 /* ImageTextButtonView.swift */,
 				BF0C896FD4907CD85D62C124 /* WindowlessAppIndicator.swift */,
 				BF0C8E63BE7394A6591E74E0 /* LightImageView.swift */,
+				BF0C8E64BE7394A6591E74E1 /* LightImageLayer.swift */,
 				BF0C8DC2A355E29516DD2FAF /* CustomRecorderControlTestable.swift */,
 			);
 			path = "generic-components";
@@ -2540,6 +2543,7 @@
 				BF0C8973EC078169170F2634 /* CliEvents.swift in Sources */,
 				BF0C8521DA3078516615C414 /* HelperExtensionsTestable.swift in Sources */,
 				BF0C8991399A3277A9A02FFA /* LightImageView.swift in Sources */,
+				BF0C8992399A3277A9A02FFB /* LightImageLayer.swift in Sources */,
 				BF0C8F40C2D0FF7601D926D3 /* LightweightTimer.swift in Sources */,
 				BF0C88A9AB286CB7CDC1019E /* MainMenu.swift in Sources */,
 				BF0C826C7F8C5F68732FD75B /* DebugMenu.swift in Sources */,

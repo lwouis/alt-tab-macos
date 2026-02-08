@@ -89,6 +89,22 @@ extension NSColor {
     }
 }
 
+extension CALayer {
+    func centerInSuperlayer(x: Bool = false, y: Bool = false) {
+        guard let superlayer else { return }
+        if x { frame.origin.x = ((superlayer.bounds.width - frame.width) / 2).rounded() }
+        if y { frame.origin.y = ((superlayer.bounds.height - frame.height) / 2).rounded() }
+    }
+
+    func applyShadow(_ shadow: NSShadow?) {
+        guard let shadow else { shadowOpacity = 0; return }
+        shadowColor = shadow.shadowColor?.cgColor
+        shadowOffset = shadow.shadowOffset
+        shadowRadius = shadow.shadowBlurRadius
+        shadowOpacity = 1.0
+    }
+}
+
 extension NSView {
     // constrain size to fittingSize
     func fit() {
