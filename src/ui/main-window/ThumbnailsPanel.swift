@@ -64,7 +64,7 @@ class ThumbnailsPanel: NSPanel {
 
     static func maxThumbnailsWidth(_ screen: NSScreen = NSScreen.preferred) -> CGFloat {
         if Preferences.appearanceStyle == .titles,
-           let readableWidth = ThumbnailView.widthOfComfortableReadability() {
+           let readableWidth = ThumbnailsView.layoutCache.comfortableReadabilityWidth {
             return (
                 min(
                     screen.frame.width * Appearance.maxWidthOnScreen,

@@ -4,6 +4,11 @@ class ThumbnailTitleView: NSTextField {
     private var currentWidth: CGFloat = -1
     private var widthConstraint: NSLayoutConstraint?
 
+    // we set their size manually; override this to remove wasteful appkit-side work
+    override var intrinsicContentSize: NSSize {
+        return NSSize(width: NSView.noIntrinsicMetric, height: NSView.noIntrinsicMetric)
+    }
+
     convenience init(font: NSFont) {
         self.init(labelWithString: "")
         self.font = font

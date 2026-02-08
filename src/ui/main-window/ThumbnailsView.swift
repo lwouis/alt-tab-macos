@@ -24,6 +24,7 @@ class ThumbnailsView {
         layoutCache.iconWidth = iconFittingSize.width
         layoutCache.iconHeight = iconFittingSize.height
         layoutCache.dockLabelSize = firstView.dockLabelIcon.fittingSize
+        layoutCache.comfortableReadabilityWidth = ThumbnailView.widthOfComfortableReadability()
     }
 
     func updateBackgroundView() {
@@ -265,6 +266,7 @@ class ThumbnailsView {
         var iconWidth = CGFloat(0)
         var iconHeight = CGFloat(0)
         var dockLabelSize = NSSize.zero
+        var comfortableReadabilityWidth: CGFloat?
     }
 }
 

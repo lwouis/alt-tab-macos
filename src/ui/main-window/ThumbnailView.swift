@@ -114,7 +114,13 @@ class ThumbnailView: FlippedView {
 
     func mouseMoved() {
         showOrHideWindowControls(true)
+        updateLabelTooltipIfNeeded()
         mouseMovedCallback()
+    }
+
+    private func updateLabelTooltipIfNeeded() {
+        guard Preferences.appearanceStyle != .appIcons else { return }
+        label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
     }
 
     convenience init() {
@@ -125,10 +131,10 @@ class ThumbnailView: FlippedView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
         window_ = element
+        label.toolTip = nil
         updateValues(element, index, newHeight)
         updateSizes(newHeight)
         updatePositions(newHeight)
-        label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
     }
 
     func drawHighlight() {
