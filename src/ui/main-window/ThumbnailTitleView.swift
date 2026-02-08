@@ -2,6 +2,7 @@ import Cocoa
 
 class ThumbnailTitleView: NSTextField {
     private var currentWidth: CGFloat = -1
+    private var widthConstraint: NSLayoutConstraint?
 
     convenience init(font: NSFont) {
         self.init(labelWithString: "")
@@ -21,15 +22,13 @@ class ThumbnailTitleView: NSTextField {
         guard currentWidth != width else { return }
         currentWidth = width
         frame.size.width = width
-        // TODO: NSTextField does some internal magic, and ends up with constraints.
-        // we can't use addOrUpdateConstraint for some reason, otherwise it will only actually apply after the UI is shown twice
-        // i tried everything and ended up removing all constraints then adding a fresh one. This seems to work
-        let toRemove = constraints.filter {
-            ($0.firstItem as? NSView) === self && $0.firstAttribute == .width ||
-                ($0.secondItem as? NSView) === self && $0.secondAttribute == .width
+        if let widthConstraint {
+            widthConstraint.constant = width
+        } else {
+            let constraint = widthAnchor.constraint(equalToConstant: width)
+            constraint.isActive = true
+            widthConstraint = constraint
         }
-        toRemove.forEach { removeConstraint($0) }
-        widthAnchor.constraint(equalToConstant: width).isActive = true
     }
 
     override func mouseMoved(with event: NSEvent) {

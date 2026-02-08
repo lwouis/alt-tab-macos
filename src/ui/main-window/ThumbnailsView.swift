@@ -8,11 +8,22 @@ class ThumbnailsView {
     static var recycledViews = [ThumbnailView]()
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
+    static var layoutCache = LayoutCache()
 
     init() {
         updateBackgroundView()
         // TODO: think about this optimization more
         (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+        Self.updateCachedSizes()
+    }
+
+    static func updateCachedSizes() {
+        guard let firstView = ThumbnailsView.recycledViews.first else { return }
+        layoutCache.labelHeight = firstView.label.fittingSize.height
+        let iconFittingSize = firstView.windowIndicatorIcons.first!.fittingSize
+        layoutCache.iconWidth = iconFittingSize.width
+        layoutCache.iconHeight = iconFittingSize.height
+        layoutCache.dockLabelSize = firstView.dockLabelIcon.fittingSize
     }
 
     func updateBackgroundView() {
@@ -39,6 +50,7 @@ class ThumbnailsView {
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }
+        Self.updateCachedSizes()
     }
 
     static func highlight(_ indexInRecycledViews: Int) {
@@ -116,7 +128,7 @@ class ThumbnailsView {
     }
 
     private func layoutThumbnailViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat, [Int])? {
-        let labelHeight = ThumbnailsView.recycledViews.first!.label.fittingSize.height
+        let labelHeight = Self.layoutCache.labelHeight
         let height = ThumbnailView.height(labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
         let startingX = isLeftToRight ? Appearance.interCellPadding : widthMax - Appearance.interCellPadding
@@ -246,6 +258,13 @@ class ThumbnailsView {
                 ThumbnailsView.recycledViews[i].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
             }
         }
+    }
+
+    struct LayoutCache {
+        var labelHeight = CGFloat(0)
+        var iconWidth = CGFloat(0)
+        var iconHeight = CGFloat(0)
+        var dockLabelSize = NSSize.zero
     }
 }
 

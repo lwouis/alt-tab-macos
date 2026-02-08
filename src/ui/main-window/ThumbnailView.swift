@@ -4,6 +4,7 @@ class ThumbnailView: FlippedView {
     static let noOpenWindowToolTip = NSLocalizedString("App is running but has no open window", comment: "")
     // when calculating the width of a nstextfield, somehow we need to add this suffix to get the correct width
     static let extraTextForPadding = "lmnopqrstuvw"
+
     var window_: Window?
     var thumbnail = LightImageView(withTransparencyChecks: true)
     var appIcon = LightImageView()
@@ -310,7 +311,7 @@ class ThumbnailView: FlippedView {
             }
         }
         let xPosition = -leftOffset
-        let height = label.fittingSize.height
+        let height = ThumbnailsView.layoutCache.labelHeight
         let yPosition = hStackView.frame.origin.y + hStackView.frame.height + Appearance.intraCellPadding * 2
         label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
         label.setWidth(effectiveLabelWidth)
@@ -379,7 +380,7 @@ class ThumbnailView: FlippedView {
             assignIfDifferent(&hStackView.frame.size, NSSize(width: appIcon.frame.width, height: appIcon.frame.height))
         } else {
             assignIfDifferent(&vStackView.frame.size, NSSize(width: frame.width, height: frame.height))
-            assignIfDifferent(&hStackView.frame.size, NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, label.fittingSize.height)))
+            assignIfDifferent(&hStackView.frame.size, NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, ThumbnailsView.layoutCache.labelHeight)))
             let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorsSpace()
             label.setWidth(labelWidth)
         }
@@ -391,12 +392,12 @@ class ThumbnailView: FlippedView {
             assignIfDifferent(&appIcon.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
                 ? 0
                 : hStackView.frame.width - appIcon.frame.width)
-            let iconWidth = windowIndicatorIcons.first!.fittingSize.width
+            let iconWidth = ThumbnailsView.layoutCache.iconWidth
             var indicatorSpace = CGFloat(0)
             for icon in windowIndicatorIcons {
                 if !icon.isHidden {
                     indicatorSpace += iconWidth
-                    icon.centerFrameInParent(y: true)
+                    assignIfDifferent(&icon.frame.origin.y, ((hStackView.frame.height - ThumbnailsView.layoutCache.iconHeight) / 2).rounded())
                     assignIfDifferent(&icon.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
                         ? hStackView.frame.width - indicatorSpace
                         : indicatorSpace - iconWidth)
@@ -406,7 +407,7 @@ class ThumbnailView: FlippedView {
             assignIfDifferent(&label.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
                 ? appIcon.frame.maxX + Appearance.appIconLabelSpacing
                 : hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth)
-            label.centerFrameInParent(y: true)
+            assignIfDifferent(&label.frame.origin.y, ((hStackView.frame.height - ThumbnailsView.layoutCache.labelHeight) / 2).rounded())
         }
         if Preferences.appearanceStyle == .thumbnails {
             assignIfDifferent(&thumbnail.frame.origin, NSPoint(x: Appearance.edgeInsetsSize, y: hStackView.frame.maxY + Appearance.intraCellPadding))
@@ -438,8 +439,8 @@ class ThumbnailView: FlippedView {
         // we set dockLabelIcon origin, without checking if .isHidden
         // This is because its updated async. We need it positioned correctly always
         let (offsetX, offsetY) = dockLabelOffset()
-        assignIfDifferent(&dockLabelIcon.frame.origin.x, appIcon.frame.maxX - (dockLabelIcon.fittingSize.width * offsetX).rounded())
-        assignIfDifferent(&dockLabelIcon.frame.origin.y, appIcon.frame.maxY - (dockLabelIcon.fittingSize.height * offsetY).rounded())
+        assignIfDifferent(&dockLabelIcon.frame.origin.x, appIcon.frame.maxX - (ThumbnailsView.layoutCache.dockLabelSize.width * offsetX).rounded())
+        assignIfDifferent(&dockLabelIcon.frame.origin.y, appIcon.frame.maxY - (ThumbnailsView.layoutCache.dockLabelSize.height * offsetY).rounded())
     }
 
     /// positioning the dock label is messy because it's an NSTextField so it's visual size doesn't match what we can through APIs
@@ -469,8 +470,7 @@ class ThumbnailView: FlippedView {
     }
 
     private func indicatorsSpace() -> CGFloat {
-        let iconWidth = windowIndicatorIcons.first!.fittingSize.width
-        return CGFloat(windowIndicatorIcons.filter { !$0.isHidden }.count) * iconWidth
+        return CGFloat(windowIndicatorIcons.filter { !$0.isHidden }.count) * ThumbnailsView.layoutCache.iconWidth
     }
 
     private func getAppOrAndWindowTitle() -> String {
