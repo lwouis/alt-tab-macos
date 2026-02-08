@@ -63,14 +63,16 @@ class WindowCaptureScreenshots {
         let config = SCStreamConfiguration.forWindow(scWindow, window, false)
         let filter = SCContentFilter(desktopIndependentWindow: scWindow)
         ActiveWindowCaptures.increment()
-        SCScreenshotManager.captureImage(contentFilter: filter, configuration: config) { cgImage, error in
+        SCScreenshotManager.captureSampleBuffer(contentFilter: filter, configuration: config) { sampleBuffer, error in
             ActiveWindowCaptures.decrement()
-            guard let cgImage, error == nil else { Logger.error { "\(window.debugId) \(cgImage == nil) \(error)" }; return }
+            guard let sampleBuffer, error == nil else { Logger.error { "\(window.debugId) \(sampleBuffer == nil) \(error)" }; return }
             guard source != .refreshOnlyThumbnailsAfterShowUi || App.app.appIsBeingUsed else { return }
+            let pixelBuffer: CVPixelBuffer? = sampleBuffer.pixelBuffer() ?? sampleBuffer.imageBuffer
+            guard let pixelBuffer else { Logger.error { "\(window.debugId) no pixelBuffer" }; return }
             DispatchQueue.main.async {
                 guard source != .refreshOnlyThumbnailsAfterShowUi || App.app.appIsBeingUsed else { return }
                 if let window = (Windows.list.first { $0.cgWindowId == scWindow.windowID }) {
-                    window.refreshThumbnail(.cgImage(cgImage))
+                    window.refreshThumbnail(.pixelBuffer(pixelBuffer))
                 }
             }
         }
@@ -232,6 +234,7 @@ extension SCStreamConfiguration {
     static func forWindow(_ scWindow: SCWindow, _ window: Window, _ video: Bool) -> SCStreamConfiguration {
         let config = SCStreamConfiguration()
         config.setWindowSize(scWindow, window)
+        config.pixelFormat = kCVPixelFormatType_32BGRA
         config.showsCursor = false
         // if video {
         //     config.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(60))
