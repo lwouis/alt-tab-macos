@@ -15,34 +15,40 @@ class AccessibilityEvents {
         let pid = try element.pid()
         Logger.debug { "\(type) pid:\(pid)" }
         if [kAXApplicationActivatedNotification, kAXApplicationHiddenNotification, kAXApplicationShownNotification].contains(type) {
-            try handleEventApp(type, pid, element)
+            AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, callType: .updateApp) {
+                try handleEventApp(type, pid, element)
+            }
         } else {
-            try handleEventWindowWithDebounceIfNecessary(type, pid, element)
+            let wid = try element.cgWindowId()
+            AXUIElement.retryAxCallUntilTimeout(context: "(pid:\(pid))", pid: pid, wid: wid, callType: .updateWindowFromAxEvent) {
+                try handleEventWindow(type, wid, pid, element)
+            }
         }
     }
 
     private static func handleEventApp(_ type: String, _ pid: pid_t, _ element: AXUIElement) throws {
         let appFocusedWindow = try element.attributes([kAXFocusedWindowAttribute]).focusedWindow
+        let wid = try appFocusedWindow?.cgWindowId()
         DispatchQueue.main.async {
             guard let app = Applications.findOrCreate(pid) else { return }
             Logger.info { "\(type) app:\(app.debugId)" }
             if type == kAXApplicationActivatedNotification {
-                applicationActivated(app, pid, type, appFocusedWindow)
+                applicationActivated(app, pid, type, appFocusedWindow, wid)
             } else if type == kAXApplicationHiddenNotification || type == kAXApplicationShownNotification {
                 applicationHiddenOrShown(app, pid, type)
             }
         }
     }
 
-    private static func applicationActivated(_ app: Application, _ pid: pid_t, _ type: String, _ appFocusedWindow: AXUIElement?) {
+    private static func applicationActivated(_ app: Application, _ pid: pid_t, _ type: String, _ appFocusedWindow: AXUIElement?, _ wid: CGWindowID?) {
         Applications.frontmostPid = pid
         if app.hasBeenActiveOnce != true {
             app.hasBeenActiveOnce = true
         }
-        if let appFocusedWindow {
+        if let appFocusedWindow, let wid {
             // if there is a focusedWindow, we reuse existing code to process it as if it was a kAXFocusedWindowChangedNotification
-            AXUIElement.retryAxCallUntilTimeout(context: "(type:\(type)", callType: .axEventEntrypoint) {
-                try handleEventWindowWithDebounceIfNecessary(kAXFocusedWindowChangedNotification, pid, appFocusedWindow)
+            AXUIElement.retryAxCallUntilTimeout(context: "\(type) \(app.debugId))", pid: pid, wid: wid, callType: .updateWindowFromAxEvent) {
+                try handleEventWindow(kAXFocusedWindowChangedNotification, wid, pid, appFocusedWindow)
             }
         } else {
             App.app.checkIfShortcutsShouldBeDisabled(nil, app)
@@ -67,20 +73,9 @@ class AccessibilityEvents {
         }
     }
 
-    private static func handleEventWindowWithDebounceIfNecessary(_ type: String, _ pid: pid_t, _ element: AXUIElement) throws {
-        let wid = try element.cgWindowId()
-        guard wid != 0 || type == kAXUIElementDestroyedNotification else { return } // some bogus "windows" have wid 0
-        if type == kAXTitleChangedNotification || type == kAXWindowResizedNotification || type == kAXWindowMovedNotification {
-            AXUIElement.retryAxCallUntilTimeout(context: "(wid:\(wid) pid:\(pid))", debounceType: (type == kAXTitleChangedNotification ? .windowTitleChanged : .windowResizedOrMoved), pid: pid, wid: wid, callType: .updateWindow) {
-                try handleEventWindow(type, wid, pid, element)
-            }
-        } else {
-            try handleEventWindow(type, wid, pid, element)
-        }
-    }
-
     static func handleEventWindow(_ type: String, _ wid: CGWindowID, _ pid: pid_t, _ element: AXUIElement) throws {
-        guard wid != App.app.thumbnailsPanel.windowNumber else { return } // don't process events for the thumbnails panel
+        guard wid != 0 || type == kAXUIElementDestroyedNotification,
+              wid != App.app.thumbnailsPanel.windowNumber else { return } // don't process events for the thumbnails panel
         let level = wid.level()
         let a = try element.attributes([kAXTitleAttribute, kAXSubroleAttribute, kAXRoleAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXFullscreenAttribute, kAXMinimizedAttribute])
         DispatchQueue.main.async {

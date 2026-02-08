@@ -10,7 +10,7 @@ class Windows {
     static func updateIsFullscreenOnCurrentSpace() {
         let windowsOnCurrentSpace = list.filter { !$0.isWindowlessApp }
         for window in windowsOnCurrentSpace {
-            AXUIElement.retryAxCallUntilTimeout(context: window.debugId, after: .now() + humanPerceptionDelay, callType: .updateWindow) { [weak window] in
+            AXUIElement.retryAxCallUntilTimeout(context: window.debugId, after: .now() + humanPerceptionDelay, wid: window.cgWindowId, callType: .updateWindowFromAxEvent) { [weak window] in
                 guard let window else { return }
                 // we reuse existing code, to update .isFullscreen, as if there was a kAXWindowResizedNotification
                 try AccessibilityEvents.handleEventWindow(kAXWindowResizedNotification, window.cgWindowId!, window.application.pid, window.axUiElement!)

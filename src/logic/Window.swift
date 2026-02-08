@@ -87,12 +87,12 @@ class Window {
     private func observeEvents() {
         AXObserverCreate(application.pid, AccessibilityEvents.axObserverCallback, &axObserver)
         guard let axObserver else { return }
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, wid: cgWindowId, callType: .subscribeToWindowNotification) { [weak self] in
             guard let self else { return }
             if try self.axUiElement!.subscribeToNotification(axObserver, Window.notifications.first!) {
                 Logger.debug { "Subscribed to window: \(self.debugId)" }
                 for notification in Window.notifications.dropFirst() {
-                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, callType: .subscribeToWindowNotification) { [weak self] in
+                    AXUIElement.retryAxCallUntilTimeout(context: self.debugId, pid: self.application.pid, wid: cgWindowId, callType: .subscribeToWindowNotification) { [weak self] in
                         try self?.axUiElement!.subscribeToNotification(axObserver, notification)
                     }
                 }
@@ -315,7 +315,7 @@ class Window {
     /// some apps will not trigger AXApplicationActivated, where we usually update application.focusedWindow
     /// workaround: we check and possibly do it here
     private func checkIfFocused() {
-        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, callType: .updateWindow) { [weak self] in
+        AXUIElement.retryAxCallUntilTimeout(context: debugId, pid: application.pid, wid: cgWindowId, callType: .updateAppFocusedWindow) { [weak self] in
             guard let self,
                   let focusedWindow = try self.application.axUiElement?.attributes([kAXFocusedWindowAttribute]).focusedWindow,
                   let window = try (Windows.list.first { $0.isEqualRobust(focusedWindow, (try focusedWindow.cgWindowId())) }) else { return }
