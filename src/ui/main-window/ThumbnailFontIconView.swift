@@ -32,7 +32,7 @@ class ThumbnailFontIconView: ThumbnailTitleView {
         attributedStringValue = initialAttributedString
         textColor = color
         toolTip = tooltip
-        addOrUpdateConstraint(widthAnchor, cell!.cellSize.width)
+        frame.size = cell!.cellSize
     }
 
     // number should be in the interval [0-50]
@@ -69,14 +69,14 @@ class ThumbnailFontIconView: ThumbnailTitleView {
 class ThumbnailFilledFontIconView: NSView {
     convenience init(_ thumbnailFontIconView: ThumbnailFontIconView, backgroundColor: NSColor, size: CGFloat) {
         self.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
         let backgroundView = ThumbnailFontIconView(symbol: .filledCircled, size: size - 3, color: backgroundColor)
         addSubview(backgroundView)
         addSubview(thumbnailFontIconView, positioned: .above, relativeTo: nil)
-        backgroundView.centerXAnchor.constraint(equalTo: thumbnailFontIconView.centerXAnchor).isActive = true
-        let offset = ((thumbnailFontIconView.cell!.cellSize.width - backgroundView.cell!.cellSize.width) / 2).rounded()
-        backgroundView.topAnchor.constraint(equalTo: thumbnailFontIconView.topAnchor, constant: offset).isActive = true
-        widthAnchor.constraint(equalTo: thumbnailFontIconView.widthAnchor).isActive = true
-        heightAnchor.constraint(equalTo: thumbnailFontIconView.heightAnchor).isActive = true
+        let fgSize = thumbnailFontIconView.frame.size
+        let bgSize = backgroundView.frame.size
+        let offset = ((fgSize.width - bgSize.width) / 2).rounded()
+        thumbnailFontIconView.frame.origin = .zero
+        backgroundView.frame.origin = NSPoint(x: (fgSize.width - bgSize.width) / 2, y: offset)
+        frame.size = fgSize
     }
 }

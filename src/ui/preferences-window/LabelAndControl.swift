@@ -134,6 +134,7 @@ class LabelAndControl: NSObject {
                                onMouseEntered: EventClosure? = nil,
                                onMouseExited: EventClosure? = nil) -> ClickHoverImageView {
         let imageView = ThumbnailFontIconView(symbol: .circledInfo, size: size, color: .labelColor)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         let view = ClickHoverImageView(infoCircle: imageView)
         view.onClick = onClick
         view.onMouseEntered = onMouseEntered

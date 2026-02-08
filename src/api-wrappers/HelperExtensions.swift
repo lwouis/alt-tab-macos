@@ -123,26 +123,15 @@ extension NSView {
     }
 
     func setSubviews(_ views: [NSView]) {
-        for view in views {
-            normalizeSubview(view)
-        }
         subviews = views
     }
 
     func addSubviews(_ views: [NSView]) {
-        for view in views {
-            normalizeSubview(view)
-        }
         subviews = subviews + views
     }
 
     func setSubviewAbove(_ view: NSView) {
-        normalizeSubview(view)
         addSubview(view, positioned: .above, relativeTo: nil)
-    }
-
-    private func normalizeSubview(_ view: NSView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 

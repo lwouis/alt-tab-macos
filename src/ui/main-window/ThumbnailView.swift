@@ -182,7 +182,6 @@ class ThumbnailView: FlippedView {
     }
 
     private func setupView() {
-        translatesAutoresizingMaskIntoConstraints = false
         setAccessibilityChildren([])
         wantsLayer = true
         layer!.masksToBounds = false // without this, label will be clipped in app-icons style since its larger than its parentView
@@ -196,7 +195,6 @@ class ThumbnailView: FlippedView {
         thumbnail.shadow = shadow
         appIcon.shadow = shadow
         dockLabelIcon.shadow = shadow
-        appIcon.translatesAutoresizingMaskIntoConstraints = false
         appIcon.setSubviewAbove(dockLabelIcon)
         label.fixHeight()
         vStackView.wantsLayer = true
@@ -552,7 +550,7 @@ class ThumbnailView: FlippedView {
     static func widthOfComfortableReadability() -> CGFloat? {
         let labTitleView = ThumbnailTitleView(font: Appearance.font)
         labTitleView.stringValue = "abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz" + extraTextForPadding
-        return labTitleView.fittingSize.width
+        return labTitleView.cell!.cellSize.width
     }
 
     static func widthOfLongestTitle() -> CGFloat? {
@@ -561,7 +559,7 @@ class ThumbnailView: FlippedView {
         for window in Windows.list {
             guard window.shouldShowTheUser else { continue }
             labTitleView.stringValue = window.title + extraTextForPadding
-            let width = labTitleView.fittingSize.width
+            let width = labTitleView.cell!.cellSize.width
             if width > maxWidth {
                 maxWidth = width
             }

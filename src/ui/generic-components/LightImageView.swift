@@ -14,7 +14,6 @@ class LightImageView: NSView {
     init(frame frameRect: NSRect = .zero, withTransparencyChecks: Bool = false) {
         self.withTransparencyChecks = withTransparencyChecks
         super.init(frame: frameRect)
-        translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         // configure the layer for efficient GPU-scaling
         layer!.contentsGravity = .resize
