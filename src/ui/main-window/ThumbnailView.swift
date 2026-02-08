@@ -16,10 +16,6 @@ class ThumbnailView: FlippedView {
     var dockLabelIcon = ThumbnailFilledFontIconView(
         ThumbnailFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(), color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1)),
         backgroundColor: NSColor.white, size: dockLabelLabelSize())
-    var quitIcon = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""))
-    var closeIcon = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""))
-    var minimizeIcon = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""))
-    var maximizeIcon = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""))
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: ThumbnailView.noOpenWindowToolTip)
 
     let hStackView = FlippedView()
@@ -28,7 +24,6 @@ class ThumbnailView: FlippedView {
     var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
     var indexInRecycledViews: Int!
-    var isShowingWindowControls = false
 
     var isFirstInRow = false
     var isLastInRow = false
@@ -36,7 +31,6 @@ class ThumbnailView: FlippedView {
     var numberOfViewsInRow = 0
     private var lastLabelWidth: CGFloat = -1
 
-    var windowControlIcons: [TrafficLightButton] { [quitIcon, closeIcon, minimizeIcon, maximizeIcon] }
     var windowIndicatorIcons: [ThumbnailFontIconView] { [hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon] }
 
     var receivedMouseDown = false
@@ -113,7 +107,6 @@ class ThumbnailView: FlippedView {
     }
 
     func mouseMoved() {
-        showOrHideWindowControls(true)
         updateLabelTooltipIfNeeded()
         mouseMovedCallback()
     }
@@ -138,31 +131,11 @@ class ThumbnailView: FlippedView {
     }
 
     func drawHighlight() {
-        let isFocused = indexInRecycledViews == Windows.selectedWindowIndex
-        let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
-        setBackground(isFocused: isFocused, isHovered: isHovered)
-        setBorder(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
+            let isFocused = indexInRecycledViews == Windows.selectedWindowIndex
+            let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
             label.isHidden = !(isFocused || isHovered)
             updateAppIconsLabel(isFocused: isFocused, isHovered: isHovered)
-        }
-    }
-
-    func showOrHideWindowControls(_ shouldShowWindowControls: Bool) {
-        guard Preferences.appearanceStyle == .thumbnails else { return }
-        let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !Appearance.hideThumbnails
-        guard isShowingWindowControls != shouldShow else { return }
-        isShowingWindowControls = shouldShow
-        for icon in windowControlIcons {
-            let shouldHide = !shouldShow
-                || (icon.type == .quit && !(window_?.application.canBeQuit() ?? true))
-                || (icon.type == .close && !(window_?.canBeClosed() ?? true))
-                || ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
-
-            if icon.isHidden != shouldHide {
-                icon.isHidden = shouldHide
-                icon.needsDisplay = true
-            }
         }
     }
 
@@ -198,10 +171,6 @@ class ThumbnailView: FlippedView {
         appIcon.setSubviewAbove(dockLabelIcon)
         label.fixHeight()
         vStackView.wantsLayer = true
-        vStackView.layer!.backgroundColor = .clear
-        vStackView.layer!.borderColor = .clear
-        vStackView.layer!.cornerRadius = Appearance.cellCornerRadius
-        vStackView.layer!.borderWidth = CGFloat(1)
         setSubviews([vStackView])
         vStackView.setSubviews([hStackView])
         hStackView.setSubviews([appIcon])
@@ -216,41 +185,10 @@ class ThumbnailView: FlippedView {
         } else if Preferences.appearanceStyle == .thumbnails {
             vStackView.addSubviews([thumbnail])
             thumbnail.setSubviewAbove(windowlessAppIndicator)
-            for icon in windowControlIcons {
-                thumbnail.setSubviewAbove(icon)
-                icon.isHidden = true
-            }
             hStackView.addSubviews([label] + windowIndicatorIcons)
         } else {
             hStackView.setSubviewAbove(windowlessAppIndicator)
             hStackView.addSubviews([label] + windowIndicatorIcons)
-        }
-    }
-
-    private func getBackgroundColor(isFocused: Bool, isHovered: Bool) -> NSColor {
-        if isFocused {
-            return Appearance.highlightFocusedBackgroundColor
-        }
-        if isHovered {
-            return Appearance.highlightHoveredBackgroundColor
-        }
-        return NSColor.clear
-    }
-
-    private func setBackground(isFocused: Bool, isHovered: Bool) {
-        vStackView.layer!.backgroundColor = getBackgroundColor(isFocused: isFocused, isHovered: isHovered).cgColor
-    }
-
-    private func setBorder(isFocused: Bool, isHovered: Bool) {
-        if isFocused {
-            vStackView.layer!.borderColor = Appearance.highlightFocusedBorderColor.cgColor
-            vStackView.layer!.borderWidth = Appearance.highlightBorderWidth
-        } else if isHovered {
-            vStackView.layer!.borderColor = Appearance.highlightHoveredBorderColor.cgColor
-            vStackView.layer!.borderWidth = Appearance.highlightBorderWidth
-        } else {
-            vStackView.layer!.borderColor = NSColor.clear.cgColor
-            vStackView.layer!.borderWidth = 0
         }
     }
 
@@ -371,8 +309,6 @@ class ThumbnailView: FlippedView {
         updateAppIcon(element, title)
         updateDockLabelIcon(element.dockLabel)
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
-        windowControlIcons.forEach { $0.window_ = element }
-        showOrHideWindowControls(isShowingWindowControls)
         mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         mouseMovedCallback = { () -> Void in Windows.updateSelectedAndHoveredWindowIndex(index, true) }
     }
@@ -416,16 +352,6 @@ class ThumbnailView: FlippedView {
         if Preferences.appearanceStyle == .thumbnails {
             assignIfDifferent(&thumbnail.frame.origin, NSPoint(x: Appearance.edgeInsetsSize, y: hStackView.frame.maxY + Appearance.intraCellPadding))
             thumbnail.centerFrameInParent(x: true)
-            var xOffset = CGFloat(3)
-            var yOffset = thumbnail.frame.height - CGFloat(2)
-            for icon in windowControlIcons {
-                assignIfDifferent(&icon.frame.origin, NSPoint(x: xOffset, y: yOffset - TrafficLightButton.size))
-                xOffset += TrafficLightButton.size + TrafficLightButton.spacing
-                if xOffset + TrafficLightButton.size > thumbnail.frame.width {
-                    xOffset = 3
-                    yOffset -= TrafficLightButton.size + TrafficLightButton.spacing
-                }
-            }
         }
         if !windowlessAppIndicator.isHidden {
             if Preferences.appearanceStyle != .titles {

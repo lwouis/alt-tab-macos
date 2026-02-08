@@ -9,6 +9,7 @@ class ThumbnailsView {
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
     static var layoutCache = LayoutCache()
+    var highlightOverlay = HighlightOverlayView()
 
     init() {
         updateBackgroundView()
@@ -51,15 +52,22 @@ class ThumbnailsView {
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }
+        highlightOverlay = HighlightOverlayView()
         Self.updateCachedSizes()
     }
 
     static func highlight(_ indexInRecycledViews: Int) {
         let view = recycledViews[indexInRecycledViews]
         view.indexInRecycledViews = indexInRecycledViews
-        if view.frame != NSRect.zero {
-            view.drawHighlight()
-        }
+        guard view.frame != .zero else { return }
+        view.drawHighlight()
+        let overlay = App.app.thumbnailsPanel.thumbnailsView.highlightOverlay
+        let focusedView = recycledViews[Windows.selectedWindowIndex]
+        let hoveredView = Windows.hoveredWindowIndex.map { recycledViews[$0] }
+        overlay.updateHighlight(
+            focusedView: focusedView.frame != .zero ? focusedView : nil,
+            hoveredView: hoveredView != focusedView && hoveredView?.frame != .zero ? hoveredView : nil
+        )
     }
 
     func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [ThumbnailView]? {
@@ -175,6 +183,7 @@ class ThumbnailsView {
             }
         }
         scrollView.documentView!.subviews = newViews
+        scrollView.documentView!.addSubview(highlightOverlay)
         return (maxX, maxY, labelHeight, rowSignature)
     }
 
@@ -218,6 +227,7 @@ class ThumbnailsView {
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
         }
         scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
+        highlightOverlay.frame = CGRect(origin: .zero, size: scrollView.documentView!.frame.size)
         if let existingTrackingArea = scrollView.trackingAreas.first {
             scrollView.removeTrackingArea(existingTrackingArea)
         }
@@ -249,6 +259,9 @@ class ThumbnailsView {
         ThumbnailsView.highlight(Windows.selectedWindowIndex)
         if let hoveredWindowIndex = Windows.hoveredWindowIndex {
             ThumbnailsView.highlight(hoveredWindowIndex)
+            if highlightOverlay.isShowingWindowControls {
+                highlightOverlay.showWindowControls(for: ThumbnailsView.recycledViews[hoveredWindowIndex])
+            }
         }
     }
 
@@ -316,8 +329,8 @@ class ScrollView: NSScrollView {
         if let oldIndex = Windows.hoveredWindowIndex {
             Windows.hoveredWindowIndex = nil
             ThumbnailsView.highlight(oldIndex)
-            ThumbnailsView.recycledViews[oldIndex].showOrHideWindowControls(false)
         }
+        App.app.thumbnailsPanel.thumbnailsView.highlightOverlay.hideWindowControls()
     }
 
     override func mouseExited(with event: NSEvent) {
@@ -332,10 +345,12 @@ class ScrollView: NSScrollView {
         let location = documentView.convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
         let newTarget = findTarget(location)
         guard newTarget !== previousTarget else { return }
+        let overlay = App.app.thumbnailsPanel.thumbnailsView.highlightOverlay
         caTransaction {
             if let newTarget {
-                previousTarget?.showOrHideWindowControls(false)
+                overlay.hideWindowControls()
                 newTarget.mouseMoved()
+                overlay.showWindowControls(for: newTarget)
             } else {
                 resetHoveredWindow()
             }
