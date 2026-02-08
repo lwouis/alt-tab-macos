@@ -146,8 +146,6 @@ class ThumbnailView: FlippedView {
         let shouldShow = shouldShowWindowControls && !Preferences.hideColoredCircles && !Appearance.hideThumbnails
         guard isShowingWindowControls != shouldShow else { return }
         isShowingWindowControls = shouldShow
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
         for icon in windowControlIcons {
             let shouldHide = !shouldShow
                 || (icon.type == .quit && !(window_?.application.canBeQuit() ?? true))
@@ -159,7 +157,6 @@ class ThumbnailView: FlippedView {
                 icon.needsDisplay = true
             }
         }
-        CATransaction.commit()
     }
 
 

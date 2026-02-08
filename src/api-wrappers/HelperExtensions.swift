@@ -2,6 +2,24 @@ import Cocoa
 import Darwin
 import Carbon.HIToolbox.Events
 
+class NoAnimationDelegate: NSObject, CALayerDelegate {
+    static let shared = NoAnimationDelegate()
+    func action(for layer: CALayer, forKey event: String) -> (any CAAction)? { NSNull() }
+}
+
+func noAnimation<T: CALayer>(_ make: () -> T) -> T {
+    let layer = make()
+    layer.delegate = NoAnimationDelegate.shared
+    return layer
+}
+
+func caTransaction(_ body: () -> Void) {
+    CATransaction.begin()
+    defer { CATransaction.commit() }
+    CATransaction.setDisableActions(true)
+    body()
+}
+
 extension NSAppearance {
     func getThemeName() -> AppearanceThemePreference {
         if #available(macOS 10.14, *) {

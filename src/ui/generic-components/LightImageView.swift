@@ -22,13 +22,7 @@ class LightImageView: NSView {
         layer!.minificationFilter = .trilinear
         layer!.minificationFilterBias = 0.0
         layer!.shouldRasterize = false
-        // disable implicit animations
-        layer!.actions = [
-            "contents": NSNull(),
-            "bounds": NSNull(),
-            "position": NSNull(),
-            "contentsScale": NSNull()
-        ]
+        layer!.delegate = NoAnimationDelegate.shared
         layerContentsRedrawPolicy = .never
         setupOutlineLayer()
         setupHandRaisedLayer()

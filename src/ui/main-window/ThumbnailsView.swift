@@ -291,8 +291,10 @@ class ScrollView: NSScrollView {
     }
 
     override func mouseExited(with event: NSEvent) {
-        previousTarget = nil
-        resetHoveredWindow()
+        caTransaction {
+            previousTarget = nil
+            resetHoveredWindow()
+        }
     }
 
     override func mouseMoved(with event: NSEvent) {
@@ -300,16 +302,15 @@ class ScrollView: NSScrollView {
         let location = documentView.convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
         let newTarget = findTarget(location)
         guard newTarget !== previousTarget else { return }
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        if let newTarget {
-            previousTarget?.showOrHideWindowControls(false)
-            newTarget.mouseMoved()
-        } else {
-            resetHoveredWindow()
+        caTransaction {
+            if let newTarget {
+                previousTarget?.showOrHideWindowControls(false)
+                newTarget.mouseMoved()
+            } else {
+                resetHoveredWindow()
+            }
+            previousTarget = newTarget
         }
-        previousTarget = newTarget
-        CATransaction.commit()
     }
 
     private func findTarget(_ location: NSPoint) -> ThumbnailView? {
