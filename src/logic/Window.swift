@@ -267,13 +267,13 @@ class Window {
     }
 
     private func updateScreenId() {
-        screenId = NSScreen.screens.first { isOnScreen($0) }?.uuid()
+        screenId = NSScreen.screens.first { isOnScreen($0) }?.cachedUuid()
     }
 
     /// window may not be visible on that screen (e.g. the window is not on the current Space)
     func isOnScreen(_ screen: NSScreen) -> Bool {
         if NSScreen.screensHaveSeparateSpaces {
-            if let screenUuid = screen.uuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
+            if let screenUuid = screen.cachedUuid(), let screenSpaces = Spaces.screenSpacesMap[screenUuid] {
                 return screenSpaces.contains { screenSpace in spaceIds.contains { $0 == screenSpace } }
             }
         } else {

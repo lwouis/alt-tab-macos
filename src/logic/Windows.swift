@@ -136,8 +136,8 @@ class Windows {
                         ($0.hide == .always || (window.isWindowlessApp && $0.hide != .none))
                 }
             } ?? false) &&
-            !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.pid != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
-            !(Preferences.appsToShow[App.app.shortcutIndex] == .nonActive && window.application.pid == NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
+            !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.pid != Applications.frontmostPid) &&
+            !(Preferences.appsToShow[App.app.shortcutIndex] == .nonActive && window.application.pid == Applications.frontmostPid) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
             ((Preferences.showWindowlessApps[App.app.shortcutIndex] != .hide && window.isWindowlessApp) ||
                 !window.isWindowlessApp &&
@@ -191,7 +191,7 @@ class Windows {
             hoveredWindowIndex = nil
             ThumbnailsView.highlight(oldIndex)
         }
-        if let frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier,
+        if let frontmostPid = Applications.frontmostPid,
            let frontmostApp = Applications.findOrCreate(frontmostPid),
            (frontmostApp.focusedWindow == nil || Preferences.windowOrder[App.app.shortcutIndex] != .recentlyFocused),
            let lastFocusedOrderWindowIndex = getLastFocusedOrderWindowIndex() {

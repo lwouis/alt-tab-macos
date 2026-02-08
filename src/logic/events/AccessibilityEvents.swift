@@ -35,6 +35,7 @@ class AccessibilityEvents {
     }
 
     private static func applicationActivated(_ app: Application, _ pid: pid_t, _ type: String, _ appFocusedWindow: AXUIElement?) {
+        Applications.frontmostPid = pid
         if app.hasBeenActiveOnce != true {
             app.hasBeenActiveOnce = true
         }

@@ -3,6 +3,7 @@ import ApplicationServices
 
 class Applications {
     static var list = [Application]()
+    static var frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier
 
     static func initialDiscovery() {
         addInitialRunningApplications()
