@@ -8,7 +8,7 @@ class PermissionView: StackView {
     var status: NSTextField!
     var permissionStatus = PermissionStatus.notGranted
 
-    convenience init(_ iconName: String, _ title: String, _ justification: String, _ buttonText: String, _ buttonUrl: String, _ checkFunction: @escaping () -> PermissionStatus, _ skipCheckbox: NSView? = nil) {
+    convenience init(_ iconName: String, _ title: String, _ justification: String, _ buttonText: String, _ buttonUrl: String, _ skipCheckbox: NSView? = nil) {
         let icon = NSImageView(image: NSImage.initCopy(iconName))
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.fit()

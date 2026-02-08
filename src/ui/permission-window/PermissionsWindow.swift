@@ -52,7 +52,6 @@ class PermissionsWindow: NSWindow {
             NSLocalizedString("This permission is needed to focus windows after you release the shortcut", comment: ""),
             NSLocalizedString("Open Accessibility Settings…", comment: ""),
             "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
-            AccessibilityPermission.update
         )
         var rows = [
             [header],
@@ -65,7 +64,6 @@ class PermissionsWindow: NSWindow {
                 NSLocalizedString("This permission is needed to show thumbnails and preview of open windows", comment: ""),
                 NSLocalizedString("Open Screen Recording Settings…", comment: ""),
                 "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
-                ScreenRecordingPermission.update,
                 StackView(LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Use the app without this permission. Thumbnails won’t show.", comment: ""), "screenRecordingPermissionSkipped", labelPosition: .right))
             )
             rows.append([screenRecordingView])
