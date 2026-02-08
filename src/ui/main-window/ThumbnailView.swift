@@ -570,6 +570,7 @@ class StatusIconsView: FlippedView {
     var icons: [Icon]
     private let attrs: [NSAttributedString.Key: Any]
     private var visibleCount = 0
+    private var tooltipsDirty = true
     /// Single-character cell size, cached at init for the layout cache
     let iconCellSize: NSSize
 
@@ -585,6 +586,7 @@ class StatusIconsView: FlippedView {
         let measure = NSAttributedString(string: Symbols.circledNumber0.rawValue, attributes: attrs)
         iconCellSize = measure.size()
         super.init(frame: frame)
+        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
     }
 
     required init?(coder: NSCoder) { fatalError() }
@@ -621,20 +623,31 @@ class StatusIconsView: FlippedView {
         let isLTR = App.shared.userInterfaceLayoutDirection == .leftToRight
         assignIfDifferent(&frame.origin.x, isLTR ? edgeInsets + hWidth - indicatorSpace : edgeInsets)
         assignIfDifferent(&frame.origin.y, edgeInsets)
+        tooltipsDirty = true
+        needsDisplay = true
+    }
+
+    override func mouseEntered(with event: NSEvent) {
+        ensureTooltipsInstalled()
+    }
+
+    private func ensureTooltipsInstalled() {
+        guard tooltipsDirty else { return }
+        tooltipsDirty = false
         removeAllToolTips()
         let iconWidth = ThumbnailsView.layoutCache.iconWidth
         let iconHeight = ThumbnailsView.layoutCache.iconHeight
-        let yOffset = ((hHeight - iconHeight) / 2).rounded()
+        let isLTR = App.shared.userInterfaceLayoutDirection == .leftToRight
+        let yOffset = ((frame.height - iconHeight) / 2).rounded()
         var offset = CGFloat(0)
         for icon in icons {
             guard icon.visible else { continue }
             offset += iconWidth
-            let x = isLTR ? indicatorSpace - offset : offset - iconWidth
+            let x = isLTR ? frame.width - offset : offset - iconWidth
             if let tooltip = icon.tooltip {
                 _ = addToolTip(NSRect(x: x, y: yOffset, width: iconWidth, height: iconHeight), owner: tooltip as NSString, userData: nil)
             }
         }
-        needsDisplay = true
     }
 
     override func draw(_ dirtyRect: NSRect) {

@@ -228,11 +228,6 @@ class ThumbnailsView {
         }
         scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
         highlightOverlay.frame = CGRect(origin: .zero, size: scrollView.documentView!.frame.size)
-        if let existingTrackingArea = scrollView.trackingAreas.first {
-            scrollView.removeTrackingArea(existingTrackingArea)
-        }
-        scrollView.addTrackingArea(NSTrackingArea(rect: scrollView.bounds,
-            options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways], owner: scrollView, userInfo: nil))
     }
 
     func centerRows(_ maxX: CGFloat) {
@@ -309,6 +304,7 @@ class ScrollView: NSScrollView {
         scrollerKnobStyle = .light
         horizontalScrollElasticity = .none
         usesPredominantAxisScrolling = true
+        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
         observeScrollingEvents()
     }
 
