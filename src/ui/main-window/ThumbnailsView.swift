@@ -261,6 +261,15 @@ class ThumbnailsView {
         }
     }
 
+    func clearNeedsLayout() {
+        let views = [contentView, scrollView, scrollView.contentView, scrollView.documentView].compactMap { $0 }
+        for view in views {
+            view.needsLayout = false
+            view.needsDisplay = false
+            view.needsUpdateConstraints = false
+        }
+    }
+
     struct LayoutCache {
         var labelHeight = CGFloat(0)
         var iconWidth = CGFloat(0)

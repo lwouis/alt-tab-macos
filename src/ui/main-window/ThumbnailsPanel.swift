@@ -40,9 +40,12 @@ class ThumbnailsPanel: NSPanel {
             guard App.app.appIsBeingUsed else { return }
             NSScreen.preferred.repositionPanel(self)
         }
+        // prevent further AppKit work
+        thumbnailsView.clearNeedsLayout()
     }
 
     override func orderOut(_ sender: Any?) {
+        thumbnailsView.clearNeedsLayout()
         if Preferences.fadeOutAnimation {
             NSAnimationContext.runAnimationGroup(
                 { _ in animator().alphaValue = 0 },
