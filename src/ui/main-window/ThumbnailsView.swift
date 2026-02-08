@@ -21,7 +21,7 @@ class ThumbnailsView {
     static func updateCachedSizes() {
         guard let firstView = ThumbnailsView.recycledViews.first else { return }
         layoutCache.labelHeight = firstView.label.cell!.cellSize.height
-        let iconCellSize = firstView.windowIndicatorIcons.first!.cell!.cellSize
+        let iconCellSize = firstView.statusIcons.iconCellSize
         layoutCache.iconWidth = iconCellSize.width
         layoutCache.iconHeight = iconCellSize.height
         layoutCache.dockLabelSize = firstView.dockLabelIcon.frame.size

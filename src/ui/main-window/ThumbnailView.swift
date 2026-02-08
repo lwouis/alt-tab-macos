@@ -9,17 +9,12 @@ class ThumbnailView: FlippedView {
     var thumbnail = LightImageView(withTransparencyChecks: true)
     var appIcon = LightImageView()
     var label = ThumbnailTitleView(font: Appearance.font)
-    var fullscreenIcon = ThumbnailFontIconView(symbol: .circledPlusSign, tooltip: NSLocalizedString("Window is fullscreen", comment: ""))
-    var minimizedIcon = ThumbnailFontIconView(symbol: .circledMinusSign, tooltip: NSLocalizedString("Window is minimized", comment: ""))
-    var hiddenIcon = ThumbnailFontIconView(symbol: .circledSlashSign, tooltip: NSLocalizedString("App is hidden", comment: ""))
-    var spaceIcon = ThumbnailFontIconView(symbol: .circledNumber0)
+    var statusIcons = StatusIconsView()
     var dockLabelIcon = ThumbnailFilledFontIconView(
         ThumbnailFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(), color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1)),
         backgroundColor: NSColor.white, size: dockLabelLabelSize())
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: ThumbnailView.noOpenWindowToolTip)
 
-    let hStackView = FlippedView()
-    let vStackView = FlippedView()
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
     var dragAndDropTimer: Timer?
@@ -29,9 +24,6 @@ class ThumbnailView: FlippedView {
     var isLastInRow = false
     var indexInRow = 0
     var numberOfViewsInRow = 0
-    private var lastLabelWidth: CGFloat = -1
-
-    var windowIndicatorIcons: [ThumbnailFontIconView] { [hiddenIcon, fullscreenIcon, minimizedIcon, spaceIcon] }
 
     var receivedMouseDown = false
 
@@ -122,6 +114,16 @@ class ThumbnailView: FlippedView {
         observeDragAndDrop()
     }
 
+    /// The frame used by HighlightOverlayView to position the highlight rectangle.
+    /// In appIcons style, it covers appIcon + edge insets. Otherwise, it covers the full cell.
+    var highlightFrame: CGRect {
+        if Preferences.appearanceStyle == .appIcons {
+            return CGRect(x: 0, y: 0,
+                          width: frame.width, height: appIcon.frame.height + Appearance.edgeInsetsSize * 2)
+        }
+        return CGRect(origin: .zero, size: frame.size)
+    }
+
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
         window_ = element
         label.toolTip = nil
@@ -138,7 +140,6 @@ class ThumbnailView: FlippedView {
             updateAppIconsLabel(isFocused: isFocused, isHovered: isHovered)
         }
     }
-
 
     func updateDockLabelIcon(_ dockLabel: String?) {
         assignIfDifferent(&dockLabelIcon.isHidden, dockLabel == nil || Preferences.hideAppBadges || Appearance.iconSize == 0)
@@ -170,25 +171,21 @@ class ThumbnailView: FlippedView {
         dockLabelIcon.shadow = shadow
         appIcon.setSubviewAbove(dockLabelIcon)
         label.fixHeight()
-        vStackView.wantsLayer = true
-        setSubviews([vStackView])
-        vStackView.setSubviews([hStackView])
-        hStackView.setSubviews([appIcon])
+        setSubviews([appIcon])
     }
 
     private func setupStyleSpecificSubviews() {
         if Preferences.appearanceStyle == .appIcons {
             addSubviews([label])
-            hStackView.setSubviewAbove(windowlessAppIndicator)
+            setSubviewAbove(windowlessAppIndicator)
             label.alignment = .center
             label.isHidden = true
         } else if Preferences.appearanceStyle == .thumbnails {
-            vStackView.addSubviews([thumbnail])
+            addSubviews([thumbnail, label, statusIcons])
             thumbnail.setSubviewAbove(windowlessAppIndicator)
-            hStackView.addSubviews([label] + windowIndicatorIcons)
         } else {
-            hStackView.setSubviewAbove(windowlessAppIndicator)
-            hStackView.addSubviews([label] + windowIndicatorIcons)
+            setSubviewAbove(windowlessAppIndicator)
+            addSubviews([label, statusIcons])
         }
     }
 
@@ -254,7 +251,7 @@ class ThumbnailView: FlippedView {
         }
         let xPosition = -leftOffset
         let height = ThumbnailsView.layoutCache.labelHeight
-        let yPosition = hStackView.frame.origin.y + hStackView.frame.height + Appearance.intraCellPadding * 2
+        let yPosition = appIcon.frame.maxY + Appearance.intraCellPadding * 2
         label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
         label.setWidth(effectiveLabelWidth)
         label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
@@ -268,14 +265,16 @@ class ThumbnailView: FlippedView {
 
     private func updateValues(_ element: Window, _ index: Int, _ newHeight: CGFloat) {
         assignIfDifferent(&windowlessAppIndicator.isHidden, !element.isWindowlessApp)
-        assignIfDifferent(&hiddenIcon.isHidden, !element.isHidden || Preferences.hideStatusIcons)
-        assignIfDifferent(&fullscreenIcon.isHidden, !element.isFullscreen || Preferences.hideStatusIcons)
-        assignIfDifferent(&minimizedIcon.isHidden, !element.isMinimized || Preferences.hideStatusIcons)
-        assignIfDifferent(&spaceIcon.isHidden, element.isWindowlessApp || Spaces.isSingleSpace() || Preferences.hideSpaceNumberLabels || (
-            Preferences.spacesToShow[App.app.shortcutIndex] == .visible && (
-                NSScreen.screens.count < 2 || Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
-            )
-        ))
+        statusIcons.update(
+            isHidden: element.isHidden && !Preferences.hideStatusIcons,
+            isFullscreen: element.isFullscreen && !Preferences.hideStatusIcons,
+            isMinimized: element.isMinimized && !Preferences.hideStatusIcons,
+            showSpace: !(element.isWindowlessApp || Spaces.isSingleSpace() || Preferences.hideSpaceNumberLabels || (
+                Preferences.spacesToShow[App.app.shortcutIndex] == .visible && (
+                    NSScreen.screens.count < 2 || Preferences.screensToShow[App.app.shortcutIndex] == .showingAltTab
+                )
+            ))
+        )
         thumbnail.toolTip = element.isWindowlessApp ? ThumbnailView.noOpenWindowToolTip : nil
         if !thumbnail.isHidden {
             if let screenshot = element.thumbnail {
@@ -296,14 +295,12 @@ class ThumbnailView: FlippedView {
             setAccessibilityLabel(title)
         }
         label.updateTruncationModeIfNeeded()
-        if !spaceIcon.isHidden {
+        if statusIcons.spaceVisible {
             let spaceIndex = element.spaceIndexes.first
             if element.isOnAllSpaces || (spaceIndex != nil && spaceIndex! > 30) {
-                spaceIcon.setStar()
-                spaceIcon.toolTip = NSLocalizedString("Window is on every Space", comment: "")
+                statusIcons.setSpaceStar()
             } else if let spaceIndex {
-                spaceIcon.setNumber(spaceIndex, false)
-                spaceIcon.toolTip = String(format: NSLocalizedString("Window is on Space %d", comment: ""), spaceIndex)
+                statusIcons.setSpaceNumber(spaceIndex)
             }
         }
         updateAppIcon(element, title)
@@ -315,42 +312,36 @@ class ThumbnailView: FlippedView {
 
     private func updateSizes(_ newHeight: CGFloat) {
         setFrameWidthHeight(newHeight)
-        if Preferences.appearanceStyle == .appIcons {
-            assignIfDifferent(&vStackView.frame.size, NSSize(width: frame.width, height: appIcon.frame.height + Appearance.edgeInsetsSize * 2))
-            assignIfDifferent(&hStackView.frame.size, NSSize(width: appIcon.frame.width, height: appIcon.frame.height))
-        } else {
-            assignIfDifferent(&vStackView.frame.size, NSSize(width: frame.width, height: frame.height))
-            assignIfDifferent(&hStackView.frame.size, NSSize(width: frame.width - Appearance.edgeInsetsSize * 2, height: max(appIcon.frame.height, ThumbnailsView.layoutCache.labelHeight)))
-            let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorsSpace()
+        if Preferences.appearanceStyle != .appIcons {
+            let hWidth = frame.width - Appearance.edgeInsetsSize * 2
+            let labelWidth = hWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - statusIcons.totalWidth
             label.setWidth(labelWidth)
         }
     }
 
     private func updatePositions(_ newHeight: CGFloat) {
-        assignIfDifferent(&hStackView.frame.origin, NSPoint(x: Appearance.edgeInsetsSize, y: Appearance.edgeInsetsSize))
+        let edgeInsets = Appearance.edgeInsetsSize
+        assignIfDifferent(&appIcon.frame.origin, NSPoint(x: edgeInsets, y: edgeInsets))
         if Preferences.appearanceStyle != .appIcons {
-            assignIfDifferent(&appIcon.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
-                ? 0
-                : hStackView.frame.width - appIcon.frame.width)
-            let iconWidth = ThumbnailsView.layoutCache.iconWidth
-            var indicatorSpace = CGFloat(0)
-            for icon in windowIndicatorIcons {
-                if !icon.isHidden {
-                    indicatorSpace += iconWidth
-                    assignIfDifferent(&icon.frame.origin.y, ((hStackView.frame.height - ThumbnailsView.layoutCache.iconHeight) / 2).rounded())
-                    assignIfDifferent(&icon.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
-                        ? hStackView.frame.width - indicatorSpace
-                        : indicatorSpace - iconWidth)
-                }
+            let hWidth = frame.width - edgeInsets * 2
+            let hHeight = max(appIcon.frame.height, ThumbnailsView.layoutCache.labelHeight)
+            if App.shared.userInterfaceLayoutDirection == .rightToLeft {
+                assignIfDifferent(&appIcon.frame.origin.x, edgeInsets + hWidth - appIcon.frame.width)
             }
-            let labelWidth = hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - indicatorSpace
-            assignIfDifferent(&label.frame.origin.x, App.shared.userInterfaceLayoutDirection == .leftToRight
-                ? appIcon.frame.maxX + Appearance.appIconLabelSpacing
-                : hStackView.frame.width - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth)
-            assignIfDifferent(&label.frame.origin.y, ((hStackView.frame.height - ThumbnailsView.layoutCache.labelHeight) / 2).rounded())
+            statusIcons.layoutIcons(hWidth: hWidth, hHeight: hHeight, edgeInsets: edgeInsets)
+            let labelWidth = hWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - statusIcons.totalWidth
+            let labelX: CGFloat
+            if App.shared.userInterfaceLayoutDirection == .leftToRight {
+                labelX = appIcon.frame.maxX + Appearance.appIconLabelSpacing
+            } else {
+                labelX = edgeInsets + hWidth - appIcon.frame.width - Appearance.appIconLabelSpacing - labelWidth
+            }
+            assignIfDifferent(&label.frame.origin.x, labelX)
+            assignIfDifferent(&label.frame.origin.y, edgeInsets + ((hHeight - ThumbnailsView.layoutCache.labelHeight) / 2).rounded())
         }
         if Preferences.appearanceStyle == .thumbnails {
-            assignIfDifferent(&thumbnail.frame.origin, NSPoint(x: Appearance.edgeInsetsSize, y: hStackView.frame.maxY + Appearance.intraCellPadding))
+            let hHeight = max(appIcon.frame.height, ThumbnailsView.layoutCache.labelHeight)
+            assignIfDifferent(&thumbnail.frame.origin, NSPoint(x: edgeInsets, y: edgeInsets + hHeight + Appearance.intraCellPadding))
             thumbnail.centerFrameInParent(x: true)
         }
         if !windowlessAppIndicator.isHidden {
@@ -397,10 +388,6 @@ class ThumbnailView: FlippedView {
             }
         }
         return (offsetX, offsetY)
-    }
-
-    private func indicatorsSpace() -> CGFloat {
-        return CGFloat(windowIndicatorIcons.filter { !$0.isHidden }.count) * ThumbnailsView.layoutCache.iconWidth
     }
 
     private func getAppOrAndWindowTitle() -> String {
@@ -562,5 +549,114 @@ class ThumbnailView: FlippedView {
             return ThumbnailView.iconSize().height + Appearance.edgeInsetsSize * 2 + Appearance.intraCellPadding * 2 + labelHeight
         }
         return ThumbnailView.maxThumbnailHeight()
+    }
+}
+
+class StatusIconsView: FlippedView {
+    struct Icon {
+        var symbol: String
+        var tooltip: String?
+        var visible = false
+    }
+
+    static let hiddenIdx = 0
+    static let fullscreenIdx = 1
+    static let minimizedIdx = 2
+    static let spaceIdx = 3
+
+    private static let defaultSymbols: [(Symbols, String?)] = [
+        (.circledSlashSign, NSLocalizedString("App is hidden", comment: "")),
+        (.circledPlusSign, NSLocalizedString("Window is fullscreen", comment: "")),
+        (.circledMinusSign, NSLocalizedString("Window is minimized", comment: "")),
+        (.circledNumber0, nil),
+    ]
+
+    var icons: [Icon]
+    private let attrs: [NSAttributedString.Key: Any]
+    private var visibleCount = 0
+    /// Single-character cell size, cached at init for the layout cache
+    let iconCellSize: NSSize
+
+    convenience init() {
+        self.init(frame: .zero)
+    }
+
+    override init(frame: NSRect) {
+        let font = NSFont(name: "SF Pro Text", size: (Appearance.fontHeight * 0.85).rounded())!
+        let paragraphStyle = ThumbnailFontIconView.paragraphStyle
+        attrs = [.font: font, .foregroundColor: Appearance.fontColor, .paragraphStyle: paragraphStyle]
+        icons = Self.defaultSymbols.map { Icon(symbol: $0.0.rawValue, tooltip: $0.1) }
+        let measure = NSAttributedString(string: Symbols.circledNumber0.rawValue, attributes: attrs)
+        iconCellSize = measure.size()
+        super.init(frame: frame)
+    }
+
+    required init?(coder: NSCoder) { fatalError() }
+
+    var totalWidth: CGFloat { CGFloat(visibleCount) * ThumbnailsView.layoutCache.iconWidth }
+
+    func update(isHidden: Bool, isFullscreen: Bool, isMinimized: Bool, showSpace: Bool) {
+        icons[Self.hiddenIdx].visible = isHidden
+        icons[Self.fullscreenIdx].visible = isFullscreen
+        icons[Self.minimizedIdx].visible = isMinimized
+        icons[Self.spaceIdx].visible = showSpace
+        visibleCount = icons.count(where: { $0.visible })
+    }
+
+    func setSpaceStar() {
+        icons[Self.spaceIdx].symbol = Symbols.circledStar.rawValue
+        icons[Self.spaceIdx].tooltip = NSLocalizedString("Window is on every Space", comment: "")
+    }
+
+    func setSpaceNumber(_ number: Int) {
+        let (base, offset) = number <= 9
+            ? (Symbols.circledNumber0.rawValue, number * 2)
+            : (Symbols.circledNumber10.rawValue, number - 10)
+        icons[Self.spaceIdx].symbol = String(UnicodeScalar(Int(base.unicodeScalars.first!.value) + offset)!)
+        icons[Self.spaceIdx].tooltip = String(format: NSLocalizedString("Window is on Space %d", comment: ""), number)
+    }
+
+    var spaceVisible: Bool { icons[Self.spaceIdx].visible }
+
+    func layoutIcons(hWidth: CGFloat, hHeight: CGFloat, edgeInsets: CGFloat) {
+        let indicatorSpace = totalWidth
+        assignIfDifferent(&frame.size.width, indicatorSpace)
+        assignIfDifferent(&frame.size.height, hHeight)
+        let isLTR = App.shared.userInterfaceLayoutDirection == .leftToRight
+        assignIfDifferent(&frame.origin.x, isLTR ? edgeInsets + hWidth - indicatorSpace : edgeInsets)
+        assignIfDifferent(&frame.origin.y, edgeInsets)
+        removeAllToolTips()
+        let iconWidth = ThumbnailsView.layoutCache.iconWidth
+        let iconHeight = ThumbnailsView.layoutCache.iconHeight
+        let yOffset = ((hHeight - iconHeight) / 2).rounded()
+        var offset = CGFloat(0)
+        for icon in icons {
+            guard icon.visible else { continue }
+            offset += iconWidth
+            let x = isLTR ? indicatorSpace - offset : offset - iconWidth
+            if let tooltip = icon.tooltip {
+                _ = addToolTip(NSRect(x: x, y: yOffset, width: iconWidth, height: iconHeight), owner: tooltip as NSString, userData: nil)
+            }
+        }
+        needsDisplay = true
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        guard visibleCount > 0 else { return }
+        let iconWidth = ThumbnailsView.layoutCache.iconWidth
+        let iconHeight = ThumbnailsView.layoutCache.iconHeight
+        let isLTR = App.shared.userInterfaceLayoutDirection == .leftToRight
+        let yOffset = ((frame.height - iconHeight) / 2).rounded()
+        var offset = CGFloat(0)
+        for icon in icons {
+            guard icon.visible else { continue }
+            offset += iconWidth
+            let x = isLTR ? frame.width - offset : offset - iconWidth
+            icon.symbol.draw(at: NSPoint(x: x, y: yOffset), withAttributes: attrs)
+        }
+    }
+
+    override func mouseMoved(with event: NSEvent) {
+        // no-op prevents tooltips from disappearing on mouseMoved
     }
 }

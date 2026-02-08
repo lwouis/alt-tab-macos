@@ -46,12 +46,12 @@ class HighlightOverlayView: FlippedView {
             highlightLayer.isHidden = true
             return
         }
-        let vStackFrame = view.vStackView.frame
+        let hf = view.highlightFrame
         let rect = CGRect(
-            x: view.frame.origin.x + vStackFrame.origin.x,
-            y: view.frame.origin.y + vStackFrame.origin.y,
-            width: vStackFrame.width,
-            height: vStackFrame.height
+            x: view.frame.origin.x + hf.origin.x,
+            y: view.frame.origin.y + hf.origin.y,
+            width: hf.width,
+            height: hf.height
         )
         highlightLayer.frame = rect
         highlightLayer.cornerRadius = Appearance.cellCornerRadius
