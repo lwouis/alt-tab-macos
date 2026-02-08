@@ -224,15 +224,16 @@ class App: AppCenterApplication {
     }
 
     func refreshOpenUiWithThrottling( _ block: @escaping () -> Void) {
+        let throttleDelayInMs = 200
         let timeSinceLastRefreshInSeconds = Float(DispatchTime.now().uptimeNanoseconds - lastRefreshTimeInNanoseconds) / 1_000_000
-        if timeSinceLastRefreshInSeconds >= 200 {
+        if timeSinceLastRefreshInSeconds >= Float(throttleDelayInMs) {
             lastRefreshTimeInNanoseconds = DispatchTime.now().uptimeNanoseconds
             block()
             return
         }
         guard !nextRefreshScheduled else { return }
         nextRefreshScheduled = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.210) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(throttleDelayInMs + 10)) {
             self.nextRefreshScheduled = false
             self.refreshOpenUiWithThrottling(block)
         }
@@ -343,6 +344,7 @@ extension App: NSApplicationDelegate {
         // login item and plist updates can be done a bit later, to accelerate launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { GeneralTab.startAtLoginCallback() }
         Logger.info { "Finished launching AltTab" }
+        BenchmarkRunner.startIfNeeded()
         #if DEBUG
 //            self.showPreferencesWindow()
         #endif
