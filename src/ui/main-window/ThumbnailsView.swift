@@ -384,6 +384,10 @@ class ScrollView: NSScrollView {
 
 class FlippedView: NSView {
     override var isFlipped: Bool { true }
+    // Prevent AppKit from recursively marking all NSControl subviews as needsDisplay during makeKeyAndOrderFront
+    // Titles, Icons, and Traffic Icons would otherwise take lots of resource to update
+    // We update everything explicitly, so this can be disabled
+    @objc func _windowChangedKeyState() {}
 }
 
 enum Direction {
