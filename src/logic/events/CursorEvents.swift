@@ -64,5 +64,8 @@ class CursorEvents {
         let deltaY = event.locationInWindow.y - deadZoneInitialPosition.y
         let d = hypot(deltaX, deltaY)
         isAllowedToMouseHover = d > 25
+        if isAllowedToMouseHover {
+            App.app.thumbnailsPanel.thumbnailsView.thumbnailOverView.updateHover()
+        }
     }
 }

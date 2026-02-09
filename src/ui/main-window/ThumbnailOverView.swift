@@ -19,7 +19,6 @@ class ThumbnailOverView: FlippedView {
             addSubview(button)
             button.isHidden = true
         }
-        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
@@ -35,15 +34,8 @@ class ThumbnailOverView: FlippedView {
 
     // MARK: - Mouse hover management
 
-    override func mouseExited(with event: NSEvent) {
-        caTransaction {
-            previousTarget = nil
-            resetHoveredWindow()
-        }
-    }
-
-    override func mouseMoved(with event: NSEvent) {
-        guard let scrollView, !scrollView.isCurrentlyScrolling && CursorEvents.isAllowedToMouseHover else { return }
+    func updateHover() {
+        guard let scrollView, !scrollView.isCurrentlyScrolling else { return }
         let location = convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
         let newTarget = findTarget(location)
         guard newTarget !== previousTarget else { return }
