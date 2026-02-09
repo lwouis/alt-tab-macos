@@ -555,16 +555,16 @@ class StatusIconsView: FlippedView {
         var visible = false
     }
 
-    static let hiddenIdx = 0
-    static let fullscreenIdx = 1
-    static let minimizedIdx = 2
-    static let spaceIdx = 3
+    static let spaceIdx = 0
+    static let hiddenIdx = 1
+    static let fullscreenIdx = 2
+    static let minimizedIdx = 3
 
     private static let defaultSymbols: [(Symbols, String?)] = [
+        (.circledNumber0, nil),
         (.circledSlashSign, NSLocalizedString("App is hidden", comment: "")),
         (.circledPlusSign, NSLocalizedString("Window is fullscreen", comment: "")),
         (.circledMinusSign, NSLocalizedString("Window is minimized", comment: "")),
-        (.circledNumber0, nil),
     ]
 
     var icons: [Icon]
