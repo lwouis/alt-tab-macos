@@ -216,20 +216,21 @@ class Window {
                 guard let self else { return }
                 var psn = ProcessSerialNumber()
                 GetProcessForPID(self.application.pid, &psn)
-                // Some apps (e.g. Telegram/Teams/ChatGPT) may show a window in the list but require focusing an
-                // associated/parent window id for the private focus APIs to take effect.
-                for wid in self.focusCandidateWindowIds() {
-                    _SLPSSetFrontProcessWithOptions(&psn, wid, SLPSMode.userGenerated.rawValue)
-                    self.makeKeyWindow(&psn, wid)
-                }
+                _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
+                self.makeKeyWindow(&psn)
                 try? self.axUiElement!.focusWindow()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-                    // Some apps require focusing an associated/parent window id for the private focus APIs to take effect.
-                    // In those cases, macOS may not reliably emit a focused-window AX event for the target window, which can
-                    // leave AltTab's "lastFocusOrder" stale and break cycling back-and-forth. Ensure focus order reflects the
-                    // window we intended to focus.
-                    if let windows = Windows.updateLastFocusOrder(self) {
-                        App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+                    // Best-effort: some focus paths don't reliably emit kAXFocusedWindowChangedNotification. Avoid
+                    // "forcing" focus state in AltTab; instead, query the actual focused window and update ordering
+                    // only if it matches a known Window.
+                    if let appAxUiElement = self.application.axUiElement,
+                       let focusedAxWindow = try? appAxUiElement.attributes([kAXFocusedWindowAttribute]).focusedWindow,
+                       let focusedAxWid = try? focusedAxWindow.cgWindowId(),
+                       let focusedWindow = Windows.list.first(where: { $0.isEqualRobust(focusedAxWindow, focusedAxWid) }) {
+                        self.application.focusedWindow = focusedWindow
+                        if let windows = Windows.updateLastFocusOrder(focusedWindow) {
+                            App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+                        }
                     }
                     Windows.previewSelectedWindowIfNeeded()
                 }
@@ -238,37 +239,16 @@ class Window {
     }
 
     /// The following function was ported from https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
-    private func makeKeyWindow(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID? = nil) -> Void {
-        let windowIdForEvent = wid ?? cgWindowId
-        guard windowIdForEvent != nil else { return }
+    private func makeKeyWindow(_ psn: inout ProcessSerialNumber) -> Void {
         var bytes = [UInt8](repeating: 0, count: 0xf8)
         bytes[0x04] = 0xf8
         bytes[0x3a] = 0x10
-        var mutableWid = windowIdForEvent
-        memcpy(&bytes[0x3c], &mutableWid, MemoryLayout<UInt32>.size)
+        memcpy(&bytes[0x3c], &cgWindowId, MemoryLayout<UInt32>.size)
         memset(&bytes[0x20], 0xff, 0x10)
         bytes[0x08] = 0x01
         SLPSPostEventRecordTo(&psn, &bytes)
         bytes[0x08] = 0x02
         SLPSPostEventRecordTo(&psn, &bytes)
-    }
-
-    private func focusCandidateWindowIds() -> [CGWindowID] {
-        guard let wid = cgWindowId else { return [] }
-        var ids: [CGWindowID] = [wid]
-        // Best effort: add associated window ids (often includes the parent window id).
-        // If this fails, we fall back to the original window id.
-        let assoc = SLSCopyAssociatedWindows(CGS_CONNECTION, wid) as NSArray
-        for v in assoc {
-            if let n = v as? NSNumber {
-                let w = CGWindowID(n.uint32Value)
-                if w != 0, !ids.contains(w) {
-                    ids.append(w)
-                }
-            }
-        }
-        // Keep it tight to avoid weird side effects / extra work
-        return Array(ids.prefix(3))
     }
 
     // for some windows (e.g. Slack), the AX API doesn't return a title; we try CG API; finally we resort to the app name
