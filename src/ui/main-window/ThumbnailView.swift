@@ -114,7 +114,7 @@ class ThumbnailView: FlippedView {
         observeDragAndDrop()
     }
 
-    /// The frame used by HighlightOverlayView to position the highlight rectangle.
+    /// The frame used by ThumbnailUnderLayer to position the highlight rectangle.
     /// In appIcons style, it covers appIcon + edge insets. Otherwise, it covers the full cell.
     var highlightFrame: CGRect {
         if Preferences.appearanceStyle == .appIcons {
@@ -360,7 +360,7 @@ class ThumbnailView: FlippedView {
         // This is because its updated async. We need it positioned correctly always
         let (offsetX, offsetY) = dockLabelOffset()
         assignIfDifferent(&dockLabelIcon.frame.origin.x, appIcon.frame.maxX - (ThumbnailsView.layoutCache.dockLabelSize.width * offsetX).rounded())
-        assignIfDifferent(&dockLabelIcon.frame.origin.y, appIcon.frame.maxY - (ThumbnailsView.layoutCache.dockLabelSize.height * offsetY).rounded())
+        assignIfDifferent(&dockLabelIcon.frame.origin.y, (ThumbnailsView.layoutCache.dockLabelSize.height * offsetY).rounded())
     }
 
     /// positioning the dock label is messy because it's an NSTextField so it's visual size doesn't match what we can through APIs
@@ -376,15 +376,11 @@ class ThumbnailView: FlippedView {
                 offsetX = 0.92
             }
         }
-        var offsetY = offsetX
-        if Preferences.appearanceStyle == .appIcons {
-            if Preferences.appearanceSize == .small {
-                offsetY = 0.88
-            } else if Preferences.appearanceSize == .medium {
-                offsetY = 0.90
-            } else { // .large
-                offsetY = 0.92
-            }
+        var offsetY = 0.0
+        if Preferences.appearanceStyle == .thumbnails {
+            offsetY = 0.5
+        } else if Preferences.appearanceStyle == .titles {
+            offsetY = 0.1
         }
         return (offsetX, offsetY)
     }

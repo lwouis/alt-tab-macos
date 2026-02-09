@@ -1,13 +1,13 @@
 import Cocoa
 
-class HighlightOverlayView: FlippedView {
-    let focusedLayer = noAnimation { CALayer() }
-    let hoveredLayer = noAnimation { CALayer() }
+class ThumbnailOverView: FlippedView {
     var quitButton = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""))
     var closeButton = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""))
     var minimizeButton = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""))
     var maximizeButton = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""))
     var isShowingWindowControls = false
+    weak var scrollView: ScrollView?
+    var previousTarget: ThumbnailView?
 
     var windowControlButtons: [TrafficLightButton] { [quitButton, closeButton, minimizeButton, maximizeButton] }
 
@@ -15,14 +15,11 @@ class HighlightOverlayView: FlippedView {
         self.init(frame: .zero)
         wantsLayer = true
         layer!.masksToBounds = false
-        for highlightLayer in [focusedLayer, hoveredLayer] {
-            highlightLayer.isHidden = true
-            layer!.addSublayer(highlightLayer)
-        }
         for button in windowControlButtons {
             addSubview(button)
             button.isHidden = true
         }
+        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
@@ -36,34 +33,53 @@ class HighlightOverlayView: FlippedView {
         return nil
     }
 
-    func updateHighlight(focusedView: ThumbnailView?, hoveredView: ThumbnailView?) {
-        updateLayer(focusedLayer, for: focusedView, isFocused: true)
-        updateLayer(hoveredLayer, for: hoveredView, isFocused: false)
+    // MARK: - Mouse hover management
+
+    override func mouseExited(with event: NSEvent) {
+        caTransaction {
+            previousTarget = nil
+            resetHoveredWindow()
+        }
     }
 
-    private func updateLayer(_ highlightLayer: CALayer, for view: ThumbnailView?, isFocused: Bool) {
-        guard let view, view.frame != .zero else {
-            highlightLayer.isHidden = true
-            return
+    override func mouseMoved(with event: NSEvent) {
+        guard let scrollView, !scrollView.isCurrentlyScrolling && CursorEvents.isAllowedToMouseHover else { return }
+        let location = convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
+        let newTarget = findTarget(location)
+        guard newTarget !== previousTarget else { return }
+        caTransaction {
+            if let newTarget {
+                hideWindowControls()
+                newTarget.mouseMoved()
+                showWindowControls(for: newTarget)
+            } else {
+                resetHoveredWindow()
+            }
+            previousTarget = newTarget
         }
-        let hf = view.highlightFrame
-        let rect = CGRect(
-            x: view.frame.origin.x + hf.origin.x,
-            y: view.frame.origin.y + hf.origin.y,
-            width: hf.width,
-            height: hf.height
-        )
-        highlightLayer.frame = rect
-        highlightLayer.cornerRadius = Appearance.cellCornerRadius
-        highlightLayer.backgroundColor = (isFocused
-            ? Appearance.highlightFocusedBackgroundColor
-            : Appearance.highlightHoveredBackgroundColor).cgColor
-        highlightLayer.borderColor = (isFocused
-            ? Appearance.highlightFocusedBorderColor
-            : Appearance.highlightHoveredBorderColor).cgColor
-        highlightLayer.borderWidth = Appearance.highlightBorderWidth
-        highlightLayer.isHidden = false
     }
+
+    private func findTarget(_ location: NSPoint) -> ThumbnailView? {
+        guard let documentView = superview else { return nil }
+        for case let view as ThumbnailView in documentView.subviews {
+            let frame = view.frame
+            let expandedFrame = CGRect(x: frame.minX - (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : 1), y: frame.minY, width: frame.width + 1, height: frame.height + 1)
+            if expandedFrame.contains(location) {
+                return view
+            }
+        }
+        return nil
+    }
+
+    private func resetHoveredWindow() {
+        if let oldIndex = Windows.hoveredWindowIndex {
+            Windows.hoveredWindowIndex = nil
+            ThumbnailsView.highlight(oldIndex)
+        }
+        hideWindowControls()
+    }
+
+    // MARK: - Window controls
 
     func showWindowControls(for view: ThumbnailView) {
         guard Preferences.appearanceStyle == .thumbnails else { hideWindowControls(); return }

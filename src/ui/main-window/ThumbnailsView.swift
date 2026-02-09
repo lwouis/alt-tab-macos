@@ -9,7 +9,8 @@ class ThumbnailsView {
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
     static var layoutCache = LayoutCache()
-    var highlightOverlay = HighlightOverlayView()
+    var thumbnailUnderLayer = ThumbnailUnderLayer()
+    var thumbnailOverView = ThumbnailOverView()
 
     init() {
         updateBackgroundView()
@@ -52,7 +53,10 @@ class ThumbnailsView {
         for i in 0..<ThumbnailsView.recycledViews.count {
             ThumbnailsView.recycledViews[i] = ThumbnailView()
         }
-        highlightOverlay = HighlightOverlayView()
+        thumbnailUnderLayer = ThumbnailUnderLayer()
+        thumbnailOverView = ThumbnailOverView()
+        thumbnailOverView.scrollView = scrollView
+        lastRowSignature.removeAll()
         Self.updateCachedSizes()
     }
 
@@ -61,10 +65,10 @@ class ThumbnailsView {
         view.indexInRecycledViews = indexInRecycledViews
         guard view.frame != .zero else { return }
         view.drawHighlight()
-        let overlay = App.app.thumbnailsPanel.thumbnailsView.highlightOverlay
+        let underLayer = App.app.thumbnailsPanel.thumbnailsView.thumbnailUnderLayer
         let focusedView = recycledViews[Windows.selectedWindowIndex]
         let hoveredView = Windows.hoveredWindowIndex.map { recycledViews[$0] }
-        overlay.updateHighlight(
+        underLayer.updateHighlight(
             focusedView: focusedView.frame != .zero ? focusedView : nil,
             hoveredView: hoveredView != focusedView && hoveredView?.frame != .zero ? hoveredView : nil
         )
@@ -183,7 +187,12 @@ class ThumbnailsView {
             }
         }
         scrollView.documentView!.subviews = newViews
-        scrollView.documentView!.addSubview(highlightOverlay)
+        scrollView.documentView!.addSubview(thumbnailOverView)
+        thumbnailOverView.scrollView = scrollView
+        let docLayer = scrollView.documentView!.layer!
+        if thumbnailUnderLayer.superlayer !== docLayer {
+            docLayer.insertSublayer(thumbnailUnderLayer, at: 0)
+        }
         return (maxX, maxY, labelHeight, rowSignature)
     }
 
@@ -227,7 +236,9 @@ class ThumbnailsView {
             scrollView.documentView!.subviews.forEach { $0.frame.origin.x -= croppedWidth }
         }
         scrollView.documentView!.frame.size = NSSize(width: maxX, height: maxY)
-        highlightOverlay.frame = CGRect(origin: .zero, size: scrollView.documentView!.frame.size)
+        let docSize = scrollView.documentView!.frame.size
+        thumbnailOverView.frame = CGRect(origin: .zero, size: docSize)
+        thumbnailUnderLayer.frame = CGRect(origin: .zero, size: docSize)
     }
 
     func centerRows(_ maxX: CGFloat) {
@@ -254,8 +265,8 @@ class ThumbnailsView {
         ThumbnailsView.highlight(Windows.selectedWindowIndex)
         if let hoveredWindowIndex = Windows.hoveredWindowIndex {
             ThumbnailsView.highlight(hoveredWindowIndex)
-            if highlightOverlay.isShowingWindowControls {
-                highlightOverlay.showWindowControls(for: ThumbnailsView.recycledViews[hoveredWindowIndex])
+            if thumbnailOverView.isShowingWindowControls {
+                thumbnailOverView.showWindowControls(for: ThumbnailsView.recycledViews[hoveredWindowIndex])
             }
         }
     }
@@ -292,11 +303,11 @@ class ScrollView: NSScrollView {
     override class var isCompatibleWithResponsiveScrolling: Bool { true }
 
     var isCurrentlyScrolling = false
-    var previousTarget: ThumbnailView?
 
     convenience init() {
         self.init(frame: .zero)
         documentView = FlippedView(frame: .zero)
+        documentView!.wantsLayer = true
         drawsBackground = false
         hasVerticalScroller = true
         verticalScrollElasticity = .none
@@ -304,7 +315,6 @@ class ScrollView: NSScrollView {
         scrollerKnobStyle = .light
         horizontalScrollElasticity = .none
         usesPredominantAxisScrolling = true
-        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
         observeScrollingEvents()
     }
 
@@ -313,80 +323,8 @@ class ScrollView: NSScrollView {
         NotificationCenter.default.addObserver(self, selector: #selector(scrollingEnded), name: NSScrollView.didEndLiveScrollNotification, object: nil)
     }
 
-    @objc private func scrollingStarted() {
-        isCurrentlyScrolling = true
-    }
-
-    @objc private func scrollingEnded() {
-        isCurrentlyScrolling = false
-    }
-
-    private func resetHoveredWindow() {
-        if let oldIndex = Windows.hoveredWindowIndex {
-            Windows.hoveredWindowIndex = nil
-            ThumbnailsView.highlight(oldIndex)
-        }
-        App.app.thumbnailsPanel.thumbnailsView.highlightOverlay.hideWindowControls()
-    }
-
-    override func mouseExited(with event: NSEvent) {
-        caTransaction {
-            previousTarget = nil
-            resetHoveredWindow()
-        }
-    }
-
-    override func mouseMoved(with event: NSEvent) {
-        guard let documentView, !isCurrentlyScrolling && CursorEvents.isAllowedToMouseHover else { return }
-        let location = documentView.convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
-        let newTarget = findTarget(location)
-        guard newTarget !== previousTarget else { return }
-        let overlay = App.app.thumbnailsPanel.thumbnailsView.highlightOverlay
-        caTransaction {
-            if let newTarget {
-                overlay.hideWindowControls()
-                newTarget.mouseMoved()
-                overlay.showWindowControls(for: newTarget)
-            } else {
-                resetHoveredWindow()
-            }
-            previousTarget = newTarget
-        }
-    }
-
-    private func findTarget(_ location: NSPoint) -> ThumbnailView? {
-        for case let view as ThumbnailView in documentView!.subviews {
-            let frame = view.frame
-            let expandedFrame = CGRect(x: frame.minX - (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : 1), y: frame.minY, width: frame.width + 1, height: frame.height + 1)
-            if expandedFrame.contains(location) {
-                return view
-            }
-        }
-        return nil
-    }
-
-    /// Checks whether the mouse pointer is within the padding area around a thumbnail.
-    ///
-    /// This is used to avoid gaps between thumbnail views where the mouse pointer might not be detected.
-    ///
-    /// @return `true` if the mouse pointer is within the padding area around a thumbnail; `false` otherwise.
-    private func checkIfWithinInterPadding() -> Bool {
-        if Preferences.appearanceStyle == .appIcons {
-            let mouseLocation = App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream
-            let mouseRect = NSRect(x: mouseLocation.x - Appearance.interCellPadding,
-                y: mouseLocation.y - Appearance.interCellPadding,
-                width: 2 * Appearance.interCellPadding,
-                height: 2 * Appearance.interCellPadding)
-            if let hoveredWindowIndex = Windows.hoveredWindowIndex {
-                let thumbnail = ThumbnailsView.recycledViews[hoveredWindowIndex]
-                let mouseRectInView = thumbnail.convert(mouseRect, from: nil)
-                if thumbnail.bounds.intersects(mouseRectInView) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
+    @objc private func scrollingStarted() { isCurrentlyScrolling = true }
+    @objc private func scrollingEnded() { isCurrentlyScrolling = false }
 
     /// holding shift and using the scrolling wheel will generate a horizontal movement
     /// shift can be part of shortcuts so we force shift scrolls to be vertical
