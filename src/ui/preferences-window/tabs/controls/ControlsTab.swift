@@ -107,6 +107,7 @@ class ControlsTab {
         let showHiddenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showHiddenWindows", index), ShowHowPreference.allCases)
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd }) // this filter is ok for serialization because the filtered value is last in the enum
         let showWindowlessApps = LabelAndControl.makeDropdown(Preferences.indexToName("showWindowlessApps", index), ShowHowPreference.allCases)
+        let showTransparentWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showTransparentWindows", index), ShowHowPreference.allCases)
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
         let table = TableGroupView(width: PreferencesWindow.width)
@@ -120,6 +121,7 @@ class ControlsTab {
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show hidden windows", comment: ""), rightViews: [showHiddenWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show apps with no open window", comment: ""), rightViews: [showWindowlessApps]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show invisible windows", comment: ""), rightViews: [showTransparentWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Order windows by", comment: ""), rightViews: [windowOrder]))
         table.fit()
         return table

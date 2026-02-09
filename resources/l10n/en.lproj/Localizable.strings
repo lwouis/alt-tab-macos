@@ -191,6 +191,7 @@
 "Show apps with no open window" = "Show apps with no open window";
 "Show at the end" = "Show at the end";
 "Show fullscreen windows" = "Show fullscreen windows";
+"Show invisible windows" = "Show invisible windows";
 "Show hidden windows" = "Show hidden windows";
 "Show in switcher" = "Show in switcher";
 "Show minimized windows" = "Show minimized windows";
@@ -246,6 +247,9 @@
 "Visible Spaces" = "Visible Spaces";
 "When fullscreen" = "When fullscreen";
 "When no open window" = "When no open window";
+"When not visible on screen" = "When not visible on screen";
+"Window title contains" = "Window title contains";
+"Any" = "Any";
 "While open, press:" = "While open, press:";
 "Window app icon size:" = "Window app icon size:";
 "Window is fullscreen" = "Window is fullscreen";
