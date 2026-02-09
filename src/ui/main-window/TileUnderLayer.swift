@@ -1,6 +1,6 @@
 import Cocoa
 
-class ThumbnailUnderLayer: CALayer {
+class TileUnderLayer: CALayer {
     let focusedLayer = noAnimation { CALayer() }
     let hoveredLayer = noAnimation { CALayer() }
 
@@ -15,12 +15,12 @@ class ThumbnailUnderLayer: CALayer {
 
     required init?(coder: NSCoder) { fatalError() }
 
-    func updateHighlight(focusedView: ThumbnailView?, hoveredView: ThumbnailView?) {
+    func updateHighlight(focusedView: TileView?, hoveredView: TileView?) {
         updateLayer(focusedLayer, for: focusedView, isFocused: true)
         updateLayer(hoveredLayer, for: hoveredView, isFocused: false)
     }
 
-    private func updateLayer(_ highlightLayer: CALayer, for view: ThumbnailView?, isFocused: Bool) {
+    private func updateLayer(_ highlightLayer: CALayer, for view: TileView?, isFocused: Bool) {
         guard let view, view.frame != .zero else {
             highlightLayer.isHidden = true
             return

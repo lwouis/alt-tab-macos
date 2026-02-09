@@ -16,7 +16,7 @@ enum Symbols: String {
 
 // Font icon using SF Symbols from the SF Pro font from Apple
 // see https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
-class ThumbnailFontIconView: ThumbnailTitleView {
+class TileFontIconView: TileTitleView {
     static var paragraphStyle = {
         let paragraphStyle = NSMutableParagraphStyle()
         // clip the top of the box since we know these symbols are always disks
@@ -28,7 +28,7 @@ class ThumbnailFontIconView: ThumbnailTitleView {
     convenience init(symbol: Symbols, tooltip: String? = nil, size: CGFloat = Appearance.fontHeight, color: NSColor = Appearance.fontColor) {
         // This helps SF symbols display vertically centered and not clipped at the top
         self.init(font: NSFont(name: "SF Pro Text", size: (size * 0.85).rounded())!)
-        initialAttributedString = NSMutableAttributedString(string: symbol.rawValue, attributes: [.paragraphStyle: ThumbnailFontIconView.paragraphStyle])
+        initialAttributedString = NSMutableAttributedString(string: symbol.rawValue, attributes: [.paragraphStyle: TileFontIconView.paragraphStyle])
         attributedStringValue = initialAttributedString
         textColor = color
         toolTip = tooltip
@@ -67,9 +67,9 @@ class ThumbnailFontIconView: ThumbnailTitleView {
 }
 
 class ThumbnailFilledFontIconView: NSView {
-    convenience init(_ thumbnailFontIconView: ThumbnailFontIconView, backgroundColor: NSColor, size: CGFloat) {
+    convenience init(_ thumbnailFontIconView: TileFontIconView, backgroundColor: NSColor, size: CGFloat) {
         self.init(frame: .zero)
-        let backgroundView = ThumbnailFontIconView(symbol: .filledCircled, size: size - 3, color: backgroundColor)
+        let backgroundView = TileFontIconView(symbol: .filledCircled, size: size - 3, color: backgroundColor)
         addSubview(backgroundView)
         addSubview(thumbnailFontIconView, positioned: .above, relativeTo: nil)
         let fgSize = thumbnailFontIconView.frame.size

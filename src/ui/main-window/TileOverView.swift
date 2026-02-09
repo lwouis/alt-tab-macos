@@ -1,13 +1,13 @@
 import Cocoa
 
-class ThumbnailOverView: FlippedView {
+class TileOverView: FlippedView {
     var quitButton = TrafficLightButton(.quit, NSLocalizedString("Quit app", comment: ""))
     var closeButton = TrafficLightButton(.close, NSLocalizedString("Close window", comment: ""))
     var minimizeButton = TrafficLightButton(.miniaturize, NSLocalizedString("Minimize/Deminimize window", comment: ""))
     var maximizeButton = TrafficLightButton(.fullscreen, NSLocalizedString("Fullscreen/Defullscreen window", comment: ""))
     var isShowingWindowControls = false
     weak var scrollView: ScrollView?
-    var previousTarget: ThumbnailView?
+    var previousTarget: TileView?
 
     var windowControlButtons: [TrafficLightButton] { [quitButton, closeButton, minimizeButton, maximizeButton] }
 
@@ -51,9 +51,9 @@ class ThumbnailOverView: FlippedView {
         }
     }
 
-    private func findTarget(_ location: NSPoint) -> ThumbnailView? {
+    private func findTarget(_ location: NSPoint) -> TileView? {
         guard let documentView = superview else { return nil }
-        for case let view as ThumbnailView in documentView.subviews {
+        for case let view as TileView in documentView.subviews {
             let frame = view.frame
             let expandedFrame = CGRect(x: frame.minX - (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : 1), y: frame.minY, width: frame.width + 1, height: frame.height + 1)
             if expandedFrame.contains(location) {
@@ -66,14 +66,14 @@ class ThumbnailOverView: FlippedView {
     private func resetHoveredWindow() {
         if let oldIndex = Windows.hoveredWindowIndex {
             Windows.hoveredWindowIndex = nil
-            ThumbnailsView.highlight(oldIndex)
+            TilesView.highlight(oldIndex)
         }
         hideWindowControls()
     }
 
     // MARK: - Window controls
 
-    func showWindowControls(for view: ThumbnailView) {
+    func showWindowControls(for view: TileView) {
         guard Preferences.appearanceStyle == .thumbnails else { hideWindowControls(); return }
         let shouldShow = !Preferences.hideColoredCircles && !Appearance.hideThumbnails
         guard shouldShow, let window = view.window_ else { hideWindowControls(); return }

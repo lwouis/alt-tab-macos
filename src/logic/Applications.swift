@@ -102,7 +102,7 @@ class Applications {
 
     static func refreshBadges_(_ items: [(URL?, String?)]) {
         Windows.list.enumerated().forEach { (i, window) in
-            let view = ThumbnailsView.recycledViews[i]
+            let view = TilesView.recycledViews[i]
             if let app = findOrCreate(window.application.pid) {
                 if app.runningApplication.activationPolicy == .regular,
                    let matchingItem = (items.first { $0.0 == app.bundleURL }),

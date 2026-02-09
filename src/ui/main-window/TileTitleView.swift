@@ -1,6 +1,6 @@
 import Cocoa
 
-class ThumbnailTitleView: NSTextField {
+class TileTitleView: NSTextField {
     private var currentWidth: CGFloat = -1
 
     // we set their size manually; override this to remove wasteful appkit-side work

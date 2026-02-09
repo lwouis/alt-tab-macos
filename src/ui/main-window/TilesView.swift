@@ -1,32 +1,32 @@
 import Cocoa
 
-class ThumbnailsView {
+class TilesView {
     var scrollView: ScrollView!
     var contentView: EffectView!
-    var rows = [[ThumbnailView]]()
+    var rows = [[TileView]]()
     private var lastRowSignature = [Int]()
-    static var recycledViews = [ThumbnailView]()
+    static var recycledViews = [TileView]()
     static var thumbnailsWidth = CGFloat(0.0)
     static var thumbnailsHeight = CGFloat(0.0)
     static var layoutCache = LayoutCache()
-    var thumbnailUnderLayer = ThumbnailUnderLayer()
-    var thumbnailOverView = ThumbnailOverView()
+    var thumbnailUnderLayer = TileUnderLayer()
+    var thumbnailOverView = TileOverView()
 
     init() {
         updateBackgroundView()
         // TODO: think about this optimization more
-        (1...20).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+        (1...20).forEach { _ in TilesView.recycledViews.append(TileView()) }
         Self.updateCachedSizes()
     }
 
     static func updateCachedSizes() {
-        guard let firstView = ThumbnailsView.recycledViews.first else { return }
+        guard let firstView = TilesView.recycledViews.first else { return }
         layoutCache.labelHeight = firstView.label.cell!.cellSize.height
         let iconCellSize = firstView.statusIcons.iconCellSize
         layoutCache.iconWidth = iconCellSize.width
         layoutCache.iconHeight = iconCellSize.height
         layoutCache.dockLabelSize = firstView.dockLabelIcon.frame.size
-        layoutCache.comfortableReadabilityWidth = ThumbnailView.widthOfComfortableReadability()
+        layoutCache.comfortableReadabilityWidth = TileView.widthOfComfortableReadability()
     }
 
     func updateBackgroundView() {
@@ -41,20 +41,20 @@ class ThumbnailsView {
         NSScreen.updatePreferred()
         Appearance.update()
         // thumbnails are captured continuously. They will pick up the new size on the next cycle
-        ThumbnailsPanel.updateMaxPossibleThumbnailSize()
+        TilesPanel.updateMaxPossibleThumbnailSize()
         // app icons are captured once at launch; we need to manually update them if needed
-        let old = ThumbnailsPanel.maxPossibleAppIconSize.width
-        ThumbnailsPanel.updateMaxPossibleAppIconSize()
-        if old != ThumbnailsPanel.maxPossibleAppIconSize.width {
+        let old = TilesPanel.maxPossibleAppIconSize.width
+        TilesPanel.updateMaxPossibleAppIconSize()
+        if old != TilesPanel.maxPossibleAppIconSize.width {
             Applications.updateAppIcons()
         }
         updateBackgroundView()
         App.app.thumbnailsPanel.contentView = contentView
-        for i in 0..<ThumbnailsView.recycledViews.count {
-            ThumbnailsView.recycledViews[i] = ThumbnailView()
+        for i in 0..<TilesView.recycledViews.count {
+            TilesView.recycledViews[i] = TileView()
         }
-        thumbnailUnderLayer = ThumbnailUnderLayer()
-        thumbnailOverView = ThumbnailOverView()
+        thumbnailUnderLayer = TileUnderLayer()
+        thumbnailOverView = TileOverView()
         thumbnailOverView.scrollView = scrollView
         lastRowSignature.removeAll()
         Self.updateCachedSizes()
@@ -65,7 +65,7 @@ class ThumbnailsView {
         view.indexInRecycledViews = indexInRecycledViews
         guard view.frame != .zero else { return }
         view.drawHighlight()
-        let underLayer = App.app.thumbnailsPanel.thumbnailsView.thumbnailUnderLayer
+        let underLayer = App.app.thumbnailsPanel.tilesView.thumbnailUnderLayer
         let focusedView = recycledViews[Windows.selectedWindowIndex]
         let hoveredView = Windows.hoveredWindowIndex.map { recycledViews[$0] }
         underLayer.updateHighlight(
@@ -74,7 +74,7 @@ class ThumbnailsView {
         )
     }
 
-    func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [ThumbnailView]? {
+    func nextRow(_ direction: Direction, allowWrap: Bool = true) -> [TileView]? {
         let step = direction == .down ? 1 : -1
         if let currentRow = Windows.selectedWindow()?.rowIndex {
             var nextRow = currentRow + step
@@ -101,8 +101,8 @@ class ThumbnailsView {
     }
 
     func navigateUpOrDown(_ direction: Direction, allowWrap: Bool = true) {
-        guard Windows.selectedWindowIndex < ThumbnailsView.recycledViews.count else { return }
-        let focusedViewFrame = ThumbnailsView.recycledViews[Windows.selectedWindowIndex].frame
+        guard Windows.selectedWindowIndex < TilesView.recycledViews.count else { return }
+        let focusedViewFrame = TilesView.recycledViews[Windows.selectedWindowIndex].frame
         let originCenter = NSMidX(focusedViewFrame)
         guard let targetRow = nextRow(direction, allowWrap: allowWrap), !targetRow.isEmpty else { return }
         let leftSide = originCenter < NSMidX(contentView.frame)
@@ -114,13 +114,13 @@ class ThumbnailsView {
             }
             return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
         }) ?? iterable.last else { return }
-        guard let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView) else { return }
+        guard let targetIndex = TilesView.recycledViews.firstIndex(of: targetView) else { return }
         Windows.updateSelectedAndHoveredWindowIndex(targetIndex)
     }
 
     func updateItemsAndLayout() {
-        let widthMax = ThumbnailsPanel.maxThumbnailsWidth().rounded()
-        if let (maxX, maxY, labelHeight, rowSignature) = layoutThumbnailViews(widthMax) {
+        let widthMax = TilesPanel.maxThumbnailsWidth().rounded()
+        if let (maxX, maxY, labelHeight, rowSignature) = layoutTileViews(widthMax) {
             layoutParentViews(maxX, widthMax, maxY, labelHeight)
             if Preferences.alignThumbnails == .center {
                 centerRows(maxX)
@@ -140,24 +140,24 @@ class ThumbnailsView {
         }
     }
 
-    private func layoutThumbnailViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat, [Int])? {
+    private func layoutTileViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat, [Int])? {
         let labelHeight = Self.layoutCache.labelHeight
-        let height = ThumbnailView.height(labelHeight)
+        let height = TileView.height(labelHeight)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
         let startingX = isLeftToRight ? Appearance.interCellPadding : widthMax - Appearance.interCellPadding
         var currentX = startingX
         var currentY = Appearance.interCellPadding
         var maxX = CGFloat(0)
         var maxY = currentY + height + Appearance.interCellPadding
-        var newViews = [ThumbnailView]()
+        var newViews = [TileView]()
         var rowSignature = [Int]()
         rows.removeAll(keepingCapacity: true)
-        rows.append([ThumbnailView]())
+        rows.append([TileView]())
         var index = 0
-        while index < ThumbnailsView.recycledViews.count {
+        while index < TilesView.recycledViews.count {
             guard App.app.appIsBeingUsed else { return nil }
             defer { index = index + 1 }
-            let view = ThumbnailsView.recycledViews[index]
+            let view = TilesView.recycledViews[index]
             if index < Windows.list.count {
                 let window = Windows.list[index]
                 guard window.shouldShowTheUser else { continue }
@@ -170,7 +170,7 @@ class ThumbnailsView {
                     view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
                     currentX = projectedWidth(currentX, width).rounded(.down)
                     maxY = max(currentY + height + Appearance.interCellPadding, maxY)
-                    rows.append([ThumbnailView]())
+                    rows.append([TileView]())
                 } else {
                     view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
                     currentX = projectedX
@@ -215,11 +215,11 @@ class ThumbnailsView {
     }
 
     private func layoutParentViews(_ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat, _ labelHeight: CGFloat) {
-        let heightMax = ThumbnailsPanel.maxThumbnailsHeight()
-        ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
-        ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
-        let frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
-        var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2
+        let heightMax = TilesPanel.maxThumbnailsHeight()
+        TilesView.thumbnailsWidth = min(maxX, widthMax)
+        TilesView.thumbnailsHeight = min(maxY, heightMax)
+        let frameWidth = TilesView.thumbnailsWidth + Appearance.windowPadding * 2
+        var frameHeight = TilesView.thumbnailsHeight + Appearance.windowPadding * 2
         let originX = Appearance.windowPadding
         var originY = Appearance.windowPadding
         if Preferences.appearanceStyle == .appIcons {
@@ -248,7 +248,7 @@ class ThumbnailsView {
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return }
             guard window.shouldShowTheUser else { continue }
-            let view = ThumbnailsView.recycledViews[index]
+            let view = TilesView.recycledViews[index]
             if view.frame.origin.y == rowY {
                 rowWidth += view.frame.size.width + Appearance.interCellPadding
             } else {
@@ -262,11 +262,11 @@ class ThumbnailsView {
     }
 
     private func highlightStartView() {
-        ThumbnailsView.highlight(Windows.selectedWindowIndex)
+        TilesView.highlight(Windows.selectedWindowIndex)
         if let hoveredWindowIndex = Windows.hoveredWindowIndex {
-            ThumbnailsView.highlight(hoveredWindowIndex)
+            TilesView.highlight(hoveredWindowIndex)
             if thumbnailOverView.isShowingWindowControls {
-                thumbnailOverView.showWindowControls(for: ThumbnailsView.recycledViews[hoveredWindowIndex])
+                thumbnailOverView.showWindowControls(for: TilesView.recycledViews[hoveredWindowIndex])
             }
         }
     }
@@ -275,7 +275,7 @@ class ThumbnailsView {
         let offset = ((maxX - rowWidth) / 2).rounded()
         if offset > 0 {
             for i in rowStartIndex..<index {
-                ThumbnailsView.recycledViews[i].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
+                TilesView.recycledViews[i].frame.origin.x += App.shared.userInterfaceLayoutDirection == .leftToRight ? offset : -offset
             }
         }
     }

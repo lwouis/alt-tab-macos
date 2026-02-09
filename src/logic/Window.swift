@@ -105,9 +105,9 @@ class Window {
         thumbnail = screenshot
         if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
         if let position, let size,
-           let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
+           let view = (TilesView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
-                let thumbnailSize = ThumbnailView.thumbnailSize(screenshot.size(), false)
+                let thumbnailSize = TileView.thumbnailSize(screenshot.size(), false)
                 let newSize = thumbnailSize.width != view.thumbnail.frame.width || thumbnailSize.height != view.thumbnail.frame.height
                 view.thumbnail.updateContents(screenshot, thumbnailSize)
                 // if the thumbnail size has changed, we need to refresh the open UI

@@ -269,7 +269,7 @@ extension SCStreamConfiguration {
             height = Int(originalSize.height)
         } else {
             // capture screenshots as small as needed for the thumbnails
-            let maxSize = ThumbnailsPanel.maxPossibleThumbnailSize
+            let maxSize = TilesPanel.maxPossibleThumbnailSize
             guard maxSize.width > 0, maxSize.height > 0 else { return }
             let scale = min(maxSize.width / originalSize.width, maxSize.height / originalSize.height)
             width = Int((originalSize.width * scale).rounded())

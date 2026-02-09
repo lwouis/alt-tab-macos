@@ -68,7 +68,7 @@ class LightImageLayer: CALayer {
         guard fullyTransparent else { return }
         let minSize = min(Appearance.iconSize, bounds.width * 0.9, bounds.height * 0.9)
         let maxSize = Appearance.iconSize * 3
-        let ratio = min(bounds.width / ThumbnailView.maxThumbnailWidth(), bounds.height / ThumbnailView.maxThumbnailHeight())
+        let ratio = min(bounds.width / TileView.maxThumbnailWidth(), bounds.height / TileView.maxThumbnailHeight())
         let pointSize = max(minSize, maxSize * ratio)
         let config = NSImage.SymbolConfiguration(pointSize: pointSize, weight: .regular)
         guard let image = NSImage(systemSymbolName: "hand.raised.fill", accessibilityDescription: nil)?.withSymbolConfiguration(config) else { return }

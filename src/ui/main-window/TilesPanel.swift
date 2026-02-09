@@ -1,7 +1,7 @@
 import Cocoa
 
-class ThumbnailsPanel: NSPanel {
-    var thumbnailsView = ThumbnailsView()
+class TilesPanel: NSPanel {
+    var tilesView = TilesView()
     override var canBecomeKey: Bool { true }
     static var maxPossibleThumbnailSize = NSSize.zero
     static var maxPossibleAppIconSize = NSSize.zero
@@ -14,7 +14,7 @@ class ThumbnailsPanel: NSPanel {
         hidesOnDeactivate = false
         titleVisibility = .hidden
         backgroundColor = .clear
-        contentView! = thumbnailsView.contentView
+        contentView! = tilesView.contentView
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
         // 2nd highest level possible; this allows the app to go on top of context menus
@@ -34,18 +34,18 @@ class ThumbnailsPanel: NSPanel {
 
     func updateContents() {
         caTransaction {
-            thumbnailsView.updateItemsAndLayout()
+            tilesView.updateItemsAndLayout()
             guard App.app.appIsBeingUsed else { return }
-            setContentSize(thumbnailsView.contentView.frame.size)
+            setContentSize(tilesView.contentView.frame.size)
             guard App.app.appIsBeingUsed else { return }
             NSScreen.preferred.repositionPanel(self)
         }
         // prevent further AppKit work
-        thumbnailsView.clearNeedsLayout()
+        tilesView.clearNeedsLayout()
     }
 
     override func orderOut(_ sender: Any?) {
-        thumbnailsView.clearNeedsLayout()
+        tilesView.clearNeedsLayout()
         if Preferences.fadeOutAnimation {
             NSAnimationContext.runAnimationGroup(
                 { _ in animator().alphaValue = 0 },
@@ -64,12 +64,12 @@ class ThumbnailsPanel: NSPanel {
         makeKeyAndOrderFront(nil)
         MouseEvents.toggle(true)
         CursorEvents.toggle(true)
-        DispatchQueue.main.async { self.thumbnailsView.scrollView.flashScrollers() }
+        DispatchQueue.main.async { self.tilesView.scrollView.flashScrollers() }
     }
 
     static func maxThumbnailsWidth(_ screen: NSScreen = NSScreen.preferred) -> CGFloat {
         if Preferences.appearanceStyle == .titles,
-           let readableWidth = ThumbnailsView.layoutCache.comfortableReadabilityWidth {
+           let readableWidth = TilesView.layoutCache.comfortableReadabilityWidth {
             return (
                 min(
                     screen.frame.width * Appearance.maxWidthOnScreen,
@@ -87,8 +87,8 @@ class ThumbnailsPanel: NSPanel {
 
     static func updateMaxPossibleThumbnailSize() {
         let (w, h) = NSScreen.screens.reduce((CGFloat.zero, CGFloat.zero)) { acc, screen in
-            (max(acc.0, ThumbnailView.maxThumbnailWidth(screen) * screen.backingScaleFactor),
-            max(acc.1, ThumbnailView.maxThumbnailHeight(screen) * screen.backingScaleFactor))
+            (max(acc.0, TileView.maxThumbnailWidth(screen) * screen.backingScaleFactor),
+            max(acc.1, TileView.maxThumbnailHeight(screen) * screen.backingScaleFactor))
         }
         maxPossibleThumbnailSize = NSSize(width: w.rounded(), height: h.rounded())
     }
@@ -97,10 +97,10 @@ class ThumbnailsPanel: NSPanel {
         let (w, h) = NSScreen.screens.reduce((CGFloat.zero, CGFloat.zero)) { acc, screen in
             // in Thumbnails Appearance, AppIcons can be used for windowless apps, thus much bigger than the app icon near the title
             if Preferences.appearanceStyle == .thumbnails {
-                return (max(acc.0, ThumbnailView.maxThumbnailWidth(screen) * screen.backingScaleFactor),
-                    max(acc.1, ThumbnailView.maxThumbnailHeight(screen) * screen.backingScaleFactor))
+                return (max(acc.0, TileView.maxThumbnailWidth(screen) * screen.backingScaleFactor),
+                    max(acc.1, TileView.maxThumbnailHeight(screen) * screen.backingScaleFactor))
             } else {
-                let size = ThumbnailView.iconSize(screen)
+                let size = TileView.iconSize(screen)
                 return (max(acc.0, size.width * screen.backingScaleFactor),
                     max(acc.1, size.height * screen.backingScaleFactor))
             }
@@ -109,7 +109,7 @@ class ThumbnailsPanel: NSPanel {
     }
 }
 
-extension ThumbnailsPanel: NSWindowDelegate {
+extension TilesPanel: NSWindowDelegate {
     func windowDidResignKey(_ notification: Notification) {
         // other windows can steal key focus from alt-tab; we make sure that if it's active, if keeps key focus
         // dispatching to the main queue is necessary to introduce a delay in scheduling the makeKey; otherwise it is ignored

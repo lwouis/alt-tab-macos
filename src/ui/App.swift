@@ -18,7 +18,7 @@ class App: AppCenterApplication {
     static let appIcon = CGImage.named("app.icns")
     static var app: App!
     var isTerminating = false
-    var thumbnailsPanel: ThumbnailsPanel!
+    var thumbnailsPanel: TilesPanel!
     var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
     var permissionsWindow: PermissionsWindow!
@@ -47,7 +47,7 @@ class App: AppCenterApplication {
 
     /// we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
-        thumbnailsPanel.thumbnailsView.reset()
+        thumbnailsPanel.tilesView.reset()
     }
 
     func restart() {
@@ -67,7 +67,7 @@ class App: AppCenterApplication {
         MouseEvents.toggle(false)
         CursorEvents.toggle(false)
         TrackpadEvents.reset()
-        hideThumbnailPanelWithoutChangingKeyWindow()
+        hideTilesPanelWithoutChangingKeyWindow()
         if !keepPreview {
             previewPanel.orderOut(nil)
         }
@@ -83,8 +83,8 @@ class App: AppCenterApplication {
         }
     }
 
-    /// we don't want another window to become key when the thumbnailPanel is hidden
-    func hideThumbnailPanelWithoutChangingKeyWindow() {
+    /// we don't want another window to become key when the TilesPanel is hidden
+    func hideTilesPanelWithoutChangingKeyWindow() {
         allSecondaryWindowsCanBecomeKey(false)
         thumbnailsPanel.orderOut(nil)
         allSecondaryWindowsCanBecomeKey(true)
@@ -169,7 +169,7 @@ class App: AppCenterApplication {
 
     func cycleSelection(_ direction: Direction, allowWrap: Bool = true) {
         if direction == .up || direction == .down {
-            thumbnailsPanel.thumbnailsView.navigateUpOrDown(direction, allowWrap: allowWrap)
+            thumbnailsPanel.tilesView.navigateUpOrDown(direction, allowWrap: allowWrap)
         } else {
             Windows.cycleSelectedWindowIndex(direction.step(), allowWrap: allowWrap)
         }
@@ -216,7 +216,7 @@ class App: AppCenterApplication {
         guard self.appIsBeingUsed else { return }
         self.thumbnailsPanel.updateContents()
         guard self.appIsBeingUsed else { return }
-        Windows.voiceOverWindow() // at this point ThumbnailViews are assigned to the window, and ready
+        Windows.voiceOverWindow() // at this point TileViews are assigned to the window, and ready
         guard self.appIsBeingUsed else { return }
         Windows.previewSelectedWindowIfNeeded()
         guard self.appIsBeingUsed else { return }
@@ -321,11 +321,11 @@ extension App: NSApplicationDelegate {
         BackgroundWork.start()
         NSScreen.updatePreferred()
         Appearance.update()
-        ThumbnailsPanel.updateMaxPossibleThumbnailSize()
-        ThumbnailsPanel.updateMaxPossibleAppIconSize()
+        TilesPanel.updateMaxPossibleThumbnailSize()
+        TilesPanel.updateMaxPossibleAppIconSize()
         Menubar.initialize()
         MainMenu.loadFromXib()
-        self.thumbnailsPanel = ThumbnailsPanel()
+        self.thumbnailsPanel = TilesPanel()
         self.previewPanel = PreviewPanel()
         Spaces.refresh()
         Screens.refresh()

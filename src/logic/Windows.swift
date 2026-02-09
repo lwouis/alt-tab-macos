@@ -31,7 +31,7 @@ class Windows {
         // it seems that sometimes makeFirstResponder is called before the view is visible
         // and it creates a delay in showing the main window; calling it with some delay seems to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-            let window = ThumbnailsView.recycledViews[windowIndex]
+            let window = TilesView.recycledViews[windowIndex]
             if window.window_ != nil && window.window != nil {
                 App.app.thumbnailsPanel.makeFirstResponder(window)
             }
@@ -186,10 +186,10 @@ class Windows {
         let oldIndex = selectedWindowIndex
         selectedWindowIndex = 0
         selectedWindowTarget = nil
-        ThumbnailsView.highlight(oldIndex)
+        TilesView.highlight(oldIndex)
         if let oldIndex = hoveredWindowIndex {
             hoveredWindowIndex = nil
-            ThumbnailsView.highlight(oldIndex)
+            TilesView.highlight(oldIndex)
         }
         if let frontmostPid = Applications.frontmostPid,
            let frontmostApp = Applications.findOrCreate(frontmostPid),
@@ -224,7 +224,7 @@ class Windows {
             let oldIndex = hoveredWindowIndex
             hoveredWindowIndex = newIndex
             if let oldIndex {
-                ThumbnailsView.highlight(oldIndex)
+                TilesView.highlight(oldIndex)
             }
             index = hoveredWindowIndex
             lastWindowActivityType = .hover
@@ -234,15 +234,15 @@ class Windows {
             let oldIndex = selectedWindowIndex
             selectedWindowIndex = newIndex
             selectedWindowTarget = list[newIndex].id
-            ThumbnailsView.highlight(oldIndex)
+            TilesView.highlight(oldIndex)
             previewSelectedWindowIfNeeded()
             index = selectedWindowIndex
             lastWindowActivityType = .focus
         }
         guard let index else { return }
-        ThumbnailsView.highlight(index)
-        let focusedView = ThumbnailsView.recycledViews[index]
-        App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
+        TilesView.highlight(index)
+        let focusedView = TilesView.recycledViews[index]
+        App.app.thumbnailsPanel.tilesView.scrollView.contentView.scrollToVisible(focusedView.frame)
         voiceOverWindow(index)
     }
 
@@ -384,8 +384,8 @@ class Windows {
             $0.lastFocusOrder += 1
         }
         list.append(window)
-        if list.count > ThumbnailsView.recycledViews.count {
-            ThumbnailsView.recycledViews.append(ThumbnailView())
+        if list.count > TilesView.recycledViews.count {
+            TilesView.recycledViews.append(TileView())
         }
     }
 
