@@ -13,8 +13,6 @@ extension AXUIElement {
     private static let globalMessagingTimeoutInSeconds = Float(1)
     // if an app times out our AX calls, we retry for 6s then give up
     private static let axCallsRetriesQueueTimeoutInSeconds = Float(6)
-    // once an app is unresponsive, let's ignore other AX calls for it to avoid congestion
-    private static var axCallsRetriesQueueUnresponsiveAppsMap = ConcurrentMap<String, UInt64>()
     private static var throttleMap = ConcurrentMap<String, ThrottleState>()
 
     private struct ThrottleState {
