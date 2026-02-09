@@ -224,6 +224,13 @@ class Window {
                 }
                 try? self.axUiElement!.focusWindow()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                    // Some apps require focusing an associated/parent window id for the private focus APIs to take effect.
+                    // In those cases, macOS may not reliably emit a focused-window AX event for the target window, which can
+                    // leave AltTab's "lastFocusOrder" stale and break cycling back-and-forth. Ensure focus order reflects the
+                    // window we intended to focus.
+                    if let windows = Windows.updateLastFocusOrder(self) {
+                        App.app.refreshOpenUi(windows, .refreshUiAfterExternalEvent)
+                    }
                     Windows.previewSelectedWindowIfNeeded()
                 }
             }
