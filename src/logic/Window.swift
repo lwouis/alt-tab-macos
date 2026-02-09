@@ -24,6 +24,8 @@ class Window {
     var dockLabel: String? { get { application.dockLabel } }
     var isFullscreen = false
     var isMinimized = false
+    var isCurrentlyOnScreen = true
+    var isTransparent = false
     var isOnAllSpaces = false
     var isWindowlessApp: Bool { get { cgWindowId == nil } }
     var position: CGPoint?

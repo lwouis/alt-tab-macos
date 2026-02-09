@@ -21,7 +21,7 @@ class BlacklistsTab {
                 tableView.removeSelectedRows()
             }
         }
-        let table = TableGroupView(width: PreferencesWindow.width)
+        let table = TableGroupView(width: 700)
         _ = table.addRow(leftViews: [blacklist], secondaryViews: [add])
         let view = TableGroupSetView(originalViews: [table])
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -82,6 +82,7 @@ class Windows {
         lazy var visibleCgsWindowIds = Spaces.windowsInSpaces(spaceIdsAndIndexes, false)
         for window in list {
             detectTabbedWindows(window, cgsWindowIds, visibleCgsWindowIds)
+            updateIsCurrentlyOnScreen(window, visibleCgsWindowIds)
             window.updateSpacesAndScreen()
             refreshIfWindowShouldBeShownToTheUser(window)
         }
@@ -128,14 +129,48 @@ class Windows {
         }
     }
 
+    private static func updateIsCurrentlyOnScreen(_ window: Window, _ visibleCgsWindowIds: [CGWindowID]) {
+        guard let cgWindowId = window.cgWindowId else {
+            window.isCurrentlyOnScreen = false
+            window.isTransparent = false
+            return
+        }
+        guard visibleCgsWindowIds.contains(cgWindowId) else {
+            window.isCurrentlyOnScreen = false
+            window.isTransparent = false
+            return
+        }
+        // Check alpha via CGWindowList to detect ghost windows (alpha = 0 means invisible)
+        if let infoList = CGWindowListCopyWindowInfo([.optionIncludingWindow], cgWindowId) as? [[String: Any]],
+           let info = infoList.first,
+           let alpha = info[kCGWindowAlpha as String] as? Double,
+           alpha < 0.01 {
+            window.isCurrentlyOnScreen = false
+            window.isTransparent = true
+        } else {
+            window.isCurrentlyOnScreen = true
+            window.isTransparent = false
+        }
+    }
+
+    private static func windowTitleMatches(_ window: Window, _ entry: BlacklistEntry) -> Bool {
+        guard let pattern = entry.windowTitle, !pattern.isEmpty else { return true }
+        return window.title?.localizedCaseInsensitiveContains(pattern) ?? false
+    }
+
     private static func refreshIfWindowShouldBeShownToTheUser(_ window: Window) {
         window.shouldShowTheUser =
             !(window.application.bundleIdentifier.flatMap { id in
                 Preferences.blacklist.contains {
                     id.hasPrefix($0.bundleIdentifier) &&
-                        ($0.hide == .always || (window.isWindowlessApp && $0.hide != .none))
+                        windowTitleMatches(window, $0) &&
+                        ($0.hide == .always ||
+                         (window.isWindowlessApp && $0.hide != .none) ||
+                         ($0.hide == .whenNoOpenWindow && window.isTransparent) ||
+                         ($0.hide == .whenNotOnScreen && !window.isCurrentlyOnScreen))
                 }
             } ?? false) &&
+            !(Preferences.showTransparentWindows[App.app.shortcutIndex] == .hide && window.isTransparent) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.pid != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
             !(Preferences.appsToShow[App.app.shortcutIndex] == .nonActive && window.application.pid == NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
@@ -305,6 +340,9 @@ class Windows {
             }
             if Preferences.showMinimizedWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isMinimized != $1.isMinimized {
                 return $1.isMinimized
+            }
+            if Preferences.showTransparentWindows[App.app.shortcutIndex] == .showAtTheEnd && $0.isTransparent != $1.isTransparent {
+                return $1.isTransparent
             }
             // sort within each buckets
             let sortType = Preferences.windowOrder[App.app.shortcutIndex]

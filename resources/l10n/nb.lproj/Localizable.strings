@@ -192,6 +192,7 @@
 "Show apps with no open window" = "Vis apper uten åpne vinduer";
 "Show at the end" = "Vis på slutten";
 "Show fullscreen windows" = "Vis fullskjermvinduer";
+"Show invisible windows" = "Vis usynlige vinduer";
 "Show hidden windows" = "Vis skjulte vinduer";
 "Show in switcher" = "Vis i switcher";
 "Show minimized windows" = "Vis minimerte vinduer";
@@ -250,6 +251,9 @@
 "Visible Spaces" = "Synlige områder";
 "When fullscreen" = "Når i fullskjerm";
 "When no open window" = "Når ingen åpne vinduer";
+"When not visible on screen" = "Når ikke synlig på skjermen";
+"Window title contains" = "Vindutittel inneholder";
+"Any" = "Alle";
 "While open, press:" = "Når åpen, trykk:";
 "Window app icon size:" = "Størrelse på vinduappikon:";
 "Window is fullscreen" = "Vinduet er i fullskjerm";

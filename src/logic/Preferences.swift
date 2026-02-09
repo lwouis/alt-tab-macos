@@ -40,6 +40,10 @@ class Preferences {
         "showWindowlessApps2": ShowHowPreference.showAtTheEnd.indexAsString,
         "showWindowlessApps3": ShowHowPreference.showAtTheEnd.indexAsString,
         "showWindowlessApps4": ShowHowPreference.showAtTheEnd.indexAsString,
+        "showTransparentWindows": ShowHowPreference.show.indexAsString,
+        "showTransparentWindows2": ShowHowPreference.show.indexAsString,
+        "showTransparentWindows3": ShowHowPreference.show.indexAsString,
+        "showTransparentWindows4": ShowHowPreference.show.indexAsString,
         "windowOrder": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder2": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder3": WindowOrderPreference.recentlyFocused.indexAsString,
@@ -146,6 +150,7 @@ class Preferences {
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showWindowlessApps: [ShowHowPreference] { ["showWindowlessApps", "showWindowlessApps2", "showWindowlessApps3", "showWindowlessApps4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var showTransparentWindows: [ShowHowPreference] { ["showTransparentWindows", "showTransparentWindows2", "showTransparentWindows3", "showTransparentWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4"].map { CachedUserDefaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4"].map { CachedUserDefaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { CachedUserDefaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
@@ -299,4 +304,5 @@ struct BlacklistEntry: Codable {
     var bundleIdentifier: String
     var hide: BlacklistHidePreference
     var ignore: BlacklistIgnorePreference
+    var windowTitle: String?
 }
