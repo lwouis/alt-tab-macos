@@ -45,6 +45,9 @@ class CursorEvents {
     private static let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
         if type == .mouseMoved {
             updateDeadzoneSituation(cgEvent)
+            if isAllowedToMouseHover {
+                App.app.thumbnailsPanel.tilesView.thumbnailOverView.updateHover()
+            }
         } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) && shouldBeEnabled {
             CGEvent.tapEnable(tap: eventTap!, enable: true)
         }
@@ -64,8 +67,6 @@ class CursorEvents {
         let deltaY = event.locationInWindow.y - deadZoneInitialPosition.y
         let d = hypot(deltaX, deltaY)
         isAllowedToMouseHover = d > 25
-        if isAllowedToMouseHover {
-            App.app.thumbnailsPanel.tilesView.thumbnailOverView.updateHover()
-        }
+
     }
 }

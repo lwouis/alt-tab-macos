@@ -13,7 +13,6 @@ class TrafficLightButton: NSButton {
         self.type = type
         target = self
         action = #selector(onClick)
-        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeInKeyWindow, .inVisibleRect], owner: self, userInfo: nil))
         toolTip = tooltip
         appearance = NSAppearance(named: .aqua)
     }
@@ -32,16 +31,6 @@ class TrafficLightButton: NSButton {
         } else if (type == .quit) {
             window_?.application.quit()
         }
-    }
-
-    override func mouseEntered(with event: NSEvent) {
-        isMouseOver = true
-        setNeedsDisplay()
-    }
-
-    override func mouseExited(with event: NSEvent) {
-        isMouseOver = false
-        setNeedsDisplay()
     }
 
     override func draw(_ dirtyRect: NSRect) {

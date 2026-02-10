@@ -25,8 +25,6 @@ class TileView: FlippedView {
     var indexInRow = 0
     var numberOfViewsInRow = 0
 
-    var receivedMouseDown = false
-
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
     override var acceptsFirstResponder: Bool { true }
@@ -70,32 +68,6 @@ class TileView: FlippedView {
         let open = try? NSWorkspace.shared.open(urls, withApplicationAt: appUrl, options: [], configuration: [:])
         App.app.hideUi()
         return open != nil
-    }
-
-    override func mouseDown(with event: NSEvent) {
-        receivedMouseDown = true
-    }
-
-    override func mouseUp(with event: NSEvent) {
-        if receivedMouseDown {
-            if bounds.contains(convert(event.locationInWindow, from: nil)) {
-                mouseUpCallback()
-            }
-            receivedMouseDown = false
-        }
-    }
-
-    override func otherMouseUp(with event: NSEvent) {
-        // middle-click
-        if event.buttonNumber == 2 {
-            if let window_ {
-                if window_.isWindowlessApp {
-                    window_.application.quit()
-                } else {
-                    window_.close()
-                }
-            }
-        }
     }
 
     func mouseMoved() {
@@ -582,7 +554,6 @@ class StatusIconsView: FlippedView {
         let measure = NSAttributedString(string: Symbols.circledNumber0.rawValue, attributes: attrs)
         iconCellSize = measure.size()
         super.init(frame: frame)
-        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
     }
 
     required init?(coder: NSCoder) { fatalError() }
@@ -623,11 +594,7 @@ class StatusIconsView: FlippedView {
         needsDisplay = true
     }
 
-    override func mouseEntered(with event: NSEvent) {
-        ensureTooltipsInstalled()
-    }
-
-    private func ensureTooltipsInstalled() {
+    func ensureTooltipsInstalled() {
         guard tooltipsDirty else { return }
         tooltipsDirty = false
         removeAllToolTips()
@@ -661,7 +628,4 @@ class StatusIconsView: FlippedView {
         }
     }
 
-    override func mouseMoved(with event: NSEvent) {
-        // no-op prevents tooltips from disappearing on mouseMoved
-    }
 }

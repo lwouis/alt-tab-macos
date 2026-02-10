@@ -8,6 +8,7 @@ class TileOverView: FlippedView {
     var isShowingWindowControls = false
     weak var scrollView: ScrollView?
     var previousTarget: TileView?
+    private var previousHoveredButton: TrafficLightButton?
 
     var windowControlButtons: [TrafficLightButton] { [quitButton, closeButton, minimizeButton, maximizeButton] }
 
@@ -37,6 +38,7 @@ class TileOverView: FlippedView {
     func updateHover() {
         guard let scrollView, !scrollView.isCurrentlyScrolling else { return }
         let location = convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
+        updateButtonHover(location)
         let newTarget = findTarget(location)
         guard newTarget !== previousTarget else { return }
         caTransaction {
@@ -44,6 +46,10 @@ class TileOverView: FlippedView {
                 hideWindowControls()
                 newTarget.mouseMoved()
                 showWindowControls(for: newTarget)
+                let statusFrame = newTarget.convert(newTarget.statusIcons.frame, to: superview)
+                if statusFrame.contains(location) {
+                    newTarget.statusIcons.ensureTooltipsInstalled()
+                }
             } else {
                 resetHoveredWindow()
             }
@@ -51,7 +57,42 @@ class TileOverView: FlippedView {
         }
     }
 
-    private func findTarget(_ location: NSPoint) -> TileView? {
+    /// Find the TrafficLightButton at the given point (in TileOverView's coordinate space)
+    func findButton(_ location: NSPoint) -> TrafficLightButton? {
+        guard isShowingWindowControls else { return nil }
+        for button in windowControlButtons where !button.isHidden {
+            let buttonPoint = button.convert(location, from: self)
+            if button.bounds.contains(buttonPoint) {
+                return button
+            }
+        }
+        return nil
+    }
+
+    private func updateButtonHover(_ location: NSPoint) {
+        var newHoveredButton: TrafficLightButton?
+        if isShowingWindowControls {
+            for button in windowControlButtons where !button.isHidden {
+                let buttonPoint = button.convert(location, from: self)
+                if button.bounds.contains(buttonPoint) {
+                    newHoveredButton = button
+                    break
+                }
+            }
+        }
+        guard newHoveredButton !== previousHoveredButton else { return }
+        if let old = previousHoveredButton {
+            old.isMouseOver = false
+            old.setNeedsDisplay()
+        }
+        if let new = newHoveredButton {
+            new.isMouseOver = true
+            new.setNeedsDisplay()
+        }
+        previousHoveredButton = newHoveredButton
+    }
+
+    func findTarget(_ location: NSPoint) -> TileView? {
         guard let documentView = superview else { return nil }
         for case let view as TileView in documentView.subviews {
             let frame = view.frame
@@ -107,6 +148,10 @@ class TileOverView: FlippedView {
     func hideWindowControls() {
         guard isShowingWindowControls else { return }
         isShowingWindowControls = false
+        if let old = previousHoveredButton {
+            old.isMouseOver = false
+            previousHoveredButton = nil
+        }
         for button in windowControlButtons {
             button.isHidden = true
         }

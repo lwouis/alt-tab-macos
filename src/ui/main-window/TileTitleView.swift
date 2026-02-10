@@ -31,10 +31,6 @@ class TileTitleView: NSTextField {
         frame.size.width = width
     }
 
-    override func mouseMoved(with event: NSEvent) {
-        // no-op here prevents tooltips from disappearing on mouseMoved
-    }
-
     func updateTruncationModeIfNeeded() {
         let newLineBreakMode = getTruncationMode()
         if lineBreakMode != newLineBreakMode {
