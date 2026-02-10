@@ -40,16 +40,18 @@ class TileOverView: FlippedView {
         let location = convert(App.app.thumbnailsPanel.mouseLocationOutsideOfEventStream, from: nil)
         updateButtonHover(location)
         let newTarget = findTarget(location)
+        if let target = newTarget ?? previousTarget {
+            let statusFrame = target.convert(target.statusIcons.frame, to: superview)
+            if statusFrame.contains(location) {
+                target.statusIcons.ensureTooltipsInstalled()
+            }
+        }
         guard newTarget !== previousTarget else { return }
         caTransaction {
             if let newTarget {
                 hideWindowControls()
                 newTarget.mouseMoved()
                 showWindowControls(for: newTarget)
-                let statusFrame = newTarget.convert(newTarget.statusIcons.frame, to: superview)
-                if statusFrame.contains(location) {
-                    newTarget.statusIcons.ensureTooltipsInstalled()
-                }
             } else {
                 resetHoveredWindow()
             }

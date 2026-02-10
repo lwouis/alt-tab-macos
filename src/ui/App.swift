@@ -64,7 +64,6 @@ class App: AppCenterApplication {
         appIsBeingUsed = false
         isFirstSummon = true
         forceDoNothingOnRelease = false
-        MouseEvents.toggle(false)
         CursorEvents.toggle(false)
         TrackpadEvents.reset()
         hideTilesPanelWithoutChangingKeyWindow()
@@ -337,7 +336,6 @@ extension App: NSApplicationDelegate {
         self.preferencesWindow = PreferencesWindow()
         self.feedbackWindow = FeedbackWindow()
         KeyboardEvents.addEventHandlers()
-        MouseEvents.observe()
         CursorEvents.observe()
         TrackpadEvents.observe()
         CliEvents.observe()

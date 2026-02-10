@@ -62,7 +62,6 @@ class TilesPanel: NSPanel {
         updateAppearance()
         alphaValue = 1
         makeKeyAndOrderFront(nil)
-        MouseEvents.toggle(true)
         CursorEvents.toggle(true)
         DispatchQueue.main.async { self.tilesView.scrollView.flashScrollers() }
     }
