@@ -58,7 +58,9 @@ class Application: NSObject {
         let sourceWidth = finalWidth + padding * 2
         // we ask the NSImage for the closest image it has to our desired size. It's likely to return a 1024x1024 or 512x512 image; whichever is closest
         var proposedRect = CGRect(origin: .zero, size: NSSize(width: sourceWidth, height: sourceWidth))
-        guard let cgImage = icon.cgImage(forProposedRect: &proposedRect, context: nil, hints: [.interpolation: NSImageInterpolation.high]) else { return nil }
+        // this convoluted style avoids a crash on macOS 10.13 (see #5255)
+        let hints : [NSImageRep.HintKey : NSNumber] = [.interpolation : NSNumber(value: NSImageInterpolation.high.rawValue)]
+        guard let cgImage = icon.cgImage(forProposedRect: &proposedRect, context: nil, hints: hints) else { return nil }
         // we have to crop this image; let's scale our intended padding, given the image size we got
         let paddingScaled = padding * (CGFloat(cgImage.width) / sourceWidth)
         guard let image = cgImage.cropping(to: CGRect(x: paddingScaled, y: paddingScaled, width: CGFloat(cgImage.width) - paddingScaled * 2, height: CGFloat(cgImage.height) - paddingScaled * 2).integral),
