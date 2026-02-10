@@ -7,7 +7,7 @@ class PermissionsWindow: NSWindow {
     override var canBecomeKey: Bool { canBecomeKey_ }
 
     convenience init() {
-        self.init(contentRect: .zero, styleMask: [.titled, .miniaturizable, .closable], backing: .buffered, defer: false)
+        self.init(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
         delegate = self
         setupWindow()
         setupView()
@@ -16,10 +16,10 @@ class PermissionsWindow: NSWindow {
     func show() {
         guard !isVisible else { return }
         Logger.debug { "" }
-        SystemPermissions.setFrequentTimer()
         center()
         App.shared.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
+        SystemPermissions.setFrequentTimer()
     }
 
     func updatePermissionViews() {
@@ -33,7 +33,7 @@ class PermissionsWindow: NSWindow {
         title = NSLocalizedString("AltTab needs some permissions", comment: "")
         hidesOnDeactivate = false
         isReleasedWhenClosed = false
-        styleMask.insert([.miniaturizable, .closable])
+        styleMask.insert([.closable])
     }
 
     private func setupView() {
@@ -99,7 +99,6 @@ extension PermissionsWindow: NSWindowDelegate {
                 return false // prevent the close; termination will close everything once
             }
         }
-        SystemPermissions.setInfrequentTimer()
         return true
     }
 }

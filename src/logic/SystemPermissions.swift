@@ -5,6 +5,7 @@ import ScreenCaptureKit.SCShareableContent
 class SystemPermissions {
     static var preStartupPermissionsPassed = false
     private static var timer: DispatchSourceTimer!
+    private static var timerIsFrequent = false
 
     static func ensurePermissionsAreGranted() {
         timer = DispatchSource.makeTimerSource(queue: BackgroundWork.permissionsCheckOnTimerQueue.strongUnderlyingQueue)
@@ -23,6 +24,11 @@ class SystemPermissions {
             checkPermissionsPreStartup()
         } else {
             checkPermissionsPostStartup()
+            if App.app.permissionsWindow.isVisible && !timerIsFrequent {
+                setFrequentTimer()
+            } else if !App.app.permissionsWindow.isVisible && timerIsFrequent {
+                setInfrequentTimer()
+            }
         }
         DispatchQueue.main.async {
             Menubar.togglePermissionCallout(ScreenRecordingPermission.status != .granted)
@@ -53,14 +59,17 @@ class SystemPermissions {
     }
 
     static func setInfrequentTimer() {
+        timerIsFrequent = false
         timer.schedule(deadline: .now() + 5, repeating: 5, leeway: .seconds(1))
     }
 
     static func setFrequentTimer() {
+        timerIsFrequent = true
         timer.schedule(deadline: .now(), repeating: 0.5, leeway: .milliseconds(500))
     }
 
     private static func setImmediateTimer() {
+        timerIsFrequent = false
         timer.schedule(deadline: .now(), repeating: .never, leeway: .never)
     }
 }
