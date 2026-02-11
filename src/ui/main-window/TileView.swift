@@ -315,21 +315,7 @@ class TileView: FlippedView {
             assignIfDifferent(&thumbnail.frame.origin, NSPoint(x: edgeInsets, y: edgeInsets + hHeight + Appearance.intraCellPadding))
             thumbnail.centerInSuperlayer(x: true)
         }
-        if !windowlessAppIndicator.isHidden {
-            if Preferences.appearanceStyle == .thumbnails {
-                windowlessAppIndicator.frame.origin.x = thumbnail.frame.origin.x + ((thumbnail.frame.width - windowlessAppIndicator.frame.width) / 2).rounded()
-            } else if Preferences.appearanceStyle != .titles {
-                windowlessAppIndicator.centerFrameInParent(x: true)
-            } else {
-                windowlessAppIndicator.frame.origin.x = ((appIcon.frame.width / 2) - (windowlessAppIndicator.frame.width / 2)).rounded()
-                    + (App.shared.userInterfaceLayoutDirection == .leftToRight ? 0 : appIcon.frame.origin.x)
-            }
-            if Preferences.appearanceStyle != .thumbnails {
-                windowlessAppIndicator.frame.origin.y = windowlessAppIndicator.superview!.frame.height - windowlessAppIndicator.frame.height + 5
-            } else {
-                windowlessAppIndicator.frame.origin.y = thumbnail.frame.origin.y - 5
-            }
-        }
+        updateWindowlessAppIndicatorPosition()
         // we set dockLabelIcon origin, without checking if .isHidden
         // This is because its updated async. We need it positioned correctly always
         let (offsetX, offsetY) = dockLabelOffset()
@@ -357,6 +343,27 @@ class TileView: FlippedView {
             offsetY = 0.1
         }
         return (offsetX, offsetY)
+    }
+
+    private func updateWindowlessAppIndicatorPosition() {
+        guard !windowlessAppIndicator.isHidden else { return }
+        assignIfDifferent(&windowlessAppIndicator.frame.origin.x, windowlessIndicatorXPosition())
+        assignIfDifferent(&windowlessAppIndicator.frame.origin.y, windowlessIndicatorYPosition())
+    }
+
+    private func windowlessIndicatorXPosition() -> CGFloat {
+        if Preferences.appearanceStyle == .thumbnails {
+            return thumbnail.frame.origin.x + ((thumbnail.frame.width - windowlessAppIndicator.frame.width) / 2).rounded()
+        }
+        return (appIcon.frame.midX - windowlessAppIndicator.frame.width / 2).rounded()
+    }
+
+    private func windowlessIndicatorYPosition() -> CGFloat {
+        let verticalOffset = Preferences.appearanceStyle == .titles ? CGFloat(5) : CGFloat(10)
+        if Preferences.appearanceStyle == .thumbnails {
+            return (thumbnail.frame.maxY - windowlessAppIndicator.frame.height + verticalOffset).rounded()
+        }
+        return (appIcon.frame.maxY - windowlessAppIndicator.frame.height + verticalOffset).rounded()
     }
 
     private func getAppOrAndWindowTitle() -> String {
