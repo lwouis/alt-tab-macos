@@ -8,7 +8,7 @@
 "Additional controls" = "추가 제어";
 "Additional controls…" = "추가 제어…";
 "Advanced" = "고급";
-"After release" = "단축키를 떼고";
+"After release" = "단축키를 뗄 때";
 "Align windows" = "윈도우 정렬";
 "Align windows:" = "윈도우 정렬:";
 "All apps" = "모든 앱";
@@ -124,16 +124,24 @@
 "Miscellaneous:" = "기타:";
 "Mouse hover" = "마우스 올려놓기";
 "Multiple screens" = "여러 화면";
+"Never" = "절대 안 함";
 "Never send crash reports" = "절대 보내지 않기";
+"Non-active apps" = "비활성 앱";
 "Normal" = "일반";
 "Not allowed" = "허용되지 않음";
 "NSHumanReadableCopyright" = "GPL-3.0 라이선스";
 "Only if the window is fullscreen" = "전체 화면일 경우";
+"Only on different screen" = "다른 화면에서만";
 "Open Accessibility Preferences…" = "손쉬운 사용 설정 열기…";
+"Open Accessibility Settings…" = "접근성 설정 열기...";
 "Open Screen Recording Preferences…" = "화면 기록 설정 열기…";
+"Open Screen Recording Settings…" = "화면 녹화 설정 열기...";
+"Open System Settings to confirm, and continue" = "시스템 설정을 열어 확인하고 계속하세요";
 "Open Trackpad Preferences…" = "트랙패드 설정 열기…";
+"Open Trackpad Settings…" = "트랙패드 설정 열기…";
 "Optional: email (if you want a reply)" = "답변을 원하면 이메일 주소를 남겨주세요";
 "Order windows by" = "윈도우 정렬";
+"Please fill in the form" = "입력란을 채워주세요";
 "Policies" = "정책";
 "Preferences…" = "설정…";
 "Preview selected window" = "선택한 윈도우 미리보기";
@@ -149,6 +157,8 @@
 "Remember my choice" = "내 선택 기억하기";
 "Reset preferences and restart" = "설정 초기화 후 다시 시작";
 "Reset preferences and restart…" = "설정 초기화 후 다시 시작...";
+"Reset settings and restart" = "설정을 초기화하고 재시작";
+"Reset settings and restart…" = "설정을 초기화하고 재시작…";
 "Restart Now" = "지금 다시 시작";
 "Rows of thumbnails:" = "썸네일의 줄 개수:";
 "Screen including menu bar" = "메뉴 막대를 포함하는 화면";
@@ -166,6 +176,7 @@
 "Send debug profile (CPU, memory, etc)" = "디버깅 정보 보내기 (CPU, 메모리 등)";
 "Send feedback" = "피드백 보내기";
 "Send feedback…" = "피드백 보내기…";
+"Settings…" = "설정";
 "Share improvement ideas, or report bugs" = "개선안을 제안하거나 버그를 제보해주세요";
 "Shortcut 1" = "단축키 1";
 "Shortcut 2" = "단축키 2";
@@ -178,6 +189,7 @@
 "Show" = "보기";
 "Show & Hide" = "표시 & 숨기기";
 "Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated." = "작업 전환기에 각 윈도우 또는 각 앱을 표시합니다. 윈도우의 경우 포커스하며, 앱의 경우 활성화합니다.";
+"Show apps with no open window" = "열린 윈도우가 없는 앱 표시";
 "Show at the end" = "맨 뒤에서 보기";
 "Show fullscreen windows" = "전체 화면 윈도우 표시";
 "Show hidden windows" = "숨겨진 윈도우 표시";
@@ -208,6 +220,9 @@
 "Switch between 3 different styles. You can customize them." = "서로 다른 세 스타일 중에서 고르세요. 사용자 지정할 수도 있습니다.";
 "System" = "시스템";
 "System Default" = "시스템 기본값";
+"The ⌘⎋ (command+escape) shortcut may be used by macOS for GameOverlay.\n\nYour change would assign it to: %@.\n\nIf you want to continue, make sure that the GameOverlay shortcut is disabled.\nAlso note that macOS has reported bugs where the shortcut may still interfere while disabled." = "⌘⎋ (Cmd+Esc) 단축키는 macOS GameOverlay에서 쓰일 수도 있습니다.\n\n변경하신 해당 단축키의 동작: %@.\n\n계속하려면 GameOverlay 단축키를 껐는지 확인해주세요.\n또 macOS에서 단축키를 끄더라도 간혹 간섭을 일으키는 버그가 있다고 하니 참고하시기 바랍니다.";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (Esc) 키는 일부 macOS 단축키(예: ⌘⌥⎋ 단축키는 애플리케이션 강제 종료 윈도우를 띄웁니다)에 예약되어 있습니다.\n\n⎋ 키를 아용하려면 이 키들과는 조합하지 마세요: ⌘⌥, ⌘⌥⇧, ⌘⌥⇧⌃";
+"The ⎋ (escape) key is reserved by some macOS shortcuts (e.g. ⌘⌥⎋ will show the Force Quit Applications window).\n\nYour change would assign it to: %@.\n\nIf you want to use ⎋, make sure that Hold modifiers are neither: ⌘⌥, ⌘⌥⇧, or ⌘⌥⇧⌃" = "⎋ (Esc) 키는 일부 macOS 단축키(예: ⌘⌥⎋ 단축키는 애플리케이션 강제 종료 윈도우를 띄웁니다)에 예약되어 있습니다.\n\n변경하신 해당 단축키의 동작: %@\n\n⎋ 키를 아용하려면 이 키들과는 조합하지 마세요: ⌘⌥, ⌘⌥⇧, ⌘⌥⇧⌃";
 "The application needs to restart to apply the language change." = "언어 변경을 적용하려면 앱을 다시 시작해야 합니다.";
 "Theme" = "테마";
 "Theme:" = "테마:";
@@ -219,6 +234,7 @@
 "Title" = "제목";
 "Title truncation" = "제목 끊기";
 "Titles" = "제목";
+"Trackpad haptic feedback" = "트랙패드 햅틱 피드백";
 "Trigger shortcut" = "동작 단축키";
 "Unassign existing shortcut and continue" = "이미 존재하는 단축키를 할당 해제하고 계속";
 "Updates policy" = "업데이트 정책";
