@@ -205,15 +205,16 @@ class App: AppCenterApplication {
         refreshOpenUiWithThrottling {
             guard self.appIsBeingUsed else { return }
             if !Windows.updatesBeforeShowing() { self.hideUi(); return }
-            self.refreshUi()
+            self.refreshUi(true)
         }
     }
-    
-    func refreshUi() {
+
+    func refreshUi(_ preserveScrollPosition: Bool = false) {
         guard self.appIsBeingUsed else { return }
+        let preservedScrollOrigin = preserveScrollPosition ? thumbnailsPanel.tilesView.currentScrollOrigin() : nil
         Windows.updateSelectedWindow()
         guard self.appIsBeingUsed else { return }
-        self.thumbnailsPanel.updateContents()
+        self.thumbnailsPanel.updateContents(preservedScrollOrigin)
         guard self.appIsBeingUsed else { return }
         Windows.voiceOverWindow() // at this point TileViews are assigned to the window, and ready
         guard self.appIsBeingUsed else { return }

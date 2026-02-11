@@ -118,7 +118,7 @@ class TilesView {
         Windows.updateSelectedAndHoveredWindowIndex(targetIndex)
     }
 
-    func updateItemsAndLayout() {
+    func updateItemsAndLayout(_ preservedScrollOrigin: CGPoint?) {
         let widthMax = TilesPanel.maxThumbnailsWidth().rounded()
         if let (maxX, maxY, labelHeight, rowSignature) = layoutTileViews(widthMax) {
             layoutParentViews(maxX, widthMax, maxY, labelHeight)
@@ -137,7 +137,25 @@ class TilesView {
                 lastRowSignature = rowSignature
             }
             highlightStartView()
+            if let preservedScrollOrigin {
+                restoreScrollOrigin(preservedScrollOrigin)
+            }
         }
+    }
+
+    func currentScrollOrigin() -> CGPoint {
+        scrollView.contentView.bounds.origin
+    }
+
+    private func restoreScrollOrigin(_ scrollOrigin: CGPoint) {
+        guard let documentView = scrollView.documentView else { return }
+        let visibleSize = scrollView.contentView.bounds.size
+        let documentSize = documentView.frame.size
+        let maxX = max(0, documentSize.width - visibleSize.width)
+        let maxY = max(0, documentSize.height - visibleSize.height)
+        let clampedOrigin = CGPoint(x: min(max(0, scrollOrigin.x), maxX), y: min(max(0, scrollOrigin.y), maxY))
+        scrollView.contentView.scroll(to: clampedOrigin)
+        scrollView.reflectScrolledClipView(scrollView.contentView)
     }
 
     private func layoutTileViews(_ widthMax: CGFloat) -> (CGFloat, CGFloat, CGFloat, [Int])? {

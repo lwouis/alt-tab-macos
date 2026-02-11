@@ -32,9 +32,9 @@ class TilesPanel: NSPanel {
         appearance = NSAppearance(named: Appearance.currentTheme == .dark ? .vibrantDark : .vibrantLight)
     }
 
-    func updateContents() {
+    func updateContents(_ preservedScrollOrigin: CGPoint?) {
         caTransaction {
-            tilesView.updateItemsAndLayout()
+            tilesView.updateItemsAndLayout(preservedScrollOrigin)
             guard App.app.appIsBeingUsed else { return }
             setContentSize(tilesView.contentView.frame.size)
             guard App.app.appIsBeingUsed else { return }
