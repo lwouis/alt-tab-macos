@@ -137,9 +137,11 @@ class TileView: FlippedView {
 
     private func setupSharedSubviews() {
         let shadow = TileView.makeShadow(Appearance.imagesShadowColor)
+        let appIconShadow = TileView.makeAppIconShadow(Appearance.imagesShadowColor)
+        let thumbnailShadow = TileView.makeThumbnailShadow(Appearance.imagesShadowColor)
         thumbnail.masksToBounds = false // let thumbnail shadows show
-        thumbnail.applyShadow(shadow)
-        appIcon.applyShadow(shadow)
+        thumbnail.applyShadow(thumbnailShadow)
+        appIcon.applyShadow(appIconShadow)
         dockLabelIcon.shadow = shadow
         layer!.addSublayer(appIcon)
         addSubview(dockLabelIcon)
@@ -410,13 +412,28 @@ class TileView: FlippedView {
     }
 
     static func makeShadow(_ color: NSColor?) -> NSShadow? {
-        if color == nil {
-            return nil
-        }
         let shadow = NSShadow()
         shadow.shadowColor = color
         shadow.shadowOffset = .zero
         shadow.shadowBlurRadius = 1
+        return shadow
+    }
+
+    static func makeAppIconShadow(_ color: NSColor?) -> NSShadow? {
+        guard let color else { return nil }
+        let shadow = NSShadow()
+        shadow.shadowColor = color.withAlphaComponent(0.4)
+        shadow.shadowOffset = NSSize(width: 0.1, height: 1)
+        shadow.shadowBlurRadius = 2
+        return shadow
+    }
+
+    static func makeThumbnailShadow(_ color: NSColor?) -> NSShadow? {
+        guard let color else { return nil }
+        let shadow = NSShadow()
+        shadow.shadowColor = color.withAlphaComponent(0.4)
+        shadow.shadowOffset = NSSize(width: 0.8, height: 2.2)
+        shadow.shadowBlurRadius = 3
         return shadow
     }
 
