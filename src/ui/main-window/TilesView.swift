@@ -218,6 +218,7 @@ class TilesView {
         let heightMax = TilesPanel.maxThumbnailsHeight()
         TilesView.thumbnailsWidth = min(maxX, widthMax)
         TilesView.thumbnailsHeight = min(maxY, heightMax)
+        let appIconsBottomViewportPadding = appIconsBottomViewportPadding(maxY, heightMax, labelHeight)
         let frameWidth = TilesView.thumbnailsWidth + Appearance.windowPadding * 2
         var frameHeight = TilesView.thumbnailsHeight + Appearance.windowPadding * 2
         let originX = Appearance.windowPadding
@@ -228,8 +229,9 @@ class TilesView {
             originY = originY - Appearance.intraCellPadding - labelHeight
         }
         contentView.frame.size = NSSize(width: frameWidth, height: frameHeight)
-        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
-        scrollView.frame.origin = CGPoint(x: originX, y: originY)
+        let scrollHeight = max(0, min(maxY, heightMax) - appIconsBottomViewportPadding * 2)
+        scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: scrollHeight)
+        scrollView.frame.origin = CGPoint(x: originX, y: originY + appIconsBottomViewportPadding * 2)
         scrollView.contentView.frame.size = scrollView.frame.size
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
@@ -239,6 +241,11 @@ class TilesView {
         let docSize = scrollView.documentView!.frame.size
         thumbnailOverView.frame = CGRect(origin: .zero, size: docSize)
         thumbnailUnderLayer.frame = CGRect(origin: .zero, size: docSize)
+    }
+
+    private func appIconsBottomViewportPadding(_ maxY: CGFloat, _ heightMax: CGFloat, _ labelHeight: CGFloat) -> CGFloat {
+        guard Preferences.appearanceStyle == .appIcons, maxY > heightMax else { return 0 }
+        return max(0, Appearance.windowPadding - labelHeight)
     }
 
     func centerRows(_ maxX: CGFloat) {
