@@ -94,11 +94,14 @@ class AccessibilityEvents {
                 return
             }
             Logger.debug { "\(type) win:\(window.debugId)" }
+            if findOrCreate.1 {
+                App.app.refreshOpenUiAfterExternalEvent([window])
+            }
             if type == kAXMainWindowChangedNotification || type == kAXFocusedWindowChangedNotification {
                 focusedWindowChanged(window)
             } else if type == kAXWindowResizedNotification || type == kAXWindowMovedNotification {
                 windowResizedOrMoved(window)
-            } else {
+            } else if !findOrCreate.1 {
                 App.app.refreshOpenUiAfterExternalEvent([window])
             }
         }
