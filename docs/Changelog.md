@@ -1,3 +1,50 @@
+# [9.0.0](https://github.com/lwouis/alt-tab-macos/compare/v8.3.4...v9.0.0) (2026-02-11)
+
+
+### Bug Fixes
+
+* missing thumbnails in rare cases ([3142590](https://github.com/lwouis/alt-tab-macos/commit/3142590))
+* preserve scroll position in switcher if windows change ([fa9e4d0](https://github.com/lwouis/alt-tab-macos/commit/fa9e4d0))
+* prevent macos 10.13 crash (closes [#5255](https://github.com/lwouis/alt-tab-macos/issues/5255)) ([d525d35](https://github.com/lwouis/alt-tab-macos/commit/d525d35))
+
+
+### Features
+
+* improve performance when many windows are open (closes [#5177](https://github.com/lwouis/alt-tab-macos/issues/5177)) ([5d0a92f](https://github.com/lwouis/alt-tab-macos/commit/5d0a92f))
+* new thumbnails shadows in macos 26 style ([26d46e3](https://github.com/lwouis/alt-tab-macos/commit/26d46e3))
+* update cs/el/fr/ru localizations ([2681218](https://github.com/lwouis/alt-tab-macos/commit/2681218))
+
+
+### Performance Improvements
+
+* better caanimation batching ([016052c](https://github.com/lwouis/alt-tab-macos/commit/016052c))
+* cache expensive layout values ([904bd17](https://github.com/lwouis/alt-tab-macos/commit/904bd17))
+* cache expensive layout values 2 ([13ed78b](https://github.com/lwouis/alt-tab-macos/commit/13ed78b))
+* cache font from appearance ([305870b](https://github.com/lwouis/alt-tab-macos/commit/305870b))
+* cache screen uuids and frontmost app ([a5135c5](https://github.com/lwouis/alt-tab-macos/commit/a5135c5))
+* capture samplebuffer directly ([2bce0d2](https://github.com/lwouis/alt-tab-macos/commit/2bce0d2))
+* create overlay view to optimize view count ([ec5802a](https://github.com/lwouis/alt-tab-macos/commit/ec5802a))
+* do all mouse interactions globally instead of local tracking ([d89bc29](https://github.com/lwouis/alt-tab-macos/commit/d89bc29))
+* have views under and over the thumbnailview ([b9637e5](https://github.com/lwouis/alt-tab-macos/commit/b9637e5))
+* improve hiding the ui ([4f5e325](https://github.com/lwouis/alt-tab-macos/commit/4f5e325))
+* merge mouseevents into cursorevents ([9edf312](https://github.com/lwouis/alt-tab-macos/commit/9edf312))
+* move app icon capture to background queue ([5a35aa9](https://github.com/lwouis/alt-tab-macos/commit/5a35aa9))
+* optim hangs from DebugMenu ([4b830e6](https://github.com/lwouis/alt-tab-macos/commit/4b830e6))
+* prevent appkit work ([fefc491](https://github.com/lwouis/alt-tab-macos/commit/fefc491))
+* prevent costly window recursive views update ([41e0e7c](https://github.com/lwouis/alt-tab-macos/commit/41e0e7c))
+* prevent possible frequent permissions check ([216563b](https://github.com/lwouis/alt-tab-macos/commit/216563b))
+* remove normalize-subview to avoid appkit work ([ce2dfc1](https://github.com/lwouis/alt-tab-macos/commit/ce2dfc1))
+* simplify and combine views for better perf ([3a8c0f3](https://github.com/lwouis/alt-tab-macos/commit/3a8c0f3))
+* small optimizations from profiling ([db314c9](https://github.com/lwouis/alt-tab-macos/commit/db314c9))
+* throttle all window/app ax calls ([337e2fb](https://github.com/lwouis/alt-tab-macos/commit/337e2fb))
+* update windows manually after 250s ([52530b2](https://github.com/lwouis/alt-tab-macos/commit/52530b2))
+* use calayer instead of nsview for lightimageview ([7dec9da](https://github.com/lwouis/alt-tab-macos/commit/7dec9da))
+
+
+### BREAKING CHANGES
+
+* major performance improvements
+
 ## [8.3.4](https://github.com/lwouis/alt-tab-macos/compare/v8.3.3...v8.3.4) (2026-01-31)
 
 
