@@ -25,8 +25,8 @@ class TilesView {
         let iconCellSize = firstView.statusIcons.iconCellSize
         layoutCache.iconWidth = iconCellSize.width
         layoutCache.iconHeight = iconCellSize.height
-        layoutCache.dockLabelSize = firstView.dockLabelIcon.frame.size
         layoutCache.comfortableReadabilityWidth = TileView.widthOfComfortableReadability()
+        TileFontIconView.warmCaches(symbols: [.circledPlusSign, .circledMinusSign, .circledSlashSign, .circledNumber0, .circledNumber10, .circledStar], size: Appearance.fontHeight, color: Appearance.fontColor)
     }
 
     func updateBackgroundView() {
@@ -318,7 +318,6 @@ class TilesView {
         var labelHeight = CGFloat(0)
         var iconWidth = CGFloat(0)
         var iconHeight = CGFloat(0)
-        var dockLabelSize = NSSize.zero
         var comfortableReadabilityWidth: CGFloat?
     }
 }

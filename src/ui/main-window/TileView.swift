@@ -10,9 +10,7 @@ class TileView: FlippedView {
     var appIcon = LightImageLayer()
     var label = TileTitleView(font: Appearance.font)
     var statusIcons = StatusIconsView()
-    var dockLabelIcon = ThumbnailFilledFontIconView(
-        TileFontIconView(symbol: .filledCircledNumber0, size: dockLabelLabelSize(), color: NSColor(srgbRed: 1, green: 0.30, blue: 0.25, alpha: 1)),
-        backgroundColor: NSColor.white, size: dockLabelLabelSize())
+    var dockLabelIcon = TileFontIconView(badgeSize: TileFontIconView.badgeBaseSize(forIconSize: TileView.iconSize().width))
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: TileView.noOpenWindowToolTip)
 
     var mouseUpCallback: (() -> Void)!
@@ -116,14 +114,8 @@ class TileView: FlippedView {
     func updateDockLabelIcon(_ dockLabel: String?) {
         assignIfDifferent(&dockLabelIcon.isHidden, dockLabel == nil || Preferences.hideAppBadges || Appearance.iconSize == 0)
         if !dockLabelIcon.isHidden, let dockLabel {
-            let view = dockLabelIcon.subviews[1] as! TileFontIconView
-            let dockLabelInt = Int(dockLabel)
-            if dockLabelInt == nil || dockLabelInt! > 30 {
-                view.setFilledStar()
-            } else {
-                view.setNumber(dockLabelInt!, true)
-            }
-            view.setAccessibilityLabel(getAccessibilityTextForBadge(dockLabel))
+            dockLabelIcon.setText(dockLabel)
+            dockLabelIcon.setAccessibilityLabel(getAccessibilityTextForBadge(dockLabel))
         }
     }
 
@@ -316,33 +308,16 @@ class TileView: FlippedView {
             thumbnail.centerInSuperlayer(x: true)
         }
         updateWindowlessAppIndicatorPosition()
-        // we set dockLabelIcon origin, without checking if .isHidden
-        // This is because its updated async. We need it positioned correctly always
-        let (offsetX, offsetY) = dockLabelOffset()
-        assignIfDifferent(&dockLabelIcon.frame.origin.x, appIcon.frame.maxX - (TilesView.layoutCache.dockLabelSize.width * offsetX).rounded())
-        assignIfDifferent(&dockLabelIcon.frame.origin.y, (TilesView.layoutCache.dockLabelSize.height * offsetY).rounded())
+        updateDockLabelIconPosition()
     }
 
-    /// positioning the dock label is messy because it's an NSTextField so it's visual size doesn't match what we can through APIs
-    // TODO: remove this; find a better way
-    private func dockLabelOffset() -> (CGFloat, CGFloat) {
-        var offsetX = 0.6
-        if Preferences.appearanceStyle == .appIcons {
-            if Preferences.appearanceSize == .small {
-                offsetX = 0.82
-            } else if Preferences.appearanceSize == .medium {
-                offsetX = 0.86
-            } else { // .large
-                offsetX = 0.92
-            }
-        }
-        var offsetY = 0.0
-        if Preferences.appearanceStyle == .thumbnails {
-            offsetY = 0.5
-        } else if Preferences.appearanceStyle == .titles {
-            offsetY = 0.1
-        }
-        return (offsetX, offsetY)
+    private func updateDockLabelIconPosition() {
+        let iconSize = max(appIcon.frame.width, appIcon.frame.height)
+        let offset = (iconSize * (Preferences.appearanceStyle == .appIcons && Preferences.appearanceSize == .large ? 0.03 : 0.05)).rounded()
+        let badgeTopRightX = appIcon.frame.maxX + offset
+        let badgeTopRightY = appIcon.frame.minY - offset
+        assignIfDifferent(&dockLabelIcon.frame.origin.x, badgeTopRightX - dockLabelIcon.frame.width)
+        assignIfDifferent(&dockLabelIcon.frame.origin.y, badgeTopRightY)
     }
 
     private func updateWindowlessAppIndicatorPosition() {
@@ -410,12 +385,6 @@ class TileView: FlippedView {
     private func observeDragAndDrop() {
         // we only handle URLs (i.e. not text, image, or other draggable things)
         registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeURL as String)])
-    }
-
-    static func dockLabelLabelSize() -> CGFloat {
-        let size = (TileView.iconSize().width * 0.43).rounded()
-        // label should have a minimum size for readability
-        return max(size, 13)
     }
 
     static func makeShadow(_ color: NSColor?) -> NSShadow? {
