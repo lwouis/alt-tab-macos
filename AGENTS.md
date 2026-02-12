@@ -8,5 +8,3 @@
 
 # Workflow
 - Copy commands from ai/build.sh and run them, to confirm compilation works after you're done with implementing a change
-- Copy commands from ai/profile.sh and run them, to confirm performance gains were made after you're done optimizing
-- Copy commands from ai/run.sh and run them, if you need to debug issues using the logs
