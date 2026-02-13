@@ -12,6 +12,8 @@ class TileView: FlippedView {
     var statusIcons = StatusIconsView()
     var dockLabelIcon = TileFontIconView(badgeSize: TileFontIconView.badgeBaseSize(forIconSize: TileView.iconSize().width))
     var windowlessAppIndicator = WindowlessAppIndicator(tooltip: TileView.noOpenWindowToolTip)
+    private var fullTitle = ""
+    private var fullTitleWidth = CGFloat(0)
 
     var mouseUpCallback: (() -> Void)!
     var mouseMovedCallback: (() -> Void)!
@@ -75,7 +77,7 @@ class TileView: FlippedView {
 
     private func updateLabelTooltipIfNeeded() {
         guard Preferences.appearanceStyle != .appIcons else { return }
-        label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
+        label.toolTip = fullTitleWidth >= label.frame.size.width ? fullTitle : nil
     }
 
     convenience init() {
@@ -100,6 +102,7 @@ class TileView: FlippedView {
         updateValues(element, index, newHeight)
         updateSizes(newHeight)
         updatePositions(newHeight)
+        applySearchHighlight()
     }
 
     func drawHighlight() {
@@ -187,7 +190,7 @@ class TileView: FlippedView {
 
     private func updateAppIconsLabelFrame() {
         let viewWidth = frame.width
-        let labelWidth = label.cell!.cellSize.width
+        let labelWidth = fullTitleWidth
         let padding = (Preferences.appearanceSize == .small ? 0 : ( Preferences.appearanceSize == .medium ? 1 : 2)) * Appearance.intraCellPadding
         let maxAllowedLabelWidth = getMaxAllowedLabelWidth()
         let sidesToOffset: CGFloat = (isFirstInRow ? 1 : 0) + (isLastInRow ? 1 : 0)
@@ -221,7 +224,8 @@ class TileView: FlippedView {
         let yPosition = appIcon.frame.maxY + Appearance.intraCellPadding * 2
         label.frame = NSRect(x: xPosition, y: yPosition, width: effectiveLabelWidth, height: height)
         label.setWidth(effectiveLabelWidth)
-        label.toolTip = label.cell!.cellSize.width >= label.frame.size.width ? label.stringValue : nil
+        label.toolTip = labelWidth >= label.frame.size.width ? fullTitle : nil
+        applySearchHighlight()
     }
 
     private func updateAppIcon(_ element: Window, _ title: String) {
@@ -257,6 +261,8 @@ class TileView: FlippedView {
             label.stringValue = title
             setAccessibilityLabel(title)
         }
+        fullTitle = title
+        fullTitleWidth = label.cell!.cellSize.width
         label.updateTruncationModeIfNeeded()
         if statusIcons.spaceVisible {
             let spaceIndex = element.spaceIndexes.first
@@ -271,6 +277,174 @@ class TileView: FlippedView {
         setAccessibilityHelp(getAccessibilityHelp(element.application.localizedName, element.dockLabel))
         mouseUpCallback = { () -> Void in App.app.focusSelectedWindow(element) }
         mouseMovedCallback = { () -> Void in Windows.updateSelectedAndHoveredWindowIndex(index, true) }
+    }
+
+    private func applySearchHighlight() {
+        let attributes = baseTitleAttributes()
+        let query = Search.normalizedQuery(Windows.searchQuery)
+        if query.isEmpty {
+            label.attributedStringValue = NSAttributedString(string: fullTitle, attributes: attributes)
+            return
+        }
+        let clippingAttributes = baseTitleAttributes(true)
+        let spanRanges = searchSpanRanges()
+        let titleLength = Array(fullTitle).count
+        let highlightedIndexes = highlightedIndexes(spanRanges, titleLength)
+        let truncation = truncatedDisplay(fullTitle, maxWidth: label.frame.size.width, mode: label.lineBreakMode, attributes: clippingAttributes)
+        let attributed = NSMutableAttributedString(string: truncation.text, attributes: clippingAttributes)
+        for range in visibleHighlightRanges(truncation.visibleToOriginal, highlightedIndexes) {
+            attributed.addAttribute(TileTitleView.searchHighlightBackgroundKey, value: Appearance.searchMatchHighlightColor, range: range)
+            attributed.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: range)
+        }
+        let visibleOriginalIndexes = Set(truncation.visibleToOriginal.compactMap { $0 })
+        let hasHiddenHighlights = highlightedIndexes.contains { !visibleOriginalIndexes.contains($0) }
+        if hasHiddenHighlights, let ellipsisIndex = truncation.ellipsisIndex {
+            let range = NSRange(location: ellipsisIndex, length: 1)
+            attributed.addAttribute(TileTitleView.searchHighlightBackgroundKey, value: Appearance.searchMatchHighlightColor, range: range)
+            attributed.addAttribute(.foregroundColor, value: Appearance.searchMatchForegroundColor, range: range)
+        }
+        label.attributedStringValue = attributed
+    }
+
+    private func baseTitleAttributes(_ forceClipping: Bool = false) -> [NSAttributedString.Key: Any] {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = label.alignment
+        paragraphStyle.baseWritingDirection = .leftToRight
+        paragraphStyle.lineBreakMode = forceClipping ? .byClipping : label.lineBreakMode
+        return [.foregroundColor: Appearance.fontColor, .font: Appearance.font, .paragraphStyle: paragraphStyle]
+    }
+
+    private func searchSpanRanges() -> [NSRange] {
+        var spanRanges = [NSRange]()
+        if Preferences.onlyShowApplications() || Preferences.showTitles == .appName {
+            for result in window_?.swAppResults ?? [] {
+                spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
+            }
+            return spanRanges
+        }
+        if Preferences.showTitles == .appNameAndWindowTitle {
+            let appName = window_?.application.localizedName ?? ""
+            let offset = appName.isEmpty ? 0 : (appName + " - ").count
+            for result in window_?.swAppResults ?? [] {
+                spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
+            }
+            for result in window_?.swTitleResults ?? [] {
+                spanRanges.append(NSRange(location: offset + result.span.lowerBound, length: result.span.count))
+            }
+            return spanRanges
+        }
+        for result in window_?.swTitleResults ?? [] {
+            spanRanges.append(NSRange(location: result.span.lowerBound, length: result.span.count))
+        }
+        return spanRanges
+    }
+
+    private func highlightedIndexes(_ ranges: [NSRange], _ titleLength: Int) -> Set<Int> {
+        var indexes = Set<Int>()
+        for range in ranges {
+            if range.length <= 0 { continue }
+            let start = max(0, range.location)
+            let end = min(titleLength, start + range.length)
+            if start >= end { continue }
+            for index in start..<end {
+                indexes.insert(index)
+            }
+        }
+        return indexes
+    }
+
+    private func visibleHighlightRanges(_ visibleToOriginal: [Int?], _ highlightedIndexes: Set<Int>) -> [NSRange] {
+        var ranges = [NSRange]()
+        var runStart: Int?
+        for (displayIndex, originalIndex) in visibleToOriginal.enumerated() {
+            let highlighted = originalIndex.flatMap { highlightedIndexes.contains($0) } ?? false
+            if highlighted {
+                if runStart == nil {
+                    runStart = displayIndex
+                }
+            } else if let runStartValue = runStart {
+                ranges.append(NSRange(location: runStartValue, length: displayIndex - runStartValue))
+                runStart = nil
+            }
+        }
+        if let runStart {
+            ranges.append(NSRange(location: runStart, length: visibleToOriginal.count - runStart))
+        }
+        return ranges
+    }
+
+    private func truncatedDisplay(_ title: String, maxWidth: CGFloat, mode: NSLineBreakMode, attributes: [NSAttributedString.Key: Any]) -> (text: String, visibleToOriginal: [Int?], ellipsisIndex: Int?) {
+        let chars = Array(title)
+        if chars.isEmpty { return ("", [], nil) }
+        if maxWidth <= 0 { return ("", [], nil) }
+        if measuredWidth(title, attributes) <= maxWidth {
+            return (title, Array(0..<chars.count).map { Optional($0) }, nil)
+        }
+        let ellipsis = "…"
+        if measuredWidth(ellipsis, attributes) > maxWidth {
+            return (ellipsis, [nil], 0)
+        }
+        if mode == .byTruncatingHead {
+            var low = 0
+            var high = chars.count
+            while low < high {
+                let mid = (low + high + 1) / 2
+                let candidate = ellipsis + String(chars.suffix(mid))
+                if measuredWidth(candidate, attributes) <= maxWidth {
+                    low = mid
+                } else {
+                    high = mid - 1
+                }
+            }
+            let suffixCount = low
+            let suffixStart = chars.count - suffixCount
+            let text = ellipsis + String(chars.suffix(suffixCount))
+            let mapping = [Int?](arrayLiteral: nil) + Array(suffixStart..<chars.count).map { Optional($0) }
+            return (text, mapping, 0)
+        }
+        if mode == .byTruncatingMiddle {
+            var leftCount = (chars.count + 1) / 2
+            var rightStart = leftCount
+            var candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
+            while measuredWidth(candidate, attributes) > maxWidth && (leftCount > 0 || rightStart < chars.count) {
+                if rightStart < chars.count {
+                    rightStart += 1
+                }
+                candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
+                if measuredWidth(candidate, attributes) <= maxWidth {
+                    break
+                }
+                if leftCount > 0 {
+                    leftCount -= 1
+                }
+                candidate = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
+            }
+            if measuredWidth(candidate, attributes) > maxWidth {
+                return (ellipsis, [nil], 0)
+            }
+            let text = String(chars.prefix(leftCount)) + ellipsis + String(chars.suffix(chars.count - rightStart))
+            let mapping = Array(0..<leftCount).map { Optional($0) } + [nil] + Array(rightStart..<chars.count).map { Optional($0) }
+            return (text, mapping, leftCount)
+        }
+        var low = 0
+        var high = chars.count
+        while low < high {
+            let mid = (low + high + 1) / 2
+            let candidate = String(chars.prefix(mid)) + ellipsis
+            if measuredWidth(candidate, attributes) <= maxWidth {
+                low = mid
+            } else {
+                high = mid - 1
+            }
+        }
+        let prefixCount = low
+        let text = String(chars.prefix(prefixCount)) + ellipsis
+        let mapping = Array(0..<prefixCount).map { Optional($0) } + [nil]
+        return (text, mapping, prefixCount)
+    }
+
+    private func measuredWidth(_ text: String, _ attributes: [NSAttributedString.Key: Any]) -> CGFloat {
+        (text as NSString).size(withAttributes: attributes).width
     }
 
     private func updateSizes(_ newHeight: CGFloat) {

@@ -79,8 +79,10 @@ class KeyboardEvents {
     // TODO: handle this on a background thread?
     private static func addLocalMonitorForKeyDownAndKeyUp() {
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
-            let someShortcutTriggered = handleKeyboardEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, event.modifierFlags, event.type == .keyDown ? event.isARepeat : false)
-            return someShortcutTriggered ? nil : event
+            let keyCode = event.type == .keyDown ? UInt32(event.keyCode) : nil
+            let isARepeat = event.type == .keyDown ? event.isARepeat : false
+            let shouldAbsorbEvent = handleKeyboardEvent(nil, nil, keyCode, event.modifierFlags, isARepeat, event)
+            return shouldAbsorbEvent ? nil : event
         }
     }
 

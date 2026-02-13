@@ -6,6 +6,37 @@ class Windows {
     static var selectedWindowTarget: String?
     static var hoveredWindowIndex: Int?
     private static var lastWindowActivityType = WindowActivityType.none
+    static var searchQuery = ""
+    private static var shouldSelectBestMatchOnSearchChange = false
+    private static var shouldRestoreDefaultSelectionOnSearchClear = false
+
+    static func shouldDisplay(_ window: Window) -> Bool {
+        window.shouldShowTheUser && Search.matches(window, query: searchQuery)
+    }
+
+    static func updateSearchQuery(_ query: String) {
+        let previousTrimmedQuery = Search.normalizedQuery(searchQuery)
+        let newTrimmedQuery = Search.normalizedQuery(query)
+        searchQuery = query
+        guard App.app.appIsBeingUsed else {
+            shouldSelectBestMatchOnSearchChange = false
+            shouldRestoreDefaultSelectionOnSearchClear = false
+            sort()
+            return
+        }
+        if previousTrimmedQuery != newTrimmedQuery {
+            if newTrimmedQuery.isEmpty {
+                shouldRestoreDefaultSelectionOnSearchClear = !previousTrimmedQuery.isEmpty
+                shouldSelectBestMatchOnSearchChange = false
+            } else {
+                shouldSelectBestMatchOnSearchChange = true
+                shouldRestoreDefaultSelectionOnSearchClear = false
+                hoveredWindowIndex = nil
+                selectedWindowTarget = nil
+            }
+        }
+        sort()
+    }
 
     static func updateIsFullscreenOnCurrentSpace() {
         let windowsOnCurrentSpace = list.filter { !$0.isWindowlessApp }
@@ -28,9 +59,11 @@ class Windows {
 
     static func voiceOverWindow(_ windowIndex: Int = selectedWindowIndex) {
         guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
+        if App.app.thumbnailsPanel.tilesView.isSearchEditing { return }
         // it seems that sometimes makeFirstResponder is called before the view is visible
         // and it creates a delay in showing the main window; calling it with some delay seems to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            if App.app.thumbnailsPanel.tilesView.isSearchEditing { return }
             let window = TilesView.recycledViews[windowIndex]
             if window.window_ != nil && window.window != nil {
                 App.app.thumbnailsPanel.makeFirstResponder(window)
@@ -180,7 +213,9 @@ class Windows {
     //////////////////////////////
 
     static func selectedWindow() -> Window? {
-        return list.count > selectedWindowIndex ? list[selectedWindowIndex] : nil
+        guard list.count > selectedWindowIndex else { return nil }
+        let window = list[selectedWindowIndex]
+        return shouldDisplay(window) ? window : nil
     }
 
     static func setInitialSelectedAndHoveredWindowIndex() {
@@ -206,20 +241,46 @@ class Windows {
     }
 
     static func updateSelectedWindow() {
-        // selectedWindowTarget still exists: we select its new index
-        if let index = (list.firstIndex { $0.id == selectedWindowTarget }) {
+        if shouldRestoreDefaultSelectionOnSearchClear {
+            shouldRestoreDefaultSelectionOnSearchClear = false
+            setInitialSelectedAndHoveredWindowIndex()
+            return
+        }
+        let visibleIndexes = list.indices.filter { shouldDisplay(list[$0]) }
+        guard let firstVisibleIndex = visibleIndexes.first else {
+            selectedWindowTarget = nil
+            hoveredWindowIndex = nil
+            return
+        }
+        if shouldSelectBestMatchOnSearchChange {
+            shouldSelectBestMatchOnSearchChange = false
+            updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
+            return
+        }
+        if let index = list.firstIndex(where: { $0.id == selectedWindowTarget && shouldDisplay($0) }) {
             updateSelectedAndHoveredWindowIndex(index)
             return
         }
-        // list has reduced (e.g. app was quit). Selection should be at the end, so users can for example quit many apps in a sequence
-        let lastIndex = list.filter { $0.shouldShowTheUser }.count - 1
-        if selectedWindowIndex > lastIndex {
-            updateSelectedAndHoveredWindowIndex(lastIndex)
+        let lastVisibleIndex = visibleIndexes.last!
+        if !visibleIndexes.contains(selectedWindowIndex) {
+            updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
+            return
         }
-        // selectedWindowIndex is undisturbed: do nothing
+        if selectedWindowIndex > lastVisibleIndex {
+            updateSelectedAndHoveredWindowIndex(lastVisibleIndex)
+            return
+        }
+        if selectedWindowTarget == nil {
+            selectedWindowTarget = list[selectedWindowIndex].id
+        }
+        if selectedWindowIndex < firstVisibleIndex {
+            updateSelectedAndHoveredWindowIndex(firstVisibleIndex)
+        }
     }
 
     static func updateSelectedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
+        guard newIndex >= 0 && newIndex < list.count else { return }
+        guard shouldDisplay(list[newIndex]) else { return }
         var index: Int?
         if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
             let oldIndex = hoveredWindowIndex
@@ -249,6 +310,7 @@ class Windows {
 
     static func cycleSelectedWindowIndex(_ step: Int, allowWrap: Bool = true) {
         guard App.app.appIsBeingUsed else { return }
+        guard list.contains(where: { shouldDisplay($0) }) else { return }
         let nextIndex = selectedWindowIndexAfterCycling(step)
         // don't wrap-around at the end, if key-repeat
         if (((step > 0 && nextIndex < selectedWindowIndex) || (step < 0 && nextIndex > selectedWindowIndex)) &&
@@ -261,14 +323,14 @@ class Windows {
     }
 
     static func selectedWindowIndexAfterCycling(_ step: Int) -> Int {
-        if list.count == 0 { return 0 }
+        if list.count == 0 || !list.contains(where: { shouldDisplay($0) }) { return selectedWindowIndex }
         var iterations = 0
         var targetIndex = selectedWindowIndex
         repeat {
             let next = (targetIndex + step) % list.count
             targetIndex = next < 0 ? list.count + next : next
             iterations += 1
-        } while !list[targetIndex].shouldShowTheUser && iterations <= list.count
+        } while !shouldDisplay(list[targetIndex]) && iterations <= list.count
         return targetIndex
     }
 
@@ -296,7 +358,17 @@ class Windows {
 
     /// reordered list based on preferences, keeping the original index
     private static func sort() {
+        let trimmedQuery = Search.normalizedQuery(searchQuery)
         list.sort {
+            if !trimmedQuery.isEmpty {
+                let matches0 = Search.matches($0, query: trimmedQuery)
+                let matches1 = Search.matches($1, query: trimmedQuery)
+                if matches0 != matches1 { return matches0 }
+                let score0 = Search.relevance(for: $0, query: trimmedQuery)
+                let score1 = Search.relevance(for: $1, query: trimmedQuery)
+                if score0 != score1 { return score0 > score1 }
+                return $0.lastFocusOrder < $1.lastFocusOrder
+            }
             // separate buckets for these types of windows
             if Preferences.showWindowlessApps[App.app.shortcutIndex] == .showAtTheEnd && $0.isWindowlessApp != $1.isWindowlessApp {
                 return $1.isWindowlessApp
@@ -344,7 +416,7 @@ class Windows {
         var index: Int? = nil
         var lastFocusOrderMin = Int.max
         for (offset, w) in list.enumerated() {
-            if !w.isWindowlessApp && w.shouldShowTheUser && w.lastFocusOrder < lastFocusOrderMin {
+            if !w.isWindowlessApp && shouldDisplay(w) && w.lastFocusOrder < lastFocusOrderMin {
                 lastFocusOrderMin = w.lastFocusOrder
                 index = offset
             }

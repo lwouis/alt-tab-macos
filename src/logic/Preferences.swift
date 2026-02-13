@@ -12,14 +12,16 @@ class Preferences {
         "nextWindowShortcut2": keyAboveTabDependingOnInputSource(),
         "nextWindowShortcut3": "",
         "nextWindowGesture": GesturePreference.disabled.indexAsString,
-        "focusWindowShortcut": "Space",
+        "focusWindowShortcut": returnKeyEquivalent(),
         "previousWindowShortcut": "⇧",
         "cancelShortcut": "⎋",
+        "lockSearchShortcut": "Space",
         "closeWindowShortcut": "W",
         "minDeminWindowShortcut": "M",
         "toggleFullscreenWindowShortcut": "F",
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
+        "searchShortcut": "S",
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
         "mouseHoverEnabled": "false",
@@ -100,11 +102,13 @@ class Preferences {
     static var focusWindowShortcut: String { CachedUserDefaults.string("focusWindowShortcut") }
     static var previousWindowShortcut: String { CachedUserDefaults.string("previousWindowShortcut") }
     static var cancelShortcut: String { CachedUserDefaults.string("cancelShortcut") }
+    static var lockSearchShortcut: String { CachedUserDefaults.string("lockSearchShortcut") }
     static var closeWindowShortcut: String { CachedUserDefaults.string("closeWindowShortcut") }
     static var minDeminWindowShortcut: String { CachedUserDefaults.string("minDeminWindowShortcut") }
     static var toggleFullscreenWindowShortcut: String { CachedUserDefaults.string("toggleFullscreenWindowShortcut") }
     static var quitAppShortcut: String { CachedUserDefaults.string("quitAppShortcut") }
     static var hideShowAppShortcut: String { CachedUserDefaults.string("hideShowAppShortcut") }
+    static var searchShortcut: String { CachedUserDefaults.string("searchShortcut") }
     // periphery:ignore
     static var arrowKeysEnabled: Bool { CachedUserDefaults.bool("arrowKeysEnabled") }
     // periphery:ignore
@@ -187,6 +191,10 @@ class Preferences {
     /// key-above-tab is ` on US keyboard, but can be different on other keyboards
     static func keyAboveTabDependingOnInputSource() -> String {
         return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_ANSI_Grave)) ?? "`"
+    }
+
+    static func returnKeyEquivalent() -> String {
+        return LiteralKeyCodeTransformer.shared.transformedValue(NSNumber(value: kVK_Return)) ?? "↩"
     }
 
     static func defaultBlacklist() -> String {

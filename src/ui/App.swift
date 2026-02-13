@@ -64,6 +64,7 @@ class App: AppCenterApplication {
         appIsBeingUsed = false
         isFirstSummon = true
         forceDoNothingOnRelease = false
+        thumbnailsPanel.tilesView.endSearchSession()
         CursorEvents.toggle(false)
         TrackpadEvents.reset()
         hideTilesPanelWithoutChangingKeyWindow()
@@ -113,6 +114,25 @@ class App: AppCenterApplication {
 
     func hideShowSelectedApp() {
         Windows.selectedWindow()?.application.hideOrShow()
+    }
+
+    func toggleSearchMode() {
+        guard appIsBeingUsed else { return }
+        thumbnailsPanel.tilesView.toggleSearchModeFromShortcut()
+    }
+
+    func lockSearchMode() {
+        guard appIsBeingUsed, thumbnailsPanel.tilesView.isSearchModeOn else { return }
+        thumbnailsPanel.tilesView.lockSearchMode()
+    }
+
+    func cancelSearchModeOrHideUi() {
+        guard appIsBeingUsed else { return }
+        if thumbnailsPanel.tilesView.isSearchModeOn {
+            thumbnailsPanel.tilesView.disableSearchMode()
+        } else {
+            hideUi()
+        }
     }
 
     func focusTarget() {
@@ -251,6 +271,11 @@ class App: AppCenterApplication {
             }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
+            let shouldStartInSearchMode = Preferences.shortcutStyle[self.shortcutIndex] == .searchOnRelease
+            thumbnailsPanel.tilesView.startSearchSession(shouldStartInSearchMode)
+            if shouldStartInSearchMode {
+                forceDoNothingOnRelease = true
+            }
             if !Windows.updatesBeforeShowing() { hideUi(); return }
             Windows.setInitialSelectedAndHoveredWindowIndex()
             if Preferences.windowDisplayDelay == DispatchTimeInterval.milliseconds(0) {
@@ -277,6 +302,9 @@ class App: AppCenterApplication {
         refreshUi()
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
+        if thumbnailsPanel.tilesView.isSearchEditing {
+            thumbnailsPanel.tilesView.enableSearchEditing()
+        }
         KeyRepeatTimer.startRepeatingKeyNextWindow()
         Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
     }

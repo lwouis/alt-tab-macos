@@ -36,6 +36,10 @@ class Window {
     var axObserver: AXObserver?
     var rowIndex: Int?
     var debugId: String!
+    var lastSearchQuery: String?
+    var swAppResults: [SWResult] = []
+    var swTitleResults: [SWResult] = []
+    var swBestSimilarity = 0.0
 
     init(_ axUiElement: AXUIElement, _ application: Application, _ wid: CGWindowID, _ title: String?, _ isFullscreen: Bool?, _ isMinimized: Bool?, _ position: CGPoint?, _ size: CGSize?) {
         id = "\(wid)"
@@ -76,6 +80,7 @@ class Window {
         self.position = position
         self.isFullscreen = isFullscreen ?? false
         self.isMinimized = isMinimized ?? false
+        lastSearchQuery = nil
     }
 
     func isEqualRobust(_ otherWindowAxUiElement: AXUIElement, _ otherWindowWid: CGWindowID?) -> Bool {

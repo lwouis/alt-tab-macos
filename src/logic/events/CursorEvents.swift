@@ -6,6 +6,7 @@ class CursorEvents {
     private static var shouldBeEnabled: Bool!
     private static var mouseDownTileView: TileView?
     private static var mouseDownButton: TrafficLightButton?
+    private static var mouseDownInsideSearchField = false
     static var deadZoneInitialPosition: CGPoint?
     static var isAllowedToMouseHover = true
 
@@ -46,8 +47,8 @@ class CursorEvents {
 
     private static let handleEvent: CGEventTapCallBack = { _, type, cgEvent, _ in
         switch type {
-            case .leftMouseDown: return handleLeftMouseDown()
-            case .leftMouseUp where cgEvent.getIntegerValueField(.mouseEventClickState) >= 1: return handleLeftMouseUp()
+            case .leftMouseDown: return handleLeftMouseDown(cgEvent)
+            case .leftMouseUp where cgEvent.getIntegerValueField(.mouseEventClickState) >= 1: return handleLeftMouseUp(cgEvent)
             case .otherMouseUp: return handleOtherMouseUp(cgEvent)
             case .mouseMoved: return handleMouseMoved(cgEvent)
             case .tapDisabledByUserInput, .tapDisabledByTimeout:
@@ -57,7 +58,12 @@ class CursorEvents {
         }
     }
 
-    private static func handleLeftMouseDown() -> Unmanaged<CGEvent>? {
+    private static func handleLeftMouseDown(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        if isPointerInsideSearchField() {
+            mouseDownInsideSearchField = true
+            return Unmanaged.passUnretained(cgEvent)
+        }
+        mouseDownInsideSearchField = false
         guard isPointerInsideUi() else { return nil }
         if let button = findButtonUnderPointer() {
             mouseDownButton = button
@@ -69,7 +75,11 @@ class CursorEvents {
         return nil
     }
 
-    private static func handleLeftMouseUp() -> Unmanaged<CGEvent>? {
+    private static func handleLeftMouseUp(_ cgEvent: CGEvent) -> Unmanaged<CGEvent>? {
+        if mouseDownInsideSearchField || isPointerInsideSearchField() {
+            mouseDownInsideSearchField = false
+            return Unmanaged.passUnretained(cgEvent)
+        }
         guard isPointerInsideUi() else {
             App.app.hideUi()
             return nil
@@ -118,6 +128,13 @@ class CursorEvents {
 
     private static func isPointerInsideUi() -> Bool {
         App.app.thumbnailsPanel.contentLayoutRect.contains(pointerLocationInWindow())
+    }
+
+    private static func isPointerInsideSearchField() -> Bool {
+        let searchField = App.app.thumbnailsPanel.tilesView.searchField
+        if searchField.isHidden { return false }
+        let point = searchField.convert(pointerLocationInWindow(), from: nil)
+        return searchField.bounds.contains(point)
     }
 
     private static func isPointerOver(_ view: NSView) -> Bool {

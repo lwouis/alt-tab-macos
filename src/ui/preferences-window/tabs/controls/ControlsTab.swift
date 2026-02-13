@@ -22,12 +22,14 @@ class ControlsTab {
         "vimCycleLeft": { App.app.cycleSelection(.left) },
         "vimCycleUp": { App.app.cycleSelection(.up) },
         "vimCycleDown": { App.app.cycleSelection(.down) },
-        "cancelShortcut": { App.app.hideUi() },
+        "cancelShortcut": { App.app.cancelSearchModeOrHideUi() },
         "closeWindowShortcut": { App.app.closeSelectedWindow() },
         "minDeminWindowShortcut": { App.app.minDeminSelectedWindow() },
         "toggleFullscreenWindowShortcut": { App.app.toggleFullscreenSelectedWindow() },
         "quitAppShortcut": { App.app.quitSelectedApp() },
         "hideShowAppShortcut": { App.app.hideShowSelectedApp() },
+        "searchShortcut": { App.app.toggleSearchMode() },
+        "lockSearchShortcut": { App.app.lockSearchMode() },
     ]
     static var arrowKeysCheckbox: Switch!
     static var vimKeysCheckbox: Switch!
