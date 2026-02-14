@@ -34,6 +34,7 @@ class MouseHoverView: NSView {
 class ClickHoverImageView: MouseHoverView {
     var infoCircle: NSView!
     var onClick: EventClosure?
+    var searchableStrings = [String]()
 
     init(infoCircle: NSView) {
         super.init(frame: .zero)
@@ -92,9 +93,16 @@ class LabelAndControl: NSObject {
         }
         let view = NSStackView(views: buttonViews)
         view.orientation = .horizontal
+        view.distribution = .fillEqually
         view.spacing = buttonSpacing
         view.alignment = .centerY
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        buttonViews.forEach {
+            $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            $0.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        }
         return view
     }
 
@@ -130,12 +138,18 @@ class LabelAndControl: NSObject {
     }
 
     static func makeInfoButton(size: CGFloat = 16,
+                               searchableTooltipTexts: [String] = [],
                                onClick: EventClosure? = nil,
                                onMouseEntered: EventClosure? = nil,
                                onMouseExited: EventClosure? = nil) -> ClickHoverImageView {
         let imageView = TileFontIconView(symbol: .circledInfo, size: size, color: .labelColor)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         let view = ClickHoverImageView(infoCircle: imageView)
+        view.searchableStrings = Array(Set(searchableTooltipTexts.map {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }.filter {
+            !$0.isEmpty
+        }))
         view.onClick = onClick
         view.onMouseEntered = onMouseEntered
         view.onMouseExited = onMouseExited

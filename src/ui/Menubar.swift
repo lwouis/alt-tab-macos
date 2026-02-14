@@ -24,13 +24,13 @@ class Menubar {
         permissionCalloutMenuItems = [permissionCalloutMenuItem, calloutSeparator]
         addMenuItem(NSLocalizedString("Show", comment: "Menubar option"), #selector(App.app.showUiFromShortcut0), "", "eye")
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(NSLocalizedString("Settings…", comment: "Menubar option"), #selector(App.app.showPreferencesWindow), ",", "gear")
+        addMenuItem(NSLocalizedString("Settings…", comment: "Menubar option"), #selector(App.app.showSettingsWindow), ",", "gear")
         addMenuItem(NSLocalizedString("Check for updates…", comment: "Menubar option"), #selector(App.app.checkForUpdatesNow), "", "checkmark.arrow.trianglehead.clockwise")
         addMenuItem(NSLocalizedString("Check permissions…", comment: "Menubar option"), #selector(App.app.checkPermissions), "", "hand.raised")
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(App.app.showAboutTab), "", "info.circle")
+        addMenuItem(String(format: NSLocalizedString("About %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(App.app.showAboutWindow), "", "info.circle")
         addMenuItem(NSLocalizedString("Send feedback…", comment: "Menubar option"), #selector(App.app.showFeedbackPanel), "", "text.bubble")
-        addMenuItem(NSLocalizedString("Support this project", comment: "Menubar option"), #selector(App.app.supportProject), "", "heart.fill", .red)
+        addMenuItem(NSLocalizedString("Support this project", comment: "Menubar option"), App.supportProjectAction, "", "heart.fill", .red)
         menu.addItem(NSMenuItem.separator())
         addMenuItem(String(format: NSLocalizedString("Quit %@", comment: "Menubar option. %@ is AltTab"), App.name), #selector(NSApplication.terminate(_:)), "q", nil) // "xmark.rectangle" is not necessary; macos automatically recognizes Quit
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)

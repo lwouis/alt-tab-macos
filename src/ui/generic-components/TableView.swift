@@ -1,14 +1,45 @@
 import Cocoa
 
 class BlacklistView: NSScrollView {
-    convenience init() {
+    override class var isCompatibleWithResponsiveScrolling: Bool { true }
+
+    convenience init(width: CGFloat = 500, height: CGFloat = 378) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         borderType = .bezelBorder
         hasHorizontalScroller = false
         hasVerticalScroller = true
+        verticalScrollElasticity = .none
+        usesPredominantAxisScrolling = true
         documentView = TableView(nil)
-        fit(500, 378)
+        fit(width, height)
+    }
+
+    override func scrollWheel(with event: NSEvent) {
+        guard shouldHandleVerticalScroll(event) else {
+            super.scrollWheel(with: event)
+            return
+        }
+        let y = contentView.bounds.origin.y
+        super.scrollWheel(with: event)
+        if abs(contentView.bounds.origin.y - y) < 0.5 {
+            parentScrollView()?.scrollWheel(with: event)
+        }
+    }
+
+    private func shouldHandleVerticalScroll(_ event: NSEvent) -> Bool {
+        abs(event.scrollingDeltaY) > abs(event.scrollingDeltaX) && abs(event.scrollingDeltaY) > 0.1
+    }
+
+    private func parentScrollView() -> NSScrollView? {
+        var parent = superview
+        while let view = parent {
+            if let scrollView = view as? NSScrollView {
+                return scrollView
+            }
+            parent = view.superview
+        }
+        return nil
     }
 }
 

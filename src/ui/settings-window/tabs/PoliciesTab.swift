@@ -15,14 +15,11 @@ class PoliciesTab {
     static func initTab() -> NSView {
         PoliciesTab.updatesPolicyDropdown = LabelAndControl.makeDropdown("updatePolicy", UpdatePolicyPreference.allCases)
         PoliciesTab.crashPolicyDropdown = LabelAndControl.makeDropdown("crashPolicy", CrashPolicyPreference.allCases)
-        let table = TableGroupView(width: PreferencesWindow.width)
+        let table = TableGroupView(width: SettingsWindow.contentWidth)
         table.addRow(leftText: NSLocalizedString("Updates policy", comment: ""), rightViews: [PoliciesTab.updatesPolicyDropdown])
         table.addRow(leftText: NSLocalizedString("Crash reports policy", comment: ""), rightViews: [PoliciesTab.crashPolicyDropdown])
-        table.fit()
         let checkForUpdates = NSButton(title: NSLocalizedString("Check for updates now…", comment: ""), target: nil, action: #selector(PoliciesTab.checkForUpdatesNow))
-        let view = TableGroupSetView(originalViews: [table, checkForUpdates])
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
+        let view = TableGroupSetView(originalViews: [table, checkForUpdates], bottomPadding: 0)
         return view
     }
 

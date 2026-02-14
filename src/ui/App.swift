@@ -16,11 +16,13 @@ class App: AppCenterApplication {
     static let repository = "https://github.com/lwouis/alt-tab-macos"
     static let website = "https://alt-tab-macos.netlify.app"
     static let appIcon = CGImage.named("app.icns")
+    static var supportProjectAction: Selector { #selector(App.app.supportProject) }
     static var app: App!
     var isTerminating = false
     var thumbnailsPanel: TilesPanel!
     var previewPanel: PreviewPanel!
-    var preferencesWindow: PreferencesWindow!
+    var settingsWindow: SettingsWindow!
+    var aboutWindow: AboutWindow!
     var permissionsWindow: PermissionsWindow?
     var appIsBeingUsed = false
     var shortcutIndex = 0
@@ -91,7 +93,8 @@ class App: AppCenterApplication {
     }
 
     private func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
-        preferencesWindow?.canBecomeKey_ = canBecomeKey_
+        settingsWindow?.canBecomeKey_ = canBecomeKey_
+        aboutWindow?.canBecomeKey_ = canBecomeKey_
         feedbackWindow?.canBecomeKey_ = canBecomeKey_
         permissionsWindow?.canBecomeKey_ = canBecomeKey_
     }
@@ -158,8 +161,17 @@ class App: AppCenterApplication {
         showSecondaryWindow(getOrCreateFeedbackWindow())
     }
 
-    @objc func showPreferencesWindow() {
-        showSecondaryWindow(getOrCreatePreferencesWindow())
+    @objc func showSettingsWindow() {
+        showSecondaryWindow(getOrCreateSettingsWindow())
+        if settingsWindow?.isVisible != true {
+            settingsWindow = SettingsWindow()
+            showSecondaryWindow(settingsWindow)
+            settingsWindow?.orderFrontRegardless()
+        }
+    }
+
+    @objc func showAboutWindow() {
+        showSecondaryWindow(getOrCreateAboutWindow())
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {
@@ -173,11 +185,18 @@ class App: AppCenterApplication {
         }
     }
 
-    private func getOrCreatePreferencesWindow() -> PreferencesWindow {
-        if preferencesWindow == nil {
-            preferencesWindow = PreferencesWindow()
+    private func getOrCreateSettingsWindow() -> SettingsWindow {
+        if settingsWindow == nil {
+            settingsWindow = SettingsWindow()
         }
-        return preferencesWindow
+        return settingsWindow
+    }
+
+    private func getOrCreateAboutWindow() -> AboutWindow {
+        if aboutWindow == nil {
+            aboutWindow = AboutWindow()
+        }
+        return aboutWindow
     }
 
     private func getOrCreateFeedbackWindow() -> FeedbackWindow {
@@ -194,6 +213,14 @@ class App: AppCenterApplication {
         return permissionsWindow!
     }
 
+    @discardableResult
+    private func showSettingsWindowOnFirstLaunchIfNeeded() -> Bool {
+        guard !Preferences.settingsWindowShownOnFirstLaunch else { return false }
+        showSettingsWindow()
+        Preferences.markSettingsWindowShownOnFirstLaunch()
+        return true
+    }
+
     func showPermissionsWindow() {
         getOrCreatePermissionsWindow().show()
     }
@@ -204,11 +231,6 @@ class App: AppCenterApplication {
 
     @objc func showUiFromShortcut0() {
         showUi(0)
-    }
-
-    @objc func showAboutTab() {
-        getOrCreatePreferencesWindow().selectTab("about")
-        showPreferencesWindow()
     }
 
     func cycleSelection(_ direction: Direction, allowWrap: Bool = true) {
@@ -296,7 +318,7 @@ class App: AppCenterApplication {
             }
             isFirstSummon = false
             self.shortcutIndex = shortcutIndex
-            let shouldStartInSearchMode = Preferences.shortcutStyle[self.shortcutIndex] == .searchOnRelease
+            let shouldStartInSearchMode = Preferences.shortcutStyle == .searchOnRelease
             thumbnailsPanel.tilesView.startSearchSession(shouldStartInSearchMode)
             if shouldStartInSearchMode {
                 forceDoNothingOnRelease = true
@@ -393,13 +415,14 @@ extension App: NSApplicationDelegate {
         CliEvents.observe()
         Logger.info { "Finished launching AltTab" }
         BenchmarkRunner.startIfNeeded()
+        showSettingsWindowOnFirstLaunchIfNeeded()
         #if DEBUG
-//            self.showPreferencesWindow()
+//            self.showSettingsWindow()
         #endif
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        showPreferencesWindow()
+        showSettingsWindow()
         return true
     }
 

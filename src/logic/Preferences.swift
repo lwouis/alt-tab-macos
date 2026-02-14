@@ -90,6 +90,7 @@ class Preferences {
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
         "trackpadHapticFeedbackEnabled": "true",
+        "settingsWindowShownOnFirstLaunch": "false",
     ]
 
     // system preferences
@@ -129,6 +130,7 @@ class Preferences {
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
     static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
+    static var settingsWindowShownOnFirstLaunch: Bool { CachedUserDefaults.bool("settingsWindowShownOnFirstLaunch") }
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { CachedUserDefaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
@@ -151,7 +153,7 @@ class Preferences {
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showWindowlessApps: [ShowHowPreference] { ["showWindowlessApps", "showWindowlessApps2", "showWindowlessApps3", "showWindowlessApps4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4"].map { CachedUserDefaults.macroPref($0, WindowOrderPreference.allCases) } }
-    static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4"].map { CachedUserDefaults.macroPref($0, ShortcutStylePreference.allCases) } }
+    static var shortcutStyle: ShortcutStylePreference { CachedUserDefaults.macroPref("shortcutStyle", ShortcutStylePreference.allCases) }
     static var menubarIcon: MenubarIconPreference { CachedUserDefaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
     static var menubarIconShown: Bool { CachedUserDefaults.bool("menubarIconShown") }
     static var language: LanguagePreference { CachedUserDefaults.macroPref("language", LanguagePreference.allCases) }
@@ -170,6 +172,10 @@ class Preferences {
 
     static func registerDefaults() {
         UserDefaults.standard.register(defaults: defaultValues)
+    }
+
+    static func markSettingsWindowShownOnFirstLaunch() {
+        set("settingsWindowShownOnFirstLaunch", "true", false)
     }
 
     static func set<T>(_ key: String, _ value: T, _ notify: Bool = true) where T: Encodable {

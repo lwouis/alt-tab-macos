@@ -7,7 +7,7 @@ class TableGroupSetView: NSStackView {
     static let spacing = CGFloat(20)
     static let tableGroupSpacing = CGFloat(5)
     static let othersSpacing = CGFloat(10)
-    static let titleTableGroupSpacing = CGFloat(30)
+    static let titleTableGroupSpacing = CGFloat(20)
     static let padding = CGFloat(20)
     static let leftRightPadding = 2 * TableGroupSetView.padding
 
@@ -18,11 +18,16 @@ class TableGroupSetView: NSStackView {
                      toolsViews: [NSView]? = nil,
                      spacing: CGFloat = TableGroupSetView.spacing,
                      tableGroupSpacing: CGFloat = TableGroupSetView.tableGroupSpacing,
+                     titleTableGroupSpacing: CGFloat = TableGroupSetView.titleTableGroupSpacing,
                      othersSpacing: CGFloat = TableGroupSetView.othersSpacing,
                      padding: CGFloat = TableGroupSetView.padding,
+                     topPadding: CGFloat? = nil,
+                     bottomPadding: CGFloat? = nil,
                      othersAlignment: NSLayoutConstraint.Attribute = .trailing,
                      toolsAlignment: NSLayoutConstraint.Attribute = .centerX) {
         self.init(frame: .zero)
+        let resolvedTopPadding = topPadding ?? padding
+        let resolvedBottomPadding = bottomPadding ?? padding
         self.spacing = spacing
         orientation = .vertical
         self.originalViews = originalViews
@@ -33,39 +38,71 @@ class TableGroupSetView: NSStackView {
             if view is TableGroupView {
                 if !lastViewWasTableGroup {
                     // Only reset other views if we are switching from non-TableGroupView to TableGroupView
-                    addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, othersSpacing: othersSpacing, padding: padding, alignment: othersAlignment)
+                    addContinuousOthersToSetViews(&continuousOthers,
+                                                  views: &verticalViews,
+                                                  othersSpacing: othersSpacing,
+                                                  horizontalPadding: padding,
+                                                  topPadding: resolvedTopPadding,
+                                                  alignment: othersAlignment)
                 }
                 continuousTableGroups.append(view)
                 lastViewWasTableGroup = true
             } else if view is IllustratedImageThemeView {
                 lastViewWasTableGroup = false
-                addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
-                addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, othersSpacing: othersSpacing, padding: padding, alignment: othersAlignment)
-                addToolsViewToSetViews([view], views: &verticalViews, padding: padding, alignment: toolsAlignment)
+                addContinuousTableGroupsToSetViews(&continuousTableGroups,
+                                                   views: &verticalViews,
+                                                   tableGroupSpacing: tableGroupSpacing,
+                                                   titleTableGroupSpacing: titleTableGroupSpacing,
+                                                   horizontalPadding: padding,
+                                                   topPadding: resolvedTopPadding)
+                addContinuousOthersToSetViews(&continuousOthers,
+                                              views: &verticalViews,
+                                              othersSpacing: othersSpacing,
+                                              horizontalPadding: padding,
+                                              topPadding: resolvedTopPadding,
+                                              alignment: othersAlignment)
+                addToolsViewToSetViews([view], views: &verticalViews, horizontalPadding: padding, topPadding: resolvedTopPadding, alignment: toolsAlignment)
             } else {
                 if lastViewWasTableGroup {
                     // Only reset table group views if we are switching from TableGroupView to non-TableGroupView
-                    addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
+                    addContinuousTableGroupsToSetViews(&continuousTableGroups,
+                                                       views: &verticalViews,
+                                                       tableGroupSpacing: tableGroupSpacing,
+                                                       titleTableGroupSpacing: titleTableGroupSpacing,
+                                                       horizontalPadding: padding,
+                                                       topPadding: resolvedTopPadding)
                 }
                 continuousOthers.append(view)
                 lastViewWasTableGroup = false
             }
         }
         // Ensure any remaining views are added
-        addContinuousTableGroupsToSetViews(&continuousTableGroups, views: &verticalViews, tableGroupSpacing: tableGroupSpacing, padding: padding)
-        addContinuousOthersToSetViews(&continuousOthers, views: &verticalViews, othersSpacing: othersSpacing, padding: padding, alignment: othersAlignment)
+        addContinuousTableGroupsToSetViews(&continuousTableGroups,
+                                           views: &verticalViews,
+                                           tableGroupSpacing: tableGroupSpacing,
+                                           titleTableGroupSpacing: titleTableGroupSpacing,
+                                           horizontalPadding: padding,
+                                           topPadding: resolvedTopPadding)
+        addContinuousOthersToSetViews(&continuousOthers,
+                                      views: &verticalViews,
+                                      othersSpacing: othersSpacing,
+                                      horizontalPadding: padding,
+                                      topPadding: resolvedTopPadding,
+                                      alignment: othersAlignment)
         if let toolsViews {
-            addToolsViewToSetViews(toolsViews, views: &verticalViews, padding: padding, alignment: toolsAlignment)
+            addToolsViewToSetViews(toolsViews, views: &verticalViews, horizontalPadding: padding, topPadding: resolvedTopPadding, alignment: toolsAlignment)
         }
         if let lastStackView = verticalViews.last {
-            lastStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding).isActive = true
+            lastStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -resolvedBottomPadding).isActive = true
         }
     }
 
     func addContinuousTableGroupsToSetViews(_ continuousTableGroups: inout [NSView],
                                             views: inout [NSView],
                                             tableGroupSpacing: CGFloat,
-                                            padding: CGFloat) {
+                                            titleTableGroupSpacing: CGFloat,
+                                            horizontalPadding: CGFloat,
+                                            topPadding: CGFloat) {
         if !continuousTableGroups.isEmpty {
             let stackView = NSStackView()
             stackView.orientation = .vertical
@@ -76,10 +113,10 @@ class TableGroupSetView: NSStackView {
                     var spacerHeight = CGFloat(0)
                     if index == 0 && !views.isEmpty {
                         // at first, height: spacing + padding
-                        spacerHeight = TableGroupSetView.titleTableGroupSpacing - spacing
+                        spacerHeight = titleTableGroupSpacing - spacing
                     } else if index > 0 {
                         // inner, height: tableGroupSpacing + padding
-                        spacerHeight = TableGroupSetView.titleTableGroupSpacing
+                        spacerHeight = titleTableGroupSpacing
                     }
                     let spacerView = NSView()
                     spacerView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,12 +129,17 @@ class TableGroupSetView: NSStackView {
             }
             continuousTableGroups.removeAll()
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, horizontalPadding: horizontalPadding, topPadding: topPadding)
             views.append(stackView)
         }
     }
 
-    func addContinuousOthersToSetViews(_ continuousOthers: inout [NSView], views: inout [NSView], othersSpacing: CGFloat, padding: CGFloat, alignment: NSLayoutConstraint.Attribute) {
+    func addContinuousOthersToSetViews(_ continuousOthers: inout [NSView],
+                                       views: inout [NSView],
+                                       othersSpacing: CGFloat,
+                                       horizontalPadding: CGFloat,
+                                       topPadding: CGFloat,
+                                       alignment: NSLayoutConstraint.Attribute) {
         if !continuousOthers.isEmpty {
             let stackView = NSStackView()
             stackView.orientation = .horizontal
@@ -106,12 +148,16 @@ class TableGroupSetView: NSStackView {
             stackView.setViews(continuousOthers, in: .leading)
             continuousOthers.removeAll()
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, horizontalPadding: horizontalPadding, topPadding: topPadding)
             views.append(stackView)
         }
     }
 
-    func addToolsViewToSetViews(_ originalViews: [NSView], views: inout [NSView], padding: CGFloat, alignment: NSLayoutConstraint.Attribute) {
+    func addToolsViewToSetViews(_ originalViews: [NSView],
+                                views: inout [NSView],
+                                horizontalPadding: CGFloat,
+                                topPadding: CGFloat,
+                                alignment: NSLayoutConstraint.Attribute) {
         if !originalViews.isEmpty {
             let stackView = NSStackView()
             stackView.orientation = .horizontal
@@ -119,18 +165,18 @@ class TableGroupSetView: NSStackView {
             stackView.alignment = alignment
             stackView.setViews(originalViews, in: .leading)
             addArrangedSubview(stackView)
-            setStackViewConstraints(stackView, isFirst: views.isEmpty, padding: padding)
+            setStackViewConstraints(stackView, isFirst: views.isEmpty, horizontalPadding: horizontalPadding, topPadding: topPadding)
             views.append(stackView)
         }
     }
 
-    func setStackViewConstraints(_ stackView: NSStackView, isFirst: Bool, padding: CGFloat) {
+    func setStackViewConstraints(_ stackView: NSStackView, isFirst: Bool, horizontalPadding: CGFloat, topPadding: CGFloat) {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         if isFirst {
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: padding).isActive = true
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: topPadding).isActive = true
         }
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalPadding).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontalPadding).isActive = true
     }
 }
 
@@ -230,7 +276,7 @@ class TableGroupView: ClickHoverStackView {
         titleStackView.spacing = TableGroupView.rowIntraSpacing
         if let title {
             titleLabel.stringValue = title
-            titleLabel.font = NSFont.boldSystemFont(ofSize: 13)
+            titleLabel.font = NSFont.systemFont(ofSize: 13, weight: .medium)
             titleLabel.alignment = .natural
             titleLabel.lineBreakMode = .byWordWrapping
             titleLabel.maximumNumberOfLines = 0
@@ -396,7 +442,7 @@ class TableGroupView: ClickHoverStackView {
     static func makeText(_ leftText: String?, bold: Bool = false) -> NSTextField {
         let leftLabel = NSTextField(labelWithString: leftText ?? "")
         if bold {
-            leftLabel.font = NSFont.boldSystemFont(ofSize: 13)
+            leftLabel.font = NSFont.systemFont(ofSize: 13, weight: .medium)
         }
         leftLabel.alignment = .left
         leftLabel.lineBreakMode = .byWordWrapping

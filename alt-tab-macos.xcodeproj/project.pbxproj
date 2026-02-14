@@ -290,7 +290,7 @@
 		D04BAD451966B43720120D2E /* Menubar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD905546AA93E5117B0A /* Menubar.swift */; };
 		D04BADA3F2DAB820D6FC6E75 /* AppCenterApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D04BA48BC82D3060C3A1AB11 /* AppCenterApplication.m */; };
 		D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA7C6F2519091717F4B4E /* SystemPermissions.swift */; };
-		D04BADE4DDF7597749FB13BD /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA099FA155FB4D517D66B /* PreferencesWindow.swift */; };
+		D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA099FA155FB4D517D66B /* SettingsWindow.swift */; };
 		D04BAE8B16A06A10E2FA94DE /* AccessibilityEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA8FDCF137D892114F5F3 /* AccessibilityEvents.swift */; };
 		D04BAEE31B6FFCDC779E6C17 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04BAC2FF99F629CD4ED20FC /* MainMenu.xib */; };
 		D04BAF12DF5D15B9D7D316A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA61693F710CD7BD054D7 /* InfoPlist.strings */; };
@@ -578,7 +578,7 @@
 		D04BA075E359F36C27CD5BAE /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
 		D04BA084F638725465234830 /* favicon-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favicon-16x16.png"; sourceTree = "<group>"; };
 		D04BA088B8A550D9367A4AAB /* it */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = it; path = InfoPlist.strings; sourceTree = "<group>"; };
-		D04BA099FA155FB4D517D66B /* PreferencesWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
+		D04BA099FA155FB4D517D66B /* SettingsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWindow.swift; sourceTree = "<group>"; };
 		D04BA0AAAE82C72855DBBA26 /* update_appcast.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_appcast.sh; sourceTree = "<group>"; };
 		D04BA0CE87BE264C52987ED1 /* 7 windows - 2 lines - wide window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "7 windows - 2 lines - wide window.jpg"; sourceTree = "<group>"; };
 		D04BA0E071D2EDFDB9A20523 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -1468,7 +1468,7 @@
 			children = (
 				D04BAAB92261FC04854FDDE9 /* App.swift */,
 				D04BA62E30174C336E4080FA /* main-window */,
-				D04BABCD12CA72B06290C248 /* preferences-window */,
+				D04BABCD12CA72B06290C248 /* settings-window */,
 				D04BAD905546AA93E5117B0A /* Menubar.swift */,
 				D04BA26C75F76C277653C932 /* FeedbackWindow.swift */,
 				D04BA2CBF267F267225CA671 /* generic-components */,
@@ -1886,14 +1886,14 @@
 			path = ru.lproj;
 			sourceTree = "<group>";
 		};
-		D04BABCD12CA72B06290C248 /* preferences-window */ = {
+		D04BABCD12CA72B06290C248 /* settings-window */ = {
 			isa = PBXGroup;
 			children = (
 				D04BA2526DC6726E0F7ACF7C /* LabelAndControl.swift */,
 				D04BA3FA52AA40B827A72F10 /* tabs */,
-				D04BA099FA155FB4D517D66B /* PreferencesWindow.swift */,
+				D04BA099FA155FB4D517D66B /* SettingsWindow.swift */,
 			);
-			path = "preferences-window";
+			path = "settings-window";
 			sourceTree = "<group>";
 		};
 		D04BAC2B70BC798C57B0B492 /* l10n */ = {
@@ -2543,7 +2543,7 @@
 				D04BA56789A2AF52557A9BFF /* AppCenterCrashes.swift in Sources */,
 				D04BADA3F2DAB820D6FC6E75 /* AppCenterApplication.m in Sources */,
 				D04BAA16F21AC41A23DDA63D /* ControlsTab.swift in Sources */,
-				D04BADE4DDF7597749FB13BD /* PreferencesWindow.swift in Sources */,
+				D04BADE4DDF7597749FB13BD /* SettingsWindow.swift in Sources */,
 				BF0C8CC5057406014FD612CC /* ATShortcut.swift in Sources */,
 				BF0C8C7E96DB48120462DA00 /* TrafficLightButton.swift in Sources */,
 				BF0C898511686611E4D7D81E /* Button.swift in Sources */,

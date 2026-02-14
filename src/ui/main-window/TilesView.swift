@@ -125,7 +125,7 @@ class TilesView: NSObject {
     }
 
     private func configureSearchField() {
-        searchField.placeholderString = NSLocalizedString("Search windows", comment: "")
+        searchField.placeholderString = NSLocalizedString("Search", comment: "")
         searchField.sendsSearchStringImmediately = true
         searchField.sendsWholeSearchString = true
         searchField.bezelStyle = .roundedBezel

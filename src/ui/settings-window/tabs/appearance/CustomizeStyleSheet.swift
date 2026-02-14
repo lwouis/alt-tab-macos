@@ -53,15 +53,17 @@ class CustomizeStyleSheet: SheetWindow {
             }))
         titleTruncation = TableGroupView.Row(leftTitle: NSLocalizedString("Title truncation", comment: ""),
             rightViews: LabelAndControl.makeRadioButtons("titleTruncation", TitleTruncationPreference.allCases))
-        let showAppWindowsInfo = LabelAndControl.makeInfoButton(onMouseEntered: { (event, view) in
+        let showAppWindowsTooltip = NSLocalizedString("Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.", comment: "")
+        let showAppWindowsInfo = LabelAndControl.makeInfoButton(searchableTooltipTexts: [showAppWindowsTooltip], onMouseEntered: { (event, view) in
             Popover.shared.show(event: event, positioningView: view,
-                message: NSLocalizedString("Show an item in the switcher for each window, or for each application. Windows will be focused, whereas applications will be activated.", comment: ""))
+                message: showAppWindowsTooltip)
         }, onMouseExited: { (event, view) in
             Popover.shared.hide()
         })
         showAppsOrWindows = TableGroupView.Row(leftTitle: NSLocalizedString("Show in switcher", comment: ""),
             rightViews: LabelAndControl.makeRadioButtons("showAppsOrWindows", ShowAppsOrWindowsPreference.allCases, extraAction: { _ in
                 self.showHideIllustratedView.setStateOnApplications()
+                AppearanceTab.updatePreviewSelectedWindowState()
                 self.toggleAppNamesWindowTitles()
                 self.showAppsOrWindowsIllustratedImage()
             }) + [showAppWindowsInfo])
@@ -87,7 +89,6 @@ class CustomizeStyleSheet: SheetWindow {
         table.onMouseExited = { event, view in
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
-        table.fit()
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         return view
     }
@@ -101,7 +102,6 @@ class CustomizeStyleSheet: SheetWindow {
         table.onMouseExited = { event, view in
             IllustratedImageThemeView.resetImage(self.illustratedImageView, event, view)
         }
-        table.fit()
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         toggleAppNamesWindowTitles()
         return view
@@ -111,7 +111,6 @@ class CustomizeStyleSheet: SheetWindow {
         let table = makeAppWindowTableGroupView()
         table.addNewTable()
         table.addRow(titleTruncation)
-        table.fit()
         let view = TableGroupSetView(originalViews: [table], padding: 0)
         toggleAppNamesWindowTitles()
         return view

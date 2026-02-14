@@ -76,10 +76,7 @@ class ControlsTab {
         // trigger shortcutChanged for these shortcuts to trigger .restrictModifiers
         [holdShortcut, holdShortcut2, holdShortcut3].forEach { ControlsTab.shortcutChangedCallback($0[1] as! NSControl) }
         [nextWindowShortcut, nextWindowShortcut2, nextWindowShortcut3].forEach { ControlsTab.shortcutChangedCallback($0[0] as! NSControl) }
-        let tabs = StackView(tableGroupViews, .vertical)
-        tabs.translatesAutoresizingMaskIntoConstraints = false
-        tabs.fit()
-        let table = TableGroupView(hasHeader: true, width: PreferencesWindow.width)
+        let table = TableGroupView(hasHeader: true, width: SettingsWindow.contentWidth)
         let tab = NSSegmentedControl(labels: [
             NSLocalizedString("Shortcut 1", comment: ""),
             NSLocalizedString("Shortcut 2", comment: ""),
@@ -88,17 +85,15 @@ class ControlsTab {
         ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
         tab.selectedSegment = 0
         tab.segmentStyle = .automatic
-        tab.widthAnchor.constraint(equalToConstant: PreferencesWindow.width).isActive = true
+        tab.widthAnchor.constraint(equalToConstant: SettingsWindow.contentWidth).isActive = true
         table.addHeader(views: [tab])
         let additionalControlsButton = NSButton(title: NSLocalizedString("Additional controls…", comment: ""), target: self, action: #selector(ControlsTab.showAdditionalControlsSettings))
         let shortcutsButton = NSButton(title: NSLocalizedString("Shortcuts when active…", comment: ""), target: self, action: #selector(ControlsTab.showShortcutsSettings))
         let tools = StackView([additionalControlsButton, shortcutsButton], .horizontal)
-        let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab6View], toolsViews: [tools], toolsAlignment: .trailing)
-        view.translatesAutoresizingMaskIntoConstraints = false
+        let view = TableGroupSetView(originalViews: [table, tab1View, tab2View, tab3View, tab6View], toolsViews: [tools], bottomPadding: 0, toolsAlignment: .trailing)
         shortcutsWhenActiveSheet = ShortcutsWhenActiveSheet()
         additionalControlsSheet = AdditionalControlsSheet()
         ControlsTab.switchIndexTab(0)
-        view.fit()
         return view
     }
 
@@ -113,7 +108,7 @@ class ControlsTab {
     private static func gestureTab(_ index: Int) -> TableGroupView {
         let label = NSLocalizedString("You may need to disable some conflicting system gestures", comment: "")
         let button = NSButton(title: NSLocalizedString("Open Trackpad Settings…", comment: ""), target: self, action: #selector(openSystemGestures(_:)))
-        let infoBtn = LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
+        let infoBtn = LabelAndControl.makeInfoButton(searchableTooltipTexts: [label], onMouseEntered: { event, view in
             Popover.shared.show(event: event, positioningView: view, message: label, extraView: button)
         })
         let gesture = LabelAndControl.makeDropdown("nextWindowGesture", GesturePreference.allCases)
@@ -138,10 +133,8 @@ class ControlsTab {
         let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd }) // this filter is ok for serialization because the filtered value is last in the enum
         let showWindowlessApps = LabelAndControl.makeDropdown(Preferences.indexToName("showWindowlessApps", index), ShowHowPreference.allCases)
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
-        let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
-        let table = TableGroupView(width: PreferencesWindow.width)
+        let table = TableGroupView(width: SettingsWindow.contentWidth)
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Trigger shortcut", comment: ""), rightViews: trigger))
-        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("After release", comment: ""), rightViews: [shortcutStyle]))
         table.addNewTable()
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from applications", comment: ""))], rightViews: [appsToShow])
         table.addRow(leftViews: [TableGroupView.makeText(NSLocalizedString("Show windows from Spaces", comment: ""))], rightViews: [spacesToShow])
@@ -151,7 +144,6 @@ class ControlsTab {
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show apps with no open window", comment: ""), rightViews: [showWindowlessApps]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Order windows by", comment: ""), rightViews: [windowOrder]))
-        table.fit()
         return table
     }
 
@@ -171,11 +163,11 @@ class ControlsTab {
     }
 
     @objc static func showShortcutsSettings() {
-        App.app.preferencesWindow.beginSheet(shortcutsWhenActiveSheet)
+        App.app.settingsWindow.beginSheetWithSearchHighlight(shortcutsWhenActiveSheet)
     }
 
     @objc static func showAdditionalControlsSettings() {
-        App.app.preferencesWindow.beginSheet(additionalControlsSheet)
+        App.app.settingsWindow.beginSheetWithSearchHighlight(additionalControlsSheet)
     }
 
     private static func addShortcut(_ triggerPhase: ShortcutTriggerPhase, _ scope: ShortcutScope, _ shortcut: Shortcut, _ controlId: String, _ index: Int?) {
@@ -278,9 +270,9 @@ class ControlsTab {
             }
         }
         if !conflicts.isEmpty {
-            // if the app is still launching (App.app.preferencesWindow == nil) and we have a conflict
+            // if the app is still launching (App.app.settingsWindow == nil) and we have a conflict
             // then we don't show the user a dialog, and simply disable vim keys
-            if App.app.preferencesWindow == nil || !shouldClearConflictingShortcuts(conflicts.map { $0.value }) {
+            if App.app.settingsWindow == nil || !shouldClearConflictingShortcuts(conflicts.map { $0.value }) {
                 return false
             }
             conflicts.forEach {

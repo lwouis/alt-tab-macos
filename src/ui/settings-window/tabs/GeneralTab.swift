@@ -16,8 +16,6 @@ class GeneralTab {
             ])
         let language = TableGroupView.Row(leftTitle: NSLocalizedString("Language", comment: ""),
             rightViews: [LabelAndControl.makeDropdown("language", LanguagePreference.allCases, extraAction: setLanguageCallback)])
-        let resetPreferences = NSButton(title: NSLocalizedString("Reset settings and restart…", comment: ""), target: self, action: #selector(GeneralTab.resetPreferences))
-        if #available(macOS 11.0, *) { resetPreferences.hasDestructiveAction = true }
         for i in 0..<MenubarIconPreference.allCases.count {
             let image = NSImage.initCopy("menubar-\(i)")
             image.isTemplate = i < 2
@@ -28,14 +26,12 @@ class GeneralTab {
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
         enableDraggingOffMenubarIcon(menuIconShownToggle)
-        let table = TableGroupView(width: PreferencesWindow.width)
+        let table = TableGroupView(width: SettingsWindow.contentWidth)
         table.addRow(startAtLogin)
         table.addRow(menubarIcon)
         table.addNewTable()
         table.addRow(language)
-        let view = TableGroupSetView(originalViews: [table], toolsViews: [resetPreferences], toolsAlignment: .trailing)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
+        let view = TableGroupSetView(originalViews: [table], bottomPadding: 0)
         return view
     }
 
