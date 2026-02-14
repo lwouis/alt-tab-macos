@@ -209,6 +209,7 @@
 		D04BA0482478C20934FD5D27 /* acknowledgments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D04BA4A0A748AAA68299BA4A /* acknowledgments@2x.png */; };
 		D04BA084CD1236EC78D90A01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BACCBE5F97BE9B6CA645B /* Localizable.strings */; };
 		D04BA0AE9865276FF8EF5DEB /* UserDefaultsEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BA5D9B4EBEB9E4333AE39 /* UserDefaultsEvents.swift */; };
+		5FA1E0B22F50000100A1A1A1 /* PreferencesEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA1E0B12F50000100A1A1A1 /* PreferencesEvents.swift */; };
 		D04BA0DD6819010987B578D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BA07BBF2237CC6C72D264 /* Localizable.strings */; };
 		D04BA100BD0F47828EB649FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04BAAEC2847830A3991F8D1 /* InfoPlist.strings */; };
 		D04BA11E56383D082D7BE5A5 /* TilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAA998119CAA8B70A2B67 /* TilesView.swift */; };
@@ -633,6 +634,7 @@
 		D04BA5C8373D1480280B71A6 /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA5D2FD6E26D82721C574 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA5D9B4EBEB9E4333AE39 /* UserDefaultsEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsEvents.swift; sourceTree = "<group>"; };
+		5FA1E0B12F50000100A1A1A1 /* PreferencesEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesEvents.swift; sourceTree = "<group>"; };
 		D04BA5DB4FB71B583A28EF4F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D04BA5E208CBB8E28EE3FAFF /* site.webmanifest */ = {isa = PBXFileReference; lastKnownFileType = file.webmanifest; path = site.webmanifest; sourceTree = "<group>"; };
 		D04BA60A6D08C041F5BF8CC9 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file.otf; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
@@ -1965,6 +1967,7 @@
 				D04BA4A621A8A15660F973C1 /* KeyboardEvents.swift */,
 				D04BA76AEE37D6656EB80126 /* RunningApplicationsEvents.swift */,
 				D04BA5D9B4EBEB9E4333AE39 /* UserDefaultsEvents.swift */,
+				5FA1E0B12F50000100A1A1A1 /* PreferencesEvents.swift */,
 				5883F0A729A5182C0071DB65 /* TrackpadEvents.swift */,
 				BF0C870C14C20C936BA4AF40 /* DockEvents.swift */,
 				BF0C8DF008F1EB5F23291A13 /* SpacesEvents.swift */,
@@ -2529,6 +2532,7 @@
 				D04BA1766FBCB2E941D081A5 /* RunningApplicationsEvents.swift in Sources */,
 				5F906A342F16A18500B99924 /* Screens.swift in Sources */,
 				D04BA0AE9865276FF8EF5DEB /* UserDefaultsEvents.swift in Sources */,
+				5FA1E0B22F50000100A1A1A1 /* PreferencesEvents.swift in Sources */,
 				D04BA4A11F821548EE3C5E95 /* Bash.swift in Sources */,
 				5FBB24D32F389A0400BF7E14 /* Benchmark.swift in Sources */,
 				5F21C9E62C6E94920091F72F /* AnimationsSheet.swift in Sources */,

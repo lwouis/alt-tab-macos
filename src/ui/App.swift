@@ -91,7 +91,7 @@ class App: AppCenterApplication {
     }
 
     private func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
-        preferencesWindow.canBecomeKey_ = canBecomeKey_
+        preferencesWindow?.canBecomeKey_ = canBecomeKey_
         feedbackWindow.canBecomeKey_ = canBecomeKey_
         permissionsWindow.canBecomeKey_ = canBecomeKey_
     }
@@ -159,7 +159,7 @@ class App: AppCenterApplication {
     }
 
     @objc func showPreferencesWindow() {
-        showSecondaryWindow(preferencesWindow)
+        showSecondaryWindow(ensurePreferencesWindow())
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {
@@ -173,6 +173,13 @@ class App: AppCenterApplication {
         }
     }
 
+    private func ensurePreferencesWindow() -> PreferencesWindow {
+        if preferencesWindow == nil {
+            preferencesWindow = PreferencesWindow()
+        }
+        return preferencesWindow
+    }
+
     func showUi(_ shortcutIndex: Int) {
         showUiOrCycleSelection(shortcutIndex, true)
     }
@@ -182,7 +189,7 @@ class App: AppCenterApplication {
     }
 
     @objc func showAboutTab() {
-        preferencesWindow.selectTab("about")
+        ensurePreferencesWindow().selectTab("about")
         showPreferencesWindow()
     }
 
@@ -362,14 +369,12 @@ extension App: NSApplicationDelegate {
         SystemAppearanceEvents.observe()
         SystemScrollerStyleEvents.observe()
         Applications.initialDiscovery()
-        self.preferencesWindow = PreferencesWindow()
+        PreferencesEvents.initialize()
         self.feedbackWindow = FeedbackWindow()
         KeyboardEvents.addEventHandlers()
         CursorEvents.observe()
         TrackpadEvents.observe()
         CliEvents.observe()
-        // login item and plist updates can be done a bit later, to accelerate launch
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { GeneralTab.startAtLoginCallback() }
         Logger.info { "Finished launching AltTab" }
         BenchmarkRunner.startIfNeeded()
         #if DEBUG

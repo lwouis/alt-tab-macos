@@ -52,7 +52,13 @@ class PreferencesWindow: NSWindow {
         Array(toolbarItems.values).forEach {
             $0.2.fit(largestTabWidth, $0.2.subviews[0].fittingSize.height)
         }
+        refreshControlsFromPreferences()
         selectTab("general")
+    }
+
+    private func refreshControlsFromPreferences() {
+        GeneralTab.refreshControlsFromPreferences()
+        PoliciesTab.refreshControlsFromPreferences()
     }
 
     func selectTab(_ id: String) {

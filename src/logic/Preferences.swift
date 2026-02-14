@@ -172,14 +172,20 @@ class Preferences {
         UserDefaults.standard.register(defaults: defaultValues)
     }
 
-    static func set<T>(_ key: String, _ value: T) where T: Encodable {
+    static func set<T>(_ key: String, _ value: T, _ notify: Bool = true) where T: Encodable {
         UserDefaults.standard.set(key == "blacklist" ? jsonEncode(value) : value, forKey: key)
         CachedUserDefaults.cache.removeValue(forKey: key)
+        if notify {
+            PreferencesEvents.preferenceChanged(key)
+        }
     }
 
-    static func remove(_ key: String) {
+    static func remove(_ key: String, _ notify: Bool = true) {
         UserDefaults.standard.removeObject(forKey: key)
         CachedUserDefaults.cache.removeValue(forKey: key)
+        if notify {
+            PreferencesEvents.preferenceChanged(key)
+        }
     }
 
     static var all: [String: Any] { UserDefaults.standard.persistentDomain(forName: App.bundleIdentifier)! }

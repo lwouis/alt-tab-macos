@@ -312,13 +312,6 @@ class LabelAndControl: NSObject {
             }
             Preferences.set(senderControl.identifier!.rawValue, newValue)
         }
-        // some preferences require re-creating some components
-        if (!(senderControl is NSSlider) || (NSEvent.pressedMouseButtons & (1 << 0)) == 0) &&
-               (["appearanceStyle", "appearanceSize", "appearanceTheme", "showOnScreen", "showAppsOrWindows"].contains { (pref: String) -> Bool in
-                   pref == senderControl.identifier!.rawValue
-               }) {
-            (App.shared as! App).resetPreferencesDependentComponents()
-        }
     }
 
     static func makeLabel(_ labelText: String, shouldFit: Bool = true) -> NSTextField {

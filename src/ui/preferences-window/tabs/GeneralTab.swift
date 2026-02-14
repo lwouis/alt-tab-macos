@@ -1,32 +1,14 @@
 import Cocoa
 
 class GeneralTab {
-    // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
-    // docs: man launchd.plist
-    private static let launchAgentPlist: NSDictionary = [
-        "Label": App.bundleIdentifier,
-        "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
-        "RunAtLoad": true,
-        "LimitLoadToSessionType": "Aqua",
-        // starting from macOS 13, AssociatedBundleIdentifiers is required, otherwise the UI in
-        // System Settings > General > Login Items, will show "Louis Pontoise" instead of "AltTab.app"
-        "AssociatedBundleIdentifiers": App.bundleIdentifier,
-        // "ProcessType: If left unspecified, the system will apply light resource limits to the job,
-        //               throttling its CPU usage and I/O bandwidth"
-        "ProcessType": "Interactive",
-        // "LegacyTimers": If this key is set to true, timers created by the job will opt into less
-        //                 efficient but more precise behavior and not be coalesced with other timers.
-        "LegacyTimers": true,
-    ]
     static var menubarIconDropdown: NSPopUpButton?
     private static var menubarIsVisibleObserver: NSKeyValueObservation?
-    private static var startAtLoginToggle: NSControl?
 
     static func initTab() -> NSView {
         let startAtLogin = TableGroupView.Row(leftTitle: NSLocalizedString("Start at login", comment: ""),
-            rightViews: [LabelAndControl.makeSwitch("startAtLogin", extraAction: startAtLoginCallback)])
-        menubarIconDropdown = LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
-        let menuIconShownToggle = LabelAndControl.makeSwitch("menubarIconShown", extraAction: Menubar.menubarIconCallback)
+            rightViews: [LabelAndControl.makeSwitch("startAtLogin")])
+        menubarIconDropdown = LabelAndControl.makeDropdown("menubarIcon", MenubarIconPreference.allCases)
+        let menuIconShownToggle = LabelAndControl.makeSwitch("menubarIconShown")
         let menubarIcon = TableGroupView.Row(leftTitle: NSLocalizedString("Menubar icon", comment: ""),
             rightViews: [
                 menubarIconDropdown!,
@@ -45,8 +27,6 @@ class GeneralTab {
         cell.bezelStyle = .regularSquare
         cell.arrowPosition = .arrowAtBottom
         cell.imagePosition = .imageOverlaps
-        startAtLoginToggle = startAtLogin.rightViews[0] as? NSControl
-        Menubar.menubarIconCallback(nil)
         enableDraggingOffMenubarIcon(menuIconShownToggle)
         let table = TableGroupView(width: PreferencesWindow.width)
         table.addRow(startAtLogin)
@@ -57,6 +37,11 @@ class GeneralTab {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: view.fittingSize.width).isActive = true
         return view
+    }
+
+    static func refreshControlsFromPreferences() {
+        menubarIconDropdown?.selectItem(at: CachedUserDefaults.intFromMacroPref("menubarIcon", MenubarIconPreference.allCases))
+        menubarIconDropdown?.isEnabled = Preferences.menubarIconShown
     }
 
     private static func enableDraggingOffMenubarIcon(_ menuIconShownToggle: Switch) {
@@ -83,60 +68,6 @@ class GeneralTab {
         }
     }
 
-    /// add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
-    static func startAtLoginCallback(_: NSControl? = nil) {
-        let sender = startAtLoginToggle as! Switch
-        // if the user has added AltTab manually as a LoginItem, we remove it, and add AltTab as a LaunchAgent
-        // LaunchAgent are the recommended method for open-at-login in recent versions of macos
-        if (GeneralTab.self as AvoidDeprecationWarnings.Type).removeLoginItemIfPresent() && sender.state == .off {
-            sender.state = .on
-            LabelAndControl.controlWasChanged(sender, sender.identifier!.rawValue)
-        }
-        do {
-            try writePlistToDisk(sender)
-        } catch let error {
-            Logger.error { "Failed to write plist file to disk. error:\(error)" }
-        }
-    }
-
-    private static func writePlistToDisk(_ sender: Switch) throws {
-        var launchAgentsPath = (try? FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)) ?? URL(fileURLWithPath: "~/Library", isDirectory: true)
-        launchAgentsPath.appendPathComponent("LaunchAgents", isDirectory: true)
-        if !FileManager.default.fileExists(atPath: launchAgentsPath.path) {
-            try FileManager.default.createDirectory(at: launchAgentsPath, withIntermediateDirectories: false)
-            Logger.debug { launchAgentsPath.absoluteString + " created" }
-        }
-        launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
-        if sender.state == .on {
-            let data = try PropertyListSerialization.data(fromPropertyList: launchAgentPlist, format: .xml, options: 0)
-            try data.write(to: launchAgentsPath, options: [.atomic])
-            Logger.debug { launchAgentsPath.absoluteString + " written" }
-        } else {
-            if FileManager.default.fileExists(atPath: launchAgentsPath.path) {
-                try FileManager.default.removeItem(at: launchAgentsPath)
-                Logger.debug { launchAgentsPath.absoluteString + " removed" }
-            }
-        }
-    }
-
-    @available(OSX, deprecated: 10.11)
-    static func removeLoginItemIfPresent() -> Bool {
-        var removed = false
-        if let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil)?.takeRetainedValue(),
-           let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil)?.takeRetainedValue() as? [LSSharedFileListItem] {
-            let appUrl = URL(fileURLWithPath: Bundle.main.bundlePath)
-            for item in loginItemsSnapshot {
-                let itemUrl = LSSharedFileListItemCopyResolvedURL(item, 0, nil)?.takeRetainedValue() as? URL
-                // example: itemUrl="file:///Applications/AltTab.app/"; lastPathComponent="AltTab.app"
-                if (itemUrl?.lastPathComponent == appUrl.lastPathComponent) {
-                    LSSharedFileListItemRemove(loginItems, item)
-                    removed = true
-                }
-            }
-        }
-        return removed
-    }
-
     static func setLanguageCallback(_ sender: NSControl) {
         if Preferences.language == .systemDefault {
             UserDefaults.standard.removeObject(forKey: "AppleLanguages")
@@ -155,9 +86,3 @@ class GeneralTab {
         }
     }
 }
-
-private protocol AvoidDeprecationWarnings {
-    static func removeLoginItemIfPresent() -> Bool
-}
-
-extension GeneralTab: AvoidDeprecationWarnings {}

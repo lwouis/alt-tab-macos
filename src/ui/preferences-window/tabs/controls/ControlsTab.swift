@@ -38,6 +38,34 @@ class ControlsTab {
 
     static var shortcutsWhenActiveSheet: ShortcutsWhenActiveSheet!
     static var additionalControlsSheet: AdditionalControlsSheet!
+    private static let managedShortcutPreferences = [
+        "holdShortcut", "holdShortcut2", "holdShortcut3",
+        "nextWindowShortcut", "nextWindowShortcut2", "nextWindowShortcut3",
+        "focusWindowShortcut", "previousWindowShortcut", "cancelShortcut", "searchShortcut", "lockSearchShortcut",
+        "closeWindowShortcut", "minDeminWindowShortcut", "toggleFullscreenWindowShortcut", "quitAppShortcut", "hideShowAppShortcut",
+    ]
+    private static let arrowKeys = ["←", "→", "↑", "↓"]
+    private static let vimKeyActions = [
+        "h": "vimCycleLeft",
+        "l": "vimCycleRight",
+        "k": "vimCycleUp",
+        "j": "vimCycleDown",
+    ]
+
+    static func initializePreferencesDependentState() {
+        managedShortcutPreferences.forEach { applyShortcutPreference($0) }
+        applyArrowKeysPreference()
+        applyVimKeysPreferenceWithoutDialogs()
+    }
+
+    static func preferenceChanged(_ key: String) {
+        switch key {
+        case let k where managedShortcutPreferences.contains(k): applyShortcutPreference(k)
+        case "arrowKeysEnabled": applyArrowKeysPreference()
+        case "vimKeysEnabled" where vimKeysCheckbox == nil: applyVimKeysPreferenceWithoutDialogs()
+        default: break
+        }
+    }
 
     static func initTab() -> NSView {
         let (holdShortcut, nextWindowShortcut, tab1View) = shortcutTab(0)
@@ -88,7 +116,7 @@ class ControlsTab {
         let infoBtn = LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
             Popover.shared.show(event: event, positioningView: view, message: label, extraView: button)
         })
-        let gesture = LabelAndControl.makeDropdown("nextWindowGesture", GesturePreference.allCases, extraAction: ControlsTab.gestureChangedCallback)
+        let gesture = LabelAndControl.makeDropdown("nextWindowGesture", GesturePreference.allCases)
         let gestureWithTooltip = NSStackView()
         gestureWithTooltip.orientation = .horizontal
         gestureWithTooltip.alignment = .centerY
@@ -221,41 +249,32 @@ class ControlsTab {
     }
 
     @objc static func arrowKeysEnabledCallback(_ sender: NSControl) {
-        let keys = ["←", "→", "↑", "↓"]
-        if (sender as! Switch).state == .on {
-            keys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
-        } else {
-            keys.forEach { removeShortcutIfExists($0) }
-        }
+        applyArrowKeysPreference()
     }
 
     @objc static func vimKeysEnabledCallback(_ sender: NSControl) {
-        let keyActions = [
-            "h": "vimCycleLeft",
-            "l": "vimCycleRight",
-            "k": "vimCycleUp",
-            "j": "vimCycleDown"
-        ]
         if (sender as! Switch).state == .on {
             if isClearVimKeysSuccessful() {
-                keyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
+                vimKeyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
             } else {
                 (sender as! Switch).state = .off
                 Preferences.remove("vimKeysEnabled")
             }
         } else {
-            keyActions.forEach { removeShortcutIfExists($1) }
+            vimKeyActions.forEach { removeShortcutIfExists($1) }
         }
     }
 
     private static func isClearVimKeysSuccessful() -> Bool {
-        let vimKeys = ["h", "l", "j", "k"]
         var conflicts = [String: String]()
         shortcuts.forEach {
             let keymap = $1.shortcut.characters
-            if keymap != nil && vimKeys.contains(keymap!) {
+            if keymap != nil && vimKeyActions.keys.contains(keymap!) {
                 let control_id = $1.id
-                conflicts[control_id] = shortcutControls[control_id]!.1
+                guard !vimKeyActions.values.contains(control_id) else { return }
+                if let label = conflictLabel(control_id) {
+                    conflicts[control_id] = label
+                }
             }
         }
         if !conflicts.isEmpty {
@@ -275,6 +294,19 @@ class ControlsTab {
             }
         }
         return true
+    }
+
+    private static func conflictLabel(_ controlId: String) -> String? {
+        if let shortcutControl = shortcutControls[controlId] {
+            return shortcutControl.1
+        }
+        if arrowKeys.contains(controlId) {
+            return NSLocalizedString("Arrow keys", comment: "")
+        }
+        if vimKeyActions.values.contains(controlId) {
+            return NSLocalizedString("Vim keys", comment: "")
+        }
+        return nil
     }
 
     private static func shouldClearConflictingShortcuts(_ conflicts: [String]) -> Bool {
@@ -302,8 +334,70 @@ class ControlsTab {
         }
     }
 
-    @objc static func gestureChangedCallback(_ sender: NSControl) {
-        TrackpadEvents.toggle(Preferences.nextWindowGesture != .disabled)
+    private static func applyShortcutPreference(_ controlId: String) {
+        if controlId.hasPrefix("holdShortcut") {
+            applyHoldShortcutPreference(controlId)
+            applyShortcutPreference(Preferences.indexToName("nextWindowShortcut", Preferences.nameToIndex(controlId)))
+            return
+        }
+        let shortcutString = combinedShortcutString(controlId)
+        guard !shortcutString.isEmpty, let shortcut = Shortcut(keyEquivalent: shortcutString) else {
+            removeShortcutIfExists(controlId)
+            restrictModifiersOfHoldShortcut(controlId, [])
+            return
+        }
+        addShortcut(.down, controlId.hasPrefix("nextWindowShortcut") ? .global : .local, shortcut, controlId, nil)
+        restrictModifiersOfHoldShortcut(controlId, [shortcut.modifierFlags])
+    }
+
+    private static func applyHoldShortcutPreference(_ controlId: String) {
+        let i = Preferences.nameToIndex(controlId)
+        guard let shortcut = Shortcut(keyEquivalent: Preferences.holdShortcut[i]) else {
+            removeShortcutIfExists(controlId)
+            return
+        }
+        addShortcut(.up, .global, shortcut, controlId, i)
+    }
+
+    private static func combinedShortcutString(_ controlId: String) -> String {
+        guard let baseValue = UserDefaults.standard.string(forKey: controlId), !baseValue.isEmpty else {
+            return ""
+        }
+        if controlId.starts(with: "nextWindowShortcut") {
+            let holdShortcut = Preferences.holdShortcut[Preferences.nameToIndex(controlId)]
+            return holdShortcut + baseValue
+        }
+        return baseValue
+    }
+
+    private static func applyArrowKeysPreference() {
+        if Preferences.arrowKeysEnabled {
+            arrowKeys.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $0, nil) }
+        } else {
+            arrowKeys.forEach { removeShortcutIfExists($0) }
+        }
+    }
+
+    private static func applyVimKeysPreferenceWithoutDialogs() {
+        guard Preferences.vimKeysEnabled else {
+            vimKeyActions.forEach { removeShortcutIfExists($1) }
+            return
+        }
+        if hasVimKeysConflictWithoutUi() {
+            vimKeyActions.forEach { removeShortcutIfExists($1) }
+            Preferences.set("vimKeysEnabled", "false", false)
+            return
+        }
+        vimKeyActions.forEach { addShortcut(.down, .local, Shortcut(keyEquivalent: $0)!, $1, nil) }
+    }
+
+    private static func hasVimKeysConflictWithoutUi() -> Bool {
+        return shortcuts.values.contains {
+            if let key = $0.shortcut.characters, vimKeyActions.keys.contains(key) {
+                return !vimKeyActions.values.contains($0.id)
+            }
+            return false
+        }
     }
 
     @objc private static func openSystemGestures(_ sender: NSButton) {
