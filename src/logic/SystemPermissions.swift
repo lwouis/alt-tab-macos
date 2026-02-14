@@ -16,7 +16,8 @@ class SystemPermissions {
 
     private static func checkPermissionsOnTimer() {
         AccessibilityPermission.update()
-        if !preStartupPermissionsPassed || App.app.permissionsWindow.isVisible {
+        let isPermissionsWindowVisible = App.app.permissionsWindow?.isVisible ?? false
+        if !preStartupPermissionsPassed || isPermissionsWindowVisible {
             ScreenRecordingPermission.update()
         }
         Logger.debug { "accessibility:\(AccessibilityPermission.status) screenRecording:\(ScreenRecordingPermission.status)" }
@@ -24,15 +25,15 @@ class SystemPermissions {
             checkPermissionsPreStartup()
         } else {
             checkPermissionsPostStartup()
-            if App.app.permissionsWindow.isVisible && !timerIsFrequent {
+            if isPermissionsWindowVisible && !timerIsFrequent {
                 setFrequentTimer()
-            } else if !App.app.permissionsWindow.isVisible && timerIsFrequent {
+            } else if !isPermissionsWindowVisible && timerIsFrequent {
                 setInfrequentTimer()
             }
         }
         DispatchQueue.main.async {
             Menubar.togglePermissionCallout(ScreenRecordingPermission.status != .granted)
-            App.app.permissionsWindow.updatePermissionViews()
+            App.app.permissionsWindow?.updatePermissionViews()
         }
     }
 
@@ -46,7 +47,7 @@ class SystemPermissions {
             }
         } else {
             DispatchQueue.main.async {
-                App.app.permissionsWindow.show()
+                App.app.showPermissionsWindow()
             }
         }
     }

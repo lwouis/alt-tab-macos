@@ -21,7 +21,7 @@ class App: AppCenterApplication {
     var thumbnailsPanel: TilesPanel!
     var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
-    var permissionsWindow: PermissionsWindow!
+    var permissionsWindow: PermissionsWindow?
     var appIsBeingUsed = false
     var shortcutIndex = 0
     var forceDoNothingOnRelease = false
@@ -93,7 +93,7 @@ class App: AppCenterApplication {
     private func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
         preferencesWindow?.canBecomeKey_ = canBecomeKey_
         feedbackWindow?.canBecomeKey_ = canBecomeKey_
-        permissionsWindow.canBecomeKey_ = canBecomeKey_
+        permissionsWindow?.canBecomeKey_ = canBecomeKey_
     }
 
     func closeSelectedWindow() {
@@ -147,7 +147,7 @@ class App: AppCenterApplication {
     }
 
     @objc func checkPermissions(_ sender: NSMenuItem) {
-        permissionsWindow.show()
+        showPermissionsWindow()
     }
 
     @objc func supportProject() {
@@ -155,11 +155,11 @@ class App: AppCenterApplication {
     }
 
     @objc func showFeedbackPanel() {
-        showSecondaryWindow(ensureFeedbackWindow())
+        showSecondaryWindow(getOrCreateFeedbackWindow())
     }
 
     @objc func showPreferencesWindow() {
-        showSecondaryWindow(ensurePreferencesWindow())
+        showSecondaryWindow(getOrCreatePreferencesWindow())
     }
 
     func showSecondaryWindow(_ window: NSWindow?) {
@@ -173,18 +173,29 @@ class App: AppCenterApplication {
         }
     }
 
-    private func ensurePreferencesWindow() -> PreferencesWindow {
+    private func getOrCreatePreferencesWindow() -> PreferencesWindow {
         if preferencesWindow == nil {
             preferencesWindow = PreferencesWindow()
         }
         return preferencesWindow
     }
 
-    private func ensureFeedbackWindow() -> FeedbackWindow {
+    private func getOrCreateFeedbackWindow() -> FeedbackWindow {
         if feedbackWindow == nil {
             feedbackWindow = FeedbackWindow()
         }
         return feedbackWindow
+    }
+
+    private func getOrCreatePermissionsWindow() -> PermissionsWindow {
+        if permissionsWindow == nil {
+            permissionsWindow = PermissionsWindow()
+        }
+        return permissionsWindow!
+    }
+
+    func showPermissionsWindow() {
+        getOrCreatePermissionsWindow().show()
     }
 
     func showUi(_ shortcutIndex: Int) {
@@ -196,7 +207,7 @@ class App: AppCenterApplication {
     }
 
     @objc func showAboutTab() {
-        ensurePreferencesWindow().selectTab("about")
+        getOrCreatePreferencesWindow().selectTab("about")
         showPreferencesWindow()
     }
 
@@ -353,7 +364,6 @@ extension App: NSApplicationDelegate {
         #endif
         AXUIElement.setGlobalTimeout()
         Preferences.initialize()
-        permissionsWindow = PermissionsWindow()
         BackgroundWork.preStart()
         SystemPermissions.ensurePermissionsAreGranted()
     }
