@@ -92,7 +92,7 @@ class App: AppCenterApplication {
 
     private func allSecondaryWindowsCanBecomeKey(_ canBecomeKey_: Bool) {
         preferencesWindow?.canBecomeKey_ = canBecomeKey_
-        feedbackWindow.canBecomeKey_ = canBecomeKey_
+        feedbackWindow?.canBecomeKey_ = canBecomeKey_
         permissionsWindow.canBecomeKey_ = canBecomeKey_
     }
 
@@ -155,7 +155,7 @@ class App: AppCenterApplication {
     }
 
     @objc func showFeedbackPanel() {
-        showSecondaryWindow(feedbackWindow)
+        showSecondaryWindow(ensureFeedbackWindow())
     }
 
     @objc func showPreferencesWindow() {
@@ -178,6 +178,13 @@ class App: AppCenterApplication {
             preferencesWindow = PreferencesWindow()
         }
         return preferencesWindow
+    }
+
+    private func ensureFeedbackWindow() -> FeedbackWindow {
+        if feedbackWindow == nil {
+            feedbackWindow = FeedbackWindow()
+        }
+        return feedbackWindow
     }
 
     func showUi(_ shortcutIndex: Int) {
@@ -370,7 +377,6 @@ extension App: NSApplicationDelegate {
         SystemScrollerStyleEvents.observe()
         Applications.initialDiscovery()
         PreferencesEvents.initialize()
-        self.feedbackWindow = FeedbackWindow()
         KeyboardEvents.addEventHandlers()
         CursorEvents.observe()
         TrackpadEvents.observe()
